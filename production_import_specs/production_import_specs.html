@@ -1,203 +1,559 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <title>production_import_specs.html</title>
-  <meta name="generator" content="Haroopad 0.13.1" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>div.oembedall-githubrepos{border:1px solid #DDD;border-radius:4px;list-style-type:none;margin:0 0 10px;padding:8px 10px 0;font:13.34px/1.4 helvetica,arial,freesans,clean,sans-serif;width:452px;background-color:#fff}div.oembedall-githubrepos .oembedall-body{background:-moz-linear-gradient(center top,#FAFAFA,#EFEFEF);background:-webkit-gradient(linear,left top,left bottom,from(#FAFAFA),to(#EFEFEF));border-bottom-left-radius:4px;border-bottom-right-radius:4px;border-top:1px solid #EEE;margin-left:-10px;margin-top:8px;padding:5px 10px;width:100%}div.oembedall-githubrepos h3{font-size:14px;margin:0;padding-left:18px;white-space:nowrap}div.oembedall-githubrepos p.oembedall-description{color:#444;font-size:12px;margin:0 0 3px}div.oembedall-githubrepos p.oembedall-updated-at{color:#888;font-size:11px;margin:0}div.oembedall-githubrepos ul.oembedall-repo-stats{border:none;float:right;font-size:11px;font-weight:700;padding-left:15px;position:relative;z-index:5;margin:0}div.oembedall-githubrepos ul.oembedall-repo-stats li{border:none;color:#666;display:inline-block;list-style-type:none;margin:0!important}div.oembedall-githubrepos ul.oembedall-repo-stats li a{background-color:transparent;border:none;color:#666!important;background-position:5px -2px;background-repeat:no-repeat;border-left:1px solid #DDD;display:inline-block;height:21px;line-height:21px;padding:0 5px 0 23px}div.oembedall-githubrepos ul.oembedall-repo-stats li:first-child a{border-left:medium none;margin-right:-3px}div.oembedall-githubrepos ul.oembedall-repo-stats li a:hover{background:5px -27px no-repeat #4183C4;color:#FFF!important;text-decoration:none}div.oembedall-githubrepos ul.oembedall-repo-stats li:first-child a:hover{border-bottom-left-radius:3px;border-top-left-radius:3px}ul.oembedall-repo-stats li:last-child a:hover{border-bottom-right-radius:3px;border-top-right-radius:3px}span.oembedall-closehide{background-color:#aaa;border-radius:2px;cursor:pointer;margin-right:3px}div.oembedall-container{margin-top:5px;text-align:left}.oembedall-ljuser{font-weight:700}.oembedall-ljuser img{vertical-align:bottom;border:0;padding-right:1px}.oembedall-stoqembed{border-bottom:1px dotted #999;float:left;overflow:hidden;width:730px;line-height:1;background:#FFF;color:#000;font-family:Arial,Liberation Sans,DejaVu Sans,sans-serif;font-size:80%;text-align:left;margin:0;padding:0}.oembedall-stoqembed a{color:#07C;text-decoration:none;margin:0;padding:0}.oembedall-stoqembed a:hover{text-decoration:underline}.oembedall-stoqembed a:visited{color:#4A6B82}.oembedall-stoqembed h3{font-family:Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;font-size:130%;font-weight:700;margin:0;padding:0}.oembedall-stoqembed .oembedall-reputation-score{color:#444;font-size:120%;font-weight:700;margin-right:2px}.oembedall-stoqembed .oembedall-user-info{height:35px;width:185px}.oembedall-stoqembed .oembedall-user-info .oembedall-user-gravatar32{float:left;height:32px;width:32px}.oembedall-stoqembed .oembedall-user-info .oembedall-user-details{float:left;margin-left:5px;overflow:hidden;white-space:nowrap;width:145px}.oembedall-stoqembed .oembedall-question-hyperlink{font-weight:700}.oembedall-stoqembed .oembedall-stats{background:#EEE;margin:0 0 0 7px;padding:4px 7px 6px;width:58px}.oembedall-stoqembed .oembedall-statscontainer{float:left;margin-right:8px;width:86px}.oembedall-stoqembed .oembedall-votes{color:#555;padding:0 0 7px;text-align:center}.oembedall-stoqembed .oembedall-vote-count-post{font-size:240%;color:#808185;display:block;font-weight:700}.oembedall-stoqembed .oembedall-views{color:#999;padding-top:4px;text-align:center}.oembedall-stoqembed .oembedall-status{margin-top:-3px;padding:4px 0;text-align:center;background:#75845C;color:#FFF}.oembedall-stoqembed .oembedall-status strong{color:#FFF;display:block;font-size:140%}.oembedall-stoqembed .oembedall-summary{float:left;width:635px}.oembedall-stoqembed .oembedall-excerpt{line-height:1.2;margin:0;padding:0 0 5px}.oembedall-stoqembed .oembedall-tags{float:left;line-height:18px}.oembedall-stoqembed .oembedall-tags a:hover{text-decoration:none}.oembedall-stoqembed .oembedall-post-tag{background-color:#E0EAF1;border-bottom:1px solid #3E6D8E;border-right:1px solid #7F9FB6;color:#3E6D8E;font-size:90%;line-height:2.4;margin:2px 2px 2px 0;padding:3px 4px;text-decoration:none;white-space:nowrap}.oembedall-stoqembed .oembedall-post-tag:hover{background-color:#3E6D8E;border-bottom:1px solid #37607D;border-right:1px solid #37607D;color:#E0EAF1}.oembedall-stoqembed .oembedall-fr{float:right}.oembedall-stoqembed .oembedall-statsarrow{background-image:url(http://cdn.sstatic.net/stackoverflow/img/sprites.png?v=3);background-repeat:no-repeat;overflow:hidden;background-position:0 -435px;float:right;height:13px;margin-top:12px;width:7px}.oembedall-facebook1{border:1px solid #1A3C6C;padding:0;font:13.34px/1.4 verdana;width:500px}.oembedall-facebook2{background-color:#627add}.oembedall-facebook2 a{color:#e8e8e8;text-decoration:none}.oembedall-facebookBody{background-color:#fff;vertical-align:top;padding:5px}.oembedall-facebookBody .contents{display:inline-block;width:100%}.oembedall-facebookBody div img{float:left;margin-right:5px}div.oembedall-lanyard{-webkit-box-shadow:none;-webkit-transition-delay:0s;-webkit-transition-duration:.4000000059604645s;-webkit-transition-property:width;-webkit-transition-timing-function:cubic-bezier(0.42,0,.58,1);background-attachment:scroll;background-clip:border-box;background-color:transparent;background-image:none;background-origin:padding-box;border-width:0;box-shadow:none;color:#112644;display:block;float:left;font-family:'Trebuchet MS',Trebuchet,sans-serif;font-size:16px;height:253px;line-height:19px;margin:0;max-width:none;min-height:0;outline:#112644 0;overflow-x:visible;overflow-y:visible;padding:0;position:relative;text-align:left;vertical-align:baseline;width:804px}div.oembedall-lanyard .tagline{font-size:1.5em}div.oembedall-lanyard .wrapper{overflow:hidden;clear:both}div.oembedall-lanyard .split{float:left;display:inline}div.oembedall-lanyard .prominent-place .flag:active,div.oembedall-lanyard .prominent-place .flag:focus,div.oembedall-lanyard .prominent-place .flag:hover,div.oembedall-lanyard .prominent-place .flag:link,div.oembedall-lanyard .prominent-place .flag:visited{float:left;display:block;width:48px;height:48px;position:relative;top:-5px;margin-right:10px}div.oembedall-lanyard .place-context{font-size:.889em}div.oembedall-lanyard .prominent-place .sub-place{display:block}div.oembedall-lanyard .prominent-place{font-size:1.125em;line-height:1.1em;font-weight:400}div.oembedall-lanyard .main-date{color:#8CB4E0;font-weight:700;line-height:1.1}div.oembedall-lanyard .first{width:48.57%;margin:0 0 0 2.857%}.mermaid .label{color:#333}.node circle,.node polygon,.node rect{fill:#cde498;stroke:#13540c;stroke-width:1px}.edgePath .path{stroke:green;stroke-width:1.5px}.cluster rect{fill:#cdffb2;rx:40;stroke:#6eaa49;stroke-width:1px}.cluster text{fill:#333}.actor{stroke:#13540c;fill:#cde498}text.actor{fill:#000;stroke:none}.actor-line{stroke:grey}.messageLine0{stroke-width:1.5;stroke-dasharray:"2 2";marker-end:"url(#arrowhead)";stroke:#333}.messageLine1{stroke-width:1.5;stroke-dasharray:"2 2";stroke:#333}#arrowhead{fill:#333}#crosshead path{fill:#333!important;stroke:#333!important}.messageText{fill:#333;stroke:none}.labelBox{stroke:#326932;fill:#cde498}.labelText,.loopText{fill:#000;stroke:none}.loopLine{stroke-width:2;stroke-dasharray:"2 2";marker-end:"url(#arrowhead)";stroke:#326932}.note{stroke:#6eaa49;fill:#fff5ad}.noteText{fill:#000;stroke:none;font-family:'trebuchet ms',verdana,arial;font-size:14px}.section{stroke:none;opacity:.2}.section0,.section2{fill:#6eaa49}.section1,.section3{fill:#fff;opacity:.2}.sectionTitle0,.sectionTitle1,.sectionTitle2,.sectionTitle3{fill:#333}.sectionTitle{text-anchor:start;font-size:11px;text-height:14px}.grid .tick{stroke:lightgrey;opacity:.3;shape-rendering:crispEdges}.grid path{stroke-width:0}.today{fill:none;stroke:red;stroke-width:2px}.task{stroke-width:2}.taskText{text-anchor:middle;font-size:11px}.taskTextOutsideRight{fill:#000;text-anchor:start;font-size:11px}.taskTextOutsideLeft{fill:#000;text-anchor:end;font-size:11px}.taskText0,.taskText1,.taskText2,.taskText3{fill:#fff}.task0,.task1,.task2,.task3{fill:#487e3a;stroke:#13540c}.taskTextOutside0,.taskTextOutside1,.taskTextOutside2,.taskTextOutside3{fill:#000}.active0,.active1,.active2,.active3{fill:#cde498;stroke:#13540c}.activeText0,.activeText1,.activeText2,.activeText3{fill:#000!important}.done0,.done1,.done2,.done3{stroke:grey;fill:lightgrey;stroke-width:2}.doneText0,.doneText1,.doneText2,.doneText3{fill:#000!important}.crit0,.crit1,.crit2,.crit3{stroke:#f88;fill:red;stroke-width:2}.activeCrit0,.activeCrit1,.activeCrit2,.activeCrit3{stroke:#f88;fill:#cde498;stroke-width:2}.doneCrit0,.doneCrit1,.doneCrit2,.doneCrit3{stroke:#f88;fill:lightgrey;stroke-width:2;cursor:pointer;shape-rendering:crispEdges}.activeCritText0,.activeCritText1,.activeCritText2,.activeCritText3,.doneCritText0,.doneCritText1,.doneCritText2,.doneCritText3{fill:#000!important}.titleText{text-anchor:middle;font-size:18px;fill:#000}text{font-family:'trebuchet ms',verdana,arial;font-size:14px}html{height:100%}body{margin:0!important;padding:5px 20px 26px!important;background-color:#fff;font-family:"Lucida Grande","Segoe UI","Apple SD Gothic Neo","Malgun Gothic","Lucida Sans Unicode",Helvetica,Arial,sans-serif;font-size:.9em;overflow-x:hidden;overflow-y:auto}br,h1,h2,h3,h4,h5,h6{clear:both}hr.page{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x;border:0;height:3px;padding:0}hr.underscore{border-top-style:dashed!important}body >:first-child{margin-top:0!important}img.plugin{box-shadow:0 1px 3px rgba(0,0,0,.1);border-radius:3px}iframe{border:0}figure{-webkit-margin-before:0;-webkit-margin-after:0;-webkit-margin-start:0;-webkit-margin-end:0}kbd{border:1px solid #aaa;-moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;-moz-box-shadow:1px 2px 2px #ddd;-webkit-box-shadow:1px 2px 2px #ddd;box-shadow:1px 2px 2px #ddd;background-color:#f9f9f9;background-image:-moz-linear-gradient(top,#eee,#f9f9f9,#eee);background-image:-o-linear-gradient(top,#eee,#f9f9f9,#eee);background-image:-webkit-linear-gradient(top,#eee,#f9f9f9,#eee);background-image:linear-gradient(top,#eee,#f9f9f9,#eee);padding:1px 3px;font-family:inherit;font-size:.85em}.oembeded .oembed_photo{display:inline-block}img[data-echo]{margin:25px 0;width:100px;height:100px;background:url(../img/ajax.gif) center center no-repeat #fff}.spinner{display:inline-block;width:10px;height:10px;margin-bottom:-.1em;border:2px solid rgba(0,0,0,.5);border-top-color:transparent;border-radius:100%;-webkit-animation:spin 1s infinite linear;animation:spin 1s infinite linear}.spinner:after{content:'';display:block;width:0;height:0;position:absolute;top:-6px;left:0;border:4px solid transparent;border-bottom-color:rgba(0,0,0,.5);-webkit-transform:rotate(45deg);transform:rotate(45deg)}@-webkit-keyframes spin{to{-webkit-transform:rotate(360deg)}}@keyframes spin{to{transform:rotate(360deg)}}p.toc{margin:0!important}p.toc ul{padding-left:10px}p.toc>ul{padding:10px;margin:0 10px;display:inline-block;border:1px solid #ededed;border-radius:5px}p.toc li,p.toc ul{list-style-type:none}p.toc li{width:100%;padding:0;overflow:hidden}p.toc li a::after{content:"."}p.toc li a:before{content:"• "}p.toc h5{text-transform:uppercase}p.toc .title{float:left;padding-right:3px}p.toc .number{margin:0;float:right;padding-left:3px;background:#fff;display:none}input.task-list-item{margin-left:-1.62em}.markdown{font-family:"Hiragino Sans GB","Microsoft YaHei",STHeiti,SimSun,"Lucida Grande","Lucida Sans Unicode","Lucida Sans",'Segoe UI',AppleSDGothicNeo-Medium,'Malgun Gothic',Verdana,Tahoma,sans-serif;padding:20px}.markdown a{text-decoration:none;vertical-align:baseline}.markdown a:hover{text-decoration:underline}.markdown h1{font-size:2.2em;font-weight:700;margin:1.5em 0 1em}.markdown h2{font-size:1.8em;font-weight:700;margin:1.275em 0 .85em}.markdown h3{font-size:1.6em;font-weight:700;margin:1.125em 0 .75em}.markdown h4{font-size:1.4em;font-weight:700;margin:.99em 0 .66em}.markdown h5{font-size:1.2em;font-weight:700;margin:.855em 0 .57em}.markdown h6{font-size:1em;font-weight:700;margin:.75em 0 .5em}.markdown h1+p,.markdown h1:first-child,.markdown h2+p,.markdown h2:first-child,.markdown h3+p,.markdown h3:first-child,.markdown h4+p,.markdown h4:first-child,.markdown h5+p,.markdown h5:first-child,.markdown h6+p,.markdown h6:first-child{margin-top:0}.markdown hr{border:1px solid #ccc}.markdown p{margin:1em 0;word-wrap:break-word}.markdown ol{list-style-type:decimal}.markdown li{display:list-item;line-height:1.4em}.markdown blockquote{margin:1em 20px}.markdown blockquote>:first-child{margin-top:0}.markdown blockquote>:last-child{margin-bottom:0}.markdown blockquote cite:before{content:'\2014 \00A0'}.markdown .code{border-radius:3px;word-wrap:break-word}.markdown pre{border-radius:3px;word-wrap:break-word;border:1px solid #ccc;overflow:auto;padding:.5em}.markdown pre code{border:0;display:block}.markdown pre>code{font-family:Consolas,Inconsolata,Courier,monospace;font-weight:700;white-space:pre;margin:0}.markdown code{border-radius:3px;word-wrap:break-word;border:1px solid #ccc;padding:0 5px;margin:0 2px}.markdown img{max-width:100%}.markdown mark{color:#000;background-color:#fcf8e3}.markdown table{padding:0;border-collapse:collapse;border-spacing:0;margin-bottom:16px}.markdown table tr td,.markdown table tr th{border:1px solid #ccc;margin:0;padding:6px 13px}.markdown table tr th{font-weight:700}.markdown table tr th>:first-child{margin-top:0}.markdown table tr th>:last-child{margin-bottom:0}.markdown table tr td>:first-child{margin-top:0}.markdown table tr td>:last-child{margin-bottom:0}@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,700italic,400,300,700);.haroopad{padding:20px;color:#222;font-size:15px;font-family:"Roboto Condensed",Tauri,"Hiragino Sans GB","Microsoft YaHei",STHeiti,SimSun,"Lucida Grande","Lucida Sans Unicode","Lucida Sans",'Segoe UI',AppleSDGothicNeo-Medium,'Malgun Gothic',Verdana,Tahoma,sans-serif;background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased}.haroopad a{color:#3269a0}.haroopad a:hover{color:#4183c4}.haroopad h2{border-bottom:1px solid #e6e6e6}.haroopad h6{color:#777}.haroopad hr{border:1px solid #e6e6e6}.haroopad blockquote>code,.haroopad h1>code,.haroopad h2>code,.haroopad h3>code,.haroopad h4>code,.haroopad h5>code,.haroopad h6>code,.haroopad li>code,.haroopad p>code,.haroopad td>code{font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;font-size:85%;background-color:rgba(0,0,0,.02);padding:.2em .5em;border:1px solid #efefef}.haroopad pre>code{font-size:1em;letter-spacing:-1px;font-weight:700}.haroopad blockquote{border-left:4px solid #e6e6e6;padding:0 15px;color:#777}.haroopad table{background-color:#fafafa}.haroopad table tr td,.haroopad table tr th{border:1px solid #e6e6e6}.haroopad table tr:nth-child(2n){background-color:#f2f2f2}.hljs{display:block;overflow-x:auto;padding:.5em;background:#fdf6e3;color:#657b83;-webkit-text-size-adjust:none}.diff .hljs-header,.hljs-comment,.hljs-doctype,.hljs-javadoc,.hljs-pi,.lisp .hljs-string{color:#93a1a1}.css .hljs-tag,.hljs-addition,.hljs-keyword,.hljs-request,.hljs-status,.hljs-winutils,.method,.nginx .hljs-title{color:#859900}.hljs-command,.hljs-dartdoc,.hljs-hexcolor,.hljs-link_url,.hljs-number,.hljs-phpdoc,.hljs-regexp,.hljs-rules .hljs-value,.hljs-string,.hljs-tag .hljs-value,.tex .hljs-formula{color:#2aa198}.css .hljs-function,.hljs-built_in,.hljs-chunk,.hljs-decorator,.hljs-id,.hljs-identifier,.hljs-localvars,.hljs-title,.vhdl .hljs-literal{color:#268bd2}.hljs-attribute,.hljs-class .hljs-title,.hljs-constant,.hljs-link_reference,.hljs-parent,.hljs-type,.hljs-variable,.lisp .hljs-body,.smalltalk .hljs-number{color:#b58900}.css .hljs-pseudo,.diff .hljs-change,.hljs-attr_selector,.hljs-cdata,.hljs-header,.hljs-pragma,.hljs-preprocessor,.hljs-preprocessor .hljs-keyword,.hljs-shebang,.hljs-special,.hljs-subst,.hljs-symbol,.hljs-symbol .hljs-string{color:#cb4b16}.hljs-deletion,.hljs-important{color:#dc322f}.hljs-link_label{color:#6c71c4}.tex .hljs-formula{background:#eee8d5}.MathJax_Hover_Frame{border-radius:.25em;-webkit-border-radius:.25em;-moz-border-radius:.25em;-khtml-border-radius:.25em;box-shadow:0 0 15px #83A;-webkit-box-shadow:0 0 15px #83A;-moz-box-shadow:0 0 15px #83A;-khtml-box-shadow:0 0 15px #83A;border:1px solid #A6D!important;display:inline-block;position:absolute}.MathJax_Hover_Arrow{position:absolute;width:15px;height:11px;cursor:pointer}#MathJax_About{position:fixed;left:50%;width:auto;text-align:center;border:3px outset;padding:1em 2em;background-color:#DDD;color:#000;cursor:default;font-family:message-box;font-size:120%;font-style:normal;text-indent:0;text-transform:none;line-height:normal;letter-spacing:normal;word-spacing:normal;word-wrap:normal;white-space:nowrap;float:none;z-index:201;border-radius:15px;-webkit-border-radius:15px;-moz-border-radius:15px;-khtml-border-radius:15px;box-shadow:0 10px 20px gray;-webkit-box-shadow:0 10px 20px gray;-moz-box-shadow:0 10px 20px gray;-khtml-box-shadow:0 10px 20px gray;filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}.MathJax_Menu{position:absolute;background-color:#fff;color:#000;width:auto;padding:5px 0;border:1px solid #CCC;margin:0;cursor:default;font:menu;text-align:left;text-indent:0;text-transform:none;line-height:normal;letter-spacing:normal;word-spacing:normal;word-wrap:normal;white-space:nowrap;float:none;z-index:201;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;-khtml-border-radius:5px;box-shadow:0 10px 20px gray;-webkit-box-shadow:0 10px 20px gray;-moz-box-shadow:0 10px 20px gray;-khtml-box-shadow:0 10px 20px gray;filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}.MathJax_MenuItem{padding:1px 2em;background:0 0}.MathJax_MenuArrow{position:absolute;right:.5em;color:#666}.MathJax_MenuActive .MathJax_MenuArrow{color:#fff}.MathJax_MenuArrow.RTL{left:.5em;right:auto}.MathJax_MenuCheck{position:absolute;left:.7em}.MathJax_MenuCheck.RTL{right:.7em;left:auto}.MathJax_MenuRadioCheck{position:absolute;left:.7em}.MathJax_MenuRadioCheck.RTL{right:.7em;left:auto}.MathJax_MenuLabel{padding:1px 2em 3px 1.33em;font-style:italic}.MathJax_MenuRule{border-top:1px solid #DDD;margin:4px 3px}.MathJax_MenuDisabled{color:GrayText}.MathJax_MenuActive{background-color:#606872;color:#fff}.MathJax_Menu_Close{position:absolute;width:31px;height:31px;top:-15px;left:-15px}#MathJax_Zoom{position:absolute;background-color:#F0F0F0;overflow:auto;display:block;z-index:301;padding:.5em;border:1px solid #000;margin:0;font-weight:400;font-style:normal;text-align:left;text-indent:0;text-transform:none;line-height:normal;letter-spacing:normal;word-spacing:normal;word-wrap:normal;white-space:nowrap;float:none;box-shadow:5px 5px 15px #AAA;-webkit-box-shadow:5px 5px 15px #AAA;-moz-box-shadow:5px 5px 15px #AAA;-khtml-box-shadow:5px 5px 15px #AAA;filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}#MathJax_ZoomOverlay{position:absolute;left:0;top:0;z-index:300;display:inline-block;width:100%;height:100%;border:0;padding:0;margin:0;background-color:#fff;opacity:0;filter:alpha(opacity=0)}#MathJax_ZoomFrame{position:relative;display:inline-block;height:0;width:0}#MathJax_ZoomEventTrap{position:absolute;left:0;top:0;z-index:302;display:inline-block;border:0;padding:0;margin:0;background-color:#fff;opacity:0;filter:alpha(opacity=0)}.MathJax_Preview{color:#888}#MathJax_Message{position:fixed;left:1px;bottom:2px;background-color:#E6E6E6;border:1px solid #959595;margin:0;padding:2px 8px;z-index:102;color:#000;font-size:80%;width:auto;white-space:nowrap}#MathJax_MSIE_Frame{position:absolute;top:0;left:0;width:0;z-index:101;border:0;margin:0;padding:0}.MathJax_Error{color:#C00;font-style:italic}footer{position:fixed;font-size:.8em;text-align:right;bottom:0;margin-left:-25px;height:20px;width:100%}</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>production_import_specs</title>
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+}
+</style>
+
+<style type="text/css">
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #a67f59;
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+</style>
+
+<style type="text/css">
+pre.line-numbers {
+	position: relative;
+	padding-left: 3.8em;
+	counter-reset: linenumber;
+}
+
+pre.line-numbers > code {
+	position: relative;
+}
+
+.line-numbers .line-numbers-rows {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+	font-size: 100%;
+	left: -3.8em;
+	width: 3em; /* works for line-numbers below 1000 lines */
+	letter-spacing: -1px;
+	border-right: 1px solid #999;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+}
+
+	.line-numbers-rows > span {
+		pointer-events: none;
+		display: block;
+		counter-increment: linenumber;
+	}
+
+		.line-numbers-rows > span:before {
+			content: counter(linenumber);
+			color: #999;
+			display: block;
+			padding-right: 0.8em;
+			text-align: right;
+		}
+</style>
+
+
 </head>
-<body class="markdown haroopad">
-<h1 id="production-import-specification"><a name="production-import-specification" href="#production-import-specification"></a>Production Import Specification</h1><p class="toc" style="undefined"></p><ul>
-<li><ul>
-<li><span class="title">
-<a href="#introduction" title="Introduction">Introduction</a>
-</span>
-<!--span class="number">
-0
-</span-->
-</li>
-<li><span class="title">
-<a href="#import-xml" title="Import XML">Import XML</a>
-</span>
-<!--span class="number">
-1
-</span-->
-<ul>
-<li><span class="title">
-<a href="#the-meta-section" title="The Meta Section">The Meta Section</a>
-</span>
-<!--span class="number">
-2
-</span-->
-</li>
-<li><span class="title">
-<a href="#the-productions-section" title="The Productions Section">The Productions Section</a>
-</span>
-<!--span class="number">
-3
-</span-->
-</li>
-</ul>
-</li>
-<li><span class="title">
-<a href="#productions" title="Productions">Productions</a>
-</span>
-<!--span class="number">
-4
-</span-->
-<ul>
-<li><span class="title">
-<a href="#the-production-node" title="The Production Node">The Production Node</a>
-</span>
-<!--span class="number">
-5
-</span-->
-</li>
-<li><span class="title">
-<a href="#the-locations-and-stages-for-productions-or-events" title="The Locations and Stages for Productions or Events">The Locations and Stages for Productions or Events</a>
-</span>
-<!--span class="number">
-6
-</span-->
-</li>
-<li><span class="title">
-<a href="#the-categories-for-productions" title="The Categories for Productions">The Categories for Productions</a>
-</span>
-<!--span class="number">
-7
-</span-->
-</li>
-<li><span class="title">
-<a href="#the-production-characteristics" title="The Production Characteristics">The Production Characteristics</a>
-</span>
-<!--span class="number">
-8
-</span-->
-</li>
-<li><span class="title">
-<a href="#the-leaders,-authors,-and-participants-for-productions-or-events" title="The Leaders, Authors, and Participants for Productions or Events">The Leaders, Authors, and Participants for Productions or Events</a>
-</span>
-<!--span class="number">
-9
-</span-->
-</li>
-<li><span class="title">
-<a href="#videos,-live-streams,-images,-and-pdf-documents-for-productions-or-events" title="Videos, Live Streams, Images, and PDF Documents for Productions or Events">Videos, Live Streams, Images, and PDF Documents for Productions or Events</a>
-</span>
-<!--span class="number">
-10
-</span-->
-</li>
-<li><span class="title">
-<a href="#social-media-for-productions" title="Social media for Productions">Social media for Productions</a>
-</span>
-<!--span class="number">
-11
-</span-->
-</li>
-<li><span class="title">
-<a href="#language-and-subtitles-for-productions-or-events" title="Language and subtitles for Productions or Events">Language and subtitles for Productions or Events</a>
-</span>
-<!--span class="number">
-12
-</span-->
-</li>
-<li><span class="title">
-<a href="#sponsors-for-productions-or-events" title="Sponsors for Productions or Events">Sponsors for Productions or Events</a>
-</span>
-<!--span class="number">
-13
-</span-->
-</li>
-</ul>
-</li>
-<li><span class="title">
-<a href="#events" title="Events">Events</a>
-</span>
-<!--span class="number">
-14
-</span-->
-<ul>
-<li><span class="title">
-<a href="#the-event-node" title="The Event Node">The Event Node</a>
-</span>
-<!--span class="number">
-15
-</span-->
-</li>
-<li><span class="title">
-<a href="#the-event-characteristics" title="The Event Characteristics">The Event Characteristics</a>
-</span>
-<!--span class="number">
-16
-</span-->
-</li>
-</ul>
-</li>
-<li><span class="title">
-<a href="#full-featured-xml-example" title="Full featured XML example">Full featured XML example</a>
-</span>
-<!--span class="number">
-17
-</span-->
-</li>
-</ul>
-</li>
 
-</ul>
-<p></p><h2 id="introduction"><a name="introduction" href="#introduction"></a>Introduction</h2><p>The Berlin Bühnen website has locations (theaters) and stages where plays happen. All plays are named as productions. Productions have general information about the play. Each production has multiple events, that is, exact dates and times when the play happens. Events might overwrite some general information of their production.</p><h2 id="import-xml"><a name="import-xml" href="#import-xml"></a>Import XML</h2><p>The XML for the import API should have the following structure:</p><pre class="xml hljs"><code class="xml" data-origin="<pre><code class=&quot;xml&quot;>&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&amp;gt;
-&amp;lt;response&amp;gt;
-    &amp;lt;meta&amp;gt;
-        &amp;lt;!-- meta information... --&amp;gt;
-    &amp;lt;/meta&amp;gt;
-    &amp;lt;productions&amp;gt;
-        &amp;lt;production&amp;gt;
-            &amp;lt;!-- production properties... --&amp;gt;
-            &amp;lt;events&amp;gt;
-                &amp;lt;event&amp;gt;&amp;lt;!-- event properties... --&amp;gt;&amp;lt;/event&amp;gt;
-                &amp;lt;event&amp;gt;&amp;lt;!-- event properties... --&amp;gt;&amp;lt;/event&amp;gt;
-                &amp;lt;!-- other events... --&amp;gt;
-            &amp;lt;/events&amp;gt;
-        &amp;lt;/production&amp;gt;
-        &amp;lt;production&amp;gt;
-            &amp;lt;!-- production properties... --&amp;gt;
-            &amp;lt;events&amp;gt;
-                &amp;lt;event&amp;gt;&amp;lt;!-- event properties... --&amp;gt;&amp;lt;/event&amp;gt;
-                &amp;lt;event&amp;gt;&amp;lt;!-- event properties... --&amp;gt;&amp;lt;/event&amp;gt;
-                &amp;lt;!-- other events... --&amp;gt;
-            &amp;lt;/events&amp;gt;
-        &amp;lt;/production&amp;gt;
-        &amp;lt;!-- other productions... --&amp;gt;
-    &amp;lt;/productions&amp;gt;
-&amp;lt;/response&amp;gt;
-</code></pre>"><span class="hljs-pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">response</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">meta</span>&gt;</span>
-        <span class="hljs-comment">&lt;!-- meta information... --&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">meta</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">productions</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">production</span>&gt;</span>
-            <span class="hljs-comment">&lt;!-- production properties... --&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">events</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">event</span>&gt;</span><span class="hljs-comment">&lt;!-- event properties... --&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">event</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">event</span>&gt;</span><span class="hljs-comment">&lt;!-- event properties... --&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">event</span>&gt;</span>
-                <span class="hljs-comment">&lt;!-- other events... --&gt;</span>
-            <span class="hljs-tag">&lt;/<span class="hljs-title">events</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-title">production</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">production</span>&gt;</span>
-            <span class="hljs-comment">&lt;!-- production properties... --&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">events</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">event</span>&gt;</span><span class="hljs-comment">&lt;!-- event properties... --&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">event</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">event</span>&gt;</span><span class="hljs-comment">&lt;!-- event properties... --&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">event</span>&gt;</span>
-                <span class="hljs-comment">&lt;!-- other events... --&gt;</span>
-            <span class="hljs-tag">&lt;/<span class="hljs-title">events</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-title">production</span>&gt;</span>
-        <span class="hljs-comment">&lt;!-- other productions... --&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">productions</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">response</span>&gt;</span>
-</code></pre><h3 id="the-meta-section"><a name="the-meta-section" href="#the-meta-section"></a>The Meta Section</h3><p>The <code>&lt;meta&gt;</code> section contains information about pagination and amount of productions, as follows:</p><table>
+<body>
+
+<h1 id="toc_0">Production Import Specification</h1>
+
+<p>[TOC]</p>
+
+<h2 id="toc_1">Introduction</h2>
+
+<p>The Berlin Bühnen website has locations (theaters) and stages where plays happen. All plays are named as productions. Productions have general information about the play. Each production has multiple events, that is, exact dates and times when the play happens. Events might overwrite some general information of their production.</p>
+
+<h2 id="toc_2">Import XML</h2>
+
+<p>The XML for the import API should have the following structure:</p>
+
+<div><pre class="line-numbers"><code class="language-markup">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;response&gt;
+    &lt;meta&gt;
+        &lt;!-- meta information... --&gt;
+    &lt;/meta&gt;
+    &lt;productions&gt;
+        &lt;production&gt;
+            &lt;!-- production properties... --&gt;
+            &lt;events&gt;
+                &lt;event&gt;&lt;!-- event properties... --&gt;&lt;/event&gt;
+                &lt;event&gt;&lt;!-- event properties... --&gt;&lt;/event&gt;
+                &lt;!-- other events... --&gt;
+            &lt;/events&gt;
+        &lt;/production&gt;
+        &lt;production&gt;
+            &lt;!-- production properties... --&gt;
+            &lt;events&gt;
+                &lt;event&gt;&lt;!-- event properties... --&gt;&lt;/event&gt;
+                &lt;event&gt;&lt;!-- event properties... --&gt;&lt;/event&gt;
+                &lt;!-- other events... --&gt;
+            &lt;/events&gt;
+        &lt;/production&gt;
+        &lt;!-- other productions... --&gt;
+    &lt;/productions&gt;
+&lt;/response&gt;</code></pre></div>
+
+<h3 id="toc_3">The Meta Section</h3>
+
+<p>The <code>&lt;meta&gt;</code> section contains information about pagination and amount of productions, as follows:</p>
+
+<table>
 <thead>
 <tr>
 <th>Node</th>
@@ -207,20 +563,21 @@
 <th>Example</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
 <td><code>&lt;next&gt;</code></td>
 <td>xs:anyURI</td>
 <td>no</td>
 <td>The API URL for the next page (or empty string for the last page)</td>
-<td><a href="http://example.com/api/productions/?page=3">http://example.com/api/productions/?page=3</a></td>
+<td>http://example.com/api/productions/?page=3</td>
 </tr>
 <tr>
 <td><code>&lt;previous&gt;</code></td>
 <td>xs:anyURI</td>
 <td>no</td>
 <td>The API URL for the previous page (or empty string for the first page)</td>
-<td><a href="http://example.com/api/productions/?page=1">http://example.com/api/productions/?page=1</a></td>
+<td>http://example.com/api/productions/?page=1</td>
 </tr>
 <tr>
 <td><code>&lt;total_count&gt;</code></td>
@@ -237,7 +594,19 @@
 <td>50</td>
 </tr>
 </tbody>
-</table><h3 id="the-productions-section"><a name="the-productions-section" href="#the-productions-section"></a>The Productions Section</h3><p>The <code>&lt;productions&gt;</code> section contains paginated list of productions and their events. Each production is set as a <code>&lt;production&gt;</code> node.</p><h2 id="productions"><a name="productions" href="#productions"></a>Productions</h2><h3 id="the-production-node"><a name="the-production-node" href="#the-production-node"></a>The Production Node</h3><p>The <code>&lt;production&gt;</code> node has the following elements:</p><table>
+</table>
+
+<h3 id="toc_4">The Productions Section</h3>
+
+<p>The <code>&lt;productions&gt;</code> section contains paginated list of productions and their events. Each production is set as a <code>&lt;production&gt;</code> node.</p>
+
+<h2 id="toc_5">Productions</h2>
+
+<h3 id="toc_6">The Production Node</h3>
+
+<p>The <code>&lt;production&gt;</code> node has the following elements:</p>
+
+<table>
 <thead>
 <tr>
 <th>Node</th>
@@ -247,6 +616,7 @@
 <th>Example</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
 <td><code>&lt;id&gt;</code></td>
@@ -273,7 +643,7 @@
 <td><code>&lt;status&gt;</code></td>
 <td>xs:string</td>
 <td>yes</td>
-<td>Publishing status, one of: “draft”, “published”, “not_listed”, “expired”, “trashed”</td>
+<td>Publishing status, one of: &quot;draft&quot;, &quot;published&quot;, &quot;not_listed&quot;, &quot;expired&quot;, &quot;trashed&quot;</td>
 <td>published</td>
 </tr>
 <tr>
@@ -337,210 +707,210 @@
 <td>xs:anyURI</td>
 <td>no</td>
 <td>A link to the your website page about this production in German</td>
-<td><a href="http://example.com/de/productions/2345/">http://example.com/de/productions/2345/</a></td>
+<td>http://example.com/de/productions/2345/ </td>
 </tr>
 <tr>
 <td><code>&lt;website_en&gt;</code></td>
 <td>xs:anyURI</td>
 <td>no</td>
 <td>A link to the your website page about this production in English</td>
-<td><a href="http://example.com/en/productions/2345/">http://example.com/en/productions/2345/</a></td>
+<td> http://example.com/en/productions/2345/</td>
 </tr>
 <tr>
 <td><code>&lt;description_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text description in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;description_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text description in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;teaser_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text teaser in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;teaser_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text teaser in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;work_info_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text work info in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;work_info_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text work info in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;contents_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text contents in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;contents_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text contents in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;press_text_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text press text in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;press_text_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text press text in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;credits_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text credits in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;credits_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text credits in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;concert_program_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text concert program in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;concert_program_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text concert program in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;supporting_program_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text supporting program in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;supporting_program_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text supporting program in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;remarks_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text remarks in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;remarks_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text remarks in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;duration_text_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text information about duration in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;duration_text_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text information about duration in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;subtitles_text_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text information about subtitles in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;subtitles_text_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text information about subtitles in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;age_text_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text information about the age of the audience in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;age_text_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text information about the age of the audience in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;ensembles&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Ensemble or ensembles playing in this production</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;organizers&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Organizer or organizers of this production</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;in_cooperation_with&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Cooperator or cooperators</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;free_entrance&gt;</code></td>
 <td>xs:boolean</td>
 <td>no</td>
-<td>Is the entrance free? One of “true” or “false”</td>
-<td>false</td>
+<td>Is the entrance free? One of &quot;true&quot; or &quot;false&quot;</td>
+<td> false</td>
 </tr>
 <tr>
 <td><code>&lt;price_from&gt;</code></td>
@@ -553,7 +923,7 @@
 <td><code>&lt;price_till&gt;</code></td>
 <td>xs:decimal</td>
 <td>no</td>
-<td>Price till in Euros (no currency sign included)</td>
+<td>Price till in Euros (no currency sign included) </td>
 <td>12.00</td>
 </tr>
 <tr>
@@ -561,80 +931,80 @@
 <td>xs:anyURI</td>
 <td>no</td>
 <td>The URL of a website page where you can buy tickets to this production</td>
-<td><a href="http://example.com/tickets/">http://example.com/tickets/</a></td>
+<td> http://example.com/tickets/</td>
 </tr>
 <tr>
 <td><code>&lt;price_information_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Additional plain-text information about prices in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;price_information_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Additional plain-text information about prices in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;age_from&gt;</code></td>
 <td>xs:integer</td>
 <td>no</td>
 <td>Audience age from</td>
-<td>18</td>
+<td>18 </td>
 </tr>
 <tr>
 <td><code>&lt;age_till&gt;</code></td>
 <td>xs:integer</td>
 <td>no</td>
 <td>Audience age till</td>
-<td>99</td>
+<td> 99</td>
 </tr>
 <tr>
 <td><code>&lt;edu_offer_website&gt;</code></td>
 <td>xs:anyURI</td>
 <td>no</td>
 <td>The URL of a website page with educational offer</td>
-<td><a href="http://example.com/educational-offer/">http://example.com/educational-offer/</a></td>
+<td>http://example.com/educational-offer/ </td>
 </tr>
 <tr>
 <td><code>&lt;in_program_of&gt;</code></td>
 <td>list of <code>&lt;location_id&gt;</code> nodes</td>
 <td>no</td>
 <td>Theaters organizing this production</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;play_locations&gt;</code></td>
 <td>list of <code>&lt;location_id&gt;</code> nodes</td>
 <td>no</td>
 <td>Theaters where this production takes place</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;play_stages&gt;</code></td>
 <td>list of <code>&lt;stage_id&gt;</code> nodes</td>
 <td>no</td>
 <td>Stages where this production takes place</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;location_title&gt;</code></td>
-<td>xs:string</td>
+<td>xs:string </td>
 <td>no</td>
 <td>Location title (if <code>&lt;play_locations&gt;</code> is empty)</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;street_address&gt;</code></td>
-<td>xs:string</td>
-<td>no</td>
+<td>xs:string </td>
+<td> no</td>
 <td>Street address (first line) of the location (if <code>&lt;play_locations&gt;</code> is empty)</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
-<td><code>&lt;street_address2&gt;</code></td>
+<td><code>&lt;street_address2&gt;</code> </td>
 <td>xs:string</td>
 <td>no</td>
 <td>Street address (second line) of the location (if <code>&lt;play_locations&gt;</code> is empty)</td>
@@ -642,17 +1012,17 @@
 </tr>
 <tr>
 <td><code>&lt;postal_code&gt;</code></td>
-<td>xs:string</td>
+<td> xs:string</td>
 <td>no</td>
 <td>Postal code of the location (if <code>&lt;play_locations&gt;</code> is empty)</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;city&gt;</code></td>
-<td>xs:string</td>
+<td>xs:string </td>
 <td>no</td>
 <td>City of the location (if <code>&lt;play_locations&gt;</code> is empty)</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;latitude&gt;</code></td>
@@ -664,7 +1034,7 @@
 <tr>
 <td><code>&lt;longitude&gt;</code></td>
 <td>xs:decimal</td>
-<td>no</td>
+<td>no </td>
 <td>Longitude of the location (if <code>&lt;play_locations&gt;</code> is empty)</td>
 <td>13.4061</td>
 </tr>
@@ -673,14 +1043,14 @@
 <td>list of <code>&lt;category_id&gt;</code> nodes</td>
 <td>no</td>
 <td>Categories</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;characteristics&gt;</code></td>
 <td>list of <code>&lt;characteristic_id&gt;</code> nodes</td>
 <td>no</td>
-<td>Production characteristics</td>
-<td></td>
+<td>Production characteristics </td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;leaders&gt;</code></td>
@@ -739,11 +1109,11 @@
 <td></td>
 </tr>
 <tr>
-<td><code>&lt;language_and_subtitles_id&gt;</code></td>
-<td>xs:string</td>
+<td><code>&lt;language_and_subtitles_id&gt;</code> </td>
+<td> xs:string</td>
 <td>no</td>
 <td>Language and subtitles</td>
-<td>in-deutscher-sprache</td>
+<td>in-deutscher-sprache </td>
 </tr>
 <tr>
 <td><code>&lt;sponsors&gt;</code></td>
@@ -767,130 +1137,542 @@
 <td>false</td>
 </tr>
 </tbody>
-</table><h3 id="the-locations-and-stages-for-productions-or-events"><a name="the-locations-and-stages-for-productions-or-events" href="#the-locations-and-stages-for-productions-or-events"></a>The Locations and Stages for Productions or Events</h3><p>This is a list of all available locations and stages with location IDs and stage IDs to enter as values at <code>&lt;location_id&gt;</code> and <code>&lt;stage_id&gt;</code>:</p><ul>
-<li>Acker Stadt Palast (Location ID = 68)</li><li>ACUD Theater (Location ID = 69)</li><li>Admiralspalast (Location ID = 53)<ul>
-<li>F101 (Stage ID = 26)</li><li>Studio (Stage ID = 28)</li><li>Theater (Stage ID = 25)</li></ul>
-</li><li>Astrid Lindgren Bühne im FEZ-Berlin (Location ID = 129)</li><li>ATZE Musiktheater (Location ID = 43)<ul>
-<li>Großer Saal (Stage ID = 151)</li><li>Studiobühne (Stage ID = 150)</li></ul>
-</li><li>aufBruch KUNST GEFÄNGNIS STADT (Location ID = 156)</li><li>Ballhaus Naunynstraße (Location ID = 40)</li><li>Ballhaus Ost (Location ID = 19)</li><li>BAR JEDER VERNUNFT (Location ID = 8)</li><li>Berghain (Location ID = 145)</li><li>Berliner Compagnie (Location ID = 178)</li><li>Berliner Ensemble (Location ID = 24)<ul>
-<li>Foyer (Stage ID = 20)</li><li>Gartenhaus (Stage ID = 104)</li><li>Pavillon (Stage ID = 19)</li><li>Probebühne (Stage ID = 21)</li></ul>
-</li><li>Berliner Festspiele (Location ID = 80)<ul>
-<li>A-Trane (Stage ID = 147)</li><li>Akademie der Künste (Stage ID = 148)</li><li>Haus der Berliner Festspiele (Stage ID = 32)</li><li>Haus der Berliner Festspiele, Gartenbühne (Stage ID = 122)</li><li>Haus der Berliner Festspiele, Große Bühne (Stage ID = 121)</li><li>Haus der Berliner Festspiele, Kassenhalle (Stage ID = 100)</li><li>Haus der Berliner Festspiele, Oberes Foyer (Stage ID = 89)</li><li>Haus der Berliner Festspiele, Seitenbühne (Stage ID = 88)</li><li>Kaiser-Wilhelm-Gedächtnis-Kirche Berlin (Stage ID = 149)</li><li>Kraftwerk Berlin (Stage ID = 157)</li><li>Martin-Gropius-Bau (Stage ID = 41)</li><li>Mazen Kerbaj, Bundesallee (Stage ID = 156)</li></ul>
-</li><li>Berliner Kindertheater (Location ID = 76)<ul>
-<li>Fontane-Haus im Märkischen Viertel (Stage ID = 90)</li><li>Freilichtbühne an der Zitadelle Spandau (Stage ID = 40)</li></ul>
-</li><li>Berliner Kriminal Theater (Location ID = 48)</li><li>Berliner Philharmonie (Location ID = 65)<ul>
-<li>Foyer im Kammermusiksaal (Stage ID = 42)</li><li>Großer Saal (Stage ID = 39)</li><li>Hermann-Wolff-Saal (Stage ID = 59)</li><li>Kammermusiksaal (Stage ID = 29)</li><li>Mailand, Expo - La Scala (Stage ID = 60)</li><li>München, Philharmonie im Gasteig (Stage ID = 57)</li><li>Philharmonie – Karl-Schuke-Orgel (Stage ID = 58)</li><li>Philharmonie und Kammermusiksaal (Stage ID = 62)</li><li>Wien, Musikverein (Stage ID = 61)</li></ul>
-</li><li>BKA Theater (Location ID = 21)</li><li>Blackmore’s - Berlins Musikzimmer (Location ID = 168)</li><li>Brotfabrik (Location ID = 70)</li><li>Chamäleon Theater (Location ID = 60)</li><li>Corbo Kleinkunstbühne (Location ID = 45)</li><li>Das Weite Theater (Location ID = 71)</li><li>Deutsche Oper Berlin (Location ID = 28)<ul>
-<li>Foyer (Stage ID = 37)</li><li>Restaurant (Stage ID = 102)</li><li>Restaurant Deutsche Oper (rdo) (Stage ID = 38)</li><li>Tischlerei Deutsche Oper Berlin (Stage ID = 45)</li></ul>
-</li><li>Deutsches Theater Berlin (Location ID = 3)<ul>
-<li>Box und Bar (Stage ID = 1)</li><li>Kammerspiele (Stage ID = 2)</li><li>Saal (Stage ID = 3)</li></ul>
-</li><li>Die Stachelschweine - Kabarett-Theater im Europa-Center (Location ID = 78)</li><li>Die Wühlmäuse (Location ID = 16)</li><li>DISTEL Kabarett-Theater (Location ID = 31)<ul>
-<li>DISTEL-Studio (Stage ID = 35)</li><li>Kabarett-Theater DISTEL (Stage ID = 79)</li></ul>
-</li><li>DOCK 11 (Location ID = 157)<ul>
-<li>EDEN<strong>*</strong> (Stage ID = 142)</li></ul>
-</li><li>Dussmann das KulturKaufhaus GmbH (Location ID = 165)</li><li>Elbphilharmonie und Laeiszhalle (Location ID = 187)</li><li>English Theatre Berlin | International Performing Arts Center (Location ID = 58)</li><li>Friedrichstadt-Palast Berlin (Location ID = 39)</li><li>Galli Theater Berlin (Location ID = 77)</li><li>Gästehaus Blumenfisch am Großen Wannsee (Location ID = 147)</li><li>Gethsemanekirche (Location ID = 141)</li><li>Gorki Brinkmannzimmer (Location ID = 169)</li><li>GRIPS Theater (Location ID = 79)<ul>
-<li>GRIPS Hansaplatz (Stage ID = 31)</li><li>GRIPS Podewil (Stage ID = 47)</li></ul>
-</li><li>Große Orangerie Schloss Charlottenburg (Location ID = 74)<ul>
-<li>Große Orangerie Schloss Charlottenburg (Stage ID = 70)</li></ul>
-</li><li>Großer Sendesaal des RBB (Location ID = 176)</li><li>HALLE TANZBÜHNE BERLIN (Location ID = 184)</li><li>Hamburger Bahnhof (Location ID = 182)</li><li>HAU Hebbel am Ufer (Location ID = 13)<ul>
-<li>HAU 1 in the Upper Foyer (Stage ID = 126)</li><li>HAU1 (Stage ID = 11)</li><li>HAU1 Installation (Stage ID = 128)</li><li>HAU1+2 (Stage ID = 124)</li><li>HAU2 (Stage ID = 12)</li><li>HAU2 Foyer (Stage ID = 127)</li><li>HAU2 Installation (Stage ID = 123)</li><li>HAU2 Outdoors (Stage ID = 130)</li><li>HAU3 (Stage ID = 13)</li><li>HAU3 Houseclub (Stage ID = 129)</li><li>Privatwohnungen in Berlin (Stage ID = 131)</li><li>Relexa Hotel (Stage ID = 132)</li><li>WAU im HAU2 (Stage ID = 125)</li><li>WAU Wirtshaus am Ufer (Stage ID = 30)</li></ul>
-</li><li>Haus der Kulturen der Welt (Location ID = 26)</li><li>Heimathafen Neukölln (Location ID = 34)</li><li>Inseltheater Moabit (Location ID = 135)</li><li>Kino Babylon (Location ID = 174)</li><li>Kleines Theater (Location ID = 55)</li><li>Komische Oper Berlin (Location ID = 5)</li><li>Konzerthaus Berlin (Location ID = 14)<ul>
-<li>Carl-Maria-von-Weber-Saal (Stage ID = 146)</li><li>Eingangsfoyer (Stage ID = 145)</li><li>Großer Saal (Stage ID = 15)</li><li>Kleiner Saal (Stage ID = 16)</li><li>Konzerthaus Berlin (Stage ID = 143)</li><li>Ludwig-van-Beethoven-Saal (Stage ID = 18)</li><li>Musikclub (Stage ID = 17)</li><li>Philharmonie Berlin - Großer Saal (Stage ID = 144)</li><li>Werner-Otto-Saal (Stage ID = 14)</li></ul>
-</li><li>Köpenicker Rathaushof Theater (Location ID = 167)</li><li>Kühlhaus am Gleisdreieck (Location ID = 146)</li><li>Kultur- und Kongresszentrum Luzern (Location ID = 190)</li><li>Kulturhaus Karlshorst (Location ID = 163)</li><li>Landesmusikakademie Berlin (Location ID = 63)</li><li>Literatur Festival (Location ID = 144)</li><li>Lokhalle Südgelände (Location ID = 189)</li><li>Maxim Gorki Theater (Location ID = 12)<ul>
-<li>Foyer (Stage ID = 34)</li><li>Gorki Foyer Berlin (Stage ID = 9)</li><li>Gorki Theater (Stage ID = 33)</li><li>Studio Я (Stage ID = 10)</li><li>Vorplatz GORKI (Stage ID = 69)</li></ul>
-</li><li>Märchenhütte (Location ID = 186)</li><li>Monbijou Theater (Location ID = 186)<ul>
-<li>Amphitheater (Stage ID = 165)</li><li>Jacob-Hütte (Stage ID = 166)</li><li>Wilhelm-Hütte (Stage ID = 167)</li></ul>
-</li><li>Museum für Naturkunde Berlin (Location ID = 162)</li><li>Neuköllner Oper (Location ID = 54)<ul>
-<li>Saal/Studio (Stage ID = 81)</li></ul>
-</li><li>Parochialkirche (Location ID = 164)</li><li>Pfefferberg Theater (Location ID = 172)</li><li>Philharmonie Berlin (Location ID = 171)</li><li>Pierre Boulez Saal (Location ID = 193)</li><li>Podewil (Location ID = 150)<ul>
-<li>Foyer (Stage ID = 162)</li><li>Großer Saal (GRIPS) (Stage ID = 160)</li><li>Tanzstudio (Stage ID = 161)</li></ul>
-</li><li>RADIALSYSTEM V (Location ID = 29)</li><li>Renaissance-Theater Berlin (Location ID = 23)<ul>
-<li>Renaissance-Theater Berlin (Stage ID = 103)</li><li>Renaissance-Theater Berlin / Bruckner-Foyer (Stage ID = 23)</li></ul>
-</li><li>Salzburger Festspiele (Location ID = 148)</li><li>SCHAUBUDE BERLIN (Location ID = 51)<ul>
-<li>SCHAUBUDE BERLIN (Stage ID = 71)</li></ul>
-</li><li>Schaubühne am Lehniner Platz (Location ID = 49)</li><li>Schloss Charlottenburg (Location ID = 159)</li><li>Schlosspark Theater (Location ID = 15)</li><li>Shakespeare Company Berlin (Location ID = 161)<ul>
-<li>Natur-Park Schöneberger Südgelände (Stage ID = 164)</li></ul>
-</li><li>Sophiensæle (Location ID = 4)<ul>
-<li>Festsaal (Stage ID = 4)</li><li>gesamtes Haus (Stage ID = 49)</li><li>Hochzeitssaal (Stage ID = 5)</li><li>Kantine (Stage ID = 48)</li></ul>
-</li><li>St. Johannes-Evangelist-Kirche (Location ID = 188)</li><li>Staatsballett Berlin (Location ID = 75)<ul>
-<li>Deutsche Oper Berlin (Stage ID = 75)</li><li>Komische Oper Berlin (Stage ID = 77)</li><li>Staatsoper im Schiller Theater (Stage ID = 76)</li></ul>
-</li><li>Staatskapelle Berlin (Location ID = 197)</li><li>Staatsoper im Schiller Theater (Location ID = 9)<ul>
-<li>Bebelplatz (Stage ID = 56)</li><li>Bode Museum (Stage ID = 44)</li><li>Gläsernes Foyer (Stage ID = 22)</li><li>Probebühne I (Stage ID = 53)</li><li>Staatsoper Unter den Linden (Stage ID = 46)</li><li>Werkstatt (Stage ID = 24)</li></ul>
-</li><li>Stage BLUEMAX Theater (Location ID = 61)</li><li>Stage Theater am Potsdamer Platz (Location ID = 57)</li><li>Stage Theater des Westens (Location ID = 59)</li><li>TAK Theater im Aufbau Haus (Location ID = 133)</li><li>Testbühne Cinemarketing (Location ID = 143)</li><li>testbühne für invite (Location ID = 67)</li><li>Teststage 2 (Location ID = 134)</li><li>Theater an der Parkaue (Location ID = 42)<ul>
-<li>Bühne 1 (Stage ID = 84)</li><li>Bühne 1 - Hinterbühne (Stage ID = 86)</li><li>Bühne 2 (Stage ID = 27)</li><li>Bühne 3 (Stage ID = 85)</li><li>Deutsche Oper - Tischlerei (Stage ID = 140)</li><li>Kulturhaus Karlshorst (Saal) (Stage ID = 139)</li><li>Prater (Stage ID = 141)</li><li>Studiobühne (Stage ID = 87)</li></ul>
-</li><li>Theater Anu (Location ID = 154)<ul>
-<li>Berlin Tempelhofer Feld (Stage ID = 138)</li></ul>
-</li><li>Theater auf der Zitadelle (Location ID = 185)</li><li>Theater im Palais (Location ID = 32)</li><li>Theater Morgenstern (Location ID = 38)<ul>
-<li>Rathaus Friedenau (Stage ID = 133)</li></ul>
-</li><li>Theater O-TonArt (Location ID = 20)</li><li>Theater o.N. (Location ID = 181)</li><li>Theater RambaZamba (Location ID = 166)</li><li>Theater Strahl (Location ID = 72)<ul>
-<li>STRAHL.Die Weiße Rose (Stage ID = 171)</li><li>STRAHL.Halle Ostkreuz (Stage ID = 173)</li><li>STRAHL.Probebühne (Stage ID = 172)</li></ul>
-</li><li>Theater Thikwa (Location ID = 22)</li><li>Theater und Komödie am Kurfürstendamm (Location ID = 25)<ul>
-<li>Komödie am Kurfürstendamm (Stage ID = 94)</li><li>Theater am Kurfürstendamm (Stage ID = 95)</li></ul>
-</li><li>Theater unterm Dach (Location ID = 73)</li><li>Theaterdiscounter (Location ID = 2)</li><li>Theaterforum Kreuzberg (Location ID = 173)</li><li>Theaterhaus Berlin Mitte (Location ID = 132)<ul>
-<li>OPEN AIR BÜHNE (Stage ID = 174)</li><li>ROOM 207 (Stage ID = 169)</li><li>ROOM 403 (Stage ID = 168)</li><li>SOMMERGARTEN (Stage ID = 170)</li><li>WERKSTATTBÜHNE 003 (Stage ID = 159)</li></ul>
-</li><li>Theater Zukunft (Location ID = 192)</li><li>TIPI AM KANZLERAMT (Location ID = 7)</li><li>UdK - Universität der Künste Berlin (Location ID = 142)</li><li>ufaFabrik (Location ID = 56)<ul>
-<li>Open Air Bühne im überdachten Sommergarten (Stage ID = 182)</li><li>Theatersaal (Stage ID = 179)</li><li>Varieté Salon (Stage ID = 180)</li><li>Wolfgang Neuss Salon (Stage ID = 181)</li></ul>
-</li><li>Uferstudios (Location ID = 66)<ul>
-<li>Heizhaus (Stage ID = 120)</li><li>Uferstudio 1 (Stage ID = 105)</li><li>Uferstudio 10 (Stage ID = 114)</li><li>Uferstudio 11 (Stage ID = 115)</li><li>Uferstudio 12 (Stage ID = 116)</li><li>Uferstudio 13 (Stage ID = 117)</li><li>Uferstudio 14 (Stage ID = 118)</li><li>Uferstudio 16 (Stage ID = 119)</li><li>Uferstudio 2 (Stage ID = 106)</li><li>Uferstudio 3 (Stage ID = 107)</li><li>Uferstudio 4 (Stage ID = 108)</li><li>Uferstudio 5 (Stage ID = 109)</li><li>Uferstudio 6 (Stage ID = 110)</li><li>Uferstudio 7 (Stage ID = 111)</li><li>Uferstudio 8 (Stage ID = 112)</li><li>Uferstudio 9 (Stage ID = 113)</li></ul>
-</li><li>UNI.T - Theater der UdK Berlin (Location ID = 130)</li><li>Vaganten Bühne (Location ID = 33)</li><li>Volksbühne am Rosa-Luxemburg-Platz (Location ID = 6)<ul>
-<li>3. Stock (Stage ID = 8)</li><li>Books (Stage ID = 83)</li><li>Großes Haus (Stage ID = 82)</li><li>Grüner Salon (Stage ID = 6)</li><li>Roter Salon (Stage ID = 7)</li><li>Sternfoyer (Stage ID = 101)</li></ul>
-</li><li>Volksbühne am Rosa-Luxemburg-Platz / Kantine (Location ID = 140)</li><li>Volksbühne am Rosa-Luxemburg-Platz / Probebühne (Location ID = 160)</li><li>Volksbühne am Rosa-Luxemburg-Platz / Vorbühne (Location ID = 179)</li><li>Wintergarten Varieté (Location ID = 180)</li><li>Young Euro Classic (Location ID = 158)</li><li>ZIONSKIRCHE (Location ID = 152)</li><li>Zitadelle (Location ID = 149)</li></ul><p>For example, if a production is organized by “Volksbühne am Rosa-Luxemburg-Platz” and happens in the “Grüner Salon” stage, the following XML should be set:</p><pre class="xml hljs"><code class="xml" data-origin="<pre><code class=&quot;xml&quot;>&amp;lt;in_program_of&amp;gt;
-    &amp;lt;location_id&amp;gt;6&amp;lt;/location_id&amp;gt;
-&amp;lt;/in_program_of&amp;gt;
-&amp;lt;play_stages&amp;gt;
-    &amp;lt;stage_id&amp;gt;6&amp;lt;/stage_id&amp;gt;
-&amp;lt;/play_stages&amp;gt;
-</code></pre>"><span class="hljs-tag">&lt;<span class="hljs-title">in_program_of</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">location_id</span>&gt;</span>6<span class="hljs-tag">&lt;/<span class="hljs-title">location_id</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">in_program_of</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">play_stages</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">stage_id</span>&gt;</span>6<span class="hljs-tag">&lt;/<span class="hljs-title">stage_id</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">play_stages</span>&gt;</span>
-</code></pre><h3 id="the-categories-for-productions"><a name="the-categories-for-productions" href="#the-categories-for-productions"></a>The Categories for Productions</h3><p>This is a list of all available categories and subcategories with IDs to enter as values at <code>&lt;category_id&gt;</code>:</p><ul>
-<li>Schauspiel | Theatre (Category ID = 1)<ul>
-<li>Boulevardtheater | Boulevard Theatre (Category ID = 11)</li><li>Dokumentarisches Theater | Documentary Theatre (Category ID = 12)</li><li>Improvisationstheater | Improvisation Theatre (Category ID = 13)</li><li>Schauspiel | Theatre (Category ID = 16)</li></ul>
-</li><li>Musiktheater | Music Theater (Category ID = 2)<ul>
-<li>Oper | Opera (Category ID = 20)</li><li>Operette | Operetta (Category ID = 22)</li><li>Zeitgenössische Oper | Contemporary Opera (Category ID = 24)</li><li>Musiktheater | Music Theatre (Category ID = 19)</li><li>Singspiel | Singing Play (Category ID = 23)</li><li>Musical | Musical (Category ID = 18)</li><li>Konzertante Aufführung | Concert Performance (Category ID = 17)</li></ul>
-</li><li>Tanz | Dance (Category ID = 3)<ul>
-<li>Ballet | Ballet (Category ID = 25)</li><li>Zeitgenössischer Tanz | Contemporary Dance (Category ID = 29)</li><li>Urban Dance | Urban Dance (Category ID = 28)</li><li>Tanztheater | Dance Theatre (Category ID = 27)</li></ul>
-</li><li>Performance | Performance (Category ID = 4)<ul>
-<li>Cross Media | Cross Media (Category ID = 30)</li><li>Lecture Performance | Lecture Performance (Category ID = 31)</li><li>Performance | Performance (Category ID = 32)</li><li>Installation | Installation (Category ID = 34)</li></ul>
-</li><li>Konzert | Concert (Category ID = 5)<ul>
-<li>Sinfoniekonzert | Symphony Concert (Category ID = 89)</li><li>Klassik | Classic (Category ID = 43)</li><li>Kammermusik | Chamber Music (Category ID = 90)</li><li>Liederabend | Song Recital (Category ID = 44)</li><li>Neue Musik | New Music (Category ID = 45)</li><li>A cappella | A cappella (Category ID = 94)</li><li>Blues | Blues (Category ID = 35)</li><li>Chanson | Chanson (Category ID = 36)</li><li>Country | Country (Category ID = 37)</li><li>Elektronische Musik | Electronic Music (Category ID = 38)</li><li>Folk | Folk (Category ID = 39)</li><li>Funk | Funk (Category ID = 40)</li><li>Hip Hop | Hip Hop (Category ID = 41)</li><li>Schlager | Schlager (Category ID = 93)</li><li>Jazz | Jazz (Category ID = 42)</li><li>Pop | Pop (Category ID = 46)</li><li>Rock | Rock (Category ID = 47)</li><li>Soul | Soul (Category ID = 48)</li><li>Crossover | Crossover (Category ID = 49)</li><li>World Music | World Music (Category ID = 50)</li></ul>
-</li><li>Comedy &amp; Kabarett | Comedy &amp; Cabaret (Category ID = 7)<ul>
-<li>Comedy | Comedy (Category ID = 56)</li><li>Kabarett | Cabaret (Category ID = 57)</li></ul>
-</li><li>Entertainment | Entertainment (Category ID = 6)<ul>
-<li>Show | Spectacular (Category ID = 53)</li><li>Revue | Revue (Category ID = 52)</li><li>Varieté | Varieté (Category ID = 54)</li><li>Burlesque | Burlesque (Category ID = 88)</li><li>New Circus | New Circus (Category ID = 51)</li><li>Zirkus | Circus (Category ID = 55)</li></ul>
-</li><li>Figurentheater | Figure Theater (Category ID = 62)<ul>
-<li>Puppentheater | Puppet Theater (Category ID = 66)</li><li>Figurentheater | Figure Theater (Category ID = 84)</li><li>Objekttheater | Object Theater (Category ID = 65)</li></ul>
-</li><li>Kinder &amp; Jugend | Children &amp; Youth (Category ID = 8)<ul>
-<li>Jugend (ab  14 Jahre) | Youth (from 14 years old) (Category ID = 63)</li><li>Kinder (bis 13 Jahre) | Children (till 13 years old) (Category ID = 64)</li><li>Kleinkind (bis 6 Jahre) | Young children (till 6 years old) (Category ID = 91)</li><li>Kleinstkind (bis 2 Jahre) | Toddlers (till 2 years old) (Category ID = 92)</li></ul>
-</li><li>Literatur | Literature (Category ID = 86)<ul>
-<li>Lesung | Reading (Category ID = 15)</li><li>Poetry Slam | Poetry Slam (Category ID = 87)</li><li>Szenische Lesung | Staged Reading (Category ID = 85)</li></ul>
-</li><li>Diskurs | Discourse (Category ID = 9)<ul>
-<li>Gespräch | Conversation (Category ID = 83)</li><li>Diskussion | Discussion (Category ID = 68)</li><li>Konferenz | Conference (Category ID = 69)</li><li>Lecture Performance | Lecture Performance (Category ID = 70)</li><li>Symposium | Symposium (Category ID = 71)</li><li>Tagung | Meeting (Category ID = 72)</li><li>Vortrag | Lecture (Category ID = 73)</li></ul>
-</li><li>Sonstiges | Other (Category ID = 10)<ul>
-<li>Ausstellung | Exhibition (Category ID = 74)</li><li>Fest | Feast (Category ID = 75)</li><li>Film/Video | Film / Video (Category ID = 76)</li><li>Fotografie | Photography (Category ID = 77)</li><li>Führung | Guided tour (Category ID = 78)</li><li>Neue Medien | New Media (Category ID = 79)</li><li>Party | Party (Category ID = 80)</li><li>Spezial | Special (Category ID = 81)</li><li>Workshop | Workshop  Action (Category ID = 82)</li></ul>
-</li></ul><p>For example, if a production can be classified as “Tanz”, “Ballet”, and “Neue Medien” (under “Sonstiges”), the following XML should be set:</p><pre class="xml hljs"><code class="xml" data-origin="<pre><code class=&quot;xml&quot;>&amp;lt;categories&amp;gt;
-    &amp;lt;category_id&amp;gt;3&amp;lt;/category_id&amp;gt;
-    &amp;lt;category_id&amp;gt;25&amp;lt;/category_id&amp;gt;
-    &amp;lt;category_id&amp;gt;10&amp;lt;/category_id&amp;gt;
-    &amp;lt;category_id&amp;gt;79&amp;lt;/category_id&amp;gt;
-&amp;lt;/categories&amp;gt;
-</code></pre>"><span class="hljs-tag">&lt;<span class="hljs-title">categories</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">category_id</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-title">category_id</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">category_id</span>&gt;</span>25<span class="hljs-tag">&lt;/<span class="hljs-title">category_id</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">category_id</span>&gt;</span>10<span class="hljs-tag">&lt;/<span class="hljs-title">category_id</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">category_id</span>&gt;</span>79<span class="hljs-tag">&lt;/<span class="hljs-title">category_id</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">categories</span>&gt;</span>
-</code></pre><h3 id="the-production-characteristics"><a name="the-production-characteristics" href="#the-production-characteristics"></a>The Production Characteristics</h3><p>This is a list of all available characteristics with IDs to enter as values at <code>&lt;characteristic_id&gt;</code> of the production:</p><ul>
-<li>On Tour | On Tour (ID = “on-tour”)</li><li>Gastspiel | Guest Play (ID = “gastspiel”)</li><li>Repertoire | Repertoire (ID = “repertoire”)</li><li>Wiederaufnahme | Replay (ID = “wiederaufnahme”)</li><li>Uraufführung | Premiere (ID = “urauffuehrung”)</li></ul><p>For example, if a production can be classified as “Gastspiel”, the following XML should be set:</p><pre class="xml hljs"><code class="xml" data-origin="<pre><code class=&quot;xml&quot;>&amp;lt;characteristics&amp;gt;
-    &amp;lt;characteristic_id&amp;gt;gastspiel&amp;lt;/characteristic_id&amp;gt;
-&amp;lt;/characteristics&amp;gt;
-</code></pre>"><span class="hljs-tag">&lt;<span class="hljs-title">characteristics</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">characteristic_id</span>&gt;</span>gastspiel<span class="hljs-tag">&lt;/<span class="hljs-title">characteristic_id</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">characteristics</span>&gt;</span>
-</code></pre><h3 id="the-leaders,-authors,-and-participants-for-productions-or-events"><a name="the-leaders,-authors,-and-participants-for-productions-or-events" href="#the-leaders,-authors,-and-participants-for-productions-or-events"></a>The Leaders, Authors, and Participants for Productions or Events</h3><p>The <code>&lt;leaders&gt;</code> node contains a list of <code>&lt;leader&gt;</code> nodes with such content:</p><table>
+</table>
+
+<h3 id="toc_7">The Locations and Stages for Productions or Events</h3>
+
+<p>This is a list of all available locations and stages with location IDs and stage IDs to enter as values at <code>&lt;location_id&gt;</code> and <code>&lt;stage_id&gt;</code>:</p>
+
+<ul>
+<li>Acker Stadt Palast (Location ID = 68)</li>
+<li>ACUD Theater (Location ID = 69)</li>
+<li>Admiralspalast (Location ID = 53)
+
+<ul>
+<li>F101 (Stage ID = 26)</li>
+<li>Studio (Stage ID = 28)</li>
+<li>Theater (Stage ID = 25)</li>
+</ul></li>
+<li>Astrid Lindgren Bühne im FEZ-Berlin (Location ID = 129)</li>
+<li>ATZE Musiktheater (Location ID = 43)
+
+<ul>
+<li>Großer Saal (Stage ID = 151)</li>
+<li>Studiobühne (Stage ID = 150)</li>
+</ul></li>
+<li>aufBruch KUNST GEFÄNGNIS STADT (Location ID = 156)</li>
+<li>Ballhaus Naunynstraße (Location ID = 40)</li>
+<li>Ballhaus Ost (Location ID = 19)</li>
+<li>BAR JEDER VERNUNFT (Location ID = 8)</li>
+<li>Berghain (Location ID = 145)</li>
+<li>Berliner Compagnie (Location ID = 178)</li>
+<li>Berliner Ensemble (Location ID = 24)
+
+<ul>
+<li>Großes Haus (Stage ID = 203)</li>
+<li>Kleines Haus (Stage ID = 21)</li>
+<li>Salon (Stage ID = 20)</li>
+<li>Werkraum (Stage ID = 205)</li>
+</ul></li>
+<li>Berliner Festspiele (Location ID = 80)
+
+<ul>
+<li>A-Trane (Stage ID = 147)</li>
+<li>Akademie der Künste (Stage ID = 148)</li>
+<li>Haus der Berliner Festspiele (Stage ID = 32)</li>
+<li>Haus der Berliner Festspiele, Gartenbühne (Stage ID = 122)</li>
+<li>Haus der Berliner Festspiele, Große Bühne (Stage ID = 121)</li>
+<li>Haus der Berliner Festspiele, Kassenhalle (Stage ID = 100)</li>
+<li>Haus der Berliner Festspiele, Oberes Foyer (Stage ID = 89)</li>
+<li>Haus der Berliner Festspiele, Seitenbühne (Stage ID = 88)</li>
+<li>Kaiser-Wilhelm-Gedächtnis-Kirche Berlin (Stage ID = 149)</li>
+<li>Kraftwerk Berlin (Stage ID = 157)</li>
+<li>Martin-Gropius-Bau (Stage ID = 41)</li>
+<li>Mazen Kerbaj, Bundesallee (Stage ID = 156)</li>
+</ul></li>
+<li>Berliner Kindertheater (Location ID = 76)
+
+<ul>
+<li>Fontane-Haus im Märkischen Viertel (Stage ID = 90)</li>
+<li>Freilichtbühne an der Zitadelle Spandau (Stage ID = 40)</li>
+</ul></li>
+<li>Berliner Kriminal Theater (Location ID = 48)</li>
+<li>Berliner Philharmonie (Location ID = 65)
+
+<ul>
+<li>Foyer im Kammermusiksaal (Stage ID = 42)</li>
+<li>Großer Saal (Stage ID = 39)</li>
+<li>Hermann-Wolff-Saal (Stage ID = 59)</li>
+<li>Kammermusiksaal (Stage ID = 29)</li>
+<li>Mailand, Expo - La Scala (Stage ID = 60)</li>
+<li>München, Philharmonie im Gasteig (Stage ID = 57)</li>
+<li>Philharmonie – Karl-Schuke-Orgel (Stage ID = 58)</li>
+<li>Philharmonie und Kammermusiksaal (Stage ID = 62)</li>
+<li>Wien, Musikverein (Stage ID = 61)</li>
+</ul></li>
+<li>BKA Theater (Location ID = 21)</li>
+<li>Blackmore&#39;s - Berlins Musikzimmer (Location ID = 168)</li>
+<li>Brotfabrik (Location ID = 70)</li>
+<li>Chamäleon Theater (Location ID = 60)</li>
+<li>Corbo Kleinkunstbühne (Location ID = 45)</li>
+<li>Das Weite Theater (Location ID = 71)</li>
+<li>Deutsche Oper Berlin (Location ID = 28)
+
+<ul>
+<li>Foyer (Stage ID = 37)</li>
+<li>Restaurant (Stage ID = 102)</li>
+<li>Restaurant Deutsche Oper (rdo) (Stage ID = 38)</li>
+<li>Tischlerei Deutsche Oper Berlin (Stage ID = 45)</li>
+</ul></li>
+<li>Deutsches Theater Berlin (Location ID = 3)
+
+<ul>
+<li>Box und Bar (Stage ID = 1)</li>
+<li>Kammerspiele (Stage ID = 2)</li>
+<li>Saal (Stage ID = 3)</li>
+</ul></li>
+<li>Die Stachelschweine - Kabarett-Theater im Europa-Center (Location ID = 78)</li>
+<li>Die Wühlmäuse (Location ID = 16)</li>
+<li>DISTEL Kabarett-Theater (Location ID = 31)
+
+<ul>
+<li>DISTEL-Studio (Stage ID = 35)</li>
+<li>Kabarett-Theater DISTEL (Stage ID = 79)</li>
+</ul></li>
+<li>DOCK 11 (Location ID = 157)
+
+<ul>
+<li>EDEN***** (Stage ID = 142)</li>
+</ul></li>
+<li>Dussmann das KulturKaufhaus GmbH (Location ID = 165)</li>
+<li>Elbphilharmonie und Laeiszhalle (Location ID = 187)</li>
+<li>English Theatre Berlin | International Performing Arts Center (Location ID = 58)</li>
+<li>Friedrichstadt-Palast Berlin (Location ID = 39)</li>
+<li>Galli Theater Berlin (Location ID = 77)</li>
+<li>Gästehaus Blumenfisch am Großen Wannsee (Location ID = 147)</li>
+<li>Gethsemanekirche (Location ID = 141)</li>
+<li>Gorki Brinkmannzimmer (Location ID = 169)</li>
+<li>GRIPS Theater (Location ID = 79)
+
+<ul>
+<li>GRIPS Hansaplatz (Stage ID = 31)</li>
+<li>GRIPS Podewil (Stage ID = 47)</li>
+</ul></li>
+<li>Große Orangerie Schloss Charlottenburg (Location ID = 74)
+
+<ul>
+<li>Große Orangerie Schloss Charlottenburg (Stage ID = 70)</li>
+</ul></li>
+<li>Großer Sendesaal des RBB (Location ID = 176)</li>
+<li>HALLE TANZBÜHNE BERLIN (Location ID = 184)</li>
+<li>Hamburger Bahnhof (Location ID = 182)</li>
+<li>HAU Hebbel am Ufer (Location ID = 13)
+
+<ul>
+<li>HAU 1 in the Upper Foyer (Stage ID = 126)</li>
+<li>HAU1 (Stage ID = 11)</li>
+<li>HAU1 Installation (Stage ID = 128)</li>
+<li>HAU1+2 (Stage ID = 124)</li>
+<li>HAU2 (Stage ID = 12)</li>
+<li>HAU2 Foyer (Stage ID = 127)</li>
+<li>HAU2 Installation (Stage ID = 123)</li>
+<li>HAU2 Outdoors (Stage ID = 130)</li>
+<li>HAU3 (Stage ID = 13)</li>
+<li>HAU3 Houseclub (Stage ID = 129)</li>
+<li>Privatwohnungen in Berlin (Stage ID = 131)</li>
+<li>Relexa Hotel (Stage ID = 132)</li>
+<li>WAU im HAU2 (Stage ID = 125)</li>
+<li>WAU Wirtshaus am Ufer (Stage ID = 30)</li>
+</ul></li>
+<li>Haus der Kulturen der Welt (Location ID = 26)</li>
+<li>Heimathafen Neukölln (Location ID = 34)</li>
+<li>Inseltheater Moabit (Location ID = 135)</li>
+<li>Kino Babylon (Location ID = 174)</li>
+<li>Kleines Theater (Location ID = 55)</li>
+<li>Komische Oper Berlin (Location ID = 5)</li>
+<li>Konzerthaus Berlin (Location ID = 14)
+
+<ul>
+<li>Carl-Maria-von-Weber-Saal (Stage ID = 146)</li>
+<li>Eingangsfoyer (Stage ID = 145)</li>
+<li>Großer Saal (Stage ID = 15)</li>
+<li>Kleiner Saal (Stage ID = 16)</li>
+<li>Konzerthaus Berlin (Stage ID = 143)</li>
+<li>Ludwig-van-Beethoven-Saal (Stage ID = 18)</li>
+<li>Musikclub (Stage ID = 17)</li>
+<li>Philharmonie Berlin - Großer Saal (Stage ID = 144)</li>
+<li>Werner-Otto-Saal (Stage ID = 14)</li>
+</ul></li>
+<li>Köpenicker Rathaushof Theater (Location ID = 167)</li>
+<li>Kühlhaus am Gleisdreieck (Location ID = 146)</li>
+<li>Kultur- und Kongresszentrum Luzern (Location ID = 190)</li>
+<li>Kulturhaus Karlshorst (Location ID = 163)</li>
+<li>Landesmusikakademie Berlin (Location ID = 63)</li>
+<li>Literatur Festival (Location ID = 144)</li>
+<li>Lokhalle Südgelände (Location ID = 189)</li>
+<li>Maxim Gorki Theater (Location ID = 12)
+
+<ul>
+<li>Foyer (Stage ID = 34)</li>
+<li>Gorki Foyer Berlin (Stage ID = 9)</li>
+<li>Gorki Theater (Stage ID = 33)</li>
+<li>Studio Я (Stage ID = 10)</li>
+<li>Vorplatz GORKI (Stage ID = 69)</li>
+</ul></li>
+<li>Märchenhütte (Location ID = 186)</li>
+<li>Monbijou Theater (Location ID = 186)
+
+<ul>
+<li>Amphitheater (Stage ID = 165)</li>
+<li>Jacob-Hütte (Stage ID = 166)</li>
+<li>Wilhelm-Hütte (Stage ID = 167)</li>
+</ul></li>
+<li>Museum für Naturkunde Berlin (Location ID = 162)</li>
+<li>Neuköllner Oper (Location ID = 54)
+
+<ul>
+<li>Saal/Studio (Stage ID = 81)</li>
+</ul></li>
+<li>Parochialkirche (Location ID = 164)</li>
+<li>Pfefferberg Theater (Location ID = 172)</li>
+<li>Philharmonie Berlin (Location ID = 171)</li>
+<li>Pierre Boulez Saal (Location ID = 193)</li>
+<li>Podewil (Location ID = 150)
+
+<ul>
+<li>Foyer (Stage ID = 162)</li>
+<li>Großer Saal (GRIPS) (Stage ID = 160)</li>
+<li>Tanzstudio (Stage ID = 161)</li>
+</ul></li>
+<li>RADIALSYSTEM V (Location ID = 29)</li>
+<li>Renaissance-Theater Berlin (Location ID = 23)
+
+<ul>
+<li>Renaissance-Theater Berlin (Stage ID = 103)</li>
+<li>Renaissance-Theater Berlin / Bruckner-Foyer (Stage ID = 23)</li>
+</ul></li>
+<li>Salzburger Festspiele (Location ID = 148)</li>
+<li>SCHAUBUDE BERLIN (Location ID = 51)
+
+<ul>
+<li>SCHAUBUDE BERLIN (Stage ID = 71)</li>
+</ul></li>
+<li>Schaubühne am Lehniner Platz (Location ID = 49)</li>
+<li>Schloss Charlottenburg (Location ID = 159)</li>
+<li>Schlosspark Theater (Location ID = 15)</li>
+<li>Shakespeare Company Berlin (Location ID = 161)
+
+<ul>
+<li>Natur-Park Schöneberger Südgelände (Stage ID = 164)</li>
+</ul></li>
+<li>Sophiensæle (Location ID = 4)
+
+<ul>
+<li>Festsaal (Stage ID = 4)</li>
+<li>gesamtes Haus (Stage ID = 49)</li>
+<li>Hochzeitssaal (Stage ID = 5)</li>
+<li>Kantine (Stage ID = 48)</li>
+</ul></li>
+<li>St. Johannes-Evangelist-Kirche (Location ID = 188)</li>
+<li>Staatsballett Berlin (Location ID = 75)
+
+<ul>
+<li>Deutsche Oper Berlin (Stage ID = 75)</li>
+<li>Komische Oper Berlin (Stage ID = 77)</li>
+<li>Staatsoper im Schiller Theater (Stage ID = 76)</li>
+</ul></li>
+<li>Staatskapelle Berlin (Location ID = 197)</li>
+<li>Staatsoper im Schiller Theater (Location ID = 9)
+
+<ul>
+<li>Bebelplatz (Stage ID = 56)</li>
+<li>Bode Museum (Stage ID = 44)</li>
+<li>Gläsernes Foyer (Stage ID = 22)</li>
+<li>Probebühne I (Stage ID = 53)</li>
+<li>Staatsoper Unter den Linden (Stage ID = 46)</li>
+<li>Werkstatt (Stage ID = 24)</li>
+</ul></li>
+<li>Stage BLUEMAX Theater (Location ID = 61)</li>
+<li>Stage Theater am Potsdamer Platz (Location ID = 57)</li>
+<li>Stage Theater des Westens (Location ID = 59)</li>
+<li>TAK Theater im Aufbau Haus (Location ID = 133)</li>
+<li>Testbühne Cinemarketing (Location ID = 143)</li>
+<li>testbühne für invite (Location ID = 67)</li>
+<li>Teststage 2 (Location ID = 134)</li>
+<li>Theater an der Parkaue (Location ID = 42)
+
+<ul>
+<li>Bühne 1 (Stage ID = 84)</li>
+<li>Bühne 1 - Hinterbühne (Stage ID = 86)</li>
+<li>Bühne 2 (Stage ID = 27)</li>
+<li>Bühne 3 (Stage ID = 85)</li>
+<li>Deutsche Oper - Tischlerei (Stage ID = 140)</li>
+<li>Kulturhaus Karlshorst (Saal) (Stage ID = 139)</li>
+<li>Prater (Stage ID = 141)</li>
+<li>Studiobühne (Stage ID = 87)</li>
+</ul></li>
+<li>Theater Anu (Location ID = 154)
+
+<ul>
+<li>Berlin Tempelhofer Feld (Stage ID = 138)</li>
+</ul></li>
+<li>Theater auf der Zitadelle (Location ID = 185)</li>
+<li>Theater im Palais (Location ID = 32)</li>
+<li>Theater Morgenstern (Location ID = 38)
+
+<ul>
+<li>Rathaus Friedenau (Stage ID = 133)</li>
+</ul></li>
+<li>Theater O-TonArt (Location ID = 20)</li>
+<li>Theater o.N. (Location ID = 181)</li>
+<li>Theater RambaZamba (Location ID = 166)</li>
+<li>Theater Strahl (Location ID = 72)
+
+<ul>
+<li>STRAHL.Die Weiße Rose (Stage ID = 171)</li>
+<li>STRAHL.Halle Ostkreuz (Stage ID = 173)</li>
+<li>STRAHL.Probebühne (Stage ID = 172)</li>
+</ul></li>
+<li>Theater Thikwa (Location ID = 22)</li>
+<li>Theater und Komödie am Kurfürstendamm (Location ID = 25)
+
+<ul>
+<li>Komödie am Kurfürstendamm (Stage ID = 94)</li>
+<li>Theater am Kurfürstendamm (Stage ID = 95)</li>
+</ul></li>
+<li>Theater unterm Dach (Location ID = 73)</li>
+<li>Theaterdiscounter (Location ID = 2)</li>
+<li>Theaterforum Kreuzberg (Location ID = 173)</li>
+<li>Theaterhaus Berlin Mitte (Location ID = 132)
+
+<ul>
+<li>OPEN AIR BÜHNE (Stage ID = 174)</li>
+<li>ROOM 207 (Stage ID = 169)</li>
+<li>ROOM 403 (Stage ID = 168)</li>
+<li>SOMMERGARTEN (Stage ID = 170)</li>
+<li>WERKSTATTBÜHNE 003 (Stage ID = 159)</li>
+</ul></li>
+<li>Theater Zukunft (Location ID = 192)</li>
+<li>TIPI AM KANZLERAMT (Location ID = 7)</li>
+<li>UdK - Universität der Künste Berlin (Location ID = 142)</li>
+<li>ufaFabrik (Location ID = 56)
+
+<ul>
+<li>Open Air Bühne im überdachten Sommergarten (Stage ID = 182)</li>
+<li>Theatersaal (Stage ID = 179)</li>
+<li>Varieté Salon (Stage ID = 180)</li>
+<li>Wolfgang Neuss Salon (Stage ID = 181)</li>
+</ul></li>
+<li>Uferstudios (Location ID = 66)
+
+<ul>
+<li>Heizhaus (Stage ID = 120)</li>
+<li>Uferstudio 1 (Stage ID = 105)</li>
+<li>Uferstudio 10 (Stage ID = 114)</li>
+<li>Uferstudio 11 (Stage ID = 115)</li>
+<li>Uferstudio 12 (Stage ID = 116)</li>
+<li>Uferstudio 13 (Stage ID = 117)</li>
+<li>Uferstudio 14 (Stage ID = 118)</li>
+<li>Uferstudio 16 (Stage ID = 119)</li>
+<li>Uferstudio 2 (Stage ID = 106)</li>
+<li>Uferstudio 3 (Stage ID = 107)</li>
+<li>Uferstudio 4 (Stage ID = 108)</li>
+<li>Uferstudio 5 (Stage ID = 109)</li>
+<li>Uferstudio 6 (Stage ID = 110)</li>
+<li>Uferstudio 7 (Stage ID = 111)</li>
+<li>Uferstudio 8 (Stage ID = 112)</li>
+<li>Uferstudio 9 (Stage ID = 113)</li>
+</ul></li>
+<li>UNI.T - Theater der UdK Berlin (Location ID = 130)</li>
+<li>Vaganten Bühne (Location ID = 33)</li>
+<li>Volksbühne am Rosa-Luxemburg-Platz (Location ID = 6)
+
+<ul>
+<li>3. Stock (Stage ID = 8)</li>
+<li>Books (Stage ID = 83)</li>
+<li>Großes Haus (Stage ID = 82)</li>
+<li>Grüner Salon (Stage ID = 6)</li>
+<li>Roter Salon (Stage ID = 7)</li>
+<li>Sternfoyer (Stage ID = 101)</li>
+</ul></li>
+<li>Volksbühne am Rosa-Luxemburg-Platz / Kantine (Location ID = 140)</li>
+<li>Volksbühne am Rosa-Luxemburg-Platz / Probebühne (Location ID = 160)</li>
+<li>Volksbühne am Rosa-Luxemburg-Platz / Vorbühne (Location ID = 179)</li>
+<li>Wintergarten Varieté (Location ID = 180)</li>
+<li>Young Euro Classic (Location ID = 158)</li>
+<li>ZIONSKIRCHE (Location ID = 152)</li>
+<li>Zitadelle (Location ID = 149)</li>
+</ul>
+
+<p>For example, if a production is organized by &quot;Volksbühne am Rosa-Luxemburg-Platz&quot; and happens in the &quot;Grüner Salon&quot; stage, the following XML should be set:</p>
+
+<div><pre class="line-numbers"><code class="language-markup">&lt;in_program_of&gt;
+    &lt;location_id&gt;6&lt;/location_id&gt;
+&lt;/in_program_of&gt;
+&lt;play_stages&gt;
+    &lt;stage_id&gt;6&lt;/stage_id&gt;
+&lt;/play_stages&gt;</code></pre></div>
+
+<h3 id="toc_8">The Categories for Productions</h3>
+
+<p>This is a list of all available categories and subcategories with IDs to enter as values at <code>&lt;category_id&gt;</code>:</p>
+
+<ul>
+<li>Schauspiel | Theatre (Category ID = 1)
+
+<ul>
+<li>Boulevardtheater | Boulevard Theatre (Category ID = 11)</li>
+<li>Dokumentarisches Theater | Documentary Theatre (Category ID = 12)</li>
+<li>Improvisationstheater | Improvisation Theatre (Category ID = 13)</li>
+<li>Schauspiel | Theatre (Category ID = 16)</li>
+</ul></li>
+<li>Musiktheater | Music Theater (Category ID = 2)
+
+<ul>
+<li>Oper | Opera (Category ID = 20)</li>
+<li>Operette | Operetta (Category ID = 22)</li>
+<li>Zeitgenössische Oper | Contemporary Opera (Category ID = 24)</li>
+<li>Musiktheater | Music Theatre (Category ID = 19)</li>
+<li>Singspiel | Singing Play (Category ID = 23)</li>
+<li>Musical | Musical (Category ID = 18)</li>
+<li>Konzertante Aufführung | Concert Performance (Category ID = 17)</li>
+</ul></li>
+<li>Tanz | Dance (Category ID = 3)
+
+<ul>
+<li>Ballet | Ballet (Category ID = 25)</li>
+<li>Zeitgenössischer Tanz | Contemporary Dance (Category ID = 29)</li>
+<li>Urban Dance | Urban Dance (Category ID = 28)</li>
+<li>Tanztheater | Dance Theatre (Category ID = 27)</li>
+</ul></li>
+<li>Performance | Performance (Category ID = 4)
+
+<ul>
+<li>Cross Media | Cross Media (Category ID = 30)</li>
+<li>Lecture Performance | Lecture Performance (Category ID = 31)</li>
+<li>Performance | Performance (Category ID = 32)</li>
+<li>Installation | Installation (Category ID = 34)</li>
+</ul></li>
+<li>Konzert | Concert (Category ID = 5)
+
+<ul>
+<li>Sinfoniekonzert | Symphony Concert (Category ID = 89)</li>
+<li>Klassik | Classic (Category ID = 43)</li>
+<li>Kammermusik | Chamber Music (Category ID = 90)</li>
+<li>Liederabend | Song Recital (Category ID = 44)</li>
+<li>Neue Musik | New Music (Category ID = 45)</li>
+<li>A cappella | A cappella (Category ID = 94)</li>
+<li>Blues | Blues (Category ID = 35)</li>
+<li>Chanson | Chanson (Category ID = 36)</li>
+<li>Country | Country (Category ID = 37)</li>
+<li>Elektronische Musik | Electronic Music (Category ID = 38)</li>
+<li>Folk | Folk (Category ID = 39)</li>
+<li>Funk | Funk (Category ID = 40)</li>
+<li>Hip Hop | Hip Hop (Category ID = 41)</li>
+<li>Schlager | Schlager (Category ID = 93)</li>
+<li>Jazz | Jazz (Category ID = 42)</li>
+<li>Pop | Pop (Category ID = 46)</li>
+<li>Rock | Rock (Category ID = 47)</li>
+<li>Soul | Soul (Category ID = 48)</li>
+<li>Crossover | Crossover (Category ID = 49)</li>
+<li>World Music | World Music (Category ID = 50)</li>
+</ul></li>
+<li>Comedy &amp; Kabarett | Comedy &amp; Cabaret (Category ID = 7)
+
+<ul>
+<li>Comedy | Comedy (Category ID = 56)</li>
+<li>Kabarett | Cabaret (Category ID = 57)</li>
+</ul></li>
+<li>Entertainment | Entertainment (Category ID = 6)
+
+<ul>
+<li>Show | Spectacular (Category ID = 53)</li>
+<li>Revue | Revue (Category ID = 52)</li>
+<li>Varieté | Varieté (Category ID = 54)</li>
+<li>Burlesque | Burlesque (Category ID = 88)</li>
+<li>New Circus | New Circus (Category ID = 51)</li>
+<li>Zirkus | Circus (Category ID = 55)</li>
+</ul></li>
+<li>Figurentheater | Figure Theater (Category ID = 62)
+
+<ul>
+<li>Puppentheater | Puppet Theater (Category ID = 66)</li>
+<li>Figurentheater | Figure Theater (Category ID = 84)</li>
+<li>Objekttheater | Object Theater (Category ID = 65)</li>
+</ul></li>
+<li>Kinder &amp; Jugend | Children &amp; Youth (Category ID = 8)
+
+<ul>
+<li>Jugend (ab  14 Jahre) | Youth (from 14 years old) (Category ID = 63)</li>
+<li>Kinder (bis 13 Jahre) | Children (till 13 years old) (Category ID = 64)</li>
+<li>Kleinkind (bis 6 Jahre) | Young children (till 6 years old) (Category ID = 91)</li>
+<li>Kleinstkind (bis 2 Jahre) | Toddlers (till 2 years old) (Category ID = 92)</li>
+</ul></li>
+<li>Literatur | Literature (Category ID = 86)
+
+<ul>
+<li>Lesung | Reading (Category ID = 15)</li>
+<li>Poetry Slam | Poetry Slam (Category ID = 87)</li>
+<li>Szenische Lesung | Staged Reading (Category ID = 85)</li>
+</ul></li>
+<li>Diskurs | Discourse (Category ID = 9)
+
+<ul>
+<li>Gespräch | Conversation (Category ID = 83)</li>
+<li>Diskussion | Discussion (Category ID = 68)</li>
+<li>Konferenz | Conference (Category ID = 69)</li>
+<li>Lecture Performance | Lecture Performance (Category ID = 70)</li>
+<li>Symposium | Symposium (Category ID = 71)</li>
+<li>Tagung | Meeting (Category ID = 72)</li>
+<li>Vortrag | Lecture (Category ID = 73)</li>
+</ul></li>
+<li>Sonstiges | Other (Category ID = 10)
+
+<ul>
+<li>Ausstellung | Exhibition (Category ID = 74)</li>
+<li>Fest | Feast (Category ID = 75)</li>
+<li>Film/Video | Film / Video (Category ID = 76)</li>
+<li>Fotografie | Photography (Category ID = 77)</li>
+<li>Führung | Guided tour (Category ID = 78)</li>
+<li>Neue Medien | New Media (Category ID = 79)</li>
+<li>Party | Party (Category ID = 80)</li>
+<li>Spezial | Special (Category ID = 81)</li>
+<li>Workshop | Workshop  Action (Category ID = 82)</li>
+</ul></li>
+</ul>
+
+<p>For example, if a production can be classified as &quot;Tanz&quot;, &quot;Ballet&quot;, and &quot;Neue Medien&quot; (under &quot;Sonstiges&quot;), the following XML should be set:</p>
+
+<div><pre class="line-numbers"><code class="language-markup">&lt;categories&gt;
+    &lt;category_id&gt;3&lt;/category_id&gt;
+    &lt;category_id&gt;25&lt;/category_id&gt;
+    &lt;category_id&gt;10&lt;/category_id&gt;
+    &lt;category_id&gt;79&lt;/category_id&gt;
+&lt;/categories&gt;</code></pre></div>
+
+<h3 id="toc_9">The Production Characteristics</h3>
+
+<p>This is a list of all available characteristics with IDs to enter as values at <code>&lt;characteristic_id&gt;</code> of the production:</p>
+
+<ul>
+<li>On Tour | On Tour (ID = &quot;on-tour&quot;)</li>
+<li>Gastspiel | Guest Play (ID = &quot;gastspiel&quot;)</li>
+<li>Repertoire | Repertoire (ID = &quot;repertoire&quot;)</li>
+<li>Wiederaufnahme | Replay (ID = &quot;wiederaufnahme&quot;)</li>
+<li>Uraufführung | Premiere (ID = &quot;urauffuehrung&quot;)</li>
+</ul>
+
+<p>For example, if a production can be classified as &quot;Gastspiel&quot;, the following XML should be set:</p>
+
+<div><pre class="line-numbers"><code class="language-markup">&lt;characteristics&gt;
+    &lt;characteristic_id&gt;gastspiel&lt;/characteristic_id&gt;
+&lt;/characteristics&gt;</code></pre></div>
+
+<h3 id="toc_10">The Leaders, Authors, and Participants for Productions or Events</h3>
+
+<p>The <code>&lt;leaders&gt;</code> node contains a list of <code>&lt;leader&gt;</code> nodes with such content:</p>
+
+<table>
 <thead>
 <tr>
 <th>Node</th>
@@ -900,6 +1682,7 @@
 <th>Example</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
 <td><code>&lt;prefix_id&gt;</code></td>
@@ -917,7 +1700,7 @@
 </tr>
 <tr>
 <td><code>&lt;last_name&gt;</code></td>
-<td>xs:string</td>
+<td>xs:string </td>
 <td>yes</td>
 <td>Last name of the person</td>
 <td>Mustermann</td>
@@ -944,7 +1727,11 @@
 <td>1</td>
 </tr>
 </tbody>
-</table><p>The <code>&lt;authors&gt;</code> node contains a list of <code>&lt;author&gt;</code> nodes with such content:</p><table>
+</table>
+
+<p>The <code>&lt;authors&gt;</code> node contains a list of <code>&lt;author&gt;</code> nodes with such content:</p>
+
+<table>
 <thead>
 <tr>
 <th>Node</th>
@@ -954,6 +1741,7 @@
 <th>Example</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
 <td><code>&lt;prefix_id&gt;</code></td>
@@ -971,7 +1759,7 @@
 </tr>
 <tr>
 <td><code>&lt;last_name&gt;</code></td>
-<td>xs:string</td>
+<td>xs:string </td>
 <td>yes</td>
 <td>Last name of the person</td>
 <td>Mustermann</td>
@@ -980,7 +1768,7 @@
 <td><code>&lt;authorship_type_id&gt;</code></td>
 <td>xs:string</td>
 <td>yes</td>
-<td>Authorship type. One of: “komponist”, “autor”, “uebersetzer”</td>
+<td>Authorship type. One of: &quot;komponist&quot;, &quot;autor&quot;, &quot;uebersetzer&quot;</td>
 <td>komponist</td>
 </tr>
 <tr>
@@ -991,7 +1779,11 @@
 <td>1</td>
 </tr>
 </tbody>
-</table><p>The <code>&lt;participants&gt;</code> node contains a list of <code>&lt;participant&gt;</code> nodes with such content:</p><table>
+</table>
+
+<p>The <code>&lt;participants&gt;</code> node contains a list of <code>&lt;participant&gt;</code> nodes with such content:</p>
+
+<table>
 <thead>
 <tr>
 <th>Node</th>
@@ -1001,6 +1793,7 @@
 <th>Example</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
 <td><code>&lt;prefix_id&gt;</code></td>
@@ -1018,7 +1811,7 @@
 </tr>
 <tr>
 <td><code>&lt;last_name&gt;</code></td>
-<td>xs:string</td>
+<td>xs:string </td>
 <td>yes</td>
 <td>Last name of the person or a title of a group</td>
 <td>Mustermann</td>
@@ -1032,15 +1825,15 @@
 </tr>
 <tr>
 <td><code>&lt;role_de&gt;</code></td>
-<td>xs:string</td>
-<td>no</td>
+<td> xs:string</td>
+<td> no</td>
 <td>Role in German</td>
 <td>Rotkäppchen</td>
 </tr>
 <tr>
 <td><code>&lt;role_en&gt;</code></td>
-<td>xs:string</td>
-<td>no</td>
+<td> xs:string</td>
+<td> no</td>
 <td>Role in English</td>
 <td>Little Red Riding Hood</td>
 </tr>
@@ -1066,83 +1859,109 @@
 <td>1</td>
 </tr>
 </tbody>
-</table><p>Either <code>&lt;involvement_type_id&gt;</code>, or <code>&lt;role_*&gt;</code>, or <code>&lt;instrument_*&gt;</code> should be provided.</p><p>Prefixes and their IDs are these:</p><ul>
-<li>Herr | Mr. (ID = “mr”)</li><li>Frau | Mrs./Ms. (ID = “ms”)</li><li>Dr. | Dr. (ID = “dr”)</li><li>Prof. | Prof. (ID = “prof”)</li><li>Herr Dr. | Mr. Dr. (ID = “mr-dr”)</li><li>Frau Dr. | Ms. Dr. (ID = “ms-dr”)</li><li>Herr Prof. | Mr. Prof. (ID = “mr-prof”)</li><li>Frau Prof. | Ms. Prof. (ID = “ms-prof”)</li><li>Herr Prof. Dr. | Mr. Prof. Dr. (ID = “mr-prof-dr”)</li><li>Frau Prof. Dr. | Ms. Prof. Dr. (ID = “ms-prof-dr”)</li></ul><p>Involvement types and their IDs are these:</p><ul>
-<li>Ausstatter/-in | Decorator (ID = “ausstatter”)</li><li>Bühnenbildner/-in | Scene builder (ID = “buhnenbildner”)</li><li>Chor | Choir (ID = “chor”)</li><li>Choreografie | Choreography (ID = “choreografie”)</li><li>Dirigent/ -in | Director of an orchestra, chorus (ID = “dirigent”)</li><li>Diskussionsteilnehmer/ -in | Discussant (ID = “diskussionsteilnehmer”)</li><li>Dramaturgie | Dramaturgy (ID = “dramaturgie”)</li><li>Einrichtung | arrangement (ID = “einrichtung”)</li><li>Einstudierung | Rehearsal (ID = “einstudierung”)</li><li>Ensemble | Ensemble (ID = “ensemble”)</li><li>Inspizient / -in | Stage caller (ID = “inspizient”)</li><li>Kostüme | Costumes (ID = “kostume”)</li><li>Künstler/ -in | Artist (ID = “kuenstler”)</li><li>Künstlerische Leitung | Artistic director (ID = “kunstlerische-leitung”)</li><li>Licht | Light (ID = “licht”)</li><li>Moderator/-in | Moderator (ID = “moderator”)</li><li>Musik | Music (ID = “musik”)</li><li>Orchester | Orchestra (ID = “orchester”)</li><li>Performer/-in |  (ID = “performer”)</li><li>Produktionsleitung |  (ID = “produktionsleitung”)</li><li>Pyrothechnik | Pyrotechnic (ID = “pyrothechnik”)</li><li>Referent/-in | Speaker (ID = “referent”)</li><li>Regie | Direction (ID = “regie”)</li><li>Regieassistenz | Direction assistence (ID = “regieassistenz”)</li><li>Requisite | Prop (ID = “requisite”)</li><li>Rezitation | Reciting (ID = “rezitation”)</li><li>Sänger/-in | Singer (ID = “saenger”)</li><li>Schauspieler / -in | Actor (ID = “schauspieler”)</li><li>Solist/-in | Soloist (ID = “solist”)</li><li>Souffleur/Souffleuse | Prompter (ID = “souffleur-souffleuse”)</li><li>Statisterie | Background actor (ID = “statisterie”)</li><li>Tänzer/-in | Dancer (ID = “taenzer”)</li><li>Text | Text (ID = “text”)</li><li>Video | Video (ID = “video”)</li></ul><p>For example, the leaders, authors and participants can be defined like this:</p><pre class="xml hljs"><code class="xml" data-origin="<pre><code class=&quot;xml&quot;>&amp;lt;leaders&amp;gt;
-    &amp;lt;leader&amp;gt;
-        &amp;lt;prefix_id&amp;gt;ms-dr&amp;lt;/prefix_id&amp;gt;
-        &amp;lt;first_name&amp;gt;Erika&amp;lt;/first_name&amp;gt;
-        &amp;lt;last_name&amp;gt;Mustermann&amp;lt;/last_name&amp;gt;
-        &amp;lt;function_de&amp;gt;Direktorin&amp;lt;/function_de&amp;gt;
-        &amp;lt;function_en&amp;gt;Director&amp;lt;/function_en&amp;gt;
-        &amp;lt;sort_order&amp;gt;1&amp;lt;/sort_order&amp;gt;
-    &amp;lt;/leader&amp;gt;
-&amp;lt;/leaders&amp;gt;
-&amp;lt;authors&amp;gt;
-    &amp;lt;author&amp;gt;
-        &amp;lt;prefix_id&amp;gt;mr&amp;lt;/prefix_id&amp;gt;
-        &amp;lt;first_name&amp;gt;Max&amp;lt;/first_name&amp;gt;
-        &amp;lt;last_name&amp;gt;Mustermann&amp;lt;/last_name&amp;gt;
-        &amp;lt;authorship_type_id&amp;gt;komponist&amp;lt;/authorship_type_id&amp;gt;
-        &amp;lt;sort_order&amp;gt;1&amp;lt;/sort_order&amp;gt;
-    &amp;lt;/author&amp;gt;
-&amp;lt;/authors&amp;gt;
-&amp;lt;participants&amp;gt;
-    &amp;lt;participant&amp;gt;
-        &amp;lt;first_name&amp;gt;Otto&amp;lt;/first_name&amp;gt;
-        &amp;lt;last_name&amp;gt;Normalverbraucher&amp;lt;/last_name&amp;gt;
-        &amp;lt;involvement_type_id&amp;gt;musik&amp;lt;/involvement_type_id&amp;gt;
-        &amp;lt;instrument_de&amp;gt;Klavier&amp;lt;/instrument_de&amp;gt;
-        &amp;lt;instrument_en&amp;gt;Piano&amp;lt;/instrument_en&amp;gt;
-        &amp;lt;sort_order&amp;gt;1&amp;lt;/sort_order&amp;gt;
-    &amp;lt;/participant&amp;gt;
-    &amp;lt;participant&amp;gt;
-        &amp;lt;first_name&amp;gt;Lieschen&amp;lt;/first_name&amp;gt;
-        &amp;lt;last_name&amp;gt;Müller&amp;lt;/last_name&amp;gt;
-        &amp;lt;involvement_type_id&amp;gt;schauspieler&amp;lt;/involvement_type_id&amp;gt;
-        &amp;lt;role_de&amp;gt;Rotkäppchen&amp;lt;/role_de&amp;gt;
-        &amp;lt;role_en&amp;gt;Little Red Riding Hood&amp;lt;/role_en&amp;gt;
-        &amp;lt;sort_order&amp;gt;2&amp;lt;/sort_order&amp;gt;
-    &amp;lt;/participant&amp;gt;
-&amp;lt;/participants&amp;gt;
-</code></pre>"><span class="hljs-tag">&lt;<span class="hljs-title">leaders</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">leader</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">prefix_id</span>&gt;</span>ms-dr<span class="hljs-tag">&lt;/<span class="hljs-title">prefix_id</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">first_name</span>&gt;</span>Erika<span class="hljs-tag">&lt;/<span class="hljs-title">first_name</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">last_name</span>&gt;</span>Mustermann<span class="hljs-tag">&lt;/<span class="hljs-title">last_name</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">function_de</span>&gt;</span>Direktorin<span class="hljs-tag">&lt;/<span class="hljs-title">function_de</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">function_en</span>&gt;</span>Director<span class="hljs-tag">&lt;/<span class="hljs-title">function_en</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">sort_order</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-title">sort_order</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">leader</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">leaders</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">authors</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">author</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">prefix_id</span>&gt;</span>mr<span class="hljs-tag">&lt;/<span class="hljs-title">prefix_id</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">first_name</span>&gt;</span>Max<span class="hljs-tag">&lt;/<span class="hljs-title">first_name</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">last_name</span>&gt;</span>Mustermann<span class="hljs-tag">&lt;/<span class="hljs-title">last_name</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">authorship_type_id</span>&gt;</span>komponist<span class="hljs-tag">&lt;/<span class="hljs-title">authorship_type_id</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">sort_order</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-title">sort_order</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">author</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">authors</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">participants</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">participant</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">first_name</span>&gt;</span>Otto<span class="hljs-tag">&lt;/<span class="hljs-title">first_name</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">last_name</span>&gt;</span>Normalverbraucher<span class="hljs-tag">&lt;/<span class="hljs-title">last_name</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">involvement_type_id</span>&gt;</span>musik<span class="hljs-tag">&lt;/<span class="hljs-title">involvement_type_id</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">instrument_de</span>&gt;</span>Klavier<span class="hljs-tag">&lt;/<span class="hljs-title">instrument_de</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">instrument_en</span>&gt;</span>Piano<span class="hljs-tag">&lt;/<span class="hljs-title">instrument_en</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">sort_order</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-title">sort_order</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">participant</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">participant</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">first_name</span>&gt;</span>Lieschen<span class="hljs-tag">&lt;/<span class="hljs-title">first_name</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">last_name</span>&gt;</span>Müller<span class="hljs-tag">&lt;/<span class="hljs-title">last_name</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">involvement_type_id</span>&gt;</span>schauspieler<span class="hljs-tag">&lt;/<span class="hljs-title">involvement_type_id</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">role_de</span>&gt;</span>Rotkäppchen<span class="hljs-tag">&lt;/<span class="hljs-title">role_de</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">role_en</span>&gt;</span>Little Red Riding Hood<span class="hljs-tag">&lt;/<span class="hljs-title">role_en</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">sort_order</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-title">sort_order</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">participant</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">participants</span>&gt;</span>
-</code></pre><h3 id="videos,-live-streams,-images,-and-pdf-documents-for-productions-or-events"><a name="videos,-live-streams,-images,-and-pdf-documents-for-productions-or-events" href="#videos,-live-streams,-images,-and-pdf-documents-for-productions-or-events"></a>Videos, Live Streams, Images, and PDF Documents for Productions or Events</h3><p>The <code>&lt;videos&gt;</code> node contains a list of <code>&lt;video&gt;</code> nodes with such content:</p><table>
+</table>
+
+<p>Either <code>&lt;involvement_type_id&gt;</code>, or <code>&lt;role_*&gt;</code>, or <code>&lt;instrument_*&gt;</code> should be provided.</p>
+
+<p>Prefixes and their IDs are these:</p>
+
+<ul>
+<li>Herr | Mr. (ID = &quot;mr&quot;)</li>
+<li>Frau | Mrs./Ms. (ID = &quot;ms&quot;)</li>
+<li>Dr. | Dr. (ID = &quot;dr&quot;)</li>
+<li>Prof. | Prof. (ID = &quot;prof&quot;)</li>
+<li>Herr Dr. | Mr. Dr. (ID = &quot;mr-dr&quot;)</li>
+<li>Frau Dr. | Ms. Dr. (ID = &quot;ms-dr&quot;)</li>
+<li>Herr Prof. | Mr. Prof. (ID = &quot;mr-prof&quot;)</li>
+<li>Frau Prof. | Ms. Prof. (ID = &quot;ms-prof&quot;)</li>
+<li>Herr Prof. Dr. | Mr. Prof. Dr. (ID = &quot;mr-prof-dr&quot;)</li>
+<li>Frau Prof. Dr. | Ms. Prof. Dr. (ID = &quot;ms-prof-dr&quot;)</li>
+</ul>
+
+<p>Involvement types and their IDs are these:</p>
+
+<ul>
+<li>Ausstatter/-in | Decorator (ID = &quot;ausstatter&quot;)</li>
+<li>Bühnenbildner/-in | Scene builder (ID = &quot;buhnenbildner&quot;)</li>
+<li>Chor | Choir (ID = &quot;chor&quot;)</li>
+<li>Choreografie | Choreography (ID = &quot;choreografie&quot;)</li>
+<li>Dirigent/ -in | Director of an orchestra, chorus (ID = &quot;dirigent&quot;)</li>
+<li>Diskussionsteilnehmer/ -in | Discussant (ID = &quot;diskussionsteilnehmer&quot;)</li>
+<li>Dramaturgie | Dramaturgy (ID = &quot;dramaturgie&quot;)</li>
+<li>Einrichtung | arrangement (ID = &quot;einrichtung&quot;)</li>
+<li>Einstudierung | Rehearsal (ID = &quot;einstudierung&quot;)</li>
+<li>Ensemble | Ensemble (ID = &quot;ensemble&quot;)</li>
+<li>Inspizient / -in | Stage caller (ID = &quot;inspizient&quot;)</li>
+<li>Kostüme | Costumes (ID = &quot;kostume&quot;)</li>
+<li>Künstler/ -in | Artist (ID = &quot;kuenstler&quot;)</li>
+<li>Künstlerische Leitung | Artistic director (ID = &quot;kunstlerische-leitung&quot;)</li>
+<li>Licht | Light (ID = &quot;licht&quot;)</li>
+<li>Moderator/-in | Moderator (ID = &quot;moderator&quot;)</li>
+<li>Musik | Music (ID = &quot;musik&quot;)</li>
+<li>Orchester | Orchestra (ID = &quot;orchester&quot;)</li>
+<li>Performer/-in |  (ID = &quot;performer&quot;)</li>
+<li>Produktionsleitung |  (ID = &quot;produktionsleitung&quot;)</li>
+<li>Pyrothechnik | Pyrotechnic (ID = &quot;pyrothechnik&quot;)</li>
+<li>Referent/-in | Speaker (ID = &quot;referent&quot;)</li>
+<li>Regie | Direction (ID = &quot;regie&quot;)</li>
+<li>Regieassistenz | Direction assistence (ID = &quot;regieassistenz&quot;)</li>
+<li>Requisite | Prop (ID = &quot;requisite&quot;)</li>
+<li>Rezitation | Reciting (ID = &quot;rezitation&quot;)</li>
+<li>Sänger/-in | Singer (ID = &quot;saenger&quot;)</li>
+<li>Schauspieler / -in | Actor (ID = &quot;schauspieler&quot;)</li>
+<li>Solist/-in | Soloist (ID = &quot;solist&quot;)</li>
+<li>Souffleur/Souffleuse | Prompter (ID = &quot;souffleur-souffleuse&quot;)</li>
+<li>Statisterie | Background actor (ID = &quot;statisterie&quot;)</li>
+<li>Tänzer/-in | Dancer (ID = &quot;taenzer&quot;)</li>
+<li>Text | Text (ID = &quot;text&quot;)</li>
+<li>Video | Video (ID = &quot;video&quot;)</li>
+</ul>
+
+<p>For example, the leaders, authors and participants can be defined like this:</p>
+
+<div><pre class="line-numbers"><code class="language-markup">&lt;leaders&gt;
+    &lt;leader&gt;
+        &lt;prefix_id&gt;ms-dr&lt;/prefix_id&gt;
+        &lt;first_name&gt;Erika&lt;/first_name&gt;
+        &lt;last_name&gt;Mustermann&lt;/last_name&gt;
+        &lt;function_de&gt;Direktorin&lt;/function_de&gt;
+        &lt;function_en&gt;Director&lt;/function_en&gt;
+        &lt;sort_order&gt;1&lt;/sort_order&gt;
+    &lt;/leader&gt;
+&lt;/leaders&gt;
+&lt;authors&gt;
+    &lt;author&gt;
+        &lt;prefix_id&gt;mr&lt;/prefix_id&gt;
+        &lt;first_name&gt;Max&lt;/first_name&gt;
+        &lt;last_name&gt;Mustermann&lt;/last_name&gt;
+        &lt;authorship_type_id&gt;komponist&lt;/authorship_type_id&gt;
+        &lt;sort_order&gt;1&lt;/sort_order&gt;
+    &lt;/author&gt;
+&lt;/authors&gt;
+&lt;participants&gt;
+    &lt;participant&gt;
+        &lt;first_name&gt;Otto&lt;/first_name&gt;
+        &lt;last_name&gt;Normalverbraucher&lt;/last_name&gt;
+        &lt;involvement_type_id&gt;musik&lt;/involvement_type_id&gt;
+        &lt;instrument_de&gt;Klavier&lt;/instrument_de&gt;
+        &lt;instrument_en&gt;Piano&lt;/instrument_en&gt;
+        &lt;sort_order&gt;1&lt;/sort_order&gt;
+    &lt;/participant&gt;
+    &lt;participant&gt;
+        &lt;first_name&gt;Lieschen&lt;/first_name&gt;
+        &lt;last_name&gt;Müller&lt;/last_name&gt;
+        &lt;involvement_type_id&gt;schauspieler&lt;/involvement_type_id&gt;
+        &lt;role_de&gt;Rotkäppchen&lt;/role_de&gt;
+        &lt;role_en&gt;Little Red Riding Hood&lt;/role_en&gt;
+        &lt;sort_order&gt;2&lt;/sort_order&gt;
+    &lt;/participant&gt;
+&lt;/participants&gt;</code></pre></div>
+
+<h3 id="toc_11">Videos, Live Streams, Images, and PDF Documents for Productions or Events</h3>
+
+<p>The <code>&lt;videos&gt;</code> node contains a list of <code>&lt;video&gt;</code> nodes with such content:</p>
+
+<table>
 <thead>
 <tr>
 <th>Node</th>
@@ -1152,6 +1971,7 @@
 <th>Example</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
 <td><code>&lt;creation_date&gt;</code></td>
@@ -1186,7 +2006,7 @@
 <td>xs:string</td>
 <td>yes</td>
 <td>HTML embed code</td>
-<td><code>&lt;![CDATA[&lt;iframe src="http://example.com/videos/45645/embed/"&gt;&lt;/iframe&gt;]]&gt;</code></td>
+<td><code>&lt;![CDATA[&lt;iframe src=&quot;http://example.com/videos/45645/embed/&quot;&gt;&lt;/iframe&gt;]]&gt;</code></td>
 </tr>
 <tr>
 <td><code>&lt;sort_order&gt;</code></td>
@@ -1196,7 +2016,11 @@
 <td>1</td>
 </tr>
 </tbody>
-</table><p>The <code>&lt;live_streams&gt;</code> node contains a list of <code>&lt;live_stream&gt;</code> nodes with such content:</p><table>
+</table>
+
+<p>The <code>&lt;live_streams&gt;</code> node contains a list of <code>&lt;live_stream&gt;</code> nodes with such content:</p>
+
+<table>
 <thead>
 <tr>
 <th>Node</th>
@@ -1206,6 +2030,7 @@
 <th>Example</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
 <td><code>&lt;creation_date&gt;</code></td>
@@ -1240,7 +2065,7 @@
 <td>xs:string</td>
 <td>yes</td>
 <td>HTML embed code</td>
-<td><code>&lt;![CDATA[&lt;iframe src="http://example.com/live-videos/45645/embed/"&gt;&lt;/iframe&gt;]]&gt;</code></td>
+<td><code>&lt;![CDATA[&lt;iframe src=&quot;http://example.com/live-videos/45645/embed/&quot;&gt;&lt;/iframe&gt;]]&gt;</code></td>
 </tr>
 <tr>
 <td><code>&lt;sort_order&gt;</code></td>
@@ -1250,7 +2075,11 @@
 <td>1</td>
 </tr>
 </tbody>
-</table><p>The <code>&lt;images&gt;</code> node contains a list of <code>&lt;image&gt;</code> nodes with such content:</p><table>
+</table>
+
+<p>The <code>&lt;images&gt;</code> node contains a list of <code>&lt;image&gt;</code> nodes with such content:</p>
+
+<table>
 <thead>
 <tr>
 <th>Node</th>
@@ -1260,6 +2089,7 @@
 <th>Example</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
 <td><code>&lt;creation_date&gt;</code></td>
@@ -1321,7 +2151,7 @@
 <td><code>&lt;copyright_restrictions&gt;</code></td>
 <td>xs:string</td>
 <td>yes</td>
-<td>Permissions to use this photo. One of: “general_use” or “protected”</td>
+<td>Permissions to use this photo. One of: &quot;general_use&quot; or &quot;protected&quot;</td>
 <td>general_use</td>
 </tr>
 <tr>
@@ -1339,7 +2169,11 @@
 <td>1</td>
 </tr>
 </tbody>
-</table><p>The <code>&lt;pdfs&gt;</code> node contains a list of <code>&lt;pdf&gt;</code> nodes with such content:</p><table>
+</table>
+
+<p>The <code>&lt;pdfs&gt;</code> node contains a list of <code>&lt;pdf&gt;</code> nodes with such content:</p>
+
+<table>
 <thead>
 <tr>
 <th>Node</th>
@@ -1349,6 +2183,7 @@
 <th>Example</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
 <td><code>&lt;creation_date&gt;</code></td>
@@ -1421,105 +2256,65 @@
 <td>1</td>
 </tr>
 </tbody>
-</table><p>For example, videos, live streams, images, and PDF documents can be defined like this:</p><pre class="xml hljs"><code class="xml" data-origin="<pre><code class=&quot;xml&quot;>&amp;lt;videos&amp;gt;
-    &amp;lt;video&amp;gt;
-        &amp;lt;creation_date&amp;gt;2016-04-14T16:27:38&amp;lt;/creation_date&amp;gt;
-        &amp;lt;modified_date&amp;gt;2016-04-14T16:27:38&amp;lt;/modified_date&amp;gt;
-        &amp;lt;title_de&amp;gt;&amp;lt;/title_de&amp;gt;
-        &amp;lt;title_en&amp;gt;&amp;lt;/title_en&amp;gt;
-        &amp;lt;embed&amp;gt;&amp;lt;![CDATA[&amp;lt;iframe src=&quot;http://example.com/videos/45645/embed/&quot;&amp;gt;&amp;lt;/iframe&amp;gt;]]&amp;gt;&amp;lt;/embed&amp;gt;
-        &amp;lt;sort_order&amp;gt;1&amp;lt;/sort_order&amp;gt;
-    &amp;lt;/video&amp;gt;
-&amp;lt;/videos&amp;gt;
-&amp;lt;live_streams&amp;gt;
-    &amp;lt;live_stream&amp;gt;
-        &amp;lt;creation_date&amp;gt;2016-04-14T16:27:38&amp;lt;/creation_date&amp;gt;
-        &amp;lt;modified_date&amp;gt;2016-04-14T16:27:38&amp;lt;/modified_date&amp;gt;
-        &amp;lt;title_de&amp;gt;&amp;lt;/title_de&amp;gt;
-        &amp;lt;title_en&amp;gt;&amp;lt;/title_en&amp;gt;
-        &amp;lt;embed&amp;gt;&amp;lt;![CDATA[&amp;lt;iframe src=&quot;http://example.com/live-videos/45645/embed/&quot;&amp;gt;&amp;lt;/iframe&amp;gt;]]&amp;gt;&amp;lt;/embed&amp;gt;
-        &amp;lt;sort_order&amp;gt;1&amp;lt;/sort_order&amp;gt;
-    &amp;lt;/live_stream&amp;gt;
-&amp;lt;/live_streams&amp;gt;
-&amp;lt;images&amp;gt;
-    &amp;lt;image&amp;gt;
-        &amp;lt;creation_date&amp;gt;2016-04-14T16:27:38&amp;lt;/creation_date&amp;gt;
-        &amp;lt;modified_date&amp;gt;2016-04-14T16:27:38&amp;lt;/modified_date&amp;gt;
-        &amp;lt;url&amp;gt;http://example.com/media/589231.jpg&amp;lt;/url&amp;gt;
-        &amp;lt;title_de&amp;gt;&amp;lt;/title_de&amp;gt;
-        &amp;lt;title_en&amp;gt;&amp;lt;/title_en&amp;gt;
-        &amp;lt;description_de&amp;gt;&amp;lt;/description_de&amp;gt;
-        &amp;lt;description_en&amp;gt;&amp;lt;/description_en&amp;gt;
-        &amp;lt;author&amp;gt;&amp;lt;/author&amp;gt;
-        &amp;lt;copyright_restrictions&amp;gt;general_use&amp;lt;/copyright_restrictions&amp;gt;
-        &amp;lt;copyright&amp;gt;© 2016 example.com&amp;lt;/copyright&amp;gt;
-        &amp;lt;sort_order&amp;gt;1&amp;lt;/sort_order&amp;gt;
-    &amp;lt;/image&amp;gt;
-&amp;lt;/images&amp;gt;
-&amp;lt;pdfs&amp;gt;
-    &amp;lt;pdf&amp;gt;
-        &amp;lt;creation_date&amp;gt;2016-04-14T16:27:38&amp;lt;/creation_date&amp;gt;
-        &amp;lt;modified_date&amp;gt;2016-04-14T16:27:38&amp;lt;/modified_date&amp;gt;
-        &amp;lt;url&amp;gt;http://example.com/media/564285.pdf&amp;lt;/url&amp;gt;
-        &amp;lt;title_de&amp;gt;&amp;lt;/title_de&amp;gt;
-        &amp;lt;title_en&amp;gt;&amp;lt;/title_en&amp;gt;
-        &amp;lt;description_de&amp;gt;&amp;lt;/description_de&amp;gt;
-        &amp;lt;description_en&amp;gt;&amp;lt;/description_en&amp;gt;
-        &amp;lt;author&amp;gt;&amp;lt;/author&amp;gt;
-        &amp;lt;copyright&amp;gt;© 2016 example.com&amp;lt;/copyright&amp;gt;
-        &amp;lt;sort_order&amp;gt;1&amp;lt;/sort_order&amp;gt;
-    &amp;lt;/pdf&amp;gt;
-&amp;lt;/pdfs&amp;gt;
-</code></pre>"><span class="hljs-tag">&lt;<span class="hljs-title">videos</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">video</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">creation_date</span>&gt;</span>2016-04-14T16:27:38<span class="hljs-tag">&lt;/<span class="hljs-title">creation_date</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">modified_date</span>&gt;</span>2016-04-14T16:27:38<span class="hljs-tag">&lt;/<span class="hljs-title">modified_date</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">title_de</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">title_de</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">title_en</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">title_en</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">embed</span>&gt;</span><span class="hljs-cdata">&lt;![CDATA[&lt;iframe src="http://example.com/videos/45645/embed/"&gt;&lt;/iframe&gt;]]&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">embed</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">sort_order</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-title">sort_order</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">video</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">videos</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">live_streams</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">live_stream</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">creation_date</span>&gt;</span>2016-04-14T16:27:38<span class="hljs-tag">&lt;/<span class="hljs-title">creation_date</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">modified_date</span>&gt;</span>2016-04-14T16:27:38<span class="hljs-tag">&lt;/<span class="hljs-title">modified_date</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">title_de</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">title_de</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">title_en</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">title_en</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">embed</span>&gt;</span><span class="hljs-cdata">&lt;![CDATA[&lt;iframe src="http://example.com/live-videos/45645/embed/"&gt;&lt;/iframe&gt;]]&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">embed</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">sort_order</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-title">sort_order</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">live_stream</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">live_streams</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">images</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">image</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">creation_date</span>&gt;</span>2016-04-14T16:27:38<span class="hljs-tag">&lt;/<span class="hljs-title">creation_date</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">modified_date</span>&gt;</span>2016-04-14T16:27:38<span class="hljs-tag">&lt;/<span class="hljs-title">modified_date</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">url</span>&gt;</span>http://example.com/media/589231.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">url</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">title_de</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">title_de</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">title_en</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">title_en</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">description_de</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">description_de</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">description_en</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">description_en</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">author</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">author</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">copyright_restrictions</span>&gt;</span>general_use<span class="hljs-tag">&lt;/<span class="hljs-title">copyright_restrictions</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">copyright</span>&gt;</span>© 2016 example.com<span class="hljs-tag">&lt;/<span class="hljs-title">copyright</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">sort_order</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-title">sort_order</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">image</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">images</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">pdfs</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">pdf</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">creation_date</span>&gt;</span>2016-04-14T16:27:38<span class="hljs-tag">&lt;/<span class="hljs-title">creation_date</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">modified_date</span>&gt;</span>2016-04-14T16:27:38<span class="hljs-tag">&lt;/<span class="hljs-title">modified_date</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">url</span>&gt;</span>http://example.com/media/564285.pdf<span class="hljs-tag">&lt;/<span class="hljs-title">url</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">title_de</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">title_de</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">title_en</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">title_en</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">description_de</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">description_de</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">description_en</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">description_en</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">author</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">author</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">copyright</span>&gt;</span>© 2016 example.com<span class="hljs-tag">&lt;/<span class="hljs-title">copyright</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">sort_order</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-title">sort_order</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">pdf</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">pdfs</span>&gt;</span>
-</code></pre><h3 id="social-media-for-productions"><a name="social-media-for-productions" href="#social-media-for-productions"></a>Social media for Productions</h3><p>The <code>&lt;social_media&gt;</code> node contains a list of <code>&lt;social_media_channel&gt;</code> nodes with such content:</p><table>
+</table>
+
+<p>For example, videos, live streams, images, and PDF documents can be defined like this:</p>
+
+<div><pre class="line-numbers"><code class="language-markup">&lt;videos&gt;
+    &lt;video&gt;
+        &lt;creation_date&gt;2016-04-14T16:27:38&lt;/creation_date&gt;
+        &lt;modified_date&gt;2016-04-14T16:27:38&lt;/modified_date&gt;
+        &lt;title_de&gt;&lt;/title_de&gt;
+        &lt;title_en&gt;&lt;/title_en&gt;
+        &lt;embed&gt;&lt;![CDATA[&lt;iframe src=&quot;http://example.com/videos/45645/embed/&quot;&gt;&lt;/iframe&gt;]]&gt;&lt;/embed&gt;
+        &lt;sort_order&gt;1&lt;/sort_order&gt;
+    &lt;/video&gt;
+&lt;/videos&gt;
+&lt;live_streams&gt;
+    &lt;live_stream&gt;
+        &lt;creation_date&gt;2016-04-14T16:27:38&lt;/creation_date&gt;
+        &lt;modified_date&gt;2016-04-14T16:27:38&lt;/modified_date&gt;
+        &lt;title_de&gt;&lt;/title_de&gt;
+        &lt;title_en&gt;&lt;/title_en&gt;
+        &lt;embed&gt;&lt;![CDATA[&lt;iframe src=&quot;http://example.com/live-videos/45645/embed/&quot;&gt;&lt;/iframe&gt;]]&gt;&lt;/embed&gt;
+        &lt;sort_order&gt;1&lt;/sort_order&gt;
+    &lt;/live_stream&gt;
+&lt;/live_streams&gt;
+&lt;images&gt;
+    &lt;image&gt;
+        &lt;creation_date&gt;2016-04-14T16:27:38&lt;/creation_date&gt;
+        &lt;modified_date&gt;2016-04-14T16:27:38&lt;/modified_date&gt;
+        &lt;url&gt;http://example.com/media/589231.jpg&lt;/url&gt;
+        &lt;title_de&gt;&lt;/title_de&gt;
+        &lt;title_en&gt;&lt;/title_en&gt;
+        &lt;description_de&gt;&lt;/description_de&gt;
+        &lt;description_en&gt;&lt;/description_en&gt;
+        &lt;author&gt;&lt;/author&gt;
+        &lt;copyright_restrictions&gt;general_use&lt;/copyright_restrictions&gt;
+        &lt;copyright&gt;© 2016 example.com&lt;/copyright&gt;
+        &lt;sort_order&gt;1&lt;/sort_order&gt;
+    &lt;/image&gt;
+&lt;/images&gt;
+&lt;pdfs&gt;
+    &lt;pdf&gt;
+        &lt;creation_date&gt;2016-04-14T16:27:38&lt;/creation_date&gt;
+        &lt;modified_date&gt;2016-04-14T16:27:38&lt;/modified_date&gt;
+        &lt;url&gt;http://example.com/media/564285.pdf&lt;/url&gt;
+        &lt;title_de&gt;&lt;/title_de&gt;
+        &lt;title_en&gt;&lt;/title_en&gt;
+        &lt;description_de&gt;&lt;/description_de&gt;
+        &lt;description_en&gt;&lt;/description_en&gt;
+        &lt;author&gt;&lt;/author&gt;
+        &lt;copyright&gt;© 2016 example.com&lt;/copyright&gt;
+        &lt;sort_order&gt;1&lt;/sort_order&gt;
+    &lt;/pdf&gt;
+&lt;/pdfs&gt;</code></pre></div>
+
+<h3 id="toc_12">Social media for Productions</h3>
+
+<p>The <code>&lt;social_media&gt;</code> node contains a list of <code>&lt;social_media_channel&gt;</code> nodes with such content:</p>
+
+<table>
 <thead>
 <tr>
 <th>Node</th>
@@ -1529,12 +2324,13 @@
 <th>Example</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
 <td><code>&lt;channel_type&gt;</code></td>
 <td>xs:NCName</td>
 <td>yes</td>
-<td>Type of social media: “Facebook”, “Twitter”, “Google+”, etc.</td>
+<td>Type of social media: &quot;Facebook&quot;, &quot;Twitter&quot;, &quot;Google+&quot;, etc.</td>
 <td>Facebook</td>
 </tr>
 <tr>
@@ -1542,33 +2338,48 @@
 <td>xs:anyURI</td>
 <td>yes</td>
 <td>URL of social media profile</td>
-<td><a href="https://www.facebook.com/berlinbuehnen">https://www.facebook.com/berlinbuehnen</a></td>
+<td>https://www.facebook.com/berlinbuehnen</td>
 </tr>
 </tbody>
-</table><p>For example, Twitter and Facebook profiles for the production can be defined like this:</p><pre class="xml hljs"><code class="xml" data-origin="<pre><code class=&quot;xml&quot;>&amp;lt;social_media&amp;gt;
-    &amp;lt;social_media_channel&amp;gt;
-        &amp;lt;channel_type&amp;gt;Twitter&amp;lt;/channel_type&amp;gt;
-        &amp;lt;url&amp;gt;https://twitter.com/berlinbuehnen&amp;lt;/url&amp;gt;
-    &amp;lt;/social_media_channel&amp;gt;
-    &amp;lt;social_media_channel&amp;gt;
-        &amp;lt;channel_type&amp;gt;Facebook&amp;lt;/channel_type&amp;gt;
-        &amp;lt;url&amp;gt;https://www.facebook.com/berlinbuehnen&amp;lt;/url&amp;gt;
-    &amp;lt;/social_media_channel&amp;gt;
-&amp;lt;/social_media&amp;gt;
-</code></pre>"><span class="hljs-tag">&lt;<span class="hljs-title">social_media</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">social_media_channel</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">channel_type</span>&gt;</span>Twitter<span class="hljs-tag">&lt;/<span class="hljs-title">channel_type</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">url</span>&gt;</span>https://twitter.com/berlinbuehnen<span class="hljs-tag">&lt;/<span class="hljs-title">url</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">social_media_channel</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">social_media_channel</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">channel_type</span>&gt;</span>Facebook<span class="hljs-tag">&lt;/<span class="hljs-title">channel_type</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">url</span>&gt;</span>https://www.facebook.com/berlinbuehnen<span class="hljs-tag">&lt;/<span class="hljs-title">url</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">social_media_channel</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">social_media</span>&gt;</span>
-</code></pre><h3 id="language-and-subtitles-for-productions-or-events"><a name="language-and-subtitles-for-productions-or-events" href="#language-and-subtitles-for-productions-or-events"></a>Language and subtitles for Productions or Events</h3><p>This is a list of choices for the <code>&lt;language_and_subtitles_id&gt;</code> node:</p><ul>
-<li>In englischer Sprache | In English (ID = “in-englischer-sprache”)</li><li>Sprache kein Problem | Language no Problem (ID = “sprache-kein-problem”)</li><li>Mit englischen Übertiteln | With English surtitles (ID = “mit-engl-uebertiteln”)</li><li>Mit französischen Übertiteln | With French surtitles (ID = “mit-franzoesischen-uebertiteln”)</li><li>Andere Sprache | Other Languages (ID = “andere-sprache”)</li><li>Simultanübersetzung englisch-deutsch | Simultaneous translation English-German (ID = “simultanubersetzung-englisch-deutsch”)</li><li>In deutscher Sprache | In German (ID = “in-deutscher-sprache”)</li></ul><p>For example, if you want to tell that the language for production doesn’t matter, you would use such XML:</p><pre class="xml hljs"><code class="xml" data-origin="<pre><code class=&quot;xml&quot;>&amp;lt;language_and_subtitles_id&amp;gt;sprache-kein-problem&amp;lt;/language_and_subtitles_id&amp;gt;
-</code></pre>"><span class="hljs-tag">&lt;<span class="hljs-title">language_and_subtitles_id</span>&gt;</span>sprache-kein-problem<span class="hljs-tag">&lt;/<span class="hljs-title">language_and_subtitles_id</span>&gt;</span>
-</code></pre><h3 id="sponsors-for-productions-or-events"><a name="sponsors-for-productions-or-events" href="#sponsors-for-productions-or-events"></a>Sponsors for Productions or Events</h3><p>The <code>&lt;sponsors&gt;</code> node contains a list of <code>&lt;sponsor&gt;</code> nodes with such content:</p><table>
+</table>
+
+<p>For example, Twitter and Facebook profiles for the production can be defined like this:</p>
+
+<div><pre class="line-numbers"><code class="language-markup">&lt;social_media&gt;
+    &lt;social_media_channel&gt;
+        &lt;channel_type&gt;Twitter&lt;/channel_type&gt;
+        &lt;url&gt;https://twitter.com/berlinbuehnen&lt;/url&gt;
+    &lt;/social_media_channel&gt;
+    &lt;social_media_channel&gt;
+        &lt;channel_type&gt;Facebook&lt;/channel_type&gt;
+        &lt;url&gt;https://www.facebook.com/berlinbuehnen&lt;/url&gt;
+    &lt;/social_media_channel&gt;
+&lt;/social_media&gt;
+</code></pre></div>
+
+<h3 id="toc_13">Language and subtitles for Productions or Events</h3>
+
+<p>This is a list of choices for the <code>&lt;language_and_subtitles_id&gt;</code> node:</p>
+
+<ul>
+<li>In englischer Sprache | In English (ID = &quot;in-englischer-sprache&quot;)</li>
+<li>Sprache kein Problem | Language no Problem (ID = &quot;sprache-kein-problem&quot;)</li>
+<li>Mit englischen Übertiteln | With English surtitles (ID = &quot;mit-engl-uebertiteln&quot;)</li>
+<li>Mit französischen Übertiteln | With French surtitles (ID = &quot;mit-franzoesischen-uebertiteln&quot;)</li>
+<li>Andere Sprache | Other Languages (ID = &quot;andere-sprache&quot;)</li>
+<li>Simultanübersetzung englisch-deutsch | Simultaneous translation English-German (ID = &quot;simultanubersetzung-englisch-deutsch&quot;)</li>
+<li>In deutscher Sprache | In German (ID = &quot;in-deutscher-sprache&quot;)</li>
+</ul>
+
+<p>For example, if you want to tell that the language for production doesn&#39;t matter, you would use such XML:</p>
+
+<div><pre class="line-numbers"><code class="language-markup">&lt;language_and_subtitles_id&gt;sprache-kein-problem&lt;/language_and_subtitles_id&gt;</code></pre></div>
+
+<h3 id="toc_14">Sponsors for Productions or Events</h3>
+
+<p>The <code>&lt;sponsors&gt;</code> node contains a list of <code>&lt;sponsor&gt;</code> nodes with such content:</p>
+
+<table>
 <thead>
 <tr>
 <th>Node</th>
@@ -1578,6 +2389,7 @@
 <th>Example</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
 <td><code>&lt;creation_date&gt;</code></td>
@@ -1598,14 +2410,14 @@
 <td>xs:anyURI</td>
 <td>no</td>
 <td>URL of the sponsor website</td>
-<td><a href="http://example.com/sponsor/">http://example.com/sponsor/</a></td>
+<td>http://example.com/sponsor/</td>
 </tr>
 <tr>
 <td><code>&lt;image_url&gt;</code></td>
 <td>xs:anyURI</td>
 <td>no</td>
 <td>URL of the sponsor logo in JPG or PNG format</td>
-<td><a href="http://example.com/media/sponsor-logo.png">http://example.com/media/sponsor-logo.png</a></td>
+<td>http://example.com/media/sponsor-logo.png</td>
 </tr>
 <tr>
 <td><code>&lt;title_de&gt;</code></td>
@@ -1622,27 +2434,30 @@
 <td>&nbsp;</td>
 </tr>
 </tbody>
-</table><p>For example, a sponsor can be defined like this:</p><pre class="xml hljs"><code class="xml" data-origin="<pre><code class=&quot;xml&quot;>&amp;lt;sponsors&amp;gt;
-    &amp;lt;sponsor&amp;gt;
-        &amp;lt;creation_date&amp;gt;2016-04-14T16:27:38&amp;lt;/creation_date&amp;gt;
-        &amp;lt;modified_date&amp;gt;2016-04-14T16:27:38&amp;lt;/modified_date&amp;gt;
-        &amp;lt;website&amp;gt;http://example.com/sponsor/&amp;lt;/website&amp;gt;
-        &amp;lt;image_url&amp;gt;http://example.com/media/sponsor-logo.png&amp;lt;/image_url&amp;gt;
-        &amp;lt;title_de&amp;gt;Beispiel Sponsor&amp;lt;/title_de&amp;gt;
-        &amp;lt;title_en&amp;gt;Example Sponsor&amp;lt;/title_en&amp;gt;
-    &amp;lt;/sponsor&amp;gt;
-&amp;lt;/sponsors&amp;gt;
-</code></pre>"><span class="hljs-tag">&lt;<span class="hljs-title">sponsors</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">sponsor</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">creation_date</span>&gt;</span>2016-04-14T16:27:38<span class="hljs-tag">&lt;/<span class="hljs-title">creation_date</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">modified_date</span>&gt;</span>2016-04-14T16:27:38<span class="hljs-tag">&lt;/<span class="hljs-title">modified_date</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">website</span>&gt;</span>http://example.com/sponsor/<span class="hljs-tag">&lt;/<span class="hljs-title">website</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">image_url</span>&gt;</span>http://example.com/media/sponsor-logo.png<span class="hljs-tag">&lt;/<span class="hljs-title">image_url</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">title_de</span>&gt;</span>Beispiel Sponsor<span class="hljs-tag">&lt;/<span class="hljs-title">title_de</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">title_en</span>&gt;</span>Example Sponsor<span class="hljs-tag">&lt;/<span class="hljs-title">title_en</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">sponsor</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">sponsors</span>&gt;</span>
-</code></pre><h2 id="events"><a name="events" href="#events"></a>Events</h2><p>Events are specific dates and times when production is happening. If an event defines an XML node or XML node structure that exists for the production, it will overwrite the value of the production, otherwise the value from the production will be used at the Berlin Bühnen website. The <code>&lt;events&gt;</code> node contains a list of  <code>&lt;event&gt;</code> nodes.</p><h3 id="the-event-node"><a name="the-event-node" href="#the-event-node"></a>The Event Node</h3><p>These elements are available for the <code>&lt;event&gt;</code> node:</p><table>
+</table>
+
+<p>For example, a sponsor can be defined like this:</p>
+
+<div><pre class="line-numbers"><code class="language-markup">&lt;sponsors&gt;
+    &lt;sponsor&gt;
+        &lt;creation_date&gt;2016-04-14T16:27:38&lt;/creation_date&gt;
+        &lt;modified_date&gt;2016-04-14T16:27:38&lt;/modified_date&gt;
+        &lt;website&gt;http://example.com/sponsor/&lt;/website&gt;
+        &lt;image_url&gt;http://example.com/media/sponsor-logo.png&lt;/image_url&gt;
+        &lt;title_de&gt;Beispiel Sponsor&lt;/title_de&gt;
+        &lt;title_en&gt;Example Sponsor&lt;/title_en&gt;
+    &lt;/sponsor&gt;
+&lt;/sponsors&gt;</code></pre></div>
+
+<h2 id="toc_15">Events</h2>
+
+<p>Events are specific dates and times when production is happening. If an event defines an XML node or XML node structure that exists for the production, it will overwrite the value of the production, otherwise the value from the production will be used at the Berlin Bühnen website. The <code>&lt;events&gt;</code> node contains a list of  <code>&lt;event&gt;</code> nodes.</p>
+
+<h3 id="toc_16">The Event Node</h3>
+
+<p>These elements are available for the <code>&lt;event&gt;</code> node:</p>
+
+<table>
 <thead>
 <tr>
 <th>Node</th>
@@ -1652,6 +2467,7 @@
 <th>Example</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
 <td><code>&lt;id&gt;</code></td>
@@ -1721,31 +2537,31 @@
 <td>list of <code>&lt;location_id&gt;</code> nodes</td>
 <td>no</td>
 <td>Theaters where this event takes place</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;play_stages&gt;</code></td>
 <td>list of <code>&lt;stage_id&gt;</code> nodes</td>
 <td>no</td>
 <td>Stages where this event takes place</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;location_title&gt;</code></td>
-<td>xs:string</td>
+<td>xs:string </td>
 <td>no</td>
 <td>Location title (if <code>&lt;play_locations&gt;</code> is empty)</td>
 <td></td>
 </tr>
 <tr>
 <td><code>&lt;street_address&gt;</code></td>
-<td>xs:string</td>
-<td>no</td>
+<td>xs:string </td>
+<td> no</td>
 <td>Street address (first line) of the location (if <code>&lt;play_locations&gt;</code> is empty)</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
-<td><code>&lt;street_address2&gt;</code></td>
+<td><code>&lt;street_address2&gt;</code> </td>
 <td>xs:string</td>
 <td>no</td>
 <td>Street address (second line) of the location (if <code>&lt;play_locations&gt;</code> is empty)</td>
@@ -1753,17 +2569,17 @@
 </tr>
 <tr>
 <td><code>&lt;postal_code&gt;</code></td>
-<td>string</td>
+<td> string</td>
 <td>no</td>
 <td>Postal code of the location (if <code>&lt;play_locations&gt;</code> is empty)</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;city&gt;</code></td>
-<td>xs:string</td>
+<td>xs:string </td>
 <td>no</td>
 <td>City of the location (if <code>&lt;play_locations&gt;</code> is empty)</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;latitude&gt;</code></td>
@@ -1775,7 +2591,7 @@
 <tr>
 <td><code>&lt;longitude&gt;</code></td>
 <td>xs:decimal</td>
-<td>no</td>
+<td>no </td>
 <td>Longitude of the location (if <code>&lt;play_locations&gt;</code> is empty)</td>
 <td>13.4061</td>
 </tr>
@@ -1784,182 +2600,182 @@
 <td>xs:string</td>
 <td>no</td>
 <td>Organizer or organizers of this event</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;description_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text description in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;description_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text description in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;teaser_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text teaser in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;teaser_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text teaser in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;work_info_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text work info in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;work_info_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text work info in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;contents_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text contents in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;contents_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text contents in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;press_text_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text press text in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;press_text_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text press text in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;credits_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text credits in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;credits_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text credits in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;concert_program_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text concert program in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;concert_program_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text concert program in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;supporting_program_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text supporting program in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;supporting_program_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text supporting program in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;remarks_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text remarks in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;remarks_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text remarks in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;duration_text_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text information about duration in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;duration_text_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text information about duration in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;subtitles_text_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text information about subtitles in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;subtitles_text_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text information about subtitles in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;age_text_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text information about the age of the audience in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;age_text_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Plain-text information about the age of the audience in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;free_entrance&gt;</code></td>
 <td>xs:boolean</td>
 <td>no</td>
-<td>Is the entrance free? One of “true” or “false”</td>
-<td>false</td>
+<td>Is the entrance free? One of &quot;true&quot; or &quot;false&quot;</td>
+<td> false</td>
 </tr>
 <tr>
 <td><code>&lt;price_from&gt;</code></td>
@@ -1972,7 +2788,7 @@
 <td><code>&lt;price_till&gt;</code></td>
 <td>xs:decimal</td>
 <td>no</td>
-<td>Price till in Euros (no currency sign included)</td>
+<td>Price till in Euros (no currency sign included) </td>
 <td>12.00</td>
 </tr>
 <tr>
@@ -1980,42 +2796,42 @@
 <td>xs:anyURI</td>
 <td>no</td>
 <td>The URL of a website page where you can buy tickets to this event</td>
-<td><a href="http://example.com/tickets/">http://example.com/tickets/</a></td>
+<td> http://example.com/tickets/</td>
 </tr>
 <tr>
 <td><code>&lt;price_information_de&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Additional plain-text information about prices in German</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;price_information_en&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
 <td>Additional plain-text information about prices in English</td>
-<td></td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;event_status&gt;</code></td>
 <td>xs:string</td>
 <td>yes</td>
-<td>Event status. One of: “takes_place” or “canceled”</td>
-<td>takes_place</td>
+<td>Event status. One of: &quot;takes_place&quot; or &quot;canceled&quot;</td>
+<td>takes_place </td>
 </tr>
 <tr>
 <td><code>&lt;ticket_status&gt;</code></td>
 <td>xs:string</td>
 <td>no</td>
-<td>Tickets’ status. One of: “tickets_@_box_office” or “sold_out”</td>
-<td></td>
+<td>Tickets&#39; status. One of: &quot;tickets<em>@</em>box<em>office&quot; or &quot;sold</em>out&quot;</td>
+<td> </td>
 </tr>
 <tr>
 <td><code>&lt;characteristics&gt;</code></td>
 <td>list of <code>&lt;characteristic_id&gt;</code> nodes</td>
 <td>no</td>
-<td>Event characteristics</td>
-<td>tickets_@_box_office</td>
+<td>Event characteristics </td>
+<td>tickets<em>@</em>box_office </td>
 </tr>
 <tr>
 <td><code>&lt;leaders&gt;</code></td>
@@ -2067,11 +2883,11 @@
 <td></td>
 </tr>
 <tr>
-<td><code>&lt;language_and_subtitles_id&gt;</code></td>
-<td>xs:string</td>
+<td><code>&lt;language_and_subtitles_id&gt;</code> </td>
+<td> xs:string</td>
 <td>no</td>
 <td>Language and subtitles</td>
-<td>in-deutscher-sprache</td>
+<td>in-deutscher-sprache </td>
 </tr>
 <tr>
 <td><code>&lt;sponsors&gt;</code></td>
@@ -2088,19 +2904,56 @@
 <td>false</td>
 </tr>
 </tbody>
-</table><h3 id="the-event-characteristics"><a name="the-event-characteristics" href="#the-event-characteristics"></a>The Event Characteristics</h3><p>This is a list of all available characteristics with IDs to enter as values at <code>&lt;characteristic_id&gt;</code> of the event:</p><ul>
-<li>Premiere | Premiere (ID = “premiere”)</li><li>Deutsche Erstaufführung | Premiere in Germany (ID = “deutsche-erstauffuehrung”)</li><li>Deutschsprachige Erstaufführung | Premiere in German (ID = “deutschsprachige-erstauffuehrung”)</li><li>Berliner Premiere | Premiere in Berlin (ID = “berliner-premiere”)</li><li>Voraufführung | Preview (ID = “vorauffuehrung”)</li><li>zum letzten Mal in dieser Spielzeit | For the last time in the repertory season (ID = “zum-letzten-mal-dieser-spielzeit”)</li><li>zum letzten Mal | For the last time (ID = “zum-letzten-mal”)</li><li>Einführung | Introduction (ID = “einfuehrung”)</li><li>Familienpreise | Family prices (ID = “familienpreise”)</li></ul><p>For example, if an event can be classified as “Premiere” and “Familienpreise”, the following XML should be set:</p><pre class="xml hljs"><code class="xml" data-origin="<pre><code class=&quot;xml&quot;>&amp;lt;characteristics&amp;gt;
-    &amp;lt;characteristic_id&amp;gt;premiere&amp;lt;/characteristic_id&amp;gt;
-    &amp;lt;characteristic_id&amp;gt;familienpreise&amp;lt;/characteristic_id&amp;gt;
-&amp;lt;/characteristics&amp;gt;
-</code></pre>"><span class="hljs-tag">&lt;<span class="hljs-title">characteristics</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">characteristic_id</span>&gt;</span>premiere<span class="hljs-tag">&lt;/<span class="hljs-title">characteristic_id</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">characteristic_id</span>&gt;</span>familienpreise<span class="hljs-tag">&lt;/<span class="hljs-title">characteristic_id</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">characteristics</span>&gt;</span>
-</code></pre><h2 id="full-featured-xml-example"><a name="full-featured-xml-example" href="#full-featured-xml-example"></a>Full featured XML example</h2><p>Finally, you can see the complete <a href="example.xml">XML example</a>. You can validate your XML feed against our <a href="example.xsd">XSD schema</a> at <a href="http://www.xmlvalidation.com/">http://www.xmlvalidation.com/</a> or in the Terminal using the following command:</p><pre class="bash hljs"><code class="bash" data-origin="<pre><code class=&quot;bash&quot;>$ xmllint --schema example.xsd example.xml
-</code></pre>">$ xmllint --schema example.xsd example.xml
-</code></pre>
+</table>
 
-<footer style="position:fixed; font-size:.8em; text-align:right; bottom:0px; margin-left:-25px; height:20px; width:100%;">generated by <a href="http://pad.haroopress.com" target="_blank">haroopad</a></footer>
+<h3 id="toc_17">The Event Characteristics</h3>
+
+<p>This is a list of all available characteristics with IDs to enter as values at <code>&lt;characteristic_id&gt;</code> of the event:</p>
+
+<ul>
+<li>Premiere | Premiere (ID = &quot;premiere&quot;)</li>
+<li>Deutsche Erstaufführung | Premiere in Germany (ID = &quot;deutsche-erstauffuehrung&quot;)</li>
+<li>Deutschsprachige Erstaufführung | Premiere in German (ID = &quot;deutschsprachige-erstauffuehrung&quot;)</li>
+<li>Berliner Premiere | Premiere in Berlin (ID = &quot;berliner-premiere&quot;)</li>
+<li>Voraufführung | Preview (ID = &quot;vorauffuehrung&quot;)</li>
+<li>zum letzten Mal in dieser Spielzeit | For the last time in the repertory season (ID = &quot;zum-letzten-mal-dieser-spielzeit&quot;)</li>
+<li>zum letzten Mal | For the last time (ID = &quot;zum-letzten-mal&quot;)</li>
+<li>Einführung | Introduction (ID = &quot;einfuehrung&quot;)</li>
+<li>Familienpreise | Family prices (ID = &quot;familienpreise&quot;)</li>
+</ul>
+
+<p>For example, if an event can be classified as &quot;Premiere&quot; and &quot;Familienpreise&quot;, the following XML should be set:</p>
+
+<div><pre class="line-numbers"><code class="language-markup">&lt;characteristics&gt;
+    &lt;characteristic_id&gt;premiere&lt;/characteristic_id&gt;
+    &lt;characteristic_id&gt;familienpreise&lt;/characteristic_id&gt;
+&lt;/characteristics&gt;</code></pre></div>
+
+<h2 id="toc_18">Full featured XML example</h2>
+
+<p>Finally, you can see the complete <a href="example.xml">XML example</a>. You can validate your XML feed against our <a href="example.xsd">XSD schema</a> at http://www.xmlvalidation.com/ or in the Terminal using the following command:</p>
+
+<div><pre class="line-numbers"><code class="language-bash">$ xmllint --schema example.xsd example.xml</code></pre></div>
+
+
+
+<script type="text/javascript">
+var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{},Prism=function(){var e=/\blang(?:uage)?-(\w+)\b/i,t=0,n=_self.Prism={util:{encode:function(e){return e instanceof a?new a(e.type,n.util.encode(e.content),e.alias):"Array"===n.util.type(e)?e.map(n.util.encode):e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},objId:function(e){return e.__id||Object.defineProperty(e,"__id",{value:++t}),e.__id},clone:function(e){var t=n.util.type(e);switch(t){case"Object":var a={};for(var r in e)e.hasOwnProperty(r)&&(a[r]=n.util.clone(e[r]));return a;case"Array":return e.map&&e.map(function(e){return n.util.clone(e)})}return e}},languages:{extend:function(e,t){var a=n.util.clone(n.languages[e]);for(var r in t)a[r]=t[r];return a},insertBefore:function(e,t,a,r){r=r||n.languages;var l=r[e];if(2==arguments.length){a=arguments[1];for(var i in a)a.hasOwnProperty(i)&&(l[i]=a[i]);return l}var o={};for(var s in l)if(l.hasOwnProperty(s)){if(s==t)for(var i in a)a.hasOwnProperty(i)&&(o[i]=a[i]);o[s]=l[s]}return n.languages.DFS(n.languages,function(t,n){n===r[e]&&t!=e&&(this[t]=o)}),r[e]=o},DFS:function(e,t,a,r){r=r||{};for(var l in e)e.hasOwnProperty(l)&&(t.call(e,l,e[l],a||l),"Object"!==n.util.type(e[l])||r[n.util.objId(e[l])]?"Array"!==n.util.type(e[l])||r[n.util.objId(e[l])]||(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,l,r)):(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,null,r)))}},plugins:{},highlightAll:function(e,t){var a={callback:t,selector:'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'};n.hooks.run("before-highlightall",a);for(var r,l=a.elements||document.querySelectorAll(a.selector),i=0;r=l[i++];)n.highlightElement(r,e===!0,a.callback)},highlightElement:function(t,a,r){for(var l,i,o=t;o&&!e.test(o.className);)o=o.parentNode;o&&(l=(o.className.match(e)||[,""])[1],i=n.languages[l]),t.className=t.className.replace(e,"").replace(/\s+/g," ")+" language-"+l,o=t.parentNode,/pre/i.test(o.nodeName)&&(o.className=o.className.replace(e,"").replace(/\s+/g," ")+" language-"+l);var s=t.textContent,u={element:t,language:l,grammar:i,code:s};if(!s||!i)return n.hooks.run("complete",u),void 0;if(n.hooks.run("before-highlight",u),a&&_self.Worker){var c=new Worker(n.filename);c.onmessage=function(e){u.highlightedCode=e.data,n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(u.element),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},c.postMessage(JSON.stringify({language:u.language,code:u.code,immediateClose:!0}))}else u.highlightedCode=n.highlight(u.code,u.grammar,u.language),n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(t),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},highlight:function(e,t,r){var l=n.tokenize(e,t);return a.stringify(n.util.encode(l),r)},tokenize:function(e,t){var a=n.Token,r=[e],l=t.rest;if(l){for(var i in l)t[i]=l[i];delete t.rest}e:for(var i in t)if(t.hasOwnProperty(i)&&t[i]){var o=t[i];o="Array"===n.util.type(o)?o:[o];for(var s=0;s<o.length;++s){var u=o[s],c=u.inside,g=!!u.lookbehind,h=!!u.greedy,f=0,d=u.alias;u=u.pattern||u;for(var p=0;p<r.length;p++){var m=r[p];if(r.length>e.length)break e;if(!(m instanceof a)){u.lastIndex=0;var y=u.exec(m),v=1;if(!y&&h&&p!=r.length-1){var b=r[p+1].matchedStr||r[p+1],k=m+b;if(p<r.length-2&&(k+=r[p+2].matchedStr||r[p+2]),u.lastIndex=0,y=u.exec(k),!y)continue;var w=y.index+(g?y[1].length:0);if(w>=m.length)continue;var _=y.index+y[0].length,P=m.length+b.length;if(v=3,P>=_){if(r[p+1].greedy)continue;v=2,k=k.slice(0,P)}m=k}if(y){g&&(f=y[1].length);var w=y.index+f,y=y[0].slice(f),_=w+y.length,S=m.slice(0,w),O=m.slice(_),j=[p,v];S&&j.push(S);var A=new a(i,c?n.tokenize(y,c):y,d,y,h);j.push(A),O&&j.push(O),Array.prototype.splice.apply(r,j)}}}}}return r},hooks:{all:{},add:function(e,t){var a=n.hooks.all;a[e]=a[e]||[],a[e].push(t)},run:function(e,t){var a=n.hooks.all[e];if(a&&a.length)for(var r,l=0;r=a[l++];)r(t)}}},a=n.Token=function(e,t,n,a,r){this.type=e,this.content=t,this.alias=n,this.matchedStr=a||null,this.greedy=!!r};if(a.stringify=function(e,t,r){if("string"==typeof e)return e;if("Array"===n.util.type(e))return e.map(function(n){return a.stringify(n,t,e)}).join("");var l={type:e.type,content:a.stringify(e.content,t,r),tag:"span",classes:["token",e.type],attributes:{},language:t,parent:r};if("comment"==l.type&&(l.attributes.spellcheck="true"),e.alias){var i="Array"===n.util.type(e.alias)?e.alias:[e.alias];Array.prototype.push.apply(l.classes,i)}n.hooks.run("wrap",l);var o="";for(var s in l.attributes)o+=(o?" ":"")+s+'="'+(l.attributes[s]||"")+'"';return"<"+l.tag+' class="'+l.classes.join(" ")+'" '+o+">"+l.content+"</"+l.tag+">"},!_self.document)return _self.addEventListener?(_self.addEventListener("message",function(e){var t=JSON.parse(e.data),a=t.language,r=t.code,l=t.immediateClose;_self.postMessage(n.highlight(r,n.languages[a],a)),l&&_self.close()},!1),_self.Prism):_self.Prism;var r=document.currentScript||[].slice.call(document.getElementsByTagName("script")).pop();return r&&(n.filename=r.src,document.addEventListener&&!r.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",n.highlightAll)),_self.Prism}();"undefined"!=typeof module&&module.exports&&(module.exports=Prism),"undefined"!=typeof global&&(global.Prism=Prism);
+</script>
+
+<script type="text/javascript">
+!function(e){var t={variable:[{pattern:/\$?\(\([\w\W]+?\)\)/,inside:{variable:[{pattern:/(^\$\(\([\w\W]+)\)\)/,lookbehind:!0},/^\$\(\(/],number:/\b-?(?:0x[\dA-Fa-f]+|\d*\.?\d+(?:[Ee]-?\d+)?)\b/,operator:/--?|-=|\+\+?|\+=|!=?|~|\*\*?|\*=|\/=?|%=?|<<=?|>>=?|<=?|>=?|==?|&&?|&=|\^=?|\|\|?|\|=|\?|:/,punctuation:/\(\(?|\)\)?|,|;/}},{pattern:/\$\([^)]+\)|`[^`]+`/,inside:{variable:/^\$\(|^`|\)$|`$/}},/\$(?:[a-z0-9_#\?\*!@]+|\{[^}]+\})/i]};e.languages.bash={shebang:{pattern:/^#!\s*\/bin\/bash|^#!\s*\/bin\/sh/,alias:"important"},comment:{pattern:/(^|[^"{\\])#.*/,lookbehind:!0},string:[{pattern:/((?:^|[^<])<<\s*)(?:"|')?(\w+?)(?:"|')?\s*\r?\n(?:[\s\S])*?\r?\n\2/g,lookbehind:!0,inside:t},{pattern:/(["'])(?:\\\\|\\?[^\\])*?\1/g,inside:t}],variable:t.variable,"function":{pattern:/(^|\s|;|\||&)(?:alias|apropos|apt-get|aptitude|aspell|awk|basename|bash|bc|bg|builtin|bzip2|cal|cat|cd|cfdisk|chgrp|chmod|chown|chroot|chkconfig|cksum|clear|cmp|comm|command|cp|cron|crontab|csplit|cut|date|dc|dd|ddrescue|df|diff|diff3|dig|dir|dircolors|dirname|dirs|dmesg|du|egrep|eject|enable|env|ethtool|eval|exec|expand|expect|export|expr|fdformat|fdisk|fg|fgrep|file|find|fmt|fold|format|free|fsck|ftp|fuser|gawk|getopts|git|grep|groupadd|groupdel|groupmod|groups|gzip|hash|head|help|hg|history|hostname|htop|iconv|id|ifconfig|ifdown|ifup|import|install|jobs|join|kill|killall|less|link|ln|locate|logname|logout|look|lpc|lpr|lprint|lprintd|lprintq|lprm|ls|lsof|make|man|mkdir|mkfifo|mkisofs|mknod|more|most|mount|mtools|mtr|mv|mmv|nano|netstat|nice|nl|nohup|notify-send|nslookup|open|op|passwd|paste|pathchk|ping|pkill|popd|pr|printcap|printenv|printf|ps|pushd|pv|pwd|quota|quotacheck|quotactl|ram|rar|rcp|read|readarray|readonly|reboot|rename|renice|remsync|rev|rm|rmdir|rsync|screen|scp|sdiff|sed|seq|service|sftp|shift|shopt|shutdown|sleep|slocate|sort|source|split|ssh|stat|strace|su|sudo|sum|suspend|sync|tail|tar|tee|test|time|timeout|times|touch|top|traceroute|trap|tr|tsort|tty|type|ulimit|umask|umount|unalias|uname|unexpand|uniq|units|unrar|unshar|uptime|useradd|userdel|usermod|users|uuencode|uudecode|v|vdir|vi|vmstat|wait|watch|wc|wget|whereis|which|who|whoami|write|xargs|xdg-open|yes|zip)(?=$|\s|;|\||&)/,lookbehind:!0},keyword:{pattern:/(^|\s|;|\||&)(?:let|:|\.|if|then|else|elif|fi|for|break|continue|while|in|case|function|select|do|done|until|echo|exit|return|set|declare)(?=$|\s|;|\||&)/,lookbehind:!0},"boolean":{pattern:/(^|\s|;|\||&)(?:true|false)(?=$|\s|;|\||&)/,lookbehind:!0},operator:/&&?|\|\|?|==?|!=?|<<<?|>>|<=?|>=?|=~/,punctuation:/\$?\(\(?|\)\)?|\.\.|[{}[\];]/};var a=t.variable[1].inside;a["function"]=e.languages.bash["function"],a.keyword=e.languages.bash.keyword,a.boolean=e.languages.bash.boolean,a.operator=e.languages.bash.operator,a.punctuation=e.languages.bash.punctuation}(Prism);
+</script>
+
+<script type="text/javascript">
+Prism.languages.markup={comment:/<!--[\w\W]*?-->/,prolog:/<\?[\w\W]+?\?>/,doctype:/<!DOCTYPE[\w\W]+?>/,cdata:/<!\[CDATA\[[\w\W]*?]]>/i,tag:{pattern:/<\/?(?!\d)[^\s>\/=.$<]+(?:\s+[^\s>\/=]+(?:=(?:("|')(?:\\\1|\\?(?!\1)[\w\W])*\1|[^\s'">=]+))?)*\s*\/?>/i,inside:{tag:{pattern:/^<\/?[^\s>\/]+/i,inside:{punctuation:/^<\/?/,namespace:/^[^\s>\/:]+:/}},"attr-value":{pattern:/=(?:('|")[\w\W]*?(\1)|[^\s>]+)/i,inside:{punctuation:/[=>"']/}},punctuation:/\/?>/,"attr-name":{pattern:/[^\s>\/]+/,inside:{namespace:/^[^\s>\/:]+:/}}}},entity:/&#?[\da-z]{1,8};/i},Prism.hooks.add("wrap",function(a){"entity"===a.type&&(a.attributes.title=a.content.replace(/&amp;/,"&"))}),Prism.languages.xml=Prism.languages.markup,Prism.languages.html=Prism.languages.markup,Prism.languages.mathml=Prism.languages.markup,Prism.languages.svg=Prism.languages.markup;
+</script>
+
+<script type="text/javascript">
+!function(){"undefined"!=typeof self&&self.Prism&&self.document&&Prism.hooks.add("complete",function(e){if(e.code){var t=e.element.parentNode,s=/\s*\bline-numbers\b\s*/;if(t&&/pre/i.test(t.nodeName)&&(s.test(t.className)||s.test(e.element.className))&&!e.element.querySelector(".line-numbers-rows")){s.test(e.element.className)&&(e.element.className=e.element.className.replace(s,"")),s.test(t.className)||(t.className+=" line-numbers");var n,a=e.code.match(/\n(?!$)/g),l=a?a.length+1:1,m=new Array(l+1);m=m.join("<span></span>"),n=document.createElement("span"),n.className="line-numbers-rows",n.innerHTML=m,t.hasAttribute("data-start")&&(t.style.counterReset="linenumber "+(parseInt(t.getAttribute("data-start"),10)-1)),e.element.appendChild(n)}}})}();
+</script>
+
+
 </body>
+
 </html>
