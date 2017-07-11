@@ -771,6 +771,12 @@ def culturebase_export_productions(request, location_slug):
 
 API_CHANGELOG = [
     {
+        'date': datetime(2017, 7, 11, 12, 0),
+        'changes': [
+            u"""Stages for Berliner Ensemble changed.""",
+        ],
+    },
+    {
         'date': datetime(2017, 5, 16, 12, 0),
         'changes': [
             u"""New <strong>event_status</strong> "trashed" added to events.""",
