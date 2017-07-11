@@ -375,6 +375,18 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         return self._import_source
     get_import_source.short_description = _("Import Source")
 
+    def delete_with_object_mapper(self):
+        for event in self.event_set.all():
+            event.delete_with_object_mapper()
+        ObjectMapper = models.get_model("external_services", "ObjectMapper")
+        ContentType = models.get_model("contenttypes", "ContentType")
+        mappers = ObjectMapper.objects.filter(
+            content_type=ContentType.objects.get_for_model(self),
+            object_id=self.pk,
+        )
+        mappers.delete()
+        self.delete()
+
     def _get_first_image(self):
         if not hasattr(self, '_first_image_cache'):
             self._first_image_cache = None
@@ -1043,6 +1055,16 @@ class Event(CreationModificationMixin, UrlMixin):
 
     def ev_or_prod_language_and_subtitles(self):
         return self.language_and_subtitles or self.production.language_and_subtitles
+
+    def delete_with_object_mapper(self):
+        ObjectMapper = models.get_model("external_services", "ObjectMapper")
+        ContentType = models.get_model("contenttypes", "ContentType")
+        mappers = ObjectMapper.objects.filter(
+            content_type=ContentType.objects.get_for_model(self),
+            object_id=self.pk,
+        )
+        mappers.delete()
+        self.delete()
 
     def _get_first_image(self):
         if not hasattr(self, '_first_image_cache'):
