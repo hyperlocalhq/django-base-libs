@@ -90,11 +90,17 @@ class StageInline(ExtendedStackedInline):
     model = Stage
     extra = 0
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'description',])
-    fieldsets += [(None, {'fields': ('slug', 'sort_order', )}),]
+    fieldsets += [(None, {'fields': ('slug', 'get_id', 'sort_order')}),]
     fieldsets += [(_("Address"), {'fields': ('street_address', 'street_address2', 'postal_code', 'city', 'district', 'latitude', 'longitude')}),]
     # classes = ('grp-collapse grp-open',)
     inline_classes = ('grp-collapse grp-open',)
+    readonly_fields = ['get_id']
 
+    def get_id(self, obj):
+        if obj.pk:
+            return obj.pk
+        return _("ID will be assigned after saving")
+    get_id.short_description = "ID"
 
 class ImageInline(ExtendedStackedInline):
     model = Image
