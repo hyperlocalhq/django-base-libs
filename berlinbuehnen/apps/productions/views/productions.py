@@ -76,7 +76,7 @@ class EventFilterForm(forms.Form):
 
 @never_cache
 def event_list(request, year=None, month=None, day=None):
-    qs = Event.objects.filter(production__status="published")
+    qs = Event.objects.filter(production__status="published").exclude(event_status="trashed")
 
     # exclude the parts of multipart productions
     qs = qs.filter(production__part=None)
@@ -203,7 +203,7 @@ def event_list(request, year=None, month=None, day=None):
 
 def event_detail(request, slug, event_id=None):
     if "preview" in request.REQUEST:
-        qs = Event.objects.exclude(production__status='trashed')
+        qs = Event.objects.exclude(models.Q(production__status='trashed') | models.Q(event_status='trashed'))
     else:
         qs = Event.objects.filter(production__status__in=('published', 'expired'))
 
