@@ -478,9 +478,9 @@ class TemplatePathField(models.FilePathField):
             'path': self.path,
             'match': self.match,
             'recursive': self.recursive,
-            'form_class': TemplateChoiceField,
         }
         defaults.update(kwargs)
+        defaults['form_class'] = TemplateChoiceField
         return super(TemplatePathField, self).formfield(**defaults)
     
 
