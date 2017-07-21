@@ -631,7 +631,7 @@ class TemplateChoiceField(forms.ChoiceField):
         path is a relative template path where the templates should be checked
         """
         self.path, self.match, self.recursive = path, match, recursive
-        self.allow_files, self.allow_folders =  allow_files, allow_folders
+        self.allow_files, self.allow_folders = allow_files, allow_folders
 
         super(TemplateChoiceField, self).__init__(choices=(), required=required,
             widget=widget, label=label, initial=initial, help_text=help_text,
@@ -641,7 +641,7 @@ class TemplateChoiceField(forms.ChoiceField):
             self.match_re = re.compile(self.match)
             
         choices = set()
-        for templates_root in settings.TEMPLATE_DIRS:
+        for templates_root in settings.TEMPLATES[0]['DIRS']:
             path = os.path.join(templates_root, self.path)
             if recursive:
                 for root, dirs, files in os.walk(path):

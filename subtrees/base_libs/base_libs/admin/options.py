@@ -522,7 +522,7 @@ class ExtendedModelAdmin(admin.ModelAdmin):
                 formset = FormSet(data=request.POST, files=request.FILES,
                                   instance=new_object,
                                   save_as_new="_saveasnew" in request.POST,
-                                  prefix=prefix, queryset=inline.queryset(request))
+                                  prefix=prefix, queryset=inline.get_queryset(request))
                 formsets.append(formset)
             if all_valid(formsets) and form_validated:
                 self.save_model(request, new_object, form, False)
@@ -560,7 +560,7 @@ class ExtendedModelAdmin(admin.ModelAdmin):
                 if prefixes[prefix] != 1 or not prefix:
                     prefix = "%s-%s" % (prefix, prefixes[prefix])
                 formset = FormSet(instance=self.model(), prefix=prefix,
-                                  queryset=inline.queryset(request))
+                                  queryset=inline.get_queryset(request))
                 formsets.append(formset)
 
         adminForm = helpers.AdminForm(form, list(self.get_fieldsets(request)),

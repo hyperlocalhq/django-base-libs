@@ -478,9 +478,9 @@ class TemplatePathField(models.FilePathField):
             'path': self.path,
             'match': self.match,
             'recursive': self.recursive,
-            'form_class': TemplateChoiceField,
         }
         defaults.update(kwargs)
+        defaults['form_class'] = TemplateChoiceField
         return super(TemplatePathField, self).formfield(**defaults)
     
 
@@ -577,6 +577,10 @@ class PositionField(models.IntegerField):
 
         # instance inserted; cleanup required on post_save
         setattr(model_instance, cache_name, (current, position))
+
+        if position == -1:  # quick fix for data re-imports
+            position = 0
+
         return position
 
     def __get__(self, instance, owner):
