@@ -86,7 +86,7 @@ class PublishingMixinAdminOptions(ExtendedModelAdmin):
     """
     admin options for PublishingMixin
     """
-    list_filter = ('author', 'status', 'published_from', 'published_till')   
+    list_filter = ('status', 'published_from', 'published_till')
     
     fieldsets = [(_('Publish Status'), {
         'fields': ('author', 'status', 'published_from', 'published_till',),
@@ -136,6 +136,9 @@ def ObjectRelationMixinAdminOptions(
                 }
             ),
         ]
+        related_lookup_fields = {
+            'generic': [[content_type_field, object_id_field]],
+        }
         
         def formfield_for_dbfield(self, db_field, **kwargs):
             """ applying custom widgets here! """
@@ -152,7 +155,12 @@ def ObjectRelationMixinAdminOptions(
             
     def get_content_object_display(self, obj):
         """this method is just used for display in the admin"""
-        co = getattr(obj, content_object_field)
+        try:
+            co = getattr(obj, content_object_field)
+        except ValueError:
+            co = None
+        except AttributeError:
+            co = None
         if not co:
             return "-------"
         user = get_current_user()
@@ -273,7 +281,6 @@ class SingleSiteContainerMixinAdminOptions(ObjectRelationMixinAdminOptions()):
               }
           ),
     ]
-    pass
 
 
 class SingleSiteContainerMixinAdminForm(ObjectRelationMixinAdminForm()):
@@ -337,7 +344,6 @@ class MultiSiteContainerMixinAdminOptions(ObjectRelationMixinAdminOptions()):
               }
           ),
     ]
-    pass
 
 
 class MultiSiteContainerMixinAdminForm(ObjectRelationMixinAdminForm()):

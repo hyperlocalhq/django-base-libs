@@ -679,9 +679,45 @@ def try_to_include(parser, token):
             "%r tag requires a single argument" % token.contents.split()[0]
 
     return IncludeNode(template_name)    
-    
+
+
+class TranslatedURL(template.Node):
+    def __init__(self, lang_code):
+        self.lang_code = lang_code
+
+    def render(self, context):
+        import sys
+        from django.core.urlresolvers import reverse
+        from django.core.urlresolvers import resolve
+        from django.utils import translation
+        lang_code = template.resolve_variable(self.lang_code, context)
+
+        try:
+            view = resolve(context['request'].path)
+        except:
+            return "/%s/" % lang_code
+
+        request_lang_code = translation.get_language()
+        translation.activate(lang_code)
+
+        try:
+            url = reverse(view.url_name, args=view.args, kwargs=view.kwargs)
+        except:  # if there are any errors resolving the view in another language, fallback to the trasnalted start page
+            url = "/%s/" % lang_code
+
+        translation.activate(request_lang_code)
+        return url
+
+@register.tag(name="translate_url")
+def do_translate_url(parser, token):
+    lang_code = token.split_contents()[1]
+    return TranslatedURL(lang_code)
+
+
 ### FILTERS ### 
 
+
+@register.filter
 def dayssince(value):
     """Returns number of days between today and value."""
     today = datetime.date.today()
@@ -696,9 +732,8 @@ def dayssince(value):
         # Date is in the future; return formatted date.
         return value.strftime("%B %d, %Y")
 
-register.filter('dayssince', dayssince)
 
-
+@register.filter
 def in_list(value,arg):
     """
     Returns True if value is in list
@@ -712,9 +747,9 @@ def in_list(value,arg):
 
     """
     return value in arg
-    
-register.filter('in_list', in_list)
 
+
+@register.filter(is_safe=True)
 def mark_first_and_last(value, tag):
     """
     Marks the first tag found with css class "first-child"
@@ -753,10 +788,12 @@ def mark_first_and_last(value, tag):
         value = "".join(parts)
     return value
 
-register.filter('mark_first_and_last', mark_first_and_last, is_safe=True)
 
 media_file_regex = re.compile(r'<object .+?</object>|<(img|embed) [^>]+>')
 
+
+@register.filter(is_safe=True)
+@stringfilter
 def get_first_media(content):
     """ Returns the first image or flash file from the html content """
     m = media_file_regex.search(content)
@@ -765,11 +802,25 @@ def get_first_media(content):
         media_tag = m.group()
     return media_tag
 
-get_first_media = register.filter(get_first_media, is_safe=True)
+
+image_file_regex = re.compile(r'<(img) [^>]+>')
+
+
+@register.filter(is_safe=True)
+@stringfilter
+def get_first_image(content):
+    """ Returns the first image or flash file from the html content """
+    m = image_file_regex.search(content)
+    media_tag = ""
+    if m:
+        media_tag = m.group()
+    return media_tag
 
 
 media_src_regex = re.compile(r'src=(["\'])([^\1]+?)\1')    
 
+
+@register.filter(is_safe=True)
 def get_media_src(media_file):
     """ Returns the first image or flash file from the html content """
     m = media_src_regex.search(media_file)
@@ -778,9 +829,8 @@ def get_media_src(media_file):
         media_src = m.group(2)
     return media_src
 
-get_media_src = register.filter(get_media_src, is_safe=True)
 
-
+@register.filter
 def content_type_id(value):
     """
     Returns the content_type_id of an object or None, if the object does not exist
@@ -793,18 +843,18 @@ def content_type_id(value):
         return ct.id
     except:
         return None        
-    
-register.filter('content_type_id', content_type_id)
 
+
+@register.filter
 def remainder_eq_zero(value, divisor):
     
     """Returns True, if the remainder of the division value/divisor equals 0,
        false otherwise.
     """
-    return value%divisor == 0
+    return value % divisor == 0
 
-register.filter('remainder_eq_zero', remainder_eq_zero)
 
+@register.filter
 def remainder_eq_minus1(value, divisor):
     
     """Returns True, if the remainder of the division value/divisor equals -1,
@@ -813,10 +863,10 @@ def remainder_eq_minus1(value, divisor):
     # You are right, Aidas: Python does not the same like C does
     # In algebraic words, divisor-1 and -1 is the same in an
 	# algebraic group modulo divisor....
-    return value%divisor == divisor -1
+    return value % divisor == divisor - 1
 
-register.filter('remainder_eq_minus1', remainder_eq_minus1)
 
+@register.filter
 def dict_value(dict, key):
     """ returns the value of a dictionary key ...
     """
@@ -824,9 +874,9 @@ def dict_value(dict, key):
         return dict[key]
     except:
         return None
-register.filter('dict_value', dict_value)
 
 
+@register.filter
 def encode_string(value):
     """
     Encode a string into it's equivalent html entity.
@@ -849,8 +899,6 @@ def encode_string(value):
         e_string += en 
     return e_string
 
-register.filter("encode_string", encode_string)
-
 
 entity_re = re.compile(
     "&(#?)([Xx]?)(\d+|[A-Fa-f0-9]+|%s);" % '|'.join(name2codepoint)
@@ -862,6 +910,8 @@ entity_no_escape_chars_re = re.compile(
         )
     )
 
+
+@register.filter
 def decode_entities(html, decode_all=False):
     """ 
     Replaces HTML entities with unicode equivalents. 
@@ -876,47 +926,75 @@ def decode_entities(html, decode_all=False):
         return unichr(val) 
     regexp = decode_all and entity_re or entity_no_escape_chars_re 
     return regexp.sub(_replace_entity, force_unicode(html)) 
-register.filter('decode_entities', decode_entities)
 
+
+@register.filter
 def remove_empty_lists(html):
     """ returns the value without empty <ul></ul> and <ol></ol> ...
     """
     pattern = re.compile(r'<[uo]l[^>]*>\s*</[uo]l>')
     html = pattern.sub("", html)
     return html
-register.filter('remove_empty_lists', remove_empty_lists)
 
+
+@register.filter(is_safe=True, needs_autoescape=False)
 def disarm_user_input(html):
     """ 
     Returns html without posible harm
-    In addition
-    - urlizes text if no links are used
-    - breaks lines if no paragraphs are used
     """
-    html = defaultfilters.removetags(html, "script style comment")
-    # remove javascript events and style attributes from tags
-    re_comments = re.compile(r'<!--[\s\S]*?(-->|$)')
-    re_tags = re.compile(r'(<[^>\s]+)([^>]+)(>)')
-    re_attrs = re.compile(
-        r"""\s+(on[^=]+|style)=([^"'\s]+|"[^"]*"|'[^']*')""",
-        )
-    def remove_js_events(match):
-        return "".join((
-            match.group(1),
-            re_attrs.sub('', match.group(2)),
-            match.group(3),
-            ))
-    html = re_comments.sub("", html)
-    html = re_tags.sub(remove_js_events, html)
-    if "</a>" not in html:
-        html = defaultfilters.urlizetrunc(html, "30")
+    import bleach
     if "</p>" not in html:
         html = defaultfilters.linebreaks(html)
-    html = defaultfilters.safe(html)
+    html = bleach.clean(
+        html,
+        tags=[u'a', u'abbr', u'acronym', u'b', u'blockquote', u'br', u'code', u'em', u'i', u'iframe', u'img', u'li', u'ol', u'p', u'strong', u'ul'],
+        attributes={
+            u'*': [u'class'],
+            u'a': [u'href', u'title'],
+            u'acronym': [u'title'],
+            u'abbr': [u'title'],
+            u'img': [u'src', u'alt'],
+            u'iframe': [u'src', u'width', u'height'],
+        },
+        styles=[],
+        protocols=[u'http', u'https', u'mailto', u'data'],
+        strip=True,
+        strip_comments=True,
+    )
+    html = bleach.linkify(html)
+    html = mark_safe(html)
     return html
-disarm_user_input = defaultfilters.stringfilter(disarm_user_input)
-register.filter('disarm_user_input', disarm_user_input, is_safe=True)
 
+
+@register.filter(is_safe=True, needs_autoescape=False)
+def disarm_admin_input(html):
+    """
+    Returns html without posible harm
+    """
+    import bleach
+    if "</p>" not in html:
+        html = defaultfilters.linebreaks(html)
+    html = bleach.clean(
+        html,
+        tags=[u'a', u'abbr', u'acronym', u'b', u'blockquote', u'br', u'code', u'em', u'i', u'iframe', u'img', u'li', u'ol', u'p', u'strong', u'ul'],
+        attributes={
+            u'*': [u'class', u'style'],
+            u'a': [u'href', u'title'],
+            u'acronym': [u'title'],
+            u'abbr': [u'title'],
+            u'img': [u'src', 'alt'],
+        },
+        styles=[u'color', u'font-family', u'font-size'],
+        protocols=[u'http', u'https', u'mailto', u'data'],
+        strip=True,
+        strip_comments=True,
+    )
+    html = bleach.linkify(html)
+    html = mark_safe(html)
+    return html
+
+
+@register.filter
 def humanize_url(url, letter_count):
     letter_count = int(letter_count)
     re_start = re.compile(r'^https?://')
@@ -925,8 +1003,9 @@ def humanize_url(url, letter_count):
     if len(url) > letter_count:
         url = url[:letter_count - 1] + u"…"
     return url
-register.filter('humanize_url', humanize_url)
 
+
+@register.filter
 def truncated_multiply(value, arg):
     """
     Multiplies the arg with the value and returns 
@@ -934,10 +1013,12 @@ def truncated_multiply(value, arg):
     """
     return int(value * arg)
 
-register.filter('truncated_multiply', truncated_multiply, is_safe=False)
 
 register.filter('get_user_title', get_user_title)
 
+
+@register.filter
+@stringfilter
 def cssclass(value, arg):
     """
     Replace the attribute css class for Field 'value' with 'arg'.
@@ -955,7 +1036,7 @@ def cssclass(value, arg):
         del attrs['class']
 
     return rendered
-register.filter('cssclass', cssclass)
+
 
 @register.filter
 def in_group(user, groups):
@@ -977,7 +1058,10 @@ def in_group(user, groups):
     """
     group_list = force_unicode(groups).split(',')
     return bool(user.groups.filter(name__in=group_list).values('name'))
-    
+
+
+@register.filter(is_safe=True)
+@stringfilter
 def remove_newlines(text):
     """
     Removes all newline characters from a block of text.
@@ -986,14 +1070,14 @@ def remove_newlines(text):
     normalized_text = normalize_newlines(text)
     # Then simply remove the newlines like so.
     return mark_safe(normalized_text.replace('\n', ' '))
-remove_newlines = defaultfilters.stringfilter(remove_newlines)
-register.filter(remove_newlines, is_safe=True)
+
 
 @register.filter
 @stringfilter
 def better_slugify(value):
     from base_libs.utils.betterslugify import better_slugify as utils_better_slugify
     return utils_better_slugify(value)
+
 
 @register.filter
 @stringfilter

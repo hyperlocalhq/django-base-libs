@@ -18,6 +18,7 @@ from django.utils.safestring import mark_safe
 from django.template.defaultfilters import escape
 from django.db.models.fields import NOT_PROVIDED
 from django.utils.translation import string_concat
+import six
 
 try:
     from django.utils.timezone import now as tz_now
@@ -108,11 +109,13 @@ class CreatorMixin(BaseModel):
     """
     Abstract base class with a "creator" Field
     """
-    creator = models.ForeignKey(User, 
+    creator = models.ForeignKey(
+        User,
         verbose_name=_("creator"), 
         related_name="%(class)s_creator",
         null=True,
-        editable=False
+        editable=False,
+        on_delete = models.SET_NULL,
     )
     
     def save(self, *args, **kwargs):
@@ -129,11 +132,13 @@ class ModifierMixin(BaseModel):
     """
     Abstract base class with a "modifier" Field
     """
-    modifier = models.ForeignKey(User, 
+    modifier = models.ForeignKey(
+        User,
         verbose_name=_("modifier"), 
         related_name="%(class)s_modifier",
         null=True,
-        editable=False
+        editable=False,
+        on_delete=models.SET_NULL,
     )
     
     def save(self, *args, **kwargs):
@@ -181,7 +186,7 @@ class PublishingMixinPublishedManager(models.Manager):
             published_till=None,
             ))
         conditions.append(models.Q(
-            published_from__lt=now,
+            published_from__lte=now,
             published_till=None,
             ))
         conditions.append(models.Q(
@@ -189,7 +194,7 @@ class PublishingMixinPublishedManager(models.Manager):
             published_till__gt=now,
             ))
         conditions.append(models.Q(
-            published_from__lt=now,
+            published_from__lte=now,
             published_till__gt=now,
             ))
         return super(
@@ -214,8 +219,9 @@ class PublishingMixin(BaseModel):
         blank=True, 
         verbose_name=_("author"), 
         related_name="%(class)s_author",
-        help_text =_("If you do not select an author, you will be the author!"),
-        )
+        help_text=_("If you do not select an author, you will be the author!"),
+        on_delete=models.SET_NULL,
+    )
 
     published_from = models.DateTimeField(
         _("publishing date"), 
@@ -584,17 +590,16 @@ class MultiSiteContainerMixin(ObjectRelationMixin(), UrlMixin):
     These are Containers, where you can specify 0..n sites.
     """
     sites = models.ManyToManyField(
-         Site, 
-         verbose_name=_("Sites"),
-         blank=True, 
-         null=True,
-         help_text=_("Please select some sites, this container relates to. If you do not select any site, the container applies to all sites."),
-         )
+        Site,
+        verbose_name=_("Sites"),
+        blank=True,
+        help_text=_("Please select some sites, this container relates to. If you do not select any site, the container applies to all sites."),
+    )
     
     sysname = models.CharField(
-       _("URL Identifier"), 
-       max_length=255, 
-       help_text=_("Please specify an additional URL identifier for the container here. The provided name must be the last part of the calling url, which wants to access the container. For example, if you have a FAQ-Container and you want to use the url 'http://www.example.com/gettinghelp/faqs/', the URL identifier must be 'faqs'. For different URL identifiers, you can create multiple containers for the same related object and site. Note, that the site, the related object and the URL identifier must be unique together."),       
+        _("URL Identifier"),
+        max_length=255,
+        help_text=_("Please specify an additional URL identifier for the container here. The provided name must be the last part of the calling url, which wants to access the container. For example, if you have a FAQ-Container and you want to use the url 'http://www.example.com/gettinghelp/faqs/', the URL identifier must be 'faqs'. For different URL identifiers, you can create multiple containers for the same related object and site. Note, that the site, the related object and the URL identifier must be unique together."),
     )
     
     objects = models.Manager()
@@ -849,10 +854,11 @@ def SlugMixin(
                         getattr(self, fname, "")
                         for fname in prepopulate_from
                         ]) or slug_field.default
-                slug_proposal = better_slugify(slug_proposal).replace(
-                    "-",
-                    separator,
-                    )[:slug_field.max_length-5]
+                if isinstance(slug_proposal, six.string_types):
+                    slug_proposal = better_slugify(slug_proposal, remove_stopwords=False).replace(
+                        "-",
+                        separator,
+                        )[:slug_field.max_length-5]
                 slug = slug_proposal
                 if slug_field.unique or unique_for:
                     qs = type(self)
@@ -946,7 +952,7 @@ def MultilingualSlugMixin(
                             ])
                         if slug_field.default != NOT_PROVIDED:
                             slug_proposal = slug_proposal or slug_field.default
-                    slug_proposal = better_slugify(slug_proposal).replace(
+                    slug_proposal = better_slugify(slug_proposal, remove_stopwords=False).replace(
                         "-",
                         separator,
                         )[:slug_field.max_length-5]

@@ -24,11 +24,11 @@ STATUS_CODE_PUBLISHED = 1
 JQUERY_URL = getattr(
     settings,
     "JQUERY_URL",
-    "http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js",
-    )
+    "//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js",
+)
 
 JQUERY_UI_URL = getattr(
     settings,
     "JQUERY_UI_URL",
-    "http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js",
-    )
+    "//ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js",
+)

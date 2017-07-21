@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
 import re
-from django import forms
+
 from django.template import loader
 from django.template.context import RequestContext
-from django.http import HttpResponse, Http404, HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 
-from django.conf import settings
-from django.shortcuts import render_to_response
-
-from django.contrib.formtools.utils import form_hmac
+from formtools.utils import form_hmac
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -20,8 +17,10 @@ ALLOWED_ACTIONS = [ID_ACTION_NEW, ID_ACTION_EDIT, ID_ACTION_DELETE]
 
 AUTO_ID = 'form_%s' # Each form here uses this as its auto_id parameter.
 
+
 def methodNotImplementedError(method, instance):
     raise NotImplementedError, 'You must define a %s method on your %s subclass.' % (method, instance.__class__.__name__)
+
 
 class FormHandler(object):
     """
@@ -67,6 +66,8 @@ class FormHandler(object):
             self.action = action
         else:
             raise AttributeError, "You must provide an 'action' parameter in your %s call. Please correct." % self.__class__.__name__
+
+        self.request = request  # the request might be necessary when saving objects or redirecting
 
         # get extra params and extra inits        
         self.extra_context = self.parse_extra_params(*args, **kwargs)
@@ -134,7 +135,10 @@ class FormHandler(object):
             self.extra_context['delete_object'] = self.get_object()
         
         context = {}
-        t = loader.get_template(template)
+        if isinstance(template, (tuple, list)):
+            t = loader.select_template(template)
+        else:
+            t = loader.get_template(template)
 
         context['form'] = form
         context.update(self.context)
@@ -157,15 +161,16 @@ class FormHandler(object):
         if form.is_valid():
             # encode cleaned data
             cleaned = form.cleaned_data
-            #for key, value in cleaned.items():
-            #    if type(value).__name__ == "unicode":
-            #        cleaned[key] = value.encode(settings.DEFAULT_CHARSET)
             if action == ID_ACTION_NEW:
                 return self.save_new(cleaned)
             else: #ID_ACTION_EDIT:
                 return self.save_edit(self.get_object(), cleaned)
         else:
-            t = loader.get_template(self.get_form_template(self.use_ajax))
+            template_name = self.get_form_template(self.use_ajax)
+            if isinstance(template_name, (tuple, list)):
+                t = loader.select_template(template_name)
+            else:
+                t = loader.get_template()
             context.update(self.context)
             context.update(self.extra_context)
             return HttpResponse(t.render(RequestContext(request, context)))   
@@ -259,6 +264,7 @@ class FormHandler(object):
         """ gets the object to be edited or deleted. """
         return methodNotImplementedError('get_object()', self)
 
+
 class FormPreviewHandler(FormHandler):
     """
     A class managing new,edit and delete operations
@@ -294,10 +300,15 @@ class FormPreviewHandler(FormHandler):
         if form.is_valid():
             context['hash_field'] = self._check_name('hash')
             context['hash_value'] = self.security_hash(request, form)
-            context['form_preview'] = True,
-            t = loader.get_template(self.get_preview_template(self.use_ajax))
+            context['form_preview'] = True
+            template_name = self.get_preview_template(self.use_ajax)
         else:
-            t = loader.get_template(self.get_form_template(self.use_ajax))
+            template_name = self.get_form_template(self.use_ajax)
+
+        if isinstance(template_name, (tuple, list)):
+            t = loader.select_template(template_name)
+        else:
+            t = loader.get_template(template_name)
 
         context.update(self.context)
         context.update(self.extra_context)
