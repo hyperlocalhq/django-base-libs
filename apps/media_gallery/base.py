@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 import re
 import os
+from collections import OrderedDict
 from datetime import datetime
 
 from django.db import models
@@ -116,32 +117,20 @@ class MediaGalleryManager(models.Manager):
         q = ExtendedQuerySet(self.model)
         gallery_db_table = self.model._meta.db_table
         ct = ContentType.objects.get_for_model(self.model)
+        select = OrderedDict()
         if is_installed("comments.models"):
             Comment = models.get_model("comments", "Comment")
             # we add a field "comments" into the queryset representing the comment count.
-            comment_db_table = Comment._meta.db_table
-            q = q.extra(
-                select={
-                    'comments': 'SELECT COUNT(*) from %s WHERE content_type_id=%d AND object_id=%s.id' % (
-                        comment_db_table,
-                        ct.id,
-                        gallery_db_table,
-                    ),
-                }
-            )
+            comments_db_table = Comment._meta.db_table
+            select['comments'] = """SELECT COUNT(*) from {} WHERE content_type_id = '{}' AND object_id = CAST({}.id AS CHAR)""".format(comments_db_table, ct.id, gallery_db_table)
         if is_installed("favorites.models"):
             Favorite = models.get_model("favorites", "Favorite")
-            favorite_db_table = Favorite._meta.db_table
+            favorites_db_table = Favorite._meta.db_table
+            select['favorite_count'] = """SELECT COUNT(*) from {} WHERE content_type_id = '{}' AND object_id = CAST({}.id AS CHAR)""".format(favorites_db_table, ct.id, gallery_db_table)
+        if select:
             q = q.extra(
-                select={
-                    'favorite_count': 'SELECT COUNT(*) from %s WHERE content_type_id=%d AND object_id=%s.id' % (
-                        favorite_db_table,
-                        ct.id,
-                        gallery_db_table,
-                    ),
-                }
+                select=select,
             )
-            
         return q
     
     def get_sort_order_mapper(self):

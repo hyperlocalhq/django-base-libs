@@ -1,27 +1,21 @@
 # -*- coding: UTF-8 -*-
-import re
+import os
 from mailsnake import MailSnake, CampaignInvalidStatusException
 
-from django import forms
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from django.contrib.admin.models import LogEntry
 from django.contrib.contenttypes.models import ContentType
-from django.utils.encoding import smart_str, force_unicode
+from django.utils.encoding import force_unicode
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db.models.signals import post_save
 
-from filebrowser.fields import FileBrowseField
-
 from base_libs.models import SingleSiteMixin, CreationModificationDateMixin, CreationModificationMixin
-from base_libs.models import PlainTextModelField
 from base_libs.models import ExtendedTextField
 from base_libs.models.fields import MultilingualCharField
-from base_libs.models.fields import MultilingualTextField
 from base_libs.models.fields import TemplatePathField
-from base_libs.utils.user import get_user_title
 from base_libs.models.fields import PositionField
 
 verbose_name = _("MailChimp")
@@ -69,7 +63,7 @@ class Subscription(CreationModificationDateMixin):
             'link': reverse(
                 'admin:%s_%s_change' % (
                     MList._meta.app_label,
-                    MList._meta.module_name,
+                    MList._meta.model_name,
                     ),
                 args=[self.mailinglist.pk],
                 ),
@@ -113,7 +107,7 @@ class MList(SingleSiteMixin):
             'link': reverse(
                 'admin:%s_%s_changelist' % (
                     Subscription._meta.app_label,
-                    Subscription._meta.module_name,
+                    Subscription._meta.model_name,
                     )
                 ),
             'mailinglist_id': self.pk,
@@ -126,7 +120,7 @@ class MList(SingleSiteMixin):
         return reverse(
             'admin:%s_%s_change' % (
                 self._meta.app_label,
-                self._meta.module_name,
+                self._meta.model_name,
                 ),
             args=[self.pk],
             )
@@ -190,7 +184,7 @@ class Campaign(CreationModificationMixin):
     subject = models.CharField(_("Subject"), max_length=255)
     body_html = ExtendedTextField(_("Message"), blank=True)
     mailinglist = models.ForeignKey('MList', verbose_name=_("Mailing list"))
-    template = TemplatePathField(_("Template"), path="mailchimp/campaign/", match="\.html$")
+    template = TemplatePathField(_("Template"), path='mailchimp/campaign/', match=r'.+\.html$')
     sent = models.BooleanField(_("Sent"), default=False, editable=False)
 
     class Meta:
@@ -227,7 +221,7 @@ class Campaign(CreationModificationMixin):
             'link': reverse(
                 'admin:%s_%s_change' % (
                     MList._meta.app_label,
-                    MList._meta.module_name,
+                    MList._meta.model_name,
                     ),
                 args=[self.mailinglist.pk],
                 ),
@@ -242,7 +236,7 @@ class Campaign(CreationModificationMixin):
         return reverse(
             'admin:%s_%s_preview' % (
                 self._meta.app_label,
-                self._meta.module_name,
+                self._meta.model_name,
                 ),
             args=[self.pk],
             )
@@ -297,18 +291,18 @@ class Campaign(CreationModificationMixin):
     mailchimp_id = property(_get_mailchimp_id, _set_mailchimp_id)
 
     def get_rendered_html(self):
-        from django.template.loader import get_template, Context
+        from django.template.loader import get_template
         from filebrowser.settings import MEDIA_URL as UPLOADS_URL
         from base_libs.utils.misc import get_website_url
         
         template = get_template(self.template)
-        return template.render(Context({
+        return template.render({
             'campaign': self,
             'media_url': settings.MEDIA_URL,
             'jetson_media_url': settings.JETSON_MEDIA_URL,
             'website_url': get_website_url(),
             'UPLOADS_URL': UPLOADS_URL,
-            }))
+        })
 
 
 def save_mailchimp_campaign(sender, **kwargs):
