@@ -344,47 +344,6 @@ class PersonGroupBase(CreationModificationDateMixin, PersonGroupObjectRelation, 
     def get_context_categories(self):
         return self.context_categories.all()
         
-    def get_locality_type(self):
-        from jetson.apps.location.models import LocalityType
-        if self.content_type and  self.content_type.model == "address":
-            postal_address = self.content_object
-            if postal_address.country != "DE":
-                return LocalityType.objects.get(
-                    slug="international",
-                )
-            elif postal_address.city.lower() != "berlin":
-                return LocalityType.objects.get(
-                    slug="national",
-                )
-            else:
-                import re
-                from jetson.apps.location.data import POSTAL_CODE_2_DISTRICT
-                locality = postal_address.get_locality()
-                regional = LocalityType.objects.get(
-                    slug="regional",
-                )
-                p = re.compile('[^\d]*') # remove non numbers
-                postal_code = p.sub("", postal_address.postal_code)
-                
-                district = ""
-                if locality and locality.district:
-                    district = locality.district
-                elif postal_code in POSTAL_CODE_2_DISTRICT:
-                    district = POSTAL_CODE_2_DISTRICT[postal_code]
-                if district:
-                    d = {}
-                    for lang_code, lang_verbose in settings.LANGUAGES:
-                        d["title_%s" % lang_code] = district
-                    term, created = LocalityType.objects.get_or_create(
-                        slug=better_slugify(district),
-                        parent=regional,
-                        defaults=d,
-                    )
-                    return term
-                else:
-                    return regional
-        return None
-        
     def get_object_types(self):
         return self.group_type and [self.group_type] or []
         

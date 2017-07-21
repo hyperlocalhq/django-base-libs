@@ -267,9 +267,6 @@ class DocumentBase(CreationModificationDateMixin, UrlMixin):
                 self._published_date_cache = None
         return self._published_date_cache
         
-    def get_locality_type(self):
-        return None
-        
     def get_object_types(self):
         return self.document_type and [self.document_type] or []
         
