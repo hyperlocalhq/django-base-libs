@@ -8,14 +8,14 @@ from base_libs.forms import dynamicforms
 from base_libs.middleware import get_current_user
 from base_libs.forms.fields import SecurityField
 
-from mailsnake import MailSnake
+from mailchimp3 import MailChimp
 
-from jetson.apps.mailchimp.models import Subscription
 from jetson.apps.mailchimp.models import MList
 from jetson.apps.mailchimp.models import Settings
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
+
 
 class SubscriptionForm(dynamicforms.Form):
     mlist = forms.ModelChoiceField(
@@ -66,6 +66,7 @@ class SubscriptionForm(dynamicforms.Form):
         )
     
     def save(self, request):
+        import hashlib
         cleaned = self.cleaned_data
         email = cleaned['email']
         first_name = cleaned['first_name']
@@ -74,31 +75,24 @@ class SubscriptionForm(dynamicforms.Form):
         user = get_current_user()
         ml = cleaned['mlist']
         s = Settings.objects.get()
-        ms = MailSnake(s.api_key)
+        mailchimp_client = MailChimp(s.username, s.api_key)
         if s.double_optin:
             status = "pending"
         else:
             status = "subscribed"
-        sub, created = Subscription.objects.get_or_create(
-            ip=ip,
-            email=email,
-            subscriber=user,
-            first_name=first_name,
-            last_name=last_name,
-            mailinglist=ml,
-            status=status,
-            )
+        m = hashlib.md5()
+        m.update(user.email.lower())
         if ml.mailchimp_id:
-            ms.listSubscribe(
-                id=ml.mailchimp_id,
-                email_address=sub.email,
-                merge_vars={
-                    'FNAME': first_name,
-                    'LNAME': last_name,
-                    },
-                double_optin=s.double_optin,
-                update_existing=s.update_existing,
-                send_welcome=s.send_welcome,
-                )
-        return sub
-
+            result = mailchimp_client.lists.members.create_or_update(
+                ml.mailchimp_id,
+                m.hexdigest(),
+                {
+                    'email_address': email,
+                    'status_if_new': status,
+                    'merge_fields': {
+                        'FNAME': first_name,
+                        'LNAME': last_name,
+                    }
+                }
+            )
+            return result

@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 import re
-from mailsnake import MailSnake
+from mailchimp3 import MailChimp
 
 from django import forms
 from django.db import models
@@ -24,7 +24,6 @@ from base_libs.utils.crypt import cryptString
 from base_libs.utils.betterslugify import better_slugify
 
 from jetson.apps.mailchimp.models import MList
-from jetson.apps.mailchimp.models import Subscription
 from jetson.apps.mailchimp.models import Settings
 from jetson.apps.configuration.models import SiteSettings
 from jetson.apps.mailing.views import Recipient, send_email_using_template
@@ -289,6 +288,7 @@ class SimpleRegistrationForm(SimpleRegistrationFormBase):
         )
 
     def save(self, activate_immediately=False):
+        import hashlib
         user = super(SimpleRegistrationForm, self).save(activate_immediately=activate_immediately)
         cleaned = self.cleaned_data
 
@@ -304,30 +304,27 @@ class SimpleRegistrationForm(SimpleRegistrationFormBase):
         except Exception:
             pass
         else:
-            ms = MailSnake(s.api_key)
+            mailchimp_client = MailChimp(s.username, s.api_key)
+            m = hashlib.md5()
+            m.update(user.email.lower())
             for ml in MList.site_objects.filter(is_public=True):
                 if cleaned['newsletter_%s' % ml.pk]:
                     if s.double_optin:
                         status = "pending"
                     else:
                         status = "subscribed"
-                    sub = Subscription.objects.create(
-                        subscriber=user,
-                        ip=self.request.META['REMOTE_ADDR'],
-                        mailinglist=ml,
-                        status=status,
-                    )
                     if ml.mailchimp_id:
-                        ms.listSubscribe(
-                            id=ml.mailchimp_id,
-                            email_address=sub.email,
-                            merge_vars={
-                                'FNAME': sub.first_name,
-                                'LNAME': sub.last_name,
-                            },
-                            double_optin=s.double_optin,
-                            update_existing=s.update_existing,
-                            send_welcome=s.send_welcome,
+                        mailchimp_client.lists.members.create_or_update(
+                            ml.mailchimp_id,
+                            m.hexdigest(),
+                            {
+                                'email_address': user.email,
+                                'status_if_new': status,
+                                'merge_fields': {
+                                    'FNAME': user.first_name,
+                                    'LNAME': user.last_name,
+                                }
+                            }
                         )
         return user
 

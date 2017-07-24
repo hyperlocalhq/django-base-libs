@@ -26,8 +26,6 @@ from base_libs.admin.tree_editor import TreeEditor
 LegalForm = models.get_model("institutions", "LegalForm")
 Institution = models.get_model("institutions", "Institution")
 InstitutionType = models.get_model("institutions", "InstitutionType")
-MList = models.get_model("mailchimp", "MList")
-Subscription = models.get_model("mailchimp", "Subscription")
 
 
 class InstitutionTypeOptions(TreeEditor):
@@ -39,108 +37,6 @@ class InstitutionTypeOptions(TreeEditor):
     fieldsets += [(None, {'fields': ('slug',)}), ]
 
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,), }
-
-
-class MListForm(forms.Form):
-    mailinglist = forms.ModelChoiceField(
-        queryset=MList.objects.all(),
-        label=_("Mailing List"),
-        required=True,
-    )
-    email_type = forms.ChoiceField(
-        choices=(
-            ('', "---------"),
-            ('contact', _("Contact Email")),
-            ('owner', _("Owner Email")),
-        ),
-        label=_("Email type"),
-        required=True,
-    )
-
-
-def mailchimp_subscribe(modeladmin, request, queryset):
-    """
-    An action which subscribes institutions to mailchimp lists
-    
-    This action at first displays a list of mailing lists to subscribe to.
-    
-    Next it subscribes the selected people to the mailing list.
-    """
-    opts = modeladmin.model._meta
-    app_label = opts.app_label
-
-    if request.POST.get('mailchimp_subscribe'):
-        form = MListForm(request.POST)
-        if form.is_valid():
-            mailing_list = form.cleaned_data['mailinglist']
-            email_type = form.cleaned_data['email_type']
-            n = queryset.count()
-            if n:
-                for obj in queryset:
-                    if email_type == "contact":
-                        email = obj.get_primary_contact()['email0_address']
-                        if email:
-                            sub, created = Subscription.objects.get_or_create(
-                                mailinglist=mailing_list,
-                                email=email,
-                                defaults={
-                                    'first_name': "",
-                                    'last_name': "",
-                                    'subscriber': None,
-                                    'ip': "",
-                                    'status': "subscribed",
-                                }
-                            )
-
-                    elif email_type == "owner":
-                        for p in obj.get_owners():
-                            user = p.user
-                            sub, created = Subscription.objects.get_or_create(
-                                mailinglist=mailing_list,
-                                email=user.email,
-                                defaults={
-                                    'first_name': user.first_name,
-                                    'last_name': user.last_name,
-                                    'subscriber': user,
-                                    'ip': "",
-                                    'status': "subscribed",
-                                }
-                            )
-
-                modeladmin.message_user(request, _("Successfully subscribed %(count)d %(items)s.") % {
-                    "count": n, "items": model_ngettext(modeladmin.opts, n)
-                })
-            # Return None to display the change list page again.
-            return None
-    else:
-        form = MListForm()
-
-    if len(queryset) == 1:
-        objects_name = force_unicode(opts.verbose_name)
-    else:
-        objects_name = force_unicode(opts.verbose_name_plural)
-
-    title = _("Subscribe to a mailing list")
-
-    context = {
-        "title": title,
-        "objects_name": objects_name,
-        'queryset': queryset,
-        "opts": opts,
-        "root_path": modeladmin.admin_site.root_path,
-        "app_label": app_label,
-        'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
-        'form': form,
-    }
-    # Display the confirmation page
-    return render_to_response(
-        "admin/%s/%s/mailchimp_subscribe_selected.html" % (app_label, opts.object_name.lower()),
-        context,
-        context_instance=template.RequestContext(request)
-    )
-
-
-mailchimp_subscribe.short_description = _("Subscribe to mailing list")
 
 
 def get_deleted_objects(objs, opts, user, admin_site, using):
@@ -373,7 +269,7 @@ class InstitutionOptions(ExtendedModelAdmin):
     list_filter = ('creation_date', 'status', 'context_categories')
     search_fields = ('title', 'title2', 'slug')
     ordering = ('-creation_date',)
-    actions = ["publish", "publish_commercial", mailchimp_subscribe, merge_selected]
+    actions = ["publish", "publish_commercial", merge_selected]
 
     def publish(self, request, queryset):
         for inst in queryset:

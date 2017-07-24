@@ -390,7 +390,7 @@ ADMIN_APP_INDEX = (
                 "models": ("InternalMessage",),
             }),
             ("mailchimp", {
-                "models": ("Settings", "MList", "Subscription", "Campaign",),
+                "models": ("Settings", "MList", "Campaign",),
                 "icon": "transmit",
             }),
         )
@@ -554,7 +554,6 @@ PROFANITY_MODELS_NOT_TO_CHECK = (
     "mailchimp.Campaign",
     "mailchimp.MailingContentBlock",
     "mailchimp.Settings",
-    "mailchimp.Subscription",
     "mailchimp.MList",
 )
 
