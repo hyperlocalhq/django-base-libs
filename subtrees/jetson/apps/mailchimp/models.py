@@ -260,8 +260,9 @@ def save_mailchimp_campaign(sender, **kwargs):
                         },
                         'settings': {
                             'subject_line': campaign.subject,
+                            'from_name': campaign.sender_name,
                             'from_email': campaign.sender_email,
-                            'reply_to': campaign.sender_name,
+                            'reply_to': campaign.sender_email,
                             'to_name': u"*|FNAME|* *|LNAME|*",
                         },
                     }
@@ -273,18 +274,20 @@ def save_mailchimp_campaign(sender, **kwargs):
                     }
                 )
             else:
-                campaign.mailchimp_id = mailchimp_client.campaigns.create(data={
+                response = mailchimp_client.campaigns.create(data={
                     'type': "regular",
                     'recipients': {
                         'list_id': campaign.mailinglist.mailchimp_id,
                     },
                     'settings': {
                         'subject_line': campaign.subject,
+                        'from_name': campaign.sender_name,
                         'from_email': campaign.sender_email,
-                        'reply_to': campaign.sender_name,
+                        'reply_to': campaign.sender_email,
                         'to_name': u"*|FNAME|* *|LNAME|*",
                     },
                 })
+                campaign.mailchimp_id = response['id']
                 mailchimp_client.campaigns.content.update(
                     campaign_id=campaign.mailchimp_id,
                     data={
@@ -292,7 +295,7 @@ def save_mailchimp_campaign(sender, **kwargs):
                     }
                 )
 
-            post_save.connect(save_mailchimp_campaign, sender=LogEntry)
+post_save.connect(save_mailchimp_campaign, sender=LogEntry)
 
 CONTENT_TYPE_CHOICES = getattr(settings, "MAILING_CONTENT_TYPE_CHOICES", (
     ('image_and_text', _("Image and text")),
