@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 import os
-from mailsnake import MailSnake, CampaignInvalidStatusException
+from mailchimp3 import MailChimp
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -20,20 +20,11 @@ from base_libs.models.fields import PositionField
 
 verbose_name = _("MailChimp")
 
-INFOSUBSCRIPTION_STATUS_CHOICES = (
-    ("pending", _("Pending")),
-    ("subscribed", _("Subscribed")),
-    ("unsubscribed", _("Unsubscribed")),
-    )
-
 
 class Settings(models.Model):
+    username = models.CharField(_("Username"), max_length=200, blank=True)
     api_key = models.CharField(_("API key"), max_length=200, blank=True)
     double_optin = models.BooleanField(_("Double Optin"), default=True, help_text=_("Flag to control whether a double opt-in confirmation message is sent. ABUSING THIS MAY CAUSE YOUR ACCOUNT TO BE SUSPENDED."))
-    update_existing = models.BooleanField(_("Update existing"), default=False, help_text=_("Flag to congtrol whether the existing subscribers should be updated instead of throwing an error."))
-    send_welcome = models.BooleanField(_("Send welcome"), default=False, help_text=_("If double optin is false and this is true, MailChimp will send a welcome message to new subscribers."))
-    delete_member = models.BooleanField(_("Delete member"), default=False, help_text=_("Flag to completely delete the member from the list instead of just unsubscribing"))
-    send_goodbye = models.BooleanField(_("Send goodbye"), default=True, help_text=_("Flag to send the goodbye message to the email address."))
 
     class Meta:
         verbose_name = _("MailChimp Settings")
@@ -42,46 +33,6 @@ class Settings(models.Model):
 
     def __unicode__(self):
         return force_unicode(self.api_key)
-
-
-class Subscription(CreationModificationDateMixin):
-    subscriber = models.ForeignKey(User, verbose_name=_("Subscriber"), null=True, blank=True)
-    first_name = models.CharField(_("First name"), max_length=200, blank=True)
-    last_name = models.CharField(_("Last name"), max_length=200, blank=True)
-    email = models.EmailField(_("Email address"), blank=True)
-    ip = models.GenericIPAddressField(_("IP Address"), blank=True, null=True)
-    mailinglist = models.ForeignKey('MList', verbose_name=_("Mailing list"))
-    status = models.CharField(_("Status"), max_length=200, blank=True, choices=INFOSUBSCRIPTION_STATUS_CHOICES)
-    
-    class Meta:
-        verbose_name = _("subscription")
-        verbose_name_plural = _("subscriptions")
-        ordering = ['email']
-    
-    def get_mailinglist_with_link(self):
-        return '<a href="%(link)s" class="cross_link">%(mailinglist)s</a>' % {
-            'link': reverse(
-                'admin:%s_%s_change' % (
-                    MList._meta.app_label,
-                    MList._meta.model_name,
-                    ),
-                args=[self.mailinglist.pk],
-                ),
-            'mailinglist': self.mailinglist,
-            }
-    get_mailinglist_with_link.short_description = _("Mailing list")
-    get_mailinglist_with_link.allow_tags = True
-        
-    def save(self, *args, **kwargs):
-        if self.subscriber:
-            self.first_name = self.subscriber.first_name
-            self.last_name = self.subscriber.last_name
-            self.email = self.email or self.subscriber.email
-        super(Subscription, self).save(*args, **kwargs)
-    save.alters_data = True
-        
-    def __unicode__(self):
-        return force_unicode(self.email)
 
 
 class MList(SingleSiteMixin):
@@ -94,36 +45,14 @@ class MList(SingleSiteMixin):
         verbose_name_plural = _("Mailing Lists")
         ordering = ["title"]
         
-    def get_count(self):
-        return self.subscription_set.count()
-    get_count.short_description = _("Number of recipients")
-    
-    def get_count_with_link(self):
-        count = self.get_count()
-        if not count:
-            return count
-        return '%(count)s &nbsp; <a href="%(link)s?mailinglist__id__exact=%(mailinglist_id)s" class="cross_link">%(linktext)s</a>' % {
-            'count': count,
-            'link': reverse(
-                'admin:%s_%s_changelist' % (
-                    Subscription._meta.app_label,
-                    Subscription._meta.model_name,
-                    )
-                ),
-            'mailinglist_id': self.pk,
-            'linktext': _("Show recipients"),
-            }
-    get_count_with_link.short_description = _("Number of recipients")
-    get_count_with_link.allow_tags = True
-    
     def get_admin_change_url(self):
         return reverse(
             'admin:%s_%s_change' % (
                 self._meta.app_label,
                 self._meta.model_name,
-                ),
+            ),
             args=[self.pk],
-            )
+        )
     
     def __unicode__(self):
         return self.title
@@ -136,14 +65,14 @@ class MList(SingleSiteMixin):
                 defaults={
                     'url': "http://api.mailchimp.com/",
                     'title': "MailChimp",
-                    },
-                )
+                },
+            )
             try:
                 mapper = s.objectmapper_set.get(
                     content_type__app_label="mailchimp",
                     content_type__model="mlist",
                     object_id=self.pk,
-                    )
+                )
             except:
                 self._mailchimp_id = None
             else:
@@ -205,9 +134,9 @@ class Campaign(CreationModificationMixin):
             st = Settings.objects.get()
         except:
             return False
-        ms = MailSnake(st.api_key)
-        response_dict = ms.campaigns(filters={'campaign_id': self.mailchimp_id})
-        sent = response_dict['data'][0]['status'] == "sent"
+        mailchimp_client = MailChimp(st.username, st.api_key)
+        data = mailchimp_client.campaigns.get(campaign_id=self.mailchimp_id)
+        sent = data['status'] == "sent"
         if sent:
             Campaign.objects.filter(pk=self.pk).update(sent=True)
         return sent
@@ -217,17 +146,16 @@ class Campaign(CreationModificationMixin):
     get_mailinglist.short_description = _("Mailing List")
     
     def get_mailinglist_with_link(self):
-        r = '<div><a href="%(link)s" class="cross_link">%(name)s</a> (%(count)s recipients)</div>' % {
+        r = '<div><a href="%(link)s" class="cross_link">%(name)s</a></div>' % {
             'link': reverse(
                 'admin:%s_%s_change' % (
                     MList._meta.app_label,
                     MList._meta.model_name,
-                    ),
-                args=[self.mailinglist.pk],
                 ),
+                args=[self.mailinglist.pk],
+            ),
             'name': self.mailinglist.title,
-            'count': self.mailinglist.get_count(),
-            }
+        }
         return r
     get_mailinglist_with_link.allow_tags = True
     get_mailinglist_with_link.short_description = _("Mailing list")
@@ -237,9 +165,9 @@ class Campaign(CreationModificationMixin):
             'admin:%s_%s_preview' % (
                 self._meta.app_label,
                 self._meta.model_name,
-                ),
+            ),
             args=[self.pk],
-            )
+        )
 
     def _get_mailchimp_id(self):
         if not hasattr(self, "_mailchimp_id"):
@@ -249,14 +177,14 @@ class Campaign(CreationModificationMixin):
                 defaults={
                     'url': "http://api.mailchimp.com/",
                     'title': "MailChimp",
-                    },
-                )
+                },
+            )
             try:
                 mapper = s.objectmapper_set.get(
                     content_type__app_label="mailchimp",
                     content_type__model="campaign",
                     object_id=self.pk,
-                    )
+                )
             except:
                 self._mailchimp_id = None
             else:
@@ -271,19 +199,19 @@ class Campaign(CreationModificationMixin):
             defaults={
                 'url': "http://api.mailchimp.com/",
                 'title': "MailChimp",
-                },
-            )
+            },
+        )
 
         s.objectmapper_set.filter(
             content_type__app_label="mailchimp",
             content_type__model="campaign",
             object_id=self.pk,
-            ).delete()
+        ).delete()
         if value:
             mapper = ObjectMapper(
                 service=s,
                 external_id=value,
-                )
+            )
             mapper.content_object = self
             mapper.save()
         self._mailchimp_id = value
@@ -319,68 +247,60 @@ def save_mailchimp_campaign(sender, **kwargs):
             except:
                 return
 
-            ms = MailSnake(st.api_key)
+            mailchimp_client = MailChimp(st.username, st.api_key)
                 
             html = campaign.get_rendered_html()
 
             if campaign.mailchimp_id:
-                try:
-                    ms.campaignUpdate(
-                        cid=campaign.mailchimp_id,
-                        name="list_id",
-                        value=campaign.mailinglist.mailchimp_id,
-                        )
-                    ms.campaignUpdate(
-                        cid=campaign.mailchimp_id,
-                        name="subject",
-                        value=campaign.subject,
-                        )
-                    ms.campaignUpdate(
-                        cid=campaign.mailchimp_id,
-                        name="title",
-                        value=campaign.subject,
-                        )
-                    ms.campaignUpdate(
-                        cid=campaign.mailchimp_id,
-                        name="from_email",
-                        value=campaign.sender_email,
-                        )
-                    ms.campaignUpdate(
-                        cid=campaign.mailchimp_id,
-                        name="from_name",
-                        value=campaign.sender_name,
-                        )
-                    ms.campaignUpdate(
-                        cid=campaign.mailchimp_id,
-                        name="content",
-                        value={
-                            'html': html,
-                            'text': ms.generateText(type="html", content=html),
-                            },
-                        )
-                except CampaignInvalidStatusException:
-                    pass
-            else:
-                campaign.mailchimp_id = ms.campaignCreate(
-                    type="regular",
-                    options={
-                        'list_id': campaign.mailinglist.mailchimp_id,
-                        'subject': campaign.subject,
-                        'from_email': campaign.sender_email,
-                        'from_name': campaign.sender_name,
-                        'to_name': u"*|FNAME|* *|LNAME|*",
+                mailchimp_client.campaigns.update(
+                    campaign_id=campaign.mailchimp_id,
+                    data={
+                        'recipients': {
+                            'list_id': campaign.mailinglist.mailchimp_id,
                         },
-                    content={
+                        'settings': {
+                            'subject_line': campaign.subject,
+                            'from_name': campaign.sender_name,
+                            'from_email': campaign.sender_email,
+                            'reply_to': campaign.sender_email,
+                            'to_name': u"*|FNAME|* *|LNAME|*",
+                        },
+                    }
+                )
+                mailchimp_client.campaigns.content.update(
+                    campaign_id=campaign.mailchimp_id,
+                    data={
                         'html': html,
-                        'text': ms.generateText(type="html", content=html),
-                        }
-                    )
+                    }
+                )
+            else:
+                response = mailchimp_client.campaigns.create(data={
+                    'type': "regular",
+                    'recipients': {
+                        'list_id': campaign.mailinglist.mailchimp_id,
+                    },
+                    'settings': {
+                        'subject_line': campaign.subject,
+                        'from_name': campaign.sender_name,
+                        'from_email': campaign.sender_email,
+                        'reply_to': campaign.sender_email,
+                        'to_name': u"*|FNAME|* *|LNAME|*",
+                    },
+                })
+                campaign.mailchimp_id = response['id']
+                mailchimp_client.campaigns.content.update(
+                    campaign_id=campaign.mailchimp_id,
+                    data={
+                        'html': html,
+                    }
+                )
+
 post_save.connect(save_mailchimp_campaign, sender=LogEntry)
 
 CONTENT_TYPE_CHOICES = getattr(settings, "MAILING_CONTENT_TYPE_CHOICES", (
     ('image_and_text', _("Image and text")),
     ('text', _("Text only")),
-    ))
+))
 
 class MailingContentBlock(models.Model):
     campaign = models.ForeignKey('Campaign')
@@ -410,6 +330,5 @@ class MailingContentBlock(models.Model):
             {
                 'campaign': self.campaign,
                 'block': self,
-                },
-            )
-
+            },
+        )

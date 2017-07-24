@@ -16,38 +16,14 @@ from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
 
-from jetson.apps.mailchimp.models import Settings, Subscription, MList, Campaign, MailingContentBlock
-from jetson.apps.mailchimp.utils import sync_mc_list
+from jetson.apps.mailchimp.models import Settings, MList, Campaign, MailingContentBlock
 
 class SettingsAdmin(admin.ModelAdmin):
-    list_display = ('api_key', 'double_optin', 'update_existing', 'send_welcome', 'delete_member', 'send_goodbye')
+    list_display = ('username', 'api_key', 'double_optin')
+    list_display_links = ('username', 'api_key')
     save_on_top = True
 
 admin.site.register(Settings, SettingsAdmin)
-
-
-class SubscriptionAdminForm(forms.ModelForm):
-    class Meta:
-        model = Subscription
-        exclude = ()
-
-    def clean(self, *args, **kwargs):
-        cleaned = super(SubscriptionAdminForm, self).clean(*args, **kwargs)
-        if not cleaned.get("subscriber", None) and not cleaned.get("email", ""):
-            self._errors['email'] = ErrorList([_("Either subscriber or subscriber email should be filled in.")])
-        return cleaned
-
-class SubscriptionAdmin(admin.ModelAdmin):
-    form = SubscriptionAdminForm
-    list_display = ('email', 'first_name', 'last_name', 'get_mailinglist_with_link', 'creation_date', 'status')
-    list_filter = ('mailinglist',)
-    search_fields = ('first_name', 'last_name', 'email',)
-    fieldsets = (
-        (None, {'fields': ("mailinglist", "subscriber", "first_name", "last_name", "email", "ip", "status")}),
-        )
-    save_on_top = True
-
-admin.site.register(Subscription, SubscriptionAdmin)
 
 
 class MListAdminForm(forms.ModelForm):
@@ -63,22 +39,23 @@ class MListAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(MListAdminForm, self).__init__(*args, **kwargs)
         mailchimp_list_choices = [("", "---------")]
-        from mailsnake import MailSnake
+        from mailchimp3 import MailChimp
         Settings = models.get_model("mailchimp", "Settings")
         try:
             st = Settings.objects.get()
         except:
             pass
         else:
-            ms = MailSnake(st.api_key)
-            for l in ms.lists()['data']:
+            mailchimp_client = MailChimp(st.username, st.api_key)
+            data = mailchimp_client.lists.all(get_all=True, fields="lists.id,lists.name")
+            for l in data['lists']:
                 mailchimp_list_choices.append((l['id'], l['name']))
             self.fields['mailchimp_list'].choices = mailchimp_list_choices
             self.fields['mailchimp_list'].initial = self.instance.mailchimp_id
         
 class MListAdmin(admin.ModelAdmin):
     form = MListAdminForm
-    list_display = ('id', 'title', 'get_mailchimp_list', 'get_count_with_link', 'last_sync', 'is_public')
+    list_display = ('id', 'title', 'get_mailchimp_list', 'last_sync', 'is_public')
     list_display_links = ('id', 'title')
     list_filter = ('is_public',)
     fieldsets = [(None, {'fields': ('site', 'mailchimp_list')}),]
@@ -93,16 +70,17 @@ class MListAdmin(admin.ModelAdmin):
             
     def get_mailchimp_list(self, obj):
         if not hasattr(self, "_mailchimp_lists"):
-            from mailsnake import MailSnake
+            from mailchimp3 import MailChimp
             Settings = models.get_model("mailchimp", "Settings")
             try:
                 st = Settings.objects.get()
             except:
                 pass
             else:
-                ms = MailSnake(st.api_key)
+                mailchimp_client = MailChimp(st.username, st.api_key)
+                data = mailchimp_client.lists.all(get_all=True, fields="lists.id,lists.name")
                 self._mailchimp_lists = {}
-                for l in ms.lists()['data']:
+                for l in data['lists']:
                     self._mailchimp_lists[l['id']] = l['name']
         
         if obj.mailchimp_id:
@@ -110,14 +88,6 @@ class MListAdmin(admin.ModelAdmin):
         
     get_mailchimp_list.short_description = _("MailChimp List")
         
-    def sync_list(self, request, queryset):
-        for ml in queryset:
-            for message in sync_mc_list(ml):
-                self.message_user(request, message)
-            
-    sync_list.short_description = _("Synchronize list")
-
-    actions = [sync_list]
 
 admin.site.register(MList, MListAdmin)
 
@@ -131,6 +101,7 @@ class MailingContentBlockInline(ExtendedStackedInline):
     sortable_field_name = "sort_order"
     classes = ('grp-collapse grp-open',)
     inline_classes = ('grp-collapse grp-open',)
+
 
 class CampaignAdmin(ExtendedModelAdmin):
     list_display = ('subject', 'get_mailinglist_with_link', 'get_preview_link', 'get_status')
