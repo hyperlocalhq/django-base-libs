@@ -404,9 +404,9 @@ class PersonGroupBase(CreationModificationDateMixin, PersonGroupObjectRelation, 
         """ get all admins """
         members = self.get_all_members().extra(
             where=(
-                '(groups_networks_groupmembership.role = "owners")',
-                )
+                "(groups_networks_groupmembership.role = 'owners')",
             )
+        )
         members.sort_order_map = None
         members.sort_order_mapper = {
             'alphabetical_asc': (

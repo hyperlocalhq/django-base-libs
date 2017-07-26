@@ -330,6 +330,8 @@ def adjust_version(request):
                 return HttpResponseRedirect(reverse("filebrowser:fb_detail") + get_query_string(query.copy(), remove=["sysname"]))
             # else redirect back to versions
             return HttpResponseRedirect(reverse("fb_versions") + get_query_string(query.copy(), remove=["sysname"]))
+        else:
+            messages.error(request, _("Errors in the coordinates"))
     else:
         if cropping:
             initial = {'bgcolor': cropping.bgcolor, 'x1': converter.orig_to_canvas(

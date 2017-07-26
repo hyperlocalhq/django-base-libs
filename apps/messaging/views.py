@@ -302,6 +302,7 @@ def contact(request, **kwargs):
     """
     Displays and manages a contact form for an object
     """
+    kwargs['slug'] = kwargs['slug'].lower()
     obj = get_object_or_404(
         kwargs['queryset'],
         **{kwargs['slug_field']: kwargs['slug']}

@@ -4,6 +4,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User, AnonymousUser, Group, Permission
 from django.contrib.auth.backends import ModelBackend
 from django.db import models
+from django.conf import settings
+from django.utils.encoding import force_text
 
 RowLevelPermission = models.get_model("permissions", "RowLevelPermission")
 PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
@@ -108,26 +110,44 @@ class RowLevelPermissionsBackend(ModelBackend):
         object_id = obj._get_pk_val()
         cursor = connection.cursor()
         quote_name = connection.ops.quote_name
-        sql = """
-            SELECT rlp.%s
-            FROM %s ug, %s rlp
-            WHERE rlp.%s = ug.%s
-                AND ug.%s=%%s
-                AND rlp.%s=%%s
-                AND rlp.%s=%%s
-                AND rlp.%s=%%s
-                AND rlp.%s=%%s
-                ORDER BY rlp.%s""" % (
-            quote_name('negative'), quote_name('auth_user_groups'),
-            quote_name('auth_rowlevelpermission'), quote_name('owner_object_id'),
-            quote_name('group_id'), quote_name('user_id'),
-            quote_name('owner_content_type_id'), quote_name('object_id'),
-            quote_name('content_type_id'), quote_name('permission_id'),
-            quote_name('negative'))
+        if "postgresql" in settings.DATABASES['default']['ENGINE']:
+            sql = """
+                SELECT rlp.%s
+                FROM %s ug, %s rlp
+                WHERE rlp.%s = ug.%s::text
+                    AND ug.%s=%%s
+                    AND rlp.%s=%%s
+                    AND rlp.%s=%%s
+                    AND rlp.%s=%%s
+                    AND rlp.%s=%%s
+                    ORDER BY rlp.%s""" % (
+                quote_name('negative'), quote_name('auth_user_groups'),
+                quote_name('auth_rowlevelpermission'), quote_name('owner_object_id'),
+                quote_name('group_id'), quote_name('user_id'),
+                quote_name('owner_content_type_id'), quote_name('object_id'),
+                quote_name('content_type_id'), quote_name('permission_id'),
+                quote_name('negative'))
+        else:
+            sql = """
+                SELECT rlp.%s
+                FROM %s ug, %s rlp
+                WHERE rlp.%s = ug.%s
+                    AND ug.%s=%%s
+                    AND rlp.%s=%%s
+                    AND rlp.%s=%%s
+                    AND rlp.%s=%%s
+                    AND rlp.%s=%%s
+                    ORDER BY rlp.%s""" % (
+                quote_name('negative'), quote_name('auth_user_groups'),
+                quote_name('auth_rowlevelpermission'), quote_name('owner_object_id'),
+                quote_name('group_id'), quote_name('user_id'),
+                quote_name('owner_content_type_id'), quote_name('object_id'),
+                quote_name('content_type_id'), quote_name('permission_id'),
+                quote_name('negative'))
         cursor.execute(sql, [
             user_obj.id,
             ContentType.objects.get_for_model(Group).id,
-            object_id,
+            force_text(object_id),
             ContentType.objects.get_for_model(obj).id,
             permission.id,])
         row = cursor.fetchone()
@@ -139,20 +159,32 @@ class RowLevelPermissionsBackend(ModelBackend):
         object_id = obj._get_pk_val()
         cursor = connection.cursor()
         quote_name = connection.ops.quote_name
-        sql = """
-            SELECT rlp.negative 
-            FROM auth_rowlevelpermission rlp, auth_perobjectgroup_users gu
-            WHERE rlp.owner_object_id = gu.perobjectgroup_id
-                AND gu.user_id=%s
-                AND rlp.owner_content_type_id=%s
-                AND rlp.object_id=%s
-                AND rlp.content_type_id=%s
-                AND rlp.permission_id=%s
-                ORDER BY rlp.negative"""
+        if "postgresql" in settings.DATABASES['default']['ENGINE']:
+            sql = """
+                SELECT rlp.negative 
+                FROM auth_rowlevelpermission rlp, auth_perobjectgroup_users gu
+                WHERE rlp.owner_object_id = gu.perobjectgroup_id::text
+                    AND gu.user_id=%s
+                    AND rlp.owner_content_type_id=%s
+                    AND rlp.object_id=%s
+                    AND rlp.content_type_id=%s
+                    AND rlp.permission_id=%s
+                    ORDER BY rlp.negative"""
+        else:
+            sql = """
+                SELECT rlp.negative 
+                FROM auth_rowlevelpermission rlp, auth_perobjectgroup_users gu
+                WHERE rlp.owner_object_id = gu.perobjectgroup_id
+                    AND gu.user_id=%s
+                    AND rlp.owner_content_type_id=%s
+                    AND rlp.object_id=%s
+                    AND rlp.content_type_id=%s
+                    AND rlp.permission_id=%s
+                    ORDER BY rlp.negative"""
         cursor.execute(sql, [
             user_obj.id,
             ContentType.objects.get_for_model(PerObjectGroup).id,
-            object_id,
+            force_text(object_id),
             ContentType.objects.get_for_model(obj).id,
             permission.id,])
         row = cursor.fetchone()
