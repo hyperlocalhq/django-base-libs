@@ -83,14 +83,14 @@
         var sDefaultBgColor = "{{ default_initial.bgcolor }}";
         
         function updateCoords(c) {
-            if (c.x == c.x2 || c.y == c.y2) {
+            if (c.x === c.x2 || c.y === c.y2) {
                 setDefault();
                 return
             }
-            $('#id_x1').val(c.x);
-            $('#id_y1').val(c.y);
-            $('#id_x2').val(c.x2);
-            $('#id_y2').val(c.y2);
+            $('#id_x1').val(parseInt(c.x, 10));
+            $('#id_y1').val(parseInt(c.y, 10));
+            $('#id_x2').val(parseInt(c.x2, 10));
+            $('#id_y2').val(parseInt(c.y2, 10));
         }
         function setDefault() {
             oCroppingAPI.animateTo(aDefaultSelection);
@@ -105,7 +105,7 @@
             updateImage(sDefaultBgColor);
         }
         function updateImage(sBgColor) {
-            var sBgColor = sBgColor.replace(/#/, "");
+            sBgColor = sBgColor.replace(/#/, "");
             $(".image-version img").each(function() {
                 var sSrc = $(this).attr("src");
                 sSrc = sSrc.replace(/[^\/]+\/\?/, sBgColor + '/?');
@@ -122,14 +122,14 @@
                 onChange: updateCoords,
                 allowSelect: false,
                 setSelect: [ x1, y1, x2, y2 ]
-            }
+            };
             {% if mod.width and mod.height and mod.crop %}
                 options['aspectRatio'] = {{ mod.width }} / {{ mod.height }};
             {% endif %}
             oCroppingAPI = $.Jcrop('#cropbox', options);
             $(document).keyup(function(e) {
                 // ESCAPE key pressed
-                if (e.keyCode == 27) {
+                if (e.keyCode === 27) {
                     setDefault();
                 }
             });
@@ -151,7 +151,7 @@
                 onHide: function (colpkr) {
                     $(colpkr).fadeOut(500);
                     return false;
-                },
+                }
             });
             
             oCroppingAPI.focus();
@@ -202,16 +202,16 @@
                         </div>
                         {% endif %}
                         {{ form.x1 }}{{ form.y1 }}{{ form.x2 }}{{ form.y2 }}
-                    </div>
-                    <footer class="grp-module grp-submit-row grp-fixed-footer">
-                        <header style="display:none"><h1>Submit Options</h1></header>
-                        <ul>
-                            <li class="grp-float-left cancel-button-container"><a href="{% if query.pop == "1" %}{% url 'filebrowser:fb_detail' %}{% query_string "" "p,sysname" %}{% else %}{% url 'fb_versions' %}{% query_string "" "p,sysname" %}{% endif %}" class="grp-button grp-cancel-link">{% trans "Cancel" %}</a></li>
-                            <li><input type="submit" value="{% trans "Crop and save" %}" class="grp-button grp-default" /></li>
-                        </ul>
-                        <input type="hidden" name="post" value="yes" />
-                    </footer>
-                </fieldset>
+                    </fieldset>
+                </div>
+                <footer class="grp-module grp-submit-row grp-fixed-footer">
+                    <header style="display:none"><h1>Submit Options</h1></header>
+                    <ul>
+                        <li class="grp-float-left cancel-button-container"><a href="{% if query.pop == "1" %}{% url 'filebrowser:fb_detail' %}{% query_string "" "p,sysname" %}{% else %}{% url 'fb_versions' %}{% query_string "" "p,sysname" %}{% endif %}" class="grp-button grp-cancel-link">{% trans "Cancel" %}</a></li>
+                        <li><input type="submit" value="{% trans "Crop and save" %}" class="grp-button grp-default" /></li>
+                    </ul>
+                    <input type="hidden" name="post" value="yes" />
+                </footer>
             </form>
         </div>
     </div>

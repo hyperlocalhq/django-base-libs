@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Django 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-18 20:38+0200\n"
+"POT-Creation-Date: 2017-07-25 20:00+0200\n"
 "PO-Revision-Date: 2012-04-04 22:05+0100\n"
 "Last-Translator: Aidas Bendoraitis <bendoraitis@studio38.de>\n"
 "Language-Team: \n"
@@ -85,17 +85,6 @@ msgstr ""
 #: subtrees/jetson/apps/blog/forms.py:20
 #: subtrees/jetson/apps/cms_extensions/plugins/headline/models.py:9
 #: subtrees/jetson/apps/comments/views/comments.py:65
-#: subtrees/jetson/apps/email_campaigns/admin.py:56
-#: subtrees/jetson/apps/email_campaigns/admin.py:66
-#: subtrees/jetson/apps/email_campaigns/models.py:61
-#: subtrees/jetson/apps/email_campaigns/models.py:90
-#: subtrees/jetson/apps/email_campaigns/models.py:206
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0002_add_campaign_mailinglist_mailing_mailingcontentblock.py:17
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0002_add_campaign_mailinglist_mailing_mailingcontentblock.py:27
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0002_add_campaign_mailinglist_mailing_mailingcontentblock.py:68
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:125
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:146
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:212
 #: subtrees/jetson/apps/events/admin.py:41
 #: subtrees/jetson/apps/events/admin.py:70
 #: subtrees/jetson/apps/events/base.py:222
@@ -114,8 +103,8 @@ msgstr ""
 #: subtrees/jetson/apps/institutions/admin.py:31
 #: subtrees/jetson/apps/institutions/base.py:214
 #: subtrees/jetson/apps/location/admin.py:36
-#: subtrees/jetson/apps/mailchimp/admin.py:85
-#: subtrees/jetson/apps/mailchimp/models.py:94
+#: subtrees/jetson/apps/mailchimp/admin.py:62
+#: subtrees/jetson/apps/mailchimp/models.py:39
 #: subtrees/jetson/apps/marketplace/admin.py:40
 #: subtrees/jetson/apps/marketplace/admin.py:48
 #: subtrees/jetson/apps/marketplace/admin.py:56
@@ -255,12 +244,10 @@ msgstr ""
 
 #: subtrees/jetson/apps/advertising/models.py:151
 #: subtrees/jetson/apps/blocks/models.py:39
-#: subtrees/jetson/apps/email_campaigns/admin.py:76
-#: subtrees/jetson/apps/email_campaigns/admin.py:83
 #: subtrees/jetson/apps/flatpages/admin.py:31
-#: subtrees/jetson/apps/mailchimp/admin.py:128
-#: subtrees/jetson/apps/mailchimp/admin.py:139
-#: subtrees/jetson/apps/mailchimp/models.py:394
+#: subtrees/jetson/apps/mailchimp/admin.py:98
+#: subtrees/jetson/apps/mailchimp/admin.py:110
+#: subtrees/jetson/apps/mailchimp/models.py:308
 msgid "Content"
 msgstr "Inhalt"
 
@@ -547,16 +534,12 @@ msgid "Body"
 msgstr "Inhalt"
 
 #: subtrees/jetson/apps/blog/forms.py:37
-#: subtrees/jetson/apps/email_campaigns/models.py:160
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0008_add_mailing_status.py:14
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:152
 #: subtrees/jetson/apps/events/base.py:230
 #: subtrees/jetson/apps/forum/forms.py:82
 #: subtrees/jetson/apps/groups_networks/admin.py:62
 #: subtrees/jetson/apps/groups_networks/base.py:238
 #: subtrees/jetson/apps/institutions/base.py:223
-#: subtrees/jetson/apps/mailchimp/admin.py:175
-#: subtrees/jetson/apps/mailchimp/models.py:60
+#: subtrees/jetson/apps/mailchimp/admin.py:146
 #: subtrees/jetson/apps/people/base.py:299
 #: subtrees/jetson/apps/resources/base.py:190
 #: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_status.html:3
@@ -596,8 +579,8 @@ msgstr ""
 "veröffentlicht."
 
 #: subtrees/jetson/apps/blog/forms.py:94
-#: subtrees/jetson/apps/mailchimp/admin.py:166
-#: subtrees/jetson/apps/mailchimp/admin.py:167
+#: subtrees/jetson/apps/mailchimp/admin.py:137
+#: subtrees/jetson/apps/mailchimp/admin.py:138
 #: subtrees/jetson/templates/admin/admin/email_campaigns/mailing_send_prepare.html:40
 #: subtrees/jetson/templates/default/comments/form.html:25
 #: subtrees/jetson/templates/default/forum/forms/forum_embedded.html:82
@@ -880,10 +863,6 @@ msgstr "Lesezeichen"
 
 #: subtrees/jetson/apps/bookmarks/south_migrations/0001_initial.py:16
 #: subtrees/jetson/apps/bookmarks/south_migrations/0002_auto__chg_field_bookmark_modified_date__chg_field_bookmark_title__chg_.py:41
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0002_add_campaign_mailinglist_mailing_mailingcontentblock.py:46
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0002_add_campaign_mailinglist_mailing_mailingcontentblock.py:81
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:170
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:200
 #: subtrees/jetson/apps/faqs/south_migrations/0001_initial.py:16
 #: subtrees/jetson/apps/faqs/south_migrations/0001_initial.py:30
 #: subtrees/jetson/apps/faqs/south_migrations/0001_initial.py:59
@@ -914,10 +893,6 @@ msgstr "Erstellungsdatum"
 
 #: subtrees/jetson/apps/bookmarks/south_migrations/0001_initial.py:17
 #: subtrees/jetson/apps/bookmarks/south_migrations/0002_auto__chg_field_bookmark_modified_date__chg_field_bookmark_title__chg_.py:32
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0002_add_campaign_mailinglist_mailing_mailingcontentblock.py:47
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0002_add_campaign_mailinglist_mailing_mailingcontentblock.py:75
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:155
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:188
 #: subtrees/jetson/apps/faqs/south_migrations/0001_initial.py:17
 #: subtrees/jetson/apps/faqs/south_migrations/0001_initial.py:31
 #: subtrees/jetson/apps/faqs/south_migrations/0001_initial.py:60
@@ -960,9 +935,6 @@ msgstr "Sie haben keine Berechtigung, etwas zu ändern."
 
 #: subtrees/jetson/apps/cms_extensions/plugins/filebrowser_image/cms_plugins.py:14
 #: subtrees/jetson/apps/cms_extensions/plugins/filebrowser_image/models.py:14
-#: subtrees/jetson/apps/email_campaigns/models.py:208
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0002_add_campaign_mailinglist_mailing_mailingcontentblock.py:29
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:131
 #: subtrees/jetson/apps/events/base.py:225
 #: subtrees/jetson/apps/flatpages/admin.py:42
 #: subtrees/jetson/apps/groups_networks/base.py:240
@@ -1578,12 +1550,9 @@ msgid "Contact Form"
 msgstr "Kontaktformular"
 
 #: subtrees/jetson/apps/contact_form/forms.py:26
-#: subtrees/jetson/apps/email_campaigns/models.py:156
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0002_add_campaign_mailinglist_mailing_mailingcontentblock.py:52
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:185
 #: subtrees/jetson/apps/forum/forms.py:111
 #: subtrees/jetson/apps/i18n/models.py:74
-#: subtrees/jetson/apps/mailchimp/models.py:190
+#: subtrees/jetson/apps/mailchimp/models.py:113
 #: subtrees/jetson/apps/mailing/models.py:45
 #: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:52
 #: subtrees/jetson/apps/messaging/forms.py:19
@@ -1596,13 +1565,10 @@ msgid "Subject"
 msgstr "Betreff"
 
 #: subtrees/jetson/apps/contact_form/forms.py:33
-#: subtrees/jetson/apps/email_campaigns/models.py:157
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0002_add_campaign_mailinglist_mailing_mailingcontentblock.py:53
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:167
 #: subtrees/jetson/apps/forum/forms.py:117
 #: subtrees/jetson/apps/forum/forms.py:150
 #: subtrees/jetson/apps/individual_relations/forms.py:43
-#: subtrees/jetson/apps/mailchimp/models.py:191
+#: subtrees/jetson/apps/mailchimp/models.py:114
 #: subtrees/jetson/apps/mailing/admin.py:52
 #: subtrees/jetson/apps/messaging/admin.py:20
 #: subtrees/jetson/apps/messaging/forms.py:26
@@ -1616,7 +1582,6 @@ msgid "Message"
 msgstr "Nachricht"
 
 #: subtrees/jetson/apps/contact_form/forms.py:39
-#: subtrees/jetson/apps/email_campaigns/forms.py:17
 #: subtrees/jetson/apps/messaging/forms.py:52
 #: subtrees/jetson/templates/default/institutions/institution_message.html:34
 #: subtrees/jetson/templates/default/people/person_message.html:34
@@ -1665,7 +1630,7 @@ msgstr "Nichts ist zurück an den Absender, wenn die Vorlage nicht ausgewählt"
 #: subtrees/jetson/apps/i18n/models.py:127
 #: subtrees/jetson/apps/i18n/south_migrations/0001_initial.py:69
 #: subtrees/jetson/apps/i18n/south_migrations/0001_initial.py:87
-#: subtrees/jetson/apps/mailchimp/models.py:395
+#: subtrees/jetson/apps/mailchimp/models.py:309
 #: subtrees/jetson/apps/marketplace/base.py:72
 #: subtrees/jetson/apps/marketplace/base.py:85
 #: subtrees/jetson/apps/marketplace/base.py:97
@@ -1695,224 +1660,6 @@ msgstr "Geschäftsfeld"
 #: subtrees/jetson/apps/contact_form/models.py:27
 msgid "contact form categories"
 msgstr "Geschäftsfelder"
-
-#: subtrees/jetson/apps/email_campaigns/admin.py:38
-#: subtrees/jetson/apps/mailchimp/admin.py:37
-msgid "Either subscriber or subscriber email should be filled in."
-msgstr "Entweder Abonnent oder E-Mail des Abonnenten eintragen."
-
-#: subtrees/jetson/apps/email_campaigns/admin.py:101
-msgid "Save and send"
-msgstr "Speichern und senden"
-
-#: subtrees/jetson/apps/email_campaigns/admin.py:164
-#: subtrees/jetson/apps/email_campaigns/admin.py:171
-#, python-format
-msgid "Mailing was sent out to %(count)s recipients (test transmission)"
-msgstr "Mailing wurde an %(count)s Empfänger versandt (Test-Versand)"
-
-#: subtrees/jetson/apps/email_campaigns/admin.py:213
-#: subtrees/jetson/apps/email_campaigns/admin.py:220
-#, python-format
-msgid "Mailing was sent out to %(count)s recipients (real transmission)"
-msgstr "Mailing wurde an %(count)s Empfänger versandt (Tatsächlicher Versand)"
-
-#: subtrees/jetson/apps/email_campaigns/admin.py:225
-#, python-format
-msgid "Send mailing: %s"
-msgstr "Mailing senden: %s"
-
-#: subtrees/jetson/apps/email_campaigns/forms.py:22
-#: subtrees/jetson/apps/mailchimp/forms.py:37
-msgid "Your email"
-msgstr "Ihre E-Mail"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:21
-msgid "Email Campaigns"
-msgstr "Email-Campaigns"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:24
-#: subtrees/jetson/apps/mailchimp/models.py:54
-msgid "Subscriber"
-msgstr "Abonnent"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:25
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0001_initial.py:18
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0009_change_info_subscription.py:17
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0009_change_info_subscription.py:36
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:194
-msgid "Subscriber's name"
-msgstr "Abonnenten-Name"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:26
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0001_initial.py:19
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0009_change_info_subscription.py:23
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0009_change_info_subscription.py:42
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:206
-#: subtrees/jetson/apps/mailchimp/models.py:57
-msgid "Email address"
-msgstr "E-mail-Adresse"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:27
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0001_initial.py:20
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0009_change_info_subscription.py:20
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0009_change_info_subscription.py:39
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:197
-#: subtrees/jetson/apps/mailchimp/models.py:58
-msgid "IP Address"
-msgstr "IP-Adresse"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:28
-#: subtrees/jetson/apps/email_campaigns/models.py:46
-#: subtrees/jetson/apps/mailchimp/forms.py:22
-#: subtrees/jetson/apps/mailchimp/models.py:59
-#: subtrees/jetson/apps/mailchimp/models.py:78
-#: subtrees/jetson/apps/mailchimp/models.py:192
-#: subtrees/jetson/apps/mailchimp/models.py:239
-msgid "Mailing list"
-msgstr "Mailingliste"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:31
-msgid "info subscription"
-msgstr "Informationsabonnement"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:32
-msgid "info subscriptions"
-msgstr "Informationsabonnements"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:69
-msgid "None"
-msgstr "Keine"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:79
-msgid "Show mailing lists"
-msgstr "Alle Mailinglisten zeigen"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:81
-#: subtrees/jetson/apps/mailchimp/models.py:100
-msgid "Mailing Lists"
-msgstr "Mailinglisten"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:89
-#: subtrees/jetson/apps/email_campaigns/models.py:126
-#: subtrees/jetson/apps/mailchimp/models.py:197
-msgid "Campaign"
-msgstr "Kampagne"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:91
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0010_enhance_mailing_lists.py:14
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:218
-#: subtrees/jetson/apps/mailchimp/models.py:95
-msgid ""
-"Will this mailing list be displayed in the public settings of subscriptions?"
-msgstr ""
-"Soll diese Mailing-Liste in den öffentlichen Abonnement-Einstellungen "
-"aufgeführt werden?"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:95
-#: subtrees/jetson/apps/email_campaigns/models.py:112
-#: subtrees/jetson/apps/mailchimp/models.py:105
-#: subtrees/jetson/apps/mailchimp/models.py:122
-msgid "Number of recipients"
-msgstr "Anzahl der Empfänger"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:110
-#: subtrees/jetson/apps/mailchimp/models.py:120
-msgid "Show recipients"
-msgstr "Empfänger zeigen"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:149
-#: subtrees/jetson/apps/events/base.py:55
-#: subtrees/jetson/apps/forum/models.py:29
-#: subtrees/jetson/apps/groups_networks/base.py:58
-#: subtrees/jetson/apps/institutions/base.py:68
-#: subtrees/jetson/apps/mailchimp/admin.py:172
-#: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:62
-#: subtrees/jetson/apps/mailing/south_migrations/0002_removed_internal_message_specifics.py:78
-#: subtrees/jetson/apps/messaging/models.py:23
-#: subtrees/jetson/apps/messaging/south_migrations/0001_initial.py:28
-#: subtrees/jetson/apps/messaging/south_migrations/0004_auto__chg_field_internalmessage_body__chg_field_internalmessage_modifi.py:89
-#: subtrees/jetson/apps/resources/base.py:50
-msgid "Draft"
-msgstr "Entwurf"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:150
-#: subtrees/jetson/apps/mailchimp/admin.py:172
-#: subtrees/jetson/apps/mailchimp/models.py:194
-#: subtrees/jetson/apps/mailing/models.py:48
-#: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:60
-msgid "Sent"
-msgstr "Gesendet"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:154
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0002_add_campaign_mailinglist_mailing_mailingcontentblock.py:50
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:164
-#: subtrees/jetson/apps/mailchimp/models.py:188
-#: subtrees/jetson/apps/mailing/models.py:42
-#: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:49
-msgid "Sender name"
-msgstr "Versender"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:155
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0002_add_campaign_mailinglist_mailing_mailingcontentblock.py:51
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:173
-#: subtrees/jetson/apps/mailchimp/models.py:189
-#: subtrees/jetson/apps/mailing/models.py:43
-#: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:50
-msgid "Sender email"
-msgstr "E-Mail-Adresse des Versenders"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:158
-#: subtrees/jetson/apps/email_campaigns/models.py:189
-msgid "Mailing lists"
-msgstr "Mailinglisten"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:159
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0008_add_mailing_status.py:17
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:176
-#: subtrees/jetson/apps/mailchimp/models.py:193
-#: subtrees/jetson/apps/optionset/admin.py:73
-msgid "Template"
-msgstr "Vorlage"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:170
-msgid "Mailing List(s)"
-msgstr "Mailingliste(n)"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:205
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0002_add_campaign_mailinglist_mailing_mailingcontentblock.py:26
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:140
-msgid "Topic"
-msgstr "Thema"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:207
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0002_add_campaign_mailinglist_mailing_mailingcontentblock.py:28
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:128
-msgid "Text"
-msgstr "Text"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:209
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0005_add_mailingcontentblock_link.py:14
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0011_auto__del_field_mailingcontentblock_text_markup_type__chg_field_mailin.py:143
-#: subtrees/jetson/apps/navigation/admin.py:24
-msgid "Link"
-msgstr "Link"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:216
-#: subtrees/jetson/apps/mailchimp/models.py:402
-msgid "Content Block"
-msgstr "Inhaltsblock"
-
-#: subtrees/jetson/apps/email_campaigns/models.py:217
-#: subtrees/jetson/apps/mailchimp/models.py:403
-msgid "Content Blocks"
-msgstr "Inhaltsblöcke"
-
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0001_initial.py:21
-#: subtrees/jetson/apps/email_campaigns/south_migrations/0004_remove_infosubscription_timestamp.py:21
-#: subtrees/jetson/apps/groups_networks/base.py:704
-msgid "Timestamp"
-msgstr "Zeitstempel"
 
 #: subtrees/jetson/apps/events/admin.py:88
 #: subtrees/jetson/apps/events/admin.py:259
@@ -2037,6 +1784,20 @@ msgstr "%s geändert"
 #: subtrees/jetson/templates/default/people/person_events.html:13
 msgid "Events"
 msgstr "Veranstaltungen"
+
+#: subtrees/jetson/apps/events/base.py:55
+#: subtrees/jetson/apps/forum/models.py:29
+#: subtrees/jetson/apps/groups_networks/base.py:58
+#: subtrees/jetson/apps/institutions/base.py:68
+#: subtrees/jetson/apps/mailchimp/admin.py:143
+#: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:62
+#: subtrees/jetson/apps/mailing/south_migrations/0002_removed_internal_message_specifics.py:78
+#: subtrees/jetson/apps/messaging/models.py:23
+#: subtrees/jetson/apps/messaging/south_migrations/0001_initial.py:28
+#: subtrees/jetson/apps/messaging/south_migrations/0004_auto__chg_field_internalmessage_body__chg_field_internalmessage_modifi.py:89
+#: subtrees/jetson/apps/resources/base.py:50
+msgid "Draft"
+msgstr "Entwurf"
 
 #: subtrees/jetson/apps/events/base.py:56
 #: subtrees/jetson/apps/forum/models.py:30
@@ -2944,10 +2705,12 @@ msgstr "Profilphoto"
 #: subtrees/jetson/apps/events/forms.py:657
 #: subtrees/jetson/apps/groups_networks/forms.py:209
 #: subtrees/jetson/apps/institutions/forms.py:447
+#: subtrees/jetson/apps/media_gallery/forms.py:86
+#: subtrees/jetson/apps/media_gallery/forms.py:246
+#: subtrees/jetson/apps/media_gallery/forms.py:386
 #, python-format
 msgid ""
-"You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions "
-"are %s px."
+"You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px."
 msgstr "Erlaubt sind Daten im Format JPG, GIF, PNG TIFF. Minimale Größe %s px."
 
 #: subtrees/jetson/apps/events/forms.py:666
@@ -3004,7 +2767,7 @@ msgid "CCB Events"
 msgstr "CCB Veranstaltungen"
 
 #: subtrees/jetson/apps/extendedadmin/forms.py:167
-#: subtrees/jetson/apps/mailchimp/admin.py:174
+#: subtrees/jetson/apps/mailchimp/admin.py:145
 #: subtrees/jetson/apps/media_gallery/base.py:89
 msgid "Unknown"
 msgstr "Unbekannt"
@@ -3723,7 +3486,7 @@ msgstr "Gruppen & Netzwerke"
 #: subtrees/jetson/apps/groups_networks/base.py:52
 #: subtrees/jetson/apps/groups_networks/forms.py:44
 #: subtrees/jetson/apps/history/models.py:39
-#: subtrees/jetson/apps/mailchimp/models.py:95
+#: subtrees/jetson/apps/mailchimp/models.py:40
 msgid "Public"
 msgstr "Öffentlich"
 
@@ -3840,6 +3603,10 @@ msgstr "Kontaktperson"
 #: subtrees/jetson/apps/groups_networks/base.py:702
 msgid "Confirmer"
 msgstr "Bestätiger"
+
+#: subtrees/jetson/apps/groups_networks/base.py:704
+msgid "Timestamp"
+msgstr "Zeitstempel"
 
 #: subtrees/jetson/apps/groups_networks/base.py:705
 #: subtrees/jetson/apps/individual_relations/models.py:289
@@ -5124,6 +4891,7 @@ msgstr ""
 "mit einem Zeichen aus dem Alphabet beginnen."
 
 #: subtrees/jetson/apps/individual_relations/forms.py:230
+#: subtrees/jetson/apps/mailchimp/models.py:25
 msgid "Username"
 msgstr "Benutzername"
 
@@ -6040,164 +5808,130 @@ msgstr "Ortschaft"
 msgid "locality types"
 msgstr "Ortschaften"
 
-#: subtrees/jetson/apps/mailchimp/admin.py:111
+#: subtrees/jetson/apps/mailchimp/admin.py:89
 msgid "MailChimp List"
 msgstr "MailChimp listen"
 
-#: subtrees/jetson/apps/mailchimp/admin.py:118
-msgid "Synchronize list"
-msgstr ""
+#: subtrees/jetson/apps/mailchimp/admin.py:143
+#: subtrees/jetson/apps/mailchimp/models.py:117
+#: subtrees/jetson/apps/mailing/models.py:48
+#: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:60
+msgid "Sent"
+msgstr "Gesendet"
 
-#: subtrees/jetson/apps/mailchimp/admin.py:180
+#: subtrees/jetson/apps/mailchimp/admin.py:151
 #, python-format
 msgid "Campaign \"%s\" was not updated at MailChimp, because it has been sent."
 msgstr ""
 
+#: subtrees/jetson/apps/mailchimp/forms.py:22
+#: subtrees/jetson/apps/mailchimp/models.py:115
+#: subtrees/jetson/apps/mailchimp/models.py:161
+msgid "Mailing list"
+msgstr "Mailingliste"
+
 #: subtrees/jetson/apps/mailchimp/forms.py:27
-#: subtrees/jetson/apps/mailchimp/models.py:55
 #: subtrees/jetson/apps/people/base.py:482
 msgid "First name"
 msgstr "Vorname"
 
 #: subtrees/jetson/apps/mailchimp/forms.py:32
-#: subtrees/jetson/apps/mailchimp/models.py:56
 #: subtrees/jetson/apps/people/base.py:486
 msgid "Last name"
 msgstr "Nachname"
+
+#: subtrees/jetson/apps/mailchimp/forms.py:37
+msgid "Your email"
+msgstr "Ihre E-Mail"
 
 #: subtrees/jetson/apps/mailchimp/forms.py:64
 #: subtrees/jetson/templates/default/email_campaigns/infosubscription.html:28
 msgid "Send"
 msgstr "Senden"
 
-#: subtrees/jetson/apps/mailchimp/models.py:27
+#: subtrees/jetson/apps/mailchimp/models.py:21
 msgid "MailChimp"
 msgstr "MailChimp"
 
-#: subtrees/jetson/apps/mailchimp/models.py:30
-#: subtrees/jetson/templates/default/groups_networks/persongroups/group_invitations_list.html:105
-#: subtrees/jetson/templates/default/people/person_invitations_list.html:87
-msgid "Pending"
-msgstr "Ausstehend"
-
-#: subtrees/jetson/apps/mailchimp/models.py:31
-msgid "Subscribed"
-msgstr "Abonnent"
-
-#: subtrees/jetson/apps/mailchimp/models.py:32
-msgid "Unsubscribed"
-msgstr ""
-
-#: subtrees/jetson/apps/mailchimp/models.py:37
+#: subtrees/jetson/apps/mailchimp/models.py:26
 msgid "API key"
 msgstr "API-Key"
 
-#: subtrees/jetson/apps/mailchimp/models.py:38
+#: subtrees/jetson/apps/mailchimp/models.py:27
 msgid "Double Optin"
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/models.py:38
+#: subtrees/jetson/apps/mailchimp/models.py:27
 msgid ""
 "Flag to control whether a double opt-in confirmation message is sent. "
 "ABUSING THIS MAY CAUSE YOUR ACCOUNT TO BE SUSPENDED."
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/models.py:39
-msgid "Update existing"
-msgstr ""
-
-#: subtrees/jetson/apps/mailchimp/models.py:39
-msgid ""
-"Flag to congtrol whether the existing subscribers should be updated instead "
-"of throwing an error."
-msgstr ""
-
-#: subtrees/jetson/apps/mailchimp/models.py:40
-msgid "Send welcome"
-msgstr ""
-
-#: subtrees/jetson/apps/mailchimp/models.py:40
-msgid ""
-"If double optin is false and this is true, MailChimp will send a welcome "
-"message to new subscribers."
-msgstr ""
-
-#: subtrees/jetson/apps/mailchimp/models.py:41
-msgid "Delete member"
-msgstr "Miglied löschen"
-
-#: subtrees/jetson/apps/mailchimp/models.py:41
-msgid ""
-"Flag to completely delete the member from the list instead of just "
-"unsubscribing"
-msgstr ""
-
-#: subtrees/jetson/apps/mailchimp/models.py:42
-msgid "Send goodbye"
-msgstr ""
-
-#: subtrees/jetson/apps/mailchimp/models.py:42
-msgid "Flag to send the goodbye message to the email address."
-msgstr ""
-
-#: subtrees/jetson/apps/mailchimp/models.py:45
-#: subtrees/jetson/apps/mailchimp/models.py:46
+#: subtrees/jetson/apps/mailchimp/models.py:30
+#: subtrees/jetson/apps/mailchimp/models.py:31
 msgid "MailChimp Settings"
 msgstr "MailChimp Einstellungen"
 
-#: subtrees/jetson/apps/mailchimp/models.py:63
-msgid "subscription"
-msgstr "Informationsabonnement"
+#: subtrees/jetson/apps/mailchimp/models.py:40
+msgid ""
+"Will this mailing list be displayed in the public settings of subscriptions?"
+msgstr ""
+"Soll diese Mailing-Liste in den öffentlichen Abonnement-Einstellungen "
+"aufgeführt werden?"
 
-#: subtrees/jetson/apps/mailchimp/models.py:64
-msgid "subscriptions"
-msgstr "Abonnements"
-
-#: subtrees/jetson/apps/mailchimp/models.py:96
+#: subtrees/jetson/apps/mailchimp/models.py:41
 msgid "Last sync"
 msgstr "Letzten Synchronisierung"
 
-#: subtrees/jetson/apps/mailchimp/models.py:99
-#: subtrees/jetson/apps/mailchimp/models.py:223
+#: subtrees/jetson/apps/mailchimp/models.py:44
+#: subtrees/jetson/apps/mailchimp/models.py:146
 msgid "Mailing List"
 msgstr "Mailinglisten"
 
-#: subtrees/jetson/apps/mailchimp/models.py:198
+#: subtrees/jetson/apps/mailchimp/models.py:45
+msgid "Mailing Lists"
+msgstr "Mailinglisten"
+
+#: subtrees/jetson/apps/mailchimp/models.py:111
+#: subtrees/jetson/apps/mailing/models.py:42
+#: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:49
+msgid "Sender name"
+msgstr "Versender"
+
+#: subtrees/jetson/apps/mailchimp/models.py:112
+#: subtrees/jetson/apps/mailing/models.py:43
+#: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:50
+msgid "Sender email"
+msgstr "E-Mail-Adresse des Versenders"
+
+#: subtrees/jetson/apps/mailchimp/models.py:116
+#: subtrees/jetson/apps/optionset/admin.py:73
+msgid "Template"
+msgstr "Vorlage"
+
+#: subtrees/jetson/apps/mailchimp/models.py:120
+msgid "Campaign"
+msgstr "Kampagne"
+
+#: subtrees/jetson/apps/mailchimp/models.py:121
 msgid "Campaigns"
 msgstr "Email-Kampagnen"
 
-#: subtrees/jetson/apps/mailchimp/models.py:387
+#: subtrees/jetson/apps/mailchimp/models.py:301
 msgid "Image and text"
 msgstr "Bild und Text"
 
-#: subtrees/jetson/apps/mailchimp/models.py:388
+#: subtrees/jetson/apps/mailchimp/models.py:302
 msgid "Text only"
 msgstr "nur Text"
 
-#: subtrees/jetson/apps/mailchimp/utils.py:51
-#, python-format
-msgid "%(counter)d members at %(list_title)s added from MailChimp."
-msgstr ""
+#: subtrees/jetson/apps/mailchimp/models.py:316
+msgid "Content Block"
+msgstr "Inhaltsblock"
 
-#: subtrees/jetson/apps/mailchimp/utils.py:86
-#, python-format
-msgid "%(counter)d members at %(list_title)s updated from MailChimp."
-msgstr ""
-
-#: subtrees/jetson/apps/mailchimp/utils.py:119
-#, python-format
-msgid "%(counter)d members at %(list_title)s unsubscribed from MailChimp."
-msgstr ""
-
-#: subtrees/jetson/apps/mailchimp/utils.py:154
-#, python-format
-msgid "%(counter)d members at %(list_title)s subscribed on MailChimp."
-msgstr ""
-
-#: subtrees/jetson/apps/mailchimp/utils.py:159
-#, python-format
-msgid "%(counter)d members at %(list_title)s unsubscribed on MailChimp."
-msgstr ""
+#: subtrees/jetson/apps/mailchimp/models.py:317
+msgid "Content Blocks"
+msgstr "Inhaltsblöcke"
 
 #: subtrees/jetson/apps/mailing/admin.py:38
 #, python-format
@@ -6669,14 +6403,6 @@ msgstr "Sie können GIF, JPG, oder PNG verlinken."
 msgid "Upload Image"
 msgstr "Bild hochladen"
 
-#: subtrees/jetson/apps/media_gallery/forms.py:86
-#: subtrees/jetson/apps/media_gallery/forms.py:246
-#: subtrees/jetson/apps/media_gallery/forms.py:386
-#, python-format
-msgid ""
-"You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px."
-msgstr "Erlaubt sind Daten im Format JPG, GIF, PNG TIFF. Minimale Größe %s px."
-
 #: subtrees/jetson/apps/media_gallery/forms.py:95
 msgid "Link to External Image"
 msgstr "Bild vom Internet verlinken"
@@ -6910,6 +6636,10 @@ msgstr "Verknüpftes Objekt"
 #: subtrees/jetson/apps/navigation/admin.py:15
 msgid "Each item can be either a link or a group of links."
 msgstr "Jedes Element kann entweder ein Link oder eine Link-Gruppe sein."
+
+#: subtrees/jetson/apps/navigation/admin.py:24
+msgid "Link"
+msgstr "Link"
 
 #: subtrees/jetson/apps/navigation/admin.py:26
 msgid "If this item is a link, choose a target object or enter a URL."
@@ -11521,6 +11251,11 @@ msgstr "Versendete Einladungen"
 msgid "Requests to confirm"
 msgstr "Zu bestätigende Anfragen"
 
+#: subtrees/jetson/templates/default/groups_networks/persongroups/group_invitations_list.html:105
+#: subtrees/jetson/templates/default/people/person_invitations_list.html:87
+msgid "Pending"
+msgstr "Ausstehend"
+
 #: subtrees/jetson/templates/default/groups_networks/persongroups/group_invitations_list.html:124
 msgid "for group"
 msgstr "Für Gruppe"
@@ -12569,6 +12304,85 @@ msgid ""
 msgstr ""
 "Geben Sie die Anfangsbuchstaben des %(lookup_field)s ein, um eine "
 "entsprechende Auswahl anzuzeigen."
+
+#~ msgid ""
+#~ "You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal "
+#~ "dimensions are %s px."
+#~ msgstr ""
+#~ "Erlaubt sind Daten im Format JPG, GIF, PNG TIFF. Minimale Größe %s px."
+
+#~ msgid "Either subscriber or subscriber email should be filled in."
+#~ msgstr "Entweder Abonnent oder E-Mail des Abonnenten eintragen."
+
+#~ msgid "Save and send"
+#~ msgstr "Speichern und senden"
+
+#~ msgid "Mailing was sent out to %(count)s recipients (test transmission)"
+#~ msgstr "Mailing wurde an %(count)s Empfänger versandt (Test-Versand)"
+
+#~ msgid "Mailing was sent out to %(count)s recipients (real transmission)"
+#~ msgstr ""
+#~ "Mailing wurde an %(count)s Empfänger versandt (Tatsächlicher Versand)"
+
+#~ msgid "Send mailing: %s"
+#~ msgstr "Mailing senden: %s"
+
+#~ msgid "Email Campaigns"
+#~ msgstr "Email-Campaigns"
+
+#~ msgid "Subscriber"
+#~ msgstr "Abonnent"
+
+#~ msgid "Subscriber's name"
+#~ msgstr "Abonnenten-Name"
+
+#~ msgid "Email address"
+#~ msgstr "E-mail-Adresse"
+
+#~ msgid "IP Address"
+#~ msgstr "IP-Adresse"
+
+#~ msgid "info subscription"
+#~ msgstr "Informationsabonnement"
+
+#~ msgid "info subscriptions"
+#~ msgstr "Informationsabonnements"
+
+#~ msgid "None"
+#~ msgstr "Keine"
+
+#~ msgid "Show mailing lists"
+#~ msgstr "Alle Mailinglisten zeigen"
+
+#~ msgid "Number of recipients"
+#~ msgstr "Anzahl der Empfänger"
+
+#~ msgid "Show recipients"
+#~ msgstr "Empfänger zeigen"
+
+#~ msgid "Mailing lists"
+#~ msgstr "Mailinglisten"
+
+#~ msgid "Mailing List(s)"
+#~ msgstr "Mailingliste(n)"
+
+#~ msgid "Topic"
+#~ msgstr "Thema"
+
+#~ msgid "Text"
+#~ msgstr "Text"
+
+#~ msgid "Subscribed"
+#~ msgstr "Abonnent"
+
+#~ msgid "Delete member"
+#~ msgstr "Miglied löschen"
+
+#~ msgid "subscription"
+#~ msgstr "Informationsabonnement"
+
+#~ msgid "subscriptions"
+#~ msgstr "Abonnements"
 
 #~ msgid "German"
 #~ msgstr "Deutsch"

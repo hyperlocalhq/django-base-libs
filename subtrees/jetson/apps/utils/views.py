@@ -429,7 +429,7 @@ def object_detail(request, queryset, year=0, month=0, day=0, object_id=None, slu
     if object_id:
         queryset = queryset.filter(pk=object_id)
     elif slug and slug_field:
-        queryset = queryset.filter(**{slug_field: slug})
+        queryset = queryset.filter(**{slug_field + '__iexact': slug})
     else:
         raise AttributeError, "Generic detail view must be called with either an object_id or a slug/slug_field."
 

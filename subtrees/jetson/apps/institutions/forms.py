@@ -444,7 +444,7 @@ class ProfileForm(dynamicforms.Form):
     avatar = ImageField(
         label=_("Profile photo"),
         help_text=_(
-            "You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_LOGO_SIZE,
+            "You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px.") % STR_LOGO_SIZE,
         required=False,
         min_dimensions=LOGO_SIZE,
     )
