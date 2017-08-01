@@ -2259,6 +2259,21 @@ dl.interview dd:last-child:after {
   user-select: none;
 }
 
+.button.btn-responsive, .btn.btn-responsive {
+  height: auto;
+  line-height: 110%;
+  padding: 0.75em 1.5em !important;
+}
+
+.is-sm .button.btn-responsive, .is-sm .btn.btn-responsive {
+  font-size: 1.1rem;
+}
+
+.is-xs .button.btn-responsive, .is-xs .btn.btn-responsive {
+  font-size: 0.9rem !important;
+  line-height: 120%;
+}
+
 .is-xs .button, .is-xs .btn {
   font-size: 1.07em;
   padding: 0px 2em;
@@ -2273,6 +2288,14 @@ dl.interview dd:last-child:after {
 .button.primary, .button.btn-primary, .btn.primary, .btn.btn-primary {
   background: #00cdff;
   border-color: #d8d8d8;
+}
+
+.button.primary.btn-inverse, .button.btn-primary.btn-inverse, .btn.primary.btn-inverse, .btn.btn-primary.btn-inverse {
+  background: #000000;
+}
+
+.button.primary.btn-inverse:hover, .button.primary.btn-inverse:focus, .button.primary.btn-inverse.focus, .button.btn-primary.btn-inverse:hover, .button.btn-primary.btn-inverse:focus, .button.btn-primary.btn-inverse.focus, .btn.primary.btn-inverse:hover, .btn.primary.btn-inverse:focus, .btn.primary.btn-inverse.focus, .btn.btn-primary.btn-inverse:hover, .btn.btn-primary.btn-inverse:focus, .btn.btn-primary.btn-inverse.focus {
+  background: #00cdff;
 }
 
 .button.primary:hover, .button.primary:focus, .button.primary.focus, .button.btn-primary:hover, .button.btn-primary:focus, .button.btn-primary.focus, .btn.primary:hover, .btn.primary:focus, .btn.primary.focus, .btn.btn-primary:hover, .btn.btn-primary:focus, .btn.btn-primary.focus {

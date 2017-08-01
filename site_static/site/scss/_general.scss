@@ -694,6 +694,21 @@ dl {
     -ms-user-select: none;
     user-select: none;
 
+    &.btn-responsive {
+        height: auto;
+        line-height: 110%;
+        padding: 0.75em 1.5em !important;
+
+        .is-sm & {
+            font-size: 1.1rem;
+        }
+
+        .is-xs & {
+            font-size: 0.9rem !important;
+            line-height: 120%;
+        }
+    }
+
     .is-xs & {
         font-size: 1.07em;
         padding: 0px 2em;
@@ -708,6 +723,12 @@ dl {
     &.primary, &.btn-primary {
         background: $button-primary;
         border-color: $button-primary-border;
+        &.btn-inverse {
+            background: $button-primary-active;
+            &:hover, &:focus, &.focus {
+                background: $button-primary;
+            }
+        }
         &:hover, &:focus, &.focus {
             background: $button-primary-active;
             border-color: $button-primary-active-border;
