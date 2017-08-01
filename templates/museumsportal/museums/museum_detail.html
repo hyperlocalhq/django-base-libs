@@ -118,13 +118,12 @@
                                       <a target="_blank" class="pull-right" href="http://www.berlinartweek.de/{% if LANGUAGE_CODE == "de" %}de{% else %}en{% endif %}/berlin-art-week.html">
                                         <img src="{{ STATIC_URL }}site/img/berlin-art-week-banner.jpg" alt="Berlin Art Week" height="40" />
                                       </a>
-                                    {% elif museum.participates_in_langenacht %}
-                                      <a target="_blank" class="pull-right" href="http://www.lange-nacht-der-museen.de/{% if LANGUAGE_CODE == "de" %}de/museen/{% else %}en/museums/{% endif %}{{ museum.slug }}/">
-                                        <img src="{{ STATIC_URL }}site/img/langenacht-banner.png" alt="Lange Nacht der Museen" height="40" />
-                                      </a>
-                                    {% endif %}
                                 {% endcomment %}
-                                {% if museum.participates_in_emop %}
+                                {% if museum.participates_in_langenacht %}
+                                    <a target="_blank" class="pull-right" href="http://www.lange-nacht-der-museen.de/{% if LANGUAGE_CODE == "de" %}de/museen/{% else %}en/museums/{% endif %}{{ museum.slug }}/">
+                                      <img src="{{ STATIC_URL }}site/img/lange-nacht-der-museen-2017.png" alt="Lange Nacht der Museen" height="40" />
+                                    </a>
+                                {% elif museum.participates_in_emop %}
                                     <a target="_blank"
                                        class="pull-right"
                                        href="http://www.emop-berlin.eu/{% if LANGUAGE_CODE == "de" %}de/{% else %}en/{% endif %}">
