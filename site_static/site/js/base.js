@@ -977,7 +977,7 @@ $(document).ready(function() {
         me.$wrapper = $('.wrapper', me.$main);
         me.$logo = $('.logo', me.$main);
         me.$navi_button = $('.fa-menu', me.$main);
-        me.$language = $('#language-header', me.$main);
+        me.$language = $('#language_navi', me.$main);
         me.$user_menu = $('#avatar_navi', me.$main);
         me.$body = $('body');
         me.$window = $(window);
@@ -991,6 +991,7 @@ $(document).ready(function() {
 
         me.$navi_button.click(function() {me.onNavigation();});
         me.$user_menu.click(function() {me.onUserMenuToggle();});
+        me.$language.click(function() {me.onLanguageMenuToggle();});
         me.$language.on('closed', function() {me.onLanguageChange();});
         me.$window.scroll(function() {me.checkFixedPosition();});
 
@@ -1016,6 +1017,7 @@ $(document).ready(function() {
         } else {
 
             me.$user_menu.addClass('closed');
+            me.$language.addClass('closed');
             me.$navi_button.removeClass('fa-menu');
             me.$navi_button.addClass('fa-close');
             me.$navi.data('Navigation').open();
@@ -1029,11 +1031,19 @@ $(document).ready(function() {
         if (me.$language.get(0).value != me.language_value) location.href = me.$language.get(0).value;
     }
 
+    MainHeader.prototype.onLanguageMenuToggle = function() {
+
+        var me = this;
+        me.$user_menu.addClass('closed');
+        me.$language.toggleClass('closed');
+    }
+
     MainHeader.prototype.onUserMenuToggle = function() {
 
         var me = this;
 
         if (me.navi_open) me.onNavigation();
+        me.$language.addClass('closed');
         me.$user_menu.toggleClass('closed');
     }
 

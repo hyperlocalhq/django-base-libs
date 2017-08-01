@@ -8744,21 +8744,22 @@ img[data-popup-image-src] {
   margin-bottom: 9px;
 }
 
-#header #avatar_navi {
+#header #avatar_navi, #header #language_navi {
   position: absolute;
   top: 40px;
   right: 130px;
   display: inline-block;
+  z-index: 1;
   list-style: none;
   text-align: left;
 }
 
-.is-xs #header #avatar_navi {
+.is-xs #header #avatar_navi, .is-xs #header #language_navi {
   right: 15px;
   top: 21px;
 }
 
-#header #avatar_navi li {
+#header #avatar_navi li, #header #language_navi li {
   background: #000;
   color: #afaeae;
   position: relative;
@@ -8771,7 +8772,7 @@ img[data-popup-image-src] {
   transition: height 0.3s ease-in-out;
 }
 
-#header #avatar_navi li a {
+#header #avatar_navi li a, #header #language_navi li a {
   display: block;
   color: #afaeae;
   text-decoration: none;
@@ -8784,19 +8785,19 @@ img[data-popup-image-src] {
   padding: 10px 60px 10px 40px;
 }
 
-#header #avatar_navi li a:hover {
+#header #avatar_navi li a:hover, #header #language_navi li a:hover {
   color: #fff;
 }
 
-.is-xs #header #avatar_navi li a {
+.is-xs #header #avatar_navi li a, .is-xs #header #language_navi li a {
   padding: 7px 60px 7px 20px;
 }
 
-#header #avatar_navi li:last-child a {
+#header #avatar_navi li:last-child a, #header #language_navi li:last-child a {
   border-bottom: 1px solid #444444;
 }
 
-#header #avatar_navi li.toggle {
+#header #avatar_navi li.toggle, #header #language_navi li.toggle {
   height: auto;
   background: transparent;
   text-align: right;
@@ -8804,16 +8805,16 @@ img[data-popup-image-src] {
   position: static;
 }
 
-.is-xs #header #avatar_navi li.toggle {
+.is-xs #header #avatar_navi li.toggle, .is-xs #header #language_navi li.toggle {
   padding-bottom: 5px;
 }
 
-#header #avatar_navi .user-avatar {
+#header #avatar_navi .user-avatar, #header #language_navi .user-avatar {
   position: static;
   margin-right: 30px;
 }
 
-#header #avatar_navi .user-avatar:after {
+#header #avatar_navi .user-avatar:after, #header #language_navi .user-avatar:after {
   content: "\f107";
   color: #fff;
   font-size: 1.33rem;
@@ -8823,20 +8824,56 @@ img[data-popup-image-src] {
   padding: 8px 0px 12px 20px;
 }
 
-#header #avatar_navi.closed .user-avatar:after {
+#header #avatar_navi.closed .user-avatar:after, #header #language_navi.closed .user-avatar:after {
   content: "\f107";
 }
 
-#header #avatar_navi.closed li {
+#header #avatar_navi.closed li, #header #language_navi.closed li {
   height: 0px;
 }
 
-#header #avatar_navi.closed li.toggle {
+#header #avatar_navi.closed li.toggle, #header #language_navi.closed li.toggle {
   height: auto;
 }
 
-#header #avatar_navi.closed li a {
+#header #avatar_navi.closed li a, #header #language_navi.closed li a {
   border: 0px;
+}
+
+#header #language_navi {
+  right: 50px;
+  z-index: 0;
+}
+
+#header #language_navi li {
+  right: 28px;
+}
+
+#header #language_navi li.toggle {
+  padding-bottom: 40px;
+}
+
+#header #language_navi li a {
+  padding: 10px 20px 10px 20px;
+}
+
+#header #language_navi .choosen-language {
+  position: static;
+  margin-right: 27px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 2.2rem;
+}
+
+#header #language_navi .choosen-language:after {
+  content: "\f107";
+  color: #fff;
+  font-size: 1.33rem;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  padding: 8px 0px 12px 20px;
 }
 
 #header.fixed .wrapper {
@@ -8888,22 +8925,26 @@ img[data-popup-image-src] {
   top: 59px;
 }
 
-#header.fixed #avatar_navi {
+#header.fixed #avatar_navi, #header.fixed #language_navi {
   top: 62px;
 }
 
-.is-xs #header.fixed #avatar_navi {
+.is-xs #header.fixed #avatar_navi, .is-xs #header.fixed #language_navi {
   top: 31px;
 }
 
-#header.fixed #avatar_navi li.toggle {
+#header.fixed #avatar_navi li.toggle, #header.fixed #language_navi li.toggle {
   padding-bottom: 8px;
 }
 
-.is-xs #header.fixed #avatar_navi li.toggle {
+.is-xs #header.fixed #avatar_navi li.toggle, .is-xs #header.fixed #language_navi li.toggle {
   padding-bottom: 0px;
   margin-top: -3px;
   margin-bottom: -2px;
+}
+
+#header.fixed #language_navi li.toggle {
+  padding-bottom: 18px;
 }
 
 .header {

@@ -151,14 +151,15 @@
                                 {% endif %}
                             </li>
                             <li><a href="{% url 'dashboard' %}"><span class="text">{% trans 'Dashboard' %}</span></a></li>
+                            <li><a href="/{{ LANGUAGE_CODE }}/network/member/{{ user.profile.slug }}/"><span class="text">{% trans 'Profile' %}</span></a></li>
                             {% navigation_links "menu_settings" using "navigation/includes/navigation_links_in_avatar.html" %}
                         </ul>
                     {% else %}
                         <a href="{% url 'login' %}" class="fawesome fa-man button"><span class="sr-only">{% trans 'login' %}</span></a>
                     {% endif %}
-                    <div class="input-field select languages">
+                    <!--<div class="input-field select languages">-->
                         {% language_chooser "utils/includes/language_chooser.html" %}
-                    </div>
+                    <!--</div>-->
                 </div>
             </div>
 
