@@ -47,7 +47,7 @@ class TagManager(models.Manager):
         for tag_name in updated_tag_names:
             if tag_name not in current_tag_names:
                 tag, created = self.get_or_create(**{'name_%s' % django_settings.LANGUAGE_CODE: tag_name})
-                TaggedItem._default_manager.create(tag=tag, object=obj)
+                TaggedItem._default_manager.get_or_create(tag=tag, content_type=ctype, object_id=obj.pk)
 
     def add_tag(self, obj, tag_name):
         """
@@ -85,7 +85,7 @@ class TagManager(models.Manager):
         model_table = qn(model._meta.db_table)
         model_pk = '%s.%s' % (model_table, qn(model._meta.pk.column))
         query = """
-        SELECT DISTINCT %(tag)s.id, %(tag)s.*%(count_sql)s
+        SELECT DISTINCT %(tag)s.id, %(tag)s.name_de, %(tag)s.slug_de, %(tag)s.name_en, %(tag)s.slug_en%(count_sql)s
         FROM
             %(tag)s
             INNER JOIN %(tagged_item)s
@@ -95,15 +95,16 @@ class TagManager(models.Manager):
             %%s
         WHERE %(tagged_item)s.content_type_id = %(content_type_id)s
             %%s
-        GROUP BY %(tag)s.id, %(tag)s.name
+        GROUP BY %(tag)s.id, %(tag)s.name_%(lang_code)s
         %%s
-        ORDER BY %(tag)s.name ASC""" % {
+        ORDER BY %(tag)s.name_%(lang_code)s ASC""" % {
             'tag': qn(self.model._meta.db_table),
-            'count_sql': counts and (', COUNT(%s) AS counter' % model_pk) or '',
+            'count_sql': counts and (', COUNT(%s)' % model_pk) or '',
             'tagged_item': qn(TaggedItem._meta.db_table),
             'model': model_table,
             'model_pk': model_pk,
             'content_type_id': ContentType.objects.get_for_model(model).pk,
+            'lang_code': "de",
         }
 
         min_count_sql = ''
@@ -111,16 +112,17 @@ class TagManager(models.Manager):
             min_count_sql = 'HAVING COUNT(%s) >= %%s' % model_pk
             params.append(min_count)
 
-        tags = Tag.objects.raw(query % (extra_joins, extra_criteria, min_count_sql), params)
-        return tags
-
         cursor = connection.cursor()
         cursor.execute(query % (extra_joins, extra_criteria, min_count_sql), params)
         tags = []
         for row in cursor.fetchall():
-            t = self.model(*row[:3])
+            t = self.model(id=row[0])
+            t.name_de = row[1]
+            t.slug_de = row[2]
+            t.name_en = row[3]
+            t.slug_en = row[4]
             if counts:
-                t.count = row[3]
+                t.count = row[5]
             tags.append(t)
         return tags
 
@@ -166,12 +168,15 @@ class TagManager(models.Manager):
         """
 
         if getattr(queryset.query, 'get_compiler', None):
-            # Django 1.2+
             compiler = queryset.query.get_compiler(using='default')
+            if getattr(compiler, 'compile', None):
+                # Django 1.7+
+                where, params = compiler.compile(queryset.query.where)
+            else:
+                # Django 1.2+
+                where, params = queryset.query.where.as_sql(
+                    compiler.quote_name_unless_alias, compiler.connection)
             extra_joins = ' '.join(compiler.get_from_clause()[0][1:])
-            where, params = queryset.query.where.as_sql(
-                compiler.quote_name_unless_alias, compiler.connection
-            )
         else:
             # Django pre-1.2
             extra_joins = ' '.join(queryset.query.get_from_clause()[0][1:])
@@ -201,7 +206,7 @@ class TagManager(models.Manager):
         tag_count = len(tags)
         tagged_item_table = qn(TaggedItem._meta.db_table)
         query = """
-        SELECT %(tag)s.id, %(tag)s.name, %(tag)s.slug%(count_sql)s
+        SELECT %(tag)s.id, %(tag)s.name_de, %(tag)s.slug_de, %(tag)s.name_en, %(tag)s.slug_en%(count_sql)s
         FROM %(tagged_item)s INNER JOIN %(tag)s ON %(tagged_item)s.tag_id = %(tag)s.id
         WHERE %(tagged_item)s.content_type_id = %(content_type_id)s
           AND %(tagged_item)s.object_id IN
@@ -215,9 +220,9 @@ class TagManager(models.Manager):
               HAVING COUNT(%(tagged_item)s.object_id) = %(tag_count)s
           )
           AND %(tag)s.id NOT IN (%(tag_id_placeholders)s)
-        GROUP BY %(tag)s.id, %(tag)s.name
+        GROUP BY %(tag)s.id, %(tag)s.name_%(lang_code)s
         %(min_count_sql)s
-        ORDER BY %(tag)s.name ASC""" % {
+        ORDER BY %(tag)s.name_%(lang_code)s ASC""" % {
             'tag': qn(self.model._meta.db_table),
             'count_sql': counts and ', COUNT(%s.object_id)' % tagged_item_table or '',
             'tagged_item': tagged_item_table,
@@ -225,6 +230,7 @@ class TagManager(models.Manager):
             'tag_id_placeholders': ','.join(['%s'] * tag_count),
             'tag_count': tag_count,
             'min_count_sql': min_count is not None and ('HAVING COUNT(%s.object_id) >= %%s' % tagged_item_table) or '',
+            'lang_code': "de",
         }
 
         params = [tag.pk for tag in tags] * 2
@@ -235,10 +241,14 @@ class TagManager(models.Manager):
         cursor.execute(query, params)
         related = []
         for row in cursor.fetchall():
-            tag = self.model(*row[:3])
+            t = self.model(id=row[0])
+            t.name_de = row[1]
+            t.slug_de = row[2]
+            t.name_en = row[3]
+            t.slug_en = row[4]
             if counts is True:
-                tag.count = row[3]
-            related.append(tag)
+                t.count = row[5]
+            related.append(t)
         return related
 
     def cloud_for_model(self, model, steps=4, distribution=LOGARITHMIC,
