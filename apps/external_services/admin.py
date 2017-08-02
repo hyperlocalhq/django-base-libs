@@ -1,58 +1,32 @@
 # -*- coding: UTF-8 -*-
 
-from django.db import models
-from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from base_libs.admin import ExtendedModelAdmin
-from base_libs.models.admin import ObjectRelationMixinAdminOptions
+from jetson.apps.external_services.admin import *
 
-Service = models.get_model("external_services", "Service")
-ObjectMapper = models.get_model("external_services", "ObjectMapper")
-ServiceActionLog = models.get_model("external_services", "ServiceActionLog")
+ArticleImportSource = models.get_model("external_services", "ArticleImportSource")
 
-class ServiceOptions(ExtendedModelAdmin):
+
+class ArticleImportSourceOptions(ExtendedModelAdmin):
     save_on_top = True
-    list_display = ('title', 'url', 'sysname')
-    
-    search_fields = ('title', 'url', 'sysname', 'user')
-    
+
+    list_filter = ('content_provider',)
+
+    list_display = ('title', 'url', 'sysname', 'content_provider', 'are_excerpts')
+
+    search_fields = ('title', 'url', 'sysname')
+
     fieldsets = (
         (None, {
-            'fields':  ('title', 'url', 'sysname', )
-            }),
-        (_("Authentication"), {
-            'fields':  ('api_key', 'user', 'password', )
-            }),
-        )
-
-
-class ObjectMapperOptions(ObjectRelationMixinAdminOptions()):
-    save_on_top = True
-    list_display = ('id', 'external_id', 'get_content_object_display', 'service')
-    list_display_links = ('id', 'external_id')
-    list_filter = ('service', 'content_type',)
-    search_fields = ('service__title', 'external_id',)
-    fieldsets = [
-        (None, {
-            'fields': ('service', 'content_type', 'object_id', 'external_id',)
+            'fields': ('title', 'url', 'sysname', 'content_provider', 'are_excerpts')
         }),
-    ]
+        (_("Defaults"), {
+            'fields': ('default_sites', 'default_creative_sectors', 'default_categories', 'default_status')
+        }),
+        # (_("Authentication"), {
+        #    'fields':  ('api_key', 'user', 'password', )
+        #    }),
+    )
 
 
-class ServiceActionLogOptions(ExtendedModelAdmin):
-    save_on_top = True
-    list_display = ('creation_date', 'service', 'response_code')
-    
-    search_fields = ('request', 'response')
-    
-    fieldsets = (
-        (None, {
-            'fields':  ('service', 'request', 'response', 'response_code')
-            }),
-        )
-
-admin.site.register(Service, ServiceOptions)
-admin.site.register(ObjectMapper, ObjectMapperOptions)
-admin.site.register(ServiceActionLog, ServiceActionLogOptions)
-
+admin.site.register(ArticleImportSource, ArticleImportSourceOptions)

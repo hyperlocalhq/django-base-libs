@@ -1,0 +1,22 @@
+{% load base_tags i18n %}
+{% if user.profile.is_contact_addable %}
+    <a href="#Invite-Contact" rel="nofollow" class="fawesome fa-group button text switch" onclick="IndividualRelationManager.invite('{{ user.username }}'); window.cancelEvent(event);" id="individual_relation_invite_{{ user.username }}"><span class="text">{% blocktrans with user.profile.get_title as person_name %}Invite{% endblocktrans %}</span></a>
+{% endif %}
+{% if user.profile.is_contact_cancelable %}
+    <a href="#Cancel-Invitation" rel="nofollow" class="fawesome fa-group button text switch on" onclick="IndividualRelationManager.cancel('{{ user.username }}');  window.cancelEvent(event);" id="individual_relation_cancel_{{ user.username }}"><span class="text">{% trans "Cancel" %}</span></a>
+{% endif %}
+{% if user.profile.is_contact_acceptable %}
+    <a href="#Accept-Invitation" rel="nofollow" class="fawesome fa-group button text" onclick="IndividualRelationManager.accept('{{ user.username }}');  window.cancelEvent(event);" id="individual_relation_accept_{{ user.username }}"><span class="text">{% blocktrans with user.profile.get_title as person_name %}Accept{% endblocktrans %}</span></a>
+{% endif %}
+{% if user.profile.is_contact_denyable %}
+    <a href="#Deny-Invitation" rel="nofollow" class="fawesome fa-group button text" onclick="IndividualRelationManager.deny('{{ user.username }}');  window.cancelEvent(event);" id="individual_relation_deny_{{ user.username }}"><span class="text">{% blocktrans with user.profile.get_title as person_name %}Deny{% endblocktrans %}</span></a>
+{% endif %}
+{% if user.profile.is_contact_editable %}
+    <a href="#Edit-Relationship" rel="nofollow" class="fawesome fa-group button text" onclick="IndividualRelationManager.edit('{{ user.username }}');  window.cancelEvent(event);" id="individual_relation_edit_{{ user.username }}"><span class="text">{% trans "Edit" %}</span></a>
+{% endif %}
+{% if user.profile.is_contact_blockable %}
+    <a href="#Block-Contact" rel="nofollow" class="fawesome fa-bullhorn button text switch" onclick="IndividualRelationManager.block('{{ user.username }}');  window.cancelEvent(event);" id="individual_relation_block_{{ user.username }}"><span class="text">{% blocktrans with user.profile.get_title as person_name %}Block{% endblocktrans %}</span></a>
+{% endif %}
+{% if user.profile.is_contact_unblockable %}
+    <a href="#Unblock-Contact" rel="nofollow" class="fawesome fa-bullhorn button text switch on" onclick="IndividualRelationManager.unblock('{{ user.username }}'); window.cancelEvent(event);" id="individual_relation_unblock_{{ user.username }}"><span class="text">{% blocktrans with user.profile.get_title as person_name %}Unblock{% endblocktrans %}</span></a>
+{% endif %}

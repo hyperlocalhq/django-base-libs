@@ -1,0 +1,43 @@
+{% extends "marketplace/job_offer_base.html" %}
+{% load i18n auth_extended uni_form_tags cms_tags %}
+
+{% block details %}
+    <div class="header">
+        {% load slideshows_tags %}
+        {% slideshow "job_offer_list" using "slideshows/header.html" %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% trans "Jobs" %}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if not object_list %}
+        <p>{% trans "No objects found within the selected conditions." %}</p>
+    {% else %}
+        <div class="row job-list">
+            {% for job_offer in object_list %}
+                {% if view_type == "listed" %}
+                    {% include "marketplace/lists/job_offer_listed.html" %}
+                {% endif %}
+                {% if view_type == "map" %}
+                    {% include "marketplace/lists/job_offer_mapped.html" %}
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% include "utils/includes/pagination.html" %}
+    {% endif %}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li>{% page_attribute "page_title" %}</li>
+{% endblock %}
+
+
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/job-list.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/pagination.js"></script>
+{% endblock %}

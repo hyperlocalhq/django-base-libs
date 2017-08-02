@@ -1,2 +1,174 @@
 {% extends "extendedadmin/job_offer_change_base.html" %}
 
+{% load i18n static %}
+
+{% block fieldset_job_offer %}
+    <fieldset class="grp-module grp-aligned grp-collapse grp-open">
+        <h2>{% trans "Job Offer" %}</h2>
+        {{ form.user_id }}
+        <div class="grp-row grp-cells-1{% if form.position.errors %} grp-errors{% endif %}">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    <label{% if form.position.field.required %}
+                        class="required"{% endif %}>{{ form.position.label }}</label>
+                </div>
+                <div class="c-2">
+                    {{ form.position }}
+                    {% if form.position.errors %}
+                        <ul class="errorlist">
+                            <li>{{ form.position.errors|join:", " }}</li>
+                        </ul>
+                    {% endif %}
+
+                    {% if form.position.help_text %}
+                        <p class="grp-help">{{ form.position.help_text }}</p>{% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="grp-row grp-cells-1{% if form.job_type.errors %} grp-errors{% endif %}">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    <label{% if form.job_type.field.required %}
+                        class="required"{% endif %}>{{ form.job_type.label }}</label>
+                </div>
+                <div class="c-2">
+                    {{ form.job_type }}
+                    {% if form.job_type.errors %}
+                        <ul class="errorlist">
+                            <li>{{ form.job_type.errors|join:", " }}</li>
+                        </ul>
+                    {% endif %}
+
+                    {% if form.job_type.help_text %}
+                        <p class="grp-help">{{ form.job_type.help_text }}</p>{% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="grp-row grp-cells-1{% if form.qualifications.errors %} grp-errors{% endif %}">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    <label{% if form.qualifications.field.required %}
+                        class="required"{% endif %}>{{ form.qualifications.label }}</label>
+                </div>
+                <div class="c-2">
+                    {{ form.qualifications }}
+                    {% if form.qualifications.errors %}
+                        <ul class="errorlist">
+                            <li>{{ form.qualifications.errors|join:", " }}</li>
+                        </ul>
+                    {% endif %}
+
+                    {% if form.qualifications.help_text %}
+                        <p class="grp-help">{{ form.qualifications.help_text }}</p>{% endif %}
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            addEvent(window, "load", function (e) {
+                SelectFilter.init("id_qualifications", "{% trans "Qualifications" %}", 0, "{% static 'admin/' %}");
+            });
+        </script>
+
+        <div class="grp-row grp-cells-1{% if form.job_sectors.errors %} grp-errors{% endif %}">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    <label{% if form.job_sectors.field.required %}
+                        class="required"{% endif %}>{{ form.job_sectors.label }}</label>
+                </div>
+                <div class="c-2">
+                    {{ form.job_sectors }}
+                    {% if form.job_sectors.errors %}
+                        <ul class="errorlist">
+                            <li>{{ form.job_sectors.errors|join:", " }}</li>
+                        </ul>
+                    {% endif %}
+
+                    {% if form.job_sectors.help_text %}
+                        <p class="grp-help">{{ form.job_sectors.help_text }}</p>{% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="grp-row grp-cells-1{% if form.categories.errors %} grp-errors{% endif %}">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    <label{% if form.categories.field.required %}
+                        class="required"{% endif %}>{{ form.categories.label }}</label>
+                </div>
+                <div class="c-2">
+                    {{ form.categories }}
+                    {% if form.categories.errors %}
+                        <ul class="errorlist">
+                            <li>{{ form.categories.errors|join:", " }}</li>
+                        </ul>
+                    {% endif %}
+
+                    {% if form.categories.help_text %}
+                        <p class="grp-help">{{ form.categories.help_text }}</p>{% endif %}
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            addEvent(window, "load", function (e) {
+                SelectFilter.init("id_job_sectors", "{% trans "Job sectors" %}", 0, "{% static 'admin/' %}");
+            });
+        </script>
+
+        <div class="grp-row">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    &nbsp;
+                </div>
+                <div class="c-2">
+                    {{ form.is_commercial }}
+                    <label class="vCheckboxLabel"
+                        for="id_is_commercial">{{ form.is_commercial.label }}</label>
+                </div>
+            </div>
+        </div>
+        <div class="grp-row">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    &nbsp;
+                </div>
+                <div class="c-2">
+                    {{ form.talent_in_berlin }}
+                    <label class="vCheckboxLabel"
+                        for="id_talent_in_berlin">{{ form.talent_in_berlin.label }}</label>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+{% endblock %}
+
+{% block fieldset_additional_info %}
+    <fieldset class="grp-module grp-aligned grp-collapse grp-closed">
+        <h2 class="grp-collapse-handler">{% trans "Additional Info" %}</h2>
+
+        <div class="grp-row grp-cells-1{% if form.additional_info.errors %} grp-errors{% endif %}">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    <label{% if form.additional_info.field.required %}
+                        class="required"{% endif %}>{{ form.additional_info.label }}</label>
+                </div>
+                <div class="c-2">
+                    {{ form.additional_info }}
+                    {% if form.additional_info.errors %}
+                        <ul class="errorlist">
+                            <li>{{ form.additional_info.errors|join:", " }}</li>
+                        </ul>
+                    {% endif %}
+
+                    {% if form.additional_info.help_text %}
+                        <p class="grp-help">{{ form.additional_info.help_text }}</p>{% endif %}
+                </div>
+            </div>
+        </div>
+    </fieldset>
+{% endblock %}
+
+
+{% block fieldset_status %}
+    {% include "extendedadmin/includes/fieldset_categories.html" %}
+    {{ block.super }}
+{% endblock %}

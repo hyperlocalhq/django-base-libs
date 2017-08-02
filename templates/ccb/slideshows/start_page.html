@@ -1,0 +1,26 @@
+{% load i18n base_tags auth_extended image_mods_tags %}
+<div class="slider fullside" data-speed="600" data-timer="4000">
+    {% for slide in slides %}
+        <div class="slide">
+            {% if slide.link %}<a href="{{ slide.link }}">{% endif %}
+                <img src="{{ UPLOADS_URL }}{{ slide.path.path|modified_path:"home_slide" }}" alt="{{ slide.alt }}" class="hidden-xs"/>
+                <img src="{{ UPLOADS_URL }}{{ slide.path.path|modified_path:"home_slide_xs" }}" alt="{{ slide.alt }}" class="visible-xs"/>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h1>{{ slide.title|escape }}</h1>
+                        </div>
+                    </div>
+                </div>
+                {% if slide.button %}
+                    <div class="slider-button btn btn-primary btn-inverse btn-responsive">{{ slide.button|escape }}</div>
+                {% endif %}
+            {% if slide.link %}</a>{% endif %}
+        </div>
+    {% endfor %}
+    <ul class="slider-menu">
+        {% for slide in slides %}
+            <li></li>
+        {% endfor %}
+    </ul>
+</div>

@@ -38,7 +38,7 @@ class BlogPostForm(dynamicforms.Form):
         required=True,
         choices=Post._meta.get_field("status").get_choices(),
         )
-  
+
     published_from = forms.DateTimeField(
         label=_("publishing date"),
         help_text=_("Please use the format 'yyyy-mm-dd hh:mi:ss'. If not provided and the status is set to 'published', the post will be published immediately."),
@@ -54,7 +54,7 @@ class BlogPostForm(dynamicforms.Form):
     #     label=_("Enable comment form"),
     #     required=False,
     #     )
-    
+
     def __init__(self, *args, **kwargs):
         self.helper = FormHelper()
         self.helper.form_tag = False
@@ -73,7 +73,7 @@ class BlogPostForm(dynamicforms.Form):
                     {% endif %}
                 ''',
                 "title",
-                "body",
+                layout.Field("body", css_class="tiny_mce_responsive"),
                 "tags",
                 "status",
                 # "enable_comment_form",
@@ -92,7 +92,7 @@ class BlogPostForm(dynamicforms.Form):
             '''),
             bootstrap.FormActions(
                 layout.Submit('submit_preview', _('Preview')),
-                layout.Submit('submit_cancel', _('Cancel')),
+                layout.Submit('submit_cancel', _('Cancel'), css_class="btn-default"),
                 css_class="button-group form-buttons"
             ),
         )

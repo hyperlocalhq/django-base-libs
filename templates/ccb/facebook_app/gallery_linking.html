@@ -1,0 +1,61 @@
+{% load i18n image_mods_tags babel %}
+
+<div><!-- used by js -->
+    <div class="gallery-linking clearfix" data-ccb-gallery-token="{{ gallery_opts.ccb_gallery.get_token }}"
+        data-fb-album-id="{{ gallery_opts.fb_album.id }}" data-ccb-gallery-updated="
+
+
+        {% if gallery_opts.ccb_gallery.creation_date or gallery_opts.ccb_gallery.modified_date %}{{ gallery_opts.ccb_gallery.modified_date|default:gallery_opts.ccb_gallery.creation_date|date:"m/d/Y H:i:s" }}{% endif %}"
+        data-fb-album-updated="
+
+
+            {% if gallery_opts.fb_album.created_time or gallery_opts.fb_album.updated_time %}{{ gallery_opts.fb_album.updated_time|default:gallery_opts.fb_album.created_time|date:"m/d/Y H:i:s" }}{% endif %}"
+        data-ccb-gallery-count="{{ gallery_opts.ccb_gallery_count }}"
+        data-fb-album-count="{{ gallery_opts.fb_album.count|default:0 }}">
+        <div class="ccb-gallery">
+            {% if gallery_opts.ccb_gallery %}
+                <a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery_opts.ccb_gallery.get_token }}/manage/">
+                    {% if gallery_opts.ccb_gallery.cover_image %}
+                        <img width="75" height="75"
+                            src="{{ UPLOADS_URL }}{{ gallery_opts.ccb_gallery.cover_image.path|modified_path:"gt" }}"
+                            alt=""/>
+                    {% else %}
+                        {% if gallery_opts.ccb_gallery.mediafile_set.count %}
+                            <img width="75" height="75"
+                                src="{{ gallery_opts.ccb_gallery.mediafile_set.all.0.get_thumbnail_url }}" alt=""/>
+                        {% else %}
+                            <img width="75" height="75"
+                                src="{{ STATIC_URL }}site/img/website/placeholder/upload_image.png" alt=""/>
+                        {% endif %}
+                    {% endif %}
+                </a>
+                <h5>{{ gallery_opts.ccb_gallery.title }}</h5>
+                <p>{% trans "Pictures:" %} {{ gallery_opts.ccb_gallery_count }}</p>
+                <p>{{ gallery_opts.ccb_gallery.modified_date|default:gallery_opts.ccb_gallery.creation_date|datefmt:"long" }}</p>
+            {% else %}
+                <img width="75" height="75" src="{{ STATIC_URL }}site/img/website/placeholder/upload_image.png" alt=""/>
+                <h5>{% trans "Status" %}</h5>
+                <p>{% trans "Not synced" %}</p>
+            {% endif %}
+        </div>
+        <div class="sync-controls">
+        </div>
+        <div class="fb-album">
+            {% if gallery_opts.fb_album %}
+                <a href="{{ gallery_opts.fb_album.link }}">
+                    <img alt="{{ gallery_opts.fb_album.name|escape }}" width="75"
+                        src="https://graph.facebook.com/{{ gallery_opts.fb_album.id }}/picture/?access_token={{ fb_access_token }}&amp;type=thumbnail"/>
+                </a>
+                <h5>{{ gallery_opts.fb_album.name }}</h5>
+                <p>{% trans "Pictures:" %} {{ gallery_opts.fb_album.count|default:0 }}</p>
+                {% if gallery_opts.fb_album.created_time or gallery_opts.fb_album.updated_time %}
+                    <p>{{ gallery_opts.fb_album.updated_time|default:gallery_opts.fb_album.created_time|datefmt:"long" }}</p>
+                {% endif %}
+            {% else %}
+                <img width="75" height="75" src="{{ STATIC_URL }}site/img/website/placeholder/upload_image.png" alt=""/>
+                <h5>{% trans "Status" %}</h5>
+                <p>{% trans "Not synced" %}</p>
+            {% endif %}
+        </div>
+    </div>
+</div>

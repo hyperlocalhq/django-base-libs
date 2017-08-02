@@ -1,0 +1,30 @@
+{% load babel %}
+
+
+<div class="col-xs-12">
+    <div class="wrapper">
+        <a class="content" href="{{ event.get_url_path }}">
+            <div class="text">
+                <h3>
+                    {% if event.event_type %}<br/>
+                        {{ event.event_type }}
+                    {% endif %}
+                </h3>
+                <h2>{{ event.get_title|escape }}</h2>
+
+                <p>
+                    {% if event.venue %}
+                        {{ event.venue.title }}
+                    {% else %}
+                        {{ event.venue_title }}
+                    {% endif %}
+                </p>
+            </div>
+        </a>
+        <div class="button-group">
+            <a href="#" class="fawesome fa-more button"></a>
+            <a href="#" class="fawesome fa-bookmark button"></a>
+            <!--<a href="#" class="fawesome fa-calender-check button"></a>-->
+        </div>
+    </div>
+</div>

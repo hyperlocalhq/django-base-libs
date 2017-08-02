@@ -1,0 +1,60 @@
+{% extends "utils/includes/base_latest_objects.html" %}
+{% load i18n base_tags site_specific image_mods_tags %}
+{% comment %}<!--
+Usage in any template:
+    {% load base_tags %}
+    
+    Simple:
+    {% include_parsed "resources/includes/featured_published_documents.html" %}
+    
+    Customized:
+    {% include_parsed "resources/includes/featured_published_documents.html" with 5 as amount %}
+    
+-->{% endcomment %}
+
+
+{% block block_title %}
+    <h3>
+        <a href="/{{ URL_ID_DOCUMENTS }}/">{% trans "New Infolinks" %}</a>
+        <a href="/{{ URL_ID_DOCUMENTS }}/"
+            class="newdocuments"></a>
+    </h3>{% endblock %}
+
+{% block block_content %}
+    {% with amount|default:3 as amount %}
+        {% get_objects featured_published resources.Document amount as newest_objects %}
+        {% if newest_objects %}
+            <ul class="list-block clearfix">
+                {% for document in newest_objects %}
+                    <li class="clearfix" onclick="redirect('{{ document.get_url_path }}')">
+                        <a href="{{ document.get_url_path }}">
+                            {% if document.image %}
+                                <img class="left" alt="{{ document.get_title|escape }}" width="97" height="97"
+                                    src="{{ UPLOADS_URL }}{{ document.image|modified_path:"al" }}"/>
+                            {% else %}
+                                <img class="left" alt="{{ document.get_title|escape }}" width="97" height="97"
+                                    src="{{ STATIC_URL }}site/img/website/placeholder/document_m.png"/>
+                            {% endif %}
+                        </a>
+                        <h5>
+                            <a href="{{ document.get_url_path }}">
+                                {{ document.get_title|escape|truncatewords:7 }}
+                            </a>
+                        </h5>
+                        {% if document.get_object_types %}
+                            <p>
+                                {% for cat in document.get_object_types %}
+                                    {{ cat.get_title|escape }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </p>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+            <hr class="hidden"/>
+        {% else %}
+            <p>{% trans "There are no public infolinks." %}</p>
+            <hr class="hidden"/>
+        {% endif %}
+    {% endwith %}
+{% endblock %}

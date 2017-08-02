@@ -1,0 +1,14 @@
+{% extends "network/details_base.html" %}
+{% load i18n base_tags uni_form_tags crispy_forms_tags %}
+
+
+{% block details %}
+    <div class="contact-form first-item">
+        {% if form %}
+            {% crispy form "ccb_form" %}
+        {% else %}
+            <p>{% trans "Your message has been sent." %}</p>
+        {% endif %}
+    </div>
+{% endblock %}
+

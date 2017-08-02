@@ -1,0 +1,19 @@
+{% extends "media_gallery/portfolio_base.html" %}
+{% load i18n %}
+
+{% block details %}
+    <div id="delete_section">
+        <form action="" method="post" class="uniForm">{% csrf_token %}
+            {% if section.title %}
+                <p class="disclaimer">{% blocktrans with section.title as section_title %}Do you really want to delete
+                    portfolio section "{{ section_title }}" and albums in it?{% endblocktrans %}</p>
+            {% else %}
+                <p class="disclaimer">{% blocktrans %}Do you really want to delete the untitled portfolio section and
+                    albums in it?{% endblocktrans %}</p>
+            {% endif %}
+            <div class="buttonHolder">
+                <input type="submit" value="Delete" class="btn btn-danger"/>
+            </div>
+        </form>
+    </div>
+{% endblock %}

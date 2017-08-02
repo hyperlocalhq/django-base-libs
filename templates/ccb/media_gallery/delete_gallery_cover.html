@@ -1,0 +1,14 @@
+{% extends "media_gallery/portfolio_base.html" %}
+{% load i18n %}
+
+{% block details %}
+    <form action="" method="post" class="uniForm">{% csrf_token %}
+        <p class="disclaimer">{% blocktrans with gallery.title as gallery_title %}Do you really want to delete the
+            custom cover for the album "{{ gallery_title }}" and to use the first image of the album as a cover
+            instead?{% endblocktrans %}</p>
+
+        <div class="buttonHolder">
+            <input type="submit" value="Delete" class="primaryAction"/>
+        </div>
+    </form>
+{% endblock %}

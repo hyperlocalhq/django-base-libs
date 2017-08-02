@@ -1,0 +1,20 @@
+{% load i18n uni_form_tags %}
+
+<h3>{% trans "Address" %}</h3>
+{{ form.latitude }}
+{{ form.longitude }}
+{{ form.district }}
+{{ form.street_address|as_uni_field }}
+{{ form.street_address2|as_uni_field }}
+
+{% include "uni_form/includes/postal_code_city.html" %}
+
+{{ form.country|as_uni_field }}
+
+<div id="dyn_set_map">
+    <div class="buttonHolder">
+        <input id="dyn_remove_geo" type="button" class="secondaryAction"
+            value="{% filter upper %}{% trans "Remove from map" %}{% endfilter %}"/>
+    </div>
+    <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+</div>

@@ -1,0 +1,66 @@
+{% load i18n base_tags auth_extended %}
+
+{% if object.job_sectors.count or object.get_tags or object.is_editable %}
+    <div
+        class="fieldset {% if object.is_editable %}editable switch{% else %}not-editable{% endif %}"
+        data-edit-url="{% url 'edit_profile' object_type='job' slug=object.get_secure_id %}categories/">
+        <fieldset disabled>
+            <h2>{% trans "Categories" %}</h2>
+
+            {% if object.job_sectors.count %}
+                <dl class="input-fields">
+                    <dt>
+                        {% with object.job_sectors.count as job_sectors_count %}
+                            {% ifequal job_sectors_count 1 %}
+                                {% trans "Job Sector" %}
+                            {% else %}
+                                {% trans "Job Sectors" %}
+                            {% endifequal %}
+                        {% endwith %}
+                    </dt>
+                    <dd>
+                        <div class="text-field">
+                            {% for cat in object.job_sectors.all %}
+                                <div>{{ cat.title|escape }}</div>
+                            {% endfor %}
+                        </div>
+                    </dd>
+                    <dd class="clearfix"></dd>
+                </dl>
+            {% endif %}
+
+            {% if object.get_tags %}
+                <dl class="input-fields">
+                    <dt>{% trans "Tags" %}</dt>
+                    <dd>
+                        <div class="text-field">{{ object.get_tags|join:", " }}</div>
+                    </dd>
+                    <dd class="clearfix"></dd>
+                </dl>
+            {% endif %}
+
+            {% if object.categories.count %}
+                <dl class="input-fields">
+                    <dt>
+                        {% with object.categories.count as categories_count %}
+                            {% ifequal categories_count 1 %}
+                                {% trans "Category" %}
+                            {% else %}
+                                {% trans "Categories" %}
+                            {% endifequal %}
+                        {% endwith %}
+                    </dt>
+                    <dd>
+                        <div class="text-field">
+                            {% for cat in object.categories.all %}
+                                <div>{{ cat.title|escape }}</div>
+                            {% endfor %}
+                        </div>
+                    </dd>
+                    <dd class="clearfix"></dd>
+                </dl>
+            {% endif %}
+
+        </fieldset>
+    </div>
+{% endif %}

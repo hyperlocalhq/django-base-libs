@@ -1,0 +1,9 @@
+{% load base_tags %}
+<div class="search-result">
+    <a href="{{ object.get_url_path }}">
+        <h5>
+            {{ object.position }}
+            @ {% if object.offering_institution %}{{ object.offering_institution.get_title }}{% else %}{{ object.offering_institution_title }}{% endif %}
+        </h5>
+    </a>
+</div>

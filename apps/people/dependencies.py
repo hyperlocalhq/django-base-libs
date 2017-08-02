@@ -10,7 +10,12 @@ required_apps = [
     "i18n",
     "utils",
     "image_mods",
-    ]
+    "events",
+    "marketplace",
+    "memos",
+    "favorites",
+    "individual_relations",
+]
 optional_apps = [
     "institutions",
-    ]
+]

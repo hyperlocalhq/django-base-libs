@@ -1,12 +1,3 @@
-required_apps = [
-    "contenttypes",
-    "filebrowser",
-    "grappelli",
-    "image_mods",
-    "auth",
-    "utils",
-    ]
-optional_apps = [
-    "comments",
-    "favorites",
-    ]
+# -*- coding: UTF-8 -*-
+
+from jetson.apps.media_gallery.dependencies import *

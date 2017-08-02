@@ -1,1 +1,1 @@
-default_app_config = 'jetson.apps.institutions.apps.InstitutionsConfig'
+default_app_config = 'ccb.apps.institutions.apps.InstitutionsConfig'

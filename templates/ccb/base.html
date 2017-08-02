@@ -1,0 +1,321 @@
+{% block doctype %}<!DOCTYPE html>{% endblock %}
+{% load i18n base_tags cms_tags menu_tags sekizai_tags image_mods_tags navigation_tags %}
+<html lang="{{ LANGUAGE_CODE }}">
+    <head>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+        <title>{% block title %}{% endblock %} - {{ site_settings.site.name }}</title>
+
+        {% block meta_tags %}
+            {{ site_settings.get_meta_tags|safe }}
+        {% endblock %}
+
+        <meta name="robots" content="index,follow"/>
+        <meta name="language" content="{{ LANGUAGE_CODE }}"/>
+
+        <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{{ STATIC_URL }}site/favicons/apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}site/favicons/apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}site/favicons/apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}site/favicons/apple-touch-icon-144x144.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="60x60" href="{{ STATIC_URL }}site/favicons/apple-touch-icon-60x60.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{{ STATIC_URL }}site/favicons/apple-touch-icon-120x120.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="76x76" href="{{ STATIC_URL }}site/favicons/apple-touch-icon-76x76.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ STATIC_URL }}site/favicons/apple-touch-icon-152x152.png" />
+        <link rel="icon" type="image/png" href="{{ STATIC_URL }}site/favicons/favicon-196x196.png" sizes="196x196" />
+        <link rel="icon" type="image/png" href="{{ STATIC_URL }}site/favicons/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/png" href="{{ STATIC_URL }}site/favicons/favicon-32x32.png" sizes="32x32" />
+        <link rel="icon" type="image/png" href="{{ STATIC_URL }}site/favicons/favicon-16x16.png" sizes="16x16" />
+        <link rel="icon" type="image/png" href="{{ STATIC_URL }}site/favicons/favicon-128.png" sizes="128x128" />
+        <meta name="application-name" content="Creative City Berlin"/>
+        <meta name="msapplication-TileColor" content="#000000" />
+        <meta name="msapplication-TileImage" content="{{ STATIC_URL }}site/favicons/mstile-144x144.png" />
+        <meta name="msapplication-square70x70logo" content="{{ STATIC_URL }}site/favicons/mstile-70x70.png" />
+        <meta name="msapplication-square150x150logo" content="{{ STATIC_URL }}site/favicons/mstile-150x150.png" />
+        <meta name="msapplication-wide310x150logo" content="{{ STATIC_URL }}site/favicons/mstile-310x150.png" />
+        <meta name="msapplication-square310x310logo" content="{{ STATIC_URL }}site/favicons/mstile-310x310.png" />
+
+        {% block open_graph %}
+            {% with open_graph_settings=request.current_page.get_title_obj.opengraph %}
+                {% if open_graph_settings %}
+                    {# Open Graph settings from CMS page #}
+                    <meta property="og:title" content="{{ open_graph_settings.og_title }}"/>
+                    <meta property="og:type" content="{{ open_graph_settings.og_type }}" />
+                    {% if open_graph_settings.og_image %}
+                        <meta property="og:image" content="http://{{ request.get_host }}{{ MEDIA_URL }}{{ open_graph_settings.og_image|modified_path:"og" }}" />
+                    {% else %}
+                        <meta property="og:image" content="http://{{ request.get_host }}{{ STATIC_URL }}site/img/logo/museumsportal-og.jpg" />
+                    {% endif %}
+                    <meta property="og:description" content="{{ open_graph_settings.og_description|escape }}" />
+                {% else %}
+                    {# Default Open Graph settings #}
+                    {% page_attribute "title" as title %}
+                    {% page_attribute "meta_description" as meta_description %}
+                    <meta property="og:title" content="{{ title|default:"Creative City Berlin" }}" />
+                    <meta property="og:type" content="{{ title|yesno:"article,website" }}" />
+                    <meta property="og:image" content="http://{{ request.get_host }}{{ STATIC_URL }}site/img/default/ccb_opengraph.jpg" />
+                    <meta property="og:description" content="{{ meta_description|default:site_settings.meta_description|escape }}" />
+                {% endif %}
+                <meta property="og:image:type" content="image/jpeg" />
+                <meta property="og:image:width" content="600" />
+                <meta property="og:image:height" content="600" />
+            {% endwith %}
+        {% endblock %}
+        <meta property="og:url" content="http://{{ request.get_host }}{{ request.path }}" />
+        <meta property="og:site_name" content="Creative City Berlin" />
+        <meta property="og:locale" content="{{ OPEN_GRAPH_LOCALE }}" />
+        <meta property="fb:app_id" content="217188838296370" />
+
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic,300,300italic,900' rel='stylesheet' type='text/css'>
+        <link href="{{ STATIC_URL }}site/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen, print" type="text/css" />
+        <link href="{{ STATIC_URL }}site/css/style.css" rel="stylesheet" media="screen, print" type="text/css" />
+        {% render_block "css" %}
+
+        {% block stylesheet %}
+        {% endblock %}
+
+        <style type="text/css">
+            {% block css %}
+            {% endblock %}
+        </style>
+
+        <script type="text/javascript">
+
+            var trans = [];
+            trans["Upload"] = '{% trans "Upload" %}';
+            trans["Cancel"] = '{% trans "Cancel" %}';
+            trans["Choose"] = '{% trans "Choose" %}';
+            trans["edit"] = '{% trans "edit" %}';
+            trans["close"] = '{% trans "close" %}';
+            trans["None of the listed"] = '{% trans "None of the listed" %}';
+
+            trans["Add to favorites"] = '{% trans "Add to favorites" %}';
+            trans["It's your favorite"] = "{% trans "It's your favorite" %}";
+            trans["Remove from favorites"] = '{% trans "Remove from favorites" %}';
+            trans["Favorite"] = "{% trans 'Favorite' %}";
+
+            trans["Add contact"] = '{% trans "Add contact" %}';
+            trans["It's your contact"] = "{% trans "It's your contact" %}";
+            trans["Remove contact"] = '{% trans "Remove contact" %}';
+
+            trans["Add to Memo"] = '{% trans "Add to Memo" %}';
+            trans["Remove Memo"] = '{% trans "Remove Memo" %}';
+
+            {% block translations %}{% endblock %}
+
+        </script>
+
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.mobile.custom.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/form.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/base.js"></script>
+        <script type="text/javascript" src="{% url 'jssettings' %}"></script>
+
+        {{ site_settings.extra_head|safe }}
+        {% block extrahead %}
+        {% endblock %}
+
+    </head>
+    <body class="is-xs {% block body_class %}{% endblock %}">
+        {% cms_toolbar %}
+
+        <div id="navigation">
+            <nav>
+                <div class="buttons visible-xs">
+                    <button class="fawesome fa-search button header-search"><span class="sr-only">{% trans 'search entire website' %}</span></button>
+                    <div class="input-field select languages">
+                        {% language_chooser "utils/includes/navi_language_chooser.html" %}
+                    </div>
+                </div>
+                <ul class="accordion">
+                    {% show_menu_below_id "start_page" 0 1 1 1 "navigation/main_navigation.html" %}
+                </ul>
+            </nav>
+        </div>
+
+        <div id="body">
+
+            <div id="header">
+                <div class="wrapper">
+                    <a href="/{{ LANGUAGE_CODE }}/"><img class="logo" src="{{ STATIC_URL }}site/img/default/ccb_logo_beta.gif" alt="Creative City Berlin" /></a>
+                    <button class="fawesome fa-menu button navigation"><span class="sr-only">{% trans 'toggle menu' %}</span></button>
+                    <button class="fawesome fa-search button header-search"><span class="sr-only">{% trans 'search entire website' %}</span></button>
+                    {% if user.is_authenticated %}
+                        <ul id="avatar_navi" class="closed">
+                            <li class="toggle">
+                                {% if user.profile.image %}
+                                    <button class="fawesome user-avatar button" style="background: url({{ MEDIA_URL }}{{ user.profile.image|modified_path:"at" }})"><span class="sr-only">{% trans 'toggle menu' %}</span></button>
+                                {% else %}
+                                    <button class="fawesome fa-man user-avatar button"><span class="sr-only">{% trans 'toggle menu' %}</span></button>
+                                {% endif %}
+                            </li>
+                            <li><a href="{% url 'dashboard' %}"><span class="text">{% trans 'Dashboard' %}</span></a></li>
+                            <li><a href="/{{ LANGUAGE_CODE }}/network/member/{{ user.profile.slug }}/"><span class="text">{% trans 'Profile' %}</span></a></li>
+                            {% navigation_links "menu_settings" using "navigation/includes/navigation_links_in_avatar.html" %}
+                        </ul>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="fawesome fa-man button"><span class="sr-only">{% trans 'login' %}</span></a>
+                    {% endif %}
+                    <!--<div class="input-field select languages">-->
+                        {% language_chooser "utils/includes/language_chooser.html" %}
+                    <!--</div>-->
+                </div>
+            </div>
+
+            <div class="content-wrapper">
+                {% block content %}
+                {% endblock %}
+            </div>
+
+            {% block bottom %}
+            {% endblock %}
+        </div>
+
+        <div id="breadcrumbs" class="hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <ul>
+                            <li><a href="/{{ LANGUAGE_CODE }}/" class="fawesome fa-home"><span class="sr-only">{% trans "Home" %}</span></a></li>
+                            {% block breadcrumbs %}
+                                {% show_breadcrumb 1 "navigation/breadcrumb.html" %}
+                            {% endblock %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="footer">
+            <div class="container projectlogos">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3 first">
+                        <h3>{% trans "A part of" %}:</h3>
+                        <a href="http://www.kreativkultur.berlin/" target="_blank"><img src="{{ STATIC_URL }}site/img/footer/kkb.gif" srcset="{{ STATIC_URL }}site/img/footer/kkb.gif 1x, {{ STATIC_URL }}site/img/footer/kkb@2x.gif 2x" alt="Kreativ Kultur Berlin"/></a>
+                    </div>
+                    <div class="col-xs-12 col-sm-9 first">
+                        <h3>{% trans "More offers" %}:</h3>
+                        <div class="col-xs-12 col-sm-4 col-md-4 second">
+                            <a href="http://www.kulturfoerderpunkt-berlin.de/" target="_blank"><img src="{{ STATIC_URL }}site/img/footer/kfb.gif" srcset="{{ STATIC_URL }}site/img/footer/kfb.gif 1x, {{ STATIC_URL }}site/img/footer/kfb@2x.gif 2x" alt="Kultur Förderpunkt Berlin"/></a>
+                        </div>
+                        <div class="col-xs-12 col-sm-5 col-md-4 second">
+                            <a href="http://www.kreativwirtschaftsberatung-berlin.de/" target="_blank"><img src="{{ STATIC_URL }}site/img/footer/kwb.gif" srcset="{{ STATIC_URL }}site/img/footer/kwb.gif 1x, {{ STATIC_URL }}site/img/footer/kwb@2x.gif 2x" alt="Kreativ Wirtschaftsberatung Berlin"/></a>
+                        </div>
+                        <div class="col-xs-12 col-sm-3 col-md-4 second">
+                            <a href="http://www.crowdfunding-berlin.com/" target="_blank"><img src="{{ STATIC_URL }}site/img/footer/cfb.gif" srcset="{{ STATIC_URL }}site/img/footer/cfb.gif 1x, {{ STATIC_URL }}site/img/footer/cfb@2x.gif 2x" alt="Crowd Funding Berlin"/></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="container sharelogos">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
+                        {% show_menu_below_id "meta" 0 1 1 1 "navigation/meta_navigation.html" %}
+                    </div>
+                    <div class="col-xs-12 col-sm-3 col-md-2">
+                        <h3>{% trans 'Follow Us' %}</h3>
+                        <div class="button-group">
+                            <a href="http://www.twitter.com/CREATIVEBERLIN" class="fawesome fa-twitter button small round" target="_blank"><span class="sr-only">{% trans "Follow us on Twitter" %}</span></a>
+                            <a href="https://www.facebook.com/creativeberlin/" class="fawesome fa-facebook button small round" target="_blank"><span class="sr-only">{% trans "Follow us on Facebook" %}</span></a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-3">
+                        <h3>{% trans 'Bookmark / Share' %}</h3>
+                        <div class="button-group">
+                            <a href="https://twitter.com/home?status=Creative%20City%20Berlin%20ist%20das%20Portal%20f%C3%BCr%20alle%20Angeh%C3%B6rigen%20der%20Kultur-%20und%20Kreativwirtschaft%20in%20Berlin.%20http%3A//www.creative-city-berlin.de" class="fawesome fa-twitter button small round" target="_blank"><span class="sr-only">{% trans "Share on Twitter" %}</span></a>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.creative-city-berlin.de" class="fawesome fa-facebook button small round" target="_blank"><span class="sr-only">{% trans "Share on Facebook" %}</span></a>
+                            <a href="WhatsApp://send?text=Creative%20City%20Berlin%20ist%20das%20zentrale%20Internetportal%20f%C3%BCr%20alle%20Angeh%C3%B6rigen%20der%20Kultur-%20und%20Kreativwirtschaft%20in%20Berlin.%20Informieren%20sie%20sich%20und%20werden%20Sie%20Teil%20des%20Netzwerks.%20http%3A//www.creative-city-berlin.de" class="fawesome fa-whatsapp button small round" style="display:none;"><span class="sr-only">{% trans "Share on Facebook" %}</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container partnerlogos">
+                <div class="row">
+                    <div class="col-md-9">
+                        <h3>{% trans 'Sponsored by' %}:</h3>
+                        <div>
+                            <a href="http://www.berlin.de/sen/wirtschaft/gruenden-und-foerdern/europaeische-strukturfonds/efre/" target="_blank">
+                                <img src="{{ STATIC_URL }}site/img/footer/eu_logo.gif"
+                                     srcset="{{ STATIC_URL }}site/img/footer/eu_logo.gif 1x, {{ STATIC_URL }}site/img/footer/eu_logo@2x.gif 2x"
+                                     alt="EU"/>
+                            </a>
+                            <a href="https://www.berlin.de/sen/kultur/foerderung/eu-foerderung/efre/foerderperiode-2007-2013/artikel.81646.php" target="_blank">
+                                <img src="{{ STATIC_URL }}site/img/footer/efre_2013-2015.gif"
+                                     srcset="{{ STATIC_URL }}site/img/footer/efre_2013-2015.gif 1x, {{ STATIC_URL }}site/img/footer/efre_2013-2015@2x.gif 2x"
+                                     alt="EFRE"/>
+                            </a>
+                            <a href="https://www.berlin.de/sen/kultur/foerderung/eu-foerderung/efre/foerderperiode-2014-2020/artikel.81647.php" target="_blank">
+                                <img src="{{ STATIC_URL }}site/img/footer/inp_2016-2018.gif"
+                                     srcset="{{ STATIC_URL }}site/img/footer/inp_2016-2018.gif 1x, {{ STATIC_URL }}site/img/footer/inp_2016-2018@2x.gif 2x"
+                                     alt="Innovatives Potential KULTUR"/>
+                            </a>
+                            <a href="http://www.berlin.de/projektzukunft/" target="_blank">
+                                <img src="{{ STATIC_URL }}site/img/footer/projektzukunft.gif"
+                                     srcset="{{ STATIC_URL }}site/img/footer/projektzukunft.gif 1x, {{ STATIC_URL }}site/img/footer/projektzukunft@2x.gif 2x"
+                                     alt="Projektzukunft" />
+                            </a>
+                            <a href="http://www.berlin.de/sen/kultur/" target="_blank">
+                                <img src="{{ STATIC_URL }}site/img/footer/beberlin.gif"
+                                     srcset="{{ STATIC_URL }}site/img/footer/beberlin.gif 1x, {{ STATIC_URL }}site/img/footer/beberlin@2x.gif 2x"
+                                     alt="Be Berlin" />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <h3>{% trans 'An offer of' %}:</h3>
+                        <a href="http://www.kulturprojekte-berlin.de/" target="_blank">
+                            <img src="{{ STATIC_URL }}site/img/footer/kpb_logo.gif"
+                                 srcset="{{ STATIC_URL }}site/img/footer/kpb_logo.gif 1x, {{ STATIC_URL }}site/img/footer/kpb_logo@2x.gif 2x"
+                                 alt="Kulturprojekte Berlin"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="search-layer" class="layer">
+            <div class="wrapper">
+                <form action="/search/" method="get">
+                    <input id="search_form_input" placeholder="{% trans 'Enter your search term ...' %}" name="q" />
+                </form>
+                <div class="button-group">
+                    <div class="fawesome fa-search button"><span class="sr-only">{% trans 'search' %}</span></div>
+                    <div class="fawesome fa-close button"><span class="sr-only">{% trans 'close' %}</span></div>
+                </div>
+            </div>
+        </div>
+        <div id="image-layer" class="layer">
+            <div class="wrapper">
+                <div class="image"></div>
+                <h5 class="caption"></h5>
+            </div>
+            <div class="navi"></div>
+            <div class="fawesome fa-close button"><span class="sr-only">{% trans 'close' %}</span></div>
+        </div>
+        <span class="width-sniffer visible-xs"></span><span class="width-sniffer visible-sm"></span><span class="width-sniffer visible-md"></span><span class="width-sniffer visible-lg"></span>
+
+        {% block javascript %}
+        {% endblock %}
+
+        {% block facebook_scripts %}
+            <div id="fb-root"></div>
+            <script type="text/javascript" src="//connect.facebook.net/{% if LANGUAGE_CODE == "en" %}en_US{% else %}de_DE{% endif %}/all.js"></script>
+        {% endblock %}
+
+        {% render_block "js" %}
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/generic.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/social-sharing.min.js"></script>
+
+        {{ site_settings.extra_body|safe }}
+
+        {% block extrabody %}
+        {% endblock %}
+
+    </body>
+</html>

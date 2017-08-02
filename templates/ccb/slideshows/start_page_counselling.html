@@ -1,0 +1,12 @@
+{% load image_mods_tags %}
+{% with slide=slides.0 %}
+    {% if slide %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <img class="full" src="{{ UPLOADS_URL }}{{ slide.path|modified_path:"header" }}" alt="{{ slide.title|escape }}"/>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endwith %}

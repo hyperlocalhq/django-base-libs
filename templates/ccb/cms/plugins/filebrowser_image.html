@@ -1,0 +1,13 @@
+{% load image_mods_tags %}
+<div class="cms-plugin-filebrowser-image clearfix">
+    {% if object.mod %}
+    <span class="img">
+        <img class="img-responsive fade{% if object.css_class %} {{ object.css_class }}{% endif %}" src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ object.image|modified_path:object.mod.sysname }}" />
+    </span>
+    {% else %}
+        <img class="img-responsive{% if object.css_class %} {{ object.css_class }}{% endif %}" src="{{ MEDIA_URL }}{{ object.image|modified_path:"750wide" }}" alt="{{ object.alt|escape }}" />
+    {% endif %}
+    {% if object.alt %}
+			<small>{{ object.alt|escape }}</small>
+    {% endif %}
+</div>
