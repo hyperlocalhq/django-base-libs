@@ -8664,7 +8664,7 @@ img[data-popup-image-src] {
 }
 
 .is-xs #header img.logo {
-  padding: 10px 0 10px;
+  padding: 20px 0 15px;
 }
 
 #header .languages {
@@ -8730,6 +8730,7 @@ img[data-popup-image-src] {
 
 .is-xs #header .button.user-avatar {
   right: 20px;
+  margin-right: 25px !important;
 }
 
 #header .button.user-avatar.fa-man {
@@ -8770,6 +8771,10 @@ img[data-popup-image-src] {
   -moz-transition: height 0.3s ease-in-out;
   -o-transition: height 0.3s ease-in-out;
   transition: height 0.3s ease-in-out;
+}
+
+.is-xs #header #avatar_navi li, .is-xs #header #language_navi li {
+  right: 25px;
 }
 
 #header #avatar_navi li a, #header #language_navi li a {
