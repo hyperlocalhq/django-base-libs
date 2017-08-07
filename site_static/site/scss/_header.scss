@@ -180,6 +180,7 @@
             display:inline-block;
             .is-xs & {
                 right: 20px;
+                margin-right: 25px !important;
             }
 
             &.fa-man {
@@ -223,6 +224,10 @@
             -moz-transition: height 0.3s ease-in-out;
             -o-transition: height 0.3s ease-in-out;
             transition: height 0.3s ease-in-out;
+
+            .is-xs & {
+                right: 25px;
+            }
 
             a {
                 display: block;
