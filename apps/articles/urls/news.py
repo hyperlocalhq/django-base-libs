@@ -32,6 +32,14 @@ urlpatterns = patterns(
 
     # articles aggregated syndication feeds
     url(
+        r'^category/(?P<type_sysname>[^/]+)/feeds/(?P<feed_type>.*)/$',
+        'article_feed',
+        dict(article_feeds, creative_sector_slug='all'),
+        name="article_feed_for_news",
+    ),
+
+    # articles aggregated syndication feeds
+    url(
         r'^feeds/(?P<feed_type>.*)/$',
         'article_feed',
         dict(article_feeds, creative_sector_slug='all', type_sysname='news'),

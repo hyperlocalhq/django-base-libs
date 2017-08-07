@@ -33,6 +33,15 @@ urlpatterns = patterns(
         dict(creative_sector_slug='all', paginate_by=24, num_latest=None),
         name="article_archive_for_interviews_by_type",
     ),
+
+    # articles aggregated syndication feeds
+    url(
+        r'^category/(?P<type_sysname>[^/]+)/feeds/(?P<feed_type>.*)/$',
+        'article_feed',
+        dict(article_feeds, creative_sector_slug='all'),
+        name="article_feed_for_news",
+    ),
+
     # articles aggregated syndication feeds
     url(
         r'^feeds/(?P<feed_type>.*)/$',

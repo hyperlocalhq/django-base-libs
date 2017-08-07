@@ -242,6 +242,7 @@ def article_archive_index(
     extra_context['creative_sectors'] = get_creative_sectors()
     extra_context['date_list'] = date_list
     extra_context['category'] = category
+    extra_context['show'] = show
     if request.is_ajax():
         extra_context['base_template'] = "base_ajax.html"
 

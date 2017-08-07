@@ -7,6 +7,15 @@
             <div class="header-search">
                 <div class="fawesome fa-search" data-type="news"><span class="text hidden-xs">{% trans 'Search' %}</span></div>
 
+                {% if show == "all" %}
+                    <div class="button-group hidden-xs">
+                        {% if article_type.get_root.slug == "interviews" %}
+                            <a href="{% url "article_feed_for_interviews" feed_type="rss" %}" class="fawesome fa-rss button"><span class="sr-only">rss</span></a>
+                        {% else %}
+                            <a href="{% url "article_feed_for_news" type_sysname=article_type.slug feed_type="rss" %}" class="fawesome fa-rss button"><span class="sr-only">rss</span></a>
+                        {% endif %}
+                    </div>
+                {% endif %}
                 <div class="result">
                     {% load babel %}{{ current_page.paginator.count|numberfmt }}
                     <span class="text">{% trans 'News' %}</span>
