@@ -35,7 +35,7 @@ class Command(BaseCommand):
         default_article_type = get_related_queryset(
             Article,
             "article_type",
-        ).get(slug="news")
+        ).get(slug="industry-news-and-market-trends")  # Instead of slug="news"
 
         services_failed = []
         articles_failed = []

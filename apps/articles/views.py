@@ -165,13 +165,13 @@ def article_archive_index(
             categories__tree_id=category.tree_id,
         ).distinct()
     elif form.is_valid():
-            cat = form.cleaned_data['category']
-            if cat:
-                queryset = queryset.filter(
-                    categories__lft__gte=cat.lft,
-                    categories__rght__lte=cat.rght,
-                    categories__tree_id=cat.tree_id,
-                ).distinct()
+        cat = form.cleaned_data['category']
+        if cat:
+            queryset = queryset.filter(
+                categories__lft__gte=cat.lft,
+                categories__rght__lte=cat.rght,
+                categories__tree_id=cat.tree_id,
+            ).distinct()
 
     archives = get_archives(queryset)
 
