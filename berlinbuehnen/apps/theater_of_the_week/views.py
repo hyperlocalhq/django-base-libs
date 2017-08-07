@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 import datetime, time
 
+from django.core.exceptions import PermissionDenied
 from django.db import models
 from django.template import loader
 from django.http import Http404
@@ -31,8 +32,8 @@ def get_theaters(
     elif status == STATUS_CODE_DRAFT:
         queryset = Theater.draft_objects.select_related()
     else:
-        raise NotImplementedError, "You provided an unknown status. Cannot continue."
-    
+        raise NotImplementedError('The provided status "{}" is not supported'.format(status))
+
     if type_sysname and type_sysname != 'all':
         queryset = queryset.filter(article_type__slug=type_sysname)
         
@@ -177,22 +178,16 @@ def theater_of_the_week_object_detail(
     queryset = get_theaters(type_sysname, status)
     
     # get the requested article
-    fail = False
     try:
         theater = queryset.get(slug=theater_of_the_week_slug)
-    except:
-        fail = True
-        #raise Http404
-    #else:
-        #update the "views field"
-        #article.increase_views()
-    
-    if fail:
-        queryset = get_theaters(type_sysname, STATUS_CODE_DRAFT)
+    except Theater.DoesNotExist as err:
+        # Staff users can access the detail view for preview no matter if that is published or not
         try:
-            theater = queryset.get(slug=theater_of_the_week_slug)
-        except:
+            theater = Theater.objects.get(slug=theater_of_the_week_slug)
+        except Theater.DoesNotExist as err:
             raise Http404
+        if not request.user.is_staff:
+            raise PermissionDenied()
 
     context_dict = extra_context
 
@@ -203,7 +198,7 @@ def theater_of_the_week_object_detail(
     
     context_dict['links_to_articles'] = queryset.exclude(
         slug=theater_of_the_week_slug
-        ).order_by("-published_from")[0:5]
+    ).order_by("-published_from")[0:5]
     
     if template_name is None:
         template_name = 'theater_of_the_week/theater_of_the_week_object_detail.html' 
