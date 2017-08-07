@@ -120,7 +120,7 @@ class ArticleOptions(ExtendedModelAdmin):
 
 class ArticleImportSource_Inline(ExtendedStackedInline):
     model = ArticleImportSource
-    extra = 1
+    extra = 0
     fieldsets = (
         (None, {
             'fields': ('title', 'url', 'sysname', 'content_provider', 'are_excerpts')
