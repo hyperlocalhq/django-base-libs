@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-25 20:00+0200\n"
+"POT-Creation-Date: 2017-07-26 20:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -579,7 +579,7 @@ msgstr ""
 #: subtrees/jetson/apps/blog/forms.py:95
 #: subtrees/jetson/apps/individual_relations/forms.py:129
 #: subtrees/jetson/templates/admin/admin/delete_confirmation.html:52
-#: subtrees/jetson/templates/admin/filebrowser/adjust_version.html:209
+#: subtrees/jetson/templates/admin/filebrowser/adjust_version.html:210
 #: subtrees/jetson/templates/admin/filebrowser/delete_version.html:37
 #: subtrees/jetson/templates/default/blog/comments/accept_embedded.html:10
 #: subtrees/jetson/templates/default/blog/comments/mark_as_spam_embedded.html:9
@@ -4639,7 +4639,7 @@ msgstr ""
 
 #: subtrees/jetson/apps/image_mods/views.py:166
 #: subtrees/jetson/apps/image_mods/views.py:224
-#: subtrees/jetson/apps/image_mods/views.py:385
+#: subtrees/jetson/apps/image_mods/views.py:387
 #: subtrees/jetson/apps/public_filebrowser/views.py:87
 #: subtrees/jetson/apps/public_filebrowser/views.py:198
 #: subtrees/jetson/apps/public_filebrowser/views.py:252
@@ -4652,7 +4652,7 @@ msgstr ""
 
 #: subtrees/jetson/apps/image_mods/views.py:168
 #: subtrees/jetson/apps/image_mods/views.py:226
-#: subtrees/jetson/apps/image_mods/views.py:387
+#: subtrees/jetson/apps/image_mods/views.py:389
 #: subtrees/jetson/apps/public_filebrowser/views.py:357
 #: subtrees/jetson/apps/public_filebrowser/views.py:439
 #: subtrees/jetson/apps/public_filebrowser/views.py:502
@@ -4668,29 +4668,33 @@ msgstr ""
 msgid "Versions for \"%s\""
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/views.py:348
+#: subtrees/jetson/apps/image_mods/views.py:334
+msgid "Errors in the coordinates"
+msgstr ""
+
+#: subtrees/jetson/apps/image_mods/views.py:350
 #, python-format
 msgid "Adjust the version \"%(mod_title)s\" for \"%(filename)s\""
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/views.py:404
+#: subtrees/jetson/apps/image_mods/views.py:406
 #, python-format
 msgid "Delete the version \"%(mod_title)s\" for \"%(filename)s\""
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/views.py:447
+#: subtrees/jetson/apps/image_mods/views.py:449
 msgid "Path is not defined"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/views.py:450
+#: subtrees/jetson/apps/image_mods/views.py:452
 msgid "Modification sysname is not defined"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/views.py:453
+#: subtrees/jetson/apps/image_mods/views.py:455
 msgid "Token is not defined"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/views.py:479
+#: subtrees/jetson/apps/image_mods/views.py:481
 msgid "Image does not exist"
 msgstr ""
 
@@ -8618,7 +8622,7 @@ msgstr ""
 msgid "These modifications will also be affected:"
 msgstr ""
 
-#: subtrees/jetson/templates/admin/filebrowser/adjust_version.html:210
+#: subtrees/jetson/templates/admin/filebrowser/adjust_version.html:211
 #: subtrees/jetson/templates/default/image_mods/recrop.html:160
 msgid "Crop and save"
 msgstr ""

@@ -14,10 +14,10 @@ URL_FILEBROWSER_MEDIA = getattr(filebrowser_settings, "FILEBROWSER_DIRECTORY", '
 class ImageModificationOptions(admin.ModelAdmin):
     save_on_top = True
     list_filter = ['crop', 'group', 'output_format']
-    list_display = ['sysname', 'title', 'width', 'height', 'crop', 'group', 'output_format']
+    list_display = ['sysname', 'title', 'width', 'height', 'crop', 'group', 'notes', 'output_format']
 
     fieldsets = [
-        (None, {'fields': ('sysname', 'title', 'group')}),
+        (None, {'fields': ('sysname', 'title', 'group', 'notes')}),
         (_('Dimensions'), {
             'fields': ('width', 'height', 'crop', 'crop_from'),
             'classes': ('grp-collapse grp-open',),

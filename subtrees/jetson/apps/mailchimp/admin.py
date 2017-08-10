@@ -139,10 +139,11 @@ class CampaignAdmin(ExtendedModelAdmin):
     get_preview_link.allow_tags = True
 
     def get_status(self, obj):
-        try:
-            return _("Sent") if obj.is_sent() else _("Draft")
-        except:
-            return _("Unknown")
+        is_sent = obj.is_sent()
+        if is_sent is None:
+            return _("Unknown (probably deleted)")
+        return _("Sent") if is_sent else _("Draft")
+
     get_status.short_description = _("Status")
 
     def save_model(self, request, obj, form, change):

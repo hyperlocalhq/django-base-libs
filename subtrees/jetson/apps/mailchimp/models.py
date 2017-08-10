@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 import os
 from mailchimp3 import MailChimp
+from requests import HTTPError
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -125,17 +126,25 @@ class Campaign(CreationModificationMixin):
         return self.subject
     
     def is_sent(self):
+        """
+        Checks if the campaign was sent and if so, saves the status to the database.
+
+        :return: True if the campaign has been sent; False if the campaign has not been sent; or None if status is unknown.
+        """
         if self.sent:
             return True
         if not self.mailchimp_id:
-            return False
+            return None
 
         try:
             st = Settings.objects.get()
         except:
-            return False
+            return None
         mailchimp_client = MailChimp(st.username, st.api_key)
-        data = mailchimp_client.campaigns.get(campaign_id=self.mailchimp_id)
+        try:
+            data = mailchimp_client.campaigns.get(campaign_id=self.mailchimp_id)
+        except HTTPError:
+            return None
         sent = data['status'] == "sent"
         if sent:
             Campaign.objects.filter(pk=self.pk).update(sent=True)
@@ -252,27 +261,33 @@ def save_mailchimp_campaign(sender, **kwargs):
             html = campaign.get_rendered_html()
 
             if campaign.mailchimp_id:
-                mailchimp_client.campaigns.update(
-                    campaign_id=campaign.mailchimp_id,
-                    data={
-                        'recipients': {
-                            'list_id': campaign.mailinglist.mailchimp_id,
-                        },
-                        'settings': {
-                            'subject_line': campaign.subject,
-                            'from_name': campaign.sender_name,
-                            'from_email': campaign.sender_email,
-                            'reply_to': campaign.sender_email,
-                            'to_name': u"*|FNAME|* *|LNAME|*",
-                        },
-                    }
-                )
-                mailchimp_client.campaigns.content.update(
-                    campaign_id=campaign.mailchimp_id,
-                    data={
-                        'html': html,
-                    }
-                )
+                try:
+                    mailchimp_client.campaigns.update(
+                        campaign_id=campaign.mailchimp_id,
+                        data={
+                            'recipients': {
+                                'list_id': campaign.mailinglist.mailchimp_id,
+                            },
+                            'settings': {
+                                'subject_line': campaign.subject,
+                                'from_name': campaign.sender_name,
+                                'from_email': campaign.sender_email,
+                                'reply_to': campaign.sender_email,
+                                'to_name': u"*|FNAME|* *|LNAME|*",
+                            },
+                        }
+                    )
+                except HTTPError:
+                    return
+                try:
+                    mailchimp_client.campaigns.content.update(
+                        campaign_id=campaign.mailchimp_id,
+                        data={
+                            'html': html,
+                        }
+                    )
+                except HTTPError:
+                    return
             else:
                 response = mailchimp_client.campaigns.create(data={
                     'type': "regular",

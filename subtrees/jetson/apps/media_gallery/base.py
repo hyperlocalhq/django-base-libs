@@ -313,25 +313,21 @@ class MediaFileBase(CreationModificationMixin):
             abs_path = os.path.join(UPLOADS_ROOT, self.splash_image_path.path)
             if os.path.exists(abs_path):
                 try:
-                    url = "".join((
-                        UPLOADS_URL,
-                        image_mods.FileManager.modified_path(self.splash_image_path.path, "gt"),
-                        ))
+                    path, query_params = image_mods.FileManager.modified_path(self.splash_image_path.path, "gt")
                 except:
                     pass
                 else:
+                    url = "".join((UPLOADS_URL, path, query_params))
                     return url
         if self.file_type == "i" and self.path:
             abs_path = os.path.join(UPLOADS_ROOT, self.path.path)
             if os.path.exists(abs_path):
                 try:
-                    url = "".join((
-                        UPLOADS_URL,
-                        image_mods.FileManager.modified_path(self.path.path, "gt"),
-                        ))
+                    path, query_params = image_mods.FileManager.modified_path(self.path.path, "gt")
                 except:
                     pass
                 else:
+                    url = "".join((UPLOADS_URL, path, query_params))
                     return url
         if self.file_type == "i":
             return IMAGE_SPLASH_TN_URL
@@ -365,13 +361,11 @@ class MediaFileBase(CreationModificationMixin):
             abs_path = os.path.join(UPLOADS_ROOT, self.path.path)
             if os.path.exists(abs_path):
                 try:
-                    url = "".join((
-                        UPLOADS_URL,
-                        image_mods.FileManager.modified_path(self.path.path, "glist"),
-                        ))
+                    path, query_params = image_mods.FileManager.modified_path(self.path.path, "glist")
                 except:
                     pass
                 else:
+                    url = "".join((UPLOADS_URL, path, query_params))
                     return url
         if self.file_type == "i":
             return IMAGE_SPLASH_LIST_URL

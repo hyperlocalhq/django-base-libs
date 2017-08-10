@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+from django.contrib.auth import get_permission_codename
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import Http404, HttpResponseRedirect
 from django.contrib.contenttypes.models import ContentType
@@ -32,13 +33,13 @@ def manage_row_level_permissions(request, app_label, model_name, object_id):
     
     u = request.user
     if not u.has_perm(
-        "%s.%s" % (opts.app_label, opts.get_change_permission()),
+        "%s.%s" % (opts.app_label, get_permission_codename("change", opts)),
         obj=obj_instance
         ):
         return access_denied(request)
     app_label = RowLevelPermission._meta.app_label
-    can_change = u.has_perm("%s.%s" % (app_label, RowLevelPermission._meta.get_change_permission()))
-    can_add = u.has_perm("%s.%s" % (app_label, RowLevelPermission._meta.get_add_permission()))
+    can_change = u.has_perm("%s.%s" % (app_label, get_permission_codename("change", RowLevelPermission._meta)))
+    can_add = u.has_perm("%s.%s" % (app_label, get_permission_codename("add", RowLevelPermission._meta)))
     if not (can_change or can_add):
         return access_denied(request)
     
