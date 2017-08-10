@@ -1,9 +1,0 @@
-<div id="dyn_search_{{ field.name }}">
-    <div class="{% cycle cat,sub_cat %}">
-        {% if forloop.counter0|divisibleby:2 %}
-            {{ field.label_tag }}
-        {% endif %}
-        {{ field }}
-        {{ field.error_tag }}
-    </div>
-</div>

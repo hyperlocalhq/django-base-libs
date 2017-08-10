@@ -6,6 +6,6 @@ from django.utils.translation import ugettext_lazy as _
 
 class BlogAppHook(CMSApp):
     name = _("Global Blog")
-    urls = ["ccb.apps.blog.urls.cms"]
+    urls = ["jetson.apps.blog.urls.cms"]
 
 apphook_pool.register(BlogAppHook)

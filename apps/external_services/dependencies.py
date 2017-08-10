@@ -1,12 +1,2 @@
-required_apps = [
-    "contenttypes",
-    "articles",
-    "sites",
-    "structure",
-    "location",
-    "institutions",
-    "events",
-    "marketplace",
-    "optionset",
-]
+required_apps = ["contenttypes"]
 optional_apps = []

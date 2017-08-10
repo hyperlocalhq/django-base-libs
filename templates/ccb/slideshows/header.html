@@ -1,6 +1,0 @@
-{% load image_mods_tags %}
-{% with slide=slides.0 %}
-    {% if slide %}
-        <img src="{{ UPLOADS_URL }}{{ slide.path|modified_path:"header" }}" alt="{{ slide.title|escape }}"/>
-    {% endif %}
-{% endwith %}
