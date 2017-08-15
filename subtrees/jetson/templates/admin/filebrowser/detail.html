@@ -201,7 +201,7 @@
                             <div class="c-2 span-image-version">
                                 {% if fileobject.path|mod_exists:mod.sysname %}
                                     <div class="image-version" style="width: {{ image_version.width }}px; height: {{ image_version.height }}px;">
-                                        <img src="{{ MEDIA_URL }}{{ fileobject|modified_path:mod.sysname }}?now={% now "YmdHis" %}" alt="" />
+                                        <img src="{{ MEDIA_URL }}{{ fileobject|modified_path:mod.sysname }}" alt="" />
                                         <ul class="image-version-tools">
                                             <li><a href="{% url 'fb_adjust_version' %}{% query_string "" "p" %}&amp;sysname={{ mod.sysname }}" class="fb_adjustlink"></a></li>
                                             <li><a href="{% url 'fb_delete_version' %}{% query_string "" "p" %}&amp;sysname={{ mod.sysname }}" class="fb_deletelink"></a></li>

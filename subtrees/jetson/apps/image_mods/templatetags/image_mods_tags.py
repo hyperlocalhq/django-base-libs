@@ -73,7 +73,8 @@ def modified_path(path_or_file_object, sysname):
         path = path_or_file_object.path
     else:
         path = path_or_file_object
-    return image_mods.FileManager.modified_path(path, sysname)
+    path, query_params = image_mods.FileManager.modified_path(path, sysname)
+    return path + query_params
 
 register.filter('modified_path', modified_path)
 

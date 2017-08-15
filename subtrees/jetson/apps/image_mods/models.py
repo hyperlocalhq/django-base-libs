@@ -295,8 +295,9 @@ class FileManager:
             the original path will be returned
         
         Example:
-            p = FileManager.modified_path("test/original.png", "gallery_default")
+            p, query_params = FileManager.modified_path("test/original.png", "gallery_default")
             p == "test/_cache/original.png_gallery_default.jpg"
+            query_params == "?t=201710241254"
             
         """
         if rel_orig_path.startswith("/"):
@@ -308,22 +309,23 @@ class FileManager:
             try:
                 mod = ImageModification.objects.get(sysname=sysname)
             except:
-                return rel_orig_path
+                return rel_orig_path, ""
             else:
                 FileManager._cached_modifications[sysname] = mod
         
         try:
             im = Image.open(orig_path_server)
         except IOError:
-            return False
+            return "", ""
         cur_width, cur_height = im.size
+
         if mod.crop:
             if cur_width == mod.width and cur_height == mod.height:
-                return rel_orig_path
+                return rel_orig_path, ""
         else:
             if mod.width == 0 and cur_height == mod.height \
                 or mod.height == 0 and cur_width == mod.width:
-                return rel_orig_path
+                return rel_orig_path, ""
 
         mod_path = mod.modified_path(rel_orig_path)
         mod_path_server = os.path.join(settings.UPLOADS_ROOT, *mod_path.split("/"))
@@ -333,7 +335,14 @@ class FileManager:
                 abs_dir, filename = os.path.split(mod_path_server)
                 FileManager.path_exists(abs_dir)
                 mod.process_image(orig_path_server)
-        return mod_path
+
+        try:
+            mtime = os.path.getmtime(mod_path_server)
+        except OSError:
+            mtime = 0
+        last_modified = datetime.fromtimestamp(mtime)
+
+        return (mod_path, "?t={:%Y%m%d%H%M}".format(last_modified))
 
 
 class ImageModificationGroup(models.Model):
@@ -381,7 +390,9 @@ class ImageModification(models.Model):
     filters = models.CharField(_('Filters'), max_length=200, blank=True, help_text=image_filters_help_text)
     
     group = models.ForeignKey(ImageModificationGroup, verbose_name=_("Image Modification Group"), blank=True, null=True, help_text=_("Assign a group of modifications which will be triggered together while cropping."))
-    
+
+    notes = models.TextField(_("Notes"), blank=True)
+
     objects = ImageModificationManager()
     
     class Meta:

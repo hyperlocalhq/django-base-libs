@@ -349,7 +349,7 @@ class PersonBase(CreationModificationDateMixin, UrlMixin):
     
     def get_absolute_url(self):
         return "%snetwork/member/%s/" % (get_website_url(), self.user.username)
-    
+
     def get_url_path(self):
         return "/network/member/%s/" % (self.user.username, )
     

@@ -13,7 +13,7 @@ verbose_name = _("External Services")
 
 class Service(SysnameMixin()):
     title = models.CharField(_("Title"), max_length=50)
-    url = models.URLField(_("URL"))
+    url = models.URLField(_("Feed URL"))
     
     api_key = models.CharField(_("API Key"), max_length=200, blank=True, default="")
     user = models.CharField(_("User"), max_length=200, blank=True, default="")

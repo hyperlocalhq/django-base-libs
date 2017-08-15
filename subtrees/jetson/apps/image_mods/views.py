@@ -94,9 +94,9 @@ def get_or_create_modified_path(request):
             absolute_path = True
             file_path = file_path[len(MEDIA_URL):]
         mod_sysname = request.POST.get('mod_sysname', "")
-        retval = image_mods.FileManager.modified_path(file_path, mod_sysname)
-        if retval and absolute_path:
-            retval = MEDIA_URL + retval
+        path, query_params = image_mods.FileManager.modified_path(file_path, mod_sysname)
+        if path and absolute_path:
+            retval = "".join((MEDIA_URL, path, query_params))
     response = HttpResponse(retval)
     response['Content-Type'] = "text/javascript"
     response['Pragma'] = "No-Cache"
@@ -123,10 +123,10 @@ def cropping_preview(request, bgcolor=None):
     image = Image.new("RGB", (cp_mod.width, cp_mod.height), "#%s" % bgcolor)
 
     if rel_orig_path:
-        modified_path = image_mods.FileManager.modified_path(
+        modified_path, query_params = image_mods.FileManager.modified_path(
             rel_orig_path,
             "cropping_preview"
-            )
+        )
         orig_path_server = os.path.join(settings.UPLOADS_ROOT, *modified_path.split("/"))
         im = Image.open(orig_path_server).convert('RGB')
         
@@ -240,10 +240,10 @@ def adjust_version(request):
     cropping_pos = None
     if mod:
         cropping_pos = CROP_POSITIONS[mod.crop_from or 'center']
-    cp_mod_path = image_mods.FileManager.modified_path(
+    cp_mod_path, query_params = image_mods.FileManager.modified_path(
         fileobject.path,
         "cropping_preview",
-        )
+    )
     orig_im = Image.open(abs_orig_path)
     orig_size=orig_im.size
     del orig_im
@@ -390,14 +390,14 @@ def delete_version(request):
         messages.error(request, msg)
         return HttpResponseRedirect(reverse("fb_browse"))
     orig_path = fileobject.path
-    modified_path = image_mods.FileManager.modified_path(orig_path, mod.sysname)
+    modified_path, query_params = image_mods.FileManager.modified_path(orig_path, mod.sysname)
     if request.method == "POST":
         form = forms.Form(request.POST) # dummy form
         if form.is_valid():
             for cropping in image_mods.ImageCropping.objects.filter(
                 original=fileobject,
                 mods=mod,
-                ):
+            ):
                 if cropping.mods.count() == 1:
                     cropping.delete()
             image_mods.FileManager.delete_file(modified_path)
@@ -482,10 +482,10 @@ def recrop(request):
     orig_size=orig_im.size
     del orig_im
     
-    cp_mod_path = image_mods.FileManager.modified_path(
+    cp_mod_path, query_params = image_mods.FileManager.modified_path(
         orig_path,
         "cropping_preview",
-        )
+    )
     abs_cp_mod_path = os.path.join(MEDIA_ROOT, *cp_mod_path.split("/"))
     cp_im = Image.open(abs_cp_mod_path) 
     (w, h) = rescaled_size = cp_im.size
