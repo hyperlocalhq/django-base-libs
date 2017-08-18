@@ -32,3 +32,6 @@ class Command(ImportFromHeimatBase):
                 'title': "Volksbühne am Rosa-Luxemburg-Platz Productions",
             },
         )
+        if self.service.url != self.IMPORT_URL:
+            self.service.url = self.IMPORT_URL
+            self.service.save()
