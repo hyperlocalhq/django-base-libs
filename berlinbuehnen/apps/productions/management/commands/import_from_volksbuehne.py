@@ -5,7 +5,7 @@ from ._import_from_heimat_base_xml import ImportFromHeimatBase
 class Command(ImportFromHeimatBase):
     help = "Imports productions and events from Volksbühne am Rosa-Luxemburg-Platz"
 
-    IMPORT_URL = "http://www.volksbuehne-berlin.de/redaktion/spielplan/cbstage.xml"
+    IMPORT_URL = "http://dev.volksbuehne-berlin.de/api/export/berlinbuehnen.xml"
 
     def prepare(self):
         from django.db import models
