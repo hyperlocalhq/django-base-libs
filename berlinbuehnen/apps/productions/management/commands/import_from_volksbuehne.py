@@ -11,7 +11,7 @@ class Command(ImportToBerlinBuehnenBaseXML):
         from django.db import models
         Service = models.get_model("external_services", "Service")
 
-        URL = "http://dev.volksbuehne-berlin.de/api/export/berlinbuehnen.xml"
+        URL = "https://www.volksbuehne.berlin/api/export/berlinbuehnen.xml"
         self.service, created = Service.objects.get_or_create(
             sysname="volksbuehne_berlin_prods",
             defaults={
