@@ -742,6 +742,9 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
                         continue
 
                     filename = image_url.split("/")[-1]
+                    if "?" in filename:
+                        # clear the query parameters
+                        filename = filename.split("?")[0]
                     image_response = requests.get(image_url)
                     if image_response.status_code == 200:
                         image_mods.FileManager.save_file_for_object(
@@ -845,6 +848,9 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
                 image_url = sponsor_node.get('pictureURL')
                 if image_url:
                     filename = image_url.split("/")[-1]
+                    if "?" in filename:
+                        # clear the query parameters
+                        filename = filename.split("?")[0]
                     image_response = requests.get(image_url)
                     if image_response.status_code == 200:
                         image_mods.FileManager.save_file_for_object(
@@ -973,6 +979,9 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
                             continue
 
                         filename = image_url.split("/")[-1]
+                        if "?" in filename:
+                            # clear the query parameters
+                            filename = filename.split("?")[0]
                         image_response = requests.get(image_url)
                         if image_response.status_code == 200:
                             image_mods.FileManager.save_file_for_object(
@@ -1087,6 +1096,9 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
                     image_url = sponsor_node.get('pictureURL')
                     if image_url:
                         filename = image_url.split("/")[-1]
+                        if "?" in filename:
+                            # clear the query parameters
+                            filename = filename.split("?")[0]
                         image_response = requests.get(image_url)
                         if image_response.status_code == 200:
                             image_mods.FileManager.save_file_for_object(

@@ -787,6 +787,9 @@ class ImportFromCulturebaseBase(NoArgsCommand, ImportCommandMixin):
                         continue
 
                     filename = image_url.split("/")[-1]
+                    if "?" in filename:
+                        # clear the query parameters
+                        filename = filename.split("?")[0]
                     image_response = requests.get(image_url)
                     if image_response.status_code == 200:
                         image_mods.FileManager.save_file_for_object(
@@ -919,6 +922,9 @@ class ImportFromCulturebaseBase(NoArgsCommand, ImportCommandMixin):
                 sponsor.save()
                 image_url = self.get_child_text(sponsor_node, 'ImageUrl')
                 filename = image_url.split("/")[-1]
+                if "?" in filename:
+                    # clear the query parameters
+                    filename = filename.split("?")[0]
                 image_response = requests.get(image_url)
                 if image_response.status_code == 200:
                     image_mods.FileManager.save_file_for_object(
@@ -1025,6 +1031,9 @@ class ImportFromCulturebaseBase(NoArgsCommand, ImportCommandMixin):
                             continue
 
                         filename = image_url.split("/")[-1]
+                        if "?" in filename:
+                            # clear the query parameters
+                            filename = filename.split("?")[0]
                         image_response = requests.get(image_url)
                         if image_response.status_code == 200:
                             image_mods.FileManager.save_file_for_object(
