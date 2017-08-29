@@ -769,7 +769,14 @@ def culturebase_export_productions(request, location_slug):
         content_type="text/xml"
     )
 
+
 API_CHANGELOG = [
+    {
+        'date': datetime(2017, 8, 29, 12, 0),
+        'changes': [
+            u"""Markup error fixed in the documentation. Available event ticket statuses are "tickets_@_box_office" and "sold_out".""",
+        ],
+    },
     {
         'date': datetime(2017, 7, 11, 12, 0),
         'changes': [

@@ -64,7 +64,7 @@ The `<production>` node has the following elements:
 | `<id>` | xs:string or xs:integer | yes | Unique production ID on your website | 12 |
 | `<creation_date>`| xs:dateTime | yes | Production creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
 | `<modified_date>` | xs:dateTime | no | Production modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
-| `<status>` | xs:string | yes | Publishing status, one of: "draft", "published", "not_listed", "expired", "trashed" | published |
+| `<status>` | xs:string | yes | Publishing status, one of: "`draft`", "`published`", "`not_listed`", "`expired`", "`trashed`" | `published` |
 | `<prefix_de>` | xs:string | no | Title prefix in German | |
 | `<prefix_en>` | xs:string | no | Title prefix in English | |
 | `<title_de>` | xs:string | yes | Title in German | Rotkäppchen |
@@ -900,9 +900,9 @@ These elements are available for the `<event>` node:
 | `<tickets_website>` | xs:anyURI | no | The URL of a website page where you can buy tickets to this event | http://example.com/tickets/ |
 | `<price_information_de>` | xs:string | no | Additional plain-text information about prices in German | |
 | `<price_information_en>` | xs:string | no | Additional plain-text information about prices in English | |
-| `<event_status>` | xs:string | yes | Event status. One of: "takes_place" or "canceled" | takes_place |
-| `<ticket_status>` | xs:string | no | Tickets' status. One of: "tickets_@_box_office" or "sold_out" | |
-| `<characteristics>`| list of `<characteristic_id>` nodes | no | Event characteristics | tickets_@_box_office |
+| `<event_status>` | xs:string | yes | Event status. One of: "`takes_place`" or "`canceled`" | `takes_place` |
+| `<ticket_status>` | xs:string | no | Tickets' status. One of: "`tickets_@_box_office`" or "`sold_out`" | `tickets_@_box_office` |
+| `<characteristics>`| list of `<characteristic_id>` nodes | no | Event characteristics |  |
 | `<leaders>` | list of `<leader>` nodes | no | Leaders | |
 | `<authors>` | list of `<author>` nodes | no | Authors | |
 | `<participants>` | list of `<participant>` nodes | no | Participants | |
