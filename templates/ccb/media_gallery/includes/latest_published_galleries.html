@@ -2,30 +2,31 @@
 {% comment %}<!--
 Usage in any template:
     {% load base_tags %}
-    
+
     Simple:
     {% include_parsed "media_gallery/includes/latest_published_galleries.html" %}
-    
+
     Customized:
     {% include_parsed "media_gallery/includes/latest_published_galleries.html" with 5 as amount %}
-    
+
 -->{% endcomment %}
 
 {% with amount|default:5 as amount %}
     {% get_objects random_featured media_gallery.MediaGallery amount as newest_objects %}
     {% if newest_objects %}
-    
+
         <div class="row slider portfolio">
             <div class="wrapper">
-        
+
                 {% for gallery in newest_objects %}
                     {% with gallery.content_object as content_object %}
-            
+
                         <div class="col-xs-12 slide">
                             <a class="content" href="{{ content_object.get_url_path }}portfolio/">
                                 <span class="image-hover-bg">
                                     {% if gallery.mediafile_set.count %}
                                         <img src="{{ UPLOADS_URL }}{{ gallery.mediafile_set.all.0.path|modified_path:"portfolio_slide" }}" alt="{{ content_object.get_title|escape }}"/>
+                                        {% if gallery.photo_author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ gallery.photo_author }}</span>{% endif %}
                                     {% else %}
                                         <img src="{{ STATIC_URL }}site/img/placeholder/infolink_square.png" alt="{{ content_object.get_title|escape }}"/>
                                     {% endif %}
@@ -40,13 +41,13 @@ Usage in any template:
                                 {% endif %}
                             </div>
                         </div>
-                
+
                     {% endwith %}
                 {% endfor %}
-        
+
             </div>
         </div>
-        
+
     {% else %}
         <p class="intro">{% trans "There are no portfolios." %}</p>
     {% endif %}

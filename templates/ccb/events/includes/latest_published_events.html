@@ -2,13 +2,13 @@
 {% comment %}<!--
 Usage in any template:
     {% load base_tags %}
-    
+
     Simple:
     {% include_parsed "events/includes/latest_published_events.html" %}
-    
+
     Customized:
     {% include_parsed "events/includes/latest_published_events.html" with 5 as amount %}
-    
+
 -->{% endcomment %}
 
 {% with amount|default:4 as amount %}
@@ -23,6 +23,7 @@ Usage in any template:
                         {% with event.get_nearest_occurrence as date %}
                             <p><time datetime="{{ date|date:'Y-m-d' }}">{{ date|date:'D, d. m. Y' }}</time>{% if event.venue %}{{ event.venue.title }}{% else %}event.venue_title{% endif %}</p>
                         {% endwith %}
+                        {% if event.photo_author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ event.photo_author }}</span>{% endif %}
                     </a>
                 </div>
             {% endfor %}
@@ -30,4 +31,4 @@ Usage in any template:
     {% else %}
         <p class="intro">{% trans "There are no public events." %}</p>
     {% endif %}
-{% endwith %}        
+{% endwith %}
