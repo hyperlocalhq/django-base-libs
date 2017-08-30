@@ -10,7 +10,7 @@ from django.utils.translation import ugettext as _
 register = template.Library()
 
 @register.inclusion_tag('productions/includes/other_productions.html', takes_context=True)
-def other_productions(context, current_event=False, current_location=False, amount=24):
+def other_productions(context, current_event=None, current_location=None, amount=24):
     from berlinbuehnen.apps.productions.models import Production
 
     if current_location:

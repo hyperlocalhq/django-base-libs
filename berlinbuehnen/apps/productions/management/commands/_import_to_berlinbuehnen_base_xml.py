@@ -1081,3 +1081,5 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
                     self.stats['events_added'] += 1
                 else:
                     self.stats['events_updated'] += 1
+
+            prod.update_actual_date_and_time()

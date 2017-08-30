@@ -1187,3 +1187,4 @@ class ImportFromCulturebaseBase(NoArgsCommand, ImportCommandMixin):
                 else:
                     self.stats['events_updated'] += 1
 
+            prod.update_actual_date_and_time()
