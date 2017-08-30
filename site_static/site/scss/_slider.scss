@@ -244,6 +244,15 @@
                     }
                 }
             }
+
+            .photo-credits-over {
+                left: 5px;
+                bottom: 5px;
+
+                .is-xs & {
+                    left: 0;
+                }
+            }
         }
 
         .is-sm &, .is-md &, .is-lg & {

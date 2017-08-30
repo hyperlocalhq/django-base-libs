@@ -242,6 +242,10 @@ p + h2, p + h4, p + h5 {
 
     &.start-page {
         text-align: center;
+
+        .image-wrapper {
+            position: relative;
+        }
     }
 
     .is-xs & {

@@ -51,7 +51,7 @@ class PortfolioSite(object):
     """
     A PortfolioSite object encapsulates an instance of the media_gallery app,
     ready to be hooked in to your URLconf.
-    
+
     The concept is based on django.contrib.admin.sites.AdminSite
     """
 
@@ -305,11 +305,11 @@ class PortfolioSite(object):
         * shows a custom image
         If there are still no public galleries, it shows a message
         that the portfolio is empty for non-owner of the object
-        or guide the owner to the portfolio settings and sections list. 
+        or guide the owner to the portfolio settings and sections list.
         """
-        
+
         p_settings = PortfolioSettings.objects.get_for_object(self.obj)
-        
+
         if self.published_gallery_list:
             if p_settings.landing_page == "first_album":
                 return redirect("%(obj_url_path)s%(URL_ID_PORTFOLIO)s/album/%(gallery_token)s/" % {
@@ -317,12 +317,12 @@ class PortfolioSite(object):
                     'URL_ID_PORTFOLIO': URL_ID_PORTFOLIO,
                     'gallery_token':self.published_gallery_list[0].get_token(),
                     })
-    
+
         context_dict = {
             'portfolio_settings': p_settings,
             }
         context_dict.update(self.extra_context)
-        
+
         return render_to_response(
             "media_gallery/portfolio_overview.html",
             context_dict,
@@ -333,13 +333,13 @@ class PortfolioSite(object):
     def portfolio_overview(self, request, **kwargs):
         """
         A landing page for a portfolio of a person, institution or event.
-        
+
         * redirects to the first gallery / album if there is just one published gallery
         * shows the list of galleries / albums otherwise
-        
+
         If there are still no public galleries, it shows a message
         that the portfolio is empty for non-owner of the object
-        or guide the owner to the portfolio settings and sections list. 
+        or guide the owner to the portfolio settings and sections list.
         """
         has_permission_to_edit = self.has_permission(request)
         p_settings = PortfolioSettings.objects.get_for_object(self.obj)
@@ -683,6 +683,7 @@ class PortfolioSite(object):
                 gallery.description_en = cleaned['description_en']
                 gallery.description_de = cleaned['description_de']
                 gallery.status = [0, 1][cleaned['published']]
+                gallery.photo_author = cleaned['photo_author']
                 if not gallery.section:
                     if 'section' in request.REQUEST:
                         section = get_object_or_404(
@@ -748,6 +749,7 @@ class PortfolioSite(object):
                 'description_en': gallery.description_en,
                 'description_de': gallery.description_de,
                 'published': gallery.status == 1,
+                'photo_author': gallery.photo_author,
             }
             if gallery.pk:
                 initial['categories'] = gallery.categories.all()
@@ -965,8 +967,8 @@ class PortfolioSite(object):
             # just after submitting data
             form = form_class(request.POST, request.FILES)
             # Passing request.FILES to the form always breaks the form validation
-            # WHY!?? As a workaround, let's validate just the POST and then 
-            # manage FILES separately. 
+            # WHY!?? As a workaround, let's validate just the POST and then
+            # manage FILES separately.
             if not media_file_obj and ("media_file" not in request.FILES) and not request.POST.get("external_url", ""):
                 # new media file - media file required
                 form.fields['media_file'].required = True

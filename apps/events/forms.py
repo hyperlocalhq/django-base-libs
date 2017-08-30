@@ -103,17 +103,17 @@ class MainDataForm(dynamicforms.Form):
 
     """
     venue:
-    
+
     The parameters below are as follows:
     app:              the "app"
-    qs_function:      the function to get the queryset, 
-                      must be placed in ajax.py under <app> 
+    qs_function:      the function to get the queryset,
+                      must be placed in ajax.py under <app>
                       folder
-    display_atrr:     a model field or function to get the 
+    display_atrr:     a model field or function to get the
                       required display title for the autocomplete
                       field
-    add_display_atrr: a model field or function to get the 
-                      required display descriptione for the 
+    add_display_atrr: a model field or function to get the
+                      required display descriptione for the
                       autocomplete field
     """
     """
@@ -554,7 +554,7 @@ class MainDataForm(dynamicforms.Form):
         """"
         Below, there is some (simple and complex) validation logic:
         for example, some fields are not required, if a venue is selected.
-        the "_errors" stuff there is a bit of a hack, but there seems 
+        the "_errors" stuff there is a bit of a hack, but there seems
         to be no other possibility to simulate the "required" attribute after
         field validation, because the fields clean method is called
         before and there is some "field required error" raised, which
@@ -789,7 +789,7 @@ class EventTimeForm(dynamicforms.Form):
         """"
         Below, there is some (simple and complex) validation logic:
         for example, some fields are not required, if a venue is seleceted.
-        the "_errors" stuff there is a bit of a hack, but there seems 
+        the "_errors" stuff there is a bit of a hack, but there seems
         to be no other possibility to simulate the "required" attribute after
         field validation, because the fields clean method is called
         before and there is some "field required error" raised, which
@@ -895,6 +895,11 @@ class ProfileForm(dynamicforms.Form):
         required=False,
         min_dimensions=LOGO_SIZE,
     )
+    photo_author = forms.CharField(
+        label=_("Photo Credits"),
+        required=False,
+        max_length=100,
+    )
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
@@ -922,6 +927,7 @@ class ProfileForm(dynamicforms.Form):
                     {% endif %}
                 """),
                 "image",
+                "photo_author",
             ),
             bootstrap.FormActions(
                 layout.HTML("""{% include "utils/step_buttons_reg.html" %}"""),
@@ -1688,6 +1694,8 @@ def save_data(form_steps, form_step_data):
 
     event.url0_type = URLType.objects.get(slug='web')
     event.url0_link = step_main_data.get('url0_link', '')
+    
+    event.photo_author = step_event_profile.get('photo_author', '')
 
     for f in ("open", "break_close", "break_open", "close"):
         for d in ("mon", "tue", "wed", "thu", "fri", "sat", "sun"):

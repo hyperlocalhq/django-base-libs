@@ -225,6 +225,16 @@
                         </dd>
                         <dd class="clearfix"></dd>
 
+                        {% if form_step_data.step_event_profile.photo_author %}
+                            <dt>{% trans "Photo Credits" %}</dt>
+                            <dd>
+                                <div class="text-field">
+                                    {{ form_step_data.step_event_profile.photo_author }}
+                                </div>
+                            </dd>
+                            <dd class="clearfix"></dd>
+                        {% endif %}
+
                     </dl>
                 </fieldset>
             </div>

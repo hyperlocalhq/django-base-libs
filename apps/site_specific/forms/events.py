@@ -225,11 +225,19 @@ class AvatarForm(dynamicforms.Form):
         required=False,
         min_dimensions=MIN_LOGO_SIZE,
     )
+    photo_author = forms.CharField(
+        label=_("Photo Credits"),
+        required=False,
+        max_length=100,
+    )
 
     def __init__(self, event, index, *args, **kwargs):
         super(AvatarForm, self).__init__(*args, **kwargs)
         self.event = event
         self.index = index
+
+        if not args and not kwargs:  # if nothing is posted
+            self.fields['photo_author'].initial = event.photo_author
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -248,6 +256,7 @@ class AvatarForm(dynamicforms.Form):
                     {% endif %}
                 """),
                 "media_file",
+                "photo_author",
                 bootstrap.FormActions(
                     layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
@@ -259,6 +268,9 @@ class AvatarForm(dynamicforms.Form):
 
     def save(self):
         event = self.event
+        event.photo_author = self.cleaned_data['photo_author']
+        event.save()
+        
         if "media_file" in self.files:
             media_file = self.files['media_file']
             image_mods.FileManager.save_file_for_object(
@@ -267,6 +279,7 @@ class AvatarForm(dynamicforms.Form):
                 media_file,
                 subpath="avatar/"
             )
+
         return event
 
     def get_extra_context(self):
@@ -510,12 +523,12 @@ class ContactForm(dynamicforms.Form):
             self.fields['email0'].initial = contact.email0_address
             self.fields['email1'].initial = contact.email1_address
             self.fields['email2'].initial = contact.email2_address
-                
+
             # add option of choosen selections for autoload fields
             if event.venue_id:
                 institution = Institution.objects.get(pk=event.venue_id)
                 self.fields['venue'].widget.choices=[(institution.id, institution.title)]
-        
+
         # add option of choosen selections for autoload fields on error reload of page
         if self.data.get('venue', None):
             institution = Institution.objects.get(pk=self.data.get('venue', None))
@@ -532,7 +545,7 @@ class ContactForm(dynamicforms.Form):
                 _("Contact Data"),
                 layout.HTML(string_concat('<dd class="no-label"><h3>', _("Institution/Company"), '</h3></dd>')),
                 layout.Field(
-                    "venue", 
+                    "venue",
                     data_load_url="/%s/helper/autocomplete/events/get_venues/title/get_address_string/" % get_current_language(),
                     data_load_start="1",
                     data_load_max="20",
@@ -860,12 +873,12 @@ class OrganizerForm(dynamicforms.Form):
         if event.creator and current_user != event.creator:
             self.fields['is_organized_by_myself'].label = _(
                 "Organized by %s") % event.creator.profile.get_title()
-                
+
         # add option of choosen selections for autoload fields
         if event.organizing_institution_id:
             institution = Institution.objects.get(pk=event.organizing_institution_id)
-            self.fields['organizing_institution'].widget.choices=[(institution.id, institution.title)]       
-            
+            self.fields['organizing_institution'].widget.choices=[(institution.id, institution.title)]
+
         # add option of choosen selections for autoload fields on error reload of page
         if self.data.get('organizing_institution', None):
             institution = Institution.objects.get(pk=self.data.get('organizing_institution', None))
@@ -881,7 +894,7 @@ class OrganizerForm(dynamicforms.Form):
             layout.Fieldset(
                 _("Organizer"),
                 layout.Field(
-                    "organizing_institution", 
+                    "organizing_institution",
                     data_load_url="/%s/helper/autocomplete/events/get_organizing_institutions/title/get_address_string/" % get_current_language(),
                     data_load_start="1",
                     data_load_max="20",
@@ -945,7 +958,7 @@ class AdditionalInfoForm(dynamicforms.Form):
         self.index = index
         self.fields['additional_info_en'].initial = event.additional_info_en
         self.fields['additional_info_de'].initial = event.additional_info_de
-                
+
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "POST"

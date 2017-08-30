@@ -5,7 +5,10 @@
     <div class="wrapper">
         <a class="content" href="{{ event.get_url_path }}">
             {% if event.image %}
-                <img src="{{ UPLOADS_URL }}{{ event.image|modified_path:"list" }}" alt="{{ event.get_title|escape }}"/>
+                <div class="image-wrapper">
+                    <img src="{{ UPLOADS_URL }}{{ event.image|modified_path:"list" }}" alt="{{ event.get_title|escape }}"/>
+                    {% if event.photo_author %}<span class="photo-credits-beneath">{% trans "Photo" %}: {{ event.photo_author }}</span>{% endif %}
+                </div>
             {% else %}
                 <img src="{{ STATIC_URL }}site/img/placeholder/event_list.png">
             {% endif %}
@@ -27,7 +30,7 @@
                         {% with event.postal_address.get_dict as postal_address %}
                             {% if postal_address.street_address or postal_address.country_name %}
                                     <br/>
-                                    
+
                                     {% if postal_address.street_address %}
                                         <span class="seperator">{{ postal_address.street_address|escape }}</span>
                                     {% endif %}
@@ -43,28 +46,28 @@
                                     {% if postal_address.country_name %}
                                         <span class="seperator">{{ postal_address.country_name }}</span>
                                     {% endif %}
-                                    
+
                                     {% if date %}
                                         <br/>
                                     {% endif %}
                             {% endif %}
                         {% endwith %}
                     {% endif %}
-                    
+
                     {% if date %}
                         {% trans 'Date' %}: {{ date|date:'G:i' }} - {{ date.end|date:'G:i' }}
                     {% endif %}
-                    
+
                 </p>
             </div>
         </a>
-        
+
         {% with event.get_urls|first as url %}
             {% if url %}
                 <a class="website" href="{{ url.link }}" target="_blank">{{ url.link|truncatechars:50 }}</a>
             {% endif %}
         {% endwith %}
-        
+
         <div class="button-group">
             {% if request.user.is_authenticated %}
                 {% adding2favorites for event using "generic/favorite_icon.html" %}
@@ -75,4 +78,3 @@
         </div>
     </div>
 </div>
-

@@ -1,4 +1,4 @@
-{% load i18n base_tags auth_extended image_mods_tags %}
+{% load i18n base_tags auth_extended image_mods_tags fb_tags %}
 <div class="slider fullside" data-speed="600" data-timer="4000">
     {% for slide in slides %}
         <div class="slide">
@@ -15,6 +15,9 @@
                 {% if slide.button %}
                     <div class="slider-button btn btn-primary btn-inverse btn-responsive">{{ slide.button|escape }}</div>
                 {% endif %}
+                {% with slide.path|file_description as file_desc %}
+                    {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                {% endwith %}
             {% if slide.link %}</a>{% endif %}
         </div>
     {% endfor %}

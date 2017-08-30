@@ -37,6 +37,7 @@
                             {% if object.image %}
                                 <a id="profile-image-link-header" href="{% cropping_url object.image.path "profile" request object.get_url_path %}" class="fawesome fa-crop small recrop-link"></a>
                                 <img id="profile-image-header" src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if object.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ object.title|escape }}"/>
+                                {% if object.photo_author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ object.photo_author }}</span>{% endif %}
                             {% else %}
                                 <img id="profile-image-header" src="{{ STATIC_URL }}site/img/placeholder/event.png" alt="{{ object.title|escape }}"/>
                             {% endif %}
@@ -86,6 +87,7 @@
                         {% if object.image %}
                              <a id="profile-image-link-sidebar" href="{% cropping_url object.image.path "profile" request object.get_url_path %}" class="fawesome fa-crop recrop-link"></a>
                             <img id="profile-image-sidebar" src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if object.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ object.title|escape }}"/>
+                            {% if object.photo_author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ object.photo_author }}</span>{% endif %}
                         {% else %}
                             <img id="profile-image-sidebar" src="{{ STATIC_URL }}site/img/placeholder/event.png" alt="{{ object.title|escape }}"/>
                         {% endif %}

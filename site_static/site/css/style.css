@@ -2615,6 +2615,28 @@ body.show-layer.image-layer .layer#image-layer {
   display: block;
 }
 
+.photo-credits-over {
+  font-size: 0.7rem;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.2);
+  display: block;
+  padding: 0 5px 0 3px;
+  margin-right: 30px;
+}
+
+.is-xs .photo-credits-over {
+  font-size: 0.55rem;
+}
+
+.photo-credits-beneath {
+  color: #000;
+  font-size: 0.55rem;
+  display: block;
+}
+
 #navigation {
   width: 100%;
   max-width: 380px;
@@ -6957,6 +6979,20 @@ ul.info-box li ul.content .line + * a:hover, ul.info-box li ul.content .line + *
   width: 80px;
 }
 
+.row.event-list > div a.content .image-wrapper {
+  width: 100px;
+  float: left;
+  margin-bottom: 0px;
+}
+
+.is-xs .row.event-list > div a.content .image-wrapper {
+  width: 80px;
+}
+
+.row.event-list > div a.content .image-wrapper img {
+  float: none;
+}
+
 .row.event-list > div a.content .text {
   margin-left: 120px;
   margin-bottom: 0px;
@@ -7351,10 +7387,10 @@ ul.info-box li ul.content .line + * a:hover, ul.info-box li ul.content .line + *
 .row.blog-grid > div {
   /*&:first-child {
             a.content {
-            
+
                 .subline {
                     position: relative;
-                    
+
                     .is-xs & {
                         position: static;
                     }
@@ -7363,7 +7399,7 @@ ul.info-box li ul.content .line + * a:hover, ul.info-box li ul.content .line + *
                     position: absolute;
                     top: 0;
                     right: 0;
-                    
+
                     .is-xs & {
                         position: static;
                     }
@@ -7406,6 +7442,10 @@ ul.info-box li ul.content .line + * a:hover, ul.info-box li ul.content .line + *
   margin: -5px 0 25px 0 !important;
 }
 
+.row.blog-grid > div a.content .image-wrapper {
+  position: relative;
+}
+
 .row.blog-grid > div a.content .subline {
   border-bottom: 1px solid #d8d8d8;
   margin: 0 0 20px;
@@ -7422,16 +7462,16 @@ ul.info-box li ul.content .line + * a:hover, ul.info-box li ul.content .line + *
 
 .row.blog-grid > div a.content .statistics {
   /*margin: 0 0 20px;
-                
+
                 > * {
                     display: inline-block;
                     color: $grey;
                     margin-left: 20px;
-                    
+
                     .is-sm & {
                         margin-left: 15px;
                     }
-                    
+
                     &:first-child {
                         margin-left: 0;
                         .is-sm & {
@@ -8043,6 +8083,15 @@ img[data-popup-image-src] {
 
 .is-xs .slider.magazine.row .wrapper > div a.content:hover img, .is-xs .slider.magazine.row .wrapper > div a.content:focus img {
   opacity: 1;
+}
+
+.slider.magazine.row .wrapper > div .photo-credits-over {
+  left: 5px;
+  bottom: 5px;
+}
+
+.is-xs .slider.magazine.row .wrapper > div .photo-credits-over {
+  left: 0;
 }
 
 .is-sm .slider.magazine.row .wrapper, .is-md .slider.magazine.row .wrapper, .is-lg .slider.magazine.row .wrapper {

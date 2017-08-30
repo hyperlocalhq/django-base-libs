@@ -78,6 +78,20 @@
                 }
             }
 
+            .image-wrapper {
+                width: 100px;
+                float: left;
+                margin-bottom: 0px;
+
+                .is-xs & {
+                    width: 80px;
+                }
+
+                img {
+                    float: none;
+                }
+            }
+
             .text {
                 margin-left: 120px;
                 margin-bottom: 0px;

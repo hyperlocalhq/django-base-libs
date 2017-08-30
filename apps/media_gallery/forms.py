@@ -340,6 +340,11 @@ class MediaGalleryForm(dynamicforms.Form):
         required=False,
         queryset=get_related_queryset(MediaGallery, "categories").filter(level=0),
     )
+    photo_author = forms.CharField(
+        label=_("Photo Credits"),
+        required=False,
+        max_length=100,
+    )
 
     def __init__(self, gallery, *args, **kwargs):
         super(MediaGalleryForm, self).__init__(*args, **kwargs)
@@ -362,6 +367,7 @@ class MediaGalleryForm(dynamicforms.Form):
                     {% endif %}
                 """),
                 "cover_image",
+                "photo_author",
                 "title_de",
                 "description_de",
                 "title_en",

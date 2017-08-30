@@ -153,6 +153,8 @@ class MediaGallery(MediaGalleryBase, PublishingMixin):
 
     section = models.ForeignKey(Section, verbose_name=_("Section"), blank=True, null=True)
 
+    photo_author = models.CharField(_("Photo"), max_length=100, blank=True)
+
     objects = MediaGalleryManager()
 
     def __unicode__(self):
