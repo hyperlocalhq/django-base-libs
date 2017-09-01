@@ -21,11 +21,6 @@ Institution, URL_ID_INSTITUTION, URL_ID_INSTITUTIONS = (
     app.Institution, app.URL_ID_INSTITUTION, app.URL_ID_INSTITUTIONS,
 )
 
-app = models.get_app("resources")
-Document, URL_ID_DOCUMENT, URL_ID_DOCUMENTS = (
-    app.Document, app.URL_ID_DOCUMENT, app.URL_ID_DOCUMENTS,
-)
-
 app = models.get_app("events")
 Event, URL_ID_EVENT, URL_ID_EVENTS = (
     app.Event, app.URL_ID_EVENT, app.URL_ID_EVENTS,
@@ -86,10 +81,7 @@ class LatestPublishedObjectsRssFeed(Feed):
         self.request = request
 
         self.ot = kwargs['ot_url_part']
-        if self.ot == URL_ID_DOCUMENTS:
-            self.model = Document
-            self.object_title = _("Documents")
-        elif self.ot == URL_ID_EVENTS:
+        if self.ot == URL_ID_EVENTS:
             self.model = Event
             self.object_title = _("Events")
         elif self.ot == URL_ID_PERSONGROUPS:

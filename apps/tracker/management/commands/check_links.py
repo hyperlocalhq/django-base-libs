@@ -118,7 +118,6 @@ class Command(NoArgsCommand):
             #("faqs.FaqCategory", (lambda o: o)),
             #("faqs.QuestionAnswer", (lambda o: o)),
             # ("articles.Article", (lambda o: o)),
-            ("resources.Document", (lambda o: o)),
             # ("events.Event", (lambda o: o)),
             # ("people.IndividualContact", (lambda o: o.person)),
             # ("institutions.InstitutionalContact", (lambda o: o.institution)),

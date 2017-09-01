@@ -38,7 +38,6 @@ from jetson.apps.mailing.models import EmailMessage
 from ccb.apps.people.models import Person, IndividualContact
 from ccb.apps.institutions.models import Institution, InstitutionalContact
 from ccb.apps.events.models import Event, EventTime
-from ccb.apps.resources.models import Document
 from ccb.apps.marketplace.models import JobOffer
 from ccb.apps.groups_networks.models import PersonGroup
 from ccb.apps.site_specific.models import ContextItem, ClaimRequest

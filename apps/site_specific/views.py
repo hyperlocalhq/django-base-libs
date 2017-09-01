@@ -31,14 +31,12 @@ from jetson.apps.comments.views.comments import post_comment
 from ccb.apps.people.models import Person, URL_ID_PERSON
 from ccb.apps.institutions.models import Institution, URL_ID_INSTITUTION
 from ccb.apps.events.models import Event, URL_ID_EVENT, URL_ID_EVENTS
-from ccb.apps.resources.models import Document, URL_ID_DOCUMENT
 from ccb.apps.groups_networks.models import PersonGroup, URL_ID_PERSONGROUP
 from ccb.apps.marketplace.models import JobOffer, URL_ID_JOB_OFFER, URL_ID_JOB_OFFERS, \
     SECURITY_SUMMAND as MARKETPLACE_SECURITY_SUMMAND
 from ccb.apps.site_specific.forms import ClaimForm
 from ccb.apps.site_specific.forms import people as people_forms
 from ccb.apps.site_specific.forms import institutions as institutions_forms
-from ccb.apps.site_specific.forms import resources as resources_forms
 from ccb.apps.site_specific.forms import events as events_forms
 from ccb.apps.site_specific.forms import groups_networks as groups_networks_forms
 from ccb.apps.site_specific.forms import marketplace as marketplace_forms
@@ -71,13 +69,6 @@ TYPE_2_MODEL = {
         'slug_field': 'slug',
         'change_perm': "institutions.change_institution",
         'template_folder': "institutions",
-    },
-    URL_ID_DOCUMENT: {
-        'model': Document,
-        'form_namespace': resources_forms,
-        'slug_field': 'slug',
-        'change_perm': "resources.change_document",
-        'template_folder': "resources/documents",
     },
     URL_ID_EVENT: {
         'model': Event,
@@ -215,7 +206,7 @@ def wrap_post_comment(request, slug, year=0, month=0, day=0, template_name='comm
         except ObjectDoesNotExist:
             raise Http404, _("The comment form had an invalid 'target' parameter -- the object ID was invalid")
 
-        if model.__name__ in ("Person", "Institution", "Event", "Document"):
+        if model.__name__ in ("Person", "Institution", "Event"):
             object_type = model.__name__
         else:
             object_type = "NOTHING"
@@ -242,8 +233,6 @@ def delete_review(request, slug, id, year=0, month=0, day=0, template_name='site
         if comment.content_type.model == "person" and request.user.has_perm('person.can_change'):
             allowed = True
         elif comment.content_type.model == "institution" and request.user.has_perm('institution.can_change'):
-            allowed = True
-        elif comment.content_type.model == "document" and request.user.has_perm('institution.can_change'):
             allowed = True
         elif comment.content_type.model == "event" and request.user.has_perm('institution.can_change'):
             allowed = True
@@ -621,11 +610,6 @@ CLAIM_CLASS_MAPPER = {
         'events/claim_event.html',
         'events/claim_event_done.html'
     ),
-    'document': (
-        Document,
-        'resources/documents/claim_document.html',
-        'resources/documents/claim_document_done.html'
-    ),
 }
 
 
@@ -829,7 +813,6 @@ def site_visitors(request):
 
 def claim_action(request, object_id, action):
     Institution = get_installed("institutions.models.Institution")
-    Document = get_installed("resources.models.Document")
     Event = get_installed("events.models.Event")
     ClaimRequest = get_installed("site_specific.models.ClaimRequest")
     PersonGroup = get_installed("groups_networks.models.PersonGroup")
@@ -878,9 +861,6 @@ def claim_action(request, object_id, action):
         elif isinstance(content_object, Event):
             content_object.organizing_person = obj.user.profile
 
-        elif isinstance(content_object, Document):
-            raise Http404, "NOT YET IMPLEMENTED!!!"
-
     elif action == 'deny':
         obj.status = 2
 
@@ -913,9 +893,6 @@ def claim_action(request, object_id, action):
             
         elif isinstance(content_object, Event):
             content_object.organizing_person = None
-            
-        elif isinstance(content_object, Document):
-            raise Http404, "NOT YET IMPLEMENTED!!!"
         '''
     content_object.save()
     obj.save()
@@ -929,7 +906,6 @@ claim_action = staff_member_required(never_cache(claim_action))
 def delete_profile(request):
     Person = get_installed("people.models.Person")
     Institution = get_installed("institutions.models.Institution")
-    Document = get_installed("resources.models.Document")
     Event = get_installed("events.models.Event")
     PersonGroup = get_installed("groups_networks.models.PersonGroup")
     GroupMembership = get_installed("groups_networks.models.GroupMembership")

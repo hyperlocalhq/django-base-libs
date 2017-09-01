@@ -8,7 +8,6 @@ required_apps = [
     "favorites",
     "people",
     "institutions",
-    "resources",
     "events",
     "groups_networks",
     "admin",

@@ -121,7 +121,6 @@ class Urls(object):
         # OK (default)
         self.feed_urls_which_should_return_200 = [
             '/de/blog/feeds/rss/',
-            '/de/documents/latest_published/feeds/rss/',
             '/de/events/latest_published/feeds/rss/',
             '/de/groups/latest_published/feeds/rss/',
             '/de/institutions/latest_published/feeds/rss/',
@@ -140,10 +139,7 @@ class Urls(object):
             '/de/compatibility/',
             '/de/contact/',
             '/de/contact/alldone/',
-            '/de/documents/',  # TODO: do we still need them?
-            '/de/faqs/',
             '/de/gmap/',
-            '/de/help/',
             '/de/meta/impressum/',
             '/de/network/',
             '/de/jobs/',

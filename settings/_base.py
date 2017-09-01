@@ -253,7 +253,6 @@ TEMPLATES = [
                 "ccb.apps.people.context_processors.people",
                 "ccb.apps.institutions.context_processors.institutions",
                 "ccb.apps.events.context_processors.events",
-                "ccb.apps.resources.context_processors.resources",
                 "ccb.apps.groups_networks.context_processors.groups_networks",
                 "ccb.apps.marketplace.context_processors.marketplace",
                 "ccb.apps.site_specific.context_processors.site_specific",
@@ -288,10 +287,6 @@ ADMIN_APP_INDEX = (
                 "models": ("EventType", "EventTimeLabel", "Event",),
                 "icon": "date",
             }),
-            ("resources", {
-                "models": ("DocumentType", "Medium", "Document",),
-                "icon": "link",
-            }),
             ("articles", {
                 "models": ("ArticleContentProvider", "ArticleType", "Article",),
                 "icon": "page_white_text",
@@ -300,17 +295,9 @@ ADMIN_APP_INDEX = (
                 "models": ("Blog", "Post"),
                 "icon": "page_white_edit",
             }),
-            ("flatpages", {
-                "models": ("FlatPage",),
-                "icon": "page_white",
-            }),
             ("blocks", {
                 "models": ("InfoBlock",),
                 "icon": "brick",
-            }),
-            ("faqs", {
-                "models": ("FaqContainer", "FaqCategory", "QuestionAnswer"),
-                "icon": "help",
             }),
             ("media_gallery", {
                 "models": ("PortfolioSettings", "Section", "MediaGallery",),

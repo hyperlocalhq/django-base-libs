@@ -16,8 +16,6 @@ from jetson.apps.utils.context_processors import prev_next_processor
 from ccb.apps.media_gallery.models import MediaGallery
 from ccb.apps.people.models import Person, URL_ID_PERSON, URL_ID_PEOPLE
 from ccb.apps.institutions.models import Institution, URL_ID_INSTITUTION, URL_ID_INSTITUTIONS
-from ccb.apps.resources.models import Document, URL_ID_DOCUMENT, URL_ID_DOCUMENTS
-from ccb.apps.resources.views import _document_list_filter
 from ccb.apps.events.models import Event, URL_ID_EVENT, URL_ID_EVENTS
 from ccb.apps.marketplace.models import URL_ID_JOB_OFFER, URL_ID_JOB_OFFERS
 from ccb.apps.groups_networks.models import PersonGroup, URL_ID_PERSONGROUP, URL_ID_PERSONGROUPS
@@ -40,7 +38,6 @@ for an app.
 OBJECT_URL_MAPPER = {
     URL_ID_PERSON: (Person, 'user__username', "people/details_base.html"),
     URL_ID_INSTITUTION: (Institution, 'slug', "institutions/details_base.html"),
-    URL_ID_DOCUMENT: (Document, 'slug', "resources/documents/details_base.html"),
     URL_ID_EVENT: (Event, 'slug', "events/details_base.html"),
     URL_ID_PERSONGROUP: (PersonGroup, 'slug', "groups_networks/persongroups/details_base.html"),
     "member": (ContextItem, 'slug', "network/details_base.html"),
@@ -59,25 +56,6 @@ institution_lookup = {
     'limit': 9,
     'login_required': True,
 }
-
-
-# begin TODO: remote these variables after migrating app to django-cms
-document_list_info = {
-    'queryset': Document.objects.filter(status__in=("published", "published_commercial")),
-    'template_name': 'resources/documents/document_list.html',
-    'paginate_by': 10,
-    'allow_empty': True,
-    'context_processors': (prev_next_processor,),
-}
-
-document_details_info = {
-    'queryset': Document.objects.filter(status__in=("published", "published_commercial")),
-    'slug_field': 'slug',
-    'template_name': 'resources/documents/document_details.html',
-    'context_processors': (prev_next_processor,),
-    'context_item_type': URL_ID_DOCUMENT,
-}
-# end
 
 
 from ccb.apps.site_specific.feeds import LatestPublishedObjectsRssFeed, LatestPublishedObjectsAtomFeed
@@ -207,8 +185,8 @@ urlpatterns += i18n_patterns(
     url(r'^helper/edit-%s-member/(?P<slug>[^/]+)/(?P<user_id>[0-9]+)/$' % URL_ID_PERSONGROUP,
         'ccb.apps.groups_networks.views.edit_group_member'),
 
-    url(r'^helper/edit-(?P<object_type>%s|%s|%s|%s|%s|%s)-profile/(?P<slug>[^/]+)/$' % (
-        URL_ID_JOB_OFFER, URL_ID_EVENT, URL_ID_DOCUMENT, URL_ID_PERSONGROUP, URL_ID_INSTITUTION, URL_ID_PERSON),
+    url(r'^helper/edit-(?P<object_type>%s|%s|%s|%s|%s)-profile/(?P<slug>[^/]+)/$' % (
+        URL_ID_JOB_OFFER, URL_ID_EVENT, URL_ID_PERSONGROUP, URL_ID_INSTITUTION, URL_ID_PERSON),
         'ccb.apps.site_specific.views.edit_profile', name="edit_profile"),
 
     url(r'^helper/edit-(?P<object_type>%s|%s)-profile/(?P<slug>[^/]+)/contact/$' % (
@@ -221,7 +199,7 @@ urlpatterns += i18n_patterns(
         URL_ID_INSTITUTION, URL_ID_PERSON), 'ccb.apps.site_specific.views.delete_contact', name="delete_profile_contact"),
 
     url(
-        r'^helper/edit-(?P<object_type>%s|%s|%s|%s|%s|%s)-profile/'
+        r'^helper/edit-(?P<object_type>%s|%s|%s|%s|%s)-profile/'
         r'(?P<slug>[^/]+)/(?P<section_name>'
         r'organizer|'
         r'opening_hours|'
@@ -239,7 +217,6 @@ urlpatterns += i18n_patterns(
         r')/$' % (
             URL_ID_JOB_OFFER,
             URL_ID_EVENT,
-            URL_ID_DOCUMENT,
             URL_ID_PERSONGROUP,
             URL_ID_INSTITUTION,
             URL_ID_PERSON,
@@ -293,22 +270,6 @@ urlpatterns += i18n_patterns(
     '',
     url(r'^recrop/', include('jetson.apps.image_mods.urls')),
 
-    # begin TODO: remote these URLs after migrating app to django-cms
-    url(r'^%s/$' % URL_ID_DOCUMENTS, _project_name + '.apps.resources.views.document_list',
-        dict(list_filter=_document_list_filter, **document_list_info)),
-    url(
-        r'^%s/(?P<show>favorites|memos|cultural-funding|scholarship|support-programme|information-founders|other)/$' % URL_ID_DOCUMENTS,
-        _project_name + '.apps.resources.views.document_list',
-        dict(list_filter=_document_list_filter, **document_list_info)),
-
-    url(r'^%s/(?P<slug>[^/]+)/$' % URL_ID_DOCUMENT, object_detail, document_details_info),
-    url(r'^%s/(?P<slug>[^/]+)/reviews/$' % URL_ID_DOCUMENT, object_detail,
-        dict(document_details_info,
-             template_name="resources/documents/document_reviews.html")),
-    url(r'^%s/(?P<slug>[^/]+)/network/$' % URL_ID_DOCUMENT, object_detail,
-        dict(document_details_info,
-             template_name="resources/documents/document_network.html")),
-
     url(r'^%s/create-berlin-jobboard/$' % URL_ID_JOB_OFFERS,
         _project_name + '.apps.marketplace.views.job_board'),
     url(r'^%s/talent-in-berlin/$' % URL_ID_JOB_OFFERS,
@@ -347,36 +308,19 @@ urlpatterns += i18n_patterns(
     url(r'^notification/', include("jetson.apps.notification.urls")),
 
     # claiming
-    url(r'^(?P<ot_url_part>%s|%s|%s)/(?P<slug>[^/]+)/claim/$' % (
-        URL_ID_INSTITUTION, URL_ID_EVENT, URL_ID_DOCUMENT),
+    url(r'^(?P<ot_url_part>%s|%s)/(?P<slug>[^/]+)/claim/$' % (
+        URL_ID_INSTITUTION, URL_ID_EVENT),
         'ccb.apps.site_specific.views.claim_object'
         ),
 
     # latest object feeds
-    url(r'^(?P<ot_url_part>%s|%s|%s|%s|%s)/latest_published/feeds/(?P<feed_type>.*)/$' % (
-        URL_ID_DOCUMENTS, URL_ID_EVENTS, URL_ID_PERSONGROUPS, URL_ID_INSTITUTIONS,
+    url(r'^(?P<ot_url_part>%s|%s|%s|%s)/latest_published/feeds/(?P<feed_type>.*)/$' % (
+        URL_ID_EVENTS, URL_ID_PERSONGROUPS, URL_ID_INSTITUTIONS,
         URL_ID_PEOPLE),
         'jetson.apps.utils.views.feed', latest_published_objects_feeds),
 
     # style guide
     url(r'^styleguide/', include('jetson.apps.styleguide.urls')),
-
-    # general FAQs and Help
-    url(r'^(?P<object_url_part>([^/]+/[^/]+/)?)(?P<url_identifier>faqs|help)/',
-        include('ccb.apps.faqs.urls'),
-        {
-            'only_for_this_site': True,
-            'include': [None],
-        }
-    ),
-    url(r'^(?P<url_identifier>contacts)/',
-        include('ccb.apps.faqs.urls'),
-        {
-            'object_url_part': None,
-            'only_for_this_site': True,
-            'include': [None],
-        }
-    ),
 
     url(r'^tweets/$', 'ccb.apps.twitter.views.latest_tweets', {
         'twitter_username': settings.TWITTER_USERNAME,

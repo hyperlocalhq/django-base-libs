@@ -22,7 +22,8 @@ from base_libs.models.query import ExtendedQuerySet
 from base_libs.middleware import get_current_language, get_current_user
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
-from ccb.apps.search.fulltextsearch import SearchQuerySet
+from base_libs.utils.betterslugify import better_slugify
+from base_libs.utils.misc import get_unique_value
 
 verbose_name = _("Site Specific")
 
@@ -33,7 +34,6 @@ class DefaultContextItemModels(tuple):
         return iter([
             models.get_model("people", "Person"),
             models.get_model("institutions", "Institution"),
-            models.get_model("resources", "Document"),
             models.get_model("events", "Event"),
             models.get_model("groups_networks", "PersonGroup"),
         ])
@@ -67,12 +67,6 @@ class ContextItemManager(models.Manager):
 
     def get_queryset(self):
         return ExtendedQuerySet(self.model)
-
-    # def get_queryset(self):
-    #     """
-    #     fulltext search functionality
-    #     """
-    #     return SearchQuerySet(self.model, None, self._search_fields)
 
     def get_sort_order_mapper(self):
         sort_order_mapper = {
@@ -178,7 +172,11 @@ class ContextItemManager(models.Manager):
                     getattr(obj, "description"),
                 )
 
-        item.slug = obj.slug
+        slug_proposal = obj.slug
+        if not slug_proposal or ("not_provided" in slug_proposal.lower()):
+            # fix broken slugs
+            slug_proposal = better_slugify(getattr(item, "title_%s" % settings.LANGUAGE_CODE), remove_stopwords=False) or "untitled"
+        item.slug = get_unique_value(ContextItem, slug_proposal, instance_pk=item.pk)
         item.status = obj.status
 
         if hasattr(obj, "get_locality_type"):
@@ -547,7 +545,6 @@ ObjectRelationForClaimRequest = ObjectRelationMixin(
     is_required=True,
     limit_content_type_choices_to=(
         models.Q(app_label="institutions", model="institution")
-        | models.Q(app_label="resources", model="document")
         | models.Q(app_label="events", model="event")
         | models.Q(app_label="groups_networks", model="persongroup")
     ),

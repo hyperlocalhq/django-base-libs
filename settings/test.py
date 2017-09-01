@@ -11,8 +11,8 @@ DATABASES = {
     },
     'mysql': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ccb_dj_1_8',
-        'USER': "root",
+        'NAME': get_secret("DATABASE_NAME"),
+        'USER': get_secret("DATABASE_USER"),
         'PASSWORD': get_secret("DATABASE_PASSWORD"),
         'CONN_MAX_AGE': 0,
         'HOST': 'localhost',

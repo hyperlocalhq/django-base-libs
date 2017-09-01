@@ -8,7 +8,6 @@ from jetson.apps.structure.models import Term
 from base_libs.utils.misc import get_related_queryset
 from ccb.apps.people.models import Person
 from ccb.apps.institutions.models import Institution
-from ccb.apps.resources.models import Document
 from ccb.apps.events.models import Event
 from ccb.apps.groups_networks.models import PersonGroup
 

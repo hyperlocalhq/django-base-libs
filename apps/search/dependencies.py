@@ -6,6 +6,5 @@ required_apps = [
     "people",
     "institutions",
     "events",
-    "resources",
 ]
 optional_apps = []
