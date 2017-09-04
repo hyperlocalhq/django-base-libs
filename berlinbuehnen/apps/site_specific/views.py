@@ -774,7 +774,9 @@ API_CHANGELOG = [
     {
         'date': datetime(2017, 9, 4, 12, 0),
         'changes': [
-            u"""Documentation updated regarding Volksbühne and its stages: two new stages added.""",
+            u"""Documentation updated regarding Volksbühne and its stages. Two new stages added: "Tempelhof Hangar 5" (Stage ID = 207) and "Fullscreen (Stage ID = 208)".""",
+            u"""Stage "Gläsernes Foyer" renamed to "Apollo Saal" (Stage ID = 22)".""",
+            u"""Stage "Werkstatt" renamed to "Neue Werkstatt" (Stage ID = 24)".""",
         ],
     },
     {
