@@ -385,22 +385,21 @@ This is a list of all available locations and stages with location IDs and stage
   - Uferstudio 9 (Stage ID = 113)
 - UNI.T - Theater der UdK Berlin (Location ID = 130)
 - Vaganten Bühne (Location ID = 33)
-- Volksbühne am Rosa-Luxemburg-Platz (Location ID = 6)
+- Volksbühne Berlin (Location ID = 6)
   - 3\. Stock (Stage ID = 8)
   - Books (Stage ID = 83)
   - Großes Haus (Stage ID = 82)
   - Grüner Salon (Stage ID = 6)
   - Roter Salon (Stage ID = 7)
   - Sternfoyer (Stage ID = 101)
-- Volksbühne am Rosa-Luxemburg-Platz / Kantine (Location ID = 140)
-- Volksbühne am Rosa-Luxemburg-Platz / Probebühne (Location ID = 160)
-- Volksbühne am Rosa-Luxemburg-Platz / Vorbühne (Location ID = 179)
+  - Tempelhof Hangar 5 (Stage ID = 207)
+  - Fullscreen (Stage ID = 208)
 - Wintergarten Varieté (Location ID = 180)
 - Young Euro Classic (Location ID = 158)
 - ZIONSKIRCHE (Location ID = 152)
 - Zitadelle (Location ID = 149)
 
-For example, if a production is organized by "Volksbühne am Rosa-Luxemburg-Platz" and happens in the "Grüner Salon" stage, the following XML should be set:
+For example, if a production is organized by "Volksbühne Berlin" and happens in the "Grüner Salon" stage, the following XML should be set:
 
 ```xml
 <in_program_of>

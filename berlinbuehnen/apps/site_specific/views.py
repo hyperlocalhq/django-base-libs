@@ -772,6 +772,12 @@ def culturebase_export_productions(request, location_slug):
 
 API_CHANGELOG = [
     {
+        'date': datetime(2017, 9, 4, 12, 0),
+        'changes': [
+            u"""Documentation updated regarding Volksbühne and its stages: two new stages added.""",
+        ],
+    },
+    {
         'date': datetime(2017, 8, 29, 12, 0),
         'changes': [
             u"""Markup error fixed in the documentation. Available event ticket statuses are "tickets_@_box_office" and "sold_out".""",
