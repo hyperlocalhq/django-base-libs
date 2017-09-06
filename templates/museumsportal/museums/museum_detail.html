@@ -113,17 +113,17 @@
                                     <span class="sr-only">{% trans "Share on Facebook" %}</span>
                                 </button>
 
-                                {% comment %}
-                                    {% if museum.participates_in_berlinartweek %}
-                                      <a target="_blank" class="pull-right" href="http://www.berlinartweek.de/{% if LANGUAGE_CODE == "de" %}de{% else %}en{% endif %}/berlin-art-week.html">
-                                        <img src="{{ STATIC_URL }}site/img/berlin-art-week-banner.jpg" alt="Berlin Art Week" height="40" />
-                                      </a>
-                                {% endcomment %}
                                 {% if museum.participates_in_langenacht %}
                                     <a target="_blank" class="pull-right" href="http://www.lange-nacht-der-museen.de/{% if LANGUAGE_CODE == "de" %}de/museen/{% else %}en/museums/{% endif %}{{ museum.slug }}/">
                                       <img src="{{ STATIC_URL }}site/img/lange-nacht-der-museen-2017.png" alt="Lange Nacht der Museen" height="40" />
                                     </a>
-                                {% elif museum.participates_in_emop %}
+                                {% endif %}
+                                {% if museum.participates_in_berlinartweek %}
+                                    <a target="_blank" class="pull-right" href="http://www.berlinartweek.de{% if LANGUAGE_CODE == "de" %}/de/programm/kalender/{% else %}/en/programme/calendar/{% endif %}">
+                                      <img src="{{ STATIC_URL }}site/img/berlin-art-week-banner.jpg" alt="Berlin Art Week" height="40" />
+                                    </a>
+                                {% endif %}
+                                {% if museum.participates_in_emop %}
                                     <a target="_blank"
                                        class="pull-right"
                                        href="http://www.emop-berlin.eu/{% if LANGUAGE_CODE == "de" %}de/{% else %}en/{% endif %}">
