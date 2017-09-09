@@ -2068,6 +2068,7 @@ h5.caption-old {
   padding: 0;
   position: static;
   display: block;
+  transform: none;
 }
 
 div.caption, span.caption {
@@ -7872,6 +7873,7 @@ img[data-popup-image-src] {
   margin: -30px 0 30px;
   padding: 0;
   text-transform: none;
+  transform: none;
 }
 
 #image-layer .fa-close {
