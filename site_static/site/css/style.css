@@ -2022,13 +2022,14 @@ h5.caption {
   font-size: 0.7rem;
   position: relative;
   left: 0px;
-  bottom: 60px;
+  bottom: 40px;
   color: #fff !important;
   background: rgba(0, 0, 0, 0.2);
   display: inline-block;
   padding: 0 5px 0 3px;
   margin: 0 0px 0 0;
   text-transform: none;
+  transform: translateY(-100%);
 }
 
 h5.caption p {
@@ -2066,13 +2067,14 @@ div.caption, span.caption {
   font-size: 0.7rem;
   position: relative;
   left: 0px;
-  bottom: 60px;
+  bottom: 40px;
   color: #fff !important;
   background: rgba(0, 0, 0, 0.2);
   display: inline-block;
   padding: 0 5px 0 3px;
   margin: 0 0px 0 0;
   text-transform: none;
+  transform: translateY(-100%);
 }
 
 div.caption p, span.caption p {
@@ -2694,10 +2696,11 @@ body.show-layer.image-layer .layer#image-layer {
 .photo-credits-beneath .caption {
   font-size: 0.55rem;
   position: static;
-  color: #000;
+  color: #000 !important;
   display: block;
   padding: 0;
   background: transparent;
+  transform: none;
 }
 
 #navigation {
