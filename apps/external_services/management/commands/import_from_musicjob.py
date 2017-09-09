@@ -29,6 +29,7 @@ class Command(BaseCommand):
         JobType = apps.get_model("marketplace", "JobType")
         ObjectMapper = apps.get_model("external_services", "ObjectMapper")
         Service = apps.get_model("external_services", "Service")
+        Category = apps.get_model("structure", "Category")
 
         s, created = Service.objects.get_or_create(
             sysname="musicjob",
@@ -54,13 +55,28 @@ class Command(BaseCommand):
             },
         )
 
+        default_categories = list(Category.objects.filter(
+            slug__in=("musik",)
+        ))
+
+        if verbosity > NORMAL:
+            self.stdout.write("Importing jobs from musicjob\n")
+            self.stdout.flush()
+
         response = requests.get(s.url)
-        xml_doc = parseString(response.content)
+        try:
+            xml_doc = parseString(response.content)
+        except Exception:
+            self.stderr.write("Error parsing XML\n")
+            return
 
         for node_job in xml_doc.getElementsByTagName("item"):
 
             # get or create job offer
             external_id = get_value(node_job, "guid")
+            if verbosity > NORMAL:
+                self.stdout.write(" - {}\n".format(get_value(node_job, "title")))
+
             try:
                 change_date = parse_datetime(
                     get_value(node_job, "pubDate"),
@@ -97,6 +113,7 @@ class Command(BaseCommand):
             job_offer.modified_date = change_date
 
             job_offer.position = get_value(node_job, "title")
+
             job_offer.description = get_value(node_job, "description")
             job_offer.job_type = default_job_type
 
@@ -128,8 +145,10 @@ class Command(BaseCommand):
             job_offer.job_sectors.clear()
             job_offer.job_sectors.add(default_job_sector)
 
-            if verbosity > NORMAL:
-                print job_offer.__dict__
+            # add job categories
+
+            job_offer.categories.clear()
+            job_offer.categories.add(*default_categories)
 
             if not mapper:
                 mapper = ObjectMapper(
@@ -138,6 +157,3 @@ class Command(BaseCommand):
                 )
                 mapper.content_object = job_offer
                 mapper.save()
-
-                if verbosity > NORMAL:
-                    print mapper.__dict__
