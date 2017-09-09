@@ -88,7 +88,7 @@ class IdentityForm(dynamicforms.Form):
                     layout.Submit('submit', _('Save')),
                     css_class = "button-group form-buttons"
                 ),
-                
+
                 css_class = "switch on"
             ),
         )
@@ -141,7 +141,7 @@ class DescriptionForm(dynamicforms.Form):
                     layout.Submit('submit', _('Save')),
                     css_class = "button-group form-buttons"
                 ),
-                
+
                 css_class = "switch on"
             ),
         )
@@ -166,11 +166,19 @@ class AvatarForm(dynamicforms.Form):
         required=False,
         min_dimensions=MIN_LOGO_SIZE,
     )
+    photo_author = forms.CharField(
+        label=_("Photo Credits"),
+        required=False,
+        max_length=100,
+    )
 
     def __init__(self, institution, index, *args, **kwargs):
         super(AvatarForm, self).__init__(*args, **kwargs)
         self.institution = institution
         self.index = index
+
+        if not args and not kwargs:  # if nothing is posted
+            self.fields['photo_author'].initial = institution.photo_author
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -189,6 +197,7 @@ class AvatarForm(dynamicforms.Form):
                     {% endif %}
                 """),
                 "media_file",
+                "photo_author",
                 bootstrap.FormActions(
                     layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
@@ -200,6 +209,7 @@ class AvatarForm(dynamicforms.Form):
 
     def save(self):
         institution = self.institution
+        institution.photo_author = self.cleaned_data['photo_author']
         if "media_file" in self.files:
             media_file = self.files['media_file']
             image_mods.FileManager.save_file_for_object(
@@ -455,11 +465,11 @@ class ContactForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _('Contact Data'),
-                
+
                 layout.HTML(string_concat('<dd class="no-label"><h3>', _("Address"), "-", _("Institution"), '</h3></dd>')),
                 "location_type",
                 "location_title",
-                
+
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Address"), '</h3></dd>')),
                 _("Address"),
                 "latitude",  # hidden field
@@ -482,7 +492,7 @@ class ContactForm(dynamicforms.Form):
                 ),
                 "country",
                 layout.HTML("""{% include "ccb_form/custom_widgets/editable_map.html" %}"""),
-                
+
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Phones"), '</h3></dd>')),
                 layout.MultiField(
                     _("Phone"),
@@ -541,12 +551,12 @@ class ContactForm(dynamicforms.Form):
                     ),
                     css_class = "show-labels"
                 ),
-                
+
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Emails"), '</h3></dd>')),
                 "email0",
                 "email1",
                 "email2",
-                
+
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Websites"), '</h3></dd>')),
                 layout.MultiField(
                     string_concat(_('Type'), ", ", _('Url')),
@@ -590,7 +600,7 @@ class ContactForm(dynamicforms.Form):
                         placeholder="http://",
                     ),
                 ),
-                
+
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Instant Messengers"), '</h3></dd>')),
                 layout.MultiField(
                     string_concat(_('Type'), ", ", _('Address')),
@@ -631,14 +641,14 @@ class ContactForm(dynamicforms.Form):
                         template = "ccb_form/multifield.html"
                     ),
                 ),
-                
+
                 bootstrap.FormActions(
                     layout.Button('cancel', _('Cancel'), css_class = "cancel"),
                     layout.Submit('save_as_primary', _('Save as Primary')),
                     layout.Submit('submit', _('Save')),
                     css_class = "button-group form-buttons"
                 ),
-                
+
                 css_class = "switch on"
             )
         )
@@ -824,7 +834,7 @@ class DetailsForm(dynamicforms.Form):
                     layout.Submit('submit', _('Save')),
                     css_class = "button-group form-buttons"
                 ),
-                
+
                 css_class = "switch on"
             ),
         )
@@ -1322,13 +1332,13 @@ class OpeningHoursForm(dynamicforms.Form):
                     ),
                     css_class = "show-labels break closed_mon"
                 ),
-                
+
                 "show_breaks",
                 layout.HTML("""{% load i18n %}
                     <dt></dt><dd><p><a id="apply_to_all_days" href="#">{% trans "Apply to all days" %}</a></p></dd>
                     <dd class="clearfix">&nbsp;</dd>
                 """),
-                
+
                 layout.MultiField(
                     _("Tuesday"),
                     layout.Field(
@@ -1363,9 +1373,9 @@ class OpeningHoursForm(dynamicforms.Form):
                     ),
                     css_class = "show-labels break closed_tue"
                 ),
-                
+
                 layout.HTML("""<dd class="clearfix">&nbsp;</dd>"""),
-                
+
                 layout.MultiField(
                     _("Wednesday"),
                     layout.Field(
@@ -1400,9 +1410,9 @@ class OpeningHoursForm(dynamicforms.Form):
                     ),
                     css_class = "show-labels break closed_wed"
                 ),
-                
+
                 layout.HTML("""<dd class="clearfix">&nbsp;</dd>"""),
-                
+
                 layout.MultiField(
                     _("Thursday"),
                     layout.Field(
@@ -1437,9 +1447,9 @@ class OpeningHoursForm(dynamicforms.Form):
                     ),
                     css_class = "show-labels break closed_thu"
                 ),
-                
+
                 layout.HTML("""<dd class="clearfix">&nbsp;</dd>"""),
-                
+
                 layout.MultiField(
                     _("Friday"),
                     layout.Field(
@@ -1474,9 +1484,9 @@ class OpeningHoursForm(dynamicforms.Form):
                     ),
                     css_class = "show-labels break closed_fri"
                 ),
-                
+
                 layout.HTML("""<dd class="clearfix">&nbsp;</dd>"""),
-                
+
                 layout.MultiField(
                     _("Saturday"),
                     layout.Field(
@@ -1511,9 +1521,9 @@ class OpeningHoursForm(dynamicforms.Form):
                     ),
                     css_class = "show-labels break closed_sat"
                 ),
-                
+
                 layout.HTML("""<dd class="clearfix">&nbsp;</dd>"""),
-                
+
                 layout.MultiField(
                     _("Sunday"),
                     layout.Field(
@@ -1548,19 +1558,19 @@ class OpeningHoursForm(dynamicforms.Form):
                     ),
                     css_class = "show-labels break closed_sun"
                 ),
-                
+
                 layout.HTML("""<dd class="clearfix">&nbsp;</dd>"""),
 
                 "exceptions_de",
                 "exceptions_en",
                 "is_appointment_based",
-                
+
                 bootstrap.FormActions(
                     layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
                     css_class = "button-group form-buttons"
                 ),
-                
+
                 css_class = "opening-hours switch on"
             ),
         )
@@ -1681,21 +1691,21 @@ class CategoriesForm(dynamicforms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Categories"),
-                
+
                 layout.HTML(string_concat('<dt>', _("Categories"), '</dt>')),
                 layout.Field("categories", template="ccb_form/custom_widgets/checkboxselectmultipletree.html"),
-                
+
                 layout.HTML("""<dd class="clearfix"></dd>"""),
-                
+
                 layout.HTML(string_concat('<dt>', _("Institution Types"), '</dt>')),
                 layout.Field("institution_types", template="ccb_form/custom_widgets/checkboxselectmultipletree.html"),
-                
+
                 bootstrap.FormActions(
                     layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
                     css_class = "button-group form-buttons"
                 ),
-                
+
                 css_class = "switch on"
             ),
         )

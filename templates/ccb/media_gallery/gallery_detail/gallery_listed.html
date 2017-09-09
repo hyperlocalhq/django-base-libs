@@ -5,15 +5,15 @@
     {% if list_of_files %}
         <div>
             {% for media_file in list_of_files %}
-                
+
                 {{ media_file.get_representation }}
                 {% if media_file.title %}
-                    <h5 class="caption">{{ media_file.title }}</h5>
+                    <h5 class="caption caption-old">{{ media_file.title }}</h5>
                 {% endif %}
                 {% if media_file.description %}
                     {{ media_file.description|decode_entities|linebreaks }}
                 {% endif %}
-                
+
             {% endfor %}
         </div>
     {% else %}

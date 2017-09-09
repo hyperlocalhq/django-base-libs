@@ -34,6 +34,8 @@ class Institution(InstitutionBase):
     )
     completeness = models.SmallIntegerField(_("Completeness in %"), default=0)
 
+    photo_author = models.CharField(_("Photo"), max_length=100, blank=True)
+
     objects = InstitutionManagerExtended()
 
     def get_url_path(self):
@@ -270,4 +272,3 @@ def institution_added(sender, instance, **kwargs):
         instance=instance,
         on_site=False,
     )
-

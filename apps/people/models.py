@@ -46,6 +46,8 @@ class Person(PersonBase):
     )
     completeness = models.SmallIntegerField(_("Completeness in %"), default=0)
 
+    photo_author = models.CharField(_("Photo"), max_length=100, blank=True)
+
     objects = PersonManagerExtended()
 
     def get_url_path(self):

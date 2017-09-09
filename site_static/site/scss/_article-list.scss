@@ -42,12 +42,17 @@
 
             img {
                 width: 100px;
-                float: left;
-                margin-bottom: 20px;
+                margin: 0;
 
                 .is-xs & {
                     width: 80px;
                 }
+            }
+
+            .image-wrapper {
+                position: relative;
+                margin-bottom: 20px;
+                float: left;
             }
 
             .text {
@@ -220,6 +225,14 @@
                     }
                 }
             }
+        }
+    }
+
+    .photo-credits-beneath {
+        max-width: 100px;
+
+        .is-xs & {
+            max-width: 80px;
         }
     }
 }

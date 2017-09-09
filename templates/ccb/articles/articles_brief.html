@@ -1,4 +1,4 @@
-{% load i18n base_tags babel navigation_tags articles image_mods_tags favorites %}
+{% load i18n base_tags babel navigation_tags articles image_mods_tags favorites fb_tags %}
 
 
 
@@ -8,11 +8,20 @@
             {% if list_article.article_type.slug == "industry-news-and-market-trends" or list_article.article_type.slug == "tenders-competitions" or list_article.article_type.slug == "studies-and-publications" or list_article.article_type.slug == "surveys" %}
                 <div class="text no-image">
             {% else %}
+                <div class="image-wrapper">
                 {% if list_article.image %}
-                    <img src="{{ UPLOADS_URL }}{{ list_article.image|modified_path:"list" }}" alt="{{ list_article.get_title|escape }}"/>
+                    {% with list_article.image|file_description as file_desc %}
+                        <img src="{{ UPLOADS_URL }}{{ list_article.image|modified_path:"list" }}" alt="{{ list_article.get_title|escape }}"/>
+                        {% if list_article.image_description %}
+                            <div class="photo-credits-beneath">{{ list_article.get_rendered_image_description }}</div>
+                        {% elif file_desc.author %}
+                            <div class="photo-credits-beneath">{% trans "Photo" %}: {{ file_desc.author }}</div>
+                        {% endif %}
+                    {% endwith %}
                 {% else %}
                     <img src="{{ STATIC_URL }}site/img/placeholder/infolink.png" alt="{{ list_article.get_title|escape }}"/>
                 {% endif %}
+                </div>
                 <div class="text">
             {% endif %}
                 <h3>
@@ -46,5 +55,3 @@
         </div>
     </div>
 </div>
-                
-
