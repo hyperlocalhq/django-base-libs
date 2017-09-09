@@ -463,16 +463,24 @@ h5 {
         margin: 1em 0px 0 0;
         text-transform: none;
         transform:translateY(-100%);
+        font-weight: $font-regular !important;
+        font-style: italic !important;
 
         p {
-            margin: 0;
-            padding: 0;
+            margin: 0 !important;
+            padding: 0 !important;
             font-size: 0.7rem !important;
             color: $white !important;
 
             .is-xs & {
                 font-size: 0.55rem !important;
             }
+        }
+
+        * {
+            font-weight: $font-regular !important;
+            font-style: italic !important;
+
         }
 
         .is-xs & {
@@ -509,16 +517,23 @@ div.caption, span.caption {
     margin: 1em 0px 0 0;
     text-transform: none;
     transform:translateY(-100%);
+    font-weight: $font-regular !important;
+    font-style: italic !important;
 
     p {
-        margin: 0;
-        padding: 0;
+        margin: 0 !important;
+        padding: 0 !important;
         font-size: 0.7rem !important;
         color: $white !important;
 
         .is-xs & {
             font-size: 0.55rem !important;
         }
+    }
+
+    * {
+        font-weight: $font-regular !important;
+        font-style: italic !important;
     }
 
     .is-xs & {
@@ -1093,16 +1108,23 @@ ul.button-list {
     display: block;
     padding: 0 5px 0 3px;
     margin-right: 0px;
+    font-weight: $font-regular !important;
+    font-style: italic !important;
 
     p {
-        margin: 0;
-        padding: 0;
+        margin: 0 !important;
+        padding: 0 !important;
         font-size: 0.7rem !important;
         color: $white !important;
 
         .is-xs & {
             font-size: 0.55rem !important;
         }
+    }
+
+    * {
+        font-weight: $font-regular !important;
+        font-style: italic !important;
     }
 
     .is-xs & {
@@ -1114,12 +1136,19 @@ ul.button-list {
     color: $black;
     font-size: 0.55rem;
     display: block;
+    font-weight: $font-regular !important;
+    font-style: italic !important;
 
     p {
-        margin: 0;
-        padding: 0;
+        margin: 0 !important;
+        padding: 0 !important;
         font-size: 0.55rem !important;
         color: $black !important;
+    }
+
+    * {
+        font-weight: $font-regular !important;
+        font-style: italic !important;
     }
 
     .caption {
@@ -1127,7 +1156,8 @@ ul.button-list {
         position: static;
         color: $black !important;
         display: block;
-        padding: 0;
+        padding: 0 !important;
+        margin: 0 !important;
         background: transparent;
         transform: none;
     }

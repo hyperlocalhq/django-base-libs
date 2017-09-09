@@ -2030,17 +2030,24 @@ h5.caption {
   margin: 1em 0px 0 0;
   text-transform: none;
   transform: translateY(-100%);
+  font-weight: 400 !important;
+  font-style: italic !important;
 }
 
 h5.caption p {
-  margin: 0;
-  padding: 0;
+  margin: 0 !important;
+  padding: 0 !important;
   font-size: 0.7rem !important;
   color: #fff !important;
 }
 
 .is-xs h5.caption p {
   font-size: 0.55rem !important;
+}
+
+h5.caption * {
+  font-weight: 400 !important;
+  font-style: italic !important;
 }
 
 .is-xs h5.caption {
@@ -2075,17 +2082,24 @@ div.caption, span.caption {
   margin: 1em 0px 0 0;
   text-transform: none;
   transform: translateY(-100%);
+  font-weight: 400 !important;
+  font-style: italic !important;
 }
 
 div.caption p, span.caption p {
-  margin: 0;
-  padding: 0;
+  margin: 0 !important;
+  padding: 0 !important;
   font-size: 0.7rem !important;
   color: #fff !important;
 }
 
 .is-xs div.caption p, .is-xs span.caption p {
   font-size: 0.55rem !important;
+}
+
+div.caption *, span.caption * {
+  font-weight: 400 !important;
+  font-style: italic !important;
 }
 
 .is-xs div.caption, .is-xs span.caption {
@@ -2663,17 +2677,24 @@ body.show-layer.image-layer .layer#image-layer {
   display: block;
   padding: 0 5px 0 3px;
   margin-right: 0px;
+  font-weight: 400 !important;
+  font-style: italic !important;
 }
 
 .photo-credits-over p {
-  margin: 0;
-  padding: 0;
+  margin: 0 !important;
+  padding: 0 !important;
   font-size: 0.7rem !important;
   color: #fff !important;
 }
 
 .is-xs .photo-credits-over p {
   font-size: 0.55rem !important;
+}
+
+.photo-credits-over * {
+  font-weight: 400 !important;
+  font-style: italic !important;
 }
 
 .is-xs .photo-credits-over {
@@ -2684,13 +2705,20 @@ body.show-layer.image-layer .layer#image-layer {
   color: #000;
   font-size: 0.55rem;
   display: block;
+  font-weight: 400 !important;
+  font-style: italic !important;
 }
 
 .photo-credits-beneath p {
-  margin: 0;
-  padding: 0;
+  margin: 0 !important;
+  padding: 0 !important;
   font-size: 0.55rem !important;
   color: #000 !important;
+}
+
+.photo-credits-beneath * {
+  font-weight: 400 !important;
+  font-style: italic !important;
 }
 
 .photo-credits-beneath .caption {
@@ -2698,7 +2726,8 @@ body.show-layer.image-layer .layer#image-layer {
   position: static;
   color: #000 !important;
   display: block;
-  padding: 0;
+  padding: 0 !important;
+  margin: 0 !important;
   background: transparent;
   transform: none;
 }
