@@ -2691,6 +2691,15 @@ body.show-layer.image-layer .layer#image-layer {
   color: #000 !important;
 }
 
+.photo-credits-beneath .caption {
+  font-size: 0.55rem;
+  position: static;
+  color: #000;
+  display: block;
+  padding: 0;
+  background: transparent;
+}
+
 #navigation {
   width: 100%;
   max-width: 380px;

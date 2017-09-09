@@ -1119,4 +1119,13 @@ ul.button-list {
         font-size: 0.55rem !important;
         color: $black !important;
     }
+
+    .caption {
+        font-size: 0.55rem;
+        position: static;
+        color: $black;
+        display: block;
+        padding: 0;
+        background: transparent;
+    }
 }
