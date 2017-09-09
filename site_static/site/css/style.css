@@ -2107,6 +2107,14 @@ div.caption *, span.caption * {
   bottom: 39px;
 }
 
+.caption .caption {
+  position: static;
+  transform: translateY(0%);
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+
 p {
   font-size: 1.2em;
   line-height: 140%;
