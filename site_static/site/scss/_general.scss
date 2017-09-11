@@ -452,6 +452,44 @@ h5 {
     }
 
     &.caption {
+        font-size: 0.7rem;
+        position: relative;
+        left: 0px;
+        bottom: 50px;
+        color: $white !important;
+        background: rgba(0, 0, 0, 0.2);
+        display: inline-block;
+        padding: 0 5px 0 3px;
+        margin: 1em 0px 0 0;
+        text-transform: none;
+        transform:translateY(-100%);
+        font-weight: $font-regular !important;
+        font-style: italic !important;
+
+        p {
+            margin: 0 !important;
+            padding: 0 !important;
+            font-size: 0.7rem !important;
+            color: $white !important;
+
+            .is-xs & {
+                font-size: 0.55rem !important;
+            }
+        }
+
+        * {
+            font-weight: $font-regular !important;
+            font-style: italic !important;
+
+        }
+
+        .is-xs & {
+            font-size: 0.55rem;
+            bottom: 39px;
+        }
+    }
+
+    &.caption-old {
         font-weight: $font-regular;
         font-size: 1.2em;
         line-height: 150%;
@@ -459,34 +497,58 @@ h5 {
         font-style: italic;
         margin: -30px 0 30px;
         text-transform: none;
-        color: $grey-darker;
-
-        .is-sm & {
-            margin: -30px 0 30px;
-            font-size: 1.08em;
-            line-height: 146%;
-        }
-
-        .is-xs & {
-            margin: -20px 0 25px;
-            font-size: 0.96em;
-            line-height: 138%;
-        }
+        color: $grey-darker !important;
+        background: transparent;
+        padding: 0;
+        position: static;
+        display: block;
+        transform: none;
     }
 }
 
 div.caption, span.caption {
-    font-size: 0.9em;
-    font-style: italic;
-    margin: -30px 0 30px;
+    font-size: 0.7rem;
+    position: relative;
+    left: 0px;
+    bottom: 50px;
+    color: $white !important;
+    background: rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    padding: 0 5px 0 3px;
+    margin: 1em 0px 0 0;
+    text-transform: none;
+    transform:translateY(-100%);
+    font-weight: $font-regular !important;
+    font-style: italic !important;
 
-    .is-sm & {
-        margin: -30px 0 30px;
+    p {
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 0.7rem !important;
+        color: $white !important;
+
+        .is-xs & {
+            font-size: 0.55rem !important;
+        }
+    }
+
+    * {
+        font-weight: $font-regular !important;
+        font-style: italic !important;
     }
 
     .is-xs & {
-        margin: -20px 0 25px;
+        font-size: 0.55rem;
+        bottom: 39px;
     }
+}
+
+.caption .caption {
+    position: static;
+    transform: translateY(0%);
+    margin: 0;
+    padding: 0;
+    background: transparent;
 }
 
 p {
@@ -1054,7 +1116,25 @@ ul.button-list {
     background: rgba(0, 0, 0, 0.2);
     display: block;
     padding: 0 5px 0 3px;
-    margin-right: 30px;
+    margin-right: 0px;
+    font-weight: $font-regular !important;
+    font-style: italic !important;
+
+    p {
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 0.7rem !important;
+        color: $white !important;
+
+        .is-xs & {
+            font-size: 0.55rem !important;
+        }
+    }
+
+    * {
+        font-weight: $font-regular !important;
+        font-style: italic !important;
+    }
 
     .is-xs & {
         font-size: 0.55rem;
@@ -1065,4 +1145,29 @@ ul.button-list {
     color: $black;
     font-size: 0.55rem;
     display: block;
+    font-weight: $font-regular !important;
+    font-style: italic !important;
+
+    p {
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 0.55rem !important;
+        color: $black !important;
+    }
+
+    * {
+        font-weight: $font-regular !important;
+        font-style: italic !important;
+    }
+
+    .caption {
+        font-size: 0.55rem;
+        position: static;
+        color: $black !important;
+        display: block;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: transparent;
+        transform: none;
+    }
 }

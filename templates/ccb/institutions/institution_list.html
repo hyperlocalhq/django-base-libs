@@ -41,9 +41,9 @@
             </div>
         </div>
     </div>
-    
+
     <div class="container">
-        
+
         <div class="row">
             <div class="col-xs-12">
                 <div class="header-search">
@@ -59,26 +59,29 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-3">
-                {% crispy form "ccb_form" %}    
+                {% crispy form "ccb_form" %}
                 {% infoblock "profiles_infobox" using "blocks/infobox.html" %}
             </div>
             <div class="col-xs-12 col-sm-8 col-md-9">
                 {% if object_list %}
                     {% include "utils/includes/sorting.html" %}
                     {% include "utils/abc_filters.html" %}
-                
+
                     <div class="row profile-grid profile-list">
-                        
+
                         {% for object in object_list %}
-                        
+
                             <div class="col-xs-12 col-sm-6 col-md-4">
                                 <div class="wrapper">
                                     <a class="content" href="{{ object.get_url_path }}">
                                         {% if object.image %}
-                                            <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}" alt="{{ object.title|escape }}"/>
+                                            <div class="image-wrapper">
+                                                <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}" alt="{{ object.title|escape }}"/>
+                                                {% if object.photo_author %}<span class="photo-credits-beneath">{% trans "Photo" %}: {{ object.photo_author }}</span>{% endif %}
+                                            </div>
                                         {% else %}
                                             <img src="{{ STATIC_URL }}site/img/placeholder/institution.png" alt="{{ object.title|escape }}"/>
                                         {% endif %}
@@ -101,7 +104,7 @@
                                             {% if object.is_contactable %}
                                                 <a href="{{ object.get_url_path }}message/" class="fawesome fa-email button"><span class="sr-only">{% trans "Send Email" %}</span></a>
                                             {% endif %}
-                                        {% else %}                                           
+                                        {% else %}
                                             {% if object.is_contactable %}
                                                 <a rel="nofollow" href="{% url 'login' %}?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>
                                             {% endif %}
@@ -111,19 +114,19 @@
                             </div>
 
                         {% endfor %}
-                        
+
                     </div>
                     {% include "utils/includes/pagination.html" %}
-                    
+
                 {% else %}
                     <p>{% trans "No objects found within the selected conditions." %}</p>
-                {% endif %} 
-                
+                {% endif %}
+
             </div>
         </div>
-        
+
     </div>
-    
+
 {% endblock %}
 
 {% block breadcrumbs %}

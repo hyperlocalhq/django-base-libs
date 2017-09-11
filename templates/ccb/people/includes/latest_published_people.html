@@ -2,28 +2,31 @@
 {% comment %}<!--
 Usage in any template:
     {% load base_tags %}
-    
+
     Simple:
     {% include_parsed "people/includes/latest_published_people.html" %}
-    
+
     Customized:
     {% include_parsed "people/includes/latest_published_people.html" with 5 as amount %}
-    
+
 -->{% endcomment %}
 
 {% with amount|default:4 as amount %}
     {% get_objects latest_published_with_avatars people.Person amount as newest_objects %}
     {% if newest_objects %}
-    
+
         <div class="row profile-grid">
-            
+
             {% for person in newest_objects %}
-        
+
                 <div class="col-xs-12 col-sm-6 col-md-3">
                     <div class="wrapper">
                         <a class="content" href="{{ person.get_url_path }}">
                             {% if person.image %}
-                                <img src="{{ UPLOADS_URL }}{{ person.image|modified_path:"profile" }}" alt="{{ person.get_title|escape }}"/>
+                                <div class="image-wrapper">
+                                    <img src="{{ UPLOADS_URL }}{{ person.image|modified_path:"profile" }}" alt="{{ person.get_title|escape }}"/>
+                                    {% if person.photo_author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ person.photo_author }}</span>{% endif %}
+                                </div>
                             {% else %}
                                 <img src="{{ STATIC_URL }}site/img/placeholder/profile.png" alt="{{ person.get_title|escape }}"/>
                             {% endif %}
@@ -40,9 +43,9 @@ Usage in any template:
                         </div>
                     </div>
                 </div>
-    
+
             {% endfor %}
-            
+
         </div>
 
     {% else %}

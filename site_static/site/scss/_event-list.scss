@@ -82,6 +82,7 @@
                 width: 100px;
                 float: left;
                 margin-bottom: 0px;
+                position: relative;
 
                 .is-xs & {
                     width: 80px;
@@ -255,5 +256,10 @@
                 }
             }
         }
+    }
+
+    .photo-credits-over {
+        font-size: 0.55rem;
+        margin: 0;
     }
 }

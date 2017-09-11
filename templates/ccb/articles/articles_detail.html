@@ -64,15 +64,15 @@
         {% endif %}
         <time datetime="{{article.published_from|date:"Y-m-d"}}">{{ article.published_from|datefmt:"long" }}</time>
     </h3>
-    
+
     <div class="entry-details clearfix">
 
         <h2>{{ article.get_title|escape }}</h2>
-        
+
         {% if article.get_subtitle %}
             <h4 class="type">{{ article.get_subtitle }}</h4>
         {% endif %}
-        
+
         {% if article.description %}
             <p class="intro">{% parse article.get_rendered_description %}</p>
         {% endif %}
@@ -112,25 +112,25 @@
         </div>
 
     </div>
-    
+
     <hr/>
-    
-   
+
+
     {% if links_to_articles %}
-    
+
         <div class="center padding-10">
             <div class="fawesome fa-heart big padding-10"></div>
             <p class="color-black bold">{% trans 'Also a good read' %}</p>
         </div>
-    
+
         <div class="row article-list">
             {% for list_article in links_to_articles %}
                 {% include "articles/articles_brief.html" %}
             {% endfor %}
         </div>
-        
+
     {% endif %}
-    
+
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -140,4 +140,3 @@
     <li><a href="/news/{{ article.published_from|date:"Y" }}/{{ article.published_from|date:"m" }}/{{ article.published_from|date:"d" }}/">{{ article.published_from|date:"d" }}</a></li>
     <li>{{ article.get_title|escape }}</li>
 {% endblock %}
-

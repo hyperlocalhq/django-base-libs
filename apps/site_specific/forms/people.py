@@ -186,11 +186,19 @@ class AvatarForm(dynamicforms.Form):
         required=False,
         min_dimensions=MIN_LOGO_SIZE,
     )
+    photo_author = forms.CharField(
+        label=_("Photo Credits"),
+        required=False,
+        max_length=100,
+    )
 
     def __init__(self, person, index, *args, **kwargs):
         super(AvatarForm, self).__init__(*args, **kwargs)
         self.person = person
         self.index = index
+
+        if not args and not kwargs:  # if nothing is posted
+            self.fields['photo_author'].initial = person.photo_author
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -209,6 +217,7 @@ class AvatarForm(dynamicforms.Form):
                     {% endif %}
                 """),
                 "media_file",
+                "photo_author",
                 bootstrap.FormActions(
                     layout.Button('cancel', _('Cancel'), css_class="cancel"),
                     layout.Submit('submit', _('Save')),
@@ -221,6 +230,7 @@ class AvatarForm(dynamicforms.Form):
 
     def save(self):
         person = self.person
+        person.photo_author = self.cleaned_data['photo_author']
         if "media_file" in self.files:
             media_file = self.files['media_file']
             image_mods.FileManager.save_file_for_object(
@@ -258,7 +268,7 @@ class ContactForm(dynamicforms.Form):
                       required display descriptione for the
                       autocomplete field
     """
-    
+
     """
     institution = AutocompleteField(
         required=False,
@@ -282,7 +292,7 @@ class ContactForm(dynamicforms.Form):
         help_text=_("Please enter a letter to display a list of available institutions"),
         widget=forms.Select(choices=[]),
     )
-    
+
     institution_title = forms.CharField(
         required=False,
         label=_("Institution Title"),
@@ -516,17 +526,17 @@ class ContactForm(dynamicforms.Form):
                 self.fields['email0'].initial = contact.email0_address
                 self.fields['email1'].initial = contact.email1_address
                 self.fields['email2'].initial = contact.email2_address
-                
+
                 # add option of chosen selections for autoload fields
                 if contact.institution_id:
                     institution = Institution.objects.get(pk=contact.institution_id)
                     self.fields['institution'].widget.choices=[(institution.id, institution.title)]
-            
+
         # add option of chosen selections for autoload fields on error reload of page
         if self.data.get('institution', None):
             institution = Institution.objects.get(pk=self.data.get('institution', None))
             self.fields['institution'].widget.choices=[(institution.id, institution.title)]
-                    
+
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -544,11 +554,11 @@ class ContactForm(dynamicforms.Form):
 
                 layout.HTML(string_concat('<dd class="no-label"><h3 class="section">', _("Institution"), '</h3></dd>')),
                 layout.Field(
-                    "institution", 
+                    "institution",
                     data_load_url="/%s/helper/autocomplete/institutions/get_all_institutions/title/get_address_string/" % get_current_language(),
                     data_load_start="1",
                     data_load_max="20",
-                    wrapper_class="institution-select", 
+                    wrapper_class="institution-select",
                     css_class="autoload"
                 ),
                 layout.HTML("""{% load i18n %}
@@ -742,7 +752,7 @@ class ContactForm(dynamicforms.Form):
                 css_class="switch on"
             ),
         )
-    
+
     def save(self):
         person = self.person
         index = self.index

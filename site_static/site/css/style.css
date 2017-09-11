@@ -2019,6 +2019,43 @@ h5 {
 }
 
 h5.caption {
+  font-size: 0.7rem;
+  position: relative;
+  left: 0px;
+  bottom: 50px;
+  color: #fff !important;
+  background: rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  padding: 0 5px 0 3px;
+  margin: 1em 0px 0 0;
+  text-transform: none;
+  transform: translateY(-100%);
+  font-weight: 400 !important;
+  font-style: italic !important;
+}
+
+h5.caption p {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 0.7rem !important;
+  color: #fff !important;
+}
+
+.is-xs h5.caption p {
+  font-size: 0.55rem !important;
+}
+
+h5.caption * {
+  font-weight: 400 !important;
+  font-style: italic !important;
+}
+
+.is-xs h5.caption {
+  font-size: 0.55rem;
+  bottom: 39px;
+}
+
+h5.caption-old {
   font-weight: 400;
   font-size: 1.2em;
   line-height: 150%;
@@ -2026,33 +2063,57 @@ h5.caption {
   font-style: italic;
   margin: -30px 0 30px;
   text-transform: none;
-  color: #777777;
-}
-
-.is-sm h5.caption {
-  margin: -30px 0 30px;
-  font-size: 1.08em;
-  line-height: 146%;
-}
-
-.is-xs h5.caption {
-  margin: -20px 0 25px;
-  font-size: 0.96em;
-  line-height: 138%;
+  color: #777777 !important;
+  background: transparent;
+  padding: 0;
+  position: static;
+  display: block;
+  transform: none;
 }
 
 div.caption, span.caption {
-  font-size: 0.9em;
-  font-style: italic;
-  margin: -30px 0 30px;
+  font-size: 0.7rem;
+  position: relative;
+  left: 0px;
+  bottom: 50px;
+  color: #fff !important;
+  background: rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  padding: 0 5px 0 3px;
+  margin: 1em 0px 0 0;
+  text-transform: none;
+  transform: translateY(-100%);
+  font-weight: 400 !important;
+  font-style: italic !important;
 }
 
-.is-sm div.caption, .is-sm span.caption {
-  margin: -30px 0 30px;
+div.caption p, span.caption p {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 0.7rem !important;
+  color: #fff !important;
+}
+
+.is-xs div.caption p, .is-xs span.caption p {
+  font-size: 0.55rem !important;
+}
+
+div.caption *, span.caption * {
+  font-weight: 400 !important;
+  font-style: italic !important;
 }
 
 .is-xs div.caption, .is-xs span.caption {
-  margin: -20px 0 25px;
+  font-size: 0.55rem;
+  bottom: 39px;
+}
+
+.caption .caption {
+  position: static;
+  transform: translateY(0%);
+  margin: 0;
+  padding: 0;
+  background: transparent;
 }
 
 p {
@@ -2624,7 +2685,25 @@ body.show-layer.image-layer .layer#image-layer {
   background: rgba(0, 0, 0, 0.2);
   display: block;
   padding: 0 5px 0 3px;
-  margin-right: 30px;
+  margin-right: 0px;
+  font-weight: 400 !important;
+  font-style: italic !important;
+}
+
+.photo-credits-over p {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 0.7rem !important;
+  color: #fff !important;
+}
+
+.is-xs .photo-credits-over p {
+  font-size: 0.55rem !important;
+}
+
+.photo-credits-over * {
+  font-weight: 400 !important;
+  font-style: italic !important;
 }
 
 .is-xs .photo-credits-over {
@@ -2635,6 +2714,31 @@ body.show-layer.image-layer .layer#image-layer {
   color: #000;
   font-size: 0.55rem;
   display: block;
+  font-weight: 400 !important;
+  font-style: italic !important;
+}
+
+.photo-credits-beneath p {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 0.55rem !important;
+  color: #000 !important;
+}
+
+.photo-credits-beneath * {
+  font-weight: 400 !important;
+  font-style: italic !important;
+}
+
+.photo-credits-beneath .caption {
+  font-size: 0.55rem;
+  position: static;
+  color: #000 !important;
+  display: block;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent;
+  transform: none;
 }
 
 #navigation {
@@ -4867,6 +4971,10 @@ dd.autocomplete .input-field.ac_loading:after {
   margin: 0;
 }
 
+.row.profile-grid > div a.content .image-wrapper {
+  position: relative;
+}
+
 .row.profile-grid > div a.content .text, .row.profile-grid > div a.content .name {
   width: 100%;
   height: 120px;
@@ -4911,6 +5019,22 @@ dd.autocomplete .input-field.ac_loading:after {
 
 .row.profile-grid > div a.content .name br {
   display: none;
+}
+
+.row.profile-grid > div a.content .photo-credits-beneath {
+  font-size: 0.7rem;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.2);
+  display: block;
+  padding: 0 5px 0 3px;
+  margin-right: 0px;
+}
+
+.is-xs .row.profile-grid > div a.content .photo-credits-beneath {
+  font-size: 0.55rem;
 }
 
 .row.profile-grid > div .button-group {
@@ -5001,6 +5125,17 @@ dd.autocomplete .input-field.ac_loading:after {
   margin-bottom: 20px;
 }
 
+.list .row.profile-grid.profile-list > div a.content .image-wrapper {
+  width: 100px;
+  float: left;
+  margin-bottom: 20px;
+}
+
+.list .row.profile-grid.profile-list > div a.content .image-wrapper img {
+  float: none;
+  margin: 0 !important;
+}
+
 .list .row.profile-grid.profile-list > div a.content .text, .list .row.profile-grid.profile-list > div a.content .name {
   width: auto;
   height: auto;
@@ -5074,6 +5209,15 @@ dd.autocomplete .input-field.ac_loading:after {
   font-size: 1em;
 }
 
+.list .row.profile-grid.profile-list > div a.content .photo-credits-beneath {
+  color: #000;
+  font-size: 0.55rem;
+  display: block;
+  position: static;
+  background: transparent;
+  padding: 0;
+}
+
 .list .row.profile-grid.profile-list > div .button-group .button {
   font-size: inherit;
 }
@@ -5139,6 +5283,17 @@ dd.autocomplete .input-field.ac_loading:after {
   margin-bottom: 20px;
 }
 
+.is-xs .row.profile-grid > div a.content .image-wrapper, .is-xs.list .row.profile-grid.profile-list > div a.content .image-wrapper {
+  width: 110px;
+  float: left;
+  margin-bottom: 20px;
+}
+
+.is-xs .row.profile-grid > div a.content .image-wrapper img, .is-xs.list .row.profile-grid.profile-list > div a.content .image-wrapper img {
+  float: none;
+  margin: 0 !important;
+}
+
 .is-xs .row.profile-grid > div a.content .text, .is-xs .row.profile-grid > div a.content .name, .is-xs.list .row.profile-grid.profile-list > div a.content .text, .is-xs.list .row.profile-grid.profile-list > div a.content .name {
   width: auto;
   height: auto;
@@ -5172,6 +5327,15 @@ dd.autocomplete .input-field.ac_loading:after {
   display: inline;
 }
 
+.is-xs .row.profile-grid > div a.content .photo-credits-beneath, .is-xs.list .row.profile-grid.profile-list > div a.content .photo-credits-beneath {
+  color: #000;
+  font-size: 0.55rem;
+  display: block;
+  position: static;
+  background: transparent;
+  padding: 0;
+}
+
 .is-xs .row.profile-grid > div .button-group, .is-xs.list .row.profile-grid.profile-list > div .button-group {
   top: inherit;
   right: inherit;
@@ -5193,6 +5357,17 @@ dd.autocomplete .input-field.ac_loading:after {
 
 .is-xs .row.profile-grid.profile-list > div a.content img, .is-xs.list .row.profile-grid.profile-list > div a.content img {
   width: 80px;
+}
+
+.is-xs .row.profile-grid.profile-list > div a.content .image-wrapper, .is-xs.list .row.profile-grid.profile-list > div a.content .image-wrapper {
+  width: 80px;
+  float: left;
+  margin-bottom: 20px;
+}
+
+.is-xs .row.profile-grid.profile-list > div a.content .image-wrapper img, .is-xs.list .row.profile-grid.profile-list > div a.content .image-wrapper img {
+  float: none;
+  margin: 0 !important;
 }
 
 .is-xs .row.profile-grid.profile-list > div a.content .text, .is-xs .row.profile-grid.profile-list > div a.content .name, .is-xs.list .row.profile-grid.profile-list > div a.content .text, .is-xs.list .row.profile-grid.profile-list > div a.content .name {
@@ -6727,12 +6902,17 @@ ul.info-box li ul.content .line + * a:hover, ul.info-box li ul.content .line + *
 
 .row.article-list > div a.content img {
   width: 100px;
-  float: left;
-  margin-bottom: 20px;
+  margin: 0;
 }
 
 .is-xs .row.article-list > div a.content img {
   width: 80px;
+}
+
+.row.article-list > div a.content .image-wrapper {
+  position: relative;
+  margin-bottom: 20px;
+  float: left;
 }
 
 .row.article-list > div a.content .text {
@@ -6909,6 +7089,14 @@ ul.info-box li ul.content .line + * a:hover, ul.info-box li ul.content .line + *
   display: inline-block;
 }
 
+.row.article-list .photo-credits-beneath {
+  max-width: 100px;
+}
+
+.is-xs .row.article-list .photo-credits-beneath {
+  max-width: 80px;
+}
+
 #body .container .row.event-list {
   margin-left: -10px;
   margin-right: -10px;
@@ -6983,6 +7171,7 @@ ul.info-box li ul.content .line + * a:hover, ul.info-box li ul.content .line + *
   width: 100px;
   float: left;
   margin-bottom: 0px;
+  position: relative;
 }
 
 .is-xs .row.event-list > div a.content .image-wrapper {
@@ -7154,6 +7343,11 @@ ul.info-box li ul.content .line + * a:hover, ul.info-box li ul.content .line + *
 
 .row.event-list > div .wrapper:hover .button-group .button {
   display: inline-block;
+}
+
+.row.event-list .photo-credits-over {
+  font-size: 0.55rem;
+  margin: 0;
 }
 
 #body .container .row.event-grid {
@@ -7668,7 +7862,18 @@ img[data-popup-image-src] {
   position: absolute;
   top: 0;
   left: 0;
+  bottom: auto;
   color: #fff;
+  background: transparent;
+  font-weight: 400;
+  font-size: 1.2em;
+  line-height: 150%;
+  letter-spacing: inherit;
+  font-style: italic;
+  margin: -30px 0 30px;
+  padding: 0;
+  text-transform: none;
+  transform: none;
 }
 
 #image-layer .fa-close {
