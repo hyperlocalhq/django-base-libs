@@ -680,9 +680,9 @@ $(document).ready(function() {
             e.stopImmediatePropagation();
             e.preventDefault();
         });
-
+        me.$input.focus();
         me.is_open = true;
-    }
+    };
 
     Search.prototype.close = function() {
 
@@ -695,7 +695,7 @@ $(document).ready(function() {
         me.$body.removeClass('show-layer').removeClass('search-layer');
 
         me.is_open = false;
-    }
+    };
 
     Search.prototype.search = function(event) {
 
@@ -718,7 +718,7 @@ $(document).ready(function() {
 
         me.$form.submit();
 
-    }
+    };
 
     $('.header-search').each(function() {
         new Search($(this));
