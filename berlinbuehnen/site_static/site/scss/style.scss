@@ -582,3 +582,36 @@ hr.big {
         }
     }
 }
+
+.photo-credits-wrapper {
+    position: relative;
+}
+
+.photo-credits-over {
+    font-size: 1rem;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    color: $white;
+    background: rgba(0, 0, 0, 0.2);
+    display: block;
+    padding: 0 5px 0 3px;
+    margin-right: 0px;
+    font-weight: $regular !important;
+    font-style: italic !important;
+    line-height: 1.42857143;
+    z-index: 1;
+
+    .is-xs & {
+        font-size: 0.85rem;
+    }
+}
+
+.photo-credits-beneath {
+    color: $black;
+    font-size: 0.85rem;
+    display: block;
+    font-weight: $regular !important;
+    font-style: italic !important;
+    line-height: 1.42857143;
+}
