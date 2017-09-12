@@ -5716,8 +5716,17 @@ select {
   float: left;
 }
 
-.theater-of-the-week .article-content-cms .img_and_desc .title:after {
-  content: ",\00a0";
+.theater-of-the-week .article-content-cms .img_and_desc .author {
+  font-weight: 400 !important;
+  font-style: italic !important;
+  line-height: 1.42857143;
+  font-size: 1rem;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.2);
+  position: relative;
+  padding: 0 5px 0 3px;
+  margin-top: -14px;
+  display: table;
 }
 
 .theater-of-the-week .article-content-cms .img_and_desc .author:before {

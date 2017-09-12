@@ -1,5 +1,5 @@
 {% extends request.current_page.template|default:"cms/default.html" %}
-{% load base_tags babel i18n auth_extended articles_tags infoblocks image_modifications crispy_forms_tags %}
+{% load base_tags babel i18n auth_extended articles_tags infoblocks image_modifications crispy_forms_tags fb_tags %}
 
 {% block content %}
     <div class="content default article">
@@ -12,7 +12,12 @@
                             {% for article in article_list %}
                                 <a href="{{ article.get_url_path }}">
                                     {% if article.image %}
-                                        <img src="{{ MEDIA_URL }}{{ article.image|modified_path:"list_image" }}" class="hidden-xs"/>
+                                        <div class="photo-credits-wrapper">
+                                            <img src="{{ MEDIA_URL }}{{ article.image|modified_path:"list_image" }}" class="hidden-xs"/>
+                                            {% with article.image|file_description as file_desc %}
+                                                {% if file_desc.author %}<span class="photo-credits-over" class="hidden-xs">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                                            {% endwith %}
+                                        </div>
                                     {% endif %}
                                     <span class="article-more-list-date">{{ article.published_from|datefmt:"long" }}{% if article.category.title %}<span>{{ article.category.title }}</span>{% endif %}</span>
                                     <h6>{{ article.get_title }}</h6>
