@@ -32,7 +32,7 @@
               {#<p>{{ object.get_rendered_description|removetags:"p"|truncatewords:38 }}</p>#}
               <p>{{ object.get_rendered_description|removetags:"p" }}</p>
               {% with object.image|file_description as file_desc %}
-                  {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}
+                  {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% else %}<span class="photo-credits-over">&nbsp;</span>{% endif %}
               {% endwith %}
             </a>
           </div>
@@ -51,7 +51,7 @@
               <h4>{{ object.title2 }}</h4>
               <h5>{{ object.title3 }}</h5>
               {% with object.image|file_description as file_desc %}
-                  {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}
+                  {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% else %}<span class="photo-credits-over">&nbsp;</span>{% endif %}
               {% endwith %}
             </a>
           </div>

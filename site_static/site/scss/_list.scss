@@ -426,6 +426,9 @@ only screen and (                min-resolution: 2dppx) {
       }
       p { display: none;}
 
+      .photo-credits-over {
+          width: 100%;
+      }
     }
 
     &:nth-child(1) {
