@@ -1,6 +1,6 @@
 {% extends "cms/default.html" %}
 {% load url from future %}
-{% load i18n image_modifications base_tags tagging_tags favorites_tags auth_extended festival_tags %}
+{% load i18n image_modifications base_tags tagging_tags favorites_tags auth_extended festival_tags fb_tags %}
 
 {% block bodyclass %}festival-list no-transition{% endblock %}
 
@@ -14,11 +14,11 @@
     <div class="content overview">
         <div class="container">
             <div class="row">
-                
+
                 <a class="fawesome back uc main_clear clear_toggle pull-right headline-link" href="javascript:void(0);">{% trans "back to overview" %}</a>
                 <h1 class="bottom-line"><a href="javascript:void(0);" class="headline-link main_clear">{% trans "Festivals" %}</a></h1>
                 {% month_slider id='main_monthslider' %}
-                
+
                 <div class="col-xs-12 print-padding">
 
                     <!-- the list -->
@@ -42,6 +42,9 @@
                                                         src="
                                                             {{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"gallery_image" }}{% if festival.is_editable %}?now={% now "YmdHis" %}{% endif %}"
                                                         alt="{{ festival.title|escape }}"/>
+                                                    {% with festival.first_image.path|file_description as file_desc %}
+                                                        {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                                                    {% endwith %}
                                                     {% if request.user.is_authenticated %}
                                                         {% adding2favorites for festival using "favorites/includes/favorite_grid.html" %}
                                                     {% else %}

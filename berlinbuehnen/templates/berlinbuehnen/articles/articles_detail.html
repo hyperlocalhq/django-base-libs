@@ -21,7 +21,7 @@
     TODO CHECK PRIVILEGES TO DISPLAY DRAFTS
     {% if_has_perm "blog.change_blog_posts" blog %}
         {% ifequal post_filter "drafts" %}
-            <a class="active" href="{{ rel_root_dir }}">{% trans "Drafts" %}({{ nof_drafts }})</a> | 
+            <a class="active" href="{{ rel_root_dir }}">{% trans "Drafts" %}({{ nof_drafts }})</a> |
         {% else %}
             <a href="{{ rel_root_dir }}drafts/">{% trans "Drafts" %}({{ nof_drafts }})</a> |
         {% endifequal %}
@@ -54,24 +54,22 @@
                 {% endif %}{% endcomment %}
                 {% if article.image %}
                     <div class="article-image">
-                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"detail_image" }}" alt="{{ article.get_title|escape }}" />
-                        {% if article.image_description %}
-                            <div class="article-image-caption">
-                                {{ article.get_rendered_image_description }}
-                            </div>
-                        {% else %}
-                            {% with article.image|file_description as file_desc %}
-                                {% if file_desc.title or file_desc.author %}
-                                    <div class="article-image-caption">
-                                        {{  file_desc.title }}{% if file_desc.author %}{% if file_desc.title %}, {% endif %}{% trans "Photo" %}: {{ file_desc.author }}{% endif %}
-                                    </div>
-                                {% endif %}
-                            {% endwith %}
-                        {% endif %}
+                        <div class="photo-credits-wrapper">
+                            <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"detail_image" }}" alt="{{ article.get_title|escape }}" />
+                            {% if article.image_description %}
+                                <div class="photo-credits-over">
+                                    {{ article.get_rendered_image_description }}
+                                </div>
+                            {% else %}
+                                {% with article.image|file_description as file_desc %}
+                                    {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                                {% endwith %}
+                            {% endif %}
+                        </div>
                     </div>
                 {% endif %}
                 <div  class="article-content-cms">
-                    {{ article.get_rendered_content }} 
+                    {{ article.get_rendered_content }}
                 </div>
             </div>
         </div>

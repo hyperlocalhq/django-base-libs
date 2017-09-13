@@ -1,10 +1,15 @@
-{% load image_modifications babel i18n %}
+{% load image_modifications babel i18n fb_tags %}
 {% if other_articles %}
     {% for article in other_articles %}
         <a href="{{ article.get_url_path }}">
             {% if article.image %}
-                <img src="{{ MEDIA_URL }}{{ article.image|modified_path:"list_image" }}" class="hidden-xs"/>
-                <img src="{{ MEDIA_URL }}{{ article.image|modified_path:"news_image" }}" class="visible-xs"/>
+                <div class="photo-credits-wrapper">
+                    <img src="{{ MEDIA_URL }}{{ article.image|modified_path:"list_image" }}" class="hidden-xs"/>
+                    <img src="{{ MEDIA_URL }}{{ article.image|modified_path:"news_image" }}" class="visible-xs"/>
+                    {% with article.image|file_description as file_desc %}
+                        {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                    {% endwith %}
+                </div>
             {% endif %}
             {% if article.category.title %}
                 <span class="article-more-list-date">{{ article.category.title }}</span>

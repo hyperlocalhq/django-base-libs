@@ -1,6 +1,6 @@
 {% extends "cms/default.html" %}
 {% load url from future %}
-{% load i18n image_modifications base_tags tagging_tags favorites_tags auth_extended theater_of_the_week_tags %}
+{% load i18n image_modifications base_tags tagging_tags favorites_tags auth_extended theater_of_the_week_tags fb_tags %}
 
 {% block bodyclass %}location-list no-transition{% endblock %}
 
@@ -13,14 +13,14 @@
 
 {% block content %}
     <div class="content overview">
-        
+
         <div class="container">
             <div class="row">
-                
+
                 <h1 class="bottom-line">{% trans "Locations" %} &nbsp;<span>{% trans "with educational department" %}</span></h1>
-                
+
                 <div class="col-xs-12 print-padding">
-                    
+
                     <!-- the list -->
                     <div id="main_list" class="grid location-grid grid-autoload row">
                         {% comment %}
@@ -34,11 +34,14 @@
                         {% if object_list %}
                             {% for department in object_list %}
                                 <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ department.get_url_path }}">
-                                                
+
                                     <!-- image -->
                                     <span class="grid-item-image img">
                                         {% if department.first_image %}
                                             <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ department.first_image.path|modified_path:"detail_image" }}{% if department.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ department.title|escape }}" />
+                                            {% with department.first_image.path|file_description as file_desc %}
+                                                {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                                            {% endwith %}
                                         {% else %}
                                             <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
                                         {% endif %}
@@ -48,14 +51,14 @@
                                             {% login2favorites using "favorites/includes/favorite_grid_login.html" %}
                                         {% endif %}
                                     </span>
-                                    
+
                                     {% if department.title %}<h2>{{ department.title }}</h2>{% endif %}
                                     {% if department.teaser %}
                                         <div class="copy">{{ department.get_rendered_teaser }}</div>
                                     {% elif department.description %}
                                         <div class="copy">{{ department.get_rendered_description|striptags|truncatewords:20 }}</div>
                                     {% endif %}
-                                    
+
                                 </a>
 
                                 {% comment %}
@@ -74,13 +77,13 @@
                                 {% endcomment %}
 
                             {% endfor %}
-                            
+
                             {% include "utils/pagination.html" %}
                         {% else %}
                             {% include "utils/container_empty.html" %}
                         {% endif %}
                         </div>
-                        
+
                 </div>
             </div>
         </div>

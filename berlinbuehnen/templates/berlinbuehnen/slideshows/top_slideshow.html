@@ -1,4 +1,4 @@
-{% load base_tags i18n image_modifications %}
+{% load base_tags i18n image_modifications fb_tags %}
 <div id="top_slider">
     <div class="slider" data-image-ratio="1060:544" data-slider-timer="5000">
         <ul class="slider-body row">
@@ -20,6 +20,9 @@
                                 </div>
                             </div>
                         {% endif %}
+                        {% with slide.path|file_description as file_desc %}
+                            {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                        {% endwith %}
                     </a>
                 </li>
             {% endfor %}
@@ -29,25 +32,26 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
-    
+
         var $top_slider = $('#top_slider');
         var $slider = $('.slider', $top_slider);
         var $text = $('.slider-item-text-wrapper', $slider);
+        var $credits = $('.photo-credits-over', $slider);
         var ratio = $slider.data("image-ratio").split(':');
-    
+
         var centerSlider = function() {
-        
+
             var width = $top_slider.width();
             var height_1 = width * ratio[1] / ratio[0];
             var height_2 = (height_1 > ratio[1]) ? ratio[1] : height_1;
             var margin = Math.round((height_1 - height_2) /2);
             $slider.css('margin-top', '-' + margin + 'px');
             $text.css('top', (height_1 - margin) + 'px');
-            
+            $credits.css('top', (height_1 - margin) + 'px');
         }
-    
+
         $(document).ready(centerSlider);
         $(window).resize(centerSlider);
     });
-    
+
 </script>

@@ -1,4 +1,4 @@
-{% load base_tags i18n image_modifications favorites_tags production_tags %}
+{% load base_tags i18n image_modifications favorites_tags production_tags fb_tags %}
 {% if newest_events %}
     <div class="additional-list list row calender-list">
         <div class="list-headline">
@@ -49,9 +49,15 @@
                             <div class="list-item-head-image img hidden-xs col-sm-8">
                                 {% if event.first_image %}
                                     <img src="{{ MEDIA_URL }}{{ event.first_image.path|modified_path:"list_image" }}{% if event.production.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="" />
+                                    {% with event.first_image.path|file_description as file_desc %}
+                                        {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                                    {% endwith %}
                                 {% elif event.ev_or_prod_images %}
                                     {% with event.ev_or_prod_images|first as image %}
                                         <img src="{{ MEDIA_URL }}{{ image.path|modified_path:"list_image" }}{% if event.production.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="" />
+                                        {% with image.path|file_description as file_desc %}
+                                            {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                                        {% endwith %}
                                     {% endwith %}
                                 {% else %}
                                     <img src="{{ STATIC_URL }}site/img/placeholder_event.png" />

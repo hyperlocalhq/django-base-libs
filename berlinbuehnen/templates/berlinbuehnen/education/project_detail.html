@@ -40,7 +40,7 @@
                             <a class="fawesome back uc no-print" href="{% url 'department_detail' slug=department.slug %}">{% trans "back to location" %}</a>
                         {% endif %}
                         <article>
-                            
+
                             <!-- headlines -->
                             <header>
                                 <ul class="header-top icons-space">
@@ -100,19 +100,19 @@
                                     <h2>{{ project.subtitle }}</h2>
                                 {% endif %}
                             </header>
-                            
+
                             <!-- main  part (including sidebar) -->
                             <div class="main">
                                 <div class="container">
                                     <div class="row">
-                                        
+
                                         <!-- main content -->
                                         <div class="col-xs-12 col-md-8 left">
                                             {% if project.first_image %}
-                                                <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ project.first_image.path|modified_path:"detail_image" }}" alt="{{ project.title|escape }}"  />{% pin image=project.first_image description=project.title %}</div>
+                                                <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ project.first_image.path|modified_path:"detail_image" }}" alt="{{ project.title|escape }}"  />{% with project.first_image.path|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}{% endwith %}{% pin image=project.first_image description=project.title %}</div>
                                             {% elif department %}
                                                 {% if department.first_image %}
-                                                    <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ department.first_image.path|modified_path:"detail_image" }}" alt="{{ project.title|escape }}"  />{% pin image=department.first_image description=project.title %}</div>
+                                                    <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ department.first_image.path|modified_path:"detail_image" }}" alt="{{ project.title|escape }}"  />{% with department.first_image.path|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}{% endwith %}{% pin image=department.first_image description=project.title %}</div>
                                                 {% endif %}
                                             {% endif %}
                                             <div class="description">
@@ -129,17 +129,17 @@
                                             {% endif %}
                                             {% endcomment %}
                                         </div>
-                                        
+
                                         <!-- main sidebar -->
                                         <div class="col-xs-12 col-md-4 right">
                                             {% include "education/includes/project_sidebar.html" %}
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
-                                    
-                            
+
+
                             <!-- additional content (accordion) -->
                             <div class="additional">
                                 <div class="container">
@@ -226,7 +226,7 @@
                                                     </div>
                                                 {% endif %}
                                             </div>
-                                            
+
                                             <!-- Gallery -->
                                             {% if project.projectimage_set.exists or project.projectvideo_set.exists %}
                                                 <div class="gallery row">
@@ -237,7 +237,7 @@
                                                     {% for image in project.projectimage_set.all %}
                                                         <div class="col-xs-12 col-sm-6 col-md-4 image gallery-item img chevron">
                                                             {% with image.path|file_description as file_desc %}
-                                                                <img class="gallery-image" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"gallery_image" }}" alt="{% if file_desc.description %}{{ file_desc.description|escape }}{% endif %}" width="100%" data-image-big="{{ MEDIA_URL }}{{ image.path }}" />{% pin image=image description=project.title %}
+                                                                <img class="gallery-image" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"gallery_image" }}" alt="{% if file_desc.description %}{{ file_desc.description|escape }}{% endif %}" width="100%" data-image-big="{{ MEDIA_URL }}{{ image.path }}" />{% with image.path|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}{% endwith %}{% pin image=image description=project.title %}
                                                                 <div class="gallery-image-text">
                                                                     <div class="gallery-image-text-description">
                                                                         {% if file_desc.title %}
@@ -259,14 +259,14 @@
                                                     {% endfor %}
                                                 </div>
                                             {% endif %}
-                                            
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </article>
-                        
+
                     </div>
                 </div>
             </div>
