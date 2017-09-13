@@ -415,7 +415,7 @@ p a{font-weight: 700; }
     position: absolute;
     left: 0px;
     bottom: 0px;
-    color: $white;
+    color: $white !important;
     background: rgba(0, 0, 0, 0.2);
     display: block;
     padding: 0 5px 0 3px;
