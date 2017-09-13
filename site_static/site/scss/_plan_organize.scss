@@ -1,10 +1,17 @@
+// main:style.scss
+
 .plan_organize.secondlevel {
 	.img_left.secondlevel {
+		position: relative;
 		width:35%;
 		display:block;
 		float:left;
 		margin-right:5%;
 		margin-bottom:2%;
+
+		.photo-credits-over {
+			bottom: 10px;
+		}
 	}
 	.bottom_line {
 		margin-bottom:30px;

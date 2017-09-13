@@ -383,6 +383,10 @@ only screen and (                min-resolution: 2dppx) {
       left: 0;
       top: 0;
       padding: 0px;
+
+      .photo-credits-over {
+          display: none;
+      }
     }
 
     a.txt {
@@ -431,6 +435,12 @@ only screen and (                min-resolution: 2dppx) {
         padding-bottom: 80px;
       }
 
+      .img {
+          .photo-credits-over {
+              display: inline-block;
+          }
+      }
+
       .txt {
         padding: 0px;
         background: none !important;
@@ -451,6 +461,10 @@ only screen and (                min-resolution: 2dppx) {
           line-height: 18px !important;
           margin-top: 8px;
           display: block;
+        }
+
+        .photo-credits-over {
+            display: none;
         }
       }
 

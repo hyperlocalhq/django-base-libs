@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load url from future %}
-{% load i18n image_modifications base_tags tagging_tags favorites auth_extended exhibitions_tags %}
+{% load i18n image_modifications base_tags tagging_tags favorites auth_extended exhibitions_tags fb_tags %}
 {% block title %}{% trans "Exhibitions" %} – {% endblock %}
 {% block bodyclass %}exhibition-list no-transition{% endblock %}
 
@@ -75,11 +75,19 @@
                 <div class="item col-xs-12 col-sm-4 col-md-4 col-lg-3" data-filter-categories="initial_{{ exhibition.title|slugify|slice:"0:1" }}{% for cat in exhibition.categories.all %} cat_{{ cat.slug }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if exhibition.is_newly_open %} is_newly_open{% endif %}{% if exhibition.is_closing_soon %} is_closing_soon{% endif %}{% if exhibition.is_actual or exhibition.permanent %} is_actual{% endif %}{% if exhibition.is_upcoming %} is_upcoming{% endif %}{% if exhibition.free_entrance %} is_free_entrance{% endif %}{% if exhibition.show_family_ticket %} is_family_ticket{% endif %}{% if exhibition.show_group_ticket %} is_group_ticket{% endif %}{% if exhibition.show_yearly_ticket %} is_yearly_ticket{% endif %}{% if exhibition.member_of_museumspass %} is_museumspass{% endif %}{% if exhibition.suitable_for_disabled %} is_for_disabled{% endif %}{% if exhibition.is_for_children %} is_for_children{% endif %}{% if exhibition.is_today %} is_today{% endif %}{% if exhibition.is_tomorrow %} is_tomorrow{% endif %}{% if exhibition.is_within_7_days %} is_within_7_days{% endif %}{% if exhibition.is_within_30_days %} is_within_30_days{% endif %}{% if exhibition.suitable_for_disabled %} is_suitable_for_disabled{% endif %}{% if exhibition.special %} is_special{% endif %}{% if exhibition.permanent %} is_permanent{% endif %}" style="cursor: pointer" data-description-src="{{ exhibition.get_url_path }}ajax/">
                   <a href="{{ exhibition.get_url_path }}">
                     <span class="img">
-                    {% if exhibition.cover_image %}
-                      <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"exhibition_list" }}{% if_has_perm "exhibitions.change_exhibition" exhibition %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
-                    {% else %}
-                      <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ exhibition.museum.cover_image|modified_path:"exhibition_list" }}{% if_has_perm "exhibitions.change_exhibition" exhibition %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
-                    {% endif %}
+                        <div class="photo-credits-wrapper">
+                            {% if exhibition.cover_image %}
+                              <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"exhibition_list" }}{% if_has_perm "exhibitions.change_exhibition" exhibition %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+                              {% with exhibition.cover_image|file_description as file_desc %}
+                                  {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}
+                              {% endwith %}
+                            {% else %}
+                              <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ exhibition.museum.cover_image|modified_path:"exhibition_list" }}{% if_has_perm "exhibitions.change_exhibition" exhibition %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+                              {% with exhibition.museum.cover_image|file_description as file_desc %}
+                                  {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}
+                              {% endwith %}
+                            {% endif %}
+                        </div>
                     </span>
 
                     <h4><span class="from_date">{{ exhibition.start|date:"d.m.Y" }}</span> {% if exhibition.permanent %}{% trans "until further notice" %}{% else %}{% if exhibition.end %}{% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %}</h4>

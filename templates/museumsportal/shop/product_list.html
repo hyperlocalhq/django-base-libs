@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load url from future %}
-{% load i18n image_modifications base_tags tagging_tags favorites auth_extended babel infoblocks %}
+{% load i18n image_modifications base_tags tagging_tags favorites auth_extended babel infoblocks fb_tags %}
 {% block title %}{% trans "Shop" %} – {% endblock %}
 {% block bodyclass %}shop-product-list no-transition{% endblock %}
 
@@ -67,7 +67,7 @@
                                     <div class="item col-xs-12 col-sm-6 col-md-6 col-lg-4">
                                         <a href="{{ product.get_url_path }}">
                                             {% if product.image %}
-                                                <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="{{ product.title }}" /></span>
+                                                <span class="img"><span class="photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="{{ product.title }}" />{% with product.image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}</span></span>
                                             {% endif %}
                                             {% if product.price %}
                                                 <span class="price pull-right">{{ product.price|currencyfmt:"€" }}</span>
@@ -116,26 +116,26 @@
 </div>
 <script type="text/javascript">
     $(function() {
-    
+
         var carousel = $('.wrapper-carousel');
         var list = $('#container');
         var sidebar = $('.product-list-sidebar');
-        
+
         function setSidebar() {
-        
+
             sidebar.css("position", "relative");
             sidebar.css("left", "0px");
             sidebar.css("top", "0px");
-        
+
             if (carousel.width() == list.width()) {
-            
+
                 var position = sidebar.position();
                 sidebar.css("position", "absolute");
                 sidebar.css("left", position.left+"px");
                 sidebar.css("top", "0px");
             }
         }
-        
+
         setSidebar();
         $(window).resize(setSidebar);
     })

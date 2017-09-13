@@ -1,4 +1,4 @@
-{% load base_tags i18n image_modifications tagging_tags babel auth_extended fb_tags infoblocks favorites %}
+{% load base_tags i18n image_modifications tagging_tags babel auth_extended fb_tags infoblocks favorites fb_tags %}
 
 {% with object as museum %}
   <button id="cancel-description" class="cancel btn btn-info btn-lg">
@@ -18,7 +18,7 @@
         <a href="{{ exhibition.museum.get_url_path }}"><h3>
           {% if museum.parent %}
             {{ museum.parent.street_address }}
-          {% else %} 
+          {% else %}
             {{ museum.street_address }}
           {% endif %}
         </h3></a>
@@ -46,7 +46,12 @@
       {% if museum.cover_image %}
         <div id="cover_img">
           <a class="img" href="{{ museum.get_url_path }}">
-            <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ museum.cover_image|modified_path:"museum_list" }}{% if_has_perm "museums.change_museum" museum %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+            <div class="photo-credits-wrapper">
+                <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ museum.cover_image|modified_path:"museum_list" }}{% if_has_perm "museums.change_museum" museum %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+                {% with museum.cover_image|file_description as file_desc %}
+                    {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}
+                {% endwith %}
+            </div>
           </a>
         </div>
       {% endif %}

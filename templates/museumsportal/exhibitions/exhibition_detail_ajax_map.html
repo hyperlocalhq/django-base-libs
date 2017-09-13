@@ -1,11 +1,11 @@
-{% load base_tags i18n image_modifications tagging_tags babel auth_extended favorites infoblocks %}
+{% load base_tags i18n image_modifications tagging_tags babel auth_extended favorites infoblocks fb_tags %}
 
 {% with object as exhibition %}
   <button id="cancel-description" class="cancel btn btn-info btn-lg">
     <span class="icon icon-remove"></span>
     <span class="sr-only">{% trans "close" %}</span>
   </button>
-  
+
   <div class="map-ajax-detail">
     <article>
       <header>
@@ -39,9 +39,9 @@
         {% endif %}
 
         {% if exhibition.location_name %}
-        
+
           <h3>{{ exhibition.location_name }}</h3>
-        
+
         {% else %}
 
           {% if exhibition.museum %}
@@ -107,7 +107,12 @@
       {% if exhibition.cover_image %}
         <div id="cover_img">
           <a class="img" href="{{ exhibition.get_url_path }}">
-            <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"exhibition_list" }}{% if_has_perm "exhibitions.change_exhibition" exhibition %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+            <div class="photo-credits-wrapper">
+                <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"exhibition_list" }}{% if_has_perm "exhibitions.change_exhibition" exhibition %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+                {% with exhibition.cover_image|file_description as file_desc %}
+                    {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}
+                {% endwith %}
+            </div>
           </a>
         </div>
       {% endif %}

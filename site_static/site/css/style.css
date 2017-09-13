@@ -3365,6 +3365,10 @@ a.img-detail.loaded:hover img {
   padding: 0px;
 }
 
+.compact .item .img .photo-credits-over {
+  display: none;
+}
+
 .compact .item a.txt {
   float: left;
   padding: 10px;
@@ -3427,6 +3431,10 @@ a.img-detail.loaded:hover img {
   padding-bottom: 80px;
 }
 
+.compact .item:nth-child(1) .img .photo-credits-over {
+  display: inline-block;
+}
+
 .compact .item:nth-child(1) .txt {
   padding: 0px;
   background: none !important;
@@ -3448,6 +3456,10 @@ a.img-detail.loaded:hover img {
   line-height: 18px !important;
   margin-top: 8px;
   display: block;
+}
+
+.compact .item:nth-child(1) .txt .photo-credits-over {
+  display: none;
 }
 
 .compact .item:nth-child(1) .img {
@@ -4786,6 +4798,11 @@ dl dl dd:last-child {
 .img_block div,
 .img_block span {
   display: inline;
+}
+
+.img_and_desc div.photo-credits-wrapper,
+.img_block div.photo-credits-wrapper {
+  display: block;
 }
 
 .img_and_desc br,
@@ -6461,11 +6478,16 @@ select {
 }
 
 .plan_organize.secondlevel .img_left.secondlevel {
+  position: relative;
   width: 35%;
   display: block;
   float: left;
   margin-right: 5%;
   margin-bottom: 2%;
+}
+
+.plan_organize.secondlevel .img_left.secondlevel .photo-credits-over {
+  bottom: 10px;
 }
 
 .plan_organize.secondlevel .bottom_line {
@@ -7432,13 +7454,36 @@ p a {
   text-transform: none;
 }
 
+.photo-credits-wrapper {
+  position: relative;
+  display: block;
+}
+
 .photo-credits-over {
-  font-size: 1.3rem;
+  font-size: 1rem;
   position: absolute;
   left: 0px;
   bottom: 0px;
-  color: white;
+  color: #ffffff;
   background: rgba(0, 0, 0, 0.2);
   display: block;
-  padding: 0 5px;
+  padding: 0 5px 0 3px;
+  margin-right: 0px;
+  font-weight: 400 !important;
+  font-style: italic !important;
+  line-height: 1.42857143;
+  z-index: 1;
+}
+
+.is-xs .photo-credits-over {
+  font-size: 0.85rem;
+}
+
+.photo-credits-beneath {
+  color: #000000;
+  font-size: 0.85rem;
+  display: block;
+  font-weight: 400 !important;
+  font-style: italic !important;
+  line-height: 1.42857143;
 }

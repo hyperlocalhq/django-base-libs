@@ -1,4 +1,4 @@
-{% load i18n base_tags image_modifications babel %}
+{% load i18n base_tags image_modifications babel fb_tags %}
 {% get_objects featured_published shop.ShopProduct 10 as featured_products %}
 {% if featured_products %}
 <div id="carousel-shop" class="hidden-xs">
@@ -10,7 +10,7 @@
         {% if forloop.counter0|divisibleby:"2" %}<div class="item">{% endif %}
           <a href="{{ product.get_url_path }}">
             {% if product.image %}
-              <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="{{ product.title }}" /></span>
+              <span class="img"><span class="photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="{{ product.title }}" />{% with product.image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}</span></span>
             {% endif %}
             {% if product.price %}
               <span class="price pull-right">{{ product.price|currencyfmt:"€" }}</span>
@@ -84,7 +84,7 @@
                 });
             });
         });
-        
+
         $('.carousel.carousel-fade').hover(onFadeIn, onFadeOut);
         function onFadeIn() {
             $('.carousel .carousel-controls-wrapper').fadeIn(400);
@@ -95,4 +95,3 @@
     });
 </script>
 {% endif %}
-

@@ -1,4 +1,4 @@
-{% load base_tags cms_tags i18n image_modifications slideshows infoblocks %}
+{% load base_tags cms_tags i18n image_modifications slideshows infoblocks fb_tags %}
 
 {% slideshow "start_slideshow_de" %}
 
@@ -62,7 +62,12 @@
             {% for tip in upcoming_tips_of_the_day %}
                 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 {% if forloop.counter|divisibleby:3 %}hidden-sm{% endif %}">
                     <a href="{{ tip.content_object.get_url_path }}">
-                        <img src="{{ MEDIA_URL }}{{ tip.image|modified_path:"editorial" }}" alt="{{ tip.title }}" />
+                        <div class="photo-credits-wrapper">
+                            <img src="{{ MEDIA_URL }}{{ tip.image|modified_path:"editorial" }}" alt="{{ tip.title }}" />
+                            {% with tip.image|file_description as file_desc %}
+                                {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}
+                            {% endwith %}
+                        </div>
                         <div class="copy">
                             <h4><strong>
                                 {{ tip.day|date:"D, j. M" }}

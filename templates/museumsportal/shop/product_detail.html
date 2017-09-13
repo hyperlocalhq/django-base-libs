@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load url from future %}
-{% load i18n image_modifications base_tags tagging_tags favorites auth_extended babel %}
+{% load i18n image_modifications base_tags tagging_tags favorites auth_extended babel fb_tags %}
 {% block title %}{% trans "Shop" %} – {{ object.title }} – {% endblock %}
 {% block bodyclass %}shop-product-detail shop-product-list no-transition{% endblock %}
 
@@ -53,12 +53,12 @@
                         </div>
                         <div class="col-xs-12 visible-xs">
                             <a href="{{ object.link }}" target="_blank" class="product-img-hidden-xs">
-                                <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{{ object.title }}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"shop_big" }}" /></span>
+                                <span class="img"><span class="photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{{ object.title }}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"shop_big" }}" />{% with object.image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}</span></span>
                             </a>
                         </div>
                         <div class="col-xs-12">
                             <a href="{{ object.link }}" target="_blank" class="hidden-xs col-sm-6 product-img-hidden-xs">
-                                <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{{ object.title }}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"shop_small" }}" /></span>
+                                <span class="img"><span class="photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{{ object.title }}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"shop_small" }}" />{% with object.image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}</span></span>
                             </a>
                             {{ object.get_rendered_description }}
                             {% if object.price %}
@@ -150,7 +150,7 @@
                             <div class="item col-xs-12 col-sm-4 col-md-4 col-lg-3{% if forloop.counter == 4 %} hidden-sm hidden-md{% endif %}">
                                 <a href="{{ product.get_url_path }}">
                                     {% if product.image %}
-                                        <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="product.title" /></span>
+                                        <span class="img"><span class="photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="product.title" />{% with product.image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}</span></span>
                                     {% endif %}
                                     {% if product.price %}
                                         <span class="price pull-right">{{ product.price|currencyfmt:"€" }}</span>

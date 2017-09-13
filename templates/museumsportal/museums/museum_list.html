@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load url from future %}
-{% load i18n image_modifications base_tags tagging_tags favorites auth_extended %}
+{% load i18n image_modifications base_tags tagging_tags favorites auth_extended fb_tags %}
 {% block title %}{% trans "Museums" %} – {% endblock %}
 {% block bodyclass %}museum-list no-transition{% endblock %}
 
@@ -72,7 +72,12 @@
                   <a href="{{ museum.get_url_path }}">
                     {% if museum.cover_image %}
                       <span class="img">
-                        <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ museum.cover_image|modified_path:"museum_list" }}{% if_has_perm "museums.change_museum" museum %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+                        <div class="photo-credits-wrapper">
+                            <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ museum.cover_image|modified_path:"museum_list" }}{% if_has_perm "museums.change_museum" museum %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+                            {% with museum.cover_image|file_description as file_desc %}
+                                {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}
+                            {% endwith %}
+                        </div>
                       </span>
                     {% endif %}
                     <h3>{{ museum.title }}</h3>

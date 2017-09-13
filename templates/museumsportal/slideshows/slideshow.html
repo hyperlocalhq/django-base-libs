@@ -1,4 +1,4 @@
-{% load i18n image_modifications %}
+{% load i18n image_modifications fb_tags %}
 <div id="carousel-startpage" class="hidden-xs">
   <div class="container">
     <div id="carousel" class="carousel carousel-fade">
@@ -19,6 +19,9 @@
               <img src="{{ STATIC_URL }}site/img/placeholder_slideshow.gif" data-original="{{ UPLOADS_URL }}{{ slide.path|modified_path:"slideshow" }}" alt="" />
               {% endcomment %}
               <img src="{{ UPLOADS_URL }}{{ slide.path|modified_path:"slideshow" }}" alt="" class="loaded" />
+              {% with slide.path|file_description as file_desc %}
+                  {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}
+              {% endwith %}
               <div class="carousel-caption">
                 <h2><b>{{ slide.title|striptags }}</b><br/>
                 {{ slide.subtitle|striptags }}</h2>
@@ -69,4 +72,3 @@
         });
     });
 </script>
-

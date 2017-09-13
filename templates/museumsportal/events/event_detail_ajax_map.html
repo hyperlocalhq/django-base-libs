@@ -1,18 +1,18 @@
-{% load i18n image_modifications base_tags tagging_tags favorites auth_extended infoblocks %}
+{% load i18n image_modifications base_tags tagging_tags favorites auth_extended infoblocks fb_tags %}
 
 {% with object as event %}
   <button id="cancel-description" class="cancel btn btn-info btn-lg">
     <span class="icon icon-remove"></span>
     <span class="sr-only">{% trans "close" %}</span>
   </button>
-  
+
   <div class="map-ajax-detail">
     <article>
       <header>
         <h2>
           {% with event.get_closest_event_time as event_time %}
             {% for cat in event.categories.all %}{{ cat.title }}{% if not forloop.last %}, {% else %}: {% endif %}{% endfor %}<br/>
-              
+
             <time datetime="{{ event_time.event_date|date:"Y-m-d" }}">
               <span class="nobr">{{ event_time.event_date|date:"j. F Y" }}</span>
               {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %}&nbsp;Uhr{% endif %}
@@ -83,7 +83,12 @@
       {% if event.cover_image %}
         <div id="cover_img">
           <a class="img" href="{{ event.get_url_path }}">
-            <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ event.cover_image|modified_path:"event_list" }}{% if_has_perm "event.change_event" exhibition %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+            <div class="photo-credits-wrapper">
+                <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ event.cover_image|modified_path:"event_list" }}{% if_has_perm "event.change_event" exhibition %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+                {% with event.cover_image|file_description as file_desc %}
+                    {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}
+                {% endwith %}
+            </div>
           </a>
         </div>
       {% endif %}
