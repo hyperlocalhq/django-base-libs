@@ -11,6 +11,7 @@ urlpatterns = patterns(
     url(
         r'^$',
         SearchView(
+            load_all=False,
             searchqueryset=MultilingualSearchQuerySet(),
             limit=4,
         ),
@@ -19,6 +20,7 @@ urlpatterns = patterns(
     url(
         r'^full/$',
         SearchView(
+            load_all=False,
             searchqueryset=MultilingualSearchQuerySet(),
         ),
         name='haystack_full_search'
