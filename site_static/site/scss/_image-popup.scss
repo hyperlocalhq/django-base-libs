@@ -51,11 +51,11 @@ img[data-popup-image-src] {
             top: 0;
             left: 0;
             bottom: auto;
-            color: $white;
+            color: $white !important;
             background: transparent;
 
             font-weight: $font-regular;
-            font-size: 1.2em;
+            font-size: 1.2rem;
             line-height: 150%;
             letter-spacing: inherit;
             font-style: italic;
