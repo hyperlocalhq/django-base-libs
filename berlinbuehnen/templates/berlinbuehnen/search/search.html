@@ -18,7 +18,11 @@
                         <script>
                             $('label').click(function(e) {
                                 e.stopPropagation();
-                            })
+                            });
+                            if (!location.search) {
+                                $('[name="t"]').click();
+                                $('#id_q').focus();
+                            }
                         </script>
                     </div>
                 </div>
