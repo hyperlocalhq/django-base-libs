@@ -1,5 +1,5 @@
 {% extends "bulletin_board/details_base.html" %}
-{% load image_mods_tags bulletin_board_tags i18n favorites navigation_tags %}
+{% load image_mods_tags bulletin_board_tags i18n favorites navigation_tags fb_tags %}
 
 {% block open_graph %}
     <!-- Open Graph -->
@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block sidebar %}
-    
+
     {{ block.super }}
 
     <div class="button-group">
@@ -49,18 +49,21 @@
 
     {% if object.image %}
         <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"article" }}" alt="{{ object.get_title|escape }}" />
-        {% if object.image_description %}
-            <h5 class="caption">{{ object.image_description }}</h5>
-        {% endif %}
+        {% with object.image|file_description as file_desc %}
+            {% if file_desc.author %}<div class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</div>{% endif %}
+            {% if object.image_description %}
+                <h5 class="caption">{{ object.image_description }}</h5>
+            {% endif %}
+        {% endwith %}
     {% endif %}
 
-    
+
     {% if object.description %}
         <h5>{% trans 'Description' %}</h5>
         <div class="line"></div>
         <p>{{ object.get_description|urlize|linebreaks }}</p>
     {% endif %}
-    
+
     {% if object.institution or object.contact_person or object.phone or object.email %}
         <h5>{% trans 'Contact' %}</h5>
         <div class="line"></div>
@@ -89,7 +92,7 @@
             {% endif %}
         </p>
     {% endif %}
-    
+
     {% if object.categories.all %}
         <h5>{% trans 'Categories' %}</h5>
         <div class="line"></div>
@@ -99,7 +102,7 @@
             {% endfor %}
         </p>
     {% endif %}
-    
+
     {% if object.external_url and object.content_provider %}
         <p><a href="{{ object.external_url }}" target="_blank">{% blocktrans with content_provider_title=object.content_provider.title %}More info at {{ content_provider_title }}{% endblocktrans %}</a></p>
     {% elif object.external_url %}

@@ -2019,45 +2019,21 @@ h5 {
 }
 
 h5.caption {
-  font-size: 0.7rem;
-  position: relative;
-  left: 0px;
-  bottom: 50px;
-  color: #fff !important;
-  background: rgba(0, 0, 0, 0.2);
-  display: inline-block;
-  padding: 0 5px 0 3px;
-  margin: 1em 0px 0 0;
-  text-transform: none;
-  transform: translateY(-100%);
-  font-weight: 400 !important;
-  font-style: italic !important;
-}
-
-h5.caption p {
-  margin: 0 !important;
-  padding: 0 !important;
-  font-size: 0.7rem !important;
-  color: #fff !important;
-}
-
-.is-xs h5.caption p {
-  font-size: 0.55rem !important;
-}
-
-h5.caption * {
-  font-weight: 400 !important;
-  font-style: italic !important;
-}
-
-.is-xs h5.caption {
-  font-size: 0.55rem;
-  bottom: 39px;
-}
-
-h5.caption-old {
+  /*font-size: 0.7rem;
+        position: relative;
+        left: 0px;
+        bottom: 50px;
+        color: $white !important;
+        background: rgba(0, 0, 0, 0.2);
+        display: inline-block;
+        padding: 0 5px 0 3px;
+        margin: 1em 0px 0 0;
+        text-transform: none;
+        transform:translateY(-100%);
+        font-weight: $font-regular !important;
+        font-style: italic !important;*/
   font-weight: 400;
-  font-size: 1.2em;
+  font-size: 1.2rem;
   line-height: 150%;
   letter-spacing: inherit;
   font-style: italic;
@@ -2071,41 +2047,89 @@ h5.caption-old {
   transform: none;
 }
 
-div.caption, span.caption {
-  font-size: 0.7rem;
-  position: relative;
-  left: 0px;
-  bottom: 50px;
-  color: #fff !important;
-  background: rgba(0, 0, 0, 0.2);
-  display: inline-block;
-  padding: 0 5px 0 3px;
-  margin: 1em 0px 0 0;
+h5.caption p {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 1.2rem !important;
+}
+
+.is-xs h5.caption p {
+  font-size: 1rem !important;
+}
+
+h5.caption * {
+  color: #777777 !important;
+}
+
+.is-xs h5.caption {
+  font-size: 1rem;
+}
+
+h5.caption-old {
+  font-weight: 400;
+  font-size: 1.2rem;
+  line-height: 150%;
+  letter-spacing: inherit;
+  font-style: italic;
+  margin: -30px 0 30px;
   text-transform: none;
-  transform: translateY(-100%);
-  font-weight: 400 !important;
-  font-style: italic !important;
+  color: #777777 !important;
+  background: transparent;
+  padding: 0;
+  position: static;
+  display: block;
+  transform: none;
+}
+
+object + h5.caption-old {
+  margin-top: 5px;
+}
+
+div.caption, span.caption {
+  /*font-size: 0.7rem;
+    position: relative;
+    left: 0px;
+    bottom: 50px;
+    color: $white !important;
+    background: rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    padding: 0 5px 0 3px;
+    margin: 1em 0px 0 0;
+    text-transform: none;
+    transform:translateY(-100%);
+    font-weight: $font-regular !important;
+    font-style: italic !important;*/
+  font-weight: 400;
+  font-size: 1.2rem;
+  line-height: 150%;
+  letter-spacing: inherit;
+  font-style: italic;
+  margin: -30px 0 30px;
+  text-transform: none;
+  color: #777777 !important;
+  background: transparent;
+  padding: 0;
+  position: static;
+  display: block;
+  transform: none;
 }
 
 div.caption p, span.caption p {
   margin: 0 !important;
   padding: 0 !important;
-  font-size: 0.7rem !important;
-  color: #fff !important;
+  font-size: 1.2rem !important;
 }
 
 .is-xs div.caption p, .is-xs span.caption p {
-  font-size: 0.55rem !important;
+  font-size: 1rem !important;
 }
 
 div.caption *, span.caption * {
-  font-weight: 400 !important;
-  font-style: italic !important;
+  color: #777777 !important;
 }
 
 .is-xs div.caption, .is-xs span.caption {
-  font-size: 0.55rem;
-  bottom: 39px;
+  font-size: 1rem;
 }
 
 .caption .caption {
@@ -2674,6 +2698,10 @@ body.show-layer.search-layer .layer#search-layer {
 
 body.show-layer.image-layer .layer#image-layer {
   display: block;
+}
+
+.photo-credits-wrapper {
+  position: relative;
 }
 
 .photo-credits-over {
@@ -9383,6 +9411,14 @@ img[data-popup-image-src] {
 }
 
 .is-xs .header > img, .is-xs .header .sticky img {
+  display: none;
+}
+
+.header .photo-credits-over {
+  z-index: 1;
+}
+
+.is-xs .header .photo-credits-over {
   display: none;
 }
 

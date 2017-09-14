@@ -452,7 +452,7 @@ h5 {
     }
 
     &.caption {
-        font-size: 0.7rem;
+        /*font-size: 0.7rem;
         position: relative;
         left: 0px;
         bottom: 50px;
@@ -464,34 +464,10 @@ h5 {
         text-transform: none;
         transform:translateY(-100%);
         font-weight: $font-regular !important;
-        font-style: italic !important;
+        font-style: italic !important;*/
 
-        p {
-            margin: 0 !important;
-            padding: 0 !important;
-            font-size: 0.7rem !important;
-            color: $white !important;
-
-            .is-xs & {
-                font-size: 0.55rem !important;
-            }
-        }
-
-        * {
-            font-weight: $font-regular !important;
-            font-style: italic !important;
-
-        }
-
-        .is-xs & {
-            font-size: 0.55rem;
-            bottom: 39px;
-        }
-    }
-
-    &.caption-old {
         font-weight: $font-regular;
-        font-size: 1.2em;
+        font-size: 1.2rem;
         line-height: 150%;
         letter-spacing: inherit;
         font-style: italic;
@@ -503,11 +479,54 @@ h5 {
         position: static;
         display: block;
         transform: none;
+
+        p {
+            margin: 0 !important;
+            padding: 0 !important;
+            font-size: 1.2rem !important;
+            //color: $white !important;
+
+            .is-xs & {
+                font-size: 1rem !important;
+            }
+        }
+
+        * {
+            //font-weight: $font-regular !important;
+            //font-style: italic !important;
+            color: $grey-darker !important;
+
+        }
+
+        .is-xs & {
+            font-size: 1rem;
+            //bottom: 39px;
+        }
+    }
+
+    &.caption-old {
+        font-weight: $font-regular;
+        font-size: 1.2rem;
+        line-height: 150%;
+        letter-spacing: inherit;
+        font-style: italic;
+        margin: -30px 0 30px;
+        text-transform: none;
+        color: $grey-darker !important;
+        background: transparent;
+        padding: 0;
+        position: static;
+        display: block;
+        transform: none;
+
+        object + & {
+            margin-top: 5px;
+        }
     }
 }
 
 div.caption, span.caption {
-    font-size: 0.7rem;
+    /*font-size: 0.7rem;
     position: relative;
     left: 0px;
     bottom: 50px;
@@ -519,27 +538,42 @@ div.caption, span.caption {
     text-transform: none;
     transform:translateY(-100%);
     font-weight: $font-regular !important;
-    font-style: italic !important;
+    font-style: italic !important;*/
+
+    font-weight: $font-regular;
+    font-size: 1.2rem;
+    line-height: 150%;
+    letter-spacing: inherit;
+    font-style: italic;
+    margin: -30px 0 30px;
+    text-transform: none;
+    color: $grey-darker !important;
+    background: transparent;
+    padding: 0;
+    position: static;
+    display: block;
+    transform: none;
 
     p {
         margin: 0 !important;
         padding: 0 !important;
-        font-size: 0.7rem !important;
-        color: $white !important;
+        font-size: 1.2rem !important;
+        //color: $white !important;
 
         .is-xs & {
-            font-size: 0.55rem !important;
+            font-size: 1rem !important;
         }
     }
 
     * {
-        font-weight: $font-regular !important;
-        font-style: italic !important;
+        //font-weight: $font-regular !important;
+        //font-style: italic !important;
+        color: $grey-darker !important;
     }
 
     .is-xs & {
-        font-size: 0.55rem;
-        bottom: 39px;
+        font-size: 1rem;
+        //bottom: 39px;
     }
 }
 
@@ -1105,6 +1139,10 @@ ul.button-list {
     body.show-layer.image-layer &#image-layer {
         display: block;
     }
+}
+
+.photo-credits-wrapper {
+    position: relative;
 }
 
 .photo-credits-over {
