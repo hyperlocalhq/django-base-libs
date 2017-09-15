@@ -12,10 +12,10 @@
                 {% if list_article.image %}
                     {% with list_article.image|file_description as file_desc %}
                         <img src="{{ UPLOADS_URL }}{{ list_article.image|modified_path:"list" }}" alt="{{ list_article.get_title|escape }}"/>
-                        {% if list_article.image_description %}
-                            <div class="photo-credits-beneath">{{ list_article.get_rendered_image_description }}</div>
-                        {% elif file_desc.author %}
+                        {% if file_desc.author %}
                             <div class="photo-credits-beneath">{% trans "Photo" %}: {{ file_desc.author }}</div>
+                        {% elif list_article.image_description %}
+                            <div class="photo-credits-beneath">{{ list_article.get_rendered_image_description }}</div>
                         {% endif %}
                     {% endwith %}
                 {% else %}

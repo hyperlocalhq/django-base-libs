@@ -79,14 +79,15 @@
 
 
         {% if article.image %}
-            <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"article" }}" alt="{{ article.get_title|escape }}"/>
             {% with article.image|file_description as file_desc %}
-                {% if article.image_description %}
-                    <div CLASS="caption">{{ article.get_rendered_image_description }}</div>
-                {% elif file_desc.author %}
-                    <H5 CLASS="caption">{% trans "Photo" %}: {{ file_desc.author }}</H5>
-                {% endif %}
+                <div class="photo-credits-wrapper">
+                    <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"article" }}" alt="{{ article.get_title|escape }}"/>
+                    {% if file_desc.author %}<div class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</div>{% endif %}
+                </div>
             {% endwith %}
+            {% if article.image_description %}
+                <div CLASS="caption">{{ article.get_rendered_image_description }}</div>
+            {% endif %}
         {% endif %}
 
         {% parse article.get_rendered_content %}
