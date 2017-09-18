@@ -1,4 +1,4 @@
-{% load i18n image_modifications %}
+{% load i18n image_modifications fb_tags %}
 {% if menu_blocks.museums %}
   {% with menu_block=menu_blocks.museums %}
     <div id="mega_museums" class="mega_drop_down row hide">
@@ -21,7 +21,7 @@
           {% if menu_block.right_column_link %}
             {% if menu_block.right_column_image %}
               <a href="{{ menu_block.right_column_link }}">
-                <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />
+                <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
               </a>
             {% endif %}
             {% if menu_block.right_column_headline %}
@@ -33,7 +33,7 @@
             <p class="clearfix"><a class="btn btn-default" href="{{ menu_block.right_column_link }}">{% trans "more" %}</a></p>
           {% else %}
             {% if menu_block.right_column_image %}
-              <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />
+              <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
             {% endif %}
             {% if menu_block.right_column_headline %}
               <h4>{{ menu_block.right_column_headline }}</h4>
@@ -71,7 +71,7 @@
           {% if menu_block.right_column_link %}
             {% if menu_block.right_column_image %}
               <a href="{{ menu_block.right_column_link }}">
-                <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />
+                <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
               </a>
             {% endif %}
             {% if menu_block.right_column_headline %}
@@ -83,7 +83,7 @@
             <p class="clearfix"><a class="btn btn-default" href="{{ menu_block.right_column_link }}">{% trans "more" %}</a></p>
           {% else %}
             {% if menu_block.right_column_image %}
-              <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />
+              <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
             {% endif %}
             {% if menu_block.right_column_headline %}
               <h4>{{ menu_block.right_column_headline }}</h4>
@@ -121,7 +121,7 @@
           {% if menu_block.right_column_link %}
             {% if menu_block.right_column_image %}
               <a href="{{ menu_block.right_column_link }}">
-                <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />
+                <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
               </a>
             {% endif %}
             {% if menu_block.right_column_headline %}
@@ -133,7 +133,7 @@
             <p class="clearfix"><a class="btn btn-default" href="{{ menu_block.right_column_link }}">{% trans "more" %}</a></p>
           {% else %}
             {% if menu_block.right_column_image %}
-              <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />
+              <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
             {% endif %}
             {% if menu_block.right_column_headline %}
               <h4>{{ menu_block.right_column_headline }}</h4>
@@ -171,7 +171,7 @@
           {% if menu_block.right_column_link %}
             {% if menu_block.right_column_image %}
               <a href="{{ menu_block.right_column_link }}">
-                <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />
+                <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
               </a>
             {% endif %}
             {% if menu_block.right_column_headline %}
@@ -183,7 +183,7 @@
             <p class="clearfix"><a class="btn btn-default" href="{{ menu_block.right_column_link }}">{% trans "more" %}</a></p>
           {% else %}
             {% if menu_block.right_column_image %}
-              <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />
+              <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
             {% endif %}
             {% if menu_block.right_column_headline %}
               <h4>{{ menu_block.right_column_headline }}</h4>
@@ -220,7 +220,7 @@
           {% if menu_block.right_column_link %}
             {% if menu_block.right_column_image %}
               <a href="{{ menu_block.right_column_link }}">
-                <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />
+                <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
               </a>
             {% endif %}
             {% if menu_block.right_column_headline %}
@@ -232,7 +232,7 @@
             <p class="clearfix"><a class="btn btn-default" href="{{ menu_block.right_column_link }}">{% trans "more" %}</a></p>
           {% else %}
             {% if menu_block.right_column_image %}
-              <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />
+              <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
             {% endif %}
             {% if menu_block.right_column_headline %}
               <h4>{{ menu_block.right_column_headline }}</h4>
