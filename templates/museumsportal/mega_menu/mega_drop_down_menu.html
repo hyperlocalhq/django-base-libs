@@ -20,7 +20,7 @@
         <div class="no-richtext">
           {% if menu_block.right_column_link %}
             {% if menu_block.right_column_image %}
-              <a href="{{ menu_block.right_column_link }}">
+              <a href="{{ menu_block.right_column_link }}" class="photo-credits-wrapper">
                 <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
               </a>
             {% endif %}
@@ -33,7 +33,9 @@
             <p class="clearfix"><a class="btn btn-default" href="{{ menu_block.right_column_link }}">{% trans "more" %}</a></p>
           {% else %}
             {% if menu_block.right_column_image %}
-              <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
+              <span  class="photo-credits-wrapper">
+                  <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
+              </span>
             {% endif %}
             {% if menu_block.right_column_headline %}
               <h4>{{ menu_block.right_column_headline }}</h4>
@@ -70,7 +72,7 @@
         <div class="no-richtext">
           {% if menu_block.right_column_link %}
             {% if menu_block.right_column_image %}
-              <a href="{{ menu_block.right_column_link }}">
+              <a href="{{ menu_block.right_column_link }}" class="photo-credits-wrapper">
                 <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
               </a>
             {% endif %}
@@ -83,7 +85,9 @@
             <p class="clearfix"><a class="btn btn-default" href="{{ menu_block.right_column_link }}">{% trans "more" %}</a></p>
           {% else %}
             {% if menu_block.right_column_image %}
-              <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
+              <span class="photo-credits-wrapper">
+                  <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
+              </span>
             {% endif %}
             {% if menu_block.right_column_headline %}
               <h4>{{ menu_block.right_column_headline }}</h4>
@@ -120,7 +124,7 @@
         <div class="no-richtext">
           {% if menu_block.right_column_link %}
             {% if menu_block.right_column_image %}
-              <a href="{{ menu_block.right_column_link }}">
+              <a href="{{ menu_block.right_column_link }}" class="photo-credits-wrapper">
                 <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
               </a>
             {% endif %}
@@ -133,7 +137,9 @@
             <p class="clearfix"><a class="btn btn-default" href="{{ menu_block.right_column_link }}">{% trans "more" %}</a></p>
           {% else %}
             {% if menu_block.right_column_image %}
-              <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
+                <span class="photo-credits-wrapper">
+                    <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
+                </span>
             {% endif %}
             {% if menu_block.right_column_headline %}
               <h4>{{ menu_block.right_column_headline }}</h4>
@@ -170,7 +176,7 @@
         <div class="no-richtext">
           {% if menu_block.right_column_link %}
             {% if menu_block.right_column_image %}
-              <a href="{{ menu_block.right_column_link }}">
+              <a href="{{ menu_block.right_column_link }}" class="photo-credits-wrapper">
                 <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
               </a>
             {% endif %}
@@ -183,7 +189,9 @@
             <p class="clearfix"><a class="btn btn-default" href="{{ menu_block.right_column_link }}">{% trans "more" %}</a></p>
           {% else %}
             {% if menu_block.right_column_image %}
-              <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
+                <span class="photo-credits-wrapper">
+                    <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
+                </span>
             {% endif %}
             {% if menu_block.right_column_headline %}
               <h4>{{ menu_block.right_column_headline }}</h4>
@@ -219,7 +227,7 @@
         <div class="no-richtext">
           {% if menu_block.right_column_link %}
             {% if menu_block.right_column_image %}
-              <a href="{{ menu_block.right_column_link }}">
+              <a href="{{ menu_block.right_column_link }}" class="photo-credits-wrapper">
                 <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
               </a>
             {% endif %}
@@ -232,7 +240,9 @@
             <p class="clearfix"><a class="btn btn-default" href="{{ menu_block.right_column_link }}">{% trans "more" %}</a></p>
           {% else %}
             {% if menu_block.right_column_image %}
-              <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
+                <span class="photo-credits-wrapper">
+                    <img class="img-responsive" alt="" src="{{ MEDIA_URL }}{{ menu_block.right_column_image|modified_path:"editorial" }}" />{% with menu_block.right_column_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}
+                </span>
             {% endif %}
             {% if menu_block.right_column_headline %}
               <h4>{{ menu_block.right_column_headline }}</h4>
