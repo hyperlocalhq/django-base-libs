@@ -174,12 +174,12 @@
                                 <a href="{% url 'theater_of_the_week' %}">
                                     <h3>{% trans "Theater of the week" %}</h3>
                                     {% if article.image %}
-                                        <div class="img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ article.image.path|modified_path:"news_image"  }}" alt="{{ article.image_description|escape }}" /></div>
+                                        <div class="img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ article.image.path|modified_path:"news_image"  }}" alt="{{ article.image_description|escape }}" />{% with article.image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}{% endwith %}</div>
                                     {% elif article.theater.cover_image %}
-                                        <div class="img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{article.theater.cover_image.path|modified_path:"news_image"  }}" alt="{% trans "Theater of the week" %}" /></div>
+                                        <div class="img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{article.theater.cover_image.path|modified_path:"news_image"  }}" alt="{% trans "Theater of the week" %}" />{% with article.theater.cover_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}{% endwith %}</div>
                                     {% elif article.theater.image_set.exists %}
                                         {% with article.theater.image_set.all|first as first %}
-                                            <div class="img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{first.path|modified_path:"news_image"  }}" alt="{% trans "Theater of the week" %}" /></div>
+                                            <div class="img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{first.path|modified_path:"news_image"  }}" alt="{% trans "Theater of the week" %}" />{% with first|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}{% endwith %}</div>
                                         {% endwith %}
                                     {% endif %}
                                     <h2>{% if article.short_title %}{{ article.short_title }}{% else %}{{ article.title }}{% endif %}</h2>
