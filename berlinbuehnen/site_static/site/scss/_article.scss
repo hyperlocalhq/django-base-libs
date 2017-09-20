@@ -151,14 +151,6 @@
                 font-weight: $regular;
             }
 
-            .title {
-                float: left;
-
-                &:after {
-                    //content: ",\00a0";
-                }
-            }
-
             .author {
                 font-weight: $regular !important;
                 font-style: italic !important;
@@ -182,6 +174,19 @@
                 .is-xs & {
                     font-size: 0.85rem;
                     margin-top: -12px;
+                }
+            }
+
+            .title {
+                //float: left;
+
+                &:after {
+                    //content: ",\00a0";
+                }
+
+                + .author {
+                    margin-top: 34px;
+                    margin-bottom: 30px;
                 }
             }
         }

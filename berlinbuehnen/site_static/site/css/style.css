@@ -5573,10 +5573,6 @@ select {
   font-weight: 400;
 }
 
-.article .article-content-cms .img_and_desc .title {
-  float: left;
-}
-
 .article .article-content-cms .img_and_desc .author {
   font-weight: 400 !important;
   font-style: italic !important;
@@ -5601,6 +5597,11 @@ select {
 .is-xs .article .article-content-cms .img_and_desc .author {
   font-size: 0.85rem;
   margin-top: -12px;
+}
+
+.article .article-content-cms .img_and_desc .title + .author {
+  margin-top: 34px;
+  margin-bottom: 30px;
 }
 
 .is-xs .article .main-container {
@@ -5712,10 +5713,6 @@ select {
   font-weight: 400;
 }
 
-.theater-of-the-week .article-content-cms .img_and_desc .title {
-  float: left;
-}
-
 .theater-of-the-week .article-content-cms .img_and_desc .author {
   font-weight: 400 !important;
   font-style: italic !important;
@@ -5735,6 +5732,11 @@ select {
 
 .lang_en .theater-of-the-week .article-content-cms .img_and_desc .author:before {
   content: "Photo:\00a0";
+}
+
+.theater-of-the-week .article-content-cms .img_and_desc .title + .author {
+  margin-top: 34px;
+  margin-bottom: 30px;
 }
 
 .top-widgets-wrapper .theater-of-the-week-widget-wrapper .top-widget-button-up-wrapper {
