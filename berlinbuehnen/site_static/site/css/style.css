@@ -5582,8 +5582,8 @@ select {
   background: rgba(0, 0, 0, 0.2);
   position: relative;
   padding: 0 5px 0 3px;
-  margin-top: -14px;
   display: table;
+  transform: translateY(-100%);
 }
 
 .article .article-content-cms .img_and_desc .author:before {
@@ -5600,7 +5600,7 @@ select {
 }
 
 .article .article-content-cms .img_and_desc .title + .author {
-  margin-top: -34px;
+  margin-top: -20px;
   margin-bottom: 20px;
 }
 
@@ -5722,8 +5722,8 @@ select {
   background: rgba(0, 0, 0, 0.2);
   position: relative;
   padding: 0 5px 0 3px;
-  margin-top: -14px;
   display: table;
+  transform: translateY(-100%);
 }
 
 .theater-of-the-week .article-content-cms .img_and_desc .author:before {
@@ -5735,7 +5735,7 @@ select {
 }
 
 .theater-of-the-week .article-content-cms .img_and_desc .title + .author {
-  margin-top: -34px;
+  margin-top: -20px;
   margin-bottom: 20px;
 }
 

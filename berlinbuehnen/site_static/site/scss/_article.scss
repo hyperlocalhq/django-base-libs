@@ -160,8 +160,8 @@
                 background: rgba(0, 0, 0, 0.2);
                 position: relative;
                 padding: 0 5px 0 3px;
-                margin-top: -14px;
                 display: table;
+                transform: translateY(-100%);
 
                 &:before {
                     content: "Foto:\00a0";
@@ -185,7 +185,7 @@
                 }
 
                 + .author {
-                    margin-top: -34px;
+                    margin-top: -20px;
                     margin-bottom: 20px;
                 }
             }
