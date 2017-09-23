@@ -238,7 +238,7 @@
                                             <!-- main sidebar -->
                                             <div class="col-xs-12 col-md-4 right">
                                                 <div class="accordion sidebar-accordion">
-                                                    {% with festivals=event.get_festivals %}
+                                                    {% with event.get_festivals as festivals %}
                                                         {% if festivals %}
                                                             <div class="accordion-item">
                                                                 <h4 class="accordion-item-head open">{% trans "Belongs to festival" %}</h4>
