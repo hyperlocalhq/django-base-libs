@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+from __future__ import unicode_literals
 from django.core.management.base import BaseCommand
 
 SILENT, NORMAL, VERBOSE = 0, 1, 2
@@ -79,9 +80,9 @@ class Command(BaseCommand):
             except ObjectMapper.MultipleObjectsReturned:
                 # delete duplicates
                 for mapper in s.objectmapper_set.filter(
-                    external_id=external_id,
-                    content_type__app_label="marketplace",
-                    content_type__model="joboffer",
+                        external_id=external_id,
+                        content_type__app_label="marketplace",
+                        content_type__model="joboffer",
                 ).order_by("object_id")[1:]:
                     if mapper.content_object:
                         mapper.content_object.delete()
@@ -94,11 +95,13 @@ class Command(BaseCommand):
             job_offer.modified_date = change_date
 
             job_offer.position = get_value(node_job, "title")
-            job_offer.description = "\n\n".join((
-                html_to_plain_text(get_value(node_job, "description")),
-                html_to_plain_text(get_value(node_job, "company_description")),
-                html_to_plain_text(get_value(node_job, "how_to_apply")),
-            ))
+            description = get_value(node_job, "description")
+            description = html_to_plain_text(description)
+            company_description = get_value(node_job, "company_description")
+            company_description = html_to_plain_text(company_description)
+            how_to_apply = get_value(node_job, "how_to_apply")
+            how_to_apply = html_to_plain_text(how_to_apply)
+            job_offer.description = "\n\n".join((description, company_description, how_to_apply))
             job_offer.offering_institution_title = get_value(node_job, "company_name")
 
             job_offer.url0_link = get_value(node_job, "link")
@@ -184,7 +187,7 @@ class Command(BaseCommand):
             )
 
             if verbosity > NORMAL:
-                print job_offer.__dict__
+                self.stdout.write(" - {} (id={})".format(job_offer, job_offer.pk))
 
             if not mapper:
                 mapper = ObjectMapper(
@@ -193,6 +196,3 @@ class Command(BaseCommand):
                 )
                 mapper.content_object = job_offer
                 mapper.save()
-
-                if verbosity > NORMAL:
-                    print mapper.__dict__

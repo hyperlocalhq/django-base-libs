@@ -1,9 +1,6 @@
 # -*- coding: UTF-8 -*-
 from __future__ import unicode_literals
-from optparse import make_option
 from django.core.management.base import NoArgsCommand
-
-from jetson.apps.i18n.models import Country
 
 SILENT, NORMAL, VERBOSE = 0, 1, 2
 
@@ -18,21 +15,21 @@ class Command(NoArgsCommand):
         from datetime import timedelta
         from xml.dom.minidom import parseString
         from dateutil.parser import parse as parse_datetime
-        
-        from django.db import models
+
+        from django.apps import apps
 
         from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
-        
+
         from jetson.apps.external_services.utils import get_value
-        
-        Address = models.get_model("location", "Address")
-        JobOffer = models.get_model("marketplace", "JobOffer")
-        JobSector = models.get_model("marketplace", "JobSector")
-        JobType = models.get_model("marketplace", "JobType")
-        ObjectMapper = models.get_model("external_services", "ObjectMapper")
-        Service = models.get_model("external_services", "Service")
-        URLType = models.get_model("optionset", "URLType")
-        
+
+        Address = apps.get_model("location", "Address")
+        JobOffer = apps.get_model("marketplace", "JobOffer")
+        JobSector = apps.get_model("marketplace", "JobSector")
+        JobType = apps.get_model("marketplace", "JobType")
+        ObjectMapper = apps.get_model("external_services", "ObjectMapper")
+        Service = apps.get_model("external_services", "Service")
+        URLType = apps.get_model("optionset", "URLType")
+
         s, created = Service.objects.get_or_create(
             sysname="dasauge_jobs",
             defaults={
@@ -57,7 +54,6 @@ class Command(NoArgsCommand):
             slug__in=("graphic-design", "advertising"),
         ))
 
-
         try:
             response = requests.get(
                 s.url,
@@ -70,22 +66,22 @@ class Command(NoArgsCommand):
         except:
             self.stderr.write("ERROR: {}\n".format(s.url))
             return
-        if response.status_code != 200:
+        if response.status_code != requests.codes.ok:
             self.stderr.write("ERROR: {}\n".format(s.url))
             return
         data = response.content
-        
+
         xml_doc = parseString(data)
-        
+
         for node_job in xml_doc.getElementsByTagName("item"):
-        
+
             # get or create job offer
             external_id = get_value(node_job, "url")
             try:
                 change_date = parse_datetime(
                     get_value(node_job, "edited"),
                     ignoretz=True,
-                    )
+                )
             except:
                 change_date = None
             mapper = None
@@ -95,49 +91,49 @@ class Command(NoArgsCommand):
                     external_id=external_id,
                     content_type__app_label="marketplace",
                     content_type__model="joboffer",
-                    )
+                )
                 job_offer = mapper.content_object
                 if job_offer.modified_date > change_date:
                     continue
             except:
                 # or create a new job offer and then create a mapper
                 job_offer = JobOffer()
-                
+
             job_offer.modified_date = change_date
-            
+
             job_offer.position = get_value(node_job, "title")
             job_offer.description = get_value(node_job, "details")
             job_offer.job_type = JOB_TYPES.get(get_value(node_job, "type"), None)
-            
+
             job_offer.url0_link = get_value(node_job, "url")
             job_offer.url0_type = default_urltype
             job_offer.is_commercial = False
-            
+
             if change_date:
                 job_offer.published_from = change_date
             else:
                 job_offer.published_from = parse_datetime(
                     get_value(node_job, "edited"),
                     ignoretz=True,
-                    )
-            job_offer.published_till = job_offer.published_from + timedelta(days=7*6)
+                )
+            job_offer.published_till = job_offer.published_from + timedelta(days=7 * 6)
             job_offer.status = STATUS_CODE_PUBLISHED
             job_offer.offering_institution_title = get_value(node_job, "company")
 
             job_offer.save()
 
-            #job_offer.job_sectors.clear()
+            # job_offer.job_sectors.clear()
             job_offer.job_sectors.add(*default_job_sectors)
 
             # add address
-                
+
             Address.objects.set_for(
                 job_offer,
                 "postal_address",
                 country="DE",
                 city=get_value(node_job, "town"),
             )
-            
+
             if verbosity > NORMAL:
                 self.stdout.write(" - {} (id={})".format(job_offer, job_offer.pk))
 
@@ -145,6 +141,6 @@ class Command(NoArgsCommand):
                 mapper = ObjectMapper(
                     service=s,
                     external_id=external_id,
-                    )
+                )
                 mapper.content_object = job_offer
                 mapper.save()
