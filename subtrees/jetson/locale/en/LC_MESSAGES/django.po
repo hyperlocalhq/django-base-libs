@@ -9,13 +9,14 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-22 05:19+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2017-09-27 15:34+0053\n"
+"Last-Translator: Laura Casadevall <casadeluxe@web.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Translated-Using: django-rosetta 0.7.13\n"
 
 #: subtrees/jetson/apps/advertising/admin.py:29
 #: subtrees/jetson/apps/advertising/admin.py:35
@@ -517,8 +518,8 @@ msgstr ""
 
 #: subtrees/jetson/apps/blog/forms.py:28
 msgid ""
-"Use commas to separate your tags. Tags can have multiple words. For example: "
-"'one, two, three apples' would define three tags."
+"Use commas to separate your tags. Tags can have multiple words. For example:"
+" 'one, two, three apples' would define three tags."
 msgstr ""
 
 #: subtrees/jetson/apps/blog/forms.py:32
@@ -1142,8 +1143,8 @@ msgstr ""
 
 #: subtrees/jetson/apps/comments/models.py:114
 msgid ""
-"Check this box if the comment should be marked as spam. The comment will not "
-"be displayed in this case."
+"Check this box if the comment should be marked as spam. The comment will not"
+" be displayed in this case."
 msgstr ""
 
 #: subtrees/jetson/apps/comments/models.py:119
@@ -1357,13 +1358,11 @@ msgstr ""
 #: subtrees/jetson/apps/comments/views/comments.py:294
 #, python-format
 msgid ""
-"This comment was posted by a user who has posted fewer than %(count)s "
-"comment:\n"
+"This comment was posted by a user who has posted fewer than %(count)s comment:\n"
 "\n"
 "%(text)s"
 msgid_plural ""
-"This comment was posted by a user who has posted fewer than %(count)s "
-"comments:\n"
+"This comment was posted by a user who has posted fewer than %(count)s comments:\n"
 "\n"
 "%(text)s"
 msgstr[0] ""
@@ -3146,7 +3145,8 @@ msgid "registration required"
 msgstr ""
 
 #: subtrees/jetson/apps/flatpages/base.py:26
-msgid "If this is checked, only logged-in users will be able to view the page."
+msgid ""
+"If this is checked, only logged-in users will be able to view the page."
 msgstr ""
 
 #: subtrees/jetson/apps/flatpages/base.py:28
@@ -3351,9 +3351,9 @@ msgstr ""
 #: subtrees/jetson/apps/forum/views.py:237
 #, python-format
 msgid ""
-"WARNING! You want to create a new forum under the '%(current_forum)s' forum, "
-"which already have threads. All threads of '%(current_forum)s' will be moved "
-"to your new forum!"
+"WARNING! You want to create a new forum under the '%(current_forum)s' forum,"
+" which already have threads. All threads of '%(current_forum)s' will be "
+"moved to your new forum!"
 msgstr ""
 
 #: subtrees/jetson/apps/geolocation/models.py:27
@@ -4415,9 +4415,9 @@ msgstr ""
 #: subtrees/jetson/apps/image_mods/models.py:55
 #, python-format
 msgid ""
-"Chain multiple filters using the following pattern \"FILTER_ONE->FILTER_TWO-"
-">FILTER_THREE\". Image filters will be applied in order. The following "
-"filter are available: %s"
+"Chain multiple filters using the following pattern "
+"\"FILTER_ONE->FILTER_TWO->FILTER_THREE\". Image filters will be applied in "
+"order. The following filter are available: %s"
 msgstr ""
 
 #: subtrees/jetson/apps/image_mods/models.py:59
@@ -4573,8 +4573,8 @@ msgstr ""
 
 #: subtrees/jetson/apps/image_mods/models.py:388
 msgid ""
-"A factor of 0.0 gives a solid grey image, a factor of 1.0 gives the original "
-"image."
+"A factor of 0.0 gives a solid grey image, a factor of 1.0 gives the original"
+" image."
 msgstr ""
 
 #: subtrees/jetson/apps/image_mods/models.py:389
@@ -4835,8 +4835,8 @@ msgstr ""
 #: subtrees/jetson/apps/individual_relations/forms.py:343
 #, python-format
 msgid ""
-"This username is already used for another account. But you can use \"%s\" as "
-"your username."
+"This username is already used for another account. But you can use \"%s\" as"
+" your username."
 msgstr ""
 
 #: subtrees/jetson/apps/individual_relations/forms.py:350
@@ -5638,8 +5638,8 @@ msgstr ""
 msgid ""
 "Longitude (Long.) is the angle east or west of an arbitrary point on Earth "
 "from Greenwich (UK), which is the international zero-longitude point "
-"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction "
-"to east) and -180 (direction to west)."
+"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction"
+" to east) and -180 (direction to west)."
 msgstr ""
 
 #: subtrees/jetson/apps/location/models.py:236
@@ -5726,7 +5726,7 @@ msgstr ""
 
 #: subtrees/jetson/apps/mailchimp/forms.py:138
 msgid "Subscribe"
-msgstr ""
+msgstr "Abonnieren"
 
 #: subtrees/jetson/apps/mailchimp/models.py:22
 msgid "MailChimp"
@@ -6382,9 +6382,9 @@ msgstr ""
 
 #: subtrees/jetson/apps/media_gallery/forms.py:155
 msgid ""
-"You can link to a FLV file, Youtube video (e.g. http://www.youtube.com/watch?"
-"v=rd2izv5JBcE or http://youtu.be/rd2izv5JBcE) or Vimeo video (e.g. http://"
-"vimeo.com/17853047)."
+"You can link to a FLV file, Youtube video (e.g. "
+"http://www.youtube.com/watch?v=rd2izv5JBcE or http://youtu.be/rd2izv5JBcE) "
+"or Vimeo video (e.g. http://vimeo.com/17853047)."
 msgstr ""
 
 #: subtrees/jetson/apps/media_gallery/forms.py:190
@@ -6443,7 +6443,8 @@ msgid "Token"
 msgstr ""
 
 #: subtrees/jetson/apps/memos/models.py:38
-msgid "Unique generated identifier saved in the cookie at a visitor's computer"
+msgid ""
+"Unique generated identifier saved in the cookie at a visitor's computer"
 msgstr ""
 
 #: subtrees/jetson/apps/memos/models.py:39
@@ -6711,8 +6712,8 @@ msgstr ""
 
 #: subtrees/jetson/apps/notification/models.py:64
 msgid ""
-"This message will be shown in the website. Accepted template variables: "
-"{{ notified_user }}, {{ object }}, and specific extra context."
+"This message will be shown in the website. Accepted template variables: {{ "
+"notified_user }}, {{ object }}, and specific extra context."
 msgstr ""
 
 #: subtrees/jetson/apps/notification/models.py:67
@@ -7681,7 +7682,8 @@ msgstr ""
 #: subtrees/jetson/apps/utils/images.py:244
 #, python-format
 msgid ""
-"The media file is too small. The minimal dimensions are %(width)dx%(height)d."
+"The media file is too small. The minimal dimensions are "
+"%(width)dx%(height)d."
 msgstr ""
 
 #: subtrees/jetson/apps/utils/images.py:248
@@ -7704,8 +7706,8 @@ msgstr ""
 
 #: subtrees/jetson/apps/utils/images.py:251
 msgid ""
-"The interlaced PNG images are not supported for now. Please resave the image "
-"without this option and try again."
+"The interlaced PNG images are not supported for now. Please resave the image"
+" without this option and try again."
 msgstr ""
 
 #: subtrees/jetson/apps/utils/models.py:18
@@ -8010,8 +8012,8 @@ msgstr ""
 
 #: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:202
 msgid ""
-"This page cannot be copied because an application is attached to it. See the "
-"Page's Advanced settings to manage apphooks."
+"This page cannot be copied because an application is attached to it. See the"
+" Page's Advanced settings to manage apphooks."
 msgstr ""
 
 #: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:203
@@ -8046,8 +8048,7 @@ msgid ""
 "\n"
 "                            <em>There is no page around yet.</em>\n"
 "                            <br>\n"
-"                            <a href=\"%(add_url)s\" class=\"addlink\">Add "
-"page</a> now.\n"
+"                            <a href=\"%(add_url)s\" class=\"addlink\">Add page</a> now.\n"
 "                        "
 msgstr ""
 
@@ -8062,8 +8063,8 @@ msgstr ""
 #: subtrees/jetson/templates/admin/admin/delete_confirmation.html:35
 #, python-format
 msgid ""
-"Deleting the %(object_name)s '%(escaped_object)s' would require deleting the "
-"following protected related objects:"
+"Deleting the %(object_name)s '%(escaped_object)s' would require deleting the"
+" following protected related objects:"
 msgstr ""
 
 #: subtrees/jetson/templates/admin/admin/delete_confirmation.html:45
@@ -8219,8 +8220,8 @@ msgstr ""
 
 #: subtrees/jetson/templates/admin/admin/object_history.html:78
 msgid ""
-"This object doesn't have a change history. It probably wasn't added via this "
-"admin site."
+"This object doesn't have a change history. It probably wasn't added via this"
+" admin site."
 msgstr ""
 
 #: subtrees/jetson/templates/admin/admin/page_submit_line.html:8
@@ -8775,9 +8776,9 @@ msgstr ""
 #: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:19
 msgid ""
 "Couldn't load the specified language file. This usually happens when using "
-"the Encrypted Cookies Session Storage backend on Django 1.4 or higher.<br/"
-">Setting ROSETTA_STORAGE_CLASS = 'rosetta.storage.CacheRosettaStorage' in "
-"your settings file should fix this."
+"the Encrypted Cookies Session Storage backend on Django 1.4 or "
+"higher.<br/>Setting ROSETTA_STORAGE_CLASS = "
+"'rosetta.storage.CacheRosettaStorage' in your settings file should fix this."
 msgstr ""
 
 #: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:30
@@ -8830,8 +8831,9 @@ msgstr ""
 #: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:78
 #, python-format
 msgid ""
-"Please refer to <a href=\"%(i18n_doc_link)s\">Django's I18N documentation</"
-"a> for a guide on how to set up internationalization for your project."
+"Please refer to <a href=\"%(i18n_doc_link)s\">Django's I18N "
+"documentation</a> for a guide on how to set up internationalization for your"
+" project."
 msgstr ""
 
 #: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:9
@@ -9110,8 +9112,8 @@ msgstr ""
 
 #: subtrees/jetson/templates/default/accounts/password_change_form.html:17
 msgid ""
-"Please enter your old password, for security's sake, and then enter your new "
-"password twice so we can verify you typed it in correctly."
+"Please enter your old password, for security's sake, and then enter your new"
+" password twice so we can verify you typed it in correctly."
 msgstr ""
 
 #: subtrees/jetson/templates/default/accounts/password_change_form.html:26
@@ -9145,8 +9147,8 @@ msgstr ""
 #: subtrees/jetson/templates/default/accounts/password_reset_email.html:4
 #, python-format
 msgid ""
-"You're receiving this e-mail because you requested a password reset for your "
-"user account at %(site_name)s."
+"You're receiving this e-mail because you requested a password reset for your"
+" user account at %(site_name)s."
 msgstr ""
 
 #: subtrees/jetson/templates/default/accounts/password_reset_email.html:6
@@ -9291,8 +9293,8 @@ msgstr ""
 
 #: subtrees/jetson/templates/default/accounts/reg_choose_type.html:24
 msgid ""
-"Please select a suitable account type. You can either register yourself just "
-"as a single person or you can also register as an owner of a group, "
+"Please select a suitable account type. You can either register yourself just"
+" as a single person or you can also register as an owner of a group, "
 "organization or other institution. Your personal account can also be "
 "enhanced at a later point."
 msgstr ""
@@ -9718,8 +9720,8 @@ msgstr ""
 #: subtrees/jetson/templates/default/accounts/register_done.html:13
 msgid ""
 "Welcome to the website. Your registration has been successful and you'll be "
-"receiving a confirmation e-mail shortly. In the meantime, you've been logged "
-"in and are welcome to spend some quality time here. Enjoy the site!"
+"receiving a confirmation e-mail shortly. In the meantime, you've been logged"
+" in and are welcome to spend some quality time here. Enjoy the site!"
 msgstr ""
 
 #: subtrees/jetson/templates/default/accounts/register_verify_required.html:5
@@ -9729,9 +9731,9 @@ msgstr ""
 
 #: subtrees/jetson/templates/default/accounts/register_verify_required.html:11
 msgid ""
-"In order to complete registration, we need to confirm you entered a valid e-"
-"mail address. You should be getting a confirmation e-mail very shortly. It "
-"will contain instructions on how to finalize your registration."
+"In order to complete registration, we need to confirm you entered a valid "
+"e-mail address. You should be getting a confirmation e-mail very shortly. It"
+" will contain instructions on how to finalize your registration."
 msgstr ""
 
 #: subtrees/jetson/templates/default/articles/articles_archive.html:17
@@ -10531,8 +10533,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"\t\t\t\t\t\t\t\tCreated on <a href=\"%(url)s\">%(creation_date)s</a> by <a "
-"href=\"%(creator_url)s\">%(creator)s</a>\n"
+"\t\t\t\t\t\t\t\tCreated on <a href=\"%(url)s\">%(creation_date)s</a> by <a href=\"%(creator_url)s\">%(creator)s</a>\n"
 "\t\t\t\t\t\t\t"
 msgstr ""
 
@@ -10544,8 +10545,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"\t\t\t\t\t\t\tCreated on <a href=\"%(url)s\">%(creation_date)s</a> by <a "
-"href=\"%(creator_url)s\">%(creator)s</a>\n"
+"\t\t\t\t\t\t\tCreated on <a href=\"%(url)s\">%(creation_date)s</a> by <a href=\"%(creator_url)s\">%(creator)s</a>\n"
 "\t\t\t\t\t\t"
 msgstr ""
 
@@ -10570,8 +10570,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"\t        \t\t\tCreated on %(creation_date)s<br/> by <a href=\"%(url)s\">"
-"%(creator)s</a>\n"
+"\t        \t\t\tCreated on %(creation_date)s<br/> by <a href=\"%(url)s\">%(creator)s</a>\n"
 "\t        \t\t"
 msgstr ""
 
@@ -10593,8 +10592,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"\t\t\t\t\t\t\t\t\tCreated on <a href=\"%(url)s\">%(creation_date)s</a> by <a "
-"href=\"%(creator_url)s\">%(creator)s</a>\n"
+"\t\t\t\t\t\t\t\t\tCreated on <a href=\"%(url)s\">%(creation_date)s</a> by <a href=\"%(creator_url)s\">%(creator)s</a>\n"
 "\t\t\t\t\t\t\t\t"
 msgstr ""
 
@@ -11071,8 +11069,8 @@ msgstr ""
 #: subtrees/jetson/templates/default/groups_networks/persongroups/profile/categories_form.html:8
 #: subtrees/jetson/templates/default/resources/documents/profile/categories_form.html:9
 msgid ""
-"Is some      category missing? You can <a href=\"/ticket/new-category/"
-"\">suggest it here</a>."
+"Is some      category missing? You can <a href=\"/ticket/new-"
+"category/\">suggest it here</a>."
 msgstr ""
 
 #: subtrees/jetson/templates/default/groups_networks/persongroups/profile/details.html:6
@@ -11447,8 +11445,7 @@ msgid ""
 "\n"
 "%(message)s\n"
 "\n"
-"To see other notices or change how you receive notifications, please go to "
-"%(notices_url)s.\n"
+"To see other notices or change how you receive notifications, please go to %(notices_url)s.\n"
 msgstr ""
 
 #: subtrees/jetson/templates/default/notification/email_subject.txt:1
@@ -12015,6 +12012,6 @@ msgstr ""
 #: subtrees/jetson/templates/default/widget/selectrow.html:19
 #, python-format
 msgid ""
-"Type the first few letters of the %(lookup_field)s to have a list of matches "
-"shown."
+"Type the first few letters of the %(lookup_field)s to have a list of matches"
+" shown."
 msgstr ""
