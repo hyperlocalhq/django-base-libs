@@ -675,6 +675,9 @@ ACCOUNTS_DASHBOARD_USER_GROUPS = ["Location Owners"]
 
 USE_TZ = True
 
+INFO_FILES_USERNAME = "location_owner"
+INFO_FILES_PASSWORD = "BbYWnGNrkXbhUzbeUu4rweix"
+
 ### CACHE SETTINGS ###
 
 CACHES = {
