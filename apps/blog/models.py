@@ -19,6 +19,8 @@ from base_libs.models.models import MultiSiteContainerMixin
 from base_libs.models.models import PublishingMixin, PublishingMixinPublishedManager
 from base_libs.models import ExtendedTextField
 
+from filebrowser.fields import FileBrowseField
+
 
 verbose_name = _("Blog")
 
@@ -27,6 +29,8 @@ class Blog(MultiSiteContainerMixin, CreationModificationDateMixin):
     This is the container for blog posts
     """
     title = models.CharField(_("title"), blank=True, max_length=255)
+    image = FileBrowseField(_('Main Image'), max_length=200, directory="blogs/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True)
+    photo_author = models.CharField(_("Photo"), max_length=100, blank=True)
     row_level_permissions = True
 
     def __unicode__(self):
@@ -99,17 +103,17 @@ class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, Slu
 
     def __unicode__(self):
         return force_unicode(self.title)
-        
+
     def is_rest(self):
         """
         sort of a temp function to allow testing/switching between markdown
         and rest
         """
         return self.body.startswith('..')
-    
+
     def get_tags(self):
         return Tag.objects.get_for_object(self)
-    
+
     def get_absolute_url(self):
         return self.get_url_path()
 
@@ -127,7 +131,7 @@ class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, Slu
 
     def get_relative_url(self):
         return "%s/%s/" % (self.published_from.strftime("%Y/%m/%d").lower(), self.slug)
-    
+
     def delete_comments(self):
         Comment = apps.get_model("comments", "Comment")
         table = Comment._meta.db_table
@@ -136,7 +140,7 @@ class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, Slu
         cursor = connection.cursor()
         cursor.execute(query, [ctype.id])
     delete_comments.alters_data = True
-                
+
     def delete_comment(self, id):
         Comment = apps.get_model("comments", "Comment")
         table = Comment._meta.db_table
@@ -160,7 +164,7 @@ class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, Slu
                 ).order_by("published_from")[0]
         except:
             return None
-            
+
     def get_older_published(self):
         try:
             return Post.published_objects.filter(
@@ -170,7 +174,7 @@ class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, Slu
                 ).order_by("-published_from")[0]
         except:
             return None
-            
+
     @staticmethod
     def autocomplete_search_fields():
         return ("id__iexact", "title__icontains",)

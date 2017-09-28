@@ -4,16 +4,21 @@ import datetime
 from django.db import models
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
 from base_libs.forms import dynamicforms
+from base_libs.forms.fields import ImageField
 
 from tagging.forms import TagField
 from tagging_autocomplete.widgets import TagAutocomplete
 
 Post = models.get_model("blog", "Post")
+
+MIN_LOGO_SIZE = getattr(settings, "LOGO_SIZE", (850, 400))
+STR_MIN_LOGO_SIZE = "%sx%s" % MIN_LOGO_SIZE
 
 class BlogPostForm(dynamicforms.Form):
     title = forms.CharField(
@@ -21,6 +26,18 @@ class BlogPostForm(dynamicforms.Form):
         required=True,
         max_length=100,
         )
+    image = ImageField(
+        label=_("Main Photo"),
+        help_text=_(
+            "You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_MIN_LOGO_SIZE,
+        required=False,
+        min_dimensions=MIN_LOGO_SIZE,
+    )
+    photo_author = forms.CharField(
+        label=_("Photo Credits"),
+        required=False,
+        max_length=100,
+    )
     tags = TagField(
         label=_("Tags"),
         required=False,
@@ -73,6 +90,15 @@ class BlogPostForm(dynamicforms.Form):
                     {% endif %}
                 ''',
                 "title",
+                layout.HTML("""{% load image_modifications %}
+                    {% if post.image %}
+                        <dt>""" + (_("Main Image") + "") + """</dt><dd><img src="{{ UPLOADS_URL }}{{ post.image }}" alt="{{ object.get_title|escape }}"/></dd>
+                    {% else %}
+                        <dt>""" + (_("Main Image") + "") + """</dt><dd><img src="{{ STATIC_URL }}site/img/placeholder/event.png" alt="{{ object.get_title|escape }}"/></dd>
+                    {% endif %}
+                """),
+                "image",
+                "photo_author",
                 layout.Field("body", css_class="tiny_mce_responsive"),
                 "tags",
                 "status",
@@ -98,3 +124,16 @@ class BlogPostForm(dynamicforms.Form):
         )
 
         super(BlogPostForm, self).__init__(*args, **kwargs)
+
+    def save(self):
+
+        if "image" in self.files:
+            image = self.files['image']
+            image_mods.FileManager.save_file_for_object(
+                blog,
+                image.name,
+                image,
+                subpath="blogs/"
+            )
+
+        return self
