@@ -15,6 +15,8 @@ from django.db import models
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.conf import settings
+from django.views.generic import TemplateView
+
 from base_libs.utils.misc import get_installed
 from base_libs.views import access_denied
 from base_libs.models.models import STATUS_CODE_PUBLISHED, STATUS_CODE_DRAFT
@@ -164,6 +166,10 @@ class PortfolioSite(object):
                 wrap(self.portfolio_overview),
             ),
             url(
+                r'^deleted/$',
+                wrap(TemplateView.as_view(template_name='media_gallery/gallery_deleted.html'), admin=True),
+            ),
+            url(
                 r'^settings/$',
                 wrap(self.portfolio_settings, admin=True),
             ),
@@ -194,6 +200,10 @@ class PortfolioSite(object):
             url(
                 r'^album/(?P<gallery_token>\d+)/$',
                 wrap(self.gallery_detail),
+            ),
+            url(
+                r'^album/(?P<gallery_token>\d+)/created/$',
+                wrap(TemplateView.as_view(template_name='media_gallery/gallery_created.html'), admin=True),
             ),
             url(
                 r'^album/(?P<gallery_token>\d+)/change/$',

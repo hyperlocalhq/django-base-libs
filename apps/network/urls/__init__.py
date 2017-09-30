@@ -1,5 +1,7 @@
 # -*- coding: UTF-8 -*-
 from django.conf.urls import *
+from django.views.generic import TemplateView
+
 from jetson.apps.utils.context_processors import prev_next_processor
 from ccb.apps.site_specific.models import ContextItem
 from ccb.apps.media_gallery.sites import PortfolioSite, URL_ID_PORTFOLIO
@@ -79,7 +81,10 @@ urlpatterns = [
     ),
     url(r'^add-institution/$', 'ccb.apps.institutions.views.add_institution'),
 
+    url(r'^deleted/$', TemplateView.as_view(template_name='institutions/institution_deleted.html'), name='institution_deleted'),
+
     url(r'^member/(?P<slug>[^/]+)/$', 'ccb.apps.network.views.member_detail', member_detail_info, name="member_detail"),
+    url(r'^member/(?P<slug>[^/]+)/created/$', TemplateView.as_view(template_name='institutions/institution_created.html'), name='institution_created'),
     # url(r'^member/(?P<slug>[^/]+)/network/$', 'ccb.apps.network.views.member_detail',
     #     dict(member_detail_info, template_name="people/person_network.html")),
     # url(r'^member/(?P<slug>[^/]+)/network/person_contacts/$',
