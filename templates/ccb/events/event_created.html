@@ -45,5 +45,14 @@
                 {% endwith %}
             </div>
         </div>
+        <div class="row article-list">
+            {% include "bulletin_board/includes/latest_bulletins.html" %}
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <br />
+                <a href="{% url "bulletin_list" %}" class="btn btn-large btn-primary">{% trans "Browse the market place now" %}</a>
+            </div>
+        </div>
     </div>
 {% endblock %}

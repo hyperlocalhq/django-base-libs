@@ -43,6 +43,10 @@
                 {% with icon_css_class="fa-wrench" %}
                     {% infoblock "job_offer_created" using "blocks/object_created.html" %}
                 {% endwith %}
+
+                {% include "people/includes/latest_published_people_start.html" %}
+
+                <a href="{% url "member_list_global" %}" class="btn btn-large btn-primary">{% trans "Look at the profiles now and search for candidates" %}</a>
             </div>
         </div>
     </div>
