@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+from __future__ import unicode_literals
 from django.core.management.base import BaseCommand
 from django.utils.encoding import force_text
 
@@ -30,13 +31,19 @@ class Command(BaseCommand):
         Service = apps.get_model("external_services", "Service")
         Category = apps.get_model("structure", "Category")
 
+        URL = "https://www.theapolis.de/index.php/feed/jobs/in/Berlin"
+        SERVICE_TITLE = "theapolis"
         s, created = Service.objects.get_or_create(
             sysname="theaterjobs",
             defaults={
-                'url': "http://www.theaterjobs.de/index.php/feed/jobs/in/Berlin",
-                'title': "theaterjobs.de",
+                'url': URL,
+                'title': SERVICE_TITLE,
             },
         )
+        if s.url != URL or s.title != SERVICE_TITLE:
+            s.url = URL
+            s.title = SERVICE_TITLE
+            s.save()
 
         default_job_type, created = JobType.objects.get_or_create(
             slug="full-time",

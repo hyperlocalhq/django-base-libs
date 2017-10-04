@@ -55,12 +55,12 @@ class MListAdminForm(forms.ModelForm):
         
 class MListAdmin(admin.ModelAdmin):
     form = MListAdminForm
-    list_display = ('id', 'title', 'get_mailchimp_list', 'last_sync', 'is_public')
+    list_display = ('id', 'title', 'get_mailchimp_list', 'last_sync', 'language', 'is_public')
     list_display_links = ('id', 'title')
-    list_filter = ('is_public',)
+    list_filter = ('language', 'is_public',)
     fieldsets = [(None, {'fields': ('site', 'mailchimp_list')}),]
     fieldsets += get_admin_lang_section(_("Title"), ['title'])
-    fieldsets += [(None, {'fields': ('is_public', )}),]
+    fieldsets += [(None, {'fields': ('language', 'is_public', )}),]
     save_on_top = True
     
     def save_model(self, request, obj, form, change):

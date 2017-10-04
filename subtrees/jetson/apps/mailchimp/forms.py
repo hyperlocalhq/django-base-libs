@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from django.conf import settings
-from django.contrib.sites.models import Site
+from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from requests import HTTPError
 
 from base_libs.forms import dynamicforms
 from base_libs.middleware import get_current_user
@@ -95,4 +95,74 @@ class SubscriptionForm(dynamicforms.Form):
                     }
                 }
             )
+            return result
+
+
+class SimpleSubscriptionForm(dynamicforms.Form):
+    mlist = forms.ModelChoiceField(
+        label=_("Mailing list"),
+        queryset=MList.objects.filter(is_public=True),
+        required=True,
+    )
+    email = forms.EmailField(
+        label=_("Your email"),
+        required=True,
+    )
+    prevent_spam = SecurityField()
+
+    def __init__(self, lang_code, *args, **kwargs):
+        super(SimpleSubscriptionForm, self).__init__(*args, **kwargs)
+
+        self.lang_code = lang_code
+
+        mailing_lists = MList.objects.filter(
+            models.Q(language=lang_code) | models.Q(language=""),
+            is_public=True,
+        )
+        if mailing_lists.count() == 1:
+            self.fields['mlist'].initial = mailing_lists[0]
+            self.fields['mlist'].widget = forms.HiddenInput()
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                "",
+                layout.Field("mlist", css_class="input-block-level"),
+                layout.Field("email", css_class="input-block-level"),
+                "prevent_spam",
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Subscribe')),
+            ),
+        )
+
+    def save(self, request):
+        cleaned = self.cleaned_data
+        email = cleaned['email']
+        user = get_current_user()
+        ml = cleaned['mlist']
+        s = Settings.objects.get()
+        mailchimp_client = MailChimp(s.username, s.api_key)
+        if s.double_optin:
+            status = "pending"
+        else:
+            status = "subscribed"
+        if ml.mailchimp_id:
+            try:
+                result = mailchimp_client.lists.members.create(
+                    list_id=ml.mailchimp_id,
+                    data={
+                        'email_address': email,
+                        'status': status,
+                        'merge_fields': {
+                            'FNAME': user.first_name if user else "",
+                            'LNAME': user.last_name if user else "",
+                        }
+                    }
+                )
+            except HTTPError as err:
+                result = err.response.json()
             return result

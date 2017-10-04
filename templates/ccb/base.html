@@ -12,7 +12,9 @@
             {{ site_settings.get_meta_tags|safe }}
         {% endblock %}
 
-        <meta name="robots" content="index,follow"/>
+        {% block meta_tag_robots %}
+            <meta name="robots" content="index,follow"/>
+        {% endblock %}
         <meta name="language" content="{{ LANGUAGE_CODE }}"/>
 
         <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{{ STATIC_URL }}site/favicons/apple-touch-icon-57x57.png" />

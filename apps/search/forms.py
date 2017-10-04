@@ -43,17 +43,6 @@ class ModelSearchForm(_SearchForm):
             ),
         )
 
-    def get_models(self):
-        """Return list of model classes in the index."""
-        search_models = []
-
-        if self.is_valid():
-            for short_name in self.cleaned_data[self.MODELS_PARAM_NAME]:
-                app_model = get_model_from_short_name(short_name)
-                search_models.append(models.get_model(*app_model.split('.')))
-
-        return search_models
-
     def search(self):
         if not self.is_valid():
             return self.no_query_found()
@@ -64,11 +53,9 @@ class ModelSearchForm(_SearchForm):
         self.clean()
 
         q = self.cleaned_data[self.QUERY_PARAM_NAME]
-        model_list = self.get_models()
 
-        # add models
         from haystack.query import SearchQuerySet
-        sqs = SearchQuerySet().models(*model_list)
+        sqs = SearchQuerySet()
 
         sqs = sqs.auto_query(sqs.query.clean(q))
 

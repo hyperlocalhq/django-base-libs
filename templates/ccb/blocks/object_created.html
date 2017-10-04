@@ -1,0 +1,13 @@
+{% load i18n %}
+<div class="row">
+    <div class="col-xs-1">
+        <span class="fawesome {{ icon_css_class }} big"></span>
+    </div>
+    <div class="col-xs-11">
+        <h2>{{ title|escape }}</h2>
+        <h3><a href="..">{% trans "Look at it here and share with your community" %}</a></h3>
+    </div>
+</div>
+<div>
+    {{ content }}
+</div>

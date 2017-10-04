@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load i18n navigation_tags infoblocks %}
+
+{% block meta_tag_robots %}
+    <meta name="robots" content="noindex,nofollow"/>
+{% endblock %}
+
+{% block title %}
+    {% trans "Events in Berlin" %}
+{% endblock %}
+
+{% block content %}
+    <div class="header">
+        {% load slideshows_tags %}
+        {% slideshow "event_list" using "slideshows/header.html" %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% trans "Events" %}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="menu">
+            <div class="container">
+                <div class="row">
+                    <div class="hidden-xs col-sm-4 col-md-3 headline">
+                        <h2>{% trans "Events" %}</h2>
+                    </div>
+                    <div class="navi">
+                        <nav>
+                            <ul>
+                                {% navigation_links "events" using "navigation/includes/navigation_links_in_tabs.html" %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                {% with icon_css_class="fa-calender-plus" %}
+                    {% infoblock "event_deleted" using "blocks/object_deleted.html" %}
+                {% endwith %}
+            </div>
+        </div>
+        <div class="row article-list">
+            {% include "bulletin_board/includes/latest_bulletins.html" %}
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <br />
+                <a href="{% url "bulletin_list" %}" class="btn btn-large btn-primary">{% trans "Browse the market place now" %}</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -168,6 +168,7 @@ def html_to_plain_text(html):
     text = re.sub(coded_entity_pattern, to_utf8, text)
     # remove the rest html entities
     text = re.sub(html_entity_pattern, '', text)
+    text = force_unicode(text)
     return text
 
 def strip_html(text):

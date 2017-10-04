@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load i18n navigation_tags infoblocks cms_tags %}
+
+{% block meta_tag_robots %}
+    <meta name="robots" content="noindex,nofollow"/>
+{% endblock %}
+
+{% block title %}
+    {% page_attribute "page_title" %}
+{% endblock %}
+
+{% block content %}
+    <div class="header">
+        {% load slideshows_tags %}
+        {% slideshow "bulletin_list" using "slideshows/header.html" %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% page_attribute "page_title" %}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="menu">
+            <div class="container">
+                <div class="row">
+                    <div class="hidden-xs col-sm-4 col-md-3 headline">
+                        <h2>{% page_attribute "page_title" %}</h2>
+                    </div>
+                    <div class="navi">
+                        <nav>
+                            <ul>
+                                {% navigation_links "bulletin_board" using "navigation/includes/navigation_links_in_tabs.html" %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                {% with icon_css_class="fa-lightbulb" %}
+                    {% infoblock "bulletin_created" using "blocks/object_created.html" %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

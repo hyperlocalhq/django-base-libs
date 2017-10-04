@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+from __future__ import unicode_literals
 
 """
 Utility functions for parsing XML content in combination with xml.dom.minidom
@@ -38,9 +39,9 @@ def get_value(parent_node, descendant_tagname=None):
         node = get_first(parent_node, descendant_tagname)
     else:
         node = parent_node
-    val = u""
+    val = ""
     try:
-        val = u"".join([
+        val = "".join([
             force_text(n.data.strip())
             for n in node.childNodes
             if n.nodeType in (
@@ -51,8 +52,8 @@ def get_value(parent_node, descendant_tagname=None):
     except:
         pass
     # convert quotes to more usual format
-    val = val.replace(u"", u"„")
-    val = val.replace(u"", u"“")
+    val = val.replace("", "„")
+    val = val.replace("", "“")
     return val
     
 def date_de_to_en(date_string):
@@ -68,7 +69,7 @@ def date_de_to_en(date_string):
     date_string = date_string.replace("Sa,", "Sat,")
     date_string = date_string.replace("So,", "Sun,")
     date_string = date_string.replace("Mrz", "Mar")
-    date_string = date_string.replace(u"Mär", "Mar")
+    date_string = date_string.replace("Mär", "Mar")
     date_string = date_string.replace("Mai", "May")
     date_string = date_string.replace("Okt", "Oct")
     date_string = date_string.replace("Dez", "Dec")
