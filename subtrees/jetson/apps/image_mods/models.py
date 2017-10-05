@@ -243,9 +243,12 @@ class FileManager:
             path += subpath
         path += filename
         FileManager.save_file(path, content)
-        setattr(obj, field_name, path)
-        super(type(obj), obj).save()
-    
+        if obj.pk:
+            obj._default_manager.filter(pk=obj.pk).update(**{field_name: FileObject(path=path)})
+        else:
+            setattr(obj, field_name, path)
+            obj.save()
+
 
     @staticmethod
     def delete_file_for_object(obj, field_name="image"):
@@ -258,9 +261,13 @@ class FileManager:
                 FileManager.delete_file(file_obj.path)
             except OSError:
                 pass
+
+        if obj.pk:
+            obj._default_manager.filter(pk=obj.pk).update(**{field_name: FileObject(path="")})
+        else:
             setattr(obj, field_name, "")
-        super(type(obj), obj).save()
-    
+            obj.save()
+
     @staticmethod
     def mod_exists(rel_orig_path, sysname):
         """ 

@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+import os
 from django.db import models
 from django.db import connection
 from django.contrib.contenttypes.models import ContentType
@@ -6,7 +7,6 @@ from django.utils.encoding import force_unicode
 from django.utils.translation import ugettext_lazy as _
 from django.apps import apps
 
-from tagging.fields import TagField
 from tagging.models import Tag
 from tagging_autocomplete.models import TagAutocompleteField
 
@@ -29,8 +29,6 @@ class Blog(MultiSiteContainerMixin, CreationModificationDateMixin):
     This is the container for blog posts
     """
     title = models.CharField(_("title"), blank=True, max_length=255)
-    image = FileBrowseField(_('Main Image'), max_length=200, directory="blogs/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True)
-    photo_author = models.CharField(_("Photo"), max_length=100, blank=True)
     row_level_permissions = True
 
     def __unicode__(self):
@@ -93,6 +91,10 @@ class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, Slu
     tags = TagAutocompleteField(verbose_name=_("tags"))
     body = ExtendedTextField(_("body"))
     blog = models.ForeignKey(Blog, verbose_name=_("blog"))
+
+    image = FileBrowseField(_('Main Image'), max_length=200, directory="blogs/", extensions=['.jpg', '.jpeg', '.gif', '.png'], blank=True)
+    image_author = models.CharField(_("Image Credits"), max_length=100, blank=True)
+
     enable_comment_form = models.BooleanField(_('enable comment form'), default=True)
 
     featured_in_magazine = models.BooleanField(_("Featured in magazine"), default=False)

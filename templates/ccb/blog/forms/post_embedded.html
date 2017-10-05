@@ -1,9 +1,13 @@
-{% load base_tags i18n auth_extended blog uni_form_tags crispy_forms_tags %}
+{% load base_tags i18n auth_extended blog uni_form_tags crispy_forms_tags image_modifications %}
 
-<form action="" method="post">{% csrf_token %}
+<form action="." method="post" enctype="multipart/form-data">{% csrf_token %}
     {% if form_preview %}
         <h2>{{ form.title.data }}</h2>
-        <div>{{ form.image.data }}</div>
+        {% if form.tmp_image_filename.data %}
+            <div><img src="/{{ LANGUAGE_CODE }}/helper/tmpimage/{{ form.tmp_image_filename.data }}/800x600/" alt="" /></div>
+        {% elif current_post.image %}
+            <div><img src="{{ UPLOADS_URL }}{{ current_post.image|modified_path:'article' }}" alt="" /></div>
+        {% endif %}
         <div>{{ form.photo_author.data }}</div>
         <div class="tiny-mce">
             {{ form.body.data|disarm_user_input }}
@@ -17,14 +21,17 @@
         {% endif %}
 
         <div class="button-group">
-            {% trans "Save as Draft" as draft %}
-            {% trans "Save" as non_draft %}
-            {% with yesno_args=''|add:draft|add:','|add:non_draft|upper %}
+            {% if form.status.data == "0" %}
                 <input
                     type="submit" class="btn btn-primary" id="post" name="{{ post_stage_field }}"
-                    value='{{ post.is_draft|yesno:yesno_args }}'
-                    />
-            {% endwith %}
+                    value='{% trans "Save as Draft" %}'
+                />
+            {% else %}
+                <input
+                    type="submit" class="btn btn-primary" id="post" name="{{ post_stage_field }}"
+                    value='{% trans "Save" %}'
+                />
+            {% endif %}
         </div>
 
         <br/><br/><br/>

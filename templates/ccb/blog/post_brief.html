@@ -1,12 +1,16 @@
-{% load blog babel comments base_tags i18n auth_extended favorites %}
+{% load blog babel comments base_tags i18n auth_extended favorites image_modifications %}
 
 <div class="col-xs-12 {% if not forloop.first %}col-sm-6{% endif %}">
     <a class="content" href="{{ post.get_url_path }}">
-        {% with image_html=post.get_rendered_body|disarm_user_input|get_first_image %}
-            {% if image_html %}
-                {{ image_html }}
-            {% endif %}
-        {% endwith %}
+        {% if post.image %}
+            <img class="img img-responsive" src="{{ UPLOADS_URL }}{{ post.image|modified_path:'article' }}" alt="{{ post.title }}" />
+        {% else %}
+            {% with image_html=post.get_rendered_body|disarm_user_input|get_first_image %}
+                {% if image_html %}
+                    {{ image_html }}
+                {% endif %}
+            {% endwith %}
+        {% endif %}
         <div class="subline">
             <h3>{% if forloop.first %}<time class="hidden-xs" datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d. F Y, H:i" }}</time><time class="visible-xs" datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d. M. Y, H:i" }}</time>{% else %}<time datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d. M. Y, H:i" }}</time>{% endif %}</h3>
             <div class="statistics">

@@ -2,6 +2,9 @@
 
 <h3 class="only-time"><time datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d. F Y, H:i" }}</time></h3>
 <h2>{{ post.title }}</h2>
+{% if post.image %}
+    <img class="img img-responsive" src="{{ UPLOADS_URL }}{{ post.image|modified_path:'article' }}" alt="{{ post.title }}" data-popup-image-src="{{ post.image.url }}" />
+{% endif %}
 <div class="tiny-mce">
     {{ post.get_rendered_body|disarm_user_input }}
 </div>
