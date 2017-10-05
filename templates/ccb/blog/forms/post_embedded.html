@@ -8,7 +8,9 @@
         {% elif current_post.image %}
             <div><img src="{{ UPLOADS_URL }}{{ current_post.image|modified_path:'article' }}" alt="" /></div>
         {% endif %}
-        <div>{{ form.photo_author.data }}</div>
+        {% if form.image_author.data %}
+            <div>{{ form.image_author.data }}</div>
+        {% endif %}
         <div class="tiny-mce">
             {{ form.body.data|disarm_user_input }}
         </div>
