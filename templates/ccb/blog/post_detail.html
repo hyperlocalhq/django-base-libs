@@ -5,7 +5,7 @@
 {% if post.image %}
     <img class="img img-responsive" src="{{ UPLOADS_URL }}{{ post.image|modified_path:'article' }}" alt="{{ post.title }}" data-popup-image-src="{{ post.image.url }}" />
     {% if post.image_author %}
-        <h5>{{ post.image_author }}</h5>
+        <h5 class="caption">{{ post.image_author }}</h5>
     {% endif %}
 {% endif %}
 <div class="tiny-mce">
