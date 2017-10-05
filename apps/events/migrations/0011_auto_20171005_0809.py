@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='event',
             name='photo_author',
-            field=models.CharField(max_length=100, verbose_name='Photo author', blank=True),
+            field=models.CharField(max_length=100, verbose_name='Photo Credits', blank=True),
         ),
     ]
