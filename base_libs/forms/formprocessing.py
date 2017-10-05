@@ -153,7 +153,8 @@ class FormHandler(object):
         with its errors.
         """
         form = self.form(
-                 request.POST, 
+                 data=request.POST,
+                 files=request.FILES,
                  auto_id=AUTO_ID, 
                  **self.get_form_params()
                  )
@@ -170,7 +171,7 @@ class FormHandler(object):
             if isinstance(template_name, (tuple, list)):
                 t = loader.select_template(template_name)
             else:
-                t = loader.get_template()
+                t = loader.get_template(template_name)
             context.update(self.context)
             context.update(self.extra_context)
             return HttpResponse(t.render(RequestContext(request, context)))   
@@ -293,7 +294,7 @@ class FormPreviewHandler(FormHandler):
         if self.context.has_key('warnings'):
             self.context['warnings'] = None
         
-        form = self.form(request.POST, auto_id=AUTO_ID, **self.get_form_params())
+        form = self.form(data=request.POST, files=request.FILES, auto_id=AUTO_ID, **self.get_form_params())
         context = {
            'form': form,
         }
@@ -316,7 +317,7 @@ class FormPreviewHandler(FormHandler):
         return HttpResponse(t.render(RequestContext(request, context)))
     
     def post(self, request, action):
-        form = self.form(request.POST, auto_id=AUTO_ID, **self.get_form_params())
+        form = self.form(data=request.POST, files=request.FILES, auto_id=AUTO_ID, **self.get_form_params())
         if form.is_valid():
             if self.security_hash(request, form) != request.POST.get(self._check_name('hash')):
                 return self.failed_hash(request, action) # Security hash failed.
