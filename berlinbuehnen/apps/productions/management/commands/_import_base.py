@@ -146,7 +146,6 @@ def load_location_title_mapper():
         u"English Theatre Berlin | International Performing Arts Center": u"English Theatre Berlin",
         u"Wühlmäuse": u"Die Wühlmäuse",  # where does it happen?
         u"SCHAUBUDE BERLIN - Theater.PuppenFigurenObjekte": u"SCHAUBUDE BERLIN",
-        u"Staatsoper im Schillertheater": u"Staatsoper im Schiller Theater",  # where does it happen?
         u"ATZE  Musiktheater": u"ATZE Musiktheater",
         u"Astrid Lindgren Bühne im FEZ Berlin": u"Astrid Lindgren Bühne im FEZ-Berlin",
         u"FEZ-Berlin und Landesmusikakademie Berlin": u"Landesmusikakademie Berlin im FEZ",
