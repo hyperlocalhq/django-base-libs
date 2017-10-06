@@ -31,12 +31,14 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
     option_list = NoArgsCommand.option_list + (
         make_option('--skip_images', action='store_true', help='Skips image downloads'),
         make_option('--update_images', action='store_true', help='Forces image-download updates'),
+        make_option('--untrash', action='store_true', help='Restores trashed productions'),
     )
 
     def handle_noargs(self, *args, **options):
         self.verbosity = int(options.get("verbosity", self.NORMAL))
         self.skip_images = options.get("skip_images")
         self.update_images = options.get("update_images")
+        self.untrash = options.get("untrash")
         self.prepare()
         self.main()
         self.finalize()
@@ -229,7 +231,7 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
             else:
                 prod = mapper.content_object
                 self.production_ids_to_keep.add(prod.pk)
-                if not prod or prod.status == "trashed":
+                if not prod or (not self.untrash and prod.status == "trashed"):
                     # if production was deleted after import,
                     # don't import it again
                     self.stats['prods_skipped'] += 1
