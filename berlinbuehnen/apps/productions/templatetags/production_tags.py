@@ -89,7 +89,7 @@ def date_slider(context, page, active=0, id=''):
 
 
 @register.inclusion_tag('productions/includes/bvg.html', takes_context=True)
-def bvg(context, address="", address_2=False, postal_code=False, city=False, event_date=False, event_time=False, delta=0, timesel="depart"):
+def bvg(context, address="", address_2=None, postal_code=None, city=None, event_date=None, event_time=None, delta=0, timesel="depart"):
 
     to = address
     if address_2:
@@ -108,8 +108,8 @@ def bvg(context, address="", address_2=False, postal_code=False, city=False, eve
     if event_date and event_time:
         event_datetime = datetime(year=event_date.year, month=event_date.month, day=event_date.day, hour=event_time.hour, minute=event_time.minute)
         if (event_datetime < today):
-            event_date = False
-            event_time = False
+            event_date = None
+            event_time = None
             delta = 0
             timesel = "depart"
 
@@ -119,7 +119,7 @@ def bvg(context, address="", address_2=False, postal_code=False, city=False, eve
         today = datetime(year=today.year, month=today.month, day=today.day, hour=event_time.hour, minute=event_time.minute)
 
     if delta < 0:
-        delta *= -1;
+        delta *= -1
         today -= timedelta(minutes=delta)
     else:
         today += timedelta(minutes=delta)
