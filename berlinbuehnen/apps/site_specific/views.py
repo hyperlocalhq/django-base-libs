@@ -807,6 +807,12 @@ def culturebase_export_productions(request, location_slug):
 
 API_CHANGELOG = [
     {
+        'date': datetime(2017, 9, 10, 12, 0),
+        'changes': [
+            u"""Marmorsaal (Stage ID = 213) added to Maxim Gorki Theater (Location ID = 12).""",
+        ],
+    },
+    {
         'date': datetime(2017, 9, 4, 12, 0),
         'changes': [
             u"""Documentation updated regarding Volksbühne and its stages. Two new stages added: "Tempelhof Hangar 5" (Stage ID = 207) and "Fullscreen (Stage ID = 208)".""",

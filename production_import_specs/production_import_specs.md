@@ -268,6 +268,7 @@ This is a list of all available locations and stages with location IDs and stage
   - Foyer (Stage ID = 34)
   - Gorki Foyer Berlin (Stage ID = 9)
   - Gorki Theater (Stage ID = 33)
+  - Marmorsaal (Stage ID = 213)
   - Studio Я (Stage ID = 10)
   - Vorplatz GORKI (Stage ID = 69)
 - Märchenhütte (Location ID = 186)
