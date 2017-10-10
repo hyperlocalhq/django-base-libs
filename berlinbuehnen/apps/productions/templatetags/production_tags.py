@@ -197,20 +197,22 @@ def add_to_calender(context, event):
 def schedule_of_location(context, location, amount=4):
     from berlinbuehnen.apps.productions.models import Event
 
-    timestamp = datetime.now()
-
     locations = [location]
 
     qs = Event.objects.filter(
-        models.Q(end_date__gte=timestamp.date()) | models.Q(end_date=None, start_date__gte=timestamp.date()),
         models.Q(play_locations__in=locations) | models.Q(production__in_program_of__in=locations) | models.Q(production__play_locations__in=locations),
-        production__status="published"
+        production__status="published",
+        production__part=None,
     )
 
-    today = datetime.today()
+    timestamp = datetime.now()
     qs = qs.exclude(
-        start_date__exact=today,
-        start_time__lt=today,
+        event_status="trashed",
+    ).exclude(
+        start_date__exact=timestamp.date(),
+        start_time__lt=timestamp.time(),
+    ).exclude(
+        start_date__lt=timestamp.date(),
     ).distinct()
 
     return {
