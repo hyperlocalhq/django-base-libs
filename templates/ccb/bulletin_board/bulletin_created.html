@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n navigation_tags infoblocks cms_tags %}
+{% load i18n navigation_tags infoblocks cms_tags articles_tags %}
 
 {% block meta_tag_robots %}
     <meta name="robots" content="noindex,nofollow"/>
@@ -43,6 +43,12 @@
                 {% with icon_css_class="fa-lightbulb" %}
                     {% infoblock "bulletin_created" using "blocks/object_created.html" %}
                 {% endwith %}
+            </div>
+        </div>
+        {% show_magazine_overview %}
+        <div class="row">
+            <div class="col-xs-12">
+                <a href="{% url "magazine_overview" %}" class="btn btn-large btn-primary">{% trans "Find interesting profiles in the magazine now" %}</a>
             </div>
         </div>
     </div>

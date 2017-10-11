@@ -16,101 +16,7 @@
         </div>
     </div>
     <div class="container">
-
-        <div class="row slider magazine">
-            <div class="wrapper">
-
-                {% with player=articles_under_player_of_the_week.0 home=articles_under_at_home_with.0 knowledge=articles_under_knowledge_and_analysis.0 %}
-                    {% if player and home and knowledge %}
-                        <div class="col-xs-12 col-sm-6 row-full slide">
-                            <a class="content" href="{{ player.get_url_path }}">
-                                <span class="image-hover-bg">
-                                    <img src="{{ UPLOADS_URL }}{{ player.image|modified_path:"magazine_slide_big_2" }}"  alt="{{ player.get_alternative_title|escape }}"/>
-                                </span>
-                                <h3>{% trans 'Player of the week' %}:</h3>
-                                <h2>{{ player.get_alternative_title }}</h2>
-                                {% with player.image|file_description as file_desc %}
-                                    {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
-                                {% endwith %}
-                            </a>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 row-half slide">
-                            <a class="content" href="{{ home.get_url_path }}">
-                                <span class="image-hover-bg">
-                                    <img src="{{ UPLOADS_URL }}{{ home.image|modified_path:"magazine_slide_small_2" }}"  alt="{{ home.get_alternative_title|escape }}"/>
-                                </span>
-                                <h3>{% trans 'At home with' %} ...</h3>
-                                <h2>{{ home.get_alternative_title }}</h2>
-                                {% with home.image|file_description as file_desc %}
-                                    {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
-                                {% endwith %}
-                            </a>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 row-half slide">
-                            <a class="content" href="{{ knowledge.get_url_path }}">
-                                <span class="image-hover-bg">
-                                    <img src="{{ UPLOADS_URL }}{{ knowledge.image|modified_path:"magazine_slide_small_2" }}"  alt="{{ knowledge.get_alternative_title|escape }}"/>
-                                </span>
-                                <h3>{% trans 'Knowledge & Analysis' %}:</h3>
-                                <h2>{{ knowledge.get_alternative_title }}</h2>
-                                {% with knowledge.image|file_description as file_desc %}
-                                    {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
-                                {% endwith %}
-                            </a>
-                        </div>
-                    {% endif %}
-                {% endwith %}
-
-                {% with player=articles_under_player_of_the_week.1 %}
-                    {% if player %}
-                        <div class="col-xs-12 col-sm-6 row-full slide">
-                            <a class="content" href="{{ player.get_url_path }}">
-                                <span class="image-hover-bg">
-                                    <img src="{{ UPLOADS_URL }}{{ player.image|modified_path:"magazine_slide_big_2" }}"  alt="{{ player.get_alternative_title|escape }}"/>
-                                </span>
-                                <h3>{% trans 'Player of the week' %}:</h3>
-                                <h2>{{ player.get_alternative_title }}</h2>
-                                {% with player.image|file_description as file_desc %}
-                                    {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
-                                {% endwith %}
-                            </a>
-                        </div>
-                    {% endif %}
-                {% endwith %}
-
-                {% with home=articles_under_at_home_with.1 knowledge=articles_under_knowledge_and_analysis.1 %}
-                    {% if home and knowledge %}
-                        <div class="col-xs-12 col-sm-6 row-half slide">
-                            <a class="content" href="{{ home.get_url_path }}">
-                                <span class="image-hover-bg">
-                                    <img src="{{ UPLOADS_URL }}{{ home.image|modified_path:"magazine_slide_small_2" }}"  alt="{{ home.get_alternative_title|escape }}"/>
-                                </span>
-                                <h3>{% trans 'At home with' %} ...</h3>
-                                <h2>{{ home.get_alternative_title }}</h2>
-                                {% with home.image|file_description as file_desc %}
-                                    {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
-                                {% endwith %}
-                            </a>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 row-half slide">
-                            <a class="content" href="{{ knowledge.get_url_path }}">
-                                <span class="image-hover-bg">
-                                    <img src="{{ UPLOADS_URL }}{{ knowledge.image|modified_path:"magazine_slide_small_2" }}"  alt="{{ knowledge.get_alternative_title|escape }}"/>
-                                </span>
-                                <h3>{% trans 'Knowledge & Analysis' %}:</h3>
-                                <h2>{{ knowledge.get_alternative_title }}</h2>
-                                {% with knowledge.image|file_description as file_desc %}
-                                    {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
-                                {% endwith %}
-                            </a>
-                        </div>
-                    {% endif %}
-                {% endwith %}
-
-            </div>
-        </div>
-
-
+        {% include "articles/includes/magazine_overview_slider.html" %}
 
         <div class="fawesome fa-news big center"></div>
         <h2 class="center icon">{% trans 'Also a good read' %}</h2>
@@ -169,8 +75,6 @@
                 </div>
             {% endfor %}
         </div>
-
-
 
         {% comment %}
         <div class="row magazine-grid">
@@ -315,7 +219,6 @@
 
 {% block javascript %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/magazine_grid.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/event-grid.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/blog-grid.js"></script>
 {% endblock %}
