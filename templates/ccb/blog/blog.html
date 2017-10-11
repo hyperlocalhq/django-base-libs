@@ -5,9 +5,9 @@
 {% comment %}<!--
     This is the main template rendered by the handle_request view in the
     blog application. To minimize code, this is the "main template".
-     
+
     context vars used:
-    
+
     base_template   A "base template" used for template inheritance.
     object          The object related to the blog (or None)
     container       The blog container (defined by the rel. object)
@@ -55,14 +55,14 @@
 
     <div class="button-group">
         {% ifequal archive "details" %}
-        
+
             {% if_has_perm "blog.change_blog_posts" post.blog %}
                 <a class="fawesome fa-edit button text" href="{{ post.get_url_path }}edit/"><span class="text">{% trans "Edit Blog Entry" %}</span></a>
             {% end_if_has_perm %}
             {% if_has_perm "blog.delete_blog_posts" post.blog %}
                 <a class="fawesome fa-close button text" href="{{ post.get_url_path }}delete/"><span class="text">{% trans "Delete Blog Entry" %}</span></a>
-            {% end_if_has_perm %}   
-            
+            {% end_if_has_perm %}
+
             {% if_has_perm "blog.change_blog_posts" post.blog %}
                 <br class="hidden-xs" /><br class="hidden-xs" />
             {% else %}
@@ -70,29 +70,29 @@
                     <br class="hidden-xs" /><br class="hidden-xs" />
                 {% end_if_has_perm %}
             {% end_if_has_perm %}
-            
+
         {% endifequal %}
     </div>
-    
+
     <ul class="accordion navi-box">
         <li class="accordion-inside accordion-trigger opened">
             <div class="accordion-trigger head">{% trans "Archives" %}</div>
             <ul class="accordion filter-box">
                 <li><a href="{{ container.get_url_path }}">{% trans "All" %}</a></li>
-                
-                {% for year, month_list in archives %}                    
+
+                {% for year, month_list in archives %}
                     <li class="accordion-inside accordion-trigger {% if archive_year|add:"0" == year|add:"0" %}opened{% endif %}">
                         <div class="child accordion-trigger"><a class="{% if archive_year|add:"0" == year|add:"0" and not archive_month %}active{% endif %}" href="{{ container.get_url_path }}{{ year }}/">{{ year }}</a></div>
                         <ul class="accordion">
-                            
+
                             {% for month_index, month_name in month_list %}
                                 <li><a class="{% if archive_year|add:"0" == year|add:"0" and archive_month|add:"0" == month_index|add:"0" %}active{% endif %}" href="{{ container.get_url_path }}{{ year }}/{{ month_index }}/">{{ month_name }}</a></li>
                             {% endfor %}
-                            
+
                         </ul>
                     </li>
                 {% endfor %}
-                
+
                 {% if_has_perm "blog.change_blog_posts" container %}
                     <li><a href="{{ container.get_url_path }}drafts/">{% trans "Drafts" %} ({{ nof_drafts }})</a></li>
                 {% else %}
@@ -101,10 +101,10 @@
                     {% end_if_has_perm %}
                 {% end_if_has_perm %}
             </ul>
-        </li>        
+        </li>
         <li></li>
     </ul>
-    
+
     {% tag_cloud_for_blog container as blog_tags %}
     <ul class="accordion navi-box">
         <li class="accordion-inside accordion-trigger opened">
@@ -152,7 +152,7 @@
 {% endblock %}
 
 {% block breadcrumbs_details %}
-    
+
     {% ifequal post_filter "all" %}
         <li>{% trans "Blog" %}</li>
     {% else %}

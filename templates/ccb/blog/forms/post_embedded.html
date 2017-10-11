@@ -4,13 +4,17 @@
     {% if form_preview %}
         <h2>{{ form.title.data }}</h2>
         {% if form.tmp_image_filename.data %}
-            <div><img src="/{{ LANGUAGE_CODE }}/helper/tmpimage/{{ form.tmp_image_filename.data }}/800x600/" alt="" /></div>
+            <div class="photo-credits-wrapper">
+                <img src="/{{ LANGUAGE_CODE }}/helper/tmpimage/{{ form.tmp_image_filename.data }}/800x600/" alt="" />
+                {% if form.image_author.data %}<div class="photo-credits-over">{% trans "Photo" %}: {{ form.image_author.data }}</div>{% endif %}
+            </div>
         {% elif current_post.image %}
-            <div><img src="{{ UPLOADS_URL }}{{ current_post.image|modified_path:'article' }}" alt="" /></div>
+            <div class="photo-credits-wrapper">
+                <img src="{{ UPLOADS_URL }}{{ current_post.image|modified_path:'article' }}" alt="" />
+                {% if form.image_author.data %}<div class="photo-credits-over">{% trans "Photo" %}: {{ form.image_author.data }}</div>{% endif %}
+            </div>
         {% endif %}
-        {% if form.image_author.data %}
-            <div>{{ form.image_author.data }}</div>
-        {% endif %}
+
         <div class="tiny-mce">
             {{ form.body.data|disarm_user_input }}
         </div>

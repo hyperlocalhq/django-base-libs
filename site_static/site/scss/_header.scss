@@ -542,6 +542,10 @@
             overflow: hidden;
             padding-bottom: 3.5%;
             position: relative;
+
+            .photo-credits-over {
+                display: block;
+            }
         }
 
         .edit-avatar {
@@ -625,7 +629,7 @@
 
     .photo-credits-over {
         z-index: 1;
-        
+
         .is-xs & {
             display: none;
         }
