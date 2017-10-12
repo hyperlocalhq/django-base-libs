@@ -505,6 +505,7 @@ class BlogPostFormPreviewHandler(FormPreviewHandler):
         return {
             'title': obj.title,
             'body': obj.body,
+            'image_author': obj.image_author,
             'tags': obj.tags,
             # 'enable_comment_form' : obj.enable_comment_form,
             'status': obj.status,
