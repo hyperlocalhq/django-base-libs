@@ -290,14 +290,14 @@ def get_unique_filename(filename):
 
 def save_tmp_image(f):
     filename = get_unique_filename(f.name)
-    with open(os.path.join(settings.MEDIA_ROOT, settings.PATH_TMP, filename), 'wb+') as destination:
+    with open(os.path.join(settings.PATH_TMP, filename), 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
     return filename
 
 
 def save_final_image(post, tmp_image_filename):
-    tmp_file_path = os.path.join(settings.MEDIA_ROOT, settings.PATH_TMP, tmp_image_filename)
+    tmp_file_path = os.path.join(settings.PATH_TMP, tmp_image_filename)
     with open(tmp_file_path, 'r') as source:
         image_mods.FileManager.save_file_for_object(
             post,
