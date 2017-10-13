@@ -1,0 +1,8 @@
+{% load base_tags %}
+
+{% with amount|default:4 as amount %}
+    {% get_objects latest_published marketplace.JobOffer amount as job_offer_list %}
+    {% for job_offer in job_offer_list %}
+        {% include "marketplace/lists/job_offer_listed.html" %}
+    {% endfor %}
+{% endwith %}
