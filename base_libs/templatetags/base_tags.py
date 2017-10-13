@@ -950,7 +950,7 @@ def disarm_user_input(html):
         tags=[u'a', u'abbr', u'acronym', u'b', u'blockquote', u'br', u'code', u'em', u'i', u'iframe', u'img', u'li', u'ol', u'p', u'strong', u'ul', u'h1', u'h2', u'h3', u'h4', u'h5', u'h6', u'span'],
         attributes={
             u'*': [u'class'],
-            u'a': [u'href', u'title'],
+            u'a': [u'href', u'title', u'target'],
             u'acronym': [u'title'],
             u'abbr': [u'title'],
             u'img': [u'src', u'alt'],
@@ -979,7 +979,7 @@ def disarm_admin_input(html):
         tags=[u'a', u'abbr', u'acronym', u'b', u'blockquote', u'br', u'code', u'em', u'i', u'iframe', u'img', u'li', u'ol', u'p', u'strong', u'ul', u'h1', u'h2', u'h3', u'h4', u'h5', u'h6', u'span'],
         attributes={
             u'*': [u'class', u'style'],
-            u'a': [u'href', u'title'],
+            u'a': [u'href', u'title', u'target'],
             u'acronym': [u'title'],
             u'abbr': [u'title'],
             u'img': [u'src', 'alt'],
