@@ -22,13 +22,12 @@ DATABASES = {
 DATABASES['default'] = DATABASES['mysql']
 HUEY['name'] = DATABASES['default']['NAME']
 
-PREPEND_WWW = True
+PREPEND_WWW = False
 
 SESSION_COOKIE_DOMAIN = None
 
 ALLOWED_HOSTS = [
-    "www.creative-city-berlin.de",
-    "creative-city-berlin.de",
+    "ccb.jetsonproject.org",
 ]
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
