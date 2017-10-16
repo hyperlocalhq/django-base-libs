@@ -16,5 +16,14 @@
                 {% endwith %}
             </div>
         </div>
+        <div class="row job-list">
+            {% include "marketplace/includes/latest_job_offers.html" %}
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <br />
+                <a href="{% url "job_offer_list_global" %}" class="btn btn-large btn-primary">{% trans "Find a job now" %}</a>
+            </div>
+        </div>
     </div>
 {% endblock %}

@@ -54,7 +54,7 @@ urlpatterns = patterns(
      all_dict),
 
     # post created
-    url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<post_slug>[0-9A-Za-z-_]+)/$', TemplateView.as_view(template_name='blog/post_created.html')),
+    url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<post_slug>[0-9A-Za-z-_]+)/created/$', TemplateView.as_view(template_name='blog/post_created.html')),
 
     # tag based
     url(r'^tag/(?P<tag>[^/]+)/$', 'handle_request', all_dict),
