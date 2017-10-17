@@ -16,14 +16,9 @@
                 {% with icon_css_class="fa-calender-plus" %}
                     {% infoblock "event_created" using "blocks/object_created.html" %}
                 {% endwith %}
-            </div>
-        </div>
-        <div class="row article-list">
-            {% include "bulletin_board/includes/latest_bulletins.html" %}
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <br />
+                <div class="row article-list padding-20">
+                    {% include "bulletin_board/includes/latest_bulletins.html" %}
+                </div>
                 <a href="{% url "bulletin_list" %}" class="btn btn-large btn-primary">{% trans "Browse the market place now" %}</a>
             </div>
         </div>
