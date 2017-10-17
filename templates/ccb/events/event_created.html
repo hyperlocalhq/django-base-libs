@@ -13,7 +13,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                {% with icon_css_class="fa-calender-plus" %}
+                {% with icon_css_class="fa-calender-plus" created_object_url=request.session.created_event_url %}
                     {% infoblock "event_created" using "blocks/object_created.html" %}
                 {% endwith %}
             </div>

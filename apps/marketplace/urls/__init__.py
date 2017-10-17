@@ -36,10 +36,10 @@ urlpatterns = (
     url(r'^add/$',
         'ccb.apps.marketplace.views.add_job_offer'
         ),
-    url(r'^deleted/$',
-        TemplateView.as_view(template_name='marketplace/job_offer_deleted.html'),
-        name="job_offer_deleted",
-        ),
+    # success pages
+    url(r'^created/$', TemplateView.as_view(template_name='marketplace/job_offer_created.html'), name="job_offer_created"),
+    url(r'^deleted/$', TemplateView.as_view(template_name='marketplace/job_offer_deleted.html'), name="job_offer_deleted"),
+
     url(r'^(?P<show>memos)/$',
         'ccb.apps.marketplace.views.job_offer_list',
         job_offer_list_info,
@@ -98,10 +98,6 @@ urlpatterns = (
         'ccb.apps.marketplace.views.job_offer_detail',
         job_offer_details_info,
         name="job_offer_detail",
-        ),
-    url(r'^job/(?P<secure_id>\d+)/created/$',
-        TemplateView.as_view(template_name='marketplace/job_offer_created.html'),
-        name="job_offer_created",
         ),
     url(r'^job/(?P<slug>[^/]+)/delete/$',
         'ccb.apps.site_specific.views.delete_object',

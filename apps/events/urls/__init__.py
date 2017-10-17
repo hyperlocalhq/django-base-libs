@@ -67,10 +67,10 @@ urlpatterns = (
         event_list_info,
     ),
     url(r'^add/$', 'ccb.apps.events.views.add_event'),
-    url(r'^deleted/$',
-        TemplateView.as_view(template_name='events/event_deleted.html'),
-        name="event_deleted",
-        ),
+
+    # success pages
+    url(r'^created/$', TemplateView.as_view(template_name='events/event_created.html'), name="event_created"),
+    url(r'^deleted/$', TemplateView.as_view(template_name='events/event_deleted.html'), name="event_deleted"),
 
     # events have their dates prefixed (or not, if there aren't any)
     url(
@@ -82,15 +82,6 @@ urlpatterns = (
         'ccb.apps.events.views.event_detail',
         event_details_info,
         name="event_detail",
-    ),
-    url(
-        r'^'
-        r'event/'
-        r'(?P<slug>[^/]+)/'
-        r'((?P<event_time>\d+)/)?'
-        r'created/$',
-        TemplateView.as_view(template_name='events/event_created.html'),
-        name="event_created",
     ),
     url(
         r'^'

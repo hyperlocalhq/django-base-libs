@@ -165,10 +165,16 @@ class PortfolioSite(object):
                 r'^$',
                 wrap(self.portfolio_overview),
             ),
+            # success pages
+            url(
+                r'^created/$',
+                wrap(TemplateView.as_view(template_name='media_gallery/gallery_created.html'), admin=True)
+            ),
             url(
                 r'^deleted/$',
-                wrap(TemplateView.as_view(template_name='media_gallery/gallery_deleted.html'), admin=True),
+                wrap(TemplateView.as_view(template_name='media_gallery/gallery_deleted.html'), admin=True)
             ),
+
             url(
                 r'^settings/$',
                 wrap(self.portfolio_settings, admin=True),
@@ -200,10 +206,6 @@ class PortfolioSite(object):
             url(
                 r'^album/(?P<gallery_token>\d+)/$',
                 wrap(self.gallery_detail),
-            ),
-            url(
-                r'^album/(?P<gallery_token>\d+)/created/$',
-                wrap(TemplateView.as_view(template_name='media_gallery/gallery_created.html'), admin=True),
             ),
             url(
                 r'^album/(?P<gallery_token>\d+)/change/$',

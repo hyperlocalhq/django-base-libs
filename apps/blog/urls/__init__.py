@@ -38,6 +38,8 @@ urlpatterns = patterns(
     # public posts
     url(r'^/?$', 'handle_request', all_dict),
 
+    # success pages
+    url(r'^created/$', TemplateView.as_view(template_name='blog/post_created.html')),
     url(r'^deleted/$', TemplateView.as_view(template_name='blog/post_deleted.html')),
 
     # date-based by year
@@ -52,9 +54,6 @@ urlpatterns = patterns(
     # post detail
     url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<post_slug>[0-9A-Za-z-_]+)/$', 'handle_request',
      all_dict),
-
-    # post created
-    url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<post_slug>[0-9A-Za-z-_]+)/created/$', TemplateView.as_view(template_name='blog/post_created.html')),
 
     # tag based
     url(r'^tag/(?P<tag>[^/]+)/$', 'handle_request', all_dict),
