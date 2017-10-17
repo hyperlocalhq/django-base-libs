@@ -66,7 +66,7 @@ class PostOptions(ExtendedModelAdmin):
 
     fieldsets = [
         (None, {
-            'fields': ('blog', 'title', 'slug', 'body', 'enable_comment_form', 'tags')
+            'fields': ('blog', 'title', 'slug', 'image', 'image_author', 'body', 'enable_comment_form', 'tags')
         }),
     ]
     fieldsets += PublishingMixinAdminOptions.fieldsets
