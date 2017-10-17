@@ -2769,6 +2769,11 @@ body.show-layer.image-layer .layer#image-layer {
   transform: none;
 }
 
+.no-row-margin > .row {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
 #navigation {
   width: 100%;
   max-width: 380px;
