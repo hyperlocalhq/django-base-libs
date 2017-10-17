@@ -5,7 +5,7 @@
         <h2>{{ form.title.data }}</h2>
         {% if form.tmp_image_filename.data %}
             <div class="photo-credits-wrapper">
-                <img src="/{{ LANGUAGE_CODE }}/helper/tmpimage/{{ form.tmp_image_filename.data }}/800x600/" alt="" />
+                <img src="/{{ LANGUAGE_CODE }}/helper/tmpimage/{{ form.tmp_image_filename.data }}/850/" alt="" />
                 {% if form.image_author.data %}<div class="photo-credits-over">{% trans "Photo" %}: {{ form.image_author.data }}</div>{% endif %}
             </div>
         {% elif current_post.image %}
