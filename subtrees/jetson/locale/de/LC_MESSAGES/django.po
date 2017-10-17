@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Django 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-22 05:19+0200\n"
+"POT-Creation-Date: 2017-10-17 22:40+0200\n"
 "PO-Revision-Date: 2017-09-28 06:36+0053\n"
 "Last-Translator: Super Admin <jetsonadmin@studio38.de>\n"
 "Language-Team: \n"
@@ -22,8 +22,7 @@ msgstr ""
 #: subtrees/jetson/apps/articles/admin.py:28
 #: subtrees/jetson/apps/blocks/admin.py:20
 #: subtrees/jetson/apps/faqs/admin.py:40 subtrees/jetson/apps/faqs/admin.py:63
-#: subtrees/jetson/apps/faqs/admin.py:94
-#: subtrees/jetson/apps/forum/admin.py:39
+#: subtrees/jetson/apps/faqs/admin.py:94 subtrees/jetson/apps/forum/admin.py:39
 #: subtrees/jetson/apps/forum/admin.py:57
 #: subtrees/jetson/apps/forum/admin.py:69
 #: subtrees/jetson/apps/forum/admin.py:82
@@ -91,15 +90,14 @@ msgstr ""
 #: subtrees/jetson/apps/events/base.py:222
 #: subtrees/jetson/apps/events/base.py:440
 #: subtrees/jetson/apps/external_services/models.py:15
-#: subtrees/jetson/apps/faqs/admin.py:26
-#: subtrees/jetson/apps/forum/admin.py:24
+#: subtrees/jetson/apps/faqs/admin.py:26 subtrees/jetson/apps/forum/admin.py:24
 #: subtrees/jetson/apps/forum/forms.py:19
 #: subtrees/jetson/apps/forum/forms.py:57
 #: subtrees/jetson/apps/groups_networks/admin.py:23
 #: subtrees/jetson/apps/groups_networks/base.py:222
 #: subtrees/jetson/apps/groups_networks/base.py:696
-#: subtrees/jetson/apps/image_mods/models.py:350
-#: subtrees/jetson/apps/image_mods/models.py:372
+#: subtrees/jetson/apps/image_mods/models.py:357
+#: subtrees/jetson/apps/image_mods/models.py:379
 #: subtrees/jetson/apps/individual_relations/admin.py:37
 #: subtrees/jetson/apps/institutions/admin.py:21
 #: subtrees/jetson/apps/institutions/admin.py:31
@@ -521,8 +519,8 @@ msgstr "Stichworte"
 
 #: subtrees/jetson/apps/blog/forms.py:28
 msgid ""
-"Use commas to separate your tags. Tags can have multiple words. For example:"
-" 'one, two, three apples' would define three tags."
+"Use commas to separate your tags. Tags can have multiple words. For example: "
+"'one, two, three apples' would define three tags."
 msgstr ""
 "Verwenden Sie Kommas, um Ihre Tags zu trennen. Tags können mehrere Worte "
 "beinhalten. Zum Beispiel: \"eins, zwei, drei Äpfel\" würde drei Tags "
@@ -1150,8 +1148,8 @@ msgid ""
 "Check this box if the comment is inappropriate. A \"This comment has been "
 "removed\" message will be displayed instead."
 msgstr ""
-"Hier einen Haken setzen, wenn der Kommentar unpassend ist. Es wird dann eine"
-" \"Dieser Kommentar wurde entfernt\" Meldung statt dessen angezeigt."
+"Hier einen Haken setzen, wenn der Kommentar unpassend ist. Es wird dann eine "
+"\"Dieser Kommentar wurde entfernt\" Meldung statt dessen angezeigt."
 
 #: subtrees/jetson/apps/comments/models.py:114
 msgid "is spam"
@@ -1159,11 +1157,11 @@ msgstr "ist werbung"
 
 #: subtrees/jetson/apps/comments/models.py:114
 msgid ""
-"Check this box if the comment should be marked as spam. The comment will not"
-" be displayed in this case."
+"Check this box if the comment should be marked as spam. The comment will not "
+"be displayed in this case."
 msgstr ""
-"Hier einen Haken setzen, wenn der Kommentar unpassend ist. Es wird dann eine"
-" \"Dieser Kommentar wurde entfernt\" Meldung statt dessen angezeigt."
+"Hier einen Haken setzen, wenn der Kommentar unpassend ist. Es wird dann eine "
+"\"Dieser Kommentar wurde entfernt\" Meldung statt dessen angezeigt."
 
 #: subtrees/jetson/apps/comments/models.py:119
 msgid "comments"
@@ -1384,15 +1382,18 @@ msgstr "Einen Kommentar schreiben"
 #: subtrees/jetson/apps/comments/views/comments.py:294
 #, python-format
 msgid ""
-"This comment was posted by a user who has posted fewer than %(count)s comment:\n"
+"This comment was posted by a user who has posted fewer than %(count)s "
+"comment:\n"
 "\n"
 "%(text)s"
 msgid_plural ""
-"This comment was posted by a user who has posted fewer than %(count)s comments:\n"
+"This comment was posted by a user who has posted fewer than %(count)s "
+"comments:\n"
 "\n"
 "%(text)s"
 msgstr[0] ""
-"Dieser Kommentar ist von einem Benutzer mit weniger als %(count)s Kommentar:\n"
+"Dieser Kommentar ist von einem Benutzer mit weniger als %(count)s "
+"Kommentar:\n"
 "\n"
 "%(text)s"
 
@@ -2709,8 +2710,7 @@ msgstr "Profilphoto"
 #, python-format
 msgid ""
 "You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px."
-msgstr ""
-"Erlaubt sind Daten im Format JPG, GIF, PNG TIFF. Minimale Größe %s px."
+msgstr "Erlaubt sind Daten im Format JPG, GIF, PNG TIFF. Minimale Größe %s px."
 
 #: subtrees/jetson/apps/events/forms.py:666
 msgid "Separate tags with commas"
@@ -3210,8 +3210,7 @@ msgid "registration required"
 msgstr "Registrierung erforderlich"
 
 #: subtrees/jetson/apps/flatpages/base.py:26
-msgid ""
-"If this is checked, only logged-in users will be able to view the page."
+msgid "If this is checked, only logged-in users will be able to view the page."
 msgstr ""
 "Wenn dies ausgewählt ist, ist diese Seite nur für angemeldete Benutzer "
 "sichtbar."
@@ -3307,8 +3306,8 @@ msgid ""
 "check this field, if you want your thread to appear continually at the top "
 "of the forum."
 msgstr ""
-"Auswählen, wenn Ihr Beitrag immer am Anfang der Themenliste angezeigt werden"
-" soll."
+"Auswählen, wenn Ihr Beitrag immer am Anfang der Themenliste angezeigt werden "
+"soll."
 
 # D:\svn\jetson_src\jetson_reorganized\jetson\apps\forum\models.py:85
 #: subtrees/jetson/apps/forum/models.py:86
@@ -3325,8 +3324,8 @@ msgid ""
 "be heard, even if the forum is highly frequented. 'Bumping' is done by "
 "posting a second time to the (not yet answered) thread."
 msgstr ""
-"Auswählen, wenn Ihr Beitrag wieder am Anfang der Themenliste  gezeigt werden"
-" soll, auch wenn diesen noch niemand beantwortet hat. Dieses \"Bumping\" "
+"Auswählen, wenn Ihr Beitrag wieder am Anfang der Themenliste  gezeigt werden "
+"soll, auch wenn diesen noch niemand beantwortet hat. Dieses \"Bumping\" "
 "erfolgt, indem ein zweites Mal in dem (noch nicht beantworteten) Beitrag "
 "gepostet wird."
 
@@ -3443,9 +3442,9 @@ msgstr "Antworten"
 #: subtrees/jetson/apps/forum/views.py:237
 #, python-format
 msgid ""
-"WARNING! You want to create a new forum under the '%(current_forum)s' forum,"
-" which already have threads. All threads of '%(current_forum)s' will be "
-"moved to your new forum!"
+"WARNING! You want to create a new forum under the '%(current_forum)s' forum, "
+"which already have threads. All threads of '%(current_forum)s' will be moved "
+"to your new forum!"
 msgstr ""
 "ACHTUNG! Sie möchten ein neues Forum unter dem '%(current_forum)s' Forum "
 "anlegen, welches bereits Diskussionen enthält. Alle Diskussionen der "
@@ -4465,7 +4464,7 @@ msgid "Dimensions"
 msgstr "Abmessung"
 
 #: subtrees/jetson/apps/image_mods/admin.py:25
-#: subtrees/jetson/apps/image_mods/models.py:390
+#: subtrees/jetson/apps/image_mods/models.py:397
 msgid "Filters"
 msgstr "Filter"
 
@@ -4501,7 +4500,7 @@ msgstr "Original"
 
 #: subtrees/jetson/apps/image_mods/admin.py:75
 #: subtrees/jetson/apps/image_mods/models.py:89
-#: subtrees/jetson/apps/image_mods/models.py:400
+#: subtrees/jetson/apps/image_mods/models.py:407
 msgid "Image Modifications"
 msgstr "Bild Modifikationen"
 
@@ -4520,13 +4519,13 @@ msgstr ""
 #: subtrees/jetson/apps/image_mods/models.py:55
 #, python-format
 msgid ""
-"Chain multiple filters using the following pattern "
-"\"FILTER_ONE->FILTER_TWO->FILTER_THREE\". Image filters will be applied in "
-"order. The following filter are available: %s"
+"Chain multiple filters using the following pattern \"FILTER_ONE->FILTER_TWO-"
+">FILTER_THREE\". Image filters will be applied in order. The following "
+"filter are available: %s"
 msgstr ""
-"Wählen Sie mehrere Filter mit dem folgenden Muster "
-"\"FILTER_EINS->FILTER_ZWEI->FILTER_DREI\". Image Filter werden in der "
-"Reihenfolge angewendet. Die folgenden Filter stehen zur Verfügung: %s"
+"Wählen Sie mehrere Filter mit dem folgenden Muster \"FILTER_EINS-"
+">FILTER_ZWEI->FILTER_DREI\". Image Filter werden in der Reihenfolge "
+"angewendet. Die folgenden Filter stehen zur Verfügung: %s"
 
 #: subtrees/jetson/apps/image_mods/models.py:59
 msgid "Very Low"
@@ -4578,24 +4577,24 @@ msgstr "Links"
 msgid "Center (Default)"
 msgstr "Mitte (Standart)"
 
-#: subtrees/jetson/apps/image_mods/models.py:353
-#: subtrees/jetson/apps/image_mods/models.py:392
+#: subtrees/jetson/apps/image_mods/models.py:360
+#: subtrees/jetson/apps/image_mods/models.py:399
 msgid "Image Modification Group"
 msgstr "Bild Modifikation Gruppe"
 
-#: subtrees/jetson/apps/image_mods/models.py:354
+#: subtrees/jetson/apps/image_mods/models.py:361
 msgid "Image Modification Groups"
 msgstr "Bild Modifikationen Gruppen"
 
-#: subtrees/jetson/apps/image_mods/models.py:370
+#: subtrees/jetson/apps/image_mods/models.py:377
 msgid "Sysname"
 msgstr "Systemname"
 
-#: subtrees/jetson/apps/image_mods/models.py:370
+#: subtrees/jetson/apps/image_mods/models.py:377
 msgid "Sysnames are used for cached file suffixes and in the templates"
 msgstr "Sysnames werden für die Cache-Datei Suffixe und in den Vorlagen"
 
-#: subtrees/jetson/apps/image_mods/models.py:374
+#: subtrees/jetson/apps/image_mods/models.py:381
 #: subtrees/jetson/templates/admin/filebrowser/detail.html:187
 #: subtrees/jetson/templates/admin/filebrowser/detail.html:195
 #: subtrees/jetson/templates/admin/filebrowser/versions.html:151
@@ -4604,11 +4603,11 @@ msgstr "Sysnames werden für die Cache-Datei Suffixe und in den Vorlagen"
 msgid "Width"
 msgstr "Breite"
 
-#: subtrees/jetson/apps/image_mods/models.py:374
+#: subtrees/jetson/apps/image_mods/models.py:381
 msgid "Leave to size the image to the set height"
 msgstr "Lassen Sie die Bildgröße auf der eingestellten Höhe"
 
-#: subtrees/jetson/apps/image_mods/models.py:375
+#: subtrees/jetson/apps/image_mods/models.py:382
 #: subtrees/jetson/templates/admin/filebrowser/detail.html:188
 #: subtrees/jetson/templates/admin/filebrowser/detail.html:196
 #: subtrees/jetson/templates/admin/filebrowser/versions.html:152
@@ -4617,23 +4616,23 @@ msgstr "Lassen Sie die Bildgröße auf der eingestellten Höhe"
 msgid "Height"
 msgstr "Höhe"
 
-#: subtrees/jetson/apps/image_mods/models.py:375
+#: subtrees/jetson/apps/image_mods/models.py:382
 msgid "Leave to size the image to the set width"
 msgstr "Lassen Sie die Bildgröße auf der eingestellten Breite"
 
-#: subtrees/jetson/apps/image_mods/models.py:376
+#: subtrees/jetson/apps/image_mods/models.py:383
 msgid "Quality"
 msgstr "Qualität"
 
-#: subtrees/jetson/apps/image_mods/models.py:376
+#: subtrees/jetson/apps/image_mods/models.py:383
 msgid "JPEG image quality."
 msgstr "JPEG-Bildqualität"
 
-#: subtrees/jetson/apps/image_mods/models.py:377
+#: subtrees/jetson/apps/image_mods/models.py:384
 msgid "Crop to fit?"
 msgstr "Passend zuschneiden?"
 
-#: subtrees/jetson/apps/image_mods/models.py:377
+#: subtrees/jetson/apps/image_mods/models.py:384
 msgid ""
 "If selected the image will be scaled and cropped to fit the supplied "
 "dimensions."
@@ -4641,27 +4640,27 @@ msgstr ""
 "Wenn diese Option aktiviert ist, wird die Bildgröße auf das Ausgabeformat "
 "skaliert und gegebenenfalls beschnitten."
 
-#: subtrees/jetson/apps/image_mods/models.py:378
+#: subtrees/jetson/apps/image_mods/models.py:385
 msgid "Crop from"
 msgstr "Ausschnitt von"
 
-#: subtrees/jetson/apps/image_mods/models.py:380
+#: subtrees/jetson/apps/image_mods/models.py:387
 msgid "Mask"
 msgstr "Maske"
 
-#: subtrees/jetson/apps/image_mods/models.py:382
+#: subtrees/jetson/apps/image_mods/models.py:389
 msgid "Frame"
 msgstr "Rahmen"
 
-#: subtrees/jetson/apps/image_mods/models.py:384
+#: subtrees/jetson/apps/image_mods/models.py:391
 msgid "Output format"
 msgstr "Ausgabe-Format"
 
-#: subtrees/jetson/apps/image_mods/models.py:386
+#: subtrees/jetson/apps/image_mods/models.py:393
 msgid "Color"
 msgstr "Farbe"
 
-#: subtrees/jetson/apps/image_mods/models.py:386
+#: subtrees/jetson/apps/image_mods/models.py:393
 msgid ""
 "A factor of 0.0 gives a black and white image, a factor of 1.0 gives the "
 "original image."
@@ -4669,11 +4668,11 @@ msgstr ""
 "Ein Faktor von 0,0 ergibt eine Schwarz-Weiß-Bild, ein Faktor von 1,0 das "
 "ursprüngliche Bild."
 
-#: subtrees/jetson/apps/image_mods/models.py:387
+#: subtrees/jetson/apps/image_mods/models.py:394
 msgid "Brightness"
 msgstr "Helligkeit"
 
-#: subtrees/jetson/apps/image_mods/models.py:387
+#: subtrees/jetson/apps/image_mods/models.py:394
 msgid ""
 "A factor of 0.0 gives a black image, a factor of 1.0 gives the original "
 "image."
@@ -4681,23 +4680,23 @@ msgstr ""
 "Ein Faktor von 0,0 ergibt ein schwarzes Bild, ein Faktor von 1,0 das "
 "ursprüngliche Bild."
 
-#: subtrees/jetson/apps/image_mods/models.py:388
+#: subtrees/jetson/apps/image_mods/models.py:395
 msgid "Contrast"
 msgstr "Kontrast"
 
-#: subtrees/jetson/apps/image_mods/models.py:388
+#: subtrees/jetson/apps/image_mods/models.py:395
 msgid ""
-"A factor of 0.0 gives a solid grey image, a factor of 1.0 gives the original"
-" image."
+"A factor of 0.0 gives a solid grey image, a factor of 1.0 gives the original "
+"image."
 msgstr ""
 "Ein Faktor von 0,0 ergibt eine solide graues Bild, ein Faktor von 1,0 das "
 "ursprüngliche Bild."
 
-#: subtrees/jetson/apps/image_mods/models.py:389
+#: subtrees/jetson/apps/image_mods/models.py:396
 msgid "Sharpness"
 msgstr "Schärfe"
 
-#: subtrees/jetson/apps/image_mods/models.py:389
+#: subtrees/jetson/apps/image_mods/models.py:396
 msgid ""
 "A factor of 0.0 gives a blurred image, a factor of 1.0 gives the original "
 "image."
@@ -4705,63 +4704,63 @@ msgstr ""
 "Ein Faktor von 0,0 ergibt ein unscharfes Bild, ein Faktor von 1,0 das "
 "ursprüngliche Bild."
 
-#: subtrees/jetson/apps/image_mods/models.py:392
+#: subtrees/jetson/apps/image_mods/models.py:399
 msgid ""
 "Assign a group of modifications which will be triggered together while "
 "cropping."
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:394
+#: subtrees/jetson/apps/image_mods/models.py:401
 #, fuzzy
 #| msgid "Note"
 msgid "Notes"
 msgstr "Hinweis"
 
-#: subtrees/jetson/apps/image_mods/models.py:399
+#: subtrees/jetson/apps/image_mods/models.py:406
 msgid "Image Modification"
 msgstr "Bild Modifikation "
 
-#: subtrees/jetson/apps/image_mods/models.py:602
+#: subtrees/jetson/apps/image_mods/models.py:609
 #: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:83
 msgid "Original"
 msgstr "Original"
 
-#: subtrees/jetson/apps/image_mods/models.py:603
+#: subtrees/jetson/apps/image_mods/models.py:610
 msgid "Modifications"
 msgstr "Modifikationen"
 
-#: subtrees/jetson/apps/image_mods/models.py:603
+#: subtrees/jetson/apps/image_mods/models.py:610
 msgid ""
 "Modifications with the same ratio which should be used to recrop images "
 "together."
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:604
+#: subtrees/jetson/apps/image_mods/models.py:611
 msgid "X1"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:605
+#: subtrees/jetson/apps/image_mods/models.py:612
 msgid "Y1"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:606
+#: subtrees/jetson/apps/image_mods/models.py:613
 msgid "X2"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:607
+#: subtrees/jetson/apps/image_mods/models.py:614
 msgid "Y2"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:608
+#: subtrees/jetson/apps/image_mods/models.py:615
 #: subtrees/jetson/apps/image_mods/views.py:200
 msgid "Canvas color"
 msgstr "Canvas Farbe"
 
-#: subtrees/jetson/apps/image_mods/models.py:611
+#: subtrees/jetson/apps/image_mods/models.py:618
 msgid "Image Cropping"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:612
+#: subtrees/jetson/apps/image_mods/models.py:619
 msgid "Image Croppings"
 msgstr ""
 
@@ -4960,8 +4959,8 @@ msgstr "Anfrage zur Mitgliedschaft in Gruppe annehmen."
 #: subtrees/jetson/apps/individual_relations/forms.py:343
 #, python-format
 msgid ""
-"This username is already used for another account. But you can use \"%s\" as"
-" your username."
+"This username is already used for another account. But you can use \"%s\" as "
+"your username."
 msgstr ""
 "Dieser Benutzername wird bereits verwendet. Sie können aber z.B. \"%s\" als "
 "Benutzernamen wählen."
@@ -5779,14 +5778,14 @@ msgstr "Längengrad"
 msgid ""
 "Longitude (Long.) is the angle east or west of an arbitrary point on Earth "
 "from Greenwich (UK), which is the international zero-longitude point "
-"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction"
-" to east) and -180 (direction to west)."
+"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction "
+"to east) and -180 (direction to west)."
 msgstr ""
 "Der Längengrad ist der östliche oder westliche Winkel von einem "
 "willkürlichen Punkt auf der Erde nach Greenwich (Großbritannien), welches "
 "der internationale Null Längengrad Punkt ist (Grad Längengrad=0°) Der "
-"Gegenmeridian von Greenwich ist 180° in Richtung Osten und -180° in Richtung"
-" Westen)."
+"Gegenmeridian von Greenwich ist 180° in Richtung Osten und -180° in Richtung "
+"Westen)."
 
 #: subtrees/jetson/apps/location/models.py:236
 #: subtrees/jetson/apps/location/south_migrations/0001_initial.py:19
@@ -5877,7 +5876,6 @@ msgid "Send"
 msgstr "Senden"
 
 #: subtrees/jetson/apps/mailchimp/forms.py:138
-#| msgid "Subscriber"
 msgid "Subscribe"
 msgstr "Abonnieren"
 
@@ -6048,8 +6046,8 @@ msgid ""
 "Email addresses must have the form 'John Doe (john.doe@domain.com)' or just "
 "'john.doe@domain.com'."
 msgstr ""
-"E-mail Adressen müssen folgendermaßen formattiert werden: 'John Doe "
-"(john.doe@domain.com)' oder einfach 'john.doe@domain.com'."
+"E-mail Adressen müssen folgendermaßen formattiert werden: 'John Doe (john."
+"doe@domain.com)' oder einfach 'john.doe@domain.com'."
 
 #: subtrees/jetson/apps/mailing/forms.py:45
 #: subtrees/jetson/apps/mailing/models.py:140
@@ -6548,12 +6546,12 @@ msgstr "Video Datei"
 
 #: subtrees/jetson/apps/media_gallery/forms.py:155
 msgid ""
-"You can link to a FLV file, Youtube video (e.g. "
-"http://www.youtube.com/watch?v=rd2izv5JBcE or http://youtu.be/rd2izv5JBcE) "
-"or Vimeo video (e.g. http://vimeo.com/17853047)."
+"You can link to a FLV file, Youtube video (e.g. http://www.youtube.com/watch?"
+"v=rd2izv5JBcE or http://youtu.be/rd2izv5JBcE) or Vimeo video (e.g. http://"
+"vimeo.com/17853047)."
 msgstr ""
-"Sie konnen nur FLV oder Youtube Videos verlinken (z.b. "
-"http://www.youtube.com/watch?v=rd2izv5JBcE)."
+"Sie konnen nur FLV oder Youtube Videos verlinken (z.b. http://www.youtube."
+"com/watch?v=rd2izv5JBcE)."
 
 #: subtrees/jetson/apps/media_gallery/forms.py:190
 msgid "Upload Video"
@@ -6611,8 +6609,7 @@ msgid "Token"
 msgstr "Token"
 
 #: subtrees/jetson/apps/memos/models.py:38
-msgid ""
-"Unique generated identifier saved in the cookie at a visitor's computer"
+msgid "Unique generated identifier saved in the cookie at a visitor's computer"
 msgstr ""
 "Generierter unique Identifier der in das Cookie auf dem Computer eines "
 "Besuchers gespeichert ist"
@@ -6751,8 +6748,8 @@ msgid ""
 "styling or scripts to specific navigation items."
 msgstr ""
 "Ändern Sie diesen Wert nicht! Sysnames werden verwendet, um Äste von "
-"Navigations-Links in Vorlagen anzuzeigen, sowie um spezifische Stylings oder"
-" Skripte mit spezifischen Navigationslinks zu verknüpfen."
+"Navigations-Links in Vorlagen anzuzeigen, sowie um spezifische Stylings oder "
+"Skripte mit spezifischen Navigationslinks zu verknüpfen."
 
 #: subtrees/jetson/apps/navigation/models.py:64
 #: subtrees/jetson/apps/navigation/south_migrations/0001_initial.py:24
@@ -6764,8 +6761,8 @@ msgid ""
 "It can contain template tags and variables. The link is shown in the "
 "navigation menu only if it returns a non-empty string."
 msgstr ""
-"Kann Template-Tags und Variablen enthalten. Der Link wird im Navigationsmenu"
-" nur dargestellt, wenn er einen nicht-leeren String enthält."
+"Kann Template-Tags und Variablen enthalten. Der Link wird im Navigationsmenu "
+"nur dargestellt, wenn er einen nicht-leeren String enthält."
 
 #: subtrees/jetson/apps/navigation/models.py:65
 #: subtrees/jetson/apps/navigation/south_migrations/0001_initial.py:25
@@ -6896,11 +6893,11 @@ msgstr "Nachrichten Vorlage"
 
 #: subtrees/jetson/apps/notification/models.py:64
 msgid ""
-"This message will be shown in the website. Accepted template variables: {{ "
-"notified_user }}, {{ object }}, and specific extra context."
+"This message will be shown in the website. Accepted template variables: "
+"{{ notified_user }}, {{ object }}, and specific extra context."
 msgstr ""
-"Diese Nachricht wird auf der Website angezeigt Zulässige Template-Variablen:"
-" {{ notified_user }}, {{ object }}, und spezifischer zusätzlicher Kontext."
+"Diese Nachricht wird auf der Website angezeigt Zulässige Template-Variablen: "
+"{{ notified_user }}, {{ object }}, und spezifischer zusätzlicher Kontext."
 
 #: subtrees/jetson/apps/notification/models.py:67
 msgid "default media"
@@ -7867,28 +7864,27 @@ msgstr "Ticket Historie"
 msgid "Date"
 msgstr "Datum"
 
-#: subtrees/jetson/apps/utils/images.py:224
+#: subtrees/jetson/apps/utils/images.py:238
 msgid "The image doesn't exist"
 msgstr "Dieses Bild existiert nicht"
 
-#: subtrees/jetson/apps/utils/images.py:244
+#: subtrees/jetson/apps/utils/images.py:258
 #, python-format
 msgid ""
-"The media file is too small. The minimal dimensions are "
-"%(width)dx%(height)d."
+"The media file is too small. The minimal dimensions are %(width)dx%(height)d."
 msgstr ""
-"Die Datei ist zu klein. Die Minimum-Abmessungen liegen bei "
-"%(width)dx%(height)d."
+"Die Datei ist zu klein. Die Minimum-Abmessungen liegen bei %(width)dx"
+"%(height)d."
 
-#: subtrees/jetson/apps/utils/images.py:248
+#: subtrees/jetson/apps/utils/images.py:262
 #, python-format
 msgid ""
 "The ratio of the dimensions is too large. The maximal allowed ratio is %d:1."
 msgstr ""
-"Das Seitenverhältnis der Datei ist zu groß. Erlaubt ist ein Seitenverhältnis"
-" von maximal %d:1."
+"Das Seitenverhältnis der Datei ist zu groß. Erlaubt ist ein Seitenverhältnis "
+"von maximal %d:1."
 
-#: subtrees/jetson/apps/utils/images.py:249
+#: subtrees/jetson/apps/utils/images.py:263
 #, python-format
 msgid ""
 "The file type of the uploaded file is not valid. The allowed file types are "
@@ -7897,15 +7893,15 @@ msgstr ""
 "Die verwendete Dateiart der ausgewählten Datei wird nicht unterstützt. "
 "Erlaubt sind folgende Formate: %s"
 
-#: subtrees/jetson/apps/utils/images.py:250
+#: subtrees/jetson/apps/utils/images.py:264
 #, python-format
 msgid "The media file is too large. The maximal allowed file size is %s."
 msgstr "Die Datei ist zu groß. Die maximal erlaubte Dateigröße beträgt %s."
 
-#: subtrees/jetson/apps/utils/images.py:251
+#: subtrees/jetson/apps/utils/images.py:265
 msgid ""
-"The interlaced PNG images are not supported for now. Please resave the image"
-" without this option and try again."
+"The interlaced PNG images are not supported for now. Please resave the image "
+"without this option and try again."
 msgstr ""
 "PNG-Daten im Interlaced-Format werden derzeit nicht unterstützt. Bitte "
 "speichern Sie die Datei ohne diese Option neu ab und laden sie erneut hoch."
@@ -8221,8 +8217,8 @@ msgstr "Fehler"
 
 #: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:202
 msgid ""
-"This page cannot be copied because an application is attached to it. See the"
-" Page's Advanced settings to manage apphooks."
+"This page cannot be copied because an application is attached to it. See the "
+"Page's Advanced settings to manage apphooks."
 msgstr ""
 
 #: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:203
@@ -8261,7 +8257,8 @@ msgid ""
 "\n"
 "                            <em>There is no page around yet.</em>\n"
 "                            <br>\n"
-"                            <a href=\"%(add_url)s\" class=\"addlink\">Add page</a> now.\n"
+"                            <a href=\"%(add_url)s\" class=\"addlink\">Add "
+"page</a> now.\n"
 "                        "
 msgstr ""
 
@@ -8272,22 +8269,22 @@ msgid ""
 "related objects, but your account doesn't have permission to delete the "
 "following types of objects:"
 msgstr ""
-"Die Löschung des %(object_name)s '%(escaped_object)s' hätte die Löschung von"
-" abhängigen Daten zur Folge, aber Sie haben nicht die nötigen Rechte um die "
+"Die Löschung des %(object_name)s '%(escaped_object)s' hätte die Löschung von "
+"abhängigen Daten zur Folge, aber Sie haben nicht die nötigen Rechte um die "
 "folgenden abhängigen Daten zu löschen:"
 
 #: subtrees/jetson/templates/admin/admin/delete_confirmation.html:35
 #, fuzzy, python-format
 #| msgid ""
-#| "Deleting the %(object_name)s '%(escaped_object)s' would result in deleting "
-#| "related objects, but your account doesn't have permission to delete the "
-#| "following types of objects:"
+#| "Deleting the %(object_name)s '%(escaped_object)s' would result in "
+#| "deleting related objects, but your account doesn't have permission to "
+#| "delete the following types of objects:"
 msgid ""
-"Deleting the %(object_name)s '%(escaped_object)s' would require deleting the"
-" following protected related objects:"
+"Deleting the %(object_name)s '%(escaped_object)s' would require deleting the "
+"following protected related objects:"
 msgstr ""
-"Die Löschung des %(object_name)s '%(escaped_object)s' hätte die Löschung von"
-" abhängigen Daten zur Folge, aber Sie haben nicht die nötigen Rechte um die "
+"Die Löschung des %(object_name)s '%(escaped_object)s' hätte die Löschung von "
+"abhängigen Daten zur Folge, aber Sie haben nicht die nötigen Rechte um die "
 "folgenden abhängigen Daten zu löschen:"
 
 #: subtrees/jetson/templates/admin/admin/delete_confirmation.html:45
@@ -8450,8 +8447,8 @@ msgstr "%(full_result_count)s gesamt"
 
 #: subtrees/jetson/templates/admin/admin/object_history.html:78
 msgid ""
-"This object doesn't have a change history. It probably wasn't added via this"
-" admin site."
+"This object doesn't have a change history. It probably wasn't added via this "
+"admin site."
 msgstr ""
 "Dieses Objekt enthält keine Versionsinformation. Es wurde möglicherweise "
 "nicht über diese Administrationsseiten angelegt."
@@ -8508,9 +8505,9 @@ msgid ""
 "You will have to activate JavaScript in your browser's settings to display "
 "the hierarchical structure correctly and to be able to reorder the items."
 msgstr ""
-"Sie müssen JavaScript aktivieren in den Einstellungen Ihres Browsers, um die"
-" hierarchische Struktur korrekt angezeigt und um in der Lage zu sein, um die"
-" Elemente neu anordnen."
+"Sie müssen JavaScript aktivieren in den Einstellungen Ihres Browsers, um die "
+"hierarchische Struktur korrekt angezeigt und um in der Lage zu sein, um die "
+"Elemente neu anordnen."
 
 # D:\svn\jetson_src\jetson_reorganized\jetson\templates\admin\admin\tree_change_list.html.py:11
 #: subtrees/jetson/templates/admin/admin/tree_change_list.html:24
@@ -8518,8 +8515,8 @@ msgid ""
 "You will have to activate JavaScript in your browser's settings to be able "
 "to display the hierarchical structure correctly."
 msgstr ""
-"Sie müssen JavaScript aktivieren in den Einstellungen Ihres Browsers, um die"
-" hierarchische Struktur korrekt anzeigen zu können."
+"Sie müssen JavaScript aktivieren in den Einstellungen Ihres Browsers, um die "
+"hierarchische Struktur korrekt anzeigen zu können."
 
 #: subtrees/jetson/templates/admin/admin/tree_change_list.html:31
 #, python-format
@@ -9019,9 +9016,9 @@ msgstr "Sprachauswahl"
 #: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:19
 msgid ""
 "Couldn't load the specified language file. This usually happens when using "
-"the Encrypted Cookies Session Storage backend on Django 1.4 or "
-"higher.<br/>Setting ROSETTA_STORAGE_CLASS = "
-"'rosetta.storage.CacheRosettaStorage' in your settings file should fix this."
+"the Encrypted Cookies Session Storage backend on Django 1.4 or higher.<br/"
+">Setting ROSETTA_STORAGE_CLASS = 'rosetta.storage.CacheRosettaStorage' in "
+"your settings file should fix this."
 msgstr ""
 
 #: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:30
@@ -9076,9 +9073,8 @@ msgstr ""
 #: subtrees/jetson/templates/admin/rosetta/languages_with_grappelli.html:78
 #, python-format
 msgid ""
-"Please refer to <a href=\"%(i18n_doc_link)s\">Django's I18N "
-"documentation</a> for a guide on how to set up internationalization for your"
-" project."
+"Please refer to <a href=\"%(i18n_doc_link)s\">Django's I18N documentation</"
+"a> for a guide on how to set up internationalization for your project."
 msgstr ""
 
 #: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:9
@@ -9287,8 +9283,8 @@ msgid ""
 "Here you can specify personal data to be displayed in your profile to the "
 "public."
 msgstr ""
-"Hier können Sie angeben, welche Ihrer persönlichen Daten Sie veröffentlichen"
-" wollen."
+"Hier können Sie angeben, welche Ihrer persönlichen Daten Sie veröffentlichen "
+"wollen."
 
 #: subtrees/jetson/templates/default/accounts/my_profile/privacy_settings.html:68
 #: subtrees/jetson/templates/default/events/claim_event_done.html:10
@@ -9365,8 +9361,8 @@ msgstr "Kennwort ändern"
 
 #: subtrees/jetson/templates/default/accounts/password_change_form.html:17
 msgid ""
-"Please enter your old password, for security's sake, and then enter your new"
-" password twice so we can verify you typed it in correctly."
+"Please enter your old password, for security's sake, and then enter your new "
+"password twice so we can verify you typed it in correctly."
 msgstr ""
 "Bitte geben Sie aus Sicherheitsgründen erst Ihr altes Kennwort und darunter "
 "dann zweimal (um sicherzustellen, das Sie es korrekt eingegeben haben) das "
@@ -9405,8 +9401,8 @@ msgstr ""
 #: subtrees/jetson/templates/default/accounts/password_reset_email.html:4
 #, python-format
 msgid ""
-"You're receiving this e-mail because you requested a password reset for your"
-" user account at %(site_name)s."
+"You're receiving this e-mail because you requested a password reset for your "
+"user account at %(site_name)s."
 msgstr ""
 "Sie erhalten diese Mail, weil Sie ein neues Kennwort angefordert haben für "
 "ihr Benutzerkonto bei %(site_name)s."
@@ -9447,8 +9443,8 @@ msgid ""
 "your password and e-mail the new one to you."
 msgstr ""
 "Haben Sie Ihr Kennwort vergessen? Geben Sie einfach Ihre hinterlegte E-Mail-"
-"Adresse ein und wir setzen das Kennwort auf ein neues um und senden es Ihnen"
-" per E-Mail zu."
+"Adresse ein und wir setzen das Kennwort auf ein neues um und senden es Ihnen "
+"per E-Mail zu."
 
 #: subtrees/jetson/templates/default/accounts/password_reset_form.html:37
 msgid "Reset my password"
@@ -9548,8 +9544,8 @@ msgid ""
 "email that you have entered before. Please use the link in the message to "
 "activate your acount at Creative City Berlin."
 msgstr ""
-"Herzlichen Dank für Ihre Anmeldung. Soeben wurde eine eMail an die von Ihnen"
-" angegebene Adresse geschickt. Benutzen Sie den Link in dieser Mail um Ihr "
+"Herzlichen Dank für Ihre Anmeldung. Soeben wurde eine eMail an die von Ihnen "
+"angegebene Adresse geschickt. Benutzen Sie den Link in dieser Mail um Ihr "
 "Konto bei Interactive-City-Berlin zu aktivieren."
 
 #: subtrees/jetson/templates/default/accounts/reg_choose_type.html:8
@@ -9559,8 +9555,8 @@ msgstr "Kontoart auswählen"
 
 #: subtrees/jetson/templates/default/accounts/reg_choose_type.html:24
 msgid ""
-"Please select a suitable account type. You can either register yourself just"
-" as a single person or you can also register as an owner of a group, "
+"Please select a suitable account type. You can either register yourself just "
+"as a single person or you can also register as an owner of a group, "
 "organization or other institution. Your personal account can also be "
 "enhanced at a later point."
 msgstr ""
@@ -9994,12 +9990,12 @@ msgstr "Ihre Registrierung ist vollständig."
 #: subtrees/jetson/templates/default/accounts/register_done.html:13
 msgid ""
 "Welcome to the website. Your registration has been successful and you'll be "
-"receiving a confirmation e-mail shortly. In the meantime, you've been logged"
-" in and are welcome to spend some quality time here. Enjoy the site!"
+"receiving a confirmation e-mail shortly. In the meantime, you've been logged "
+"in and are welcome to spend some quality time here. Enjoy the site!"
 msgstr ""
 "Willkommen bei Interactive-City-Berlin! Ihre Registrierung war erfolgreich "
-"und Sie erhalten in Kürze eine Bestätigungsnachricht an ihre angegebene E"
-"-Mail-Adresse. In der Zwischenzeit können Sie sich gerne auf unserer Seite "
+"und Sie erhalten in Kürze eine Bestätigungsnachricht an ihre angegebene E-"
+"Mail-Adresse. In der Zwischenzeit können Sie sich gerne auf unserer Seite "
 "umsehen und von den erweiterten Nutzungsmöglichkeiten Gebrauch machen. Viel "
 "Spass!"
 
@@ -10010,9 +10006,9 @@ msgstr "Sie haben es fast geschafft."
 
 #: subtrees/jetson/templates/default/accounts/register_verify_required.html:11
 msgid ""
-"In order to complete registration, we need to confirm you entered a valid "
-"e-mail address. You should be getting a confirmation e-mail very shortly. It"
-" will contain instructions on how to finalize your registration."
+"In order to complete registration, we need to confirm you entered a valid e-"
+"mail address. You should be getting a confirmation e-mail very shortly. It "
+"will contain instructions on how to finalize your registration."
 msgstr ""
 "Sie erhalten in Kürze eine Bestätigungsnachricht mit weiteren Informationen "
 "an ihre angegebene Mail-Adresse, um Ihre Registrierung abzuschließen."
@@ -10398,8 +10394,7 @@ msgstr "Kontakt"
 
 #: subtrees/jetson/templates/default/contact_form/contact_form_done.html:10
 msgid "Thank you for your message - we will contact you soon!"
-msgstr ""
-"Vielen Dank für Ihre Nachricht! Wir werden schnellstmöglich antworten!"
+msgstr "Vielen Dank für Ihre Nachricht! Wir werden schnellstmöglich antworten!"
 
 #: subtrees/jetson/templates/default/email_campaigns/infosubscription.html:4
 msgid "Newsletter"
@@ -10826,11 +10821,13 @@ msgstr "Letzte Nachricht"
 #, python-format
 msgid ""
 "\n"
-"\t\t\t\t\t\t\t\tCreated on <a href=\"%(url)s\">%(creation_date)s</a> by <a href=\"%(creator_url)s\">%(creator)s</a>\n"
+"\t\t\t\t\t\t\t\tCreated on <a href=\"%(url)s\">%(creation_date)s</a> by <a "
+"href=\"%(creator_url)s\">%(creator)s</a>\n"
 "\t\t\t\t\t\t\t"
 msgstr ""
 "\n"
-"Erstellt am <a href=\"%(url)s\">%(creation_date)s</a> von <a href=\"%(creator_url)s\">%(creator)s</a>"
+"Erstellt am <a href=\"%(url)s\">%(creation_date)s</a> von <a href="
+"\"%(creator_url)s\">%(creator)s</a>"
 
 #: subtrees/jetson/templates/default/forum/forum_list_level_1.html:74
 msgid "Recent threads"
@@ -10842,11 +10839,13 @@ msgstr "Aktuelle Themen"
 #, python-format
 msgid ""
 "\n"
-"\t\t\t\t\t\t\tCreated on <a href=\"%(url)s\">%(creation_date)s</a> by <a href=\"%(creator_url)s\">%(creator)s</a>\n"
+"\t\t\t\t\t\t\tCreated on <a href=\"%(url)s\">%(creation_date)s</a> by <a "
+"href=\"%(creator_url)s\">%(creator)s</a>\n"
 "\t\t\t\t\t\t"
 msgstr ""
 "\n"
-"Erstellt am <a href=\"%(url)s\">%(creation_date)s</a> von <a href=\"%(creator_url)s\">%(creator)s</a>"
+"Erstellt am <a href=\"%(url)s\">%(creation_date)s</a> von <a href="
+"\"%(creator_url)s\">%(creator)s</a>"
 
 #: subtrees/jetson/templates/default/forum/forum_list_level_1.html:100
 msgid "No threads have been posted yet"
@@ -10873,7 +10872,8 @@ msgstr "keine Antworten"
 #, python-format
 msgid ""
 "\n"
-"\t        \t\t\tCreated on %(creation_date)s<br/> by <a href=\"%(url)s\">%(creator)s</a>\n"
+"\t        \t\t\tCreated on %(creation_date)s<br/> by <a href=\"%(url)s\">"
+"%(creator)s</a>\n"
 "\t        \t\t"
 msgstr ""
 "\n"
@@ -10901,7 +10901,8 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"\t\t\t\t\t\t\t\t\tCreated on <a href=\"%(url)s\">%(creation_date)s</a> by <a href=\"%(creator_url)s\">%(creator)s</a>\n"
+"\t\t\t\t\t\t\t\t\tCreated on <a href=\"%(url)s\">%(creation_date)s</a> by <a "
+"href=\"%(creator_url)s\">%(creator)s</a>\n"
 "\t\t\t\t\t\t\t\t"
 msgstr ""
 
@@ -11384,8 +11385,8 @@ msgstr "Einladen"
 #: subtrees/jetson/templates/default/groups_networks/persongroups/profile/categories_form.html:8
 #: subtrees/jetson/templates/default/resources/documents/profile/categories_form.html:9
 msgid ""
-"Is some      category missing? You can <a href=\"/ticket/new-"
-"category/\">suggest it here</a>."
+"Is some      category missing? You can <a href=\"/ticket/new-category/"
+"\">suggest it here</a>."
 msgstr ""
 "Fehlt ihnen eine Kategorie? Sie können sie uns <a href=\"/ticket/new-"
 "category/\">hier</a> zur Aufnahme vorschlagen."
@@ -11663,7 +11664,8 @@ msgstr "Sie haben keine Einträge für die Merkliste ausgewählt."
 #: subtrees/jetson/templates/default/messaging/delete_message.html:11
 #, python-format
 msgid "Are you sure you want to delete the message \"%(message_subject)s\"?"
-msgstr "Wollen Sie diese Nachricht(en) \"%(message_subject)s\" wirklich löschen?"
+msgstr ""
+"Wollen Sie diese Nachricht(en) \"%(message_subject)s\" wirklich löschen?"
 
 #: subtrees/jetson/templates/default/messaging/details_base.html:12
 #: subtrees/jetson/templates/default/messaging/messages_list.html:13
@@ -11766,7 +11768,8 @@ msgid ""
 "\n"
 "%(message)s\n"
 "\n"
-"To see other notices or change how you receive notifications, please go to %(notices_url)s.\n"
+"To see other notices or change how you receive notifications, please go to "
+"%(notices_url)s.\n"
 msgstr ""
 
 #: subtrees/jetson/templates/default/notification/email_subject.txt:1
@@ -12300,8 +12303,7 @@ msgstr ""
 
 #: subtrees/jetson/templates/default/tracker/postticket.html:23
 msgid "Thank you for informing us - we will work on it immediately!"
-msgstr ""
-"Vielen Dank für Ihren Hinweis! Wir kümmern uns schnellstmöglich darum!"
+msgstr "Vielen Dank für Ihren Hinweis! Wir kümmern uns schnellstmöglich darum!"
 
 #: subtrees/jetson/templates/default/utils/captcha.html:8
 msgid "Enter the security code from the image above"
@@ -12343,15 +12345,15 @@ msgstr "Ändern:"
 #: subtrees/jetson/templates/default/widget/selectrow.html:19
 #, python-format
 msgid ""
-"Type the first few letters of the %(lookup_field)s to have a list of matches"
-" shown."
+"Type the first few letters of the %(lookup_field)s to have a list of matches "
+"shown."
 msgstr ""
 "Geben Sie die Anfangsbuchstaben des %(lookup_field)s ein, um eine "
 "entsprechende Auswahl anzuzeigen."
 
 #~ msgid ""
-#~ "You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions "
-#~ "are %s px."
+#~ "You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal "
+#~ "dimensions are %s px."
 #~ msgstr ""
 #~ "Erlaubt sind Daten im Format JPG, GIF, PNG TIFF. Minimale Größe %s px."
 
@@ -12365,7 +12367,8 @@ msgstr ""
 #~ msgstr "Mailing wurde an %(count)s Empfänger versandt (Test-Versand)"
 
 #~ msgid "Mailing was sent out to %(count)s recipients (real transmission)"
-#~ msgstr "Mailing wurde an %(count)s Empfänger versandt (Tatsächlicher Versand)"
+#~ msgstr ""
+#~ "Mailing wurde an %(count)s Empfänger versandt (Tatsächlicher Versand)"
 
 #~ msgid "Send mailing: %s"
 #~ msgstr "Mailing senden: %s"
@@ -12479,8 +12482,8 @@ msgstr ""
 #~ msgstr "Kommentare aktivieren"
 
 #~ msgid ""
-#~ "Is some category missing? You can <a href=\"/ticket/new-category/\">suggest "
-#~ "it here</a>."
+#~ "Is some category missing? You can <a href=\"/ticket/new-category/"
+#~ "\">suggest it here</a>."
 #~ msgstr ""
 #~ "Fehlt Ihnen eine Kategorie? Sie können sie uns <a href=\"/ticket/new-"
 #~ "category/\">hier</a> zur Aufnahme vorschlagen."
@@ -12580,8 +12583,8 @@ msgstr ""
 #~ "Please enter a correct email and password. Note that both fields are case-"
 #~ "sensitive."
 #~ msgstr ""
-#~ "Bitte geben Sie eine korrekte E-Mail-Adresse und Kennwort ein. Beide Felder "
-#~ "berücksichtigen die Groß-/Kleinschreibung."
+#~ "Bitte geben Sie eine korrekte E-Mail-Adresse und Kennwort ein. Beide "
+#~ "Felder berücksichtigen die Groß-/Kleinschreibung."
 
 #~ msgid "This account is inactive."
 #~ msgstr "Dieses Benutzerkonto ist inaktiv."
@@ -12597,11 +12600,11 @@ msgstr ""
 #~ msgstr "Benutzername"
 
 #~ msgid ""
-#~ "Please enter a correct email or username and password. Note that both fields"
-#~ " are case-sensitive."
+#~ "Please enter a correct email or username and password. Note that both "
+#~ "fields are case-sensitive."
 #~ msgstr ""
-#~ "Bitte geben Sie eine korrekte E-Mail-Adresse und Kennwort ein. Beide Felder "
-#~ "berücksichtigen die Groß-/Kleinschreibung."
+#~ "Bitte geben Sie eine korrekte E-Mail-Adresse und Kennwort ein. Beide "
+#~ "Felder berücksichtigen die Groß-/Kleinschreibung."
 
 #~ msgid "Display profile to public"
 #~ msgstr "Profil veröffentlichen"
@@ -12660,7 +12663,8 @@ msgstr ""
 #~ msgid "Document File"
 #~ msgstr "Dokument Datei"
 
-#~ msgid "Hold down \"Control\", or \"Command\" on a Mac, to select more than one."
+#~ msgid ""
+#~ "Hold down \"Control\", or \"Command\" on a Mac, to select more than one."
 #~ msgstr ""
 #~ " Um mehr als eine Selektion zu treffen, \"Strg\", oder auf dem Mac "
 #~ "\"Command\", beim Klicken gedrückt halten."
@@ -12720,11 +12724,11 @@ msgstr ""
 #~ msgstr "Illustrations Datei"
 
 #~ msgid ""
-#~ "It will be used for the thumbnail. You can upload GIF, JPG, PNG, TIFF, and "
-#~ "BMP images. The minimal dimensions are %s px."
+#~ "It will be used for the thumbnail. You can upload GIF, JPG, PNG, TIFF, "
+#~ "and BMP images. The minimal dimensions are %s px."
 #~ msgstr ""
-#~ "Dieses Bild wird als Icon verwendet. Erlaubt sind Daten im Format JPG, GIF, "
-#~ "PNG TIFF. Minimale Größe %s px."
+#~ "Dieses Bild wird als Icon verwendet. Erlaubt sind Daten im Format JPG, "
+#~ "GIF, PNG TIFF. Minimale Größe %s px."
 
 #~ msgid "Audio File"
 #~ msgstr "Audio Datei"
@@ -13013,15 +13017,18 @@ msgstr ""
 #~ msgstr "Sie haben keine Berechtigung, diese Aktion auszuführen."
 
 #~ msgid "Sorry, that file is not available for editing"
-#~ msgstr "Tut uns leid, dass die Datei nicht verfügbar ist für die Bearbeitung"
+#~ msgstr ""
+#~ "Tut uns leid, dass die Datei nicht verfügbar ist für die Bearbeitung"
 
 #~ msgid "Template \"%(path)s\" has not been saved! Reason: %(errormsg)s"
-#~ msgstr "Template \" %(path)s \" wurde nicht gesichert! Reason: %(errormsg)s "
+#~ msgstr ""
+#~ "Template \" %(path)s \" wurde nicht gesichert! Reason: %(errormsg)s "
 
 #~ msgid "Template \"%s\" was saved successfully"
 #~ msgstr "Die Datei \"%s\" wurde erfolgreich gelöscht"
 
-#~ msgid "Backup Template \"%(path)s\" has not been saved! Reason: %(errormsg)s"
+#~ msgid ""
+#~ "Backup Template \"%(path)s\" has not been saved! Reason: %(errormsg)s"
 #~ msgstr ""
 #~ "Backup-Template \" %(path)s \" wurde nicht gesichert! Grund: %(errormsg)s "
 
@@ -13135,9 +13142,11 @@ msgstr ""
 #~ msgid "You do not have permission to publish this page"
 #~ msgstr "Sie haben keine Berechtigung, diese Seite zu veröffentlichen"
 
-#~ msgid "You do not have permission to change this page's in_navigation status"
+#~ msgid ""
+#~ "You do not have permission to change this page's in_navigation status"
 #~ msgstr ""
-#~ "Sie haben keine Berechtigung, diese Seite den in_navigation Status zu ändern"
+#~ "Sie haben keine Berechtigung, diese Seite den in_navigation Status zu "
+#~ "ändern"
 
 #~ msgid "You do not have permission to change this page"
 #~ msgstr "Sie haben keine Berechtigung, diese Seite zu ändern"
@@ -13398,11 +13407,11 @@ msgstr ""
 #~ msgstr "Film-URL"
 
 #~ msgid ""
-#~ "vimeo or youtube video url. Example: http://www.youtube.com/watch?v=YFa59lK-"
-#~ "kpo"
+#~ "vimeo or youtube video url. Example: http://www.youtube.com/watch?"
+#~ "v=YFa59lK-kpo"
 #~ msgstr ""
-#~ "vimeo oder youtube video URL. Beispiel: http://www.youtube.com/watch?v"
-#~ "=YFa59lK-kpo"
+#~ "vimeo oder youtube video URL. Beispiel: http://www.youtube.com/watch?"
+#~ "v=YFa59lK-kpo"
 
 #~ msgid "preview image file"
 #~ msgstr "Vorschau Bild-Datei"
@@ -13694,43 +13703,44 @@ msgstr ""
 #~ "There's been an error. It's been reported to the site administrators via "
 #~ "e-mail and should be fixed shortly. Thanks for your patience."
 #~ msgstr ""
-#~ "Es trat ein Fehler auf. Dieser Fehler wurde an die Administratoren per eMail"
-#~ " weitergegeben und sollte bald behoben sein. Vielen Dank für Ihr "
+#~ "Es trat ein Fehler auf. Dieser Fehler wurde an die Administratoren per "
+#~ "eMail weitergegeben und sollte bald behoben sein. Vielen Dank für Ihr "
 #~ "Verständnis."
 
 #~ msgid "Delete multiple objects"
 #~ msgstr "Mehrere Objekte löschen"
 
 #~ msgid ""
-#~ "Deleting the %(object_name)s would result in deleting related objects, but "
-#~ "your account doesn't have permission to delete the following types of "
+#~ "Deleting the %(object_name)s would result in deleting related objects, "
+#~ "but your account doesn't have permission to delete the following types of "
 #~ "objects:"
 #~ msgstr ""
-#~ "Die Löschung von %(object_name)s hätte die Löschung von abhängigen Daten zur"
-#~ " Folge, aber Sie haben nicht die nötigen Rechte um die folgenden abhängigen "
-#~ "Daten zu löschen:"
+#~ "Die Löschung von %(object_name)s hätte die Löschung von abhängigen Daten "
+#~ "zur Folge, aber Sie haben nicht die nötigen Rechte um die folgenden "
+#~ "abhängigen Daten zu löschen:"
 
 #~ msgid ""
-#~ "Are you sure you want to delete the selected %(object_name)s objects? All of"
-#~ " the following objects and it's related items will be deleted:"
+#~ "Are you sure you want to delete the selected %(object_name)s objects? All "
+#~ "of the following objects and it's related items will be deleted:"
 #~ msgstr ""
-#~ "Sind Sie sicher, das Sie%(object_name)s löschen wollen? Es werden zusätzlich"
-#~ " die folgenden abhängigen Daten mit gelöscht:"
+#~ "Sind Sie sicher, das Sie%(object_name)s löschen wollen? Es werden "
+#~ "zusätzlich die folgenden abhängigen Daten mit gelöscht:"
 
 #~ msgid ""
-#~ "Something's wrong with your database installation. Make sure the appropriate"
-#~ " database tables have been created, and make sure the database is readable "
-#~ "by the appropriate user."
+#~ "Something's wrong with your database installation. Make sure the "
+#~ "appropriate database tables have been created, and make sure the database "
+#~ "is readable by the appropriate user."
 #~ msgstr ""
-#~ "Datenbankfehler. Stellen Sie sicher, dass die entsprechende Tabelle erstellt"
-#~ " wurde und dass die Datenbank für die dazugehörigen Nutzer einsehbar ist."
+#~ "Datenbankfehler. Stellen Sie sicher, dass die entsprechende Tabelle "
+#~ "erstellt wurde und dass die Datenbank für die dazugehörigen Nutzer "
+#~ "einsehbar ist."
 
 #~ msgid "Show all"
 #~ msgstr "Alles zeigen"
 
 #~ msgid ""
-#~ "First, enter a username and password. Then, you'll be able to edit more user"
-#~ " options."
+#~ "First, enter a username and password. Then, you'll be able to edit more "
+#~ "user options."
 #~ msgstr ""
 #~ "Bitte zunächst Benutzernamen und Kennwort eingeben, damit Sie weitere "
 #~ "Einstellungen vornehmen können."
@@ -13756,19 +13766,28 @@ msgstr ""
 #~ msgid ""
 #~ "\n"
 #~ "            <p>To install bookmarklets, drag the link to your bookmarks\n"
-#~ "    toolbar, or right-click the link and add it to your bookmarks. Now you can\n"
-#~ "    select the bookmarklet from any page in the site.  Note that some of these\n"
-#~ "    bookmarklets require you to be viewing the site from a computer designated\n"
-#~ "    as \"internal\" (talk to your system administrator if you aren't sure if\n"
+#~ "    toolbar, or right-click the link and add it to your bookmarks. Now "
+#~ "you can\n"
+#~ "    select the bookmarklet from any page in the site.  Note that some of "
+#~ "these\n"
+#~ "    bookmarklets require you to be viewing the site from a computer "
+#~ "designated\n"
+#~ "    as \"internal\" (talk to your system administrator if you aren't sure "
+#~ "if\n"
 #~ "    your computer is \"internal\").</p>\n"
 #~ "        "
 #~ msgstr ""
 #~ "\n"
-#~ "<p class=\"help\">Um Bookmarklets zu installieren müssen diese Links in die\n"
-#~ "Browser-Werkzeugleiste gezogen werden, oder mittels rechter Maustaste in die\n"
-#~ "Bookmarks gespeichert werden. Danach können die Bookmarklets von jeder Seite\n"
-#~ "aufgerufen werden. Einige Bookmarklets sind für den Zugriff von 'internen'\n"
-#~ "Rechnern eingeschränkt. Falls nicht klar ist, ob ein Rechner als 'intern'\n"
+#~ "<p class=\"help\">Um Bookmarklets zu installieren müssen diese Links in "
+#~ "die\n"
+#~ "Browser-Werkzeugleiste gezogen werden, oder mittels rechter Maustaste in "
+#~ "die\n"
+#~ "Bookmarks gespeichert werden. Danach können die Bookmarklets von jeder "
+#~ "Seite\n"
+#~ "aufgerufen werden. Einige Bookmarklets sind für den Zugriff von "
+#~ "'internen'\n"
+#~ "Rechnern eingeschränkt. Falls nicht klar ist, ob ein Rechner als "
+#~ "'intern'\n"
 #~ "bewertet wird, bitte den Administrator fragen.</p>"
 
 #~ msgid "Documentation for this page"
@@ -13807,12 +13826,12 @@ msgstr ""
 #~ "Wie zuvor, aber öffnet die Administrationsseite in einem neuen Fenster."
 
 #~ msgid ""
-#~ "Please enter your old password, for securitys sake, and then enter your new "
-#~ "password twice so we can verify you typed it in correctly."
+#~ "Please enter your old password, for securitys sake, and then enter your "
+#~ "new password twice so we can verify you typed it in correctly."
 #~ msgstr ""
-#~ "Bitte geben Sie aus Sicherheitsgründen erst Ihr altes Kennwort und darunter "
-#~ "dann zweimal (um sicherzustellen, das Sie es korrekt eingegeben haben) das "
-#~ "neue Kennwort ein."
+#~ "Bitte geben Sie aus Sicherheitsgründen erst Ihr altes Kennwort und "
+#~ "darunter dann zweimal (um sicherzustellen, das Sie es korrekt eingegeben "
+#~ "haben) das neue Kennwort ein."
 
 #~ msgid "Password reset complete"
 #~ msgstr "Kennwort zurücksetzen vollständig"
@@ -13932,12 +13951,12 @@ msgstr ""
 #~ "Bitte eine gültige Auswahl treffen; '%(data)s' ist nicht in %(choices)s."
 
 #~ msgid ""
-#~ "The file you uploaded was either not an image, was corrupted, or contained "
-#~ "unsupported properties. Please save it for web without interlacing and try "
-#~ "again."
+#~ "The file you uploaded was either not an image, was corrupted, or "
+#~ "contained unsupported properties. Please save it for web without "
+#~ "interlacing and try again."
 #~ msgstr ""
-#~ "Die hochgeladene Datei wurde entweder kein Bild, war fehlerhaft, oder nicht "
-#~ "enthaltenen Eigenschaften. Bitte speichern Sie sie für das Web ohne "
+#~ "Die hochgeladene Datei wurde entweder kein Bild, war fehlerhaft, oder "
+#~ "nicht enthaltenen Eigenschaften. Bitte speichern Sie sie für das Web ohne "
 #~ "Interlacing und versuchen Sie es erneut."
 
 #~ msgid "File type of the uploaded file is invalid."
@@ -14048,8 +14067,8 @@ msgstr ""
 #~ msgid ""
 #~ "You can log in at: http://www.creative-city-berlin.de/login/?goto_next=/"
 #~ msgstr ""
-#~ "Sie können sich nun anmelden unter: http://creative-city-"
-#~ "berlin.de/login/?goto_next=/"
+#~ "Sie können sich nun anmelden unter: http://creative-city-berlin.de/login/?"
+#~ "goto_next=/"
 
 #~ msgid ""
 #~ "Enjoy the site, and do let us know if you have comments, concerns, "
@@ -14069,18 +14088,19 @@ msgstr ""
 #~ "erstellt haben (oder jemand hat Ihre E-Mail Adresse benutzt):"
 
 #~ msgid ""
-#~ "To verify your e-mail address and continue the registration process, please "
-#~ "click the link below:"
+#~ "To verify your e-mail address and continue the registration process, "
+#~ "please click the link below:"
 #~ msgstr ""
-#~ "Um Ihre E-Mail Adresse zu bestätigen und Ihre Registrierung abschliessen zu "
-#~ "können, klicken Sie bitte auf den folgenden Link:"
+#~ "Um Ihre E-Mail Adresse zu bestätigen und Ihre Registrierung abschliessen "
+#~ "zu können, klicken Sie bitte auf den folgenden Link:"
 
 #~ msgid ""
-#~ "If you have no idea what this e-mail is referring to, simply ignore it and "
-#~ "no account will be created with your e-mail address."
+#~ "If you have no idea what this e-mail is referring to, simply ignore it "
+#~ "and no account will be created with your e-mail address."
 #~ msgstr ""
-#~ "Wenn Sie nicht wissen, worauf sich diese E-mail bezieht, ignorieren Sie sie "
-#~ "einfach und es wird kein Benutzerkonto mit Ihrer E-Mail Adresse erstellt."
+#~ "Wenn Sie nicht wissen, worauf sich diese E-mail bezieht, ignorieren Sie "
+#~ "sie einfach und es wird kein Benutzerkonto mit Ihrer E-Mail Adresse "
+#~ "erstellt."
 
 #~ msgid ""
 #~ "\n"
@@ -14197,7 +14217,8 @@ msgstr ""
 #~ msgid "tools"
 #~ msgstr "Tools"
 
-#~ msgid "%(object)s with this %(type)s already exists for the given %(field)s."
+#~ msgid ""
+#~ "%(object)s with this %(type)s already exists for the given %(field)s."
 #~ msgstr ""
 #~ "Ein '%(object)s' in dieser '%(type)s' existiert bereits fär dieses "
 #~ "'%(field)s'."
@@ -14323,8 +14344,8 @@ msgstr ""
 #~ "The comment form had an invalid 'target' parameter -- the object ID was "
 #~ "invalid"
 #~ msgstr ""
-#~ "Das Kommentarformular hatte einen falschen 'target' Parameter -- die Objekt-"
-#~ "ID ist ungältig"
+#~ "Das Kommentarformular hatte einen falschen 'target' Parameter -- die "
+#~ "Objekt-ID ist ungältig"
 
 #~ msgid "There is no object available"
 #~ msgstr "Objekt ist nicht verfügbar"
@@ -14630,8 +14651,8 @@ msgstr ""
 #~ "The directory will automatically be converted to lowercase. Only letters, "
 #~ "numbers, underscores and hyphens are allowed."
 #~ msgstr ""
-#~ "Das Verzeichnis wird automatisch kleingeschrieben. Nur Buchstaben, Zahlen, "
-#~ "Unterstriche und Bindestriche sind erlaubt."
+#~ "Das Verzeichnis wird automatisch kleingeschrieben. Nur Buchstaben, "
+#~ "Zahlen, Unterstriche und Bindestriche sind erlaubt."
 
 #~ msgid "Modifications to apply to images"
 #~ msgstr "Änderungen auf die Bilder"
