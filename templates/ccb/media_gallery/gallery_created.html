@@ -5,7 +5,9 @@
     <meta name="robots" content="noindex,nofollow"/>
 {% endblock %}
 
-{% block title %}{% trans "Project" %}{% endblock %}
+{% block title %}
+    {% trans "Project" %}
+{% endblock %}
 
 {% block content %}
     <div class="container">
@@ -16,12 +18,11 @@
                 {% endwith %}
             </div>
         </div>
-        <div class="row job-list">
+        <div class="row job-list padding-40">
             {% include "marketplace/includes/latest_job_offers.html" %}
         </div>
         <div class="row">
-            <div class="col-xs-12">
-                <br />
+            <div class="col-xs-12 padding-20">
                 <a href="{% url "job_offer_list_global" %}" class="btn btn-large btn-primary">{% trans "Find a job now" %}</a>
             </div>
         </div>
