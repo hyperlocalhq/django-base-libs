@@ -18,7 +18,7 @@
                 {% endwith %}
             </div>
         </div>
-        <div class="no-row-margin">{% show_magazine_overview %}</div>
+        {% show_magazine_overview %}
         <div class="row">
             <div class="col-xs-12">
                 <a href="{% url "magazine_overview" %}" class="btn btn-large btn-primary">{% trans "Find interesting profiles in the magazine now" %}</a>
