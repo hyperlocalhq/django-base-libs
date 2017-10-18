@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 import os
 
+from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 from django.conf import settings
@@ -1269,7 +1270,7 @@ def save_data(form_steps, form_step_data):
     ### /DEBUG ###
 
     slug = get_unique_value(
-        ContextItem.objects.filter(content_type__model__in=("person", "institution")),
+        ContextItem,
         better_slugify(form_step_data[0].get('institution_name', '')).replace("-", "_"),
         field_name="slug",
         separator="_",
@@ -1396,8 +1397,14 @@ def save_data(form_steps, form_step_data):
     institution.save()
 
     # this is used for redirection to the institution details page
-    form_steps['success_url'] = institution.get_url_path()
+    form_step_data['created_object_url'] = institution.get_url_path()
+
     return form_step_data
+
+
+def show_creation_success_view(request, form_step_data):
+    request.httpstate['created_institution_url'] = form_step_data['created_object_url']
+    return redirect("institution_created")
 
 
 ADD_INSTITUTION_FORM_STEPS = {
@@ -1430,8 +1437,8 @@ ADD_INSTITUTION_FORM_STEPS = {
 
     'onsubmit': submit_step,
     'onsave': save_data,
+    'onsuccess': show_creation_success_view,
     'name': 'add_institution',
-    'success_url': "/%s/" % URL_ID_INSTITUTIONS,
     'default_path': [0, 1, 2, 3, 4],
 }
 

@@ -8,7 +8,7 @@ from django.utils.dates import MONTHS
 from django.utils.translation import string_concat
 from django.conf import settings
 from django.db import models
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 
 from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 from base_libs.forms import dynamicforms
@@ -631,10 +631,14 @@ def save_data(form_steps, form_step_data):
     #     from ccb.apps.external_services.export_to_creativeset import export_job_offer_to_creativeset
     #     export_job_offer_to_creativeset(job_offer)
 
-
-    form_steps['success_url'] = job_offer.get_url_path()
+    form_step_data['created_object_url'] = job_offer.get_url_path()
 
     return form_step_data
+
+
+def show_creation_success_view(request, form_step_data):
+    request.httpstate['created_job_offer_url'] = form_step_data['created_object_url']
+    return redirect("job_offer_created")
 
 
 ADD_JOB_OFFER_FORM_STEPS = {
@@ -656,8 +660,8 @@ ADD_JOB_OFFER_FORM_STEPS = {
     },
     'onsubmit': submit_step,
     'onsave': save_data,
+    'onsuccess': show_creation_success_view,
     'name': 'add_job_offer',
-    'success_url': "/%s/" % URL_ID_JOB_OFFERS,
     'default_path': [
         'step_main_data',
         'step_categories',

@@ -10,7 +10,7 @@ from django.utils.dates import MONTHS
 from django.conf import settings
 from django.db import models
 from django.utils.encoding import force_unicode
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from base_libs.forms import dynamicforms
 from base_libs.forms.fields import ImageField
 from base_libs.middleware import get_current_user
@@ -1787,9 +1787,14 @@ def save_data(form_steps, form_step_data):
 
         time.save()
 
-    form_steps['success_url'] = event.get_url_path()
+    form_step_data['created_object_url'] = event.get_url_path()
 
     return form_step_data
+
+
+def show_creation_success_view(request, form_step_data):
+    request.httpstate['created_event_url'] = form_step_data['created_object_url']
+    return redirect("event_created")
 
 
 ADD_EVENT_FORM_STEPS = {
@@ -1829,8 +1834,8 @@ ADD_EVENT_FORM_STEPS = {
     },
     'onsubmit': submit_step,
     'onsave': save_data,
+    'onsuccess': show_creation_success_view,
     'name': 'add_event',
-    'success_url': "/%s/" % URL_ID_EVENTS,
     'default_path': [
         'step_main_data',
         'step_event_profile',

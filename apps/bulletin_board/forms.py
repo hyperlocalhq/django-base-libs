@@ -554,6 +554,7 @@ def save_data(form_steps, form_step_data, instance=None):
 
     #    instance.save()
 
+    form_step_data['created_object_url'] = instance.get_url_path()
 
     return form_step_data
 
@@ -564,10 +565,11 @@ def cancel_editing(request, instance=None):
     return redirect("bulletin_list")
 
 
-def redirect_to_bulletin(request, instance=None):
-    if instance:
+def show_creation_success_view(request, form_step_data, instance=None):
+    if instance and not instance._state.adding:
         return redirect(instance)
-    return redirect("bulletin_list")
+    request.httpstate['created_bulletin_url'] = form_step_data['created_object_url']
+    return redirect("bulletin_created")
 
 
 BULLETIN_FORM_STEPS = {
@@ -585,7 +587,7 @@ BULLETIN_FORM_STEPS = {
     'onsubmit': submit_step,
     'onsave': save_data,
     'onreset': cancel_editing,
-    'onsuccess': redirect_to_bulletin,
+    'onsuccess': show_creation_success_view,
     'name': 'bulletin_form',
     'default_path': ['bulletin_data', 'confirm_data'],
 }

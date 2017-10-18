@@ -32,20 +32,20 @@ verbose_name = _("Site Specific")
 class DefaultContextItemModels(tuple):
     def __iter__(self):
         return iter([
-            models.get_model("people", "Person"),
-            models.get_model("institutions", "Institution"),
-            models.get_model("events", "Event"),
-            models.get_model("groups_networks", "PersonGroup"),
+            apps.get_model("people", "Person"),
+            apps.get_model("institutions", "Institution"),
+            apps.get_model("events", "Event"),
+            apps.get_model("groups_networks", "PersonGroup"),
         ])
 
 
 class DefaultMappedItemModels(tuple):
     def __iter__(self):
         return iter([
-            models.get_model("people", "IndividualContact"),
-            models.get_model("institutions", "InstitutionalContact"),
-            models.get_model("events", "Event"),
-            models.get_model("marketplace", "JobOffer"),
+            apps.get_model("people", "IndividualContact"),
+            apps.get_model("institutions", "InstitutionalContact"),
+            apps.get_model("events", "Event"),
+            apps.get_model("marketplace", "JobOffer"),
         ])
 
 

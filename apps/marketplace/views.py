@@ -22,6 +22,7 @@ from ccb.apps.marketplace.forms import ADD_JOB_OFFER_FORM_STEPS, JobOfferSearchF
 from ccb.apps.marketplace.models import JobOffer, JobSector, URL_ID_JOB_OFFERS
 from jetson.apps.structure.models import Category
 
+
 class JobOfferFeed(Feed):
     title = ""
     link = ""
@@ -33,7 +34,6 @@ class JobOfferFeed(Feed):
         self.request = request
         self.kwargs = kwargs
         return None
-
 
     def items(self):
         queryset = self.kwargs['queryset'].order_by('-creation_date')[:20]

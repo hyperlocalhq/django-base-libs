@@ -324,7 +324,7 @@ def delete_bulletin(request, token):
         form = forms.Form(request.POST)  # dummy form. we just care about the csrf token
         if form.is_valid():
             instance.delete()
-            return redirect("my_bulletin_list")
+            return redirect("bulletin_deleted")
     else:
         form = forms.Form()  # dummy form. we just care about the csrf token
 

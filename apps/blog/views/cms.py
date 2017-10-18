@@ -516,9 +516,12 @@ class BlogPostFormPreviewHandler(FormPreviewHandler):
     def redirect(self, action):
         from base_libs.utils.cache import expire_page
         if action == ID_ACTION_DELETE:
-            path = self.container.get_url_path()
-        elif self.current_post and self.current_post.status == STATUS_CODE_PUBLISHED:
-            path = self.current_post.get_url_path()
+            path = self.container.get_url_path() + 'deleted/'
+        elif self.current_post and int(self.current_post.status) == STATUS_CODE_PUBLISHED:
+            self.request.httpstate['created_blog_post_url'] = self.current_post.get_url_path()
+            path = self.container.get_url_path() + 'created/'
+        elif self.current_post and int(self.current_post.status) == STATUS_CODE_DRAFT:
+            path = self.container.get_url_path() + 'drafts/'
         else:
             path = self.container.get_url_path()
         expire_page(self.request, path)

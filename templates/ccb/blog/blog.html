@@ -50,7 +50,6 @@
 {% endblock %}
 
 {% block sidebar %}
-
     {{ block.super }}
 
     <div class="button-group">
@@ -93,13 +92,15 @@
                     </li>
                 {% endfor %}
 
-                {% if_has_perm "blog.change_blog_posts" container %}
-                    <li><a href="{{ container.get_url_path }}drafts/">{% trans "Drafts" %} ({{ nof_drafts }})</a></li>
-                {% else %}
-                    {% if_has_perm object_change_permission container.content_object %}
-                        <li><a href="{{ container.get_url_path }}drafts/">{% trans "Drafts" %} ({{ nof_drafts }})</a></li>
+                {% with drafts_url="/"|add:request.LANGUAGE_CODE|add:container.get_url_path|add:"drafts/" %}
+                    {% if_has_perm "blog.change_blog_posts" container %}
+                        <li><a href="{{ drafts_url }}"{% if request.path == drafts_url %} class="active"{% endif %}>{% trans "Drafts" %} ({{ nof_drafts }})</a></li>
+                    {% else %}
+                        {% if_has_perm object_change_permission container.content_object %}
+                            <li><a href="{{ drafts_url }}"{% if request.path == drafts_url %} class="active"{% endif %}>{% trans "Drafts" %} ({{ nof_drafts }})</a></li>
+                        {% end_if_has_perm %}
                     {% end_if_has_perm %}
-                {% end_if_has_perm %}
+                {% endwith %}
             </ul>
         </li>
         <li></li>
@@ -124,7 +125,6 @@
 {% endblock %}
 
 {% block details %}
-
     {% ifequal archive "details" %}
         {% include_selected "post_detail.html" for object under "blog" %}
     {% endifequal %}

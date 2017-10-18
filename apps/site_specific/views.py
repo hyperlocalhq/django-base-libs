@@ -15,7 +15,7 @@ from django.conf import settings
 # json related stuff
 from django.contrib.admin.views.decorators import staff_member_required
 from django.views.decorators.cache import never_cache
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth import logout
 
 from base_libs.middleware import get_current_language
@@ -670,7 +670,7 @@ DELETE_CLASS_MAPPER = {
         'get_object': lambda slug: Event.objects.get(slug=slug),
         'deletion_template': 'events/delete_event.html',
         'embedded_deletion_template': 'events/delete_event_embedded.html',
-        'success_redirect': '/%s/' % URL_ID_EVENTS,
+        'success_redirect': reverse_lazy("event_deleted"),
     },
     URL_ID_JOB_OFFER: {
         'model': JobOffer,
@@ -679,7 +679,7 @@ DELETE_CLASS_MAPPER = {
         }),
         'deletion_template': 'marketplace/delete_job_offer.html',
         'embedded_deletion_template': 'marketplace/delete_job_offer_embedded.html',
-        'success_redirect': '/%s/' % URL_ID_JOB_OFFERS,
+        'success_redirect': reverse_lazy("job_offer_deleted"),
     },
 }
 
@@ -921,8 +921,7 @@ def delete_profile(request):
                 logout(request)
                 return HttpResponseRedirect("/my-profile/delete/done/")
             else:
-                context['deleted_institutions'] = form.deleted_institutions
-                form = ProfileDeletionForm(request.user)
+                return redirect('institution_deleted')
     else:
         form = ProfileDeletionForm(request.user)
 
