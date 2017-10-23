@@ -1,4 +1,4 @@
-{% load blog babel comments base_tags i18n auth_extended favorites cms_tags %}
+{% load blog babel comments base_tags i18n auth_extended favorites cms_tags image_modifications %}
 
 <div class="col-xs-12 {% if not forloop.first %}col-sm-6{% endif %}">
     <a class="content" href="{% page_url request.current_page %}{{ post.get_relative_url }}">
@@ -7,14 +7,8 @@
                 <img class="img img-responsive" src="{{ UPLOADS_URL }}{{ post.image|modified_path:'article' }}" alt="{{ post.title }}" />
                 {% if post.image_author %}<div class="photo-credits-over">{% trans "Photo" %}: {{ post.image_author }}</div>{% endif %}
             </div>
-        {% comment %}
-        {% else %}
-            {% with image_html=post.get_rendered_body|disarm_user_input|get_first_image %}
-                {% if image_html %}
-                    {{ image_html }}
-                {% endif %}
-            {% endwith %}
-        {% endcomment %}
+        {% elif post.body|get_first_image %}
+            {{ post.body|get_first_image|safe }}
         {% endif %}
         <div class="subline">
             <h3>{% if forloop.first %}<time class="hidden-xs" datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d. F Y, H:i" }}</time><time class="visible-xs" datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d. M. Y, H:i" }}</time>{% else %}<time datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d. M. Y, H:i" }}</time>{% endif %}</h3>
