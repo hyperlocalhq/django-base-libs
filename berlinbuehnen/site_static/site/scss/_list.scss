@@ -163,6 +163,12 @@
                     width: 148px;
                     float: right;
                 }
+                .photo-credits-over {
+                    width: 148px;
+                    left: inherit;
+                    right: 148px;
+                    transform: translateX(100%);
+                }
             }
         }
 

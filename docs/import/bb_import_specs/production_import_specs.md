@@ -64,7 +64,7 @@ The `<production>` node has the following elements:
 | `<id>` | xs:string or xs:integer | yes | Unique production ID on your website | 12 |
 | `<creation_date>`| xs:dateTime | yes | Production creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
 | `<modified_date>` | xs:dateTime | no | Production modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
-| `<status>` | xs:string | yes | Publishing status, one of: "draft", "published", "not_listed", "expired", "trashed" | published |
+| `<status>` | xs:string | yes | Publishing status, one of: "`draft`", "`published`", "`not_listed`", "`expired`", "`trashed`" | `published` |
 | `<prefix_de>` | xs:string | no | Title prefix in German | |
 | `<prefix_en>` | xs:string | no | Title prefix in English | |
 | `<title_de>` | xs:string | yes | Title in German | Rotkäppchen |
@@ -268,6 +268,7 @@ This is a list of all available locations and stages with location IDs and stage
   - Foyer (Stage ID = 34)
   - Gorki Foyer Berlin (Stage ID = 9)
   - Gorki Theater (Stage ID = 33)
+  - Marmorsaal (Stage ID = 213)
   - Studio Я (Stage ID = 10)
   - Vorplatz GORKI (Stage ID = 69)
 - Märchenhütte (Location ID = 186)
@@ -307,15 +308,15 @@ This is a list of all available locations and stages with location IDs and stage
 - Staatsballett Berlin (Location ID = 75)
   - Deutsche Oper Berlin (Stage ID = 75)
   - Komische Oper Berlin (Stage ID = 77)
-  - Staatsoper im Schiller Theater (Stage ID = 76)
+  - Staatsoper Unter den Linden (Stage ID = 76)
 - Staatskapelle Berlin (Location ID = 197)
-- Staatsoper im Schiller Theater (Location ID = 9)
+- Staatsoper Unter den Linden (Location ID = 9)
+  - Gläsernes Foyer (Stage ID = 22)
   - Bebelplatz (Stage ID = 56)
   - Bode Museum (Stage ID = 44)
-  - Gläsernes Foyer (Stage ID = 22)
+  - Werkstatt (Stage ID = 24)
   - Probebühne I (Stage ID = 53)
   - Staatsoper Unter den Linden (Stage ID = 46)
-  - Werkstatt (Stage ID = 24)
 - Stage BLUEMAX Theater (Location ID = 61)
 - Stage Theater am Potsdamer Platz (Location ID = 57)
 - Stage Theater des Westens (Location ID = 59)
@@ -385,22 +386,21 @@ This is a list of all available locations and stages with location IDs and stage
   - Uferstudio 9 (Stage ID = 113)
 - UNI.T - Theater der UdK Berlin (Location ID = 130)
 - Vaganten Bühne (Location ID = 33)
-- Volksbühne am Rosa-Luxemburg-Platz (Location ID = 6)
+- Volksbühne Berlin (Location ID = 6)
   - 3\. Stock (Stage ID = 8)
   - Books (Stage ID = 83)
   - Großes Haus (Stage ID = 82)
   - Grüner Salon (Stage ID = 6)
   - Roter Salon (Stage ID = 7)
   - Sternfoyer (Stage ID = 101)
-- Volksbühne am Rosa-Luxemburg-Platz / Kantine (Location ID = 140)
-- Volksbühne am Rosa-Luxemburg-Platz / Probebühne (Location ID = 160)
-- Volksbühne am Rosa-Luxemburg-Platz / Vorbühne (Location ID = 179)
+  - Tempelhof Hangar 5 (Stage ID = 207)
+  - Fullscreen (Stage ID = 208)
 - Wintergarten Varieté (Location ID = 180)
 - Young Euro Classic (Location ID = 158)
 - ZIONSKIRCHE (Location ID = 152)
 - Zitadelle (Location ID = 149)
 
-For example, if a production is organized by "Volksbühne am Rosa-Luxemburg-Platz" and happens in the "Grüner Salon" stage, the following XML should be set:
+For example, if a production is organized by "Volksbühne Berlin" and happens in the "Grüner Salon" stage, the following XML should be set:
 
 ```xml
 <in_program_of>
@@ -900,9 +900,9 @@ These elements are available for the `<event>` node:
 | `<tickets_website>` | xs:anyURI | no | The URL of a website page where you can buy tickets to this event | http://example.com/tickets/ |
 | `<price_information_de>` | xs:string | no | Additional plain-text information about prices in German | |
 | `<price_information_en>` | xs:string | no | Additional plain-text information about prices in English | |
-| `<event_status>` | xs:string | yes | Event status. One of: "takes_place" or "canceled" | takes_place |
-| `<ticket_status>` | xs:string | no | Tickets' status. One of: "tickets_@_box_office" or "sold_out" | |
-| `<characteristics>`| list of `<characteristic_id>` nodes | no | Event characteristics | tickets_@_box_office |
+| `<event_status>` | xs:string | yes | Event status. One of: "`takes_place`" or "`canceled`" | `takes_place` |
+| `<ticket_status>` | xs:string | no | Tickets' status. One of: "`tickets_@_box_office`" or "`sold_out`" | `tickets_@_box_office` |
+| `<characteristics>`| list of `<characteristic_id>` nodes | no | Event characteristics |  |
 | `<leaders>` | list of `<leader>` nodes | no | Leaders | |
 | `<authors>` | list of `<author>` nodes | no | Authors | |
 | `<participants>` | list of `<participant>` nodes | no | Participants | |

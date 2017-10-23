@@ -59,7 +59,12 @@
                         }).mouseleave();
                         $('.status-switch').change(function() {
                             var $this = $(this);
-                            $.post($this.attr('data-url'), {'status': $this.val()}, function(data) {});
+                            $.post($this.attr('data-url'), {'status': $this.val()}, function(data) {
+                                if (data['status'] !== $this.val()) {
+                                    // if status has changed from "published" to "expired" automatically, reload the form
+                                    location.reload();
+                                }
+                            }, 'json');
                         });
                     });
                 </script>

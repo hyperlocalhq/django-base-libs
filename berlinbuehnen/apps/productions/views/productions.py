@@ -269,13 +269,18 @@ def delete_production(request, slug):
 @never_cache
 @login_required
 def change_production_status(request, slug):
+    import json
     instance = get_object_or_404(Production, slug=slug)
     if not instance.is_editable():
         return access_denied(request)
     if request.method == "POST" and request.is_ajax() and request.POST['status'] in ("draft", "published", "not_listed", "expired"):
         instance.status = request.POST['status']
         instance.save()
-        return HttpResponse("OK")
+        if instance.status == "published":
+            # we can't let a production to be published if all its events are expired
+            instance.update_actual_date_and_time()
+            instance = get_object_or_404(Production, slug=slug)
+        return HttpResponse(json.dumps({'status': instance.status}))
     return redirect(instance.get_url_path())
 
 

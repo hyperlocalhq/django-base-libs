@@ -24,16 +24,21 @@
                         </span>
                         {% if article.image %}
                             <span class="article-image">
-                                <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"detail_image" }}" alt="{{ article.get_title|escape }}" />
+                                <div class="photo-credits-wrapper">
+                                    <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"detail_image" }}" alt="{{ article.get_title|escape }}" />
+                                    {% with article.image|file_description as file_desc %}
+                                        {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                                    {% endwith %}
+                                </div>
                                 {% if article.image_description %}
                                     <span class="article-image-caption">
                                         {{ article.get_rendered_image_description }}
                                     </span>
                                 {% else %}
                                     {% with article.image|file_description as file_desc %}
-                                        {% if file_desc.title or file_desc.author %}
+                                        {% if file_desc.title %}
                                             <span class="article-image-caption">
-                                                {{  file_desc.title }}{% if file_desc.author %}{% if file_desc.title %}, {% endif %}{% trans "Photo" %}: {{ file_desc.author }}{% endif %}
+                                                {{  file_desc.title }}
                                             </span>
                                         {% endif %}
                                     {% endwith %}
@@ -41,16 +46,21 @@
                             </span>
                         {% elif article.theater.cover_image %}
                             <span class="article-image">
-                                <img src="{{ UPLOADS_URL }}{{ article.theater.cover_image.path|modified_path:"detail_image" }}" alt="{{ article.get_title|escape }}" />
+                                <div class="photo-credits-wrapper">
+                                    <img src="{{ UPLOADS_URL }}{{ article.theater.cover_image.path|modified_path:"detail_image" }}" alt="{{ article.get_title|escape }}" />
+                                    {% with article.theater.cover_image.path|file_description as file_desc %}
+                                        {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                                    {% endwith %}
+                                </div>
                                 {% if article.image_description %}
                                     <span class="article-image-caption">
                                         {{ article.get_rendered_image_description }}
                                     </span>
                                 {% else %}
                                     {% with article.theater.cover_image.path|file_description as file_desc %}
-                                        {% if file_desc.title or file_desc.author %}
+                                        {% if file_desc.title %}
                                             <span class="article-image-caption">
-                                                {{  file_desc.title }}{% if file_desc.author %}{% if file_desc.title %}, {% endif %}{% trans "Photo" %}: {{ file_desc.author }}{% endif %}
+                                                {{  file_desc.title }}
                                             </span>
                                         {% endif %}
                                     {% endwith %}
@@ -59,16 +69,21 @@
                         {% elif article.theater.image_set.exists %}
                             {% with article.theater.image_set.all|first as first %}
                                 <span class="article-image">
-                                    <img src="{{ UPLOADS_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ article.get_title|escape }}" />
+                                    <div class="photo-credits-wrapper">
+                                        <img src="{{ UPLOADS_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ article.get_title|escape }}" />
+                                        {% with first.path|file_description as file_desc %}
+                                            {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                                        {% endwith %}
+                                    </div>
                                     {% if article.image_description %}
                                         <span class="article-image-caption">
                                             {{ article.get_rendered_image_description }}
                                         </span>
                                     {% else %}
                                         {% with first.path|file_description as file_desc %}
-                                            {% if file_desc.title or file_desc.author %}
+                                            {% if file_desc.title %}
                                                 <span class="article-image-caption">
-                                                    {{  file_desc.title }}{% if file_desc.author %}{% if file_desc.title %}, {% endif %}{% trans "Photo" %}: {{ file_desc.author }}{% endif %}
+                                                    {{  file_desc.title }}
                                                 </span>
                                             {% endif %}
                                         {% endwith %}
@@ -91,7 +106,7 @@
                         {% endif %}
                         <span class="fawesome more">mehr</span>
                     </a>
-                </div> 
+                </div>
             </div>
         </div>
     </div>

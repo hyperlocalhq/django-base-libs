@@ -365,6 +365,9 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                             continue
 
                     filename = image_url.split("/")[-1]
+                    if "?" in filename:
+                        # clear the query parameters
+                        filename = filename.split("?")[0]
                     image_response = requests.get(image_url, auth=self.AUTH)
                     if image_response.status_code == 200:
                         image_mods.FileManager.save_file_for_object(
@@ -427,6 +430,9 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     continue
 
                 filename = pdf_url.split("/")[-1]
+                if "?" in filename:
+                    # clear the query parameters
+                    filename = filename.split("?")[0]
                 pdf_response = requests.get(pdf_url, auth=self.AUTH)
                 if pdf_response.status_code == 200:
                     image_mods.FileManager.save_file_for_object(
@@ -574,6 +580,9 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                 image_url = sponsor_dict.get('image_url', "")
                 if image_url:
                     filename = image_url.split("/")[-1]
+                    if "?" in filename:
+                        # clear the query parameters
+                        filename = filename.split("?")[0]
                     image_response = requests.get(image_url, auth=self.AUTH)
                     if image_response.status_code == 200:
                         image_mods.FileManager.save_file_for_object(
@@ -786,6 +795,9 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                                 continue
 
                         filename = image_url.split("/")[-1]
+                        if "?" in filename:
+                            # clear the query parameters
+                            filename = filename.split("?")[0]
                         image_response = requests.get(image_url, auth=self.AUTH)
                         if image_response.status_code == 200:
                             image_mods.FileManager.save_file_for_object(
@@ -847,6 +859,9 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                         continue
 
                     filename = pdf_url.split("/")[-1]
+                    if "?" in filename:
+                        # clear the query parameters
+                        filename = filename.split("?")[0]
                     pdf_response = requests.get(pdf_url, auth=self.AUTH)
                     if pdf_response.status_code == 200:
                         image_mods.FileManager.save_file_for_object(
@@ -994,6 +1009,9 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     image_url = sponsor_dict.get('image_url', "")
                     if image_url:
                         filename = image_url.split("/")[-1]
+                        if "?" in filename:
+                            # clear the query parameters
+                            filename = filename.split("?")[0]
                         image_response = requests.get(image_url, auth=self.AUTH)
                         if image_response.status_code == 200:
                             image_mods.FileManager.save_file_for_object(
@@ -1014,3 +1032,5 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     self.stats['events_added'] += 1
                 else:
                     self.stats['events_updated'] += 1
+
+            prod.update_actual_date_and_time()

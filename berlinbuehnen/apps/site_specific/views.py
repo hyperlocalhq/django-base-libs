@@ -1,36 +1,34 @@
 # -*- coding: UTF-8 -*-
-from datetime import datetime
+import os
+from datetime import datetime, timedelta
 from django.db import models
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.cache import never_cache
 from django.contrib.admin.views.decorators import staff_member_required
 from django.conf import settings
-from django.contrib.auth import REDIRECT_FIELD_NAME
-from django.contrib.sites.models import Site, RequestSite
-from django.http import Http404, HttpResponse, HttpResponseRedirect
-from django.utils.encoding import smart_str
+from django.http import Http404, HttpResponse
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import authenticate
 from django.utils.translation import ugettext_lazy as _
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
+from django.core.files.storage import default_storage
+
+from base_libs.views import access_denied
+from base_libs.utils.crypt import cryptString, decryptString
 
 from jetson.apps.utils.decorators import login_required
-from jetson.apps.favorites.models import Favorite
-
 from jetson.apps.mailing.recipient import Recipient
 from jetson.apps.mailing.views import send_email_using_template
+
+from ajaxuploader.views import AjaxFileUploader
+from ajaxuploader.backends.default_storage import DefaultStorageUploadBackend
 
 from .forms import ClaimingInvitationForm
 from .forms import ClaimingRegisterForm
 from .forms import ClaimingLoginForm
 from .forms import ClaimingConfirmForm
-
-from ajaxuploader.views import AjaxFileUploader
-from ajaxuploader.backends.default_storage import DefaultStorageUploadBackend
-
-from base_libs.utils.crypt import cryptString, decryptString
 
 ContentType = models.get_model("contenttypes", "ContentType")
 User = models.get_model("auth", "User")
@@ -42,7 +40,6 @@ JobOffer = models.get_model("marketplace", "JobOffer")
 EducationalDepartment = models.get_model("education", "Department")
 EducationalProjects = models.get_model("education", "Project")
 
-# from forms import ExhibitionFilterForm, EventFilterForm, WorkshopFilterForm, ShopFilterForm
 
 @never_cache
 @login_required
@@ -412,6 +409,44 @@ def dashboard_educational_project(request):
     return render(request, "site_specific/dashboard_educational_project.html", context)
 
 
+def get_file_dict(request, directory, filename):
+    file_path = os.path.join(directory, filename)
+    created = default_storage.created_time(file_path)
+    is_new = datetime.now() - created < timedelta(days=7)
+    url = default_storage.url(file_path)
+    if "://" not in url:
+        url = request.build_absolute_uri(url)
+    url = url.replace('://', '://{username}:{password}@'.format(
+        username=settings.INFO_FILES_USERNAME,
+        password=settings.INFO_FILES_PASSWORD,
+    ))
+    return {
+        'name': filename,
+        'created': created,
+        'size': default_storage.size(file_path),
+        'url': url,
+        'is_new': is_new,
+    }
+
+
+@never_cache
+@login_required
+def dashboard_info_files(request):
+    if not request.user.groups.filter(
+        name__in=settings.ACCOUNTS_DASHBOARD_USER_GROUPS
+    ) and not request.user.is_staff:
+        return access_denied(request)
+
+    directory_of_interest = "info-for-location-owners"
+    directories, files = default_storage.listdir(directory_of_interest)
+    files = [
+        get_file_dict(request, directory_of_interest, f)
+        for f in files if not f.startswith('.')
+    ]
+
+    return render(request, 'site_specific/dashboard_info_files.html', {'files': files})
+
+
 @never_cache
 @staff_member_required
 def invite_to_claim_location(request):
@@ -769,7 +804,28 @@ def culturebase_export_productions(request, location_slug):
         content_type="text/xml"
     )
 
+
 API_CHANGELOG = [
+    {
+        'date': datetime(2017, 9, 10, 12, 0),
+        'changes': [
+            u"""Marmorsaal (Stage ID = 213) added to Maxim Gorki Theater (Location ID = 12).""",
+        ],
+    },
+    {
+        'date': datetime(2017, 9, 4, 12, 0),
+        'changes': [
+            u"""Documentation updated regarding Volksbühne and its stages. Two new stages added: "Tempelhof Hangar 5" (Stage ID = 207) and "Fullscreen (Stage ID = 208)".""",
+            u"""Stage "Gläsernes Foyer" renamed to "Apollo Saal" (Stage ID = 22)".""",
+            u"""Stage "Werkstatt" renamed to "Neue Werkstatt" (Stage ID = 24)".""",
+        ],
+    },
+    {
+        'date': datetime(2017, 8, 29, 12, 0),
+        'changes': [
+            u"""Markup error fixed in the documentation. Available event ticket statuses are "tickets_@_box_office" and "sold_out".""",
+        ],
+    },
     {
         'date': datetime(2017, 7, 11, 12, 0),
         'changes': [

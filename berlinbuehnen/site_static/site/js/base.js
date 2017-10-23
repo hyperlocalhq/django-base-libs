@@ -291,16 +291,10 @@ $(document).ready(function() {
     window.tooltipAdjustments();
 });
 
-
-function goToParent() {
-
-    var href=location.pathname;
-    href=href.split("/");
-
-    if (href[href.length-1] == "") href.pop();
-    href.pop();
-
-    location.href = href.join("/");
-
-    return false;
-}
+$(document).on('click', 'a.js-back', function(e) {
+    e.preventDefault();
+    var path = location.pathname;
+    // delete the last word and optionally a slash after it from the path
+    path = path.replace(/[^\/]+\/?$/, '');
+    location.href = path;
+});

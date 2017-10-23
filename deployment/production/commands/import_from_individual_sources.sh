@@ -91,6 +91,21 @@ echo "Importing from Pierre Boulez Saal (New)" >> ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
 python manage.py import_from_boulezsaal --traceback >> ${CRON_LOG_FILE}  2>&1
 
+echo "------------" >> ${CRON_LOG_FILE}
+echo "Importing from Berliner Ensemble (New)" >> ${CRON_LOG_FILE}
+date >> ${CRON_LOG_FILE}
+python manage.py import_from_berliner_ensemble --traceback >> ${CRON_LOG_FILE}  2>&1
+
+echo "------------" >> ${CRON_LOG_FILE}
+echo "Importing from Volksbühne (New)" >> ${CRON_LOG_FILE}
+date >> ${CRON_LOG_FILE}
+python manage.py import_from_volksbuehne --traceback >> ${CRON_LOG_FILE}  2>&1
+
+echo "------------" >> ${CRON_LOG_FILE}
+echo "Importing from Staatsoper Berlin (New)" >> ${CRON_LOG_FILE}
+date >> ${CRON_LOG_FILE}
+python manage.py import_from_staatsoper_berlin --traceback >> ${CRON_LOG_FILE}  2>&1
+
 cd ${PROJECT_PATH}/commands/
 ./fix_permissions_for_media.sh
 

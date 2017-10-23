@@ -10,7 +10,7 @@ from django.utils.translation import ugettext as _
 register = template.Library()
 
 @register.inclusion_tag('productions/includes/other_productions.html', takes_context=True)
-def other_productions(context, current_event=False, current_location=False, amount=24):
+def other_productions(context, current_event=None, current_location=None, amount=24):
     from berlinbuehnen.apps.productions.models import Production
 
     if current_location:
@@ -89,7 +89,7 @@ def date_slider(context, page, active=0, id=''):
 
 
 @register.inclusion_tag('productions/includes/bvg.html', takes_context=True)
-def bvg(context, address="", address_2=False, postal_code=False, city=False, event_date=False, event_time=False, delta=0, timesel="depart"):
+def bvg(context, address="", address_2=None, postal_code=None, city=None, event_date=None, event_time=None, delta=0, timesel="depart"):
 
     to = address
     if address_2:
@@ -108,8 +108,8 @@ def bvg(context, address="", address_2=False, postal_code=False, city=False, eve
     if event_date and event_time:
         event_datetime = datetime(year=event_date.year, month=event_date.month, day=event_date.day, hour=event_time.hour, minute=event_time.minute)
         if (event_datetime < today):
-            event_date = False
-            event_time = False
+            event_date = None
+            event_time = None
             delta = 0
             timesel = "depart"
 
@@ -119,7 +119,7 @@ def bvg(context, address="", address_2=False, postal_code=False, city=False, eve
         today = datetime(year=today.year, month=today.month, day=today.day, hour=event_time.hour, minute=event_time.minute)
 
     if delta < 0:
-        delta *= -1;
+        delta *= -1
         today -= timedelta(minutes=delta)
     else:
         today += timedelta(minutes=delta)
@@ -197,20 +197,22 @@ def add_to_calender(context, event):
 def schedule_of_location(context, location, amount=4):
     from berlinbuehnen.apps.productions.models import Event
 
-    timestamp = datetime.now()
-
     locations = [location]
 
     qs = Event.objects.filter(
-        models.Q(end_date__gte=timestamp.date()) | models.Q(end_date=None, start_date__gte=timestamp.date()),
         models.Q(play_locations__in=locations) | models.Q(production__in_program_of__in=locations) | models.Q(production__play_locations__in=locations),
-        production__status="published"
+        production__status="published",
+        production__part=None,
     )
 
-    today = datetime.today()
+    timestamp = datetime.now()
     qs = qs.exclude(
-        start_date__exact=today,
-        start_time__lt=today,
+        event_status="trashed",
+    ).exclude(
+        start_date__exact=timestamp.date(),
+        start_time__lt=timestamp.time(),
+    ).exclude(
+        start_date__lt=timestamp.date(),
     ).distinct()
 
     return {

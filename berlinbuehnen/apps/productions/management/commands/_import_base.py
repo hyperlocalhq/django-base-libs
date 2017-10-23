@@ -114,13 +114,6 @@ def load_stage_to_location_mapper():
         u"gesamtes Haus": StageSettings(u"Sophiensæle", u"gesamtes Haus", True),
         u"Sophiensaele - Kantine": StageSettings(u"Sophiensæle", u"Kantine", True),
 
-        u"Bode-Museum": StageSettings(u"Staatsoper im Schiller Theater", u"Bode Museum", True),
-        u"Staatsoper im Schiller Theater - Gläsernes Foyer": StageSettings(u"Staatsoper im Schiller Theater", u"Gläsernes Foyer", True),
-        u"Staatsoper im Schiller Theater - Werkstatt": StageSettings(u"Staatsoper im Schiller Theater", u"Werkstatt", True),
-        u"Staatsoper Unter den Linden": StageSettings(u"Staatsoper im Schiller Theater", u"Staatsoper Unter den Linden", True),
-        u"Staatsoper im Schiller Theater - Probebühne I": StageSettings(u"Staatsoper im Schiller Theater", u"Probebühne I", True),
-        u"Bebelplatz": StageSettings(u"Staatsoper im Schiller Theater", u"Bebelplatz", True),
-
         u"Theater an der Parkaue - Bühne 2": StageSettings(u"Theater an der Parkaue", u"Bühne 2", True),
 
         u"Alten Feuerwache Eichwalde": StageSettings(u"Neuköllner Oper", u"Alten Feuerwache Eichwalde", True),
@@ -153,7 +146,6 @@ def load_location_title_mapper():
         u"English Theatre Berlin | International Performing Arts Center": u"English Theatre Berlin",
         u"Wühlmäuse": u"Die Wühlmäuse",  # where does it happen?
         u"SCHAUBUDE BERLIN - Theater.PuppenFigurenObjekte": u"SCHAUBUDE BERLIN",
-        u"Staatsoper im Schillertheater": u"Staatsoper im Schiller Theater",  # where does it happen?
         u"ATZE  Musiktheater": u"ATZE Musiktheater",
         u"Astrid Lindgren Bühne im FEZ Berlin": u"Astrid Lindgren Bühne im FEZ-Berlin",
         u"FEZ-Berlin und Landesmusikakademie Berlin": u"Landesmusikakademie Berlin im FEZ",

@@ -566,14 +566,14 @@ execfile(os.path.join(JETSON_PATH, "jetson/settings/filebrowser.py"), globals(),
 
 FILEBROWSER_EXTENSIONS = {
     'Folder': [''],
-    'Image': ['.jpg','.jpeg','.gif','.png','.tif','.tiff'],
-    'Video': ['.mov','.wmv','.mpeg','.mpg','.avi','.rm','.swf','.flv','.f4v'],
-    'Document': ['.pdf','.doc','.docx','.rtf','.txt',
-        '.xls','.xlsx','.csv','.ppt','.pptx',
-        ],
-    'Audio': ['.mp3','.mp4','.wav','.aiff','.midi','.m4p'],
-    'Code': ['.html','.py','.js','.css'],
-    'Archive': ['.zip','.rar','.tar','.gz'],
+    'Image': ['.jpg', '.jpeg', '.gif', '.png', '.tif', '.tiff', '.eps'],
+    'Video': ['.mov', '.wmv', '.mpeg', '.mpg', '.avi', '.rm', '.swf', '.flv', '.f4v'],
+    'Document': ['.pdf', '.doc', '.docx', '.rtf', '.txt',
+                 '.xls', '.xlsx', '.csv', '.ppt', '.pptx',
+                 ],
+    'Audio': ['.mp3', '.mp4', '.wav', '.aiff', '.midi', '.m4p'],
+    'Code': ['.html', '.py', '.js', '.css'],
+    'Archive': ['.zip', '.rar', '.tar', '.gz'],
 }
 
 FILEBROWSER_VERSIONS = {
@@ -599,7 +599,7 @@ HAYSTACK_CONNECTIONS = {
         'PATH': os.path.join(PATH_TMP, "whoosh_index", "default"),
         'STORAGE': 'file',
         'POST_LIMIT': 128 * 1024 * 1024,
-        'INCLUDE_SPELLING': True,
+        'INCLUDE_SPELLING': False,
         'BATCH_SIZE': 100,
     },
     'de': {
@@ -607,7 +607,7 @@ HAYSTACK_CONNECTIONS = {
         'PATH': os.path.join(PATH_TMP, "whoosh_index", "de"),
         'STORAGE': 'file',
         'POST_LIMIT': 128 * 1024 * 1024,
-        'INCLUDE_SPELLING': True,
+        'INCLUDE_SPELLING': False,
         'BATCH_SIZE': 100,
         'URL': 'http://www.berlin-buehnen.de/de/suche/',
     },
@@ -616,7 +616,7 @@ HAYSTACK_CONNECTIONS = {
         'PATH': os.path.join(PATH_TMP, "whoosh_index", "en"),
         'STORAGE': 'file',
         'POST_LIMIT': 128 * 1024 * 1024,
-        'INCLUDE_SPELLING': True,
+        'INCLUDE_SPELLING': False,
         'BATCH_SIZE': 100,
         'URL': 'http://www.berlin-buehnen.de/en/search/',
     },
@@ -674,6 +674,9 @@ ACCOUNTS_DASHBOARD_USER_GROUPS = ["Location Owners"]
 #SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 
 USE_TZ = True
+
+INFO_FILES_USERNAME = "location_owner"
+INFO_FILES_PASSWORD = "BbYWnGNrkXbhUzbeUu4rweix"
 
 ### CACHE SETTINGS ###
 

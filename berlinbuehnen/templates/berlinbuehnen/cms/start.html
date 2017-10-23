@@ -1,5 +1,5 @@
 {% extends "cms/default.html" %}
-{% load base_tags cms_tags i18n image_modifications slideshows_tags production_tags favorites_tags auth_extended infoblocks mailchimp_tags festival_tags advertising_tags %}
+{% load base_tags cms_tags i18n image_modifications slideshows_tags production_tags favorites_tags auth_extended infoblocks mailchimp_tags festival_tags advertising_tags fb_tags %}
 
 {% block title %}{% endblock %}
 
@@ -19,11 +19,11 @@
     {% top_slideshow "start_page" %}
     <div class="content home">
         <div class="container">
-            
+
             <div class="row main">
                 <h1 class="bottom-line calender-headline">{% trans "Schedule" %}</h1>
                 {% date_slider page='event_list' %}
-                
+
                 <!-- event list -->
                 <div class="col-xs-12 print-padding">
                     {% get_objects published_upcoming productions.Event 4 as newest_events %}
@@ -76,9 +76,15 @@
                                             <div class="list-item-head-image img hidden-xs col-sm-8">
                                                 {% if event.first_image %}
                                                     <img src="{{ MEDIA_URL }}{{ event.first_image.path|modified_path:"list_image" }}{% if event.production.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="" />
+                                                    {% with event.first_image.path|file_description as file_desc %}
+                                                        {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                                                    {% endwith %}
                                                 {% elif event.ev_or_prod_images %}
                                                     {% with event.ev_or_prod_images|first as image %}
                                                         <img src="{{ MEDIA_URL }}{{ image.path|modified_path:"list_image" }}{% if event.production.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="" />
+                                                        {% with image.path|file_description as file_desc %}
+                                                            {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                                                        {% endwith %}
                                                     {% endwith %}
                                                 {% else %}
                                                     <img src="{{ STATIC_URL }}site/img/placeholder_event.png" />
@@ -147,20 +153,20 @@
                     <div class="more-date"><a href="{% url 'event_list' %}" class="fawesome more">{% trans "more dates" %}</a></div>
                 </div>
             </div>
-            
+
             {% if not "start_page"|not_empty_ad_zone %}
                 <a name="newsletter_signup"></a>
             {% endif %}
-            
+
             {% festivals_slider %}
-            
+
             <div class="row info">
-                
+
                 <!-- news -->
                 <div class="col-xs-12 col-sm-6 col-md-8 news">
                     <h1 class="bottom-line">{% trans "News" %}</h1>
                     <div class="row">
-                        
+
                         <!-- NEWS -->
                         {% get_objects objects.latest_published theater_of_the_week.TheaterOfTheWeek 1 as newest_theater %}
                         {% for article in newest_theater %}
@@ -168,12 +174,12 @@
                                 <a href="{% url 'theater_of_the_week' %}">
                                     <h3>{% trans "Theater of the week" %}</h3>
                                     {% if article.image %}
-                                        <div class="img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ article.image.path|modified_path:"news_image"  }}" alt="{{ article.image_description|escape }}" /></div> 
+                                        <div class="img photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ article.image.path|modified_path:"news_image"  }}" alt="{{ article.image_description|escape }}" />{% with article.image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}{% endwith %}</div>
                                     {% elif article.theater.cover_image %}
-                                        <div class="img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{article.theater.cover_image.path|modified_path:"news_image"  }}" alt="{% trans "Theater of the week" %}" /></div>
+                                        <div class="img photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{article.theater.cover_image.path|modified_path:"news_image"  }}" alt="{% trans "Theater of the week" %}" />{% with article.theater.cover_image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}{% endwith %}</div>
                                     {% elif article.theater.image_set.exists %}
                                         {% with article.theater.image_set.all|first as first %}
-                                            <div class="img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{first.path|modified_path:"news_image"  }}" alt="{% trans "Theater of the week" %}" /></div>
+                                            <div class="img photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{first.path|modified_path:"news_image"  }}" alt="{% trans "Theater of the week" %}" />{% with first|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}{% endwith %}</div>
                                         {% endwith %}
                                     {% endif %}
                                     <h2>{% if article.short_title %}{{ article.short_title }}{% else %}{{ article.title }}{% endif %}</h2>
@@ -188,14 +194,14 @@
                                 </a>
                             </div>
                         {% endfor %}
-                        
+
                         {% get_objects objects.latest_published articles.Article 3 as newest_articles %}
                         {% for article in newest_articles %}
                             <div class="col-xs-12 col-md-6 news-item">
                                 <a href="{{ article.get_url_path }}">
                                     <h3>{% if article.category.title %}{{ article.category.title }}{% else %}{% trans "News" %}{% endif %}</h3>
                                     {% if article.image %}
-                                        <div class="img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ article.image.path|modified_path:"news_image"  }}" alt="{{ article.image_description|escape }}" /></div> 
+                                        <div class="img photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ article.image.path|modified_path:"news_image"  }}" alt="{{ article.image_description|escape }}" />{% with article.image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}{% endwith %}</div>
                                     {% endif %}
                                     <h2>{% if article.short_title %}{{ article.short_title }}{% else %}{{ article.title }}{% endif %}</h2>
                                     <p>
@@ -218,16 +224,16 @@
                                 {% endif %}
                             {% endif %}
                         {% endfor %}
-                        
+
                         <div class="clearfix"></div>
-                        
+
                         <!-- BLOG -->
                         {% get_objects published_objects.all blog.Post 2 as newest_posts %}
                         {% for post in newest_posts %}
                             <div class="col-xs-12 col-md-6 news-item">
                                 <h3>{% trans "Blog" %}</h3>
                                 {% if post.image %}
-                                    <div class="img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ post.image.path|modified_path:"news_image"  }}" alt="{{ article.image_description|escape }}" /></div> 
+                                    <div class="img"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ post.image.path|modified_path:"news_image"  }}" alt="{{ article.image_description|escape }}" /></div>
                                 {% endif %}
                                 <h2>{{ post.title }}</h2>
                                 <p>{{ post.get_rendered_body }}</p>
@@ -236,11 +242,11 @@
                         {% endfor %}
                     </div>
                 </div>
-                
+
                 {% if "start_page"|not_empty_ad_zone %}
                     <a name="newsletter_signup"></a>
                 {% endif %}
-                
+
                 <!-- Ads -->
                 <div class="col-xs-12 col-sm-6 col-md-4 ads {% if not "start_page"|not_empty_ad_zone %}no-ads{% endif %}">
 
@@ -251,10 +257,10 @@
                     {#% infoblock "start_page_ad" %#}
                     {% subscribe %}
                 </div>
-                
+
             </div>
-                
-                
+
+
         </div>
     </div>
 

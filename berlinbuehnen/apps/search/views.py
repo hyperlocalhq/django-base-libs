@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import Http404
 from django.core.paginator import Paginator
+from django.db import models
 
 import haystack.views as haystack_views
 
@@ -30,7 +31,7 @@ class SearchView(haystack_views.SearchView):
                 if self.form.cleaned_data[self.form.MODELS_PARAM_NAME] and short_name not in self.form.cleaned_data[self.form.MODELS_PARAM_NAME]:
                     continue
                 app_model = indexes[short_name]  # e.g. "museums.museum"
-                results = self.results.filter(django_ct=app_model)
+                results = self.results.models(models.get_model(*app_model.split(".")))
                 length = results.count()
                 if length and results:
                     d = {

@@ -1,4 +1,4 @@
-{% load base_tags i18n image_modifications favorites_tags production_tags %}
+{% load base_tags i18n image_modifications favorites_tags production_tags fb_tags %}
 {% if newest_events %}
     <div class="additional-list list row calender-list">
         <div class="list-headline">
@@ -6,115 +6,7 @@
             <div class="space"></div>
         </div>
         {% for event in newest_events %}
-            <div class="list-item col-xs-12">
-                <div class="row">
-
-                    <!-- list item head (date and image) -->
-                    <div class="list-item-head col-xs-12 col-sm-5 col-md-4 col-lg-3">
-                        <div class="row">
-
-                            <!-- date -->
-                            <div class="list-item-head-date col-xs-12 col-sm-4">
-                                <div class="row">
-                                    <div class="list-item-head-date-day col-xs-3 col-sm-12">
-                                        {{ event.start_date|date:"D" }}
-                                    </div>
-                                    <div class="list-item-head-date-month col-xs-3 col-sm-12">
-                                        <span class="hidden-xs">{{ event.start_date|date:"j. F" }}</span>
-                                        <span class="visible-xs">{{ event.start_date|date:"j. M" }}</span>
-                                    </div>
-                                    <div class="list-item-head-date-type col-xs-3 col-sm-12">
-                                        {% if event.production.get_categories %}
-                                            {{ event.production.get_categories.0.title }}
-                                        {% endif %}
-                                    </div>
-                                    <div class="list-item-head-date-time col-xs-3 col-sm-12">
-                                        {{ event.start_time|time:"H:i" }}
-                                    </div>
-                                    <div class="list-item-head-date-icons col-xs-3 col-sm-12">
-                                        {% if request.user.is_authenticated %}
-                                            {% adding2favorites for event.production using "favorites/includes/favorite_detail.html" %}
-                                        {% else %}
-                                            {% login2favorites using "favorites/includes/favorite_detail_login.html" %}
-                                        {% endif %}
-                                        {% add_to_calender event=event %}
-                                        {% if event.ev_or_prod_tickets_website %}
-                                            <a class="fawesome tickets" href="{{ event.ev_or_prod_tickets_website }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{% trans "Tickets" %}" data-tooltip-left="-10,.is-xs"><span class="sr-only">{% trans "Tickets" %}</span></a>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- image -->
-                            <div class="list-item-head-image img hidden-xs col-sm-8">
-                                {% if event.first_image %}
-                                    <img src="{{ MEDIA_URL }}{{ event.first_image.path|modified_path:"list_image" }}{% if event.production.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="" />
-                                {% elif event.ev_or_prod_images %}
-                                    {% with event.ev_or_prod_images|first as image %}
-                                        <img src="{{ MEDIA_URL }}{{ image.path|modified_path:"list_image" }}{% if event.production.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="" />
-                                    {% endwith %}
-                                {% else %}
-                                    <img src="{{ STATIC_URL }}site/img/placeholder_event.png" />
-                                {% endif %}
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- list item body -->
-                    <div class="list-item-body col-xs-12 col-sm-7 col-md-8 col-lg-9">
-                        <a class="list-item-link" href="{{ event.get_url_path }}">
-                            {% if event.production.in_program_of.exists or event.location_title or event.production.location_title or event.ev_or_prod_play_locations|length > 0 or event.ev_or_prod_play_stages|length > 0 %}
-                                <dl>
-                                    {% with event.get_festivals as festivals %}
-                                        {% if festivals %}
-                                            <dd class="festivals">
-                                                {% for festival in festivals %}
-                                                    <span class="festival" data-url="{{ festival.get_url_path }}">{% if forloop.counter == 1 %}{% trans "Festival" %}: {% endif %}{{ festival.title }}</span>
-                                                {% endfor %}
-                                            </dd>
-                                        {% endif %}
-                                    {% endwith %}
-                                    {% if event.production.in_program_of.exists %}
-                                        {% for location in event.production.in_program_of.all %}
-                                            <dd>
-                                                {{ location.title }}
-                                            </dd>
-                                        {% endfor %}
-                                    {% endif %}
-                                    {% if event.location_title %}
-                                        <dd>
-                                            {{ event.location_title }}
-                                        </dd>
-                                    {% elif event.production.location_title %}
-                                        <dd>
-                                            {{ event.production.location_title }}
-                                        </dd>
-                                    {% endif %}
-                                    {% for location in event.ev_or_prod_play_locations %}
-                                        <dd>
-                                            {{ location.title }}
-                                        </dd>
-                                    {% endfor %}
-                                    {% for stage in event.ev_or_prod_play_stages %}
-                                        <dd>
-                                            {{ stage.title }}
-                                        </dd>
-                                    {% endfor %}
-                                </dl>
-                            {% endif %}
-                            {% if event.production.prefix %}<h4>{{ event.production.prefix }}</h4>{% endif %}
-                            {% if event.production.title %}<h2>{{ event.production.title }}</h2>{% endif %}
-                            {% if event.production.subtitle %}<h3>{{ event.production.subtitle }}</h3>
-                            {% elif event.ev_or_prod_subtitles_text %}<h3>{{ event.ev_or_prod_subtitles_text }}</h3>{% endif %}
-                            {% if event.production.original %}<h3>{{ event.production.original }}</h3>{% endif %}
-                            {% if event.ev_or_prod_teaser %}<div class="copy"><p>{{ event.ev_or_prod_teaser }}</p></div>{% endif %}
-                            {% if event.get_special_text %}<div class="extra"><span>{{ event.get_special_text }}</span></div>{% endif %}
-                        </a>
-                    </div>
-
-                </div>
-            </div>
+            {% include "events/includes/list_item.html" %}
         {% endfor %}
     </div>
     <div class="more-date"><a href="{% url "event_list" %}?locations={{ location.pk }}" class="fawesome more">{% trans "more dates" %}</a></div>
