@@ -46,7 +46,7 @@ class Person(PersonBase):
     )
     completeness = models.SmallIntegerField(_("Completeness in %"), default=0)
 
-    photo_author = models.CharField(_("Photo"), max_length=100, blank=True)
+    photo_author = models.CharField(_("Photo Credits"), max_length=100, blank=True)
 
     objects = PersonManagerExtended()
 

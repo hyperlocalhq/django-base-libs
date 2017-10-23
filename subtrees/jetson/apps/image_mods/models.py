@@ -243,10 +243,11 @@ class FileManager:
             path += subpath
         path += filename
         FileManager.save_file(path, content)
+        setattr(obj, field_name, path)
         if obj.pk:
+            # saving without modifying modification dates nor triggering signals
             obj._default_manager.filter(pk=obj.pk).update(**{field_name: FileObject(path=path)})
         else:
-            setattr(obj, field_name, path)
             obj.save()
 
 
@@ -262,10 +263,11 @@ class FileManager:
             except OSError:
                 pass
 
+        setattr(obj, field_name, "")
         if obj.pk:
+            # saving without modifying modification dates nor triggering signals
             obj._default_manager.filter(pk=obj.pk).update(**{field_name: FileObject(path="")})
         else:
-            setattr(obj, field_name, "")
             obj.save()
 
     @staticmethod

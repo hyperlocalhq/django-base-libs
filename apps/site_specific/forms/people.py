@@ -230,7 +230,6 @@ class AvatarForm(dynamicforms.Form):
 
     def save(self):
         person = self.person
-        person.photo_author = self.cleaned_data['photo_author']
         if "media_file" in self.files:
             media_file = self.files['media_file']
             image_mods.FileManager.save_file_for_object(
@@ -239,6 +238,7 @@ class AvatarForm(dynamicforms.Form):
                 media_file,
                 subpath="avatar/"
             )
+        person.photo_author = self.cleaned_data['photo_author']
         person.calculate_completeness()
         person.save()
         return person
