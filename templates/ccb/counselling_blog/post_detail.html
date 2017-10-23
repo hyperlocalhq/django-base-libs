@@ -2,13 +2,18 @@
 
 <h3 class="only-time"><time datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d. F Y, H:i" }}</time></h3>
 <h2>{{ post.title }}</h2>
+{% if post.image %}
+    <div class="photo-credits-wrapper">
+        <img class="img img-responsive" src="{{ UPLOADS_URL }}{{ post.image|modified_path:"article" }}" alt="{{ post.title }}" data-popup-image-src="{{ post.image.url }}" />{% if post.image_author %}<div class="photo-credits-over">{% trans "Photo" %}: {{ post.image_author }}</div>{% endif %}
+    </div>
+{% endif %}
 <div class="tiny-mce">
     {{ post.get_rendered_body|disarm_user_input }}
 </div>
 
 {% if post.tags %}
     <div>
-        {% trans "Tags" %}: 
+        {% trans "Tags" %}:
         {% for tag in post.get_tags %}
             {% if not forloop.first %}|{% endif %}
             <a href="{% page_url request.current_page %}tag/{{ tag.slug }}/">{{ tag.name }} </a>
