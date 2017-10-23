@@ -3,7 +3,10 @@
 <div class="col-xs-12 {% if not forloop.first %}col-sm-6{% endif %}">
     <a class="content" href="{% page_url request.current_page %}{{ post.get_relative_url }}">
         {% if post.body|get_first_image %}
-            {{ post.body|get_first_image|safe }}
+            <div class="photo-credits-wrapper">
+                <img class="img img-responsive" src="{{ UPLOADS_URL }}{{ post.image|modified_path:'article' }}" alt="{{ post.title }}" />
+                {% if post.image_author %}<div class="photo-credits-over">{% trans "Photo" %}: {{ post.image_author }}</div>{% endif %}
+            </div>
         {% endif %}
         <div class="subline">
             <h3>{% if forloop.first %}<time class="hidden-xs" datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d. F Y, H:i" }}</time><time class="visible-xs" datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d. M. Y, H:i" }}</time>{% else %}<time datetime="{{ post.published_from|date:"Y-m-d H:i" }}">{{ post.published_from|date:"d. M. Y, H:i" }}</time>{% endif %}</h3>
