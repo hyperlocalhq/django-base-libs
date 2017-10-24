@@ -1,8 +1,13 @@
-<!DOCTYPE html><html>
+<!DOCTYPE html>
+<html>
 
 <head>
+
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>v1</title>
+
+
 <style type="text/css">
 body {
   font-family: Helvetica, arial, sans-serif;
@@ -316,8 +321,8 @@ kbd {
 		word-wrap: break-word;
 	}
 }
-
 </style>
+
 <style type="text/css">
 /**
  * prism.js default theme for JavaScript, CSS and HTML
@@ -328,14 +333,15 @@ kbd {
 code[class*="language-"],
 pre[class*="language-"] {
 	color: black;
+	background: none;
 	text-shadow: 0 1px white;
-	font-family: Consolas, Monaco, 'Andale Mono', monospace;
-	direction: ltr;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 	text-align: left;
 	white-space: pre;
 	word-spacing: normal;
 	word-break: normal;
-
+	word-wrap: normal;
+	line-height: 1.5;
 
 	-moz-tab-size: 4;
 	-o-tab-size: 4;
@@ -382,6 +388,7 @@ pre[class*="language-"] {
 :not(pre) > code[class*="language-"] {
 	padding: .1em;
 	border-radius: .3em;
+	white-space: normal;
 }
 
 .token.comment,
@@ -404,14 +411,17 @@ pre[class*="language-"] {
 .token.boolean,
 .token.number,
 .token.constant,
-.token.symbol {
+.token.symbol,
+.token.deleted {
 	color: #905;
 }
 
 .token.selector,
 .token.attr-name,
 .token.string,
-.token.builtin {
+.token.char,
+.token.builtin,
+.token.inserted {
 	color: #690;
 }
 
@@ -419,10 +429,9 @@ pre[class*="language-"] {
 .token.entity,
 .token.url,
 .language-css .token.string,
-.style .token.string,
-.token.variable {
+.style .token.string {
 	color: #a67f59;
-	background: hsla(0,0%,100%,.5);
+	background: hsla(0, 0%, 100%, .5);
 }
 
 .token.atrule,
@@ -431,28 +440,84 @@ pre[class*="language-"] {
 	color: #07a;
 }
 
+.token.function {
+	color: #DD4A68;
+}
 
 .token.regex,
-.token.important {
+.token.important,
+.token.variable {
 	color: #e90;
 }
 
-.token.important {
+.token.important,
+.token.bold {
 	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
 }
 
 .token.entity {
 	cursor: help;
 }
-
 </style>
+
+<style type="text/css">
+pre.line-numbers {
+	position: relative;
+	padding-left: 3.8em;
+	counter-reset: linenumber;
+}
+
+pre.line-numbers > code {
+	position: relative;
+}
+
+.line-numbers .line-numbers-rows {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+	font-size: 100%;
+	left: -3.8em;
+	width: 3em; /* works for line-numbers below 1000 lines */
+	letter-spacing: -1px;
+	border-right: 1px solid #999;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+}
+
+	.line-numbers-rows > span {
+		pointer-events: none;
+		display: block;
+		counter-increment: linenumber;
+	}
+
+		.line-numbers-rows > span:before {
+			content: counter(linenumber);
+			color: #999;
+			display: block;
+			padding-right: 0.8em;
+			text-align: right;
+		}
+</style>
+
+
 </head>
+
 <body>
-<h1 id="toc_154">Export API v1 Documentation</h1>
+
+<h1 id="toc_0">Export API v1 Documentation</h1>
 
 <p><a href="http://www.berlin-buehnen.de/de/api/changelog/">API Changelog</a></p>
 
-<ul>
+<p>Last update: October 24, 2017</p>
+
+<ul class="toc">
 <li>
 <a href="#toc_0">Export API v1 Documentation</a>
 <ul>
@@ -502,11 +567,11 @@ pre[class*="language-"] {
 </ul>
 
 
-<h2 id="toc_155">Introduction</h2>
+<h2 id="toc_1">Introduction</h2>
 
 <p>The Berlin Bühnen website has locations (theaters) and stages where plays happen. All plays are named as productions. Productions have general information about the play. Each production has multiple events, that is, exact dates and times when the play happens. Events might overwrite some general information of their production.</p>
 
-<h2 id="toc_156">Formats</h2>
+<h2 id="toc_2">Formats</h2>
 
 <p>All API URIs can be accessed either in <strong>JSON</strong> or in <strong>XML</strong> formats. The format can be defined by query parameter <code>?format=json</code> or <code>?format=xml</code></p>
 
@@ -517,15 +582,15 @@ pre[class*="language-"] {
 <li>Chrome - <a href="">https://chrome.google.com/webstore/detail/chklaanhfefbnpoihckbnefhakgolnmc</a></li>
 </ul>
 
-<h2 id="toc_157">Authentication</h2>
+<h2 id="toc_3">Authentication</h2>
 
 <p>To access the lists and details of database entries you will need to authenticate with your <strong>username</strong> and <strong>API key</strong> by query parameters, e.g. <code>?username=demo&amp;api_key=123456789</code></p>
 
-<h2 id="toc_158">The Highest Level of API</h2>
+<h2 id="toc_4">The Highest Level of API</h2>
 
 <p>If you enter <code>/de/api/v1/?format=json</code> , you can see all available <strong>list endpoints</strong>:</p>
 
-<pre><code>{
+<div><pre class="line-numbers"><code class="language-none">{
     &quot;event_characteristics&quot;: {
         &quot;list_endpoint&quot;: &quot;/de/api/v1/event_characteristics/&quot;,
         &quot;schema&quot;: &quot;/de/api/v1/event_characteristics/schema/&quot;
@@ -566,19 +631,18 @@ pre[class*="language-"] {
         &quot;list_endpoint&quot;: &quot;/de/api/v1/stage/&quot;,
         &quot;schema&quot;: &quot;/de/api/v1/stage/schema/&quot;
     }
-}
-</code></pre>
+}</code></pre></div>
 
 <p>This dictionary object shows you how to access the list views of locations (<code>/de/api/v1/location/</code>), productions (<code>/de/api/v1/production/</code>), and other objects.</p>
 
-<h2 id="toc_159">Getting the Collection of Entries</h2>
+<h2 id="toc_5">Getting the Collection of Entries</h2>
 
 <p>All entries in the lists are paginated by 100 by default. If you want to paginate by smaller amount, you can set the query parameter <code>limit</code>.</p>
 
 <p>If you enter the URI <code>/de/api/v1/location/?format=json&amp;username=demo&amp;api_key=123456789&amp;limit=2</code>
 you would get a list like this:</p>
 
-<pre><code>{
+<div><pre class="line-numbers"><code class="language-none">{
     &quot;meta&quot;: {
         &quot;limit&quot;: 2,
         &quot;next&quot;: &quot;/de/api/v1/location/?username=demo&amp;api_key=9b80e6f80b981fbb0da25f9bb006d78145d7c2c0&amp;limit=2&amp;offset=2&amp;format=json&quot;,
@@ -697,12 +761,11 @@ you would get a list like this:</p>
             &quot;website&quot;: &quot;&quot;
         }
     ]
-}
-</code></pre>
+}</code></pre></div>
 
 <p>The <code>meta</code> section shows pagination options. The <code>objects</code> section lists locations.</p>
 
-<h2 id="toc_160">Filtering</h2>
+<h2 id="toc_6">Filtering</h2>
 
 <p>You can filter lists of locations (theaters), productions, and festivals by creation date, modification date, both, status, or category. For example, </p>
 
@@ -740,7 +803,7 @@ you would get a list like this:</p>
 
 <p>N.B. If the <strong>status</strong> of a production is not &quot;published&quot;, only <strong>id</strong>, <strong>status</strong>, <strong>creation_date</strong> and <strong>modified_date</strong> will be shown. Listing unpublished productions makes it possible to track which productions to unpublish or delete at the export partners as they are not actual anymore.</p>
 
-<h2 id="toc_161">Getting the Details of an Entry</h2>
+<h2 id="toc_7">Getting the Details of an Entry</h2>
 
 <p>Each entry object has <code>resource_uri</code> which points to the URI having the detail information about the entry.</p>
 
@@ -748,7 +811,7 @@ you would get a list like this:</p>
 <code>/api/v1/production/99/?format=json&amp;username=demo&amp;api_key=123456789</code>
 you would get this object:</p>
 
-<pre><code>{
+<div><pre class="line-numbers"><code class="language-none">{
     &quot;age_from&quot;: null,
     &quot;age_text_de&quot;: &quot;&quot;,
     &quot;age_text_en&quot;: &quot;&quot;,
@@ -1533,10 +1596,9 @@ you would get this object:</p>
     &quot;website&quot;: &quot;http://www.grips-theater.de/reroute?page=repertoire.puenktchen&quot;,
     &quot;work_info_de&quot;: &quot;&quot;,
     &quot;work_info_en&quot;: &quot;&quot;
-}
-</code></pre>
+}</code></pre></div>
 
-<h2 id="toc_162">Determining Play Location(s) of an Event</h2>
+<h2 id="toc_8">Determining Play Location(s) of an Event</h2>
 
 <p>Event values always overwrite the production values. Also free-text values can be used instead of relations, when the play is happening in an unusual location. For any event the play location should be determined choosing the first found locations in this order:</p>
 
@@ -1550,19 +1612,22 @@ you would get this object:</p>
 
 <p>Note that there might be multiple play locations and multiple stages for an event as defined at <strong>play_locations</strong> and <strong>play_stages</strong>, or at <strong>in<em>program</em>of</strong> of an event or production.</p>
 
-<h2 id="toc_163">Fields for Each Type</h2>
+<h2 id="toc_9">Fields for Each Type</h2>
 
-<h3 id="toc_164">Location</h3>
+<h3 id="toc_10">Location</h3>
 
 <p><strong>Locations</strong> have these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>id</td>
 <td>integer</td>
@@ -1718,17 +1783,21 @@ you would get this object:</p>
 <td>string </td>
 <td> Endpoint to the details of the location</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
 <p><strong>Social media channel</strong> has these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>channel_type</td>
 <td>string</td>
@@ -1739,17 +1808,21 @@ you would get this object:</p>
 <td>string</td>
 <td>URL of the social media profile</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
 <p><strong>Tickets box office object</strong> has these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>street_address</td>
 <td>string</td>
@@ -1790,17 +1863,21 @@ you would get this object:</p>
 <td>list of strings</td>
 <td>Country code, area code, and number of the fax</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
 <p><strong>Press contact object</strong> has these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>contact_name</td>
 <td>string</td>
@@ -1826,17 +1903,21 @@ you would get this object:</p>
 <td>list of strings</td>
 <td>Country code, area code, and number of the fax</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
 <p><strong>Accessibility options</strong> have these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>id</td>
 <td>integer</td>
@@ -1872,17 +1953,21 @@ you would get this object:</p>
 <td>string </td>
 <td> Endpoint to the details of the accessibility option</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
 <p><strong>Services</strong> have these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>id</td>
 <td>integer</td>
@@ -1913,17 +1998,21 @@ you would get this object:</p>
 <td>string </td>
 <td> Endpoint to the details of the service</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
 <p><strong>Images</strong> have these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>id</td>
 <td>integer</td>
@@ -1994,19 +2083,23 @@ you would get this object:</p>
 <td>string </td>
 <td> Endpoint to the details of the image</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
-<h3 id="toc_165">Stage</h3>
+<h3 id="toc_11">Stage</h3>
 
 <p><strong>Stages</strong> have these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>id</td>
 <td>integer</td>
@@ -2072,19 +2165,23 @@ you would get this object:</p>
 <td>string </td>
 <td> Endpoint to the details of the stage</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
-<h3 id="toc_166">Production</h3>
+<h3 id="toc_12">Production</h3>
 
 <p><strong>Productions</strong> have these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>id</td>
 <td>integer</td>
@@ -2460,17 +2557,21 @@ you would get this object:</p>
 <td>string </td>
 <td> Endpoint to the details of the production</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
 <p><strong>Events</strong> have these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>id</td>
 <td>integer</td>
@@ -2811,17 +2912,21 @@ you would get this object:</p>
 <td>string </td>
 <td> Endpoint to the details of the event</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
 <p><strong>Language and Subtitles</strong> have these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>id</td>
 <td>integer</td>
@@ -2842,17 +2947,21 @@ you would get this object:</p>
 <td>string </td>
 <td> Endpoint to the details of the language and subtitles</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
 <p><strong>Production Categories</strong> have these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>id</td>
 <td>integer</td>
@@ -2888,17 +2997,21 @@ you would get this object:</p>
 <td>string </td>
 <td> Endpoint to the details of the current category</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
 <p><strong>Production Characteristics</strong> and <strong>Event Characteristics</strong> have these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>id</td>
 <td>integer</td>
@@ -2929,17 +3042,21 @@ you would get this object:</p>
 <td>string </td>
 <td> Endpoint to the details of the characteristic</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
 <p><strong>Event Characteristics</strong> have these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>id</td>
 <td>integer</td>
@@ -2970,17 +3087,21 @@ you would get this object:</p>
 <td>string </td>
 <td> Endpoint to the details of the characteristic</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
 <p><strong>Social media channel</strong> has these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>channel_type</td>
 <td>string</td>
@@ -2991,17 +3112,21 @@ you would get this object:</p>
 <td>string</td>
 <td>URL of the social media profile</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
 <p><strong>Images</strong> have these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>id</td>
 <td>integer</td>
@@ -3077,17 +3202,21 @@ you would get this object:</p>
 <td>string </td>
 <td> Endpoint to the details of the image</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
 <p><strong>Videos</strong> and <strong>Live streamings</strong> have these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>id</td>
 <td>integer</td>
@@ -3128,17 +3257,21 @@ you would get this object:</p>
 <td>string </td>
 <td> Endpoint to the details of the video or live streaming</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
 <p><strong>PDFs</strong> have these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>id</td>
 <td>integer</td>
@@ -3199,17 +3332,21 @@ you would get this object:</p>
 <td>string </td>
 <td> Endpoint to the details of the pdf</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
 <p><strong>Production leaderships</strong> have these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>id</td>
 <td>integer</td>
@@ -3265,17 +3402,21 @@ you would get this object:</p>
 <td>string </td>
 <td> Endpoint to the details of the leadership</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
 <p><strong>Production authorships</strong> have these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>id</td>
 <td>integer</td>
@@ -3331,17 +3472,21 @@ you would get this object:</p>
 <td>string </td>
 <td> Endpoint to the details of the authorship</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
 <p><strong>Production involvements</strong> have these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>id</td>
 <td>integer</td>
@@ -3417,17 +3562,21 @@ you would get this object:</p>
 <td>string </td>
 <td> Endpoint to the details of the involvement</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
 <p><strong>Sponsors</strong> have these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>id</td>
 <td>integer</td>
@@ -3463,19 +3612,23 @@ you would get this object:</p>
 <td>string</td>
 <td>URL of the image</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
-<h3 id="toc_167">Festival</h3>
+<h3 id="toc_13">Festival</h3>
 
 <p><strong>Images</strong> have these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>id</td>
 <td>integer</td>
@@ -3551,17 +3704,21 @@ you would get this object:</p>
 <td>string </td>
 <td> Endpoint to the details of the image</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
 <p><strong>PDFs</strong> have these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>id</td>
 <td>integer</td>
@@ -3622,17 +3779,21 @@ you would get this object:</p>
 <td>string </td>
 <td> Endpoint to the details of the pdf</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
 <p><strong>Social media channel</strong> has these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>channel_type</td>
 <td>string</td>
@@ -3643,17 +3804,21 @@ you would get this object:</p>
 <td>string</td>
 <td>URL of the social media profile</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
 <p><strong>Festivals</strong> have these fields:</p>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+
+<tbody>
 <tr>
 <td>id</td>
 <td>integer</td>
@@ -3914,11 +4079,20 @@ you would get this object:</p>
 <td>string </td>
 <td> Endpoint to the details of the festival</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+
+
 
 <script type="text/javascript">
-var self=typeof window!="undefined"?window:{},Prism=function(){var e=/\blang(?:uage)?-(?!\*)(\w+)\b/i,t=self.Prism={util:{encode:function(e){return e instanceof n?new n(e.type,t.util.encode(e.content)):t.util.type(e)==="Array"?e.map(t.util.encode):e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},clone:function(e){var n=t.util.type(e);switch(n){case"Object":var r={};for(var i in e)e.hasOwnProperty(i)&&(r[i]=t.util.clone(e[i]));return r;case"Array":return e.slice()}return e}},languages:{extend:function(e,n){var r=t.util.clone(t.languages[e]);for(var i in n)r[i]=n[i];return r},insertBefore:function(e,n,r,i){i=i||t.languages;var s=i[e],o={};for(var u in s)if(s.hasOwnProperty(u)){if(u==n)for(var a in r)r.hasOwnProperty(a)&&(o[a]=r[a]);o[u]=s[u]}return i[e]=o},DFS:function(e,n){for(var r in e){n.call(e,r,e[r]);t.util.type(e)==="Object"&&t.languages.DFS(e[r],n)}}},highlightAll:function(e,n){var r=document.querySelectorAll('code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code');for(var i=0,s;s=r[i++];)t.highlightElement(s,e===!0,n)},highlightElement:function(r,i,s){var o,u,a=r;while(a&&!e.test(a.className))a=a.parentNode;if(a){o=(a.className.match(e)||[,""])[1];u=t.languages[o]}if(!u)return;r.className=r.className.replace(e,"").replace(/\s+/g," ")+" language-"+o;a=r.parentNode;/pre/i.test(a.nodeName)&&(a.className=a.className.replace(e,"").replace(/\s+/g," ")+" language-"+o);var f=r.textContent;if(!f)return;var l={element:r,language:o,grammar:u,code:f};t.hooks.run("before-highlight",l);if(i&&self.Worker){var c=new Worker(t.filename);c.onmessage=function(e){l.highlightedCode=n.stringify(JSON.parse(e.data),o);t.hooks.run("before-insert",l);l.element.innerHTML=l.highlightedCode;s&&s.call(l.element);t.hooks.run("after-highlight",l)};c.postMessage(JSON.stringify({language:l.language,code:l.code}))}else{l.highlightedCode=t.highlight(l.code,l.grammar,l.language);t.hooks.run("before-insert",l);l.element.innerHTML=l.highlightedCode;s&&s.call(r);t.hooks.run("after-highlight",l)}},highlight:function(e,r,i){var s=t.tokenize(e,r);return n.stringify(t.util.encode(s),i)},tokenize:function(e,n,r){var i=t.Token,s=[e],o=n.rest;if(o){for(var u in o)n[u]=o[u];delete n.rest}e:for(var u in n){if(!n.hasOwnProperty(u)||!n[u])continue;var a=n[u],f=a.inside,l=!!a.lookbehind,c=0;a=a.pattern||a;for(var h=0;h<s.length;h++){var p=s[h];if(s.length>e.length)break e;if(p instanceof i)continue;a.lastIndex=0;var d=a.exec(p);if(d){l&&(c=d[1].length);var v=d.index-1+c,d=d[0].slice(c),m=d.length,g=v+m,y=p.slice(0,v+1),b=p.slice(g+1),w=[h,1];y&&w.push(y);var E=new i(u,f?t.tokenize(d,f):d);w.push(E);b&&w.push(b);Array.prototype.splice.apply(s,w)}}}return s},hooks:{all:{},add:function(e,n){var r=t.hooks.all;r[e]=r[e]||[];r[e].push(n)},run:function(e,n){var r=t.hooks.all[e];if(!r||!r.length)return;for(var i=0,s;s=r[i++];)s(n)}}},n=t.Token=function(e,t){this.type=e;this.content=t};n.stringify=function(e,r,i){if(typeof e=="string")return e;if(Object.prototype.toString.call(e)=="[object Array]")return e.map(function(t){return n.stringify(t,r,e)}).join("");var s={type:e.type,content:n.stringify(e.content,r,i),tag:"span",classes:["token",e.type],attributes:{},language:r,parent:i};s.type=="comment"&&(s.attributes.spellcheck="true");t.hooks.run("wrap",s);var o="";for(var u in s.attributes)o+=u+'="'+(s.attributes[u]||"")+'"';return"<"+s.tag+' class="'+s.classes.join(" ")+'" '+o+">"+s.content+"</"+s.tag+">"};if(!self.document){if(!self.addEventListener)return self.Prism;self.addEventListener("message",function(e){var n=JSON.parse(e.data),r=n.language,i=n.code;self.postMessage(JSON.stringify(t.tokenize(i,t.languages[r])));self.close()},!1);return self.Prism}var r=document.getElementsByTagName("script");r=r[r.length-1];if(r){t.filename=r.src;document.addEventListener&&!r.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",t.highlightAll)}return self.Prism}();typeof module!="undefined"&&module.exports&&(module.exports=Prism);
+var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{},Prism=function(){var e=/\blang(?:uage)?-(\w+)\b/i,t=0,n=_self.Prism={util:{encode:function(e){return e instanceof a?new a(e.type,n.util.encode(e.content),e.alias):"Array"===n.util.type(e)?e.map(n.util.encode):e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},objId:function(e){return e.__id||Object.defineProperty(e,"__id",{value:++t}),e.__id},clone:function(e){var t=n.util.type(e);switch(t){case"Object":var a={};for(var r in e)e.hasOwnProperty(r)&&(a[r]=n.util.clone(e[r]));return a;case"Array":return e.map&&e.map(function(e){return n.util.clone(e)})}return e}},languages:{extend:function(e,t){var a=n.util.clone(n.languages[e]);for(var r in t)a[r]=t[r];return a},insertBefore:function(e,t,a,r){r=r||n.languages;var l=r[e];if(2==arguments.length){a=arguments[1];for(var i in a)a.hasOwnProperty(i)&&(l[i]=a[i]);return l}var o={};for(var s in l)if(l.hasOwnProperty(s)){if(s==t)for(var i in a)a.hasOwnProperty(i)&&(o[i]=a[i]);o[s]=l[s]}return n.languages.DFS(n.languages,function(t,n){n===r[e]&&t!=e&&(this[t]=o)}),r[e]=o},DFS:function(e,t,a,r){r=r||{};for(var l in e)e.hasOwnProperty(l)&&(t.call(e,l,e[l],a||l),"Object"!==n.util.type(e[l])||r[n.util.objId(e[l])]?"Array"!==n.util.type(e[l])||r[n.util.objId(e[l])]||(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,l,r)):(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,null,r)))}},plugins:{},highlightAll:function(e,t){var a={callback:t,selector:'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'};n.hooks.run("before-highlightall",a);for(var r,l=a.elements||document.querySelectorAll(a.selector),i=0;r=l[i++];)n.highlightElement(r,e===!0,a.callback)},highlightElement:function(t,a,r){for(var l,i,o=t;o&&!e.test(o.className);)o=o.parentNode;o&&(l=(o.className.match(e)||[,""])[1],i=n.languages[l]),t.className=t.className.replace(e,"").replace(/\s+/g," ")+" language-"+l,o=t.parentNode,/pre/i.test(o.nodeName)&&(o.className=o.className.replace(e,"").replace(/\s+/g," ")+" language-"+l);var s=t.textContent,u={element:t,language:l,grammar:i,code:s};if(!s||!i)return n.hooks.run("complete",u),void 0;if(n.hooks.run("before-highlight",u),a&&_self.Worker){var c=new Worker(n.filename);c.onmessage=function(e){u.highlightedCode=e.data,n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(u.element),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},c.postMessage(JSON.stringify({language:u.language,code:u.code,immediateClose:!0}))}else u.highlightedCode=n.highlight(u.code,u.grammar,u.language),n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(t),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},highlight:function(e,t,r){var l=n.tokenize(e,t);return a.stringify(n.util.encode(l),r)},tokenize:function(e,t){var a=n.Token,r=[e],l=t.rest;if(l){for(var i in l)t[i]=l[i];delete t.rest}e:for(var i in t)if(t.hasOwnProperty(i)&&t[i]){var o=t[i];o="Array"===n.util.type(o)?o:[o];for(var s=0;s<o.length;++s){var u=o[s],c=u.inside,g=!!u.lookbehind,h=!!u.greedy,f=0,d=u.alias;u=u.pattern||u;for(var p=0;p<r.length;p++){var m=r[p];if(r.length>e.length)break e;if(!(m instanceof a)){u.lastIndex=0;var y=u.exec(m),v=1;if(!y&&h&&p!=r.length-1){var b=r[p+1].matchedStr||r[p+1],k=m+b;if(p<r.length-2&&(k+=r[p+2].matchedStr||r[p+2]),u.lastIndex=0,y=u.exec(k),!y)continue;var w=y.index+(g?y[1].length:0);if(w>=m.length)continue;var _=y.index+y[0].length,P=m.length+b.length;if(v=3,P>=_){if(r[p+1].greedy)continue;v=2,k=k.slice(0,P)}m=k}if(y){g&&(f=y[1].length);var w=y.index+f,y=y[0].slice(f),_=w+y.length,S=m.slice(0,w),O=m.slice(_),j=[p,v];S&&j.push(S);var A=new a(i,c?n.tokenize(y,c):y,d,y,h);j.push(A),O&&j.push(O),Array.prototype.splice.apply(r,j)}}}}}return r},hooks:{all:{},add:function(e,t){var a=n.hooks.all;a[e]=a[e]||[],a[e].push(t)},run:function(e,t){var a=n.hooks.all[e];if(a&&a.length)for(var r,l=0;r=a[l++];)r(t)}}},a=n.Token=function(e,t,n,a,r){this.type=e,this.content=t,this.alias=n,this.matchedStr=a||null,this.greedy=!!r};if(a.stringify=function(e,t,r){if("string"==typeof e)return e;if("Array"===n.util.type(e))return e.map(function(n){return a.stringify(n,t,e)}).join("");var l={type:e.type,content:a.stringify(e.content,t,r),tag:"span",classes:["token",e.type],attributes:{},language:t,parent:r};if("comment"==l.type&&(l.attributes.spellcheck="true"),e.alias){var i="Array"===n.util.type(e.alias)?e.alias:[e.alias];Array.prototype.push.apply(l.classes,i)}n.hooks.run("wrap",l);var o="";for(var s in l.attributes)o+=(o?" ":"")+s+'="'+(l.attributes[s]||"")+'"';return"<"+l.tag+' class="'+l.classes.join(" ")+'" '+o+">"+l.content+"</"+l.tag+">"},!_self.document)return _self.addEventListener?(_self.addEventListener("message",function(e){var t=JSON.parse(e.data),a=t.language,r=t.code,l=t.immediateClose;_self.postMessage(n.highlight(r,n.languages[a],a)),l&&_self.close()},!1),_self.Prism):_self.Prism;var r=document.currentScript||[].slice.call(document.getElementsByTagName("script")).pop();return r&&(n.filename=r.src,document.addEventListener&&!r.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",n.highlightAll)),_self.Prism}();"undefined"!=typeof module&&module.exports&&(module.exports=Prism),"undefined"!=typeof global&&(global.Prism=Prism);
 </script>
+
+<script type="text/javascript">
+!function(){"undefined"!=typeof self&&self.Prism&&self.document&&Prism.hooks.add("complete",function(e){if(e.code){var t=e.element.parentNode,s=/\s*\bline-numbers\b\s*/;if(t&&/pre/i.test(t.nodeName)&&(s.test(t.className)||s.test(e.element.className))&&!e.element.querySelector(".line-numbers-rows")){s.test(e.element.className)&&(e.element.className=e.element.className.replace(s,"")),s.test(t.className)||(t.className+=" line-numbers");var n,a=e.code.match(/\n(?!$)/g),l=a?a.length+1:1,m=new Array(l+1);m=m.join("<span></span>"),n=document.createElement("span"),n.className="line-numbers-rows",n.innerHTML=m,t.hasAttribute("data-start")&&(t.style.counterReset="linenumber "+(parseInt(t.getAttribute("data-start"),10)-1)),e.element.appendChild(n)}}})}();
+</script>
+
+
 </body>
 
 </html>
