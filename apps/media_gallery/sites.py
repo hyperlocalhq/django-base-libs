@@ -654,7 +654,7 @@ class PortfolioSite(object):
                         mediafile.delete()
                     gallery.delete()
                 section.delete()
-                redirect_to = "%s%s/manage/" % (
+                redirect_to = "%s%s/deleted/" % (
                     self.obj.get_url_path(),
                     URL_ID_PORTFOLIO,
                 )
@@ -850,7 +850,7 @@ class PortfolioSite(object):
                             pass
                     mediafile.delete()
                 gallery.delete()
-                redirect_to = "%s%s/manage/" % (
+                redirect_to = "%s%s/deleted/" % (
                     self.obj.get_url_path(),
                     URL_ID_PORTFOLIO,
                 )

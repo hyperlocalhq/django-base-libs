@@ -2,13 +2,20 @@
 {% load i18n %}
 
 {% block details %}
-    <form action="" method="post" class="uniForm">{% csrf_token %}
-        <p class="disclaimer">{% blocktrans with gallery.title as gallery_title %}Do you really want to delete the
+    <form action="" method="post">{% csrf_token %}
+        <div class="fieldset editable">
+            <fieldset>
+                <h2>{% trans "Delete Cover Image?" %}</h2>
+                <h3>{% blocktrans trimmed with gallery_title=gallery.title %}Do you really want to delete the
             custom cover for the album "{{ gallery_title }}" and to use the first image of the album as a cover
-            instead?{% endblocktrans %}</p>
+            instead?{% endblocktrans %}</h3>
+            </fieldset>
+        </div>
 
-        <div class="buttonHolder">
-            <input type="submit" value="Delete" class="primaryAction"/>
+        <div class="button-group form-buttons">
+            <a href="{{ request.META.HTTP_REFERER }}" class="button">{% filter upper %}{% trans 'Cancel' %}{% endfilter %}</a>
+            <input id="id_delete" class="button danger" type="submit"
+                   value="{% filter upper %}{% trans 'Delete' %}{% endfilter %}" />
         </div>
     </form>
 {% endblock %}

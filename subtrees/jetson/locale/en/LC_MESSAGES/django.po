@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-17 22:40+0200\n"
+"POT-Creation-Date: 2017-10-24 17:59+0200\n"
 "PO-Revision-Date: 2017-09-28 06:36+0053\n"
 "Last-Translator: Super Admin <jetsonadmin@studio38.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,8 +97,8 @@ msgstr ""
 #: subtrees/jetson/apps/groups_networks/admin.py:23
 #: subtrees/jetson/apps/groups_networks/base.py:222
 #: subtrees/jetson/apps/groups_networks/base.py:696
-#: subtrees/jetson/apps/image_mods/models.py:357
-#: subtrees/jetson/apps/image_mods/models.py:379
+#: subtrees/jetson/apps/image_mods/models.py:359
+#: subtrees/jetson/apps/image_mods/models.py:381
 #: subtrees/jetson/apps/individual_relations/admin.py:37
 #: subtrees/jetson/apps/institutions/admin.py:21
 #: subtrees/jetson/apps/institutions/admin.py:31
@@ -4363,7 +4363,7 @@ msgid "Dimensions"
 msgstr ""
 
 #: subtrees/jetson/apps/image_mods/admin.py:25
-#: subtrees/jetson/apps/image_mods/models.py:397
+#: subtrees/jetson/apps/image_mods/models.py:399
 msgid "Filters"
 msgstr ""
 
@@ -4397,7 +4397,7 @@ msgstr ""
 
 #: subtrees/jetson/apps/image_mods/admin.py:75
 #: subtrees/jetson/apps/image_mods/models.py:89
-#: subtrees/jetson/apps/image_mods/models.py:407
+#: subtrees/jetson/apps/image_mods/models.py:409
 msgid "Image Modifications"
 msgstr ""
 
@@ -4469,24 +4469,24 @@ msgstr ""
 msgid "Center (Default)"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:360
-#: subtrees/jetson/apps/image_mods/models.py:399
+#: subtrees/jetson/apps/image_mods/models.py:362
+#: subtrees/jetson/apps/image_mods/models.py:401
 msgid "Image Modification Group"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:361
+#: subtrees/jetson/apps/image_mods/models.py:363
 msgid "Image Modification Groups"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:377
+#: subtrees/jetson/apps/image_mods/models.py:379
 msgid "Sysname"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:377
+#: subtrees/jetson/apps/image_mods/models.py:379
 msgid "Sysnames are used for cached file suffixes and in the templates"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:381
+#: subtrees/jetson/apps/image_mods/models.py:383
 #: subtrees/jetson/templates/admin/filebrowser/detail.html:187
 #: subtrees/jetson/templates/admin/filebrowser/detail.html:195
 #: subtrees/jetson/templates/admin/filebrowser/versions.html:151
@@ -4495,11 +4495,11 @@ msgstr ""
 msgid "Width"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:381
+#: subtrees/jetson/apps/image_mods/models.py:383
 msgid "Leave to size the image to the set height"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:382
+#: subtrees/jetson/apps/image_mods/models.py:384
 #: subtrees/jetson/templates/admin/filebrowser/detail.html:188
 #: subtrees/jetson/templates/admin/filebrowser/detail.html:196
 #: subtrees/jetson/templates/admin/filebrowser/versions.html:152
@@ -4508,139 +4508,139 @@ msgstr ""
 msgid "Height"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:382
+#: subtrees/jetson/apps/image_mods/models.py:384
 msgid "Leave to size the image to the set width"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:383
+#: subtrees/jetson/apps/image_mods/models.py:385
 msgid "Quality"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:383
+#: subtrees/jetson/apps/image_mods/models.py:385
 msgid "JPEG image quality."
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:384
+#: subtrees/jetson/apps/image_mods/models.py:386
 msgid "Crop to fit?"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:384
+#: subtrees/jetson/apps/image_mods/models.py:386
 msgid ""
 "If selected the image will be scaled and cropped to fit the supplied "
 "dimensions."
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:385
+#: subtrees/jetson/apps/image_mods/models.py:387
 msgid "Crop from"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:387
+#: subtrees/jetson/apps/image_mods/models.py:389
 msgid "Mask"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:389
+#: subtrees/jetson/apps/image_mods/models.py:391
 msgid "Frame"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:391
+#: subtrees/jetson/apps/image_mods/models.py:393
 msgid "Output format"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:393
+#: subtrees/jetson/apps/image_mods/models.py:395
 msgid "Color"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:393
+#: subtrees/jetson/apps/image_mods/models.py:395
 msgid ""
 "A factor of 0.0 gives a black and white image, a factor of 1.0 gives the "
 "original image."
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:394
+#: subtrees/jetson/apps/image_mods/models.py:396
 msgid "Brightness"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:394
+#: subtrees/jetson/apps/image_mods/models.py:396
 msgid ""
 "A factor of 0.0 gives a black image, a factor of 1.0 gives the original "
 "image."
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:395
+#: subtrees/jetson/apps/image_mods/models.py:397
 msgid "Contrast"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:395
+#: subtrees/jetson/apps/image_mods/models.py:397
 msgid ""
 "A factor of 0.0 gives a solid grey image, a factor of 1.0 gives the original "
 "image."
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:396
+#: subtrees/jetson/apps/image_mods/models.py:398
 msgid "Sharpness"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:396
+#: subtrees/jetson/apps/image_mods/models.py:398
 msgid ""
 "A factor of 0.0 gives a blurred image, a factor of 1.0 gives the original "
 "image."
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:399
+#: subtrees/jetson/apps/image_mods/models.py:401
 msgid ""
 "Assign a group of modifications which will be triggered together while "
 "cropping."
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:401
+#: subtrees/jetson/apps/image_mods/models.py:403
 msgid "Notes"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:406
+#: subtrees/jetson/apps/image_mods/models.py:408
 msgid "Image Modification"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:609
+#: subtrees/jetson/apps/image_mods/models.py:611
 #: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:83
 msgid "Original"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:610
+#: subtrees/jetson/apps/image_mods/models.py:612
 msgid "Modifications"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:610
+#: subtrees/jetson/apps/image_mods/models.py:612
 msgid ""
 "Modifications with the same ratio which should be used to recrop images "
 "together."
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:611
+#: subtrees/jetson/apps/image_mods/models.py:613
 msgid "X1"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:612
+#: subtrees/jetson/apps/image_mods/models.py:614
 msgid "Y1"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:613
+#: subtrees/jetson/apps/image_mods/models.py:615
 msgid "X2"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:614
+#: subtrees/jetson/apps/image_mods/models.py:616
 msgid "Y2"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:615
+#: subtrees/jetson/apps/image_mods/models.py:617
 #: subtrees/jetson/apps/image_mods/views.py:200
 msgid "Canvas color"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:618
+#: subtrees/jetson/apps/image_mods/models.py:620
 msgid "Image Cropping"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:619
+#: subtrees/jetson/apps/image_mods/models.py:621
 msgid "Image Croppings"
 msgstr ""
 
