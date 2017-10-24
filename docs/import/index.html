@@ -5,7 +5,7 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>production_import_specification_heimat_de_type</title>
+<title>index</title>
 
 
 <style type="text/css">
@@ -511,127 +511,155 @@ pre.line-numbers > code {
 
 <body>
 
-<h1 id="toc_0">Berlin Bühnen Production Import (Heimat.de type)</h1>
+<h1 id="toc_0">Frequently Asked Questions about Production Import to Berlin Bühnen</h1>
 
 <p>Last update: October 24, 2017</p>
 
 <ul class="toc">
 <li>
-<a href="#toc_0">Berlin Bühnen Production Import (Heimat.de type)</a>
+<a href="#toc_0">Frequently Asked Questions about Production Import to Berlin Bühnen</a>
 <ul>
 <li>
-<a href="#toc_1">Introduction</a>
+<a href="#toc_1">What kind of imports do exist at Berlin Bühnen?</a>
 </li>
 <li>
-<a href="#toc_2">How to prepare the feed?</a>
+<a href="#toc_2">What is the difference of production data and event data?</a>
 </li>
 <li>
-<a href="#toc_3">Category Mappings at Berlin Bühnen</a>
-<ul>
-<li>
-<a href="#toc_4">Status ID ➔ Production Characteristics</a>
+<a href="#toc_3">When are the imports executed?</a>
 </li>
 <li>
-<a href="#toc_5">Status ID ➔ Event Characteristics</a>
+<a href="#toc_4">Will the productions be updated with the next import?</a>
 </li>
-</ul>
+<li>
+<a href="#toc_5">What fields will be updated with the next import?</a>
+</li>
+<li>
+<a href="#toc_6">Are canceled or outdated events deleted at Berlin Bühnen?</a>
+</li>
+<li>
+<a href="#toc_7">If a production is deleted at Berlin Bühnen, will it be reimported again?</a>
 </li>
 </ul>
 </li>
 </ul>
 
 
-<h2 id="toc_1">Introduction</h2>
+<h2 id="toc_1">What kind of imports do exist at Berlin Bühnen?</h2>
+
+<p>There are 3 types of imports depending on the source format.</p>
+
+<ol>
+<li><p>The first type is based on the old XML format of CultureBase server. We call it &quot;<a href="culturebase_import_specs/production_import_specification_culturebase_type.html">CultureBase type</a>&quot;. This format is used by the following partners:</p>
+
+<ul>
+<li>Deutsche Oper Berlin</li>
+<li>RADIALSYSTEM V</li>
+<li>Staatsoper im Schiller Theater</li>
+</ul></li>
+<li><p>The other format is based on <a href="http://cb.heimat.de/interface/schema/interfaceformat.xsd">this XML structure specification</a>. We call it &quot;<a href="heimat_de_import_specs/production_import_specification_heimat_de_type.html">Heimat.de type</a>&quot;. This format is used by the following partners:</p>
+
+<ul>
+<li>Berliner Philharmonie</li>
+<li>Deutsches Theater</li>
+<li>HAU</li>
+<li>Komische Oper Berlin</li>
+<li>Schaubuehne</li>
+<li>Sophiensaele</li>
+<li>Staatsballet Berlin</li>
+<li>Wühlmäuse</li>
+<li>GRIPS Theater</li>
+</ul></li>
+<li><p>The third format was specifically designed to match the database structure of Berlin Bühnen. We call it &quot;<a href="bb_import_specs/production_import_specification_bb_type.html">Berlin Bühnen type</a>&quot;. It can be provided as XML or JSON. This format is used by these partners:</p>
+
+<ul>
+<li>Maxim Gorki Theater</li>
+<li>Schlosspark Theater</li>
+<li>Konzerthaus</li>
+<li>Volksbühne</li>
+<li>Pierre Boulez Saal</li>
+<li>Berliner Ensemble</li>
+<li>Volksbühne</li>
+<li>Staatsoper Berlin</li>
+</ul></li>
+</ol>
+
+<h2 id="toc_2">What is the difference of production data and event data?</h2>
 
 <p>The Berlin Bühnen website has locations (theaters) and stages where plays happen. All plays are named as productions. Productions have general information about the play. Each production has multiple events, that is, exact dates and times when the play happens. Events might overwrite some general information of their production.</p>
 
-<h2 id="toc_2">How to prepare the feed?</h2>
+<h2 id="toc_3">When are the imports executed?</h2>
 
-<p>The feed specification can be found in the following <a href="2010-11-17_WNI_cb-in_xml-terminschnittstelle_buehnen.pdf">PDF document</a>.</p>
+<p>Imports from all different sources are executed by a cron job every night between 3:00 and 4:00. Exceptionally, imports from GRIPS Theater are executed every 15 minutes, because their data about ticket availability should be as close to real time as possible.</p>
 
-<h2 id="toc_3">Category Mappings at Berlin Bühnen</h2>
+<h2 id="toc_4">Will the productions be updated with the next import?</h2>
 
-<p>This is a list of category mappings for better transparency how categories are treated when importing. All unmentioned categories are ignored.</p>
+<p>Yes, productions will be updated, unless <strong>no_overwriting</strong> flag is set for the production at Berlin Bühnen.</p>
 
-<h3 id="toc_4">Status ID ➔ Production Characteristics</h3>
+<p>Productions at Berlin Bühnen have a Boolean field <strong>no_overwriting</strong> which is</p>
 
-<table>
-<thead>
-<tr>
-<th>Import Feed</th>
-<th>Berlin Bühnen</th>
-</tr>
-</thead>
+<ul>
+<li>shown in the frontend production editing form if the production was imported (not created manually)</li>
+<li>shown in production backend administration for staff users.</li>
+</ul>
 
-<tbody>
-<tr>
-<td>Wiederaufnahme (ID = 2)</td>
-<td>Wiederaufnahme</td>
-</tr>
-<tr>
-<td>Gastspiel (ID = 6)</td>
-<td>Gastspiel</td>
-</tr>
-<tr>
-<td>Repertoire (ID = 21)</td>
-<td>Repertoire</td>
-</tr>
-<tr>
-<td>Uraufführung (ID = 23)</td>
-<td>Uraufführung</td>
-</tr>
-<tr>
-<td>On Tour (ID = 31)</td>
-<td>On Tour</td>
-</tr>
-</tbody>
-</table>
+<p>The <strong>no_overwriting</strong> flag ensures that when the import script is executed again, the production is not overwritten with the data from the import source and that the production and its events are not deleted by import scripts.</p>
 
-<h3 id="toc_5">Status ID ➔ Event Characteristics</h3>
+<h2 id="toc_5">What fields will be updated with the next import?</h2>
 
-<table>
-<thead>
-<tr>
-<th>Import Feed</th>
-<th>Berlin Bühnen</th>
-</tr>
-</thead>
+<p>These are the fields and relations that get updated or recreated in the case of reimporting the same production:</p>
 
-<tbody>
-<tr>
-<td>Premiere (ID = 1)</td>
-<td>Premiere</td>
-</tr>
-<tr>
-<td>Vorauffuhrung (ID = 3)</td>
-<td>Vorauffuhrung</td>
-</tr>
-<tr>
-<td>Deutsche Erstauffuhrung (ID = 17)</td>
-<td>Deutsche Erstauffuhrung</td>
-</tr>
-<tr>
-<td>zum letzten Mal (ID = 22)</td>
-<td>zum letzten Mal</td>
-</tr>
-<tr>
-<td>Familienvorstellung (ID = 24)</td>
-<td>Familienpreise</td>
-</tr>
-<tr>
-<td>zum letzten Mal in dieser Spielzeit (ID = 28)</td>
-<td>zum letzten Mal in dieser Spielzeit</td>
-</tr>
-<tr>
-<td>Deutschsprachige Erstauffuhrung (ID = 30)</td>
-<td>Deutschsprachige Erstauffuhrung</td>
-</tr>
-<tr>
-<td>B-Premiere (ID = 33)</td>
-<td>Berliner Premiere</td>
-</tr>
-</tbody>
-</table>
+<ul>
+<li>status</li>
+<li>title in German and English</li>
+<li>website link</li>
+<li>slug</li>
+<li>minimal price (in case of CultureBase)</li>
+<li>maximal price (in case of CultureBase)</li>
+<li>tickets website (in case of CultureBase)</li>
+<li>all text fields in both languages</li>
+<li>in-program-of location</li>
+<li>play locations</li>
+<li>play stages</li>
+<li>organizers (in case of CultureBase)</li>
+<li>new images are added, missing images are removed, other images stay as they were. Image descriptions are not updated.</li>
+<li>categories</li>
+<li>characteristics</li>
+<li>involved persons (+ leaders and authors in case of CultureBase)</li>
+<li>sponsors</li>
+</ul>
+
+<p>These are the fields and relations that get updated or recreated in the case of reimporting the same event:</p>
+
+<ul>
+<li>event start date and time</li>
+<li>duration</li>
+<li>minimal price</li>
+<li>free entrance (in case of Heimat.de)</li>
+<li>textual price information (in case of Heimat.de)</li>
+<li>maximal price</li>
+<li>tickets website</li>
+<li>event status (taking place or canceled)</li>
+<li>ticket status (available or sold out (once sold out, it isn’t changed back to available the next time))</li>
+<li>all text fields in both languages</li>
+<li>organizers (in case of CultureBase)</li>
+<li>new images are added, missing images are removed, other images stay as they were. Image descriptions are not updated.</li>
+<li>play locations</li>
+<li>play stages</li>
+<li>characteristics</li>
+<li>involved persons (+ leaders and authors in case of CultureBase)</li>
+<li>sponsors</li>
+</ul>
+
+<h2 id="toc_6">Are canceled or outdated events deleted at Berlin Bühnen?</h2>
+
+<p>Productions that existed in the import feed before, but don&#39;t exist there anymore will get a status &quot;trashed&quot;. The same is with events: events that existed in the import feed before, but don&#39;t exist there anymore will get event status &quot;trashed&quot;.</p>
+
+<h2 id="toc_7">If a production is deleted at Berlin Bühnen, will it be reimported again?</h2>
+
+<p>No, productions deleted at Berlin Bühnen are meant to be deleted on purpose and therefore they won&#39;t be recreated again by the import script.</p>
+
+<p>This restriction can be excluded for specific cases on request.</p>
 
 
 

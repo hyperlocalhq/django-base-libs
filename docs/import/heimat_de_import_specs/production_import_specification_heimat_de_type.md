@@ -1,6 +1,12 @@
-# Berlin Bühnen Production Import (heimat.de type)
+# Berlin Bühnen Production Import (Heimat.de type)
+
+Last update: October 24, 2017
 
 [TOC]
+
+## Introduction ##
+
+The Berlin Bühnen website has locations (theaters) and stages where plays happen. All plays are named as productions. Productions have general information about the play. Each production has multiple events, that is, exact dates and times when the play happens. Events might overwrite some general information of their production.
 
 ## How to prepare the feed?
 

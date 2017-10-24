@@ -1,20 +1,21 @@
 # Frequently Asked Questions about Production Import to Berlin Bühnen
 
-Last update: December 7, 2016
+Last update: October 24, 2017
+
+[TOC]
 
 ## What kind of imports do exist at Berlin Bühnen?
 
 There are 3 types of imports depending on the source format.
 
-1. The first type is based on the old XML format of CultureBase server. This format is used by the following partners:
+1. The first type is based on the old XML format of CultureBase server. We call it "[CultureBase type](culturebase_import_specs/production_import_specification_culturebase_type.html)". This format is used by the following partners:
 
     - Deutsche Oper Berlin
     - RADIALSYSTEM V
     - Staatsoper im Schiller Theater
 
-2. The other format is based on a the XML structure defined at http://cb.heimat.de/interface/schema/interfaceformat.xsd. This format is used by the following partners:
+2. The other format is based on [this XML structure specification](http://cb.heimat.de/interface/schema/interfaceformat.xsd). We call it "[Heimat.de type](heimat_de_import_specs/production_import_specification_heimat_de_type.html)". This format is used by the following partners:
 
-    - GRIPS Theater
     - Berliner Philharmonie
     - Deutsches Theater
     - HAU
@@ -22,13 +23,19 @@ There are 3 types of imports depending on the source format.
     - Schaubuehne
     - Sophiensaele
     - Staatsballet Berlin
-    - Volksbuehne
-    - Wuehlmaeuse
+    - Wühlmäuse
+    - GRIPS Theater
 
-3. The third format was specifically designed to match the database structure of Berlin Bühnen. It can be provided as XML or JSON. This format is used by these partners:
+3. The third format was specifically designed to match the database structure of Berlin Bühnen. We call it "[Berlin Bühnen type](bb_import_specs/production_import_specification_bb_type.html)". It can be provided as XML or JSON. This format is used by these partners:
 
+    - Maxim Gorki Theater
     - Schlosspark Theater
-	- Maxim Gorki Theater
+    - Konzerthaus
+    - Volksbühne
+    - Pierre Boulez Saal
+    - Berliner Ensemble
+    - Volksbühne
+    - Staatsoper Berlin
 
 
 ## What is the difference of production data and event data?
@@ -94,12 +101,7 @@ These are the fields and relations that get updated or recreated in the case of 
 
 ## Are canceled or outdated events deleted at Berlin Bühnen?
 
-No, outdated events do not get deleted at Berlin Bühnen by the import scripts, except for the GRIPS Theater.
-
-There are 3 proposals regading this matter:
-- administrators of theaters can delete non actual events manually at Berlin Bühnen.
-- import source might provide statuses for events, like "published" and "trashed" which will later be taken into account.
-- content partners might provide a specific feed, listing IDs of events that need to be deleted.
+Productions that existed in the import feed before, but don't exist there anymore will get a status "trashed". The same is with events: events that existed in the import feed before, but don't exist there anymore will get event status "trashed".
 
 ## If a production is deleted at Berlin Bühnen, will it be reimported again?
 

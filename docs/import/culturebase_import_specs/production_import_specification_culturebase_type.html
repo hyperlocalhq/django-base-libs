@@ -5,7 +5,7 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>production_import_specification_heimat_de_type</title>
+<title>production_import_specification_culturebase_type</title>
 
 
 <style type="text/css">
@@ -511,13 +511,13 @@ pre.line-numbers > code {
 
 <body>
 
-<h1 id="toc_0">Berlin Bühnen Production Import (Heimat.de type)</h1>
+<h1 id="toc_0">Production Import (CultureBase type)</h1>
 
 <p>Last update: October 24, 2017</p>
 
 <ul class="toc">
 <li>
-<a href="#toc_0">Berlin Bühnen Production Import (Heimat.de type)</a>
+<a href="#toc_0">Production Import (CultureBase type)</a>
 <ul>
 <li>
 <a href="#toc_1">Introduction</a>
@@ -547,7 +547,7 @@ pre.line-numbers > code {
 
 <h2 id="toc_2">How to prepare the feed?</h2>
 
-<p>The feed specification can be found in the following <a href="2010-11-17_WNI_cb-in_xml-terminschnittstelle_buehnen.pdf">PDF document</a>.</p>
+<p>The feed specification is deprecated in favour of <a href="../bb_import_specs/production_import_specification_bb_type.html">Berlin Bühnen type</a> which better matches the database structure of Berlin Bühnen website.</p>
 
 <h2 id="toc_3">Category Mappings at Berlin Bühnen</h2>
 
@@ -586,6 +586,8 @@ pre.line-numbers > code {
 </tr>
 </tbody>
 </table>
+
+<p>In addition, if the status &quot;Kindervorstellung&quot; (ID = 25) is found, the category &quot;Kinder und Jugend&quot; will be added to the production at Berlin Bühnen.</p>
 
 <h3 id="toc_5">Status ID ➔ Event Characteristics</h3>
 
