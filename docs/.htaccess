@@ -1,1 +1,2 @@
-Redirect /export/ /export/v1.html
+RewriteEngine On
+RewriteRule ^export/$ /export/v1.html [R=301,L]
