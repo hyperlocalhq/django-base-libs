@@ -76,6 +76,10 @@ def login(request, template_name='registration/login.html',
                 login_as_user.backend = user.backend
                 user = login_as_user
             auth_login(request, user)
+
+            from ccb.apps.logins.models import LoginAction
+            LoginAction.objects.create(user=user, user_agent=request.META.get('HTTP_USER_AGENT', ""))
+
             if request.session.test_cookie_worked():
                 request.session.delete_test_cookie()
                 # if not redirect_to.startswith("http"):

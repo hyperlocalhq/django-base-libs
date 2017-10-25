@@ -6,7 +6,7 @@ import os
 import json
 from django.core.exceptions import ImproperlyConfigured
 
-gettext = lambda s: s
+_ = gettext = lambda s: s
 
 DEBUG = False
 
@@ -198,6 +198,7 @@ INSTALLED_APPS = [
     "ccb.apps.counselling_events",
     "ccb.apps.curated_lists",
     "ccb.apps.cms_extensions",
+    "ccb.apps.logins",
     "ccb",  # just for i18n in Javascript
     "actstream",
     "huey.contrib.djhuey",
@@ -428,6 +429,10 @@ ADMIN_APP_INDEX = (
     }, {
         "title": _("Control"),
         "apps": (
+            ("logins", {
+                "verbose_name": _("Logins"),
+                "models": ("LoginAction", "WelcomeMessage")
+            }),
             ("comments", {
                 "verbose_name": _("Comments"),
                 "models": ("Comment", "ModeratorDeletion", "ModeratorDeletionReason",)

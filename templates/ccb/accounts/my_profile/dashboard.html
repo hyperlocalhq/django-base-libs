@@ -1,6 +1,6 @@
 {% extends "people/details_base.html" %}
 {#% extends "accounts/my_profile/base.html" %#}
-{% load i18n base_tags infoblocks image_mods_tags %}
+{% load i18n base_tags logins_tags image_mods_tags %}
 
 {% block body_class %} list {% endblock %}
 
@@ -14,7 +14,7 @@
 
 {% block details %}
 
-    {% infoblock "user_dashboard_msg_ccb" %}
+    {% show_welcome_message request.user %}
 
     {% if object_list %}
 
