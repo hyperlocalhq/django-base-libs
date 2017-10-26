@@ -1,2 +1,7 @@
+AuthType Basic
+AuthName "Restricted Content"
+AuthUserFile /usr/local/www/apache24/data/docs.berlin-buehnen.de/.htpasswd
+Require valid-user
+
 RewriteEngine On
 RewriteRule ^export/$ /export/v1.html [R=301,L]
