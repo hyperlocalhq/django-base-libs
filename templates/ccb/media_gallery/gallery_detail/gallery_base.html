@@ -17,9 +17,9 @@
 
 
 {% block sidebar %}
-    
+
     {{ block.super }}
-    
+
     <div class="button-group">
         {% if request.user.is_authenticated %}
             {% adding2favorites for gallery %}
@@ -47,10 +47,10 @@
     {% endcomment %}
     
     {{ gallery.description|linebreaks }}
-    
+
     {% block gallery_detail %}
     {% endblock %}
-    
+
 {% endblock %}
 
 

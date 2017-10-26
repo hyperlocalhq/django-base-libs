@@ -53,6 +53,8 @@
     {% endif %}
     {% endcomment %}
 
+    {{ gallery.description|linebreaks }}
+
     {% if gallery.mediafile_set.count %}
         {% for media_file in gallery.mediafile_set.all %}
 
