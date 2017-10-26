@@ -35,7 +35,10 @@ class CCBMediaGalleryOptions(MediaGalleryOptions):
     raw_id_fields = ("section", 'author',)
     related_lookup_fields = deepcopy(MediaGalleryOptions.related_lookup_fields)
     related_lookup_fields.setdefault('fk', [])
-    related_lookup_fields['fk'] += ["section", "author"]
+    related_lookup_fields['fk'] += ["section"]
+    autocomplete_lookup_fields = {
+        'fk': ["author"],
+    }
 
 
 class PortfolioSettingsOptions(ObjectRelationAdminMixin):

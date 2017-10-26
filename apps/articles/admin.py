@@ -106,6 +106,11 @@ class ArticleOptions(ExtendedModelAdmin):
     filter_horizontal = ['categories', 'creative_sectors', 'sites']
     prepopulated_fields = {"slug": ("title",), }
 
+    raw_id_fields = ("author",)
+    autocomplete_lookup_fields = {
+        'fk': ["author"],
+    }
+
     def imported_from(self, obj):
         ContentType = models.get_model("contenttypes", "ContentType")
         Service = models.get_model("external_services", "Service")

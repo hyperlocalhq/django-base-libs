@@ -25,5 +25,10 @@ class InfoBlockOptions(ExtendedModelAdmin):
     
     prepopulated_fields = {"sysname": ("title_%s" % settings.LANGUAGE_CODE,),}
 
+    raw_id_fields = ("author",)
+    autocomplete_lookup_fields = {
+        'fk': ["author"],
+    }
+
 admin.site.register(InfoBlock, InfoBlockOptions)
 

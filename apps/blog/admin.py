@@ -11,27 +11,15 @@ from base_libs.admin import ExtendedStackedInline
 from ccb.apps.blog.models import Blog, Post
 
 
-class Post_Inline(ExtendedStackedInline):
-    model = Post
-    fieldsets = [
-        (None, {
-            'fields': ('title', 'slug', 'body', 'tags')
-        }),
-    ]
-    fieldsets += PublishingMixinAdminOptions.fieldsets
-    extra = 0
-    prepopulated_fields = {'slug': ('title',), }
-
-
 class BlogAdminForm(MultiSiteContainerMixinAdminForm):
     class Meta:
         model = Blog
         exclude = ()
 
 
-class BlogOptions(MultiSiteContainerMixinAdminOptions):
+@admin.register(Blog)
+class BlogAdmin(MultiSiteContainerMixinAdminOptions):
     save_on_top = True
-    # inlines = [Post_Inline]
     list_display = ('id', 'title', 'get_sites', 'get_content_object_display', 'sysname', 'posts')
     list_display_links = ('id', 'title',)
     list_filter = ("creation_date", "modified_date", "content_type",)
@@ -53,7 +41,8 @@ class BlogOptions(MultiSiteContainerMixinAdminOptions):
     posts.allow_tags = True
 
 
-class PostOptions(ExtendedModelAdmin):
+@admin.register(Post)
+class PostAdmin(ExtendedModelAdmin):
     save_on_top = True
     list_display = (
     'title', 'blog', 'author', 'status', 'published_from', 'published_till', 'enable_comment_form', 'views', 'featured_in_magazine', 'importance_in_magazine')
@@ -75,11 +64,7 @@ class PostOptions(ExtendedModelAdmin):
     )}), ]
 
     prepopulated_fields = {'slug': ('title',), }
-    raw_id_fields = ("blog",)
+    raw_id_fields = ("blog", "author",)
     autocomplete_lookup_fields = {
-        'fk': ["blog", ],
+        'fk': ["blog", "author"],
     }
-
-
-admin.site.register(Blog, BlogOptions)
-admin.site.register(Post, PostOptions)

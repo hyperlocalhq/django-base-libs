@@ -3,7 +3,6 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from base_libs.models import SysnameMixin
-from base_libs.models import PublishingMixin
 from base_libs.models.fields import PositionField
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualPlainTextField
