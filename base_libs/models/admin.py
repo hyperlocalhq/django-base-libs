@@ -103,8 +103,10 @@ class PublishingMixinAdminOptions(ExtendedModelAdmin):
         return obj.is_draft()
     is_draft.boolean = True
         
-    # currently logged in user cannot set as default in the model definition. so we do that here!
-    #prepopulated_fields = {'author': ('get_current_user',),}
+    raw_id_fields = ('author',)
+    autocomplete_lookup_fields = {
+        'fk': ["author"],
+    }
 
 
 def ObjectRelationMixinAdminOptions(
