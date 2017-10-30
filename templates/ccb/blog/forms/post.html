@@ -1,11 +1,5 @@
 {% extends base_template %}
-{% load i18n blog base_tags %}
-
-{% block extrahead %}
-    {{ block.super }}
-    <script type="text/javascript" src="{{ STATIC_URL }}site/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/tinymce_setup/tinymce_basic_setup.js"></script>
-{% endblock %}
+{% load i18n blog base_tags staticfiles %}
 
 {% block details %}
     {% include_selected "post_embedded.html" for object under "blog/forms" %}

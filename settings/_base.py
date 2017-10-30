@@ -118,6 +118,8 @@ INSTALLED_APPS = [
     "social_django",
     "bootstrap_pagination",
     "raven.contrib.django.raven_compat",
+    "ckeditor",
+    "ckeditor_uploader",
 
     ### django-cms ###
     "cms",  # django CMS itself
@@ -931,3 +933,36 @@ DEFAULT_SMALL_LOGO_4_EVENT = "%ssite/img/website/placeholder/event_s.png" % STAT
 DEFAULT_LOGO_4_DOCUMENT = "%ssite/img/website/placeholder/document.png" % STATIC_URL
 DEFAULT_FORM_LOGO_4_DOCUMENT = "%ssite/img/website/placeholder/document_f.png" % STATIC_URL
 DEFAULT_SMALL_LOGO_4_DOCUMENT = "%ssite/img/website/placeholder/document_s.png" % STATIC_URL
+
+## CKEDITOR
+CKEDITOR_UPLOAD_PATH = "user-uploads/"
+CKEDITOR_RESTRICT_BY_USER = True
+CKEDITOR_RESTRICT_BY_DATE = False
+CKEDITOR_UPLOAD_SLUGIFY_FILENAME = True
+CKEDITOR_ALLOW_NONIMAGE_FILES = True
+CKEDITOR_BROWSE_SHOW_DIRS = False
+
+CKEDITOR_CONFIGS = {
+    'basic': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            [
+                'Format', '-',
+                'Bold', 'Italic', 'Underline', '-',
+                'BulletedList', 'NumberedList', 'Blockquote', '-',
+                'Link', 'Unlink', '-',
+                'Image', 'oembed',
+             ]
+        ],
+        'format_tags': 'p;h2;h4;h5',
+        'removeDialogTabs': 'link:advanced',
+        'extraPlugins': 'oembed,widget',
+        'oembed_maxWidth': '560',
+        'oembed_maxHeight': '315',
+        'oembed_WrapperClass': 'embededContent',
+        'allowedContent': True,
+    },
+}
+CKEDITOR_EXTERNAL_PLUGIN_SOURCES = [
+    ('oembed', STATIC_URL + 'bower_components/ckeditor/plugins/oembed/', 'plugin.js'),
+]

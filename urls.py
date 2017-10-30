@@ -149,6 +149,7 @@ urlpatterns += staticfiles_urlpatterns()
 ### HELPERS (system urls not visible directly for the users) ###
 urlpatterns += i18n_patterns(
     '',  # no views specified
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     # ajax lookups
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
     url(r'^helper/country_lookup/$', 'jetson.apps.utils.views.jquery_autocomplete_lookup', country_lookup,
