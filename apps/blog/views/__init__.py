@@ -519,7 +519,9 @@ class BlogPostFormPreviewHandler(FormPreviewHandler):
         context.update(self.context)
         context.update(self.extra_context)
 
-        return HttpResponse(t.render(RequestContext(request, context)))
+        response = HttpResponse(t.render(RequestContext(request, context)))
+        response['X-XSS-Protection'] = 0  # workaround for the Chrome auditor bug
+        return response
 
     def save_new(self, cleaned):
         if not self.container.pk:

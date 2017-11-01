@@ -1743,6 +1743,27 @@ $(document).ready(function() {
     });
 
 
+    $('.tiny-mce iframe').each(function() {
+        /** Wrap each iframe with a div that will define its responsive dimensions */
+        var $iframe = $(this);
+        var width = $iframe.attr('width');
+        var height = $iframe.attr('height');
+        if (width && height && width.indexOf('%') === -1 && height.indexOf('%') === -1) {
+            width = parseFloat(width);
+            height = parseFloat(height);
+            var ratio = height / width;
+            $iframe.wrap('<div class="iframe-wrapper" style="padding-bottom: ' + parseInt(100 * ratio, 10) + '%" />');
+        }
+    });
+    $('.tiny-mce a[href^="http"]').each(function() {
+        /** Open external links in a new tab */
+        var $link = $(this);
+        if (!$link.attr('target')) {
+            $link.attr('target', '_blank');
+            // don't allow phishing attacks from the opened websites
+            $link.attr('rel', 'noopener noreferrer');
+        }
+    });
 
     /*
     function lazyload_images() {

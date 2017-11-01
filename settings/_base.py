@@ -5,6 +5,7 @@ from datetime import timedelta
 import os
 import json
 from django.core.exceptions import ImproperlyConfigured
+from django.core.urlresolvers import reverse_lazy
 
 _ = gettext = lambda s: s
 
@@ -939,7 +940,7 @@ CKEDITOR_UPLOAD_PATH = "user-uploads/"
 CKEDITOR_RESTRICT_BY_USER = True
 CKEDITOR_RESTRICT_BY_DATE = False
 CKEDITOR_UPLOAD_SLUGIFY_FILENAME = True
-CKEDITOR_ALLOW_NONIMAGE_FILES = True
+CKEDITOR_ALLOW_NONIMAGE_FILES = False
 CKEDITOR_BROWSE_SHOW_DIRS = False
 
 CKEDITOR_CONFIGS = {
@@ -947,20 +948,27 @@ CKEDITOR_CONFIGS = {
         'toolbar': 'Custom',
         'toolbar_Custom': [
             [
-                'Format', '-',
-                'Bold', 'Italic', 'Underline', '-',
-                'BulletedList', 'NumberedList', 'Blockquote', '-',
+                #'Format', '-',
+                'Bold', 'Italic', '-',
+                #'BulletedList', 'NumberedList', 'Blockquote', '-',
                 'Link', 'Unlink', '-',
                 'Image', 'oembed',
              ]
         ],
-        'format_tags': 'p;h2;h4;h5',
-        'removeDialogTabs': 'link:advanced',
+        #'format_tags': 'p;h2;h4;h5',
+        'removeDialogTabs': 'link:advanced;link:target;image:Link;image:advanced',
         'extraPlugins': 'oembed,widget',
         'oembed_maxWidth': '560',
         'oembed_maxHeight': '315',
         'oembed_WrapperClass': 'embededContent',
         'allowedContent': True,
+        'width': '',
+        'removePlugins': "elementspath",
+        'contentsCss': STATIC_URL + "site/css/richtext-basic.css",
+        'filebrowserUploadUrl': "",
+        'filebrowserImageUploadUrl': reverse_lazy('ckeditor_upload'),
+        'filebrowserBrowseUrl': "",
+        'filebrowserImageBrowseUrl': reverse_lazy('ckeditor_browse'),
     },
 }
 CKEDITOR_EXTERNAL_PLUGIN_SOURCES = [

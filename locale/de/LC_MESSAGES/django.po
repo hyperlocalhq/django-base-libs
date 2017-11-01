@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Django 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-24 17:58+0200\n"
+"POT-Creation-Date: 2017-11-01 22:17+0100\n"
 "PO-Revision-Date: 2017-10-19 19:05+0053\n"
 "Last-Translator: Laura Casadevall <casadeluxe@web.de>\n"
 "Language-Team: \n"
@@ -336,7 +336,7 @@ msgid "Change my password"
 msgstr "Mein Kennwort ändern"
 
 #: apps/articles/admin.py:32 apps/faqs/admin.py:44 apps/faqs/admin.py:78
-#: apps/faqs/admin.py:110
+#: apps/faqs/admin.py:110 apps/logins/admin.py:37
 msgid "Contents"
 msgstr "Inhalt"
 
@@ -363,9 +363,9 @@ msgstr "Zusätzliche Inhalte"
 #: apps/site_specific/forms/institutions.py:136
 #: apps/site_specific/forms/marketplace.py:79
 #: apps/site_specific/forms/people.py:156 apps/site_specific/models.py:273
-#: apps/slideshows/models.py:31 apps/tracker/forms.py:65
-#: subtrees/base_libs/base_libs/models/admin.py:557
-#: subtrees/base_libs/base_libs/models/admin.py:566
+#: apps/slideshows/models.py:30 apps/tracker/forms.py:65
+#: subtrees/base_libs/base_libs/models/admin.py:559
+#: subtrees/base_libs/base_libs/models/admin.py:568
 #: subtrees/base_libs/base_libs/models/models.py:1055
 #: templates/admin/extendedadmin/includes/fieldset_details.html:8
 #: templates/admin/extendedadmin/includes/fieldset_details.html:30
@@ -390,11 +390,11 @@ msgstr "Beschreibung"
 msgid "Magazine & Newsleter"
 msgstr "Newsletter"
 
-#: apps/articles/admin.py:118
+#: apps/articles/admin.py:123
 msgid "Imported from"
 msgstr "Importiert von"
 
-#: apps/articles/admin.py:128 apps/bulletin_board/admin.py:52
+#: apps/articles/admin.py:133 apps/bulletin_board/admin.py:52
 #: apps/external_services/admin.py:23
 msgid "Defaults"
 msgstr "Standards"
@@ -572,7 +572,7 @@ msgstr "Filter"
 #: templates/ccb/articles/news_under_category.html:49
 #: templates/ccb/bulletin_board/bulletin_list.html:21
 #: templates/ccb/bulletin_board/bulletin_list_under_category.html:60
-#: templates/ccb/events/event_list.html:8
+#: templates/ccb/ckeditor/browse.html:53 templates/ccb/events/event_list.html:8
 #: templates/ccb/events/event_list_under_category.html:50
 #: templates/ccb/institutions/institution_list.html:50
 #: templates/ccb/marketplace/job_offer_list.html:9
@@ -609,7 +609,7 @@ msgstr "Interviews Menu"
 msgid "Overview"
 msgstr "Übersicht"
 
-#: apps/articles/models.py:17 apps/blog/forms.py:23
+#: apps/articles/models.py:17 apps/blog/forms.py:24
 #: apps/bulletin_board/admin.py:20 apps/bulletin_board/forms.py:196
 #: apps/bulletin_board/models.py:49 apps/bulletin_board/models.py:62
 #: apps/bulletin_board/models.py:138 apps/cms_extensions/models.py:44
@@ -619,14 +619,15 @@ msgstr "Übersicht"
 #: apps/events/base.py:216 apps/events/base.py:461 apps/events/forms.py:316
 #: apps/faqs/admin.py:29 apps/groups_networks/admin.py:21
 #: apps/institutions/admin.py:36 apps/institutions/admin.py:261
-#: apps/media_gallery/admin.py:62 apps/media_gallery/models.py:86
-#: apps/metro/models.py:17 apps/navigation/admin.py:24
-#: apps/partners/admin.py:25 apps/partners/admin.py:39
-#: apps/partners/admin.py:62 apps/partners/models.py:25
-#: apps/partners/models.py:43 apps/people/admin.py:30
-#: apps/resources/admin.py:24 apps/resources/admin.py:32
-#: apps/site_specific/models.py:272 apps/site_specific/models.py:330
-#: apps/slideshows/models.py:30 apps/tracker/admin.py:17
+#: apps/logins/models.py:59 apps/media_gallery/admin.py:65
+#: apps/media_gallery/models.py:86 apps/metro/models.py:17
+#: apps/navigation/admin.py:24 apps/partners/admin.py:25
+#: apps/partners/admin.py:39 apps/partners/admin.py:62
+#: apps/partners/models.py:25 apps/partners/models.py:43
+#: apps/people/admin.py:30 apps/resources/admin.py:24
+#: apps/resources/admin.py:32 apps/site_specific/models.py:272
+#: apps/site_specific/models.py:330 apps/slideshows/models.py:29
+#: apps/tracker/admin.py:17
 #: templates/ccb/bulletin_board/change_bulletin_confirm.html:17
 #: templates/ccb/bulletin_board/change_bulletin_confirm.html:19
 #: templates/ccb/comments/form.html:10 templates/ccb/comments/preview.html:84
@@ -811,13 +812,13 @@ msgstr "Nov"
 msgid "Dec"
 msgstr "Dez"
 
-#: apps/blog/admin.py:52
+#: apps/blog/admin.py:40
 #, fuzzy
 #| msgid "All Posts"
 msgid "Posts"
 msgstr "Alle Beiträge"
 
-#: apps/blog/admin.py:73 settings/_base.py:647
+#: apps/blog/admin.py:62 settings/_base.py:655
 msgid "Magazine"
 msgstr ""
 
@@ -842,11 +843,11 @@ msgstr "Feeds durchblättern @ %(site)s"
 msgid "Latest posts"
 msgstr "Neueste Beiträge"
 
-#: apps/blog/forms.py:28
+#: apps/blog/forms.py:29
 msgid "Main Photo"
 msgstr "Hauptbild"
 
-#: apps/blog/forms.py:30
+#: apps/blog/forms.py:31
 #, fuzzy, python-format
 #| msgid ""
 #| "You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal "
@@ -856,7 +857,7 @@ msgid ""
 msgstr ""
 "Erlaubt sind Daten im Format JPG, GIF, PNG TIFF. Minimale Größe: %s px."
 
-#: apps/blog/forms.py:40 apps/events/forms.py:899 apps/events/models.py:44
+#: apps/blog/forms.py:41 apps/events/forms.py:899 apps/events/models.py:44
 #: apps/media_gallery/forms.py:344 apps/people/models.py:49
 #: apps/site_specific/forms/events.py:229
 #: apps/site_specific/forms/institutions.py:170
@@ -865,7 +866,7 @@ msgstr ""
 msgid "Photo Credits"
 msgstr ""
 
-#: apps/blog/forms.py:45 apps/events/forms.py:1517 apps/events/forms.py:1540
+#: apps/blog/forms.py:46 apps/events/forms.py:1517 apps/events/forms.py:1540
 #: apps/marketplace/forms.py:400 apps/site_specific/forms/events.py:1995
 #: apps/site_specific/forms/events.py:2019
 #: apps/site_specific/forms/marketplace.py:752 templates/ccb/blog/blog.html:113
@@ -883,7 +884,7 @@ msgstr ""
 msgid "Tags"
 msgstr "Stichworte"
 
-#: apps/blog/forms.py:49
+#: apps/blog/forms.py:50
 msgid ""
 "Use commas to separate your tags. Tags can have multiple words. For example: "
 "'one, two, three apples' would define three tags."
@@ -891,11 +892,11 @@ msgstr ""
 "Nutze Kommas, um Deine Stichworte zu trennen. Stichworte können mehrere "
 "Worte enthalen. Für \"eins, zwei, drei Äpfel\" würde drei Stichworte ergeben."
 
-#: apps/blog/forms.py:53
+#: apps/blog/forms.py:54
 msgid "Body"
 msgstr "Von"
 
-#: apps/blog/forms.py:58 apps/bulletin_board/forms.py:625
+#: apps/blog/forms.py:62 apps/bulletin_board/forms.py:625
 #: apps/bulletin_board/models.py:191 apps/events/base.py:229
 #: apps/partners/admin.py:28 apps/partners/admin.py:65
 #: apps/partners/models.py:27 apps/partners/models.py:47
@@ -908,30 +909,30 @@ msgstr "Von"
 msgid "Status"
 msgstr "Status"
 
-#: apps/blog/forms.py:64 apps/bulletin_board/models.py:179
+#: apps/blog/forms.py:68 apps/bulletin_board/models.py:179
 #: subtrees/base_libs/base_libs/models/models.py:227
 msgid "publishing date"
 msgstr "Veröffentlichungsdatum"
 
-#: apps/blog/forms.py:66
+#: apps/blog/forms.py:70
 msgid ""
 "Please use the format 'yyyy-mm-dd hh:mi:ss'. If not provided and the status "
 "is set to 'published', the post will be published immediately."
 msgstr ""
 
-#: apps/blog/forms.py:71
+#: apps/blog/forms.py:75
 #, fuzzy
 #| msgid "rate date"
 msgid "expire date"
 msgstr "Bewertungsdatum"
 
-#: apps/blog/forms.py:73
+#: apps/blog/forms.py:77
 msgid ""
 "Please use the format 'yyyy-mm-dd hh:mi:ss'. If not provided and the status "
 "is set to 'published', the post will be published forever."
 msgstr ""
 
-#: apps/blog/forms.py:139 templates/ccb/blog/comments/form_embedded.html:63
+#: apps/blog/forms.py:143 templates/ccb/blog/comments/form_embedded.html:63
 #: templates/ccb/comments/form.html:27
 #: templates/ccb/counselling_blog/comments/form_embedded.html:63
 #: templates/ccb/form.html:49 templates/ccb/forum/forms/forum_embedded.html:51
@@ -941,7 +942,7 @@ msgstr ""
 msgid "Preview"
 msgstr "Vorschau"
 
-#: apps/blog/forms.py:140 apps/site_specific/forms/events.py:149
+#: apps/blog/forms.py:144 apps/site_specific/forms/events.py:149
 #: apps/site_specific/forms/events.py:201
 #: apps/site_specific/forms/events.py:261
 #: apps/site_specific/forms/events.py:730
@@ -1050,7 +1051,7 @@ msgstr "Vorschau"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: apps/blog/forms.py:151
+#: apps/blog/forms.py:155
 msgid "Temporary image filename is invalid"
 msgstr ""
 
@@ -1173,7 +1174,7 @@ msgstr ""
 msgid "%(tag)s tag was given a badly formatted option: '%(option)s'"
 msgstr ""
 
-#: apps/blog/views/__init__.py:616 apps/blog/views/cms.py:663
+#: apps/blog/views/__init__.py:618 apps/blog/views/cms.py:665
 msgid "Comments are disabled"
 msgstr ""
 
@@ -1514,7 +1515,7 @@ msgstr "Projektbörse Content-Providers"
 #: apps/bulletin_board/models.py:63 apps/curated_lists/models.py:42
 #: apps/curated_lists/models.py:112 apps/media_gallery/models.py:93
 #: apps/partners/models.py:26 apps/partners/models.py:46
-#: apps/slideshows/models.py:34
+#: apps/slideshows/models.py:33
 msgid "Sort order"
 msgstr "Sortierreihenfolge"
 
@@ -1679,7 +1680,7 @@ msgid "(untitled)"
 msgstr "(ohne Titel)"
 
 #: apps/cms_extensions/plugins/filebrowser_image/models.py:15
-#: apps/slideshows/models.py:33
+#: apps/slideshows/models.py:32
 msgid "Alternative text"
 msgstr "Alternativer Text"
 
@@ -2091,7 +2092,7 @@ msgstr "%s ändern"
 
 #: apps/events/base.py:50 apps/events/cms_apps.py:8
 #: apps/search/search_indexes.py:112 apps/site_specific/feeds.py:86
-#: settings/_base.py:645 templates/ccb/counselling_events/event_list.html:27
+#: settings/_base.py:653 templates/ccb/counselling_events/event_list.html:27
 #: templates/ccb/events/add_event_base.html:7
 #: templates/ccb/events/event_base.html:35
 #: templates/ccb/events/event_base.html:43
@@ -3217,8 +3218,8 @@ msgstr ""
 "Enthält der Feed nicht die kompletten Nachrichten, sondern nur Excerpte, "
 "dann führt der Link in der Liste der Artikel auf die externe URL ."
 
-#: apps/external_services/models.py:22 settings/_base.py:401
-#: subtrees/base_libs/base_libs/models/admin.py:518
+#: apps/external_services/models.py:22 settings/_base.py:405
+#: subtrees/base_libs/base_libs/models/admin.py:520
 #: subtrees/base_libs/base_libs/models/models.py:594
 #: subtrees/base_libs/base_libs/models/models.py:616
 msgid "Sites"
@@ -3436,7 +3437,7 @@ msgid "Main"
 msgstr "Hauptinformation"
 
 #: apps/groups_networks/admin.py:39 apps/media_gallery/admin.py:26
-#: apps/media_gallery/admin.py:50 apps/media_gallery/admin.py:64
+#: apps/media_gallery/admin.py:53 apps/media_gallery/admin.py:67
 #: apps/partners/admin.py:27 apps/partners/admin.py:64
 #: apps/site_specific/admin.py:39 apps/site_specific/forms/events.py:144
 #: apps/site_specific/forms/institutions.py:814
@@ -3712,6 +3713,75 @@ msgstr "Website"
 msgid "Job offers by %s"
 msgstr "Jobangebote von %s"
 
+#: apps/logins/models.py:31
+#, fuzzy
+#| msgid "Login Data"
+msgid "Login date"
+msgstr "Anmeldedaten"
+
+#: apps/logins/models.py:32 apps/site_specific/models.py:508
+#: apps/site_specific/models.py:555 apps/site_specific/models.py:618
+#: templates/ccb/groups_networks/persongroups/popups/edit_member.html:9
+msgid "User"
+msgstr "Benutzer"
+
+#: apps/logins/models.py:33 apps/site_specific/models.py:511
+msgid "User Agent"
+msgstr ""
+
+#: apps/logins/models.py:38
+#, fuzzy
+#| msgid "Location"
+msgid "Login Action"
+msgstr "Standort"
+
+#: apps/logins/models.py:39
+#, fuzzy
+#| msgid "My Actions"
+msgid "Login Actions"
+msgstr "Mein Konto"
+
+#: apps/logins/models.py:55
+#, fuzzy
+#| msgid "First name"
+msgid "First login"
+msgstr "Vorname"
+
+#: apps/logins/models.py:56
+msgid "Login after 1 month of inactivity"
+msgstr ""
+
+#: apps/logins/models.py:57
+#, fuzzy
+#| msgid "Other Groups"
+msgid "Other logins"
+msgstr "Andere Gruppe"
+
+#: apps/logins/models.py:60 settings/_base.py:285
+#: subtrees/base_libs/base_libs/models/admin.py:516
+#: subtrees/base_libs/base_libs/models/models.py:1048
+#: templates/ccb/media_gallery/manage_galleries.html:93
+msgid "Content"
+msgstr "Content"
+
+#: apps/logins/models.py:61
+#, fuzzy
+#| msgid "Confirmation"
+msgid "Condition"
+msgstr "Bestätigung"
+
+#: apps/logins/models.py:64
+#, fuzzy
+#| msgid "Welcome Page"
+msgid "Welcome Message"
+msgstr "Willkommen"
+
+#: apps/logins/models.py:65
+#, fuzzy
+#| msgid "Welcome Page"
+msgid "Welcome Messages"
+msgstr "Willkommen"
+
 #: apps/marketplace/admin.py:16
 #, fuzzy
 #| msgid "Content provider"
@@ -3909,7 +3979,7 @@ msgid "Media Gallery"
 msgstr "Mediengalerie"
 
 #: apps/media_gallery/cms_apps.py:8 apps/search/search_indexes.py:259
-#: settings/_base.py:646 templates/ccb/media_gallery/gallery_list.html:14
+#: settings/_base.py:654 templates/ccb/media_gallery/gallery_list.html:14
 #: templates/ccb/media_gallery/gallery_list.html:24
 #: templates/ccb/media_gallery/gallery_list.html:35
 #: templates/ccb/media_gallery/gallery_list.html:62
@@ -4252,7 +4322,7 @@ msgstr "Galerie von %(object)s "
 msgid "Metro"
 msgstr ""
 
-#: apps/metro/models.py:15 apps/slideshows/models.py:27
+#: apps/metro/models.py:15 apps/slideshows/models.py:26
 msgid "File path"
 msgstr "Dateipfad"
 
@@ -4261,7 +4331,7 @@ msgid "A path to a locally stored image."
 msgstr "Pfad zu einem lokal gespeicherten Bild."
 
 #: apps/metro/models.py:16 apps/navigation/admin.py:25
-#: apps/slideshows/models.py:29
+#: apps/slideshows/models.py:28
 msgid "Link"
 msgstr "Link"
 
@@ -4603,7 +4673,7 @@ msgstr "Rang"
 msgid "Other Content 2"
 msgstr "Weitere Inhalte"
 
-#: apps/search/search_indexes.py:28 settings/_base.py:643
+#: apps/search/search_indexes.py:28 settings/_base.py:651
 #: templates/ccb/articles/articles_archive.html:21
 #: templates/ccb/articles/articles_archive_day.html:12
 #: templates/ccb/articles/articles_archive_day.html:33
@@ -4630,7 +4700,7 @@ msgid "Editorial Content"
 msgstr "Redaktioneller Inhalt"
 
 #: apps/site_specific/admin.py:32
-#: subtrees/base_libs/base_libs/models/admin.py:133
+#: subtrees/base_libs/base_libs/models/admin.py:135
 #: subtrees/base_libs/base_libs/models/models.py:422
 msgid "Related object"
 msgstr ""
@@ -4918,7 +4988,7 @@ msgid "Role"
 msgstr "Rolle"
 
 #: apps/site_specific/forms/misc.py:195 apps/site_specific/models.py:564
-#: settings/_base.py:432 templates/ccb/styleguide/layout.html:425
+#: settings/_base.py:440 templates/ccb/styleguide/layout.html:425
 msgid "Comments"
 msgstr "Kommentare"
 
@@ -5005,7 +5075,7 @@ msgstr "Zusätzliche Optionen"
 #: templates/ccb/media_gallery/manage_galleries.html:42
 #: templates/ccb/media_gallery/manage_galleries.html:95
 #: templates/ccb/media_gallery/manage_gallery.html:39
-#: templates/ccb/media_gallery/manage_gallery.html:68
+#: templates/ccb/media_gallery/manage_gallery.html:70
 #: templates/ccb/messaging/delete_message.html:15
 #: templates/ccb/site_specific/blogs/popups/post_delete.html:11
 #: templates/ccb/site_specific/popups/delete_avatar.html:8
@@ -5170,19 +5240,9 @@ msgstr "Kontext Objekt"
 msgid "mapped items"
 msgstr "Kontext Objekte"
 
-#: apps/site_specific/models.py:508 apps/site_specific/models.py:555
-#: apps/site_specific/models.py:618
-#: templates/ccb/groups_networks/persongroups/popups/edit_member.html:9
-msgid "User"
-msgstr "Benutzer"
-
 #: apps/site_specific/models.py:510
 msgid "IP Address"
 msgstr "IP-Adresse"
-
-#: apps/site_specific/models.py:511
-msgid "User Agent"
-msgstr ""
 
 #: apps/site_specific/models.py:512
 msgid "Session ID"
@@ -5283,35 +5343,35 @@ msgstr "Objekt ist nicht verfügbar"
 msgid "You are not allowed to access the required object"
 msgstr "Du besitzt keine Berechtigung zum Löschen."
 
-#: apps/slideshows/models.py:12
+#: apps/slideshows/models.py:11
 msgid "Slideshows"
 msgstr "Slideshows"
 
-#: apps/slideshows/models.py:17
+#: apps/slideshows/models.py:16
 msgid "slideshow"
 msgstr "Slideshow"
 
-#: apps/slideshows/models.py:18
+#: apps/slideshows/models.py:17
 msgid "slideshows"
 msgstr "Slideshows"
 
-#: apps/slideshows/models.py:26
+#: apps/slideshows/models.py:25
 msgid "Slideshow"
 msgstr "Diashow"
 
-#: apps/slideshows/models.py:28
+#: apps/slideshows/models.py:27
 msgid "A path to a locally stored image or video."
 msgstr "Pfad zu einem lokal gespeicherten Bild, Video oder einer Audiodatei."
 
-#: apps/slideshows/models.py:32
+#: apps/slideshows/models.py:31
 msgid "Button Text"
 msgstr ""
 
-#: apps/slideshows/models.py:37
+#: apps/slideshows/models.py:36
 msgid "slide"
 msgstr "Seite"
 
-#: apps/slideshows/models.py:38
+#: apps/slideshows/models.py:37
 msgid "slides"
 msgstr "Slides"
 
@@ -5445,90 +5505,90 @@ msgstr "Ticket Historie"
 msgid "%s ago"
 msgstr "Vor %s"
 
-#: settings/_base.py:77
+#: settings/_base.py:78
 msgid "English"
 msgstr "Englisch"
 
-#: settings/_base.py:78
+#: settings/_base.py:79
 msgid "German"
 msgstr "Deutsch"
 
-#: settings/_base.py:281 subtrees/base_libs/base_libs/models/admin.py:514
-#: subtrees/base_libs/base_libs/models/models.py:1048
-#: templates/ccb/media_gallery/manage_galleries.html:93
-msgid "Content"
-msgstr "Content"
-
-#: settings/_base.py:323
+#: settings/_base.py:327
 msgid "Community"
 msgstr "Community"
 
-#: settings/_base.py:342
+#: settings/_base.py:346
 msgid "Authentication & Authorization"
 msgstr "Authentifikation"
 
-#: settings/_base.py:367
+#: settings/_base.py:371
 msgid "Commerce"
 msgstr "Commerce"
 
-#: settings/_base.py:370
+#: settings/_base.py:374
 msgid "Campaign"
 msgstr "Campaign"
 
-#: settings/_base.py:385
+#: settings/_base.py:389
 msgid "Configure"
 msgstr "Configure"
 
-#: settings/_base.py:394
+#: settings/_base.py:398
 #: templates/ccb/media_gallery/create_update_mediafile.html:14
 msgid "Media"
 msgstr "Medien"
 
-#: settings/_base.py:408
+#: settings/_base.py:412
 msgid "Redirects"
 msgstr "Weiterleitungen"
 
-#: settings/_base.py:422 templates/ccb/facebook_app/manage_connections.html:48
+#: settings/_base.py:426 templates/ccb/facebook_app/manage_connections.html:48
 #: templates/ccb/facebook_app/manage_pages.html:71
 msgid "Connect"
 msgstr "Connect"
 
-#: settings/_base.py:429
+#: settings/_base.py:433
 msgid "Control"
 msgstr "Control"
 
-#: settings/_base.py:641
+#: settings/_base.py:436
+#, fuzzy
+#| msgid "Login"
+msgid "Logins"
+msgstr "Login"
+
+#: settings/_base.py:649
 msgid "Image and text"
 msgstr ""
 
-#: settings/_base.py:642
+#: settings/_base.py:650
 msgid "Text only"
 msgstr "Nur Text"
 
-#: settings/_base.py:644
+#: settings/_base.py:652
 #, fuzzy
 #| msgid "fees and opening hours"
 msgid "Tenders and Competitions"
 msgstr "Eintritt und Öffnungszeiten"
 
-#: settings/_base.py:648
+#: settings/_base.py:656
 #, fuzzy
 #| msgid "New Bulletin"
 msgid "Jobs and Bulletins"
 msgstr "Neues Inserat"
 
-#: settings/_base.py:649 templates/ccb/network/member_list.html:60
+#: settings/_base.py:657 templates/ccb/network/member_list.html:60
 #: templates/ccb/network/member_list_under_category.html:62
 #: templates/ccb/people/person_list.html:57
 #: templates/ccb/styleguide/elements.html:71
 msgid "Profiles"
 msgstr "Profile"
 
-#: settings/_base.py:707
+#: settings/_base.py:715
 msgid "de"
 msgstr ""
 
-#: settings/_base.py:714
+#: settings/_base.py:722
 msgid "en"
 msgstr ""
 
@@ -5635,7 +5695,7 @@ msgstr "Gelb"
 msgid "Publish Status"
 msgstr "Veröffentlichungsdatum"
 
-#: subtrees/base_libs/base_libs/models/admin.py:180
+#: subtrees/base_libs/base_libs/models/admin.py:182
 #: subtrees/base_libs/base_libs/models/models.py:394
 #: subtrees/base_libs/base_libs/models/models.py:397
 #, fuzzy
@@ -5643,76 +5703,76 @@ msgstr "Veröffentlichungsdatum"
 msgid "Content Object"
 msgstr "Content-Objekt-ID-Combo"
 
-#: subtrees/base_libs/base_libs/models/admin.py:229
+#: subtrees/base_libs/base_libs/models/admin.py:231
 msgid "If you provide an object ID, you must specify a content type."
 msgstr ""
 
-#: subtrees/base_libs/base_libs/models/admin.py:235
+#: subtrees/base_libs/base_libs/models/admin.py:237
 msgid "For a given content type, you must specify an object id."
 msgstr ""
 
-#: subtrees/base_libs/base_libs/models/admin.py:242
+#: subtrees/base_libs/base_libs/models/admin.py:244
 msgid "No object with the given content type, object id exists."
 msgstr ""
 
-#: subtrees/base_libs/base_libs/models/admin.py:262
+#: subtrees/base_libs/base_libs/models/admin.py:264
 msgid "If you provide an object ID, you must choose a content type."
 msgstr ""
 
-#: subtrees/base_libs/base_libs/models/admin.py:278
-#: subtrees/base_libs/base_libs/models/admin.py:341
+#: subtrees/base_libs/base_libs/models/admin.py:280
+#: subtrees/base_libs/base_libs/models/admin.py:343
 msgid "Related Object, Sites and URL Identifier"
 msgstr ""
 
-#: subtrees/base_libs/base_libs/models/admin.py:330
-#: subtrees/base_libs/base_libs/models/admin.py:395
+#: subtrees/base_libs/base_libs/models/admin.py:332
+#: subtrees/base_libs/base_libs/models/admin.py:397
 msgid "There already exists a container with these properties."
 msgstr ""
 
-#: subtrees/base_libs/base_libs/models/admin.py:446
+#: subtrees/base_libs/base_libs/models/admin.py:448
 msgid "Database error"
 msgstr "Datenbank-Suche"
 
-#: subtrees/base_libs/base_libs/models/admin.py:501
+#: subtrees/base_libs/base_libs/models/admin.py:503
 msgid ""
 "This parent is not allowed, as it creates a cyclical reference. Please "
 "select a different parent."
 msgstr ""
 
-#: subtrees/base_libs/base_libs/models/admin.py:538
+#: subtrees/base_libs/base_libs/models/admin.py:540
 #: templates/ccb/styleguide/form.html:650
 msgid "Publish"
 msgstr "Veröffentlicht"
 
-#: subtrees/base_libs/base_libs/models/admin.py:555
+#: subtrees/base_libs/base_libs/models/admin.py:557
 msgid "Meta tags"
 msgstr "Meine Einstellungen"
 
-#: subtrees/base_libs/base_libs/models/admin.py:557
-#: subtrees/base_libs/base_libs/models/admin.py:566
+#: subtrees/base_libs/base_libs/models/admin.py:559
+#: subtrees/base_libs/base_libs/models/admin.py:568
 #: subtrees/base_libs/base_libs/models/models.py:1054
 msgid "Keywords"
 msgstr "Stichworte"
 
-#: subtrees/base_libs/base_libs/models/admin.py:557
-#: subtrees/base_libs/base_libs/models/admin.py:566
+#: subtrees/base_libs/base_libs/models/admin.py:559
+#: subtrees/base_libs/base_libs/models/admin.py:568
 #: subtrees/base_libs/base_libs/models/models.py:1056
 #: templates/ccb/forum/forum_list_level_1.html:90
 #: templates/ccb/resources/documents/profile/details.html:51
 msgid "Author"
 msgstr "Autor"
 
-#: subtrees/base_libs/base_libs/models/admin.py:557
-#: subtrees/base_libs/base_libs/models/admin.py:566
+#: subtrees/base_libs/base_libs/models/admin.py:559
+#: subtrees/base_libs/base_libs/models/admin.py:568
 #: subtrees/base_libs/base_libs/models/models.py:1057
 msgid "Copyright"
 msgstr ""
 
-#: subtrees/base_libs/base_libs/models/admin.py:564
+#: subtrees/base_libs/base_libs/models/admin.py:566
 msgid "SEO"
 msgstr ""
 
-#: subtrees/base_libs/base_libs/models/admin.py:566
+#: subtrees/base_libs/base_libs/models/admin.py:568
 msgid "Page title"
 msgstr "Seitentitel"
 
@@ -7462,6 +7522,28 @@ msgstr "Inserat löschen"
 msgid "Are you sure you want to delete the bulletin \"%(title)s\"?"
 msgstr "Willst Du das Inserat \"%(title)s\" wirklich löschen?"
 
+#: templates/ccb/ckeditor/browse.html:5
+msgid "Select an image to embed"
+msgstr "Wähle ein Bild zum Einbetten aus"
+
+#: templates/ccb/ckeditor/browse.html:37
+msgid "Browse for the image you want, then click 'Embed Image' to continue..."
+msgstr ""
+"Suche nach dem gewünschten Bild und klicken Sie dann auf 'Bild einbetten', "
+"um fortzufahren..."
+
+#: templates/ccb/ckeditor/browse.html:39
+msgid ""
+"No images found. Upload images using the 'Image Button' dialog's 'Upload' "
+"tab."
+msgstr ""
+"Keine Bilder gefunden. Lade Bilder über den Tab 'Hochladen' des Dialogfelds "
+"'Bildeigenschaften' hoch."
+
+#: templates/ccb/ckeditor/browse.html:90
+msgid "Embed Image"
+msgstr "Bild einbetten"
+
 #: templates/ccb/cms/base_cms.html:20
 msgid "Toggle navigation"
 msgstr "Navigation wechseln"
@@ -8917,7 +8999,7 @@ msgstr "Identifikator"
 #: templates/ccb/media_gallery/manage_galleries.html:40
 #: templates/ccb/media_gallery/manage_galleries.html:91
 #: templates/ccb/media_gallery/manage_gallery.html:35
-#: templates/ccb/media_gallery/manage_gallery.html:65
+#: templates/ccb/media_gallery/manage_gallery.html:67
 #: templates/ccb/site_specific/blocks/sidebar_settings.html:5
 #: templates/ccb/site_specific/creative_sectors/creative_sector_details.html:95
 msgid "Settings"
@@ -9135,7 +9217,7 @@ msgstr "Ihre Nachricht wurde gesendet"
 #: templates/ccb/groups_networks/persongroups/profile/avatar.html:8
 #: templates/ccb/media_gallery/includes/gallery_slideshow.html:48
 #: templates/ccb/media_gallery/manage_galleries.html:87
-#: templates/ccb/media_gallery/manage_gallery.html:61
+#: templates/ccb/media_gallery/manage_gallery.html:63
 #: templates/ccb/resources/documents/profile/avatar.html:8
 msgid "Adjust image"
 msgstr "Bild anpassen"
@@ -9773,13 +9855,13 @@ msgstr "Kommentar abweisen"
 
 #: templates/ccb/media_gallery/create_update_mediafile.html:11
 #: templates/ccb/media_gallery/gallery_detail/gallery_base.html:60
-#: templates/ccb/media_gallery/manage_gallery.html:88
+#: templates/ccb/media_gallery/manage_gallery.html:90
 #: templates/ccb/media_gallery/portfolio_base.html:5
 msgid "Portfolio"
 msgstr "Portfolio"
 
 #: templates/ccb/media_gallery/create_update_mediafile.html:13
-#: templates/ccb/media_gallery/manage_gallery.html:93
+#: templates/ccb/media_gallery/manage_gallery.html:95
 msgid "Manage"
 msgstr ""
 
@@ -9874,7 +9956,7 @@ msgstr "Portfolio bearbeiten"
 
 #: templates/ccb/media_gallery/gallery_detail/gallery_listed.html:20
 #: templates/ccb/media_gallery/includes/gallery_slideshow.html:60
-#: templates/ccb/media_gallery/manage_gallery.html:80
+#: templates/ccb/media_gallery/manage_gallery.html:82
 #: templates/ccb/people/person_portfolio.html:55
 msgid "There are no media files uploaded."
 msgstr "Es sind keine Bilder hochgeladen."
@@ -13703,9 +13785,6 @@ msgstr ""
 #~ msgid "individual contacts"
 #~ msgstr "Personenkonto"
 
-#~ msgid "Select an option"
-#~ msgstr "Zahlungsmöglichkeiten bearbeiten"
-
 #~ msgid "Negative"
 #~ msgstr "Verlassen"
 
@@ -14113,9 +14192,6 @@ msgstr ""
 
 #~ msgid "Recent Actions"
 #~ msgstr "Letzte Aktivitäten"
-
-#~ msgid "My Actions"
-#~ msgstr "Mein Konto"
 
 #~ msgid "None available"
 #~ msgstr "WLAN vorhanden"
