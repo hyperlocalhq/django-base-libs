@@ -1003,21 +1003,24 @@
 
                             a {
                                 font-weight: $font-regular;
-                                font-size: 1.05em;
+                                font-size: 1.1em;
                                 line-height: 1;
                                 color: $grey-darker;
                                 padding: 0 8px;
                                 text-align: center;
                                 min-width: 90px;
+                                max-width: 220px;
 
                                 .is-md & {
                                     font-size: 1em;
-                                    min-width: 80px;
+                                    min-width: initial;
+                                    max-width: initial;
                                 }
 
                                 .is-sm & {
-                                    font-size: 0.9em;
-                                    min-width: 80px;
+                                    font-size: 0.85em;
+                                    min-width: initial;
+                                    max-width: initial;
                                 }
 
                                 &:hover {

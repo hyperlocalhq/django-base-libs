@@ -9802,22 +9802,25 @@ img[data-popup-image-src] {
 
 .header .menu.magazine-menu div.navi nav ul li a {
   font-weight: 400;
-  font-size: 1.05em;
+  font-size: 1.1em;
   line-height: 1;
   color: #777777;
   padding: 0 8px;
   text-align: center;
   min-width: 90px;
+  max-width: 220px;
 }
 
 .is-md .header .menu.magazine-menu div.navi nav ul li a {
   font-size: 1em;
-  min-width: 80px;
+  min-width: initial;
+  max-width: initial;
 }
 
 .is-sm .header .menu.magazine-menu div.navi nav ul li a {
-  font-size: 0.9em;
-  min-width: 80px;
+  font-size: 0.85em;
+  min-width: initial;
+  max-width: initial;
 }
 
 .header .menu.magazine-menu div.navi nav ul li a:hover {
