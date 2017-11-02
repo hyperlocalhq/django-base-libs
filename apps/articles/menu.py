@@ -32,6 +32,7 @@ class InterviewsMenu(CMSAttachMenu):
         ]
         for at in article_type.get_children():
             nodes.append(NavigationNode(at.title, reverse("article_archive_for_interviews_by_type", kwargs={'type_sysname': at.slug}), at.id))
+        nodes.append(NavigationNode(_("From the Blogs"), reverse("magazine_blog_posts"), 'magazine_blog_posts'))
         return nodes
 
 menu_pool.register_menu(InterviewsMenu)

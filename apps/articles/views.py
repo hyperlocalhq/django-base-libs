@@ -808,3 +808,23 @@ def magazine_overview(request):
         'blog_posts': Post.published_objects.featured_in_magazine(),
     }
     return render(request, "articles/magazine_overview.html", context)
+
+
+def magazine_blog_posts(request):
+    from ccb.apps.blog.models import Post
+    queryset = Post.published_objects.order_by("-published_from")
+    article_type = ArticleType.objects.get(slug="interviews")
+    form = ArticleSearchForm(data=request.REQUEST)
+    context = {
+        'root_article_type': article_type,
+        'article_type': article_type,
+        'form': form,
+    }
+    return object_list(
+        request, queryset,
+        paginate_by=24,
+        allow_empty=True,
+        template_name="articles/magazine_blog_posts.html",
+        extra_context=context,
+        template_object_name='blog_post',
+    )

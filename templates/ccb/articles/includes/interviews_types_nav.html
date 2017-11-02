@@ -10,3 +10,6 @@
         <a{% if article_type == at or article.article_type == at %} class="active"{% endif %} href="{% url "article_archive_for_interviews_by_type" type_sysname=at.slug %}">{{ at.title }}</a>
     </li>
 {% endfor %}
+<li{% if blog_post_list %} class="active"{% endif %}>
+    <a{% if blog_post_list %} class="active"{% endif %} href="{% url "magazine_blog_posts" %}">{% trans "From the Blogs" %}</a>
+</li>
