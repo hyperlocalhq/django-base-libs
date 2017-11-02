@@ -5,14 +5,18 @@
         <a class="content" href="{{ post.get_url_path }}">
             <div class="image-wrapper">
             {% if post.image %}
-                {% with post.image|file_description as file_desc %}
-                    <img src="{{ UPLOADS_URL }}{{ post.image|modified_path:"list" }}" alt="{{ post.get_title|escape }}"/>
-                    {% if file_desc.author %}
-                        <div class="photo-credits-beneath">{% trans "Photo" %}: {{ file_desc.author }}</div>
-                    {% elif post.image_description %}
-                        <div class="photo-credits-beneath">{{ post.get_rendered_image_description }}</div>
-                    {% endif %}
-                {% endwith %}
+                <img src="{{ UPLOADS_URL }}{{ post.image|modified_path:"list" }}" alt="{{ post.get_title|escape }}"/>
+                {% if post.image_author %}
+                    <div class="photo-credits-beneath">{% trans "Photo" %}: {{ post.image_author }}</div>
+                {% else %}
+                    {% with post.image|file_description as file_desc %}
+                        {% if file_desc.author %}
+                            <div class="photo-credits-beneath">{% trans "Photo" %}: {{ file_desc.author }}</div>
+                        {% elif post.image_description %}
+                            <div class="photo-credits-beneath">{{ post.get_rendered_image_description }}</div>
+                        {% endif %}
+                    {% endwith %}
+                {% endif %}
             {% else %}
                 <img src="{{ STATIC_URL }}site/img/placeholder/infolink.png" alt="{{ post.get_title|escape }}"/>
             {% endif %}
