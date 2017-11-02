@@ -176,6 +176,9 @@ class MediaGallery(MediaGalleryBase, PublishingMixin):
 
 
 class MediaFile(MediaFileBase):
+
+    photo_author = models.CharField(_("Photo"), max_length=100, blank=True)
+
     def get_list_image_url(self):
         if self.splash_image_path:
             abs_path = os.path.join(UPLOADS_ROOT, self.splash_image_path.path)

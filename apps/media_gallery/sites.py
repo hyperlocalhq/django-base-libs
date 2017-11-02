@@ -1036,6 +1036,7 @@ class PortfolioSite(object):
                 media_file_obj.title_de = cleaned['title_de']
                 media_file_obj.description_en = cleaned['description_en']
                 media_file_obj.description_de = cleaned['description_de']
+                media_file_obj.photo_author = cleaned['photo_author']
 
                 image_url = cleaned['external_url']
                 if image_url and media_file_type == "image":

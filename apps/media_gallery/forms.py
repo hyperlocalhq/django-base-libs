@@ -52,6 +52,11 @@ class ImageFileForm(PortfolioFileForm):
         help_text=_("You can link to a GIF, JPG, or PNG image."),
         required=False,
     )
+    photo_author = forms.CharField(
+        label=_("Photo Credits"),
+        required=False,
+        max_length=100,
+    )
 
     def __init__(self, *args, **kwargs):
         super(ImageFileForm, self).__init__(*args, **kwargs)
@@ -86,6 +91,7 @@ class ImageFileForm(PortfolioFileForm):
                 ),
                 layout.Fieldset(
                     _("Description"),
+                    "photo_author",
                     "title_de",
                     "description_de",
                     "title_en",

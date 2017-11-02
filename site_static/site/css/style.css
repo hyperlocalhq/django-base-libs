@@ -9766,6 +9766,72 @@ img[data-popup-image-src] {
   color: #000;
 }
 
+.header .menu.magazine-menu {
+  background: #fff !important;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.is-xs .header .menu.magazine-menu {
+  display: none !important;
+}
+
+.header .menu.magazine-menu div.headline {
+  display: none !important;
+}
+
+.header .menu.magazine-menu div.navi {
+  padding: 0;
+  width: 100% !important;
+}
+
+.header .menu.magazine-menu div.navi nav {
+  display: table;
+}
+
+.header .menu.magazine-menu div.navi nav ul {
+  display: table-row;
+  width: 100%;
+}
+
+.header .menu.magazine-menu div.navi nav ul li {
+  display: table-cell;
+  position: static;
+  vertical-align: middle;
+}
+
+.header .menu.magazine-menu div.navi nav ul li a {
+  font-weight: 400;
+  font-size: 1.1em;
+  line-height: 1;
+  color: #777777;
+  padding: 0 8px;
+  text-align: center;
+  min-width: 90px;
+  max-width: 220px;
+}
+
+.is-md .header .menu.magazine-menu div.navi nav ul li a {
+  font-size: 1em;
+  min-width: initial;
+  max-width: initial;
+}
+
+.is-sm .header .menu.magazine-menu div.navi nav ul li a {
+  font-size: 0.85em;
+  min-width: initial;
+  max-width: initial;
+}
+
+.header .menu.magazine-menu div.navi nav ul li a:hover {
+  border-bottom: none;
+  color: #000;
+}
+
+.header .menu.magazine-menu div.navi nav ul li a.active {
+  color: #000;
+}
+
 .header.has-image {
   max-height: 450px;
 }
