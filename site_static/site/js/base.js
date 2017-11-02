@@ -1174,7 +1174,7 @@ $(document).ready(function() {
 
         var me = this.me;
 
-        if (!me.$nav.length) return;
+        if (!me.$nav.length || me.$menu.hasClass("magazine-menu")) return;
         //if (me.$body.hasClass('navigation-open')) return;
 
 
@@ -1311,6 +1311,7 @@ $(document).ready(function() {
 
         var is_xs = me.$body.hasClass('is-xs');
         if (!me.$menu.length && !me.is_sticky) return;
+        if (me.$menu.hasClass("magazine-menu") && is_xs) return;
         if (!me.$menu.length && is_xs) {
             me.$menu.css('top', '');
             me.$sticky.css('top', '');

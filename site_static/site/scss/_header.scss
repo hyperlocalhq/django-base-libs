@@ -973,6 +973,67 @@
                 }
             }
         }
+
+
+        &.magazine-menu {
+            background: $white !important;
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+
+            .is-xs & {
+                display: none !important;
+            }
+
+            div.headline {
+                display: none !important;
+            }
+
+            div.navi {
+                padding: 0;
+                width: 100% !important;
+                nav {
+                    display: table;
+                    ul {
+                        display: table-row;
+                        width: 100%;
+                        li {
+                            display: table-cell;
+                            position: static;
+                            vertical-align: middle;
+
+                            a {
+                                font-weight: $font-regular;
+                                font-size: 1.05em;
+                                line-height: 1;
+                                color: $grey-darker;
+                                padding: 0 8px;
+                                text-align: center;
+                                min-width: 90px;
+
+                                .is-md & {
+                                    font-size: 1em;
+                                    min-width: 80px;
+                                }
+
+                                .is-sm & {
+                                    font-size: 0.9em;
+                                    min-width: 80px;
+                                }
+
+                                &:hover {
+                                    border-bottom: none;
+                                    color: $black;
+                                }
+
+                                &.active {
+                                    color: $black;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     &.has-image {
