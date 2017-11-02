@@ -1526,6 +1526,7 @@ $(document).ready(function() {
 
         me.popup = me.$main.attr('data-popup-image-src').toLowerCase();
         me.caption = me.$main.next('h5.caption').text();
+        if (!me.caption) me.caption = me.$main.next('span.photo-credits-over').text();
         me.gallery = me.$main.attr('data-popup-image-gallery');
 
         me.is_open = false;
