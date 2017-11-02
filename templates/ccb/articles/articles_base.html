@@ -72,6 +72,9 @@
                             <ul class="accordion navi-box">
                                 {% if root_article_type.slug == "interviews" %}
                                     {% include "articles/includes/interviews_types.html" %}
+                                    <li{% if blog_post_list %} class="active"{% endif %}>
+                                        <a{% if blog_post_list %} class="active"{% endif %} href="{% url "magazine_blog_posts" %}"><span>{% trans "From the Blogs" %}</span></a>
+                                    </li>
                                 {% else %}
                                     {% include "articles/includes/news_types.html" %}
                                 {% endif %}
