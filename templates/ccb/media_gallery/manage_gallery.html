@@ -55,6 +55,13 @@
 
     {{ gallery.description|linebreaks }}
 
+    {% if gallery.show_cover_image_in_portfolio and gallery.cover_image %}{# show the cover image... #}
+        <div class="photo-credits-wrapper">
+            <img src="{{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"project_grid" }}" alt="{{ gallery.title|escape }}" data-popup-image-src="{{ UPLOADS_URL }}{{ gallery.cover_image.path }}" data-popup-image-gallery="gallery" />
+            {% if gallery.photo_author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ gallery.photo_author }}</span>{% endif %}
+        </div>
+    {% endif %}
+
     {% if gallery.mediafile_set.count %}
         {% for media_file in gallery.mediafile_set.all %}
 

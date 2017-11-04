@@ -155,6 +155,8 @@ class MediaGallery(MediaGalleryBase, PublishingMixin):
 
     photo_author = models.CharField(_("Photo"), max_length=100, blank=True)
 
+    show_cover_image_in_portfolio = models.BooleanField(_("Show image in portfolio"), default=False)
+
     objects = MediaGalleryManager()
 
     def __unicode__(self):

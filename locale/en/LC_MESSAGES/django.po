@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-04 15:57+0100\n"
+"POT-Creation-Date: 2017-11-04 17:27+0100\n"
 "PO-Revision-Date: 2016-03-10 17:20+0053\n"
 "Last-Translator: Josephine Natalie Weisflog <j.weisflog@kulturprojekte-"
 "berlin.de>\n"
@@ -134,7 +134,7 @@ msgstr ""
 #: .\apps\institutions\forms.py:1237 .\apps\marketplace\forms.py:408
 #: .\apps\marketplace\forms.py:424 .\apps\marketplace\forms.py:431
 #: .\apps\marketplace\models.py:23 .\apps\media_gallery\admin.py:29
-#: .\apps\media_gallery\forms.py:345 .\apps\media_gallery\forms.py:382
+#: .\apps\media_gallery\forms.py:345 .\apps\media_gallery\forms.py:388
 #: .\apps\media_gallery\models.py:149 .\apps\site_specific\admin.py:40
 #: .\apps\site_specific\forms\events.py:1989
 #: .\apps\site_specific\forms\events.py:2017
@@ -471,7 +471,7 @@ msgstr ""
 #: .\apps\institutions\forms.py:1460 .\apps\institutions\forms.py:1466
 #: .\apps\marketplace\forms.py:675 .\apps\marketplace\forms.py:681
 #: .\apps\marketplace\forms.py:687 .\apps\marketplace\forms.py:693
-#: .\apps\media_gallery\forms.py:396 .\apps\network\forms.py:20
+#: .\apps\media_gallery\forms.py:402 .\apps\network\forms.py:20
 #: .\apps\network\forms.py:27 .\apps\network\forms.py:33
 #: .\apps\people\forms.py:20 .\apps\people\forms.py:26
 #: .\apps\people\forms.py:32 .\apps\people\forms.py:38
@@ -490,7 +490,7 @@ msgstr ""
 
 #: .\apps\articles\forms.py:18 .\apps\bulletin_board\forms.py:599
 #: .\apps\events\forms.py:1852 .\apps\marketplace\forms.py:682
-#: .\apps\media_gallery\forms.py:397 .\apps\network\forms.py:28
+#: .\apps\media_gallery\forms.py:403 .\apps\network\forms.py:28
 #: .\apps\resources\forms.py:19
 #: .\templates\ccb\articles\articles_detail.html:99
 #: .\templates\ccb\counselling_events\profile\categories.html:14
@@ -505,7 +505,7 @@ msgstr ""
 
 #: .\apps\articles\forms.py:31 .\apps\bulletin_board\forms.py:638
 #: .\apps\events\forms.py:1886 .\apps\institutions\forms.py:1481
-#: .\apps\marketplace\forms.py:708 .\apps\media_gallery\forms.py:410
+#: .\apps\marketplace\forms.py:708 .\apps\media_gallery\forms.py:416
 #: .\apps\network\forms.py:56 .\apps\people\forms.py:53
 #: .\apps\resources\forms.py:39
 #: .\templates\ccb\bulletin_board\my_bulletin_list.html:18
@@ -518,7 +518,7 @@ msgstr ""
 
 #: .\apps\articles\forms.py:36 .\apps\bulletin_board\forms.py:646
 #: .\apps\events\forms.py:1895 .\apps\institutions\forms.py:1489
-#: .\apps\marketplace\forms.py:716 .\apps\media_gallery\forms.py:415
+#: .\apps\marketplace\forms.py:716 .\apps\media_gallery\forms.py:421
 #: .\apps\network\forms.py:63 .\apps\people\forms.py:61
 #: .\apps\resources\forms.py:45 .\apps\search\cms_apps.py:10
 #: .\apps\search\forms.py:22 .\templates\ccb\articles\articles_archive.html:8
@@ -1770,7 +1770,7 @@ msgstr ""
 
 #: .\apps\curated_lists\forms.py:41 .\apps\media_gallery\forms.py:101
 #: .\apps\media_gallery\forms.py:183 .\apps\media_gallery\forms.py:265
-#: .\apps\media_gallery\forms.py:389 .\apps\site_specific\forms\events.py:150
+#: .\apps\media_gallery\forms.py:395 .\apps\site_specific\forms\events.py:150
 #: .\apps\site_specific\forms\events.py:202
 #: .\apps\site_specific\forms\events.py:262
 #: .\apps\site_specific\forms\events.py:731
@@ -2649,7 +2649,7 @@ msgstr ""
 
 #: .\apps\events\forms.py:920 .\apps\institutions\forms.py:508
 #: .\apps\institutions\models.py:37 .\apps\media_gallery\models.py:156
-#: .\apps\media_gallery\models.py:180 .\apps\site_specific\forms\events.py:222
+#: .\apps\media_gallery\models.py:182 .\apps\site_specific\forms\events.py:222
 #: .\apps\site_specific\forms\groups_networks.py:90
 #: .\apps\site_specific\forms\institutions.py:163
 #: .\apps\site_specific\forms\people.py:183
@@ -2696,9 +2696,11 @@ msgstr ""
 #: .\templates\ccb\institutions\details_base.html:110
 #: .\templates\ccb\institutions\includes\latest_published_institutions.html:29
 #: .\templates\ccb\institutions\institution_list.html:83
+#: .\templates\ccb\media_gallery\gallery_detail\gallery_base.html:55
 #: .\templates\ccb\media_gallery\gallery_detail\gallery_listed.html:11
 #: .\templates\ccb\media_gallery\includes\latest_published_galleries.html:30
-#: .\templates\ccb\media_gallery\manage_gallery.html:74
+#: .\templates\ccb\media_gallery\manage_gallery.html:62
+#: .\templates\ccb\media_gallery\manage_gallery.html:81
 #: .\templates\ccb\media_gallery\portfolio_overview.html:41
 #: .\templates\ccb\metro\tile.html:9
 #: .\templates\ccb\network\member_list.html:86
@@ -4077,15 +4079,19 @@ msgid ""
 "GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px."
 msgstr ""
 
-#: .\apps\media_gallery\forms.py:367
+#: .\apps\media_gallery\forms.py:355 .\apps\media_gallery\models.py:158
+msgid "Show image in portfolio"
+msgstr ""
+
+#: .\apps\media_gallery\forms.py:371
 msgid "Change Album"
 msgstr ""
 
-#: .\apps\media_gallery\forms.py:367
+#: .\apps\media_gallery\forms.py:371
 msgid "Create Album"
 msgstr ""
 
-#: .\apps\media_gallery\forms.py:370 .\apps\media_gallery\forms.py:372
+#: .\apps\media_gallery\forms.py:374 .\apps\media_gallery\forms.py:376
 msgid "Cover Image"
 msgstr ""
 
@@ -4160,11 +4166,11 @@ msgstr ""
 msgid "Section"
 msgstr ""
 
-#: .\apps\media_gallery\models.py:161
+#: .\apps\media_gallery\models.py:163
 msgid "Global gallery"
 msgstr ""
 
-#: .\apps\media_gallery\models.py:163
+#: .\apps\media_gallery\models.py:165
 #, python-format
 msgid "Gallery of %(object)s"
 msgstr ""
@@ -4950,7 +4956,7 @@ msgstr ""
 #: .\templates\ccb\media_gallery\manage_galleries.html:42
 #: .\templates\ccb\media_gallery\manage_galleries.html:95
 #: .\templates\ccb\media_gallery\manage_gallery.html:39
-#: .\templates\ccb\media_gallery\manage_gallery.html:70
+#: .\templates\ccb\media_gallery\manage_gallery.html:77
 #: .\templates\ccb\messaging\delete_message.html:15
 #: .\templates\ccb\site_specific\blogs\popups\post_delete.html:11
 #: .\templates\ccb\site_specific\popups\delete_avatar.html:8
@@ -8738,7 +8744,7 @@ msgstr ""
 #: .\templates\ccb\media_gallery\manage_galleries.html:40
 #: .\templates\ccb\media_gallery\manage_galleries.html:91
 #: .\templates\ccb\media_gallery\manage_gallery.html:35
-#: .\templates\ccb\media_gallery\manage_gallery.html:67
+#: .\templates\ccb\media_gallery\manage_gallery.html:74
 #: .\templates\ccb\site_specific\blocks\sidebar_settings.html:5
 #: .\templates\ccb\site_specific\creative_sectors\creative_sector_details.html:95
 msgid "Settings"
@@ -8957,7 +8963,7 @@ msgstr ""
 #: .\templates\ccb\groups_networks\persongroups\profile\avatar.html:8
 #: .\templates\ccb\media_gallery\includes\gallery_slideshow.html:48
 #: .\templates\ccb\media_gallery\manage_galleries.html:87
-#: .\templates\ccb\media_gallery\manage_gallery.html:63
+#: .\templates\ccb\media_gallery\manage_gallery.html:70
 #: .\templates\ccb\resources\documents\profile\avatar.html:8
 msgid "Adjust image"
 msgstr ""
@@ -9569,14 +9575,14 @@ msgid "Refuse Comment"
 msgstr ""
 
 #: .\templates\ccb\media_gallery\create_update_mediafile.html:11
-#: .\templates\ccb\media_gallery\gallery_detail\gallery_base.html:60
-#: .\templates\ccb\media_gallery\manage_gallery.html:93
+#: .\templates\ccb\media_gallery\gallery_detail\gallery_base.html:67
+#: .\templates\ccb\media_gallery\manage_gallery.html:100
 #: .\templates\ccb\media_gallery\portfolio_base.html:5
 msgid "Portfolio"
 msgstr ""
 
 #: .\templates\ccb\media_gallery\create_update_mediafile.html:13
-#: .\templates\ccb\media_gallery\manage_gallery.html:98
+#: .\templates\ccb\media_gallery\manage_gallery.html:105
 msgid "Manage"
 msgstr ""
 
@@ -9662,7 +9668,7 @@ msgstr ""
 
 #: .\templates\ccb\media_gallery\gallery_detail\gallery_listed.html:23
 #: .\templates\ccb\media_gallery\includes\gallery_slideshow.html:60
-#: .\templates\ccb\media_gallery\manage_gallery.html:85
+#: .\templates\ccb\media_gallery\manage_gallery.html:92
 #: .\templates\ccb\people\person_portfolio.html:55
 msgid "There are no media files uploaded."
 msgstr ""
