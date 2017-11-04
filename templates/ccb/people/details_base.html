@@ -25,7 +25,8 @@
                             {% trans "My Profile" %}
                         {% else %}
                             <a href="{% page_url request.current_page %}">
-                                {% page_attribute "page_title" request.current_page %}
+                                {% comment %}{% page_attribute "page_title" request.current_page %}{% endcomment %}
+                                {% trans "Person" %}
                             </a>
                         {% endifequal %}
                     </h1>

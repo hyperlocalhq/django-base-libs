@@ -21,13 +21,14 @@
             <div class="row">
                 <div class="col-xs-12">
                     <h1>
-                        {% ifequal request.user object.user %}
+                        {% if request.user.profile|in_list:object.get_groups.0.get_owners %}
                             {% trans "My Institution" %}
                         {% else %}
                             <a href="{% page_url request.current_page %}">
-                                {% page_attribute "page_title" request.current_page %}
+                                {% comment %}{% page_attribute "page_title" request.current_page %}{% endcomment %}
+                                {% trans "Institution" %}
                             </a>
-                        {% endifequal %}
+                        {% endif %}
                     </h1>
                     <div class="profile">
 

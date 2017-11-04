@@ -2344,6 +2344,13 @@ dl.interview dd:last-child:after {
   user-select: none;
 }
 
+.button.small, .btn.small {
+  font-size: 0.95em;
+  height: 2.2em;
+  line-height: 210%;
+  padding: 0 2em;
+}
+
 .button.btn-responsive, .btn.btn-responsive {
   height: auto;
   line-height: 110%;
@@ -5240,6 +5247,12 @@ dd.autocomplete .input-field.ac_loading:after {
 
 .is-sm .list .row.profile-grid.profile-list > div a.content .text ul, .is-sm .list .row.profile-grid.profile-list > div a.content .name ul {
   font-size: 1em;
+}
+
+.list .row.profile-grid.profile-list > div a.content .button {
+  position: absolute;
+  right: 5px;
+  bottom: 10px;
 }
 
 .list .row.profile-grid.profile-list > div a.content .photo-credits-beneath {

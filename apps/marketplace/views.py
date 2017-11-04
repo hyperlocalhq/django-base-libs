@@ -20,6 +20,7 @@ from jetson.apps.utils.views import object_list, object_detail, show_form_step
 from jetson.apps.memos.models import Memo, MEMO_TOKEN_NAME
 from ccb.apps.marketplace.forms import ADD_JOB_OFFER_FORM_STEPS, JobOfferSearchForm
 from ccb.apps.marketplace.models import JobOffer, JobSector, URL_ID_JOB_OFFERS
+from ccb.apps.institutions.models import Institution
 from jetson.apps.structure.models import Category
 
 
@@ -44,7 +45,14 @@ class JobOfferFeed(Feed):
 @transaction.atomic
 @login_required
 def add_job_offer(request):
-    return show_form_step(request, ADD_JOB_OFFER_FORM_STEPS, extra_context={})
+
+    extra_context = {}
+
+    if "institution" in request.GET:
+        institution = get_object_or_404(Institution, slug=request.GET["institution"])
+        extra_context["job_for"] = institution.title
+
+    return show_form_step(request, ADD_JOB_OFFER_FORM_STEPS, extra_context)
 
 
 @never_cache
