@@ -45,14 +45,7 @@ class JobOfferFeed(Feed):
 @transaction.atomic
 @login_required
 def add_job_offer(request):
-
-    extra_context = {}
-
-    if "institution" in request.GET:
-        institution = get_object_or_404(Institution, slug=request.GET["institution"])
-        extra_context["job_for"] = institution.title
-
-    return show_form_step(request, ADD_JOB_OFFER_FORM_STEPS, extra_context)
+    return show_form_step(request, ADD_JOB_OFFER_FORM_STEPS)
 
 
 @never_cache
