@@ -122,9 +122,15 @@
                     $(document).ready(function() {
                         $('a[href^="/"]').each(function() {
                             var $link = $(this);
-                            var path = $link.attr('href').replace(LOCAL_PATH_REGEX, '');
-                            $link.attr('href', TARGET_URL + path);
-                            $link.attr('target', '_top');
+                            var href = $link.attr('href');
+                            if (href.search(LOCAL_PATH_REGEX) === 0) {
+                                var path = href.replace(LOCAL_PATH_REGEX, '');
+                                $link.attr('href', TARGET_URL + path);
+                            }
+                            // keep existing targets in place, but add one when unspecified
+                            if (!$link.attr('target')) {
+                                $link.attr('target', '_top');
+                            }
                         });
                     });
                 }
