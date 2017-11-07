@@ -120,6 +120,9 @@
                 } else {
                     // if accessed within iframe, replace all links to use the html page with an iframe
                     $(document).ready(function() {
+                        $('a[href^="http"]').each(function() {
+                            $link.attr('target', '_blank').attr('rel', 'noopener noreferrer');
+                        });
                         $('a[href^="/"]').each(function() {
                             var $link = $(this);
                             var href = $link.attr('href');
