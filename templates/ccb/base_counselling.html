@@ -112,7 +112,7 @@
                     return;
                 }
                 var TARGET_URL = 'http://www.kreativwirtschaftsberatung-berlin.de/?path=';
-                var LOCAL_PATH_REGEX = /\/de\/kreativwirtschaftsberatung-berlin/;
+                var LOCAL_PATH_REGEX = /^\/de\/kreativwirtschaftsberatung-berlin/;
                 if (self === top) {
                     // if accessed without iframe, redirect to the html page with an iframe
                     var path = (self.location.pathname + self.location.search).replace(LOCAL_PATH_REGEX, '');
@@ -123,7 +123,7 @@
                         $('a[href^="/"]').each(function() {
                             var $link = $(this);
                             var href = $link.attr('href');
-                            if (href.search(LOCAL_PATH_REGEX) === 0) {
+                            if (href.match(LOCAL_PATH_REGEX)) {
                                 var path = href.replace(LOCAL_PATH_REGEX, '');
                                 $link.attr('href', TARGET_URL + path);
                             }
