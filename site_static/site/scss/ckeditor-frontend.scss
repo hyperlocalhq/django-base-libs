@@ -1,0 +1,358 @@
+@charset "UTF-8";
+
+// @Author: Daniel Lehmann
+// @Date:   2017/11/06
+// @Email:  code@dreammedia.info
+// @Last modified by:   Daniel Lehmann
+// @Last modified time: 2017/11/07
+// @copyright Daniel Lehmann (code@dreammedia.info)
+
+
+@import 'constants';
+//@import 'fonts';
+
+html, body {
+    font-family: $font-2, $font-family-1;
+    font-size: 15px;
+    font-weight: $font-regular;
+    color: $black;
+}
+
+body.ckeditor {
+
+    * {
+        font-size: 1rem !important;
+        font-weight: $font-regular !important;
+        font-family: $font-2, $font-family-1 !important;
+    }
+
+    h2 {
+        //font-family: "MetronicSlabPro", "sans-serif" !important;
+        font-weight: 600 !important;
+        font-size: 1.3rem !important;
+        line-height: 140%;
+        margin: 0 0 30px 20px;
+        padding-top: 20px;
+    }
+
+    div#page {
+        width: 96%;
+        margin: 2% 2%;
+        background: $cyan-light;
+        border-radius: 5px;
+    }
+
+    div#container {
+        width: 95% !important;
+        min-width: 0;
+
+        .left {
+            width: 40%;
+            display: inline-block;
+            float: left;
+        }
+
+        .right {
+            width: 60%;
+            display: inline-block;
+        }
+    }
+
+    div#gallery {
+        width: 100%;
+
+        .slideshow-container {
+            height: auto;
+
+            .image-wrapper {
+                position: static;
+
+                .advance-link {
+                    width: 100%;
+                    height: auto;
+
+                    img {
+                        width: 95% !important;
+                        height: auto !important;
+                        vertical-align: top;
+                    }
+                }
+            }
+        }
+
+        .image-caption {
+            position: static;
+            width: 100%;
+        }
+    }
+
+    div#search {
+        width: 100%;
+    }
+
+    div#thumbs {
+        width: 100%;
+    }
+
+
+    input.form_text {
+        width: 100%;
+        height: 3.5rem;
+        font-size: 1.2rem !important;
+        line-height: 300%;
+        background: #fff;
+        color: $black;
+        border: 1px solid $grey;
+        border-radius: 4px;
+        padding: 0 1rem;
+        margin: 0;
+        box-sizing: border-box;
+
+        &:focus {
+            border: 1px solid $grey-dark;
+            box-shadow: $form-glow;
+            padding: 0 1rem;
+        }
+    }
+
+    .button {
+        height: 2.67rem;
+        line-height: 261%;
+        display: inline-block;
+        font-weight: $font-bold;
+        font-size: 1.2rem;
+        color: $white;
+        background: $button-default;
+        padding: 0px 3em;
+        border-radius: 1.33em;
+        border: 1px solid $button-default-border;
+        cursor: pointer;
+
+        &:hover, &:focus, &.focus {
+            outline: none;
+            background: $button-default-active;
+            border-color: $button-default-border-actvie;
+        }
+    }
+}
+
+
+.cke_editor_form_body_dialog {
+
+    * {
+        font-size: 1rem !important;
+        font-weight: $font-regular !important;
+        font-family: $font-2, $font-family-1 !important;
+    }
+
+    a {
+        outline: none;
+        &:focus {
+            outline: none;
+            border: none;
+        }
+
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .cke_dialog_ui_button {
+        height: auto;
+        width: auto;
+        border: none;
+        border-radius: 0;
+        cursor: default;
+        padding: 0;
+        margin: 3px 3px 3px 0;
+        background: transparent;
+        outline: none;
+
+
+        &:hover, &:focus, &.focus {
+            background: transparent;
+            outline: none;
+            border: none;
+            padding: 0;
+        }
+
+        .cke_dialog_ui_button {
+            height: 2.67rem;
+            line-height: 261%;
+            display: inline-block;
+            font-weight: $font-bold;
+            font-size: 1.2rem;
+            color: $white;
+            background: $button-default;
+            padding: 0px 3em;
+            border-radius: 1.33em;
+            border: 1px solid $button-default-border;
+            cursor: pointer;
+
+            &:hover, &:focus, &.focus {
+                outline: none;
+                background: $button-default-active;
+                border-color: $button-default-border-actvie;
+            }
+        }
+
+        &.cke_dialog_ui_button_ok {
+            .cke_dialog_ui_button {
+                background: $button-success;
+                border-color: $button-success-border;
+
+                &:hover, &:focus, &.focus {
+                    background: $button-success-active;
+                    border-color: $button-success-active-border;
+                }
+            }
+        }
+    }
+
+    input.cke_dialog_ui_input_text {
+        width: 100%;
+        height: 3.5rem;
+        font-size: 1.2rem !important;
+        line-height: 300%;
+        background: #fff;
+        color: $black;
+        border: 1px solid $grey;
+        border-radius: 4px;
+        padding: 0 1rem;
+        margin: 0;
+        box-sizing: border-box;
+
+        &:focus {
+            border: 1px solid $grey-dark;
+            box-shadow: $form-glow;
+            padding: 0 1rem;
+        }
+    }
+
+    .cke_dialog_body {
+        border-radius: 5px;
+        background: $cyan-dark;
+
+        .cke_dialog_title {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            background: $cyan-light;
+            font-weight: $font-semi !important;
+            text-transform: uppercase;
+        }
+
+        .cke_dialog_tabs {
+            .cke_dialog_tab {
+                opacity: 0.7;
+                border: 1px solid $grey-light;
+                padding: 4px 8px;
+
+                &:focus {
+                    border: 1px solid $grey-light;
+                    border-bottom-color: $cyan-light;
+                    padding: 4px 8px;
+                }
+
+                &.cke_dialog_tab_selected {
+                    background: $cyan-light;
+                    border-bottom-color: $cyan-light;
+                    opacity: 1;
+
+                    &:focus {
+                        border: 1px solid $grey-light;
+                        border-bottom-color: $cyan-light;
+                        padding: 4px 8px;
+                    }
+                }
+            }
+        }
+
+        .cke_dialog_contents {
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            background: $cyan-light;
+
+            .cke_dialog_page_contents {
+
+                > table {
+                    > tbody {
+
+                        > tr:first-child {
+                            .cke_dialog_ui_hbox_first, .cke_dialog_ui_hbox_last {
+                                display: block;
+                                width: 100% !important;
+                            }
+                        }
+
+                        > tr:nth-child(3) {
+                            display: none;
+                        }
+
+                        > tr:last-child {
+                            display: table-row;
+
+                            .cke_dialog_ui_hbox_first {
+                                display: none;
+                            }
+                            .cke_dialog_ui_hbox_last {
+                                width: 100% !important;
+
+                                .ImagePreviewBox {
+                                    width: 100% !important;
+                                    height: 300px;
+                                    a {
+                                        img {
+                                            width: 100% !important;
+                                            height: auto !important;
+                                            border-width: 0 !important;
+                                            border-style: none !important;
+                                            margin: 0 !important;
+                                            float: none !important;
+                                        }
+                                    }
+                                }
+
+                                div[role="radiogroup"] {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .cke_dialog_ui_file {
+                height: auto !important;
+                margin: 5px 10px;
+
+                .cke_dialog_ui_labeled_label {
+                    margin-bottom: 10px;
+                    display: block;
+                    font-weight: 600 !important;
+                }
+            }
+        }
+
+        .cke_dialog_footer {
+            position: relative;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            background: $cyan-light;
+
+            .cke_resizer {
+                margin-bottom: 5px;
+                position: absolute;
+                bottom: 0;
+                z-index: 1;
+
+                &.cke_resizer_ltr {
+                    right: 0;
+                }
+            }
+        }
+
+    }
+}

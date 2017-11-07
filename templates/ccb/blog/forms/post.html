@@ -1,7 +1,11 @@
 {% extends base_template %}
 {% load i18n blog base_tags staticfiles %}
 
+{% block stylesheet %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}site/css/ckeditor-frontend.css" type="text/css" />
+    {{ block.super }}
+{% endblock %}
+
 {% block details %}
     {% include_selected "post_embedded.html" for object under "blog/forms" %}
 {% endblock %}
-
