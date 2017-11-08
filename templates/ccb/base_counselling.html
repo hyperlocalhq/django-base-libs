@@ -102,6 +102,43 @@
     </head>
     <body class="is-xs counselling {% block body_class %}{% endblock %}">
         {% cms_toolbar %}
+        <script>
+            (function() {
+                if ($('#cms-top').length) {
+                    // if Django CMS toolbar is present, open the page without the iframe
+                    if (self !== top) {
+                        top.location.href = self.location.href;
+                    }
+                    return;
+                }
+                var TARGET_URL = 'http://www.kreativwirtschaftsberatung-berlin.de/?path=';
+                var LOCAL_PATH_REGEX = /^\/de\/kreativwirtschaftsberatung-berlin/;
+                if (self === top) {
+                    // if accessed without iframe, redirect to the html page with an iframe
+                    var path = (self.location.pathname + self.location.search).replace(LOCAL_PATH_REGEX, '');
+                    top.location.href = TARGET_URL + path;
+                } else {
+                    // if accessed within iframe, replace all links to use the html page with an iframe
+                    $(document).ready(function() {
+                        $('a[href^="http"]').each(function() {
+                            $(this).attr('target', '_blank').attr('rel', 'noopener noreferrer');
+                        });
+                        $('a[href^="/"]').each(function() {
+                            var $link = $(this);
+                            var href = $link.attr('href');
+                            if (href.match(LOCAL_PATH_REGEX)) {
+                                var path = href.replace(LOCAL_PATH_REGEX, '');
+                                $link.attr('href', TARGET_URL + path);
+                            }
+                            // keep existing targets in place, but add one when unspecified
+                            if (!$link.attr('target')) {
+                                $link.attr('target', '_top');
+                            }
+                        });
+                    });
+                }
+            }());
+        </script>
 
         <div id="navigation">
             <nav><!--

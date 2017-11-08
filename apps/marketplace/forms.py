@@ -641,6 +641,18 @@ def show_creation_success_view(request, form_step_data):
     return redirect("job_offer_created")
 
 
+def set_extra_context(current_step, form_steps, form_step_data, request):
+    extra_context = {}
+
+    if "institution" in request.GET:
+        institution = get_object_or_404(Institution, slug=request.GET["institution"])
+        extra_context["job_offer_from"] = institution.title
+    else:
+        extra_context["job_offer_from"] = request.user.profile.get_title()
+
+    return extra_context
+
+
 ADD_JOB_OFFER_FORM_STEPS = {
     'step_main_data': {
         'title': _("main data"),
@@ -661,6 +673,7 @@ ADD_JOB_OFFER_FORM_STEPS = {
     'onsubmit': submit_step,
     'onsave': save_data,
     'onsuccess': show_creation_success_view,
+    'on_set_extra_context': set_extra_context,
     'name': 'add_job_offer',
     'default_path': [
         'step_main_data',

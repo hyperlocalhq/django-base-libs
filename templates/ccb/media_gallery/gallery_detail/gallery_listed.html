@@ -6,7 +6,10 @@
         <div>
             {% for media_file in list_of_files %}
 
-                {{ media_file.get_representation }}
+                <div class="photo-credits-wrapper">
+                    {{ media_file.get_representation }}
+                    {% if media_file.photo_author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ media_file.photo_author }}</span>{% endif %}
+                </div>
                 {% if media_file.title %}
                     <h5 class="caption caption-old">{{ media_file.title }}</h5>
                 {% endif %}

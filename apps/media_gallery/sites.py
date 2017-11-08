@@ -696,6 +696,7 @@ class PortfolioSite(object):
                 gallery.description_de = cleaned['description_de']
                 gallery.status = [0, 1][cleaned['published']]
                 gallery.photo_author = cleaned['photo_author']
+                gallery.show_cover_image_in_portfolio = cleaned['show_cover_image_in_portfolio']
                 if not gallery.section:
                     if 'section' in request.REQUEST:
                         section = get_object_or_404(
@@ -762,6 +763,7 @@ class PortfolioSite(object):
                 'description_de': gallery.description_de,
                 'published': gallery.status == 1,
                 'photo_author': gallery.photo_author,
+                'show_cover_image_in_portfolio': gallery.show_cover_image_in_portfolio,
             }
             if gallery.pk:
                 initial['categories'] = gallery.categories.all()
@@ -1036,6 +1038,7 @@ class PortfolioSite(object):
                 media_file_obj.title_de = cleaned['title_de']
                 media_file_obj.description_en = cleaned['description_en']
                 media_file_obj.description_de = cleaned['description_de']
+                media_file_obj.photo_author = cleaned['photo_author']
 
                 image_url = cleaned['external_url']
                 if image_url and media_file_type == "image":

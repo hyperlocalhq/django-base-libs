@@ -52,6 +52,11 @@ class ImageFileForm(PortfolioFileForm):
         help_text=_("You can link to a GIF, JPG, or PNG image."),
         required=False,
     )
+    photo_author = forms.CharField(
+        label=_("Photo Credits"),
+        required=False,
+        max_length=100,
+    )
 
     def __init__(self, *args, **kwargs):
         super(ImageFileForm, self).__init__(*args, **kwargs)
@@ -86,6 +91,7 @@ class ImageFileForm(PortfolioFileForm):
                 ),
                 layout.Fieldset(
                     _("Description"),
+                    "photo_author",
                     "title_de",
                     "description_de",
                     "title_en",
@@ -345,6 +351,10 @@ class MediaGalleryForm(dynamicforms.Form):
         required=False,
         max_length=100,
     )
+    show_cover_image_in_portfolio = forms.BooleanField(
+        label=_("Show image in portfolio"),
+        required=False,
+    )
 
     def __init__(self, gallery, *args, **kwargs):
         super(MediaGalleryForm, self).__init__(*args, **kwargs)
@@ -368,6 +378,8 @@ class MediaGalleryForm(dynamicforms.Form):
                 """),
                 "cover_image",
                 "photo_author",
+                "show_cover_image_in_portfolio",
+                layout.HTML("""<br/>"""),
                 "title_de",
                 "description_de",
                 "title_en",

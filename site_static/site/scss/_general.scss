@@ -809,6 +809,13 @@ dl {
     -ms-user-select: none;
     user-select: none;
 
+    &.small {
+        font-size: 0.95em;
+        height: 2.2em;
+        line-height: 210%;
+        padding: 0 2em;
+    }
+
     &.btn-responsive {
         height: auto;
         line-height: 110%;
