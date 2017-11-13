@@ -27,7 +27,7 @@ class RecommendationAdmin(admin.ModelAdmin):
     search_fields = ["sysname"]
     list_filter = ["creation_date", "modified_date", "widget_template", "status"]
     fieldsets = [
-        (_("Content"), {'fields': ["sysname", "widget_template"]}),
+        (_("Content"), {'fields': ["sysname", "widget_template", "status"]}),
     ]
 
     def get_widget_template_display(self, obj):
