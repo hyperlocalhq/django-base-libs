@@ -199,6 +199,7 @@ INSTALLED_APPS = [
     "ccb.apps.curated_lists",
     "ccb.apps.cms_extensions",
     "ccb.apps.logins",
+    "ccb.apps.recommendations",
     "ccb",  # just for i18n in Javascript
     "actstream",
     "huey.contrib.djhuey",
@@ -311,6 +312,9 @@ ADMIN_APP_INDEX = (
             ("metro", {
                 "models": ("Tile",),
                 "icon": "images",
+            }),
+            ("recommendations", {
+                "models": ("Recommendation",),
             }),
             ("partners", {
                 "models": ("PartnerCategory",),
@@ -657,6 +661,13 @@ MAILING_CONTENT_TYPE_CHOICES = (
 TIME_INPUT_FORMATS = ("%H:%M:%S", "%H:%M", "%H.%M")
 
 DISABLE_CONTEXT_PROCESSORS = True
+
+RECOMMENDATIONS_WIDGET_TEMPLATE_CHOICES = (
+    ('people/includes/latest_published_people_start.html', _("Latest Profiles")),
+    ('bulletin_board/includes/latest_bulletins.html', _("Latest Bulletins")),
+    ('articles/includes/latest_news_of_the_category.html', _("Latest News of the Category")),
+)
+
 
 ### CAPTCHA ###
 

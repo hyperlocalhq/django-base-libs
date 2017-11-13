@@ -1,1 +1,8 @@
-{% include recommendation.widget_template %}
+{% load i18n %}
+{% if recommendation %}
+    <div class="claim">
+        <div class="fawesome fa-hand-down big color-black color-over-black"></div>
+        <p>{% trans "Did you know?" %}</p>
+    </div>
+    {% include recommendation.widget_template %}
+{% endif %}
