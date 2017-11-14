@@ -9780,9 +9780,10 @@ img[data-popup-image-src] {
 }
 
 .header .menu.magazine-menu {
-  background: #fff !important;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
+  background: #fff;
+  border-bottom: 1px solid #d8d8d8;
+  font-family: "MetronicSlabPro", "sans-serif";
+  font-weight: 400;
 }
 
 .is-xs .header .menu.magazine-menu {
@@ -9811,13 +9812,16 @@ img[data-popup-image-src] {
   display: table-cell;
   position: static;
   vertical-align: middle;
+  border-bottom: 6px solid #fff;
+  -webkit-transition: border-bottom 0.3s;
+  transition: border-bottom 0.3s;
 }
 
 .header .menu.magazine-menu div.navi nav ul li a {
   font-weight: 400;
-  font-size: 1.1em;
+  font-size: 1.25rem;
   line-height: 1;
-  color: #777777;
+  color: #afaeae;
   padding: 0 8px;
   text-align: center;
   min-width: 90px;
@@ -9825,13 +9829,13 @@ img[data-popup-image-src] {
 }
 
 .is-md .header .menu.magazine-menu div.navi nav ul li a {
-  font-size: 1em;
+  font-size: 1.11rem;
   min-width: initial;
   max-width: initial;
 }
 
 .is-sm .header .menu.magazine-menu div.navi nav ul li a {
-  font-size: 0.85em;
+  font-size: 0.86rem;
   min-width: initial;
   max-width: initial;
 }
@@ -9842,6 +9846,15 @@ img[data-popup-image-src] {
 }
 
 .header .menu.magazine-menu div.navi nav ul li a.active {
+  border-bottom: none;
+  color: #000;
+}
+
+.header .menu.magazine-menu div.navi nav ul li:hover, .header .menu.magazine-menu div.navi nav ul li.active {
+  border-bottom: 6px solid #00cdff;
+}
+
+.header .menu.magazine-menu div.navi nav ul li:hover a, .header .menu.magazine-menu div.navi nav ul li.active a {
   color: #000;
 }
 
@@ -9944,6 +9957,36 @@ img[data-popup-image-src] {
 
 .header.fixed .menu.tabs .prev:hover, .header.fixed .menu.tabs .next:hover {
   color: #fff;
+}
+
+.header.fixed .menu.magazine-menu {
+  border-bottom: none;
+}
+
+.header.fixed .menu.magazine-menu div.navi nav ul li {
+  border-bottom: 6px solid #000;
+}
+
+.header.fixed .menu.magazine-menu div.navi nav ul li a {
+  color: #d8d8d8;
+}
+
+.header.fixed .menu.magazine-menu div.navi nav ul li a:hover {
+  border-bottom: none;
+  color: #d8d8d8;
+}
+
+.header.fixed .menu.magazine-menu div.navi nav ul li a.active {
+  border-bottom: none;
+  color: #d8d8d8;
+}
+
+.header.fixed .menu.magazine-menu div.navi nav ul li:hover, .header.fixed .menu.magazine-menu div.navi nav ul li.active {
+  border-bottom: 6px solid #00cdff;
+}
+
+.header.fixed .menu.magazine-menu div.navi nav ul li:hover a, .header.fixed .menu.magazine-menu div.navi nav ul li.active a {
+  color: #d8d8d8;
 }
 
 .header.fixed.has-sticky .menu {
