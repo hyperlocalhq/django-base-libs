@@ -31,9 +31,6 @@
     <meta property="og:description" content="{{ content|striptags|truncatewords:20|escape }}" />
 {% endblock %}
 
-{% block tabs %}
-{% endblock %}
-
 {% block sidebar %}
     <div class="button-group">
         {% if request.user.is_authenticated %}

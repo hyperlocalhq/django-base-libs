@@ -142,11 +142,11 @@ def article_archive_index(
 
     Context:
         date_list      List of years
-        article_list   List of requested articles         
-    
+        article_list   List of requested articles
+
     Paramters:
         status = (STATUS_CODE_DRAFT|STATUS_CODE_PUBLISHED)
-                
+
     """
     if "queryset" in kwargs:
         queryset = kwargs.pop("queryset")
@@ -222,7 +222,7 @@ def article_archive_index(
         template_name = 'articles/articles_archive.html'
 
     # this part is taken from django/views/generic/date_based.py,
-    # function "archive_index" 
+    # function "archive_index"
     if not allow_future:
         queryset = queryset.filter(**{'%s__lte' % date_field: datetime.datetime.now()})
 
@@ -315,10 +315,10 @@ def article_archive_year(
         article_list
             List of objects published in the given year
             (Only available if make_object_list argument is True)
-    
+
      Paramters:
         status = (STATUS_CODE_DRAFT|STATUS_CODE_PUBLISHED)
-                
+
     """
     queryset = get_articles(creative_sector_slug, type_sysname, status)
 
@@ -356,8 +356,8 @@ def article_archive_year(
     if template_name is None:
         template_name = 'articles/articles_archive_year.html'
 
-    # this part is taken from django/views/generic/date_based.py, 
-    # function "archive_year" 
+    # this part is taken from django/views/generic/date_based.py,
+    # function "archive_year"
     now = datetime.datetime.now()
     lookup_kwargs = {'%s__year' % date_field: year}
 
@@ -465,8 +465,8 @@ def article_archive_month(
     if template_name is None:
         template_name = 'articles/articles_archive_month.html'
 
-    # this part is taken from django/views/generic/date_based.py, 
-    # function "archive_month" 
+    # this part is taken from django/views/generic/date_based.py,
+    # function "archive_month"
     try:
         date = datetime.date(*time.strptime(year + month, '%Y' + month_format)[:3])
     except ValueError:
@@ -547,7 +547,7 @@ def article_archive_day(
 ):
     """
     Article daily archive view.
-    
+
     Context:
         day:            (datetime) the day
         previous_day:   (datetime) the previous day
@@ -665,7 +665,7 @@ def article_object_detail(
         **kwargs
 ):
     """
-    Detail view from year/month/day/slug 
+    Detail view from year/month/day/slug
 
     Context:
         article:      the article to be detailed
@@ -805,14 +805,14 @@ def magazine_overview(request):
             featured_in_magazine=True,
             article_type__slug="articles-from-our-network-partners",
         ).order_by("-importance_in_magazine"),
-        'blog_posts': Post.published_objects.featured_in_magazine(),
+        'blog_posts': Post.published_objects.featured_in_magazine().order_by("-importance_in_magazine"),
     }
     return render(request, "articles/magazine_overview.html", context)
 
 
 def magazine_blog_posts(request):
     from ccb.apps.blog.models import Post
-    queryset = Post.published_objects.order_by("-published_from")
+    queryset = Post.published_objects.featured_in_magazine().order_by("-published_from")
     article_type = ArticleType.objects.get(slug="interviews")
     form = ArticleSearchForm(data=request.REQUEST)
     context = {
