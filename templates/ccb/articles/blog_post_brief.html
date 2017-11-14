@@ -2,7 +2,7 @@
 
 <div class="col-xs-12">
     <div class="wrapper">
-        <a class="content" href="{{ post.get_url_path }}">
+        <a class="content" href="{{ post.get_url_path }}?from=magazine">
             <div class="image-wrapper">
             {% if post.image %}
                 <img src="{{ UPLOADS_URL }}{{ post.image|modified_path:"list" }}" alt="{{ post.get_title|escape }}"/>

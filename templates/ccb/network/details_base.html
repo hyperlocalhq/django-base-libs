@@ -41,7 +41,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <h1>{% if post and post.blog and post.featured_in_magazine %}<a href="{% url 'magazine_overview' %}">{% trans "CCB MAGAZINE" %}</a>{% elif request.user == object.user %}{% trans "My Profile" %}{% else %}{% trans "Person" %}{% endif %}</h1>
+                        <h1>{% if post.featured_in_magazine and request.GET.from == "magazine" %}<a href="{% url 'magazine_overview' %}">{% trans "CCB MAGAZINE" %}</a>{% elif request.user == object.user %}{% trans "My Profile" %}{% else %}{% trans "Person" %}{% endif %}</h1>
                         <div class="profile">
 
                             <div class="edit-avatar avatar-edit-frame">
@@ -94,7 +94,7 @@
                     </div>
                 </div>
             </div>
-            <div class="menu {% if post and post.blog and post.featured_in_magazine %}magazine-menu{% else %}tabs{% endif %}">
+            <div class="menu {% if post.featured_in_magazine and request.GET.from == "magazine" %}magazine-menu{% else %}tabs{% endif %}">
                 <div class="container">
                     <div class="row">
                         <div class="hidden-xs col-sm-4 col-md-3 headline">
@@ -103,7 +103,7 @@
                         <div class="navi">
                             <nav>
                                 <ul>
-                                    {% if post and post.blog and post.featured_in_magazine %}
+                                    {% if post.featured_in_magazine and request.GET.from == "magazine" %}
                                         {% include "articles/includes/interviews_types_in_tabs.html" %}
                                     {% else %}
                                         {% navigation_links "member" using "navigation/includes/navigation_links_in_tabs.html" %}
@@ -120,7 +120,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <h1>{% if post and post.blog and post.featured_in_magazine %}<a href="{% url 'magazine_overview' %}">{% trans "CCB MAGAZINE" %}</a>{% elif request.user.profile in object.get_owners %}{% trans "My Institution" %}{% else %}{% trans "Institution" %}{% endif %}</h1>
+                        <h1>{% if post.featured_in_magazine and request.GET.from == "magazine" %}<a href="{% url 'magazine_overview' %}">{% trans "CCB MAGAZINE" %}</a>{% elif request.user.profile in object.get_owners %}{% trans "My Institution" %}{% else %}{% trans "Institution" %}{% endif %}</h1>
                         <div class="profile">
 
                             <div class="edit-avatar avatar-edit-frame">
@@ -167,7 +167,7 @@
                     </div>
                 </div>
             </div>
-            <div class="menu {% if post and post.blog and post.featured_in_magazine %}magazine-menu{% else %}tabs{% endif %}">
+            <div class="menu {% if post.featured_in_magazine and request.GET.from == "magazine" %}magazine-menu{% else %}tabs{% endif %}">
                 <div class="container">
                     <div class="row">
                         <div class="hidden-xs col-sm-4 col-md-3 headline">
@@ -177,7 +177,7 @@
                         <div class="navi">
                             <nav>
                                 <ul>
-                                    {% if post and post.blog and post.featured_in_magazine %}
+                                    {% if post.featured_in_magazine and request.GET.from == "magazine" %}
                                         {% include "articles/includes/interviews_types_in_tabs.html" %}
                                     {% else %}
                                         {% navigation_links "member" using "navigation/includes/navigation_links_in_tabs.html" %}
