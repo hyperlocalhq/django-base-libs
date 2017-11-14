@@ -1,5 +1,4 @@
 # -*- coding: UTF-8 -*-
-
 from crispy_forms import layout, bootstrap
 from crispy_forms.helper import FormHelper
 from django import forms
@@ -11,6 +10,8 @@ from base_libs.forms import dynamicforms
 from base_libs.forms.fields import ImageField
 from tagging.forms import TagField
 from tagging_autocomplete.widgets import TagAutocomplete
+
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 Post = apps.get_model("blog", "Post")
 
@@ -52,7 +53,10 @@ class BlogPostForm(dynamicforms.Form):
     body = forms.CharField(
         label=_("Body"),
         required=True,
-        widget=forms.Textarea(),
+        widget=CKEditorUploadingWidget(
+            config_name="basic",
+            external_plugin_resources=getattr(settings, 'CKEDITOR_EXTERNAL_PLUGIN_SOURCES', [])
+        ),
     )
     status = forms.ChoiceField(
         label=_("Status"),

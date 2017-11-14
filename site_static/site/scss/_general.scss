@@ -155,6 +155,9 @@ body {
 b, strong, .strong, .bold {
     font-weight: $font-bold;
 }
+em, i {
+    font-style: italic;
+}
 small {
     font-weight: $font-light;
 }
@@ -283,6 +286,22 @@ img {
         font-family: $font-2, $font-family-1;
         font-size: 1em;
         margin: 0 0 20px 0;
+    }
+    iframe {
+        border: 0;
+    }
+    .iframe-wrapper {
+        position: relative;
+        width: 100%;
+        height: 0;
+        /* padding-bottom will be defined by JavaScript in the style attribute */
+        iframe {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
     }
 }
 

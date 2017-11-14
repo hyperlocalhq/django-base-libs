@@ -574,6 +574,7 @@ msgstr "Filter"
 #: templates/ccb/articles/news_under_category.html:49
 #: templates/ccb/bulletin_board/bulletin_list.html:21
 #: templates/ccb/bulletin_board/bulletin_list_under_category.html:60
+#: templates/ccb/ckeditor/browse.html:38 templates/ccb/events/event_list.html:8
 #: templates/ccb/events/event_list.html:8
 #: templates/ccb/events/event_list_under_category.html:50
 #: templates/ccb/institutions/institution_list.html:50
@@ -620,7 +621,7 @@ msgstr "Übersicht"
 msgid "From the Blogs"
 msgstr "Beitrag schreiben"
 
-#: apps/articles/models.py:17 apps/blog/forms.py:23
+#: apps/articles/models.py:17 apps/blog/forms.py:24
 #: apps/bulletin_board/admin.py:20 apps/bulletin_board/forms.py:196
 #: apps/bulletin_board/models.py:49 apps/bulletin_board/models.py:62
 #: apps/bulletin_board/models.py:138 apps/cms_extensions/models.py:44
@@ -629,7 +630,7 @@ msgstr "Beitrag schreiben"
 #: apps/editorial/models.py:28 apps/events/admin.py:36 apps/events/admin.py:67
 #: apps/events/base.py:216 apps/events/base.py:461 apps/events/forms.py:316
 #: apps/faqs/admin.py:29 apps/groups_networks/admin.py:21
-#: apps/institutions/admin.py:41 apps/institutions/admin.py:266
+#: apps/institutions/admin.py:36 apps/institutions/admin.py:261
 #: apps/logins/models.py:59 apps/media_gallery/admin.py:65
 #: apps/media_gallery/models.py:86 apps/metro/models.py:17
 #: apps/navigation/admin.py:24 apps/partners/admin.py:25
@@ -829,7 +830,7 @@ msgstr "Dez"
 msgid "Posts"
 msgstr "Alle Beiträge"
 
-#: apps/blog/admin.py:62 settings/_base.py:656
+#: apps/blog/admin.py:62 settings/_base.py:655
 msgid "Magazine"
 msgstr ""
 
@@ -854,21 +855,22 @@ msgstr "Feeds durchblättern @ %(site)s"
 msgid "Latest posts"
 msgstr "Neueste Beiträge"
 
+#: apps/blog/forms.py:29
+msgid "Main Photo"
+msgstr "Hauptbild"
+
 #: apps/blog/forms.py:28
 msgid "Main Photo"
 msgstr "Hauptbild"
 
 #: apps/blog/forms.py:30
-#, fuzzy, python-format
-#| msgid ""
-#| "You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal "
-#| "dimensions are %s px."
+#, python-format
 msgid ""
 "You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px."
 msgstr ""
-"Erlaubt sind Daten im Format JPG, GIF, PNG TIFF. Minimale Größe: %s px."
+"Erlaubt sind Daten im Format JPG, GIF, und PNG. Minimale Größe: %s px."
 
-#: apps/blog/forms.py:40 apps/events/forms.py:899 apps/events/models.py:44
+#: apps/blog/forms.py:41 apps/events/forms.py:899 apps/events/models.py:44
 #: apps/media_gallery/forms.py:56 apps/media_gallery/forms.py:350
 #: apps/people/models.py:49 apps/site_specific/forms/events.py:229
 #: apps/site_specific/forms/institutions.py:170
@@ -932,10 +934,8 @@ msgid ""
 msgstr ""
 
 #: apps/blog/forms.py:71
-#, fuzzy
-#| msgid "rate date"
 msgid "expire date"
-msgstr "Bewertungsdatum"
+msgstr "Verfallsdatum"
 
 #: apps/blog/forms.py:73
 msgid ""
@@ -3740,7 +3740,11 @@ msgstr ""
 msgid "Completeness in %"
 msgstr "Vollständigkeit in %"
 
-#: apps/institutions/models.py:312
+#: apps/institutions/models.py:98
+msgid "Owners"
+msgstr "Besitzer"
+
+#: apps/institutions/models.py:261
 msgid "System"
 msgstr "Website"
 
@@ -3788,17 +3792,15 @@ msgid "Login after 1 month of inactivity"
 msgstr ""
 
 #: apps/logins/models.py:57
-#, fuzzy
-#| msgid "Other Groups"
 msgid "Other logins"
-msgstr "Andere Gruppe"
+msgstr "Andere Logins"
 
 #: apps/logins/models.py:60 apps/recommendations/admin.py:30
 #: settings/_base.py:283 subtrees/base_libs/base_libs/models/admin.py:516
 #: subtrees/base_libs/base_libs/models/models.py:1048
 #: templates/ccb/media_gallery/manage_galleries.html:93
 msgid "Content"
-msgstr "Content"
+msgstr "Inhalt"
 
 #: apps/logins/models.py:61
 #, fuzzy
@@ -4668,13 +4670,31 @@ msgstr "Vollständigkeit (komplette zuerst)"
 msgid "Events by %s"
 msgstr "Veranstaltungen nach %s"
 
-#: apps/recommendations/admin.py:12 apps/recommendations/admin.py:35
-#: apps/recommendations/models.py:22
-#, fuzzy
-#| msgid "Message Template"
-msgid "Widget Template"
-msgstr "Nachrichtenvorlage"
+#: apps/recommendations/apps.py:9
+msgid "Recommendations"
+msgstr "Empfehlungen"
 
+#: apps/recommendations/models.py:12
+#, fuzzy
+#| msgid "Latest Post"
+msgid "Latest Profiles"
+msgstr "Letzte Posts"
+
+#: apps/recommendations/models.py:13
+#, fuzzy
+#| msgid "Create Bulletin"
+msgid "Latest Bulletins"
+msgstr "Inserat erstellen"
+
+#: apps/recommendations/models.py:14
+msgid "Latest News of the Category"
+msgstr ""
+
+#: apps/recommendations/models.py:19
+msgid "Widget Template"
+msgstr "Widgetvorlage"
+
+#: apps/recommendations/models.py:22
 #: apps/recommendations/apps.py:9
 msgid "Recommendations"
 msgstr "Empfehlungen"
@@ -5655,20 +5675,16 @@ msgid "Profiles"
 msgstr "Profile"
 
 #: settings/_base.py:666
-#, fuzzy
-#| msgid "Latest Post"
 msgid "Latest Profiles"
-msgstr "Letzte Posts"
+msgstr "Letzte Profile"
 
 #: settings/_base.py:667
-#, fuzzy
-#| msgid "Create Bulletin"
 msgid "Latest Bulletins"
-msgstr "Inserat erstellen"
+msgstr "Letzte Inserate"
 
 #: settings/_base.py:668
 msgid "Latest News of the Category"
-msgstr ""
+msgstr "Letzte News der Kategorie"
 
 #: settings/_base.py:723
 msgid "de"
@@ -6372,10 +6388,8 @@ msgid "Yes, I'm sure"
 msgstr ""
 
 #: templates/admin/admin/owners.html:25
-#, fuzzy
-#| msgid "Owners"
 msgid "Ownership"
-msgstr "Besitzer"
+msgstr "Besitz"
 
 #: templates/admin/extendedadmin/document_change.html:88
 msgid "Add"
@@ -7617,6 +7631,28 @@ msgstr "Inserat löschen"
 #, python-format
 msgid "Are you sure you want to delete the bulletin \"%(title)s\"?"
 msgstr "Willst Du das Inserat \"%(title)s\" wirklich löschen?"
+
+#: templates/ccb/ckeditor/browse.html:5
+msgid "Select an image to embed"
+msgstr "Wähle ein Bild zum Einbetten aus"
+
+#: templates/ccb/ckeditor/browse.html:28
+msgid "Browse for the image you want, then click 'Embed Image' to continue..."
+msgstr ""
+"Suche nach dem gewünschten Bild und klicken Sie dann auf 'Bild einbetten', "
+"um fortzufahren..."
+
+#: templates/ccb/ckeditor/browse.html:30
+msgid ""
+"No images found. Upload images using the 'Image Button' dialog's 'Upload' "
+"tab."
+msgstr ""
+"Keine Bilder gefunden. Lade Bilder über den Tab 'Hochladen' des Dialogfelds "
+"'Bildeigenschaften' hoch."
+
+#: templates/ccb/ckeditor/browse.html:75
+msgid "Embed Image"
+msgstr "Bild einbetten"
 
 #: templates/ccb/cms/base_cms.html:20
 msgid "Toggle navigation"
@@ -13858,9 +13894,6 @@ msgstr ""
 
 #~ msgid "individual contacts"
 #~ msgstr "Personenkonto"
-
-#~ msgid "Select an option"
-#~ msgstr "Zahlungsmöglichkeiten bearbeiten"
 
 #~ msgid "Negative"
 #~ msgstr "Verlassen"

@@ -70,7 +70,7 @@ oTinyMCEConfig.plugins = "advimage,advlink,fullscreen,paste,media,searchreplace,
 oTinyMCEConfig.grappelli_show_documentstructure = 'off';
 
 oTinyMCEConfig.mode = 'textareas';
-oTinyMCEConfig.content_css = window.settings.STATIC_URL+"site/css/tiny-mce.css";
+oTinyMCEConfig.content_css = window.settings.STATIC_URL+"site/css/richtext.css";
 
 oTinyMCEConfig.theme_advanced_buttons1 = "formatselect,|,bold,italic,underline,|,bullist,numlist,blockquote,|,link,unlink,|,image,media,grappelli_documentstructure";
 oTinyMCEConfig.theme_advanced_buttons2 = "";

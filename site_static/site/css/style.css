@@ -1713,6 +1713,10 @@ b, strong, .strong, .bold {
   font-weight: 700;
 }
 
+em, i {
+  font-style: italic;
+}
+
 small {
   font-weight: 300;
 }
@@ -1847,6 +1851,25 @@ img.ckeditor-image {
   font-family: "Lato", "sans-serif";
   font-size: 1em;
   margin: 0 0 20px 0;
+}
+
+.tiny-mce iframe {
+  border: 0;
+}
+
+.tiny-mce .iframe-wrapper {
+  position: relative;
+  width: 100%;
+  height: 0;
+  /* padding-bottom will be defined by JavaScript in the style attribute */
+}
+
+.tiny-mce .iframe-wrapper iframe {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .ckeditor-embed {
