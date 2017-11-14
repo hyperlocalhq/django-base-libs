@@ -29,6 +29,7 @@ body.ckeditor div#page {
 body.ckeditor div#container {
   width: 95% !important;
   min-width: 0;
+  overflow: hidden;
 }
 
 body.ckeditor div#container .left {
@@ -71,11 +72,55 @@ body.ckeditor div#gallery .image-caption {
 }
 
 body.ckeditor div#search {
-  width: 100%;
+  width: 100% !important;
 }
 
 body.ckeditor div#thumbs {
+  width: 100% !important;
+}
+
+body.ckeditor div#thumbs .thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-box-align: stretch;
+  align-items: stretch;
+}
+
+body.ckeditor div#thumbs .thumbs li {
+  width: 33%;
+  margin: 0;
+}
+
+body.ckeditor div#thumbs .thumbs li .border {
+  padding: 2px;
+  overflow: hidden;
+}
+
+body.ckeditor div#thumbs .thumbs li .border-filename {
+  padding: 2px;
+}
+
+body.ckeditor div#thumbs .thumbs li .thumb {
   width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+
+body.ckeditor div#thumbs .thumbs li .thumb img {
+  max-width: 100% !important;
+}
+
+body.ckeditor div#thumbs .thumbs li .thumb .filename {
+  font-size: 0.8rem !important;
+}
+
+body.ckeditor div#thumbs .thumbs li.selected .thumb {
+  color: #fff;
+}
+
+body.ckeditor div#thumbs .thumbs li.selected .thumb .filename {
+  color: #fff;
 }
 
 body.ckeditor input.form_text {
@@ -256,8 +301,16 @@ body.ckeditor .button:hover, body.ckeditor .button:focus, body.ckeditor .button.
   width: 100% !important;
 }
 
+.cke_editor_form_body_dialog .cke_dialog_body .cke_dialog_contents .cke_dialog_page_contents > table > tbody > tr:nth-child(2) .cke_dialog_ui_input_select option[value="anchor"] {
+  display: none;
+}
+
 .cke_editor_form_body_dialog .cke_dialog_body .cke_dialog_contents .cke_dialog_page_contents > table > tbody > tr:nth-child(3) {
   display: none;
+}
+
+.cke_editor_form_body_dialog .cke_dialog_body .cke_dialog_contents .cke_dialog_page_contents > table > tbody > tr:nth-last-child(3) {
+  display: table-row;
 }
 
 .cke_editor_form_body_dialog .cke_dialog_body .cke_dialog_contents .cke_dialog_page_contents > table > tbody > tr:last-child {

@@ -46,12 +46,14 @@
                                         {% for file in files %}
                                             {% if dir in file.src %}
                                                 <li>
-                                                    <a class="thumb" href="{% if file.is_image %}{{ file.src }}{% else %}{{ file.thumb }}{% endif %}">
-                                                        <img src="{{ file.thumb }}" style="max-width: 75px;"/>
-                                                        {% if file.visible_filename %}
-                                                            <span class="filename">{{ file.visible_filename }}</span>
-                                                        {% endif %}
-                                                    </a>
+                                                    <div class="border">
+                                                        <a class="thumb" href="{% if file.is_image %}{{ file.src }}{% else %}{{ file.thumb }}{% endif %}">
+                                                            <img src="{{ file.thumb }}" style="max-width: 75px;"/>
+                                                            {% if file.visible_filename %}
+                                                                <span class="filename">{{ file.visible_filename }}</span>
+                                                            {% endif %}
+                                                        </a>
+                                                    </div>
                                                     <div class="caption">
                                                         <div class="submit-row">
                                                             <input href="{{ file.src }}" class="default embed" type="submit" name="_embed" value="Embed Image" />
@@ -64,12 +66,16 @@
                             {% else %}
                                 {% for file in files %}
                                     <li>
-                                        <a class="thumb" href="{% if file.is_image %}{{ file.src }}{% else %}{{ file.thumb }}{% endif %}">
-                                            <img src="{{ file.thumb }}" style="max-width: 75px;"/>
-                                            {% if file.visible_filename %}
-                                                <span class="filename">{{ file.visible_filename }}</span>
-                                            {% endif %}
-                                        </a>
+                                        <div class="border">
+                                            <a class="thumb" href="{% if file.is_image %}{{ file.src }}{% else %}{{ file.thumb }}{% endif %}">
+                                                <img src="{{ file.thumb }}" style="max-width: 75px;"/>
+                                                {% if file.visible_filename %}
+                                                    <div class="border-filename">
+                                                        <span class="filename">{{ file.visible_filename }}</span>
+                                                    </div>
+                                                {% endif %}
+                                            </a>
+                                        </div>
                                         <div class="caption">
                                             <div class="submit-row">
                                                 <input href="{{ file.src }}" class="default embed button" type="submit" name="_embed" value="{% trans "Embed Image" %}" />
