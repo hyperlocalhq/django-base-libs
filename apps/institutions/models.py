@@ -82,20 +82,71 @@ class Institution(InstitutionBase):
             )
         return allowed_groups
 
+    def set_owner(self, person):
+        from django.apps import apps
+        PersonGroup = apps.get_model("groups_networks", "PersonGroup")
+        GroupMembership = apps.get_model("groups_networks", "GroupMembership")
+        Language = apps.get_model("i18n", "Language")
+        preferred_language = person.preferred_language
+        if not preferred_language:
+            preferred_language = Language.objects.get(
+                iso2_code=get_current_language(),
+            )
+        ct = ContentType.objects.get_for_model(self)
+        group, created = PersonGroup.objects.get_or_create(
+            content_type=ct,
+            object_id=self.pk,
+            title=self.title,
+            slug=self.slug,
+            group_type=get_related_queryset(
+                PersonGroup,
+                "group_type"
+            ).get(
+                slug="institutional",
+            ),
+            access_type="secret",
+        )
+
+        group.is_by_confirmation = True
+        group.preferred_language = preferred_language
+        group.save()
+
+        membership, created = GroupMembership.objects.get_or_create(
+            user=person.user,
+            person_group=group,
+            role="owners",
+            inviter=get_current_user(),
+            confirmer=get_current_user(),
+            is_accepted=True,
+        )
+    set_owner.alters_data = True
+
+    def remove_owner(self, person):
+        from django.apps import apps
+        GroupMembership = apps.get_model("groups_networks", "GroupMembership")
+        group = self._get_related_group()
+
+        if not group:
+            return False
+
+        memberships = GroupMembership.objects.filter(
+            user=person.user,
+            person_group=group,
+            role="owners",
+        )
+
+        if memberships.count():
+            memberships.delete()
+            return True
+        return False
+
+    remove_owner.alters_data = True
+
     def get_owners(self):
         group = self._get_related_group()
         if group:
             return group.get_owners()
         return []
-
-    def get_admin_links_to_owners(self):
-        links = []
-        for owner in self.get_owners():
-            links.append("""<a href="/admin/people/person/%s/">%s</a>""" % (owner.id, owner.get_title()))
-        return "<br /> ".join(links)
-
-    get_admin_links_to_owners.allow_tags = True
-    get_admin_links_to_owners.short_description = _("Owners")
 
     def get_groups(self):
         if not hasattr(self, "_groups_cache"):

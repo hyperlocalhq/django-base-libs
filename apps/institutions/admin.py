@@ -1,14 +1,16 @@
 # -*- coding: UTF-8 -*-
+from __future__ import unicode_literals
 
 from django import forms
-from django.db import models
+from django.conf.urls import patterns, url
+from django.apps import apps
 from django import template
 from django.contrib import admin
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ugettext
 from django.conf import settings
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404, redirect, render
 from django.contrib.admin import helpers
-from django.contrib.admin.util import model_ngettext
+from django.utils.text import force_text
 from django.utils.encoding import force_unicode
 from django.contrib.admin.util import NestedObjects, quote
 from django.core.exceptions import PermissionDenied
@@ -18,14 +20,17 @@ from django.template.defaultfilters import date
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
+from django.db.models.functions import Lower
 
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin.tree_editor import TreeEditor
 
-LegalForm = models.get_model("institutions", "LegalForm")
-Institution = models.get_model("institutions", "Institution")
-InstitutionType = models.get_model("institutions", "InstitutionType")
+
+Person = apps.get_model("people", "Person")
+LegalForm = apps.get_model("institutions", "LegalForm")
+Institution = apps.get_model("institutions", "Institution")
+InstitutionType = apps.get_model("institutions", "InstitutionType")
 
 
 class InstitutionTypeOptions(TreeEditor):
@@ -263,9 +268,32 @@ class LegalFormOptions(ExtendedModelAdmin):
     prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,), }
 
 
+class ModelMultiRawInput(forms.TextInput):
+    def render(self, name, value, attrs=None):
+        if value:
+            value = ','.join([force_text(v) for v in value])
+        else:
+            value = ''
+        return super(ModelMultiRawInput, self).render(name, value, attrs)
+
+    def value_from_datadict(self, data, files, name):
+        value = data.get(name)
+        if value:
+            return value.split(',')
+
+
+class OwnersForm(forms.Form):
+    people = forms.ModelMultipleChoiceField(
+        label=_("Users"),
+        queryset=Person.objects.filter(user__is_active=True).order_by(Lower('user__username')),
+        required=False,
+        widget=ModelMultiRawInput(),
+    )
+
+
 class InstitutionOptions(ExtendedModelAdmin):
     save_on_top = True
-    list_display = ('title', 'get_admin_links_to_owners', 'slug', 'creation_date', 'status')
+    list_display = ('title', 'get_owners_list', 'slug', 'creation_date', 'status')
     list_filter = ('creation_date', 'status', 'context_categories')
     search_fields = ('title', 'title2', 'slug')
     ordering = ('-creation_date',)
@@ -284,6 +312,57 @@ class InstitutionOptions(ExtendedModelAdmin):
             inst.save()
 
     publish_commercial.short_description = _("Publish selected institutions as commercial")
+
+    def get_owners_list(self, obj):
+        lines = []
+        for o in obj.get_owners():
+            lines.append('<a href="/admin/people/person/%s/">%s</a>' % (o.pk, o))
+        lines.append('<a href="%s/owners/"><span>%s</span></a>' % (obj.pk, ugettext('Manage owners')))
+        return '<br />'.join(lines)
+
+    get_owners_list.allow_tags = True
+    get_owners_list.short_description = _("Owners")
+
+    def owners_view(self, request, institution_id):
+        from base_libs.views.views import access_denied
+        institution = get_object_or_404(Institution, pk=institution_id)
+
+        if not (request.user.is_staff and institution.is_editable()):
+            return access_denied(request)
+
+        if request.method == "POST":
+            form = OwnersForm(request.POST)
+            if form.is_valid():
+                existing_owners = set(institution.get_owners())
+                changed_owners = set(form.cleaned_data['people'])
+
+                removed_owners = existing_owners - changed_owners
+                new_owners = changed_owners - existing_owners
+
+                for p in removed_owners:
+                    institution.remove_owner(p)
+
+                for p in new_owners:
+                    institution.set_owner(p)
+
+                return redirect('../../?id__exact=%d' % institution.pk)
+        else:
+            form = OwnersForm(initial={
+                'people': institution.get_owners()
+            })
+
+        return render(request, 'admin/owners.html', {
+            'location': institution,
+            'original': institution,
+            'app_label': Institution._meta.app_label,
+            'opts': Institution._meta,
+            'form': form,
+            'title': ugettext('The owners of %(institution)s') % {'institution': institution},
+        })
+
+    def get_urls(self):
+        urls = super(InstitutionOptions, self).get_urls()
+        return patterns('', url(r'^(?P<institution_id>\d+)/owners/$', self.owners_view)) + urls
 
 
 admin.site.register(Institution, InstitutionOptions)
