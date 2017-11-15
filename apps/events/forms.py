@@ -1694,7 +1694,7 @@ def save_data(form_steps, form_step_data):
 
     event.url0_type = URLType.objects.get(slug='web')
     event.url0_link = step_main_data.get('url0_link', '')
-    
+
     event.photo_author = step_event_profile.get('photo_author', '')
 
     for f in ("open", "break_close", "break_open", "close"):
@@ -1797,6 +1797,22 @@ def show_creation_success_view(request, form_step_data):
     return redirect("event_created")
 
 
+def set_extra_context(current_step, form_steps, form_step_data, request):
+    extra_context = {}
+
+    if "institution" in request.GET:
+        institution = get_object_or_404(Institution, slug=request.GET["institution"])
+        extra_context["created_by"] = institution.title
+        request.httpstate['created_by'] = extra_context["created_by"]
+    elif "person" in request.GET:
+        extra_context["created_by"] = request.user.profile.get_title()
+        request.httpstate['created_by'] = extra_context["created_by"]
+    else:
+        extra_context["created_by"] = request.httpstate['created_by']
+
+    return extra_context
+
+
 ADD_EVENT_FORM_STEPS = {
     'step_main_data': {
         'title': _("main data"),
@@ -1835,6 +1851,7 @@ ADD_EVENT_FORM_STEPS = {
     'onsubmit': submit_step,
     'onsave': save_data,
     'onsuccess': show_creation_success_view,
+    'on_set_extra_context': set_extra_context,
     'name': 'add_event',
     'default_path': [
         'step_main_data',

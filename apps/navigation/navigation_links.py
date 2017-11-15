@@ -548,8 +548,8 @@ navigation_links = {
             'is_login_required': True,
         },
         {
-            'url_de': '/de/events/add/',
-            'url_en': '/en/events/add/',
+            'url_de': '/de/events/add/?person=1',
+            'url_en': '/en/events/add/?person=1',
             'text_de': 'Event erstellen',
             'text_en': 'Add new Event',
             'should_be_shown': for_all,
@@ -558,8 +558,8 @@ navigation_links = {
             'is_login_required': True,
         },
         {
-            'url_de': '/de/jobs/add/',
-            'url_en': '/en/jobs/add/',
+            'url_de': '/de/jobs/add/?person=1',
+            'url_en': '/en/jobs/add/?person=1',
             'text_de': 'Job eintragen',
             'text_en': 'Job offer',
             'should_be_shown': for_all,
@@ -568,8 +568,8 @@ navigation_links = {
             'is_login_required': True,
         },
         {
-            'url_de': '/de/marketplace/add/',
-            'url_en': '/en/marketplace/add/',
+            'url_de': '/de/marketplace/add/?person=1',
+            'url_en': '/en/marketplace/add/?person=1',
             'text_de': 'Inserat hinzufügen',
             'text_en': 'Add new Bulletin',
             'should_be_shown': for_all,

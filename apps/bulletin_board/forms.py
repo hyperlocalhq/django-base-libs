@@ -6,7 +6,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import string_concat
 from django.utils.dates import MONTHS
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.conf import settings
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
@@ -451,10 +451,23 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
     return form_step_data
 
 
-def set_extra_context(current_step, form_steps, form_step_data, instance=None, **kwargs):
+def set_extra_context(current_step, form_steps, form_step_data, request, instance=None, **kwargs):
+    extra_context = {}
+
+    if "institution" in request.GET:
+        institution = get_object_or_404(Institution, slug=request.GET["institution"])
+        extra_context["created_by"] = institution.title
+        request.httpstate['created_by'] = extra_context["created_by"]
+    elif "person" in request.GET:
+        extra_context["created_by"] = request.user.profile.get_title()
+        request.httpstate['created_by'] = extra_context["created_by"]
+    else:
+        extra_context["created_by"] = request.httpstate['created_by']
+
     if "_pk" in form_step_data:
-        return {'bulletin': Bulletin.objects.get(pk=form_step_data['_pk'])}
-    return {}
+        extra_context["bulletin"] = Bulletin.objects.get(pk=form_step_data['_pk'])
+
+    return extra_context
 
 
 def save_data(form_steps, form_step_data, instance=None):
