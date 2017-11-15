@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-14 21:05+0100\n"
+"POT-Creation-Date: 2017-11-15 18:48+0100\n"
 "PO-Revision-Date: 2016-03-10 17:20+0053\n"
 "Last-Translator: Josephine Natalie Weisflog <j.weisflog@kulturprojekte-"
 "berlin.de>\n"
@@ -463,14 +463,14 @@ msgid "Latest %(article_type)s"
 msgstr ""
 
 #: .\apps\articles\forms.py:17 .\apps\bulletin_board\forms.py:130
-#: .\apps\bulletin_board\forms.py:598 .\apps\bulletin_board\forms.py:605
-#: .\apps\bulletin_board\forms.py:614 .\apps\bulletin_board\forms.py:618
-#: .\apps\bulletin_board\forms.py:627 .\apps\events\forms.py:1851
-#: .\apps\events\forms.py:1857 .\apps\events\forms.py:1863
+#: .\apps\bulletin_board\forms.py:611 .\apps\bulletin_board\forms.py:618
+#: .\apps\bulletin_board\forms.py:627 .\apps\bulletin_board\forms.py:631
+#: .\apps\bulletin_board\forms.py:640 .\apps\events\forms.py:1868
+#: .\apps\events\forms.py:1874 .\apps\events\forms.py:1880
 #: .\apps\institutions\forms.py:1448 .\apps\institutions\forms.py:1454
 #: .\apps\institutions\forms.py:1460 .\apps\institutions\forms.py:1466
-#: .\apps\marketplace\forms.py:688 .\apps\marketplace\forms.py:694
-#: .\apps\marketplace\forms.py:700 .\apps\marketplace\forms.py:706
+#: .\apps\marketplace\forms.py:692 .\apps\marketplace\forms.py:698
+#: .\apps\marketplace\forms.py:704 .\apps\marketplace\forms.py:710
 #: .\apps\media_gallery\forms.py:402 .\apps\network\forms.py:20
 #: .\apps\network\forms.py:27 .\apps\network\forms.py:33
 #: .\apps\people\forms.py:20 .\apps\people\forms.py:26
@@ -488,8 +488,8 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: .\apps\articles\forms.py:18 .\apps\bulletin_board\forms.py:599
-#: .\apps\events\forms.py:1852 .\apps\marketplace\forms.py:695
+#: .\apps\articles\forms.py:18 .\apps\bulletin_board\forms.py:612
+#: .\apps\events\forms.py:1869 .\apps\marketplace\forms.py:699
 #: .\apps\media_gallery\forms.py:403 .\apps\network\forms.py:28
 #: .\apps\resources\forms.py:19
 #: .\templates\ccb\articles\articles_detail.html:96
@@ -503,9 +503,9 @@ msgstr ""
 msgid "Category"
 msgstr ""
 
-#: .\apps\articles\forms.py:31 .\apps\bulletin_board\forms.py:638
-#: .\apps\events\forms.py:1886 .\apps\institutions\forms.py:1481
-#: .\apps\marketplace\forms.py:721 .\apps\media_gallery\forms.py:416
+#: .\apps\articles\forms.py:31 .\apps\bulletin_board\forms.py:651
+#: .\apps\events\forms.py:1903 .\apps\institutions\forms.py:1481
+#: .\apps\marketplace\forms.py:725 .\apps\media_gallery\forms.py:416
 #: .\apps\network\forms.py:56 .\apps\people\forms.py:53
 #: .\apps\resources\forms.py:39
 #: .\templates\ccb\bulletin_board\my_bulletin_list.html:18
@@ -516,9 +516,9 @@ msgstr ""
 msgid "Filter"
 msgstr ""
 
-#: .\apps\articles\forms.py:36 .\apps\bulletin_board\forms.py:646
-#: .\apps\events\forms.py:1895 .\apps\institutions\forms.py:1489
-#: .\apps\marketplace\forms.py:729 .\apps\media_gallery\forms.py:421
+#: .\apps\articles\forms.py:36 .\apps\bulletin_board\forms.py:659
+#: .\apps\events\forms.py:1912 .\apps\institutions\forms.py:1489
+#: .\apps\marketplace\forms.py:733 .\apps\media_gallery\forms.py:421
 #: .\apps\network\forms.py:63 .\apps\people\forms.py:61
 #: .\apps\resources\forms.py:45 .\apps\search\cms_apps.py:10
 #: .\apps\search\forms.py:22 .\templates\admin\admin\owners.html:31
@@ -848,7 +848,7 @@ msgstr ""
 msgid "Body"
 msgstr ""
 
-#: .\apps\blog\forms.py:62 .\apps\bulletin_board\forms.py:625
+#: .\apps\blog\forms.py:62 .\apps\bulletin_board\forms.py:638
 #: .\apps\bulletin_board\models.py:191 .\apps\events\base.py:229
 #: .\apps\partners\admin.py:28 .\apps\partners\admin.py:65
 #: .\apps\partners\models.py:27 .\apps\partners\models.py:47
@@ -1317,7 +1317,7 @@ msgstr ""
 msgid "Please enter a letter to display a list of available institutions"
 msgstr ""
 
-#: .\apps\bulletin_board\forms.py:131 .\apps\events\forms.py:1864
+#: .\apps\bulletin_board\forms.py:131 .\apps\events\forms.py:1881
 #: .\apps\institutions\forms.py:1467 .\apps\people\forms.py:39
 msgid "Location Type"
 msgstr ""
@@ -1381,25 +1381,25 @@ msgstr ""
 msgid "Please enter a valid time."
 msgstr ""
 
-#: .\apps\bulletin_board\forms.py:577
+#: .\apps\bulletin_board\forms.py:590
 msgid "bulletin data"
 msgstr ""
 
-#: .\apps\bulletin_board\forms.py:582 .\apps\events\forms.py:1831
-#: .\apps\institutions\forms.py:1433 .\apps\marketplace\forms.py:669
+#: .\apps\bulletin_board\forms.py:595 .\apps\events\forms.py:1847
+#: .\apps\institutions\forms.py:1433 .\apps\marketplace\forms.py:673
 msgid "confirm data"
 msgstr ""
 
-#: .\apps\bulletin_board\forms.py:606 .\apps\network\forms.py:34
+#: .\apps\bulletin_board\forms.py:619 .\apps\network\forms.py:34
 msgid "Locality Type"
 msgstr ""
 
-#: .\apps\bulletin_board\forms.py:612
+#: .\apps\bulletin_board\forms.py:625
 #: .\templates\ccb\bulletin_board\change_bulletin_confirm.html:27
 msgid "Bulletin Type"
 msgstr ""
 
-#: .\apps\bulletin_board\forms.py:619 .\apps\bulletin_board\models.py:69
+#: .\apps\bulletin_board\forms.py:632 .\apps\bulletin_board\models.py:69
 #: .\templates\ccb\bulletin_board\change_bulletin_confirm.html:44
 msgid "Bulletin Category"
 msgstr ""
@@ -2443,7 +2443,7 @@ msgstr ""
 msgid "Title (English)"
 msgstr ""
 
-#: .\apps\events\forms.py:95 .\apps\events\forms.py:1858
+#: .\apps\events\forms.py:95 .\apps\events\forms.py:1875
 #: .\apps\site_specific\forms\events.py:124
 #: .\templates\ccb\events\add_event_confirm.html:48
 msgid "Event Type"
@@ -3044,32 +3044,32 @@ msgstr ""
 msgid "Separate tags with commas."
 msgstr ""
 
-#: .\apps\events\forms.py:1802 .\apps\institutions\forms.py:1412
-#: .\apps\marketplace\forms.py:658
+#: .\apps\events\forms.py:1818 .\apps\institutions\forms.py:1412
+#: .\apps\marketplace\forms.py:662
 #: .\templates\ccb\events\add_event_confirm.html:28
 #: .\templates\ccb\groups_networks\persongroups\add_group_confirm.html:56
 msgid "main data"
 msgstr ""
 
-#: .\apps\events\forms.py:1816
+#: .\apps\events\forms.py:1832
 #: .\templates\ccb\events\add_event_confirm.html:192
 msgid "event profile"
 msgstr ""
 
-#: .\apps\events\forms.py:1821
+#: .\apps\events\forms.py:1837
 #: .\templates\ccb\events\add_event_confirm.html:246
 msgid "fees and opening hours"
 msgstr ""
 
-#: .\apps\events\forms.py:1826 .\apps\events\models.py:40
+#: .\apps\events\forms.py:1842 .\apps\events\models.py:40
 #: .\apps\groups_networks\models.py:19 .\apps\institutions\forms.py:1427
-#: .\apps\institutions\models.py:32 .\apps\marketplace\forms.py:664
+#: .\apps\institutions\models.py:32 .\apps\marketplace\forms.py:668
 #: .\apps\people\models.py:44 .\apps\resources\models.py:26
 #: .\templates\ccb\events\add_event_confirm.html:426
 msgid "categories"
 msgstr ""
 
-#: .\apps\events\forms.py:1873
+#: .\apps\events\forms.py:1890
 msgid "Featured events only"
 msgstr ""
 
@@ -3771,14 +3771,14 @@ msgstr ""
 msgid "Position"
 msgstr ""
 
-#: .\apps\marketplace\forms.py:70 .\apps\marketplace\forms.py:701
+#: .\apps\marketplace\forms.py:70 .\apps\marketplace\forms.py:705
 #: .\apps\site_specific\forms\marketplace.py:70
 #: .\templates\ccb\marketplace\emails\new_job_offer.html:8
 #: .\templates\ccb\marketplace\profile\details.html:18
 msgid "Job Type"
 msgstr ""
 
-#: .\apps\marketplace\forms.py:79 .\apps\marketplace\forms.py:707
+#: .\apps\marketplace\forms.py:79 .\apps\marketplace\forms.py:711
 #: .\apps\site_specific\forms\marketplace.py:76
 #: .\templates\ccb\marketplace\add_job_offer_confirm.html:42
 #: .\templates\ccb\marketplace\emails\new_job_offer.html:12
@@ -3848,7 +3848,7 @@ msgstr ""
 msgid "Report job offer"
 msgstr ""
 
-#: .\apps\marketplace\forms.py:689
+#: .\apps\marketplace\forms.py:693
 #: .\templates\ccb\marketplace\add_job_offer_confirm.html:179
 #: .\templates\ccb\marketplace\emails\new_job_offer.html:144
 #: .\templates\ccb\marketplace\profile\categories.html:15
@@ -7322,6 +7322,10 @@ msgid "Create Bulletin"
 msgstr ""
 
 #: .\templates\ccb\bulletin_board\change_bulletin.html:17
+#, python-format
+msgid "Enter new bulletin for %(created_by)s"
+msgstr ""
+
 #: .\templates\ccb\bulletin_board\change_bulletin_confirm.html:7
 #: .\templates\ccb\bulletin_board\change_bulletin_confirm.html:12
 msgid "New Bulletin"
@@ -7766,12 +7770,16 @@ msgid "Registration"
 msgstr ""
 
 #: .\templates\ccb\events\add_event_base.html:8
-#: .\templates\ccb\events\add_event_confirm.html:23
-msgid "New Event"
+#, python-format
+msgid "Enter new event for %(created_by)s"
 msgstr ""
 
 #: .\templates\ccb\events\add_event_base.html:21
 msgid "Add new event"
+msgstr ""
+
+#: .\templates\ccb\events\add_event_confirm.html:23
+msgid "New Event"
 msgstr ""
 
 #: .\templates\ccb\events\add_event_confirm.html:177
@@ -9535,7 +9543,7 @@ msgstr ""
 
 #: .\templates\ccb\marketplace\add_job_offer_base.html:8
 #, python-format
-msgid "Enter a new job offer from %(job_offer_from)s"
+msgid "Enter new job offer for %(created_by)s"
 msgstr ""
 
 #: .\templates\ccb\marketplace\add_job_offer_base.html:21
