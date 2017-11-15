@@ -456,9 +456,11 @@ def set_extra_context(current_step, form_steps, form_step_data, request, instanc
 
     if "institution" in request.GET:
         institution = get_object_or_404(Institution, slug=request.GET["institution"])
+        extra_context["is_institution"] = 1
         extra_context["created_by"] = institution.title
         request.httpstate['created_by'] = extra_context["created_by"]
     elif "person" in request.GET:
+        extra_context["is_person"] = 1
         extra_context["created_by"] = request.user.profile.get_title()
         request.httpstate['created_by'] = extra_context["created_by"]
     else:
