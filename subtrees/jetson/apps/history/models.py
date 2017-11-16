@@ -41,15 +41,18 @@ SCOPE_CHOICES = (
 
 class ExtendedLogEntryManager(models.Manager):
     def log_action(self, user=None, content_object=None, action_flag=A_UNDEFINED, scope=AS_SYSTEM, **kwargs):
+        if not user.pk:  # if the user has just been deleted, skip this logging
+            return
         e = self.model(
             user=user,
             action_flag=action_flag,
             object_repr=force_unicode(content_object)[:200],
             scope=scope,
-            )
+        )
         for lang_code, lang_name in settings.LANGUAGES:
             setattr(e, "change_message_%s" % lang_code, kwargs['change_message_%s' % lang_code])
-        e.content_object=content_object
+        if content_object.pk:  # if the object hasn't just been deleted
+            e.content_object=content_object
         e.save()
 
     def import_from_log_entries(self):

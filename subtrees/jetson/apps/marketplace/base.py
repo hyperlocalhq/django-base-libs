@@ -425,7 +425,7 @@ class JobOfferBase(CreationModificationMixin, PublishingMixin, UrlMixin):
                         owner=self.contact_person.user,
                         )
             if getattr(self, "offering_institution", None):
-                for role in self.offering_institution.get_representatives():
+                for role in self.offering_institution.get_object_permission_roles():
                     RowLevelPermission.objects.create_default_row_permissions(
                         model_instance=self,
                         owner=role,

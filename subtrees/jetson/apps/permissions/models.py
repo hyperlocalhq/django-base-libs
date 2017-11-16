@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+from django.apps import apps
 from django.db import connection, models
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
@@ -26,14 +27,14 @@ class RowLevelPermissionManager(models.Manager):
             except Permission.DoesNotExist:
                 from django.contrib.auth.management import create_permissions
                 create_permissions(
-                    models.get_app(model_instance._meta.app_label),
+                    apps.get_app_config(model_instance._meta.app_label),
                     created_models=None,
                     verbosity=0,
                     )
                 permission = Permission.objects.get(
                     codename=permission,
                     content_type=content_type,
-                    )
+                )
         if content_type != permission.content_type:
             raise TypeError, "Permission content type (%s) and object content type (%s) do not match" % (permission.content_type, content_type)
         object_id = model_instance._get_pk_val()

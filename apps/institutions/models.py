@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 
+from django.apps import apps
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.contenttypes.models import ContentType
@@ -47,31 +48,47 @@ class Institution(InstitutionBase):
         else:
             return path
 
-    def create_default_group(self):
-        PersonGroup = models.get_model("groups_networks", "PersonGroup")
-        group = PersonGroup(
-            title=self.title,
-            slug=self.slug,
-            group_type=get_related_queryset(PersonGroup, "group_type").get(
-                sysname='institutional',
-            ),
-            access_type=get_related_queryset(PersonGroup, "access_type").get(
-                sysname='secret_access',
-            ),
+    def ensure_default_person_group(self, lang_code=settings.LANGUAGE_CODE):
+        PersonGroup = apps.get_model("groups_networks", "PersonGroup")
+        GroupType = apps.get_model("groups_networks", "GroupType")
+        Language = apps.get_model("i18n", "Language")
+        ct = ContentType.objects.get_for_model(self)
+        group_type, group_type_created = GroupType.objects.get_or_create(
+            slug="institutional",
+            defaults={
+                'title_de': "Institutional",
+                'title_en': "Institutional",
+            },
         )
-        group.content_object = self
-        group.save()
+        group, group_created = PersonGroup.objects.update_or_create(
+            content_type=ct,
+            object_id=self.pk,
+            group_type=group_type,
+            access_type="secret",
+            defaults={
+                'title': self.title,
+                'slug': self.slug,
+                'is_by_confirmation': True,
+            },
+        )
+        if group_created:
+            language, _language_created = Language.objects.get_or_create(
+                iso2_code=lang_code,
+            )
+            group.preferred_language = language
+            group.save()
+
         return group
 
-    create_default_group.alters_data = True
+    ensure_default_person_group.alters_data = True
 
-    def get_representatives(self):
+    def get_object_permission_roles(self):
         """
-        Returns the default owners of this object for permission manipulation
+        Returns the default permission owners of this object for permission manipulation
         """
         groups = self.get_groups()
         if not groups:
-            groups = [self.create_default_group()]
+            groups = [self.ensure_default_person_group()]
         allowed_groups = []
         for person_group in groups:
             allowed_groups.append(
@@ -82,52 +99,35 @@ class Institution(InstitutionBase):
             )
         return allowed_groups
 
+    get_object_permission_roles.alters_data = True
+
     def set_owner(self, person):
-        from django.apps import apps
-        PersonGroup = apps.get_model("groups_networks", "PersonGroup")
         GroupMembership = apps.get_model("groups_networks", "GroupMembership")
-        Language = apps.get_model("i18n", "Language")
-        preferred_language = person.preferred_language
-        if not preferred_language:
-            preferred_language = Language.objects.get(
-                iso2_code=get_current_language(),
-            )
-        ct = ContentType.objects.get_for_model(self)
-        group, created = PersonGroup.objects.get_or_create(
-            content_type=ct,
-            object_id=self.pk,
-            title=self.title,
-            slug=self.slug,
-            group_type=get_related_queryset(
-                PersonGroup,
-                "group_type"
-            ).get(
-                slug="institutional",
-            ),
-            access_type="secret",
-        )
+        if person.preferred_language:
+            lang_code = person.preferred_language.iso2_code
+        else:
+            lang_code = get_current_language()
+        group = self.ensure_default_person_group(lang_code=lang_code)
 
-        group.is_by_confirmation = True
-        group.preferred_language = preferred_language
-        group.save()
-
-        membership, created = GroupMembership.objects.get_or_create(
+        current_user = get_current_user()
+        GroupMembership.objects.get_or_create(
             user=person.user,
             person_group=group,
             role="owners",
-            inviter=get_current_user(),
-            confirmer=get_current_user(),
             is_accepted=True,
+            defaults={
+                'inviter': current_user,
+                'confirmer': current_user,
+            },
         )
+        return True
+
     set_owner.alters_data = True
 
     def remove_owner(self, person):
         from django.apps import apps
         GroupMembership = apps.get_model("groups_networks", "GroupMembership")
-        group = self._get_related_group()
-
-        if not group:
-            return False
+        group = self.ensure_default_person_group()
 
         memberships = GroupMembership.objects.filter(
             user=person.user,
@@ -143,14 +143,14 @@ class Institution(InstitutionBase):
     remove_owner.alters_data = True
 
     def get_owners(self):
-        group = self._get_related_group()
+        group = self.ensure_default_person_group()
         if group:
             return group.get_owners()
         return []
 
     def get_groups(self):
         if not hasattr(self, "_groups_cache"):
-            PersonGroup = models.get_model("groups_networks", "PersonGroup")
+            PersonGroup = apps.get_model("groups_networks", "PersonGroup")
             ct = ContentType.objects.get_for_model(self)
             self._groups_cache = list(PersonGroup.objects.filter(
                 content_type__pk=ct.id,
@@ -182,7 +182,7 @@ class Institution(InstitutionBase):
         if not hasattr(self, "_is_addable_to_favorites_cache"):
             from ccb.apps.site_specific.templatetags.browsing import get_context_item
 
-            Favorite = models.get_model("favorites", "Favorite")
+            Favorite = apps.get_model("favorites", "Favorite")
             user = self._get_current_user(user)
             group = self._get_related_group()
             self._is_addable_to_favorites_cache = not (
@@ -195,7 +195,7 @@ class Institution(InstitutionBase):
         if not hasattr(self, "_is_removable_from_favorites_cache"):
             from ccb.apps.site_specific.templatetags.browsing import get_context_item
 
-            Favorite = models.get_model("favorites", "Favorite")
+            Favorite = apps.get_model("favorites", "Favorite")
             user = self._get_current_user(user)
             self._is_removable_from_favorites_cache = Favorite.objects.is_favorite(get_context_item(self), user)
         return self._is_removable_from_favorites_cache

@@ -194,7 +194,7 @@ def add_methods_to_institution():
                 object_id=self.id,
             ))
         return self._groups_cache
-    def get_representatives(self):
+    def get_object_permission_roles(self):
         """
         Returns the default owners of this object for permission manipulation
         """
@@ -257,7 +257,7 @@ def add_methods_to_institution():
 
     Institution.create_default_group = create_default_group
     Institution.get_groups = get_groups
-    Institution.get_representatives = get_representatives
+    Institution.get_object_permission_roles = get_object_permission_roles
     Institution._get_related_group = _get_related_group
     Institution.is_contactable = is_contactable
     Institution.is_email_displayed = is_email_displayed

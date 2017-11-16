@@ -50,8 +50,8 @@ class Blog(MultiSiteContainerMixin, CreationModificationDateMixin):
 
         super(Blog, self).save(*args, **kwargs)
         if is_new:
-            if hasattr(content_object, "get_representatives"):
-                owners = content_object.get_representatives()
+            if hasattr(content_object, "get_object_permission_roles"):
+                owners = content_object.get_object_permission_roles()
                 for owner in owners:
                     RowLevelPermission.objects.create_row_level_permission(self, owner, "add_blog_posts")
                     RowLevelPermission.objects.create_row_level_permission(self, owner, "change_blog_posts")
