@@ -215,7 +215,7 @@
             <div class="row blog-grid magazine">
                 {% for post in blog_posts %}
                     <div class="col-xs-12 col-sm-4">
-                        <a class="content" href="{{ post.get_url_path }}">
+                        <a class="content" href="{{ post.get_url_path }}?from=magazine">
                             {% if post.image %}
                                 <div class="photo-credits-wrapper">
                                     <img class="img img-responsive" src="{{ UPLOADS_URL }}{{ post.image|modified_path:'article' }}" alt="{{ post.title }}" />

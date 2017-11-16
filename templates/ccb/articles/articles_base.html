@@ -28,14 +28,14 @@
                     {% else %}
                         <h1><a href="{% url 'article_archive_for_news' %}">{% page_attribute "page_title" %}</a></h1>
                     {% endif %}
-                    {% if article_type and not article_type.is_root_node %}
+                    {% if article_type and not article_type.is_root_node and not root_article_type.slug == "interviews" %}
                         <h2>{{ article_type.title }}</h2>
                     {% endif %}
                 </div>
             </div>
         </div>
         {% block tabs %}
-            <div class="menu">
+            <div class="menu {% if root_article_type.slug == "interviews" %}magazine-menu{% endif %}">
                 <div class="container">
                     <div class="row">
                         <div class="hidden-xs col-sm-4 col-md-3 headline">
@@ -45,7 +45,7 @@
                             <nav>
                                 <ul>
                                     {% if root_article_type.slug == "interviews" %}
-                                        {% navigation_links "interviews" using "navigation/includes/navigation_links_in_tabs.html" %}
+                                        {% include "articles/includes/interviews_types_in_tabs.html" %}
                                     {% else %}
                                         {% navigation_links "news" using "navigation/includes/navigation_links_in_tabs.html" %}
                                     {% endif %}
@@ -57,12 +57,12 @@
             </div>
         {% endblock %}
     </div>
-    
+
     <div class="container">
-        
+
         {% block search_bar %}
         {% endblock %}
-        
+
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-3">
                 <nav>
@@ -83,18 +83,18 @@
                         <li></li>
                     </ul>
                 </nav>
-                
+
                 {% block sidebar %}
                     {% crispy form "ccb_form" %}
                 {% endblock %}
             </div>
             <div class="col-xs-12 col-sm-8 col-md-9">
-                
+
                 {% block details %}
                 {% endblock %}
-                    
+
             </div>
         </div>
     </div>
-    
-{% endblock %}  
+
+{% endblock %}

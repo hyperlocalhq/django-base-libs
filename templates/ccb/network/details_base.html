@@ -41,9 +41,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <h1>{% if request.user == object.user %}{% trans "My Profile" %}{% else %}{% trans "Person" %}{% endif %}</h1>
+                        <h1>{% if post.featured_in_magazine and request.GET.from == "magazine" %}<a href="{% url 'magazine_overview' %}">{% trans "CCB MAGAZINE" %}</a>{% elif request.user == object.user %}{% trans "My Profile" %}{% else %}{% trans "Person" %}{% endif %}</h1>
                         <div class="profile">
-                    
+
                             <div class="edit-avatar avatar-edit-frame">
                                 <a href="javascript:void(0);" data-edit-url="{% url 'edit_profile' object_type='person' slug=object.slug %}avatar/" class="fawesome fa-edit small edit-image-link"></a>
                                 {% if object.image %}
@@ -59,13 +59,13 @@
                                 <h3>{{ object.occupation }}</h3>
                                 <div class="buttons">
                                     {% if request.user == object.user %}
-                                    
+
                                         {% navigation_links "menu_personal_activities" %}
-                                        
+
                                     {% else %}
-                                    
+
                                         {% if request.user.is_authenticated %}
-                                
+
                                             <a rel="nofollow" class="fawesome fa-more button text switch{% if request.user|is_following:object.user %} on{% endif %}" href="{% follow_all_url object.user %}?next={{ request.path }}"><span class="text">
                                                 {% if request.user|is_following:object.user %}
                                                     {% trans "Unfollow" %}
@@ -77,14 +77,14 @@
                                             {% if request.user.is_staff and perms.people.change_person %}
                                                 <a href="/admin/people/person/{{ object.id }}/" class="fawesome fa-edit button text" target="_blank"><span class="text">{% trans "Edit Person" %}</span></a>
                                             {% endif %}
-                                    
+
                                         {% else %}
-                                
+
                                             <a rel="nofollow" class="fawesome fa-more button text switch" href="{% url 'login' %}?goto_next={% follow_all_url object.user %}%3Fnext%3D{{ request.path }}"><span class="text">{% trans "Follow" %}</span></a>
                                             {% if object.is_contactable %}
                                                 <a rel="nofollow" href="{% url 'login' %}?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>
                                             {% endif %}
-                                    
+
                                         {% endif %}
                                     {% endif %}
 
@@ -94,7 +94,7 @@
                     </div>
                 </div>
             </div>
-            <div class="menu tabs">
+            <div class="menu {% if post.featured_in_magazine and request.GET.from == "magazine" %}magazine-menu{% else %}tabs{% endif %}">
                 <div class="container">
                     <div class="row">
                         <div class="hidden-xs col-sm-4 col-md-3 headline">
@@ -103,7 +103,11 @@
                         <div class="navi">
                             <nav>
                                 <ul>
-                                    {% navigation_links "member" using "navigation/includes/navigation_links_in_tabs.html" %}
+                                    {% if post.featured_in_magazine and request.GET.from == "magazine" %}
+                                        {% include "articles/includes/interviews_types_in_tabs.html" %}
+                                    {% else %}
+                                        {% navigation_links "member" using "navigation/includes/navigation_links_in_tabs.html" %}
+                                    {% endif %}
                                 </ul>
                             </nav>
                         </div>
@@ -116,10 +120,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <h1>{% if request.user.profile in object.get_owners %}{% trans "My Institution" %}{% else %}
-                            {% trans "Institution" %}{% endif %}</h1>
+                        <h1>{% if post.featured_in_magazine and request.GET.from == "magazine" %}<a href="{% url 'magazine_overview' %}">{% trans "CCB MAGAZINE" %}</a>{% elif request.user.profile in object.get_owners %}{% trans "My Institution" %}{% else %}{% trans "Institution" %}{% endif %}</h1>
                         <div class="profile">
-                    
+
                             <div class="edit-avatar avatar-edit-frame">
                                 <a href="javascript:void(0);" data-edit-url="{% url 'edit_profile' object_type='person' slug=object.slug %}avatar/" class="fawesome fa-edit small edit-image-link"></a>
                                 {% if object.image %}
@@ -150,21 +153,21 @@
                                         {% if request.user.is_staff and perms.institutions.change_institution %}
                                             <a href="/admin/institutions/institution/{{ object.id }}/" class="fawesome fa-edit button text" target="_blank"><span class="text">{% trans "Edit Institution" %}</span></a>
                                         {% endif %}
-                            
+
                                     {% else %}
                                         <a rel="nofollow" class="fawesome fa-more button text switch" href="{% url 'login' %}?goto_next={% follow_all_url object %}%3Fnext%3D{{ request.path }}"><span class="text">{% trans "Follow" %}</span></a>
                                         {% if object.is_contactable %}
                                             <a rel="nofollow" href="{% url 'login' %}?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>
                                         {% endif %}
                                     {% endif %}
-                                
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="menu tabs">
+            <div class="menu {% if post.featured_in_magazine and request.GET.from == "magazine" %}magazine-menu{% else %}tabs{% endif %}">
                 <div class="container">
                     <div class="row">
                         <div class="hidden-xs col-sm-4 col-md-3 headline">
@@ -174,7 +177,11 @@
                         <div class="navi">
                             <nav>
                                 <ul>
-                                    {% navigation_links "member" using "navigation/includes/navigation_links_in_tabs.html" %}
+                                    {% if post.featured_in_magazine and request.GET.from == "magazine" %}
+                                        {% include "articles/includes/interviews_types_in_tabs.html" %}
+                                    {% else %}
+                                        {% navigation_links "member" using "navigation/includes/navigation_links_in_tabs.html" %}
+                                    {% endif %}
                                 </ul>
                             </nav>
                         </div>
@@ -183,15 +190,15 @@
             </div>
         </div>
     {% endif %}
-    
-    
+
+
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-3">
                 <div class="profile-image">
-                    
+
                     {% if object.is_person %}
-                    
+
                         <div class="edit-avatar avatar-edit-frame">
                             <a href="javascript:void(0);" data-edit-url="{% url 'edit_profile' object_type='person' slug=object.slug %}avatar/" class="fawesome fa-edit edit-image-link"></a>
                             {% if object.image %}
@@ -203,13 +210,13 @@
                         </div>
 
                         {% if request.user == object.user %}
-                        
+
                             {% navigation_links "menu_personal_activities" %}
 
                         {% else %}
-                        
+
                             {% if request.user.is_authenticated %}
-                            
+
                                 <a rel="nofollow" class="fawesome fa-more button text switch{% if request.user|is_following:object.user %} on{% endif %}" href="{% follow_all_url object.user %}?next={{ request.path }}"><span class="text">
                                     {% if request.user|is_following:object.user %}
                                         {% trans "Unfollow" %}
@@ -223,15 +230,15 @@
                                 {% endif %}
 
                             {% else %}
-                            
+
                                 <a rel="nofollow" class="fawesome fa-more button text switch" href="{% url 'login' %}?goto_next={% follow_all_url object.user %}%3Fnext%3D{{ request.path }}"><span class="text">{% trans "Follow" %}</span></a>
                                 {% if object.is_contactable %}
                                     <a href="{% url 'login' %}?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>
                                 {% endif %}
-                                
+
                             {% endif %}
                         {% endif %}
-                        
+
                     {% else %}
 
                         <div class="edit-avatar avatar-edit-frame">
@@ -274,11 +281,11 @@
                         {% endif %}
 
                     {% endif %}
-    
+
                 </div>
-                
-                
-                
+
+
+
                 {% block sidebar %}
                 {% endblock %}
             </div>

@@ -20,7 +20,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-3">
-                            
+
                 {% if_has_perm "blog.change_blog_posts" container %}
                     <div class="button-group">
                         <a class="fawesome fa-bullhorn button text" href="{{ container.get_url_path }}new/"><span class="text">{% trans "Create blog post" %}</span></a>
@@ -34,7 +34,7 @@
                         </div>
                     {% end_if_has_perm %}
                 {% end_if_has_perm %}
-                
+
                 {% block sidebar %}
                 {% endblock %}
             </div>
@@ -50,4 +50,3 @@
     {% block breadcrumbs_details %}
     {% endblock %}
 {% endblock %}
-

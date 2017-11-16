@@ -221,19 +221,19 @@ class MainDataForm(dynamicforms.Form):
         self.fields['end_yyyy'].initial = six_weeks_from_now.year
         self.fields['end_mm'].initial = six_weeks_from_now.month
         self.fields['end_dd'].initial = six_weeks_from_now.day
-                
+
         # add option of already choosen selections on multistep forms for autoload fields
         initial = kwargs.get("initial", None)
         if initial:
             if initial.get('offering_institution', None):
                 institution = Institution.objects.get(pk=initial.get('offering_institution', None))
                 self.fields['offering_institution'].widget.choices=[(institution.id, institution.title)]
-        
+
         # add option of choosen selections for autoload fields on error reload of page
         if self.data.get('offering_institution', None):
             institution = Institution.objects.get(pk=self.data.get('offering_institution', None))
             self.fields['offering_institution'].widget.choices=[(institution.id, institution.title)]
-        
+
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -252,7 +252,7 @@ class MainDataForm(dynamicforms.Form):
             layout.Fieldset(
                 _("Institution"),
                 layout.Field(
-                    "offering_institution", 
+                    "offering_institution",
                     data_load_url="/%s/helper/autocomplete/marketplace/get_institutions/title/get_address_string/" % get_current_language(),
                     data_load_start="1",
                     data_load_max="20",
@@ -646,9 +646,15 @@ def set_extra_context(current_step, form_steps, form_step_data, request):
 
     if "institution" in request.GET:
         institution = get_object_or_404(Institution, slug=request.GET["institution"])
-        extra_context["job_offer_from"] = institution.title
+        extra_context["is_institution"] = 1
+        extra_context["created_by"] = institution.title
+        request.httpstate['created_by'] = extra_context["created_by"]
+    elif "person" in request.GET:
+        extra_context["is_person"] = 1
+        extra_context["created_by"] = request.user.profile.get_title()
+        request.httpstate['created_by'] = extra_context["created_by"]
     else:
-        extra_context["job_offer_from"] = request.user.profile.get_title()
+        extra_context["created_by"] = request.httpstate['created_by']
 
     return extra_context
 

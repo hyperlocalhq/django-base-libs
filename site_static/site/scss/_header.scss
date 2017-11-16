@@ -976,9 +976,10 @@
 
 
         &.magazine-menu {
-            background: $white !important;
-            border-top: 1px solid black;
-            border-bottom: 1px solid black;
+            background: $white;
+            border-bottom: 1px solid $grey-bright;
+            font-family: $font-1, $font-family-1;
+            font-weight: $font-regular;
 
             .is-xs & {
                 display: none !important;
@@ -1000,27 +1001,34 @@
                             display: table-cell;
                             position: static;
                             vertical-align: middle;
+                            border-bottom: 6px solid $white;
+
+                            -webkit-transition: border-bottom 0.3s;
+                            transition: border-bottom 0.3s;
 
                             a {
                                 font-weight: $font-regular;
-                                font-size: 1.1em;
-                                line-height: 1;
-                                color: $grey-darker;
-                                padding: 0 8px;
+                                font-size: 1.25rem;
+                                line-height: 1.1;
+                                color: $grey-light;
+                                padding: 5px 8px 0;
                                 text-align: center;
                                 min-width: 90px;
                                 max-width: 220px;
 
                                 .is-md & {
-                                    font-size: 1em;
+                                    font-size: 1.11rem;
+                                    line-height: 1.1;
                                     min-width: initial;
                                     max-width: initial;
                                 }
 
                                 .is-sm & {
-                                    font-size: 0.85em;
+                                    font-size: 0.86rem;
+                                    line-height: 1.2;
                                     min-width: initial;
                                     max-width: initial;
+                                    padding: 0px 8px 0;
                                 }
 
                                 &:hover {
@@ -1029,6 +1037,14 @@
                                 }
 
                                 &.active {
+                                    border-bottom: none;
+                                    color: $black;
+                                }
+                            }
+
+                            &:hover, &.active {
+                                border-bottom: 6px solid $cyan;
+                                a {
                                     color: $black;
                                 }
                             }
@@ -1150,6 +1166,40 @@
                 .prev, .next {
                     &:hover {
                         color: $white;
+                    }
+                }
+            }
+
+            &.magazine-menu {
+                border-bottom: none;
+                div.navi {
+                    nav {
+                        ul {
+                            li {
+                                border-bottom: 6px solid $black;
+
+                                a {
+                                    color: $grey-bright;
+
+                                    &:hover {
+                                        border-bottom: none;
+                                        color: $grey-bright;
+                                    }
+
+                                    &.active {
+                                        border-bottom: none;
+                                        color: $grey-bright;
+                                    }
+                                }
+
+                                &:hover, &.active {
+                                    border-bottom: 6px solid $cyan;
+                                    a {
+                                        color: $grey-bright;
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

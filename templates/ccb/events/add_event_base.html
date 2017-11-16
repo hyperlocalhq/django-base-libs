@@ -5,7 +5,7 @@
 
 {% block headline %}
     <h1>{% trans "Events" %}</h1>
-    <h2>{% trans "New Event" %}</h2>
+    <h2>{% blocktrans %}Enter new event for {{ created_by }}{% endblocktrans %}</h2>
 {% endblock %}
 
 {% block sidebar %}
@@ -13,6 +13,11 @@
 {% endblock %}
 
 {% block details %}
+    {% if is_institution %}
+        <p><i>{% trans 'Attention: All entries you are doing right now are going to show on your institution profile. If you want the entry to show on your person profile, please go to your person profil.' %}</i><br/><br/></p>
+    {% elif is_person %}
+        <p><i>{% trans 'Attention: All entries you are doing right now are going to show on your person profile. If you want the entry to show on your institution profile, please go to your institution profil or create one if you have not done so yet.' %}</i><br/><br/></p>
+    {% endif %}
     {% crispy form "ccb_form" %}
 {% endblock %}
 
