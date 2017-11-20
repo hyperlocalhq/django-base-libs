@@ -2368,10 +2368,10 @@ dl.interview dd:last-child:after {
 }
 
 .button.small, .btn.small {
-  font-size: 0.95em;
+  font-size: 0.95em !important;
   height: 2.2em;
   line-height: 210%;
-  padding: 0 2em;
+  padding: 0 2em !important;
 }
 
 .button.btn-responsive, .btn.btn-responsive {

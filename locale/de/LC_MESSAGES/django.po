@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Django 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-15 19:47+0100\n"
+"POT-Creation-Date: 2017-11-20 13:45+0100\n"
 "PO-Revision-Date: 2017-10-27 11:38+0053\n"
 "Last-Translator: Laura Casadevall <casadeluxe@web.de>\n"
 "Language-Team: \n"
@@ -2806,7 +2806,7 @@ msgstr ""
 "Erlaubt sind Daten im Format JPG, GIF, PNG TIFF. Minimale Größe: %s px."
 
 #: .\apps\events\forms.py:920 .\apps\institutions\forms.py:508
-#: .\apps\institutions\models.py:37 .\apps\media_gallery\models.py:156
+#: .\apps\institutions\models.py:38 .\apps\media_gallery\models.py:156
 #: .\apps\media_gallery\models.py:182 .\apps\site_specific\forms\events.py:222
 #: .\apps\site_specific\forms\groups_networks.py:90
 #: .\apps\site_specific\forms\institutions.py:163
@@ -3220,7 +3220,7 @@ msgstr "Eintritt und Öffnungszeiten"
 
 #: .\apps\events\forms.py:1844 .\apps\events\models.py:40
 #: .\apps\groups_networks\models.py:19 .\apps\institutions\forms.py:1427
-#: .\apps\institutions\models.py:32 .\apps\marketplace\forms.py:670
+#: .\apps\institutions\models.py:33 .\apps\marketplace\forms.py:670
 #: .\apps\people\models.py:44 .\apps\resources\models.py:26
 #: .\templates\ccb\events\add_event_confirm.html:426
 msgid "categories"
@@ -3231,7 +3231,7 @@ msgid "Featured events only"
 msgstr "Nur gefeaturte Events"
 
 #: .\apps\events\models.py:33 .\apps\groups_networks\models.py:12
-#: .\apps\institutions\models.py:25 .\apps\people\models.py:37
+#: .\apps\institutions\models.py:26 .\apps\people\models.py:37
 #: .\apps\resources\models.py:19 .\apps\site_specific\models.py:275
 #: .\templates\admin\extendedadmin\includes\fieldset_categories.html:37
 msgid "Creative sectors"
@@ -3791,7 +3791,7 @@ msgstr "Kreativbereich"
 msgid "Business Category"
 msgstr ""
 
-#: .\apps\institutions\models.py:35 .\apps\people\models.py:47
+#: .\apps\institutions\models.py:36 .\apps\people\models.py:47
 #: .\apps\site_specific\models.py:290
 msgid "Completeness in %"
 msgstr "Vollständigkeit in %"
@@ -7654,7 +7654,10 @@ msgid ""
 "Attention: All entries you are doing right now are going to show on your "
 "institution profile. If you want the entry to show on your person profile, "
 "please go to your person profil."
-msgstr "Beachte: Alle Einträge, die du jetzt vornimmst, erscheinen auf deinem Institutionenprofil. Willst du, dass deine Einträge unter deinem Personenprofil auftauchen, wechsle in dein Personenprofil."
+msgstr ""
+"Beachte: Alle Einträge, die du jetzt vornimmst, erscheinen auf deinem "
+"Institutionenprofil. Willst du, dass deine Einträge unter deinem "
+"Personenprofil auftauchen, wechsle in dein Personenprofil."
 
 #: .\templates\ccb\bulletin_board\change_bulletin.html:41
 #: .\templates\ccb\events\add_event_base.html:19
@@ -7664,7 +7667,11 @@ msgid ""
 "person profile. If you want the entry to show on your institution profile, "
 "please go to your institution profil or create one if you have not done so "
 "yet."
-msgstr "Beachte: Alle Einträge, die du jetzt vornimmst, erscheinen auf deinem Personenprofil. Willst du, dass deine Einträge unter einer Institution o.ä. auftauchen, wechsle in das entsprechende Institutionenprofil oder erstelle eines, falls du noch keines hast."
+msgstr ""
+"Beachte: Alle Einträge, die du jetzt vornimmst, erscheinen auf deinem "
+"Personenprofil. Willst du, dass deine Einträge unter einer Institution o.ä. "
+"auftauchen, wechsle in das entsprechende Institutionenprofil oder erstelle "
+"eines, falls du noch keines hast."
 
 #: .\templates\ccb\bulletin_board\change_bulletin_confirm.html:7
 #: .\templates\ccb\bulletin_board\change_bulletin_confirm.html:12
@@ -10563,6 +10570,10 @@ msgstr "Kontakte zu Institutionen"
 #: .\templates\ccb\people\person_institutions.html:44
 msgid "Switch to my Institution"
 msgstr "Wechsel zu meiner Institution"
+
+#: .\templates\ccb\people\person_institutions.html:44
+msgid "To my Institution"
+msgstr "Zu meiner Institution"
 
 #: .\templates\ccb\people\person_invitations_list.html:79
 msgid "Invitations"

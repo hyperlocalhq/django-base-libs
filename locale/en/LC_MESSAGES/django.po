@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-15 19:47+0100\n"
+"POT-Creation-Date: 2017-11-20 13:45+0100\n"
 "PO-Revision-Date: 2016-03-10 17:20+0053\n"
 "Last-Translator: Josephine Natalie Weisflog <j.weisflog@kulturprojekte-"
 "berlin.de>\n"
@@ -2651,7 +2651,7 @@ msgid ""
 msgstr ""
 
 #: .\apps\events\forms.py:920 .\apps\institutions\forms.py:508
-#: .\apps\institutions\models.py:37 .\apps\media_gallery\models.py:156
+#: .\apps\institutions\models.py:38 .\apps\media_gallery\models.py:156
 #: .\apps\media_gallery\models.py:182 .\apps\site_specific\forms\events.py:222
 #: .\apps\site_specific\forms\groups_networks.py:90
 #: .\apps\site_specific\forms\institutions.py:163
@@ -3063,7 +3063,7 @@ msgstr ""
 
 #: .\apps\events\forms.py:1844 .\apps\events\models.py:40
 #: .\apps\groups_networks\models.py:19 .\apps\institutions\forms.py:1427
-#: .\apps\institutions\models.py:32 .\apps\marketplace\forms.py:670
+#: .\apps\institutions\models.py:33 .\apps\marketplace\forms.py:670
 #: .\apps\people\models.py:44 .\apps\resources\models.py:26
 #: .\templates\ccb\events\add_event_confirm.html:426
 msgid "categories"
@@ -3074,7 +3074,7 @@ msgid "Featured events only"
 msgstr ""
 
 #: .\apps\events\models.py:33 .\apps\groups_networks\models.py:12
-#: .\apps\institutions\models.py:25 .\apps\people\models.py:37
+#: .\apps\institutions\models.py:26 .\apps\people\models.py:37
 #: .\apps\resources\models.py:19 .\apps\site_specific\models.py:275
 #: .\templates\admin\extendedadmin\includes\fieldset_categories.html:37
 msgid "Creative sectors"
@@ -3619,7 +3619,7 @@ msgstr ""
 msgid "Business Category"
 msgstr ""
 
-#: .\apps\institutions\models.py:35 .\apps\people\models.py:47
+#: .\apps\institutions\models.py:36 .\apps\people\models.py:47
 #: .\apps\site_specific\models.py:290
 msgid "Completeness in %"
 msgstr ""
@@ -10143,6 +10143,10 @@ msgstr ""
 
 #: .\templates\ccb\people\person_institutions.html:44
 msgid "Switch to my Institution"
+msgstr ""
+
+#: .\templates\ccb\people\person_institutions.html:44
+msgid "To my Institution"
 msgstr ""
 
 #: .\templates\ccb\people\person_invitations_list.html:79

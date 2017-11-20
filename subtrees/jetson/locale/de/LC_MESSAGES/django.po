@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Django 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-15 19:48+0100\n"
+"POT-Creation-Date: 2017-11-20 13:46+0100\n"
 "PO-Revision-Date: 2017-09-28 06:36+0053\n"
 "Last-Translator: Super Admin <jetsonadmin@studio38.de>\n"
 "Language-Team: \n"
@@ -369,7 +369,7 @@ msgstr "Reihenfolge"
 #: .\subtrees\jetson\apps\optionset\south_migrations\0001_initial.py:84
 #: .\subtrees\jetson\apps\optionset\south_migrations\0001_initial.py:96
 #: .\subtrees\jetson\apps\people\base.py:191
-#: .\subtrees\jetson\apps\permissions\models.py:166
+#: .\subtrees\jetson\apps\permissions\models.py:167
 #: .\subtrees\jetson\apps\permissions\south_migrations\0001_initial.py:31
 #: .\subtrees\jetson\apps\permissions\south_migrations\0002_auto__chg_field_rowlevelpermission_owner_content_type__chg_field_rowle.py:56
 #: .\subtrees\jetson\apps\resources\base.py:104
@@ -2831,7 +2831,7 @@ msgid "Roles"
 msgstr "Rollen"
 
 #: .\subtrees\jetson\apps\extendedadmin\guerrilla_patches\auth.py:46
-#: .\subtrees\jetson\apps\permissions\models.py:167
+#: .\subtrees\jetson\apps\permissions\models.py:168
 msgid "Users"
 msgstr "Benutzer"
 
@@ -3510,7 +3510,7 @@ msgstr ""
 #: .\subtrees\jetson\apps\mailing\models.py:138
 #: .\subtrees\jetson\apps\permissions\admin.py:13
 #: .\subtrees\jetson\apps\permissions\forms.py:60
-#: .\subtrees\jetson\apps\permissions\models.py:121
+#: .\subtrees\jetson\apps\permissions\models.py:122
 msgid "Owner"
 msgstr "Besitzer"
 
@@ -3894,25 +3894,25 @@ msgstr "Freies Feld #3"
 msgid "System"
 msgstr "System"
 
-#: .\subtrees\jetson\apps\history\models.py:91
+#: .\subtrees\jetson\apps\history\models.py:94
 #: .\subtrees\jetson\apps\history\south_migrations\0001_initial.py:18
 #: .\subtrees\jetson\apps\history\south_migrations\0002_add_more_languages.py:60
 msgid "action time"
 msgstr "Erstellungszeit"
 
-#: .\subtrees\jetson\apps\history\models.py:93
+#: .\subtrees\jetson\apps\history\models.py:96
 #: .\subtrees\jetson\apps\history\south_migrations\0001_initial.py:20
 #: .\subtrees\jetson\apps\history\south_migrations\0002_add_more_languages.py:63
 msgid "object repr"
 msgstr "Objekt Darst"
 
-#: .\subtrees\jetson\apps\history\models.py:94
+#: .\subtrees\jetson\apps\history\models.py:97
 #: .\subtrees\jetson\apps\history\south_migrations\0001_initial.py:21
 #: .\subtrees\jetson\apps\history\south_migrations\0002_add_more_languages.py:57
 msgid "action"
 msgstr "Aktion"
 
-#: .\subtrees\jetson\apps\history\models.py:95
+#: .\subtrees\jetson\apps\history\models.py:98
 #: .\subtrees\jetson\apps\history\south_migrations\0001_initial.py:22
 #: .\subtrees\jetson\apps\history\south_migrations\0001_initial.py:23
 #: .\subtrees\jetson\apps\history\south_migrations\0002_add_more_languages.py:54
@@ -3920,43 +3920,43 @@ msgstr "Aktion"
 msgid "change message"
 msgstr "Nachricht ändern"
 
-#: .\subtrees\jetson\apps\history\models.py:96
+#: .\subtrees\jetson\apps\history\models.py:99
 #: .\subtrees\jetson\apps\history\south_migrations\0001_initial.py:24
 #: .\subtrees\jetson\apps\history\south_migrations\0002_add_more_languages.py:75
 msgid "scope"
 msgstr "Ziel"
 
-#: .\subtrees\jetson\apps\history\models.py:100
+#: .\subtrees\jetson\apps\history\models.py:103
 msgid "log entry"
 msgstr "Log Eintrag"
 
-#: .\subtrees\jetson\apps\history\models.py:101
+#: .\subtrees\jetson\apps\history\models.py:104
 msgid "log entries"
 msgstr "Log Einträge"
 
-#: .\subtrees\jetson\apps\history\models.py:150
+#: .\subtrees\jetson\apps\history\models.py:153
 #, python-format
 msgid "Added %s."
 msgstr "%s hinzugefägt."
 
-#: .\subtrees\jetson\apps\history\models.py:152
-#: .\subtrees\jetson\apps\history\models.py:157
-#: .\subtrees\jetson\apps\history\models.py:162
+#: .\subtrees\jetson\apps\history\models.py:155
+#: .\subtrees\jetson\apps\history\models.py:160
+#: .\subtrees\jetson\apps\history\models.py:165
 #: .\subtrees\jetson\templates\default\accounts\reg_confirm.html:416
 msgid "and"
 msgstr "und"
 
-#: .\subtrees\jetson\apps\history\models.py:155
+#: .\subtrees\jetson\apps\history\models.py:158
 #, python-format
 msgid "Changed %s."
 msgstr "%s geändert."
 
-#: .\subtrees\jetson\apps\history\models.py:160
+#: .\subtrees\jetson\apps\history\models.py:163
 #, python-format
 msgid "Deleted %s."
 msgstr "Gelöscht %s."
 
-#: .\subtrees\jetson\apps\history\models.py:165
+#: .\subtrees\jetson\apps\history\models.py:168
 msgid "No fields or some multiple-choice field changed."
 msgstr "No fields or some multiple-choice field changed."
 
@@ -4867,7 +4867,7 @@ msgid "Display instant messangers to public"
 msgstr "Instant Messengers veröffentlichen"
 
 #: .\subtrees\jetson\apps\individual_relations\forms.py:119
-#: .\subtrees\jetson\apps\permissions\models.py:15
+#: .\subtrees\jetson\apps\permissions\models.py:16
 #: .\subtrees\jetson\templates\admin\admin\row_level_permissions.html:26
 #: .\subtrees\jetson\templates\admin\extendedadmin\document_change.html:78
 #: .\subtrees\jetson\templates\admin\extendedadmin\event_change_base.html:70
@@ -7331,15 +7331,15 @@ msgstr "Wählen Sie eine Option aus"
 msgid "Each permission owner should be selected just once."
 msgstr "Jeder Besitzer von Zugriffsrechten sollte nur einmal gewählt werden."
 
-#: .\subtrees\jetson\apps\permissions\models.py:136
+#: .\subtrees\jetson\apps\permissions\models.py:137
 msgid "row level permission"
 msgstr "Objekt-Zugriffsrecht"
 
-#: .\subtrees\jetson\apps\permissions\models.py:137
+#: .\subtrees\jetson\apps\permissions\models.py:138
 msgid "row level permissions"
 msgstr "Objekt-Zugriffsrechte"
 
-#: .\subtrees\jetson\apps\permissions\models.py:168
+#: .\subtrees\jetson\apps\permissions\models.py:169
 msgid ""
 "In addition to the permissions manually assigned, these users will also get "
 "all row level permissions granted to this group."
@@ -7347,11 +7347,11 @@ msgstr ""
 "Zusätzlich zu den manuell angelegten Rechten erhält dieser Benutzer auch "
 "alle Rechte, die seine zugewiesene Gruppe hat."
 
-#: .\subtrees\jetson\apps\permissions\models.py:171
+#: .\subtrees\jetson\apps\permissions\models.py:172
 msgid "object-specific group"
 msgstr "Typ-spezifische Gruppe"
 
-#: .\subtrees\jetson\apps\permissions\models.py:172
+#: .\subtrees\jetson\apps\permissions\models.py:173
 msgid "object-specific groups"
 msgstr "Typ-spezifische Gruppen"
 

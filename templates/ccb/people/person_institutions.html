@@ -41,7 +41,7 @@
                                     {% endif %}
                                 </h3>
                             </div>
-                            {% if request.user.profile|in_list:object.get_groups.0.get_owners %}<div class="button small">{% trans "Switch to my Institution" %}</div>{% endif %}
+                            {% if request.user.profile|in_list:object.get_groups.0.get_owners %}<div class="button small"><span class="hidden-xs">{% trans "Switch to my Institution" %}</span><span class="visible-xs">{% trans "To my Institution" %}</span></div>{% endif %}
                         </a>
                         <div class="button-group">
                             {% if request.user.is_authenticated %}
