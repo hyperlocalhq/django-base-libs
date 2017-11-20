@@ -221,7 +221,7 @@ def member_detail(request, slug, creative_sector_slug="", **kwargs):
     item = get_object_or_404(
         ContextItem,
         content_type__model__in=("person", "institution"),
-        slug=slug,
+        slug__iexact=slug,
     )
     if item.is_person():
         if not request.user.has_perm("people.change_person", item.content_object) and item.status not in ("published", "published_commercial"):
@@ -254,7 +254,7 @@ def member_events_list(request, slug, **kwargs):
     item = get_object_or_404(
         ContextItem,
         content_type__model__in=("person", "institution"),
-        slug=slug,
+        slug__iexact=slug,
     )
     if item.is_person():
         if not request.user.has_perm("people.change_person", item.content_object) and item.status not in ("published", "published_commercial"):
@@ -298,7 +298,7 @@ def member_jobs_list(request, slug, **kwargs):
     item = get_object_or_404(
         ContextItem,
         content_type__model__in=("person", "institution"),
-        slug=slug,
+        slug__iexact=slug,
     )
     if item.is_person():
         if not request.user.has_perm("people.change_person", item.content_object) and item.status not in ("published", "published_commercial"):
@@ -337,7 +337,7 @@ def member_bulletins_list(request, slug, **kwargs):
     item = get_object_or_404(
         ContextItem,
         content_type__model__in=("person", "institution"),
-        slug=slug,
+        slug__iexact=slug,
     )
     if item.is_person():
         if not request.user.has_perm("people.change_person", item.content_object) and item.status not in ("published", "published_commercial"):
@@ -376,7 +376,7 @@ def member_institution_list(request, slug, **kwargs):
     item = get_object_or_404(
         ContextItem,
         content_type__model="person",
-        slug=slug,
+        slug__iexact=slug,
     )
     if not request.user.has_perm("people.change_person", item.content_object) and item.status not in ("published", "published_commercial"):
         return access_denied(request)

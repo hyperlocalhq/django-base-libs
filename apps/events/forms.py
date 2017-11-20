@@ -1810,7 +1810,7 @@ def set_extra_context(current_step, form_steps, form_step_data, request):
         extra_context["created_by"] = request.user.profile.get_title()
         request.httpstate['created_by'] = extra_context["created_by"]
     else:
-        extra_context["created_by"] = request.httpstate['created_by']
+        extra_context["created_by"] = request.httpstate.get('created_by')
 
     return extra_context
 

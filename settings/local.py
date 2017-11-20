@@ -5,9 +5,9 @@ from ._base import *
 DATABASES = {
     'postgresql': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ccb',
-        'USER': "aidas",
-        'PASSWORD': "",
+        'NAME': get_secret("DATABASE_NAME"),
+        'USER': get_secret("DATABASE_USER"),
+        'PASSWORD': get_secret("DATABASE_PASSWORD"),
     },
     'mysql': {
         'ENGINE': 'django.db.backends.mysql',
@@ -27,7 +27,7 @@ DATABASES = {
         },
     }
 }
-DATABASES['default'] = DATABASES['mysql']
+DATABASES['default'] = DATABASES['postgresql']
 HUEY['name'] = DATABASES['default']['NAME']
 
 HTTPS_PROTOCOL = "http"

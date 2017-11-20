@@ -9,6 +9,7 @@ from django.http import Http404
 from django.views.decorators.cache import never_cache
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.http import HttpResponse
+from django.utils.timezone import now
 
 from base_libs.views import access_denied
 
@@ -41,6 +42,10 @@ def event_list(request, criterion="", slug="", show="", start_date=None, end_dat
     return object_list(request, **kwargs)
 
 
+class AbsoluteTimeDistance(models.Func):
+    template = "ABS(EXTRACT(epoch FROM NOW() - %(expressions)s))"
+
+
 @never_cache
 def counselling_events_list(request, **kwargs):
     """
@@ -61,11 +66,13 @@ def counselling_events_list(request, **kwargs):
     queryset = queryset.filter(
         models.Q(event__organizing_institution=institution) |
         models.Q(event__venue=institution),
-    ).extra(
-        select={
-            'present_then_past': 'CASE WHEN events_eventtime.end<CURDATE() THEN 1 ELSE 0 END',
-            'distance': 'ABS(DATEDIFF(events_eventtime.start, CURDATE()))',
-        },
+    ).annotate(
+        present_then_past=models.Case(
+            models.When(end__lt=now(), then=models.Value(1)),
+            default=models.Value(0),
+            output_field=models.IntegerField(),
+        ),
+        distance=AbsoluteTimeDistance(models.F('start')),
     ).order_by('present_then_past', 'distance')
 
     kwargs['template_name'] = 'counselling_events/event_list.html'

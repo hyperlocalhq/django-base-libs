@@ -5,29 +5,12 @@ from ._base import *
 DATABASES = {
     'postgresql': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ccb',
-        'USER': "aidas",
-        'PASSWORD': "",
-    },
-    'mysql': {
-        'ENGINE': 'django.db.backends.mysql',
         'NAME': get_secret("DATABASE_NAME"),
         'USER': get_secret("DATABASE_USER"),
         'PASSWORD': get_secret("DATABASE_PASSWORD"),
-        'CONN_MAX_AGE': 0,
-        'HOST': 'localhost',
-        'OPTIONS': {
-            'init_command': 'SET character_set_connection=utf8,'
-                'collation_connection=utf8_general_ci,'
-                'foreign_key_checks=0'
-            # 'init_command': 'SET storage_engine=INNODB,'
-            #     'character_set_connection=utf8,'
-            #     'collation_connection=utf8_general_ci,'
-            #     'foreign_key_checks=0'
-        },
-    }
+    },
 }
-DATABASES['default'] = DATABASES['mysql']
+DATABASES['default'] = DATABASES['postgresql']
 HUEY['name'] = DATABASES['default']['NAME']
 
 HTTPS_PROTOCOL = "http"

@@ -80,7 +80,7 @@ class PortfolioSite(object):
     def check_object(self, **kwargs):
         self.obj = get_object_or_404(
             self.object_detail_dict['queryset'],
-            **{self.object_detail_dict['slug_field']: kwargs['slug']}
+            **{self.object_detail_dict['slug_field'] + '__iexact': kwargs['slug']}
         )
         if hasattr(self.obj, "content_object"):  # if the obj is ContextItem, then use its related object
             self.obj = self.obj.content_object

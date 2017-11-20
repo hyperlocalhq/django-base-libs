@@ -70,9 +70,9 @@ def login(request, template_name='registration/login.html',
             login_as = request.REQUEST.get("login_as", "")
             if user.is_superuser and login_as:
                 if "@" in login_as:
-                    login_as_user = get_object_or_404(User, email=login_as)
+                    login_as_user = get_object_or_404(User, email__iexact=login_as)
                 else:
-                    login_as_user = get_object_or_404(User, username=login_as)
+                    login_as_user = get_object_or_404(User, username__iexact=login_as)
                 login_as_user.backend = user.backend
                 user = login_as_user
             auth_login(request, user)

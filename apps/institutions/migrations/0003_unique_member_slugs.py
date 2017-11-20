@@ -8,7 +8,10 @@ def make_slugs_unique_together_with_usernames(apps, schema_editor):
     Institution = apps.get_model("institutions", "Institution")
     ContextItem = apps.get_model("site_specific", "ContextItem")
     ContentType = apps.get_model("contenttypes", "ContentType")
-    ct = ContentType.objects.get(app_label="institutions", model="institution")
+    try:
+        ct = ContentType.objects.get(app_label="institutions", model="institution")
+    except ContentType.DoesNotExist:
+        return
 
     count = 0
     for inst in Institution.objects.all():
