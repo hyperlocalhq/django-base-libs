@@ -60,7 +60,7 @@ class Institution(InstitutionBase):
                 'title_en': "Institutional",
             },
         )
-        group, group_created = PersonGroup.objects.update_or_create(
+        group, group_created = PersonGroup.objects.get_or_create(
             content_type=ct,
             object_id=self.pk,
             group_type=group_type,
@@ -76,6 +76,10 @@ class Institution(InstitutionBase):
                 iso2_code=lang_code,
             )
             group.preferred_language = language
+            group.save()
+        elif group.title != self.title:  # update group title, if institution's title has changed
+            group.title = self.title
+            group.slug = self.slug
             group.save()
 
         return group
