@@ -73,8 +73,17 @@ urlpatterns += i18n_patterns('',
     url(r'^recrop/', include('jetson.apps.image_mods.urls')),
 )
 
+from django.contrib.sitemaps import views as sitemaps_views
+
 urlpatterns += i18n_patterns('',
-    url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
+    url(r'^sitemap\.xml$', sitemaps_views.index, {'sitemaps': sitemaps}),
+    url(
+        r'^sitemap-(?P<section>.+)\.xml$',
+        sitemaps_views.sitemap,
+        {'sitemaps': sitemaps},
+        name='django.contrib.sitemaps.views.sitemap'
+    ),
+
     url(r'^api/changelog/$', "berlinbuehnen.apps.site_specific.views.api_changelog", name="api_changelog"),
     url(r'^api/changelog/feed/$', APIChangeLogFeed(), name="api_changelog_feed"),
     url(r'^api/', include(v1_api.urls)),
