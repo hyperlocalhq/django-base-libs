@@ -50,8 +50,23 @@ class EventSitemap(Sitemap):
         return obj.modified_date
 
 
+class FestivalSitemap(Sitemap):
+    changefreq = "daily"
+    priority = 0.5
+    limit = 100
+
+    def items(self):
+        from berlinbuehnen.apps.festivals.models import Festival
+        qs = Festival.objects.filter(status="published")
+        return qs
+
+    def lastmod(self, obj):
+        return obj.modified_date
+
+
 sitemaps = {
     'pages': CMSSitemap,
     'locations': LocationSitemap,
     'events': EventSitemap,
+    'festivals': FestivalSitemap,
 }
