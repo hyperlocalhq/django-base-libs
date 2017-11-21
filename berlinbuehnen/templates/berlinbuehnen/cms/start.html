@@ -194,8 +194,11 @@
                                 </a>
                             </div>
                         {% endfor %}
-
-                        {% get_objects objects.latest_published articles.Article 3 as newest_articles %}
+                        {% if newest_theater.count > 0 %}
+                            {% get_objects objects.latest_published articles.Article 3 as newest_articles %}
+                        {% else %}
+                            {% get_objects objects.latest_published articles.Article 4 as newest_articles %}
+                        {% endif %}
                         {% for article in newest_articles %}
                             <div class="col-xs-12 col-md-6 news-item">
                                 <a href="{{ article.get_url_path }}">
