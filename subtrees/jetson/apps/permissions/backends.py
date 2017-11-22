@@ -10,6 +10,14 @@ from django.utils.encoding import force_text
 RowLevelPermission = models.get_model("permissions", "RowLevelPermission")
 PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
 
+
+def cast_to_int(field):
+    # utility function for the database queries
+    if "postgresql" in settings.DATABASES['default']['ENGINE']:
+        return field + '::integer'
+    return field
+
+
 class RowLevelPermissionsBackend(ModelBackend):
     """
     Supplies per-object permission checking for django.contrib.auth.models.User
@@ -122,9 +130,9 @@ class RowLevelPermissionsBackend(ModelBackend):
                     AND rlp.%s=%%s
                     ORDER BY rlp.%s""" % (
                 quote_name('negative'), quote_name('auth_user_groups'),
-                quote_name('auth_rowlevelpermission'), quote_name('owner_object_id'),
+                quote_name('auth_rowlevelpermission'), cast_to_int(quote_name('owner_object_id')),
                 quote_name('group_id'), quote_name('user_id'),
-                quote_name('owner_content_type_id'), quote_name('object_id'),
+                quote_name('owner_content_type_id'), cast_to_int(quote_name('object_id')),
                 quote_name('content_type_id'), quote_name('permission_id'),
                 quote_name('negative'))
         else:
@@ -139,9 +147,9 @@ class RowLevelPermissionsBackend(ModelBackend):
                     AND rlp.%s=%%s
                     ORDER BY rlp.%s""" % (
                 quote_name('negative'), quote_name('auth_user_groups'),
-                quote_name('auth_rowlevelpermission'), quote_name('owner_object_id'),
+                quote_name('auth_rowlevelpermission'), cast_to_int(quote_name('owner_object_id')),
                 quote_name('group_id'), quote_name('user_id'),
-                quote_name('owner_content_type_id'), quote_name('object_id'),
+                quote_name('owner_content_type_id'), cast_to_int(quote_name('object_id')),
                 quote_name('content_type_id'), quote_name('permission_id'),
                 quote_name('negative'))
         cursor.execute(sql, [
@@ -208,7 +216,7 @@ class RowLevelPermissionsBackend(ModelBackend):
             quote_name('content_type_id'), quote_name('id'),
             quote_name('app_label'),
             quote_name('owner_content_type_id'),
-            quote_name('owner_object_id'),quote_name('negative'), )
+            cast_to_int(quote_name('owner_object_id')),quote_name('negative'), )
         cursor.execute(sql, [app_label, ContentType.objects.get_for_model(User).id, user_obj.id, False])
         count = int(cursor.fetchone()[0])
         if count > 0:
@@ -228,7 +236,7 @@ class RowLevelPermissionsBackend(ModelBackend):
                 AND rlp.%s = %%s
                 AND rlp.%s = %%s""" % (
             quote_name('auth_user_groups'), quote_name('auth_rowlevelpermission'),
-            quote_name('django_content_type'), quote_name('owner_object_id'),
+            quote_name('django_content_type'), cast_to_int(quote_name('owner_object_id')),
             quote_name('group_id'), quote_name('user_id'),
             quote_name('content_type_id'), quote_name('id'),
             quote_name('app_label'), quote_name('negative'),
