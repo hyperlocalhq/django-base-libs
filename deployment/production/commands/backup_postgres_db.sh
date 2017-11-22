@@ -4,8 +4,8 @@ PROJECT_PATH=/usr/local/www/apache24/data/creative-city-berlin.de
 CRON_LOG_FILE=${PROJECT_PATH}/logs/backup_postgres_db.log
 WEEK_DATE=$(LC_ALL=en_US.UTF-8 date +"%w-%A")
 BACKUP_PATH=${PROJECT_PATH}/db_backups/${WEEK_DATE}.backup
-USER=ccb
-DATABASE=ccb
+USER=creativeberlin
+DATABASE=creativeberlin
 
 cd ${PROJECT_PATH}
 mkdir -p logs

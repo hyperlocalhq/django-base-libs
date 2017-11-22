@@ -9,6 +9,6 @@ if [[ $# -eq 0 ]] ; then
 fi
 
 FILE="$1"
-dropdb --username=pgsql ccb
-createdb --username=ccb ccb
-pg_restore --dbname=ccb --role=ccb --schema=public "$FILE"
+dropdb --username=pgsql creativeberlin
+createdb --username=creativeberlin creativeberlin
+pg_restore --dbname=creativeberlin --role=creativeberlin --schema=public "$FILE"

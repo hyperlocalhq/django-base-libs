@@ -16,5 +16,5 @@ SHELL=/usr/local/bin/bash
 50 02 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/import_jobs_from_gruenderszene.sh
 10 03 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/import_jobs_from_dasauge.sh
 00 05 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/rebuild_index.sh
-15 06 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/backup_db.sh
+15 06 * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/backup_postgres_db.sh
 */5 * * * * /usr/local/www/apache24/data/creative-city-berlin.de/commands/send_mails.sh
