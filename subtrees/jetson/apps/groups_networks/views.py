@@ -319,13 +319,13 @@ def persongroup_list(request, criterion="", slug="", show="", **kwargs):
         kwargs['queryset'] = kwargs['queryset'].filter(pk__in=fav_inst_ids)
     elif show=="memos":
         ct = ContentType.objects.get_for_model(kwargs['queryset'].model)
-        memos_ids = Memo.objects.filter(
+        memos_ids = map(int, Memo.objects.filter(
             collection__token=request.COOKIES.get(MEMO_TOKEN_NAME, None),
             content_type=ct,
-            ).values_list("object_id", flat=True)
+        ).values_list("object_id", flat=True))
         kwargs['queryset'] = kwargs['queryset'].filter(
             pk__in=memos_ids,
-            )
+        )
     elif show=="own-%s" % URL_ID_PERSONGROUPS:
         if not request.user.is_authenticated():
             return access_denied(request)

@@ -43,10 +43,10 @@ def _institution_list_filter(request, queryset, show):
         from jetson.apps.memos.models import Memo, MEMO_TOKEN_NAME
 
         ct = ContentType.objects.get_for_model(queryset.model)
-        memos_ids = Memo.objects.filter(
+        memos_ids = map(int, Memo.objects.filter(
             collection__token=request.COOKIES.get(MEMO_TOKEN_NAME, None),
             content_type=ct,
-        ).values_list("object_id", flat=True)
+        ).values_list("object_id", flat=True))
         queryset = queryset.filter(
             pk__in=memos_ids,
         )
