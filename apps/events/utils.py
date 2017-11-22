@@ -3,6 +3,7 @@ from datetime import date
 import vobject
 from django.db import models
 from django.db.models.query import QuerySet
+from django.utils.encoding import force_bytes
 
 from base_libs.utils.misc import get_website_url
 
@@ -19,8 +20,8 @@ def add_vevent(cal, event_time):
     """
     event = event_time.event
     vevent = cal.add('vevent')
-    vevent.add('summary').value = event.get_title()
-    vevent.add('description').value = event.get_description()
+    vevent.add('summary').value = force_bytes(event.get_title())
+    vevent.add('description').value = force_bytes(event.get_description())
     if event.has_start_date():
         if event_time.has_start_time():
             vevent.add('dtstart').value = event_time.start
@@ -38,8 +39,8 @@ def add_vevent(cal, event_time):
         venue_address = event.venue.get_address_string()
         if venue_address:
             location += ', ' + venue_address
-        vevent.add('location').value = location
-    vevent.add('url').value = get_website_url() + event.get_absolute_url()[1:]
+        vevent.add('location').value = force_bytes(location)
+    vevent.add('url').value = force_bytes(get_website_url() + event.get_absolute_url()[1:])
 
 
 def create_ics(events):
