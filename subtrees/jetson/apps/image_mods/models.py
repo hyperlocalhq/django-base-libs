@@ -266,7 +266,7 @@ class FileManager:
         setattr(obj, field_name, "")
         if obj.pk:
             # saving without modifying modification dates nor triggering signals
-            obj._default_manager.filter(pk=obj.pk).update(**{field_name: FileObject(path="")})
+            obj._default_manager.filter(pk=obj.pk).update(**{field_name: ""})
         else:
             obj.save()
 
