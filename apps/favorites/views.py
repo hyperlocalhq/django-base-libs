@@ -67,8 +67,10 @@ def favorites(request, **kwargs):
 
     if user_id:
         tables = ["favorites_favorite"]
-        condition = ["favorites_favorite.user_id = %d" % user_id,
-                     "favorites_favorite.object_id = system_contextitem.id"]
+        condition = [
+            "favorites_favorite.user_id = %d" % user_id,
+            "favorites_favorite.object_id::integer = system_contextitem.id",
+        ]
         favorites = ContextItem.objects.extra(tables=tables, where=condition)
     else:
         favorites = []

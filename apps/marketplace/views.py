@@ -90,7 +90,7 @@ def job_offer_list(request, criterion="", slug="", show="", title="", job_sector
         tables = ["favorites_favorite"]
         condition = [
             "favorites_favorite.user_id = %d" % request.user.id,
-            "favorites_favorite.object_id = marketplace_joboffer.id",
+            "favorites_favorite.object_id::integer = marketplace_joboffer.id",
             "favorites_favorite.content_type_id = %d" % ContentType.objects.get_for_model(queryset.model).pk,
         ]
         queryset = queryset.extra(

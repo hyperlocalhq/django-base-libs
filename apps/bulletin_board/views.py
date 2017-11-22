@@ -52,7 +52,7 @@ def bulletin_list(request, category_slug=None, template_name="bulletin_board/bul
         tables = ["favorites_favorite"]
         condition = [
             "favorites_favorite.user_id = %d" % request.user.id,
-            "favorites_favorite.object_id = bulletin_board_bulletin.id",
+            "favorites_favorite.object_id::integer = bulletin_board_bulletin.id",
             "favorites_favorite.content_type_id = %d" % ContentType.objects.get_for_model(queryset.model).pk,
         ]
         queryset = queryset.extra(

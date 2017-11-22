@@ -48,7 +48,7 @@ def _member_list_filter(request, queryset, show):
         tables = ["favorites_favorite"]
         condition = [
             "favorites_favorite.user_id = %d" % request.user.id,
-            "favorites_favorite.object_id = system_contextitem.id"]
+            "favorites_favorite.object_id::integer = system_contextitem.id"]
         queryset = queryset.filter(
             content_type__model__in=("person", "institution")
         ).extra(

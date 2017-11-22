@@ -27,17 +27,19 @@ def _institution_list_filter(request, queryset, show):
             raise AccessDenied
 
         tables = ["favorites_favorite"]
-        condition = ["favorites_favorite.user_id = %d" % request.user.id,
-                     "favorites_favorite.object_id = system_contextitem.id"]
+        condition = [
+            "favorites_favorite.user_id = %d" % request.user.id,
+            "favorites_favorite.object_id::integer = system_contextitem.id",
+        ]
         ct = ContentType.objects.get_for_model(queryset.model)
         fav_inst_ids = [
-            el['object_id'] for el in ContextItem.objects.filter(
+            int(el['object_id']) for el in ContextItem.objects.filter(
                 content_type=ct
             ).extra(
                 tables=tables,
                 where=condition,
             ).distinct().values("object_id")
-            ]
+        ]
         queryset = queryset.filter(pk__in=fav_inst_ids)
     elif show == "memos":
         from jetson.apps.memos.models import Memo, MEMO_TOKEN_NAME

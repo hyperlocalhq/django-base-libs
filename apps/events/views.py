@@ -75,35 +75,37 @@ def event_list(request, criterion="", slug="", show="", start_date=None, end_dat
         if not request.user.is_authenticated():
             return access_denied(request)
         tables = ["favorites_favorite"]
-        condition = ["favorites_favorite.user_id = %d" % request.user.id,
-                     "favorites_favorite.object_id = system_contextitem.id"]
+        condition = [
+            "favorites_favorite.user_id = %d" % request.user.id,
+            "favorites_favorite.object_id::integer = system_contextitem.id",
+        ]
         ct = ContentType.objects.get_for_model(kwargs['queryset'].model)
         fav_event_ids = [
-            el['object_id'] for el in ContextItem.objects.filter(
+            int(el['object_id']) for el in ContextItem.objects.filter(
                 content_type=ct
             ).extra(
                 tables=tables,
                 where=condition,
             ).distinct().values("object_id")
-            ]
+        ]
         ct = ContentType.objects.get_for_model(Institution)
         fav_inst_ids = [
-            el['object_id'] for el in ContextItem.objects.filter(
+            int(el['object_id']) for el in ContextItem.objects.filter(
                 content_type=ct
             ).extra(
                 tables=tables,
                 where=condition,
             ).distinct().values("object_id")
-            ]
+        ]
         ct = ContentType.objects.get_for_model(Person)
         fav_people_ids = [
-            el['object_id'] for el in ContextItem.objects.filter(
+            int(el['object_id']) for el in ContextItem.objects.filter(
                 content_type=ct
             ).extra(
                 tables=tables,
                 where=condition,
             ).distinct().values("object_id")
-            ]
+        ]
         queryset = queryset.filter(
             models.Q(pk__in=fav_event_ids) |
             models.Q(venue__pk__in=fav_inst_ids) |

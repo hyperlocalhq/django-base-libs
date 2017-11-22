@@ -90,10 +90,11 @@ def gallery_list(request, queryset, show="featured", paginate_by=None, order_by=
             return access_denied(request)
         queryset = queryset.extra(
             tables=["favorites_favorite"],
-            where=["favorites_favorite.user_id = %d" % request.user.id,
-                   "favorites_favorite.object_id = media_gallery_mediagallery.id",
-                   "favorites_favorite.content_type_id = %d" % ContentType.objects.get_for_model(MediaGallery).pk,
-                   ],
+            where=[
+                "favorites_favorite.user_id = %d" % request.user.id,
+                "favorites_favorite.object_id::integer = media_gallery_mediagallery.id",
+                "favorites_favorite.content_type_id = %d" % ContentType.objects.get_for_model(MediaGallery).pk,
+            ],
         ).distinct()
 
     queryset = queryset.filter(

@@ -181,7 +181,7 @@ def article_archive_index(
         tables = ["favorites_favorite"]
         condition = [
             "favorites_favorite.user_id = %d" % request.user.id,
-            "favorites_favorite.object_id = articles_article.id",
+            "favorites_favorite.object_id::integer = articles_article.id",
             "favorites_favorite.content_type_id = %d" % ContentType.objects.get_for_model(Article).pk,
         ]
         queryset = queryset.extra(

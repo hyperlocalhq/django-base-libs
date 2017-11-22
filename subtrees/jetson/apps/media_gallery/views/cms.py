@@ -331,11 +331,12 @@ def gallery_list(request, queryset, show="", paginate_by=None, order_by=None, pa
             return access_denied(request)
         queryset = queryset.extra(
             tables=["favorites_favorite"],
-            where=["favorites_favorite.user_id = %d" % request.user.id,
-            "favorites_favorite.object_id = media_gallery_mediagallery.id",
-            "favorites_favorite.content_type_id = %d" % ContentType.objects.get_for_model(MediaGallery).pk,
+            where=[
+                "favorites_favorite.user_id = %d" % request.user.id,
+                "favorites_favorite.object_id::integer = media_gallery_mediagallery.id",
+                "favorites_favorite.content_type_id = %d" % ContentType.objects.get_for_model(MediaGallery).pk,
             ],
-            ).distinct()
+        ).distinct()
     
     queryset = queryset._clone()
     queryset.sort_order_map=sort_order_map
