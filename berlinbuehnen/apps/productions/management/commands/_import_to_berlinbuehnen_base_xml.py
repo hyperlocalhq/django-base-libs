@@ -302,7 +302,7 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
 
             try:
                 prod.language_and_subtitles = LanguageAndSubtitles.objects.get(slug=self.get_child_text(prod_node, 'language_and_subtitles_id'))
-            except:
+            except LanguageAndSubtitles.DoesNotExist:
                 prod.language_and_subtitles = None
 
             prod.classiccard = (self.get_child_text(prod_node, 'classiccard') == "true")
@@ -753,8 +753,8 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
                     event.longitude = None
 
                 try:
-                    event.language_and_subtitles = LanguageAndSubtitles.objects.get(slug=self.get_child_text(prod_node, 'language_and_subtitles_id'))
-                except:
+                    event.language_and_subtitles = LanguageAndSubtitles.objects.get(slug=self.get_child_text(event_node, 'language_and_subtitles_id'))
+                except LanguageAndSubtitles.DoesNotExist:
                     event.language_and_subtitles = None
 
                 event.event_status = self.get_child_text(event_node, 'event_status')
