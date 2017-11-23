@@ -120,6 +120,9 @@ class Urls(object):
 
         # OK (default)
         self.urls_which_should_return_200 = [
+            "/tweets/",
+            "/tweets/berlinbuehnen/",
+            "/tweets/thisuserdoesnotexist/",
             "/de/",
             "/de/buehnen/",
             "/de/spielplan/",
@@ -131,6 +134,8 @@ class Urls(object):
             "/de/meta/ueber-uns/",
             "/de/meta/jobs-redirect/",
             "/de/meta/impressum/",
+            "/de/filebrowser/get-version/",
+            '/de/admin/filebrowser/browse/',  # shouldn't this redirect to login screen instead of opening one?
         ]
 
         querysets = [
@@ -156,6 +161,20 @@ class Urls(object):
         # Redirect (to login or other page) if anonymous; OK otherwise
         self.urls_which_should_return_302_when_anonymous = [
             '/de/dashboard/',  # login required
+            '/de/dashboard/productions/',
+            '/de/dashboard/multiparts/',
+            '/de/dashboard/locations/',
+            '/de/dashboard/festivals/',
+            '/de/dashboard/jobs/',
+            '/de/dashboard/educational_departments/',
+            '/de/dashboard/educational_projects/',
+            '/de/spielplan/add/',
+            '/de/multiparts/add/',
+            '/de/buehnen/add/',
+            '/de/festivals/add/',
+            '/de/meta/jobs-redirect/add/',
+            '/de/mitmachen/abteilungen/add/',
+            '/de/mitmachen/projekte/add/',
             '/de/admin/logout/',  # keep the logout last, because it changes the request user
         ]
 
