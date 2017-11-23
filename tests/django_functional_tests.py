@@ -99,6 +99,9 @@ class Urls(object):
         from berlinbuehnen.apps.locations.models import Location
         from berlinbuehnen.apps.productions.models import Event
         from berlinbuehnen.apps.festivals.models import Festival
+        from berlinbuehnen.apps.education.models import Department, Project
+        from berlinbuehnen.apps.articles.models import Article
+
         # Errorous pages that need fixing
         self.urls_which_should_return_200_but_dont = [
         ]
@@ -119,12 +122,24 @@ class Urls(object):
         self.urls_which_should_return_200 = [
             "/de/",
             "/de/buehnen/",
+            "/de/spielplan/",
+            "/de/festivals/",
+            "/de/mitmachen/abteilungen/",
+            "/de/aktuelles/",
+            "/de/umfrage/",
+            "/de/suche/",
+            "/de/meta/ueber-uns/",
+            "/de/meta/jobs-redirect/",
+            "/de/meta/impressum/",
         ]
 
         querysets = [
             Location.objects.filter(status="published").order_by("?"),
             Event.objects.filter(production__status="published").order_by("?"),
             Festival.objects.filter(status="published").order_by("?"),
+            Department.objects.filter(status="published").order_by("?"),
+            Project.objects.filter(status="published").order_by("?"),
+            Article.published_objects.order_by("?"),
         ]
         for qs in querysets:
             if limit_detail_pages_to:
