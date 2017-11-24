@@ -295,7 +295,7 @@ $(document).ready(function() {
         });
 
         if (!children_initialised) {
-            setTimeout(function() {me.init();}, 10);
+            setTimeout(function() {me.init();}, 100);
             return;
         }
 
