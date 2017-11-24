@@ -342,7 +342,7 @@ $(document).ready(function() {
 
                 if (!$child.hasClass('opened')) {
                     var $accordion = $('> .accordion', $child);
-                    //$accordion.height(0);
+                    $accordion.height(0);
                 }
 
             });
@@ -506,7 +506,7 @@ $(document).ready(function() {
     }
 
     Accordion.prototype.onResize = function() {
-
+        return;
         var me = this;
 
         if (me.$window.width() == me.width) return;
