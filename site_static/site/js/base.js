@@ -295,7 +295,7 @@ $(document).ready(function() {
         });
 
         if (!children_initialised) {
-            setTimeout(function() {me.init();}, 100);
+            setTimeout(function() {me.init();}, 10);
             return;
         }
 
@@ -317,7 +317,7 @@ $(document).ready(function() {
         var height = me.$main.height();
 
         if (is_height_0 || height < offset) {
-            setTimeout(function() {me.init();}, 100);
+            setTimeout(function() {me.init();}, 10);
             return;
         }
 
@@ -342,12 +342,12 @@ $(document).ready(function() {
 
                 if (!$child.hasClass('opened')) {
                     var $accordion = $('> .accordion', $child);
-                    $accordion.height(0);
+                    //$accordion.height(0);
                 }
 
             });
 
-            setTimeout(function() {me.initDone();}, 200);
+            setTimeout(function() {me.initDone();}, 100);
         };
 
     }
