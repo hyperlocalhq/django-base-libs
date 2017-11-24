@@ -382,7 +382,7 @@ $(document).ready(function() {
 
         if (!check) {
             me.width = 0;
-            me.onResize();
+            //me.onResize();
         } else {
             me.$main.trigger('initialised');
         }
@@ -506,7 +506,7 @@ $(document).ready(function() {
     }
 
     Accordion.prototype.onResize = function() {
-        return;
+
         var me = this;
 
         if (me.$window.width() == me.width) return;
