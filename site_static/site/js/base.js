@@ -370,7 +370,7 @@ $(document).ready(function() {
             var $accordion = $('> .accordion', $child);
             var height = $accordion.data('height');
             $accordion.height('');
-            console.log(height + " - " + $accordion.height() + " - " + Math.abs(height-$accordion.height()));
+            //console.log(height + " - " + $accordion.height() + " - " + Math.abs(height-$accordion.height()));
             if (Math.abs(height-$accordion.height()) > 1) check = false;
             if (!$child.hasClass('opened')) $accordion.height(0);
             else $accordion.height(height);
