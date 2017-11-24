@@ -317,7 +317,7 @@ $(document).ready(function() {
         var height = me.$main.height();
 
         if (is_height_0 || height < offset) {
-            setTimeout(function() {me.init();}, 10);
+            setTimeout(function() {me.init();}, 100);
             return;
         }
 
@@ -347,7 +347,7 @@ $(document).ready(function() {
 
             });
 
-            setTimeout(function() {me.initDone();}, 100);
+            setTimeout(function() {me.initDone();}, 200);
         };
 
     }
