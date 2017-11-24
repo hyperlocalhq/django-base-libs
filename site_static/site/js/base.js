@@ -371,7 +371,7 @@ $(document).ready(function() {
             var height = $accordion.data('height');
             $accordion.height('');
             console.log(height + " - " + $accordion.height());
-            if (height != $accordion.height()) check = false;
+            if (Math.abs(height-$accordion.height()) > 1) check = false;
             if (!$child.hasClass('opened')) $accordion.height(0);
             else $accordion.height(height);
 
@@ -383,7 +383,7 @@ $(document).ready(function() {
 
         if (!check) {
             me.width = 0;
-            //me.onResize();
+            me.onResize();
         } else {
             me.$main.trigger('initialised');
         }
