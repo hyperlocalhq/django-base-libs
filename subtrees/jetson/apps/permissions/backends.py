@@ -125,7 +125,7 @@ class RowLevelPermissionsBackend(ModelBackend):
                 WHERE rlp.%s = ug.%s::text
                     AND ug.%s=%%s
                     AND rlp.%s=%%s
-                    AND rlp.%s=%%s
+                    AND rlp.%s=%%s::text
                     AND rlp.%s=%%s
                     AND rlp.%s=%%s
                     ORDER BY rlp.%s""" % (
@@ -135,7 +135,7 @@ class RowLevelPermissionsBackend(ModelBackend):
                 quote_name('group_id'),
                 quote_name('user_id'),
                 quote_name('owner_content_type_id'),
-                cast_to_int(quote_name('object_id')),
+                quote_name('object_id'),
                 quote_name('content_type_id'),
                 quote_name('permission_id'),
                 quote_name('negative'))
