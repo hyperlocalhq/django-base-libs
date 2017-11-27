@@ -20,8 +20,14 @@ class Day(CreationModificationMixin, SlugMixin()):
     day = models.DateField(_("Date"))
     title = MultilingualCharField(_("Title"), max_length=200)
     description = MultilingualTextField(_("Description"))
-    image = FileBrowseField(_('Image'), max_length=255, directory="advent-calendar/",
-                            extensions=['.jpg', '.jpeg', '.gif', '.png'], blank=True)
+    preview_image = FileBrowseField(
+        _('Preview Image'), max_length=255, directory="advent-calendar/",
+        extensions=['.jpg', '.jpeg', '.gif', '.png'], blank=True,
+    )
+    image = FileBrowseField(
+        _('Active Image'), max_length=255, directory="advent-calendar/",
+        extensions=['.jpg', '.jpeg', '.gif', '.png'], blank=True,
+    )
 
     class Meta:
         verbose_name = _("Day")

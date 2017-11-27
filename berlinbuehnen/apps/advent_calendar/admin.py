@@ -12,13 +12,13 @@ from .models import Day
 
 class DayAdmin(ExtendedModelAdmin):
     save_on_top = True
-    list_display = ["day", "get_image", "title", "get_status"]
+    list_display = ["day", "get_preview_image", "get_image", "title", "get_status"]
     search_fields = ["title", "description"]
     fieldsets = [
         (None, {'fields': ["day"]}),
     ]
     fieldsets += [
-        (_("Image"), {'fields': ["image"]}),
+        (_("Images"), {'fields': ["preview_image", "image"]}),
     ]
     fieldsets += get_admin_lang_section(_("Content"), ['title', 'description',])
 
@@ -32,12 +32,24 @@ class DayAdmin(ExtendedModelAdmin):
         return ""
     get_status.short_description = _("Status Today")
 
-    def get_image(self, obj):
+    def get_preview_image(self, obj):
+        if not obj.preview_image:
+            return ""
         return """<img src="{}{}" alt="" width="60" height="60" />""".format(
             settings.MEDIA_URL,
             modified_path(obj.image, "filebrowser_thumbnail")
         )
-    get_image.short_description = _("Image")
+    get_preview_image.short_description = _("Preview Image")
+    get_preview_image.allow_tags = True
+
+    def get_image(self, obj):
+        if not obj.image:
+            return ""
+        return """<img src="{}{}" alt="" width="60" height="60" />""".format(
+            settings.MEDIA_URL,
+            modified_path(obj.image, "filebrowser_thumbnail")
+        )
+    get_image.short_description = _("Active Image")
     get_image.allow_tags = True
 
 admin.site.register(Day, DayAdmin)
