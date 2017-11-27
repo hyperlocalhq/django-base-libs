@@ -250,6 +250,7 @@ INSTALLED_APPS = (
     "berlinbuehnen.apps.cms_extensions.plugins.filebrowser_image",
     "berlinbuehnen.apps.cms_extensions.plugins.gmap",
     "berlinbuehnen.apps.cms_extensions.plugins.headline",
+    "berlinbuehnen.apps.advent_calendar",
 )
 
 
@@ -285,6 +286,10 @@ ADMIN_APP_INDEX = (
             }),
             ('education', {
                 'models': ('Department', 'ProjectTargetGroup', 'ProjectFormat', 'Project'),
+            }),
+            ('advent_calendar', {
+                'verbose_name': gettext("Advent Calendar"),
+                'models': ('Day',),
             }),
             ('sponsors', {
                 'models': ('Sponsor',),
