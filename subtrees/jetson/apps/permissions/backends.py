@@ -129,11 +129,15 @@ class RowLevelPermissionsBackend(ModelBackend):
                     AND rlp.%s=%%s
                     AND rlp.%s=%%s
                     ORDER BY rlp.%s""" % (
-                quote_name('negative'), quote_name('auth_user_groups'),
-                quote_name('auth_rowlevelpermission'), cast_to_int(quote_name('owner_object_id')),
-                quote_name('group_id'), quote_name('user_id'),
-                quote_name('owner_content_type_id'), cast_to_int(quote_name('object_id')),
-                quote_name('content_type_id'), quote_name('permission_id'),
+                quote_name('negative'),
+                quote_name('auth_user_groups'), quote_name('auth_rowlevelpermission'),
+                quote_name('owner_object_id'),
+                quote_name('group_id'),
+                quote_name('user_id'),
+                quote_name('owner_content_type_id'),
+                cast_to_int(quote_name('object_id')),
+                quote_name('content_type_id'),
+                quote_name('permission_id'),
                 quote_name('negative'))
         else:
             sql = """
