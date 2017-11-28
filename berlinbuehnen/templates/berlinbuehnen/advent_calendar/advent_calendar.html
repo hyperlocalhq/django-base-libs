@@ -18,10 +18,18 @@
 
                                     <!-- image -->
                                     <span class="grid-item-image img">
-                                        {% if day.preview_image %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ day.preview_image.path|modified_path:"detail_image" }}" alt="{{ day.day|date:"l, j. F Y" }}" />
+                                        {% if day.is_past %}
+                                            {% if day.image %}
+                                                <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ day.image.path|modified_path:"detail_image" }}" alt="{{ day.day|date:"l, j. F Y" }}" />
+                                            {% else %}
+                                                <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
+                                            {% endif %}
                                         {% else %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
+                                            {% if day.preview_image %}
+                                                <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ day.preview_image.path|modified_path:"detail_image" }}" alt="{{ day.day|date:"l, j. F Y" }}" />
+                                            {% else %}
+                                                <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
+                                            {% endif %}
                                         {% endif %}
                                     </span>
                                     {% comment %}
