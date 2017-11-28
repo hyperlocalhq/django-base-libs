@@ -37,7 +37,7 @@ class DayAdmin(ExtendedModelAdmin):
             return ""
         return """<img src="{}{}" alt="" width="60" height="60" />""".format(
             settings.MEDIA_URL,
-            modified_path(obj.image, "filebrowser_thumbnail")
+            modified_path(obj.preview_image, "filebrowser_thumbnail")
         )
     get_preview_image.short_description = _("Preview Image")
     get_preview_image.allow_tags = True
