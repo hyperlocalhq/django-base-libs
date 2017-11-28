@@ -102,24 +102,8 @@ class Urls(object):
         from berlinbuehnen.apps.education.models import Department, Project
         from berlinbuehnen.apps.articles.models import Article
 
-        # Errorous pages that need fixing
-        self.urls_which_should_return_200_but_dont = [
-        ]
-
-        # Errorous pages that need fixing
-        self.urls_which_should_return_301_but_dont = [
-        ]
-
-        # Errorous pages that need fixing
-        self.urls_which_should_return_302_but_dont = [
-        ]
-
         # OK (default)
-        self.feed_urls_which_should_return_200 = [
-        ]
-
-        # OK (default)
-        self.urls_which_should_return_200 = [
+        self.anonymous_200_authenticated_200 = [
             "/tweets/",
             "/tweets/berlinbuehnen/",
             "/tweets/thisuserdoesnotexist/",
@@ -136,6 +120,11 @@ class Urls(object):
             "/de/meta/impressum/",
             "/de/filebrowser/get-version/",
             '/de/admin/filebrowser/browse/',  # shouldn't this redirect to login screen instead of opening one?
+            '/de/admin/filebrowser/createdir/',  # shouldn't this redirect to login screen instead of opening one?
+            '/de/admin/filebrowser/upload/',  # shouldn't this redirect to login screen instead of opening one?
+            '/de/admin/filebrowser/delete_confirm/',  # shouldn't this redirect to login screen instead of opening one?
+            '/de/admin/filebrowser/detail/',  # shouldn't this redirect to login screen instead of opening one?
+            '/de/admin/filebrowser/version/',  # shouldn't this redirect to login screen instead of opening one?
         ]
 
         querysets = [
@@ -150,16 +139,16 @@ class Urls(object):
             if limit_detail_pages_to:
                 qs = qs[:3]
             for obj in qs:
-                self.urls_which_should_return_200.append(obj.get_url_path())
+                self.anonymous_200_authenticated_200.append(obj.get_url_path())
 
         # Redirect (to language-specific or other page)
-        self.urls_which_should_return_302 = [
+        self.anonymous_302_authenticated_302 = [
             "/de/logout/",  # keep the logout last, because it changes the request user
             '/logout/',  # keep the logout last, because it changes the request user
         ]
 
         # Redirect (to login or other page) if anonymous; OK otherwise
-        self.urls_which_should_return_302_when_anonymous = [
+        self.anonymous_302 = [
             '/de/dashboard/',  # login required
             '/de/dashboard/productions/',
             '/de/dashboard/multiparts/',
@@ -179,28 +168,17 @@ class Urls(object):
         ]
 
         # Bad request paramethers
-        self.urls_which_should_return_400 = [
-        ]
-
-        # Unauthorized
-        self.urls_which_should_return_401 = [
-            #'/de/notification/feed/'
+        self.authenticated_400 = [
+            "/de/admin/filebrowser/upload_file/",
         ]
 
         # Access Denied
-        self.urls_which_should_return_403_when_anonymous = [
+        self.anonymous_403 = [
         ]
 
         # Page not found
-        self.urls_which_should_return_404 = [
-        ]
-
-        # Method not allowed
-        self.urls_which_should_return_405_when_authenticated = [
-        ]
-
-        # Internal server error
-        self.urls_which_should_return_500 = [
+        self.authenticated_404 = [
+            "/de/admin/filebrowser/delete-version/",
         ]
 
 
@@ -214,19 +192,10 @@ def suite():
         urls = Urls(limit_detail_pages_to=3)
 
     url_lists_by_expected_status_code = (
-        (200, urls.feed_urls_which_should_return_200),
-        (200, urls.urls_which_should_return_200_but_dont),
-        (301, urls.urls_which_should_return_301_but_dont),
-        (302, urls.urls_which_should_return_302_but_dont),
-        (200, urls.urls_which_should_return_200),
-        (302, urls.urls_which_should_return_302),
-        (302, urls.urls_which_should_return_302_when_anonymous),
-        (302, urls.urls_which_should_return_405_when_authenticated),
-        (400, urls.urls_which_should_return_400),
-        (401, urls.urls_which_should_return_401),
-        (403, urls.urls_which_should_return_403_when_anonymous),
-        (404, urls.urls_which_should_return_404),
-        (500, urls.urls_which_should_return_500),
+        (200, urls.anonymous_200_authenticated_200),
+        (302, urls.anonymous_302_authenticated_302),
+        (302, urls.anonymous_302),
+        (403, urls.anonymous_403),
     )
     client = ExtendedClient()
     for expected_status_code, url_list in url_lists_by_expected_status_code:
@@ -235,12 +204,10 @@ def suite():
             for url_path in url_list
         )
     authenticated_url_lists_by_expected_status_code = (
-        (200, urls.urls_which_should_return_200),
-        (302, urls.urls_which_should_return_302),
-        (200, urls.urls_which_should_return_302_when_anonymous),
-        (200, urls.urls_which_should_return_403_when_anonymous),
-        (401, urls.urls_which_should_return_401),
-        (405, urls.urls_which_should_return_405_when_authenticated),
+        (200, urls.anonymous_200_authenticated_200),
+        (302, urls.anonymous_302_authenticated_302),
+        (400, urls.authenticated_400),
+        (404, urls.authenticated_404),
     )
     for expected_status_code, url_list in authenticated_url_lists_by_expected_status_code:
         client = ExtendedClient()
