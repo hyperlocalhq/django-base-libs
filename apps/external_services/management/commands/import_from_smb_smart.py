@@ -240,43 +240,34 @@ class Command(NoArgsCommand):
                     else:
                         exhibition.categories.add(exhibition_cat)
 
-            # if data_dict['opening_times']:
-            #     season = Season(exhibition=exhibition)
-            #     for day_index, times in data_dict['opening_times'].items():
-            #         from_time, till_time = times.split("-")
-            #         setattr(season, "%s_open" % weekdays[int(day_index)], parse_datetime(from_time).time())
-            #         setattr(season, "%s_close" % weekdays[int(day_index)], parse_datetime(till_time).time())
-            #     season.save()
-
             if data_dict['openings']:
-                if isinstance(data_dict['openings'], list):
+                try:
+                    season = Season.objects.filter(exhibition=exhibition)[0]
+                except IndexError:
                     season = Season(exhibition=exhibition)
-                    for day_index, times in enumerate(data_dict['openings']):
-                        start_h = times['start_h']
-                        if start_h == "24":
-                            start_h = "0"
-                        ende_h = times['ende_h']
-                        if ende_h == "24":
-                            ende_h = "0"
-                        from_time = start_h + ':' + times['start_min']
-                        till_time = ende_h + ':' + times['ende_min']
-                        setattr(season, "%s_open" % weekdays[int(day_index)], parse_datetime(from_time).time())
-                        setattr(season, "%s_close" % weekdays[int(day_index)], parse_datetime(till_time).time())
-                    season.save()
-                elif isinstance(data_dict['openings'], dict):
-                    season = Season(exhibition=exhibition)
-                    for day_index, times in data_dict['openings'].items():
-                        start_h = times['start_h']
-                        if start_h == "24":
-                            start_h = "0"
-                        ende_h = times['ende_h']
-                        if ende_h == "24":
-                            ende_h = "0"
-                        from_time = start_h + ':' + times['start_min']
-                        till_time = ende_h + ':' + times['ende_min']
-                        setattr(season, "%s_open" % weekdays[int(day_index)], parse_datetime(from_time).time())
-                        setattr(season, "%s_close" % weekdays[int(day_index)], parse_datetime(till_time).time())
-                    season.save()
+
+                # The value of "openings" is either an JSON array -> Python list, or a JSON object -> Python dict
+                items = []
+                if isinstance(data_dict['openings'], dict):
+                    items = data_dict['openings'].items()
+                elif isinstance(data_dict['openings'], list):
+                    items = enumerate(data_dict['openings'])
+
+                for day_index, times in items:
+                    start_h = times['start_h']
+                    if start_h == "24":
+                        start_h = "0"
+                    ende_h = times['ende_h']
+                    if ende_h == "24":
+                        ende_h = "0"
+                    from_time = start_h + ':' + times['start_min']
+                    till_time = ende_h + ':' + times['ende_min']
+                    setattr(season, "%s_open" % weekdays[int(day_index)], parse_datetime(from_time).time())
+                    setattr(season, "%s_close" % weekdays[int(day_index)], parse_datetime(till_time).time())
+                season.save()
+            else:
+                Season.objects.filter(exhibition=exhibition).delete()
+
 
             # get biggest possible images
             img_teaser = (data_dict.get('img_teaser_963', []) or data_dict.get('img_teaser_637', []))
