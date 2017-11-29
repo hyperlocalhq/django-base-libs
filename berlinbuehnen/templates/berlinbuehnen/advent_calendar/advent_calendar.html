@@ -10,7 +10,9 @@
 
                 <h1 class="bottom-line">{% trans "Advent Calendar" %}</h1>
 
-                {% placeholder "intro" %}
+                <div class="placeholder-intro">
+                    {% placeholder "intro" %}
+                </div>
 
                 <div class="col-xs-12 print-padding">
 
@@ -24,9 +26,9 @@
                                     <span class="grid-item-image img {% if day.is_present %}present{% elif day.is_past %}past{% else %}future{% endif %}">
                                         {% if day.is_past %}
                                             {% if day.image %}
-                                                <img src="{{ STATIC_URL }}site/img/placeholder_advent_calendar.png" data-original="{{ MEDIA_URL }}{{ day.image.path|modified_path:"advent_calendar_image" }}" alt="{{ day.day|date:"l, j. F Y" }}" />
+                                                <img src="{{ STATIC_URL }}site/img/placeholder_advent_calendar.png" data-original="{{ MEDIA_URL }}{{ day.image.path|modified_path:"advent_calendar_image" }}" alt="{{ day.day|date:"l, j. F Y" }}"/>
                                             {% else %}
-                                                <img src="{{ STATIC_URL }}site/img/placeholder_advent_calendar.png" />
+                                                <img src="{{ STATIC_URL }}site/img/placeholder_advent_calendar.png"/>
                                             {% endif %}
                                         {% else %}
                                             {% if day.preview_image %}

@@ -9451,11 +9451,80 @@ span.pin a {
   border-bottom-color: #ffffff;
 }
 
+.is-xs .advent-calendar .container .placeholder-intro .col-xs-12 {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.advent-calendar .container .banner {
+  color: #ffffff;
+  overflow: hidden;
+  padding: 0 0 20px;
+  margin-bottom: 10px;
+  cursor: default;
+  position: relative;
+}
+
+.advent-calendar .container .banner .image {
+  margin: 30px 40px 0 0;
+  text-align: right;
+}
+
+.advent-calendar .container .banner .image .fawesome:before {
+  vertical-align: middle;
+  padding: 0;
+  font-size: 3.7rem;
+}
+
+.advent-calendar .container .banner .image .arrow-right:before {
+  padding-right: 30px;
+}
+
+.advent-calendar .container .banner img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 150px;
+  margin: 0;
+  padding: 0;
+  display: inline;
+}
+
+.is-sm .advent-calendar .container .banner img, .is-xs .advent-calendar .container .banner img {
+  max-height: 100px;
+}
+
+.advent-calendar .container .banner .text {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  -ms-transform: translateY(-45%);
+  -webkit-transform: translateY(-45%);
+  transform: translateY(-45%);
+}
+
+.is-xs .advent-calendar .container .banner .text {
+  position: static;
+  -ms-transform: translateY(0);
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+}
+
+.advent-calendar .container .banner h2 {
+  font-size: 1.85em;
+  font-weight: 400;
+  margin: 0;
+  padding: 0 20px;
+  text-transform: uppercase;
+}
+
 .advent-calendar .container #main_list {
   margin-top: 50px;
 }
 
 .advent-calendar .container .img {
+  margin: 0;
+  background: #999999 !important;
   -webkit-perspective: 1000;
   -moz-perspective: 1000;
   -o-perspective: 1000;
@@ -9524,6 +9593,11 @@ span.pin a {
   -o-filter: grayscale(100%);
   filter: grayscale(100%);
   filter: gray;
+  opacity: 0.5;
+}
+
+.advent-calendar .container .img.past:hover img {
+  opacity: 0.5 !important;
 }
 
 .advent-calendar .container .img:hover img {
@@ -9542,10 +9616,10 @@ span.pin a {
   text-align: center;
   vertical-align: middle;
   display: none;
-  -webkit-transition: opacity 0.2s ease-out;
-  -moz-transition: opacity 0.2s ease-out;
-  -o-transition: opacity 0.2s ease-out;
-  transition: opacity 0.2s ease-out;
+  -webkit-transition: opacity 0.5s ease-out;
+  -moz-transition: opacity 0.5s ease-out;
+  -o-transition: opacity 0.5s ease-out;
+  transition: opacity 0.5s ease-out;
 }
 
 .advent-calendar .container .gift.opening {
