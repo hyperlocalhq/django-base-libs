@@ -1,0 +1,123 @@
+// main:style.scss
+// @Author: Daniel Lehmann
+// @Date:   2017/11/29
+// @Email:  code@dreammedia.info
+// @Last modified by:   Daniel Lehmann
+// @Last modified time: 2017/11/29
+// @copyright Daniel Lehmann (code@dreammedia.info)
+
+@charset "utf-8";
+
+.advent-calendar-body {
+    &.gift-layer {
+        overflow: hidden;
+    }
+}
+
+.advent-calendar {
+    .container {
+        background: $black;
+        color: $white;
+        padding: 50px 50px 0;
+
+        h1.bottom-line {
+            border-bottom-color: $white;
+        }
+
+        #main_list {
+            margin-top: 50px;
+        }
+
+        .img {
+
+            img {
+                position: relative;
+
+                &.gift-image {
+                    position: absolute;
+                }
+
+                &.open {
+                    visibility: hidden;
+                }
+            }
+
+            &.present {
+                cursor: pointer;
+            }
+
+            &.past {
+                img {
+                    -webkit-filter: grayscale(100%);
+                    -moz-filter: grayscale(100%);
+                    -ms-filter: grayscale(100%);
+                    -o-filter: grayscale(100%);
+                    filter: grayscale(100%);
+                    filter: gray;
+                }
+            }
+
+            &:hover {
+                img {
+                    opacity: 1 !important;
+                }
+            }
+        }
+
+        .gift {
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+            display: none;
+
+            &.open {
+                display: block;
+            }
+
+            .gift-layer {
+                border: 5px solid $white;
+                border-radius: 10px;
+                background: $black;
+                width: 100%;
+                max-width: 800px;
+                max-height: 100%;
+                padding: 50px 20px 40px 20px;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+                overflow: auto;
+                overflow-x: hidden;
+                overflow-y: auto;
+
+                .gift-close {
+                    width: 41px;
+                    height: 38px;
+                    position: absolute;
+                    right: 0;
+                    top: 5px;
+                    background: $black url(../img/close.gif);
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    cursor: pointer;
+                }
+
+                h2 {
+                    color: $white;
+                    margin-bottom: 25px !important;
+                    font-size: 2.1rem;
+                }
+                p {
+                    color: $white;
+                }
+            }
+        }
+    }
+}
