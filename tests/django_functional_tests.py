@@ -138,6 +138,31 @@ class Urls(object):
             '/de/tagging_autocomplete/list',
             '/de/helper/autocomplete/i18n/get_countries/name/get_name/',
             '/de/helper/modified-path/',
+            '/de/helper/menu/',
+            '/de/jsi18n/',
+            '/de/jssettings/',
+            '/de/grappelli/grp-doc/change-form/',
+            '/de/grappelli/grp-doc/change-list/',
+            '/de/grappelli/grp-doc/admin-index/',
+            '/de/grappelli/grp-doc/tables/',
+            '/de/grappelli/grp-doc/pagination/',
+            '/de/grappelli/grp-doc/search-form/',
+            '/de/grappelli/grp-doc/filter/',
+            '/de/grappelli/grp-doc/date-hierarchy/',
+            '/de/grappelli/grp-doc/fieldsets/',
+            '/de/grappelli/grp-doc/errors/',
+            '/de/grappelli/grp-doc/form-fields/',
+            '/de/grappelli/grp-doc/submit-rows/',
+            '/de/grappelli/grp-doc/modules/',
+            '/de/grappelli/grp-doc/groups/',
+            '/de/grappelli/grp-doc/navigation/',
+            '/de/grappelli/grp-doc/context-navigation/',
+            '/de/grappelli/grp-doc/basic-page-structure/',
+            '/de/grappelli/grp-doc/tools/',
+            '/de/grappelli/grp-doc/object-tools/',
+            '/de/grappelli/grp-doc/mueller-grid-system/',
+            '/de/grappelli/grp-doc/mueller-grid-system-layouts/',
+            '/de/grappelli/grp-doc',
         ]
 
         self.anonymous_200 = [
@@ -161,7 +186,8 @@ class Urls(object):
 
         # Redirect (to language-specific or other page)
         self.anonymous_302_authenticated_302 = [
-            "/de/logout/",  # keep the logout last, because it changes the request user
+            '/de/i18n/',
+            '/de/logout/',  # keep the logout last, because it changes the request user
             '/logout/',  # keep the logout last, because it changes the request user
         ]
 
@@ -183,6 +209,13 @@ class Urls(object):
             '/de/mitmachen/abteilungen/add/',
             '/de/mitmachen/projekte/add/',
             '/de/admin/logout/',  # keep the logout last, because it changes the request user
+        ]
+
+        self.authenticated_200 = [
+            "/de/admin/filebrowser/upload_file/",
+            '/de/grappelli/lookup/m2m/',
+            '/de/grappelli/lookup/autocomplete/',
+            '/de/grappelli/lookup/related/',
         ]
 
         self.authenticated_302 = [
@@ -219,6 +252,9 @@ class Urls(object):
 
         # Access Denied
         self.anonymous_403 = [
+            '/de/grappelli/lookup/related/',
+            '/de/grappelli/lookup/autocomplete/',
+            '/de/grappelli/lookup/m2m/',
         ]
 
         # Page not found
@@ -228,10 +264,15 @@ class Urls(object):
 
         self.anonymous_404_authenticated_404 = [
             "/de/recrop/",
+            "/de/autocomplete/location/",
         ]
 
         self.anonymous_405_authenticated_405 = [
             "/de/helper/ajax-upload/",
+        ]
+
+        self.anonymous_500_authenticated_500 = [
+            #'/de/grappelli/grp-doc/mueller-grid-system-tests/',
         ]
 
 
@@ -253,6 +294,7 @@ def suite():
         (403, urls.anonymous_403),
         (404, urls.anonymous_404_authenticated_404),
         (405, urls.anonymous_405_authenticated_405),
+        (500, urls.anonymous_500_authenticated_500),
     )
     client = ExtendedClient()
     for expected_status_code, url_list in url_lists_by_expected_status_code:
@@ -269,6 +311,7 @@ def suite():
         (404, urls.authenticated_404),
         (404, urls.anonymous_404_authenticated_404),
         (405, urls.anonymous_405_authenticated_405),
+        (500, urls.anonymous_500_authenticated_500),
     )
     for expected_status_code, url_list in authenticated_url_lists_by_expected_status_code:
         client = ExtendedClient()
