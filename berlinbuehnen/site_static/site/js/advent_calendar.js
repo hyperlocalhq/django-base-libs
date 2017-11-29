@@ -17,8 +17,22 @@ $(document).ready(function() {
         me.$layer = $('.advent-calendar .gift');
         me.$body = $('body');
 
-        me.$present.click(function() {me.openLayer();});
+        me.$present.click(function() {me.openDoor();});
         $('.gift-close', me.$layer).click(function() {me.closeLayer();});
+    }
+
+    AdventCalendar.prototype.openDoor = function() {
+
+        var me = this;
+
+        if (me.$gift_door.hasClass('opening')) return;
+        if (me.$gift_door.hasClass('open')) me.openLayer();
+        else {
+            me.$gift_door.addClass('opening');
+            me.$layer.addClass("opening");
+            //me.$body.addClass("gift-layer");
+            window.setTimeout(function() {me.openLayer();}, 1600);
+        }
     }
 
     AdventCalendar.prototype.openLayer = function() {
@@ -26,8 +40,10 @@ $(document).ready(function() {
         var me = this;
 
         me.$gift_door.addClass('open');
+        me.$gift_door.removeClass('opening')
 
         me.$layer.addClass("open");
+        me.$layer.removeClass("opening");
         me.$body.addClass("gift-layer");
     }
 
