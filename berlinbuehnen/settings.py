@@ -539,6 +539,11 @@ CMS_PLACEHOLDER_CONF = {
         'plugins': ("TitleAndTextPlugin", "ImageAndTextPlugin", "LinkCategoryPlugin",),
         'name': _("Main Content"),
     },
+    ### ADVENT CALENDAR ###
+    'advent_calendar/advent_calendar.html intro': {
+        'plugins': ("ServicePageBannerPlugin",),
+        'name': _("Intro"),
+    },
 }
 
 CMS_TEMPLATES = [
