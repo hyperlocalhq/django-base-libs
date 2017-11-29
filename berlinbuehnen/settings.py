@@ -553,6 +553,7 @@ CMS_TEMPLATES = [
     ('services/service_second_grid.html', gettext(u'Service – Second – Grid')),
     ('services/service_second_list.html', gettext(u'Service – Second – List')),
     ('services/service_second_page.html', gettext(u'Service – Second – Page')),
+    ('advent_calendar/advent_calendar.html', gettext(u'Advent Calendar')),
 ]
 
 CMS_APPHOOKS = (

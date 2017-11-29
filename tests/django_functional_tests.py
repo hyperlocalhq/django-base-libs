@@ -125,6 +125,49 @@ class Urls(object):
             '/de/admin/filebrowser/delete_confirm/',  # shouldn't this redirect to login screen instead of opening one?
             '/de/admin/filebrowser/detail/',  # shouldn't this redirect to login screen instead of opening one?
             '/de/admin/filebrowser/version/',  # shouldn't this redirect to login screen instead of opening one?
+            '/de/recrop/cropping-preview/fff/',
+            '/de/sitemap.xml',
+            '/de/sitemap-events.xml',
+            '/de/sitemap-festivals.xml',
+            '/de/sitemap-pages.xml',
+            '/de/sitemap-locations.xml',
+            '/de/api/changelog/',
+            '/de/api/changelog/feed/',
+            '/de/api/v1/?format=json',
+            '/de/culturebase-export/locations/acker-stadt-palast/productions/',
+            '/de/tagging_autocomplete/list',
+            '/de/helper/autocomplete/i18n/get_countries/name/get_name/',
+            '/de/helper/modified-path/',
+            '/de/helper/menu/',
+            '/de/jsi18n/',
+            '/de/jssettings/',
+            '/de/grappelli/grp-doc/change-form/',
+            '/de/grappelli/grp-doc/change-list/',
+            '/de/grappelli/grp-doc/admin-index/',
+            '/de/grappelli/grp-doc/tables/',
+            '/de/grappelli/grp-doc/pagination/',
+            '/de/grappelli/grp-doc/search-form/',
+            '/de/grappelli/grp-doc/filter/',
+            '/de/grappelli/grp-doc/date-hierarchy/',
+            '/de/grappelli/grp-doc/fieldsets/',
+            '/de/grappelli/grp-doc/errors/',
+            '/de/grappelli/grp-doc/form-fields/',
+            '/de/grappelli/grp-doc/submit-rows/',
+            '/de/grappelli/grp-doc/modules/',
+            '/de/grappelli/grp-doc/groups/',
+            '/de/grappelli/grp-doc/navigation/',
+            '/de/grappelli/grp-doc/context-navigation/',
+            '/de/grappelli/grp-doc/basic-page-structure/',
+            '/de/grappelli/grp-doc/tools/',
+            '/de/grappelli/grp-doc/object-tools/',
+            '/de/grappelli/grp-doc/mueller-grid-system/',
+            '/de/grappelli/grp-doc/mueller-grid-system-layouts/',
+            '/de/grappelli/grp-doc',
+        ]
+
+        self.anonymous_200 = [
+            '/de/admin/filebrowser/delete/',  # shouldn't this redirect to login screen instead of opening one?
+            "/de/admin/filebrowser/upload_file/",  # shouldn't this redirect to login screen instead of opening one?
         ]
 
         querysets = [
@@ -143,7 +186,8 @@ class Urls(object):
 
         # Redirect (to language-specific or other page)
         self.anonymous_302_authenticated_302 = [
-            "/de/logout/",  # keep the logout last, because it changes the request user
+            '/de/i18n/',
+            '/de/logout/',  # keep the logout last, because it changes the request user
             '/logout/',  # keep the logout last, because it changes the request user
         ]
 
@@ -167,18 +211,68 @@ class Urls(object):
             '/de/admin/logout/',  # keep the logout last, because it changes the request user
         ]
 
+        self.authenticated_200 = [
+            "/de/admin/filebrowser/upload_file/",
+            '/de/grappelli/lookup/m2m/',
+            '/de/grappelli/lookup/autocomplete/',
+            '/de/grappelli/lookup/related/',
+        ]
+
+        self.authenticated_302 = [
+            '/de/admin/filebrowser/delete/',  # shouldn't this redirect to login screen instead of opening one?
+        ]
+
         # Bad request paramethers
         self.authenticated_400 = [
             "/de/admin/filebrowser/upload_file/",
         ]
 
+        self.anonymous_401_authenticated_401 = [
+            '/de/api/v1/event_characteristics/',
+            '/de/api/v1/event_characteristics/schema/',
+            '/de/api/v1/festival/',
+            '/de/api/v1/festival/schema/',
+            '/de/api/v1/language_and_subtitles/',
+            '/de/api/v1/language_and_subtitles/schema/',
+            '/de/api/v1/location/',
+            '/de/api/v1/location/schema/',
+            '/de/api/v1/location_accessibility/',
+            '/de/api/v1/location_accessibility/schema/',
+            '/de/api/v1/location_service/',
+            '/de/api/v1/location_service/schema/',
+            '/de/api/v1/production/',
+            '/de/api/v1/production/schema/',
+            '/de/api/v1/production_category/',
+            '/de/api/v1/production_category/schema/',
+            '/de/api/v1/production_characteristics/',
+            '/de/api/v1/production_characteristics/schema/',
+            '/de/api/v1/stage/',
+            '/de/api/v1/stage/schema/',
+        ]
+
         # Access Denied
         self.anonymous_403 = [
+            '/de/grappelli/lookup/related/',
+            '/de/grappelli/lookup/autocomplete/',
+            '/de/grappelli/lookup/m2m/',
         ]
 
         # Page not found
         self.authenticated_404 = [
             "/de/admin/filebrowser/delete-version/",
+        ]
+
+        self.anonymous_404_authenticated_404 = [
+            "/de/recrop/",
+            "/de/autocomplete/location/",
+        ]
+
+        self.anonymous_405_authenticated_405 = [
+            "/de/helper/ajax-upload/",
+        ]
+
+        self.anonymous_500_authenticated_500 = [
+            #'/de/grappelli/grp-doc/mueller-grid-system-tests/',
         ]
 
 
@@ -193,9 +287,14 @@ def suite():
 
     url_lists_by_expected_status_code = (
         (200, urls.anonymous_200_authenticated_200),
+        (200, urls.anonymous_200),
         (302, urls.anonymous_302_authenticated_302),
         (302, urls.anonymous_302),
+        (401, urls.anonymous_401_authenticated_401),
         (403, urls.anonymous_403),
+        (404, urls.anonymous_404_authenticated_404),
+        (405, urls.anonymous_405_authenticated_405),
+        (500, urls.anonymous_500_authenticated_500),
     )
     client = ExtendedClient()
     for expected_status_code, url_list in url_lists_by_expected_status_code:
@@ -206,8 +305,13 @@ def suite():
     authenticated_url_lists_by_expected_status_code = (
         (200, urls.anonymous_200_authenticated_200),
         (302, urls.anonymous_302_authenticated_302),
+        (302, urls.authenticated_302),
         (400, urls.authenticated_400),
+        (401, urls.anonymous_401_authenticated_401),
         (404, urls.authenticated_404),
+        (404, urls.anonymous_404_authenticated_404),
+        (405, urls.anonymous_405_authenticated_405),
+        (500, urls.anonymous_500_authenticated_500),
     )
     for expected_status_code, url_list in authenticated_url_lists_by_expected_status_code:
         client = ExtendedClient()
