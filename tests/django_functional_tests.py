@@ -127,6 +127,11 @@ class Urls(object):
             '/de/admin/filebrowser/version/',  # shouldn't this redirect to login screen instead of opening one?
         ]
 
+        self.anonymous_200 = [
+            '/de/admin/filebrowser/delete/',  # shouldn't this redirect to login screen instead of opening one?
+            "/de/admin/filebrowser/upload_file/",  # shouldn't this redirect to login screen instead of opening one?
+        ]
+
         querysets = [
             Location.objects.filter(status="published").order_by("?"),
             Event.objects.filter(production__status="published").order_by("?"),
@@ -167,6 +172,10 @@ class Urls(object):
             '/de/admin/logout/',  # keep the logout last, because it changes the request user
         ]
 
+        self.authenticated_302 = [
+            '/de/admin/filebrowser/delete/',  # shouldn't this redirect to login screen instead of opening one?
+        ]
+
         # Bad request paramethers
         self.authenticated_400 = [
             "/de/admin/filebrowser/upload_file/",
@@ -193,6 +202,7 @@ def suite():
 
     url_lists_by_expected_status_code = (
         (200, urls.anonymous_200_authenticated_200),
+        (200, urls.anonymous_200),
         (302, urls.anonymous_302_authenticated_302),
         (302, urls.anonymous_302),
         (403, urls.anonymous_403),
@@ -206,6 +216,7 @@ def suite():
     authenticated_url_lists_by_expected_status_code = (
         (200, urls.anonymous_200_authenticated_200),
         (302, urls.anonymous_302_authenticated_302),
+        (302, urls.authenticated_302),
         (400, urls.authenticated_400),
         (404, urls.authenticated_404),
     )
