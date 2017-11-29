@@ -125,6 +125,19 @@ class Urls(object):
             '/de/admin/filebrowser/delete_confirm/',  # shouldn't this redirect to login screen instead of opening one?
             '/de/admin/filebrowser/detail/',  # shouldn't this redirect to login screen instead of opening one?
             '/de/admin/filebrowser/version/',  # shouldn't this redirect to login screen instead of opening one?
+            '/de/recrop/cropping-preview/fff/',
+            '/de/sitemap.xml',
+            '/de/sitemap-events.xml',
+            '/de/sitemap-festivals.xml',
+            '/de/sitemap-pages.xml',
+            '/de/sitemap-locations.xml',
+            '/de/api/changelog/',
+            '/de/api/changelog/feed/',
+            '/de/api/v1/?format=json',
+            '/de/culturebase-export/locations/acker-stadt-palast/productions/',
+            '/de/tagging_autocomplete/list',
+            '/de/helper/autocomplete/i18n/get_countries/name/get_name/',
+            '/de/helper/modified-path/',
         ]
 
         self.anonymous_200 = [
@@ -181,6 +194,29 @@ class Urls(object):
             "/de/admin/filebrowser/upload_file/",
         ]
 
+        self.anonymous_401_authenticated_401 = [
+            '/de/api/v1/event_characteristics/',
+            '/de/api/v1/event_characteristics/schema/',
+            '/de/api/v1/festival/',
+            '/de/api/v1/festival/schema/',
+            '/de/api/v1/language_and_subtitles/',
+            '/de/api/v1/language_and_subtitles/schema/',
+            '/de/api/v1/location/',
+            '/de/api/v1/location/schema/',
+            '/de/api/v1/location_accessibility/',
+            '/de/api/v1/location_accessibility/schema/',
+            '/de/api/v1/location_service/',
+            '/de/api/v1/location_service/schema/',
+            '/de/api/v1/production/',
+            '/de/api/v1/production/schema/',
+            '/de/api/v1/production_category/',
+            '/de/api/v1/production_category/schema/',
+            '/de/api/v1/production_characteristics/',
+            '/de/api/v1/production_characteristics/schema/',
+            '/de/api/v1/stage/',
+            '/de/api/v1/stage/schema/',
+        ]
+
         # Access Denied
         self.anonymous_403 = [
         ]
@@ -188,6 +224,14 @@ class Urls(object):
         # Page not found
         self.authenticated_404 = [
             "/de/admin/filebrowser/delete-version/",
+        ]
+
+        self.anonymous_404_authenticated_404 = [
+            "/de/recrop/",
+        ]
+
+        self.anonymous_405_authenticated_405 = [
+            "/de/helper/ajax-upload/",
         ]
 
 
@@ -205,7 +249,10 @@ def suite():
         (200, urls.anonymous_200),
         (302, urls.anonymous_302_authenticated_302),
         (302, urls.anonymous_302),
+        (401, urls.anonymous_401_authenticated_401),
         (403, urls.anonymous_403),
+        (404, urls.anonymous_404_authenticated_404),
+        (405, urls.anonymous_405_authenticated_405),
     )
     client = ExtendedClient()
     for expected_status_code, url_list in url_lists_by_expected_status_code:
@@ -218,7 +265,10 @@ def suite():
         (302, urls.anonymous_302_authenticated_302),
         (302, urls.authenticated_302),
         (400, urls.authenticated_400),
+        (401, urls.anonymous_401_authenticated_401),
         (404, urls.authenticated_404),
+        (404, urls.anonymous_404_authenticated_404),
+        (405, urls.anonymous_405_authenticated_405),
     )
     for expected_status_code, url_list in authenticated_url_lists_by_expected_status_code:
         client = ExtendedClient()
