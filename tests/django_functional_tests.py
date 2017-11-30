@@ -163,6 +163,12 @@ class Urls(object):
             '/de/grappelli/grp-doc/mueller-grid-system/',
             '/de/grappelli/grp-doc/mueller-grid-system-layouts/',
             '/de/grappelli/grp-doc',
+            '/de/styleguide/',
+            '/de/styleguide/grid/',
+            '/de/styleguide/typography/',
+            '/de/styleguide/colors/',
+            '/de/styleguide/images/',
+            '/de/styleguide/forms/',
         ]
 
         self.anonymous_200 = [
