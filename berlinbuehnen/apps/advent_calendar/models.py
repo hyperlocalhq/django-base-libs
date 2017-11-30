@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 from __future__ import unicode_literals
 
+from datetime import timedelta
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
@@ -43,13 +44,13 @@ class Day(CreationModificationMixin, SlugMixin()):
         return self.day.strftime('%Y-%m-%d')
 
     def is_past(self):
-        return self.day < now().date()
+        return self.day < (now() - timedelta(minutes=5)).date()
 
     def is_present(self):
-        return self.day == now().date()
+        return self.day == (now() - timedelta(minutes=5)).date()
 
     def is_future(self):
-        return self.day > now().date()
+        return self.day > (now() - timedelta(minutes=5)).date()
 
     def get_active_image(self):
         return getattr(self, "active_image_{}".format(get_current_language()))
