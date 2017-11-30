@@ -163,6 +163,20 @@ class Urls(object):
             '/de/grappelli/grp-doc/mueller-grid-system/',
             '/de/grappelli/grp-doc/mueller-grid-system-layouts/',
             '/de/grappelli/grp-doc',
+            '/de/styleguide/',
+            '/de/styleguide/grid/',
+            '/de/styleguide/typography/',
+            '/de/styleguide/colors/',
+            '/de/styleguide/images/',
+            '/de/styleguide/forms/',
+            '/de/login/',
+            '/de/signup/',
+            '/de/signup/almost-done/',
+            '/de/password-reset/',
+            '/de/password-reset/done/',
+            '/de/password-reset/complete/',
+            '/de/claiming-invitation/',
+            '/de/claiming-invitation/done/',
         ]
 
         self.anonymous_200 = [
@@ -187,20 +201,23 @@ class Urls(object):
         # Redirect (to language-specific or other page)
         self.anonymous_302_authenticated_302 = [
             '/de/i18n/',
+            '/de/my-profile/favorites/',
+            '/de/rosetta/download/',
             '/de/logout/',  # keep the logout last, because it changes the request user
             '/logout/',  # keep the logout last, because it changes the request user
         ]
 
         # Redirect (to login or other page) if anonymous; OK otherwise
         self.anonymous_302 = [
-            '/de/dashboard/',  # login required
+            '/de/dashboard/',
+            '/de/dashboard/locations/',
             '/de/dashboard/productions/',
             '/de/dashboard/multiparts/',
-            '/de/dashboard/locations/',
             '/de/dashboard/festivals/',
             '/de/dashboard/jobs/',
             '/de/dashboard/educational_departments/',
             '/de/dashboard/educational_projects/',
+            '/de/dashboard/info-files/',
             '/de/spielplan/add/',
             '/de/multiparts/add/',
             '/de/buehnen/add/',
@@ -208,6 +225,11 @@ class Urls(object):
             '/de/meta/jobs-redirect/add/',
             '/de/mitmachen/abteilungen/add/',
             '/de/mitmachen/projekte/add/',
+            '/de/signup/welcome/',
+            '/de/password-change/',
+            '/de/password-change/done/',
+            '/de/rosetta/',
+            '/de/rosetta/pick/',
             '/de/admin/logout/',  # keep the logout last, because it changes the request user
         ]
 
@@ -216,6 +238,20 @@ class Urls(object):
             '/de/grappelli/lookup/m2m/',
             '/de/grappelli/lookup/autocomplete/',
             '/de/grappelli/lookup/related/',
+            '/de/signup/welcome/',
+            '/de/password-change/',
+            '/de/password-change/done/',
+            '/de/dashboard/',
+            '/de/dashboard/locations/',
+            '/de/dashboard/productions/',
+            '/de/dashboard/multiparts/',
+            '/de/dashboard/festivals/',
+            '/de/dashboard/jobs/',
+            '/de/dashboard/educational_departments/',
+            '/de/dashboard/educational_projects/',
+            '/de/dashboard/info-files/',
+            '/de/rosetta/',
+            '/de/rosetta/pick/',
         ]
 
         self.authenticated_302 = [
