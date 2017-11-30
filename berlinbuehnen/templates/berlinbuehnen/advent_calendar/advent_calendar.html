@@ -1,5 +1,5 @@
 {% extends "cms/default.html" %}
-{% load cms_tags i18n image_modifications %}
+{% load cms_tags i18n image_modifications fb_tags %}
 
 {% block bodyclass %}advent-calendar-body{% endblock %}
 
@@ -26,14 +26,20 @@
                                     <span class="grid-item-image img {% if day.is_present %}present{% elif day.is_past %}past{% else %}future{% endif %}">
                                         {% if day.is_past %}
                                             {% if day.get_active_image %}
-                                                <img src="{{ STATIC_URL }}site/img/placeholder_advent_calendar.png" data-original="{{ MEDIA_URL }}{{ day.get_active_image.path|modified_path:"advent_calendar_image" }}" alt="{{ day.day|date:"l, j. F Y" }}"/>
+                                                {% with day.get_active_image|file_description as file_desc %}
+                                                    <img src="{{ STATIC_URL }}site/img/placeholder_advent_calendar.png" data-original="{{ MEDIA_URL }}{{ day.get_active_image.path|modified_path:"advent_calendar_image" }}" alt="{{ day.day|date:"l, j. F Y" }}"/>
+                                                    {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                                                {% endwith %}
                                             {% else %}
                                                 <img src="{{ STATIC_URL }}site/img/placeholder_advent_calendar.png"/>
                                             {% endif %}
                                         {% else %}
                                             {% if day.preview_image %}
                                                 {% if day.is_present and day.get_active_image %}
-                                                    <img src="{{ STATIC_URL }}site/img/placeholder_advent_calendar.png" data-original="{{ MEDIA_URL }}{{ day.get_active_image.path|modified_path:"advent_calendar_image" }}" alt="{{ day.day|date:"l, j. F Y" }}" class="gift-image" />
+                                                    {% with day.get_active_image|file_description as file_desc %}
+                                                        <img src="{{ STATIC_URL }}site/img/placeholder_advent_calendar.png" data-original="{{ MEDIA_URL }}{{ day.get_active_image.path|modified_path:"advent_calendar_image" }}" alt="{{ day.day|date:"l, j. F Y" }}" class="gift-image" />
+                                                        {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                                                    {% endwith %}
                                                 {% endif %}
                                                 <img src="{{ STATIC_URL }}site/img/placeholder_advent_calendar.png" data-original="{{ MEDIA_URL }}{{ day.preview_image.path|modified_path:"advent_calendar_image" }}" alt="{{ day.day|date:"l, j. F Y" }}" />
                                             {% else %}
@@ -41,11 +47,21 @@
                                             {% endif %}
                                         {% endif %}
                                     </span>
-                                    {% if day.is_present %}
+                                    {% if day.is_present or day.is_past %}
                                         <div class="gift">
                                             <div class="gift-layer">
                                                 <div class="gift-close"></div>
-                                                <h2>{{ day.title }}</h2>
+                                                <h2 class="visible-xs">{{ day.title }}</h2>
+                                                {% if day.get_active_image %}
+                                                    {% with day.get_active_image|file_description as file_desc %}
+                                                        <div class="photo-credits-wrapper">
+                                                            <img src="{{ MEDIA_URL }}{{ day.get_active_image.path|modified_path:"advent_calendar_image" }}" alt="{{ day.day|date:"l, j. F Y" }}" class="hidden-xs"/>
+                                                            {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                                                        </div>
+                                                    {% endwith %}
+                                                {% else %}
+                                                    <h2 class="hidden-xs">{{ day.title }}</h2>
+                                                {% endif %}
                                                 <div>{{ day.get_rendered_description }}</div>
                                             </div>
                                         </div>

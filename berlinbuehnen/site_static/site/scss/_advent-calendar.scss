@@ -3,7 +3,7 @@
 // @Date:   2017/11/29
 // @Email:  code@dreammedia.info
 // @Last modified by:   Daniel Lehmann
-// @Last modified time: 2017/11/29
+// @Last modified time: 2017/11/30
 // @copyright Daniel Lehmann (code@dreammedia.info)
 
 @charset "utf-8";
@@ -15,6 +15,19 @@
 }
 
 .advent-calendar {
+
+    .photo-credits-over {
+            bottom: 20%;
+            z-index: 0;
+    }
+
+    .photo-credits-wrapper {
+        overflow: hidden;
+        float: left;
+        margin: 5px 20px 20px 0;
+        max-width: 38%;
+    }
+
     .container {
         background: $black;
         color: $white;
@@ -172,6 +185,8 @@
             }
 
             &.past {
+                cursor: pointer;
+
                 img {
                     -webkit-filter: grayscale(100%);
                     -moz-filter: grayscale(100%);
@@ -224,13 +239,11 @@
             }
 
             .gift-layer {
-                border: 5px solid $white;
-                border-radius: 10px;
                 background: $black;
                 width: 100%;
-                max-width: 800px;
+                max-width: 900px;
                 max-height: 100%;
-                padding: 50px 20px 40px 20px;
+                padding: 50px 20px 30px 20px;
                 position: absolute;
                 left: 50%;
                 top: 50%;
@@ -238,6 +251,11 @@
                 overflow: auto;
                 overflow-x: hidden;
                 overflow-y: auto;
+                text-align: left;
+
+                .is-sm & {
+                    max-width: 750px;
+                }
 
                 .gift-close {
                     width: 41px;
@@ -256,8 +274,26 @@
                     margin-bottom: 25px !important;
                     font-size: 2.1rem;
                 }
+
+                img {
+                    vertical-align: top;
+                    padding: 0;
+                    width: 100%;
+                    height: auto;
+                }
+
                 p {
                     color: $white;
+                }
+
+                a {
+                    color: $white;
+                    text-decoration: underline;
+
+                    &:hover, &:visited, &:active {
+                        color: $white;
+                        text-decoration: underline;
+                    }
                 }
             }
         }

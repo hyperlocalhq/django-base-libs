@@ -9441,6 +9441,18 @@ span.pin a {
   overflow: hidden;
 }
 
+.advent-calendar .photo-credits-over {
+  bottom: 20%;
+  z-index: 0;
+}
+
+.advent-calendar .photo-credits-wrapper {
+  overflow: hidden;
+  float: left;
+  margin: 5px 20px 20px 0;
+  max-width: 38%;
+}
+
 .advent-calendar .container {
   background: #000000;
   color: #ffffff;
@@ -9586,6 +9598,10 @@ span.pin a {
   z-index: 1;
 }
 
+.advent-calendar .container .img.past {
+  cursor: pointer;
+}
+
 .advent-calendar .container .img.past img {
   -webkit-filter: grayscale(100%);
   -moz-filter: grayscale(100%);
@@ -9633,13 +9649,11 @@ span.pin a {
 }
 
 .advent-calendar .container .gift .gift-layer {
-  border: 5px solid #ffffff;
-  border-radius: 10px;
   background: #000000;
   width: 100%;
-  max-width: 800px;
+  max-width: 900px;
   max-height: 100%;
-  padding: 50px 20px 40px 20px;
+  padding: 50px 20px 30px 20px;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -9647,6 +9661,11 @@ span.pin a {
   overflow: auto;
   overflow-x: hidden;
   overflow-y: auto;
+  text-align: left;
+}
+
+.is-sm .advent-calendar .container .gift .gift-layer {
+  max-width: 750px;
 }
 
 .advent-calendar .container .gift .gift-layer .gift-close {
@@ -9667,8 +9686,25 @@ span.pin a {
   font-size: 2.1rem;
 }
 
+.advent-calendar .container .gift .gift-layer img {
+  vertical-align: top;
+  padding: 0;
+  width: 100%;
+  height: auto;
+}
+
 .advent-calendar .container .gift .gift-layer p {
   color: #ffffff;
+}
+
+.advent-calendar .container .gift .gift-layer a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.advent-calendar .container .gift .gift-layer a:hover, .advent-calendar .container .gift .gift-layer a:visited, .advent-calendar .container .gift .gift-layer a:active {
+  color: #ffffff;
+  text-decoration: underline;
 }
 
 html {
