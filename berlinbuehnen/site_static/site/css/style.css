@@ -9530,7 +9530,7 @@ span.pin a {
   text-transform: uppercase;
 }
 
-.advent-calendar .container .banner h2 > h2 {
+.advent-calendar .container .banner h2 + h2 {
   font-size: 2rem;
   text-transform: none;
 }
