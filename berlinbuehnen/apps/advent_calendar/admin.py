@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
 from base_libs.admin import ExtendedModelAdmin
+from base_libs.middleware import get_current_language
 from base_libs.models import get_admin_lang_section
 from jetson.apps.image_mods.templatetags.image_modifications import modified_path
 from .models import Day
@@ -12,14 +13,15 @@ from .models import Day
 
 class DayAdmin(ExtendedModelAdmin):
     save_on_top = True
-    list_display = ["day", "get_preview_image", "get_image", "title", "get_status"]
+    list_display = ["day", "get_preview_image", "get_active_image", "title", "get_status"]
     search_fields = ["title", "description"]
     fieldsets = [
         (None, {'fields': ["day"]}),
     ]
     fieldsets += [
-        (_("Images"), {'fields': ["preview_image", "image"]}),
+        (_("Preview Image"), {'fields': ["preview_image"]}),
     ]
+    fieldsets += get_admin_lang_section(_("Active Image"), ['active_image',])
     fieldsets += get_admin_lang_section(_("Content"), ['title', 'description',])
 
     def get_status(self, obj):
@@ -42,14 +44,15 @@ class DayAdmin(ExtendedModelAdmin):
     get_preview_image.short_description = _("Preview Image")
     get_preview_image.allow_tags = True
 
-    def get_image(self, obj):
-        if not obj.image:
+    def get_active_image(self, obj):
+        image_value = getattr(obj, "active_image_{}".format(get_current_language()))
+        if not image_value:
             return ""
         return """<img src="{}{}" alt="" width="60" height="60" />""".format(
             settings.MEDIA_URL,
-            modified_path(obj.image, "filebrowser_thumbnail")
+            modified_path(image_value, "filebrowser_thumbnail")
         )
-    get_image.short_description = _("Active Image")
-    get_image.allow_tags = True
+    get_active_image.short_description = _("Active Image")
+    get_active_image.allow_tags = True
 
 admin.site.register(Day, DayAdmin)

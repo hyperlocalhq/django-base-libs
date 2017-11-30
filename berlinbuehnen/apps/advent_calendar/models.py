@@ -6,6 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.timezone import now
 
+from base_libs.middleware import get_current_language
 from base_libs.models import (
     CreationModificationMixin,
     SlugMixin,
@@ -24,7 +25,11 @@ class Day(CreationModificationMixin, SlugMixin()):
         _('Preview Image'), max_length=255, directory="advent-calendar/",
         extensions=['.jpg', '.jpeg', '.gif', '.png'], blank=True,
     )
-    image = FileBrowseField(
+    active_image_de = FileBrowseField(
+        _('Active Image'), max_length=255, directory="advent-calendar/",
+        extensions=['.jpg', '.jpeg', '.gif', '.png'], blank=True,
+    )
+    active_image_en = FileBrowseField(
         _('Active Image'), max_length=255, directory="advent-calendar/",
         extensions=['.jpg', '.jpeg', '.gif', '.png'], blank=True,
     )
@@ -45,3 +50,6 @@ class Day(CreationModificationMixin, SlugMixin()):
 
     def is_future(self):
         return self.day > now().date()
+
+    def get_active_image(self):
+        return getattr(self, "active_image_{}".format(get_current_language()))
