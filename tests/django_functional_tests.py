@@ -108,16 +108,6 @@ class Urls(object):
             "/tweets/berlinbuehnen/",
             "/tweets/thisuserdoesnotexist/",
             "/de/",
-            "/de/buehnen/",
-            "/de/spielplan/",
-            "/de/festivals/",
-            "/de/mitmachen/abteilungen/",
-            "/de/aktuelles/",
-            "/de/umfrage/",
-            "/de/suche/",
-            "/de/meta/ueber-uns/",
-            "/de/meta/jobs-redirect/",
-            "/de/meta/impressum/",
             "/de/filebrowser/get-version/",
             '/de/admin/filebrowser/browse/',  # shouldn't this redirect to login screen instead of opening one?
             '/de/admin/filebrowser/createdir/',  # shouldn't this redirect to login screen instead of opening one?
@@ -177,6 +167,33 @@ class Urls(object):
             '/de/password-reset/complete/',
             '/de/claiming-invitation/',
             '/de/claiming-invitation/done/',
+            '/de/festivities/',
+            '/de/aktuelles/',
+            '/de/aktuelles/feeds/rss/',
+            '/de/aktuelles/2017/',
+            '/de/aktuelles/2017/11/',
+            '/de/aktuelles/2017/11/20/',
+            '/de/aktuelles/2017/11/20/test/',
+            '/de/suche/',
+            '/de/suche/full/',
+            '/de/multiparts/',
+            '/de/jobs/',
+            '/de/blog/',
+            '/de/blog/2015/',
+            '/de/blog/2015/04/',
+            '/de/blog/2015/04/07/',
+            '/de/blog/2015/04/07/hello-world/',
+            '/de/blog/all/',
+            '/de/blog/tag/one/',
+            #'/de/blog/feeds/rss/',  # TODO: enable after upgrade
+            '/de/mitmachen/abteilungen/',
+            '/de/meta/jobs-redirect/',
+            '/de/buehnen/',
+            '/de/buehnen/map/',
+            '/de/spielplan/',
+            '/de/festivals/',
+            #'/de/theater-der-woche/',
+            #'/de/theater-der-woche/feeds/rss/',
         ]
 
         self.anonymous_200 = [
@@ -392,6 +409,7 @@ class Urls(object):
             '/de/i18n/',
             '/de/my-profile/favorites/',
             '/de/rosetta/download/',
+            '/de/mitmachen/projekte/',
             '/de/logout/',  # keep the logout last, because it changes the request user
             '/logout/',  # keep the logout last, because it changes the request user
         ]
@@ -419,6 +437,15 @@ class Urls(object):
             '/de/password-change/done/',
             '/de/rosetta/',
             '/de/rosetta/pick/',
+            '/de/festivities/add/',
+            '/de/multiparts/add/',
+            '/de/jobs/add/',
+            '/de/mitmachen/abteilungen/add/',
+            '/de/mitmachen/projekte/add/',
+            '/de/meta/jobs-redirect/add/',
+            '/de/buehnen/add/',
+            '/de/spielplan/add/',
+            '/de/festivals/add/',
             '/de/admin/logout/',  # keep the logout last, because it changes the request user
         ]
 
@@ -631,6 +658,15 @@ class Urls(object):
             '/de/admin/image_mods/imagecropping/add/',
             '/de/admin/theater_of_the_week/theateroftheweek/',
             '/de/admin/theater_of_the_week/theateroftheweek/add/',
+            '/de/festivities/add/',
+            '/de/multiparts/add/',
+            '/de/jobs/add/',
+            '/de/mitmachen/abteilungen/add/',
+            '/de/mitmachen/projekte/add/',
+            '/de/meta/jobs-redirect/add/',
+            '/de/buehnen/add/',
+            '/de/spielplan/add/',
+            '/de/festivals/add/',
         ]
 
         self.authenticated_302 = [
