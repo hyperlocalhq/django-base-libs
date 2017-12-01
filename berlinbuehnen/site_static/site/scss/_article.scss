@@ -146,22 +146,29 @@
 
     .article-content-cms {
         .img_and_desc {
-            .author, .title {
-                font-size: 0.9em;
-                font-weight: $regular;
+            .img_and_desc-wrapper {
+                overflow: hidden;
+                transform: translateY(-100%);
+                background: rgba(0, 0, 0, 0.2);
+                position: relative;
+                padding: 0 5px 0 3px;
+                display: table;
             }
-
-            .author {
+            .author, .title {
                 font-weight: $regular !important;
                 font-style: italic !important;
                 line-height: 1.42857143;
                 font-size: 1rem;
                 color: $white;
-                background: rgba(0, 0, 0, 0.2);
-                position: relative;
-                padding: 0 5px 0 3px;
-                display: table;
-                transform: translateY(-100%);
+                display: inline;
+                float: left;
+
+                .is-xs & {
+                    font-size: 0.85rem;
+                }
+            }
+
+            .author {
 
                 &:before {
                     content: "Foto:\00a0";
@@ -170,23 +177,12 @@
                 .lang_en &:before {
                     content: "Photo:\00a0";
                 }
-
-                .is-xs & {
-                    font-size: 0.85rem;
-                    margin-top: -12px;
-                }
             }
 
             .title {
-                //float: left;
-
-                &:after {
-                    //content: ",\00a0";
-                }
+                padding-right: 8px;
 
                 + .author {
-                    margin-top: -20px;
-                    margin-bottom: 20px;
                 }
             }
         }

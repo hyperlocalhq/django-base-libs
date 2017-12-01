@@ -168,6 +168,18 @@ $(document).ready(function() {
         }
     }
     adjustRows();
+
+    $(".img_and_desc").each(function() {
+
+        var $parent = $(this);
+        var $title = $(".title", $parent);
+        var $author = $(".author", $parent);
+
+        var $wrapper = $('<div class="img_and_desc-wrapper"></div>');
+        $parent.append($wrapper);
+        $wrapper.append($title);
+        $wrapper.append($author);
+    });
 });
 
 // ADD crsftoken TO AJAX CALLS

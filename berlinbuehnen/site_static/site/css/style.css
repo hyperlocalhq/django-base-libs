@@ -5568,22 +5568,27 @@ select {
   font-size: 0.875em;
 }
 
-.article .article-content-cms .img_and_desc .author, .article .article-content-cms .img_and_desc .title {
-  font-size: 0.9em;
-  font-weight: 400;
+.article .article-content-cms .img_and_desc .img_and_desc-wrapper {
+  overflow: hidden;
+  transform: translateY(-100%);
+  background: rgba(0, 0, 0, 0.2);
+  position: relative;
+  padding: 0 5px 0 3px;
+  display: table;
 }
 
-.article .article-content-cms .img_and_desc .author {
+.article .article-content-cms .img_and_desc .author, .article .article-content-cms .img_and_desc .title {
   font-weight: 400 !important;
   font-style: italic !important;
   line-height: 1.42857143;
   font-size: 1rem;
   color: #ffffff;
-  background: rgba(0, 0, 0, 0.2);
-  position: relative;
-  padding: 0 5px 0 3px;
-  display: table;
-  transform: translateY(-100%);
+  display: inline;
+  float: left;
+}
+
+.is-xs .article .article-content-cms .img_and_desc .author, .is-xs .article .article-content-cms .img_and_desc .title {
+  font-size: 0.85rem;
 }
 
 .article .article-content-cms .img_and_desc .author:before {
@@ -5594,14 +5599,8 @@ select {
   content: "Photo:\00a0";
 }
 
-.is-xs .article .article-content-cms .img_and_desc .author {
-  font-size: 0.85rem;
-  margin-top: -12px;
-}
-
-.article .article-content-cms .img_and_desc .title + .author {
-  margin-top: -20px;
-  margin-bottom: 20px;
+.article .article-content-cms .img_and_desc .title {
+  padding-right: 8px;
 }
 
 .is-xs .article .main-container {
@@ -5708,22 +5707,27 @@ select {
   height: auto;
 }
 
-.theater-of-the-week .article-content-cms .img_and_desc .author, .theater-of-the-week .article-content-cms .img_and_desc .title {
-  font-size: 0.9em;
-  font-weight: 400;
+.theater-of-the-week .article-content-cms .img_and_desc .img_and_desc-wrapper {
+  overflow: hidden;
+  transform: translateY(-100%);
+  background: rgba(0, 0, 0, 0.2);
+  position: relative;
+  padding: 0 5px 0 3px;
+  display: table;
 }
 
-.theater-of-the-week .article-content-cms .img_and_desc .author {
+.theater-of-the-week .article-content-cms .img_and_desc .author, .theater-of-the-week .article-content-cms .img_and_desc .title {
   font-weight: 400 !important;
   font-style: italic !important;
   line-height: 1.42857143;
   font-size: 1rem;
   color: #ffffff;
-  background: rgba(0, 0, 0, 0.2);
-  position: relative;
-  padding: 0 5px 0 3px;
-  display: table;
-  transform: translateY(-100%);
+  display: inline;
+  float: left;
+}
+
+.is-xs .theater-of-the-week .article-content-cms .img_and_desc .author, .is-xs .theater-of-the-week .article-content-cms .img_and_desc .title {
+  font-size: 0.85rem;
 }
 
 .theater-of-the-week .article-content-cms .img_and_desc .author:before {
@@ -5734,9 +5738,8 @@ select {
   content: "Photo:\00a0";
 }
 
-.theater-of-the-week .article-content-cms .img_and_desc .title + .author {
-  margin-top: -20px;
-  margin-bottom: 20px;
+.theater-of-the-week .article-content-cms .img_and_desc .title {
+  padding-right: 8px;
 }
 
 .top-widgets-wrapper .theater-of-the-week-widget-wrapper .top-widget-button-up-wrapper {
