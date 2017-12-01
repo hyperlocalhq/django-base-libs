@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load url from future %}
 {% load i18n image_modifications base_tags tagging_tags favorites_tags auth_extended %}
-{% block title %}{% trans "Events" %} – {% endblock %}
+{% block title %}{% trans "Multipart Productions" %} – {% endblock %}
 {% block bodyclass %}multipart-list no-transition{% endblock %}
 
 
@@ -17,44 +17,6 @@
 
 {% block content %}
   <div class="content">
-    <div class="container">
-      <header class="list-header clearfix">
-        <h4 class="visible-xs">{% trans "Events, Palaces, and Memorials" %}</h4>
-
-        <div class="list-controls">
-          {% comment %}<a class="btn btn-info pull-right" href="{% url "multipart_list_map" %}">{% trans "Show map" %}</a>{% endcomment %}
-          <div class="btn-group pull-left" style="margin-right: 15px;">
-            <button id="toggle-list-filter" class="btn btn-info" data-parent="#list-filter" data-toggle="collapse" data-target="#list-filter">{% trans "filter" %}<span class="caret black"></span></button>
-            <button id="filter-reset" type="button" class="filter-reset btn btn-info">{% trans "Reset" %}</button>
-          </div>
-          <ul id="filter-summary" class="pull-left">
-            {% if facets.selected.abc or facets.selected.category or facets.selected.subcategory or facets.selected.open_on_mondays or facets.selected.free_entrance or facets.selected.open_late or facets.selected.accessibility_option or facets.selected.location %}
-              <li><b>{% trans "Filter selection" %}:</b></li>
-              {% if facets.selected.abc %}<li data-param="abc" data-value="{{ facets.selected.abc }}"><a href="{% append_to_get abc="" %}">{{ facets.selected.abc }}</a></li>{% endif %}
-              {% if facets.selected.category %}<li data-param="category" data-value="{{ facets.selected.category.slug }}"><a href="{% append_to_get category="" %}">{{ facets.selected.category.title }}</a></li>{% endif %}
-              {% if facets.selected.subcategory %}<li data-param="subcategory" data-value="{{ facets.selected.subcategory.slug }}"><a href="{% append_to_get subcategory="" %}">{{ facets.selected.subcategory.title }}</a></li>{% endif %}
-              {% if facets.selected.open_on_mondays %}<li data-param="open_on_mondays" data-value="1"><a href="{% append_to_get open_on_mondays="" %}">{% trans "Open on Mondays" %}</a></li>{% endif %}
-              {% if facets.selected.free_entrance %}<li data-param="free_entrance" data-value="1"><a href="{% append_to_get free_entrance="" %}">{% trans "Free entrance" %}</a></li>{% endif %}
-              {% if facets.selected.open_late %}<li data-param="open_late" data-value="{{ facets.selected.open_late.0 }}"><a href="{% append_to_get open_late="" %}">{{ facets.selected.open_late.1 }}</a></li>{% endif %}
-              {% if facets.selected.accessibility_option %}<li data-param="accessibility_option" data-value="{{ facets.selected.accessibility_option.slug }}"><a href="{% append_to_get accessibility_option="" %}">{{ facets.selected.accessibility_option.title }}</a></li>{% endif %}
-              {% if facets.selected.location %}<li data-param="location" data-value="{{ facets.selected.location.pk }}"><a href="{% append_to_get location="" %}">{{ facets.selected.location.title }}</a></li>{% endif %}
-            {% endif %}
-          </ul>
-        </div>
-      </header>
-    </div>
-
-    <div id="list-filter" class="collapse">
-      <div>
-        <div class="container relative">
-          <button class="cancel btn btn-info btn-lg btn-icon" data-parent="#list-filter" data-toggle="collapse" data-target="#list-filter">
-            <span class="icon icon-remove"></span>
-            <span class="sr-only">{% trans "close" %}</span>
-          </button>
-          {% include "utils/filter_multiparts.html" %}
-        </div>
-      </div>
-    </div>
 
     <div id="list">
       <div class="container">
@@ -86,13 +48,6 @@
                         {% endfor %}
                     </p>
                   </a>
-                  {% if not request.is_mobile and multipart.production.first_image %}
-                    {% if multipart.is_editable %}
-                      <a href="{% cropping_url multipart.first_image.path "multipart_list" request request.path %}" class="btn btn-default btn-round crop hidden-xs" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}">
-                        <span class="icon icon-white icon-tool-crop"></span>
-                      </a>
-                    {% endif %}
-                  {% endif %}
                 </div>
               {% endfor %}
               {% include "utils/pagination.html" %}

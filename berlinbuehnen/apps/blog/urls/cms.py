@@ -54,7 +54,7 @@ urlpatterns = patterns('berlinbuehnen.apps.blog.views.cms',
     url(r'^tag/(?P<tag>[^/]+)/$', 'handle_request', all_dict, name="blog_posts_by_tag"), 
 
     # syndication feeds
-    url(r'^feeds/(?P<feed_type>.*)/$', 'blog_feed', feed_dict),
+    #url(r'^feeds/(?P<feed_type>.*)/$', 'blog_feed', feed_dict),
 
     # new post
     url(r'^(?P<action>%s)/$' % ID_ACTION_NEW, BlogPostFormPreviewHandler(BlogPostForm, use_ajax=False), all_dict),
