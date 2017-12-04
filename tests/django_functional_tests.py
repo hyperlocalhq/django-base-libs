@@ -541,6 +541,7 @@ class Urls(object):
             '/de/admin/',  # login required
             '/de/admin/cms/page/',  # login required
             '/de/admin/people/person/add/',  # login required
+            '/de/marketplace/my-bulletins/',  # login required
             '/de/admin/logout/',  # keep the logout last, because it changes the request user
         ]
 
