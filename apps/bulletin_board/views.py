@@ -366,10 +366,10 @@ class MyBulletinFilterForm(forms.Form):
 @login_required
 @never_cache
 def my_bulletin_list(request, **kwargs):
-    owned_inst_ids = PersonGroup.objects.filter(
+    owned_inst_ids = map(int, PersonGroup.objects.filter(
         groupmembership__user=request.user,
         content_type__model="institution",
-    ).values_list("object_id", flat=True)
+    ).values_list("object_id", flat=True))
 
     qs = Bulletin.objects.filter(
         models.Q(creator=request.user)
