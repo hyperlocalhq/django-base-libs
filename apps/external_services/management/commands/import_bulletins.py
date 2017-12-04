@@ -48,14 +48,22 @@ class Command(BaseCommand):
         bulletins_failed = []
 
         for s in BulletinImportSource.objects.all():
-            response = requests.get(
-                s.url,
-                allow_redirects=True,
-                verify=False,
-                headers={
-                    'User-Agent': 'Creative City Berlin',
-                }
-            )
+            if verbosity > NORMAL:
+                self.stdout.write(u"Importing from {}...\n".format(s.title))
+                self.stdout.flush()
+            try:
+                response = requests.get(
+                    s.url,
+                    allow_redirects=True,
+                    verify=False,
+                    headers={
+                        'User-Agent': 'Creative City Berlin',
+                    }
+                )
+            except requests.exceptions.ConnectionError:
+                services_failed.append(s)
+                continue
+
             if response.status_code != 200:
                 services_failed.append(s)
                 continue
@@ -165,7 +173,8 @@ class Command(BaseCommand):
                     bulletin.categories.add(cs)
 
                 if verbosity > NORMAL:
-                    print bulletin.__dict__
+                    self.stdout.write(u" - {} (PK={})\n".format(bulletin.title, bulletin.pk))
+                    self.stdout.flush()
 
                 if not mapper:
                     mapper = ObjectMapper(
@@ -175,8 +184,6 @@ class Command(BaseCommand):
                     mapper.content_object = bulletin
                     mapper.save()
 
-                    if verbosity > NORMAL:
-                        print mapper.__dict__
         if verbosity > NORMAL:
             print "Services failed: %d" % len(services_failed)
             for s in services_failed:
