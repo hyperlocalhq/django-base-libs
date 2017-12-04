@@ -9618,20 +9618,6 @@ span.pin a {
   cursor: pointer;
 }
 
-.advent-calendar .container .img.past img {
-  -webkit-filter: grayscale(100%);
-  -moz-filter: grayscale(100%);
-  -ms-filter: grayscale(100%);
-  -o-filter: grayscale(100%);
-  filter: grayscale(100%);
-  filter: gray;
-  opacity: 0.5;
-}
-
-.advent-calendar .container .img.past:hover img {
-  opacity: 0.5 !important;
-}
-
 .advent-calendar .container .img:hover img {
   opacity: 1 !important;
 }

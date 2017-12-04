@@ -199,17 +199,17 @@
                 cursor: pointer;
 
                 img {
-                    -webkit-filter: grayscale(100%);
-                    -moz-filter: grayscale(100%);
-                    -ms-filter: grayscale(100%);
-                    -o-filter: grayscale(100%);
-                    filter: grayscale(100%);
-                    filter: gray;
-                    opacity: 0.5;
+                    //-webkit-filter: grayscale(100%);
+                    //-moz-filter: grayscale(100%);
+                    //-ms-filter: grayscale(100%);
+                    //-o-filter: grayscale(100%);
+                    //filter: grayscale(100%);
+                    //filter: gray;
+                    //opacity: 0.5;
                 }
                 &:hover {
                     img {
-                        opacity: 0.5 !important;
+                        //opacity: 0.5 !important;
                     }
                 }
             }
