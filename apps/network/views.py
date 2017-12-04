@@ -4,6 +4,7 @@ from django.db import models
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.contrib.contenttypes.models import ContentType
+from django.utils.encoding import force_text
 from django.views.decorators.cache import never_cache
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
@@ -82,10 +83,10 @@ def _member_list_filter(request, queryset, show):
     elif show == "relationships":
         if not request.user.is_authenticated():
             raise Http404
-        related_people_pks = Person.objects.filter(
+        related_people_pks = map(force_text, Person.objects.filter(
             user__to_user__user=request.user,
             user__to_user__status="confirmed",
-        ).values_list("id", flat=True)
+        ).values_list("id", flat=True))
         ct = ContentType.objects.get_for_model(Person)
         queryset = queryset.filter(
             object_id__in=related_people_pks,
@@ -148,12 +149,12 @@ def member_list(request, creative_sector_slug="", show="", list_filter=_member_l
         "icons",
     ))
     if view_type == "map":
-        people_ids = Person.objects.filter(
+        people_ids = map(force_text, Person.objects.filter(
             individualcontact__postal_address__geoposition__latitude__gte=-90,
-        ).distinct().values_list("id", flat=True)
-        institutions_ids = Institution.objects.filter(
+        ).distinct().values_list("id", flat=True))
+        institutions_ids = map(force_text, Institution.objects.filter(
             institutionalcontact__postal_address__geoposition__latitude__gte=-90,
-        ).distinct().values_list("id", flat=True)
+        ).distinct().values_list("id", flat=True))
         kwargs['queryset'] = kwargs['queryset'].filter(
             models.Q(content_type__model="person", object_id__in=people_ids)
             | models.Q(content_type__model="institution", object_id__in=institutions_ids)

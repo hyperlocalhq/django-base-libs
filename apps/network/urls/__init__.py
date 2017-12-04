@@ -9,7 +9,10 @@ from ccb.apps.events.models import Event, URL_ID_EVENTS
 from ccb.apps.institutions.models import Institution
 from ccb.apps.marketplace.models import JobOffer
 from ccb.apps.bulletin_board.models import Bulletin
-from base_libs.models.base_libs_settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
+from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
+
+from jetson.apps.utils.decorators import login_required
+from ccb.apps.network import views as network_views
 
 # N.B. The commented out URLs are for working views which are not linked anywhere
 # and also not styled correctly.
@@ -69,10 +72,10 @@ institution_list_info = {
 
 
 urlpatterns = [
-    url(r'^$', 'ccb.apps.network.views.member_list',
+    url(r'^$', network_views.member_list,
         member_list_info, name='member_list_global'),
     url(r'^(?P<show>contacts|following|memos|own-institutions|relationships)/$',
-        'ccb.apps.network.views.member_list',
+        login_required(network_views.member_list),
         member_list_info),
     url(
         r'^(?P<show>invitations|requested|requests)/$',
@@ -85,7 +88,7 @@ urlpatterns = [
     url(r'^created/$', TemplateView.as_view(template_name='institutions/institution_created.html'), name='institution_created'),
     url(r'^deleted/$', TemplateView.as_view(template_name='institutions/institution_deleted.html'), name='institution_deleted'),
 
-    url(r'^member/(?P<slug>[^/]+)/$', 'ccb.apps.network.views.member_detail', member_detail_info, name="member_detail"),
+    url(r'^member/(?P<slug>[^/]+)/$', network_views.member_detail, member_detail_info, name="member_detail"),
     # url(r'^member/(?P<slug>[^/]+)/network/$', 'ccb.apps.network.views.member_detail',
     #     dict(member_detail_info, template_name="people/person_network.html")),
     # url(r'^member/(?P<slug>[^/]+)/network/person_contacts/$',
@@ -108,7 +111,7 @@ urlpatterns = [
     ),
     
     # details of institution, events, documents or persons
-    url(r'^member/(?P<slug>[^/]+)/$', 'ccb.apps.network.views.member_detail',
+    url(r'^member/(?P<slug>[^/]+)/$', network_views.member_detail,
         member_detail_info, name="member_detail"),
 
     # url(r'^member/(?P<slug>[^/]+)/network/$', 'ccb.apps.network.views.member_detail',
@@ -133,7 +136,7 @@ urlpatterns = [
         r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
         r')?'
         r'$' % URL_ID_EVENTS,
-        'ccb.apps.network.views.member_events_list',
+        network_views.member_events_list,
         event_list_info,
         name="member_event_list"
     ),
@@ -144,7 +147,7 @@ urlpatterns = [
         r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
         r')?'
         r'ical/$' % URL_ID_EVENTS,
-        'ccb.apps.network.views.member_events_list_ical',
+        network_views.member_events_list_ical,
         event_list_info,
     ),
     url(
@@ -154,7 +157,7 @@ urlpatterns = [
         r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
         r')?'
         r'feed/(?P<feed_type>[^/]+)/$' % URL_ID_EVENTS,
-        'ccb.apps.network.views.member_events_list_feed',
+        network_views.member_events_list_feed,
         event_list_info,
     ),
 
@@ -165,7 +168,7 @@ urlpatterns = [
         r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
         r')?'
         r'$',
-        'ccb.apps.network.views.member_jobs_list',
+        network_views.member_jobs_list,
         job_list_info,
         name="member_job_list"
     ),
@@ -176,7 +179,7 @@ urlpatterns = [
         r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
         r')?'
         r'ical/$',
-        'ccb.apps.network.views.member_jobs_list_ical',
+        network_views.member_jobs_list_ical,
         job_list_info,
     ),
     url(
@@ -186,7 +189,7 @@ urlpatterns = [
         r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
         r')?'
         r'feed/(?P<feed_type>[^/]+)/$',
-        'ccb.apps.network.views.member_jobs_list_feed',
+        network_views.member_jobs_list_feed,
         job_list_info,
     ),
 
@@ -197,7 +200,7 @@ urlpatterns = [
         r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
         r')?'
         r'$',
-        'ccb.apps.network.views.member_bulletins_list',
+        network_views.member_bulletins_list,
         bulletin_list_info,
         name="member_bulletin_list"
     ),
@@ -208,7 +211,7 @@ urlpatterns = [
         r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
         r')?'
         r'ical/$',
-        'ccb.apps.network.views.member_bulletins_list_ical',
+        network_views.member_bulletins_list_ical,
         bulletin_list_info,
     ),
     url(
@@ -218,12 +221,12 @@ urlpatterns = [
         r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
         r')?'
         r'feed/(?P<feed_type>[^/]+)/$',
-        'ccb.apps.network.views.member_bulletins_list_feed',
+        network_views.member_bulletins_list_feed,
         bulletin_list_info,
     ),
     url(
         r'^member/(?P<slug>[^/]+)/institutions/',
-        'ccb.apps.network.views.member_institution_list',
+        network_views.member_institution_list,
         event_list_info,
         name="member_event_list"
     ),

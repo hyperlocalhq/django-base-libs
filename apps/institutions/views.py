@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 
 from base_libs.views import access_denied
@@ -59,7 +60,7 @@ def _institution_list_filter(request, queryset, show):
 
         ct = ContentType.objects.get_for_model(queryset.model)
         owned_inst_ids = [
-            el['object_id'] for el in PersonGroup.objects.filter(
+            int(el['object_id']) for el in PersonGroup.objects.filter(
                 groupmembership__user=request.user,
                 content_type=ct,
             ).distinct().values("object_id")
@@ -145,7 +146,7 @@ def institution_list(
                     institution_ids = [p.id for p in
                                        Institution.objects.filter(user__to_user__user=request.user).distinct()]
                     institution_ctype = ContentType.objects.get_for_model(Institution)
-                    institution_ids = [i.id for i in Institution.objects.filter(
+                    institution_ids = [force_text(i.id) for i in Institution.objects.filter(
                         persongroup__groupmembership__user=request.user).distinct()]
                     institution_ctype = ContentType.objects.get_for_model(Institution)
                     queryset = queryset.filter(
@@ -201,7 +202,7 @@ def institution_list(
                         locality_type__tree_id=lt.tree_id,
                     ).distinct()
 
-                institutions_pks = list(context_item_qs.values_list("object_id", flat=True))
+                institutions_pks = map(int, context_item_qs.values_list("object_id", flat=True))
 
                 queryset = queryset.filter(
                     pk__in=institutions_pks,

@@ -541,7 +541,16 @@ class Urls(object):
             '/de/admin/',  # login required
             '/de/admin/cms/page/',  # login required
             '/de/admin/people/person/add/',  # login required
+            '/de/marketplace/favorites/',  # login required
             '/de/marketplace/my-bulletins/',  # login required
+            '/de/events/favorites/',  # login required
+            '/de/events/memos/',  # login required
+            '/de/events/own-events/',  # login required
+            '/de/network/contacts/',  # login required
+            '/de/network/following/',  # login required
+            '/de/network/memos/',  # login required
+            '/de/network/own-institutions/',  # login required
+            '/de/network/relationships/',  # login required
             '/de/admin/logout/',  # keep the logout last, because it changes the request user
         ]
 

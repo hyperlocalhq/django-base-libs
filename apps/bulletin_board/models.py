@@ -126,7 +126,7 @@ class ImportedBulletinManager(models.Manager):
         ObjectMapper = apps.get_model("external_services", "ObjectMapper")
         ContentType = apps.get_model("contenttypes", "ContentType")
         ct = ContentType.objects.get_for_model(self.model)
-        ids = list(ObjectMapper.objects.filter(content_type=ct).values_list("object_id", flat=True))
+        ids = map(int, ObjectMapper.objects.filter(content_type=ct).values_list("object_id", flat=True))
         ObjectMapper.objects.filter(content_type=ct).delete()
         return self.filter(pk__in=ids).delete()
 

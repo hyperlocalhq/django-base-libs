@@ -127,7 +127,7 @@ def event_list(request, criterion="", slug="", show="", start_date=None, end_dat
         PersonGroup = models.get_model("groups_networks", "PersonGroup")
         ct = ContentType.objects.get_for_model(kwargs['queryset'].model)
         owned_inst_ids = [
-            el['object_id'] for el in PersonGroup.objects.filter(
+            int(el['object_id']) for el in PersonGroup.objects.filter(
                 groupmembership__user=request.user,
                 content_type=ct,
             ).distinct().values("object_id")
@@ -193,7 +193,7 @@ def event_list(request, criterion="", slug="", show="", start_date=None, end_dat
             # if kw:
             #     context_item_qs = context_item_qs.search(kw)
 
-            event_pks = list(context_item_qs.values_list("object_id", flat=True))
+            event_pks = map(int, context_item_qs.values_list("object_id", flat=True))
 
             queryset = queryset.filter(
                 pk__in=event_pks,

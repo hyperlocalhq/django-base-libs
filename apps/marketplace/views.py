@@ -114,7 +114,7 @@ def job_offer_list(request, criterion="", slug="", show="", title="", job_sector
         PersonGroup = models.get_model("groups_networks", "PersonGroup")
         ct = ContentType.objects.get_for_model(kwargs['queryset'].model)
         owned_inst_ids = [
-            el['object_id'] for el in PersonGroup.objects.filter(
+            int(el['object_id']) for el in PersonGroup.objects.filter(
                 groupmembership__user=request.user,
                 content_type=ct,
             ).distinct().values("object_id")

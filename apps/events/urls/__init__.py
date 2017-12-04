@@ -3,10 +3,13 @@ from django.conf.urls import patterns, url, include
 from django.conf import settings
 from django.views.generic import TemplateView
 
+from jetson.apps.utils.decorators import login_required
 from jetson.apps.utils.views import object_detail
 from jetson.apps.utils.context_processors import prev_next_processor
 from ccb.apps.events.utils import Event
 from ccb.apps.media_gallery.sites import PortfolioSite
+from ccb.apps.site_specific import views as site_specific_views
+from ccb.apps.events import views as events_views
 
 event_list_info = {
     'queryset': Event.objects.all(),
@@ -34,7 +37,7 @@ OPTIONAL_DATE_REGEX = (
 urlpatterns = (
     url(
         r'^$',
-        'ccb.apps.events.views.event_list',
+        events_views.event_list,
         event_list_info,
         name="event_list_global",
     ),
@@ -43,7 +46,7 @@ urlpatterns = (
         r'((?P<show>favorites|memos|own-events)/)'
         + OPTIONAL_DATE_REGEX +
         r'$',
-        'ccb.apps.events.views.event_list',
+        login_required(events_views.event_list),
         event_list_info,
         name="event_list_global",
     ),
@@ -53,7 +56,7 @@ urlpatterns = (
         + OPTIONAL_DATE_REGEX +
         r'ical/'
         r'$',
-        'ccb.apps.events.views.event_list_ical',
+        events_views.event_list_ical,
         event_list_info,
     ),
     url(
@@ -63,10 +66,10 @@ urlpatterns = (
         r'feeds/'
         r'(?P<feed_type>[^/]+)/'
         r'$',
-        'ccb.apps.events.views.event_list_feed',
+        events_views.event_list_feed,
         event_list_info,
     ),
-    url(r'^add/$', 'ccb.apps.events.views.add_event'),
+    url(r'^add/$', events_views.add_event),
 
     # success pages
     url(r'^created/$', TemplateView.as_view(template_name='events/event_created.html'), name="event_created"),
@@ -79,7 +82,7 @@ urlpatterns = (
         r'(?P<slug>[^/]+)/'
         r'((?P<event_time>\d+)/)?'
         r'$',
-        'ccb.apps.events.views.event_detail',
+        events_views.event_detail,
         event_details_info,
         name="event_detail",
     ),
@@ -89,7 +92,7 @@ urlpatterns = (
         r'(?P<slug>[^/]+)/'
         r'claim/'
         r'$',
-        'ccb.apps.site_specific.views.claim_object',
+        site_specific_views.claim_object,
         {'ot_url_part': 'event'},
     ),
     url(
@@ -98,7 +101,7 @@ urlpatterns = (
         r'(?P<slug>[^/]+)/'
         r'delete/'
         r'$',
-        'ccb.apps.site_specific.views.delete_object',
+        site_specific_views.delete_object,
         {'ot_url_part': 'event'},
     ),
     url(

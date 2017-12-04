@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404
 from django.http import Http404
@@ -135,9 +136,9 @@ def person_list(
                 elif v == "new":
                     queryset = queryset.order_by("-creation_date")
                 elif v == "my-contacts":
-                    person_ids = [p.id for p in Person.objects.filter(user__to_user__user=request.user).distinct()]
+                    person_ids = [force_text(p.id) for p in Person.objects.filter(user__to_user__user=request.user).distinct()]
                     person_ctype = ContentType.objects.get_for_model(Person)
-                    institution_ids = [i.id for i in Institution.objects.filter(
+                    institution_ids = [force_text(i.id) for i in Institution.objects.filter(
                         persongroup__groupmembership__user=request.user).distinct()]
                     institution_ctype = ContentType.objects.get_for_model(Institution)
                     queryset = queryset.filter(
@@ -193,7 +194,7 @@ def person_list(
                         locality_type__tree_id=lt.tree_id,
                     ).distinct()
 
-                people_pks = list(context_item_qs.values_list("object_id", flat=True))
+                people_pks = map(int, context_item_qs.values_list("object_id", flat=True))
 
                 queryset = queryset.filter(
                     pk__in=people_pks,
