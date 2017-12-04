@@ -26,6 +26,10 @@
         float: left;
         margin: 5px 20px 20px 0;
         max-width: 38%;
+
+        .is-xs & {
+            display: none;
+        }
     }
 
     .container {
@@ -68,7 +72,7 @@
 
                 .arrow-right {
                     display: none;
-                    
+
                     &:before {
                         padding-right: 30px;
                     }
