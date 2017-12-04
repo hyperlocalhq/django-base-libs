@@ -3,7 +3,7 @@
 // @Date:   2017/11/29
 // @Email:  code@dreammedia.info
 // @Last modified by:   Daniel Lehmann
-// @Last modified time: 2017/12/01
+// @Last modified time: 2017/12/04
 // @copyright Daniel Lehmann (code@dreammedia.info)
 
 @charset "utf-8";
@@ -67,6 +67,8 @@
                 }
 
                 .arrow-right {
+                    display: none;
+                    
                     &:before {
                         padding-right: 30px;
                     }
