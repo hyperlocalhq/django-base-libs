@@ -805,7 +805,7 @@ def magazine_overview(request):
             featured_in_magazine=True,
             article_type__slug="articles-from-our-network-partners",
         ).order_by("-importance_in_magazine"),
-        'blog_posts': Post.published_objects.featured_in_magazine().order_by("-importance_in_magazine"),
+        'blog_posts': Post.published_objects.featured_in_magazine().order_by("-importance_in_magazine")[:3],
     }
     return render(request, "articles/magazine_overview.html", context)
 
