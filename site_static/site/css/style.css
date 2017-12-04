@@ -9805,8 +9805,16 @@ img[data-popup-image-src] {
 .header .menu.magazine-menu {
   background: #fff;
   border-bottom: 1px solid #d8d8d8;
-  font-family: "MetronicSlabPro", "sans-serif";
+  font-family: "Lato", "sans-serif";
   font-weight: 400;
+}
+
+.is-sm .header .menu.magazine-menu {
+  height: 45px;
+}
+
+.is-sm .header .menu.magazine-menu nav {
+  height: 45px;
 }
 
 .is-xs .header .menu.magazine-menu {
@@ -9834,35 +9842,37 @@ img[data-popup-image-src] {
 .header .menu.magazine-menu div.navi nav ul li {
   display: table-cell;
   position: static;
-  vertical-align: middle;
+  vertical-align: top;
   border-bottom: 6px solid #fff;
   -webkit-transition: border-bottom 0.3s;
   transition: border-bottom 0.3s;
 }
 
 .header .menu.magazine-menu div.navi nav ul li a {
+  font-family: "Lato", "sans-serif";
   font-weight: 400;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   line-height: 1.1;
   color: #afaeae;
   padding: 5px 8px 0;
   text-align: center;
   min-width: 90px;
-  max-width: 220px;
+  max-width: 150px;
+  display: block;
 }
 
 .is-md .header .menu.magazine-menu div.navi nav ul li a {
-  font-size: 1.11rem;
+  font-size: 1.1rem;
   line-height: 1.1;
-  min-width: initial;
-  max-width: initial;
+  min-width: 110px;
+  max-width: 140px;
 }
 
 .is-sm .header .menu.magazine-menu div.navi nav ul li a {
-  font-size: 0.86rem;
+  font-size: 0.9rem;
   line-height: 1.2;
-  min-width: initial;
-  max-width: initial;
+  min-width: 85px;
+  max-width: 130px;
   padding: 0px 8px 0;
 }
 
