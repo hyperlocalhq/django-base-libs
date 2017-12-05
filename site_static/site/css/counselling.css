@@ -7139,6 +7139,10 @@ p + h2, p + h4, p + h5 {
   max-width: 300px !important;
 }
 
+.is-md .header .button:before, .is-sm .header .button:before {
+  font-size: 1.464rem;
+}
+
 #footer a {
   text-decoration: none;
 }

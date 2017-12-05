@@ -290,6 +290,12 @@ p + h2, p + h4, p + h5 {
             margin: -46px 0 0 -150px;
             max-width: 300px !important;
         }
+
+        &:before {
+            .is-md &, .is-sm & {
+                font-size: 1.464rem;
+            }
+        }
     }
 }
 
