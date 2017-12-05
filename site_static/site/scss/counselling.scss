@@ -293,7 +293,7 @@ p + h2, p + h4, p + h5 {
 
         &:before {
             .is-md &, .is-sm & {
-                font-size: 1.464rem;
+                font-size: 1.464rem !important;
             }
         }
     }
