@@ -7,7 +7,7 @@ from feeds import ExhibitionRssFeed
 urlpatterns = patterns('museumsportal.apps.exhibitions.views',
     url(r'^$', 'exhibition_list', name='exhibition_list'),
     url(r'^map/$', 'exhibition_list_map', name='exhibition_list_map'),
-    url(r'^vernissages/$', 'vernissage_list', name='vernissage_list'),
+    # url(r'^vernissages/$', 'vernissage_list', name='vernissage_list'),  # TODO: eliminate or fix - not functional at the moment
     url(r'^export-json-exhibitions/$', 'export_json_exhibitions', name='export_json_exhibitions'),
     url(r'^add/$', 'add_exhibition', name='add_exhibition'),
     url(r'^rss/$', ExhibitionRssFeed(), name='exhibitions_rss'),

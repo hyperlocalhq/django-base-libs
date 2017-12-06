@@ -355,7 +355,13 @@ def export_json_museums(request):
     qs = Museum.objects.filter(status="published")
    
     museums = []
-    for m in qs:        
+    for m in qs:
+        phone = ""
+        if m.phone_number:
+            phone = "+{} ({}) {}".format(m.phone_country, m.phone_area, m.phone_number)
+        fax = ""
+        if m.fax_number:
+            fax = "+{} ({}) {}".format(m.fax_country, m.fax_area, m.fax_number)
         data = {
             'title': m.title,
             'subtitle': m.subtitle,
@@ -368,8 +374,8 @@ def export_json_museums(request):
             'country': m.country,
             'latitude': m.latitude,
             'longitude': m.longitude,
-            'phone': m.phone,
-            'fax': m.fax,
+            'phone': phone,
+            'fax': fax,
             'email': m.email,
             'website': m.website,
             'open_on_mondays': m.open_on_mondays,

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 import os
 import shutil
+import json
 from datetime import datetime, date, timedelta
 
 from django.db import models
 from django.http import HttpResponse
 from django import forms
-from django.utils import simplejson
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.cache import never_cache
 from django.shortcuts import get_object_or_404, render, redirect
@@ -532,26 +532,31 @@ def export_json_exhibitions(request):
     
     exhibitions = []
     for ex in qs:
+        start = None
+        if ex.start:
+            start = ex.start.strftime('%Y-%m-%dT%H:%M:%S')
+        end = None
+        if ex.end:
+            end = ex.end.strftime('%Y-%m-%dT%H:%M:%S')
         data = {
             'museum': ex.museum,
             'title': ex.title,
             'subtitle': ex.subtitle,
             'description': decode_entities(ex.description),
             'website': ex.website,
-            'start': ex.start.strftime('%Y-%m-%dT%H:%M:%S'),
-            'end': ex.end.strftime('%Y-%m-%dT%H:%M:%S'),
+            'start': start,
+            'end': end,
             'newly_opened': ex.newly_opened,
             'featured': ex.featured,
             'image_caption': ex.image_caption,
         }
         exhibitions.append(data)
-    json = simplejson.dumps(
+    json_data = json.dumps(
         exhibitions,
-        #datetime.now().strftime('%Y-%m-%dT%H:%M:%S'),
         ensure_ascii=False,
         cls=ExtendedJSONEncoder
     )
-    return HttpResponse(json, mimetype='text/javascript; charset=utf-8')
+    return HttpResponse(json_data, mimetype='text/javascript; charset=utf-8')
     
 
 @never_cache
@@ -844,7 +849,6 @@ def vernissage_list(request):
         },
     }
 
-    status = None
     if form.is_valid():
         cat = form.cleaned_data['category']
         if cat:
@@ -852,27 +856,8 @@ def vernissage_list(request):
             qs = qs.filter(
                 categories=cat,
             ).distinct()
-        status = form.cleaned_data['status']
-        if status:
-            facets['selected']['status'] = status
-            today = date.today()
-            two_weeks = timedelta(days=14)
-            if status == "newly_opened":
-                # today - 2 weeks < EXHIBITION START <= today
-                qs = qs.filter(
-                    start__gt=today-two_weeks,
-                    start__lte=today,
-                )
-            elif status == "closing_soon":
-                # today <= EXHIBITION END < today + two weeks
-                qs = qs.filter(
-                    end__gte=today,
-                    end__lt=today+two_weeks,
-                )
-    if status == "closing_soon":
-        qs = qs.order_by("end", "title_%s" % request.LANGUAGE_CODE)
-    else:
-        qs = qs.order_by("-start", "title_%s" % request.LANGUAGE_CODE)
+
+    qs = qs.order_by("-start", "title_%s" % request.LANGUAGE_CODE)
         
     extra_context = {}
     extra_context['form'] = form
