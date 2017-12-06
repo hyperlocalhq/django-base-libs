@@ -61,6 +61,8 @@ class ShopProductCategory(SlugMixin()):
 class ShopProductManager(models.Manager):
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
+        if not user.is_authenticated():
+            return self.get_query_set().none()
         if user.has_perm("shop.change_shopproduct"):
             return self.get_query_set().exclude(status="trashed")
         product_ids = PerObjectGroup.objects.filter(

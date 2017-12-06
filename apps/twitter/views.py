@@ -1,18 +1,16 @@
+import json
 import re
-import calendar
-from datetime import datetime
 from dateutil.parser import parse as datetime_parse
-from urllib2 import urlopen, HTTPError, URLError
-from twython import Twython
+from twython import Twython, TwythonError
 
 from django.conf import settings
 from django.http import HttpResponse
 from django.utils.html import urlize
 from django.utils import dateformat
-from django.utils import simplejson as json
 from django.views.decorators.cache import cache_page
 from django.template.defaultfilters import timesince
-from django.utils.translation import ugettext_lazy as _, ugettext
+from django.utils.translation import ugettext
+
 
 @cache_page(60*15)
 def latest_tweets(request, twitter_username, number_of_tweets):
@@ -22,12 +20,15 @@ def latest_tweets(request, twitter_username, number_of_tweets):
         settings.TWITTER_ACCESS_TOKEN,
         settings.TWITTER_ACCESS_TOKEN_SECRET,
         )
-    tweets = twitter.get_user_timeline(
-        include_entities="true",
-        include_rts="true",
-        screen_name=twitter_username,
-        count=number_of_tweets,
-        )    
+    try:
+        tweets = twitter.get_user_timeline(
+            include_entities="true",
+            include_rts="true",
+            screen_name=twitter_username,
+            count=number_of_tweets,
+        )
+    except TwythonError:
+        return HttpResponse(json.dumps([]), mimetype="application/json")
     for tweet in tweets:
         tweet['text_urlized'] = urlize(tweet['text'])
         tmp = []

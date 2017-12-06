@@ -89,6 +89,8 @@ class EventManager(models.Manager):
 
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
+        if not user.is_authenticated():
+            return self.get_query_set().none()
         if user.has_perm("events.change_event"):
             return self.get_query_set().exclude(status="trashed")
         ids = PerObjectGroup.objects.filter(
