@@ -233,6 +233,10 @@ class ExhibitionResource(ModelResource):
                 strip_html(bundle.obj.get_rendered_reduced_price_info_de())
             )
 
+        if bundle.obj.museum_opening_hours:
+            # don't show seasons if the opening hours should be taken from museums
+            del(bundle.data['seasons'])
+
         bundle.data['suitable_for_disabled_info_en'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_suitable_for_disabled_info_en()))
         bundle.data['suitable_for_disabled_info_de'] = strip_invalid_chars(strip_html(bundle.obj.get_rendered_suitable_for_disabled_info_de()))
         
