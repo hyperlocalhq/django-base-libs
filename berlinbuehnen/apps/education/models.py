@@ -578,10 +578,12 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
     def get_published_departments(self):
         return self.departments.filter(status="published")
 
-    def duplicate(self, new_values={}):
+    def duplicate(self, new_values=None):
         import os
         from distutils.dir_util import copy_tree
         from filebrowser.models import FileDescription
+        if not new_values:
+            new_values = {}
         # copy the model
         source_proj = self
         target_proj = Project.objects.get(pk=self.pk)

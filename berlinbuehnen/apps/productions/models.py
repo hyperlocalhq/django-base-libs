@@ -463,10 +463,13 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     def get_images(self):
         return self.productionimage_set.all()
 
-    def duplicate(self, new_values={}):
+    def duplicate(self, new_values=None):
         import os
         from distutils.dir_util import copy_tree
         from filebrowser.models import FileDescription
+        if not new_values:
+            new_values = {}
+
         # copy the model
         source_prod = self
         target_prod = Production.objects.get(pk=self.pk)
