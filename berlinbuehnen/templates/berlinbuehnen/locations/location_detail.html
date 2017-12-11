@@ -6,6 +6,7 @@
 {% block bodyclass %}location-detail{% endblock %}
 
 {% block meta_tags %}
+    <link rel="canonical" href="https://www.berlin-buehnen.de{{ request.path }}" />
     <meta name="description" lang="{{ LANGUAGE_CODE }}" content="{{ object.title }} – {% page_attribute "title" as title %}{% page_attribute "page_title" as page_title %}{{ page_title|default:title|escape }} – Berlin Bühnen" />
     {{ site_settings.get_meta_keywords|safe }}
 {% endblock %}
@@ -35,7 +36,7 @@
             <div class="container main-container">
                 <div class="row">
                     <div class="col-xs-12 print-padding">
-                        <a class="fawesome back uc no-print" href="{% url 'location_list' %}">{% trans "back to overview" %}</a>
+                        <a class="fawesome back uc no-print" href="{% url 'location_list' %}{% remove_from_query "page" %}">{% trans "back to overview" %}</a>
                         <article>
 
                             <!-- headlines -->

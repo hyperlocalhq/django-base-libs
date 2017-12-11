@@ -41,7 +41,7 @@
                         {% endif %}
                         {% if object_list %}
                             {% for location in object_list %}
-                                <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ location.get_url_path }}">
+                                <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ location.get_url_path }}{% remove_from_query "page" %}">
 
                                     <!-- image -->
                                     <span class="grid-item-image img">
