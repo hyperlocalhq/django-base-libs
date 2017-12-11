@@ -666,6 +666,8 @@ MAILING_CONTENT_TYPE_CHOICES = (
     ('locations', _("Theaters")),
     ('productions', _("Productions")),
     ('festivals', _("Festivals")),
+    ('educational_departments', _("Educational Departments")),
+    ('educational_projects', _("Educational Projects")),
     ('article', _("News")),
     ('banner', _("Banner")),
     ('image_and_text', _("Image and text")),

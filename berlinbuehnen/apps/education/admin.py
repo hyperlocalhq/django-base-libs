@@ -100,8 +100,8 @@ class DepartmentAdmin(ExtendedModelAdmin):
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
         )
 
-    list_display = ('title', 'creation_date', 'modified_date', 'status')
-    list_editable = ('status', )
+    list_display = ('title', 'creation_date', 'modified_date', 'newsletter', 'status')
+    list_editable = ('newsletter', 'status', )
     list_filter = ('status', )
 
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'description', 'teaser',])
@@ -110,7 +110,7 @@ class DepartmentAdmin(ExtendedModelAdmin):
     fieldsets += [(_("Address"), {'fields': ('street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude')}),]
     fieldsets += [(_("District"), {'fields': ('districts',)}),]
     fieldsets += [(_("Contacts"), {'fields': ('contact_name',(_("Phone"), {'fields': ('phone_country', 'phone_area', 'phone_number')}), (_("Fax"), {'fields': ('fax_country', 'fax_area', 'fax_number')}),'email','website', )}),]
-    fieldsets += [(_("Status"), {'fields': ('status',)}),]
+    fieldsets += [(_("Status"), {'fields': ('newsletter', 'status',)}),]
 
     inlines = [DepartmentMemberInline, DepartmentSocialMediaChannelInline, DepartmentImageInline, DepartmentPDFInline,]
 
@@ -227,8 +227,8 @@ class ProjectSponsorInline(ExtendedStackedInline):
 
 
 class ProjectAdmin(ExtendedModelAdmin):
-    list_display = ('title_de', 'get_locations', 'creation_date', 'modified_date', 'status')
-    list_editable = ('status',)
+    list_display = ('title_de', 'get_locations', 'creation_date', 'modified_date', 'newsletter', 'status')
+    list_editable = ('newsletter', 'status',)
     search_fields = ('title_de', 'title_en')
     list_filter = ["creation_date", "modified_date", 'status']
     date_hierarchy = "modified_date"
@@ -241,7 +241,7 @@ class ProjectAdmin(ExtendedModelAdmin):
     fieldsets += get_admin_lang_section(_("Description"), ['description', 'special_conditions', 'remarks', 'cooperation', 'supporters', 'participant_count'])
     fieldsets += [(_("Prices"), {'fields': ['free_entrance', 'tickets_website', get_admin_lang_section(_("Price information"), ['prices'])]}),]
     fieldsets += [(_("Additional details"), {'fields': ['age_from', 'age_till', 'needs_teachers', 'target_groups', 'formats']})]
-    fieldsets += [(_("Status"), {'fields': ['status',]}),]
+    fieldsets += [(_("Status"), {'fields': ['newsletter', 'status',]}),]
 
     filter_horizontal = ['departments', 'target_groups', 'formats']
     inlines = [

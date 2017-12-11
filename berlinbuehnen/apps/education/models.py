@@ -61,7 +61,13 @@ class DepartmentManager(models.Manager):
         ).values_list("object_id", flat=True)
         return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
 
-        
+    def for_newsletter(self):
+        return self.filter(
+            status="published",
+            newsletter=True
+        ).order_by('-creation_date')
+
+
 class Department(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     location = models.ForeignKey(Location, verbose_name=_("Location"))
@@ -88,6 +94,7 @@ class Department(CreationModificationMixin, UrlMixin, SlugMixin()):
     website = URLField("Website", blank=True)
     
     districts = models.ManyToManyField(District, verbose_name=_("District"), blank=True)
+    newsletter = models.BooleanField(_("Show in newsletter"), default=False)
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
     objects = DepartmentManager()
@@ -379,6 +386,12 @@ class ProjectManager(models.Manager):
         ).values_list("object_id", flat=True)
         return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
 
+    def for_newsletter(self):
+        return self.filter(
+            status="published",
+            newsletter=True
+        ).order_by('-creation_date')
+
 
 class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
     title = MultilingualCharField(_("Title"), max_length=255)
@@ -422,6 +435,7 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
     target_groups = models.ManyToManyField("ProjectTargetGroup", verbose_name=_("Target groups"), blank=True, null=True)
     formats = models.ManyToManyField("ProjectFormat", verbose_name=_("Project formats"), blank=True, null=True)
 
+    newsletter = models.BooleanField(_("Show in newsletter"), default=False)
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
     objects = ProjectManager()
