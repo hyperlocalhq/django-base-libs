@@ -408,6 +408,9 @@
                                                                 {% endif %}
                                                                 {% if event.ev_or_prod_free_entrance %}
                                                                     <p>{% trans "Free entrance" %}</p>
+                                                                    {% if event.ev_or_prod_price_information %}
+                                                                        {{ event.ev_or_prod_price_information }}
+                                                                    {% endif %}
                                                                 {% else %}
                                                                     <p>
                                                                         {% if event.ev_or_prod_price_from %}
@@ -416,10 +419,10 @@
                                                                         {% if event.ev_or_prod_price_till %}
                                                                             - {{ event.ev_or_prod_price_till }} EUR
                                                                         {% endif %}
-                                                                        {% if event.ev_or_prod_price_information %}
-                                                                            {{ event.ev_or_prod_price_information }}
-                                                                        {% endif %}
                                                                     </p>
+                                                                    {% if event.ev_or_prod_price_information %}
+                                                                        {{ event.ev_or_prod_price_information }}
+                                                                    {% endif %}
                                                                     {% if event.ev_or_prod_tickets_website %}
                                                                         <p><a class="fawesome tickets tickets-link" href="{{ event.ev_or_prod_tickets_website }}" target="_blank">{% trans "Buy tickets" %}</a></p>
                                                                     {% endif %}
