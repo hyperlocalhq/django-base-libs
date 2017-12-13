@@ -3,11 +3,10 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.shortcuts import redirect
 from django.contrib.sites.models import Site
-from django.conf import settings
 from django.views.decorators.cache import never_cache
 from django.utils.translation import ugettext as _
 
-from jetson.apps.mailchimp.forms import SubscriptionForm, SimpleSubscriptionForm
+from .forms import SubscriptionForm, SimpleSubscriptionForm
 
 
 @never_cache

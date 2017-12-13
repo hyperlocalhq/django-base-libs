@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 from django import forms
 from django.db import models
+from django.apps import apps
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.http import HttpResponse
@@ -16,7 +17,7 @@ from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
 
-from jetson.apps.mailchimp.models import Settings, MList, Campaign, MailingContentBlock
+from .models import Settings, MList, Campaign, MailingContentBlock, CONTENT_TYPE_CHOICES
 
 class SettingsAdmin(admin.ModelAdmin):
     list_display = ('username', 'api_key', 'double_optin')
@@ -40,7 +41,7 @@ class MListAdminForm(forms.ModelForm):
         super(MListAdminForm, self).__init__(*args, **kwargs)
         mailchimp_list_choices = [("", "---------")]
         from mailchimp3 import MailChimp
-        Settings = models.get_model("mailchimp", "Settings")
+        Settings = apps.get_model("mailchimp", "Settings")
         try:
             st = Settings.objects.get()
         except:
@@ -71,7 +72,7 @@ class MListAdmin(admin.ModelAdmin):
     def get_mailchimp_list(self, obj):
         if not hasattr(self, "_mailchimp_lists"):
             from mailchimp3 import MailChimp
-            Settings = models.get_model("mailchimp", "Settings")
+            Settings = apps.get_model("mailchimp", "Settings")
             try:
                 st = Settings.objects.get()
             except:
@@ -92,8 +93,19 @@ class MListAdmin(admin.ModelAdmin):
 admin.site.register(MList, MListAdmin)
 
 
+class MailingContentBlockForm(forms.ModelForm):
+    content_type = forms.ChoiceField(
+        label=_("Content Type"),
+        choices=[('', '---------')] + list(CONTENT_TYPE_CHOICES),
+        required=True,
+    )
+    class Meta:
+        model = MailingContentBlock
+        fields = '__all__'
+
 class MailingContentBlockInline(ExtendedStackedInline):
     model = MailingContentBlock
+    form = MailingContentBlockForm
     extra = 0
     fieldsets = [(_("Content"), {'fields': ['content_type', 'content', 'sort_order'], 'classes': ('grp-collapse grp-open',)})]
     ordering = ("sort_order",)

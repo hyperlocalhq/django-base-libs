@@ -4,6 +4,7 @@ from mailchimp3 import MailChimp
 from requests import HTTPError
 
 from django.db import models
+from django.apps import apps
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from django.contrib.admin.models import LogEntry
@@ -61,7 +62,7 @@ class MList(SingleSiteMixin):
     
     def _get_mailchimp_id(self):
         if not hasattr(self, "_mailchimp_id"):
-            Service = models.get_model("external_services", "Service")
+            Service = apps.get_model("external_services", "Service")
             s, created = Service.objects.get_or_create(
                 sysname="mailchimp",
                 defaults={
@@ -82,8 +83,8 @@ class MList(SingleSiteMixin):
         return self._mailchimp_id
         
     def _set_mailchimp_id(self, value):
-        Service = models.get_model("external_services", "Service")
-        ObjectMapper = models.get_model("external_services", "ObjectMapper")
+        Service = apps.get_model("external_services", "Service")
+        ObjectMapper = apps.get_model("external_services", "ObjectMapper")
         s, created = Service.objects.get_or_create(
             sysname="mailchimp",
             defaults={
@@ -109,9 +110,17 @@ class MList(SingleSiteMixin):
     mailchimp_id = property(_get_mailchimp_id, _set_mailchimp_id)
 
 
+def get_default_from_name():
+    return getattr(settings, 'MAILING_DEFAULT_FROM_NAME', '')
+
+
+def get_default_from_email():
+    return getattr(settings, 'MAILING_DEFAULT_FROM_EMAIL', '')
+
+
 class Campaign(CreationModificationMixin):
-    sender_name = models.CharField(_("Sender name"), max_length=255, default=getattr(settings, 'MAILING_DEFAULT_FROM_NAME', ''))
-    sender_email = models.EmailField(_("Sender email"), default=getattr(settings, 'MAILING_DEFAULT_FROM_EMAIL', ''))
+    sender_name = models.CharField(_("Sender name"), max_length=255, default=get_default_from_name)
+    sender_email = models.EmailField(_("Sender email"), default=get_default_from_email)
     subject = models.CharField(_("Subject"), max_length=255)
     body_html = ExtendedTextField(_("Message"), blank=True)
     mailinglist = models.ForeignKey('MList', verbose_name=_("Mailing list"))
@@ -181,7 +190,7 @@ class Campaign(CreationModificationMixin):
 
     def _get_mailchimp_id(self):
         if not hasattr(self, "_mailchimp_id"):
-            Service = models.get_model("external_services", "Service")
+            Service = apps.get_model("external_services", "Service")
             s, created = Service.objects.get_or_create(
                 sysname="mailchimp",
                 defaults={
@@ -202,8 +211,8 @@ class Campaign(CreationModificationMixin):
         return self._mailchimp_id
         
     def _set_mailchimp_id(self, value):
-        Service = models.get_model("external_services", "Service")
-        ObjectMapper = models.get_model("external_services", "ObjectMapper")
+        Service = apps.get_model("external_services", "Service")
+        ObjectMapper = apps.get_model("external_services", "ObjectMapper")
         s, created = Service.objects.get_or_create(
             sysname="mailchimp",
             defaults={
@@ -250,7 +259,7 @@ def save_mailchimp_campaign(sender, **kwargs):
         if instance.is_addition() or instance.is_change():
             campaign = instance.get_edited_object()
             
-            Settings = models.get_model("mailchimp", "Settings")
+            Settings = apps.get_model("mailchimp", "Settings")
             
             try:
                 st = Settings.objects.get()
@@ -320,9 +329,9 @@ CONTENT_TYPE_CHOICES = getattr(settings, "MAILING_CONTENT_TYPE_CHOICES", (
 
 class MailingContentBlock(models.Model):
     campaign = models.ForeignKey('Campaign')
-    content_type = models.CharField('Content Type', max_length=20, choices=CONTENT_TYPE_CHOICES, blank=True)
+    content_type = models.CharField('Content Type', max_length=20, blank=True)
     content = ExtendedTextField(_("Content"), blank=True)
-    sort_order = PositionField(_("Sort order"))
+    sort_order = PositionField(_("Sort order"), collection="campaign")
     
     def __unicode__(self):
         return self.get_content_type_display()
@@ -348,3 +357,8 @@ class MailingContentBlock(models.Model):
                 'block': self,
             },
         )
+
+    def get_content_type_display(self):
+        if self.content_type:
+            return dict(CONTENT_TYPE_CHOICES)[self.content_type]
+        return ''

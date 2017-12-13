@@ -10,11 +10,11 @@ from base_libs.forms.fields import SecurityField
 
 from mailchimp3 import MailChimp
 
-from jetson.apps.mailchimp.models import MList
-from jetson.apps.mailchimp.models import Settings
-
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
+
+from .models import MList
+from .models import Settings
 
 
 class SubscriptionForm(dynamicforms.Form):
