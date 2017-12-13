@@ -52,6 +52,8 @@ class ExtendedClient(Client):
 
 
 class PageTest(unittest.TestCase):
+    is_authenticated = False
+
     def __init__(self, url_path='', expected_status_code=200, client=None):
         super(PageTest, self).__init__()
         self.url_path = url_path
@@ -66,14 +68,11 @@ class PageTest(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def shortDescription(self):
-        return 'page {} should return {} status code'.format(
-            self.url_path,
-            self.expected_status_code,
-        )
-
     def runTest(self):
-        assert isinstance(self.url_path, unicode)
+        self.assertTrue(
+            isinstance(self.url_path, (str, unicode)) and len(self.url_path) > 0,
+            "{!r} is not a valid URL path.".format(self.url_path),
+        )
         response = self.client.get(
             self.url_path,
             **{'HTTP_USER_AGENT': 'silly-human', 'REMOTE_ADDR': '127.0.0.1'}
@@ -81,20 +80,17 @@ class PageTest(unittest.TestCase):
         self.assertEqual(
             response.status_code,
             self.expected_status_code,
-            '{} returned {} status code, expected {}'.format(
+            '{} returned {} status code with {} user, expected {}'.format(
                 self.url_path,
                 response.status_code,
+                "authenticated" if self.is_authenticated else "anonymous",
                 self.expected_status_code,
             )
         )
 
 
 class AuthenticatedPageTest(PageTest):
-    def shortDescription(self):
-        return 'page {} should return {} status code when authenticated'.format(
-            self.url_path,
-            self.expected_status_code,
-        )
+    is_authenticated = True
 
 
 class Urls(object):
