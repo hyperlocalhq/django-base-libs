@@ -146,10 +146,6 @@
                             $oContent.val(responseText);
                             $oContentMarkupType.val("hw");
                             $oContentMarkupType.change();
-                            //var oEditor = tinyMCE.getInstanceById($oContent.attr("id"));
-                            //if (oEditor) {
-                            //    oEditor.setContent(responseText);
-                            //}
                         }
                     );
                 }
@@ -161,7 +157,7 @@
 
                     function update_content(responseText) {
                         $oContent.val(responseText);
-                        if ($oContentMarkupType.val() != "hw") {
+                        if ($oContentMarkupType.val() !== "hw") {
                             $oContentMarkupType.val("hw");
                             $oContentMarkupType.change();
                         }
