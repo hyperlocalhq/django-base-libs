@@ -30,7 +30,7 @@ class RowLevelPermissionManager(models.Manager):
                     apps.get_app_config(model_instance._meta.app_label),
                     created_models=None,
                     verbosity=0,
-                    )
+                )
                 permission = Permission.objects.get(
                     codename=permission,
                     content_type=content_type,

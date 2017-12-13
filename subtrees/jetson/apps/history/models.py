@@ -52,7 +52,7 @@ class ExtendedLogEntryManager(models.Manager):
         for lang_code, lang_name in settings.LANGUAGES:
             setattr(e, "change_message_%s" % lang_code, kwargs['change_message_%s' % lang_code])
         if content_object.pk:  # if the object hasn't just been deleted
-            e.content_object=content_object
+            e.content_object = content_object
         e.save()
 
     def import_from_log_entries(self):
