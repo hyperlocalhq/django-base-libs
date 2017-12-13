@@ -846,9 +846,9 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
                 # return the user to onsuccess response, success_url or render a success_template
                 if 'onsuccess' in form_steps:
                     if instance:
-                        return form_steps['onsuccess'](request, instance)
+                        return form_steps['onsuccess'](request, form_step_data, instance)
                     else:
-                        return form_steps['onsuccess'](request)
+                        return form_steps['onsuccess'](request, form_step_data)
                 elif form_steps.get('success_url', False):
                     return redirect(form_steps['success_url'])
                 else:

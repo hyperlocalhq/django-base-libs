@@ -6,16 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Django 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-26 20:29+0200\n"
-"PO-Revision-Date: 2012-04-04 22:05+0100\n"
-"Last-Translator: Aidas Bendoraitis <bendoraitis@studio38.de>\n"
+"POT-Creation-Date: 2017-12-13 17:49+0100\n"
+"PO-Revision-Date: 2017-09-28 06:36+0053\n"
+"Last-Translator: Super Admin <jetsonadmin@studio38.de>\n"
 "Language-Team: \n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Bookmarks: 415,61,1810,230,1014,1069,-1,-1,-1,-1\n"
-"X-Translated-Using: django-rosetta 0.6.1\n"
+"X-Translated-Using: django-rosetta 0.7.13\n"
 
 #: subtrees/jetson/apps/advertising/admin.py:29
 #: subtrees/jetson/apps/advertising/admin.py:35
@@ -96,15 +96,15 @@ msgstr ""
 #: subtrees/jetson/apps/groups_networks/admin.py:23
 #: subtrees/jetson/apps/groups_networks/base.py:222
 #: subtrees/jetson/apps/groups_networks/base.py:696
-#: subtrees/jetson/apps/image_mods/models.py:341
-#: subtrees/jetson/apps/image_mods/models.py:363
+#: subtrees/jetson/apps/image_mods/models.py:359
+#: subtrees/jetson/apps/image_mods/models.py:381
 #: subtrees/jetson/apps/individual_relations/admin.py:37
 #: subtrees/jetson/apps/institutions/admin.py:21
 #: subtrees/jetson/apps/institutions/admin.py:31
 #: subtrees/jetson/apps/institutions/base.py:214
 #: subtrees/jetson/apps/location/admin.py:36
 #: subtrees/jetson/apps/mailchimp/admin.py:62
-#: subtrees/jetson/apps/mailchimp/models.py:39
+#: subtrees/jetson/apps/mailchimp/models.py:40
 #: subtrees/jetson/apps/marketplace/admin.py:40
 #: subtrees/jetson/apps/marketplace/admin.py:48
 #: subtrees/jetson/apps/marketplace/admin.py:56
@@ -247,7 +247,7 @@ msgstr ""
 #: subtrees/jetson/apps/flatpages/admin.py:31
 #: subtrees/jetson/apps/mailchimp/admin.py:98
 #: subtrees/jetson/apps/mailchimp/admin.py:110
-#: subtrees/jetson/apps/mailchimp/models.py:308
+#: subtrees/jetson/apps/mailchimp/models.py:324
 msgid "Content"
 msgstr "Inhalt"
 
@@ -366,7 +366,7 @@ msgstr "Reihenfolge"
 #: subtrees/jetson/apps/optionset/south_migrations/0001_initial.py:84
 #: subtrees/jetson/apps/optionset/south_migrations/0001_initial.py:96
 #: subtrees/jetson/apps/people/base.py:191
-#: subtrees/jetson/apps/permissions/models.py:166
+#: subtrees/jetson/apps/permissions/models.py:167
 #: subtrees/jetson/apps/permissions/south_migrations/0001_initial.py:31
 #: subtrees/jetson/apps/permissions/south_migrations/0002_auto__chg_field_rowlevelpermission_owner_content_type__chg_field_rowle.py:56
 #: subtrees/jetson/apps/resources/base.py:104
@@ -483,17 +483,15 @@ msgstr "Informationsblock"
 msgid "information blocks"
 msgstr "Informationsblöcke"
 
-#: subtrees/jetson/apps/blog/admin.py:52
-#, fuzzy
-#| msgid "All Posts"
+#: subtrees/jetson/apps/blog/admin.py:39
 msgid "Posts"
-msgstr "alle Beiträge"
+msgstr "Beiträge"
 
 #: subtrees/jetson/apps/blog/cms_apps.py:8
 #, fuzzy
 #| msgid "Global"
 msgid "Global Blog"
-msgstr "Allgemein"
+msgstr "Allgemeines Blog"
 
 #: subtrees/jetson/apps/blog/feeds.py:25
 #, python-format
@@ -539,7 +537,7 @@ msgstr "Inhalt"
 #: subtrees/jetson/apps/groups_networks/admin.py:62
 #: subtrees/jetson/apps/groups_networks/base.py:238
 #: subtrees/jetson/apps/institutions/base.py:223
-#: subtrees/jetson/apps/mailchimp/admin.py:146
+#: subtrees/jetson/apps/mailchimp/admin.py:147
 #: subtrees/jetson/apps/people/base.py:299
 #: subtrees/jetson/apps/resources/base.py:190
 #: subtrees/jetson/templates/admin/extendedadmin/includes/fieldset_status.html:3
@@ -830,7 +828,6 @@ msgstr "Lesezeichen"
 #: subtrees/jetson/apps/events/base.py:525
 #: subtrees/jetson/apps/events/base.py:530
 #: subtrees/jetson/apps/events/base.py:535
-#: subtrees/jetson/apps/external_services/models.py:16
 #: subtrees/jetson/apps/flatpages/base.py:18
 #: subtrees/jetson/apps/flatpages/south_migrations/0001_initial.py:28
 #: subtrees/jetson/apps/flatpages/south_migrations/0002_auto__del_field_flatpage_content_markup_type__del_field_flatpage_image.py:152
@@ -1333,7 +1330,7 @@ msgstr "Ihr Name"
 
 #: subtrees/jetson/apps/comments/views/comments.py:51
 msgid "Your Email Address"
-msgstr "Ihre E-Mail Adresse"
+msgstr "Deine E-Mail Adresse"
 
 #: subtrees/jetson/apps/comments/views/comments.py:58
 msgid "Your URL"
@@ -1552,7 +1549,7 @@ msgstr "Kontaktformular"
 #: subtrees/jetson/apps/contact_form/forms.py:26
 #: subtrees/jetson/apps/forum/forms.py:111
 #: subtrees/jetson/apps/i18n/models.py:74
-#: subtrees/jetson/apps/mailchimp/models.py:113
+#: subtrees/jetson/apps/mailchimp/models.py:115
 #: subtrees/jetson/apps/mailing/models.py:45
 #: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:52
 #: subtrees/jetson/apps/messaging/forms.py:19
@@ -1568,7 +1565,7 @@ msgstr "Betreff"
 #: subtrees/jetson/apps/forum/forms.py:117
 #: subtrees/jetson/apps/forum/forms.py:150
 #: subtrees/jetson/apps/individual_relations/forms.py:43
-#: subtrees/jetson/apps/mailchimp/models.py:114
+#: subtrees/jetson/apps/mailchimp/models.py:116
 #: subtrees/jetson/apps/mailing/admin.py:52
 #: subtrees/jetson/apps/messaging/admin.py:20
 #: subtrees/jetson/apps/messaging/forms.py:26
@@ -1630,7 +1627,7 @@ msgstr "Nichts ist zurück an den Absender, wenn die Vorlage nicht ausgewählt"
 #: subtrees/jetson/apps/i18n/models.py:127
 #: subtrees/jetson/apps/i18n/south_migrations/0001_initial.py:69
 #: subtrees/jetson/apps/i18n/south_migrations/0001_initial.py:87
-#: subtrees/jetson/apps/mailchimp/models.py:309
+#: subtrees/jetson/apps/mailchimp/models.py:325
 #: subtrees/jetson/apps/marketplace/base.py:72
 #: subtrees/jetson/apps/marketplace/base.py:85
 #: subtrees/jetson/apps/marketplace/base.py:97
@@ -1789,7 +1786,7 @@ msgstr "Veranstaltungen"
 #: subtrees/jetson/apps/forum/models.py:29
 #: subtrees/jetson/apps/groups_networks/base.py:58
 #: subtrees/jetson/apps/institutions/base.py:68
-#: subtrees/jetson/apps/mailchimp/admin.py:143
+#: subtrees/jetson/apps/mailchimp/admin.py:145
 #: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:62
 #: subtrees/jetson/apps/mailing/south_migrations/0002_removed_internal_message_specifics.py:78
 #: subtrees/jetson/apps/messaging/models.py:23
@@ -2767,7 +2764,6 @@ msgid "CCB Events"
 msgstr "CCB Veranstaltungen"
 
 #: subtrees/jetson/apps/extendedadmin/forms.py:167
-#: subtrees/jetson/apps/mailchimp/admin.py:145
 #: subtrees/jetson/apps/media_gallery/base.py:89
 msgid "Unknown"
 msgstr "Unbekannt"
@@ -2832,7 +2828,7 @@ msgid "Roles"
 msgstr "Rollen"
 
 #: subtrees/jetson/apps/extendedadmin/guerrilla_patches/auth.py:46
-#: subtrees/jetson/apps/permissions/models.py:167
+#: subtrees/jetson/apps/permissions/models.py:168
 msgid "Users"
 msgstr "Benutzer"
 
@@ -2875,6 +2871,12 @@ msgstr "Authentifizierung"
 #: subtrees/jetson/apps/external_services/models.py:12
 msgid "External Services"
 msgstr "Externe Ressourcen"
+
+#: subtrees/jetson/apps/external_services/models.py:16
+#, fuzzy
+#| msgid "Related URLs"
+msgid "Feed URL"
+msgstr "Bezugnehmende URLs"
 
 #: subtrees/jetson/apps/external_services/models.py:18
 msgid "API Key"
@@ -3486,7 +3488,7 @@ msgstr "Gruppen & Netzwerke"
 #: subtrees/jetson/apps/groups_networks/base.py:52
 #: subtrees/jetson/apps/groups_networks/forms.py:44
 #: subtrees/jetson/apps/history/models.py:39
-#: subtrees/jetson/apps/mailchimp/models.py:40
+#: subtrees/jetson/apps/mailchimp/models.py:41
 msgid "Public"
 msgstr "Öffentlich"
 
@@ -3505,7 +3507,7 @@ msgstr ""
 #: subtrees/jetson/apps/mailing/models.py:138
 #: subtrees/jetson/apps/permissions/admin.py:13
 #: subtrees/jetson/apps/permissions/forms.py:60
-#: subtrees/jetson/apps/permissions/models.py:121
+#: subtrees/jetson/apps/permissions/models.py:122
 msgid "Owner"
 msgstr "Besitzer"
 
@@ -3889,25 +3891,25 @@ msgstr "Freies Feld #3"
 msgid "System"
 msgstr "System"
 
-#: subtrees/jetson/apps/history/models.py:91
+#: subtrees/jetson/apps/history/models.py:94
 #: subtrees/jetson/apps/history/south_migrations/0001_initial.py:18
 #: subtrees/jetson/apps/history/south_migrations/0002_add_more_languages.py:60
 msgid "action time"
 msgstr "Erstellungszeit"
 
-#: subtrees/jetson/apps/history/models.py:93
+#: subtrees/jetson/apps/history/models.py:96
 #: subtrees/jetson/apps/history/south_migrations/0001_initial.py:20
 #: subtrees/jetson/apps/history/south_migrations/0002_add_more_languages.py:63
 msgid "object repr"
 msgstr "Objekt Darst"
 
-#: subtrees/jetson/apps/history/models.py:94
+#: subtrees/jetson/apps/history/models.py:97
 #: subtrees/jetson/apps/history/south_migrations/0001_initial.py:21
 #: subtrees/jetson/apps/history/south_migrations/0002_add_more_languages.py:57
 msgid "action"
 msgstr "Aktion"
 
-#: subtrees/jetson/apps/history/models.py:95
+#: subtrees/jetson/apps/history/models.py:98
 #: subtrees/jetson/apps/history/south_migrations/0001_initial.py:22
 #: subtrees/jetson/apps/history/south_migrations/0001_initial.py:23
 #: subtrees/jetson/apps/history/south_migrations/0002_add_more_languages.py:54
@@ -3915,43 +3917,43 @@ msgstr "Aktion"
 msgid "change message"
 msgstr "Nachricht ändern"
 
-#: subtrees/jetson/apps/history/models.py:96
+#: subtrees/jetson/apps/history/models.py:99
 #: subtrees/jetson/apps/history/south_migrations/0001_initial.py:24
 #: subtrees/jetson/apps/history/south_migrations/0002_add_more_languages.py:75
 msgid "scope"
 msgstr "Ziel"
 
-#: subtrees/jetson/apps/history/models.py:100
+#: subtrees/jetson/apps/history/models.py:103
 msgid "log entry"
 msgstr "Log Eintrag"
 
-#: subtrees/jetson/apps/history/models.py:101
+#: subtrees/jetson/apps/history/models.py:104
 msgid "log entries"
 msgstr "Log Einträge"
 
-#: subtrees/jetson/apps/history/models.py:150
+#: subtrees/jetson/apps/history/models.py:153
 #, python-format
 msgid "Added %s."
 msgstr "%s hinzugefägt."
 
-#: subtrees/jetson/apps/history/models.py:152
-#: subtrees/jetson/apps/history/models.py:157
-#: subtrees/jetson/apps/history/models.py:162
+#: subtrees/jetson/apps/history/models.py:155
+#: subtrees/jetson/apps/history/models.py:160
+#: subtrees/jetson/apps/history/models.py:165
 #: subtrees/jetson/templates/default/accounts/reg_confirm.html:416
 msgid "and"
 msgstr "und"
 
-#: subtrees/jetson/apps/history/models.py:155
+#: subtrees/jetson/apps/history/models.py:158
 #, python-format
 msgid "Changed %s."
 msgstr "%s geändert."
 
-#: subtrees/jetson/apps/history/models.py:160
+#: subtrees/jetson/apps/history/models.py:163
 #, python-format
 msgid "Deleted %s."
 msgstr "Gelöscht %s."
 
-#: subtrees/jetson/apps/history/models.py:165
+#: subtrees/jetson/apps/history/models.py:168
 msgid "No fields or some multiple-choice field changed."
 msgstr "No fields or some multiple-choice field changed."
 
@@ -4460,7 +4462,7 @@ msgid "Dimensions"
 msgstr "Abmessung"
 
 #: subtrees/jetson/apps/image_mods/admin.py:25
-#: subtrees/jetson/apps/image_mods/models.py:381
+#: subtrees/jetson/apps/image_mods/models.py:399
 msgid "Filters"
 msgstr "Filter"
 
@@ -4496,7 +4498,7 @@ msgstr "Original"
 
 #: subtrees/jetson/apps/image_mods/admin.py:75
 #: subtrees/jetson/apps/image_mods/models.py:89
-#: subtrees/jetson/apps/image_mods/models.py:389
+#: subtrees/jetson/apps/image_mods/models.py:409
 msgid "Image Modifications"
 msgstr "Bild Modifikationen"
 
@@ -4573,24 +4575,24 @@ msgstr "Links"
 msgid "Center (Default)"
 msgstr "Mitte (Standart)"
 
-#: subtrees/jetson/apps/image_mods/models.py:344
-#: subtrees/jetson/apps/image_mods/models.py:383
+#: subtrees/jetson/apps/image_mods/models.py:362
+#: subtrees/jetson/apps/image_mods/models.py:401
 msgid "Image Modification Group"
 msgstr "Bild Modifikation Gruppe"
 
-#: subtrees/jetson/apps/image_mods/models.py:345
+#: subtrees/jetson/apps/image_mods/models.py:363
 msgid "Image Modification Groups"
 msgstr "Bild Modifikationen Gruppen"
 
-#: subtrees/jetson/apps/image_mods/models.py:361
+#: subtrees/jetson/apps/image_mods/models.py:379
 msgid "Sysname"
 msgstr "Systemname"
 
-#: subtrees/jetson/apps/image_mods/models.py:361
+#: subtrees/jetson/apps/image_mods/models.py:379
 msgid "Sysnames are used for cached file suffixes and in the templates"
 msgstr "Sysnames werden für die Cache-Datei Suffixe und in den Vorlagen"
 
-#: subtrees/jetson/apps/image_mods/models.py:365
+#: subtrees/jetson/apps/image_mods/models.py:383
 #: subtrees/jetson/templates/admin/filebrowser/detail.html:187
 #: subtrees/jetson/templates/admin/filebrowser/detail.html:195
 #: subtrees/jetson/templates/admin/filebrowser/versions.html:151
@@ -4599,11 +4601,11 @@ msgstr "Sysnames werden für die Cache-Datei Suffixe und in den Vorlagen"
 msgid "Width"
 msgstr "Breite"
 
-#: subtrees/jetson/apps/image_mods/models.py:365
+#: subtrees/jetson/apps/image_mods/models.py:383
 msgid "Leave to size the image to the set height"
 msgstr "Lassen Sie die Bildgröße auf der eingestellten Höhe"
 
-#: subtrees/jetson/apps/image_mods/models.py:366
+#: subtrees/jetson/apps/image_mods/models.py:384
 #: subtrees/jetson/templates/admin/filebrowser/detail.html:188
 #: subtrees/jetson/templates/admin/filebrowser/detail.html:196
 #: subtrees/jetson/templates/admin/filebrowser/versions.html:152
@@ -4612,23 +4614,23 @@ msgstr "Lassen Sie die Bildgröße auf der eingestellten Höhe"
 msgid "Height"
 msgstr "Höhe"
 
-#: subtrees/jetson/apps/image_mods/models.py:366
+#: subtrees/jetson/apps/image_mods/models.py:384
 msgid "Leave to size the image to the set width"
 msgstr "Lassen Sie die Bildgröße auf der eingestellten Breite"
 
-#: subtrees/jetson/apps/image_mods/models.py:367
+#: subtrees/jetson/apps/image_mods/models.py:385
 msgid "Quality"
 msgstr "Qualität"
 
-#: subtrees/jetson/apps/image_mods/models.py:367
+#: subtrees/jetson/apps/image_mods/models.py:385
 msgid "JPEG image quality."
 msgstr "JPEG-Bildqualität"
 
-#: subtrees/jetson/apps/image_mods/models.py:368
+#: subtrees/jetson/apps/image_mods/models.py:386
 msgid "Crop to fit?"
 msgstr "Passend zuschneiden?"
 
-#: subtrees/jetson/apps/image_mods/models.py:368
+#: subtrees/jetson/apps/image_mods/models.py:386
 msgid ""
 "If selected the image will be scaled and cropped to fit the supplied "
 "dimensions."
@@ -4636,27 +4638,27 @@ msgstr ""
 "Wenn diese Option aktiviert ist, wird die Bildgröße auf das Ausgabeformat "
 "skaliert und gegebenenfalls beschnitten."
 
-#: subtrees/jetson/apps/image_mods/models.py:369
+#: subtrees/jetson/apps/image_mods/models.py:387
 msgid "Crop from"
 msgstr "Ausschnitt von"
 
-#: subtrees/jetson/apps/image_mods/models.py:371
+#: subtrees/jetson/apps/image_mods/models.py:389
 msgid "Mask"
 msgstr "Maske"
 
-#: subtrees/jetson/apps/image_mods/models.py:373
+#: subtrees/jetson/apps/image_mods/models.py:391
 msgid "Frame"
 msgstr "Rahmen"
 
-#: subtrees/jetson/apps/image_mods/models.py:375
+#: subtrees/jetson/apps/image_mods/models.py:393
 msgid "Output format"
 msgstr "Ausgabe-Format"
 
-#: subtrees/jetson/apps/image_mods/models.py:377
+#: subtrees/jetson/apps/image_mods/models.py:395
 msgid "Color"
 msgstr "Farbe"
 
-#: subtrees/jetson/apps/image_mods/models.py:377
+#: subtrees/jetson/apps/image_mods/models.py:395
 msgid ""
 "A factor of 0.0 gives a black and white image, a factor of 1.0 gives the "
 "original image."
@@ -4664,11 +4666,11 @@ msgstr ""
 "Ein Faktor von 0,0 ergibt eine Schwarz-Weiß-Bild, ein Faktor von 1,0 das "
 "ursprüngliche Bild."
 
-#: subtrees/jetson/apps/image_mods/models.py:378
+#: subtrees/jetson/apps/image_mods/models.py:396
 msgid "Brightness"
 msgstr "Helligkeit"
 
-#: subtrees/jetson/apps/image_mods/models.py:378
+#: subtrees/jetson/apps/image_mods/models.py:396
 msgid ""
 "A factor of 0.0 gives a black image, a factor of 1.0 gives the original "
 "image."
@@ -4676,11 +4678,11 @@ msgstr ""
 "Ein Faktor von 0,0 ergibt ein schwarzes Bild, ein Faktor von 1,0 das "
 "ursprüngliche Bild."
 
-#: subtrees/jetson/apps/image_mods/models.py:379
+#: subtrees/jetson/apps/image_mods/models.py:397
 msgid "Contrast"
 msgstr "Kontrast"
 
-#: subtrees/jetson/apps/image_mods/models.py:379
+#: subtrees/jetson/apps/image_mods/models.py:397
 msgid ""
 "A factor of 0.0 gives a solid grey image, a factor of 1.0 gives the original "
 "image."
@@ -4688,11 +4690,11 @@ msgstr ""
 "Ein Faktor von 0,0 ergibt eine solide graues Bild, ein Faktor von 1,0 das "
 "ursprüngliche Bild."
 
-#: subtrees/jetson/apps/image_mods/models.py:380
+#: subtrees/jetson/apps/image_mods/models.py:398
 msgid "Sharpness"
 msgstr "Schärfe"
 
-#: subtrees/jetson/apps/image_mods/models.py:380
+#: subtrees/jetson/apps/image_mods/models.py:398
 msgid ""
 "A factor of 0.0 gives a blurred image, a factor of 1.0 gives the original "
 "image."
@@ -4700,57 +4702,63 @@ msgstr ""
 "Ein Faktor von 0,0 ergibt ein unscharfes Bild, ein Faktor von 1,0 das "
 "ursprüngliche Bild."
 
-#: subtrees/jetson/apps/image_mods/models.py:383
+#: subtrees/jetson/apps/image_mods/models.py:401
 msgid ""
 "Assign a group of modifications which will be triggered together while "
 "cropping."
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:388
+#: subtrees/jetson/apps/image_mods/models.py:403
+#, fuzzy
+#| msgid "Note"
+msgid "Notes"
+msgstr "Hinweis"
+
+#: subtrees/jetson/apps/image_mods/models.py:408
 msgid "Image Modification"
 msgstr "Bild Modifikation "
 
-#: subtrees/jetson/apps/image_mods/models.py:591
+#: subtrees/jetson/apps/image_mods/models.py:611
 #: subtrees/jetson/templates/admin/rosetta/pofile_with_grappelli.html:83
 msgid "Original"
 msgstr "Original"
 
-#: subtrees/jetson/apps/image_mods/models.py:592
+#: subtrees/jetson/apps/image_mods/models.py:612
 msgid "Modifications"
 msgstr "Modifikationen"
 
-#: subtrees/jetson/apps/image_mods/models.py:592
+#: subtrees/jetson/apps/image_mods/models.py:612
 msgid ""
 "Modifications with the same ratio which should be used to recrop images "
 "together."
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:593
+#: subtrees/jetson/apps/image_mods/models.py:613
 msgid "X1"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:594
+#: subtrees/jetson/apps/image_mods/models.py:614
 msgid "Y1"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:595
+#: subtrees/jetson/apps/image_mods/models.py:615
 msgid "X2"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:596
+#: subtrees/jetson/apps/image_mods/models.py:616
 msgid "Y2"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:597
+#: subtrees/jetson/apps/image_mods/models.py:617
 #: subtrees/jetson/apps/image_mods/views.py:200
 msgid "Canvas color"
 msgstr "Canvas Farbe"
 
-#: subtrees/jetson/apps/image_mods/models.py:600
+#: subtrees/jetson/apps/image_mods/models.py:620
 msgid "Image Cropping"
 msgstr ""
 
-#: subtrees/jetson/apps/image_mods/models.py:601
+#: subtrees/jetson/apps/image_mods/models.py:621
 msgid "Image Croppings"
 msgstr ""
 
@@ -4856,7 +4864,7 @@ msgid "Display instant messangers to public"
 msgstr "Instant Messengers veröffentlichen"
 
 #: subtrees/jetson/apps/individual_relations/forms.py:119
-#: subtrees/jetson/apps/permissions/models.py:15
+#: subtrees/jetson/apps/permissions/models.py:16
 #: subtrees/jetson/templates/admin/admin/row_level_permissions.html:26
 #: subtrees/jetson/templates/admin/extendedadmin/document_change.html:78
 #: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:70
@@ -4895,7 +4903,7 @@ msgstr ""
 "mit einem Zeichen aus dem Alphabet beginnen."
 
 #: subtrees/jetson/apps/individual_relations/forms.py:230
-#: subtrees/jetson/apps/mailchimp/models.py:25
+#: subtrees/jetson/apps/mailchimp/models.py:26
 msgid "Username"
 msgstr "Benutzername"
 
@@ -5816,21 +5824,32 @@ msgstr "Ortschaften"
 msgid "MailChimp List"
 msgstr "MailChimp listen"
 
-#: subtrees/jetson/apps/mailchimp/admin.py:143
-#: subtrees/jetson/apps/mailchimp/models.py:117
+#: subtrees/jetson/apps/mailchimp/admin.py:144
+msgid "Unknown (probably deleted)"
+msgstr ""
+
+#: subtrees/jetson/apps/mailchimp/admin.py:145
+#: subtrees/jetson/apps/mailchimp/models.py:119
 #: subtrees/jetson/apps/mailing/models.py:48
 #: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:60
 msgid "Sent"
 msgstr "Gesendet"
 
-#: subtrees/jetson/apps/mailchimp/admin.py:151
+#: subtrees/jetson/apps/mailchimp/admin.py:152
 #, python-format
 msgid "Campaign \"%s\" was not updated at MailChimp, because it has been sent."
 msgstr ""
 
+#: subtrees/jetson/apps/mailchimp/cms_apps.py:10
+#, fuzzy
+#| msgid "newsletter registration"
+msgid "Newsletter Subscription"
+msgstr "Newsletter Registrierung"
+
 #: subtrees/jetson/apps/mailchimp/forms.py:22
-#: subtrees/jetson/apps/mailchimp/models.py:115
-#: subtrees/jetson/apps/mailchimp/models.py:161
+#: subtrees/jetson/apps/mailchimp/forms.py:103
+#: subtrees/jetson/apps/mailchimp/models.py:117
+#: subtrees/jetson/apps/mailchimp/models.py:171
 msgid "Mailing list"
 msgstr "Mailingliste"
 
@@ -5845,97 +5864,118 @@ msgid "Last name"
 msgstr "Nachname"
 
 #: subtrees/jetson/apps/mailchimp/forms.py:37
+#: subtrees/jetson/apps/mailchimp/forms.py:108
 msgid "Your email"
-msgstr "Ihre E-Mail"
+msgstr "Deine E-Mail"
 
 #: subtrees/jetson/apps/mailchimp/forms.py:64
 #: subtrees/jetson/templates/default/email_campaigns/infosubscription.html:28
 msgid "Send"
 msgstr "Senden"
 
-#: subtrees/jetson/apps/mailchimp/models.py:21
+#: subtrees/jetson/apps/mailchimp/forms.py:138
+msgid "Subscribe"
+msgstr "Abonnieren"
+
+#: subtrees/jetson/apps/mailchimp/models.py:22
 msgid "MailChimp"
 msgstr "MailChimp"
 
-#: subtrees/jetson/apps/mailchimp/models.py:26
+#: subtrees/jetson/apps/mailchimp/models.py:27
 msgid "API key"
 msgstr "API-Key"
 
-#: subtrees/jetson/apps/mailchimp/models.py:27
+#: subtrees/jetson/apps/mailchimp/models.py:28
 msgid "Double Optin"
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/models.py:27
+#: subtrees/jetson/apps/mailchimp/models.py:28
 msgid ""
 "Flag to control whether a double opt-in confirmation message is sent. "
 "ABUSING THIS MAY CAUSE YOUR ACCOUNT TO BE SUSPENDED."
 msgstr ""
 
-#: subtrees/jetson/apps/mailchimp/models.py:30
 #: subtrees/jetson/apps/mailchimp/models.py:31
+#: subtrees/jetson/apps/mailchimp/models.py:32
 msgid "MailChimp Settings"
 msgstr "MailChimp Einstellungen"
 
-#: subtrees/jetson/apps/mailchimp/models.py:40
+#: subtrees/jetson/apps/mailchimp/models.py:41
 msgid ""
 "Will this mailing list be displayed in the public settings of subscriptions?"
 msgstr ""
 "Soll diese Mailing-Liste in den öffentlichen Abonnement-Einstellungen "
 "aufgeführt werden?"
 
-#: subtrees/jetson/apps/mailchimp/models.py:41
+#: subtrees/jetson/apps/mailchimp/models.py:42
 msgid "Last sync"
 msgstr "Letzten Synchronisierung"
 
-#: subtrees/jetson/apps/mailchimp/models.py:44
-#: subtrees/jetson/apps/mailchimp/models.py:146
+#: subtrees/jetson/apps/mailchimp/models.py:43
+#, fuzzy
+#| msgid "Language settings"
+msgid "Language of the newsletter"
+msgstr "Spracheinstellungen"
+
+#: subtrees/jetson/apps/mailchimp/models.py:46
+#: subtrees/jetson/apps/mailchimp/models.py:156
 msgid "Mailing List"
 msgstr "Mailinglisten"
 
-#: subtrees/jetson/apps/mailchimp/models.py:45
+#: subtrees/jetson/apps/mailchimp/models.py:47
 msgid "Mailing Lists"
 msgstr "Mailinglisten"
 
-#: subtrees/jetson/apps/mailchimp/models.py:111
+#: subtrees/jetson/apps/mailchimp/models.py:113
 #: subtrees/jetson/apps/mailing/models.py:42
 #: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:49
 msgid "Sender name"
 msgstr "Versender"
 
-#: subtrees/jetson/apps/mailchimp/models.py:112
+#: subtrees/jetson/apps/mailchimp/models.py:114
 #: subtrees/jetson/apps/mailing/models.py:43
 #: subtrees/jetson/apps/mailing/south_migrations/0001_initial.py:50
 msgid "Sender email"
 msgstr "E-Mail-Adresse des Versenders"
 
-#: subtrees/jetson/apps/mailchimp/models.py:116
+#: subtrees/jetson/apps/mailchimp/models.py:118
 #: subtrees/jetson/apps/optionset/admin.py:73
 msgid "Template"
 msgstr "Vorlage"
 
-#: subtrees/jetson/apps/mailchimp/models.py:120
+#: subtrees/jetson/apps/mailchimp/models.py:122
 msgid "Campaign"
 msgstr "Kampagne"
 
-#: subtrees/jetson/apps/mailchimp/models.py:121
+#: subtrees/jetson/apps/mailchimp/models.py:123
 msgid "Campaigns"
 msgstr "Email-Kampagnen"
 
-#: subtrees/jetson/apps/mailchimp/models.py:301
+#: subtrees/jetson/apps/mailchimp/models.py:317
 msgid "Image and text"
 msgstr "Bild und Text"
 
-#: subtrees/jetson/apps/mailchimp/models.py:302
+#: subtrees/jetson/apps/mailchimp/models.py:318
 msgid "Text only"
 msgstr "nur Text"
 
-#: subtrees/jetson/apps/mailchimp/models.py:316
+#: subtrees/jetson/apps/mailchimp/models.py:332
 msgid "Content Block"
 msgstr "Inhaltsblock"
 
-#: subtrees/jetson/apps/mailchimp/models.py:317
+#: subtrees/jetson/apps/mailchimp/models.py:333
 msgid "Content Blocks"
 msgstr "Inhaltsblöcke"
+
+#: subtrees/jetson/apps/mailchimp/views.py:42
+msgid "You have already subscribed to the newsletter with this email."
+msgstr ""
+
+#: subtrees/jetson/apps/mailchimp/views.py:44
+msgid ""
+"Unknown error. Try to subscribe with another email or try to subscribe to "
+"this newsletter later."
+msgstr ""
 
 #: subtrees/jetson/apps/mailing/admin.py:38
 #, python-format
@@ -7288,15 +7328,15 @@ msgstr "Wählen Sie eine Option aus"
 msgid "Each permission owner should be selected just once."
 msgstr "Jeder Besitzer von Zugriffsrechten sollte nur einmal gewählt werden."
 
-#: subtrees/jetson/apps/permissions/models.py:136
+#: subtrees/jetson/apps/permissions/models.py:137
 msgid "row level permission"
 msgstr "Objekt-Zugriffsrecht"
 
-#: subtrees/jetson/apps/permissions/models.py:137
+#: subtrees/jetson/apps/permissions/models.py:138
 msgid "row level permissions"
 msgstr "Objekt-Zugriffsrechte"
 
-#: subtrees/jetson/apps/permissions/models.py:168
+#: subtrees/jetson/apps/permissions/models.py:169
 msgid ""
 "In addition to the permissions manually assigned, these users will also get "
 "all row level permissions granted to this group."
@@ -7304,15 +7344,15 @@ msgstr ""
 "Zusätzlich zu den manuell angelegten Rechten erhält dieser Benutzer auch "
 "alle Rechte, die seine zugewiesene Gruppe hat."
 
-#: subtrees/jetson/apps/permissions/models.py:171
+#: subtrees/jetson/apps/permissions/models.py:172
 msgid "object-specific group"
 msgstr "Typ-spezifische Gruppe"
 
-#: subtrees/jetson/apps/permissions/models.py:172
+#: subtrees/jetson/apps/permissions/models.py:173
 msgid "object-specific groups"
 msgstr "Typ-spezifische Gruppen"
 
-#: subtrees/jetson/apps/permissions/views.py:61
+#: subtrees/jetson/apps/permissions/views.py:62
 msgid "Edit Row Level Permissions"
 msgstr "Objekt-Zugriffsrechte ändern"
 
@@ -7822,11 +7862,11 @@ msgstr "Ticket Historie"
 msgid "Date"
 msgstr "Datum"
 
-#: subtrees/jetson/apps/utils/images.py:224
+#: subtrees/jetson/apps/utils/images.py:238
 msgid "The image doesn't exist"
 msgstr "Dieses Bild existiert nicht"
 
-#: subtrees/jetson/apps/utils/images.py:244
+#: subtrees/jetson/apps/utils/images.py:258
 #, python-format
 msgid ""
 "The media file is too small. The minimal dimensions are %(width)dx%(height)d."
@@ -7834,7 +7874,7 @@ msgstr ""
 "Die Datei ist zu klein. Die Minimum-Abmessungen liegen bei %(width)dx"
 "%(height)d."
 
-#: subtrees/jetson/apps/utils/images.py:248
+#: subtrees/jetson/apps/utils/images.py:262
 #, python-format
 msgid ""
 "The ratio of the dimensions is too large. The maximal allowed ratio is %d:1."
@@ -7842,7 +7882,7 @@ msgstr ""
 "Das Seitenverhältnis der Datei ist zu groß. Erlaubt ist ein Seitenverhältnis "
 "von maximal %d:1."
 
-#: subtrees/jetson/apps/utils/images.py:249
+#: subtrees/jetson/apps/utils/images.py:263
 #, python-format
 msgid ""
 "The file type of the uploaded file is not valid. The allowed file types are "
@@ -7851,12 +7891,12 @@ msgstr ""
 "Die verwendete Dateiart der ausgewählten Datei wird nicht unterstützt. "
 "Erlaubt sind folgende Formate: %s"
 
-#: subtrees/jetson/apps/utils/images.py:250
+#: subtrees/jetson/apps/utils/images.py:264
 #, python-format
 msgid "The media file is too large. The maximal allowed file size is %s."
 msgstr "Die Datei ist zu groß. Die maximal erlaubte Dateigröße beträgt %s."
 
-#: subtrees/jetson/apps/utils/images.py:251
+#: subtrees/jetson/apps/utils/images.py:265
 msgid ""
 "The interlaced PNG images are not supported for now. Please resave the image "
 "without this option and try again."
@@ -12334,9 +12374,6 @@ msgstr ""
 #~ msgid "Email Campaigns"
 #~ msgstr "Email-Campaigns"
 
-#~ msgid "Subscriber"
-#~ msgstr "Abonnent"
-
 #~ msgid "Subscriber's name"
 #~ msgstr "Abonnenten-Name"
 
@@ -12450,7 +12487,6 @@ msgstr ""
 #~ "category/\">hier</a> zur Aufnahme vorschlagen."
 
 #, fuzzy
-#~| msgid "Blog"
 #~ msgid "Blogs"
 #~ msgstr "Blog"
 
@@ -14142,9 +14178,6 @@ msgstr ""
 
 #~ msgid "Privacy"
 #~ msgstr "Privatsphäre"
-
-#~ msgid "Language settings"
-#~ msgstr "Spracheinstellungen"
 
 #~ msgid "Statistics"
 #~ msgstr "Statistik"

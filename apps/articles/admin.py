@@ -57,8 +57,8 @@ class ArticleOptions(ExtendedModelAdmin):
         'fields': ['image', (_("Description"), {'fields':['image_title', 'image_description']})]
         }),
     ]
-
     prepopulated_fields = {"slug": ("title",),}
+
 
 if ARTICLES_HAVE_TYPES:
     admin.site.register(ArticleType, ArticleTypeOptions)

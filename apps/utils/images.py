@@ -46,7 +46,7 @@ def mask_image(im, im_mask):
                 )
             )
     return out
-    
+
 def crop_to_square(image, *args, **kwargs):
     # crop the center square
     width, height = image.size
@@ -62,12 +62,26 @@ def crop_to_square(image, *args, **kwargs):
         bottom = top + width
     image = image.crop((left, top, right, bottom))
     return image
-    
+
 def crop_to_rect(image, target_width, target_height, *args, **kwargs):
     # crop the center square
     new_image = image.copy()
+
+
+    if target_width == 0 and target_height == 0:
+        return new_image
+
     source_width, source_height = new_image.size
-    
+
+    if target_height == 0:
+        new_height = int(target_width * source_height / source_width)
+        return new_image.resize((target_width, new_height), Image.ANTIALIAS)
+
+    if target_width == 0:
+        new_width = int(target_height * source_width / source_height)
+        return new_image.resize((new_width, target_height), Image.ANTIALIAS)
+
+
     w_factor = 1.0 * source_width / target_width
     h_factor = 1.0 * source_height / target_height
 
@@ -80,9 +94,9 @@ def crop_to_rect(image, target_width, target_height, *args, **kwargs):
     new_height = int(source_height / factor)
 
     new_image = new_image.resize((new_width, new_height), Image.ANTIALIAS)
-    
+
     x_width, x_height = new_image.size
-    
+
     if new_width > target_width:
         left = int((new_width - target_width) / 2)
         top = 0
@@ -94,7 +108,7 @@ def crop_to_rect(image, target_width, target_height, *args, **kwargs):
         right = target_width
         bottom = top + target_height
 
-    """    
+    """
     print 'source_width = ' + str(source_width)
     print 'source_height = ' + str(source_height)
     print 'target_width = ' + str(target_width)
@@ -102,7 +116,7 @@ def crop_to_rect(image, target_width, target_height, *args, **kwargs):
     print 'factor = ' + str(factor)
     print 'new_width = ' + str(new_width)
     print 'new_height = ' + str(new_height)
-    
+
     print 'left = ' + str(left)
     print 'right = ' + str(right)
     print 'top = ' + str(top)
@@ -111,14 +125,14 @@ def crop_to_rect(image, target_width, target_height, *args, **kwargs):
     new_image = new_image.crop((left, top, right, bottom))
     return new_image
 
-def save_png_image(uploaded_image, path_original="", path_normal="", 
-                   dimensions_normal="130x130", path_small="", 
+def save_png_image(uploaded_image, path_original="", path_normal="",
+                   dimensions_normal="130x130", path_small="",
                    dimensions_small="50x50", mod_function=crop_to_square):
     tmp_path = ""
 
     if hasattr(uploaded_image, "im"): # uploaded_image is an image instance
         image = uploaded_image
-    elif hasattr(uploaded_image, "filename"): # uploaded_image is a FileField 
+    elif hasattr(uploaded_image, "filename"): # uploaded_image is a FileField
         if hasattr(uploaded_image, 'tmp_filename'):
             tmp_path = os.path.join(PATH_TMP, uploaded_image.tmp_filename)
             image = Image.open(tmp_path)
@@ -141,7 +155,7 @@ def save_png_image(uploaded_image, path_original="", path_normal="",
 
     # make a copy for thumbnail
     small = image.copy()
-        
+
     if path_normal:
         image = mod_function(image, *parse_dimensions(dimensions_normal))
         image.save(path_normal, "png")
@@ -149,22 +163,22 @@ def save_png_image(uploaded_image, path_original="", path_normal="",
     if path_small:
         small = mod_function(small, *parse_dimensions(dimensions_small))
         small.save(path_small, "png")
-        
+
     # remove the temporary file
     if tmp_path:
         os.remove(tmp_path)
-    
-    return image
-    
 
-def save_jpg_image(uploaded_image, path_original="", path_normal="", 
-                   dimensions_normal="130x130", path_preview="", 
-                   dimensions_preview="130x130", path_small="", 
+    return image
+
+
+def save_jpg_image(uploaded_image, path_original="", path_normal="",
+                   dimensions_normal="130x130", path_preview="",
+                   dimensions_preview="130x130", path_small="",
                    dimensions_small="50x50", mod_function=crop_to_square):
     tmp_path = ""
     if hasattr(uploaded_image, "im"): # uploaded_image is an image instance
         image = uploaded_image
-    elif hasattr(uploaded_image, "filename"): # uploaded_image is a FileField 
+    elif hasattr(uploaded_image, "filename"): # uploaded_image is a FileField
         if hasattr(uploaded_image, 'tmp_filename'):
             tmp_path = os.path.join(PATH_TMP, uploaded_image.tmp_filename)
             image = Image.open(tmp_path)
@@ -184,12 +198,12 @@ def save_jpg_image(uploaded_image, path_original="", path_normal="",
         image = image.convert("RGB")
     if path_original:
         image.save(path_original, "jpeg")
-        
+
 
     # make a copy for thumbnail
     small = image.copy()
     preview = image.copy()
-        
+
     if path_normal:
         #image = mod_function(image, *parse_dimensions(dimensions_normal))
         image.thumbnail(parse_dimensions(dimensions_normal), Image.ANTIALIAS)
@@ -204,7 +218,7 @@ def save_jpg_image(uploaded_image, path_original="", path_normal="",
         small = mod_function(small, *parse_dimensions(dimensions_small))
         small.thumbnail(parse_dimensions(dimensions_small), Image.ANTIALIAS)
         small.save(path_small, "jpeg")
-        
+
     if tmp_path:
         os.remove(tmp_path)
     return image
@@ -232,7 +246,7 @@ def image_view(request, width, height, filename="", mod_function=crop_to_square,
     response['Cache-Control'] = "max-age=0"
     image.save(response, "png") # will call response.write()
     return response
-    
+
 def validate_image(
         uploaded_image,
         min_dimensions=(480, 480), # (width, height)

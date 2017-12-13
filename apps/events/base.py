@@ -622,7 +622,7 @@ class ComplexEventBase(EventBase, OpeningHoursMixin):
                     owner=self.organizing_person.user,
                     )
             if self.organizing_institution:
-                for role in self.organizing_institution.get_representatives():
+                for role in self.organizing_institution.get_object_permission_roles():
                     RowLevelPermission.objects.create_default_row_permissions(
                         model_instance=self,
                         owner=role,

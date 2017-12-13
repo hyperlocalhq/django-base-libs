@@ -333,7 +333,7 @@ class PersonGroupBase(CreationModificationDateMixin, PersonGroupObjectRelation, 
         super(PersonGroupBase, self).delete(*args, **kwargs)
     delete.alters_data = True
         
-    def get_representatives(self):
+    def get_object_permission_roles(self):
         """
         Returns the default owners of this object for permission manipulation
         """

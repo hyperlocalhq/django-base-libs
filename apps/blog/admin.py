@@ -11,18 +11,6 @@ from base_libs.admin import ExtendedStackedInline
 from jetson.apps.blog.models import Blog, Post
 
 
-class Post_Inline(ExtendedStackedInline):
-    model = Post
-    fieldsets = [
-        (None, {
-            'fields': ('title', 'slug', 'body', 'tags')
-        }),
-    ]
-    fieldsets += PublishingMixinAdminOptions.fieldsets
-    extra = 0
-    prepopulated_fields = {'slug': ('title',), }
-
-
 class BlogAdminForm(MultiSiteContainerMixinAdminForm):
     class Meta:
         model = Blog
@@ -31,7 +19,6 @@ class BlogAdminForm(MultiSiteContainerMixinAdminForm):
 
 class BlogOptions(MultiSiteContainerMixinAdminOptions):
     save_on_top = True
-    # inlines = [Post_Inline]
     list_display = ('id', 'title', 'get_sites', 'get_content_object_display', 'sysname', 'posts')
     list_display_links = ('id', 'title',)
     list_filter = ("creation_date", "modified_date", "content_type",)
@@ -68,9 +55,9 @@ class PostOptions(ExtendedModelAdmin):
     ]
     fieldsets += PublishingMixinAdminOptions.fieldsets
     prepopulated_fields = {'slug': ('title',), }
-    raw_id_fields = ("blog",)
+    raw_id_fields = ("blog", "author")
     autocomplete_lookup_fields = {
-        'fk': ["blog", ],
+        'fk': ["blog", "author"],
     }
 
 

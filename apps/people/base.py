@@ -577,7 +577,7 @@ class PersonBase(CreationModificationDateMixin, UrlMixin):
         else:
             return None
             
-    def get_representatives(self):
+    def get_object_permission_roles(self):
         """
         Returns the default owners of this object for permission manipulation
         """

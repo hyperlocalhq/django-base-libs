@@ -306,26 +306,26 @@ def persongroup_list(request, criterion="", slug="", show="", **kwargs):
         
         tables = ["favorites_favorite"]
         condition = ["favorites_favorite.user_id = %d" % request.user.id,
-                     "favorites_favorite.object_id = system_contextitem.id"]
+                     "favorites_favorite.object_id::integer = system_contextitem.id"]
         ct = ContentType.objects.get_for_model(kwargs['queryset'].model)
         fav_inst_ids = [
-            el['object_id'] for el in ContextItem.objects.filter(
+            int(el['object_id']) for el in ContextItem.objects.filter(
                 content_type=ct
             ).extra(
                 tables=tables,
                 where=condition,
             ).distinct().values("object_id")
-            ]
+        ]
         kwargs['queryset'] = kwargs['queryset'].filter(pk__in=fav_inst_ids)
     elif show=="memos":
         ct = ContentType.objects.get_for_model(kwargs['queryset'].model)
-        memos_ids = Memo.objects.filter(
+        memos_ids = map(int, Memo.objects.filter(
             collection__token=request.COOKIES.get(MEMO_TOKEN_NAME, None),
             content_type=ct,
-            ).values_list("object_id", flat=True)
+        ).values_list("object_id", flat=True))
         kwargs['queryset'] = kwargs['queryset'].filter(
             pk__in=memos_ids,
-            )
+        )
     elif show=="own-%s" % URL_ID_PERSONGROUPS:
         if not request.user.is_authenticated():
             return access_denied(request)

@@ -40,7 +40,8 @@ class MList(SingleSiteMixin):
     title = MultilingualCharField(_("Title"), max_length=255)
     is_public = models.BooleanField(_("Public"), help_text=_('Will this mailing list be displayed in the public settings of subscriptions?'), default=True)
     last_sync = models.DateTimeField(_("Last sync"), blank=True, null=True)
-    
+    language = models.CharField(_("Language of the newsletter"), max_length=5, choices=settings.LANGUAGES, blank=True)
+
     class Meta:
         verbose_name = _("Mailing List")
         verbose_name_plural = _("Mailing Lists")
