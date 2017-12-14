@@ -1,20 +1,20 @@
 {% extends "admin/cms/page/plugin_change_form.html" %}
 
 <!-- LOADING -->
-{% load i18n %}
+{% load i18n staticfiles %}
 
 {% block javascripts %}
   {{ block.super }}
-	<script type="text/javascript" src="{{ STATIC_URL }}grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
-  <script type="text/javascript" src="{{ jetson_media_url }}tinymce_setup/tinymce_setup_base.js"></script>
-  {% block tinymce_setup %}
-    <script type="text/javascript" src="{{ STATIC_URL }}site/tinymce_setup/tinymce_setup.js"></script>
-  {% endblock %}
-	<script type="text/javascript" src="{{ jetson_media_url }}js/admin/MarkupHelper.js"></script>
-{% endblock %}
+    <!-- CKEDITOR -->
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='ckeditor/ckeditor.js' %}"></script>
+    <script type="text/javascript" src="{% static 'filebrowser/js/FB_CKEditor.js' %}"></script>
+    <script type="text/javascript">
+        if (CKEDITOR) {
+            var CUSTOM_CKEDITOR_CONFIG = '{% static "site/ckeditor_config/ckeditor_config.js" %}';
+            CKEDITOR.config.filebrowserBrowseUrl = '/{{ LANGUAGE_CODE }}/admin/filebrowser/browse/?pop=3';
+        }
+    </script>
 
-{% block fieldsets %}
-  {% for fieldset in adminform %}
-    {% include "admin/includes/fieldset.html" %}
-  {% endfor %}
+    <!-- MARKUP HELPER -->
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/MarkupHelper.js' %}"></script>
 {% endblock %}
