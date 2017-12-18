@@ -452,10 +452,16 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             if self.permanent:
                 times = self.museum.specialopeningtime_set.all()
             elif self.start and self.end:
-                today = date.today()
                 for t in self.museum.specialopeningtime_set.all():
-                    if self.start <= date(t.yyyy or today.year, t.mm, t.dd) <= self.end:
-                        times.append(t)
+                    if t.yyyy:
+                        if self.start <= date(t.yyyy, t.mm, t.dd) <= self.end:
+                            times.append(t)
+                    else:
+                        if (
+                            self.start <= date(self.start.year, t.mm, t.dd) <= self.end or
+                            self.start <= date(self.end.year, t.mm, t.dd) <= self.end
+                        ):
+                            times.append(t)
         return times
 
     def get_related_products(self):
