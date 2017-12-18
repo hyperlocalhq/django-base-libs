@@ -1,7 +1,7 @@
-/**
- * @license Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.md or http://ckeditor.com/license
- */
+/* global CKEDITOR:false */
+
+CKEDITOR.stylesSet.add('berlinbuehnen_styles', [
+]);
 
 CKEDITOR.editorConfig = function( config ) {
     // Define changes to default configuration here.
@@ -23,7 +23,6 @@ CKEDITOR.editorConfig = function( config ) {
     config.allowedContent = true;
     config.extended_valid_elements  = 'script[language|type|async|src|charset]';
 
-
     config.toolbarGroups = [
         { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
         { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
@@ -40,6 +39,10 @@ CKEDITOR.editorConfig = function( config ) {
         { name: 'colors', groups: [ 'colors' ] },
         { name: 'about', groups: [ 'about' ] }
     ];
+    config.removeButtons = 'Underline,Subscript,Superscript,Source,Styles,Table,HorizontalRule,SpecialChar,About';
 
-    config.removeButtons = 'Underline,Subscript,Superscript,Source,Table,HorizontalRule,SpecialChar,About';
+    config.stylesSet = 'berlinbuehnen_styles';
+    config.contentsCss = window.settings.STATIC_URL + 'site/css/style.css';
+    config.bodyClass = 'cms-plugin-richtext';
+    config.image_prefillDimensions = false;
 };
