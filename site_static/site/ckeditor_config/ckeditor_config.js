@@ -1,7 +1,17 @@
-/**
- * @license Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.md or http://ckeditor.com/license
- */
+/* global CKEDITOR:false */
+
+CKEDITOR.stylesSet.add('museumsportal_styles', [
+    {
+        name: 'Image w/ description on the left',
+        element: 'p',
+        attributes: {'class': 'img_left'}
+    },
+    {
+        name: 'Full-width image',
+        element: 'p',
+        attributes: {'class': 'img_block'}
+    }
+]);
 
 CKEDITOR.editorConfig = function( config ) {
     // Define changes to default configuration here.
@@ -40,6 +50,10 @@ CKEDITOR.editorConfig = function( config ) {
         { name: 'colors', groups: [ 'colors' ] },
         { name: 'about', groups: [ 'about' ] }
     ];
-
     config.removeButtons = 'Underline,Subscript,Superscript,Source,Table,HorizontalRule,SpecialChar,About';
+
+    config.stylesSet = 'museumsportal_styles';
+    config.contentsCss = window.settings.STATIC_URL + 'site/css/style.css';
+    config.bodyClass = 'cms-plugin-richtext';
+    config.image_prefillDimensions = false;
 };
