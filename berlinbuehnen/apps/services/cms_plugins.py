@@ -1,6 +1,5 @@
 # -*- coding: UTF-8 -*-
 from __future__ import unicode_literals
-import re
 
 from django.utils.translation import ugettext_lazy as _
 from django.contrib import admin
@@ -8,19 +7,14 @@ from django.contrib import admin
 from cms.plugin_pool import plugin_pool
 from cms.plugin_base import CMSPluginBase
 
+from base_libs.admin.options import MarkupTypeOptions
+
 from .models import IndexItem, ServicePageBanner, ServiceGridItem, ServiceListItem, LinkCategory, Link, TitleAndText, ImageAndText
 
 
-class PluginBase(CMSPluginBase):
+class PluginBase(MarkupTypeOptions, CMSPluginBase):
     module = _("Service Plugins")
     change_form_template = "services/plugins/richtext_plugin_change_form.html"
-
-    def formfield_for_dbfield(self, db_field, **kwargs):
-        # add .markupType to body_markup_type
-        field = super(PluginBase, self).formfield_for_dbfield(db_field, **kwargs)
-        if re.search('markup_type$', db_field.name):
-            field.widget.attrs['class'] = "markupType"
-        return field
 
     def render(self, context, instance, placeholder):
         context.update({

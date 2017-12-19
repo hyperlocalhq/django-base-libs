@@ -5,10 +5,11 @@ from django.utils.translation import ugettext as _
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from models import ArticleSelection
+from .models import TheaterOfTheWeekSelection
+
 
 class TheaterOfTheWeekSelectionPlugin(CMSPluginBase):
-    model = ArticleSelection
+    model = TheaterOfTheWeekSelection
     name = _("Theater of the week selection")
     render_template = "cms/plugins/theater_of_the_week_selection.html"
     
