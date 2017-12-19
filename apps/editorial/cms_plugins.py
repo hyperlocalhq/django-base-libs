@@ -1,20 +1,17 @@
 # -*- coding: utf-8 -*-
-
-import re
-
 from django.utils.translation import ugettext as _
 from django.template.loader import select_template
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from models import Intro
-from models import EditorialContent
-from models import TeaserBlock
-from models import Footnote
-from models import FrontpageTeaser
+from base_libs.admin.options import MarkupTypeOptions, ExtendedModelAdmin
 
-from base_libs.admin import ExtendedModelAdmin
+from .models import Intro
+from .models import EditorialContent
+from .models import TeaserBlock
+from .models import Footnote
+from .models import FrontpageTeaser
 
 
 class EditorialContentPlugin(CMSPluginBase, ExtendedModelAdmin):
@@ -30,13 +27,6 @@ class EditorialContentPlugin(CMSPluginBase, ExtendedModelAdmin):
         (_("Presentation"), {'fields': ('col_xs_width', 'col_sm_width', 'col_md_width', 'col_lg_width', 'css_class'), 'classes': ['collapse closed']}),
     )
 
-    def formfield_for_dbfield(self, db_field, **kwargs):
-        # add .markupType to body_markup_type
-        field = super(EditorialContentPlugin, self).formfield_for_dbfield(db_field, **kwargs)
-        if re.search('markup_type$', db_field.name):
-            field.widget.attrs['class'] = "markupType"
-        return field
-    
     def render(self, context, instance, placeholder):
         # choose the first available template from the list:
         #   "editorial_content_for_<placeholder>_in_<page_id>.html"
@@ -58,19 +48,12 @@ class EditorialContentPlugin(CMSPluginBase, ExtendedModelAdmin):
 plugin_pool.register_plugin(EditorialContentPlugin)
 
 
-class TeaserBlockPlugin(CMSPluginBase):
+class TeaserBlockPlugin(MarkupTypeOptions, CMSPluginBase):
     model = TeaserBlock
     name = _("Teaser")
     render_template = "cms/plugins/teaser.html"
     change_form_template = "cms/plugins/teaser_plugin_change_form.html"
 
-    def formfield_for_dbfield(self, db_field, **kwargs):
-        # add .markupType to body_markup_type
-        field = super(TeaserBlockPlugin, self).formfield_for_dbfield(db_field, **kwargs)
-        if re.search('markup_type$', db_field.name):
-            field.widget.attrs['class'] = "markupType"
-        return field
-    
     def render(self, context, instance, placeholder):
         context.update({
             'object':instance,
@@ -81,19 +64,12 @@ class TeaserBlockPlugin(CMSPluginBase):
 plugin_pool.register_plugin(TeaserBlockPlugin)
 
 
-class FootnotePlugin(CMSPluginBase):
+class FootnotePlugin(MarkupTypeOptions, CMSPluginBase):
     model = Footnote
     name = _("Footnote")
     render_template = "cms/plugins/footnote.html"
     change_form_template = "cms/plugins/footnote_plugin_change_form.html"
 
-    def formfield_for_dbfield(self, db_field, **kwargs):
-        # add .markupType to body_markup_type
-        field = super(FootnotePlugin, self).formfield_for_dbfield(db_field, **kwargs)
-        if re.search('markup_type$', db_field.name):
-            field.widget.attrs['class'] = "markupType"
-        return field
-    
     def render(self, context, instance, placeholder):
         context.update({
             'object':instance,
@@ -104,19 +80,12 @@ class FootnotePlugin(CMSPluginBase):
 plugin_pool.register_plugin(FootnotePlugin)
 
 
-class IntroPlugin(CMSPluginBase):
+class IntroPlugin(MarkupTypeOptions, CMSPluginBase):
     model = Intro
     name = _("Intro")
     render_template = "cms/plugins/intro.html"
     change_form_template = "cms/plugins/intro_plugin_change_form.html"
 
-    def formfield_for_dbfield(self, db_field, **kwargs):
-        # add .markupType to body_markup_type
-        field = super(IntroPlugin, self).formfield_for_dbfield(db_field, **kwargs)
-        if re.search('markup_type$', db_field.name):
-            field.widget.attrs['class'] = "markupType"
-        return field
-    
     def render(self, context, instance, placeholder):
         context.update({
             'object':instance,
@@ -127,19 +96,12 @@ class IntroPlugin(CMSPluginBase):
 plugin_pool.register_plugin(IntroPlugin)
 
 
-class FrontpageTeaserPlugin(CMSPluginBase):
+class FrontpageTeaserPlugin(MarkupTypeOptions, CMSPluginBase):
     model = FrontpageTeaser
     name = _("Frontpage Teaser")
     render_template = "cms/plugins/frontpage_teaser.html"
     change_form_template = "cms/plugins/frontpage_teaser_plugin_change_form.html"
 
-    def formfield_for_dbfield(self, db_field, **kwargs):
-        # add .markupType to body_markup_type
-        field = super(FrontpageTeaserPlugin, self).formfield_for_dbfield(db_field, **kwargs)
-        if re.search('markup_type$', db_field.name):
-            field.widget.attrs['class'] = "markupType"
-        return field
-    
     def render(self, context, instance, placeholder):
         context.update({
             'object':instance,
