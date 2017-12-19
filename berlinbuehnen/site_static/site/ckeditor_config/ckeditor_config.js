@@ -21,7 +21,6 @@ CKEDITOR.editorConfig = function( config ) {
     config.oembed_maxHeight = '315';
     config.oembed_WrapperClass = 'embededContent';
     config.allowedContent = true;
-    config.extended_valid_elements  = 'script[language|type|async|src|charset]';
 
     config.toolbarGroups = [
         { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
