@@ -54,6 +54,6 @@ CKEDITOR.editorConfig = function( config ) {
 
     config.stylesSet = 'museumsportal_styles';
     config.contentsCss = window.settings.STATIC_URL + 'site/css/style.css';
-    config.bodyClass = 'cms-plugin-richtext';
+    //config.bodyClass = 'cms-plugin-richtext';
     config.image_prefillDimensions = false;
 };
