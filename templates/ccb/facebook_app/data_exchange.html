@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% load base_tags i18n %}
+
+{% block title %}{% trans "Facebook Connect" %}{% endblock %}
+
+{% block headline %}
+    <h1>{% trans "Facebook Connect" %}</h1>
+{% endblock %}
+
+{% block content %}
+    {% if facebook_user_datas %}
+        {% for profile in facebook_user_datas %}
+            <pre>
+            {{ profile|pprint|escape }}
+            </pre>
+        {% endfor %}
+    {% endif %}
+    <div id="fb-root"></div>
+    <script type="text/javascript"
+        src="//connect.facebook.net/{% if LANGUAGE_CODE == "en" %}en_US{% else %}de_DE{% endif %}/all.js"></script>
+    <script type="text/javascript">
+        (function ($, undefined) {
+            // initialize the library with the API key
+            FB.init({
+                apiKey: settings.FACEBOOK_APP_ID,
+                status: true,
+                cookie: true,
+                xfbml: false
+            });
+
+            // fetch the status on load
+            /*
+             FB.login(function() {}, {
+             perms: "user_photos"
+             });
+             */
+        }(jQuery));
+    </script>
+    <form action="." method="post" class="uniForm">{% csrf_token %}
+        <div class="buttonHolders">
+            <input class="primaryAction" type="submit" value="post something"/>
+        </div>
+    </form>
+{% endblock %}
+
+{% block facebook_scripts %}{% endblock %}

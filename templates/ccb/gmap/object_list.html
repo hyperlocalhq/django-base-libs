@@ -1,0 +1,49 @@
+{% extends base_template|default:"base.html" %}
+{% load i18n base_tags navigation_tags infoblocks %}
+
+
+{% block extrahead %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/individual_relations.js"></script>
+    <script type="text/javascript">
+        //<![CDATA[
+        var aGeopositions = [];
+        //]]>
+    </script>
+{% endblock %}
+
+
+{% block title %}{% trans "Map of Creativity in Berlin" %}{% endblock %}
+
+
+{% block headline %}
+    <h1>{% trans "Map of Creativity in Berlin" %}</h1>
+{% endblock %}
+
+
+{% block content %}
+    <noscript>{% infoblock "js_warning" %}</noscript>
+    <p>{% trans "Double click the map to set the location of interest." %}</p>
+    <div id="dyn_map" class="to_show">
+        <div id="gmap" style="width: 512px; height: 512px; position: relative;"></div>
+    </div>
+    <form action="" method="" class="to_show uniForm">
+        <div class="ctrlHolder">
+            <select id="distance">
+                <option value="0.2" selected="selected">200 m</option>
+                <option value="1" selected="selected">1 km</option>
+                <option value="3">3 km</option>
+            </select>
+        </div>
+    </form>
+    <div id="object_list">
+    </div>
+{% endblock %}
+
+
+{% block extrabody %}
+    <script type="text/javascript"
+        src="//maps.google.com/maps/api/js?language={{ LANGUAGE_CODE }}&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/styledinfowindow.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing_all_map.js"></script>
+{% endblock %}

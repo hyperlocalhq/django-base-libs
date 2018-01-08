@@ -1,0 +1,114 @@
+{% extends "utils/lists/base_context_item.html" %}
+{% load i18n base_tags image_mods_tags %}
+
+{% block object_image %}
+    <a href="{{ institution.get_url_path }}">
+        {% if institution.image %}
+            <img alt="{{ institution.get_title|escape }}"
+                src="{{ UPLOADS_URL }}{{ institution.image|modified_path:"al" }}"/>
+        {% else %}
+            <img alt="{{ institution.get_title|escape }}"
+                src="{{ STATIC_URL }}site/img/website/placeholder/institution_m.png"/>
+        {% endif %}
+    </a>
+{% endblock %}
+
+{% block object_title %}
+    <a class="org fn" href="{{ institution.get_url_path }}">
+        {{ institution.title|escape }}
+    </a><br/>
+    {% if institution.title2|escape %}
+        <span class="sub_titel">
+            {{ institution.title2|escape }}
+        </span>
+    {% endif %}
+{% endblock %}
+
+{% block object_absolute_url %}{{ institution.get_url_path }}{% endblock %}
+
+{% block object_col1 %}
+    {% if institution.get_institution_types %}
+        <p class="object-type">
+            {% for institution_type in institution.get_institution_types %}{% if not forloop.first %}, {% endif %}
+                {{ institution_type.get_title|escape }}{% endfor %}</p>
+    {% endif %}
+
+    {% for contact in institution.get_contacts %}
+        {% if contact.postal_address.get_dict.latitude %}
+            <script type="text/javascript">
+                //<![CDATA[
+                (function (undefined) {
+                    var iIndex = aGeopositions.length;
+                    aGeopositions[iIndex] = {
+                        latitude: {{ contact.postal_address.get_dict.latitude }},
+                        longitude: {{ contact.postal_address.get_dict.longitude }},
+                        content: '<div class="contact-mapped" onclick="redirect(\'{{ institution.get_url_path }}\')">'
+                        + '<a href="{{ institution.get_url_path }}"><img src="{% if institution.image %}{{ UPLOADS_URL }}{{ institution.image.path|modified_path:"am" }}{% else %}{{ STATIC_URL }}site/img/website/placeholder/institution_s.png{% endif %}" alt="{{ institution.get_title }}" width="75" height="75" /></a>'
+                        + '<h4>{{ institution.title }}</h4>'
+                        + '<p>{{ contact.postal_address.street_address }} {{ contact.postal_address.street_address2 }}</p>'
+                        + '<hr />'
+                        + '<a href="{{ institution.get_url_path }}">' + gettext("See profile") + '</a>'
+                        + '</div>'
+                    }
+                }());
+                //]]>
+            </script>
+            <div class="marker-link"></div>
+        {% endif %}
+        {% if contact.street_address or contact.country_name %}
+            <span class="type">{% trans "Address" %}: </span>
+            <address class="adr">
+                {% if contact.street_address %}
+                    <span class="street-address">
+                    {{ contact.street_address|escape }}
+                    </span><br/>
+                {% endif %}
+                {% if contact.street_address2 %}
+                    <span class="street-address">
+                    {{ contact.street_address2|escape }}
+                    </span><br/>
+                {% endif %}
+                {% if contact.street_address3 %}
+                    <span class="street-address">
+                    {{ contact.street_address3|escape }}
+                    </span><br/>
+                {% endif %}
+                {% if contact.postal_code %}
+                    <span class="postal-code">
+                     {{ contact.postal_code|escape }} {{ contact.city|escape }}
+                     </span><br/>
+                {% endif %}
+                {% if contact.country_name %}
+                    <span class="country-name">
+                    {{ contact.country_name }}
+                    </span><br/>
+                {% endif %}
+            </address>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block object_col2 %}
+    {% if institution.get_contacts %}
+        <p>
+            {% for phone in institution.get_contacts.0.get_phones %}
+                <span class="tel">
+                {% if phone.type %}
+                    <abbr title="{{ phone.type.vcard_name }}" class="type">
+                        {{ phone.type }} :</abbr> {% endif %}
+                    <span class="value">+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</span><br/>
+            </span>
+            {% endfor %}
+            {% for url in institution.get_contacts.0.get_urls %}
+                <span class="url">{% if url.type %}<span class="type">{{ url.type }}: </span>{% endif %}
+                    <a
+                        href="{{ url.link|escape }}" onclick="open_new_window(event)">{{ url.link }}</a><br/></span>
+            {% endfor %}
+        </p>
+    {% endif %}
+{% endblock %}
+
+{% block object_controls %}
+    {% include "institutions/controls.html" %}
+{% endblock %}
+

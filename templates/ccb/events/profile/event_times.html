@@ -1,0 +1,35 @@
+{% load i18n base_tags auth_extended babel %}
+
+{% if event_time or object.eventtime_set.all or object.is_editable %}
+    <div
+        class="fieldset {% if object.is_editable %}editable switch{% else %}not-editable{% endif %}"
+        data-edit-url="{% url 'edit_profile' object_type='event' slug=object.slug %}event_times/">
+        <fieldset disabled>
+            <h2>{% trans "Event Times" %}</h2>
+
+            <dl class="input-fields">
+                <dt>
+                    {% trans "When" %}
+                </dt>
+                <dd>
+                    <div class="text-field">
+                        {% if event_time %}
+                            {% with event_time as time %}
+                                <div>{% if time.label  %}{{ time.label }}: {% endif %}{% include "events/includes/event_time.html" %}</div>
+                            {% endwith %}
+                            <div>
+                                <a href="{{ event_time.event.get_absolute_url }}#event-occurrences">{% trans "See all occurrences" %}</a>
+                            </div>
+                        {% else %}
+                            {% for time in object.eventtime_set.all %}
+                                <div>{% if time.label  %}{{ time.label }}: {% endif %}{% include "events/includes/event_time.html" %}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </dd>
+                <dd class="clearfix"></dd>
+            </dl>
+        </fieldset>
+    </div>
+{% endif %}
+

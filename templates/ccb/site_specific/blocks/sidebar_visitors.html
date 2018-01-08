@@ -1,0 +1,31 @@
+{% load i18n base_tags navigation_tags %}
+<div class="sidebar-box" id="visitors_box_{{ LANGUAGE_CODE }}">
+    <h5>
+        <a href="#" class="open_but">
+            <b>{% trans "Online Site Visitors" %}</b>
+            <span class="pic"></span>
+        </a>
+    </h5>
+
+    <div class="hidable">
+        {% with registered_visitors.count as registered_visitors_count %}
+            <ul>
+                {% if registered_visitors_count %}
+                    {% for user in registered_visitors %}
+                        <li>
+                            <a href="{{ user.profile.get_url_path }}">{{ user.profile.get_title }}</a>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+                {% if unregistered_visitors_count %}
+                    <li>{% if registered_visitors_count %}+{% endif %}
+                        {% blocktrans count unregistered_visitors_count=unregistered_visitors_count %}
+                            1 unregistered visitor
+                        {% plural %}
+                            {{ unregistered_visitors_count }} unregistered visitors{% endblocktrans %}
+                    </li>
+                {% endif %}
+            </ul>
+        {% endwith %}
+    </div>
+</div>

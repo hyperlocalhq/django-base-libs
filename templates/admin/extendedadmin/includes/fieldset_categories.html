@@ -1,33 +1,107 @@
-{% load i18n static %}
-<fieldset class="grp-module aligned cats collapse closed">
-    <h2 class="collapse-handler">
-    {% if form.tags %}
-        {{ _("Categories & tags")|force_escape }}
-    {% else %}
-        {% trans "Categories" %}
-    {% endif %}
+{% load i18n staticfiles static %}
+<fieldset class="grp-module grp-aligned cats grp-collapse grp-closed">
+    <h2 class="grp-collapse-handler">
+        {% if form.tags %}
+            {{ _("Categories & tags")|force_escape }}
+        {% else %}
+            {% trans "Categories" %}
+        {% endif %}
     </h2>
+    {% if form.creative_sectors %}
+        <div class="grp-row grp-cells-1{% if form.creative_sectors.errors %} grp-errors{% endif %}">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    <label{% if form.creative_sectors.field.required %}
+                        class="required"{% endif %}>{{ form.creative_sectors.label }}</label>
+                </div>
+                <div class="c-2">
+                    {{ form.creative_sectors }}
+                    <a href="../../../structure/term/add/?vocabulary__id__exact=14&amp;_popup=1&amp;"
+                        class="add-another" id="add_id_creative_sectors" onclick="return showAddAnotherPopup(this);">
+                        <img src="{% url 'jetson_media_url' path='img/admin/icon_addlink.gif' %}" width="10" height="10"
+                            alt="{% trans "Add Another" %}"/>
+                    </a>
+                    {% if form.creative_sectors.errors %}
+                        <ul class="errorlist">
+                            <li>{{ form.creative_sectors.errors|join:", " }}</li>
+                        </ul>
+                    {% endif %}
 
-    <div class="grp-row grp-cells-1{% if form.context_categories.errors %} grp-errors{% endif %}">
-        <div class="l-2c-fluid l-d-4">
-            <div class="c-1">
-                <label{% if form.context_categories.field.required %} class="required"{% endif %}>{{ form.context_categories.label }}</label>
-            </div>
-            <div class="c-2">
-                {{ form.context_categories }}
-                <a href="../../../structure/contextcategory/add/" class="add-another" id="add_id_context_categories" onclick="return showAddAnotherPopup(this);"> <img src="{% url 'jetson_media_url' path='img/admin/icon_addlink.gif' %}" width="10" height="10" alt="{% trans "Add Another" %}"/></a>
-                {% if form.context_categories.errors %}
-                    <ul class="errorlist"><li>{{ form.context_categories.errors|join:", "}}</li></ul>
-                {% endif %}
-
-                {% if form.context_categories.help_text %}<p class="grp-help">{{ form.context_categories.help_text }}</p>{% endif %}
+                    {% if form.creative_sectors.help_text %}
+                        <p class="grp-help">{{ form.creative_sectors.help_text }}</p>{% endif %}
+                </div>
             </div>
         </div>
-    </div>
-    <script type="text/javascript">
-        addEvent(window, "load", function(e) { SelectFilter.init("id_context_categories", "{% trans "Context categories" %}", 0, "{% static 'admin/' %}"); });
-    </script>
+        <script type="text/javascript">
+            addEvent(window, "load", function (e) {
+                SelectFilter.init("id_creative_sectors", "{% trans "Creative sectors" %}", 0, "{% static 'admin/' %}");
+            });
+        </script>
+    {% endif %}
+    {% if form.context_categories %}
+        <div class="grp-row grp-cells-1{% if form.context_categories.errors %} grp-errors{% endif %}">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    <label{% if form.context_categories.field.required %}
+                        class="required"{% endif %}>{{ form.context_categories.label }}</label>
+                </div>
+                <div class="c-2">
+                    {{ form.context_categories }}
+                    <a href="../../../structure/contextcategory/add/" class="add-another" id="add_id_context_categories"
+                        onclick="return showAddAnotherPopup(this);">
+                        <img
+                            src="{% url 'jetson_media_url' path='img/admin/icon_addlink.gif' %}" width="10" height="10"
+                            alt="{% trans "Add Another" %}"/>
+                    </a>
+                    {% if form.context_categories.errors %}
+                        <ul class="errorlist">
+                            <li>{{ form.context_categories.errors|join:", " }}</li>
+                        </ul>
+                    {% endif %}
 
+                    {% if form.context_categories.help_text %}
+                        <p class="grp-help">{{ form.context_categories.help_text }}</p>{% endif %}
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            addEvent(window, "load", function (e) {
+                SelectFilter.init("id_context_categories", "{% trans "Context categories" %}", 0, "{% static 'admin/' %}");
+            });
+        </script>
+    {% endif %}
+    {% if form.categories %}
+        <div class="grp-row grp-cells-1{% if form.categories.errors %} grp-errors{% endif %}">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    <label{% if form.categories.field.required %}
+                        class="required"{% endif %}>{{ form.categories.label }}</label>
+                </div>
+                <div class="c-2">
+                    {{ form.categories }}
+                    <a href="../../../structure/category/add/" class="add-another" id="add_id_categories"
+                        onclick="return showAddAnotherPopup(this);">
+                        <img
+                            src="{% url 'jetson_media_url' path='img/admin/icon_addlink.gif' %}" width="10" height="10"
+                            alt="{% trans "Add Another" %}"/>
+                    </a>
+                    {% if form.categories.errors %}
+                        <ul class="errorlist">
+                            <li>{{ form.categories.errors|join:", " }}</li>
+                        </ul>
+                    {% endif %}
+
+                    {% if form.categories.help_text %}
+                        <p class="grp-help">{{ form.categories.help_text }}</p>{% endif %}
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            addEvent(window, "load", function (e) {
+                SelectFilter.init("id_categories", "{% trans "Categories" %}", 0, "{% static 'admin/' %}");
+            });
+        </script>
+    {% endif %}
     {% if form.tags %}
         <div class="grp-row grp-cells-1{% if form.tags.errors %} grp-errors{% endif %}">
             <div class="l-2c-fluid l-d-4">
@@ -37,10 +111,13 @@
                 <div class="c-2">
                     {{ form.tags }}
                     {% if form.tags.errors %}
-                        <ul class="errorlist"><li>{{ form.tags.errors|join:", "}}</li></ul>
+                        <ul class="errorlist">
+                            <li>{{ form.tags.errors|join:", " }}</li>
+                        </ul>
                     {% endif %}
 
-                    {% if form.tags.help_text %}<p class="grp-help">{{ form.tags.help_text }}</p>{% endif %}
+                    {% if form.tags.help_text %}
+                        <p class="grp-help">{{ form.tags.help_text }}</p>{% endif %}
                 </div>
             </div>
         </div>

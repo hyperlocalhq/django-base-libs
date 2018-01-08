@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n base_tags navigation_tags %}
+{% comment %}<!-- UNUSED -->{% endcomment %}
+{% block extrahead %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/individual_relations.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/groups_networks.js"></script>
+{% endblock %}
+
+{% block title %}{% trans "BROWSE" %}{% endblock %}
+
+
+{% block headline %}
+    <h1>{% trans "Browse" %}</h1>
+{% endblock %}
+
+
+{% block content %}
+    <div class="search-browse">
+        {% if object_list %}
+            {% include "utils/includes/sorting_and_pagination.html" %}
+
+            {% include "site_specific/context_item_list.html" %}
+
+            {% include "utils/includes/sorting_and_pagination.html" %}
+
+        {% else %}
+            <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        {% trans "Filter" %}:
+        {% for cat in selected_browsing_cats %}
+            {% if not forloop.first %}::{% endif %}
+            <a class="cross" href="/browse/by-{{ cat.criterion }}/all/">{{ cat.get_title|escape }}</a>
+        {% endfor %}
+    </div>
+{% endblock %}
+

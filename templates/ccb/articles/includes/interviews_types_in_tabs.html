@@ -1,0 +1,11 @@
+{% load i18n base_tags %}
+
+{% get_objects under_interviews articles.ArticleType as article_types %}
+{% for at in article_types %}
+    <li{% if article_type == at or article.article_type == at %} class="active"{% endif %}>
+        <a{% if article_type == at or article.article_type == at %} class="active"{% endif %} href="{% url "article_archive_for_interviews_by_type" type_sysname=at.slug %}"><span>{{ at.title }}</span></a>
+    </li>
+{% endfor %}
+<li{% if blog_post_list %} class="active"{% endif %}>
+    <a{% if blog_post_list %} class="active"{% endif %} href="{% url "magazine_blog_posts" %}"><span>{% trans "From the Blogs" %}</span></a>
+</li>

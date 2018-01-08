@@ -1,0 +1,30 @@
+{% load i18n base_tags auth_extended %}
+
+{% if object.get_categories or object.is_editable %}
+    <div class="fieldset {% if object.is_editable %}editable switch{% else %}not-editable{% endif %}" data-edit-url="{% url 'edit_profile' object_type='person' slug=object.slug %}categories/">
+        <fieldset disabled>
+            <h2>{% trans "Categories" %}</h2>
+            {% if object.get_categories %}
+                <dl class="input-fields">
+                    <dt>
+                        {% with object.get_categories|length as count %}
+                            {% ifequal count 1 %}
+                                {% trans "Category" %}
+                            {% else %}
+                                {% trans "Categories" %}
+                            {% endifequal %}
+                        {% endwith %}
+                    </dt>
+                    <dd>
+                        <div class="text-field">
+                            {% for cat in object.get_categories %}
+                                <div>{{ cat.title|escape }}</div>
+                            {% endfor %}
+                        </div>
+                    </dd>
+                </dl>
+            {% endif %}
+            
+        </fieldset>
+    </div>
+{% endif %}

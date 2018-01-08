@@ -1,0 +1,68 @@
+<div class="scrollable">
+    <div class="items">
+        {% for slide in slides %}
+            <a href="{{ slide.link }}">
+                <img src="{{ UPLOADS_URL }}{{ slide.path.path }}" alt="{{ slide.alt }}" width="584" height="272"/>
+            </a>
+        {% endfor %}
+    </div>
+    <div class="slideshow_nav">
+    </div>
+</div>
+<script type="text/javascript">
+    (function ($, undefined) {
+        $(document).ready(function () {
+            var oAPI = $('.scrollable').scrollable({
+                circular: true
+            }).autoscroll({
+                interval: 6000,
+                autopause: false,
+                autoplay: false
+            }).data("scrollable");
+
+            $('.scrollable').mouseover(function () {
+                $(this).addClass("hover")
+            }).mouseout(function () {
+                $(this).removeClass("hover")
+            });
+
+            var $oNav = $(".slideshow_nav");
+            /*
+             $('<a class="first" href=""><span>'+ gettext("First") +'</span></a>').appendTo($oNav).click(function() {
+             oAPI.begin();
+             return false;
+             });
+             */
+            $('<a class="previous" href=""><span>' + gettext("Previous") + '</span></a>').appendTo($oNav).click(function () {
+                oAPI.prev();
+                return false;
+            });
+            $('<a class="pause" href=""><span>' + gettext("Pause") + '</span></a>').appendTo($oNav).click(function () {
+                oAPI.pause();
+                $(".play").show();
+                $(this).hide();
+                return false;
+            });
+            $('<a class="play" href=""><span>' + gettext("Play") + '<span></a>').appendTo($oNav).click(function () {
+                oAPI.play();
+                $(".pause").show();
+                $(this).hide();
+                return false;
+            }).css("display", "none");
+            $('<a class="next" href=""><span>' + gettext("Next") + '</span></a>').appendTo($oNav).click(function () {
+                oAPI.next();
+                return false;
+            });
+            /*
+             $('<a class="last" href=""><span>'+ gettext("Last") +'</span></a>').appendTo($oNav).click(function() {
+             oAPI.end();
+             return false;
+             });
+             */
+            setTimeout(function () {
+                oAPI.play();
+            }, 6000);
+
+        });
+    }(jQuery));
+</script>
