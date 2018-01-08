@@ -1,2 +1,2 @@
-required_apps = ["contenttypes", "site_specific"]
+required_apps = ["contenttypes"]
 optional_apps = []

@@ -1,5 +1,4 @@
 # -*- coding: UTF-8 -*-
-import os
 from django.db import models
 from django.db import connection
 from django.contrib.contenttypes.models import ContentType
@@ -7,6 +6,7 @@ from django.utils.encoding import force_unicode
 from django.utils.translation import ugettext_lazy as _
 from django.apps import apps
 
+from tagging.fields import TagField
 from tagging.models import Tag
 from tagging_autocomplete.models import TagAutocompleteField
 
@@ -16,10 +16,8 @@ from base_libs.models.models import ViewsMixin
 from base_libs.models.models import CreationModificationDateMixin
 from base_libs.models.models import CreationModificationMixin
 from base_libs.models.models import MultiSiteContainerMixin
-from base_libs.models.models import PublishingMixin, PublishingMixinPublishedManager
+from base_libs.models.models import PublishingMixin
 from base_libs.models import ExtendedTextField
-
-from filebrowser.fields import FileBrowseField
 
 
 verbose_name = _("Blog")
@@ -78,44 +76,26 @@ class Blog(MultiSiteContainerMixin, CreationModificationDateMixin):
 # QUICK HACK: Without the following the Blog.objects.model will be MultiSiteContainerMixin and won't work correctly
 Blog.objects.model = Blog
 
-
-class PublishedPostManager(PublishingMixinPublishedManager):
-    def featured_in_magazine(self):
-        return self.filter(
-            featured_in_magazine=True,
-        ).order_by("-importance_in_magazine")
-
-
 class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, SlugMixin()):
     title = models.CharField(_("title"), max_length=255)
     tags = TagAutocompleteField(verbose_name=_("tags"))
     body = ExtendedTextField(_("body"))
-    blog = models.ForeignKey(Blog, verbose_name=_("blog"))
-
-    image = FileBrowseField(_('Main Image'), max_length=200, directory="blogs/", extensions=['.jpg', '.jpeg', '.gif', '.png'], blank=True)
-    image_author = models.CharField(_("Image Credits"), max_length=100, blank=True)
-
+    blog = models.ForeignKey(Blog, related_name="blog")  # TODO: change or remove the related_name. It should be something like "posts" or "post_set", not "blog"
     enable_comment_form = models.BooleanField(_('enable comment form'), default=True)
-
-    featured_in_magazine = models.BooleanField(_("Featured in magazine"), default=False)
-    importance_in_magazine = models.PositiveIntegerField(_("Importance in magazine"), default=0, help_text=_("The bigger the number, the more up-front it will be shown in the magazine overview"))
-
-    objects = models.Manager()
-    published_objects = PublishedPostManager()
-
+  
     def __unicode__(self):
         return force_unicode(self.title)
-
+        
     def is_rest(self):
         """
         sort of a temp function to allow testing/switching between markdown
         and rest
         """
         return self.body.startswith('..')
-
+    
     def get_tags(self):
         return Tag.objects.get_for_object(self)
-
+    
     def get_absolute_url(self):
         return self.get_url_path()
 
@@ -133,7 +113,7 @@ class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, Slu
 
     def get_relative_url(self):
         return "%s/%s/" % (self.published_from.strftime("%Y/%m/%d").lower(), self.slug)
-
+    
     def delete_comments(self):
         Comment = apps.get_model("comments", "Comment")
         table = Comment._meta.db_table
@@ -142,7 +122,7 @@ class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, Slu
         cursor = connection.cursor()
         cursor.execute(query, [ctype.id])
     delete_comments.alters_data = True
-
+                
     def delete_comment(self, id):
         Comment = apps.get_model("comments", "Comment")
         table = Comment._meta.db_table
@@ -166,7 +146,7 @@ class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, Slu
                 ).order_by("published_from")[0]
         except:
             return None
-
+            
     def get_older_published(self):
         try:
             return Post.published_objects.filter(
@@ -176,7 +156,4 @@ class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, Slu
                 ).order_by("-published_from")[0]
         except:
             return None
-
-    @staticmethod
-    def autocomplete_search_fields():
-        return ("id__iexact", "title__icontains",)
+            
