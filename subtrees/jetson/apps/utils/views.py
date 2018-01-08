@@ -526,7 +526,7 @@ FORM_STEPS = {
                                                             # returns form_step_data
 
     'onsuccess': success_func,                              # optional
-                                                            # passed args: request, instance=None;
+                                                            # passed args: request, form_step_data, instance=None;
                                                             # returns HttpResponse object
 
     'success_url': "/path/to/redirect/to/",                 # optional
