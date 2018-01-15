@@ -31,17 +31,18 @@ class EducationFilterForm(forms.Form):
 
 
 def department_list(request):
+    from berlinbuehnen.apps.advertising.templatetags.advertising_tags import not_empty_ad_zone
 
     qs = Department.objects.filter(status="published")
 
     form = EducationFilterForm(data=request.REQUEST)
-    
+
     facets = {
         'selected': {},
         'categories': {
         },
     }
-    
+
     if form.is_valid():
         # cats = form.cleaned_data['services']
         # if cats:
@@ -58,11 +59,16 @@ def department_list(request):
     abc_list = get_abc_list(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
     if abc_filter:
         qs = filter_abc(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
-    
+
     extra_context = {}
     extra_context['form'] = form
     extra_context['abc_list'] = abc_list
     extra_context['facets'] = facets
+
+    first_page_delta = 0
+    if not_empty_ad_zone('education'):
+        first_page_delta = 1
+        extra_context['show_ad'] = True
 
     return object_list(
         request,
@@ -72,6 +78,7 @@ def department_list(request):
         extra_context=extra_context,
         httpstate_prefix="education_list",
         context_processors=(prev_next_processor,),
+        first_page_delta=first_page_delta,
     )
 
 
@@ -84,7 +91,7 @@ def department_detail(request, slug):
             return access_denied(request)
     else:
         qs = Department.objects.filter(status="published")
-        
+
     return object_detail(
         request,
         queryset=qs,

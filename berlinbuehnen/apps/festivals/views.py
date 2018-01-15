@@ -44,13 +44,13 @@ def festival_list(request, year=None, month=None, day=None):
     qs = qs.filter(end__gte=datetime.today())
 
     form = FestivalFilterForm(data=request.REQUEST)
-    
+
     facets = {
         'selected': {},
         'categories': {
         },
     }
-    
+
     if form.is_valid():
         # cats = form.cleaned_data['services']
         # if cats:
@@ -75,13 +75,14 @@ def festival_list(request, year=None, month=None, day=None):
     # }).order_by("title_uni")
 
     #qs = qs.prefetch_related("season_set", "mediafile_set", "categories", "accessibility_options").defer("tags")
-    
+
     qs = qs.order_by('start', 'title_%s' % request.LANGUAGE_CODE)
-    
+
     extra_context = {}
     extra_context['form'] = form
     extra_context['abc_list'] = abc_list
     extra_context['facets'] = facets
+    extra_context['show_ad'] = True
 
     return object_list(
         request,
@@ -120,7 +121,7 @@ def festival_events(request, slug):
             return access_denied(request)
     else:
         obj = get_object_or_404(Festival, slug=slug, status="published")
-        
+
     # show only events that belong to the festival
     qs = Event.objects.filter(
         production__status="published",
@@ -138,7 +139,7 @@ def festival_events(request, slug):
     )
 
     qs = qs.order_by('start_date', 'start_time', 'production__title_%s' % request.LANGUAGE_CODE)
-    
+
     extra_context = {}
 
     return object_list(
@@ -150,8 +151,8 @@ def festival_events(request, slug):
         httpstate_prefix="event_list",
         context_processors=(prev_next_processor,),
     )
-    
-    
+
+
 
 @never_cache
 @login_required
@@ -611,7 +612,7 @@ def delete_pdf(request, slug, mediafile_token="", **kwargs):
     filters = {
         'id': FestivalPDF.token_to_pk(mediafile_token),
     }
-    
+
     try:
         media_file_obj = FestivalPDF.objects.get(**filters)
     except:

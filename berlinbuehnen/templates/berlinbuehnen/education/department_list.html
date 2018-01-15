@@ -23,14 +23,12 @@
 
                     <!-- the list -->
                     <div id="main_list" class="grid location-grid grid-autoload row">
-                        {% comment %}
                         {% if page == 1 %}
                             {% load advertising_tags %}
                             {% if show_ad %}
-                                {% get_random_zone_ad "locations" as locations_ad_html %}
+                                {% get_random_zone_ad "education" as locations_ad_html %}
                             {% endif %}
                         {% endif %}
-                        {% endcomment %}
                         {% if object_list %}
                             {% for department in object_list %}
                                 <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ department.get_url_path }}">
@@ -61,7 +59,6 @@
 
                                 </a>
 
-                                {% comment %}
                                 {% if locations_ad_html %}
                                     {% if forloop.counter == 1 %}
                                         <div class="grid-item visible-xs col-xs-12 ad-xs">{{ locations_ad_html }}</div>
@@ -74,7 +71,6 @@
                                         <div class="grid-item visible-lg col-lg-3 ad-lg">{{ locations_ad_html }}</div>
                                     {% endif %}
                                 {% endif %}
-                                {% endcomment %}
 
                             {% endfor %}
 

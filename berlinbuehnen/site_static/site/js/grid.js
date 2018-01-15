@@ -24,7 +24,8 @@
 
         me.$main = $main;
         me.$items = $('.grid-item', me.$main);
-        me.$featured = $('.grid-item.featured', me.$main)
+        me.$featured = $('.grid-item.featured', me.$main);
+        me.$ad = $('.grid-item.ad_banner', me.$main);
         me.autoload = $main.hasClass('grid-autoload');
         me.mazery = $main.hasClass('mazery-grid');
         me.is_two_columns = $main.hasClass('grid-two-columns');
@@ -39,11 +40,37 @@
 
         if (me.mazery) {
 
+            var $ad = null;
+
+            if (me.$ad.length) {
+                $ad = $(me.$ad.get(0));
+                $ad.detach();
+            }
+
             if (me.$featured.length) {
                 var $first = $(me.$featured.get(0));
                 $first.detach();
+                if ($ad) me.$main.prepend($ad);
                 me.$main.prepend($first);
+            } else {
+                if ($ad) {
+                    var $first = null;
+                    var $second = null;
+                    if (me.$items.length >= 2) {
+                        $first = $(me.$items.get(1));
+                        $first.detach();
+                    }
+                    if (me.$items.length >= 3) {
+                        $second = $(me.$items.get(2));
+                        $second.detach();
+                    }
+                    me.$main.prepend($ad);
+                    if ($second) me.$main.prepend($second);
+                    if ($first) me.$main.prepend($first);
+                }
             }
+
+            me.$items = $('.grid-item', me.$main);
 
             $(window).resize(function() {me.createMazery();});
             $('img', me.$main).load(function() {me.createMazery();});

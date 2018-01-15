@@ -406,6 +406,21 @@ em { color: black; font-style: italic; }
   .headline-up {
     margin-top: -17px !important;
     margin-bottom: 2px !important;
+
+    .mazery-grid & {
+      margin-top: -19px !important;
+    }
+  }
+  .mazery-grid & {
+      &.grid-item-favorite {
+          .grid-item-image {
+              &:hover {
+                  img {
+                      opacity: 1;
+                  }
+              }
+          }
+      }
   }
 }
 

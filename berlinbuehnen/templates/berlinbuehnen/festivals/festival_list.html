@@ -1,6 +1,6 @@
 {% extends "cms/default.html" %}
 {% load url from future %}
-{% load i18n image_modifications base_tags tagging_tags favorites_tags auth_extended festival_tags fb_tags %}
+{% load i18n image_modifications base_tags tagging_tags favorites_tags auth_extended festival_tags fb_tags advertising_tags %}
 
 {% block bodyclass %}festival-list no-transition{% endblock %}
 
@@ -24,6 +24,11 @@
                     <!-- the list -->
                     {% if object_list %}
                         <div id="main_list" class="grid festival-grid mazery-grid row">
+
+                            {% if "festivals"|not_empty_ad_zone and show_ad %}
+                                {% random_zone_ad "festivals" %}
+                            {% endif %}
+
                             {% for festival in object_list %}
                                 <div class="grid-item {% if festival.featured %} featured {% endif %}{% if not festival.first_image %} no-image {% endif %} col-xs-12 col-sm-6 col-md-4 grid-item-favorite"
                                     data-start="{{ festival.start|date:"U" }}"

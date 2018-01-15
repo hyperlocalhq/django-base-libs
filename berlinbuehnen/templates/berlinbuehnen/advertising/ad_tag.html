@@ -14,8 +14,20 @@
 {% endif %}
 
 {% if ad.bannerad %}
-    {% if ad.zone.sysname == "start_page" %}
+    {% if ad.zone.sysname == "start_page" or ad.zone.sysname == "start_page_2" %}
         <a target="_blank" href="{{ ad.get_url_path }}"><img class="img-responsive img-full" src="{{ ad.bannerad.content.url }}" alt="{{ ad.title }}" /></a>
+        {% if ad.zone.sysname == "start_page" %}<br/>{% endif %}
+    {% elif ad.zone.sysname == "festivals" %}
+        <div class="grid-item col-xs-12 col-sm-6 col-md-4 grid-item-favorite ad_banner zone_{{ ad.zone.sysname }}">
+            <div class="row">
+                <h6 class="block-label headline-up">{% trans "Advertisement" %}</h6>
+                <a target="_blank" href="{{ ad.get_url_path }}">
+                    <span class="grid-item-image">
+                        <img class="" src="{{ ad.bannerad.content.url }}" alt="{{ ad.title }}"/>
+                    </span>
+                </a>
+            </div>
+        </div>
     {% else %}
         <div class="ad_banner zone_{{ ad.zone.sysname }} clearfix">
             {% if ad.show_ad_label %}
