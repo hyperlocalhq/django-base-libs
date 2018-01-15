@@ -154,9 +154,11 @@
                 </div>
             </div>
 
+            {% comment %}
             {% if not "start_page"|not_empty_ad_zone %}
                 <a name="newsletter_signup"></a>
             {% endif %}
+            {% endcomment %}
 
             {% festivals_slider %}
 
@@ -246,9 +248,11 @@
                     </div>
                 </div>
 
+                {% comment %}
                 {% if "start_page"|not_empty_ad_zone %}
                     <a name="newsletter_signup"></a>
                 {% endif %}
+                {% endcomment %}
 
                 <!-- Ads -->
                 <div class="col-xs-12 col-sm-6 col-md-4 ads {% if not "start_page"|not_empty_ad_zone %}no-ads{% endif %}">
@@ -258,7 +262,7 @@
                         {% random_zone_ad "start_page" %}
                     {% endif %}
                     {#% infoblock "start_page_ad" %#}
-                    {% subscribe %}
+                    {#% subscribe %#}
                 </div>
 
             </div>

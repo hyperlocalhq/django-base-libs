@@ -1,7 +1,7 @@
 {% load menu_tags cms_tags i18n base_tags sekizai_tags %}
 
 <div class="navbar-wrapper">
-    
+
 
     <nav class="navbar navbar-default affix-rebuild" role="navigation" data-offset-top="30">
 
@@ -26,7 +26,8 @@
                 </ul>
                 <ul class="social_links visible-md visible-lg">
                     <li><a class="fawesome search" href="{% if LANGUAGE_CODE == "de" %}/de/suche/{% else %}/en/search/{% endif %}" data-toggle="tooltip" data-placement="top" title="{% trans "Search" %}" data-tooltip-left="-6"><span class="sr-only">{% trans "Search" %}</span></a></li>
-                    <li><a class="fawesome newsletter" href="{% page_url "start_page" %}#newsletter_signup" data-toggle="tooltip" data-placement="top" title="{% trans "Newsletter" %}" data-tooltip-left="-5"><span class="sr-only">{% trans "Newsletter" %}</span></a></li>
+                    <!--<li><a class="fawesome newsletter" href="{% page_url "start_page" %}#newsletter_signup" data-toggle="tooltip" data-placement="top" title="{% trans "Newsletter" %}" data-tooltip-left="-5"><span class="sr-only">{% trans "Newsletter" %}</span></a></li>-->
+                    <li><a class="fawesome newsletter" href="http://berlin-buehnen.us2.list-manage1.com/subscribe?u=d7c71420a69df471f30ab850e&id=3f2c5c590a" target="_blank" data-toggle="tooltip" data-placement="top" title="{% trans "Newsletter" %}" data-tooltip-left="-5"><span class="sr-only">{% trans "Newsletter" %}</span></a></li>
                     <li><a class="fawesome facebook" href="https://www.facebook.com/pages/berlin-buehnende/440174332664851" target="_blank" data-toggle="tooltip" data-placement="top" title="{% trans "Facebook" %}" data-tooltip-left="-5"><span class="sr-only">Facebook</span></a></li>
                     <li><a class="fawesome twitter" href="https://twitter.com/#!/berlinbuehnen" target="_blank" data-toggle="tooltip" data-placement="top" title="{% trans "Twitter" %}" data-tooltip-left="-6"><span class="sr-only">Twitter</span></a></li>
                     <li><a class="fawesome instagram" href="https://instagram.com/berlinbuehnen" target="_blank" data-toggle="tooltip" data-placement="top" title="{% trans "Instagram" %}" data-tooltip-left="-5"><span class="sr-only">Instagram</span></a></li>
