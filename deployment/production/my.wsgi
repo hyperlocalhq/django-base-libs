@@ -16,7 +16,7 @@ project_path = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../project/berlinbuehnen'),
 )
 sys.path += [project_path]
-os.environ['DJANGO_SETTINGS_MODULE'] = 'berlinbuehnen.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'berlinbuehnen.settings.production'
 
 import newrelic.agent
 NEW_RELIC_INI = '/usr/local/www/apache24/data/berlin-buehnen.de/project/berlinbuehnen/newrelic.ini'
