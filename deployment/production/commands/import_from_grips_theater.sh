@@ -9,7 +9,7 @@ cd project/berlinbuehnen
 
 echo "Importing from GRIPS Theater" > ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
-python manage.py import_from_grips_theater --traceback >> ${CRON_LOG_FILE}  2>&1
+python manage.py import_from_grips_theater --settings=berlinbuehnen.settings.production --traceback >> ${CRON_LOG_FILE}  2>&1
 
 cd ${PROJECT_PATH}/commands/
 ./fix_permissions_for_media.sh

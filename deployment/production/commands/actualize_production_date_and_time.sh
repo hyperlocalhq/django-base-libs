@@ -9,7 +9,7 @@ date >> ${CRON_LOG_FILE}
 cd ${PROJECT_PATH}
 . bin/activate
 cd project/berlinbuehnen
-python manage.py actualize_production_date_and_time --traceback >> ${CRON_LOG_FILE}  2>&1
+python manage.py actualize_production_date_and_time --settings=berlinbuehnen.settings.production --traceback >> ${CRON_LOG_FILE}  2>&1
 
 echo "Finished." >> ${CRON_LOG_FILE}
 duration=$SECONDS

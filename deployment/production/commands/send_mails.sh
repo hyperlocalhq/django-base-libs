@@ -9,7 +9,7 @@ date >> ${CRON_LOG_FILE}
 cd ${PROJECT_PATH}
 . bin/activate
 cd project/berlinbuehnen
-python manage.py send_mails --traceback >> ${CRON_LOG_FILE}  2>&1
+python manage.py send_mails --settings=berlinbuehnen.settings.production --traceback >> ${CRON_LOG_FILE}  2>&1
 
 echo "Finished." >> ${CRON_LOG_FILE}
 duration=$SECONDS
