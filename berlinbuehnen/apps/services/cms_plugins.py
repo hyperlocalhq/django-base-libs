@@ -14,7 +14,7 @@ from .models import IndexItem, ServicePageBanner, ServiceGridItem, ServiceListIt
 
 class PluginBase(MarkupTypeOptions, CMSPluginBase):
     module = _("Service Plugins")
-    change_form_template = "services/plugins/richtext_plugin_change_form.html"
+    change_form_template = "services/plugins/custom_plugin_change_form.html"
 
     def render(self, context, instance, placeholder):
         context.update({

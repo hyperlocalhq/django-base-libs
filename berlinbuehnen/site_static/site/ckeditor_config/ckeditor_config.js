@@ -42,7 +42,7 @@ CKEDITOR.editorConfig = function( config ) {
     config.removeButtons = 'Underline,Subscript,Superscript,Source,Styles,Table,HorizontalRule,SpecialChar,About';
 
     config.stylesSet = 'berlinbuehnen_styles';
-    config.contentsCss = window.settings.STATIC_URL + 'site/css/style.css';
-    config.bodyClass = 'cms-plugin-richtext';
+    config.contentsCss = window.settings.STATIC_URL + 'site/css/ckeditor.css';
+    config.bodyClass = 'cms-plugin-richtext article';
     config.image_prefillDimensions = false;
 };

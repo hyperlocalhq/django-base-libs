@@ -42,7 +42,9 @@
         <div class="article-content row">
             <div class="col-xs-12  col-md-8">
                 {% if article.category.title %}<h2 class="article-category">{{ article.category.title }}</h2>{% endif %}
-                <h1>{{ article.title|escape }}</h1>
+                <h1>{{ article.title|escape }}
+                {% if article.is_draft %}<small>({% trans "Draft" %})</small>{% endif %}
+                </h1>
                 {% if article.subtitle %}
                     <h4 class="subtitle">{{ article.subtitle }}</h4>
                 {% endif %}
