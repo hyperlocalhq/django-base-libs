@@ -1,32 +1,75 @@
-# -*- coding: utf-8 -*-
-# Django settings for berlinbuehnen project.
+# -*- coding: UTF-8 -*-
+from __future__ import unicode_literals
+from datetime import timedelta
 
 import os
+import json
+from django.core.exceptions import ImproperlyConfigured
+from django.core.urlresolvers import reverse_lazy
+
 _ = gettext = lambda s: s
 
-JETSON_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+DEBUG = False
+
+SITE_ID = 1
+
+with open(os.path.join(os.path.dirname(__file__), 'secrets.json')) as f:
+    secrets = json.loads(f.read())
+
+def get_secret(setting, secrets=secrets):
+    '''Get the secret variable or return explicit exception.'''
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = 'Set the {0} environment variable'.format(setting)
+        raise ImproperlyConfigured(error_msg)
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+JETSON_PATH = BASE_DIR
+PROJECT_PATH = os.path.join(BASE_DIR, "berlinbuehnen")
 
 execfile(os.path.join(JETSON_PATH, "jetson/settings/base.py"), globals(), locals())
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+### DOMAINS ###
+
+SESSION_COOKIE_DOMAIN = "www.berlin-buehnen.de"
+STAGING_DOMAIN = "berlinbuehnen.jetsonproject.org"
+
+### EMAILS ###
+
+MANAGERS = (
+    ('Berlin Bühnen Webmaster', 'berlin-buehnen@kulturprojekte-berlin.de'),
+)
 
 ADMINS = (
     ("Berlin Bühnen Webmaster", "bendoraitis@studio38.de"),
     ("Reinhard Knobelspies", "knobelspies@studio38.de"),
 )
 
-DEFAULT_FROM_EMAIL = 'berlin-buehnen@kulturprojekte-berlin.de'
-MANAGERS = (
+CONTENT_ADMINS = (
     ('Berlin Bühnen Webmaster', 'berlin-buehnen@kulturprojekte-berlin.de'),
 )
 
-TIME_ZONE = 'Europe/Berlin'
+DEFAULT_FROM_EMAIL = 'berlin-buehnen@kulturprojekte-berlin.de'
+
+### DIRS AND URLS ###
+
+MEDIA_ROOT = os.path.join(PROJECT_PATH, "berlinbuehnen", "media")
+STATIC_ROOT = os.path.join(PROJECT_PATH, "berlinbuehnen", "static")
+STATICFILES_DIRS = [os.path.join(PROJECT_PATH, "berlinbuehnen", "site_static")]
+MEDIA_URL = "/media/"
+STATIC_URL = PIPELINE_URL = "/static/%s/" % get_git_changeset(os.path.join(PROJECT_PATH, "berlinbuehnen"))
+PATH_TMP = os.path.join(PROJECT_PATH, "berlinbuehnen", "tmp")
+CSS_URL = "%scss/default/" % MEDIA_URL
+IMG_URL = "%simg/website/" % MEDIA_URL
+FILE_UPLOAD_TEMP_DIR = SESSION_FILE_PATH = PATH_TMP
+FILE_UPLOAD_PERMISSIONS = 0775
+
+LOCALE_PATHS = [
+    os.path.join(PROJECT_PATH, "locale"),
+]
 
 ### LANGUAGES ###
-# Language code for this installation. All choices can be found here:
-# http://www.i18nguy.com/unicode/language-identifiers.html
 
 LANGUAGES = (
     ('de', u"Deutsch"),
@@ -45,120 +88,9 @@ OPEN_GRAPH_LOCALE_MAPPER = {
 
 LANGUAGE_CODE = "de"
 
-SITE_ID = 1
-USE_I18N = True
-USE_L10N = True
+### MAIN ###
 
-# Absolute filesystem path to the directory that will hold user-uploaded files.
-# Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = os.path.join(PROJECT_PATH, "berlinbuehnen", "media")
-
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash.
-# Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = "/media/"
-
-# Absolute path to the directory static files should be collected to.
-# Don't put anything in this directory yourself; store your static files
-# in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = os.path.join(PROJECT_PATH, "berlinbuehnen", "static")
-
-# URL prefix for static files.
-# Example: "http://media.lawrence.com/static/"
-STATIC_URL = "/static/%s/" % get_git_changeset(os.path.join(PROJECT_PATH, "berlinbuehnen"))
-
-# URL prefix for admin static files -- CSS, JavaScript and images.
-# Make sure to use a trailing slash.
-# Examples: "http://foo.com/static/admin/", "/static/admin/".
-ADMIN_MEDIA_PREFIX = '/static/%s/admin/' % get_git_changeset(os.path.join(PROJECT_PATH, "berlinbuehnen"))
-
-# Additional locations of static files
-STATICFILES_DIRS = [os.path.join(PROJECT_PATH, "berlinbuehnen", "site_static")]
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-
-#Settings for uploaded images
-FILE_UPLOAD_MAX_MEMORY_SIZE = 1024 * 1024 * 2  # 2 MB
-
-
-TEMPLATESADMIN_TEMPLATE_DIRS = TEMPLATE_DIRS = [
-    os.path.join(PROJECT_PATH, "berlinbuehnen", "templates", "berlinbuehnen"),
-    os.path.join(PROJECT_PATH, "berlinbuehnen", "templates", "admin"),
-] + TEMPLATE_DIRS
-
-LOCALE_PATHS = (
-    os.path.join(PROJECT_PATH, "locale"),
-)
-
-PATH_TMP = os.path.join(PROJECT_PATH, "berlinbuehnen", "tmp")
-CSS_URL = "%scss/default/" % MEDIA_URL
-IMG_URL = "%simg/website/" % MEDIA_URL
-FILE_UPLOAD_TEMP_DIR = SESSION_FILE_PATH = PATH_TMP
-FILE_UPLOAD_PERMISSIONS = 0775
-
-# List of finder classes that know how to find static files in
-# various locations.
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
-)
-
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = 'n%!wr5^+wx6h*rki_%$9*1*rki^5^+wx6h9*1a)8z4w7sf^s-(9d+'
-
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
-
-if not DEBUG:
-    TEMPLATE_LOADERS = (
-        (
-            'django.template.loaders.cached.Loader',
-            TEMPLATE_LOADERS
-        ),
-    )
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.request',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'cms.context_processors.media',
-    'sekizai.context_processors.sekizai',
-    "jetson.apps.utils.context_processors.general",
-    "jetson.apps.configuration.context_processors.configuration",
-    "jetson.apps.advertising.context_processors.source_features",
-    "django.contrib.messages.context_processors.messages",
-    "berlinbuehnen.apps.site_specific.context_processors.languages",
-)
-
-MIDDLEWARE_CLASSES = (
-    'berlinbuehnen.middleware.SmartUpdateCacheMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'jetson.apps.httpstate.middleware.HttpStateMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'base_libs.middleware.threadlocals.ThreadLocalsMiddleware',
-    'cms.middleware.page.CurrentPageMiddleware',
-    'cms.middleware.user.CurrentUserMiddleware',
-    'cms.middleware.toolbar.ToolbarMiddleware',
-    'jetson.apps.mobile_detection.middleware.MobileDetectionMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',
-)
-
-ROOT_URLCONF = 'berlinbuehnen.urls'
-
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     ### third-party apps ###
     "autocomplete_light",
     "grappelli",
@@ -251,8 +183,74 @@ INSTALLED_APPS = (
     "berlinbuehnen.apps.cms_extensions.plugins.gmap",
     "berlinbuehnen.apps.cms_extensions.plugins.headline",
     "berlinbuehnen.apps.advent_calendar",
+]
+
+MIDDLEWARE_CLASSES = [
+    'berlinbuehnen.middleware.SmartUpdateCacheMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'jetson.apps.httpstate.middleware.HttpStateMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'base_libs.middleware.threadlocals.ThreadLocalsMiddleware',
+    'cms.middleware.page.CurrentPageMiddleware',
+    'cms.middleware.user.CurrentUserMiddleware',
+    'cms.middleware.toolbar.ToolbarMiddleware',
+    'jetson.apps.mobile_detection.middleware.MobileDetectionMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
+]
+
+TEMPLATESADMIN_TEMPLATE_DIRS = TEMPLATE_DIRS = [
+    os.path.join(PROJECT_PATH, "berlinbuehnen", "templates", "berlinbuehnen"),
+    os.path.join(PROJECT_PATH, "berlinbuehnen", "templates", "admin"),
+] + TEMPLATE_DIRS
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.request',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'cms.context_processors.media',
+    'sekizai.context_processors.sekizai',
+    "jetson.apps.utils.context_processors.general",
+    "jetson.apps.configuration.context_processors.configuration",
+    "jetson.apps.advertising.context_processors.source_features",
+    "django.contrib.messages.context_processors.messages",
+    "berlinbuehnen.apps.site_specific.context_processors.languages",
 )
 
+# List of callables that know how to import templates from various sources.
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
+
+if not DEBUG:
+    TEMPLATE_LOADERS = (
+        (
+            'django.template.loaders.cached.Loader',
+            TEMPLATE_LOADERS
+        ),
+    )
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
+)
+
+SECRET_KEY = get_secret("SECRET_KEY")
+
+ROOT_URLCONF = "berlinbuehnen.urls"
+
+TIME_ZONE = 'Europe/Berlin'
+USE_TZ = True
+USE_I18N = True
+USE_L10N = True
 
 ### ADMIN ###
 
@@ -388,192 +386,30 @@ ADMIN_APP_INDEX = (
             }),
         )
     }
-
 )
 
-PREPEND_WWW = False
 
-### CMS SETTINGS ###
+### CACHING ###
 
-execfile(os.path.join(JETSON_PATH, "jetson/settings/cms.py"), globals(), locals())
-
-CMS_LANGUAGES = {
-    1: [
-        {
-            'code': 'de',
-            'hide_untranslated': True,
-            'name': u'Deutsch',
-            'public': True,
-            'redirect_on_fallback': False,
-        },
-        {
-            'code': 'en',
-            'hide_untranslated': True,
-            'name': u'English',
-            'public': True,
-            'redirect_on_fallback': False,
-        },
-    ]
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+        'KEY_PREFIX': 'berlinbuehnen',
+    },
+    'dummy': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
 }
 
-# Customized placeholders
-CMS_PLACEHOLDER_CONF = {
-    'typehead': {
-        'plugins': ("RichTextPlugin", "HeadlinePlugin"),
-        'name': _("Typehead"),
-    },
-
-    'top_image': {
-        'plugins': ("FilebrowserImagePlugin",),
-        'name': _("Top Image"),
-    },
-
-    'intro': {
-        'plugins': ("IntroPlugin","FilebrowserImagePlugin"),
-        'name': _("Intro"),
-    },
-
-    'main_content': {
-        'plugins': ("EditorialContentPlugin","RichTextPlugin", "FilebrowserImagePlugin", "GMapPlugin", "ArticleSelectionPlugin", "TheaterOfTheWeekSelectionPlugin", "FootnotePlugin", "IndexItemPlugin"),
-        'name': _("Main Content"),
-    },
-
-    'footnotes': {
-        'plugins': ("RichTextPlugin",),
-        'name': _("Footnotes"),
-    },
-
-    'editorial_notices': {
-        'plugins': ("EditorialContentPlugin",),
-        'name': _("editorial notices"),
-    },
-
-    'plan_organize_first': {
-        'plugins': ("EditorialContentPlugin", "AdZonePlugin"),
-        'name': _("Plan & Organize - First"),
-    },
-
-    'series_items_featured': {
-        'plugins': ("EditorialContentPlugin", "AdZonePlugin"),
-        'name': _("Series Items Featured"),
-    },
-
-    'series_items': {
-        'plugins': ("EditorialContentPlugin",),
-        'name': _("Series Items"),
-    },
-
-    'series_exhibitions': {
-        'plugins': ("EditorialContentPlugin",),
-        'name': _("Series Exhibitions"),
-    },
-
-    'series_images': {
-        'plugins': ("RichTextPlugin",),
-        'name': _("Series Images"),
-    },
-
-    'start_page_content': {
-        'plugins': ("EditorialContentPlugin",),
-        'name': _("Start Page Content"),
-    },
-
-    'left_column': {
-        'plugins': ("EditorialContentPlugin","NewlyOpenedExhibitionPlugin","NewlyOpenedExhibitionExtPlugin",),
-        'name': _("Left Column"),
-    },
-
-    'center_column': {
-        'plugins': ("EditorialContentPlugin",),
-        'name': _("Center Column"),
-    },
-
-    'right_column': {
-        'plugins': ("EditorialContentPlugin",),
-        'name': _("Right Column"),
-    },
-
-    'featured_magazin': {
-        'plugins': ("EditorialContentPlugin",),
-        'name': _("Featured Magazin"),
-    },
-
-    'start_page_left': {
-        'plugins': ("EditorialContentPlugin", "FrontpageTeaserPlugin",),
-        'name': _("Start page left"),
-    },
-    'start_page_center': {
-        'plugins': ("EditorialContentPlugin", "FrontpageTeaserPlugin",),
-        'name': _("Start page center"),
-    },
-    'start_page_right': {
-        'plugins': ("EditorialContentPlugin", "FrontpageTeaserPlugin",),
-        'name': _("Start page right"),
-    },
-    ### SERVICES ###
-    'services/service_first.html main_content': {
-        'plugins': ("IndexItemPlugin",),
-        'name': _("Main Content"),
-    },
-    'services/service_second_grid.html intro': {
-        'plugins': ("ServicePageBannerPlugin",),
-        'name': _("Intro"),
-    },
-    'services/service_second_grid.html main_content': {
-        'plugins': ("ServiceGridItemPlugin",),
-        'name': _("Main Content"),
-    },
-    'services/service_second_list.html intro': {
-        'plugins': ("ServicePageBannerPlugin",),
-        'name': _("Intro"),
-    },
-    'services/service_second_list.html main_content': {
-        'plugins': ("ServiceListItemPlugin",),
-        'name': _("Main Content"),
-    },
-    'services/service_second_page.html intro': {
-        'plugins': ("ServicePageBannerPlugin",),
-        'name': _("Intro"),
-    },
-    'services/service_second_page.html main_content': {
-        'plugins': ("TitleAndTextPlugin", "ImageAndTextPlugin", "LinkCategoryPlugin",),
-        'name': _("Main Content"),
-    },
-    ### ADVENT CALENDAR ###
-    'advent_calendar/advent_calendar.html intro': {
-        'plugins': ("ServicePageBannerPlugin",),
-        'name': _("Intro"),
-    },
-}
-
-CMS_TEMPLATES = [
-    ('cms/default.html', gettext('Default')),
-    ('cms/start.html', gettext('Homepage')),
-    ('services/service_first.html', gettext(u'Service – First')),
-    ('services/service_second_grid.html', gettext(u'Service – Second – Grid')),
-    ('services/service_second_list.html', gettext(u'Service – Second – List')),
-    ('services/service_second_page.html', gettext(u'Service – Second – Page')),
-    ('advent_calendar/advent_calendar.html', gettext(u'Advent Calendar')),
-]
-
-CMS_APPHOOKS = (
-)
-
-CMS_REDIRECTS = True
-CMS_MENU_TITLE_OVERWRITE = True
-
-CMS_CACHE_DURATIONS = {
-    'content': 60,
-    'menus': 3600,
-    'permissions': 3600,
-}
-CMS_CACHE_PREFIX = "cms-"
-CMS_SITE_CHOICES_CACHE_KEY = 'CMS:site_choices'
-CMS_PAGE_CHOICES_CACHE_KEY = 'CMS:page_choices'
+CACHE_MIDDLEWARE_ALIAS = 'default'
+CACHE_MIDDLEWARE_SECONDS = 300
+CACHE_MIDDLEWARE_KEY_PREFIX = 'berlinbuehnen_production_'
+CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
 
 ### FILEBROWSER ###
 
-execfile(os.path.join(JETSON_PATH, "jetson/settings/filebrowser.py"), globals(), locals())
+execfile(os.path.join(JETSON_PATH, "jetson/settings/filebrowser.py"))
 
 FILEBROWSER_EXTENSIONS = {
     'Folder': [''],
@@ -590,8 +426,26 @@ FILEBROWSER_EXTENSIONS = {
 FILEBROWSER_VERSIONS = {
     'fb_thumb': {'verbose_name': 'Admin Thumbnail', 'width': 60, 'height': 60, 'opts': 'crop upscale'},
 }
-
 FILEBROWSER_MEDIA_URL = UPLOADS_URL = "/media/"
+
+FILE_UPLOAD_MAX_MEMORY_SIZE = 1024 * 1024 * 2  # 2 MB
+
+### MAILING ###
+
+MAILING_DEFAULT_FROM_NAME = "Berlin Bühnen"
+MAILING_DEFAULT_FROM_EMAIL = "berlin-buehnen@kulturprojekte-berlin.de"
+
+MAILING_CONTENT_TYPE_CHOICES = (
+    ("image_and_text", _("Image and text")),
+    ("text", _("Text only")),
+    ("news", _("News")),
+    ("tenders_and_compet", _("Tenders and Competitions")),
+    ("events", _("Events")),
+    ("portfolios", _("Portfolios")),
+    ("interviews", _("Magazine")),
+    ("jobs_and_bulletins", _("Jobs and Bulletins")),
+    ("people", _("Profiles")),
+)
 
 ### DEBUG TOOLBAR ###
 
@@ -601,6 +455,12 @@ execfile(os.path.join(JETSON_PATH, "jetson/settings/debug_toolbar.py"))
 
 execfile(os.path.join(JETSON_PATH, "jetson/settings/grappelli.py"))
 GRAPPELLI_ADMIN_HEADLINE = "Berlin Bühnen Admin"
+
+GRAPPELLI_AUTOCOMPLETE_SEARCH_FIELDS = {
+    "auth": {
+        "user": ("id__iexact", "username__icontains", "first_name__icontains", "last_name__icontains", "email__icontains",)
+    }
+}
 
 ### HAYSTACK ###
 
@@ -633,14 +493,20 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 
+HAYSTACK_ITERATOR_LOAD_PER_QUERY = 100
 HAYSTACK_ROUTERS = ['berlinbuehnen.apps.search.router.LanguageRouter']
 ALDRYN_SEARCH_LANGUAGE_FROM_ALIAS = lambda alias: alias
 ALDRYN_SEARCH_INDEX_BASE_CLASS = "berlinbuehnen.apps.search.search_indexes.CMSPageIndexBase"  # custom index base for pages
 ALDRYN_SEARCH_REGISTER_APPHOOK = False  # we'll use a custom app hook for search
 
-### OTHER SETTINGS ###
+### MULTILINGUAL URLS ###
 
-ARTICLES_HAVE_TYPES = False
+execfile(os.path.join(JETSON_PATH, "jetson/settings/multilingual_urls.py"))
+
+### OTHER SITE-SPECIFIC SETTINGS ###
+
+APPEND_SLASH = True
+PREPEND_WWW = False
 
 TWITTER_USERNAME = "berlinbuehnen"
 TWITTER_NUMBER_OF_TWEETS = 3
@@ -659,62 +525,75 @@ API_LIMIT_PER_PAGE = 0
 
 GALLERY_IMAGE_MIN_DIMENSIONS = (100, 100)
 
-CRISPY_TEMPLATE_PACK = "bootstrap3"
-
-MAILING_CONTENT_TYPE_CHOICES = (
-    ('authorship', _("Image authorship")),
-    ('locations', _("Theaters")),
-    ('productions', _("Productions")),
-    ('festivals', _("Festivals")),
-    ('educational_departments', _("Educational Departments")),
-    ('educational_projects', _("Educational Projects")),
-    ('article', _("News")),
-    ('banner', _("Banner")),
-    ('image_and_text', _("Image and text")),
-    ('text', _("Text only")),
-)
-
-MAILING_DEFAULT_FROM_NAME = "Berlin Bühnen"
-MAILING_DEFAULT_FROM_EMAIL = "berlin-buehnen@kulturprojekte-berlin.de"
-
 ROSETTA_STORAGE_CLASS = "rosetta.storage.SessionRosettaStorage"
 
-ALLOWED_HOSTS = ['www.berlinbuehnen.de', 'berlinbuehnen.de']
+TIME_INPUT_FORMATS = ("%H:%M:%S", "%H:%M", "%H.%M")
+
+DISABLE_CONTEXT_PROCESSORS = True
 
 COMMENTS_BANNED_USERS_GROUP = ""
 ACCOUNTS_DASHBOARD_USER_GROUPS = ["Location Owners"]
 
-#SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
-
-USE_TZ = True
+ARTICLES_HAVE_TYPES = False
 
 INFO_FILES_USERNAME = "location_owner"
 INFO_FILES_PASSWORD = "BbYWnGNrkXbhUzbeUu4rweix"
 
-### CACHE SETTINGS ###
+### DJANGO CRISPY FORMS ###
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
-        'KEY_PREFIX': 'berlinbuehnen',
-    },
-    'dummy': {
-        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-    }
+CRISPY_TEMPLATE_PACK = "bootstrap3"
+
+### DJANGO CMS ###
+
+execfile(os.path.join(JETSON_PATH, "jetson/settings/cms.py"), globals(), locals())
+
+CMS_LANGUAGES = {
+    1: [
+        {
+            'code': 'de',
+            'hide_untranslated': True,
+            'name': u'Deutsch',
+            'public': True,
+            'redirect_on_fallback': False,
+        },
+        {
+            'code': 'en',
+            'hide_untranslated': True,
+            'name': u'English',
+            'public': True,
+            'redirect_on_fallback': False,
+        },
+    ]
 }
 
-CACHE_MIDDLEWARE_ALIAS = 'default'
-CACHE_MIDDLEWARE_SECONDS = 300
-CACHE_MIDDLEWARE_KEY_PREFIX = ''
-CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
+CMS_TEMPLATES = [
+    ('cms/default.html', gettext('Default')),
+    ('cms/start.html', gettext('Homepage')),
+    ('services/service_first.html', gettext(u'Service – First')),
+    ('services/service_second_grid.html', gettext(u'Service – Second – Grid')),
+    ('services/service_second_list.html', gettext(u'Service – Second – List')),
+    ('services/service_second_page.html', gettext(u'Service – Second – Page')),
+    ('advent_calendar/advent_calendar.html', gettext(u'Advent Calendar')),
+]
 
-if not DEBUG:
-    # use a write-through cache – every write to the cache will also be written to the database.
-    # Session reads only use the database if the data is not already in the cache.
-    SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+CMS_APPHOOKS = (
+)
 
-DISABLE_CONTEXT_PROCESSORS = True
+CMS_REDIRECTS = True
+CMS_MENU_TITLE_OVERWRITE = True
+
+CMS_CACHE_DURATIONS = {
+    'content': 60,
+    'menus': 3600,
+    'permissions': 3600,
+}
+CMS_CACHE_PREFIX = "cms-"
+CMS_SITE_CHOICES_CACHE_KEY = 'CMS:site_choices'
+CMS_PAGE_CHOICES_CACHE_KEY = 'CMS:page_choices'
+
+### SOCIAL AUTHENTICATION ###
+
+AUTH_USER_MODEL = "auth.User"
 
 ### SENTRY ###
 
@@ -768,20 +647,15 @@ RAVEN_CONFIG = {
     'dsn': 'http://e3688d60c44f414fb5d13c5a455f5354:c337ee733e004b6a91600d78558b0056@46.101.101.159/7',
     # If you are using git, you can also automatically configure the
     # release based on the git info.
-    'release': raven.fetch_git_sha(os.path.dirname(os.path.dirname(__file__))),
+    'release': raven.fetch_git_sha(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))),
 }
-
-# SSL fix for requests
-import os, certifi
-os.environ['REQUESTS_CA_BUNDLE'] = certifi.where()
 
 ### API KEYS ###
 
-GOOGLE_API_KEY = "AIzaSyBROQ-O1BUohIIXD5ROs2lscp_aCOTK1K0"
+GOOGLE_API_KEY = get_secret("GOOGLE_API_KEY")
 
-### LOCAL SETTINGS ###
+### SSL FIX FOR REQUESTS ###
 
-try:
-    execfile(os.path.join(os.path.dirname(__file__), "local_settings.py"))
-except IOError:
-    pass
+import os, certifi
+os.environ['REQUESTS_CA_BUNDLE'] = certifi.where()
+
