@@ -517,6 +517,10 @@ h5 {
 
         }
 
+        .is-sm & {
+            margin-top: -25px;
+        }
+
         .is-xs & {
             font-size: 1rem;
             //bottom: 39px;
