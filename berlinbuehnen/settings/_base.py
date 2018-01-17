@@ -21,7 +21,7 @@ def get_secret(setting, secrets=secrets):
     try:
         return secrets[setting]
     except KeyError:
-        error_msg = 'Set the {0} environment variable'.format(setting)
+        error_msg = 'Set the {0} secret variable'.format(setting)
         raise ImproperlyConfigured(error_msg)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
