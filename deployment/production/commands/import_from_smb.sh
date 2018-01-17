@@ -8,10 +8,10 @@ date >> ${CRON_LOG_FILE}
 
 cd ${PROJECT_PATH}
 . bin/activate
-cd project/museumsportal
+cd ${PROJECT_PATH}/project/museumsportal
 python manage.py import_from_smb_smart --traceback >> ${CRON_LOG_FILE}  2>&1
 
-cd project/museumsportal/media
+cd ${PROJECT_PATH}/project/museumsportal/media
 find . -type f -exec chmod 664 {} ';' >> ${CRON_LOG_FILE}  2>&1
 find . -type d -exec chmod 775 {} ';' >> ${CRON_LOG_FILE}  2>&1
 
