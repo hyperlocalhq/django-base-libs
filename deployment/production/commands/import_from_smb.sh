@@ -9,7 +9,7 @@ date >> ${CRON_LOG_FILE}
 cd ${PROJECT_PATH}
 . bin/activate
 cd ${PROJECT_PATH}/project/museumsportal
-python manage.py import_from_smb_smart --traceback >> ${CRON_LOG_FILE}  2>&1
+python manage.py import_from_smb_smart --settings=settings.production --traceback >> ${CRON_LOG_FILE}  2>&1
 
 cd ${PROJECT_PATH}/project/museumsportal/media
 find . -type f -exec chmod 664 {} ';' >> ${CRON_LOG_FILE}  2>&1

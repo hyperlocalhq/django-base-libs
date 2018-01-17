@@ -17,7 +17,7 @@ project_path = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../project/museumsportal'),
 )
 sys.path += [project_path]
-os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
 
 import django.core.handlers.wsgi
 application = django.core.handlers.wsgi.WSGIHandler()

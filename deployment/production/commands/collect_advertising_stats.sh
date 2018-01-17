@@ -9,8 +9,8 @@ date >> ${CRON_LOG_FILE}
 cd ${PROJECT_PATH}
 . bin/activate
 cd project/museumsportal
-python manage.py collect_advertising_stats --traceback >> ${CRON_LOG_FILE}  2>&1
-python manage.py remove_old_advertising_stats --traceback >> ${CRON_LOG_FILE}  2>&1
+python manage.py collect_advertising_stats --settings=settings.production --traceback >> ${CRON_LOG_FILE}  2>&1
+python manage.py remove_old_advertising_stats --settings=settings.production --traceback >> ${CRON_LOG_FILE}  2>&1
 
 echo "Finished." >> ${CRON_LOG_FILE}
 duration=$SECONDS

@@ -9,7 +9,7 @@ date >> ${CRON_LOG_FILE}
 cd ${PROJECT_PATH}
 . bin/activate
 cd project/museumsportal
-python manage.py rebuild_index --noinput --traceback >> ${CRON_LOG_FILE} 2>&1
+python manage.py rebuild_index --settings=settings.production --noinput --traceback >> ${CRON_LOG_FILE} 2>&1
 chmod -R 777 tmp >> ${CRON_LOG_FILE}  2>&1
 
 echo "Finished." >> ${CRON_LOG_FILE}

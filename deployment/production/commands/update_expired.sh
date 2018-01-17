@@ -9,10 +9,10 @@ date >> ${CRON_LOG_FILE}
 cd ${PROJECT_PATH}
 . bin/activate
 cd project/museumsportal
-python manage.py update_expired_exhibitions --traceback >> ${CRON_LOG_FILE}  2>&1
-python manage.py update_expired_events --traceback >> ${CRON_LOG_FILE}  2>&1
-python manage.py update_expired_workshops --traceback >> ${CRON_LOG_FILE}  2>&1
-python manage.py update_expired_seasons --traceback >> ${CRON_LOG_FILE}  2>&1
+python manage.py update_expired_exhibitions --settings=settings.production --traceback >> ${CRON_LOG_FILE}  2>&1
+python manage.py update_expired_events --settings=settings.production --traceback >> ${CRON_LOG_FILE}  2>&1
+python manage.py update_expired_workshops --settings=settings.production --traceback >> ${CRON_LOG_FILE}  2>&1
+python manage.py update_expired_seasons --settings=settings.production --traceback >> ${CRON_LOG_FILE}  2>&1
 
 echo "Finished." >> ${CRON_LOG_FILE}
 duration=$SECONDS
