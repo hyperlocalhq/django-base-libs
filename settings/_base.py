@@ -66,7 +66,7 @@ FILE_UPLOAD_TEMP_DIR = SESSION_FILE_PATH = PATH_TMP
 FILE_UPLOAD_PERMISSIONS = 0775
 
 LOCALE_PATHS = [
-    os.path.join(PROJECT_PATH, "locale"),
+    os.path.join(PROJECT_PATH, "museumsportal", "locale"),
 ]
 
 ### LANGUAGES ###
