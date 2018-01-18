@@ -17,6 +17,7 @@ DATABASES = {
         'NAME': get_secret("DATABASE_NAME"),
         'USER': get_secret("DATABASE_USER"),
         'PASSWORD': get_secret("DATABASE_PASSWORD"),
+        'HOST': '83.138.80.207',
         'OPTIONS': {
             'init_command': 'SET storage_engine=MyISAM,'
                 'character_set_connection=utf8,'
