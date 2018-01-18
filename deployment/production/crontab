@@ -6,7 +6,7 @@ SHELL=/usr/local/bin/bash
 */5 * * * * /usr/local/www/apache24/data/berlin-buehnen.de/commands/send_mails.sh
 00 02 * * * /usr/local/www/apache24/data/berlin-buehnen.de/commands/actualize_production_date_and_time.sh
 00 03 * * * /usr/local/www/apache24/data/berlin-buehnen.de/commands/import_from_individual_sources.sh
-*/5 * * * * /usr/local/www/apache24/data/berlin-buehnen.de/commands/import_from_grips_theater.sh
+*/15 * * * * /usr/local/www/apache24/data/berlin-buehnen.de/commands/import_from_grips_theater.sh
 00 04 * * * /usr/local/www/apache24/data/berlin-buehnen.de/commands/rebuild_index.sh
 30 04 * * * /usr/local/www/apache24/data/berlin-buehnen.de/commands/export_productions_to_excel.sh
 00 05 * * * /usr/local/www/apache24/data/berlin-buehnen.de/commands/collect_advertising_stats.sh
