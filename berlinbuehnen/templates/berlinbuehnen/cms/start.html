@@ -255,7 +255,7 @@
                 {% endcomment %}
 
                 <!-- Ads -->
-                <div class="col-xs-12 col-sm-6 col-md-4 ads {% if not "start_page"|not_empty_ad_zone and not "start_page_2"|not_empty_ad_zone %}no-ads{% endif %}">
+                <div class="col-xs-12 col-sm-6 col-md-4 ads ad_banner {% if not "start_page"|not_empty_ad_zone and not "start_page_2"|not_empty_ad_zone %}no-ads{% endif %}">
 
                     {% if "start_page"|not_empty_ad_zone or "start_page_2"|not_empty_ad_zone %}
                         <h1 class="bottom-line">{% trans "Ad" %}</h1>

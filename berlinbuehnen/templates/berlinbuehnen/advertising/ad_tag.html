@@ -15,6 +15,7 @@
 
 {% if ad.bannerad %}
     {% if ad.zone.sysname == "start_page" or ad.zone.sysname == "start_page_2" %}
+        {% if ad.zone.sysname == "start_page_2" %}<h6 class="block-label headline-up">{% trans "Advertisement" %}</h6>{% endif %}
         <a target="_blank" href="{{ ad.get_url_path }}"><img class="img-responsive img-full" src="{{ ad.bannerad.content.url }}" alt="{{ ad.title }}" /></a>
         {% if ad.zone.sysname == "start_page" %}<br/>{% endif %}
     {% elif ad.zone.sysname == "festivals" %}
