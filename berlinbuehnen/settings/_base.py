@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from datetime import timedelta
 
 import os
+import sys
 import json
 from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse_lazy
@@ -27,8 +28,11 @@ def get_secret(setting, secrets=secrets):
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 JETSON_PATH = BASE_DIR
 PROJECT_PATH = os.path.join(BASE_DIR, "berlinbuehnen")
+EXTERNALS_PATH = os.path.join(BASE_DIR, "berlinbuehnen", "berlinbuehnen", "externals")
 
-execfile(os.path.join(JETSON_PATH, "jetson/settings/base.py"), globals(), locals())
+sys.path = ["", JETSON_PATH, EXTERNALS_PATH] + [p for p in sys.path if p]
+
+execfile(os.path.join(BASE_DIR, "berlinbuehnen", "berlinbuehnen", "settings", "_jetson_base.py"), globals(), locals())
 
 ### DOMAINS ###
 
@@ -538,6 +542,9 @@ ARTICLES_HAVE_TYPES = False
 
 INFO_FILES_USERNAME = "location_owner"
 INFO_FILES_PASSWORD = "BbYWnGNrkXbhUzbeUu4rweix"
+
+TINYMCE_JS_URL = STATIC_URL + 'admin/tinymce/jscripts/tiny_mce/tiny_mce.js'
+TINYMCE_JS_ROOT = os.path.join(STATIC_ROOT, 'admin', 'tinymce')
 
 ### DJANGO CRISPY FORMS ###
 
