@@ -838,5 +838,5 @@ if __name__ == "__main__":
     PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
     sys.path = ["", PROJECT_PATH] + sys.path
     os.chdir(os.path.dirname(__file__))
-    os.environ["DJANGO_SETTINGS_MODULE"] = "settings.local"
+    os.environ["DJANGO_SETTINGS_MODULE"] = "museumsportal.settings.local"
     unittest.TextTestRunner(verbosity=1).run(suite())
