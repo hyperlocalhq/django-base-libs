@@ -307,6 +307,16 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
                     stage = Stage()
                     stage.location = location or self.in_program_of
                     stage.title_de = stage.title_en = stage_settings.internal_stage_title
+                except Stage.MultipleObjectsReturned:
+                    loc = location or self.in_program_of
+                    self.stderr.write(
+                        "Error: Multiple stages under {location} (ID={location_id}) with title {stage_title}".format(
+                            location=loc.title,
+                            location_id=loc.pk,
+                            stage_title=stage_settings.internal_stage_title,
+                        )
+                    )
+                    return LocationAndStage(location, None)
 
                 if not stage.street_address:
                     stage.street_address = culturebase_location.street_address
@@ -395,6 +405,16 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
                     stage = Stage()
                     stage.location = location or self.in_program_of
                     stage.title_de = stage.title_en = stage_settings.internal_stage_title
+                except Stage.MultipleObjectsReturned:
+                    loc = location or self.in_program_of
+                    self.stderr.write(
+                        "Error: Multiple stages under {location} (ID={location_id}) with title {stage_title}".format(
+                            location=loc.title,
+                            location_id=loc.pk,
+                            stage_title=stage_settings.internal_stage_title,
+                        )
+                    )
+                    return LocationAndStage(location, None)
 
                 if not stage.street_address:
                     culturebase_location = self.LOCATIONS_BY_TITLE.get(stage_settings.internal_stage_title, None)
