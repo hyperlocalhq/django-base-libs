@@ -180,6 +180,7 @@ INSTALLED_APPS = [
     "museumsportal.apps.shop",
     "museumsportal.apps.museumssummer",
     "museumsportal.apps.tips",
+    "museumsportal.apps.infobanners",
 
     # the following apps are copied and converted from jetson
     "museumsportal.apps.mailchimp",
@@ -278,6 +279,9 @@ ADMIN_APP_INDEX = (
             }),
             ('blocks', {
                 'models': ('InfoBlock',),
+            }),
+            ('infobanners', {
+                'models': ('InfoBanner',),
             }),
             ('museums', {
                 'models': ('MuseumCategory','MuseumService','AccessibilityOption', 'Museum',),

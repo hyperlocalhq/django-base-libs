@@ -1,5 +1,5 @@
 {% block doctype %}<!DOCTYPE html>{% endblock %}
-{% load cms_tags menu_tags compressed sekizai_tags i18n image_modifications base_tags %}
+{% load cms_tags menu_tags compressed sekizai_tags i18n image_modifications base_tags infobanners_tags %}
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -99,6 +99,7 @@
 </script>
 
 {{ site_settings.extra_head|safe }}
+{% render_block "head_js" %}
 {% block js %}{% endblock %}
 </head>
 
@@ -202,6 +203,11 @@
         </div>
       {% endblock %}
     </div>
+
+    {% block top_alert %}
+        {% infobanner "top" %}
+    {% endblock %}
+
     {% render_block "js" %}
     {{ site_settings.extra_body|safe }}
   </div>
