@@ -64,8 +64,7 @@ def counselling_events_list(request, **kwargs):
         return access_denied(request)
 
     institution = item.content_object
-    other_institutions = list(Institution.objects.filter(slug="kulturfoerderpunkt_berlin"))
-    institution_list = [institution] + other_institutions
+    institution_list = [institution]
     queryset = queryset.filter(
         models.Q(event__organizing_institution__in=institution_list) |
         models.Q(event__venue__in=institution_list),

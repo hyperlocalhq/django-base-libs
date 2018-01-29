@@ -10,7 +10,7 @@ from ccb.apps.institutions.models import Institution
 
 def event_list(request):
     institutions = Institution.objects.filter(slug__in=[
-        "kulturforderpunkt_berlin",
+        "kulturfoerderpunkt_berlin",
         "crowdfunding_berlin",
         "creative_city_berlin",
         "kreativ_kultur_berlin",
@@ -26,7 +26,7 @@ def event_list(request):
 
 def event_list_js(request):
     institutions = Institution.objects.filter(slug__in=[
-        "kulturforderpunkt_berlin",
+        "kulturfoerderpunkt_berlin",
         "crowdfunding_berlin",
         "creative_city_berlin",
         "kreativ_kultur_berlin",
