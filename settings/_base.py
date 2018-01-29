@@ -983,5 +983,5 @@ CKEDITOR_CONFIGS = {
     },
 }
 CKEDITOR_EXTERNAL_PLUGIN_SOURCES = [
-    ('oembed', STATIC_URL + 'site/ckeditor_plugins/oembed/', 'plugin.js'),
+    ('oembed', '{}ckeditor/plugins/oembed/'.format(JETSON_MEDIA_URL), 'plugin.js'),
 ]
