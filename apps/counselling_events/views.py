@@ -22,6 +22,7 @@ from ccb.apps.events.utils import create_ics
 
 Event = apps.get_model("events", "Event")
 EventTime = apps.get_model("events", "EventTime")
+Institution = apps.get_model("institutions", "Institution")
 
 @never_cache
 def event_list(request, criterion="", slug="", show="", start_date=None, end_date=None, unlimited=False, title="",
@@ -63,9 +64,11 @@ def counselling_events_list(request, **kwargs):
         return access_denied(request)
 
     institution = item.content_object
+    other_institutions = list(Institution.objects.filter(slug="kulturfoerderpunkt_berlin"))
+    institution_list = [institution] + other_institutions
     queryset = queryset.filter(
-        models.Q(event__organizing_institution=institution) |
-        models.Q(event__venue=institution),
+        models.Q(event__organizing_institution__in=institution_list) |
+        models.Q(event__venue__in=institution_list),
     ).annotate(
         present_then_past=models.Case(
             models.When(end__lt=now(), then=models.Value(1)),
@@ -79,7 +82,6 @@ def counselling_events_list(request, **kwargs):
     kwargs.setdefault("extra_context", {})
     kwargs['extra_context']['object'] = item.content_object
     kwargs['title'] = _("Events by/at %s") % item.content_object.get_title()
-
 
     extra_context = kwargs.setdefault("extra_context", {})
     extra_context['today'] = datetime.now()
