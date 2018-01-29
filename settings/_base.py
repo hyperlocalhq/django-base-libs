@@ -983,5 +983,5 @@ CKEDITOR_CONFIGS = {
     },
 }
 CKEDITOR_EXTERNAL_PLUGIN_SOURCES = [
-    ('oembed', STATIC_URL + 'bower_components/ckeditor/plugins/oembed/', 'plugin.js'),
+    ('oembed', STATIC_URL + 'site/ckeditor_plugins/oembed/', 'plugin.js'),
 ]

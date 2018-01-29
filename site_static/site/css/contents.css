@@ -451,8 +451,11 @@ h5 {
         font-size: 1rem !important; }
     h5.caption * {
       color: #777777 !important; }
+    .is-sm h5.caption {
+      margin-top: -25px; }
     .is-xs h5.caption {
-      font-size: 1rem; }
+      font-size: 1rem;
+      margin-top: -20px; }
   h5.caption-old {
     font-weight: 400;
     font-size: 1.2rem;
@@ -652,6 +655,11 @@ dl {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none; }
+  .button.thin, .btn.thin {
+    font-size: 0.95em !important;
+    height: 2.2em;
+    line-height: 210%;
+    padding: 0 2em !important; }
   .button.btn-responsive, .btn.btn-responsive {
     height: auto;
     line-height: 110%;
