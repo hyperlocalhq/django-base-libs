@@ -1,6 +1,10 @@
 /* global CKEDITOR:false */
 
 CKEDITOR.stylesSet.add('ccb_styles', [
+    { name: 'Caption', element: 'h5', attributes: { 'class': 'caption' } },
+    { name: 'Intro', element: 'p', attributes: {'class': 'intro'} },
+    { name: 'Interview', element: 'p', attributes: { 'class': 'interview'} },
+    { name: 'Interviewee', element: 'span', attributes: { 'class': 'interviewee'} }
 ]);
 
 CKEDITOR.editorConfig = function( config ) {
@@ -10,7 +14,7 @@ CKEDITOR.editorConfig = function( config ) {
 
     config.forcePasteAsPlainText = false;
     // Set the most common block elements.
-    config.format_tags = 'p;h2;h3;h4';
+    config.format_tags = 'p;h2;h3;h4;h5';
 
     // Simplify the dialog windows.
     //config.removeDialogTabs = 'image:advanced;link:advanced';
@@ -39,7 +43,7 @@ CKEDITOR.editorConfig = function( config ) {
         { name: 'colors', groups: [ 'colors' ] },
         { name: 'about', groups: [ 'about' ] }
     ];
-    config.removeButtons = 'Underline,Subscript,Superscript,Source,Styles,Table,HorizontalRule,SpecialChar,About';
+    config.removeButtons = 'Underline,Subscript,Superscript,Source,Table,HorizontalRule,SpecialChar,About';
 
     config.stylesSet = 'ccb_styles';
     config.contentsCss = window.settings.STATIC_URL + 'site/css/ckeditor.css';
