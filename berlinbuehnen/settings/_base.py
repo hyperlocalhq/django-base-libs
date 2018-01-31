@@ -182,6 +182,7 @@ INSTALLED_APPS = [
     "berlinbuehnen.apps.cms_extensions.plugins.filebrowser_image",
     "berlinbuehnen.apps.cms_extensions.plugins.gmap",
     "berlinbuehnen.apps.cms_extensions.plugins.headline",
+    "berlinbuehnen.apps.cms_extensions.plugins.page_teaser",
     "berlinbuehnen.apps.advent_calendar",
 ]
 
@@ -659,4 +660,3 @@ GOOGLE_API_KEY = get_secret("GOOGLE_API_KEY")
 
 import os, certifi
 os.environ['REQUESTS_CA_BUNDLE'] = certifi.where()
-
