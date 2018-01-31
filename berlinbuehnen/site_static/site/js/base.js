@@ -299,8 +299,23 @@ window.tooltipAdjustments = function() {
     $('[data-toggle="tooltip"]').off('shown.bs.tooltip').on('shown.bs.tooltip', tooltipFix);
 }
 
+
+function PageTeaserAdjustment($main) {
+
+    $('.news-item', $main).each(function(index) {
+        if ((index+1) % 2 == 0) {
+            $(this).after('<div class="clearfix"></div>');
+        }
+    });
+}
+
+
 $(document).ready(function() {
     window.tooltipAdjustments();
+
+    $('.page-teaser').each(function() {
+        new PageTeaserAdjustment($(this));
+    });
 });
 
 $(document).on('click', 'a.js-back', function(e) {

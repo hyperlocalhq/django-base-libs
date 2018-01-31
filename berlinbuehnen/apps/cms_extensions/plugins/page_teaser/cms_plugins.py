@@ -16,7 +16,7 @@ from .models import PageTeaser
 class PageTeaserPlugin(MarkupTypeOptions, CMSPluginBase):
     model = PageTeaser
     name = _("Page Teaser")
-    render_template = "cms/plugins/richtext.html"
+    render_template = "cms/plugins/page_teaser.html"
     change_form_template = "cms/plugins/richtext_plugin_change_form.html"
 
     def render(self, context, instance, placeholder):

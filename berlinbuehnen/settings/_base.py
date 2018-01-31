@@ -675,6 +675,11 @@ CMS_PLACEHOLDER_CONF = {
         'name': _("Featured Magazin"),
     },
 
+    'page_teaser': {
+        'plugins': ("PageTeaserPlugin",),
+        'name': _("Page Teaser"),
+    },
+
     'start_page_left': {
         'plugins': ("EditorialContentPlugin", "FrontpageTeaserPlugin",),
         'name': _("Start page left"),

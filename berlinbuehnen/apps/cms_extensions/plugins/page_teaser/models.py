@@ -18,7 +18,7 @@ class PageTeaser(CMSPlugin):
     short_description = ExtendedTextField(_("Short Description"), blank=True)
     internal_link = PageField(verbose_name=_("Internal link"), blank=True, null=True, on_delete=models.SET_NULL)
     link_external = models.URLField(_("External Link"), max_length=255, blank=True)
-    link_text = models.CharField(verbose_name=_("Link Text"), max_length=30, default=_("MEHR"))
+    link_text = models.CharField(verbose_name=_("Link Text"), max_length=30, default=_("read on"))
 
     def __unicode__(self):
-        return self.headline
+        return self.title
