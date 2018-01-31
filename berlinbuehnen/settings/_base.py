@@ -436,15 +436,16 @@ MAILING_DEFAULT_FROM_NAME = "Berlin Bühnen"
 MAILING_DEFAULT_FROM_EMAIL = "berlin-buehnen@kulturprojekte-berlin.de"
 
 MAILING_CONTENT_TYPE_CHOICES = (
-    ("image_and_text", _("Image and text")),
-    ("text", _("Text only")),
-    ("news", _("News")),
-    ("tenders_and_compet", _("Tenders and Competitions")),
-    ("events", _("Events")),
-    ("portfolios", _("Portfolios")),
-    ("interviews", _("Magazine")),
-    ("jobs_and_bulletins", _("Jobs and Bulletins")),
-    ("people", _("Profiles")),
+    ('authorship', _("Image authorship")),
+    ('locations', _("Theaters")),
+    ('productions', _("Productions")),
+    ('festivals', _("Festivals")),
+    ('educational_departments', _("Educational Departments")),
+    ('educational_projects', _("Educational Projects")),
+    ('article', _("News")),
+    ('banner', _("Banner")),
+    ('image_and_text', _("Image and text")),
+    ('text', _("Text only")),
 )
 
 ### DEBUG TOOLBAR ###
