@@ -592,6 +592,136 @@ CMS_CACHE_PREFIX = "cms-"
 CMS_SITE_CHOICES_CACHE_KEY = 'CMS:site_choices'
 CMS_PAGE_CHOICES_CACHE_KEY = 'CMS:page_choices'
 
+# Customized placeholders
+CMS_PLACEHOLDER_CONF = {
+    'typehead': {
+        'plugins': ("RichTextPlugin", "HeadlinePlugin"),
+        'name': _("Typehead"),
+    },
+
+    'top_image': {
+        'plugins': ("FilebrowserImagePlugin",),
+        'name': _("Top Image"),
+    },
+
+    'intro': {
+        'plugins': ("IntroPlugin","FilebrowserImagePlugin"),
+        'name': _("Intro"),
+    },
+
+    'main_content': {
+        'plugins': ("EditorialContentPlugin","RichTextPlugin", "FilebrowserImagePlugin", "GMapPlugin", "ArticleSelectionPlugin", "TheaterOfTheWeekSelectionPlugin", "FootnotePlugin", "IndexItemPlugin"),
+        'name': _("Main Content"),
+    },
+
+    'footnotes': {
+        'plugins': ("RichTextPlugin",),
+        'name': _("Footnotes"),
+    },
+
+    'editorial_notices': {
+        'plugins': ("EditorialContentPlugin",),
+        'name': _("editorial notices"),
+    },
+
+    'plan_organize_first': {
+        'plugins': ("EditorialContentPlugin", "AdZonePlugin"),
+        'name': _("Plan & Organize - First"),
+    },
+
+    'series_items_featured': {
+        'plugins': ("EditorialContentPlugin", "AdZonePlugin"),
+        'name': _("Series Items Featured"),
+    },
+
+    'series_items': {
+        'plugins': ("EditorialContentPlugin",),
+        'name': _("Series Items"),
+    },
+
+    'series_exhibitions': {
+        'plugins': ("EditorialContentPlugin",),
+        'name': _("Series Exhibitions"),
+    },
+
+    'series_images': {
+        'plugins': ("RichTextPlugin",),
+        'name': _("Series Images"),
+    },
+
+    'start_page_content': {
+        'plugins': ("EditorialContentPlugin",),
+        'name': _("Start Page Content"),
+    },
+
+    'left_column': {
+        'plugins': ("EditorialContentPlugin","NewlyOpenedExhibitionPlugin","NewlyOpenedExhibitionExtPlugin",),
+        'name': _("Left Column"),
+    },
+
+    'center_column': {
+        'plugins': ("EditorialContentPlugin",),
+        'name': _("Center Column"),
+    },
+
+    'right_column': {
+        'plugins': ("EditorialContentPlugin",),
+        'name': _("Right Column"),
+    },
+
+    'featured_magazin': {
+        'plugins': ("EditorialContentPlugin",),
+        'name': _("Featured Magazin"),
+    },
+
+    'start_page_left': {
+        'plugins': ("EditorialContentPlugin", "FrontpageTeaserPlugin",),
+        'name': _("Start page left"),
+    },
+    'start_page_center': {
+        'plugins': ("EditorialContentPlugin", "FrontpageTeaserPlugin",),
+        'name': _("Start page center"),
+    },
+    'start_page_right': {
+        'plugins': ("EditorialContentPlugin", "FrontpageTeaserPlugin",),
+        'name': _("Start page right"),
+    },
+    ### SERVICES ###
+    'services/service_first.html main_content': {
+        'plugins': ("IndexItemPlugin",),
+        'name': _("Main Content"),
+    },
+    'services/service_second_grid.html intro': {
+        'plugins': ("ServicePageBannerPlugin",),
+        'name': _("Intro"),
+    },
+    'services/service_second_grid.html main_content': {
+        'plugins': ("ServiceGridItemPlugin",),
+        'name': _("Main Content"),
+    },
+    'services/service_second_list.html intro': {
+        'plugins': ("ServicePageBannerPlugin",),
+        'name': _("Intro"),
+    },
+    'services/service_second_list.html main_content': {
+        'plugins': ("ServiceListItemPlugin",),
+        'name': _("Main Content"),
+    },
+    'services/service_second_page.html intro': {
+        'plugins': ("ServicePageBannerPlugin",),
+        'name': _("Intro"),
+    },
+    'services/service_second_page.html main_content': {
+        'plugins': ("TitleAndTextPlugin", "ImageAndTextPlugin", "LinkCategoryPlugin",),
+        'name': _("Main Content"),
+    },
+    ### ADVENT CALENDAR ###
+    'advent_calendar/advent_calendar.html intro': {
+        'plugins': ("ServicePageBannerPlugin",),
+        'name': _("Intro"),
+    },
+}
+
 ### SOCIAL AUTHENTICATION ###
 
 AUTH_USER_MODEL = "auth.User"
