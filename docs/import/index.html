@@ -513,7 +513,7 @@ pre.line-numbers > code {
 
 <h1 id="toc_0">Frequently Asked Questions about Production Import to Berlin Bühnen</h1>
 
-<p>Last update: October 24, 2017</p>
+<p>Last update: February 1, 2018</p>
 
 <ul class="toc">
 <li>
@@ -655,11 +655,11 @@ pre.line-numbers > code {
 
 <p>Productions that existed in the import feed before, but don&#39;t exist there anymore will get a status &quot;trashed&quot;. The same is with events: events that existed in the import feed before, but don&#39;t exist there anymore will get event status &quot;trashed&quot;.</p>
 
+<p>Productions and events republished at the import feed will reappear at Berlin Bühnen again, unless <strong>no_overwriting</strong> is set to True there. </p>
+
 <h2 id="toc_7">If a production is deleted at Berlin Bühnen, will it be reimported again?</h2>
 
-<p>No, productions deleted at Berlin Bühnen are meant to be deleted on purpose and therefore they won&#39;t be recreated again by the import script.</p>
-
-<p>This restriction can be excluded for specific cases on request.</p>
+<p>If a production or event is manually trashed in the dashboard of Berlin Bühnen, the production will get <strong>status</strong> &quot;trashed&quot; or event will get <strong>event_status</strong> &quot;trashed&quot; and <strong>no_overwriting</strong> for the production will be set to True. So with the next import it won&#39;t be updated.</p>
 
 
 
