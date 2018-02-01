@@ -335,6 +335,7 @@ def contact_done(request, **kwargs):
     """
     Display the confirmation page after submitting a contact form
     """
+    kwargs['slug'] = kwargs['slug'].lower()
     obj = get_object_or_404(
         kwargs['queryset'],
         **{kwargs['slug_field']: kwargs['slug']}
