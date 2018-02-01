@@ -653,6 +653,7 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
 
             if self.verbosity >= self.NORMAL:
                 self.stdout.write(u"%d/%d %s | %s" % (prod_index, prods_count, title_de, title_en))
+                self.stdout.flush()
 
             mapper = None
             try:
@@ -669,11 +670,13 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
             else:
                 prod = mapper.content_object
                 self.production_ids_to_keep.add(prod.pk)
-                if not prod or prod.status == "trashed":
+                if not prod:
                     # if exhibition was deleted after import,
                     # don't import it again
                     self.stats['prods_skipped'] += 1
                     continue
+                if prod.status == "trashed":
+                    self.stats['prods_untrashed'] += 1
                 # else:
                 #     if parse_datetime(exhibition_dict['lastaction'], ignoretz=True) < datetime.now() - timedelta(days=1):
                 #         self.stats['prods_skipped'] += 1
@@ -961,8 +964,12 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
                 if event_node.get('takingPlace'):
                     flag_status = int(event_node.get('takingPlace'))
                     if flag_status == 0:  # fällt aus
+                        if event.event_status == "trashed":
+                            self.stats['events_untrashed'] += 1
                         event.event_status = 'canceled'
                     elif flag_status == 1:  # findet statt
+                        if event.event_status == "trashed":
+                            self.stats['events_untrashed'] += 1
                         event.event_status = 'takes_place'
                     elif flag_status == 2:  # ausverkauft
                         event.ticket_status = 'sold_out'

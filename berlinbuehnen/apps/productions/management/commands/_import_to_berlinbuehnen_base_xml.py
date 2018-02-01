@@ -31,14 +31,12 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
     option_list = NoArgsCommand.option_list + (
         make_option('--skip_images', action='store_true', help='Skips image downloads'),
         make_option('--update_images', action='store_true', help='Forces image-download updates'),
-        make_option('--untrash', action='store_true', help='Restores trashed productions'),
     )
 
     def handle_noargs(self, *args, **options):
         self.verbosity = int(options.get("verbosity", self.NORMAL))
         self.skip_images = options.get("skip_images")
         self.update_images = options.get("update_images")
-        self.untrash = options.get("untrash")
         self.prepare()
         self.main()
         self.finalize()
@@ -215,6 +213,7 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
 
             if self.verbosity >= self.NORMAL:
                 self.stdout.write(u"%d/%d %s | %s" % (self._production_counter, self._total_production_count, title_de, title_en))
+                self.stdout.flush()
 
             mapper = None
             try:
@@ -231,11 +230,13 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
             else:
                 prod = mapper.content_object
                 self.production_ids_to_keep.add(prod.pk)
-                if not prod or (not self.untrash and prod.status == "trashed"):
+                if not prod:
                     # if production was deleted after import,
                     # don't import it again
                     self.stats['prods_skipped'] += 1
                     continue
+                if prod.status == "trashed":
+                    self.stats['prods_untrashed'] += 1
 
             if prod.no_overwriting:
                 self.stats['prods_skipped'] += 1
@@ -757,6 +758,8 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
                 except LanguageAndSubtitles.DoesNotExist:
                     event.language_and_subtitles = None
 
+                if event.event_status == "trashed":
+                    self.stats['events_untrashed'] += 1
                 event.event_status = self.get_child_text(event_node, 'event_status')
                 event.ticket_status = self.get_child_text(event_node, 'ticket_status')
 

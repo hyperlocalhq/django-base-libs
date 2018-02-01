@@ -260,6 +260,7 @@ def delete_production(request, slug):
     if not instance.is_deletable():
         return access_denied(request)
     if request.method == "POST" and request.is_ajax():
+        instance.no_overwriting = True
         instance.status = "trashed"
         instance.save()
         return HttpResponse("OK")
@@ -715,6 +716,8 @@ def delete_event(request, slug, event_id):
     if not event.production.is_deletable():
         return access_denied(request)
     if request.method == "POST" and request.is_ajax():
+        production.no_overwriting = True
+        production.save()
         event.event_status = "trashed"
         event.save()
         return HttpResponse("OK")

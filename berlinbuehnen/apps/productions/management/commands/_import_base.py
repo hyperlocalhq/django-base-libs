@@ -241,10 +241,12 @@ class ImportCommandMixin(object):
         'prods_updated': 0,
         'prods_skipped': 0,
         'prods_trashed': 0,
+        'prods_untrashed': 0,
         'events_added': 0,
         'events_updated': 0,
         'events_skipped': 0,
         'events_trashed': 0,
+        'events_untrashed': 0,
     }
     all_feeds_alright = True
 
@@ -426,10 +428,12 @@ class ImportCommandMixin(object):
             self.stdout.write(u"Productions updated: {}\n".format(self.stats['prods_updated']))
             self.stdout.write(u"Productions skipped: {}\n".format(self.stats['prods_skipped']))
             self.stdout.write(u"Productions trashed: {}\n".format(self.stats['prods_trashed']))
+            self.stdout.write(u"Productions untrashed: {}\n".format(self.stats['prods_untrashed']))
             self.stdout.write(u"Events added: {}\n".format(self.stats['events_added']))
             self.stdout.write(u"Events updated: {}\n".format(self.stats['events_updated']))
             self.stdout.write(u"Events skipped: {}\n".format(self.stats['events_skipped']))
             self.stdout.write(u"Events trashed: {}\n".format(self.stats['events_trashed']))
+            self.stdout.write(u"Events untrashed: {}\n".format(self.stats['events_untrashed']))
 
     def finalize(self):
         self.deactivate_nonactual_productions_and_events()
