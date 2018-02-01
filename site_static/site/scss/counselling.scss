@@ -131,6 +131,10 @@ h5 {
     line-height: 111%;
     margin-bottom: 15px;
 
+    &.caption {
+        margin-top: -20px;
+    }
+
     .is-sm &, .is-xs & {
         font-size: 1em;
         line-height: 111%;

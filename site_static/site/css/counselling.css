@@ -1873,6 +1873,13 @@ img.ckeditor-image {
   height: 100%;
 }
 
+.tiny-mce ul, .tiny-mce ol {
+  font-size: 1.2rem;
+  line-height: 140%;
+  color: #000;
+  margin: 0 0 30px 1.2rem;
+}
+
 .ckeditor-embed {
   width: 100%;
   display: block;
@@ -2085,8 +2092,13 @@ h5.caption * {
   color: #777777 !important;
 }
 
+.is-sm h5.caption {
+  margin-top: -25px;
+}
+
 .is-xs h5.caption {
   font-size: 1rem;
+  margin-top: -20px;
 }
 
 h5.caption-old {
@@ -6990,6 +7002,10 @@ h5 {
   color: #444444;
   line-height: 111%;
   margin-bottom: 15px;
+}
+
+h5.caption {
+  margin-top: -20px;
 }
 
 .is-sm h5, .is-xs h5 {
