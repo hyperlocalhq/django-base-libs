@@ -961,6 +961,7 @@ CKEDITOR_CONFIGS = {
             [
                 #'Format', '-',
                 'Bold', 'Italic', '-',
+                'BulletedList', 'NumberedList', '-',
                 #'BulletedList', 'NumberedList', 'Blockquote', '-',
                 'Link', 'Unlink', '-',
                 'Image', 'oembed',
