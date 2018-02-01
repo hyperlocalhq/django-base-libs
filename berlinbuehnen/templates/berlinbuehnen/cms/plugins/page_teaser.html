@@ -1,0 +1,16 @@
+{% load base_tags cms_tags i18n image_modifications fb_tags %}
+<div class="col-xs-12 col-md-6 news-item">
+    <a href="{% if object.internal_link %}{{ object.internal_link.get_absolute_url }}{% else %}{{ object.link_external }}" target="_blank{% endif %}">
+        <h3>{% if object.category %}{{ object.category }}{% else %}&nbsp;{% endif %}</h3>
+        {% if object.image %}
+            <div class="img photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ object.image.path|modified_path:"news_image"  }}" {% if object.alt %} alt="{{ object.alt|escape }}" {% endif %} />{% with object.image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}{% endwith %}</div>
+        {% endif %}
+        {% if object.title %}<h2>{{ object.title }}</h2>{% endif %}
+        <p>
+            {% if object.short_description %}
+                {{ object.get_rendered_short_description|striptags }}
+            {% endif %}
+        </p>
+        <p class="more fawesome">{{ object.link_text }}</p>
+    </a>
+</div>
