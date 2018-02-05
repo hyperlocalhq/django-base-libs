@@ -30,13 +30,23 @@ class Command(NoArgsCommand):
         Service = apps.get_model("external_services", "Service")
         URLType = apps.get_model("optionset", "URLType")
 
+        stats = {
+            'added': 0,
+            'updated': 0,
+            'skipped': 0,
+        }
+
+        URL = "https://api.dasauge.net/jobfeed/?region=Berlin&key=1effce5cd3179ac24b0c4e194bb55769be6e7bcf"
         s, created = Service.objects.get_or_create(
             sysname="dasauge_jobs",
             defaults={
-                'url': "https://api.dasauge.net/jobfeed/?key=10888a51c8246e86fed6d5626d992f620f39c357&location=10115&distance=90",
+                'url': URL,
                 'title': "dasauge.de",
             },
         )
+        if s.url != URL:
+            s.url = URL
+            s.save()
 
         JOB_TYPES = {
             u'Fest': JobType.objects.get(slug="full-time"),
@@ -73,10 +83,18 @@ class Command(NoArgsCommand):
 
         xml_doc = parseString(data)
 
-        for node_job in xml_doc.getElementsByTagName("item"):
+        total = get_value(xml_doc, "matches")
+
+        for index, node_job in enumerate(xml_doc.getElementsByTagName("item"), 1):
 
             # get or create job offer
             external_id = get_value(node_job, "url")
+            position = get_value(node_job, "title")
+
+            if verbosity > NORMAL:
+                self.stdout.write("{}/{}. {} (external_id={})".format(index, total, position, external_id))
+                self.stdout.flush()
+
             try:
                 change_date = parse_datetime(
                     get_value(node_job, "edited"),
@@ -94,14 +112,17 @@ class Command(NoArgsCommand):
                 )
                 job_offer = mapper.content_object
                 if job_offer.modified_date > change_date:
+                    stats['skipped'] += 1
                     continue
+                stats['updated'] += 1
             except:
                 # or create a new job offer and then create a mapper
                 job_offer = JobOffer()
+                stats['added'] += 1
 
             job_offer.modified_date = change_date
 
-            job_offer.position = get_value(node_job, "title")
+            job_offer.position = position
             job_offer.description = get_value(node_job, "details")
             job_offer.job_type = JOB_TYPES.get(get_value(node_job, "type"), None)
 
@@ -134,9 +155,6 @@ class Command(NoArgsCommand):
                 city=get_value(node_job, "town"),
             )
 
-            if verbosity > NORMAL:
-                self.stdout.write(" - {} (id={})".format(job_offer, job_offer.pk))
-
             if not mapper:
                 mapper = ObjectMapper(
                     service=s,
@@ -144,3 +162,9 @@ class Command(NoArgsCommand):
                 )
                 mapper.content_object = job_offer
                 mapper.save()
+
+        if verbosity >= NORMAL:
+            self.stdout.write(u"=== Results ===\n")
+            self.stdout.write(u"Jobs added: {}\n".format(stats['added']))
+            self.stdout.write(u"Jobs updated: {}\n".format(stats['updated']))
+            self.stdout.write(u"Jobs skipped: {}\n".format(stats['skipped']))

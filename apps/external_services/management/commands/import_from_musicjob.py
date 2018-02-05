@@ -8,7 +8,7 @@ class Command(BaseCommand):
     help = """Imports job offers from www.music-job.com"""
 
     def handle(self, *args, **options):
-        return  # TODO: music job links are somewhat broken
+        return  # TODO: music job URL is broken
 
         verbosity = int(options.get('verbosity', NORMAL))
 
@@ -31,13 +31,23 @@ class Command(BaseCommand):
         Service = apps.get_model("external_services", "Service")
         Category = apps.get_model("structure", "Category")
 
+        stats = {
+            'added': 0,
+            'updated': 0,
+            'skipped': 0,
+        }
+
+        URL = "https://www.music-job.com/index.php?id=130&no_cache=1&tx_mnmboerse_pi2%5Badvert_uid%5D=28302"
         s, created = Service.objects.get_or_create(
             sysname="musicjob",
             defaults={
-                'url': "http://www.music-job.com/index.php?id=129&type=5003&tx_mnmboerse_pi2[stadt]=berlin",
+                'url': URL,
                 'title': "www.music-job.com",
             },
         )
+        if s.url != URL:
+            s.url = URL
+            s.save()
 
         default_job_type, created = JobType.objects.get_or_create(
             slug="full-time",
@@ -70,12 +80,15 @@ class Command(BaseCommand):
             self.stderr.write("Error parsing XML\n")
             return
 
-        for node_job in xml_doc.getElementsByTagName("item"):
+        for index, node_job in enumerate(xml_doc.getElementsByTagName("item"), 1):
 
             # get or create job offer
             external_id = get_value(node_job, "guid")
+            position = get_value(node_job, "title")
+
             if verbosity > NORMAL:
-                self.stdout.write(" - {}\n".format(get_value(node_job, "title")))
+                self.stdout.write("{}/{}. {} (external_id={})".format(index, total, position, external_id))
+                self.stdout.flush()
 
             try:
                 change_date = parse_datetime(
@@ -94,7 +107,9 @@ class Command(BaseCommand):
                 )
                 job_offer = mapper.content_object
                 if job_offer.modified_date > change_date:
+                    stats['skipped'] += 1
                     continue
+                stats['updated'] += 1
             except ObjectMapper.MultipleObjectsReturned:
                 # delete duplicates
                 for mapper in s.objectmapper_set.filter(
@@ -105,14 +120,16 @@ class Command(BaseCommand):
                     if mapper.content_object:
                         mapper.content_object.delete()
                     mapper.delete()
+                stats['skipped'] += 1
                 continue
             except ObjectMapper.DoesNotExist:
                 # or create a new job offer and then create a mapper
                 job_offer = JobOffer()
+                stats['added'] += 1
 
             job_offer.modified_date = change_date
 
-            job_offer.position = get_value(node_job, "title")
+            job_offer.position = position
 
             job_offer.description = get_value(node_job, "description")
             job_offer.job_type = default_job_type
@@ -157,3 +174,9 @@ class Command(BaseCommand):
                 )
                 mapper.content_object = job_offer
                 mapper.save()
+
+        if verbosity >= NORMAL:
+            self.stdout.write(u"=== Results ===\n")
+            self.stdout.write(u"Jobs added: {}\n".format(stats['added']))
+            self.stdout.write(u"Jobs updated: {}\n".format(stats['updated']))
+            self.stdout.write(u"Jobs skipped: {}\n".format(stats['skipped']))
