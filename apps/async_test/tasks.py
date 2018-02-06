@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 from datetime import datetime
 
-from huey.contrib.djhuey import db_task, task, crontab, periodic_task
+from huey.contrib.djhuey import db_task, task, periodic_task
 
 '''
 start the huey consumer with this command:
@@ -16,12 +16,6 @@ if you want to wait synchronously for the result, use the blocking .get method:
 >>> result.get()  # (time passes...)
 4
 '''
-
-@periodic_task(crontab(minute='*/5'))
-def every_five_mins():
-    print('{} - Every five minutes this will be printed by the consumer'.format(
-        datetime.now(),
-    ))
 
 @task()
 def hello_world():
