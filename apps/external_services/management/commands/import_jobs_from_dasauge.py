@@ -17,6 +17,8 @@ class Command(NoArgsCommand):
         from dateutil.parser import parse as parse_datetime
 
         from django.apps import apps
+        from django.db import transaction
+        from django.db import models
 
         from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 
@@ -34,6 +36,7 @@ class Command(NoArgsCommand):
             'added': 0,
             'updated': 0,
             'skipped': 0,
+            'deleted': 0,
         }
 
         URL = "https://api.dasauge.net/jobfeed/?region=Berlin&key=1effce5cd3179ac24b0c4e194bb55769be6e7bcf"
@@ -64,6 +67,10 @@ class Command(NoArgsCommand):
             slug__in=("graphic-design", "advertising"),
         ))
 
+        if verbosity > NORMAL:
+            self.stdout.write("Reading the feed at {}\n".format(s.url))
+            self.stdout.flush()
+
         try:
             response = requests.get(
                 s.url,
@@ -81,15 +88,24 @@ class Command(NoArgsCommand):
             return
         data = response.content
 
+        if verbosity > NORMAL:
+            self.stdout.write("Parsing XML document...\n")
+            self.stdout.flush()
+
         xml_doc = parseString(data)
 
         total = get_value(xml_doc, "matches")
+
+        if verbosity > NORMAL:
+            self.stdout.write("Saving job offers...\n")
+            self.stdout.flush()
 
         for index, node_job in enumerate(xml_doc.getElementsByTagName("item"), 1):
 
             # get or create job offer
             external_id = get_value(node_job, "url")
             position = get_value(node_job, "title")
+            town = get_value(node_job.getElementsByTagName("location")[0], "town")
 
             if verbosity > NORMAL:
                 self.stdout.write("{}/{}. {} (external_id={})".format(index, total, position, external_id))
@@ -111,12 +127,24 @@ class Command(NoArgsCommand):
                     content_type__model="joboffer",
                 )
                 job_offer = mapper.content_object
+                if not job_offer:
+                    stats['skipped'] += 1
+                    continue
+                if "berlin" not in town.lower():
+                    job_offer.delete()
+                    mapper.delete()
+                    transaction.commit()
+                    stats['deleted'] += 1
+                    continue
                 if job_offer.modified_date > change_date:
                     stats['skipped'] += 1
                     continue
                 stats['updated'] += 1
-            except:
+            except models.ObjectDoesNotExist:
                 # or create a new job offer and then create a mapper
+                if "berlin" not in town.lower():
+                    stats['skipped'] += 1
+                    continue
                 job_offer = JobOffer()
                 stats['added'] += 1
 
@@ -152,7 +180,7 @@ class Command(NoArgsCommand):
                 job_offer,
                 "postal_address",
                 country="DE",
-                city=get_value(node_job, "town"),
+                city=town,
             )
 
             if not mapper:
@@ -163,8 +191,13 @@ class Command(NoArgsCommand):
                 mapper.content_object = job_offer
                 mapper.save()
 
+            transaction.commit()
+
         if verbosity >= NORMAL:
             self.stdout.write(u"=== Results ===\n")
             self.stdout.write(u"Jobs added: {}\n".format(stats['added']))
             self.stdout.write(u"Jobs updated: {}\n".format(stats['updated']))
             self.stdout.write(u"Jobs skipped: {}\n".format(stats['skipped']))
+            self.stdout.write(u"Jobs deleted: {}\n".format(stats['deleted']))
+            self.stdout.write("\nFinishing...\n")
+            self.stdout.flush()
