@@ -5,10 +5,6 @@ CKEDITOR.stylesSet.add('ccb_styles', [
     {name: 'Interview title (Heading)', element: 'h4', attributes: {'class': 'interview-title'}},
     {name: 'Intro (Paragraph)', element: 'p', attributes: {'class': 'intro'}},
     {name: 'Interview (Paragraph)', element: 'p', attributes: { 'class': 'interview'}},
-    {name: 'Image full width', element: 'img', attributes: { 'class': 'img-full-width'}},
-    {name: 'Image on the left', element: 'img', attributes: { 'class': 'img-left'}},
-    {name: 'Image on the right', element: 'img', attributes: { 'class': 'img-right'}},
-    {name: 'Image in the middle', element: 'img', attributes: { 'class': 'img-middle'}},
     {name: 'Interviewee in title', element: 'strong', attributes: {'class': 'title-interviewee'}},
     {name: 'Interviewee in paragraph', element: 'span', attributes: { 'class': 'interviewee'}}
 ]);
