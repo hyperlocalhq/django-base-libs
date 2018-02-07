@@ -1,10 +1,16 @@
 /* global CKEDITOR:false */
 
 CKEDITOR.stylesSet.add('ccb_styles', [
-    { name: 'Caption', element: 'h5', attributes: { 'class': 'caption' } },
-    { name: 'Intro', element: 'p', attributes: {'class': 'intro'} },
-    { name: 'Interview', element: 'p', attributes: { 'class': 'interview'} },
-    { name: 'Interviewee', element: 'span', attributes: { 'class': 'interviewee'} }
+    {name: 'Caption (Heading)', element: 'h5', attributes: { 'class': 'caption' }},
+    {name: 'Interview title (Heading)', element: 'h4', attributes: {'class': 'interview-title'}},
+    {name: 'Intro (Paragraph)', element: 'p', attributes: {'class': 'intro'}},
+    {name: 'Interview (Paragraph)', element: 'p', attributes: { 'class': 'interview'}},
+    {name: 'Image full width', element: 'img', attributes: { 'class': 'img-full-width'}},
+    {name: 'Image on the left', element: 'img', attributes: { 'class': 'img-left'}},
+    {name: 'Image on the right', element: 'img', attributes: { 'class': 'img-right'}},
+    {name: 'Image in the middle', element: 'img', attributes: { 'class': 'img-middle'}},
+    {name: 'Interviewee in title', element: 'strong', attributes: {'class': 'title-interviewee'}},
+    {name: 'Interviewee in paragraph', element: 'span', attributes: { 'class': 'interviewee'}}
 ]);
 
 CKEDITOR.editorConfig = function( config ) {
@@ -43,7 +49,7 @@ CKEDITOR.editorConfig = function( config ) {
         { name: 'colors', groups: [ 'colors' ] },
         { name: 'about', groups: [ 'about' ] }
     ];
-    config.removeButtons = 'Underline,Subscript,Superscript,Source,Table,HorizontalRule,SpecialChar,About';
+    config.removeButtons = 'Underline,Subscript,Superscript,Source,Table,SpecialChar,About';
 
     config.stylesSet = 'ccb_styles';
     config.contentsCss = window.settings.STATIC_URL + 'site/css/ckeditor.css';
