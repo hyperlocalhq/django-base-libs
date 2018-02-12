@@ -445,8 +445,9 @@ MAILING_CONTENT_TYPE_CHOICES = (
     ('educational_projects', _("Educational Projects")),
     ('article', _("News")),
     ('banner', _("Banner")),
-    ('image_and_text', _("Image and text")),
+    ('image_and_text', _("Image and Text")),
     ('text', _("Text only")),
+    ('page_teaser', _("Page Teaser")),
 )
 
 ### DEBUG TOOLBAR ###
