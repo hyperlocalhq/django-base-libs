@@ -297,6 +297,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         elif self.status == "published":
             make_expired = True
         if make_expired:
+            self.status = "expired"
             Production.objects.filter(pk=self.pk).update(
                 status="expired",
             )

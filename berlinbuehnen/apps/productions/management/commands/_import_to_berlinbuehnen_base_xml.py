@@ -639,8 +639,8 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
             for sponsor_node in prod_node.findall('./sponsors/sponsor'):
                 sponsor = ProductionSponsor(
                     production=prod,
-                    title_de=self.get_child_text(sponsor_node, 'title_de'),
-                    title_en=self.get_child_text(sponsor_node, 'title_en'),
+                    title_de=self.get_child_text(sponsor_node, 'title_de')[:255],
+                    title_en=self.get_child_text(sponsor_node, 'title_en')[:255],
                     website=self.get_child_text(sponsor_node, 'website'),
                 )
                 sponsor.save()

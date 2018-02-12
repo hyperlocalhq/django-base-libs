@@ -1028,8 +1028,8 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                 for sponsor_dict in event_dict.get('sponsors', {}).values():
                     sponsor = EventSponsor(
                         event=event,
-                        title_de=sponsor_dict.get('title_de', ""),
-                        title_en=sponsor_dict.get('title_en', ""),
+                        title_de=sponsor_dict.get('title_de', "")[:255],
+                        title_en=sponsor_dict.get('title_en', "")[:255],
                         website=sponsor_dict.get('website', ""),
                     )
                     sponsor.save()
