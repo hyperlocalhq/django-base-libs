@@ -364,6 +364,13 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                         if mf:
                             image_ids_to_keep.append(mf.pk)
                             file_description = self.save_file_description(mf.path, image_dict)
+                        else:
+                            if self.update_images:
+                                # restore image
+                                mf = ProductionImage(production=prod)
+                            else:
+                                # skip deleted images
+                                continue
                         if not self.update_images:
                             continue
 
@@ -373,6 +380,10 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                         filename = filename.split("?")[0]
                     image_response = requests.get(image_url, auth=self.AUTH)
                     if image_response.status_code == 200:
+                        image_mods.FileManager.delete_file_for_object(
+                            mf,
+                            field_name="path",
+                        )
                         image_mods.FileManager.save_file_for_object(
                             mf,
                             filename,
@@ -391,8 +402,8 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                                 service=self.service,
                                 external_id=image_external_id,
                             )
-                            image_mapper.content_object = mf
-                            image_mapper.save()
+                        image_mapper.content_object = mf
+                        image_mapper.save()
 
                 for mf in prod.productionimage_set.exclude(id__in=image_ids_to_keep):
                     if mf.path:
@@ -796,6 +807,13 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                             if mf:
                                 image_ids_to_keep.append(mf.pk)
                                 file_description = self.save_file_description(mf.path, image_dict)
+                            else:
+                                if self.update_images:
+                                    # restore image
+                                    mf = EventImage(event=event)
+                                else:
+                                    # skip deleted images
+                                    continue
                             if not self.update_images:
                                 continue
 
@@ -805,6 +823,10 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                             filename = filename.split("?")[0]
                         image_response = requests.get(image_url, auth=self.AUTH)
                         if image_response.status_code == 200:
+                            image_mods.FileManager.delete_file_for_object(
+                                mf,
+                                field_name="path",
+                            )
                             image_mods.FileManager.save_file_for_object(
                                 mf,
                                 filename,
@@ -822,8 +844,8 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                                     service=self.service,
                                     external_id=image_external_id,
                                 )
-                                image_mapper.content_object = mf
-                                image_mapper.save()
+                            image_mapper.content_object = mf
+                            image_mapper.save()
 
                     for mf in event.eventimage_set.exclude(id__in=image_ids_to_keep):
                         if mf.path:

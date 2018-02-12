@@ -28,13 +28,13 @@ cd project/berlinbuehnen
 echo "------------"
 echo "Importing from Maxim Gorki Theater (New)"
 date
-python manage.py import_from_maxim_gorki_theater --settings=berlinbuehnen.settings.local --traceback
+python manage.py import_from_maxim_gorki_theater --update_images --settings=berlinbuehnen.settings.local --traceback
 
 
 echo "------------"
 echo "Importing from Schaubuehne"
 date
-python manage.py import_from_schaubuehne --settings=berlinbuehnen.settings.local --traceback
+python manage.py import_from_schaubuehne --update_images --settings=berlinbuehnen.settings.local --traceback
 
 #echo "------------"
 #echo "Importing from Schlosspark Theater (New)"
@@ -49,8 +49,8 @@ python manage.py import_from_schaubuehne --settings=berlinbuehnen.settings.local
 #echo "------------"
 #echo "Importing from Sophiensaele"
 #date
-#python manage.py import_from_sophiensaele --settings=berlinbuehnen.settings.local --traceback
-#
+#python manage.py import_from_sophiensaele --update_images --settings=berlinbuehnen.settings.local --traceback
+
 #echo "------------"
 #echo "Importing from Staatsballet Berlin"
 #date
@@ -79,13 +79,13 @@ python manage.py import_from_schaubuehne --settings=berlinbuehnen.settings.local
 echo "------------"
 echo "Importing from RADIALSYSTEM V"
 date
-python manage.py import_from_culturebase_radialsystem --settings=berlinbuehnen.settings.local --traceback
+python manage.py import_from_culturebase_radialsystem --update_images --settings=berlinbuehnen.settings.local --traceback
 
 
 #echo "------------"
 #echo "Importing from Staatsoper im Schiller Theater"
 #date
-#python manage.py import_from_culturebase_sob --settings=berlinbuehnen.settings.local --traceback
+#python manage.py import_from_culturebase_sob --update_images --settings=berlinbuehnen.settings.local --traceback
 
 #echo "------------"
 #echo "Importing from Pierre Boulez Saal (New)"
@@ -96,7 +96,7 @@ python manage.py import_from_culturebase_radialsystem --settings=berlinbuehnen.s
 echo "------------"
 echo "Importing from Berliner Ensemble (New)"
 date
-python manage.py import_from_berliner_ensemble --settings=berlinbuehnen.settings.local --traceback
+python manage.py import_from_berliner_ensemble --update_images --settings=berlinbuehnen.settings.local --traceback
 
 #echo "------------"
 #echo "Importing from Volksbühne (New)"

@@ -31,6 +31,7 @@ class ImportFromCulturebaseBase(NoArgsCommand, ImportCommandMixin):
     """
     option_list = NoArgsCommand.option_list + (
         make_option('--skip_images', action='store_true', help='Skips image downloads'),
+        make_option('--update_images', action='store_true', help='Forces image-download updates'),
     )
     help = "Imports productions and events from Culturebase"
 
@@ -176,6 +177,7 @@ class ImportFromCulturebaseBase(NoArgsCommand, ImportCommandMixin):
     def handle_noargs(self, *args, **options):
         self.verbosity = int(options.get("verbosity", self.NORMAL))
         self.skip_images = options.get("skip_images")
+        self.update_images = options.get("update_images")
         self.prepare()
         self.main()
         self.finalize()
@@ -784,10 +786,20 @@ class ImportFromCulturebaseBase(NoArgsCommand, ImportCommandMixin):
                         mf = ProductionImage(production=prod)
                     else:
                         mf = image_mapper.content_object
-                        image_ids_to_keep.append(mf.pk)
-                        # update description
-                        file_description = self.save_file_description(mf.path, picture_node)
-                        continue
+                        if mf:
+                            image_ids_to_keep.append(mf.pk)
+                            # update description
+                            file_description = self.save_file_description(mf.path, picture_node)
+                        else:
+                            if self.update_images:
+                                # restore image
+                                mf = ProductionImage(production=prod)
+                            else:
+                                # skip deleted images
+                                continue
+
+                        if not self.update_images:
+                            continue
 
                     filename = image_url.split("/")[-1]
                     if "?" in filename:
@@ -795,6 +807,10 @@ class ImportFromCulturebaseBase(NoArgsCommand, ImportCommandMixin):
                         filename = filename.split("?")[0]
                     image_response = requests.get(image_url)
                     if image_response.status_code == 200:
+                        image_mods.FileManager.delete_file_for_object(
+                            mf,
+                            field_name="path",
+                        )
                         image_mods.FileManager.save_file_for_object(
                             mf,
                             filename,
@@ -816,8 +832,8 @@ class ImportFromCulturebaseBase(NoArgsCommand, ImportCommandMixin):
                                 service=self.service,
                                 external_id=image_external_id,
                             )
-                            image_mapper.content_object = mf
-                            image_mapper.save()
+                        image_mapper.content_object = mf
+                        image_mapper.save()
 
                 for mf in prod.productionimage_set.exclude(id__in=image_ids_to_keep):
                     if mf.path:
@@ -1033,9 +1049,19 @@ class ImportFromCulturebaseBase(NoArgsCommand, ImportCommandMixin):
                             mf = EventImage(event=event)
                         else:
                             mf = image_mapper.content_object
-                            image_ids_to_keep.append(mf.pk)
-                            file_description = self.save_file_description(mf.path, picture_node)
-                            continue
+                            if mf:
+                                image_ids_to_keep.append(mf.pk)
+                                file_description = self.save_file_description(mf.path, picture_node)
+                            else:
+                                if self.update_images:
+                                    # restore image
+                                    mf = EventImage(event=event)
+                                else:
+                                    # skip deleted images
+                                    continue
+
+                            if not self.update_images:
+                                continue
 
                         filename = image_url.split("/")[-1]
                         if "?" in filename:
@@ -1043,6 +1069,10 @@ class ImportFromCulturebaseBase(NoArgsCommand, ImportCommandMixin):
                             filename = filename.split("?")[0]
                         image_response = requests.get(image_url)
                         if image_response.status_code == 200:
+                            image_mods.FileManager.delete_file_for_object(
+                                mf,
+                                field_name="path",
+                            )
                             image_mods.FileManager.save_file_for_object(
                                 mf,
                                 filename,
@@ -1064,8 +1094,8 @@ class ImportFromCulturebaseBase(NoArgsCommand, ImportCommandMixin):
                                     service=self.service,
                                     external_id=image_external_id,
                                 )
-                                image_mapper.content_object = mf
-                                image_mapper.save()
+                            image_mapper.content_object = mf
+                            image_mapper.save()
 
                     for mf in event.eventimage_set.exclude(pk__in=image_ids_to_keep):
                         if mf.path:
