@@ -128,7 +128,7 @@ class Command(BaseCommand):
                         status = s.default_status
                     # update bulletin without changing the modified_date
                     Bulletin.objects.filter(id=bulletin.pk).update(
-                        published_till=change_date + timedelta(days=1),
+                        published_till=datetime.now() + timedelta(days=1),
                         status=status,
                     )
                     if bulletin.modified_date:
@@ -137,7 +137,7 @@ class Command(BaseCommand):
 
                 bulletin.orig_published = change_date
                 bulletin.published_from = change_date
-                bulletin.published_till = change_date + timedelta(days=1)
+                bulletin.published_till = datetime.now() + timedelta(days=1)
 
                 bulletin.title = get_value(node_bulletin, "title")
 
