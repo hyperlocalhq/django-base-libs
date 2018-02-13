@@ -93,6 +93,13 @@ class ProductionIndex(AldrynIndexBase, indexes.Indexable):
         return obj.description
 
     def get_search_data(self, obj, language, request):
+        extra = []
+        for location in obj.in_program_of.all():
+            extra.append(location.title)
+        for location in obj.play_locations.all():
+            extra.append(location.title)
+        for stage in obj.play_stages.all():
+            extra.append(stage.title)
         # collect multilingual data
         all_text = u"\n".join(
             force_unicode(getattr(obj, field))
@@ -134,6 +141,10 @@ class ProductionIndex(AldrynIndexBase, indexes.Indexable):
         event_multilingual_data = []
         event_non_multilingual_data = []
         for event in obj.get_upcoming_occurrences():
+            for location in event.play_locations.all():
+                extra.append(location.title)
+            for stage in event.play_stages.all():
+                extra.append(stage.title)
             event_multilingual_data = u"\n".join(
                 force_unicode(getattr(obj, field))
                 for field in (
@@ -165,9 +176,14 @@ class ProductionIndex(AldrynIndexBase, indexes.Indexable):
                 )
             )
 
-
         # set text of both languages
-        return all_text + "\n" + non_multilingual_data + "\n" + "\n".join(event_multilingual_data) + "\n" + "\n".join(event_non_multilingual_data)
+        return (
+            all_text + "\n" +
+            non_multilingual_data + "\n" +
+            "\n".join(event_multilingual_data) + "\n" +
+            "\n".join(event_non_multilingual_data) + "\n" +
+            "\n".join(extra)
+        )
 
     def get_model(self):
         return Production
@@ -195,6 +211,9 @@ class FestivalIndex(AldrynIndexBase, indexes.Indexable):
         return obj.description
 
     def get_search_data(self, obj, language, request):
+        extra = []
+        for location in obj.organizers.all():
+            extra.append(location.title)
         # collect multilingual data
         all_text = u"\n".join(
             force_unicode(getattr(obj, field))
@@ -216,7 +235,7 @@ class FestivalIndex(AldrynIndexBase, indexes.Indexable):
                 "press_contact_name",
             )
         )
-        return all_text + "\n" + non_multilingual_data
+        return all_text + "\n" + non_multilingual_data + "\n" + "\n".join(extra)
 
     def get_model(self):
         return Festival
