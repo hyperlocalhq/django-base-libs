@@ -1,4 +1,6 @@
 # -*- coding: UTF-8 -*-
+from optparse import make_option
+
 from django.core.management.base import BaseCommand
 
 SILENT, NORMAL, VERBOSE = 0, 1, 2
@@ -6,9 +8,19 @@ SILENT, NORMAL, VERBOSE = 0, 1, 2
 
 class Command(BaseCommand):
     help = """Imports bulletins from the bulletin-import sources"""
+    option_list = BaseCommand.option_list + (
+        make_option(
+            '--update_all',
+            action='store_true',
+            dest='update_all',
+            default=False,
+            help='Update all bulletins no matter what',
+        ),
+    )
 
     def handle(self, *args, **options):
         verbosity = int(options.get('verbosity', NORMAL))
+        update_all = options.get('update_all')
 
         import requests
         from datetime import datetime, timedelta
@@ -20,7 +32,6 @@ class Command(BaseCommand):
         from django.db import models
         from django.core.exceptions import MultipleObjectsReturned
 
-        from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
         from base_libs.utils.misc import html_to_plain_text
 
         from jetson.apps.external_services.utils import get_value
@@ -84,10 +95,12 @@ class Command(BaseCommand):
                     or get_value(node_bulletin, "link")  # use link as external_id
                     or get_value(node_bulletin, "source_url") # use source_url as external_id
                 )
-                change_date = parse_datetime(
-                    date_de_to_en(get_value(node_bulletin, "pubDate") or get_value(node_bulletin, "dc:date")),
-                    ignoretz=True,
+                published = date_de_to_en(
+                    get_value(node_bulletin, "pubDate") or
+                    get_value(node_bulletin, "dc:date") or
+                    get_value(node_bulletin, "published")
                 )
+                change_date = parse_datetime(published, ignoretz=True)
                 status = ""
                 # get or create bulletin
                 mapper = None
@@ -115,16 +128,16 @@ class Command(BaseCommand):
                         status = s.default_status
                     # update bulletin without changing the modified_date
                     Bulletin.objects.filter(id=bulletin.pk).update(
-                        published_till=datetime.now() + timedelta(days=1),
+                        published_till=change_date + timedelta(days=1),
                         status=status,
                     )
                     if bulletin.modified_date:
-                        if bulletin.modified_date > change_date or bulletin.status == "published":
+                        if not update_all and (bulletin.modified_date > change_date or bulletin.status == "published"):
                             continue
 
                 bulletin.orig_published = change_date
                 bulletin.published_from = change_date
-                bulletin.published_till = datetime.now() + timedelta(days=1)
+                bulletin.published_till = change_date + timedelta(days=1)
 
                 bulletin.title = get_value(node_bulletin, "title")
 
@@ -141,14 +154,23 @@ class Command(BaseCommand):
                     s.default_bulletin_category
                 )
 
-                content = get_value(node_bulletin, "content:encoded") or get_value(node_bulletin, "description")
+                content = (
+                    get_value(node_bulletin, "content:encoded") or
+                    get_value(node_bulletin, "description") or
+                    get_value(node_bulletin, "details")
+                )
                 bulletin.description = html_to_plain_text(content)
 
                 # bulletin.language = bulletin.guess_language()
 
                 bulletin.contact_person = get_value(node_bulletin, "dc:creator")
+                bulletin.institution_title = get_value(node_bulletin, "company")
 
-                bulletin.external_url = get_value(node_bulletin, "link") or get_value(node_bulletin, "source_url")
+                bulletin.external_url = (
+                    get_value(node_bulletin, "link") or
+                    get_value(node_bulletin, "source_url") or
+                    get_value(node_bulletin, "url")
+                )
 
                 # bulletin.bulletin_type = default_bulletin_type
 
@@ -183,6 +205,10 @@ class Command(BaseCommand):
                     )
                     mapper.content_object = bulletin
                     mapper.save()
+
+        if update_all:
+            # make sure that expired bulletins don't show up
+            Bulletin.expired_objects.update_status()
 
         if verbosity > NORMAL:
             print "Services failed: %d" % len(services_failed)
