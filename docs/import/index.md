@@ -8,13 +8,13 @@ Last update: February 1, 2018
 
 There are 3 types of imports depending on the source format.
 
-1. The first type is based on the old XML format of CultureBase server. We call it "[CultureBase type](culturebase_import_specs/production_import_specification_culturebase_type.html)". This format is used by the following partners:
+1. The first type is based on the old XML format of CultureBase server. We call it "[CultureBase type](culturebase_import_specs/production_import_specification_culturebase_type.html)". At the moment this format is used by the following partners:
 
     - Deutsche Oper Berlin
     - RADIALSYSTEM V
     - Staatsoper im Schiller Theater
 
-2. The other format is based on [this XML structure specification](http://cb.heimat.de/interface/schema/interfaceformat.xsd). We call it "[Heimat.de type](heimat_de_import_specs/production_import_specification_heimat_de_type.html)". This format is used by the following partners:
+2. The other format is based on [this XML structure specification](http://cb.heimat.de/interface/schema/interfaceformat.xsd). We call it "[Heimat.de type](heimat_de_import_specs/production_import_specification_heimat_de_type.html)". At the moment this format is used by the following partners:
 
     - Berliner Philharmonie
     - Deutsches Theater
@@ -26,7 +26,7 @@ There are 3 types of imports depending on the source format.
     - Wühlmäuse
     - GRIPS Theater
 
-3. The third format was specifically designed to match the database structure of Berlin Bühnen. We call it "[Berlin Bühnen type](bb_import_specs/production_import_specification_bb_type.html)". It can be provided as XML or JSON. This format is used by these partners:
+3. The third format was specifically designed to match the database structure of Berlin Bühnen. We call it "[Berlin Bühnen type](bb_import_specs/production_import_specification_bb_type_xml.html)". It can be provided as [XML](bb_import_specs/production_import_specification_bb_type_xml.html) or [JSON](bb_import_specs/production_import_specification_bb_type_json.html). It is a preferred format for all new import feeds and at the moment this format is used by these partners:
 
     - Maxim Gorki Theater
     - Schlosspark Theater
