@@ -446,6 +446,7 @@ MAILING_CONTENT_TYPE_CHOICES = (
     ('article', _("News")),
     ('banner', _("Banner")),
     ('image_and_text', _("Image and Text")),
+    ('headline', _("Headline")),
     ('text', _("Text only")),
     ('page_teaser', _("Page Teaser")),
 )
