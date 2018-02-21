@@ -10,7 +10,7 @@ class Command(BaseCommand):
     help = """Imports bulletins from the bulletin-import sources"""
     option_list = BaseCommand.option_list + (
         make_option(
-            '--update_all',
+            '--update-all',
             action='store_true',
             dest='update_all',
             default=False,
@@ -94,6 +94,7 @@ class Command(BaseCommand):
                     get_value(node_bulletin, "guid")  # if guid is not provided
                     or get_value(node_bulletin, "link")  # use link as external_id
                     or get_value(node_bulletin, "source_url") # use source_url as external_id
+                    or get_value(node_bulletin, "url") # use url as external_id
                 )
                 published = date_de_to_en(
                     get_value(node_bulletin, "pubDate") or
@@ -124,8 +125,9 @@ class Command(BaseCommand):
                         # don't import it again
                         continue
                     status = bulletin.status
-                    if status == "expired":
+                    if status == "expired" or update_all:
                         status = s.default_status
+                        bulletin.status = status
                     # update bulletin without changing the modified_date
                     Bulletin.objects.filter(id=bulletin.pk).update(
                         published_till=datetime.now() + timedelta(days=1),
