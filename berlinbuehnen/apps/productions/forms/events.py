@@ -696,7 +696,7 @@ class DescriptionForm(autocomplete_light.ModelForm):
         cleaned = super(DescriptionForm, self).clean()
         production = self.instance.production
         for fname in self.fields.iterkeys():
-            if cleaned[fname] == getattr(production, fname, None):
+            if cleaned[fname] and cleaned[fname] == getattr(production, fname, None):
                 del cleaned[fname]
         return cleaned
 
@@ -920,6 +920,14 @@ class EventAuthorshipForm(autocomplete_light.ModelForm):
         return instance
 
 EventAuthorshipFormset = inlineformset_factory(Event, EventAuthorship, form=EventAuthorshipForm, formset=InlineFormSet, extra=0)
+
+
+def get_involvement_selection(obj):
+    if getattr(obj, 'involvement_role_%s' % settings.LANGUAGE_CODE, ""):
+        return "role"
+    if getattr(obj, 'involvement_role_%s' % settings.LANGUAGE_CODE, ""):
+        return "instrument"
+    return "type"
 
 
 class EventInvolvementForm(autocomplete_light.ModelForm):
