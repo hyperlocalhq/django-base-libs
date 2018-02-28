@@ -130,12 +130,16 @@ INSTALLED_APPS = [
     "south",
     "sekizai",
     "aldryn_search",
+    "treebeard",
 
     ### CMS plugins ###
-    "cms.plugins.inherit",
-    "cms.plugins.picture",
-    "cms.plugins.snippet",
-    "cms.plugins.teaser",
+    ## uncomment after CMS upgrade
+    # "cms.plugins.inherit",
+    # "cms.plugins.picture",
+    # "cms.plugins.snippet",
+    # "cms.plugins.teaser",
+
+
     # "cms.plugins.file",
     # "cms.plugins.flash",
     # "cms.plugins.googlemap",

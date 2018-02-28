@@ -7,7 +7,12 @@ from django.contrib.admin import helpers
 from django.contrib.admin import util
 from django.contrib.admin import options
 from django.contrib.admin import validation
-from django.contrib.admin.validation import (check_isseq, get_field, check_isdict, check_formfield)
+from django.contrib.admin.validation import (check_isseq, get_field, check_isdict)
+try:
+    from django.contrib.admin.validation import check_formfield
+except ImportError:
+    check_formfield = lambda *args, **kwargs: True
+
 from django.contrib.admin.options import HORIZONTAL, VERTICAL
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
