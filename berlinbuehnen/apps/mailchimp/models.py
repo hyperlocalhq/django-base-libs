@@ -388,7 +388,7 @@ CONTENT_TYPE_CHOICES = getattr(settings, "MAILING_CONTENT_TYPE_CHOICES", (
 
 class MailingContentBlock(models.Model):
     campaign = models.ForeignKey('Campaign')
-    content_type = models.CharField('Content Type', max_length=20, choices=CONTENT_TYPE_CHOICES, blank=True)
+    content_type = models.CharField('Content Type', max_length=40, choices=CONTENT_TYPE_CHOICES, blank=True)
     content = ExtendedTextField(_("Content"), blank=True)
     sort_order = PositionField(_("Sort order"))
     

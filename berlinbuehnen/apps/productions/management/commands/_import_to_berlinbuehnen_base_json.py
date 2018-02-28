@@ -32,8 +32,8 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
         next_page = root_dict.get('meta', {}).get('next', "")
         self._production_counter = 0
         self._total_production_count = root_dict.get('meta', {}).get('total_count', "")
-        productions_dict = root_dict.get('productions', {})
-        self.save_page(productions_dict)
+        productions = root_dict.get('productions', [])
+        self.save_page(productions)
 
         while (next_page):
             if self.verbosity >= self.NORMAL:
@@ -50,8 +50,8 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                 self.stderr.write(u"Parsing error: %s" % unicode(err))
                 return
             next_page = root_dict.get('meta', {}).get('next', "")
-            productions_dict = root_dict.get('productions', {})
-            self.save_page(productions_dict)
+            productions = root_dict.get('productions', [])
+            self.save_page(productions)
 
     def save_file_description(self, path, d):
         from filebrowser.models import FileDescription
@@ -112,7 +112,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
         instance.price_information_de = d.get('price_information_de', "").replace("&nbsp;", " ")
         instance.price_information_en = d.get('price_information_en', "").replace("&nbsp;", " ")
 
-    def save_page(self, productions_dict):
+    def save_page(self, productions):
         from decimal import Decimal
         from berlinbuehnen.apps.people.models import Person
         from berlinbuehnen.apps.people.models import Prefix
@@ -139,9 +139,12 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
         image_mods = models.get_app("image_mods")
 
-        prods_count = len(productions_dict.keys())
-
-        for prod_index, prod_dict in enumerate(productions_dict.values(), 1):
+        # productions can be of one of these formats:
+        # [{...}, {...}] - this is a preferred one
+        # {0: {...}, 1: {...}}
+        if isinstance(productions, dict):
+            productions = productions.values()
+        for prod_index, prod_dict in enumerate(productions, 1):
             self._production_counter += 1
 
             external_prod_id = prod_dict.get('id', "")
@@ -151,6 +154,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
 
             if self.verbosity >= self.NORMAL:
                 self.stdout.write(u"%d/%d %s | %s" % (self._production_counter, self._total_production_count, title_de, title_en))
+                self.stdout.flush()
 
             mapper = None
             try:
@@ -167,11 +171,13 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
             else:
                 prod = mapper.content_object
                 self.production_ids_to_keep.add(prod.pk)
-                if not prod or prod.status == "trashed":
+                if not prod:
                     # if production was deleted after import,
                     # don't import it again
                     self.stats['prods_skipped'] += 1
                     continue
+                if prod.status == "trashed":
+                    self.stats['prods_untrashed'] += 1
 
             if prod.no_overwriting:
                 self.stats['prods_skipped'] += 1
@@ -256,7 +262,13 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     pass
                 else:
                     prod.in_program_of.add(location)
-            for location_id in prod_dict.get('in_program_of', {}).values():
+            # in_program_of can be of one of these formats:
+            # [6] - this is a preferred one
+            # {0: 6}
+            in_program_of = prod_dict.get('in_program_of', [])
+            if isinstance(in_program_of, dict):
+                in_program_of = in_program_of.values()
+            for location_id in in_program_of:
                 try:
                     location = Location.objects.get(pk=location_id)
                 except Location.DoesNotExist:
@@ -264,8 +276,14 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                 else:
                     prod.in_program_of.add(location)
 
+            # play_locations can be of one of these formats:
+            # [6] - this is a preferred one
+            # {0: 6}
             prod.play_locations.clear()
-            for location_id in prod_dict.get('play_locations', {}).values():
+            play_locations = prod_dict.get('play_locations', [])
+            if isinstance(play_locations, dict):
+                play_locations = play_locations.values()
+            for location_id in play_locations:
                 if not self.DEFAULT_IN_PROGRAM_OF_LOCATION_ID or self.DEFAULT_IN_PROGRAM_OF_LOCATION_ID != location_id:
                     try:
                         location = Location.objects.get(pk=location_id)
@@ -274,8 +292,14 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     else:
                         prod.play_locations.add(location)
 
+            # play_locations can be of one of these formats:
+            # [6] - this is a preferred one
+            # {0: 6}
+            play_stages = prod_dict.get('play_stages', [])
+            if isinstance(play_stages, dict):
+                play_stages = play_stages.values()
             prod.play_stages.clear()
-            for stage_id in prod_dict.get('play_stages', {}).values():
+            for stage_id in play_stages:
                 try:
                     stage = Stage.objects.get(pk=stage_id)
                 except Stage.DoesNotExist:
@@ -283,8 +307,16 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                 else:
                     prod.play_stages.add(stage)
 
+            # categories can be of one of these formats:
+            # [3, 25] - this is a preferred one
+            # {0: 3, 1: 25}
+            # [{"category_id": 3}, {"category_id": 25}]
+            # {0: {"category_id": 3}, 1: {"category_id": 25}}
+            categories = prod_dict.get('categories', [])
+            if isinstance(categories, dict):
+                categories = categories.values()
             prod.categories.clear()
-            for category_id in prod_dict.get('categories', {}).values():
+            for category_id in categories:
                 if isinstance(category_id, dict):  # category_id might be either an id or a dictionary with 'category_id' key
                     category_id = category_id['category_id']
                 try:
@@ -295,8 +327,16 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     prod.categories.add(cat)
             prod.fix_categories()
 
+            # characteristics can be of one of these formats:
+            # ["gastspiel", "repertoire"] - this is a preferred one
+            # {0: "gastspiel", 1: "repertoire"}
+            # [{"characteristic_id": "gastspiel"}, {"characteristic_id": "repertoire"}]
+            # {0: {"characteristic_id": "gastspiel"}, 1: {"characteristic_id": "repertoire"}}
+            characteristics = prod_dict.get('characteristics', [])
+            if isinstance(characteristics, dict):
+                characteristics = characteristics.values()
             prod.characteristics.clear()
-            for ch_id in prod_dict.get('characteristics', {}).values():
+            for ch_id in characteristics:
                 if isinstance(ch_id, dict):  # ch_id might be either an id or a dictionary with 'characteristic_id' key
                     ch_id = ch_id['characteristic_id']
                 try:
@@ -309,8 +349,14 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
             # for owner in self.owners:
             #     prod.set_owner(owner)
 
+            # videos can be of one of these formats:
+            # [{...}, {...}] - this is a preferred one
+            # {0: {...}, 1: {...}}
+            videos = prod_dict.get('videos', [])
+            if isinstance(videos, dict):
+                videos = videos.values()
             prod.productionvideo_set.all().delete()
-            for video_dict in prod_dict.get('videos', {}).values():
+            for video_dict in videos:
                 video = ProductionVideo(production=prod)
                 video.creation_date = parse_datetime(video_dict.get('creation_date', ""))
                 video.modified_date = parse_datetime(video_dict.get('modified_date', ""))
@@ -323,8 +369,14 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     video.sort_order = 1
                 video.save()
 
+            # live_streams can be of one of these formats:
+            # [{...}, {...}] - this is a preferred one
+            # {0: {...}, 1: {...}}
+            live_streams = prod_dict.get('live_streams', [])
+            if isinstance(live_streams, dict):
+                live_streams = live_streams.values()
             prod.productionlivestream_set.all().delete()
-            for live_stream_dict in prod_dict.get('live_streams', {}).values():
+            for live_stream_dict in live_streams:
                 ls = ProductionLiveStream(production=prod)
                 ls.creation_date = parse_datetime(live_stream_dict.get('creation_date', ""))
                 ls.modified_date = parse_datetime(live_stream_dict.get('modified_date', ""))
@@ -339,7 +391,13 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
 
             if not self.skip_images:
                 image_ids_to_keep = []
-                for image_dict in prod_dict.get('images', {}).values():
+                # images can be of one of these formats:
+                # [{...}, {...}] - this is a preferred one
+                # {0: {...}, 1: {...}}
+                images = prod_dict.get('images', [])
+                if isinstance(images, dict):
+                    images = images.values()
+                for image_dict in images:
                     image_url = image_dict.get('url', "")
                     if not image_url.startswith('http'):
                         continue
@@ -361,6 +419,13 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                         if mf:
                             image_ids_to_keep.append(mf.pk)
                             file_description = self.save_file_description(mf.path, image_dict)
+                        else:
+                            if self.update_images:
+                                # restore image
+                                mf = ProductionImage(production=prod)
+                            else:
+                                # skip deleted images
+                                continue
                         if not self.update_images:
                             continue
 
@@ -370,6 +435,10 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                         filename = filename.split("?")[0]
                     image_response = requests.get(image_url, auth=self.AUTH)
                     if image_response.status_code == 200:
+                        image_mods.FileManager.delete_file_for_object(
+                            mf,
+                            field_name="path",
+                        )
                         image_mods.FileManager.save_file_for_object(
                             mf,
                             filename,
@@ -388,8 +457,8 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                                 service=self.service,
                                 external_id=image_external_id,
                             )
-                            image_mapper.content_object = mf
-                            image_mapper.save()
+                        image_mapper.content_object = mf
+                        image_mapper.save()
 
                 for mf in prod.productionimage_set.exclude(id__in=image_ids_to_keep):
                     if mf.path:
@@ -405,7 +474,13 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     mf.delete()
 
             pdf_ids_to_keep = []
-            for pdf_dict in prod_dict.get('pdfs', {}).values():
+            # pdfs can be of one of these formats:
+            # [{...}, {...}] - this is a preferred one
+            # {0: {...}, 1: {...}}
+            pdfs = prod_dict.get('pdfs', [])
+            if isinstance(pdfs, dict):
+                pdfs = pdfs.values()
+            for pdf_dict in pdfs:
                 pdf_url = pdf_dict.get('url')
                 if not pdf_url.startswith('http'):
                     continue
@@ -467,8 +542,14 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                 # delete pdf model instance
                 mf.delete()
 
+            # leaders can be of one of these formats:
+            # [{...}, {...}] - this is a preferred one
+            # {0: {...}, 1: {...}}
             prod.productionleadership_set.all().delete()
-            for person_dict in prod_dict.get('leaders', {}).values():
+            leaders = prod_dict.get('leaders', [])
+            if isinstance(leaders, dict):
+                leaders = leaders.values()
+            for person_dict in leaders:
                 try:
                     prefix = Prefix.objects.get(slug=person_dict.get('prefix_id', ""))
                 except:
@@ -494,8 +575,14 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                 item.sort_order = sort_order
                 item.save()
 
+            # authors can be of one of these formats:
+            # [{...}, {...}] - this is a preferred one
+            # {0: {...}, 1: {...}}
             prod.productionauthorship_set.all().delete()
-            for person_dict in prod_dict.get('authors', {}).values():
+            authors = prod_dict.get('authors', [])
+            if isinstance(authors, dict):
+                authors = authors.values()
+            for person_dict in authors:
                 try:
                     prefix = Prefix.objects.get(slug=person_dict.get('prefix_id', ""))
                 except:
@@ -525,8 +612,14 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                 item.sort_order = sort_order
                 item.save()
 
+            # participants can be of one of these formats:
+            # [{...}, {...}] - this is a preferred one
+            # {0: {...}, 1: {...}}
             prod.productioninvolvement_set.all().delete()
-            for person_dict in prod_dict.get('participants', {}).values():
+            participants = prod_dict.get('participants', [])
+            if isinstance(participants, dict):
+                participants = participants.values()
+            for person_dict in participants:
                 try:
                     prefix = Prefix.objects.get(slug=person_dict.get('prefix_id', ""))
                 except:
@@ -569,7 +662,13 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                         pass
                 sponsor.delete()
             # add new sponsors
-            for sponsor_dict in prod_dict.get('sponsors', {}).values():
+            # sponsors can be of one of these formats:
+            # [{...}, {...}] - this is a preferred one
+            # {0: {...}, 1: {...}}
+            sponsors = prod_dict.get('sponsors', [])
+            if isinstance(sponsors, dict):
+                sponsors = sponsors.values()
+            for sponsor_dict in sponsors:
                 sponsor = ProductionSponsor(
                     production=prod,
                     title_de=sponsor_dict.get('title_de', ""),
@@ -604,7 +703,13 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
             else:
                 self.stats['prods_updated'] += 1
 
-            for event_dict in prod_dict.get('events', {}).values():
+            # events can be of one of these formats:
+            # [{...}, {...}] - this is a preferred one
+            # {0: {...}, 1: {...}}
+            events = prod_dict.get('events', [])
+            if isinstance(events, dict):
+                events = events.values()
+            for event_dict in events:
 
                 external_event_id = event_dict.get('id', "")
 
@@ -703,6 +808,8 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                 except:
                     event.language_and_subtitles = None
 
+                if event.event_status == "trashed":
+                    self.stats['events_untrashed'] += 1
                 event.event_status = event_dict.get('event_status', "")
                 event.ticket_status = event_dict.get('ticket_status', "")
 
@@ -711,8 +818,14 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                 event.save()
                 self.event_ids_to_keep.add(event.pk)
 
+                # play_locations can be of one of these formats:
+                # [6] - this is a preferred one
+                # {0: 6}
                 event.play_locations.clear()
-                for location_id in event_dict.get('play_locations', {}).values():
+                play_locations = event_dict.get('play_locations', [])
+                if isinstance(play_locations, dict):
+                    play_locations = play_locations.values()
+                for location_id in play_locations:
                     if not self.DEFAULT_IN_PROGRAM_OF_LOCATION_ID or self.DEFAULT_IN_PROGRAM_OF_LOCATION_ID != location_id:
                         try:
                             location = Location.objects.get(pk=location_id)
@@ -721,8 +834,14 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                         else:
                             event.play_locations.add(location)
 
+                # play_stages can be of one of these formats:
+                # [6] - this is a preferred one
+                # {0: 6}
                 event.play_stages.clear()
-                for stage_id in event_dict.get('play_stages', {}).values():
+                play_stages = event_dict.get('play_stages', [])
+                if isinstance(play_stages, dict):
+                    play_stages = play_stages.values()
+                for stage_id in play_stages:
                     try:
                         stage = Stage.objects.get(pk=stage_id)
                     except Stage.DoesNotExist:
@@ -730,8 +849,16 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     else:
                         event.play_stages.add(stage)
 
+                # characteristics can be of one of these formats:
+                # ["premiere", "familienpreise"] - this is a preferred one
+                # {0: "premiere", 1: "familienpreise"}
+                # [{"characteristic_id": "premiere"}, {"characteristic_id": "familienpreise"}]
+                # {0: {"characteristic_id": "premiere"}, 1: {"characteristic_id": "familienpreise"}}
                 event.characteristics.clear()
-                for ch_id in event_dict.get('characteristics', {}).values():
+                characteristics = event_dict.get('characteristics', [])
+                if isinstance(characteristics, dict):
+                    characteristics = characteristics.values()
+                for ch_id in characteristics:
                     try:
                         ch = EventCharacteristics.objects.get(slug=ch_id)
                     except EventCharacteristics.DoesNotExist:
@@ -739,8 +866,14 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     else:
                         event.characteristics.add(ch)
 
+                # videos can be of one of these formats:
+                # [{...}, {...}] - this is a preferred one
+                # {0: {...}, 1: {...}}
                 event.eventvideo_set.all().delete()
-                for video_dict in event_dict.get('videos', {}).values():
+                videos = event_dict.get('videos', [])
+                if isinstance(videos, dict):
+                    videos = videos.values()
+                for video_dict in videos:
                     video = EventVideo(event=event)
                     video.creation_date = parse_datetime(video_dict.get('creation_date', ""))
                     video.modified_date = parse_datetime(video_dict.get('modified_date', ""))
@@ -753,8 +886,14 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                         video.sort_order = 1
                     video.save()
 
+                # live_streams can be of one of these formats:
+                # [{...}, {...}] - this is a preferred one
+                # {0: {...}, 1: {...}}
                 event.eventlivestream_set.all().delete()
-                for live_stream_dict in event_dict.get('live_streams', {}).values():
+                live_streams = event_dict.get('live_streams', [])
+                if isinstance(live_streams, dict):
+                    live_streams = live_streams.values()
+                for live_stream_dict in live_streams:
                     ls = EventLiveStream(event=event)
                     ls.creation_date = parse_datetime(live_stream_dict.get('creation_date', ""))
                     ls.modified_date = parse_datetime(live_stream_dict.get('modified_date', ""))
@@ -769,7 +908,13 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
 
                 if not self.skip_images:
                     image_ids_to_keep = []
-                    for image_dict in event_dict.get('images', {}).values():
+                    # images can be of one of these formats:
+                    # [{...}, {...}] - this is a preferred one
+                    # {0: {...}, 1: {...}}
+                    images = event_dict.get('images', [])
+                    if isinstance(images, dict):
+                        images = images.values()
+                    for image_dict in images:
                         image_url = image_dict.get('url', "")
                         if not image_url.startswith('http'):
                             continue
@@ -791,6 +936,13 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                             if mf:
                                 image_ids_to_keep.append(mf.pk)
                                 file_description = self.save_file_description(mf.path, image_dict)
+                            else:
+                                if self.update_images:
+                                    # restore image
+                                    mf = EventImage(event=event)
+                                else:
+                                    # skip deleted images
+                                    continue
                             if not self.update_images:
                                 continue
 
@@ -800,6 +952,10 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                             filename = filename.split("?")[0]
                         image_response = requests.get(image_url, auth=self.AUTH)
                         if image_response.status_code == 200:
+                            image_mods.FileManager.delete_file_for_object(
+                                mf,
+                                field_name="path",
+                            )
                             image_mods.FileManager.save_file_for_object(
                                 mf,
                                 filename,
@@ -817,8 +973,8 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                                     service=self.service,
                                     external_id=image_external_id,
                                 )
-                                image_mapper.content_object = mf
-                                image_mapper.save()
+                            image_mapper.content_object = mf
+                            image_mapper.save()
 
                     for mf in event.eventimage_set.exclude(id__in=image_ids_to_keep):
                         if mf.path:
@@ -834,7 +990,13 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                         mf.delete()
 
                 pdf_ids_to_keep = []
-                for pdf_dict in event_dict.get('pdfs', {}).values():
+                # pdfs can be of one of these formats:
+                # [{...}, {...}] - this is a preferred one
+                # {0: {...}, 1: {...}}
+                pdfs = event_dict.get('pdfs', [])
+                if isinstance(pdfs, dict):
+                    pdfs = pdfs.values()
+                for pdf_dict in pdfs:
                     pdf_url = pdf_dict.get('url', "")
                     if not pdf_url.startswith('http'):
                         continue
@@ -896,8 +1058,14 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     # delete pdf model instance
                     mf.delete()
 
+                # leaders can be of one of these formats:
+                # [{...}, {...}] - this is a preferred one
+                # {0: {...}, 1: {...}}
                 event.eventleadership_set.all().delete()
-                for person_dict in event_dict.get('leaders', {}).values():
+                leaders = event_dict.get('leaders', [])
+                if isinstance(leaders, dict):
+                    leaders = leaders.values()
+                for person_dict in leaders:
                     try:
                         prefix = Prefix.objects.get(slug=person_dict.get('prefix_id', ""))
                     except:
@@ -923,8 +1091,14 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     item.sort_order = sort_order
                     item.save()
 
+                # authors can be of one of these formats:
+                # [{...}, {...}] - this is a preferred one
+                # {0: {...}, 1: {...}}
                 event.eventauthorship_set.all().delete()
-                for person_dict in event_dict.get('authors', {}).values():
+                authors = event_dict.get('authors', [])
+                if isinstance(authors, dict):
+                    authors = authors.values()
+                for person_dict in authors:
                     try:
                         prefix = Prefix.objects.get(slug=person_dict.get('prefix_id', ""))
                     except:
@@ -954,8 +1128,14 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     item.sort_order = sort_order
                     item.save()
 
+                # participants can be of one of these formats:
+                # [{...}, {...}] - this is a preferred one
+                # {0: {...}, 1: {...}}
                 event.eventinvolvement_set.all().delete()
-                for person_dict in event_dict.get('participants', {}).values():
+                participants = event_dict.get('participants', [])
+                if isinstance(participants, dict):
+                    participants = participants.values()
+                for person_dict in participants:
                     try:
                         prefix = Prefix.objects.get(slug=person_dict.get('prefix_id', ""))
                     except:
@@ -998,11 +1178,17 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                             pass
                     sponsor.delete()
                 # add new sponsors
-                for sponsor_dict in event_dict.get('sponsors', {}).values():
+                # sponsors can be of one of these formats:
+                # [{...}, {...}] - this is a preferred one
+                # {0: {...}, 1: {...}}
+                sponsors = event_dict.get('sponsors', [])
+                if isinstance(sponsors, dict):
+                    sponsors = sponsors.values()
+                for sponsor_dict in sponsors:
                     sponsor = EventSponsor(
                         event=event,
-                        title_de=sponsor_dict.get('title_de', ""),
-                        title_en=sponsor_dict.get('title_en', ""),
+                        title_de=sponsor_dict.get('title_de', "")[:255],
+                        title_en=sponsor_dict.get('title_en', "")[:255],
                         website=sponsor_dict.get('website', ""),
                     )
                     sponsor.save()

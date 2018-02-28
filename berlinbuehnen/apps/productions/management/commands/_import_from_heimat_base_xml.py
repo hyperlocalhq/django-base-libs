@@ -36,6 +36,7 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
     """
     option_list = NoArgsCommand.option_list + (
         make_option('--skip_images', action='store_true', help='Skips image downloads'),
+        make_option('--update_images', action='store_true', help='Forces image-download updates'),
     )
     help = "Imports productions and events from Culturebase"
 
@@ -176,6 +177,7 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
     def handle_noargs(self, *args, **options):
         self.verbosity = int(options.get("verbosity", self.NORMAL))
         self.skip_images = options.get("skip_images")
+        self.update_images = options.get("update_images")
         self.prepare()
         self.main()
         self.finalize()
@@ -307,6 +309,16 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
                     stage = Stage()
                     stage.location = location or self.in_program_of
                     stage.title_de = stage.title_en = stage_settings.internal_stage_title
+                except Stage.MultipleObjectsReturned:
+                    loc = location or self.in_program_of
+                    self.stderr.write(
+                        "Error: Multiple stages under {location} (ID={location_id}) with title {stage_title}".format(
+                            location=loc.title,
+                            location_id=loc.pk,
+                            stage_title=stage_settings.internal_stage_title,
+                        )
+                    )
+                    return LocationAndStage(location, None)
 
                 if not stage.street_address:
                     stage.street_address = culturebase_location.street_address
@@ -395,6 +407,16 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
                     stage = Stage()
                     stage.location = location or self.in_program_of
                     stage.title_de = stage.title_en = stage_settings.internal_stage_title
+                except Stage.MultipleObjectsReturned:
+                    loc = location or self.in_program_of
+                    self.stderr.write(
+                        "Error: Multiple stages under {location} (ID={location_id}) with title {stage_title}".format(
+                            location=loc.title,
+                            location_id=loc.pk,
+                            stage_title=stage_settings.internal_stage_title,
+                        )
+                    )
+                    return LocationAndStage(location, None)
 
                 if not stage.street_address:
                     culturebase_location = self.LOCATIONS_BY_TITLE.get(stage_settings.internal_stage_title, None)
@@ -633,6 +655,7 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
 
             if self.verbosity >= self.NORMAL:
                 self.stdout.write(u"%d/%d %s | %s" % (prod_index, prods_count, title_de, title_en))
+                self.stdout.flush()
 
             mapper = None
             try:
@@ -649,11 +672,13 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
             else:
                 prod = mapper.content_object
                 self.production_ids_to_keep.add(prod.pk)
-                if not prod or prod.status == "trashed":
+                if not prod:
                     # if exhibition was deleted after import,
                     # don't import it again
                     self.stats['prods_skipped'] += 1
                     continue
+                if prod.status == "trashed":
+                    self.stats['prods_untrashed'] += 1
                 # else:
                 #     if parse_datetime(exhibition_dict['lastaction'], ignoretz=True) < datetime.now() - timedelta(days=1):
                 #         self.stats['prods_skipped'] += 1
@@ -739,7 +764,15 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
                         if mf:
                             image_ids_to_keep.append(mf.pk)
                             file_description = self.save_file_description(mf.path, picture_node)
-                        continue
+                        else:
+                            if self.update_images:
+                                # restore image
+                                mf = ProductionImage(production=prod)
+                            else:
+                                # skip deleted images
+                                continue
+                        if not self.update_images:
+                            continue
 
                     filename = image_url.split("/")[-1]
                     if "?" in filename:
@@ -747,6 +780,10 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
                         filename = filename.split("?")[0]
                     image_response = requests.get(image_url)
                     if image_response.status_code == 200:
+                        image_mods.FileManager.delete_file_for_object(
+                            mf,
+                            field_name="path",
+                        )
                         image_mods.FileManager.save_file_for_object(
                             mf,
                             filename,
@@ -768,8 +805,8 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
                                 service=self.service,
                                 external_id=image_external_id,
                             )
-                            image_mapper.content_object = mf
-                            image_mapper.save()
+                        image_mapper.content_object = mf
+                        image_mapper.save()
 
                 for mf in prod.productionimage_set.exclude(id__in=image_ids_to_keep):
                     if mf.path:
@@ -941,8 +978,12 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
                 if event_node.get('takingPlace'):
                     flag_status = int(event_node.get('takingPlace'))
                     if flag_status == 0:  # fällt aus
+                        if event.event_status == "trashed":
+                            self.stats['events_untrashed'] += 1
                         event.event_status = 'canceled'
                     elif flag_status == 1:  # findet statt
+                        if event.event_status == "trashed":
+                            self.stats['events_untrashed'] += 1
                         event.event_status = 'takes_place'
                     elif flag_status == 2:  # ausverkauft
                         event.ticket_status = 'sold_out'
@@ -976,7 +1017,15 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
                             if mf:
                                 image_ids_to_keep.append(mf.pk)
                                 file_description = self.save_file_description(mf.path, picture_node)
-                            continue
+                            else:
+                                if self.update_images:
+                                    # restore image
+                                    mf = EventImage(event=event)
+                                else:
+                                    # skip deleted images
+                                    continue
+                            if not self.update_images:
+                                continue
 
                         filename = image_url.split("/")[-1]
                         if "?" in filename:
@@ -984,6 +1033,10 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
                             filename = filename.split("?")[0]
                         image_response = requests.get(image_url)
                         if image_response.status_code == 200:
+                            image_mods.FileManager.delete_file_for_object(
+                                mf,
+                                field_name="path",
+                            )
                             image_mods.FileManager.save_file_for_object(
                                 mf,
                                 filename,
@@ -1005,8 +1058,8 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
                                     service=self.service,
                                     external_id=image_external_id,
                                 )
-                                image_mapper.content_object = mf
-                                image_mapper.save()
+                            image_mapper.content_object = mf
+                            image_mapper.save()
 
                     for mf in event.eventimage_set.exclude(pk__in=image_ids_to_keep):
                         if mf.path:

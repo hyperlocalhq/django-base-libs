@@ -82,11 +82,6 @@ date >> ${CRON_LOG_FILE}
 python manage.py import_from_culturebase_radialsystem --settings=berlinbuehnen.settings.production --traceback >> ${CRON_LOG_FILE}  2>&1
 
 echo "------------" >> ${CRON_LOG_FILE}
-echo "Importing from Staatsoper im Schiller Theater" >> ${CRON_LOG_FILE}
-date >> ${CRON_LOG_FILE}
-python manage.py import_from_culturebase_sob --settings=berlinbuehnen.settings.production --traceback >> ${CRON_LOG_FILE}  2>&1
-
-echo "------------" >> ${CRON_LOG_FILE}
 echo "Importing from Pierre Boulez Saal (New)" >> ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
 python manage.py import_from_boulezsaal --settings=berlinbuehnen.settings.production --traceback >> ${CRON_LOG_FILE}  2>&1

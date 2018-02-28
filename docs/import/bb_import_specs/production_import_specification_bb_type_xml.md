@@ -1,6 +1,6 @@
 # Production Import Specification #
 
-Last update: October 24, 2017
+Last update: February 20, 2018
 
 [TOC]
 
@@ -39,6 +39,9 @@ The XML for the import API should have the following structure:
     </productions>
 </response>
 ```
+
+[For JSON version look here](production_import_specification_bb_type_json.html)
+
 
 ### The Meta Section ###
 
@@ -902,7 +905,7 @@ These elements are available for the `<event>` node:
 | `<tickets_website>` | xs:anyURI | no | The URL of a website page where you can buy tickets to this event | http://example.com/tickets/ |
 | `<price_information_de>` | xs:string | no | Additional plain-text information about prices in German | |
 | `<price_information_en>` | xs:string | no | Additional plain-text information about prices in English | |
-| `<event_status>` | xs:string | yes | Event status. One of: "`takes_place`" or "`canceled`" | `takes_place` |
+| `<event_status>` | xs:string | yes | Event status. One of: "`takes_place`", or "`canceled`" | `takes_place` |
 | `<ticket_status>` | xs:string | no | Tickets' status. One of: "`tickets_@_box_office`" or "`sold_out`" | `tickets_@_box_office` |
 | `<characteristics>`| list of `<characteristic_id>` nodes | no | Event characteristics |  |
 | `<leaders>` | list of `<leader>` nodes | no | Leaders | |

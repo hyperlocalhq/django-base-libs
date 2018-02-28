@@ -287,6 +287,8 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         event = self.get_nearest_occurrence()
         make_expired = False
         if event:
+            self.start_date = event.start_date
+            self.start_time = event.start_time
             Production.objects.filter(pk=self.pk).update(
                 start_date=event.start_date,
                 start_time=event.start_time,
@@ -297,6 +299,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         elif self.status == "published":
             make_expired = True
         if make_expired:
+            self.status = "expired"
             Production.objects.filter(pk=self.pk).update(
                 status="expired",
             )

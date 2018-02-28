@@ -232,6 +232,13 @@
 
                         <div class="clearfix"></div>
 
+                        <!-- Page Teaser -->
+                        <div class="page-teaser">
+                            {% placeholder "page_teaser" %}
+                        </div>
+
+                        <div class="clearfix"></div>
+
                         <!-- BLOG -->
                         {% get_objects published_objects.all blog.Post 2 as newest_posts %}
                         {% for post in newest_posts %}
@@ -245,6 +252,7 @@
                                 <a class="more fawesome" href="{{ post.get_url_path }}" >{% trans "read on" %}</a>
                             </div>
                         {% endfor %}
+
                     </div>
                 </div>
 

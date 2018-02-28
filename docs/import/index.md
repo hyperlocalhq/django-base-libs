@@ -1,6 +1,6 @@
 # Frequently Asked Questions about Production Import to Berlin Bühnen
 
-Last update: October 24, 2017
+Last update: February 1, 2018
 
 [TOC]
 
@@ -8,13 +8,13 @@ Last update: October 24, 2017
 
 There are 3 types of imports depending on the source format.
 
-1. The first type is based on the old XML format of CultureBase server. We call it "[CultureBase type](culturebase_import_specs/production_import_specification_culturebase_type.html)". This format is used by the following partners:
+1. The first type is based on the old XML format of CultureBase server. We call it "[CultureBase type](culturebase_import_specs/production_import_specification_culturebase_type.html)". At the moment this format is used by the following partners:
 
     - Deutsche Oper Berlin
     - RADIALSYSTEM V
     - Staatsoper im Schiller Theater
 
-2. The other format is based on [this XML structure specification](http://cb.heimat.de/interface/schema/interfaceformat.xsd). We call it "[Heimat.de type](heimat_de_import_specs/production_import_specification_heimat_de_type.html)". This format is used by the following partners:
+2. The other format is based on [this XML structure specification](http://cb.heimat.de/interface/schema/interfaceformat.xsd). We call it "[Heimat.de type](heimat_de_import_specs/production_import_specification_heimat_de_type.html)". At the moment this format is used by the following partners:
 
     - Berliner Philharmonie
     - Deutsches Theater
@@ -26,7 +26,7 @@ There are 3 types of imports depending on the source format.
     - Wühlmäuse
     - GRIPS Theater
 
-3. The third format was specifically designed to match the database structure of Berlin Bühnen. We call it "[Berlin Bühnen type](bb_import_specs/production_import_specification_bb_type.html)". It can be provided as XML or JSON. This format is used by these partners:
+3. The third format was specifically designed to match the database structure of Berlin Bühnen. We call it "[Berlin Bühnen type](bb_import_specs/production_import_specification_bb_type_xml.html)". It can be provided as [XML](bb_import_specs/production_import_specification_bb_type_xml.html) or [JSON](bb_import_specs/production_import_specification_bb_type_json.html). It is a preferred format for all new import feeds and at the moment this format is used by these partners:
 
     - Maxim Gorki Theater
     - Schlosspark Theater
@@ -103,8 +103,9 @@ These are the fields and relations that get updated or recreated in the case of 
 
 Productions that existed in the import feed before, but don't exist there anymore will get a status "trashed". The same is with events: events that existed in the import feed before, but don't exist there anymore will get event status "trashed".
 
+Productions and events republished at the import feed will reappear at Berlin Bühnen again, unless __no_overwriting__ is set to True there. 
+
+
 ## If a production is deleted at Berlin Bühnen, will it be reimported again?
 
-No, productions deleted at Berlin Bühnen are meant to be deleted on purpose and therefore they won't be recreated again by the import script.
-
-This restriction can be excluded for specific cases on request.
+If a production or event is manually trashed in the dashboard of Berlin Bühnen, the production will get __status__ "trashed" or event will get __event_status__ "trashed" and __no_overwriting__ for the production will be set to True. So with the next import it won't be updated.

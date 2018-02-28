@@ -11,7 +11,8 @@
         <meta name="description" lang="{{ LANGUAGE_CODE }}" content="{{ object.production.title }} – {% page_attribute "title" as title %}{% page_attribute "page_title" as page_title %}{{ page_title|default:title|escape }} – Berlin Bühnen" />
         {{ site_settings.get_meta_keywords|safe }}
     {% else %}
-        <meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+        <meta name="googlebot" content="noindex, nofollow" />
+        <meta name="robots" content="noindex, nofollow" />
     {% endif %}
 {% endblock %}
 

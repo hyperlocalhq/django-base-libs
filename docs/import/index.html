@@ -513,7 +513,7 @@ pre.line-numbers > code {
 
 <h1 id="toc_0">Frequently Asked Questions about Production Import to Berlin Bühnen</h1>
 
-<p>Last update: October 24, 2017</p>
+<p>Last update: February 1, 2018</p>
 
 <ul class="toc">
 <li>
@@ -550,14 +550,14 @@ pre.line-numbers > code {
 <p>There are 3 types of imports depending on the source format.</p>
 
 <ol>
-<li><p>The first type is based on the old XML format of CultureBase server. We call it &quot;<a href="culturebase_import_specs/production_import_specification_culturebase_type.html">CultureBase type</a>&quot;. This format is used by the following partners:</p>
+<li><p>The first type is based on the old XML format of CultureBase server. We call it &quot;<a href="culturebase_import_specs/production_import_specification_culturebase_type.html">CultureBase type</a>&quot;. At the moment this format is used by the following partners:</p>
 
 <ul>
 <li>Deutsche Oper Berlin</li>
 <li>RADIALSYSTEM V</li>
 <li>Staatsoper im Schiller Theater</li>
 </ul></li>
-<li><p>The other format is based on <a href="http://cb.heimat.de/interface/schema/interfaceformat.xsd">this XML structure specification</a>. We call it &quot;<a href="heimat_de_import_specs/production_import_specification_heimat_de_type.html">Heimat.de type</a>&quot;. This format is used by the following partners:</p>
+<li><p>The other format is based on <a href="http://cb.heimat.de/interface/schema/interfaceformat.xsd">this XML structure specification</a>. We call it &quot;<a href="heimat_de_import_specs/production_import_specification_heimat_de_type.html">Heimat.de type</a>&quot;. At the moment this format is used by the following partners:</p>
 
 <ul>
 <li>Berliner Philharmonie</li>
@@ -570,7 +570,7 @@ pre.line-numbers > code {
 <li>Wühlmäuse</li>
 <li>GRIPS Theater</li>
 </ul></li>
-<li><p>The third format was specifically designed to match the database structure of Berlin Bühnen. We call it &quot;<a href="bb_import_specs/production_import_specification_bb_type.html">Berlin Bühnen type</a>&quot;. It can be provided as XML or JSON. This format is used by these partners:</p>
+<li><p>The third format was specifically designed to match the database structure of Berlin Bühnen. We call it &quot;<a href="bb_import_specs/production_import_specification_bb_type_xml.html">Berlin Bühnen type</a>&quot;. It can be provided as <a href="bb_import_specs/production_import_specification_bb_type_xml.html">XML</a> or <a href="bb_import_specs/production_import_specification_bb_type_json.html">JSON</a>. It is a preferred format for all new import feeds and at the moment this format is used by these partners:</p>
 
 <ul>
 <li>Maxim Gorki Theater</li>
@@ -655,11 +655,11 @@ pre.line-numbers > code {
 
 <p>Productions that existed in the import feed before, but don&#39;t exist there anymore will get a status &quot;trashed&quot;. The same is with events: events that existed in the import feed before, but don&#39;t exist there anymore will get event status &quot;trashed&quot;.</p>
 
+<p>Productions and events republished at the import feed will reappear at Berlin Bühnen again, unless <strong>no_overwriting</strong> is set to True there. </p>
+
 <h2 id="toc_7">If a production is deleted at Berlin Bühnen, will it be reimported again?</h2>
 
-<p>No, productions deleted at Berlin Bühnen are meant to be deleted on purpose and therefore they won&#39;t be recreated again by the import script.</p>
-
-<p>This restriction can be excluded for specific cases on request.</p>
+<p>If a production or event is manually trashed in the dashboard of Berlin Bühnen, the production will get <strong>status</strong> &quot;trashed&quot; or event will get <strong>event_status</strong> &quot;trashed&quot; and <strong>no_overwriting</strong> for the production will be set to True. So with the next import it won&#39;t be updated.</p>
 
 
 

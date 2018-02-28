@@ -31,14 +31,12 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
     option_list = NoArgsCommand.option_list + (
         make_option('--skip_images', action='store_true', help='Skips image downloads'),
         make_option('--update_images', action='store_true', help='Forces image-download updates'),
-        make_option('--untrash', action='store_true', help='Restores trashed productions'),
     )
 
     def handle_noargs(self, *args, **options):
         self.verbosity = int(options.get("verbosity", self.NORMAL))
         self.skip_images = options.get("skip_images")
         self.update_images = options.get("update_images")
-        self.untrash = options.get("untrash")
         self.prepare()
         self.main()
         self.finalize()
@@ -215,6 +213,7 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
 
             if self.verbosity >= self.NORMAL:
                 self.stdout.write(u"%d/%d %s | %s" % (self._production_counter, self._total_production_count, title_de, title_en))
+                self.stdout.flush()
 
             mapper = None
             try:
@@ -231,11 +230,13 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
             else:
                 prod = mapper.content_object
                 self.production_ids_to_keep.add(prod.pk)
-                if not prod or (not self.untrash and prod.status == "trashed"):
+                if not prod:
                     # if production was deleted after import,
                     # don't import it again
                     self.stats['prods_skipped'] += 1
                     continue
+                if prod.status == "trashed":
+                    self.stats['prods_untrashed'] += 1
 
             if prod.no_overwriting:
                 self.stats['prods_skipped'] += 1
@@ -418,6 +419,13 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
                         mf = image_mapper.content_object
                         if mf:
                             image_ids_to_keep.append(mf.pk)
+                        else:
+                            if self.update_images:
+                                # restore image
+                                mf = ProductionImage(production=prod)
+                            else:
+                                # skip deleted images
+                                continue
                         if not self.update_images:
                             continue
 
@@ -427,6 +435,10 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
                         filename = filename.split("?")[0]
                     image_response = requests.get(image_url)
                     if image_response.status_code == 200:
+                        image_mods.FileManager.delete_file_for_object(
+                            mf,
+                            field_name="path",
+                        )
                         image_mods.FileManager.save_file_for_object(
                             mf,
                             filename,
@@ -445,8 +457,8 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
                                 service=self.service,
                                 external_id=image_external_id,
                             )
-                            image_mapper.content_object = mf
-                            image_mapper.save()
+                        image_mapper.content_object = mf
+                        image_mapper.save()
 
                 for mf in prod.productionimage_set.exclude(id__in=image_ids_to_keep):
                     if mf.path:
@@ -627,8 +639,8 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
             for sponsor_node in prod_node.findall('./sponsors/sponsor'):
                 sponsor = ProductionSponsor(
                     production=prod,
-                    title_de=self.get_child_text(sponsor_node, 'title_de'),
-                    title_en=self.get_child_text(sponsor_node, 'title_en'),
+                    title_de=self.get_child_text(sponsor_node, 'title_de')[:255],
+                    title_en=self.get_child_text(sponsor_node, 'title_en')[:255],
                     website=self.get_child_text(sponsor_node, 'website'),
                 )
                 sponsor.save()
@@ -757,6 +769,8 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
                 except LanguageAndSubtitles.DoesNotExist:
                     event.language_and_subtitles = None
 
+                if event.event_status == "trashed":
+                    self.stats['events_untrashed'] += 1
                 event.event_status = self.get_child_text(event_node, 'event_status')
                 event.ticket_status = self.get_child_text(event_node, 'ticket_status')
 
@@ -844,6 +858,13 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
                             mf = image_mapper.content_object
                             if mf:
                                 image_ids_to_keep.append(mf.pk)
+                            else:
+                                if self.update_images:
+                                    # restore image
+                                    mf = EventImage(event=event)
+                                else:
+                                    # skip deleted images
+                                    continue
                             if not self.update_images:
                                 continue
     
@@ -853,6 +874,10 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
                             filename = filename.split("?")[0]
                         image_response = requests.get(image_url)
                         if image_response.status_code == 200:
+                            image_mods.FileManager.delete_file_for_object(
+                                mf,
+                                field_name="path",
+                            )
                             image_mods.FileManager.save_file_for_object(
                                 mf,
                                 filename,
@@ -870,8 +895,8 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
                                     service=self.service,
                                     external_id=image_external_id,
                                 )
-                                image_mapper.content_object = mf
-                                image_mapper.save()
+                            image_mapper.content_object = mf
+                            image_mapper.save()
     
                     for mf in event.eventimage_set.exclude(id__in=image_ids_to_keep):
                         if mf.path:

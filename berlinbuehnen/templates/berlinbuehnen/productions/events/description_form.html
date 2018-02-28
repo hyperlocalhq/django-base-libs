@@ -11,6 +11,7 @@
     <script src="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.bgiframe.min.js"></script>
     <script src="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.autocomplete.js"></script>
     <script src="{{ STATIC_URL }}site/js/autocomplete.js"></script>
+    <script src="{{ STATIC_URL }}site/js/SortingByOrder.js"></script>
     <script src="{{ STATIC_URL }}ajaxuploader/js/fileuploader.js"></script>
 {% endblock %}
 
@@ -32,7 +33,9 @@
     <script src="{{ STATIC_URL }}site/js/locating.min.js"></script>
     <script src="{{ STATIC_URL }}site/js/checkbox-tree.js"></script>
     <script>
-        var fields_from_production = {{ fields_from_production|safe }};
+        var fields_from_production = [{% for f in fields_from_production %}
+            '{{ f|escapejs }}'{% if not forloop.last %}, {% endif %}{% endfor %}
+        ];
         var translatable_file_uploader_options = {
             template: '<div class="qq-uploader">' +
                 '<div class="qq-upload-drop-area"><span>{% trans "Drop image here" %}</span></div>' +

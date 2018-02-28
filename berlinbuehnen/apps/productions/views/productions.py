@@ -27,7 +27,7 @@ FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 from berlinbuehnen.apps.productions.forms.productions import PRODUCTION_FORM_STEPS, ProductionDuplicateForm
 from berlinbuehnen.apps.productions.forms.events import AddEventsForm
 from berlinbuehnen.apps.productions.forms.events import BasicInfoForm as EventBasicInfoForm
-from berlinbuehnen.apps.productions.forms.events import DescriptionForm as EventDescriptionForm, EventLeadershipFormset, EventAuthorshipFormset, EventInvolvementFormset, SocialMediaChannelFormset, EventSponsorFormset
+from berlinbuehnen.apps.productions.forms.events import DescriptionForm as EventDescriptionForm, EventLeadershipFormset, EventAuthorshipFormset, EventInvolvementFormset, SocialMediaChannelFormset, EventSponsorFormset, get_involvement_selection
 from berlinbuehnen.apps.productions.forms.events import GalleryForm
 
 from jetson.apps.image_mods.models import FileManager
@@ -260,6 +260,7 @@ def delete_production(request, slug):
     if not instance.is_deletable():
         return access_denied(request)
     if request.method == "POST" and request.is_ajax():
+        instance.no_overwriting = True
         instance.status = "trashed"
         instance.save()
         return HttpResponse("OK")
@@ -601,6 +602,7 @@ def change_event_description(request, slug, event_id):
                 'involvement_role_en': obj.involvement_role_en,
                 'involvement_instrument_de': obj.involvement_instrument_de,
                 'involvement_instrument_en': obj.involvement_instrument_en,
+                'selection': get_involvement_selection(obj),
                 'sort_order': obj.sort_order,
                 'imported_sort_order': obj.imported_sort_order,
             } for obj in EventInvolvement.objects.filter(event=event).order_by('sort_order')]
@@ -614,6 +616,7 @@ def change_event_description(request, slug, event_id):
                 'involvement_role_en': obj.involvement_role_en,
                 'involvement_instrument_de': obj.involvement_instrument_de,
                 'involvement_instrument_en': obj.involvement_instrument_en,
+                'selection': get_involvement_selection(obj),
                 'sort_order': obj.sort_order,
                 'imported_sort_order': obj.imported_sort_order,
             } for obj in ProductionInvolvement.objects.filter(production=production).order_by('sort_order')]
@@ -715,6 +718,8 @@ def delete_event(request, slug, event_id):
     if not event.production.is_deletable():
         return access_denied(request)
     if request.method == "POST" and request.is_ajax():
+        production.no_overwriting = True
+        production.save()
         event.event_status = "trashed"
         event.save()
         return HttpResponse("OK")
