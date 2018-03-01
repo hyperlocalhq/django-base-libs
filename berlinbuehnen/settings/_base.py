@@ -25,14 +25,11 @@ def get_secret(setting, secrets=secrets):
         error_msg = 'Set the {0} secret variable'.format(setting)
         raise ImproperlyConfigured(error_msg)
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
-JETSON_PATH = BASE_DIR
-PROJECT_PATH = os.path.join(BASE_DIR, "berlinbuehnen")
-EXTERNALS_PATH = os.path.join(BASE_DIR, "berlinbuehnen", "berlinbuehnen", "externals")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+JETSON_PATH = os.path.abspath(os.path.join(BASE_DIR, "subtrees"))
+PROJECT_PATH = BASE_DIR
 
-sys.path = ["", JETSON_PATH, EXTERNALS_PATH] + [p for p in sys.path if p]
-
-execfile(os.path.join(BASE_DIR, "berlinbuehnen", "berlinbuehnen", "settings", "_jetson_base.py"), globals(), locals())
+execfile(os.path.join(JETSON_PATH, "jetson/settings/base.py"), globals(), locals())
 
 ### DOMAINS ###
 
@@ -208,39 +205,38 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
-TEMPLATESADMIN_TEMPLATE_DIRS = TEMPLATE_DIRS = [
-    os.path.join(PROJECT_PATH, "berlinbuehnen", "templates", "berlinbuehnen"),
-    os.path.join(PROJECT_PATH, "berlinbuehnen", "templates", "admin"),
-] + TEMPLATE_DIRS
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.request',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'cms.context_processors.cms_settings',
-    'sekizai.context_processors.sekizai',
-    "jetson.apps.utils.context_processors.general",
-    "jetson.apps.configuration.context_processors.configuration",
-    "jetson.apps.advertising.context_processors.source_features",
-    "django.contrib.messages.context_processors.messages",
-    "berlinbuehnen.apps.site_specific.context_processors.languages",
-)
-
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
-
-if not DEBUG:
-    TEMPLATE_LOADERS = (
-        (
-            'django.template.loaders.cached.Loader',
-            TEMPLATE_LOADERS
-        ),
-    )
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(PROJECT_PATH, "berlinbuehnen", "templates", "berlinbuehnen"),
+            os.path.join(PROJECT_PATH, "berlinbuehnen", "templates", "admin"),
+            os.path.join(JETSON_PATH, "jetson", "templates", "default"),
+            os.path.join(JETSON_PATH, "jetson", "templates", "admin"),
+            os.path.join(JETSON_PATH, "jetson", "externals", "apps", "grappelli", "templates", "grappelli"),
+            os.path.join(JETSON_PATH, "jetson", "externals", "apps", "grappelli", "templates"),
+        ],
+        'OPTIONS': {
+            'context_processors': (
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "django.core.context_processors.i18n",
+                "django.core.context_processors.request",
+                "django.core.context_processors.media",
+                "django.core.context_processors.static",
+                "sekizai.context_processors.sekizai",
+                "cms.context_processors.cms_settings",
+                "jetson.apps.configuration.context_processors.configuration",
+                "jetson.apps.utils.context_processors.general",
+                "berlinbuehnen.apps.site_specific.context_processors.languages",
+            ),
+            'loaders': [
+                "django.template.loaders.filesystem.Loader",
+                "django.template.loaders.app_directories.Loader",
+            ],
+        }
+    },
+]
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
