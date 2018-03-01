@@ -1,0 +1,99 @@
+fieldset.grp-collapse ul.multilingual-langs {
+    display: block;
+    float: right;
+    position: absolute;
+    top:0px;
+    right:0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: none;
+}
+
+.multilingual-langs li {
+	float: left;
+	display: block;
+	list-style-type: none;
+}
+
+.multilingual-langs a {
+	display: block;
+	width: 18px;
+	height: 26px;
+	overflow: hidden;
+	position: relative;
+	padding-left: 10px;
+}
+
+.multilingual-langs a span {
+	display: none;
+}
+
+
+
+.multilingual-langs a.lang-de {
+	background: url(../../img/icons/lang-de-inactive.png) no-repeat center center;
+}
+.multilingual-langs a.lang-de:hover,
+.multilingual-language-de .multilingual-langs a.lang-de {
+	background: url(../../img/icons/lang-de.png) no-repeat center center;
+}
+
+.multilingual-langs a.lang-en {
+	background: url(../../img/icons/lang-en-inactive.png) no-repeat center center;
+}
+.multilingual-langs a.lang-en:hover,
+.multilingual-language-en .multilingual-langs a.lang-en {
+	background: url(../../img/icons/lang-en.png) no-repeat center center;
+}
+
+.multilingual-langs a.lang-fr {
+	background: url(../../img/icons/lang-fr-inactive.png) no-repeat center center;
+}
+.multilingual-langs a.lang-fr:hover,
+.multilingual-language-fr .multilingual-langs a.lang-fr {
+	background: url(../../img/icons/lang-fr.png) no-repeat center center;
+}
+
+.multilingual-langs a.lang-pl {
+	background: url(../../img/icons/lang-pl-inactive.png) no-repeat center center;
+}
+.multilingual-langs a.lang-pl:hover,
+.multilingual-language-pl .multilingual-langs a.lang-pl {
+	background: url(../../img/icons/lang-pl.png) no-repeat center center;
+}
+
+.multilingual-langs a.lang-tr {
+	background: url(../../img/icons/lang-tr-inactive.png) no-repeat center center;
+}
+.multilingual-langs a.lang-tr:hover,
+.multilingual-language-tr .multilingual-langs a.lang-tr {
+	background: url(../../img/icons/lang-tr.png) no-repeat center center;
+}
+
+.multilingual-langs a.lang-es {
+	background: url(../../img/icons/lang-es-inactive.png) no-repeat center center;
+}
+.multilingual-langs a.lang-es:hover,
+.multilingual-language-es .multilingual-langs a.lang-es {
+	background: url(../../img/icons/lang-es.png) no-repeat center center;
+}
+
+.multilingual-langs a.lang-it {
+	background: url(../../img/icons/lang-it-inactive.png) no-repeat center center;
+}
+.multilingual-langs a.lang-it:hover,
+.multilingual-language-it .multilingual-langs a.lang-it {
+	background: url(../../img/icons/lang-it.png) no-repeat center center;
+}
+
+
+
+fieldset.multilingual-set-container fieldset {
+    border: 0;
+    margin: 0;
+}
+
+fieldset.multilingual-set-container fieldset.grp-collapse h2.grp-collapse-toggle {
+	display: none !important;
+}
+
