@@ -27,6 +27,7 @@ TAGGING_PATH = os.path.join(JETSON_PATH, "tagging")
 TAGGING_AUTOCOMPLETE_PATH = os.path.join(JETSON_PATH, "tagging_autocomplete")
 FILEBROWSER_PATH = os.path.join(JETSON_PATH, "filebrowser")
 sys.path = [
+    "",
     EXTERNAL_LIBS_PATH,
     EXTERNAL_APPS_PATH,
     BASE_LIBS_PATH,
@@ -35,7 +36,7 @@ sys.path = [
     FILEBROWSER_PATH,
     JETSON_PATH,
     PROJECT_PATH,
-] + sys.path
+] + [p for p in sys.path if p]
 
 from jetson.apps.utils.utils import get_git_changeset
 
