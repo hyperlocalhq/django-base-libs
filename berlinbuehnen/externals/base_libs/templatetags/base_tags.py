@@ -15,14 +15,14 @@ from django.template.loader import select_template
 from django.utils.safestring import mark_safe
 from django.utils.text import normalize_newlines
 from django.template.defaultfilters import stringfilter
-from django.utils.encoding import force_str
+from base_libs.django_compatibility import force_str
 
 from base_libs.utils.loader import select_template_for_object
 from base_libs.utils.user import get_user_title
 
-register = template.Library() 
+register = template.Library()
 
-### TAGS ### 
+### TAGS ###
 
 class IncludeSelectNode(template.Node):
     def __init__(self, case, params):
@@ -42,13 +42,14 @@ class IncludeSelectNode(template.Node):
                 if settings.TEMPLATE_DEBUG:
                     raise
         # the first case (see below)
+        t = None
         if self.case == 0:
             try:
                 t = select_template(param_list)
             except:
                 if settings.TEMPLATE_DEBUG:
                     raise
-            return t.render(context) 
+            return t.render(context)
         # the second case (see below)
         elif self.case == 1:
             # the param list should look like [<<template>>, <<obj>>, <<app_dir>>]
@@ -57,7 +58,7 @@ class IncludeSelectNode(template.Node):
             except:
                 if settings.TEMPLATE_DEBUG:
                     raise
-            return t.render(context) 
+            return t.render(context)
         return ""
 
 def do_include_selected(parser, token):
@@ -71,15 +72,15 @@ def do_include_selected(parser, token):
     # well: [some_include, for, obj, under, forum]
     """
     creates a list of tuples for params. Such a tuple consists of three
-    entries: 
+    entries:
     1. the index of the param
-    2. a code for the type of param with: 
+    2. a code for the type of param with:
         0 ... reserved word
         1 ... string
         2 ... template var name
     The "case" var is used to distinguish between the two cases
     case=0: {% include_selected "template_1.html" "template_2.html" "template_3.html" %}
-    case=1: {% include_selected "some_include" for obj under "forum" %}       
+    case=1: {% include_selected "some_include" for obj under "forum" %}
     """
     case = 0
     params = []
@@ -105,17 +106,17 @@ def do_include_selected(parser, token):
                 param = (i, 0, bits[i])
             else:
                 param = (i, 2, bits[i])
-        params.append(param) 
+        params.append(param)
     return IncludeSelectNode(case, params)
 register.tag('include_selected', do_include_selected)
 
 def do_load_obj(parser, token):
     """
     Loads an object by its application and model names and id
-    
+
     Usage:
         {% load_obj <app_name>.<model_name> <object_id> as <var_name> %}
-        
+
     Example:
         {% load_obj people.Person 3 as person %}
     """
@@ -144,7 +145,7 @@ class LoadObjNode(template.Node):
             obj = None
 
         context[self.var_name] = obj
-        return ''    
+        return ''
 
 register.tag('load_obj', do_load_obj)
 
@@ -153,13 +154,13 @@ def do_get_all_objects(parser, token):
     Gets a queryset of all objects of the model specified by app and model names
 
     Usage:
-        
+
         {% get_all_objects app.name as <var_name> %}
-        
+
     Example:
-        
+
         {% get_all_objects people.Person as people %}
-        
+
     """
     try:
         # split_contents() knows not to split quoted strings.
@@ -189,13 +190,13 @@ def do_get_latest_published_objects(parser, token):
     Gets a queryset of all objects of the model specified by app and model names
 
     Usage:
-        
+
         {% get_latest_published_objects app.name <amount> as <var_name> %}
-        
+
     Example:
-        
+
         {% get_latest_published_objects people.Person 3 as people %}
-        
+
     """
     try:
         tag_name, appmodel, amount, str_as, var_name = token.split_contents()
@@ -229,15 +230,15 @@ def do_get_objects(parser, token):
     Gets a queryset of all objects of the model specified by app and model names
 
     Usage:
-        
+
         {% get_objects [<manager>.]<method> app.name [<amount>] as <var_name> %}
-        
+
     Example:
-        
+
         {% get_objects latest_published people.Person 3 as people %}
         {% get_objects site_objects.all articles.Article 3 as articles %}
         {% get_objects site_objects.all articles.Article as articles %}
-        
+
     """
     amount = None
     try:
@@ -266,7 +267,7 @@ class ObjectsNode(template.Node):
         else:
             manager = "_default_manager"
             method = self.manager_method
-            
+
         qs = getattr(
             getattr(self.model, manager),
             method,
@@ -372,7 +373,7 @@ def do_ifvalue(parser, token, name, negate=False):
         if bits[2] != "as":
             raise template.TemplateSyntaxError, "%r with three arguments must be 'value as name'" % tagname
         name = bits[3]
-    
+
     end_tag = 'end' + tagname
     nodelist_true = parser.parse(('else', end_tag))
     token = parser.next_token()
@@ -441,14 +442,14 @@ def do_parse(parser, token):
     Usage::
 
         {% parse <template_value> [as <variable>] %}
-    
+
     Examples::
 
         {% parse object.get_description %}
         {% parse header as header %}
         {% parse "{{ MEDIA_URL }}js/" as js_url %}
 
-    """    
+    """
     bits = token.split_contents()
     tag_name = bits.pop(0)
     try:
@@ -460,7 +461,7 @@ def do_parse(parser, token):
     except ValueError:
         raise template.TemplateSyntaxError, "parse tag requires a following syntax: {% parse <template_value> [as <variable>] %}"
     return ParseNode(template_value, var_name)
-    
+
 class ParseNode(template.Node):
     def __init__(self, template_value, var_name):
         self.template_value = template_value
@@ -480,7 +481,7 @@ class ParseNode(template.Node):
 
 register.tag('parse', do_parse)
 
-    
+
 def do_include_parsed(parser, token):
     """
     Parses the defined template with the current context variables and also the ones passed to the template tag. The included template might extend some other template.
@@ -488,13 +489,13 @@ def do_include_parsed(parser, token):
     Usage::
 
         {% include_parsed <template_path> [with <value1> as <variable1>[ and <value2> as <variable2>[ and ...]] %}
-    
+
     Examples::
 
         {% include_parsed "people/item_person.html" %}
         {% include_parsed path with membership.user.get_profile as person and membership.persongroup as persongroup %}
 
-    """    
+    """
     bits = token.split_contents()
     tag_name = bits.pop(0)
     try:
@@ -509,7 +510,7 @@ def do_include_parsed(parser, token):
                 extra.append((var, val))
                 if bits:
                     bits.pop(0) # remove the word "and"
-                    
+
     except ValueError:
         raise template.TemplateSyntaxError, "include_parsed tag requires a following syntax: {% include_parsed <template_path> [with <value1> as <variable1>[ and <value2> as <variable2>[ and ...]] %}"
     return ParsedIncludeNode(tag_name, template_path, extra)
@@ -555,21 +556,21 @@ class AppendGetNode(template.Node):
             pair = pair.split('=')
             self.dict_pairs[pair[0]] = template.Variable(pair[1])
         self.no_path = no_path
-            
+
     def render(self, context):
         get = context['request'].GET.copy()
 
         for key in self.dict_pairs:
             get[key] = self.dict_pairs[key].resolve(context)
-        
+
         path = not self.no_path and context['request'].META['PATH_INFO'] or ""
-        
+
         #print "&".join(["%s=%s" % (key, value) for (key, value) in get.items() if value])
-        
+
         if len(get):
             path += "?%s" % "&".join(["%s=%s" % (key, value) for (key, value) in get.items() if value])
-        
-        
+
+
         return path
 
 @register.tag()
@@ -637,12 +638,12 @@ def remove_from_query(context, *args, **kwargs):
         if not key in args:
             for value in value_list:
                 # skip key-value pairs mentioned in kwargs
-                if not (key in kwargs and unicode(value) == unicode(kwargs[key])):
+                if not (key in kwargs and value == unicode(kwargs[key])):
                     query_params.append((key, value))
     # empty values will be removed
-    query_string = u"?"
+    query_string = u""
     if len(query_params):
-        query_string = u"?%s" % urllib.urlencode([
+        query_string += u"?%s" % urllib.urlencode([
             (key, force_str(value)) for (key, value) in query_params if value
         ]).replace("&", "&amp;")
     return query_string
@@ -677,12 +678,48 @@ def try_to_include(parser, token):
         raise template.TemplateSyntaxError, \
             "%r tag requires a single argument" % token.contents.split()[0]
 
-    return IncludeNode(template_name)    
-    
-### FILTERS ### 
+    return IncludeNode(template_name)
 
+
+class TranslatedURL(template.Node):
+    def __init__(self, lang_code):
+        self.lang_code = lang_code
+
+    def render(self, context):
+        import sys
+        from django.core.urlresolvers import reverse
+        from django.core.urlresolvers import resolve
+        from django.utils import translation
+        lang_code = template.resolve_variable(self.lang_code, context)
+
+        try:
+            view = resolve(context['request'].path)
+        except:
+            return "/%s/" % lang_code
+
+        request_lang_code = translation.get_language()
+        translation.activate(lang_code)
+
+        try:
+            url = reverse(view.url_name, args=view.args, kwargs=view.kwargs)
+        except:  # if there are any errors resolving the view in another language, fallback to the trasnalted start page
+            url = "/%s/" % lang_code
+
+        translation.activate(request_lang_code)
+        return url
+
+@register.tag(name="translate_url")
+def do_translate_url(parser, token):
+    lang_code = token.split_contents()[1]
+    return TranslatedURL(lang_code)
+
+
+### FILTERS ###
+
+
+@register.filter
 def dayssince(value):
-    "Returns number of days between today and value."
+    """Returns number of days between today and value."""
     today = datetime.date.today()
     diff  = today - value
     if diff.days > 1:
@@ -695,13 +732,12 @@ def dayssince(value):
         # Date is in the future; return formatted date.
         return value.strftime("%B %d, %Y")
 
-register.filter('dayssince', dayssince)
 
-
+@register.filter
 def in_list(value,arg):
     """
     Returns True if value is in list
-    
+
     Example:
         {% if item|in_list:list %}
         in list
@@ -711,9 +747,9 @@ def in_list(value,arg):
 
     """
     return value in arg
-    
-register.filter('in_list', in_list)
 
+
+@register.filter(is_safe=True)
 def mark_first_and_last(value, tag):
     """
     Marks the first tag found with css class "first-child"
@@ -738,7 +774,7 @@ def mark_first_and_last(value, tag):
     tag_regex = re.compile(r'(<' + re.escape(tag) + r')([^>]*)(>)')
     class_regex = re.compile(r'class=([\'"])(.*?)\1')
     parts = tag_regex.split(value)
-    # "<p class="a">A</p><p>B</p>" -> 
+    # "<p class="a">A</p><p>B</p>" ->
     # ['', '<p', ' class="a"', '>A</p>', '<p', '', '>','B</p>']
     if len(parts) > 1:
         if class_regex.search(parts[2]):
@@ -751,12 +787,13 @@ def mark_first_and_last(value, tag):
             parts[-3] += ' class="last-child"'
         value = "".join(parts)
     return value
-    
-mark_first_and_last.is_safe = True
-register.filter('mark_first_and_last', mark_first_and_last)
+
 
 media_file_regex = re.compile(r'<object .+?</object>|<(img|embed) [^>]+>')
 
+
+@register.filter(is_safe=True)
+@stringfilter
 def get_first_media(content):
     """ Returns the first image or flash file from the html content """
     m = media_file_regex.search(content)
@@ -765,12 +802,25 @@ def get_first_media(content):
         media_tag = m.group()
     return media_tag
 
-get_first_media.is_safe = True
-get_first_media = register.filter(get_first_media)           
+
+image_file_regex = re.compile(r'<(img) [^>]+>')
 
 
-media_src_regex = re.compile(r'src=(["\'])([^\1]+?)\1')    
+@register.filter(is_safe=True)
+@stringfilter
+def get_first_image(content):
+    """ Returns the first image or flash file from the html content """
+    m = image_file_regex.search(content)
+    media_tag = ""
+    if m:
+        media_tag = m.group()
+    return media_tag
 
+
+media_src_regex = re.compile(r'src=(["\'])([^\1]+?)\1')
+
+
+@register.filter(is_safe=True)
 def get_media_src(media_file):
     """ Returns the first image or flash file from the html content """
     m = media_src_regex.search(media_file)
@@ -779,46 +829,44 @@ def get_media_src(media_file):
         media_src = m.group(2)
     return media_src
 
-get_media_src.is_safe = True
-get_media_src = register.filter(get_media_src)           
 
-
+@register.filter
 def content_type_id(value):
     """
     Returns the content_type_id of an object or None, if the object does not exist
     """
     if value is None:
         return None
-    
+
     try:
         ct = ContentType.objects.get_for_model(value)
         return ct.id
     except:
-        return None        
-    
-register.filter('content_type_id', content_type_id)
+        return None
 
+
+@register.filter
 def remainder_eq_zero(value, divisor):
-    
+
     """Returns True, if the remainder of the division value/divisor equals 0,
        false otherwise.
     """
-    return value%divisor == 0
+    return value % divisor == 0
 
-register.filter('remainder_eq_zero', remainder_eq_zero)
 
+@register.filter
 def remainder_eq_minus1(value, divisor):
-    
+
     """Returns True, if the remainder of the division value/divisor equals -1,
        that is (divisor -1), false otherwise.
     """
     # You are right, Aidas: Python does not the same like C does
     # In algebraic words, divisor-1 and -1 is the same in an
 	# algebraic group modulo divisor....
-    return value%divisor == divisor -1
+    return value % divisor == divisor - 1
 
-register.filter('remainder_eq_minus1', remainder_eq_minus1)
 
+@register.filter
 def dict_value(dict, key):
     """ returns the value of a dictionary key ...
     """
@@ -826,32 +874,30 @@ def dict_value(dict, key):
         return dict[key]
     except:
         return None
-register.filter('dict_value', dict_value)
 
 
+@register.filter
 def encode_string(value):
     """
     Encode a string into it's equivalent html entity.
 
     The tag will randomly choose to represent the character as a hex digit or
     decimal digit.
-   
+
     Use {{ obj.name|encode_string }}
-    
+
     {{ "person"|encode_string }} Becomes something like:
     &#112;&#101;&#x72;&#x73;&#x6f;&#110;
     """
-    e_string = "" 
+    e_string = ""
     for a in value:
         type = random.randint(0,1)
         if type:
             en = "&#x%x;" % ord(a)
         else:
             en = "&#%d;" % ord(a)
-        e_string += en 
+        e_string += en
     return e_string
-
-register.filter("encode_string", encode_string)
 
 
 entity_re = re.compile(
@@ -864,68 +910,91 @@ entity_no_escape_chars_re = re.compile(
         )
     )
 
-def decode_entities(html, decode_all=False):
-    """ 
-    Replaces HTML entities with unicode equivalents. 
-    Ampersands, quotes and carets are not replaced by default. 
-    """ 
-    def _replace_entity(m): 
-        entity = m.group(3)
-        if m.group(1) == '#': 
-            val = int(entity, m.group(2) == '' and 10 or 16) 
-        else: 
-            val = name2codepoint[entity] 
-        return unichr(val) 
-    regexp = decode_all and entity_re or entity_no_escape_chars_re 
-    return regexp.sub(_replace_entity, force_unicode(html)) 
-register.filter('decode_entities', decode_entities)
 
+@register.filter
+def decode_entities(html, decode_all=False):
+    """
+    Replaces HTML entities with unicode equivalents.
+    Ampersands, quotes and carets are not replaced by default.
+    """
+    def _replace_entity(m):
+        entity = m.group(3)
+        if m.group(1) == '#':
+            val = int(entity, m.group(2) == '' and 10 or 16)
+        else:
+            val = name2codepoint[entity]
+        return unichr(val)
+    regexp = decode_all and entity_re or entity_no_escape_chars_re
+    return regexp.sub(_replace_entity, force_unicode(html))
+
+
+@register.filter
 def remove_empty_lists(html):
     """ returns the value without empty <ul></ul> and <ol></ol> ...
     """
     pattern = re.compile(r'<[uo]l[^>]*>\s*</[uo]l>')
     html = pattern.sub("", html)
     return html
-register.filter('remove_empty_lists', remove_empty_lists)
 
+
+@register.filter(is_safe=True, needs_autoescape=False)
 def disarm_user_input(html):
-    """ 
-    Returns html without posible harm
-    In addition
-    - urlizes text if no links are used
-    - breaks lines if no paragraphs are used
     """
-    html = defaultfilters.removetags(html, "script style comment")
-    # remove javascript events and style attributes from tags
-    re_comments = re.compile(r'<!--[\s\S]*?(-->|$)')
-    re_tags = re.compile(r'(<[^>\s]+)([^>]+)(>)')
-    re_attrs = re.compile(
-        r"""\s+(on[^=]+|style)=([^"'\s]+|"[^"]*"|'[^']*')""",
-        )
-    def remove_js_events(match):
-        return "".join((
-            match.group(1),
-            re_attrs.sub('', match.group(2)),
-            match.group(3),
-            ))
-    html = re_comments.sub("", html)
-    html = re_tags.sub(remove_js_events, html)
-    if "</a>" not in html:
-        # make sure that no closing paragraph is included into any URL
-        html = html.replace("</p>", " </p>")
-        try:
-            html = defaultfilters.urlizetrunc(html, "30")
-        except ValueError:
-            pass
-        html = html.replace(" </p>", "</p>")
+    Returns html without posible harm
+    """
+    import bleach
     if "</p>" not in html:
         html = defaultfilters.linebreaks(html)
-    html = defaultfilters.safe(html)
+    html = bleach.clean(
+        html,
+        tags=[u'a', u'abbr', u'acronym', u'b', u'blockquote', u'br', u'code', u'em', u'i', u'iframe', u'img', u'li', u'ol', u'p', u'strong', u'ul', u'h1', u'h2', u'h3', u'h4', u'h5', u'h6', u'span'],
+        attributes={
+            u'*': [u'class'],
+            u'a': [u'href', u'title', u'target'],
+            u'acronym': [u'title'],
+            u'abbr': [u'title'],
+            u'img': [u'src', u'alt'],
+            u'iframe': [u'src', u'width', u'height'],
+        },
+        styles=[],
+        protocols=[u'http', u'https', u'mailto', u'data'],
+        strip=True,
+        strip_comments=True,
+    )
+    html = bleach.linkify(html)
+    html = mark_safe(html)
     return html
-disarm_user_input.is_safe = True
-disarm_user_input = defaultfilters.stringfilter(disarm_user_input)
-register.filter('disarm_user_input', disarm_user_input)
 
+
+@register.filter(is_safe=True, needs_autoescape=False)
+def disarm_admin_input(html):
+    """
+    Returns html without posible harm
+    """
+    import bleach
+    if "</p>" not in html:
+        html = defaultfilters.linebreaks(html)
+    html = bleach.clean(
+        html,
+        tags=[u'a', u'abbr', u'acronym', u'b', u'blockquote', u'br', u'code', u'em', u'i', u'iframe', u'img', u'li', u'ol', u'p', u'strong', u'ul', u'h1', u'h2', u'h3', u'h4', u'h5', u'h6', u'span'],
+        attributes={
+            u'*': [u'class', u'style'],
+            u'a': [u'href', u'title', u'target'],
+            u'acronym': [u'title'],
+            u'abbr': [u'title'],
+            u'img': [u'src', 'alt'],
+        },
+        styles=[u'color', u'font-family', u'font-size'],
+        protocols=[u'http', u'https', u'mailto', u'data'],
+        strip=True,
+        strip_comments=True,
+    )
+    html = bleach.linkify(html)
+    html = mark_safe(html)
+    return html
+
+
+@register.filter
 def humanize_url(url, letter_count):
     letter_count = int(letter_count)
     re_start = re.compile(r'^https?://')
@@ -934,21 +1003,22 @@ def humanize_url(url, letter_count):
     if len(url) > letter_count:
         url = url[:letter_count - 1] + u"…"
     return url
-register.filter('humanize_url', humanize_url)
 
+
+@register.filter
 def truncated_multiply(value, arg):
     """
-    Multiplies the arg with the value and returns 
+    Multiplies the arg with the value and returns
     the rounded ("integered") value as string.
     """
     return int(value * arg)
 
-truncated_multiply.is_safe = False
-
-register.filter('truncated_multiply', truncated_multiply)
 
 register.filter('get_user_title', get_user_title)
 
+
+@register.filter
+@stringfilter
 def cssclass(value, arg):
     """
     Replace the attribute css class for Field 'value' with 'arg'.
@@ -962,13 +1032,11 @@ def cssclass(value, arg):
     attrs['class'] = arg
     rendered = str(value)
 
-    if orig:
-        attrs['class']
-    else:
+    if not orig:
         del attrs['class']
 
     return rendered
-register.filter('cssclass', cssclass)
+
 
 @register.filter
 def in_group(user, groups):
@@ -990,7 +1058,10 @@ def in_group(user, groups):
     """
     group_list = force_unicode(groups).split(',')
     return bool(user.groups.filter(name__in=group_list).values('name'))
-    
+
+
+@register.filter(is_safe=True)
+@stringfilter
 def remove_newlines(text):
     """
     Removes all newline characters from a block of text.
@@ -999,15 +1070,14 @@ def remove_newlines(text):
     normalized_text = normalize_newlines(text)
     # Then simply remove the newlines like so.
     return mark_safe(normalized_text.replace('\n', ' '))
-remove_newlines.is_safe = True
-remove_newlines = defaultfilters.stringfilter(remove_newlines)
-register.filter(remove_newlines)
+
 
 @register.filter
 @stringfilter
 def better_slugify(value):
     from base_libs.utils.betterslugify import better_slugify as utils_better_slugify
     return utils_better_slugify(value)
+
 
 @register.filter
 @stringfilter

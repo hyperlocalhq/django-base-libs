@@ -19,8 +19,8 @@ from base_libs.widgets import TreeSelectWidget
 from base_libs.middleware import get_current_user
 from base_libs.admin.options import ExtendedModelAdmin
 from base_libs.models import ContentBaseMixin
-from base_libs.models.settings import JQUERY_URL
-from base_libs.models.settings import STATUS_CODE_PUBLISHED
+from base_libs.models.base_libs_settings import JQUERY_URL
+from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 
 # "save" buttons for ContentBaseMixin extending models
 CONTENT_BASE_SUBMIT_CHOICES = (
@@ -48,12 +48,12 @@ def get_admin_lang_section(heading, field_list, default_expanded=True):
     for lang_code, lang_verbose in settings.LANGUAGES:
         
         if len(settings.LANGUAGES) > 1:
-            if heading:
+            if heading is not None:
                 section = string_concat(heading, " (", lang_verbose, ")")
             else:
                 section = lang_verbose
         else:
-            if heading:
+            if heading is not None:
                 section = heading
             else:
                 section = None
@@ -86,7 +86,7 @@ class PublishingMixinAdminOptions(ExtendedModelAdmin):
     """
     admin options for PublishingMixin
     """
-    list_filter = ('author', 'status', 'published_from', 'published_till')   
+    list_filter = ('status', 'published_from', 'published_till')
     
     fieldsets = [(_('Publish Status'), {
         'fields': ('author', 'status', 'published_from', 'published_till',),
@@ -96,17 +96,17 @@ class PublishingMixinAdminOptions(ExtendedModelAdmin):
     
     def is_published(self, obj):
         return obj.is_published()
-    is_published.short_description = _("Is published now?")
     is_published.boolean = True
     
         
     def is_draft(self, obj):
         return obj.is_draft()
-    is_draft.short_description = _("Is unpublished now?")
     is_draft.boolean = True
         
-    # currently logged in user cannot set as default in the model definition. so we do that here!
-    #prepopulated_fields = {'author': ('get_current_user',),}
+    raw_id_fields = ('author',)
+    autocomplete_lookup_fields = {
+        'fk': ["author"],
+    }
 
 
 def ObjectRelationMixinAdminOptions(
@@ -138,6 +138,9 @@ def ObjectRelationMixinAdminOptions(
                 }
             ),
         ]
+        related_lookup_fields = {
+            'generic': [[content_type_field, object_id_field]],
+        }
         
         def formfield_for_dbfield(self, db_field, **kwargs):
             """ applying custom widgets here! """
@@ -153,8 +156,13 @@ def ObjectRelationMixinAdminOptions(
             return field
             
     def get_content_object_display(self, obj):
-        " this method is just used for display in the admin"
-        co = getattr(obj, content_object_field)
+        """this method is just used for display in the admin"""
+        try:
+            co = getattr(obj, content_object_field)
+        except ValueError:
+            co = None
+        except AttributeError:
+            co = None
         if not co:
             return "-------"
         user = get_current_user()
@@ -275,7 +283,6 @@ class SingleSiteContainerMixinAdminOptions(ObjectRelationMixinAdminOptions()):
               }
           ),
     ]
-    pass
 
 
 class SingleSiteContainerMixinAdminForm(ObjectRelationMixinAdminForm()):
@@ -339,7 +346,6 @@ class MultiSiteContainerMixinAdminOptions(ObjectRelationMixinAdminOptions()):
               }
           ),
     ]
-    pass
 
 
 class MultiSiteContainerMixinAdminForm(ObjectRelationMixinAdminForm()):
@@ -504,7 +510,6 @@ class HierarchyMixinAdminForm(forms.ModelForm):
 class ContentBaseMixinAdminOptions(PublishingMixinAdminOptions):
     save_on_top = True
     list_display = ('get_id', 'title', 'author', 'status', 'published_from', 'published_till')
-    list_display_links = ('title',)
     list_filter =  ('sites', 'creation_date', 'modified_date', 'creator', 'modifier')
     
     fieldsets = get_admin_lang_section(

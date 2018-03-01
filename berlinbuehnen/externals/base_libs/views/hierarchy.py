@@ -9,8 +9,8 @@ class HierarchyChangeList(ChangeList):
     for hierarchical structures. The filter method is overwritten
     """
     # overwritten
-    def get_query_set(self, request):
-        qs = super(HierarchyChangeList, self).get_query_set(request)
+    def get_queryset(self, request):
+        qs = super(HierarchyChangeList, self).get_queryset(request)
         # we have to get all parents of an item (recursively), even if the parent
         # is filtered out. Otherwise the hierarchical structure would be destroyed.
         # All the parents, which would be filtered out, are grayed out in the display.

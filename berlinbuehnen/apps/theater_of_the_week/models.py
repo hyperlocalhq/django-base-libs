@@ -7,8 +7,6 @@ from jetson.apps.articles.base import ArticleManager as ArticleManagerBase
 
 from cms.models import CMSPlugin
 
-Location = models.get_model("locations", "Location")
-
 
 class TheaterOfTheWeekManager(ArticleManagerBase):
     def latest_published(self):
@@ -19,7 +17,7 @@ class TheaterOfTheWeekManager(ArticleManagerBase):
 
 
 class TheaterOfTheWeek(ArticleBase):
-    theater = models.ForeignKey(Location)
+    theater = models.ForeignKey("locations.Location")
     short_title = models.CharField(_('short title'), max_length=255, blank=True, default="")
 
     objects = TheaterOfTheWeekManager()

@@ -1,86 +1,32 @@
-# encoding: utf-8
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
-from base_libs.utils.misc import south_clean_multilingual_fields
-from base_libs.utils.misc import south_cleaned_fields
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-class Migration(SchemaMigration):
-    
-    def forwards(self, orm):
-        
-        # Adding model 'CMSPageOpenGraph'
-        db.create_table(u'cms_extensions_cmspageopengraph', south_cleaned_fields((
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('page', self.gf('django.db.models.fields.related.ForeignKey')(related_name='open_graph', to=orm['cms.Page'])),
-            ('og_title', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('og_description', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('og_image', self.gf('filebrowser.fields.FileBrowseField')(max_length=255, extensions=['.jpg', '.jpeg', '.gif', '.png'], blank=True)),
-            ('og_type', self.gf('django.db.models.fields.CharField')(default='article', max_length=20)),
-            ('language', self.gf('django.db.models.fields.CharField')(default='de', max_length=5)),
-        )))
-        db.send_create_signal(u'cms_extensions', ['CMSPageOpenGraph'])
-    
-    
-    def backwards(self, orm):
-                # Deleting model 'CMSPageOpenGraph'
-        db.delete_table(u'cms_extensions_cmspageopengraph')
+from django.db import models, migrations
+import filebrowser.fields
 
-    
-    
-    models = {
-        'cms.page': {
-            'Meta': {'ordering': "('tree_id', 'lft')", 'object_name': 'Page'},
-            'changed_by': ('django.db.models.fields.CharField', [], {'max_length': '70'}),
-            'changed_date': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'created_by': ('django.db.models.fields.CharField', [], {'max_length': '70'}),
-            'creation_date': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'in_navigation': ('django.db.models.fields.BooleanField', [], {'default': 'True', 'db_index': 'True'}),
-            'level': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
-            'lft': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
-            'limit_visibility_in_menu': ('django.db.models.fields.SmallIntegerField', [], {'default': 'None', 'null': 'True', 'db_index': 'True', 'blank': 'True'}),
-            'login_required': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'navigation_extenders': ('django.db.models.fields.CharField', [], {'db_index': 'True', 'max_length': '80', 'null': 'True', 'blank': 'True'}),
-            'parent': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'children'", 'null': 'True', 'to': "orm['cms.Page']"}),
-            'placeholders': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['cms.Placeholder']", 'symmetrical': 'False'}),
-            'publication_date': ('django.db.models.fields.DateTimeField', [], {'db_index': 'True', 'null': 'True', 'blank': 'True'}),
-            'publication_end_date': ('django.db.models.fields.DateTimeField', [], {'db_index': 'True', 'null': 'True', 'blank': 'True'}),
-            'published': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'publisher_is_draft': ('django.db.models.fields.BooleanField', [], {'default': 'True', 'db_index': 'True'}),
-            'publisher_public': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'publisher_draft'", 'unique': 'True', 'null': 'True', 'to': "orm['cms.Page']"}),
-            'publisher_state': ('django.db.models.fields.SmallIntegerField', [], {'default': '0', 'db_index': 'True'}),
-            'reverse_id': ('django.db.models.fields.CharField', [], {'db_index': 'True', 'max_length': '40', 'null': 'True', 'blank': 'True'}),
-            'rght': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
-            'site': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['sites.Site']"}),
-            'soft_root': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'db_index': 'True'}),
-            'template': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'tree_id': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'})
-        },
-        'cms.placeholder': {
-            'Meta': {'object_name': 'Placeholder'},
-            'default_width': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'slot': ('django.db.models.fields.CharField', [], {'max_length': '50', 'db_index': 'True'})
-        },
-        u'cms_extensions.cmspageopengraph': {
-            'Meta': {'object_name': 'CMSPageOpenGraph'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'language': ('django.db.models.fields.CharField', [], {'default': "'de'", 'max_length': '5'}),
-            'og_description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'og_image': ('filebrowser.fields.FileBrowseField', [], {'max_length': '255', 'extensions': "['.jpg', '.jpeg', '.gif', '.png']", 'blank': 'True'}),
-            'og_title': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'og_type': ('django.db.models.fields.CharField', [], {'default': "'article'", 'max_length': '20'}),
-            'page': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'open_graph'", 'to': "orm['cms.Page']"})
-        },
-        u'sites.site': {
-            'Meta': {'ordering': "('domain',)", 'object_name': 'Site', 'db_table': "'django_site'"},
-            'domain': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        }
-    }
-    south_clean_multilingual_fields(models)
-    
-    complete_apps = ['cms_extensions']
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('cms', '0013_urlconfrevision'),
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='CMSPageOpenGraph',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('og_title', models.CharField(max_length=255, verbose_name='Title', blank=True)),
+                ('og_description', models.TextField(help_text='No HTML and no new lines', verbose_name='Description', blank=True)),
+                ('og_image', filebrowser.fields.FileBrowseField(max_length=255, verbose_name='Image', blank=True)),
+                ('og_type', models.CharField(default=b'article', max_length=20, verbose_name='Type', choices=[(b'article', b'article'), (b'books.author', b'books.author'), (b'books.book', b'books.book'), (b'books.genre', b'books.genre'), (b'business.business', b'business.business'), (b'fitness.course', b'fitness.course'), (b'game.achievement', b'game.achievement'), (b'music.album', b'music.album'), (b'music.playlist', b'music.playlist'), (b'music.radio_station', b'music.radio_station'), (b'music.song', b'music.song'), (b'place', b'place'), (b'product', b'product'), (b'product.group', b'product.group'), (b'product.item', b'product.item'), (b'profile', b'profile'), (b'restaurant.menu', b'restaurant.menu'), (b'restaurant.menu_item', b'restaurant.menu_item'), (b'restaurant.menu_section', b'restaurant.menu_section'), (b'restaurant.restaurant', b'restaurant.restaurant'), (b'video.episode', b'video.episode'), (b'video.movie', b'video.movie'), (b'video.other', b'video.other'), (b'video.tv_show', b'video.tv_show'), (b'website', b'website')])),
+                ('language', models.CharField(default='de', max_length=5, verbose_name='Language', choices=[('de', 'Deutsch'), ('en', 'English')])),
+                ('page', models.ForeignKey(related_name='open_graph', verbose_name='Page', to='cms.Page')),
+            ],
+            options={
+                'verbose_name': 'Open Graph for Social Sharing',
+                'verbose_name_plural': 'Open Graph for Social Sharing',
+            },
+            bases=(models.Model,),
+        ),
+    ]

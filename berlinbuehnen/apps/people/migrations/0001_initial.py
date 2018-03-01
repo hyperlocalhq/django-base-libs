@@ -1,191 +1,94 @@
-# encoding: utf-8
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
-from base_libs.utils.misc import south_clean_multilingual_fields
-from base_libs.utils.misc import south_cleaned_fields
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-class Migration(SchemaMigration):
-    
-    def forwards(self, orm):
-        
-        # Adding model 'Prefix'
-        db.create_table(u'people_prefix', south_cleaned_fields((
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=255)),
-            ('title', self.gf('base_libs.models.fields.MultilingualCharField')(max_length=255, null=True)),
-            ('sort_order', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('gender', self.gf('django.db.models.fields.CharField')(max_length=32, blank=True)),
-            ('title_de', self.gf('django.db.models.fields.CharField')(u'title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('title_en', self.gf('django.db.models.fields.CharField')(u'title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-        )))
-        db.send_create_signal(u'people', ['Prefix'])
+from django.db import models, migrations
+import django.db.models.deletion
+from django.conf import settings
 
-        # Adding model 'InvolvementType'
-        db.create_table(u'people_involvementtype', south_cleaned_fields((
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=255)),
-            ('title', self.gf('base_libs.models.fields.MultilingualCharField')(max_length=255, null=True)),
-            ('sort_order', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('title_de', self.gf('django.db.models.fields.CharField')(u'title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('title_en', self.gf('django.db.models.fields.CharField')(u'title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-        )))
-        db.send_create_signal(u'people', ['InvolvementType'])
 
-        # Adding model 'AuthorshipType'
-        db.create_table(u'people_authorshiptype', south_cleaned_fields((
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=255)),
-            ('title', self.gf('base_libs.models.fields.MultilingualCharField')(max_length=255, null=True)),
-            ('sort_order', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('title_de', self.gf('django.db.models.fields.CharField')(u'title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('title_en', self.gf('django.db.models.fields.CharField')(u'title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-        )))
-        db.send_create_signal(u'people', ['AuthorshipType'])
+class Migration(migrations.Migration):
 
-        # Adding model 'Person'
-        db.create_table(u'people_person', south_cleaned_fields((
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('creation_date', self.gf('django.db.models.fields.DateTimeField')()),
-            ('modified_date', self.gf('django.db.models.fields.DateTimeField')(null=True)),
-            ('creator', self.gf('django.db.models.fields.related.ForeignKey')(related_name='person_creator', null=True, to=orm['auth.User'])),
-            ('modifier', self.gf('django.db.models.fields.related.ForeignKey')(related_name='person_modifier', null=True, to=orm['auth.User'])),
-            ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=255)),
-            ('prefix', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['people.Prefix'], null=True, blank=True)),
-            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('leadership_function', self.gf('base_libs.models.fields.MultilingualCharField')(max_length=255, null=True, blank=True)),
-            ('involvement_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['people.InvolvementType'], max_length=255, blank=True)),
-            ('involvement_role', self.gf('base_libs.models.fields.MultilingualCharField')(max_length=255, null=True, blank=True)),
-            ('involvement_instrument', self.gf('base_libs.models.fields.MultilingualCharField')(max_length=255, null=True, blank=True)),
-            ('authorship_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['people.AuthorshipType'], max_length=255, blank=True)),
-            ('status', self.gf('django.db.models.fields.CharField')(default='draft', max_length=20, blank=True)),
-            ('involvement_role_de', self.gf('django.db.models.fields.CharField')(u'Default involvement role', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('involvement_role_en', self.gf('django.db.models.fields.CharField')(u'Default involvement role', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('involvement_instrument_de', self.gf('django.db.models.fields.CharField')(u'Default involvement instrument', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('involvement_instrument_en', self.gf('django.db.models.fields.CharField')(u'Default involvement instrument', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('leadership_function_de', self.gf('django.db.models.fields.CharField')(u'Default leadership function', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('leadership_function_en', self.gf('django.db.models.fields.CharField')(u'Default leadership function', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-        )))
-        db.send_create_signal(u'people', ['Person'])
-    
-    
-    def backwards(self, orm):
-                # Deleting model 'Prefix'
-        db.delete_table(u'people_prefix')
+    dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+    ]
 
-        # Deleting model 'InvolvementType'
-        db.delete_table(u'people_involvementtype')
-
-        # Deleting model 'AuthorshipType'
-        db.delete_table(u'people_authorshiptype')
-
-        # Deleting model 'Person'
-        db.delete_table(u'people_person')
-
-    
-    
-    models = {
-        u'auth.group': {
-            'Meta': {'object_name': 'Group'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '80'}),
-            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
-        },
-        u'auth.permission': {
-            'Meta': {'ordering': "(u'content_type__app_label', u'content_type__model', u'codename')", 'unique_together': "((u'content_type', u'codename'),)", 'object_name': 'Permission'},
-            'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        },
-        u'auth.user': {
-            'Meta': {'ordering': "('username',)", 'object_name': 'User'},
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
-            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
-        },
-        u'contenttypes.contenttype': {
-            'Meta': {'ordering': "('app_label', 'name')", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        u'people.authorshiptype': {
-            'Meta': {'ordering': "['sort_order']", 'object_name': 'AuthorshipType'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '255'}),
-            'sort_order': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'title': ('base_libs.models.fields.MultilingualCharField', [], {'max_length': '255', 'null': 'True'}),
-            'title_de': ('django.db.models.fields.CharField', ["u'title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'title_en': ('django.db.models.fields.CharField', ["u'title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'})
-        },
-        u'people.involvementtype': {
-            'Meta': {'ordering': "['sort_order']", 'object_name': 'InvolvementType'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '255'}),
-            'sort_order': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'title': ('base_libs.models.fields.MultilingualCharField', [], {'max_length': '255', 'null': 'True'}),
-            'title_de': ('django.db.models.fields.CharField', ["u'title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'title_en': ('django.db.models.fields.CharField', ["u'title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'})
-        },
-        u'people.person': {
-            'Meta': {'ordering': "['last_name', 'first_name']", 'object_name': 'Person'},
-            'authorship_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['people.AuthorshipType']", 'max_length': '255', 'blank': 'True'}),
-            'creation_date': ('django.db.models.fields.DateTimeField', [], {}),
-            'creator': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'person_creator'", 'null': 'True', 'to': u"orm['auth.User']"}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'involvement_instrument': ('base_libs.models.fields.MultilingualCharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'involvement_instrument_de': ('django.db.models.fields.CharField', ["u'Default involvement instrument'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'involvement_instrument_en': ('django.db.models.fields.CharField', ["u'Default involvement instrument'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'involvement_role': ('base_libs.models.fields.MultilingualCharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'involvement_role_de': ('django.db.models.fields.CharField', ["u'Default involvement role'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'involvement_role_en': ('django.db.models.fields.CharField', ["u'Default involvement role'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'involvement_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['people.InvolvementType']", 'max_length': '255', 'blank': 'True'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'leadership_function': ('base_libs.models.fields.MultilingualCharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'leadership_function_de': ('django.db.models.fields.CharField', ["u'Default leadership function'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'leadership_function_en': ('django.db.models.fields.CharField', ["u'Default leadership function'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'modified_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
-            'modifier': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'person_modifier'", 'null': 'True', 'to': u"orm['auth.User']"}),
-            'prefix': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['people.Prefix']", 'null': 'True', 'blank': 'True'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '255'}),
-            'status': ('django.db.models.fields.CharField', [], {'default': "'draft'", 'max_length': '20', 'blank': 'True'})
-        },
-        u'people.prefix': {
-            'Meta': {'ordering': "['sort_order']", 'object_name': 'Prefix'},
-            'gender': ('django.db.models.fields.CharField', [], {'max_length': '32', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '255'}),
-            'sort_order': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'title': ('base_libs.models.fields.MultilingualCharField', [], {'max_length': '255', 'null': 'True'}),
-            'title_de': ('django.db.models.fields.CharField', ["u'title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'title_en': ('django.db.models.fields.CharField', ["u'title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'})
-        },
-        u'permissions.rowlevelpermission': {
-            'Meta': {'object_name': 'RowLevelPermission', 'db_table': "'auth_rowlevelpermission'"},
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'negative': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'object_id': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '255'}),
-            'owner_content_type': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'owner'", 'to': u"orm['contenttypes.ContentType']"}),
-            'owner_object_id': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '255'}),
-            'permission': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.Permission']"})
-        }
-    }
-    south_clean_multilingual_fields(models)
-    
-    complete_apps = ['people']
+    operations = [
+        migrations.CreateModel(
+            name='AuthorshipType',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
+                ('title', models.CharField(verbose_name='title', max_length=255, null=True, editable=False)),
+                ('sort_order', models.IntegerField(default=0, verbose_name='Sort order')),
+                ('title_de', models.CharField(max_length=255, verbose_name='title')),
+                ('title_en', models.CharField(max_length=255, verbose_name='title', blank=True)),
+            ],
+            options={
+                'ordering': ['sort_order'],
+                'verbose_name': 'Authorship type',
+                'verbose_name_plural': 'Authorship types',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='InvolvementType',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
+                ('title', models.CharField(verbose_name='title', max_length=255, null=True, editable=False)),
+                ('sort_order', models.IntegerField(default=0, verbose_name='Sort order')),
+                ('title_de', models.CharField(max_length=255, verbose_name='title')),
+                ('title_en', models.CharField(max_length=255, verbose_name='title', blank=True)),
+            ],
+            options={
+                'ordering': ['sort_order'],
+                'verbose_name': 'Involvement type',
+                'verbose_name_plural': 'Involvement types',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Person',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
+                ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
+                ('first_name', models.CharField(max_length=255, verbose_name='First name', blank=True)),
+                ('last_name', models.CharField(max_length=255, verbose_name='Last name', blank=True)),
+                ('status', models.CharField(default=b'draft', max_length=20, verbose_name='Status', blank=True, choices=[(b'draft', 'Draft'), (b'published', 'Published'), (b'not_listed', 'Not Listed'), (b'import', 'Imported'), (b'trashed', 'Trashed')])),
+                ('creator', models.ForeignKey(related_name='person_creator', on_delete=django.db.models.deletion.SET_NULL, editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='creator')),
+                ('modifier', models.ForeignKey(related_name='person_modifier', on_delete=django.db.models.deletion.SET_NULL, editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='modifier')),
+            ],
+            options={
+                'ordering': ['last_name', 'first_name'],
+                'verbose_name': 'person',
+                'verbose_name_plural': 'people',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Prefix',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
+                ('title', models.CharField(verbose_name='title', max_length=255, null=True, editable=False)),
+                ('sort_order', models.IntegerField(default=0, verbose_name='Sort order')),
+                ('gender', models.CharField(blank=True, max_length=32, verbose_name='Gender', choices=[(b'M', 'Male'), (b'F', 'Female')])),
+                ('title_de', models.CharField(max_length=255, verbose_name='title')),
+                ('title_en', models.CharField(max_length=255, verbose_name='title', blank=True)),
+            ],
+            options={
+                'ordering': ['sort_order'],
+                'verbose_name': 'Prefix',
+                'verbose_name_plural': 'Prefixes',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='person',
+            name='prefix',
+            field=models.ForeignKey(verbose_name='Prefix', blank=True, to='people.Prefix', null=True),
+            preserve_default=True,
+        ),
+    ]

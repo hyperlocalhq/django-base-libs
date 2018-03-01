@@ -127,26 +127,22 @@ INSTALLED_APPS = [
     "cms",
     "mptt",
     "menus",
-    "south",
+    #"south",
     "sekizai",
     "aldryn_search",
     "treebeard",
 
     ### CMS plugins ###
-    ## uncomment after CMS upgrade
-    # "cms.plugins.inherit",
-    # "cms.plugins.picture",
-    # "cms.plugins.snippet",
-    # "cms.plugins.teaser",
-
-
-    # "cms.plugins.file",
-    # "cms.plugins.flash",
-    # "cms.plugins.googlemap",
-    # "cms.plugins.link",
-    # "cms.plugins.text",
-    # "cms.plugins.twitter",
-    # "cms.plugins.video",
+    "djangocms_inherit",
+    "djangocms_picture",
+    "djangocms_snippet",
+    "djangocms_teaser",
+    # "djangocms_file",
+    # "djangocms_flash",
+    # "djangocms_googlemap",
+    # "djangocms_link",
+    # "djangocms_text",
+    # "djangocms_video",
 
     ### jetson apps ###
     "jetson.apps.i18n",
@@ -223,7 +219,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.core.context_processors.media',
     'django.core.context_processors.static',
-    'cms.context_processors.media',
+    'cms.context_processors.cms_settings',
     'sekizai.context_processors.sekizai',
     "jetson.apps.utils.context_processors.general",
     "jetson.apps.configuration.context_processors.configuration",

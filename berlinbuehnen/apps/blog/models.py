@@ -21,9 +21,6 @@ from base_libs.models.models import MultiSiteContainerMixin
 from base_libs.models.models import PublishingMixin
 from base_libs.models import ExtendedTextField
 
-RowLevelPermission = models.get_model("permissions", "RowLevelPermission")
-
-Comment = models.get_model("comments", "Comment")
 
 verbose_name = _("Blog")
 
@@ -41,6 +38,8 @@ class Blog(MultiSiteContainerMixin, CreationModificationDateMixin):
         return force_unicode(self.title) + sites_str
     
     def save(self, *args, **kwargs):
+        RowLevelPermission = models.get_model("permissions", "RowLevelPermission")
+
         content_object = self.content_object
         is_new = not self.id
         # get the title from content object (if there is one)
@@ -115,6 +114,7 @@ class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, Slu
         return "%s/%s/" % (self.published_from.strftime("%Y/%m/%d").lower(), self.slug)
     
     def delete_comments(self):
+        Comment = models.get_model("comments", "Comment")
         table = Comment._meta.db_table
         ctype = ContentType.objects.get_for_model(Post)
         query = """DELETE FROM %s WHERE object_id = %s AND content_type_id = %%s""" % (table, self.id)
@@ -123,6 +123,7 @@ class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, Slu
     delete_comments.alters_data = True
                 
     def delete_comment(self, id):
+        Comment = models.get_model("comments", "Comment")
         table = Comment._meta.db_table
         query = """DELETE FROM %s WHERE id = %s""" % (table, id)
         cursor = connection.cursor()

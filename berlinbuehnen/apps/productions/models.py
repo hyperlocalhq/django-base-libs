@@ -182,7 +182,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     language_and_subtitles = models.ForeignKey(LanguageAndSubtitles, verbose_name=_("Language / Subtitles"), blank=True, null=True)
     related_productions = models.ManyToManyField("self", verbose_name=_("Related productions"), blank=True)
 
-    free_entrance = models.BooleanField(_("Free entrance"))
+    free_entrance = models.BooleanField(_("Free entrance"), default=False)
     price_from = models.DecimalField(_(u"Price from (€). Seperate cents by a point."), max_digits=5, decimal_places=2, blank=True, null=True)
     price_till = models.DecimalField(_(u"Price till (€). Seperate cents by a point."), max_digits=5, decimal_places=2, blank=True, null=True)
     tickets_website = URLField(_("Tickets website"), blank=True, max_length=255)
@@ -197,9 +197,9 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     sponsors = models.ManyToManyField("sponsors.Sponsor", verbose_name=_("Sponsors"), blank=True)
 
     show_among_others = models.BooleanField(_("Show among others"), default=True, help_text=_("Should this production be shown in event details among other productions at the same venue?"))
-    no_overwriting = models.BooleanField(_("Do not overwrite by the next import"))
+    no_overwriting = models.BooleanField(_("Do not overwrite by the next import"), default=False)
     classiccard = models.BooleanField(_("Intended for ClassicCard holders"), default=False)
-    newsletter = models.BooleanField(_("Show in newsletter"))
+    newsletter = models.BooleanField(_("Show in newsletter"), default=False)
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
 
     start_date = models.DateField(_("Actual start date"), blank=True, null=True, editable=False)
@@ -799,7 +799,7 @@ class ProductionInvolvement(CreationModificationDateMixin):
 class EventCharacteristics(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_('Title'), max_length=200)
     sort_order = models.IntegerField(_("Sort Order"), default=0)
-    show_as_main_category= models.BooleanField(_("Show as main category"))
+    show_as_main_category= models.BooleanField(_("Show as main category"), default=False)
 
     def __unicode__(self):
         return self.title
@@ -874,7 +874,7 @@ class Event(CreationModificationMixin, UrlMixin):
 
     language_and_subtitles = models.ForeignKey(LanguageAndSubtitles, verbose_name=_("Language / Subtitles"), blank=True, null=True)
 
-    free_entrance = models.BooleanField(_("Free entrance"))
+    free_entrance = models.BooleanField(_("Free entrance"), default=False)
     price_from = models.DecimalField(_(u"Price from (€). Seperate cents by a point."), max_digits=5, decimal_places=2, blank=True, null=True)
     price_till = models.DecimalField(_(u"Price till (€). Seperate cents by a point."), max_digits=5, decimal_places=2, blank=True, null=True)
     tickets_website = URLField(_("Tickets website"), blank=True, max_length=255)

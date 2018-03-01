@@ -6,7 +6,7 @@ from base_libs.models import PublishingMixinAdminOptions
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
 
-from jetson.apps.blog.models import Blog, Post
+from .models import Blog, Post
 
 class Post_Inline(ExtendedStackedInline):
     model = Post

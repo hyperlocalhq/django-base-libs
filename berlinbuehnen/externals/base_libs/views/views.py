@@ -94,7 +94,7 @@ def get_object_from_url(object_url_part, **kwargs):
         if object_url_mapper.has_key(model_identifier):
             object_props = object_url_mapper[model_identifier]
             try:
-                obj = object_props[0].objects.get(**{object_props[1]:object_identifier})
+                obj = object_props[0].objects.get(**{object_props[1] + '__iexact': object_identifier})
             except:
                 raise Http404, "Sorry, requested object '%s' does not exist in the %s model" % (object_identifier, str(object_props[0]))
         
@@ -106,10 +106,10 @@ def get_object_from_url(object_url_part, **kwargs):
     # now test, if model is supported and allowed!
     if kwargs.has_key('include'):
         if not model_identifier in kwargs['include']:
-            raise Http404, "Sorry, you are not allowed to access object '%s' in the requested application" % (object_identifier)
+            raise Http404, "Sorry, you are not allowed to access object '%s' in the requested application" % object_identifier
     if kwargs.has_key('exclude'):
         if model_identifier in kwargs['exclude']:
-            raise Http404, "Sorry, you are not allowed to access object '%s' in the requested application" % (object_identifier)
+            raise Http404, "Sorry, you are not allowed to access object '%s' in the requested application" % object_identifier
 
     return (obj, base_template)
 
@@ -216,7 +216,7 @@ def get_container(container_model, site, related_obj=None, sysname=None, create=
             return qs.filter(sites__in=[site_id])[0]
         
 def json_get_objects_from_contenttype(request, content_type_id):
-    "Gets all objects with a given contenttype"
+    """Gets all objects with a given contenttype"""
     json_str = "false"
     if True:
         content_type = ContentType.objects.get(id=content_type_id)
@@ -229,7 +229,7 @@ def json_get_objects_from_contenttype(request, content_type_id):
         json_str = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
     else:
         pass
-    return HttpResponse(json_str, mimetype='text/javascript; charset=utf-8')
+    return HttpResponse(json_str, content_type='text/javascript; charset=utf-8')
 
 json_get_objects_from_contenttype = never_cache(json_get_objects_from_contenttype)        
 
@@ -274,7 +274,7 @@ def json_objects_to_select(request, app_name, model_name, obj_pk, field_name, co
                 for pk, text in result
                 ]
             json_str = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
-    return HttpResponse(json_str, mimetype='text/javascript; charset=utf-8')
+    return HttpResponse(json_str, content_type='text/javascript; charset=utf-8')
 
 json_objects_to_select = never_cache(json_objects_to_select)
 

@@ -33,9 +33,14 @@ class MultilingualURLMiddleware:
     """
     Applies multilingual url change only to non-admin and non media pages
     """
+
+    def __init__(self):
+        pass
+
     def get_language_from_request(self,request):
         changed = False
         prefix = has_lang_prefix(request.path_info)
+        lang = None
         if prefix:
             request.path = "/" + "/".join((request.META.get('SCRIPT_URL', "") or request.path).split("/")[2:])
             request.path_info = "/" + "/".join((request.META.get('SCRIPT_URL', "") or request.path_info).split("/")[2:])
@@ -128,7 +133,7 @@ class MultilingualURLMiddleware:
             decoded_response = HREF_URL_FIX_RE.sub(ur'<a\1href="%s%s/\4"\5>' % (pages_root, request.LANGUAGE_CODE), decoded_response)
             response.content = FORM_URL_FIX_RE.sub(ur'<form\1action="%s%s/\4"\5>' % (pages_root, request.LANGUAGE_CODE), decoded_response).encode("utf8")
 
-        if (response.status_code == 301 or response.status_code == 302 ):
+        if response.status_code == 301 or response.status_code == 302:
             location = response['Location']
             if not has_lang_prefix(location) and location.startswith("/") and \
                 (True not in (location.startswith(p) for p in PATHS_NO_REDIRECTION)):

@@ -124,7 +124,7 @@ class Festival(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
 
     organizers = models.ManyToManyField("locations.Location", verbose_name=_("Organizers"), blank=True)
 
-    newsletter = models.BooleanField(_("Show in newsletter"))
+    newsletter = models.BooleanField(_("Show in newsletter"), default=False)
     featured = models.BooleanField(_("Featured in overview"), default=False)
     slideshow = models.BooleanField(_("Show in slideshow"), default=False)
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")

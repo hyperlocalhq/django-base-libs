@@ -1,333 +1,317 @@
-# encoding: utf-8
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
-from base_libs.utils.misc import south_clean_multilingual_fields
-from base_libs.utils.misc import south_cleaned_fields
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-class Migration(SchemaMigration):
-    
-    def forwards(self, orm):
-        
-        # Adding model 'Service'
-        db.create_table(u'locations_service', south_cleaned_fields((
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('creation_date', self.gf('django.db.models.fields.DateTimeField')()),
-            ('modified_date', self.gf('django.db.models.fields.DateTimeField')(null=True)),
-            ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=255)),
-            ('title', self.gf('base_libs.models.fields.MultilingualCharField')(max_length=200, null=True)),
-            ('image', self.gf('filebrowser.fields.FileBrowseField')(directory='services/', max_length=255, extensions=['.jpg', '.jpeg', '.gif', '.png'], blank=True)),
-            ('sort_order', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('title_de', self.gf('django.db.models.fields.CharField')(u'Title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=200, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('title_en', self.gf('django.db.models.fields.CharField')(u'Title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=200, db_tablespace='', blank=True, unique=False, db_index=False)),
-        )))
-        db.send_create_signal(u'locations', ['Service'])
-
-        # Adding model 'AccessibilityOption'
-        db.create_table(u'locations_accessibilityoption', south_cleaned_fields((
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('creation_date', self.gf('django.db.models.fields.DateTimeField')()),
-            ('modified_date', self.gf('django.db.models.fields.DateTimeField')(null=True)),
-            ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=255)),
-            ('title', self.gf('base_libs.models.fields.MultilingualCharField')(max_length=200, null=True)),
-            ('image', self.gf('filebrowser.fields.FileBrowseField')(directory='accessibility/', max_length=255, extensions=['.jpg', '.jpeg', '.gif', '.png'], blank=True)),
-            ('sort_order', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('title_de', self.gf('django.db.models.fields.CharField')(u'Title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=200, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('title_en', self.gf('django.db.models.fields.CharField')(u'Title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=200, db_tablespace='', blank=True, unique=False, db_index=False)),
-        )))
-        db.send_create_signal(u'locations', ['AccessibilityOption'])
-
-        # Adding model 'Location'
-        db.create_table(u'locations_location', south_cleaned_fields((
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('creation_date', self.gf('django.db.models.fields.DateTimeField')()),
-            ('modified_date', self.gf('django.db.models.fields.DateTimeField')(null=True)),
-            ('creator', self.gf('django.db.models.fields.related.ForeignKey')(related_name='location_creator', null=True, to=orm['auth.User'])),
-            ('modifier', self.gf('django.db.models.fields.related.ForeignKey')(related_name='location_modifier', null=True, to=orm['auth.User'])),
-            ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=255)),
-            ('title', self.gf('base_libs.models.fields.MultilingualCharField')(max_length=255, null=True)),
-            ('subtitle', self.gf('base_libs.models.fields.MultilingualCharField')(max_length=255, null=True, blank=True)),
-            ('description', self.gf('base_libs.models.fields.MultilingualTextField')(default='', null=True, blank=True)),
-            ('street_address', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('street_address2', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('postal_code', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('city', self.gf('django.db.models.fields.CharField')(default='Berlin', max_length=255)),
-            ('latitude', self.gf('django.db.models.fields.FloatField')(null=True, blank=True)),
-            ('longitude', self.gf('django.db.models.fields.FloatField')(null=True, blank=True)),
-            ('phone_country', self.gf('django.db.models.fields.CharField')(default='49', max_length=4, blank=True)),
-            ('phone_area', self.gf('django.db.models.fields.CharField')(max_length=6, blank=True)),
-            ('phone_number', self.gf('django.db.models.fields.CharField')(max_length=25, blank=True)),
-            ('fax_country', self.gf('django.db.models.fields.CharField')(default='49', max_length=4, blank=True)),
-            ('fax_area', self.gf('django.db.models.fields.CharField')(max_length=6, blank=True)),
-            ('fax_number', self.gf('django.db.models.fields.CharField')(max_length=25, blank=True)),
-            ('email', self.gf('django.db.models.fields.EmailField')(max_length=255, blank=True)),
-            ('website', self.gf('base_libs.models.fields.URLField')(max_length=200, blank=True)),
-            ('tickets_street_address', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('tickets_street_address2', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('tickets_postal_code', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('tickets_city', self.gf('django.db.models.fields.CharField')(default='Berlin', max_length=255, blank=True)),
-            ('tickets_email', self.gf('django.db.models.fields.EmailField')(max_length=255, blank=True)),
-            ('tickets_website', self.gf('base_libs.models.fields.URLField')(max_length=200, blank=True)),
-            ('status', self.gf('django.db.models.fields.CharField')(default='draft', max_length=20, blank=True)),
-            ('subtitle_de', self.gf('django.db.models.fields.CharField')(u'Subtitle', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('subtitle_en', self.gf('django.db.models.fields.CharField')(u'Subtitle', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('title_de', self.gf('django.db.models.fields.CharField')(u'Name', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('title_en', self.gf('django.db.models.fields.CharField')(u'Name', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('description_de', self.gf('base_libs.models.fields.ExtendedTextField')(u'Description', unique_for_month=None, unique_for_date=None, primary_key=False, db_column=None, max_length=None, unique_for_year=None, rel=None, blank=True, unique=False, db_tablespace='', db_index=False)),
-            ('description_de_markup_type', self.gf('django.db.models.fields.CharField')('Markup type', default='pt', max_length=10, blank=False)),
-            ('description_en', self.gf('base_libs.models.fields.ExtendedTextField')(u'Description', unique_for_month=None, unique_for_date=None, primary_key=False, db_column=None, max_length=None, unique_for_year=None, rel=None, blank=True, unique=False, db_tablespace='', db_index=False)),
-            ('description_en_markup_type', self.gf('django.db.models.fields.CharField')('Markup type', default='pt', max_length=10, blank=False)),
-        )))
-        db.send_create_signal(u'locations', ['Location'])
-        # Adding M2M table for field services on 'Location'
-        m2m_table_name = db.shorten_name(u'locations_location_services')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('location', models.ForeignKey(orm[u'locations.location'], null=False)),
-            ('service', models.ForeignKey(orm[u'locations.service'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['location_id', 'service_id'])
-
-        # Adding M2M table for field accessibility_options on 'Location'
-        m2m_table_name = db.shorten_name(u'locations_location_accessibility_options')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('location', models.ForeignKey(orm[u'locations.location'], null=False)),
-            ('accessibilityoption', models.ForeignKey(orm[u'locations.accessibilityoption'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['location_id', 'accessibilityoption_id'])
+from django.db import models, migrations
+import mptt.fields
+import filebrowser.fields
+import django.db.models.deletion
+from django.conf import settings
+import base_libs.models.fields
 
 
-        # Adding model 'Stage'
-        db.create_table(u'locations_stage', south_cleaned_fields((
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('creation_date', self.gf('django.db.models.fields.DateTimeField')()),
-            ('modified_date', self.gf('django.db.models.fields.DateTimeField')(null=True)),
-            ('creator', self.gf('django.db.models.fields.related.ForeignKey')(related_name='stage_creator', null=True, to=orm['auth.User'])),
-            ('modifier', self.gf('django.db.models.fields.related.ForeignKey')(related_name='stage_modifier', null=True, to=orm['auth.User'])),
-            ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=255)),
-            ('location', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['locations.Location'])),
-            ('title', self.gf('base_libs.models.fields.MultilingualCharField')(max_length=255, null=True)),
-            ('description', self.gf('base_libs.models.fields.MultilingualTextField')(default='', null=True, blank=True)),
-            ('street_address', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('street_address2', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('postal_code', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('city', self.gf('django.db.models.fields.CharField')(default='Berlin', max_length=255, blank=True)),
-            ('latitude', self.gf('django.db.models.fields.FloatField')(null=True, blank=True)),
-            ('longitude', self.gf('django.db.models.fields.FloatField')(null=True, blank=True)),
-            ('description_de', self.gf('base_libs.models.fields.ExtendedTextField')(u'Description', unique_for_month=None, unique_for_date=None, primary_key=False, db_column=None, max_length=None, unique_for_year=None, rel=None, blank=True, unique=False, db_tablespace='', db_index=False)),
-            ('description_de_markup_type', self.gf('django.db.models.fields.CharField')('Markup type', default='pt', max_length=10, blank=False)),
-            ('description_en', self.gf('base_libs.models.fields.ExtendedTextField')(u'Description', unique_for_month=None, unique_for_date=None, primary_key=False, db_column=None, max_length=None, unique_for_year=None, rel=None, blank=True, unique=False, db_tablespace='', db_index=False)),
-            ('description_en_markup_type', self.gf('django.db.models.fields.CharField')('Markup type', default='pt', max_length=10, blank=False)),
-            ('title_de', self.gf('django.db.models.fields.CharField')(u'Name', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('title_en', self.gf('django.db.models.fields.CharField')(u'Name', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-        )))
-        db.send_create_signal(u'locations', ['Stage'])
+class Migration(migrations.Migration):
 
-        # Adding model 'Image'
-        db.create_table(u'locations_image', south_cleaned_fields((
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('creation_date', self.gf('django.db.models.fields.DateTimeField')()),
-            ('modified_date', self.gf('django.db.models.fields.DateTimeField')(null=True)),
-            ('location', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['locations.Location'])),
-            ('path', self.gf('filebrowser.fields.FileBrowseField')(directory='locations/', max_length=255, extensions=['.jpg', '.jpeg', '.gif', '.png'])),
-            ('sort_order', self.gf('django.db.models.fields.IntegerField')(default=None)),
-        )))
-        db.send_create_signal(u'locations', ['Image'])
+    dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+    ]
 
-        # Adding model 'SocialMediaChannel'
-        db.create_table(u'locations_socialmediachannel', south_cleaned_fields((
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('location', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['locations.Location'])),
-            ('channel_type', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('url', self.gf('base_libs.models.fields.URLField')(max_length=255)),
-        )))
-        db.send_create_signal(u'locations', ['SocialMediaChannel'])
-    
-    
-    def backwards(self, orm):
-                # Deleting model 'Service'
-        db.delete_table(u'locations_service')
-
-        # Deleting model 'AccessibilityOption'
-        db.delete_table(u'locations_accessibilityoption')
-
-        # Deleting model 'Location'
-        db.delete_table(u'locations_location')
-
-        # Removing M2M table for field services on 'Location'
-        db.delete_table(db.shorten_name(u'locations_location_services'))
-
-        # Removing M2M table for field accessibility_options on 'Location'
-        db.delete_table(db.shorten_name(u'locations_location_accessibility_options'))
-
-        # Deleting model 'Stage'
-        db.delete_table(u'locations_stage')
-
-        # Deleting model 'Image'
-        db.delete_table(u'locations_image')
-
-        # Deleting model 'SocialMediaChannel'
-        db.delete_table(u'locations_socialmediachannel')
-
-    
-    
-    models = {
-        u'auth.group': {
-            'Meta': {'object_name': 'Group'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '80'}),
-            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
-        },
-        u'auth.permission': {
-            'Meta': {'ordering': "(u'content_type__app_label', u'content_type__model', u'codename')", 'unique_together': "((u'content_type', u'codename'),)", 'object_name': 'Permission'},
-            'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        },
-        u'auth.user': {
-            'Meta': {'ordering': "('username',)", 'object_name': 'User'},
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
-            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
-        },
-        u'contenttypes.contenttype': {
-            'Meta': {'ordering': "('app_label', 'name')", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        u'locations.accessibilityoption': {
-            'Meta': {'ordering': "['sort_order']", 'object_name': 'AccessibilityOption'},
-            'creation_date': ('django.db.models.fields.DateTimeField', [], {}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('filebrowser.fields.FileBrowseField', [], {'directory': "'accessibility/'", 'max_length': '255', 'extensions': "['.jpg', '.jpeg', '.gif', '.png']", 'blank': 'True'}),
-            'modified_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '255'}),
-            'sort_order': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'title': ('base_libs.models.fields.MultilingualCharField', [], {'max_length': '200', 'null': 'True'}),
-            'title_de': ('django.db.models.fields.CharField', ["u'Title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '200', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'title_en': ('django.db.models.fields.CharField', ["u'Title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '200', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'})
-        },
-        u'locations.image': {
-            'Meta': {'ordering': "['sort_order', 'creation_date']", 'object_name': 'Image'},
-            'creation_date': ('django.db.models.fields.DateTimeField', [], {}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'location': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['locations.Location']"}),
-            'modified_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
-            'path': ('filebrowser.fields.FileBrowseField', [], {'directory': "'locations/'", 'max_length': '255', 'extensions': "['.jpg', '.jpeg', '.gif', '.png']"}),
-            'sort_order': ('django.db.models.fields.IntegerField', [], {'default': 'None'})
-        },
-        u'locations.location': {
-            'Meta': {'ordering': "['title']", 'object_name': 'Location'},
-            'accessibility_options': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['locations.AccessibilityOption']", 'symmetrical': 'False', 'blank': 'True'}),
-            'city': ('django.db.models.fields.CharField', [], {'default': "'Berlin'", 'max_length': '255'}),
-            'creation_date': ('django.db.models.fields.DateTimeField', [], {}),
-            'creator': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'location_creator'", 'null': 'True', 'to': u"orm['auth.User']"}),
-            'description': ('base_libs.models.fields.MultilingualTextField', [], {'default': "''", 'null': 'True', 'blank': 'True'}),
-            'description_de': ('base_libs.models.fields.ExtendedTextField', ["u'Description'"], {'unique_for_month': 'None', 'unique_for_date': 'None', 'primary_key': 'False', 'db_column': 'None', 'max_length': 'None', 'unique_for_year': 'None', 'rel': 'None', 'blank': 'True', 'unique': 'False', 'db_tablespace': "''", 'db_index': 'False'}),
-            'description_de_markup_type': ('django.db.models.fields.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'description_en': ('base_libs.models.fields.ExtendedTextField', ["u'Description'"], {'unique_for_month': 'None', 'unique_for_date': 'None', 'primary_key': 'False', 'db_column': 'None', 'max_length': 'None', 'unique_for_year': 'None', 'rel': 'None', 'blank': 'True', 'unique': 'False', 'db_tablespace': "''", 'db_index': 'False'}),
-            'description_en_markup_type': ('django.db.models.fields.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '255', 'blank': 'True'}),
-            'fax_area': ('django.db.models.fields.CharField', [], {'max_length': '6', 'blank': 'True'}),
-            'fax_country': ('django.db.models.fields.CharField', [], {'default': "'49'", 'max_length': '4', 'blank': 'True'}),
-            'fax_number': ('django.db.models.fields.CharField', [], {'max_length': '25', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'latitude': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'}),
-            'longitude': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'}),
-            'modified_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
-            'modifier': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'location_modifier'", 'null': 'True', 'to': u"orm['auth.User']"}),
-            'phone_area': ('django.db.models.fields.CharField', [], {'max_length': '6', 'blank': 'True'}),
-            'phone_country': ('django.db.models.fields.CharField', [], {'default': "'49'", 'max_length': '4', 'blank': 'True'}),
-            'phone_number': ('django.db.models.fields.CharField', [], {'max_length': '25', 'blank': 'True'}),
-            'postal_code': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'services': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['locations.Service']", 'symmetrical': 'False', 'blank': 'True'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '255'}),
-            'status': ('django.db.models.fields.CharField', [], {'default': "'draft'", 'max_length': '20', 'blank': 'True'}),
-            'street_address': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'street_address2': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'subtitle': ('base_libs.models.fields.MultilingualCharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'subtitle_de': ('django.db.models.fields.CharField', ["u'Subtitle'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'subtitle_en': ('django.db.models.fields.CharField', ["u'Subtitle'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'tickets_city': ('django.db.models.fields.CharField', [], {'default': "'Berlin'", 'max_length': '255', 'blank': 'True'}),
-            'tickets_email': ('django.db.models.fields.EmailField', [], {'max_length': '255', 'blank': 'True'}),
-            'tickets_postal_code': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'tickets_street_address': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'tickets_street_address2': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'tickets_website': ('base_libs.models.fields.URLField', [], {'max_length': '200', 'blank': 'True'}),
-            'title': ('base_libs.models.fields.MultilingualCharField', [], {'max_length': '255', 'null': 'True'}),
-            'title_de': ('django.db.models.fields.CharField', ["u'Name'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'title_en': ('django.db.models.fields.CharField', ["u'Name'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'website': ('base_libs.models.fields.URLField', [], {'max_length': '200', 'blank': 'True'})
-        },
-        u'locations.service': {
-            'Meta': {'ordering': "['sort_order']", 'object_name': 'Service'},
-            'creation_date': ('django.db.models.fields.DateTimeField', [], {}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('filebrowser.fields.FileBrowseField', [], {'directory': "'services/'", 'max_length': '255', 'extensions': "['.jpg', '.jpeg', '.gif', '.png']", 'blank': 'True'}),
-            'modified_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '255'}),
-            'sort_order': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'title': ('base_libs.models.fields.MultilingualCharField', [], {'max_length': '200', 'null': 'True'}),
-            'title_de': ('django.db.models.fields.CharField', ["u'Title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '200', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'title_en': ('django.db.models.fields.CharField', ["u'Title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '200', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'})
-        },
-        u'locations.socialmediachannel': {
-            'Meta': {'ordering': "['channel_type']", 'object_name': 'SocialMediaChannel'},
-            'channel_type': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'location': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['locations.Location']"}),
-            'url': ('base_libs.models.fields.URLField', [], {'max_length': '255'})
-        },
-        u'locations.stage': {
-            'Meta': {'ordering': "['title']", 'object_name': 'Stage'},
-            'city': ('django.db.models.fields.CharField', [], {'default': "'Berlin'", 'max_length': '255', 'blank': 'True'}),
-            'creation_date': ('django.db.models.fields.DateTimeField', [], {}),
-            'creator': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'stage_creator'", 'null': 'True', 'to': u"orm['auth.User']"}),
-            'description': ('base_libs.models.fields.MultilingualTextField', [], {'default': "''", 'null': 'True', 'blank': 'True'}),
-            'description_de': ('base_libs.models.fields.ExtendedTextField', ["u'Description'"], {'unique_for_month': 'None', 'unique_for_date': 'None', 'primary_key': 'False', 'db_column': 'None', 'max_length': 'None', 'unique_for_year': 'None', 'rel': 'None', 'blank': 'True', 'unique': 'False', 'db_tablespace': "''", 'db_index': 'False'}),
-            'description_de_markup_type': ('django.db.models.fields.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'description_en': ('base_libs.models.fields.ExtendedTextField', ["u'Description'"], {'unique_for_month': 'None', 'unique_for_date': 'None', 'primary_key': 'False', 'db_column': 'None', 'max_length': 'None', 'unique_for_year': 'None', 'rel': 'None', 'blank': 'True', 'unique': 'False', 'db_tablespace': "''", 'db_index': 'False'}),
-            'description_en_markup_type': ('django.db.models.fields.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'latitude': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'}),
-            'location': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['locations.Location']"}),
-            'longitude': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'}),
-            'modified_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
-            'modifier': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'stage_modifier'", 'null': 'True', 'to': u"orm['auth.User']"}),
-            'postal_code': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '255'}),
-            'street_address': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'street_address2': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'title': ('base_libs.models.fields.MultilingualCharField', [], {'max_length': '255', 'null': 'True'}),
-            'title_de': ('django.db.models.fields.CharField', ["u'Name'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'title_en': ('django.db.models.fields.CharField', ["u'Name'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'})
-        },
-        u'permissions.rowlevelpermission': {
-            'Meta': {'object_name': 'RowLevelPermission', 'db_table': "'auth_rowlevelpermission'"},
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'negative': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'object_id': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '255'}),
-            'owner_content_type': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'owner'", 'to': u"orm['contenttypes.ContentType']"}),
-            'owner_object_id': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '255'}),
-            'permission': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.Permission']"})
-        }
-    }
-    south_clean_multilingual_fields(models)
-    
-    complete_apps = ['locations']
+    operations = [
+        migrations.CreateModel(
+            name='AccessibilityOption',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
+                ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
+                ('title', models.CharField(verbose_name='Title', max_length=200, null=True, editable=False)),
+                ('image', filebrowser.fields.FileBrowseField(max_length=255, verbose_name='Image', blank=True)),
+                ('sort_order', models.IntegerField(default=0, verbose_name='Sort Order')),
+                ('title_de', models.CharField(max_length=200, verbose_name='Title')),
+                ('title_en', models.CharField(max_length=200, verbose_name='Title', blank=True)),
+            ],
+            options={
+                'ordering': ['sort_order'],
+                'verbose_name': 'Accessibility option',
+                'verbose_name_plural': 'Accessibility options',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='District',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
+                ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
+                ('title', models.CharField(verbose_name='Title', max_length=200, null=True, editable=False)),
+                ('sort_order', models.IntegerField(default=0, verbose_name='Sort Order')),
+                ('title_de', models.CharField(max_length=200, verbose_name='Title')),
+                ('title_en', models.CharField(max_length=200, verbose_name='Title', blank=True)),
+            ],
+            options={
+                'ordering': ['sort_order'],
+                'verbose_name': 'District',
+                'verbose_name_plural': 'Districts',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Image',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
+                ('path', filebrowser.fields.FileBrowseField(help_text='A path to a locally stored image.', max_length=255, verbose_name='File path')),
+                ('copyright_restrictions', models.CharField(blank=True, max_length=20, verbose_name='Copyright restrictions', choices=[(b'general_use', 'Released for general use'), (b'protected', 'Released for this and own site only')])),
+                ('sort_order', base_libs.models.fields.PositionField(default=None, verbose_name='Sort order')),
+            ],
+            options={
+                'ordering': ['sort_order', 'creation_date'],
+                'verbose_name': 'Image',
+                'verbose_name_plural': 'Images',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Location',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
+                ('is_appointment_based', models.BooleanField(default=False, verbose_name='Visiting by Appointment')),
+                ('mon_open', models.TimeField(null=True, verbose_name='Opens on Monday', blank=True)),
+                ('mon_break_close', models.TimeField(null=True, verbose_name='Break Starts on Monday', blank=True)),
+                ('mon_break_open', models.TimeField(null=True, verbose_name='Break Ends on Monday', blank=True)),
+                ('mon_close', models.TimeField(null=True, verbose_name='Closes on Monday', blank=True)),
+                ('tue_open', models.TimeField(null=True, verbose_name='Opens on Tuesday', blank=True)),
+                ('tue_break_close', models.TimeField(null=True, verbose_name='Break Starts on Tuesday', blank=True)),
+                ('tue_break_open', models.TimeField(null=True, verbose_name='Break Ends on Tuesday', blank=True)),
+                ('tue_close', models.TimeField(null=True, verbose_name='Closes on Tuesday', blank=True)),
+                ('wed_open', models.TimeField(null=True, verbose_name='Opens on Wednesday', blank=True)),
+                ('wed_break_close', models.TimeField(null=True, verbose_name='Break Starts on Wednesday', blank=True)),
+                ('wed_break_open', models.TimeField(null=True, verbose_name='Break Ends on Wednesday', blank=True)),
+                ('wed_close', models.TimeField(null=True, verbose_name='Closes on Wednesday', blank=True)),
+                ('thu_open', models.TimeField(null=True, verbose_name='Opens on Thursday', blank=True)),
+                ('thu_break_close', models.TimeField(null=True, verbose_name='Break Starts on Thursday', blank=True)),
+                ('thu_break_open', models.TimeField(null=True, verbose_name='Break Ends on Thursday', blank=True)),
+                ('thu_close', models.TimeField(null=True, verbose_name='Closes on Thursday', blank=True)),
+                ('fri_open', models.TimeField(null=True, verbose_name='Opens on Friday', blank=True)),
+                ('fri_break_close', models.TimeField(null=True, verbose_name='Break Starts on Friday', blank=True)),
+                ('fri_break_open', models.TimeField(null=True, verbose_name='Break Ends on Friday', blank=True)),
+                ('fri_close', models.TimeField(null=True, verbose_name='Closes on Friday', blank=True)),
+                ('sat_open', models.TimeField(null=True, verbose_name='Opens on Saturday', blank=True)),
+                ('sat_break_close', models.TimeField(null=True, verbose_name='Break Starts on Saturday', blank=True)),
+                ('sat_break_open', models.TimeField(null=True, verbose_name='Break Ends on Saturday', blank=True)),
+                ('sat_close', models.TimeField(null=True, verbose_name='Closes on Saturday', blank=True)),
+                ('sun_open', models.TimeField(null=True, verbose_name='Opens on Sunday', blank=True)),
+                ('sun_break_close', models.TimeField(null=True, verbose_name='Break Starts on Sunday', blank=True)),
+                ('sun_break_open', models.TimeField(null=True, verbose_name='Break Ends on Sunday', blank=True)),
+                ('sun_close', models.TimeField(null=True, verbose_name='Closes on Sunday', blank=True)),
+                ('exceptions', models.TextField(default=b'', verbose_name='Exceptions for working hours', null=True, editable=False, blank=True)),
+                ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
+                ('title', models.CharField(verbose_name='Title', max_length=255, null=True, editable=False)),
+                ('subtitle', models.CharField(verbose_name='Subtitle', max_length=255, null=True, editable=False, blank=True)),
+                ('description', models.TextField(default=b'', verbose_name='Description', null=True, editable=False, blank=True)),
+                ('logo', filebrowser.fields.FileBrowseField(max_length=255, verbose_name='Logo', blank=True)),
+                ('teaser', models.TextField(default=b'', verbose_name='Teaser', null=True, editable=False, blank=True)),
+                ('street_address', models.CharField(max_length=255, verbose_name='Street address')),
+                ('street_address2', models.CharField(max_length=255, verbose_name='Street address (second line)', blank=True)),
+                ('postal_code', models.CharField(max_length=255, verbose_name='Postal code')),
+                ('city', models.CharField(default=b'Berlin', max_length=255, verbose_name='City')),
+                ('latitude', models.FloatField(help_text='Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90).', null=True, verbose_name='Latitude', blank=True)),
+                ('longitude', models.FloatField(help_text='Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west).', null=True, verbose_name='Longitude', blank=True)),
+                ('phone_country', models.CharField(default=b'49', max_length=4, verbose_name='Country Code', blank=True)),
+                ('phone_area', models.CharField(max_length=6, verbose_name='Area Code', blank=True)),
+                ('phone_number', models.CharField(max_length=25, verbose_name='Subscriber Number and Extension', blank=True)),
+                ('fax_country', models.CharField(default=b'49', max_length=4, verbose_name='Country Code', blank=True)),
+                ('fax_area', models.CharField(max_length=6, verbose_name='Area Code', blank=True)),
+                ('fax_number', models.CharField(max_length=25, verbose_name='Subscriber Number and Extension', blank=True)),
+                ('email', models.EmailField(max_length=255, verbose_name='Email', blank=True)),
+                ('website', base_libs.models.fields.URLField(verbose_name=b'Website', blank=True)),
+                ('tickets_street_address', models.CharField(max_length=255, verbose_name='Street address', blank=True)),
+                ('tickets_street_address2', models.CharField(max_length=255, verbose_name='Street address (second line)', blank=True)),
+                ('tickets_postal_code', models.CharField(max_length=255, verbose_name='Postal code', blank=True)),
+                ('tickets_city', models.CharField(default=b'Berlin', max_length=255, verbose_name='City', blank=True)),
+                ('tickets_email', models.EmailField(max_length=255, verbose_name='Tickets Email', blank=True)),
+                ('tickets_website', base_libs.models.fields.URLField(verbose_name=b'Tickets Website', blank=True)),
+                ('tickets_phone_country', models.CharField(default=b'49', max_length=4, verbose_name='Country Code', blank=True)),
+                ('tickets_phone_area', models.CharField(max_length=6, verbose_name='Area Code', blank=True)),
+                ('tickets_phone_number', models.CharField(max_length=25, verbose_name='Subscriber Number and Extension', blank=True)),
+                ('tickets_fax_country', models.CharField(default=b'49', max_length=4, verbose_name='Country Code', blank=True)),
+                ('tickets_fax_area', models.CharField(max_length=6, verbose_name='Area Code', blank=True)),
+                ('tickets_fax_number', models.CharField(max_length=25, verbose_name='Subscriber Number and Extension', blank=True)),
+                ('tickets_calling_prices', models.TextField(default=b'', verbose_name='Phone calling prices', null=True, editable=False, blank=True)),
+                ('tickets_additional_info', models.TextField(default=b'', verbose_name='Additional information', null=True, editable=False, blank=True)),
+                ('press_contact_name', models.CharField(max_length=255, verbose_name='Press contact name', blank=True)),
+                ('press_phone_country', models.CharField(default=b'49', max_length=4, verbose_name='Country Code', blank=True)),
+                ('press_phone_area', models.CharField(max_length=6, verbose_name='Area Code', blank=True)),
+                ('press_phone_number', models.CharField(max_length=25, verbose_name='Subscriber Number and Extension', blank=True)),
+                ('press_fax_country', models.CharField(default=b'49', max_length=4, verbose_name='Country Code', blank=True)),
+                ('press_fax_area', models.CharField(max_length=6, verbose_name='Area Code', blank=True)),
+                ('press_fax_number', models.CharField(max_length=25, verbose_name='Subscriber Number and Extension', blank=True)),
+                ('press_email', models.EmailField(max_length=255, verbose_name='Press Email', blank=True)),
+                ('press_website', base_libs.models.fields.URLField(verbose_name=b'Press Website', blank=True)),
+                ('newsletter', models.BooleanField(default=False, verbose_name='Show in newsletter')),
+                ('status', models.CharField(default=b'draft', max_length=20, verbose_name='Status', blank=True, choices=[(b'draft', 'Draft'), (b'published', 'Published'), (b'not_listed', 'Not Listed'), (b'import', 'Imported'), (b'trashed', 'Trashed')])),
+                ('subtitle_de', models.CharField(max_length=255, verbose_name='Subtitle', blank=True)),
+                ('subtitle_en', models.CharField(max_length=255, verbose_name='Subtitle', blank=True)),
+                ('tickets_additional_info_de', base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Zus\xe4tzliche Information', blank=True)),
+                ('tickets_additional_info_de_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('tickets_additional_info_en', base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Zus\xe4tzliche Information', blank=True)),
+                ('tickets_additional_info_en_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('title_de', models.CharField(max_length=255, verbose_name='Title')),
+                ('title_en', models.CharField(max_length=255, verbose_name='Title', blank=True)),
+                ('tickets_calling_prices_de', base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Tickethotline', blank=True)),
+                ('tickets_calling_prices_de_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('tickets_calling_prices_en', base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Tickethotline', blank=True)),
+                ('tickets_calling_prices_en_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('description_de', base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Beschreibung', blank=True)),
+                ('description_de_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('description_en', base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Beschreibung', blank=True)),
+                ('description_en_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('teaser_de', base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Teaser', blank=True)),
+                ('teaser_de_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('teaser_en', base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Teaser', blank=True)),
+                ('teaser_en_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('exceptions_de', base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Exceptions for working hours', blank=True)),
+                ('exceptions_de_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('exceptions_en', base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Exceptions for working hours', blank=True)),
+                ('exceptions_en_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('accessibility_options', models.ManyToManyField(to='locations.AccessibilityOption', verbose_name='Accessibility options', blank=True)),
+            ],
+            options={
+                'ordering': ['title'],
+                'verbose_name': 'Theater',
+                'verbose_name_plural': 'Theaters',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='LocationCategory',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
+                ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
+                ('title', models.CharField(verbose_name='Title', max_length=200, null=True, editable=False)),
+                ('title_de', models.CharField(max_length=200, verbose_name='Title')),
+                ('title_en', models.CharField(max_length=200, verbose_name='Title', blank=True)),
+                ('lft', models.PositiveIntegerField(editable=False, db_index=True)),
+                ('rght', models.PositiveIntegerField(editable=False, db_index=True)),
+                ('tree_id', models.PositiveIntegerField(editable=False, db_index=True)),
+                ('level', models.PositiveIntegerField(editable=False, db_index=True)),
+                ('parent', mptt.fields.TreeForeignKey(related_name='children', blank=True, to='locations.LocationCategory', null=True)),
+            ],
+            options={
+                'ordering': ['tree_id', 'lft'],
+                'verbose_name': 'Category',
+                'verbose_name_plural': 'Categories',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Service',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
+                ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
+                ('title', models.CharField(verbose_name='Title', max_length=200, null=True, editable=False)),
+                ('image', filebrowser.fields.FileBrowseField(max_length=255, verbose_name='Image', blank=True)),
+                ('sort_order', models.IntegerField(default=0, verbose_name='Sort Order')),
+                ('title_de', models.CharField(max_length=200, verbose_name='Title')),
+                ('title_en', models.CharField(max_length=200, verbose_name='Title', blank=True)),
+            ],
+            options={
+                'ordering': ['sort_order'],
+                'verbose_name': 'Service',
+                'verbose_name_plural': 'Services',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='SocialMediaChannel',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('channel_type', models.CharField(help_text='e.g. twitter, facebook, etc.', max_length=255, verbose_name='Social media type')),
+                ('url', base_libs.models.fields.URLField(max_length=255, verbose_name='URL')),
+                ('location', models.ForeignKey(to='locations.Location')),
+            ],
+            options={
+                'ordering': ['channel_type'],
+                'verbose_name': 'Social media channel',
+                'verbose_name_plural': 'Social media channels',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Stage',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
+                ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
+                ('title', models.CharField(verbose_name='Title', max_length=255, null=True, editable=False)),
+                ('description', models.TextField(default=b'', verbose_name='Description', null=True, editable=False, blank=True)),
+                ('street_address', models.CharField(max_length=255, verbose_name='Street address', blank=True)),
+                ('street_address2', models.CharField(max_length=255, verbose_name='Street address (second line)', blank=True)),
+                ('postal_code', models.CharField(max_length=255, verbose_name='Postal code', blank=True)),
+                ('city', models.CharField(default=b'Berlin', max_length=255, verbose_name='City', blank=True)),
+                ('latitude', models.FloatField(help_text='Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90).', null=True, verbose_name='Latitude', blank=True)),
+                ('longitude', models.FloatField(help_text='Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west).', null=True, verbose_name='Longitude', blank=True)),
+                ('sort_order', models.IntegerField(default=0, verbose_name='Sort Order')),
+                ('description_de', base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Beschreibung', blank=True)),
+                ('description_de_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('description_en', base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Beschreibung', blank=True)),
+                ('description_en_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('title_de', models.CharField(max_length=255, verbose_name='Title')),
+                ('title_en', models.CharField(max_length=255, verbose_name='Title', blank=True)),
+                ('creator', models.ForeignKey(related_name='stage_creator', on_delete=django.db.models.deletion.SET_NULL, editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='creator')),
+                ('district', models.ForeignKey(verbose_name='District', blank=True, to='locations.District', null=True)),
+                ('location', models.ForeignKey(verbose_name='Location', to='locations.Location')),
+                ('modifier', models.ForeignKey(related_name='stage_modifier', on_delete=django.db.models.deletion.SET_NULL, editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='modifier')),
+            ],
+            options={
+                'ordering': ['sort_order', 'title'],
+                'verbose_name': 'Stage',
+                'verbose_name_plural': 'Stages',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='location',
+            name='categories',
+            field=mptt.fields.TreeManyToManyField(to='locations.LocationCategory', verbose_name='Categories', blank=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='location',
+            name='creator',
+            field=models.ForeignKey(related_name='location_creator', on_delete=django.db.models.deletion.SET_NULL, editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='creator'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='location',
+            name='districts',
+            field=models.ManyToManyField(to='locations.District', verbose_name='District', blank=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='location',
+            name='modifier',
+            field=models.ForeignKey(related_name='location_modifier', on_delete=django.db.models.deletion.SET_NULL, editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='modifier'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='location',
+            name='services',
+            field=models.ManyToManyField(to='locations.Service', verbose_name='Service', blank=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='image',
+            name='location',
+            field=models.ForeignKey(verbose_name='Location', to='locations.Location'),
+            preserve_default=True,
+        ),
+    ]

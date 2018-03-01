@@ -6,7 +6,3 @@ DEBUG = True
 
 SESSION_COOKIE_DOMAIN = "127.0.0.1"
 ALLOWED_HOSTS = ['127.0.0.1']
-
-INSTALLED_APPS += ["debug_toolbar"]
-MIDDLEWARE_CLASSES.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
-execfile(os.path.join(JETSON_PATH, "jetson/settings/debug_toolbar.py"))

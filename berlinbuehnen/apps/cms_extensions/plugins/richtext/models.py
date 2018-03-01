@@ -25,4 +25,5 @@ class RichText(CMSPlugin):
     search_fields = ('body',)
     
     def __unicode__(self):
-        return u"%s" % (truncate_words(strip_tags(self.body), 3)[:30]+"...")
+        from django.utils.text import Truncator
+        return u"%s" % (Truncator(strip_tags(self.body)).words(3)[:30]+"...")

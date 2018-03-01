@@ -6,22 +6,11 @@ from django.contrib import admin
 from django.contrib.admin import helpers
 from django.contrib.admin import util
 from django.contrib.admin import options
-from django.contrib.admin import validation
-from django.contrib.admin.validation import (check_isseq, get_field, check_isdict)
-try:
-    from django.contrib.admin.validation import check_formfield
-except ImportError:
-    check_formfield = lambda *args, **kwargs: True
-
-from django.contrib.admin.options import HORIZONTAL, VERTICAL
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.forms.formsets import all_valid
-from django.forms.models import (BaseModelForm, BaseModelFormSet, fields_for_model,
-    _get_foreign_key)
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
-from django.core.exceptions import ImproperlyConfigured
 from django.db.models.fields import FieldDoesNotExist
 
 try:
@@ -29,11 +18,10 @@ try:
 except:
     from django.utils.encoding import force_unicode as force_text
 
-from base_libs.models.settings import MARKUP_PLAIN_TEXT  
-from base_libs.models.settings import MARKUP_HTML_WYSIWYG
-from base_libs.models.settings import MARKUP_RAW_HTML
+from base_libs.models.base_libs_settings import MARKUP_PLAIN_TEXT
+from base_libs.models.base_libs_settings import MARKUP_HTML_WYSIWYG
+from base_libs.models.base_libs_settings import MARKUP_RAW_HTML
 from base_libs.models.fields import ExtendedTextField
-from base_libs.widgets import TreeSelectWidget, TreeSelectMultipleWidget
 
 ### Guerilla patches for nested fieldsets
 
@@ -58,153 +46,6 @@ def flatten_fieldsets(fieldsets):
 options.flatten_fieldsets = util.flatten_fieldsets = flatten_fieldsets
 
 
-def validate_base(cls, model):
-    opts = model._meta
-
-    # raw_id_fields
-    if hasattr(cls, 'raw_id_fields'):
-        check_isseq(cls, 'raw_id_fields', cls.raw_id_fields)
-        for idx, field in enumerate(cls.raw_id_fields):
-            f = get_field(cls, model, opts, 'raw_id_fields', field)
-            if not isinstance(f, (models.ForeignKey, models.ManyToManyField)):
-                raise ImproperlyConfigured("'%s.raw_id_fields[%d]', '%s' must "
-                        "be either a ForeignKey or ManyToManyField."
-                        % (cls.__name__, idx, field))
-
-    # fields
-    if cls.fields: # default value is None
-        check_isseq(cls, 'fields', cls.fields)
-        for field in cls.fields:
-            if field in cls.readonly_fields:
-                # Stuff can be put in fields that isn't actually a model field
-                # if it's in readonly_fields, readonly_fields will handle the
-                # validation of such things.
-                continue
-            check_formfield(cls, model, opts, 'fields', field)
-            try:
-                f = opts.get_field(field)
-            except models.FieldDoesNotExist:
-                # If we can't find a field on the model that matches,
-                # it could be an extra field on the form.
-                continue
-            if isinstance(f, models.ManyToManyField) and not f.rel.through._meta.auto_created:
-                raise ImproperlyConfigured("'%s.fields' can't include the ManyToManyField "
-                    "field '%s' because '%s' manually specifies "
-                    "a 'through' model." % (cls.__name__, field, field))
-        if cls.fieldsets:
-            raise ImproperlyConfigured('Both fieldsets and fields are specified in %s.' % cls.__name__)
-        if len(cls.fields) > len(set(cls.fields)):
-            raise ImproperlyConfigured('There are duplicate field(s) in %s.fields' % cls.__name__)
-    '''
-    # fieldsets
-    if cls.fieldsets: # default value is None
-        check_isseq(cls, 'fieldsets', cls.fieldsets)
-        for idx, fieldset in enumerate(cls.fieldsets):
-            check_isseq(cls, 'fieldsets[%d]' % idx, fieldset)
-            if len(fieldset) != 2:
-                raise ImproperlyConfigured("'%s.fieldsets[%d]' does not "
-                        "have exactly two elements." % (cls.__name__, idx))
-            check_isdict(cls, 'fieldsets[%d][1]' % idx, fieldset[1])
-            if 'fields' not in fieldset[1]:
-                raise ImproperlyConfigured("'fields' key is required in "
-                        "%s.fieldsets[%d][1] field options dict."
-                        % (cls.__name__, idx))
-            for fields in fieldset[1]['fields']:
-                # The entry in fields might be a tuple. If it is a standalone
-                # field, make it into a tuple to make processing easier.
-                if type(fields) != tuple:
-                    fields = (fields,)
-                for field in fields:
-                    if field in cls.readonly_fields:
-                        # Stuff can be put in fields that isn't actually a
-                        # model field if it's in readonly_fields,
-                        # readonly_fields will handle the validation of such
-                        # things.
-                        continue
-                    check_formfield(cls, model, opts, "fieldsets[%d][1]['fields']" % idx, field)
-                    try:
-                        f = opts.get_field(field)
-                        if isinstance(f, models.ManyToManyField) and not f.rel.through._meta.auto_created:
-                            raise ImproperlyConfigured("'%s.fieldsets[%d][1]['fields']' "
-                                "can't include the ManyToManyField field '%s' because "
-                                "'%s' manually specifies a 'through' model." % (
-                                    cls.__name__, idx, field, field))
-                    except models.FieldDoesNotExist:
-                        # If we can't find a field on the model that matches,
-                        # it could be an extra field on the form.
-                        pass
-        flattened_fieldsets = flatten_fieldsets(cls.fieldsets)
-        if len(flattened_fieldsets) > len(set(flattened_fieldsets)):
-            raise ImproperlyConfigured('There are duplicate field(s) in %s.fieldsets' % cls.__name__)
-    '''
-    # exclude
-    if cls.exclude: # default value is None
-        check_isseq(cls, 'exclude', cls.exclude)
-        for field in cls.exclude:
-            check_formfield(cls, model, opts, 'exclude', field)
-            try:
-                f = opts.get_field(field)
-            except models.FieldDoesNotExist:
-                # If we can't find a field on the model that matches,
-                # it could be an extra field on the form.
-                continue
-        if len(cls.exclude) > len(set(cls.exclude)):
-            raise ImproperlyConfigured('There are duplicate field(s) in %s.exclude' % cls.__name__)
-
-    # form
-    if hasattr(cls, 'form') and not issubclass(cls.form, BaseModelForm):
-        raise ImproperlyConfigured("%s.form does not inherit from "
-                "BaseModelForm." % cls.__name__)
-
-    # filter_vertical
-    if hasattr(cls, 'filter_vertical'):
-        check_isseq(cls, 'filter_vertical', cls.filter_vertical)
-        for idx, field in enumerate(cls.filter_vertical):
-            f = get_field(cls, model, opts, 'filter_vertical', field)
-            if not isinstance(f, models.ManyToManyField):
-                raise ImproperlyConfigured("'%s.filter_vertical[%d]' must be "
-                    "a ManyToManyField." % (cls.__name__, idx))
-
-    # filter_horizontal
-    if hasattr(cls, 'filter_horizontal'):
-        check_isseq(cls, 'filter_horizontal', cls.filter_horizontal)
-        for idx, field in enumerate(cls.filter_horizontal):
-            f = get_field(cls, model, opts, 'filter_horizontal', field)
-            if not isinstance(f, models.ManyToManyField):
-                raise ImproperlyConfigured("'%s.filter_horizontal[%d]' must be "
-                    "a ManyToManyField." % (cls.__name__, idx))
-
-    # radio_fields
-    if hasattr(cls, 'radio_fields'):
-        check_isdict(cls, 'radio_fields', cls.radio_fields)
-        for field, val in cls.radio_fields.items():
-            f = get_field(cls, model, opts, 'radio_fields', field)
-            if not (isinstance(f, models.ForeignKey) or f.choices):
-                raise ImproperlyConfigured("'%s.radio_fields['%s']' "
-                        "is neither an instance of ForeignKey nor does "
-                        "have choices set." % (cls.__name__, field))
-            if not val in (HORIZONTAL, VERTICAL):
-                raise ImproperlyConfigured("'%s.radio_fields['%s']' "
-                        "is neither admin.HORIZONTAL nor admin.VERTICAL."
-                        % (cls.__name__, field))
-
-    # prepopulated_fields
-    if hasattr(cls, 'prepopulated_fields'):
-        check_isdict(cls, 'prepopulated_fields', cls.prepopulated_fields)
-        for field, val in cls.prepopulated_fields.items():
-            f = get_field(cls, model, opts, 'prepopulated_fields', field)
-            if isinstance(f, (models.DateTimeField, models.ForeignKey,
-                models.ManyToManyField)):
-                raise ImproperlyConfigured("'%s.prepopulated_fields['%s']' "
-                        "is either a DateTimeField, ForeignKey or "
-                        "ManyToManyField. This isn't allowed."
-                        % (cls.__name__, field))
-            check_isseq(cls, "prepopulated_fields['%s']" % field, val)
-            for idx, f in enumerate(val):
-                get_field(cls, model, opts, "prepopulated_fields['%s'][%d]" % (field, idx), f)
-
-validation.validate_base = validate_base
-
 
 class Fieldset(object):
     is_fieldset = True
@@ -227,7 +68,7 @@ class Fieldset(object):
 
     def __iter__(self):
         for field in self.fields:
-            if (len(field)==2 and isinstance(field[1], dict)):
+            if len(field)==2 and isinstance(field[1], dict):
                 # nested fieldset
                 yield Fieldset(self.form,
                     name=field[0],
@@ -255,7 +96,7 @@ class InlineFieldset(Fieldset):
         for field in self.fields:
             if fk and fk.name == field:
                 continue
-            if (len(field)==2 and isinstance(field[1], dict)):
+            if len(field)==2 and isinstance(field[1], dict):
                 # nested fieldset
                 yield Fieldset(self.form,
                     name=field[0],
@@ -416,7 +257,7 @@ class ExtendedModelAdmin(MarkupTypeOptions, admin.ModelAdmin):
     
     # overwritten
     @options.csrf_protect_m
-    @transaction.commit_on_success
+    @transaction.atomic
     def add_view(self, request, form_url='', extra_context=None):
         """
         The 'add' admin view for this model.
@@ -459,7 +300,7 @@ class ExtendedModelAdmin(MarkupTypeOptions, admin.ModelAdmin):
                 formset = FormSet(data=request.POST, files=request.FILES,
                                   instance=new_object,
                                   save_as_new="_saveasnew" in request.POST,
-                                  prefix=prefix, queryset=inline.queryset(request))
+                                  prefix=prefix, queryset=inline.get_queryset(request))
                 formsets.append(formset)
             if all_valid(formsets) and form_validated:
                 self.save_model(request, new_object, form, False)
@@ -497,7 +338,7 @@ class ExtendedModelAdmin(MarkupTypeOptions, admin.ModelAdmin):
                 if prefixes[prefix] != 1 or not prefix:
                     prefix = "%s-%s" % (prefix, prefixes[prefix])
                 formset = FormSet(instance=self.model(), prefix=prefix,
-                                  queryset=inline.queryset(request))
+                                  queryset=inline.get_queryset(request))
                 formsets.append(formset)
 
         adminForm = helpers.AdminForm(form, list(self.get_fieldsets(request)),
@@ -530,7 +371,7 @@ class ExtendedModelAdmin(MarkupTypeOptions, admin.ModelAdmin):
     
     # overwritten    
     @options.csrf_protect_m
-    @transaction.commit_on_success
+    @transaction.atomic
     def change_view(self, request, object_id, form_url='', extra_context=None):
         """
         overwritten change_view. The default behaviour is extended by

@@ -17,6 +17,8 @@ from django.conf import settings
 from django.utils.safestring import mark_safe
 from django.template.defaultfilters import escape
 from django.db.models.fields import NOT_PROVIDED
+from django.utils.translation import string_concat
+import six
 
 try:
     from django.utils.timezone import now as tz_now
@@ -35,7 +37,7 @@ from base_libs.utils.betterslugify import better_slugify
 from base_libs.middleware import get_current_user
 from base_libs.middleware import get_current_language
 from base_libs.utils.misc import get_unique_value
-from base_libs.models.settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
+from base_libs.models.base_libs_settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
 
 class BaseModel(models.Model):
     """
@@ -107,12 +109,13 @@ class CreatorMixin(BaseModel):
     """
     Abstract base class with a "creator" Field
     """
-    creator = models.ForeignKey(User, 
+    creator = models.ForeignKey(
+        User,
         verbose_name=_("creator"), 
         related_name="%(class)s_creator",
         null=True,
         editable=False,
-        on_delete=models.SET_NULL,
+        on_delete = models.SET_NULL,
     )
     
     def save(self, *args, **kwargs):
@@ -129,7 +132,8 @@ class ModifierMixin(BaseModel):
     """
     Abstract base class with a "modifier" Field
     """
-    modifier = models.ForeignKey(User, 
+    modifier = models.ForeignKey(
+        User,
         verbose_name=_("modifier"), 
         related_name="%(class)s_modifier",
         null=True,
@@ -167,14 +171,14 @@ class CreationModificationMixin(
         abstract = True
 
 class PublishingMixinDraftManager(models.Manager):
-    def get_query_set(self):        
+    def get_queryset(self):
         return super(
             PublishingMixinDraftManager,
             self,
-            ).get_query_set().filter(status__exact=STATUS_CODE_DRAFT)
+            ).get_queryset().filter(status__exact=STATUS_CODE_DRAFT)
 
 class PublishingMixinPublishedManager(models.Manager):
-    def get_query_set(self):
+    def get_queryset(self):
         conditions = []
         now = tz_now()
         conditions.append(models.Q(
@@ -182,7 +186,7 @@ class PublishingMixinPublishedManager(models.Manager):
             published_till=None,
             ))
         conditions.append(models.Q(
-            published_from__lt=now,
+            published_from__lte=now,
             published_till=None,
             ))
         conditions.append(models.Q(
@@ -190,13 +194,13 @@ class PublishingMixinPublishedManager(models.Manager):
             published_till__gt=now,
             ))
         conditions.append(models.Q(
-            published_from__lt=now,
+            published_from__lte=now,
             published_till__gt=now,
             ))
         return super(
             PublishingMixinPublishedManager,
             self,
-            ).get_query_set().filter(
+            ).get_queryset().filter(
                 reduce(operator.or_, conditions),
                 ).filter(status__exact=STATUS_CODE_PUBLISHED)
 
@@ -215,7 +219,7 @@ class PublishingMixin(BaseModel):
         blank=True, 
         verbose_name=_("author"), 
         related_name="%(class)s_author",
-        help_text =_("If you do not select an author, you will be the author!"),
+        help_text=_("If you do not select an author, you will be the author!"),
         on_delete=models.SET_NULL,
     )
 
@@ -260,12 +264,12 @@ class PublishingMixin(BaseModel):
     def is_published(self):
         return bool(type(self).published_objects.filter(pk=self.pk))
     is_published.boolean = True
-    is_published.short_description = _("Is published now?")
+    is_published.short_description = _("Published")
 
     def is_draft(self):
         return self.status == STATUS_CODE_DRAFT        
     is_draft.boolean = True
-    is_draft.short_description = _("Is unpublished now?")
+    is_draft.short_description = _("Draft")
 
 class ViewsMixin(BaseModel):
     """
@@ -285,7 +289,8 @@ class ViewsMixin(BaseModel):
           * modification dates are not changed
         """
         from django.db import connection
-        self.views = self.views + 1
+
+        self.views += 1
         model_opts = type(self)._meta
         cursor = connection.cursor()
         cursor.execute("UPDATE %s SET views=%%s WHERE %s=%%s" % (
@@ -300,7 +305,7 @@ class ViewsMixin(BaseModel):
     class Meta:
         abstract = True
         
-class UrlMixin(object):
+class UrlMixin(models.Model):
     """
     A replacement for get_absolute_url()
     Models extending this mixin should have either get_url or get_url_path implemented.
@@ -334,7 +339,11 @@ class UrlMixin(object):
 
     def get_absolute_url(self):
         return self.get_url_path()
-        
+
+    class Meta:
+        abstract = True
+
+
 class CommentsMixin(BaseModel):
     """
     Abstract base class for comment handling
@@ -345,14 +354,8 @@ class CommentsMixin(BaseModel):
     class Meta:
         abstract = True
         
-def ObjectRelationMixin(
-        prefix=None, 
-        prefix_verbose=None, 
-        add_related_name=False,
-        limit_content_type_choices_to={},
-        limit_object_choices_to={},
-        is_required=False,
-        ):
+def ObjectRelationMixin(prefix=None, prefix_verbose=None, add_related_name=False, limit_content_type_choices_to=None,
+                        limit_object_choices_to=None, is_required=False):
     """
     returns a mixin class for generic foreign keys using 
     "Content type - object Id" with dynamic field names. 
@@ -376,6 +379,10 @@ def ObjectRelationMixin(
     <<prefix>>_content_object : Field name for the "content object"
     
     """
+    if not limit_object_choices_to:
+        limit_object_choices_to = {}
+    if not limit_content_type_choices_to:
+        limit_content_type_choices_to = {}
     if prefix:
         p = "%s_" % prefix
     else:
@@ -384,10 +391,12 @@ def ObjectRelationMixin(
     content_type_field = "%scontent_type" % p
     object_id_field = "%sobject_id" % p
     content_object_field = "%scontent_object" % p
-    admin_content_object_name = _("%(obj)s Content Object") % {
-        'obj': (prefix_verbose or ""),
-        } 
-    
+    admin_content_object_name = _("Content Object")
+    admin_content_type_name = _("Related object's type (model)")
+    if prefix_verbose:
+        admin_content_object_name = string_concat(prefix_verbose, " ", _("Content Object"))
+        admin_content_type_name = string_concat(prefix_verbose, _("'s type (model)"))
+
     class klass(BaseModel):
         class Meta:
             abstract = True
@@ -401,7 +410,7 @@ def ObjectRelationMixin(
     
     content_type = models.ForeignKey(
         ContentType, 
-        verbose_name=(prefix_verbose and _("%s's type (model)") % prefix_verbose or _("Related object's type (model)")), 
+        verbose_name=admin_content_type_name,
         related_name=related_name,
         blank=not is_required, 
         null=not is_required,
@@ -433,8 +442,8 @@ def ObjectRelationMixin(
     return klass
 
 class SingleSiteMixinManager(models.Manager):
-    def get_query_set(self):
-        return super(SingleSiteMixinManager, self).get_query_set().filter(
+    def get_queryset(self):
+        return super(SingleSiteMixinManager, self).get_queryset().filter(
             models.Q(site=None) | models.Q(site=Site.objects.get_current())
             )
 
@@ -452,7 +461,7 @@ class SingleSiteMixin(BaseModel):
     site_objects = SingleSiteMixinManager()
     
     def get_site(self):
-        "used for display in the admin"
+        """used for display in the admin"""
         if not self.site:
             return _("All")
         return self.site.name
@@ -462,8 +471,8 @@ class SingleSiteMixin(BaseModel):
         abstract = True
 
 class MultiSiteMixinManager(models.Manager):
-    def get_query_set(self):
-        return super(MultiSiteMixinManager, self).get_query_set().filter(
+    def get_queryset(self):
+        return super(MultiSiteMixinManager, self).get_queryset().filter(
             sites=Site.objects.get_current(),
             )
 
@@ -581,24 +590,23 @@ class MultiSiteContainerMixin(ObjectRelationMixin(), UrlMixin):
     These are Containers, where you can specify 0..n sites.
     """
     sites = models.ManyToManyField(
-         Site, 
-         verbose_name=_("Sites"),
-         blank=True, 
-         null=True,
-         help_text=_("Please select some sites, this container relates to. If you do not select any site, the container applies to all sites."),
-         )
+        Site,
+        verbose_name=_("Sites"),
+        blank=True,
+        help_text=_("Please select some sites, this container relates to. If you do not select any site, the container applies to all sites."),
+    )
     
     sysname = models.CharField(
-       _("URL Identifier"), 
-       max_length=255, 
-       help_text=_("Please specify an additional URL identifier for the container here. The provided name must be the last part of the calling url, which wants to access the container. For example, if you have a FAQ-Container and you want to use the url 'http://www.example.com/gettinghelp/faqs/', the URL identifier must be 'faqs'. For different URL identifiers, you can create multiple containers for the same related object and site. Note, that the site, the related object and the URL identifier must be unique together."),       
+        _("URL Identifier"),
+        max_length=255,
+        help_text=_("Please specify an additional URL identifier for the container here. The provided name must be the last part of the calling url, which wants to access the container. For example, if you have a FAQ-Container and you want to use the url 'http://www.example.com/gettinghelp/faqs/', the URL identifier must be 'faqs'. For different URL identifiers, you can create multiple containers for the same related object and site. Note, that the site, the related object and the URL identifier must be unique together."),
     )
     
     objects = models.Manager()
     container = MultiSiteContainerMixinManager()
     
     def get_sites(self):
-        "used for display in the admin"
+        """used for display in the admin"""
         if len(self.sites.all()) == 0:
             return _("All")
         sites = ""
@@ -644,7 +652,7 @@ class HierarchyMixinManager(models.Manager):
     A manager for HierarchyMixin abstract class below.
     """
     def get_roots(self):
-        roots = self.get_query_set().filter(parent__isnull=True)
+        roots = self.get_queryset().filter(parent__isnull=True)
         if roots.count() > 0:
             return roots
         else:
@@ -665,7 +673,7 @@ class HierarchyMixinManager(models.Manager):
         counter = 0
         for item in self.order_by('path'):
             item.sort_order = counter
-            counter = counter + 1
+            counter += 1
             item.save()
 
 def _sort_order_coding(sort_order):
@@ -734,6 +742,7 @@ class HierarchyMixin(BaseModel):
         if not parent:
             return self
         else:
+            root = None
             while parent:
                 root = parent
                 parent = parent.parent
@@ -845,10 +854,11 @@ def SlugMixin(
                         getattr(self, fname, "")
                         for fname in prepopulate_from
                         ]) or slug_field.default
-                slug_proposal = better_slugify(slug_proposal, remove_stopwords=False).replace(
-                    "-",
-                    separator,
-                    )[:slug_field.max_length-5]
+                if isinstance(slug_proposal, six.string_types):
+                    slug_proposal = better_slugify(slug_proposal, remove_stopwords=False).replace(
+                        "-",
+                        separator,
+                        )[:slug_field.max_length-5]
                 slug = slug_proposal
                 if slug_field.unique or unique_for:
                     qs = type(self)
@@ -1000,14 +1010,14 @@ def MultilingualSlugMixin(
     return klass    
 
 class ContentBaseMixinDraftManager(PublishingMixinDraftManager):
-    def get_query_set(self):
-        return super(ContentBaseMixinDraftManager, self).get_query_set().filter(
+    def get_queryset(self):
+        return super(ContentBaseMixinDraftManager, self).get_queryset().filter(
             sites=Site.objects.get_current(),
             )
 
 class ContentBaseMixinPublishedManager(PublishingMixinPublishedManager):
-    def get_query_set(self):
-        return super(ContentBaseMixinPublishedManager, self).get_query_set().filter(
+    def get_queryset(self):
+        return super(ContentBaseMixinPublishedManager, self).get_queryset().filter(
             sites=Site.objects.get_current(),
             )
         

@@ -8,10 +8,6 @@ try:
 except ImportError:
     from StringIO import StringIO
 
-try:
-    set
-except NameError:
-    from sets import Set as set     # Python 2.3 fallback
 
 from django import forms
 from django.utils.translation import ugettext, ugettext_lazy as _
@@ -154,7 +150,9 @@ class TimeField(forms.TimeField):
 
 class PlainTextFormField(forms.CharField):
     """ a plain text form field """
+
     def __init__(self, *args, **kwargs):
+        super(PlainTextFormField, self).__init__(*args, **kwargs)
         function = super(PlainTextFormField, self).__init__
         arg_names = function.func_code.co_varnames
         new_kwargs = dict(zip(arg_names, args))
@@ -171,7 +169,7 @@ class SecurityField(forms.CharField):
     """
     time_elapsed = 0
     default_error_messages = {
-        'invalid': ugettext(u"The data transfer didn't pass the security test. You are considered as a spambot."),
+        'invalid': _(u"The data transfer didn't pass the security test. You are considered as a spambot."),
         }
     def generate_value(self):
         started = cryptString(str(int(time.mktime(datetime.datetime.now().timetuple()))))
@@ -241,10 +239,13 @@ class MultiEmailTextField(forms.Field):
     
 class AutocompleteField(forms.CharField):
     """ a forms autocomplete field """
-    def __init__(self, app, qs_function, display_attr,
-        add_display_attr=None, options={}, 
-        attrs={}, *args, **kwargs):
+    def __init__(self, app, qs_function, display_attr, add_display_attr=None, options=None, attrs=None, *args,
+                 **kwargs):
         
+        if not attrs:
+            attrs = {}
+        if not options:
+            options = {}
         self.widget = AutocompleteWidget(
             app, qs_function, display_attr, 
             add_display_attr, options, attrs)
@@ -255,9 +256,12 @@ class AutocompleteField(forms.CharField):
         return super(AutocompleteField, self).clean(value)
 
 class AutocompleteModelChoiceField(AutocompleteField):
-    def __init__(self, app, qs_function, display_attr,
-        add_display_attr=None, options={}, 
-        attrs={}, *args, **kwargs):
+    def __init__(self, app, qs_function, display_attr, add_display_attr=None, options=None, attrs=None, *args,
+                 **kwargs):
+        if not attrs:
+            attrs = {}
+        if not options:
+            options = {}
         super(AutocompleteModelChoiceField, self).__init__(
             app, qs_function, display_attr,
             add_display_attr, options, 
@@ -285,10 +289,13 @@ class AutocompleteModelChoiceField(AutocompleteField):
         return value
 
 class AutocompleteModelMultipleChoiceField(forms.CharField):
-    def __init__(self, app, qs_function, display_attr,
-        add_display_attr=None, options={}, 
-        attrs={}, *args, **kwargs):
+    def __init__(self, app, qs_function, display_attr, add_display_attr=None, options=None, attrs=None, *args,
+                 **kwargs):
         
+        if not attrs:
+            attrs = {}
+        if not options:
+            options = {}
         self.widget = AutocompleteMultipleWidget(
             app, qs_function, display_attr, 
             add_display_attr, options, attrs)
@@ -313,10 +320,13 @@ class AutocompleteModelMultipleChoiceField(forms.CharField):
 
 class SelectToAutocompleteField(AutocompleteField):
     """ a forms autocomplete field which renders as select field for non-javascript viewers """
-    def __init__(self, app, qs_function, display_attr,
-        add_display_attr=None, options={}, 
-        attrs={}, *args, **kwargs):
+    def __init__(self, app, qs_function, display_attr, add_display_attr=None, options=None, attrs=None, *args,
+                 **kwargs):
         
+        if not attrs:
+            attrs = {}
+        if not options:
+            options = {}
         self.app = app
         self.qs_function = qs_function
         self.func = get_installed("%(app)s.ajax.%(func)s" % {
@@ -357,7 +367,7 @@ class ObjectChoiceField(forms.Field):
         self.obj_list = obj_list
         self.widget.default_text = default_text
 
-    def _get_obj_list(obj_list):
+    def _get_obj_list(self, obj_list):
         return self._obj_list
 
     def _set_obj_list(self, value):
@@ -411,6 +421,7 @@ class ObjectChoiceField(forms.Field):
             value = ObjectChoiceField.returnObject(value)
         return value
         
+    @staticmethod
     def returnObject(data):
         app_label, model, pk = data.split('/')
         ct = ContentType.objects.get(
@@ -420,13 +431,12 @@ class ObjectChoiceField(forms.Field):
         obj = ct.get_object_for_this_type(pk=pk)
         return obj
 
+    @staticmethod
     def returnKey(obj):
         ct = ContentType.objects.get_for_model(obj)
         return "/".join((ct.app_label, ct.model, str(obj._get_pk_val())))
 
-    returnObject = staticmethod(returnObject)
-    returnKey = staticmethod(returnKey)                 
-        
+
 class ImageField(forms.FileField):
     """
     Form field handling image uploads
@@ -467,6 +477,10 @@ class ImageField(forms.FileField):
         elif not data and initial:
             return initial
 
+        # if the FILES were already used outside of the form,
+        # let's move the cursor back to the beginning of the file
+        data.seek(0)
+
         if data.name.split(".")[-1].lower() not in self.valid_file_extensions:
             raise forms.ValidationError(
                 self.error_messages['invalid_extension'],
@@ -501,7 +515,7 @@ class ImageField(forms.FileField):
             #  but it must be called immediately after the constructor
             trial_image = Image.open(file)
             trial_image.verify()
-        except:
+        except IndexError:
             raise forms.ValidationError(self.error_messages['invalid_image'])
         else:
             width, height = trial_image.size
@@ -621,7 +635,7 @@ class TemplateChoiceField(forms.ChoiceField):
         path is a relative template path where the templates should be checked
         """
         self.path, self.match, self.recursive = path, match, recursive
-        self.allow_files, self.allow_folders =  allow_files, allow_folders
+        self.allow_files, self.allow_folders = allow_files, allow_folders
 
         super(TemplateChoiceField, self).__init__(choices=(), required=required,
             widget=widget, label=label, initial=initial, help_text=help_text,
@@ -631,7 +645,7 @@ class TemplateChoiceField(forms.ChoiceField):
             self.match_re = re.compile(self.match)
             
         choices = set()
-        for templates_root in settings.TEMPLATE_DIRS:
+        for templates_root in settings.TEMPLATES[0]['DIRS']:
             path = os.path.join(templates_root, self.path)
             if recursive:
                 for root, dirs, files in os.walk(path):

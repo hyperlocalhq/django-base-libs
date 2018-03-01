@@ -24,8 +24,7 @@ from base_libs.middleware import get_current_language
 from base_libs.forms.fields import PlainTextFormField
 from base_libs.forms.fields import URLField as URLFormField
 from base_libs.forms.fields import TemplateChoiceField
-from base_libs.models import settings as markup_settings
-from base_libs.utils.emojis import emojis_to_html_entities, strip_emojis
+from base_libs.models import base_libs_settings as markup_settings
 
 qn = connection.ops.quote_name
 
@@ -135,21 +134,6 @@ class ExtendedTextField(TextField):
         cls.add_to_class("get_rendered_%s" % name, get_rendered_wrapper(name))
         cls.add_to_class("rendered_%s" % name, property(get_rendered_wrapper(name)))
 
-    def pre_save(self, model_instance, add):
-        # replace or strip emojis
-        markup_type = getattr(model_instance, "%s_markup_type" % self.name)
-        value = getattr(model_instance, self.name)
-        if markup_type == markup_settings.MARKUP_PLAIN_TEXT:
-            value = strip_emojis(value)
-        elif markup_type in (
-            markup_settings.MARKUP_RAW_HTML,
-            markup_settings.MARKUP_HTML_WYSIWYG,
-            markup_settings.MARKUP_MARKDOWN
-        ):
-            value = emojis_to_html_entities(value)
-        setattr(model_instance, self.name, value)
-        return super(ExtendedTextField, self).pre_save(model_instance, add)
-
 
 class PlainTextModelField(TextField):
 
@@ -162,14 +146,6 @@ class PlainTextModelField(TextField):
         
     def get_internal_type(self):
         return "TextField"
-
-    def pre_save(self, model_instance, add):
-        # strip emojis
-        value = getattr(model_instance, self.name)
-        value = strip_emojis(value)
-        setattr(model_instance, self.name, value)
-        return super(PlainTextModelField, self).pre_save(model_instance, add)
-
 
 _language_field_name = lambda name, lang_code: "%s_%s" % (name, lang_code)
 
@@ -229,14 +205,6 @@ class MultilingualCharField(models.Field):
         # generate language specific fields dynamically
         if not cls._meta.abstract:
             for language in settings.LANGUAGES:
-                try: # if that's south data migration
-                    from south.hacks import hacks
-                except ImportError:
-                    pass
-                else: # related multilingual fields will be added by south itself
-                    if getattr(hacks, "old_app_models", False):
-                        continue
-
                 try: # the field shouldn't be already added (for south)
                     cls._meta.get_field(_language_field_name(name, language[0]))
                 except models.FieldDoesNotExist:
@@ -306,14 +274,11 @@ class MultilingualCharField(models.Field):
         # override with proxy
         setattr(cls, name, MultilingualProxy(self))
 
-    def pre_save(self, model_instance, add):
-        # strip emojis
-        for language in settings.LANGUAGES:
-            name = _language_field_name(self.name, language[0])
-            value = getattr(model_instance, name)
-            value = strip_emojis(value)
-            setattr(model_instance, name, value)
-        return super(MultilingualCharField, self).pre_save(model_instance, add)
+    def deconstruct(self):
+       name, path, args, kwargs = super(MultilingualCharField, self).deconstruct()
+       path = "django.db.models.CharField"
+       return name, path, args, kwargs
+
 
 class MultilingualTextField(models.Field):
 
@@ -341,14 +306,6 @@ class MultilingualTextField(models.Field):
         if not cls._meta.abstract:
             for language in settings.LANGUAGES:
                 
-                try: # if that's south data migration
-                    from south.hacks import hacks
-                except ImportError:
-                    pass
-                else: # related multilingual fields will be added by south itself
-                    if getattr(hacks, "old_app_models", False):
-                        continue
-                        
                 try: # the field shouldn't be already added (for south)
                     cls._meta.get_field(_language_field_name(name, language[0]))
                 except models.FieldDoesNotExist:
@@ -479,22 +436,10 @@ class MultilingualTextField(models.Field):
         cls.add_to_class("get_rendered_%s" % name, get_rendered_wrapper(name))
         cls.add_to_class("rendered_%s" % name, property(get_rendered_wrapper(name)))
 
-    def pre_save(self, model_instance, add):
-        # replace or strip emojis
-        for language in settings.LANGUAGES:
-            name = _language_field_name(self.name, language[0])
-            markup_type = getattr(model_instance, "%s_markup_type" % name)
-            value = getattr(model_instance, name)
-            if markup_type == markup_settings.MARKUP_PLAIN_TEXT:
-                value = strip_emojis(value)
-            elif markup_type in (
-                markup_settings.MARKUP_RAW_HTML,
-                markup_settings.MARKUP_HTML_WYSIWYG,
-                markup_settings.MARKUP_MARKDOWN
-            ):
-                value = emojis_to_html_entities(value)
-            setattr(model_instance, name, value)
-        return super(MultilingualTextField, self).pre_save(model_instance, add)
+    def deconstruct(self):
+       name, path, args, kwargs = super(MultilingualTextField, self).deconstruct()
+       path = "django.db.models.TextField"
+       return name, path, args, kwargs
 
 
 class MultilingualPlainTextField(MultilingualTextField):
@@ -502,15 +447,6 @@ class MultilingualPlainTextField(MultilingualTextField):
     description = _("Plain text Multilingual text fields")
 
     _field_class = PlainTextModelField
-
-    def pre_save(self, model_instance, add):
-        # strip emojis
-        for language in settings.LANGUAGES:
-            name = _language_field_name(self.name, language[0])
-            value = getattr(model_instance, name)
-            value = strip_emojis(value)
-            setattr(model_instance, name, value)
-        return super(MultilingualTextField, self).pre_save(model_instance, add)
 
 
 class URLField(models.URLField):
@@ -542,9 +478,9 @@ class TemplatePathField(models.FilePathField):
             'path': self.path,
             'match': self.match,
             'recursive': self.recursive,
-            'form_class': TemplateChoiceField,
         }
         defaults.update(kwargs)
+        defaults['form_class'] = TemplateChoiceField
         return super(TemplatePathField, self).formfield(**defaults)
     
 
@@ -641,6 +577,10 @@ class PositionField(models.IntegerField):
 
         # instance inserted; cleanup required on post_save
         setattr(model_instance, cache_name, (current, position))
+
+        if position == -1:  # quick fix for data re-imports
+            position = 0
+
         return position
 
     def __get__(self, instance, owner):
@@ -718,54 +658,3 @@ class PositionField(models.IntegerField):
         queryset.update(**updates)
         setattr(instance, self.get_cache_name(), (updated, None))
 
-    def south_field_triple(self):
-        from south.modelsinspector import introspector
-        field_class = "django.db.models.fields.IntegerField"
-        args, kwargs = introspector(self)
-        return (field_class, args, kwargs)
-
-try:
-    from south.modelsinspector import add_introspection_rules
-except ImportError:
-    pass
-else:
-    add_introspection_rules(
-        [],
-        ["^base_libs\.models\.fields\.ExtendedTextField"],
-    )
-    add_introspection_rules(
-        [],
-        ["^base_libs\.models\.fields\.PlainTextField"],
-    )
-    add_introspection_rules(
-        [],
-        ["^base_libs\.models\.fields\.PlainTextModelField"],
-    )
-    add_introspection_rules(
-        [],
-        ["^base_libs\.models\.fields\.MultilingualCharField"],
-    )
-    add_introspection_rules(
-        [],
-        ["^base_libs\.models\.fields\.MultilingualTextField"],
-    )
-    add_introspection_rules(
-        [],
-        ["^base_libs\.models\.fields\.MultilingualPlainTextField"],
-    )
-    add_introspection_rules(
-        [],
-        ["^base_libs\.models\.fields\.URLField"],
-    )
-    add_introspection_rules(
-        [],
-        ["^base_libs\.models\.fields\.MultilingualURLField"],
-    )
-    add_introspection_rules(
-        [],
-        ["^base_libs\.models\.fields\.TemplatePathField"],
-    )
-    add_introspection_rules(
-        [],
-        ["^base_libs\.models\.fields\.PositionField"],
-    )
