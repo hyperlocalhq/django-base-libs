@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations, models
 import datetime
 import filebrowser.fields
 import django.db.models.deletion
@@ -36,7 +36,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Ad Base',
                 'verbose_name_plural': 'Ad Bases',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='AdCategory',
@@ -57,33 +56,30 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Category',
                 'verbose_name_plural': 'Categories',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='AdClick',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('click_date', models.DateTimeField(auto_now_add=True, verbose_name='When')),
-                ('source_ip', models.IPAddressField(null=True, verbose_name='Who', blank=True)),
+                ('source_ip', models.GenericIPAddressField(null=True, verbose_name='Who', blank=True)),
             ],
             options={
                 'verbose_name': 'Ad Click',
                 'verbose_name_plural': 'Ad Clicks',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='AdImpression',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('impression_date', models.DateTimeField(auto_now_add=True, verbose_name='When')),
-                ('source_ip', models.IPAddressField(null=True, verbose_name='Who', blank=True)),
+                ('source_ip', models.GenericIPAddressField(null=True, verbose_name='Who', blank=True)),
             ],
             options={
                 'verbose_name': 'Ad Impression',
                 'verbose_name_plural': 'Ad Impressions',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Advertiser',
@@ -98,7 +94,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Ad Provider',
                 'verbose_name_plural': 'Advertisers',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='AdZone',
@@ -119,7 +114,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Zone',
                 'verbose_name_plural': 'Zones',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='BannerAd',
@@ -147,42 +141,35 @@ class Migration(migrations.Migration):
             model_name='adimpression',
             name='ad',
             field=models.ForeignKey(to='advertising.AdBase'),
-            preserve_default=True,
         ),
         migrations.AddField(
             model_name='adclick',
             name='ad',
             field=models.ForeignKey(to='advertising.AdBase'),
-            preserve_default=True,
         ),
         migrations.AddField(
             model_name='adbase',
             name='advertiser',
             field=models.ForeignKey(verbose_name='Ad Provider', to='advertising.Advertiser'),
-            preserve_default=True,
         ),
         migrations.AddField(
             model_name='adbase',
             name='category',
             field=models.ForeignKey(verbose_name='Category', blank=True, to='advertising.AdCategory', null=True),
-            preserve_default=True,
         ),
         migrations.AddField(
             model_name='adbase',
             name='creator',
             field=models.ForeignKey(related_name='adbase_creator', on_delete=django.db.models.deletion.SET_NULL, editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='creator'),
-            preserve_default=True,
         ),
         migrations.AddField(
             model_name='adbase',
             name='modifier',
             field=models.ForeignKey(related_name='adbase_modifier', on_delete=django.db.models.deletion.SET_NULL, editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='modifier'),
-            preserve_default=True,
         ),
         migrations.AddField(
             model_name='adbase',
             name='zone',
             field=models.ForeignKey(verbose_name='Zone', to='advertising.AdZone'),
-            preserve_default=True,
         ),
     ]

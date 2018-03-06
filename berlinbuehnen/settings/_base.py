@@ -124,16 +124,15 @@ INSTALLED_APPS = [
     "cms",
     "mptt",
     "menus",
-    #"south",
     "sekizai",
     "aldryn_search",
     "treebeard",
 
     ### CMS plugins ###
     "djangocms_inherit",
-    "djangocms_picture",
     "djangocms_snippet",
     "djangocms_teaser",
+    # "djangocms_picture",
     # "djangocms_file",
     # "djangocms_flash",
     # "djangocms_googlemap",
@@ -762,7 +761,10 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
-        }
+        },
+        'null': {
+            'class': 'logging.NullHandler',
+        },
     },
     'loggers': {
         'django.db.backends': {

@@ -3,7 +3,7 @@ from ._import_from_heimat_base_xml import ImportFromHeimatBase
 
 
 class Command(ImportFromHeimatBase):
-    help = "Imports productions and events from Wühlmäuse"
+    help = u"Imports productions and events from Wühlmäuse"
 
     IMPORT_URL = "https://www.wuehlmaeuse.de/export"
 

@@ -5,18 +5,12 @@ from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
 from base_libs.admin import ExtendedModelAdmin
 
 MenuBlock = models.get_model("mega_menu", "MenuBlock")
 
 
 class MenuBlockAdmin(ExtendedModelAdmin):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-        )
     save_on_top = True
     list_display = ('id', 'title', 'sysname', 'language')
     list_display_links = ('title', )

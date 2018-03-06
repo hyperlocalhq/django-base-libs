@@ -432,8 +432,8 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
     supporters = MultilingualTextField(_("Supporters"), blank=True)
     sponsors = models.ManyToManyField("sponsors.Sponsor", verbose_name=_("Sponsors"), blank=True)
 
-    target_groups = models.ManyToManyField("ProjectTargetGroup", verbose_name=_("Target groups"), blank=True, null=True)
-    formats = models.ManyToManyField("ProjectFormat", verbose_name=_("Project formats"), blank=True, null=True)
+    target_groups = models.ManyToManyField("ProjectTargetGroup", verbose_name=_("Target groups"), blank=True)
+    formats = models.ManyToManyField("ProjectFormat", verbose_name=_("Project formats"), blank=True)
 
     newsletter = models.BooleanField(_("Show in newsletter"), default=False)
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")

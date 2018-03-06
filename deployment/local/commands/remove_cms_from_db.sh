@@ -11,6 +11,7 @@ echo "Removing CMS migrations"
 date
 
 SQL=$(cat << EOM
+DROP TABLE IF EXISTS menus_cachekey;
 DROP TABLE IF EXISTS cms_cmsplugin;
 DROP TABLE IF EXISTS cms_extensions_cmspageopengraph;
 DROP TABLE IF EXISTS cms_globalpagepermission;
@@ -42,6 +43,7 @@ DROP TABLE IF EXISTS cmsplugin_snippetptr;
 DROP TABLE IF EXISTS cmsplugin_teaser;
 DROP TABLE IF EXISTS cmsplugin_theateroftheweekselection;
 DROP TABLE IF EXISTS cmsplugin_titleandtext;
+DROP TABLE IF EXISTS services_link;
 DELETE FROM django_content_type WHERE app_label LIKE 'cms%';
 DELETE FROM django_content_type WHERE app_label='menus';
 DELETE FROM django_content_type WHERE app_label='articles' AND model='articleselection';

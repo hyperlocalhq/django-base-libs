@@ -8,8 +8,6 @@ from base_libs.admin.options import ExtendedStackedInline
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin import ExtendedModelAdmin
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
 from .models import Slideshow, Slide
 
 
@@ -29,10 +27,6 @@ class SlideInline(ExtendedStackedInline):
 
 
 class SlideshowOptions(ExtendedModelAdmin):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-        )
     save_on_top = True
     inlines = [SlideInline]
     list_display = ('id', '__unicode__', 'slides_shown_now')

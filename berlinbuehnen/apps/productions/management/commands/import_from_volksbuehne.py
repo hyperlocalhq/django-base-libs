@@ -3,7 +3,7 @@ from ._import_to_berlinbuehnen_base_xml import ImportToBerlinBuehnenBaseXML
 
 
 class Command(ImportToBerlinBuehnenBaseXML):
-    help = "Imports productions and events from Volksbühne Berlin"
+    help = u"Imports productions and events from Volksbühne Berlin"
     DEFAULT_PUBLISHING_STATUS = "published"
     DEFAULT_IN_PROGRAM_OF_LOCATION_ID = 6
 

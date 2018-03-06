@@ -15,7 +15,6 @@ from django import forms
 from django.core.urlresolvers import reverse
 
 from jetson.apps.utils.decorators import login_required
-from jetson.apps.favorites.models import Favorite
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations, models
 import mptt.fields
 import filebrowser.fields
 import django.db.models.deletion
@@ -12,7 +12,6 @@ import base_libs.models.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cms', '0013_urlconfrevision'),
         ('locations', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('articles', '0001_initial'),
@@ -52,17 +51,5 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Theater of the week',
                 'verbose_name_plural': 'Theaters of the week',
             },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='TheaterOfTheWeekSelection',
-            fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
-                ('theater_of_the_week', models.ForeignKey(to='theater_of_the_week.TheaterOfTheWeek')),
-            ],
-            options={
-                'abstract': False,
-            },
-            bases=('cms.cmsplugin',),
         ),
     ]

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations, models
 import filebrowser.fields
 import django.db.models.deletion
 from django.conf import settings
@@ -11,10 +11,10 @@ import base_libs.models.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('locations', '0001_initial'),
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('people', '0001_initial'),
         ('sponsors', '0001_initial'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('locations', '0001_initial'),
     ]
 
     operations = [
@@ -65,7 +65,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Education department',
                 'verbose_name_plural': 'Education departments',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='DepartmentMember',
@@ -89,7 +88,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Department team member',
                 'verbose_name_plural': 'Department team members',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Image',
@@ -107,7 +105,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Image',
                 'verbose_name_plural': 'Images',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='PDF',
@@ -124,7 +121,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'PDF',
                 'verbose_name_plural': 'PDFs',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Project',
@@ -206,7 +202,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Educational project',
                 'verbose_name_plural': 'Educational projects',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='ProjectFormat',
@@ -225,7 +220,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Project format',
                 'verbose_name_plural': 'Project formats',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='ProjectImage',
@@ -243,7 +237,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Image',
                 'verbose_name_plural': 'Images',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='ProjectMember',
@@ -267,7 +260,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Project team member',
                 'verbose_name_plural': 'Project team members',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='ProjectPDF',
@@ -284,7 +276,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'PDF',
                 'verbose_name_plural': 'PDFs',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='ProjectSocialMediaChannel',
@@ -299,7 +290,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Social media channel',
                 'verbose_name_plural': 'Social media channels',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='ProjectSponsor',
@@ -319,7 +309,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Sponsor',
                 'verbose_name_plural': 'Sponsors',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='ProjectTargetGroup',
@@ -338,7 +327,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Project target group',
                 'verbose_name_plural': 'Project target groups',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='ProjectTime',
@@ -357,7 +345,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Project time',
                 'verbose_name_plural': 'Project times',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='ProjectVideo',
@@ -377,7 +364,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Video/Audio',
                 'verbose_name_plural': 'Videos/Audios',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='SocialMediaChannel',
@@ -392,30 +378,25 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Social media channel',
                 'verbose_name_plural': 'Social media channels',
             },
-            bases=(models.Model,),
         ),
         migrations.AddField(
             model_name='project',
             name='formats',
-            field=models.ManyToManyField(to='education.ProjectFormat', null=True, verbose_name='Project formats', blank=True),
-            preserve_default=True,
+            field=models.ManyToManyField(to='education.ProjectFormat', verbose_name='Project formats', blank=True),
         ),
         migrations.AddField(
             model_name='project',
             name='modifier',
             field=models.ForeignKey(related_name='project_modifier', on_delete=django.db.models.deletion.SET_NULL, editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='modifier'),
-            preserve_default=True,
         ),
         migrations.AddField(
             model_name='project',
             name='sponsors',
             field=models.ManyToManyField(to='sponsors.Sponsor', verbose_name='Sponsors', blank=True),
-            preserve_default=True,
         ),
         migrations.AddField(
             model_name='project',
             name='target_groups',
-            field=models.ManyToManyField(to='education.ProjectTargetGroup', null=True, verbose_name='Target groups', blank=True),
-            preserve_default=True,
+            field=models.ManyToManyField(to='education.ProjectTargetGroup', verbose_name='Target groups', blank=True),
         ),
     ]

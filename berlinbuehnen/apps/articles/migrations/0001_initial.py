@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations, models
 import mptt.fields
 import filebrowser.fields
 import django.db.models.deletion
@@ -12,7 +12,6 @@ import base_libs.models.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cms', '0013_urlconfrevision'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
@@ -49,7 +48,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'article',
                 'verbose_name_plural': 'articles',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='ArticleCategory',
@@ -73,18 +71,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Article Category',
                 'verbose_name_plural': 'Article Categories',
             },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='ArticleSelection',
-            fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
-                ('article', models.ForeignKey(to='articles.Article')),
-            ],
-            options={
-                'abstract': False,
-            },
-            bases=('cms.cmsplugin',),
         ),
         migrations.CreateModel(
             name='ArticleType',
@@ -95,12 +81,12 @@ class Migration(migrations.Migration):
                 ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
                 ('sort_order', models.IntegerField(default=0, verbose_name='sort order', editable=False, blank=True)),
                 ('title', models.CharField(verbose_name='title', max_length=512, null=True, editable=False)),
+                ('title_de', models.CharField(max_length=512, verbose_name='title')),
+                ('title_en', models.CharField(max_length=512, verbose_name='title', blank=True)),
                 ('lft', models.PositiveIntegerField(editable=False, db_index=True)),
                 ('rght', models.PositiveIntegerField(editable=False, db_index=True)),
                 ('tree_id', models.PositiveIntegerField(editable=False, db_index=True)),
                 ('level', models.PositiveIntegerField(editable=False, db_index=True)),
-                ('title_de', models.CharField(max_length=512, verbose_name='title')),
-                ('title_en', models.CharField(max_length=512, verbose_name='title', blank=True)),
                 ('parent', mptt.fields.TreeForeignKey(related_name='child_set', blank=True, to='articles.ArticleType', null=True)),
             ],
             options={
@@ -109,24 +95,20 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Article Type',
                 'verbose_name_plural': 'Article Types',
             },
-            bases=(models.Model,),
         ),
         migrations.AddField(
             model_name='article',
             name='article_type',
             field=mptt.fields.TreeForeignKey(verbose_name='Type', blank=True, to='articles.ArticleType', null=True),
-            preserve_default=True,
         ),
         migrations.AddField(
             model_name='article',
             name='author',
             field=models.ForeignKey(related_name='article_author', on_delete=django.db.models.deletion.SET_NULL, blank=True, to=settings.AUTH_USER_MODEL, help_text='If you do not select an author, you will be the author!', null=True, verbose_name='author'),
-            preserve_default=True,
         ),
         migrations.AddField(
             model_name='article',
             name='category',
             field=mptt.fields.TreeForeignKey(verbose_name='Category', blank=True, to='articles.ArticleCategory', null=True),
-            preserve_default=True,
         ),
     ]

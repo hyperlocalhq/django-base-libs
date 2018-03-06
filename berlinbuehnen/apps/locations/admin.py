@@ -13,8 +13,6 @@ from base_libs.admin import ExtendedStackedInline
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin.tree_editor import TreeEditor
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
 from .models import District
 from .models import Service
 from .models import AccessibilityOption
@@ -125,11 +123,6 @@ class OwnersForm(forms.Form):
 
 
 class LocationAdmin(ExtendedModelAdmin):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-        )
-
     search_fields = ['title_{}'.format(lang_code) for lang_code, lang_name in settings.LANGUAGES]
     list_display = ('title', 'creation_date', 'modified_date', 'get_owners_list', 'newsletter', 'status')
     list_editable = ('newsletter', 'status', )

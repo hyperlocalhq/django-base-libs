@@ -3,7 +3,7 @@ from ._import_from_heimat_base_xml import ImportFromHeimatBase
 
 
 class Command(ImportFromHeimatBase):
-    help = "Imports productions and events from Schaubühne am Lehniner Platz"
+    help = u"Imports productions and events from Schaubühne am Lehniner Platz"
 
     IMPORT_URL = "http://schaubuehne.de/export/kulturserver.php"
 

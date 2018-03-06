@@ -15,8 +15,6 @@ from base_libs.admin import ExtendedStackedInline
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin.tree_editor import TreeEditor
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
 from .models import JobCategory
 from .models import JobType
 from .models import JobOffer

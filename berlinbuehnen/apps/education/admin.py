@@ -12,8 +12,6 @@ from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
 from base_libs.models.admin import get_admin_lang_section
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
 from .models import Image
 from .models import SocialMediaChannel
 from .models import PDF
@@ -95,11 +93,6 @@ class DepartmentMemberInline(ExtendedStackedInline):
 
 
 class DepartmentAdmin(ExtendedModelAdmin):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-        )
-
     list_display = ('title', 'creation_date', 'modified_date', 'newsletter', 'status')
     list_editable = ('newsletter', 'status', )
     list_filter = ('status', )

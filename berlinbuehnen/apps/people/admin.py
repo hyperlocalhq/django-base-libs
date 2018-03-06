@@ -8,8 +8,6 @@ from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
 from base_libs.models.admin import get_admin_lang_section
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
 from models import Prefix
 from models import InvolvementType
 from models import AuthorshipType
@@ -53,10 +51,6 @@ admin.site.register(AuthorshipType, AuthorshipTypeAdmin)
 
 
 class PersonAdmin(ExtendedModelAdmin):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-        )
     list_display = ('last_name', 'first_name', 'prefix')
     search_fields = ('first_name', 'last_name')
 

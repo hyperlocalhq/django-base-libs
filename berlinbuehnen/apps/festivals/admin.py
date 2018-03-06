@@ -13,8 +13,6 @@ from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
 from base_libs.models.admin import get_admin_lang_section
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
 from .models import Festival
 from .models import Image
 from .models import SocialMediaChannel
@@ -50,10 +48,6 @@ class OwnersForm(forms.Form):
 
 
 class FestivalAdmin(ExtendedModelAdmin):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-        )
     list_display = ('id', 'title', 'start', 'end', 'get_organizers', 'get_owners_list', 'creation_date', 'modified_date', 'featured', 'slideshow', 'newsletter', 'status')
     list_display_links = ('id', 'title')
     list_editable = ('featured', 'slideshow', 'newsletter', 'status', )
