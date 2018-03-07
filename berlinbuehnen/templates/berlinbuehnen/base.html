@@ -132,6 +132,7 @@
 
 
 <body class="{% block bodyclass %}{% endblock %} lang_{{ LANGUAGE_CODE }}">
+    {% cms_toolbar %}
     <img src="{{ STATIC_URL }}site/img/logo.png" alt="Berlin Bühnen" class="print" />
     <!--
         {% if request.is_phone %}This is phone.{% endif %}
@@ -140,7 +141,6 @@
         {% if not request.is_mobile %}This is a desktop.{% endif %}
     -->
     {% block map %}{% endblock %}
-    {% block toolbar %}{% cms_toolbar %}{% endblock %}
 
     <div id="wrapper">
         {% block header %}

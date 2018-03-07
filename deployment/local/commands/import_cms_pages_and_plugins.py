@@ -117,7 +117,98 @@ def save_page_tree(page_tree):
         json.dump(page_tree, outfile, indent=4)
 
 
-def create_database_objects(page_tree):
+def create_pages_and_plugins(page_tree, parent_page=None):
+    from copy import deepcopy
+    from dateutil.parser import parse
+    from django.contrib.sites.models import Site
+    from cms.api import create_page, create_title, add_plugin
+
+    for page_dict in page_tree:
+        page = None
+        for lang_code, title_dict in page_dict.get('titles').items():
+            if not page:
+                page = create_page(
+                    title=title_dict['title'],
+                    template=page_dict['template'],
+                    language=lang_code,
+                    menu_title=title_dict['menu_title'],
+                    slug=title_dict['slug'],
+                    apphook=title_dict['application_urls'],
+                    apphook_namespace=None,
+                    redirect=title_dict['redirect'],
+                    meta_description=title_dict['meta_description'],
+                    created_by=page_dict['created_by'],
+                    parent=parent_page,
+                    publication_date=parse(page_dict['publication_date']) if page_dict['publication_date'] else None,
+                    publication_end_date=parse(page_dict['publication_end_date']) if page_dict['publication_end_date'] else None,
+                    in_navigation=page_dict['in_navigation'],
+                    soft_root=page_dict['soft_root'],
+                    reverse_id=page_dict['reverse_id'],
+                    navigation_extenders=page_dict['navigation_extenders'],
+                    published=page_dict['published'],
+                    site=Site.objects.get(pk=page_dict['site']),
+                    login_required=page_dict['login_required'],
+                    limit_visibility_in_menu=page_dict['limit_visibility_in_menu'],
+                    position="last-child",
+                    overwrite_url=title_dict['path'] if title_dict['has_url_overwrite'] else "",
+                    #xframe_options=Page.X_FRAME_OPTIONS_INHERIT,
+                )
+            else:
+                create_title(
+                    language=lang_code,
+                    title=title_dict['title'],
+                    page=page,
+                    menu_title=title_dict['menu_title'],
+                    slug=title_dict['slug'],
+                    redirect=title_dict['redirect'],
+                    meta_description=title_dict['meta_description'],
+                    parent=parent_page,
+                    overwrite_url=title_dict['path'] if title_dict['has_url_overwrite'] else "",
+                )
+        placeholder_slots = page.rescan_placeholders()
+        for placeholder_dict in page_dict.get('placeholders', []):
+            placeholder = placeholder_slots.get(placeholder_dict['slot'])
+            if not placeholder:
+                # there seemed to be some trash data in the database,
+                # where placeholder was commented out or removed from the template
+                continue
+            for lang_code, plugin_dict_list in placeholder_dict.get("plugins", {}).items():
+                for plugin_dict in sorted(plugin_dict_list, key=lambda d: d['position']):
+                    plugin_data = deepcopy(plugin_dict)
+                    plugin_data.pop('parent')
+                    plugin_data.pop('tree_id')
+                    plugin_data.pop('lft')
+                    plugin_data.pop('rght')
+                    plugin_data.pop('position')
+                    plugin_data.pop('level')
+                    plugin_data.pop('placeholder')
+                    plugin_data.pop('pk')
+                    plugin_data.pop('language')
+                    plugin_data.pop('plugin_type')
+                    plugin_data.pop('plugin_model', None)  # TODO: isn't this redundant?
+                    plugin_data.pop('links', None)  # very Berlin Buehnen specific
+                    plugin = add_plugin(
+                        placeholder=placeholder,
+                        plugin_type=plugin_dict['plugin_type'],
+                        language=lang_code,
+                        position="last-child",
+                        target=plugin_dict['parent'],
+                        **plugin_data
+                    )
+                    # very Berlin Buehnen specific situation:
+                    if plugin_dict['plugin_type'] == "LinkCategoryPlugin":
+                        for link_dict in plugin_dict['links']:
+                            plugin.link_set.create(
+                                title=link_dict['title'],
+                                url=link_dict['url'],
+                                short_description=link_dict['short_description'],
+                                sort_order=link_dict['sort_order'],
+                            )
+
+        # save the children pages recursively
+        if page_dict.get('children', []):
+            create_pages_and_plugins(page_tree, parent_page=page)
+
     print("Finished")
 
 
@@ -140,7 +231,7 @@ def main():
 
         page_tree = prepare_page_tree(refined_data)
         save_page_tree(page_tree)
-        create_database_objects(page_tree)
+        create_pages_and_plugins(page_tree)
 
 
 if __name__ == "__main__":
