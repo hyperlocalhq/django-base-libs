@@ -7,9 +7,7 @@ class CMSSitemap(CMSSitemapBase):
     limit = 100
 
     def items(self):
-        from cms.utils.page_resolver import get_page_queryset
-        page_queryset = get_page_queryset(None)
-        all_pages = page_queryset.published().filter(login_required=False, in_navigation=True)
+        all_pages = super(CMSSitemap, self).items().filter(page__in_navigation=True)
         return all_pages
 
 

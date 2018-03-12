@@ -716,6 +716,7 @@ class EventLeadershipForm(autocomplete_light.ModelForm):
     class Meta:
         model = EventLeadership
         autocomplete_fields = ('person',)
+        fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         super(EventLeadershipForm, self).__init__(*args, **kwargs)
@@ -830,6 +831,7 @@ class EventAuthorshipForm(autocomplete_light.ModelForm):
     class Meta:
         model = EventAuthorship
         autocomplete_fields = ('person',)
+        fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         super(EventAuthorshipForm, self).__init__(*args, **kwargs)
@@ -955,6 +957,7 @@ class EventInvolvementForm(autocomplete_light.ModelForm):
     class Meta:
         model = EventInvolvement
         autocomplete_fields = ('person',)
+        fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         super(EventInvolvementForm, self).__init__(*args, **kwargs)
@@ -1100,6 +1103,7 @@ EventInvolvementFormset = inlineformset_factory(Event, EventInvolvement, form=Ev
 class SocialMediaChannelForm(forms.ModelForm):
     class Meta:
         model = EventSocialMediaChannel
+        fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         super(SocialMediaChannelForm, self).__init__(*args, **kwargs)
@@ -1139,6 +1143,7 @@ class EventSponsorForm(autocomplete_light.ModelForm):
 
     class Meta:
         model = EventSponsor
+        fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         super(EventSponsorForm, self).__init__(*args, **kwargs)

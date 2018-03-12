@@ -150,7 +150,7 @@
                             </div>
                         {% endfor %}
                     </div>
-                    <div class="more-date"><a href="{% url 'event_list' %}" class="fawesome more">{% trans "more dates" %}</a></div>
+                    <div class="more-date"><a href="{% url 'event_list' as event_list_url %}{{ event_list_url }}" class="fawesome more">{% trans "more dates" %}</a></div>
                 </div>
             </div>
 
@@ -173,7 +173,7 @@
                         {% get_objects objects.latest_published theater_of_the_week.TheaterOfTheWeek 1 as newest_theater %}
                         {% for article in newest_theater %}
                             <div class="col-xs-12 col-md-6 news-item">
-                                <a href="{% url 'theater_of_the_week' %}">
+                                <a href="{% url 'theater_of_the_week' as theater_of_the_week_url %}{{ theater_of_the_week_url }}">
                                     <h3>{% trans "Theater of the week" %}</h3>
                                     {% if article.image %}
                                         <div class="img photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ article.image.path|modified_path:"news_image"  }}" alt="{{ article.image_description|escape }}" />{% with article.image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}{% endwith %}</div>
@@ -239,6 +239,7 @@
 
                         <div class="clearfix"></div>
 
+                        {% comment %}
                         <!-- BLOG -->
                         {% get_objects published_objects.all blog.Post 2 as newest_posts %}
                         {% for post in newest_posts %}
@@ -252,7 +253,7 @@
                                 <a class="more fawesome" href="{{ post.get_url_path }}" >{% trans "read on" %}</a>
                             </div>
                         {% endfor %}
-
+                        {% endcomment %}
                     </div>
                 </div>
 

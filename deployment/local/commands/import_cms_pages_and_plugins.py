@@ -6,7 +6,6 @@ from __future__ import unicode_literals
 def setup():
     import sys, os, django
     PROJECT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))))
-    print(PROJECT_PATH)
     sys.path.append(PROJECT_PATH)
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "berlinbuehnen.settings.local")
     django.setup()
@@ -117,23 +116,41 @@ def save_page_tree(page_tree):
         json.dump(page_tree, outfile, indent=4)
 
 
+def get_plugin_model_form(app_label, model_name):
+    from django.apps import apps
+    from django import forms
+    _model = apps.get_model(app_label, model_name)
+    class ModelForm(forms.ModelForm):
+        class Meta:
+            model = _model
+            exclude = [
+                "placeholder", "parent", "position", "language", "plugin_type", "creation_date", "changed_date"
+            ]
+            fields = "__all__"
+    return ModelForm
+
+
 def create_pages_and_plugins(page_tree, parent_page=None):
     from copy import deepcopy
     from dateutil.parser import parse
     from django.contrib.sites.models import Site
-    from cms.api import create_page, create_title, add_plugin
+    from django.contrib.auth.models import User
+    from cms.api import create_page, create_title, add_plugin, publish_page
 
     for page_dict in page_tree:
+        if page_dict.get('publisher_is_draft'):  # skip unpublished pages
+           continue
         page = None
         for lang_code, title_dict in page_dict.get('titles').items():
             if not page:
+                print("    " * page_dict['level'] + title_dict['title'])
                 page = create_page(
                     title=title_dict['title'],
                     template=page_dict['template'],
                     language=lang_code,
                     menu_title=title_dict['menu_title'],
                     slug=title_dict['slug'],
-                    apphook=title_dict['application_urls'],
+                    apphook=title_dict['application_urls'] if not "BlogApphook" == title_dict['application_urls'] else "",
                     apphook_namespace=None,
                     redirect=title_dict['redirect'],
                     meta_description=title_dict['meta_description'],
@@ -153,6 +170,9 @@ def create_pages_and_plugins(page_tree, parent_page=None):
                     overwrite_url=title_dict['path'] if title_dict['has_url_overwrite'] else "",
                     #xframe_options=Page.X_FRAME_OPTIONS_INHERIT,
                 )
+                if page_dict['lft'] == 1:
+                    page.is_home = True
+                    page.save()
             else:
                 create_title(
                     language=lang_code,
@@ -171,6 +191,7 @@ def create_pages_and_plugins(page_tree, parent_page=None):
             if not placeholder:
                 # there seemed to be some trash data in the database,
                 # where placeholder was commented out or removed from the template
+                print("Deprecated placholder found: " + placeholder_dict['slot'])
                 continue
             for lang_code, plugin_dict_list in placeholder_dict.get("plugins", {}).items():
                 for plugin_dict in sorted(plugin_dict_list, key=lambda d: d['position']):
@@ -185,31 +206,47 @@ def create_pages_and_plugins(page_tree, parent_page=None):
                     plugin_data.pop('pk')
                     plugin_data.pop('language')
                     plugin_data.pop('plugin_type')
-                    plugin_data.pop('plugin_model', None)  # TODO: isn't this redundant?
                     plugin_data.pop('links', None)  # very Berlin Buehnen specific
-                    plugin = add_plugin(
-                        placeholder=placeholder,
-                        plugin_type=plugin_dict['plugin_type'],
-                        language=lang_code,
-                        position="last-child",
-                        target=plugin_dict['parent'],
-                        **plugin_data
-                    )
-                    # very Berlin Buehnen specific situation:
-                    if plugin_dict['plugin_type'] == "LinkCategoryPlugin":
-                        for link_dict in plugin_dict['links']:
-                            plugin.link_set.create(
-                                title=link_dict['title'],
-                                url=link_dict['url'],
-                                short_description=link_dict['short_description'],
-                                sort_order=link_dict['sort_order'],
-                            )
+                    app_label, model_name = plugin_data.pop('plugin_model', (None, None))
+
+                    if app_label and model_name:
+                        PluginForm = get_plugin_model_form(app_label, model_name)
+                        form = PluginForm(data=plugin_data)
+                        if form.is_valid():
+                            plugin_data = form.cleaned_data
+                        else:
+                            print("Error while validating {}.{} with id {}".format(app_label, model_name, plugin_dict['pk']))
+                            print(form.errors)
+
+                        plugin = add_plugin(
+                            placeholder=placeholder,
+                            plugin_type=plugin_dict['plugin_type'],
+                            language=lang_code,
+                            position="last-child",
+                            target=plugin_dict['parent'],
+                            **plugin_data
+                        )
+                        # very Berlin Buehnen specific situation:
+                        if plugin_dict['plugin_type'] == "LinkCategoryPlugin":
+                            for link_dict in plugin_dict['links']:
+                                plugin.link_set.create(
+                                    title=link_dict['title'],
+                                    url=link_dict['url'],
+                                    short_description=link_dict['short_description'],
+                                    sort_order=link_dict['sort_order'],
+                                )
+                    else:
+                        print("Incomplete plugin with id {}".format(plugin_dict['pk']))
+
+        if page_dict['published']:
+            user = User.objects.get(username=page_dict['created_by'])
+            for lang_code, title_dict in page_dict.get('titles').items():
+                publish_page(page, user, lang_code)
 
         # save the children pages recursively
-        if page_dict.get('children', []):
-            create_pages_and_plugins(page_tree, parent_page=page)
-
-    print("Finished")
+        children = page_dict.get('children', [])
+        if children:
+            create_pages_and_plugins(children, parent_page=page)
 
 
 def main():
@@ -232,6 +269,7 @@ def main():
         page_tree = prepare_page_tree(refined_data)
         save_page_tree(page_tree)
         create_pages_and_plugins(page_tree)
+    print("Finished")
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
 {% load base_tags i18n %}
-<div {% if id %}id='{{ id }}'{% endif %} class="date-slider col-xs-12" data-date="{{ active|date:"U" }}" data-today="{{ today|date:"U" }}" data-days="{% for day in days %}{{ day|date:"D" }},{% endfor %}" data-months="{% for month in months %}{{ month|date:"M" }},{% endfor %}" data-path="{% url page %}">
+<div {% if id %}id='{{ id }}'{% endif %} class="date-slider col-xs-12" data-date="{{ active|date:"U" }}" data-today="{{ today|date:"U" }}" data-days="{% for day in days %}{{ day|date:"D" }},{% endfor %}" data-months="{% for month in months %}{{ month|date:"M" }},{% endfor %}" data-path="{% url page as page_url %}{{ page_url }}">
     <img class="date-slider-links" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" usemap="#main_slider" />
 </div>

@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('articles', '0001_initial'),
-        ('cms', '0018_pagenode'),
+        ('cms', '__latest__'),
     ]
 
     operations = [

@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-
+from django.core.urlresolvers import reverse, NoReverseMatch
 from django.utils.translation import ugettext_lazy as _
 
 from jetson.apps.articles.base import *
@@ -76,6 +76,25 @@ class Article(ArticleBase):
     newsletter = models.BooleanField(_("Show in newsletter"), default=False)
 
     objects = ArticleManager()
+
+    def get_url_path(self):
+        kwargs = {
+            'article_slug': self.slug,
+            'year': str(self.published_from.year),
+            'month': str(self.published_from.month),
+            'day': str(self.published_from.day),
+        }
+        if self.article_type:
+            kwargs['type_sysname'] = self.article_type.slug
+
+        try:
+            return reverse("%s:article_object_detail" % get_current_language(), kwargs=kwargs)
+        except NoReverseMatch:
+            try:
+                return reverse("article_object_detail", kwargs=kwargs)
+            except NoReverseMatch:
+                return "#not-yet-configured"
+
 
 class ArticleSelection(CMSPlugin):
     article = models.ForeignKey("articles.Article")

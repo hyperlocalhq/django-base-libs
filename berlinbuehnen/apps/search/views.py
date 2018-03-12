@@ -13,8 +13,8 @@ from .functions import model_choices, get_dictionaries
 
 
 class SearchView(haystack_views.SearchView):
-    def __init__(self, template=None, load_all=True, form_class=ModelSearchForm, searchqueryset=None, context_class=RequestContext, results_per_page=None, limit=None):
-        super(SearchView, self).__init__(template, load_all, form_class, searchqueryset, context_class, results_per_page)
+    def __init__(self, template=None, load_all=True, form_class=ModelSearchForm, searchqueryset=None, results_per_page=None, limit=None):
+        super(SearchView, self).__init__(template, load_all, form_class, searchqueryset, results_per_page)
         self.limit = limit
 
     def create_response(self):

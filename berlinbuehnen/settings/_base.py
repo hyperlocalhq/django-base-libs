@@ -157,7 +157,6 @@ INSTALLED_APPS = [
     ### berlin buehnen apps ###
     "berlinbuehnen.apps.articles",
     "berlinbuehnen.apps.theater_of_the_week",
-    "berlinbuehnen.apps.blog",
     "berlinbuehnen.apps.mailchimp",
     "berlinbuehnen.apps.mega_menu",
     "berlinbuehnen.apps.locations",
@@ -301,9 +300,6 @@ ADMIN_APP_INDEX = (
             ('theater_of_the_week', {
                 'verbose_name': gettext("Theater of the week"),
                 'models': ('TheaterOfTheWeek',),
-            }),
-            ('blog', {
-                'models': ('Blog','Post',),
             }),
             ('mega_menu', {
                 'models': ("MenuBlock",),

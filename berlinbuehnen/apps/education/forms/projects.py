@@ -566,6 +566,7 @@ class ProjectMemberForm(autocomplete_light.ModelForm):
     class Meta:
         model = ProjectMember
         autocomplete_fields = ('person',)
+        fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         super(ProjectMemberForm, self).__init__(*args, **kwargs)
@@ -681,6 +682,7 @@ ProjectMemberFormset = inlineformset_factory(Project, ProjectMember, form=Projec
 class SocialMediaChannelForm(forms.ModelForm):
     class Meta:
         model = ProjectSocialMediaChannel
+        fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         super(SocialMediaChannelForm, self).__init__(*args, **kwargs)
@@ -720,6 +722,7 @@ class ProjectSponsorForm(autocomplete_light.ModelForm):
 
     class Meta:
         model = ProjectSponsor
+        fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         super(ProjectSponsorForm, self).__init__(*args, **kwargs)

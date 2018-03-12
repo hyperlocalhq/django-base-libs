@@ -799,4 +799,8 @@ if __name__ == "__main__":
     sys.path = ["", PROJECT_PATH] + sys.path
     os.chdir(os.path.dirname(__file__))
     os.environ["DJANGO_SETTINGS_MODULE"] = "berlinbuehnen.settings.test"
+
+    import django
+    django.setup()
+
     unittest.TextTestRunner(verbosity=1).run(suite())

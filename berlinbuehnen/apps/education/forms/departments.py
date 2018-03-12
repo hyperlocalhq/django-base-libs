@@ -342,6 +342,7 @@ class DepartmentMemberForm(autocomplete_light.ModelForm):
     class Meta:
         model = DepartmentMember
         autocomplete_fields = ('person',)
+        fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         super(DepartmentMemberForm, self).__init__(*args, **kwargs)
@@ -457,6 +458,7 @@ DepartmentMemberFormset = inlineformset_factory(Department, DepartmentMember, fo
 class SocialMediaChannelForm(forms.ModelForm):
     class Meta:
         model = SocialMediaChannel
+        fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         super(SocialMediaChannelForm, self).__init__(*args, **kwargs)

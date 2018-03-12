@@ -10,7 +10,7 @@ import filebrowser.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cms', '0018_pagenode'),
+        ('cms', '__latest__'),
     ]
 
     operations = [

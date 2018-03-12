@@ -610,6 +610,7 @@ class ProductionLeadershipForm(autocomplete_light.ModelForm):
     class Meta:
         model = ProductionLeadership
         autocomplete_fields = ('person',)
+        fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         super(ProductionLeadershipForm, self).__init__(*args, **kwargs)
@@ -706,6 +707,7 @@ class ProductionAuthorshipForm(autocomplete_light.ModelForm):
     class Meta:
         model = ProductionAuthorship
         autocomplete_fields = ('person',)
+        fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         super(ProductionAuthorshipForm, self).__init__(*args, **kwargs)
@@ -808,6 +810,7 @@ class ProductionInvolvementForm(autocomplete_light.ModelForm):
     class Meta:
         model = ProductionInvolvement
         autocomplete_fields = ('person',)
+        fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         super(ProductionInvolvementForm, self).__init__(*args, **kwargs)
@@ -937,6 +940,7 @@ ProductionInvolvementFormset = inlineformset_factory(Production, ProductionInvol
 class SocialMediaChannelForm(forms.ModelForm):
     class Meta:
         model = ProductionSocialMediaChannel
+        fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         super(SocialMediaChannelForm, self).__init__(*args, **kwargs)
@@ -976,6 +980,7 @@ class ProductionSponsorForm(autocomplete_light.ModelForm):
 
     class Meta:
         model = ProductionSponsor
+        fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         super(ProductionSponsorForm, self).__init__(*args, **kwargs)

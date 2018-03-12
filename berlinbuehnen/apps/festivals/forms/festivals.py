@@ -592,6 +592,7 @@ class BasicInfoForm(autocomplete_light.ModelForm):
 class SocialMediaChannelForm(forms.ModelForm):
     class Meta:
         model = SocialMediaChannel
+        fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         super(SocialMediaChannelForm, self).__init__(*args, **kwargs)

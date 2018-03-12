@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cms', '0018_pagenode'),
+        ('cms', '__latest__'),
         ('theater_of_the_week', '0001_initial'),
     ]
 
