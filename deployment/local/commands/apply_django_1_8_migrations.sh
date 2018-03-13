@@ -63,7 +63,6 @@ python manage.py migrate haystack --fake --settings=berlinbuehnen.settings.local
 python manage.py migrate history --fake --settings=berlinbuehnen.settings.local
 python manage.py migrate httpstate --fake --settings=berlinbuehnen.settings.local
 python manage.py migrate i18n --fake --settings=berlinbuehnen.settings.local
-python manage.py migrate image_mods --fake-initial --settings=berlinbuehnen.settings.local
 python manage.py migrate infobanners --fake --settings=berlinbuehnen.settings.local
 python manage.py migrate locations --fake --settings=berlinbuehnen.settings.local
 python manage.py migrate mailchimp --fake --settings=berlinbuehnen.settings.local
@@ -88,6 +87,10 @@ python manage.py migrate tastypie --fake --settings=berlinbuehnen.settings.local
 python manage.py migrate treebeard --fake --settings=berlinbuehnen.settings.local
 python manage.py migrate twitter --fake --settings=berlinbuehnen.settings.local
 python manage.py migrate utils --fake --settings=berlinbuehnen.settings.local
+
+echo "- Migrate image_mods"
+python manage.py migrate image_mods 0001 --fake --settings=berlinbuehnen.settings.local
+python manage.py migrate image_mods --settings=berlinbuehnen.settings.local
 
 echo "- Migrate apps related to Django CMS"
 python manage.py migrate menus --settings=berlinbuehnen.settings.local
