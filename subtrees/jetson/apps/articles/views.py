@@ -70,7 +70,6 @@ def article_archive_index(
     status=STATUS_CODE_PUBLISHED,
     only_features=False,
     date_field='published_from',
-    date_field='published_from',
     num_latest=15,
     paginate_by=None,
     page=None,
@@ -312,7 +311,7 @@ def article_archive_month(
     else:
         next_month = None
         
-    day_list = queryset.filter(**lookup_kwargs).dates(date_field, 'day')  
+    day_list = queryset.filter(**lookup_kwargs).datetimes(date_field, 'day')
     queryset = queryset.order_by('-'+date_field)      
 
     extra_context['month'] = date

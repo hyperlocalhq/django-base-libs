@@ -208,7 +208,7 @@ class JobOfferAdmin(ExtendedModelAdmin):
 
     def get_urls(self):
         urls = super(JobOfferAdmin, self).get_urls()
-        return patterns('', url(r'^(?P<job_offer_id>\d+)/owners/$', self.owners_view)) + urls
+        return [url(r'^(?P<job_offer_id>\d+)/owners/$', self.admin_site.admin_view(self.owners_view))] + urls
 
 
 admin.site.register(JobOffer, JobOfferAdmin)

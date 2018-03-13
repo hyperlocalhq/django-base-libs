@@ -19,7 +19,7 @@
 {% endblock %}
 
 {% block content %}
-    <form action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">{% csrf_token %}
+    <form action="{{ form_url }}" method="post" id="{{ opts.model_name }}_form">{% csrf_token %}
         <div>
             <fieldset class="grp-module grp-aligned grp-collapse grp-open">
                 <h2 class="grp-collapse-handler">{% trans "Ownership" %}</h2>

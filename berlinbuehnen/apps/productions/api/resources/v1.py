@@ -154,7 +154,7 @@ class ProductionImageResource(ModelResource):
                 settings.MEDIA_URL[1:],
                 bundle.obj.path.path,
             ))
-            list_image_path = FileManager.modified_path(bundle.obj.path.path, "list_image")
+            list_image_path, query_params = FileManager.modified_path(bundle.obj.path.path, "list_image")
             if list_image_path:
                 bundle.data['list_image_url'] = "".join((
                     get_website_url(),
@@ -359,7 +359,7 @@ class EventImageResource(ModelResource):
                 settings.MEDIA_URL[1:],
                 bundle.obj.path.path,
             ))
-            list_image_path = FileManager.modified_path(bundle.obj.path.path, "list_image")
+            list_image_path, query_params = FileManager.modified_path(bundle.obj.path.path, "list_image")
             if list_image_path:
                 bundle.data['list_image_url'] = "".join((
                     get_website_url(),

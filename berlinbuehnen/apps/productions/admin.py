@@ -294,7 +294,7 @@ class ProductionAdmin(ExtendedModelAdmin):
 
     def get_urls(self):
         urls = super(ProductionAdmin, self).get_urls()
-        return patterns('', url(r'^(?P<production_id>\d+)/owners/$', self.owners_view)) + urls
+        return [url(r'^(?P<production_id>\d+)/owners/$', self.admin_site.admin_view(self.owners_view))] + urls
 
 
 admin.site.register(Production, ProductionAdmin)

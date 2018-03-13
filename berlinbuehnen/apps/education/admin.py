@@ -161,7 +161,7 @@ class DepartmentAdmin(ExtendedModelAdmin):
 
     def get_urls(self):
         urls = super(DepartmentAdmin, self).get_urls()
-        return patterns('', url(r'^(?P<department_id>\d+)/owners/$', self.owners_view)) + urls
+        return [url(r'^(?P<department_id>\d+)/owners/$', self.admin_site.admin_view(self.owners_view))] + urls
 
 admin.site.register(Department, DepartmentAdmin)
 
@@ -306,7 +306,7 @@ class ProjectAdmin(ExtendedModelAdmin):
 
     def get_urls(self):
         urls = super(ProjectAdmin, self).get_urls()
-        return patterns('', url(r'^(?P<project_id>\d+)/owners/$', self.owners_view)) + urls
+        return [url(r'^(?P<project_id>\d+)/owners/$', self.admin_site.admin_view(self.owners_view))] + urls
 
 
 admin.site.register(Project, ProjectAdmin)

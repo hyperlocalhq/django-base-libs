@@ -82,7 +82,7 @@ def theater_of_the_week_archive_index(
     extra_context=None,
     context_processors=None,
     template_object_name='article',
-    mimetype=None,
+    content_type=None,
     allow_future=False,
     **kwargs
 ):
@@ -144,7 +144,7 @@ def theater_of_the_week_archive_index(
        paginate_by=paginate_by, page=page, allow_empty=allow_empty, 
        template_name=template_name, template_loader=template_loader,
        extra_context=extra_context, context_processors=context_processors,
-       template_object_name=template_object_name, mimetype=mimetype)  
+       template_object_name=template_object_name, content_type=content_type)
 
     
 def theater_of_the_week_object_detail(
@@ -164,7 +164,7 @@ def theater_of_the_week_object_detail(
     extra_context={},
     context_processors=None,
     template_object_name='article',
-    mimetype=None,
+    content_type=None,
     allow_future=False,
     **kwargs
 ):

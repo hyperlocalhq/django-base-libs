@@ -677,7 +677,7 @@ def culturebase_export_productions(request, location_slug):
                  copyright = file_description.copyright_limitations
 
             list_image_url = ""
-            list_image_path = FileManager.modified_path(image.path.path, "list_image")
+            list_image_path, query_params = FileManager.modified_path(image.path.path, "list_image")
             if list_image_path:
                 list_image_url = "".join((
                     get_website_url(),

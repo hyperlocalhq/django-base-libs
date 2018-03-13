@@ -66,7 +66,7 @@ class Subscription(CreationModificationDateMixin):
             'link': reverse(
                 'admin:%s_%s_change' % (
                     MList._meta.app_label,
-                    MList._meta.module_name,
+                    MList._meta.model_name,
                     ),
                 args=[self.mailinglist.pk],
                 ),
@@ -110,7 +110,7 @@ class MList(SingleSiteMixin):
             'link': reverse(
                 'admin:%s_%s_changelist' % (
                     Subscription._meta.app_label,
-                    Subscription._meta.module_name,
+                    Subscription._meta.model_name,
                     )
                 ),
             'mailinglist_id': self.pk,
@@ -123,7 +123,7 @@ class MList(SingleSiteMixin):
         return reverse(
             'admin:%s_%s_change' % (
                 self._meta.app_label,
-                self._meta.module_name,
+                self._meta.model_name,
                 ),
             args=[self.pk],
             )
@@ -225,7 +225,7 @@ class Campaign(CreationModificationMixin):
             'link': reverse(
                 'admin:%s_%s_change' % (
                     MList._meta.app_label,
-                    MList._meta.module_name,
+                    MList._meta.model_name,
                     ),
                 args=[self.mailinglist.pk],
                 ),
@@ -240,7 +240,7 @@ class Campaign(CreationModificationMixin):
         return reverse(
             'admin:%s_%s_preview' % (
                 self._meta.app_label,
-                self._meta.module_name,
+                self._meta.model_name,
                 ),
             args=[self.pk],
             )
