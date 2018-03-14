@@ -230,15 +230,18 @@ class DataImporter(object):
                 self.create_pages(children, parent_page=page)
 
     def update_page_mapper(self):
-        for fields in self.refined_data['cms']['page'].values():
+        for pk, fields in self.refined_data['cms']['page'].items():
             if fields['publisher_is_draft']:
-                self.old_page_id_to_new_page[fields['pk']] = self.old_page_id_to_new_page[fields['publisher_public']]
+                self.old_page_id_to_new_page[pk] = self.old_page_id_to_new_page[fields['publisher_public']]
 
     def save_plugins(self, page_tree, parent_page=None):
         from copy import deepcopy
         from cms.api import add_plugin
+        from django.conf import settings
 
         for page_dict in page_tree:
+            if page_dict.get('publisher_is_draft'):  # skip unpublished pages
+               continue
             page = self.old_page_id_to_new_page.get(page_dict['pk'])
             if not page:
                 continue
@@ -268,14 +271,19 @@ class DataImporter(object):
                         app_label, model_name = plugin_data.pop('plugin_model', (None, None))
 
                         if "internal_link" in plugin_data:
-                            linked_page = self.old_page_id_to_new_page.get(plugin_data["internal_link"])
-                            if linked_page:
-                                plugin_data["internal_link"] = linked_page.pk
-                            else:
-                                plugin_data.pop('internal_link')
-                                print("Invalid internal link for plugin {}".format(plugin_dict['pk']))
+                            old_linked_page_id = plugin_data.pop('internal_link')
+                            if old_linked_page_id:
+                                linked_page = self.old_page_id_to_new_page.get(old_linked_page_id)
+                                if linked_page:
+                                    # reverse-enginered undocumented way to assign the page to a PageSelectFormField
+                                    plugin_data["internal_link_0"] = settings.SITE_ID
+                                    plugin_data["internal_link_1"] = linked_page.pk
+                                    plugin_data["internal_link_2"] = linked_page.pk
+                                else:
+                                    print("Invalid internal link for plugin {}".format(plugin_dict['pk']))
 
                         if app_label and model_name:
+                            # let's validate the data and change all ids to instances for the ModelChoiceField fields
                             PluginForm = self.get_plugin_model_form(app_label, model_name)
                             form = PluginForm(data=plugin_data)
                             if form.is_valid():
@@ -314,6 +322,8 @@ class DataImporter(object):
         from cms.api import publish_page
 
         for page_dict in page_tree:
+            if page_dict.get('publisher_is_draft'):  # skip unpublished pages
+               continue
             page = self.old_page_id_to_new_page.get(page_dict['pk'])
             if not page:
                 continue

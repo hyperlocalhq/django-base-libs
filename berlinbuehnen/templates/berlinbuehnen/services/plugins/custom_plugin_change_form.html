@@ -1,4 +1,4 @@
-{% extends "admin/cms/page/plugin_change_form.html" %}
+{% extends "admin/cms/page/plugin/change_form.html" %}
 
 <!-- LOADING -->
 {% load i18n staticfiles %}
@@ -16,6 +16,7 @@
     </script>
     <!-- MARKUP HELPER -->
     <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/MarkupHelper.js' %}"></script>
+    {{ media }}
 {% endblock %}
 
 {% block fieldsets %}
