@@ -42,24 +42,24 @@ class FestivalManager(models.Manager):
     def accessible_to(self, user):
         from berlinbuehnen.apps.locations.models import Location
         if user.has_perm("festivals.change_production"):
-            return self.get_query_set().exclude(status="trashed")
+            return self.get_queryset().exclude(status="trashed")
 
         owned_locations = Location.objects.owned_by(user=user)
-        return self.get_query_set().filter(
+        return self.get_queryset().filter(
             organizers__in=owned_locations,
         ).exclude(status="trashed").distinct()
 
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
         if user.has_perm("festivals.change_festival"):
-            return self.get_query_set().exclude(status="trashed")
+            return self.get_queryset().exclude(status="trashed")
         ids = PerObjectGroup.objects.filter(
             content_type__app_label="festivals",
             content_type__model="festival",
             sysname__startswith="owners",
             users=user,
         ).values_list("object_id", flat=True)
-        return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
+        return self.get_queryset().filter(pk__in=ids).exclude(status="trashed")
 
     def for_newsletter(self):
         return self.filter(

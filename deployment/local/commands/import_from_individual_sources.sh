@@ -4,6 +4,7 @@ PROJECT_PATH=../../../../../
 
 cd ${PROJECT_PATH}
 . bin/activate
+. venv2/bin/activate
 cd project/berlinbuehnen
 
 #echo "Importing from Berliner Philharmonie"

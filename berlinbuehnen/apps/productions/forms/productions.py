@@ -1084,7 +1084,7 @@ class EventsForm(forms.ModelForm):
         ))
 
 
-def load_data(instance=None):
+def load_data(instance=None, request=None):
     form_step_data = {}
     if instance:
         form_step_data = {
@@ -1505,7 +1505,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
     return form_step_data
 
 
-def set_extra_context(current_step, form_steps, form_step_data, instance=None):
+def set_extra_context(current_step, form_steps, form_step_data, instance=None, request=None):
     if "_pk" in form_step_data:
         production = Production.objects.get(pk=form_step_data['_pk'])
         return {

@@ -181,7 +181,7 @@ def change_multipart(request, slug):
         )
 
     return render(request, "multiparts/forms/multipart_form.html", {
-        'parent': parent,
+        'multipart': parent,
         'form': form,
         'formsets': {
             'parts': part_formset,

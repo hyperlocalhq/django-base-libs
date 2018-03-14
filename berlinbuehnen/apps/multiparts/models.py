@@ -13,10 +13,10 @@ class ParentManager(models.Manager):
     def accessible_to(self, user):
         from berlinbuehnen.apps.locations.models import Location
         if user.has_perm("productions.change_production"):
-            return self.get_query_set()
+            return self.get_queryset()
 
         owned_locations = Location.objects.owned_by(user=user)
-        return self.get_query_set().filter(
+        return self.get_queryset().filter(
             models.Q(production__in_program_of__in=owned_locations) |
             models.Q(production__play_locations__in=owned_locations)
         ).exclude(production__status="trashed").distinct()
@@ -29,7 +29,7 @@ class ParentManager(models.Manager):
             sysname__startswith="owners",
             users=user,
         ).values_list("object_id", flat=True)
-        return self.get_query_set().filter(pk__in=ids)
+        return self.get_queryset().filter(pk__in=ids)
 
 
 class Parent(CreationModificationMixin, UrlMixin):

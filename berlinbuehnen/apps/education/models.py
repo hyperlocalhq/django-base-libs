@@ -44,10 +44,10 @@ class DepartmentManager(models.Manager):
     def accessible_to(self, user):
         from berlinbuehnen.apps.locations.models import Location
         if user.has_perm("education.change_department"):
-            return self.get_query_set().exclude(status="trashed")
+            return self.get_queryset().exclude(status="trashed")
 
         owned_locations = Location.objects.owned_by(user=user)
-        return self.get_query_set().filter(
+        return self.get_queryset().filter(
             location__in=owned_locations,
         ).exclude(status="trashed")
 
@@ -59,7 +59,7 @@ class DepartmentManager(models.Manager):
             sysname__startswith="owners",
             users=user,
         ).values_list("object_id", flat=True)
-        return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
+        return self.get_queryset().filter(pk__in=ids).exclude(status="trashed")
 
     def for_newsletter(self):
         return self.filter(
@@ -370,9 +370,9 @@ class ProjectManager(models.Manager):
     def accessible_to(self, user):
         from berlinbuehnen.apps.locations.models import Location
         if user.has_perm("education.change_project"):
-            return self.get_query_set().exclude(status="trashed")
+            return self.get_queryset().exclude(status="trashed")
         owned_locations = Location.objects.owned_by(user=user)
-        return self.get_query_set().filter(
+        return self.get_queryset().filter(
             departments__location__in=owned_locations,
         ).exclude(status="trashed").distinct()
 
@@ -384,7 +384,7 @@ class ProjectManager(models.Manager):
             sysname__startswith="owners",
             users=user,
         ).values_list("object_id", flat=True)
-        return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
+        return self.get_queryset().filter(pk__in=ids).exclude(status="trashed")
 
     def for_newsletter(self):
         return self.filter(

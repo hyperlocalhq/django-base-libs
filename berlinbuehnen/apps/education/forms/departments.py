@@ -516,7 +516,7 @@ class GalleryForm(forms.ModelForm):
         )
 
 
-def load_data(instance=None):
+def load_data(instance=None, request=None):
     form_step_data = {}
     if instance:
         form_step_data = {
@@ -610,7 +610,10 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             setattr(instance, fname, form_step_data[current_step][fname])
             
         if form_step_data[current_step]['location']:
-            instance.location = Location.objects.get(pk=form_step_data[current_step]['location'])
+            if isinstance(form_step_data[current_step]['location'], Location):
+                instance.location = form_step_data[current_step]['location']
+            else:
+                instance.location = Location.objects.get(pk=form_step_data[current_step]['location'])
 
         if not instance.slug:
             instance.slug = get_unique_value(Department, better_slugify(instance.title_de), instance_pk=instance.pk)
@@ -695,7 +698,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
     return form_step_data
 
 
-def set_extra_context(current_step, form_steps, form_step_data, instance=None):
+def set_extra_context(current_step, form_steps, form_step_data, instance=None, request=None):
     if "_pk" in form_step_data:
         return {'department': Department.objects.get(pk=form_step_data['_pk'])}
     return {}
