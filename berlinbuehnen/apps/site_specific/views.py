@@ -44,27 +44,51 @@ EducationalProjects = models.get_model("education", "Project")
 @never_cache
 @login_required
 def dashboard(request):
-    owned_locations = Location.objects.accessible_to(request.user).extra(select={
-        'modified_or_creation_date': 'IFNULL(locations_location.modified_date, locations_location.creation_date)'
-    }).order_by("-modified_or_creation_date")[:3]
-    owned_productions = Production.objects.accessible_to(request.user).extra(select={
-        'modified_or_creation_date': 'IFNULL(productions_production.modified_date, productions_production.creation_date)'
-    }).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).order_by("-modified_or_creation_date")[:3]
-    owned_multiparts = Parent.objects.accessible_to(request.user).extra(select={
-        'modified_or_creation_date': 'IFNULL(multiparts_parent.modified_date, multiparts_parent.creation_date)'
-    }).order_by("-modified_or_creation_date")[:3]
-    owned_festivals = Festival.objects.accessible_to(request.user).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).extra(select={
-        'modified_or_creation_date': 'IFNULL(festivals_festival.modified_date, festivals_festival.creation_date)'
-    }).order_by("-modified_or_creation_date")[:3]
-    owned_job_offers = JobOffer.objects.accessible_to(request.user).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).extra(select={
-        'modified_or_creation_date': 'IFNULL(marketplace_joboffer.modified_date, marketplace_joboffer.creation_date)'
-    }).order_by("-modified_or_creation_date")[:3]
-    owned_educational_departments = EducationalDepartment.objects.accessible_to(request.user).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).extra(select={
-        'modified_or_creation_date': 'IFNULL(education_department.modified_date, education_department.creation_date)'
-    }).order_by("-modified_or_creation_date")[:3]
-    owned_educational_projects = EducationalProjects.objects.accessible_to(request.user).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).extra(select={
-        'modified_or_creation_date': 'IFNULL(education_project.modified_date, education_project.creation_date)'
-    }).order_by("-modified_or_creation_date")[:3]
+    if "postgresql" in settings.DATABASES['default']['ENGINE']:
+        owned_locations = Location.objects.accessible_to(request.user).extra(select={
+            'modified_or_creation_date': 'COALESCE(locations_location.modified_date, locations_location.creation_date)'
+        }).order_by("-modified_or_creation_date")[:3]
+        owned_productions = Production.objects.accessible_to(request.user).extra(select={
+            'modified_or_creation_date': 'COALESCE(productions_production.modified_date, productions_production.creation_date)'
+        }).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).order_by("-modified_or_creation_date")[:3]
+        owned_multiparts = Parent.objects.accessible_to(request.user).extra(select={
+            'modified_or_creation_date': 'COALESCE(multiparts_parent.modified_date, multiparts_parent.creation_date)'
+        }).order_by("-modified_or_creation_date")[:3]
+        owned_festivals = Festival.objects.accessible_to(request.user).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).extra(select={
+            'modified_or_creation_date': 'COALESCE(festivals_festival.modified_date, festivals_festival.creation_date)'
+        }).order_by("-modified_or_creation_date")[:3]
+        owned_job_offers = JobOffer.objects.accessible_to(request.user).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).extra(select={
+            'modified_or_creation_date': 'COALESCE(marketplace_joboffer.modified_date, marketplace_joboffer.creation_date)'
+        }).order_by("-modified_or_creation_date")[:3]
+        owned_educational_departments = EducationalDepartment.objects.accessible_to(request.user).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).extra(select={
+            'modified_or_creation_date': 'COALESCE(education_department.modified_date, education_department.creation_date)'
+        }).order_by("-modified_or_creation_date")[:3]
+        owned_educational_projects = EducationalProjects.objects.accessible_to(request.user).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).extra(select={
+            'modified_or_creation_date': 'COALESCE(education_project.modified_date, education_project.creation_date)'
+        }).order_by("-modified_or_creation_date")[:3]
+    else:
+        owned_locations = Location.objects.accessible_to(request.user).extra(select={
+            'modified_or_creation_date': 'IFNULL(locations_location.modified_date, locations_location.creation_date)'
+        }).order_by("-modified_or_creation_date")[:3]
+        owned_productions = Production.objects.accessible_to(request.user).extra(select={
+            'modified_or_creation_date': 'IFNULL(productions_production.modified_date, productions_production.creation_date)'
+        }).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).order_by("-modified_or_creation_date")[:3]
+        owned_multiparts = Parent.objects.accessible_to(request.user).extra(select={
+            'modified_or_creation_date': 'IFNULL(multiparts_parent.modified_date, multiparts_parent.creation_date)'
+        }).order_by("-modified_or_creation_date")[:3]
+        owned_festivals = Festival.objects.accessible_to(request.user).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).extra(select={
+            'modified_or_creation_date': 'IFNULL(festivals_festival.modified_date, festivals_festival.creation_date)'
+        }).order_by("-modified_or_creation_date")[:3]
+        owned_job_offers = JobOffer.objects.accessible_to(request.user).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).extra(select={
+            'modified_or_creation_date': 'IFNULL(marketplace_joboffer.modified_date, marketplace_joboffer.creation_date)'
+        }).order_by("-modified_or_creation_date")[:3]
+        owned_educational_departments = EducationalDepartment.objects.accessible_to(request.user).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).extra(select={
+            'modified_or_creation_date': 'IFNULL(education_department.modified_date, education_department.creation_date)'
+        }).order_by("-modified_or_creation_date")[:3]
+        owned_educational_projects = EducationalProjects.objects.accessible_to(request.user).filter(status__in=('published', 'draft', 'expired', 'not_listed', 'import')).extra(select={
+            'modified_or_creation_date': 'IFNULL(education_project.modified_date, education_project.creation_date)'
+        }).order_by("-modified_or_creation_date")[:3]
+
     context = {
         'owned_locations': owned_locations,
         'owned_productions': owned_productions,
@@ -79,9 +103,14 @@ def dashboard(request):
 @never_cache
 @login_required
 def dashboard_locations(request):
-    owned_location_qs = Location.objects.accessible_to(request.user).extra(select={
-        'modified_or_creation_date': 'IFNULL(locations_location.modified_date, locations_location.creation_date)'
-    })
+    if "postgresql" in settings.DATABASES['default']['ENGINE']:
+        owned_location_qs = Location.objects.accessible_to(request.user).extra(select={
+            'modified_or_creation_date': 'COALESCE(locations_location.modified_date, locations_location.creation_date)'
+        })
+    else:
+        owned_location_qs = Location.objects.accessible_to(request.user).extra(select={
+            'modified_or_creation_date': 'IFNULL(locations_location.modified_date, locations_location.creation_date)'
+        })
 
     status = request.REQUEST.get('status', 'published')
     if status in ('published', 'draft', 'not_listed'):
@@ -126,9 +155,14 @@ def dashboard_locations(request):
 @never_cache
 @login_required
 def dashboard_productions(request):
-    owned_production_qs = Production.objects.accessible_to(request.user).extra(select={
-        'modified_or_creation_date': 'IFNULL(productions_production.modified_date, productions_production.creation_date)'
-    })
+    if "postgresql" in settings.DATABASES['default']['ENGINE']:
+        owned_production_qs = Production.objects.accessible_to(request.user).extra(select={
+            'modified_or_creation_date': 'COALESCE(productions_production.modified_date, productions_production.creation_date)'
+        })
+    else:
+        owned_production_qs = Production.objects.accessible_to(request.user).extra(select={
+            'modified_or_creation_date': 'IFNULL(productions_production.modified_date, productions_production.creation_date)'
+        })
 
     status = request.REQUEST.get('status', 'published')
     if status in ('published', 'draft', 'expired', 'not_listed', 'import'):
@@ -175,9 +209,14 @@ def dashboard_productions(request):
 @never_cache
 @login_required
 def dashboard_festivals(request):
-    owned_festival_qs = Festival.objects.accessible_to(request.user).extra(select={
-        'modified_or_creation_date': 'IFNULL(festivals_festival.modified_date, festivals_festival.creation_date)'
-    })
+    if "postgresql" in settings.DATABASES['default']['ENGINE']:
+        owned_festival_qs = Festival.objects.accessible_to(request.user).extra(select={
+            'modified_or_creation_date': 'COALESCE(festivals_festival.modified_date, festivals_festival.creation_date)'
+        })
+    else:
+        owned_festival_qs = Festival.objects.accessible_to(request.user).extra(select={
+            'modified_or_creation_date': 'IFNULL(festivals_festival.modified_date, festivals_festival.creation_date)'
+        })
 
     status = request.REQUEST.get('status', 'published')
     if status in ('published', 'draft', 'expired', 'not_listed', 'import'):
@@ -222,9 +261,14 @@ def dashboard_festivals(request):
 @never_cache
 @login_required
 def dashboard_multiparts(request):
-    owned_multipart_qs = Parent.objects.accessible_to(request.user).extra(select={
-        'modified_or_creation_date': 'IFNULL(multiparts_parent.modified_date, multiparts_parent.creation_date)'
-    })
+    if "postgresql" in settings.DATABASES['default']['ENGINE']:
+        owned_multipart_qs = Parent.objects.accessible_to(request.user).extra(select={
+            'modified_or_creation_date': 'COALESCE(multiparts_parent.modified_date, multiparts_parent.creation_date)'
+        })
+    else:
+        owned_multipart_qs = Parent.objects.accessible_to(request.user).extra(select={
+            'modified_or_creation_date': 'IFNULL(multiparts_parent.modified_date, multiparts_parent.creation_date)'
+        })
 
     status = request.REQUEST.get('status', 'published')
     if status in ('published', 'draft', 'expired', 'not_listed'):
@@ -271,9 +315,14 @@ def dashboard_multiparts(request):
 @never_cache
 @login_required
 def dashboard_job_offers(request):
-    owned_job_offer_qs = JobOffer.objects.accessible_to(request.user).extra(select={
-        'modified_or_creation_date': 'IFNULL(marketplace_joboffer.modified_date, marketplace_joboffer.creation_date)'
-    })
+    if "postgresql" in settings.DATABASES['default']['ENGINE']:
+        owned_job_offer_qs = JobOffer.objects.accessible_to(request.user).extra(select={
+            'modified_or_creation_date': 'COALESCE(marketplace_joboffer.modified_date, marketplace_joboffer.creation_date)'
+        })
+    else:
+        owned_job_offer_qs = JobOffer.objects.accessible_to(request.user).extra(select={
+            'modified_or_creation_date': 'IFNULL(marketplace_joboffer.modified_date, marketplace_joboffer.creation_date)'
+        })
 
     status = request.REQUEST.get('status', 'published')
     if status in ('published', 'draft', 'not_listed'):
@@ -318,9 +367,14 @@ def dashboard_job_offers(request):
 @never_cache
 @login_required
 def dashboard_educational_department(request):
-    owned_department_qs = EducationalDepartment.objects.accessible_to(request.user).extra(select={
-        'modified_or_creation_date': 'IFNULL(education_department.modified_date, education_department.creation_date)'
-    })
+    if "postgresql" in settings.DATABASES['default']['ENGINE']:
+        owned_department_qs = EducationalDepartment.objects.accessible_to(request.user).extra(select={
+            'modified_or_creation_date': 'COALESCE(education_department.modified_date, education_department.creation_date)'
+        })
+    else:
+        owned_department_qs = EducationalDepartment.objects.accessible_to(request.user).extra(select={
+            'modified_or_creation_date': 'IFNULL(education_department.modified_date, education_department.creation_date)'
+        })
 
     status = request.REQUEST.get('status', 'published')
     if status in ('published', 'draft', 'not_listed'):
@@ -365,9 +419,14 @@ def dashboard_educational_department(request):
 @never_cache
 @login_required
 def dashboard_educational_project(request):
-    owned_project_qs = EducationalProjects.objects.accessible_to(request.user).extra(select={
-        'modified_or_creation_date': 'IFNULL(education_project.modified_date, education_project.creation_date)'
-    })
+    if "postgresql" in settings.DATABASES['default']['ENGINE']:
+        owned_project_qs = EducationalProjects.objects.accessible_to(request.user).extra(select={
+            'modified_or_creation_date': 'COALESCE(education_project.modified_date, education_project.creation_date)'
+        })
+    else:
+        owned_project_qs = EducationalProjects.objects.accessible_to(request.user).extra(select={
+            'modified_or_creation_date': 'IFNULL(education_project.modified_date, education_project.creation_date)'
+        })
 
     status = request.REQUEST.get('status', 'published')
     if status in ('published', 'draft', 'not_listed'):

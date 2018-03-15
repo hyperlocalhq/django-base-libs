@@ -175,11 +175,12 @@ def user_favorites(request, user_token, **kwargs):
     if latitude and longitude:
         favorites['locations'] = favorites['locations'].order_by('distance')
     else:
-        favorites['locations'] = favorites['locations'].extra(select={
-            'title_uni': "IF (locations_location.title_%(lang_code)s = '', locations_location.title_de, locations_location.title_%(lang_code)s)" % {
-                'lang_code': request.LANGUAGE_CODE,
-            }
-        }).order_by("title_uni")
+        request_specific_field_name = 'title_{}'.format(request.LANGUAGE_CODE)
+        favorites['locations'] = favorites['locations'].annotate(title_uni=models.Case(
+            models.When(then=models.Value('title_de'), **{request_specific_field_name: ''}),
+            default=models.Value(request_specific_field_name),
+            output_field=models.CharField(),
+        )).order_by("title_uni")
 
     if opts.description:
         opts.description_striped = opts.description.replace("\r\n"," ")

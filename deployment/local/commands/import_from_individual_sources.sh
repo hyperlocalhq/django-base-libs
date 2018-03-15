@@ -3,8 +3,7 @@ SECONDS=0
 PROJECT_PATH=../../../../../
 
 cd ${PROJECT_PATH}
-. bin/activate
-. venv2/bin/activate
+source venv/bin/activate
 cd project/berlinbuehnen
 
 #echo "Importing from Berliner Philharmonie"
