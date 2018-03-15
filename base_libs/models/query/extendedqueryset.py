@@ -103,7 +103,7 @@ class ExtendedQuerySet(models.query.QuerySet):
         suffixed with '__count'.
         """
         if count_attr is None:
-            count_attr = query.model._meta.module_name + '__count'
+            count_attr = query.model._meta.model_name + '__count'
 
         """    
         If `related_attr` is None, find the first foreign key field in the
