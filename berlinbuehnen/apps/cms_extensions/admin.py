@@ -1,13 +1,8 @@
 # -*- coding: UTF-8 -*-
-import os
-
-from django.conf import settings
 from django.contrib import admin
 
 from cms.admin.pageadmin import PageAdmin
-from cms.admin.permissionadmin import PagePermissionInlineAdmin
-from cms.models import Page, GlobalPagePermission
-from cms.utils.conf import get_cms_setting
+from cms.models import Page
 
 from .models import CMSPageOpenGraph
 
@@ -17,7 +12,6 @@ class CMSPageOpenGraphInline(admin.StackedInline):
     extra = 0
 
 PageAdmin.inlines.append(CMSPageOpenGraphInline)
-
 
 admin.site.unregister(Page)
 admin.site.register(Page, PageAdmin)

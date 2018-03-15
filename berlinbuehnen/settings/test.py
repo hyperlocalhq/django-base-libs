@@ -6,12 +6,12 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 DATABASES = {
-    # 'postgresql': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': get_secret("DATABASE_NAME"),
-    #     'USER': get_secret("DATABASE_USER"),
-    #     'PASSWORD': get_secret("DATABASE_PASSWORD"),
-    # },
+    'postgresql': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': get_secret("DATABASE_NAME"),
+        'USER': get_secret("DATABASE_USER"),
+        'PASSWORD': get_secret("DATABASE_PASSWORD"),
+    },
     'mysql': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': get_secret("DATABASE_NAME"),
@@ -26,7 +26,8 @@ DATABASES = {
         },
     }
 }
-DATABASES['default'] = DATABASES['mysql']
+del DATABASES['mysql']
+DATABASES['default'] = DATABASES['postgresql']
 
 HTTPS_PROTOCOL = "http"
 

@@ -3,16 +3,17 @@ SECONDS=0
 PROJECT_PATH=../../../../../
 
 cd ${PROJECT_PATH}
-source venv2/bin/activate
+source venv/bin/activate
 cd project/berlinbuehnen
 
 echo "------------"
 echo "=== Running migrations ==="
 date
 
-echo "- Remove column name from content types table"
+echo "- Remove column name from content types table, and other deprecated columns"
 SQL=$(cat << EOM
 ALTER TABLE django_content_type DROP COLUMN name;
+ALTER TABLE comments_moderatordeletionreason DROP COLUMN reason_markup_type;
 EOM
 )
 echo $SQL | python manage.py dbshell --settings=berlinbuehnen.settings.local --traceback
@@ -49,7 +50,6 @@ python manage.py migrate blocks --fake --settings=berlinbuehnen.settings.local
 python manage.py migrate blog --fake --settings=berlinbuehnen.settings.local
 python manage.py migrate bootstrap_pagination --fake --settings=berlinbuehnen.settings.local
 python manage.py migrate comments --fake --settings=berlinbuehnen.settings.local
-python manage.py migrate configuration --fake --settings=berlinbuehnen.settings.local
 python manage.py migrate crispy_forms --fake --settings=berlinbuehnen.settings.local
 python manage.py migrate debug_toolbar --fake --settings=berlinbuehnen.settings.local
 python manage.py migrate education --fake --settings=berlinbuehnen.settings.local
@@ -88,16 +88,18 @@ python manage.py migrate treebeard --fake --settings=berlinbuehnen.settings.loca
 python manage.py migrate twitter --fake --settings=berlinbuehnen.settings.local
 python manage.py migrate utils --fake --settings=berlinbuehnen.settings.local
 
-echo "- Migrate image_mods"
+echo "- Migrate configuration and image_mods"
+python manage.py migrate configuration 0001 --fake --settings=berlinbuehnen.settings.local
+python manage.py migrate configuration --settings=berlinbuehnen.settings.local
 python manage.py migrate image_mods 0001 --fake --settings=berlinbuehnen.settings.local
 python manage.py migrate image_mods --settings=berlinbuehnen.settings.local
 
 echo "- Migrate apps related to Django CMS"
 python manage.py migrate menus --settings=berlinbuehnen.settings.local
 python manage.py migrate cms --settings=berlinbuehnen.settings.local
-python manage.py migrate djangocms_inherit --settings=berlinbuehnen.settings.local
-python manage.py migrate djangocms_snippet --settings=berlinbuehnen.settings.local
-python manage.py migrate djangocms_teaser --settings=berlinbuehnen.settings.local
+#python manage.py migrate djangocms_inherit --settings=berlinbuehnen.settings.local
+#python manage.py migrate djangocms_snippet --settings=berlinbuehnen.settings.local
+#python manage.py migrate djangocms_teaser --settings=berlinbuehnen.settings.local
 python manage.py migrate cms_extensions --settings=berlinbuehnen.settings.local
 python manage.py migrate richtext --settings=berlinbuehnen.settings.local
 python manage.py migrate filebrowser_image --settings=berlinbuehnen.settings.local

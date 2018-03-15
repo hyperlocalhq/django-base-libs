@@ -98,8 +98,8 @@ INSTALLED_APPS = [
     "filebrowser",
 
     ### django core apps ###
-    'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.auth',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
@@ -129,9 +129,9 @@ INSTALLED_APPS = [
     "treebeard",
 
     ### CMS plugins ###
-    "djangocms_inherit",
-    "djangocms_snippet",
-    "djangocms_teaser",
+    # "djangocms_inherit",
+    # "djangocms_snippet",
+    # "djangocms_teaser",
     # "djangocms_picture",
     # "djangocms_file",
     # "djangocms_flash",

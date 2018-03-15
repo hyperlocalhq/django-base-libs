@@ -136,7 +136,7 @@ def bvg(context, address="", address_2=None, postal_code=None, city=None, event_
 def pin(context, image, description=""):
 
     file_description = None
-    file_descriptions = FileDescription.objects.filter(file_path=image).order_by("pk")
+    file_descriptions = FileDescription.objects.filter(file_path=image.path).order_by("pk")
     if file_descriptions:
         file_description = file_descriptions[0]
 

@@ -3,17 +3,17 @@ from __future__ import unicode_literals
 from ._base import *
 
 DATABASES = {
-    # 'postgresql': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': get_secret("DATABASE_NAME"),
-    #     'USER': get_secret("DATABASE_USER"),
-    #     'PASSWORD': get_secret("DATABASE_PASSWORD"),
-    # },
-    'mysql': {
-        'ENGINE': 'django.db.backends.mysql',
+    'postgresql': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': get_secret("DATABASE_NAME"),
         'USER': get_secret("DATABASE_USER"),
         'PASSWORD': get_secret("DATABASE_PASSWORD"),
+    },
+    'mysql': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': get_secret("MYSQL_DATABASE_NAME"),
+        'USER': get_secret("MYSQL_DATABASE_USER"),
+        'PASSWORD': get_secret("MYSQL_DATABASE_PASSWORD"),
         'CONN_MAX_AGE': 0,
         'HOST': 'localhost',
         'OPTIONS': {
@@ -28,7 +28,8 @@ DATABASES = {
         },
     }
 }
-DATABASES['default'] = DATABASES['mysql']
+DATABASES['default'] = DATABASES['postgresql']
+#DATABASES['default'] = DATABASES['mysql']
 
 HTTPS_PROTOCOL = "http"
 
