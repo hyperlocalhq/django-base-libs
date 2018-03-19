@@ -9,7 +9,7 @@ DATABASES = {
         'USER': get_secret("DATABASE_USER"),
         'PASSWORD': get_secret("DATABASE_PASSWORD"),
     },
-    'mysql': {
+    'mysql': {  # TODO: this is here for historical reason. To be removed.
         'ENGINE': 'django.db.backends.mysql',
         'NAME': get_secret("MYSQL_DATABASE_NAME"),
         'USER': get_secret("MYSQL_DATABASE_USER"),
@@ -29,7 +29,7 @@ DATABASES = {
     }
 }
 DATABASES['default'] = DATABASES['postgresql']
-#DATABASES['default'] = DATABASES['mysql']
+del DATABASES['mysql']
 
 HTTPS_PROTOCOL = "http"
 
