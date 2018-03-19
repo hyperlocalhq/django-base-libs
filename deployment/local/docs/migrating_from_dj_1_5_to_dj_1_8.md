@@ -38,3 +38,10 @@ in the __django_1_8__-branch project.
 9. Run __convert_db.sh__.
 
 10. Run __python tests/django_functional_tests.py__.
+
+# 3. Arrange the branches
+
+1. Tag the __master__ branch as __django_1_5__.
+
+2. Merge the __django_1_8__ branch to __master__.
+
