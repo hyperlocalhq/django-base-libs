@@ -30,6 +30,8 @@ DATABASES = {
 }
 DATABASES['default'] = DATABASES['postgresql']
 del DATABASES['mysql']
+#DATABASES['default'] = DATABASES['mysql']
+#del DATABASES['postgresql']
 
 HTTPS_PROTOCOL = "http"
 
