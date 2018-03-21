@@ -96,6 +96,7 @@ class ExtendedTextField(TextField):
         super(ExtendedTextField, self).contribute_to_class(cls, name)
         
         def get_rendered_wrapper(name):
+            import bleach
             _name = name
             def get_rendered(self):
                 field_value = getattr(self, _name)
@@ -107,7 +108,7 @@ class ExtendedTextField(TextField):
                         field_value = escape(field_value)
                         try:
                             # try to urlize if there are no invalid IPv6 URLs
-                            field_value = urlize(field_value)
+                            field_value = bleach.linkify(field_value)
                         except ValueError:
                             pass
                         field_value = linebreaks(field_value)
@@ -383,6 +384,7 @@ class MultilingualTextField(models.Field):
 
         # overwrite the get_rendered_*
         def get_rendered_wrapper(name):
+            import bleach
             _name = name
 
             def get_rendered(self):
@@ -409,7 +411,7 @@ class MultilingualTextField(models.Field):
                         field_value = escape(field_value)
                         try:
                             # try to urlize if there are no invalid IPv6 URLs
-                            field_value = urlize(field_value)
+                            field_value = bleach.linkify(field_value)
                         except ValueError:
                             pass
                         field_value = linebreaks(field_value)
