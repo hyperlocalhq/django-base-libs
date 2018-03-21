@@ -97,13 +97,9 @@ class CuratedList(
 
 
 limit_item_content_type_choices_to = (
-    models.Q(app_label="articles", model="article") |
-    models.Q(app_label="blog", model="post") |
-    models.Q(app_label="bulletin_board", model="bulletin") |
-    models.Q(app_label="events", model="event") |
     models.Q(app_label="institutions", model="institution") |
-    models.Q(app_label="marketplace", model="joboffer") |
-    models.Q(app_label="people", model="person")
+    models.Q(app_label="people", model="person") |
+    models.Q(app_label="media_gallery", model="mediagallery")
 )
 
 class ListItem(CreationModificationDateMixin, ObjectRelationMixin(limit_content_type_choices_to=limit_item_content_type_choices_to), UrlMixin):
