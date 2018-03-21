@@ -40,6 +40,8 @@ class LocationIndex(AldrynIndexBase, indexes.Indexable):
         return obj.description
 
     def get_search_data(self, obj, language, request):
+        if language == "default":
+            language = settings.LANGUAGE_CODE
         # collect multilingual data
         all_text = u"\n".join(
             force_unicode(getattr(obj, field))
@@ -70,6 +72,8 @@ class LocationIndex(AldrynIndexBase, indexes.Indexable):
         return Location
 
     def get_index_queryset(self, language=None):
+        if language == "default":
+            return self.get_model().objects.none()
         return self.get_model().objects.filter(status="published")
         
 
@@ -93,6 +97,8 @@ class ProductionIndex(AldrynIndexBase, indexes.Indexable):
         return obj.description
 
     def get_search_data(self, obj, language, request):
+        if language == "default":
+            language = settings.LANGUAGE_CODE
         extra = []
         for location in obj.in_program_of.all():
             extra.append(location.title)
@@ -189,6 +195,8 @@ class ProductionIndex(AldrynIndexBase, indexes.Indexable):
         return Production
 
     def get_index_queryset(self, language=None):
+        if language == "default":
+            return self.get_model().objects.none()
         return self.get_model().objects.filter(status="published")
 
 
@@ -211,6 +219,8 @@ class FestivalIndex(AldrynIndexBase, indexes.Indexable):
         return obj.description
 
     def get_search_data(self, obj, language, request):
+        if language == "default":
+            language = settings.LANGUAGE_CODE
         extra = []
         for location in obj.organizers.all():
             extra.append(location.title)
@@ -241,6 +251,8 @@ class FestivalIndex(AldrynIndexBase, indexes.Indexable):
         return Festival
 
     def get_index_queryset(self, language=None):
+        if language == "default":
+            return self.get_model().objects.none()
         return self.get_model().objects.filter(status="published")
 
 
