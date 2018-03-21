@@ -3,7 +3,7 @@ SECONDS=0
 PROJECT_PATH=/usr/local/www/apache24/data/berlin-buehnen.de
 CRON_LOG_FILE=${PROJECT_PATH}/logs/backup_postgres_db_now.log
 DATE_TIMESTAMP=$(LC_ALL=en_US.UTF-8 date +"%Y%m%d-%H%M")
-BACKUP_PATH=${PROJECT_PATH}/db_backups/${DATE_TIMESTAMP}.sql
+BACKUP_PATH=${PROJECT_PATH}/db_backups/${DATE_TIMESTAMP}.backup
 USER=berlinbuehnen
 DATABASE=berlinbuehnen
 
