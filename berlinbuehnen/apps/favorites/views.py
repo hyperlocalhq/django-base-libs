@@ -103,31 +103,31 @@ def user_favorites(request, user_token, **kwargs):
     except FavoriteListOptions.DoesNotExist:
         opts = FavoriteListOptions()
 
-    location_ids = list(Favorite.objects.filter(
+    location_ids = map(int, Favorite.objects.filter(
         content_type__app_label="locations",
         content_type__model="location",
         user__pk=user_id,
     ).values_list("object_id", flat=True))
 
-    event_ids = list(Favorite.objects.filter(
+    event_ids = map(int, Favorite.objects.filter(
         content_type__app_label="productions",
         content_type__model="event",
         user__pk=user_id,
     ).values_list("object_id", flat=True))
 
-    festival_ids = list(Favorite.objects.filter(
+    festival_ids = map(int, Favorite.objects.filter(
         content_type__app_label="festivals",
         content_type__model="festival",
         user__pk=user_id,
     ).values_list("object_id", flat=True))
 
-    department_ids = list(Favorite.objects.filter(
+    department_ids = map(int, Favorite.objects.filter(
         content_type__app_label="education",
         content_type__model="department",
         user__pk=user_id,
     ).values_list("object_id", flat=True))
 
-    project_ids = list(Favorite.objects.filter(
+    project_ids = map(int, Favorite.objects.filter(
         content_type__app_label="education",
         content_type__model="project",
         user__pk=user_id,

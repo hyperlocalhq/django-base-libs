@@ -110,7 +110,7 @@ class ProductionManager(models.Manager):
         if user.has_perm("productions.change_production"):
             return self.get_queryset().exclude(status="trashed")
 
-        owned_production_ids = self.owned_by(user=user).values_list("pk", flat=True)
+        owned_production_ids = map(int, self.owned_by(user=user).values_list("pk", flat=True))
 
         owned_locations = Location.objects.owned_by(user=user)
         return self.get_queryset().filter(
@@ -123,12 +123,12 @@ class ProductionManager(models.Manager):
 
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
-        ids = PerObjectGroup.objects.filter(
+        ids = map(int, PerObjectGroup.objects.filter(
             content_type__app_label="productions",
             content_type__model="production",
             sysname__startswith="owners",
             users=user,
-        ).values_list("object_id", flat=True)
+        ).values_list("object_id", flat=True))
         return self.get_queryset().filter(pk__in=ids).exclude(status="trashed")
 
     def for_newsletter(self):

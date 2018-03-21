@@ -53,12 +53,12 @@ class FestivalManager(models.Manager):
         from jetson.apps.permissions.models import PerObjectGroup
         if user.has_perm("festivals.change_festival"):
             return self.get_queryset().exclude(status="trashed")
-        ids = PerObjectGroup.objects.filter(
+        ids = map(int, PerObjectGroup.objects.filter(
             content_type__app_label="festivals",
             content_type__model="festival",
             sysname__startswith="owners",
             users=user,
-        ).values_list("object_id", flat=True)
+        ).values_list("object_id", flat=True))
         return self.get_queryset().filter(pk__in=ids).exclude(status="trashed")
 
     def for_newsletter(self):

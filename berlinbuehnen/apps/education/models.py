@@ -53,12 +53,12 @@ class DepartmentManager(models.Manager):
 
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
-        ids = PerObjectGroup.objects.filter(
+        ids = map(int, PerObjectGroup.objects.filter(
             content_type__app_label="education",
             content_type__model="department",
             sysname__startswith="owners",
             users=user,
-        ).values_list("object_id", flat=True)
+        ).values_list("object_id", flat=True))
         return self.get_queryset().filter(pk__in=ids).exclude(status="trashed")
 
     def for_newsletter(self):
@@ -378,12 +378,12 @@ class ProjectManager(models.Manager):
 
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
-        ids = PerObjectGroup.objects.filter(
+        ids = map(int, PerObjectGroup.objects.filter(
             content_type__app_label="education",
             content_type__model="project",
             sysname__startswith="owners",
             users=user,
-        ).values_list("object_id", flat=True)
+        ).values_list("object_id", flat=True))
         return self.get_queryset().filter(pk__in=ids).exclude(status="trashed")
 
     def for_newsletter(self):

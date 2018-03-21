@@ -23,12 +23,12 @@ class ParentManager(models.Manager):
 
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
-        ids = PerObjectGroup.objects.filter(
+        ids = map(int, PerObjectGroup.objects.filter(
             content_type__app_label="multiparts",
             content_type__model="parent",
             sysname__startswith="owners",
             users=user,
-        ).values_list("object_id", flat=True)
+        ).values_list("object_id", flat=True))
         return self.get_queryset().filter(pk__in=ids)
 
 

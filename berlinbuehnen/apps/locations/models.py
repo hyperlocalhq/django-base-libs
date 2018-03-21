@@ -106,22 +106,22 @@ class LocationManager(models.Manager):
         from jetson.apps.permissions.models import PerObjectGroup
         if user.has_perm("locations.change_location"):
             return self.get_queryset().exclude(status="trashed")
-        ids = PerObjectGroup.objects.filter(
+        ids = map(int, PerObjectGroup.objects.filter(
             content_type__app_label="locations",
             content_type__model="location",
             sysname__startswith="owners",
             users=user,
-        ).values_list("object_id", flat=True)
+        ).values_list("object_id", flat=True))
         return self.get_queryset().filter(pk__in=ids).exclude(status="trashed")
 
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
-        ids = PerObjectGroup.objects.filter(
+        ids = map(int, PerObjectGroup.objects.filter(
             content_type__app_label="locations",
             content_type__model="location",
             sysname__startswith="owners",
             users=user,
-        ).values_list("object_id", flat=True)
+        ).values_list("object_id", flat=True))
         return self.get_queryset().filter(pk__in=ids).exclude(status="trashed")
 
     def for_newsletter(self):

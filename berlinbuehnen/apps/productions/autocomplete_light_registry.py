@@ -29,12 +29,12 @@ class AutocompleteProduction(autocomplete_light.AutocompleteModelBase):
         if self.request.user.has_perm("productions.change_production"):
             choices = self.choices.exclude(status="trashed")
         else:
-            ids = PerObjectGroup.objects.filter(
+            ids = map(int, PerObjectGroup.objects.filter(
                 content_type__app_label="productions",
                 content_type__model="production",
                 sysname__startswith="owners",
                 users=self.request.user,
-            ).values_list("object_id", flat=True)
+            ).values_list("object_id", flat=True))
             choices = self.choices.filter(pk__in=ids).exclude(status="trashed")
 
         if q:
