@@ -7,7 +7,7 @@ echo "Rebuilding search index" > ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
 
 cd ${PROJECT_PATH}
-. bin/activate
+source venv/bin/activate
 cd project/berlinbuehnen
 python manage.py rebuild_index --settings=berlinbuehnen.settings.production --noinput --traceback >> ${CRON_LOG_FILE} 2>&1
 

@@ -10,4 +10,4 @@ SHELL=/usr/local/bin/bash
 00 04 * * * /usr/local/www/apache24/data/berlin-buehnen.de/commands/rebuild_index.sh
 30 04 * * * /usr/local/www/apache24/data/berlin-buehnen.de/commands/export_productions_to_excel.sh
 00 05 * * * /usr/local/www/apache24/data/berlin-buehnen.de/commands/collect_advertising_stats.sh
-00 06 * * * /usr/local/www/apache24/data/berlin-buehnen.de/commands/backup_db.sh
+00 06 * * * /usr/local/www/apache24/data/berlin-buehnen.de/commands/backup_postgres_db.sh

@@ -7,7 +7,7 @@ echo "Exporting data to Excel" > ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
 
 cd ${PROJECT_PATH}
-. bin/activate
+source venv/bin/activate
 cd project/berlinbuehnen
 python manage.py export_productions_to_excel --settings=berlinbuehnen.settings.production --traceback >> ${CRON_LOG_FILE} 2>&1
 

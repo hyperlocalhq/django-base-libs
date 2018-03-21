@@ -7,7 +7,7 @@ echo "Actualizing production date and time" > ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
 
 cd ${PROJECT_PATH}
-. bin/activate
+. venv/bin/activate
 cd project/berlinbuehnen
 python manage.py actualize_production_date_and_time --settings=berlinbuehnen.settings.production --traceback >> ${CRON_LOG_FILE}  2>&1
 

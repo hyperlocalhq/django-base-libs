@@ -7,7 +7,7 @@ echo "Collecting stats" > ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
 
 cd ${PROJECT_PATH}
-. bin/activate
+source venv/bin/activate
 cd project/berlinbuehnen
 python manage.py collect_advertising_stats --settings=berlinbuehnen.settings.production --traceback >> ${CRON_LOG_FILE}  2>&1
 python manage.py remove_old_advertising_stats --settings=berlinbuehnen.settings.production --traceback >> ${CRON_LOG_FILE}  2>&1

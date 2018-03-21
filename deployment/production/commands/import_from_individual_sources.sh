@@ -4,7 +4,7 @@ PROJECT_PATH=/usr/local/www/apache24/data/berlin-buehnen.de
 CRON_LOG_FILE=${PROJECT_PATH}/logs/import_from_individual_sources.log
 
 cd ${PROJECT_PATH}
-. bin/activate
+source venv/bin/activate
 cd project/berlinbuehnen
 
 echo "Importing from Berliner Philharmonie" > ${CRON_LOG_FILE}

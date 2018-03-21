@@ -7,7 +7,7 @@ echo "Fixing permissions for tmp directory" > ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
 
 cd ${PROJECT_PATH}
-. bin/activate
+source venv/bin/activate
 cd project/berlinbuehnen/berlinbuehnen/tmp
 
 find . -type f -exec chmod 664 {} ';' >> ${CRON_LOG_FILE}  2>&1

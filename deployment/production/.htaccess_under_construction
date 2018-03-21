@@ -3,7 +3,7 @@ AddHandler wsgi-script .wsgi
 RewriteEngine On
 
 RewriteBase /
-RewriteCond %{REMOTE_HOST} !^213\.160\.11\.225
+RewriteCond %{REMOTE_HOST} !^80\.147\.241\.31
 
 RewriteCond %{REQUEST_URI} !/temporarily-offline\.html$
 RewriteCond %{REQUEST_URI} !^/media
