@@ -19,7 +19,11 @@ class Command(NoArgsCommand):
     def handle_noargs(self, *args, **options):
         import os
         import openpyxl
-        from openpyxl.cell import get_column_letter
+        try:
+            from openpyxl.cell import get_column_letter
+        except ImportError:
+            from openpyxl.utils import get_column_letter
+
         self.verbosity = int(options.get("verbosity", NORMAL))
 
         Location = models.get_model("locations", "Location")
@@ -50,7 +54,7 @@ class Command(NoArgsCommand):
 
         if self.verbosity >= NORMAL:
             print u"=== Exporting Stages ==="
-        ws = wb.create_sheet(1, "Stages")
+        ws = wb.create_sheet(title="Stages", index=1)
         ws.append(['id', 'location_id', 'title_de', 'street_address', 'street_address2', 'postal_code', 'city'])
         st_count = Stage.objects.filter(location__status="published").distinct().count()
         for st_index, st in enumerate(Stage.objects.filter(location__status="published").distinct(), 1):
@@ -59,7 +63,7 @@ class Command(NoArgsCommand):
 
         if self.verbosity >= NORMAL:
             print u"=== Exporting Location Images ==="
-        ws = wb.create_sheet(2, "Location Images")
+        ws = wb.create_sheet(title="Location Images", index=2)
         ws.append(['id', 'location_id', 'url', 'title_de', 'description_de', 'author', 'copyright_restrictions'])
         im_count = LocationImage.objects.filter(location__status="published").distinct().count()
         for im_index, im in enumerate(LocationImage.objects.filter(location__status="published").distinct(), 1):
@@ -72,7 +76,7 @@ class Command(NoArgsCommand):
 
         if self.verbosity >= NORMAL:
             print u"=== Exporting Production Categories ==="
-        ws = wb.create_sheet(3, "Production Categories")
+        ws = wb.create_sheet(title="Production Categories", index=3)
         ws.append(['id', 'parent_id', 'title_de'])
         cat_count = ProductionCategory.objects.count()
         for cat_index, cat in enumerate(ProductionCategory.objects.all(), 1):
@@ -81,7 +85,7 @@ class Command(NoArgsCommand):
 
         if self.verbosity >= NORMAL:
             print u"=== Exporting Productions ==="
-        ws = wb.create_sheet(4, "Productions")
+        ws = wb.create_sheet(title="Productions", index=4)
         ws.append(['id', 'creation_date', 'modified_date', 'title_de', 'subtitle_de', 'link_de', 'contents_de', 'credits_de', 'concert_program_de', 'supporting_program_de', 'remarks_de', 'subtitles_text_de', 'age_text_de', 'free_entrance', 'in_program_of', 'play_locations', 'play_stages', 'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'categories', 'leaders', 'authors', 'participants', 'images', 'events',])
         prod_count = Production.objects.filter(status="published").count()
         for prod_index, prod in enumerate(Production.objects.filter(status="published"), 1):
@@ -101,7 +105,7 @@ class Command(NoArgsCommand):
 
         if self.verbosity >= NORMAL:
             print u"=== Exporting Events ==="
-        ws = wb.create_sheet(5, "Events")
+        ws = wb.create_sheet(title="Events", index=5)
         ws.append(['id', 'production_id', 'creation_date', 'modified_date', 'link_de', 'start_date', 'end_date', 'start_time', 'play_locations', 'play_stages', 'location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'free_entrance', 'images'])
         ev_count = Event.objects.filter(production__status="published").distinct().count()
         for ev_index, ev in enumerate(Event.objects.filter(production__status="published").distinct(), 1):
@@ -115,7 +119,7 @@ class Command(NoArgsCommand):
 
         if self.verbosity >= NORMAL:
             print u"=== Exporting Production Images ==="
-        ws = wb.create_sheet(6, "Production Images")
+        ws = wb.create_sheet(title="Production Images", index=6)
         ws.append(['id', 'production_id', 'url', 'title_de', 'description_de', 'author', 'copyright_restrictions'])
         im_count = ProductionImage.objects.filter(production__status="published").distinct().count()
         for im_index, im in enumerate(ProductionImage.objects.filter(production__status="published").distinct(), 1):
@@ -128,7 +132,7 @@ class Command(NoArgsCommand):
 
         if self.verbosity >= NORMAL:
             print u"=== Exporting Event Images ==="
-        ws = wb.create_sheet(7, "Event Images")
+        ws = wb.create_sheet(title="Event Images", index=7)
         ws.append(['id', 'event_id', 'url', 'title_de', 'description_de', 'author', 'copyright_restrictions'])
         im_count = EventImage.objects.filter(event__production__status="published").distinct().count()
         for im_index, im in enumerate(EventImage.objects.filter(event__production__status="published").distinct(), 1):

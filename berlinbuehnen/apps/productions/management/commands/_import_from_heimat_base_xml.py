@@ -448,7 +448,8 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
         text = text.replace(']]>', '')
         text = text.replace('</div>', '\n')
         text = strip_tags(text).strip()
-        text = unicode(BeautifulStoneSoup(text, convertEntities=BeautifulStoneSoup.ALL_ENTITIES))
+        # convert HTML entities to Unicode
+        text = BeautifulStoneSoup(text, convertEntities=BeautifulStoneSoup.ALL_ENTITIES).text
         return text
 
     def save_file_description(self, path, xml_node):
