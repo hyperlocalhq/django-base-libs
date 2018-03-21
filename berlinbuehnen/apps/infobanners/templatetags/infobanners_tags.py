@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from django.template import loader, Template, Context
+from django.template import loader
 from django import template
 
 from ..models import InfoBanner

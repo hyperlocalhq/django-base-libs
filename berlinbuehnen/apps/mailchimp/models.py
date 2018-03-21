@@ -295,18 +295,18 @@ class Campaign(CreationModificationMixin):
     mailchimp_id = property(_get_mailchimp_id, _set_mailchimp_id)
 
     def get_rendered_html(self):
-        from django.template.loader import get_template, Context
+        from django.template.loader import get_template
         from filebrowser.settings import MEDIA_URL as UPLOADS_URL
         from base_libs.utils.misc import get_website_url
         
         template = get_template(self.template)
-        return template.render(Context({
+        return template.render({
             'campaign': self,
             'media_url': settings.MEDIA_URL,
             'jetson_media_url': settings.JETSON_MEDIA_URL,
             'website_url': get_website_url(),
             'UPLOADS_URL': UPLOADS_URL,
-            }))
+        })
 
 
 def save_mailchimp_campaign(sender, **kwargs):
