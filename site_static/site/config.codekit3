@@ -7,7 +7,7 @@
 		"uuidString": "C42923FE-474A-4621-95D3-95ADD297E1CD"
 		}
 	],
-"creatorBuild": "26148",
+"creatorBuild": "26268",
 "files": {
 	"\/ckeditor_config\/ckeditor_config.js": {
 		"ft": 64,
@@ -8323,6 +8323,7 @@
 	"animateCSSInjections": 1,
 	"autoBuildNewItems": 1,
 	"autoprefixerBrowserString": "> 1%, last 2 versions, ff 17, opera 12.1",
+	"autoprefixerEnableIEGrid": 0,
 	"babelAuxiliaryCommentAfter": "",
 	"babelAuxiliaryCommentBefore": "",
 	"babelConfigFileHandlingType": 0,
@@ -8886,6 +8887,10 @@
 		"id-match": {
 			"active": 0,
 			"optionString": "'^[a-z]+([A-Z][a-z]+)*$', {'properties': false, 'onlyDeclarations': true}"
+			},
+		"implicit-arrow-linebreak": {
+			"active": 0,
+			"optionString": "'beside'"
 			},
 		"indent": {
 			"active": 0,
