@@ -7028,6 +7028,58 @@ a:hover .icon-social-instagram {
   line-height: 40px;
 }
 
+.alert-dark {
+  background: black;
+  color: #fff;
+}
+
+.alert-dark a {
+  color: #00aefd;
+}
+
+.alert-dark .btn {
+  color: black;
+  background: #ffe345;
+  font-weight: 900;
+  font-size: 1.6rem;
+}
+
+.alert-dark .close {
+  color: white;
+  opacity: 1;
+  font-size: 30px;
+  margin-right: -5px;
+  margin-top: -15px;
+}
+
+.alert-dark .close:hover, .alert-dark .close:focus {
+  color: white;
+  opacity: 1;
+}
+
+.infobanner {
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  z-index: 950;
+  padding: 20px;
+  margin: 0;
+  border-radius: 0;
+}
+
+.infobanner .container {
+  padding-top: 10px;
+  text-align: center;
+  font-size: 1.7rem;
+  line-height: 1.6;
+}
+
+.infobanner .btn {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
 html {
   height: 100%;
 }

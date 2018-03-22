@@ -1,5 +1,5 @@
 {% block doctype %}<!DOCTYPE html>{% endblock %}
-{% load cms_tags menu_tags compressed sekizai_tags i18n image_modifications base_tags %}
+{% load cms_tags menu_tags compressed sekizai_tags i18n image_modifications base_tags infobanners_tags %}
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -99,6 +99,7 @@
 </script>
 
 {{ site_settings.extra_head|safe }}
+{% render_block "head_js" %}
 {% block js %}{% endblock %}
 </head>
 
@@ -156,31 +157,31 @@
             <div>
               <h4 class="title">{% trans "Supported by" %}</h4>
               <a title="Be-Berlin" target="_blank" href="http://www.berlin.de/sen/kultur/">
-                <img src="{{ STATIC_URL }}/site/img/footer/beberlin.gif" alt="Be-Berlin" />
+                <img src="{{ STATIC_URL }}site/img/footer/beberlin.gif" alt="Be-Berlin" />
                 <span>EU</span>
               </a>
               <a title="EFRE" target="_blank" href="https://www.berlin.de/sen/kultur/foerderung/eu-foerderung/efre/foerderperiode-2007-2013/artikel.81646.php">
-                <img src="{{ STATIC_URL }}/site/img/footer/efre_2013-2015.gif" alt="EFRE" />
+                <img src="{{ STATIC_URL }}site/img/footer/efre_2013-2015.gif" alt="EFRE" />
                 <span>Kulturprojekte Berlin</span>
               </a>
               <a title="EU" target="_blank" href="https://www.berlin.de/sen/kultur/foerderung/eu-foerderung/efre/artikel.23851.php">
-                <img src="{{ STATIC_URL }}/site/img/footer/eu_logo.gif" alt="EU" />
+                <img src="{{ STATIC_URL }}site/img/footer/eu_logo.gif" alt="EU" />
                 <span>Projektzukunft</span>
               </a>
               <a title="Projektzukunft" target="_blank" href="http://www.berlin.de/projektzukunft/">
-                <img src="{{ STATIC_URL }}/site/img/footer/projektzukunft.gif" alt="Projektzukunft" />
+                <img src="{{ STATIC_URL }}site/img/footer/projektzukunft.gif" alt="Projektzukunft" />
                 <span>Be-Berlin</span>
               </a>
             </div>
             <div>
               <h4 class="title">{% trans "A service from" %}</h4>
               <a title="Kulturprojekte Berlin" target="_blank" href="http://www.kulturprojekte-berlin.de/">
-                <img src="{{ STATIC_URL }}/site/img/footer/kpb_logo.gif" alt="Kulturprojekte Berlin" />
+                <img src="{{ STATIC_URL }}site/img/footer/kpb_logo.png" alt="Kulturprojekte Berlin" height="80" />
                 <span>Kulturprojekte Berlin</span>
               </a>
               <h4 class="second-row">{% trans "Together with Berlin museums and" %}</h4>
               <a title="Landesverband der Museen zu Berlin e.V." target="_blank" href="http://www.lmb.museum/">
-                <img src="{{ STATIC_URL }}/site/img/footer/lmb.gif" alt="Landesverband der Museen zu Berlin e.V." />
+                <img src="{{ STATIC_URL }}site/img/footer/lmb.png" alt="Landesverband der Museen zu Berlin e.V." height="80" />
                 <span>Landesverband der Museen zu Berlin e.V.</span>
               </a>
             </div>
@@ -202,6 +203,11 @@
         </div>
       {% endblock %}
     </div>
+
+    {% block top_alert %}
+        {% infobanner "top" %}
+    {% endblock %}
+
     {% render_block "js" %}
     {{ site_settings.extra_body|safe }}
   </div>
