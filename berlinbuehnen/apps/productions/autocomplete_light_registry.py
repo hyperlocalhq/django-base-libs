@@ -3,10 +3,13 @@
 from django.utils.translation import ugettext_lazy as _
 
 import autocomplete_light
-from models import Production
+
+from berlinbuehnen.apps.utils import autocomplete_light_bb
+
+from .models import Production
 
 
-class AutocompleteProduction(autocomplete_light.AutocompleteModelBase):
+class AutocompleteProduction(autocomplete_light_bb.AutocompleteModelBase):
     search_fields = ['title_de', 'title_en', 'subtitle_de', 'subtitle_en']
     autocomplete_js_attributes = attrs = {
         'placeholder': _('Start typing to choose a production'),

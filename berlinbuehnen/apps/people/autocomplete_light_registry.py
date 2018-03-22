@@ -4,10 +4,13 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 
 import autocomplete_light
-from models import Person
+
+from berlinbuehnen.apps.utils import autocomplete_light_bb
+
+from .models import Person
 
 
-class AutocompletePerson(autocomplete_light.AutocompleteModelBase):
+class AutocompletePerson(autocomplete_light_bb.AutocompleteModelBase):
     search_fields = ['^first_name', '^last_name']
     split_words = True
 

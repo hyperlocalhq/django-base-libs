@@ -1291,10 +1291,14 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         for fname in fields:
             setattr(instance, fname, form_step_data[current_step][fname])
 
-        if form_step_data[current_step]['language_and_subtitles']:
-            instance.language_and_subtitles = LanguageAndSubtitles.objects.get(pk=form_step_data[current_step]['language_and_subtitles'])
-        else:
-            instance.language_and_subtitles = None
+        language_and_subtitles = form_step_data[current_step]['language_and_subtitles']
+        instance.language_and_subtitles = None
+        if language_and_subtitles:
+            if isinstance(language_and_subtitles, LanguageAndSubtitles):
+                instance.language_and_subtitles = language_and_subtitles
+            elif isinstance(language_and_subtitles, int):
+                # TODO: find if this case occurs with the new jetson for Django 1.8 at all
+                instance.language_and_subtitles = LanguageAndSubtitles.objects.get(pk=language_and_subtitles)
 
         # set markup types to plain text
         for lang_code, lang_name in FRONTEND_LANGUAGES:
