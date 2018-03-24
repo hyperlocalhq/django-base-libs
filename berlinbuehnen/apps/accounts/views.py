@@ -43,6 +43,7 @@ def login(request, template_name='registration/login.html', redirect_field_name=
             if request.session.test_cookie_worked():
                 request.session.delete_test_cookie()
             auth_login(request, user)
+            request.session.save()
             if request.is_ajax():
                 return HttpResponse("redirect=%s" % redirect_to)
             if user.groups.filter(name__in=DASHBOARD_USER_GROUPS).count():
