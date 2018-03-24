@@ -25,7 +25,7 @@ ALLOWED_HOSTS = [
     "berlin-buehnen.de",
 ]
 
-SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
 HTTPSTATE_ENGINE = "jetson.apps.httpstate.backends.db"
 
 SESSION_COOKIE_SECURE = True
