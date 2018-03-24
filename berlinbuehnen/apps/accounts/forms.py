@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-
+from django.core.exceptions import MultipleObjectsReturned
 from django.db import models
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
@@ -13,6 +13,10 @@ from crispy_forms import layout, bootstrap
 User = models.get_model("auth", "User")
 
 class EmailOrUsernameAuthentication(AuthenticationForm):
+    email_or_username = forms.CharField(
+        label=_("Email or Username"),
+        max_length=75,
+    )
     login_as = forms.CharField(
         label=_("Email or Username"),
         max_length=75,
@@ -22,10 +26,6 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
 
     def __init__(self, *args, **kwargs):
         super(EmailOrUsernameAuthentication, self).__init__(*args, **kwargs)
-        self.fields['email_or_username'] = forms.CharField(
-            label=_("Email or Username"),
-            max_length=75,
-        )
         del self.fields['username']
         # self.fields['password'].help_text = """<a href="/password_reset/">%s</a>""" % _("Forgot password?")
 
@@ -37,7 +37,13 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
             layout.Fieldset(
                 "", # no legend
                 layout.Field("email_or_username", autocomplete="off"),
-                "password",
+                layout.Field("password", autocomplete="off"),
+                "login_as",
+                layout.HTML("""
+                    {% load i18n %}
+                    <input type="hidden" name="this_is_the_login_form" value="1" />
+                    <input type="hidden" name="post_data" value="{{ post_data }}" />
+                """),
             ),
             bootstrap.FormActions(
                 layout.Submit('submit', _('Login')),
@@ -49,14 +55,28 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
         password = self.cleaned_data.get('password')
 
         if email_or_username and password:
+            self.user_cache = None
             if "@" in email_or_username:
-                self.user_cache = authenticate(email=email_or_username, password=password)
+                # TODO: integrate this somehow better into the Python Social Auth backends
+                try:
+                    user = User.objects.get(email=email_or_username)
+                except (User.DoesNotExist, MultipleObjectsReturned) as e:
+                    pass
+                else:
+                    self.user_cache = authenticate(username=user.username, password=password)
             else:
                 self.user_cache = authenticate(username=email_or_username, password=password)
             if self.user_cache is None:
-                raise forms.ValidationError(_("Please enter a correct email or username and password. Note that both fields are case-sensitive."))
+                raise forms.ValidationError(_(
+                    "Please enter a correct email or username and password. Note that both fields are case-sensitive."))
             elif not self.user_cache.is_active:
                 raise forms.ValidationError(_("This account is inactive."))
+
+        # TODO: determine whether this should move to its own method.
+        if self.request:
+            if not self.request.session.test_cookie_worked():
+                raise forms.ValidationError(
+                    _("Your Web browser doesn't appear to have cookies enabled. Cookies are required for logging in."))
 
         return self.cleaned_data
 
