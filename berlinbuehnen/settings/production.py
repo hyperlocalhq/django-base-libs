@@ -11,6 +11,7 @@ DATABASES = {
         'NAME': get_secret("DATABASE_NAME"),
         'USER': get_secret("DATABASE_USER"),
         'PASSWORD': get_secret("DATABASE_PASSWORD"),
+        'CONN_MAX_AGE': 600,
     },
 }
 DATABASES['default'] = DATABASES['postgresql']
