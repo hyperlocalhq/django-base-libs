@@ -40,14 +40,14 @@ def login(request, template_name='registration/login.html', redirect_field_name=
                     login_as_user = get_object_or_404(User, username=login_as)
                 login_as_user.backend = user.backend
                 user = login_as_user
-            auth_login(request, user)
             if request.session.test_cookie_worked():
                 request.session.delete_test_cookie()
-                if request.is_ajax():
-                    return HttpResponse("redirect=%s" % redirect_to)
-                if user.groups.filter(name__in=DASHBOARD_USER_GROUPS).count():
-                    return redirect("dashboard")
-                return redirect(redirect_to)
+            auth_login(request, user)
+            if request.is_ajax():
+                return HttpResponse("redirect=%s" % redirect_to)
+            if user.groups.filter(name__in=DASHBOARD_USER_GROUPS).count():
+                return redirect("dashboard")
+            return redirect(redirect_to)
     else:
         data = {
             'email_or_username': request.GET.get('login_as', ''),
