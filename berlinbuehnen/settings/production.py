@@ -34,3 +34,23 @@ HTTPSTATE_COOKIE_SECURE = True
 HTTPSTATE_COOKIE_HTTPONLY = True
 CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = False
+
+
+CACHES["default"] = {
+    "BACKEND": "django.core.cache.backends.memcached.PyLibMCCache",
+    "LOCATION": "127.0.0.1:11211",
+    "KEY_PREFIX": "berlinbuehnen_production_",
+    "TIMEOUT": 3000,
+    "MAX_ENTRIES": 400,
+}
+
+CACHES['session'] = {
+    "BACKEND": "django.core.cache.backends.memcached.PyLibMCCache",
+    "LOCATION": "127.0.0.1:11211",
+    "KEY_PREFIX": "berlinbuehnen_session_production_",
+    "TIMEOUT": 3000,
+    "MAX_ENTRIES": 400,
+}
+
+CACHE_MIDDLEWARE_KEY_PREFIX = "berlinbuehnen_production_"
+SESSION_CACHE_ALIAS = "session"
