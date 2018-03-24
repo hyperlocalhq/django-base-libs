@@ -387,17 +387,23 @@ ADMIN_APP_INDEX = (
 
 ### CACHING ###
 
+
+
 CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.memcached.PyLibMCCache",
-        "LOCATION": "127.0.0.1:11211",
-        "KEY_PREFIX": "berlinbuehnen_production_",
-        "TIMEOUT": 3000,
-        "MAX_ENTRIES": 400,
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+        'KEY_PREFIX': 'berlinbuehnen',
+    },
+    'dummy': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
     }
 }
 
-CACHE_MIDDLEWARE_KEY_PREFIX = "berlinbuehnen_production_"
+CACHE_MIDDLEWARE_ALIAS = 'default'
+CACHE_MIDDLEWARE_SECONDS = 300
+CACHE_MIDDLEWARE_KEY_PREFIX = 'berlinbuehnen_production_'
+CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
 
 ### FILEBROWSER ###
 
