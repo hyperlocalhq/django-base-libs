@@ -790,6 +790,10 @@ RAVEN_CONFIG = {
     'release': raven.fetch_git_sha(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))),
 }
 
+### PERSISTENT DATABASE CONNECTIONS ###
+
+CONN_MAX_AGE = 600
+
 ### API KEYS ###
 
 GOOGLE_API_KEY = get_secret("GOOGLE_API_KEY")
