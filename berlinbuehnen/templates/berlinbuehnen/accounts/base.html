@@ -34,7 +34,7 @@
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.lazyload.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.viewport.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/bootstrap/bootstrap.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-modal.js"></script>
+    {% comment %} <script type="text/javascript" src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-modal.js"></script>{% endcomment %}
 	<script type="text/javascript" src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
     {{ site_settings.extra_head|safe }}
     {% block js %}{% endblock %}
