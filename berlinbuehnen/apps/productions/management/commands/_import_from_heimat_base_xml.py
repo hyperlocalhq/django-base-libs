@@ -938,7 +938,13 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
 
                 event.production = prod
 
-                start_datetime = parse_datetime(event_node.get('datetime'), dayfirst=True)
+                start_datetime_string = event_node.get('datetime')
+                if re.search("^\d\d\d\d", start_datetime_string):
+                    # ISO date format
+                    start_datetime = parse_datetime(start_datetime_string)
+                else:
+                    # German date format
+                    start_datetime = parse_datetime(start_datetime_string, dayfirst=True)
                 event.start_date = start_datetime.date()
                 event.start_time = start_datetime.time()
                 duration_str = event_node.get('duration')
