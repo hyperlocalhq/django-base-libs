@@ -1062,7 +1062,7 @@ def save_data(form_steps, form_step_data, instance=None):
     return form_step_data
 
 
-def cancel_editing(request):
+def cancel_editing(request, instance=None):
     return redirect("dashboard")
 
 
