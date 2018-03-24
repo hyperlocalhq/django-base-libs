@@ -30,7 +30,7 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
         # self.fields['password'].help_text = """<a href="/password_reset/">%s</a>""" % _("Forgot password?")
 
         self.helper = FormHelper()
-        self.helper.form_action = ""
+        self.helper.form_action = "login"
         self.helper.form_method = "POST"
 
         self.helper.layout = layout.Layout(
