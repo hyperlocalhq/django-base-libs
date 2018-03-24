@@ -17,7 +17,7 @@ DATABASES['default'] = DATABASES['postgresql']
 
 PREPEND_WWW = True
 
-SESSION_COOKIE_DOMAIN = ".berlin-buehnen.de"
+SESSION_COOKIE_DOMAIN = None
 
 ALLOWED_HOSTS = [
     "www.berlin-buehnen.de",
