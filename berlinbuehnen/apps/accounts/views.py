@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 from django.db import models
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.cache import never_cache
 from django.conf import settings
 from django.contrib.auth import REDIRECT_FIELD_NAME
@@ -35,27 +35,26 @@ def login(request, template_name='registration/login.html', redirect_field_name=
             login_as = request.REQUEST.get("login_as", "")
             if user.is_superuser and login_as:
                 if "@" in login_as:
-                    login_as_user = User.objects.get(
-                        email=login_as,
-                    )
+                    login_as_user = get_object_or_404(User, email=login_as)
                 else:
-                    login_as_user = User.objects.get(
-                        username=login_as,
-                    )
+                    login_as_user = get_object_or_404(User, username=login_as)
                 login_as_user.backend = user.backend
                 user = login_as_user
             auth_login(request, user)
-            if request.is_ajax():
-                return HttpResponse("redirect=%s" % redirect_to)
-            if user.groups.filter(name__in=DASHBOARD_USER_GROUPS).count():
-                return redirect("dashboard")
-            return redirect(redirect_to)
+            if request.session.test_cookie_worked():
+                request.session.delete_test_cookie()
+                if request.is_ajax():
+                    return HttpResponse("redirect=%s" % redirect_to)
+                if user.groups.filter(name__in=DASHBOARD_USER_GROUPS).count():
+                    return redirect("dashboard")
+                return redirect(redirect_to)
     else:
         data = {
             'email_or_username': request.GET.get('login_as', ''),
             'login_as': request.GET.get('login_as', ''),
         }
         form = EmailOrUsernameAuthentication(request, initial=data)
+    request.session.set_test_cookie()
     if Site._meta.installed:
         current_site = Site.objects.get_current()
     else:
