@@ -40,8 +40,6 @@ def login(request, template_name='registration/login.html', redirect_field_name=
                     login_as_user = get_object_or_404(User, username=login_as)
                 login_as_user.backend = user.backend
                 user = login_as_user
-            if request.session.test_cookie_worked():
-                request.session.delete_test_cookie()
             auth_login(request, user)
             request.session.save()
             if request.is_ajax():
@@ -55,7 +53,6 @@ def login(request, template_name='registration/login.html', redirect_field_name=
             'login_as': request.GET.get('login_as', ''),
         }
         form = EmailOrUsernameAuthentication(request, initial=data)
-    request.session.set_test_cookie()
     if Site._meta.installed:
         current_site = Site.objects.get_current()
     else:

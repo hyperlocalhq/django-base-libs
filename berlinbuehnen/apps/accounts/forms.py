@@ -72,12 +72,6 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
             elif not self.user_cache.is_active:
                 raise forms.ValidationError(_("This account is inactive."))
 
-        # TODO: determine whether this should move to its own method.
-        if self.request:
-            if not self.request.session.test_cookie_worked():
-                raise forms.ValidationError(
-                    _("Your Web browser doesn't appear to have cookies enabled. Cookies are required for logging in."))
-
         return self.cleaned_data
 
 
