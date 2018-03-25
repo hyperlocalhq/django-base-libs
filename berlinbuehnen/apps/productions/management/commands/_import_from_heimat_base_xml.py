@@ -939,7 +939,7 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
                 event.production = prod
 
                 start_datetime_string = event_node.get('datetime')
-                if re.search("^\d\d\d\d", start_datetime_string):
+                if re.search(r"^\d\d\d\d", start_datetime_string):
                     # ISO date format
                     start_datetime = parse_datetime(start_datetime_string)
                 else:
