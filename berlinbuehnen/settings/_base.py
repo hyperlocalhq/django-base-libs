@@ -186,7 +186,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE_CLASSES = [
-    'berlinbuehnen.middleware.SmartUpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'jetson.apps.httpstate.middleware.HttpStateMiddleware',
@@ -200,7 +199,6 @@ MIDDLEWARE_CLASSES = [
     'cms.middleware.toolbar.ToolbarMiddleware',
     'jetson.apps.mobile_detection.middleware.MobileDetectionMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
 TEMPLATES = [
