@@ -94,7 +94,7 @@ class Recipient(object):
         
         language:            the preferred language ("de" or "en")
         """
-        if self.user:
+        if self.user and getattr(self.user, "profile", None):
             person = self.user.profile
             if language == 'de':
                 return person.get_salutation(language) or "Hallo %s %s!" %(self.user.first_name, self.user.last_name)
