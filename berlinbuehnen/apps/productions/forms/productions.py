@@ -481,11 +481,11 @@ class DescriptionForm(autocomplete_light.ModelForm):
             _("Tickets"),
             layout.Row(
                 layout.Div(
-                    layout.Field('price_from'),
+                    layout.Field('price_from', lang="en-150"),
                     css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
                 ),
                 layout.Div(
-                    layout.Field('price_till'),
+                    layout.Field('price_till', lang="en-150"),
                     css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
                 ),
                 css_class="row-md",

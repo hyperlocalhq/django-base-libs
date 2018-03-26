@@ -183,8 +183,8 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     related_productions = models.ManyToManyField("self", verbose_name=_("Related productions"), blank=True)
 
     free_entrance = models.BooleanField(_("Free entrance"), default=False)
-    price_from = models.DecimalField(_(u"Price from (€). Seperate cents by a point."), max_digits=5, decimal_places=2, blank=True, null=True)
-    price_till = models.DecimalField(_(u"Price till (€). Seperate cents by a point."), max_digits=5, decimal_places=2, blank=True, null=True)
+    price_from = models.DecimalField(_(u"Price from (€). Separate cents by a point."), max_digits=5, decimal_places=2, blank=True, null=True)
+    price_till = models.DecimalField(_(u"Price till (€). Separate cents by a point."), max_digits=5, decimal_places=2, blank=True, null=True)
     tickets_website = URLField(_("Tickets website"), blank=True, max_length=255)
     price_information = MultilingualTextField(_("Additional price information"), blank=True)
 
@@ -875,8 +875,8 @@ class Event(CreationModificationMixin, UrlMixin):
     language_and_subtitles = models.ForeignKey(LanguageAndSubtitles, verbose_name=_("Language / Subtitles"), blank=True, null=True)
 
     free_entrance = models.BooleanField(_("Free entrance"), default=False)
-    price_from = models.DecimalField(_(u"Price from (€). Seperate cents by a point."), max_digits=5, decimal_places=2, blank=True, null=True)
-    price_till = models.DecimalField(_(u"Price till (€). Seperate cents by a point."), max_digits=5, decimal_places=2, blank=True, null=True)
+    price_from = models.DecimalField(_(u"Price from (€). Separate cents by a point."), max_digits=5, decimal_places=2, blank=True, null=True)
+    price_till = models.DecimalField(_(u"Price till (€). Separate cents by a point."), max_digits=5, decimal_places=2, blank=True, null=True)
     tickets_website = URLField(_("Tickets website"), blank=True, max_length=255)
     price_information = MultilingualTextField(_("Additional price information"), blank=True)
 
