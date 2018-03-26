@@ -485,82 +485,134 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
         hintergrundinformation_de = hintergrundinformation_en = u""
         inhaltsangabe_de = inhaltsangabe_en = u""
         programbuch_de = programbuch_en = u""
+        instance.concert_program_de = instance.concert_program_en = u""
+        instance.credits_de = instance.credits_en = u""
+        instance.original_de = instance.original_en = u""
+        instance.supporting_program_de = instance.supporting_program_en = u""
+        instance.remarks_de = instance.remarks_en = u""
+        instance.duration_text_de = instance.duration_text_en = u""
+        instance.subtitles_text_de = instance.subtitles_text_en = u""
+        instance.price_information_de = instance.price_information_en = u""
+        instance.prefix_de = instance.prefix_en = u""
+        instance.age_text_de = instance.age_text_en = u""
+
         for text_node in xml_node.findall('./mediaText'):
+            # German and English texts might be under the same mediaText node or under different ones
             text_cat_id = int(text_node.get('relation'))
             text_de = self.cleanup_text(self.get_child_text(text_node, 'text', languageId="1"))
             text_en = self.cleanup_text(self.get_child_text(text_node, 'text', languageId="2"))
             if text_cat_id == 14:  # Beschreibungstext kurz
-                teaser_de = text_de
-                teaser_en = text_en
+                if text_de:
+                    teaser_de = text_de
+                if text_en:
+                    teaser_en = text_en
             elif text_cat_id == 15:  # Beschreibungstext lang
-                description_de = text_de
-                description_en = text_en
+                if text_de:
+                    description_de = text_de
+                if text_en:
+                    description_en = text_en
             elif text_cat_id == 16:  # Inhaltsangabe
-                inhaltsangabe_de = text_de
-                inhaltsangabe_en = text_en
+                if text_de:
+                    inhaltsangabe_de = text_de
+                if text_en:
+                    inhaltsangabe_en = text_en
             elif text_cat_id == 17:  # Konzertprogramm
-                instance.concert_program_de = text_de
-                instance.concert_program_de_markup_type = 'pt'
-                instance.concert_program_en = text_en
-                instance.concert_program_en_markup_type = 'pt'
+                if text_de:
+                    instance.concert_program_de = text_de
+                    instance.concert_program_de_markup_type = 'pt'
+                if text_en:
+                    instance.concert_program_en = text_en
+                    instance.concert_program_en_markup_type = 'pt'
             elif text_cat_id == 18:  # Koproduktion
-                instance.credits_de = text_de
-                instance.credits_de_markup_type = 'pt'
-                instance.credits_en = text_en
-                instance.credits_en_markup_type = 'pt'
+                if text_de:
+                    instance.credits_de = text_de
+                    instance.credits_de_markup_type = 'pt'
+                if text_en:
+                    instance.credits_en = text_en
+                    instance.credits_en_markup_type = 'pt'
             elif text_cat_id == 19:  # Kritik
-                kritik_de = text_de
-                kritik_en = text_en
+                if text_de:
+                    kritik_de = text_de
+                if text_en:
+                    kritik_en = text_en
             elif text_cat_id == 20:  # Originaltitel
-                instance.original_de = text_de
-                instance.original_en = text_en
+                if text_de:
+                    instance.original_de = text_de
+                if text_en:
+                    instance.original_en = text_en
             elif text_cat_id == 21:  # Pressetext
-                pressetext_de = text_de
-                pressetext_de = text_en
+                if text_de:
+                    pressetext_de = text_de
+                if text_en:
+                    pressetext_en = text_en
             elif text_cat_id == 22:  # Rahmenprogramm zur Veranstaltung
-                instance.supporting_program_de = text_de
-                instance.supporting_program_de_markup_type = 'pt'
-                instance.supporting_program_en = text_en
-                instance.supporting_program_en_markup_type = 'pt'
+                if text_de:
+                    instance.supporting_program_de = text_de
+                    instance.supporting_program_de_markup_type = 'pt'
+                if text_en:
+                    instance.supporting_program_en = text_en
+                    instance.supporting_program_en_markup_type = 'pt'
             elif text_cat_id == 23:  # Sondermerkmal
-                instance.remarks_de = text_de
-                instance.remarks_de_markup_type = 'pt'
-                instance.remarks_en = text_en
-                instance.remarks_en_markup_type = 'pt'
+                if text_de:
+                    instance.remarks_de = text_de
+                    instance.remarks_de_markup_type = 'pt'
+                if text_en:
+                    instance.remarks_en = text_en
+                    instance.remarks_en_markup_type = 'pt'
             elif text_cat_id == 24:  # Spieldauer
-                instance.duration_text_de = text_de
-                instance.duration_text_en = text_en
+                if text_de:
+                    instance.duration_text_de = text_de
+                if text_en:
+                    instance.duration_text_en = text_en
             elif text_cat_id == 25:  # Übertitel - this is a subtitle, not subtitles
-                instance.subtitles_text_de = ""
-                instance.subtitle_de = text_de
-                instance.subtitles_text_en = ""
-                instance.subtitle_en = text_en
+                if text_de:
+                    instance.subtitles_text_de = ""
+                    instance.subtitle_de = text_de
+                if text_en:
+                    instance.subtitles_text_en = ""
+                    instance.subtitle_en = text_en
             elif text_cat_id == 26:  # Werbezeile
-                werbezeile_de = text_de
-                werbezeile_en = text_en
+                if text_de:
+                    werbezeile_de = text_de
+                if text_en:
+                    werbezeile_en = text_en
             elif text_cat_id == 27:  # Werkinfo gesamt
-                werkinfo_gesamt_de = text_de
-                werkinfo_gesamt_en = text_en
+                if text_de:
+                    werkinfo_gesamt_de = text_de
+                if text_en:
+                    werkinfo_gesamt_en = text_en
             elif text_cat_id == 28:  # Werkinfo kurz
-                werkinfo_kurz_de = text_de
-                werkinfo_kurz_en = text_en
+                if text_de:
+                    werkinfo_kurz_de = text_de
+                if text_en:
+                    werkinfo_kurz_en = text_en
             elif text_cat_id == 29:  # zusätzliche Preisinformationen
-                instance.price_information_de = text_de
-                instance.price_information_de_markup_type = 'pt'
-                instance.price_information_en = text_en
-                instance.price_information_en_markup_type = 'pt'
+                if text_de:
+                    instance.price_information_de = text_de
+                    instance.price_information_de_markup_type = 'pt'
+                if text_en:
+                    instance.price_information_en = text_en
+                    instance.price_information_en_markup_type = 'pt'
             elif text_cat_id == 30:  # Titelprefix
-                instance.prefix_de = text_de
-                instance.prefix_en = text_en
+                if text_de:
+                    instance.prefix_de = text_de
+                if text_en:
+                    instance.prefix_en = text_en
             elif text_cat_id == 35:  # Programmbuch
-                programbuch_de = text_de
-                programbuch_en = text_en
+                if text_de:
+                    programbuch_de = text_de
+                if text_en:
+                    programbuch_en = text_en
             elif text_cat_id == 36:  # Hintergrundinformation
-                hintergrundinformation_de = text_de
-                hintergrundinformation_en = text_en
+                if text_de:
+                    hintergrundinformation_de = text_de
+                if text_en:
+                    hintergrundinformation_en = text_en
             elif text_cat_id == 39:  # Altersangabe
-                instance.age_text_de = text_de
-                instance.age_text_en = text_en
+                if text_de:
+                    instance.age_text_de = text_de
+                if text_en:
+                    instance.age_text_en = text_en
             elif text_cat_id == 40:  # Audio & Video
                 pass
 
