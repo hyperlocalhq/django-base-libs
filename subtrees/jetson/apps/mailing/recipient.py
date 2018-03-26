@@ -33,7 +33,9 @@ class Recipient(object):
             self.first_name = first_name or user.first_name
             self.last_name = last_name or user.last_name
             if not self.url:
-                self.url = user.profile.get_absolute_url()
+                profile = getattr(user, "profile", None)
+                if profile:
+                    self.url = profile.get_absolute_url()
                 
         else:
             self.id = id and unicode(id) or self._generate_id()
