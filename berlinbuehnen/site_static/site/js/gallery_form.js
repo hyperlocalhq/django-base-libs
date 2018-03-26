@@ -317,10 +317,10 @@
                         $('#id_media_file_path').val(responseJSON.path);
                         // load the modified version for the preview
                         $.post('/' + self.settings.lang + '/helper/modified-path/', {
-                            file_path: responseJSON.path,
-                            mod_sysname: 'medium'
+                            file_path: self.settings.media_url + responseJSON.path,
+                            mod_sysname: 'gallery_image'
                         }, function(data, textStatus, jqXHR) {
-                            $('#image_preview').html('<img class="img-responsive" alt="" src="/media/' + data + '" />');
+                            $('#image_preview').html('<img class="img-responsive" alt="" src="' + data + '" />');
                             $('#image_uploader').hide();
                             $('#image_help_text').hide();
                         },

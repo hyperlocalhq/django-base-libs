@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.conf.urls import patterns, include, url
+from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic import TemplateView
@@ -53,7 +54,7 @@ urlpatterns = patterns('',
         'number_of_tweets': settings.TWITTER_NUMBER_OF_TWEETS,
     }),
 
-)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += staticfiles_urlpatterns()
 
 import debug_toolbar

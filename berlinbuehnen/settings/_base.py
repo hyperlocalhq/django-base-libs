@@ -197,6 +197,7 @@ MIDDLEWARE_CLASSES = [
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
+    "cms.middleware.language.LanguageCookieMiddleware",
     'jetson.apps.mobile_detection.middleware.MobileDetectionMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]

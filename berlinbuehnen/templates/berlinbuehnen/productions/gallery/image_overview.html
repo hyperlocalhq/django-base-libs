@@ -7,7 +7,7 @@
         {% for media_file in production.productionimage_set.all %}
             <div class="photo" data-token="{{ media_file.get_token }}">
                 <a href="{% url "production_change_image" slug=production.slug mediafile_token=media_file.get_token %}" class="edit reorder img">
-                    <img class="img-responsive" src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ media_file.path|modified_path:"thumb" }}?now={% now "YmdHis" %}" alt="" />
+                    <img class="img-responsive" src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ media_file.path|modified_path:"gallery_image" }}?now={% now "YmdHis" %}" alt="" />
                 </a>
                 {% with media_file.path|file_description as file_desc %}
                     <div class="info hide">

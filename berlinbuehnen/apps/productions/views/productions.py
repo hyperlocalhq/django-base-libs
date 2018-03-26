@@ -241,7 +241,7 @@ def event_detail(request, slug, event_id=None):
 def add_production(request):
     if not request.user.has_perm("productions.add_production"):
         return access_denied(request)
-    return show_form_step(request, PRODUCTION_FORM_STEPS, extra_context={});
+    return show_form_step(request, PRODUCTION_FORM_STEPS, extra_context={})
 
 
 @never_cache
@@ -250,7 +250,7 @@ def change_production(request, slug):
     instance = get_object_or_404(Production, slug=slug)
     if not instance.is_editable():
         return access_denied(request)
-    return show_form_step(request, PRODUCTION_FORM_STEPS, extra_context={'production': instance}, instance=instance);
+    return show_form_step(request, PRODUCTION_FORM_STEPS, extra_context={'production': instance}, instance=instance)
 
 
 @never_cache
