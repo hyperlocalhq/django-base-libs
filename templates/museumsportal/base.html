@@ -44,8 +44,8 @@
 {# <meta property="fb:app_id" content="" /> #}
 
 {% block stylesheet %}
-  <link href="{{ STATIC_URL }}site/css/bootstrap/bootstrap.css" rel="stylesheet" media="screen, print" type="text/css" />
-  <link href="{{ STATIC_URL }}site/css/style.css" rel="stylesheet" media="screen, print" type="text/css" />
+  <!--<link href="{{ STATIC_URL }}site/css/bootstrap/bootstrap.css" rel="stylesheet" media="screen, print" type="text/css" />-->
+  <link href="{{ STATIC_URL }}site/css/style.min.css" rel="stylesheet" media="screen, print" type="text/css" />
 {% endblock %}
 
 {% render_block "css" %}
@@ -76,22 +76,23 @@
 
 <script type="text/javascript" src="/{{ LANGUAGE_CODE }}/jssettings/"></script>
 <script type="text/javascript" src="/{{ LANGUAGE_CODE }}/jsi18n/"></script>
-<script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+<!--<script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="{{ jetson_media_url }}js/jquery/jquery.cookie.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.ba-bbq.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.isotope.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.scrollstop.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.lazyload.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}site/js/bootstrap/bootstrap.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
-<script type="text/javascript" src="{{ jetson_media_url }}js/jquery/jquery.cookie.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.selectbox-0.2.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.sharrre.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.jscroll.min.js"></script>
-<!-- <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.headroom.min.js"></script> -->
 <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.hammer-full.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}site/js/lscache.min.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}site/js/base.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}site/js/base.min.js"></script>-->
+<!-- <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.headroom.min.js"></script> -->
+<script type="text/javascript" src="{{ STATIC_URL }}site/js/combined.js"></script>
 
 <script>
     // forcing django CMS to use the already included version of jQuery
