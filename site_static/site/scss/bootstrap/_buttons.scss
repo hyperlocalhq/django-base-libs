@@ -55,7 +55,7 @@
   // text-transform: capitalize;
 
   &:first-letter {text-transform: uppercase; }
-  
+
   @include user-select(none);
 
   &:focus {
@@ -86,10 +86,10 @@
 
 }
 
-// remove unwanted glow/border after click 
-.btn:active, .btn:focus,input, input:active, input:focus{     outline: 0;     outline-style:none;     outline-width:0; }  
-.btn:active, .btn:focus,button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="file"] > input[type="button"]::-moz-focus-inner 
-{     border: none; } 
+// remove unwanted glow/border after click
+.btn:active, .btn:focus,input, input:active, input:focus{     outline: 0;     outline-style:none;     outline-width:0; }
+.btn:active, .btn:focus,button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="file"] > input[type="button"]::-moz-focus-inner
+{     border: none; }
 
 .btn-round {
   padding: 0px;
@@ -121,12 +121,12 @@
 .btn-info {
   @include button-variant($btn-info-color, $btn-info-bg, $btn-info-border);
   background-color: transparent;
-  background-image: url("../../img/trns-1.png") !important;
+  background-image: url("../img/trns-1.png") !important;
   color: #404040;
   &:hover,
   &:focus {
     background-color: transparent;
-    background-image: url("../../img/trns-2.png") !important;
+    background-image: url("../img/trns-2.png") !important;
   }
 }
 
