@@ -443,7 +443,9 @@ class Command(NoArgsCommand):
 
         from django.db import models
         from django.template.defaultfilters import slugify
+        from django.conf import settings
 
+        from filebrowser.models import FileDescription
         from base_libs.utils.misc import get_unique_value
 
         image_mods = models.get_app("image_mods")
@@ -452,8 +454,8 @@ class Command(NoArgsCommand):
         WorkshopType = models.get_model("workshops", "WorkshopType")
         WorkshopTime = models.get_model("workshops", "WorkshopTime")
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
-
         Organizer = models.get_model("workshops", "Organizer")
+        MediaFile = models.get_model("workshops", "MediaFile")
 
         # get or create event
         mapper = None
@@ -613,8 +615,6 @@ class Command(NoArgsCommand):
             workshop.types.add(WorkshopType.objects.get(slug="guided-tour"))
 
         if not self.skip_images:
-            MediaFile = models.get_model("workshops", "MediaFile")
-
             # get biggest possible images
             image_ids_to_keep = []
             img_teaser = data_dict.get('img_1920', [])
@@ -682,54 +682,51 @@ class Command(NoArgsCommand):
                 image_mapper.content_object = mf
                 image_mapper.save()
 
-            for mf in workshop.mediafile_set.exclude(id__in=image_ids_to_keep):
-                if mf.path:
-                    # remove the file from the file system
-                    image_mods.FileManager.delete_file(mf.path.name)
-                # delete image mapper
-                self.service_exhibitions.objectmapper_set.filter(
-                    object_id=mf.pk,
-                    content_type__app_label="workshops",
-                    content_type__model="mediafile",
-                ).delete()
-                # delete image model instance
-                mf.delete()
+            if img_teaser:
+                for mf in workshop.mediafile_set.exclude(id__in=image_ids_to_keep):
+                    if mf.path:
+                        # remove the file from the file system
+                        image_mods.FileManager.delete_file(mf.path.name)
+                    # delete image mapper
+                    self.service_exhibitions.objectmapper_set.filter(
+                        object_id=mf.pk,
+                        content_type__app_label="workshops",
+                        content_type__model="mediafile",
+                    ).delete()
+                    # delete image model instance
+                    mf.delete()
 
-        # if workshop.exhibition and not workshop.mediafile_set.count():
-        #     MediaFile = models.get_model("workshops", "MediaFile")
-        #
-        #     for exh_mf in workshop.exhibition.mediafile_set.all():
-        #         mf = MediaFile(workshop=workshop)
-        #         filename = exh_mf.path.filename
-        #         try:
-        #             image_data = open(settings.MEDIA_ROOT + "/" + exh_mf.path.path, "rb")
-        #         except IOError:
-        #             continue
-        #         image_mods.FileManager.save_file_for_object(
-        #             mf,
-        #             filename,
-        #             image_data.read(),
-        #             field_name="path",
-        #             subpath="workshops/%s/gallery/" % workshop.slug,
-        #         )
-        #         image_data.close()
-        #         mf.save()
-        #         exh_file_descriptions = FileDescription.objects.filter(
-        #             file_path=exh_mf.path,
-        #         ).order_by("pk")
-        #         if exh_file_descriptions:
-        #             try:
-        #                 file_description = FileDescription.objects.filter(
-        #                     file_path=mf.path,
-        #                 ).order_by("pk")[0]
-        #             except:
-        #                 file_description = FileDescription(file_path=mf.path)
-        #
-        #             file_description.title_de = exh_file_descriptions[0].title_de
-        #             file_description.title_en = exh_file_descriptions[0].title_en
-        #             file_description.author = exh_file_descriptions[0].author
-        #             file_description.save()
-        #         time.sleep(1)
+            if not img_teaser and workshop.exhibition and not workshop.mediafile_set.count():
+                # copy the images from exhibition just once without updating, if images don't exist in the feed
+                for exhibition_mf in workshop.exhibition.mediafile_set.all():
+                    mf = MediaFile(workshop=workshop)
+                    filename = exhibition_mf.path.filename
+                    try:
+                        image_data = open(settings.MEDIA_ROOT + "/" + exhibition_mf.path.path, "rb")
+                    except IOError:
+                        continue
+                    image_mods.FileManager.save_file_for_object(
+                        mf,
+                        filename,
+                        image_data.read(),
+                        field_name="path",
+                        subpath="workshops/%s/gallery/" % workshop.slug,
+                    )
+                    image_data.close()
+                    mf.save()
+
+                    try:
+                        exhibition_mf_description = FileDescription.objects.filter(
+                            file_path=exhibition_mf.path,
+                        ).order_by("pk")[0]
+                    except IndexError:
+                        pass
+                    else:
+                        self.save_file_description(mf.path, {
+                            'description_de': exhibition_mf_description.title_de,
+                            'description_en': exhibition_mf_description.title_en,
+                            'copyright_de': exhibition_mf_description.author,
+                        })
 
         workshop.organizer_set.all().delete()
         linked_institutions = data_dict.get('linked_institutions', {})
@@ -803,7 +800,9 @@ class Command(NoArgsCommand):
 
         from django.db import models
         from django.template.defaultfilters import slugify
+        from django.conf import settings
 
+        from filebrowser.models import FileDescription
         from base_libs.utils.misc import get_unique_value
 
         image_mods = models.get_app("image_mods")
@@ -813,6 +812,7 @@ class Command(NoArgsCommand):
         EventTime = models.get_model("events", "EventTime")
         ObjectMapper = models.get_model("external_services", "ObjectMapper")
         Organizer = models.get_model("events", "Organizer")
+        MediaFile = models.get_model("events", "MediaFile")
 
         # get or create event
         mapper = None
@@ -983,8 +983,6 @@ class Command(NoArgsCommand):
                     ).save()
 
         if not self.skip_images:
-            MediaFile = models.get_model("events", "MediaFile")
-
             # get biggest possible images
             image_ids_to_keep = []
             img_teaser = data_dict.get('img_1920', [])
@@ -1052,54 +1050,50 @@ class Command(NoArgsCommand):
                 image_mapper.content_object = mf
                 image_mapper.save()
 
-            for mf in event.mediafile_set.exclude(id__in=image_ids_to_keep):
-                if mf.path:
-                    # remove the file from the file system
-                    image_mods.FileManager.delete_file(mf.path.name)
-                # delete image mapper
-                self.service_exhibitions.objectmapper_set.filter(
-                    object_id=mf.pk,
-                    content_type__app_label="events",
-                    content_type__model="mediafile",
-                ).delete()
-                # delete image model instance
-                mf.delete()
+            if img_teaser:
+                for mf in event.mediafile_set.exclude(id__in=image_ids_to_keep):
+                    if mf.path:
+                        # remove the file from the file system
+                        image_mods.FileManager.delete_file(mf.path.name)
+                    # delete image mapper
+                    self.service_exhibitions.objectmapper_set.filter(
+                        object_id=mf.pk,
+                        content_type__app_label="events",
+                        content_type__model="mediafile",
+                    ).delete()
+                    # delete image model instance
+                    mf.delete()
 
-        # if event.exhibition and not event.mediafile_set.count():
-        #     MediaFile = models.get_model("events", "MediaFile")
-        #
-        #     for exh_mf in event.exhibition.mediafile_set.all():
-        #         mf = MediaFile(event=event)
-        #         filename = exh_mf.path.filename
-        #         try:
-        #             image_data = open(settings.MEDIA_ROOT + "/" + exh_mf.path.path, "rb")
-        #         except IOError:
-        #             continue
-        #         image_mods.FileManager.save_file_for_object(
-        #             mf,
-        #             filename,
-        #             image_data.read(),
-        #             field_name="path",
-        #             subpath="events/%s/gallery/" % event.slug,
-        #         )
-        #         image_data.close()
-        #         mf.save()
-        #         exh_file_descriptions = FileDescription.objects.filter(
-        #             file_path=exh_mf.path,
-        #         ).order_by("pk")
-        #         if exh_file_descriptions:
-        #             try:
-        #                 file_description = FileDescription.objects.filter(
-        #                     file_path=mf.path,
-        #                 ).order_by("pk")[0]
-        #             except:
-        #                 file_description = FileDescription(file_path=mf.path)
-        #
-        #             file_description.title_de = exh_file_descriptions[0].title_de
-        #             file_description.title_en = exh_file_descriptions[0].title_en
-        #             file_description.author = exh_file_descriptions[0].author
-        #             file_description.save()
-        #         time.sleep(1)
+            if not img_teaser and event.exhibition and not event.mediafile_set.count():
+                for exhibition_mf in event.exhibition.mediafile_set.all():
+                    mf = MediaFile(event=event)
+                    filename = exhibition_mf.path.filename
+                    try:
+                        image_data = open(settings.MEDIA_ROOT + "/" + exhibition_mf.path.path, "rb")
+                    except IOError:
+                        continue
+                    image_mods.FileManager.save_file_for_object(
+                        mf,
+                        filename,
+                        image_data.read(),
+                        field_name="path",
+                        subpath="events/%s/gallery/" % event.slug,
+                    )
+                    image_data.close()
+                    mf.save()
+
+                    try:
+                        exhibition_mf_description = FileDescription.objects.filter(
+                            file_path=exhibition_mf.path,
+                        ).order_by("pk")[0]
+                    except IndexError:
+                        pass
+                    else:
+                        self.save_file_description(mf.path, {
+                            'description_de': exhibition_mf_description.title_de,
+                            'description_en': exhibition_mf_description.title_en,
+                            'copyright_de': exhibition_mf_description.author,
+                        })
 
         event.eventtime_set.all().delete()
 
