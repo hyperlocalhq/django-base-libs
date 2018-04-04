@@ -42,6 +42,8 @@ class Command(NoArgsCommand):
         45: 166,        # Sammlung Scharf-Gerstenberg
         2976: 124,      # Museum Berggruen
         6124: 131,      # Museum für Fotografie
+        33568: 219,     # Humboldt-Box
+        34: 0,          # Kulturforum
     }
 
     LINKED_INSTITUTION_MAPPER = {
@@ -144,6 +146,10 @@ class Command(NoArgsCommand):
 
         for external_id, exhibition_dict in list_data_dict.items():
 
+            if self.verbosity > 1:
+                self.stdout.write(u"- {} (id={})\n".format(exhibition_dict['title_de'], external_id))
+                self.stdout.flush()
+
             # get or create exhibition
             mapper = None
             try:
@@ -170,7 +176,7 @@ class Command(NoArgsCommand):
                             continue
 
             museum = None
-            museum_guid = int(exhibition_dict['location']['SMart_id'])
+            museum_guid = int(exhibition_dict['location'].get('SMart_id', 0))
             try:
                 museum = Museum.objects.get(pk=self.MUSEUM_MAPPER[museum_guid])
             except:
@@ -405,6 +411,10 @@ class Command(NoArgsCommand):
             else:
                 self.stats['exhibitions_updated'] += 1
 
+        if self.verbosity > 1:
+            self.stdout.write("\n")
+            self.stdout.flush()
+
     def save_file_description(self, path, d):
         from filebrowser.models import FileDescription
         try:
@@ -429,7 +439,8 @@ class Command(NoArgsCommand):
         return lines[0], u" ".join(lines[1:])
 
     def cleanup_html(self, text):
-        text = text.replace("<br />", ". ")
+        import re
+        text = re.sub(r'<br ?/?>\s+', '. ', text)
         text = text.replace("&ndash;", "-")
         text = text.replace("&bdquo;", '"')
         text = text.replace("&ldquo;", '"')
@@ -483,7 +494,7 @@ class Command(NoArgsCommand):
                         return
 
         location_dict = data_dict['location']
-        museum_guid = int(location_dict['SMart_id'])
+        museum_guid = int(location_dict.get('SMart_id', 0))
         try:
             museum = Museum.objects.get(pk=self.MUSEUM_MAPPER[museum_guid])
         except Museum.DoesNotExist:
@@ -764,9 +775,13 @@ class Command(NoArgsCommand):
 
         for event_time_id, event_time_dict in data_dict.get('more_dates', {}).items():
             start = parse_datetime(event_time_dict['start'], ignoretz=True)
+            end = None
             if event_time_dict['end']:
-                end = parse_datetime(event_time_dict['end'], ignoretz=True)
-            else:
+                try:
+                    end = parse_datetime(event_time_dict['end'], ignoretz=True)
+                except ValueError:  # sometimes the end date is malformed
+                    pass
+            if not end:
                 end = start + timedelta(minutes=60)
 
             workshop_time = WorkshopTime(
@@ -840,7 +855,7 @@ class Command(NoArgsCommand):
                         return
 
         location_dict = data_dict['location']
-        museum_guid = int(location_dict['SMart_id'])
+        museum_guid = int(location_dict.get('SMart_id', 0))
         try:
             museum = Museum.objects.get(pk=self.MUSEUM_MAPPER[museum_guid])
         except Museum.DoesNotExist:
@@ -1113,9 +1128,13 @@ class Command(NoArgsCommand):
 
         for event_time_id, event_time_dict in data_dict.get('more_dates', {}).items():
             start = parse_datetime(event_time_dict['start'], ignoretz=True)
+            end = None
             if event_time_dict['end']:
-                end = parse_datetime(event_time_dict['end'], ignoretz=True)
-            else:
+                try:
+                    end = parse_datetime(event_time_dict['end'], ignoretz=True)
+                except ValueError:
+                    pass
+            if not end:
                 end = start + timedelta(minutes=60)
 
             event_time = EventTime(
@@ -1157,12 +1176,21 @@ class Command(NoArgsCommand):
         list_data_dict = response.json()
 
         for external_id, data_dict in list_data_dict.items():
+
+            if self.verbosity > 1:
+                self.stdout.write(u"- {} (id={})\n".format(self.cleanup_html(data_dict['title_de']), external_id))
+                self.stdout.flush()
+
             # based on http://ww2.smb.museum/smb/export/getEventTypeListFromSMart.php?format=json
             event_type_ids = (data_dict.get('event_types_detail', {}) or {}).keys()
             if event_type_ids and int(event_type_ids[0]) in (45, 215, 216, 217, 218, 219, 137):
                 self.save_workshop(external_id, data_dict)
             else:
                 self.save_event(external_id, data_dict)
+
+        if self.verbosity > 1:
+            self.stdout.write("\n")
+            self.stdout.flush()
 
     def finalize(self):
         if self.verbosity > 1:
