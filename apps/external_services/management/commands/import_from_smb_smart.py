@@ -119,7 +119,7 @@ class Command(NoArgsCommand):
         from decimal import Decimal
         
         from django.db import models
-        from django.template.defaultfilters import slugify
+        from base_libs.utils.betterslugify import better_slugify
 
         from base_libs.utils.misc import get_unique_value
 
@@ -178,8 +178,8 @@ class Command(NoArgsCommand):
             museum = None
             museum_guid = int(exhibition_dict['location'].get('SMart_id', 0))
             try:
-                museum = Museum.objects.get(pk=self.MUSEUM_MAPPER[museum_guid])
-            except:
+                museum = Museum.objects.get(pk=self.MUSEUM_MAPPER.get(museum_guid, 0))
+            except Museum.DoesNotExist:
                 pass
 
             url = self.URL_EXHIBITION.format(external_id)
@@ -191,7 +191,7 @@ class Command(NoArgsCommand):
 
             data_dict = response.json()
 
-            if data_dict['status'] != "www":
+            if data_dict['status_text'] != "www":
                 self.stats['exhibitions_skipped'] += 1
                 continue
 
@@ -200,7 +200,7 @@ class Command(NoArgsCommand):
             exhibition.subtitle_de = data_dict['subtitle_de']
             exhibition.subtitle_en = data_dict['subtitle_en']
 
-            exhibition.slug = get_unique_value(Exhibition, slugify(data_dict['title_de']))
+            exhibition.slug = get_unique_value(Exhibition, better_slugify(data_dict['title_de'], remove_stopwords=False), instance_pk=exhibition.pk)
 
             exhibition.start = parse_datetime(data_dict['start_date'])
             if data_dict['perma_exhibition'] == 1 or data_dict['end_date'] == "unlimited":
@@ -210,11 +210,10 @@ class Command(NoArgsCommand):
                 exhibition.end = parse_datetime(data_dict['end_date'])
             exhibition.website_de = data_dict['link_de'].replace('&amp;', '&')
             exhibition.website_en = data_dict['link_en'].replace('&amp;', '&')
-            if not exhibition.description_locked:
-                exhibition.description_de = data_dict['description_de']
-                exhibition.description_de_markup_type = "hw"
-                exhibition.description_en = data_dict['description_en']
-                exhibition.description_en_markup_type = "hw"
+            exhibition.description_de = data_dict['description_de']
+            exhibition.description_de_markup_type = "hw"
+            exhibition.description_en = data_dict['description_en']
+            exhibition.description_en_markup_type = "hw"
             exhibition.press_text_de = data_dict['description_de']
             exhibition.press_text_de_markup_type = "hw"
             exhibition.press_text_en = data_dict['description_en']
@@ -247,7 +246,8 @@ class Command(NoArgsCommand):
                     exhibition.shop_link_de = prices[0]['shop_link']
                     exhibition.shop_link_en = prices[0]['shop_link']
 
-            exhibition.status = "import"
+            if exhibition.status not in ("published", "trashed", "not_listed"):
+                exhibition.status = "import"
             exhibition.save()
 
             exhibition.organizer_set.all().delete()
@@ -322,9 +322,13 @@ class Command(NoArgsCommand):
             if not self.skip_images:
                 # get biggest possible images
                 image_ids_to_keep = []
-                img_teaser = (data_dict.get('img_teaser_963', []) or data_dict.get('img_teaser_637', []))
+                # the image versions are saved as img_teaser_<id> or img_<id>
+                images_keys = [key for key in data_dict.keys() if key.startswith("img_")]
+                img_teaser = []
+                if images_keys:
+                    img_teaser = data_dict[images_keys[-1]]  # take the last size
                 for image_dict in img_teaser:
-                    image_url = image_dict['path']
+                    image_url = image_dict.get('path_xl') or image_dict.get('path')
 
                     image_external_id = "exh-{}-{}".format(exhibition.pk, image_url)
                     image_mapper = None
@@ -423,8 +427,17 @@ class Command(NoArgsCommand):
             ).order_by("pk")[0]
         except IndexError:
             file_description = FileDescription(file_path=path)
-        file_description.title_de = d['description_de']
-        file_description.title_en = d['description_en']
+
+        title = d['description_de']
+        if len(title) > 300:
+            title = title[:299] + u'…'
+        file_description.title_de = title
+
+        title = d['description_de']
+        if len(title) > 300:
+            title = title[:299] + u'…'
+        file_description.title_en = title
+
         file_description.author = d['copyright_de']
         file_description.save()
         return file_description
@@ -453,7 +466,7 @@ class Command(NoArgsCommand):
         from decimal import Decimal
 
         from django.db import models
-        from django.template.defaultfilters import slugify
+        from base_libs.utils.betterslugify import better_slugify
         from django.conf import settings
 
         from filebrowser.models import FileDescription
@@ -496,7 +509,7 @@ class Command(NoArgsCommand):
         location_dict = data_dict['location']
         museum_guid = int(location_dict.get('SMart_id', 0))
         try:
-            museum = Museum.objects.get(pk=self.MUSEUM_MAPPER[museum_guid])
+            museum = Museum.objects.get(pk=self.MUSEUM_MAPPER.get(museum_guid, 0))
         except Museum.DoesNotExist:
             workshop.museum = None
             workshop.location_title = location_dict.get('name', '')
@@ -536,7 +549,7 @@ class Command(NoArgsCommand):
         if not workshop.subtitle_en:
             workshop.subtitle_en = workshop.subtitle_de
 
-        workshop.slug = get_unique_value(Workshop, slugify(data_dict['title_de']))
+        workshop.slug = get_unique_value(Workshop, better_slugify(data_dict['title_de'], remove_stopwords=False), instance_pk=workshop.pk)
 
         workshop.website_de = data_dict['link_de'].replace('&amp;', '&')
         workshop.website_en = data_dict['link_en'].replace('&amp;', '&')
@@ -548,20 +561,25 @@ class Command(NoArgsCommand):
         workshop.press_text_de_markup_type = "hw"
         workshop.press_text_en = data_dict['description_en']
         workshop.press_text_en_markup_type = "hw"
+
         price_str = data_dict['kosten_de'].replace(",", ".").replace("-", "00").split(" ")[0]
         if price_str:
             try:
                 workshop.admission_price = Decimal(price_str)
             except:
                 pass
-        # workshop.admission_price_info_de = data_dict.get('admission_de', "")
-        # workshop.admission_price_info_de_markup_type = "pt"
-        # workshop.admission_price_info_en = data_dict.get('admission_en', "")
-        # workshop.admission_price_info_en_markup_type = "pt"
-        workshop.admission_price_info_en = self.cleanup_html(data_dict['kosten_en']) or self.cleanup_html(data_dict['kosten_de'])
-        workshop.admission_price_info_de = self.cleanup_html(data_dict['kosten_de'])
-        workshop.admission_price_info_en_markup_type = "pt"
-        workshop.admission_price_info_de_markup_type = "pt"
+            else:
+                workshop.admission_price_info_en = ""
+                workshop.admission_price_info_de = ""
+                workshop.admission_price_info_en_markup_type = "pt"
+                workshop.admission_price_info_de_markup_type = "pt"
+        else:
+            workshop.admission_price = None
+            workshop.admission_price_info_en = self.cleanup_html(data_dict['kosten_en']) or self.cleanup_html(data_dict['kosten_de'])
+            workshop.admission_price_info_de = self.cleanup_html(data_dict['kosten_de'])
+            workshop.admission_price_info_en_markup_type = "pt"
+            workshop.admission_price_info_de_markup_type = "pt"
+
         workshop.shop_link_de = data_dict.get('shop_link', "")
         workshop.shop_link_en = data_dict.get('shop_link', "")
         workshop.meeting_place_de = data_dict['treffpunkt_de']
@@ -616,7 +634,8 @@ class Command(NoArgsCommand):
             else:
                 workshop.exhibition = exh_mapper.content_object
 
-        workshop.status = "import"
+        if workshop.status not in ("published", "trashed", "not_listed"):
+            workshop.status = "import"
         workshop.save()
 
         workshop.types.clear()
@@ -628,7 +647,11 @@ class Command(NoArgsCommand):
         if not self.skip_images:
             # get biggest possible images
             image_ids_to_keep = []
-            img_teaser = data_dict.get('img_1920', [])
+            # the image versions are saved as img_<id>
+            images_keys = [key for key in data_dict.keys() if key.startswith("img_")]
+            img_teaser = []
+            if images_keys:
+                img_teaser = data_dict[images_keys[-1]]  # take the last size
             for image_dict in img_teaser:
                 image_url = image_dict['path_xl']
 
@@ -814,7 +837,7 @@ class Command(NoArgsCommand):
         from decimal import Decimal
 
         from django.db import models
-        from django.template.defaultfilters import slugify
+        from base_libs.utils.betterslugify import better_slugify
         from django.conf import settings
 
         from filebrowser.models import FileDescription
@@ -857,7 +880,7 @@ class Command(NoArgsCommand):
         location_dict = data_dict['location']
         museum_guid = int(location_dict.get('SMart_id', 0))
         try:
-            museum = Museum.objects.get(pk=self.MUSEUM_MAPPER[museum_guid])
+            museum = Museum.objects.get(pk=self.MUSEUM_MAPPER.get(museum_guid, 0))
         except Museum.DoesNotExist:
             event.museum = None
             event.location_title = location_dict.get('name', '')
@@ -896,7 +919,7 @@ class Command(NoArgsCommand):
         if not event.subtitle_en:
             event.subtitle_en = event.subtitle_de
 
-        event.slug = get_unique_value(Event, slugify(data_dict['title_de']))
+        event.slug = get_unique_value(Event, better_slugify(data_dict['title_de'], remove_stopwords=False), instance_pk=event.pk)
 
         event.website_de = data_dict['link_de'].replace('&amp;', '&')
         event.website_en = data_dict['link_en'].replace('&amp;', '&')
@@ -908,20 +931,25 @@ class Command(NoArgsCommand):
         event.press_text_de_markup_type = "hw"
         event.press_text_en = data_dict['description_en']
         event.press_text_en_markup_type = "hw"
+
         price_str = data_dict['kosten_de'].replace(",", ".").replace("-", "00").split(" ")[0]
         if price_str:
             try:
                 event.admission_price = Decimal(price_str)
             except:
                 pass
-        # event.admission_price_info_de = data_dict.get('admission_de', "")
-        # event.admission_price_info_de_markup_type = "pt"
-        # event.admission_price_info_en = data_dict.get('admission_en', "")
-        # event.admission_price_info_en_markup_type = "pt"
-        event.admission_price_info_en = self.cleanup_html(data_dict['kosten_en']) or self.cleanup_html(data_dict['kosten_de'])
-        event.admission_price_info_de = self.cleanup_html(data_dict['kosten_de'])
-        event.admission_price_info_en_markup_type = "pt"
-        event.admission_price_info_de_markup_type = "pt"
+            else:
+                event.admission_price_info_en = ""
+                event.admission_price_info_de = ""
+                event.admission_price_info_en_markup_type = "pt"
+                event.admission_price_info_de_markup_type = "pt"
+        else:
+            event.admission_price = None
+            event.admission_price_info_en = self.cleanup_html(data_dict['kosten_en']) or self.cleanup_html(data_dict['kosten_de'])
+            event.admission_price_info_de = self.cleanup_html(data_dict['kosten_de'])
+            event.admission_price_info_en_markup_type = "pt"
+            event.admission_price_info_de_markup_type = "pt"
+
         event.shop_link_de = data_dict.get('shop_link', "")
         event.shop_link_en = data_dict.get('shop_link', "")
         event.meeting_place_de = data_dict['treffpunkt_de']
@@ -958,7 +986,8 @@ class Command(NoArgsCommand):
             else:
                 event.exhibition = exh_mapper.content_object
 
-        event.status = "import"
+        if event.status not in ("published", "trashed", "not_listed"):
+            event.status = "import"
         event.save()
 
         event.categories.clear()
@@ -1000,7 +1029,11 @@ class Command(NoArgsCommand):
         if not self.skip_images:
             # get biggest possible images
             image_ids_to_keep = []
-            img_teaser = data_dict.get('img_1920', [])
+            # the image versions are saved as img_<id>
+            images_keys = [key for key in data_dict.keys() if key.startswith("img_")]
+            img_teaser = []
+            if images_keys:
+                img_teaser = data_dict[images_keys[-1]]  # take the last size
             for image_dict in img_teaser:
                 image_url = image_dict['path_xl']
 
