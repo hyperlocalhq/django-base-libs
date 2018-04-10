@@ -60,15 +60,22 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
                 # TODO: integrate this somehow better into the Python Social Auth backends
                 try:
                     user = User.objects.get(email=email_or_username)
-                except (User.DoesNotExist, MultipleObjectsReturned) as e:
+                except User.DoesNotExist as e:
                     pass
+                except MultipleObjectsReturned as e:
+                    raise forms.ValidationError(_(
+                        "There are multiple accounts with this email. "
+                        "Try logging in with the username."
+                    ))
                 else:
                     self.user_cache = authenticate(username=user.username, password=password)
             else:
                 self.user_cache = authenticate(username=email_or_username, password=password)
             if self.user_cache is None:
                 raise forms.ValidationError(_(
-                    "Please enter a correct email or username and password. Note that both fields are case-sensitive."))
+                    "Please enter a correct email or username and password. "
+                    "Note that both fields are case-sensitive."
+                ))
             elif not self.user_cache.is_active:
                 raise forms.ValidationError(_("This account is inactive."))
 
