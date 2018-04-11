@@ -9,6 +9,9 @@ from django.contrib.sites.models import Site, RequestSite
 from django.http import Http404, HttpResponse
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import authenticate
+from django.views.decorators.cache import never_cache
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.debug import sensitive_post_parameters
 
 from jetson.apps.mailing.recipient import Recipient
 from jetson.apps.mailing.views import send_email_using_template
@@ -21,6 +24,8 @@ from base_libs.utils.crypt import cryptString, decryptString
 
 User = models.get_model("auth", "User")
 
+@sensitive_post_parameters()
+@csrf_protect
 @never_cache
 def login(request, template_name='registration/login.html', redirect_field_name=getattr(settings, "REDIRECT_FIELD_NAME", REDIRECT_FIELD_NAME), redirect_to=""):
     """ Displays the login form and handles the login action. """
