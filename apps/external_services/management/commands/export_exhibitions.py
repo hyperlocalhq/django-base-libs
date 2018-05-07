@@ -3,7 +3,7 @@
 # @Date:   2018/04/27
 # @Email:  code@dreammedia.info
 # @Last modified by:   Daniel Lehmann
-# @Last modified time: 2018/04/30
+# @Last modified time: 2018/05/02
 # @copyright Daniel Lehmann (code@dreammedia.info)
 
 from django.core.management.base import BaseCommand, CommandError
@@ -313,28 +313,31 @@ class Command(BaseCommand):
         sql_season = "DELETE FROM exhibitions_season;\n"
         sql_filebrowser = ""
         for exhibition in exhibitions:
-            sql_exhibition += _object_to_query(exhibition, 'exhibitions_exhibition')
-            sql_filebrowser += _copy(exhibition.image)
-            sql_filebrowser += _copy(exhibition.pdf_document_de)
-            sql_filebrowser += _copy(exhibition.pdf_document_en)
 
-            categories = exhibition.categories.all()
-            for category in categories:
-                sql_exhibition_categories += 'INSERT INTO exhibitions_exhibition_categories SET exhibition_id = '+str(exhibition.pk)+', exhibitioncategory_id = '+str(category.pk)+";\n"
+            if exhibition.status == "published":
 
-            mediafiles = MediaFile.objects.filter(exhibition__pk = exhibition.pk)
-            for mediafile in mediafiles:
-                sql_mediafile += _object_to_query(mediafile, 'exhibitions_mediafile')
-                sql_filebrowser += _copy(mediafile.path)
+                sql_exhibition += _object_to_query(exhibition, 'exhibitions_exhibition')
+                sql_filebrowser += _copy(exhibition.image)
+                sql_filebrowser += _copy(exhibition.pdf_document_de)
+                sql_filebrowser += _copy(exhibition.pdf_document_en)
+
+                categories = exhibition.categories.all()
+                for category in categories:
+                    sql_exhibition_categories += 'INSERT INTO exhibitions_exhibition_categories SET exhibition_id = '+str(exhibition.pk)+', exhibitioncategory_id = '+str(category.pk)+";\n"
+
+                mediafiles = MediaFile.objects.filter(exhibition__pk = exhibition.pk)
+                for mediafile in mediafiles:
+                    sql_mediafile += _object_to_query(mediafile, 'exhibitions_mediafile')
+                    sql_filebrowser += _copy(mediafile.path)
 
 
-            organizers = Organizer.objects.filter(exhibition__pk = exhibition.pk)
-            for organizer in organizers:
-                sql_organizer += _object_to_query(organizer, 'exhibitions_organizer')
+                organizers = Organizer.objects.filter(exhibition__pk = exhibition.pk)
+                for organizer in organizers:
+                    sql_organizer += _object_to_query(organizer, 'exhibitions_organizer')
 
-            seasons = Season.objects.filter(exhibition__pk = exhibition.pk)
-            for season in seasons:
-                sql_season += _object_to_query(season, 'exhibitions_season')
+                seasons = Season.objects.filter(exhibition__pk = exhibition.pk)
+                for season in seasons:
+                    sql_season += _object_to_query(season, 'exhibitions_season')
 
         sql_statements = sql_exhibitioncategory+"\n"+sql_exhibition+"\n"+sql_exhibition_categories+"\n"+sql_mediafile+"\n"+sql_organizer+"\n"+sql_season+"\n"+sql_filebrowser
 
@@ -357,9 +360,9 @@ class Command(BaseCommand):
                 text_file.write(sql_statements)
 
             print('')
-            self.stdout.write(self.style.SUCCESS('Written SQL statments to %s' % options['outputfile'] ))
+            print('Written SQL statments to %s' % options['outputfile'] )
 
         else:
 
             print('')
-            self.stdout.write(self.style.SUCCESS('Created Successfully the SQL statments. To write the statments to a file use the argument --output'))
+            print('Created Successfully the SQL statments. To write the statments to a file use the argument --output')
