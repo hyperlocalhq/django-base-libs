@@ -404,6 +404,12 @@ class Command(NoArgsCommand):
                     # delete image model instance
                     mf.delete()
 
+                sort_order = 0
+                for mf in exhibition.mediafile_set.all():
+                    exhibition.mediafile_set.filter(pk=mf.pk).update(sort_order=sort_order)
+                    sort_order += 1
+
+
             if not mapper:
                 mapper = ObjectMapper(
                     service=self.service_exhibitions,
@@ -438,7 +444,7 @@ class Command(NoArgsCommand):
             title = title[:299] + u'…'
         file_description.title_en = title
 
-        file_description.author = d['copyright_de']
+        file_description.author = Command.prefix_with_c(d['copyright_de'])
         file_description.save()
         return file_description
 
@@ -450,6 +456,12 @@ class Command(NoArgsCommand):
         # if there is just one line, the subtitle will be empty
         # if there are more than 2 lines, the 2nd line will be connected to the rest for the subtitle
         return lines[0], u" ".join(lines[1:])
+
+    @staticmethod
+    def prefix_with_c(text):
+        if text and not text.startswith(u'©'):
+            text = u'© {}'.format(text)
+        return text
 
     def cleanup_html(self, text):
         import re
@@ -759,8 +771,13 @@ class Command(NoArgsCommand):
                         self.save_file_description(mf.path, {
                             'description_de': exhibition_mf_description.title_de,
                             'description_en': exhibition_mf_description.title_en,
-                            'copyright_de': exhibition_mf_description.author,
+                            'copyright_de': Command.prefix_with_c(exhibition_mf_description.author),
                         })
+
+            sort_order = 0
+            for mf in workshop.mediafile_set.all():
+                workshop.mediafile_set.filter(pk=mf.pk).update(sort_order=sort_order)
+                sort_order += 1
 
         workshop.organizer_set.all().delete()
         linked_institutions = data_dict.get('linked_institutions', {})
@@ -1140,8 +1157,14 @@ class Command(NoArgsCommand):
                         self.save_file_description(mf.path, {
                             'description_de': exhibition_mf_description.title_de,
                             'description_en': exhibition_mf_description.title_en,
-                            'copyright_de': exhibition_mf_description.author,
+                            'copyright_de': Command.prefix_with_c(exhibition_mf_description.author),
                         })
+
+            sort_order = 0
+            for mf in event.mediafile_set.all():
+                event.mediafile_set.filter(pk=mf.pk).update(sort_order=sort_order)
+                sort_order += 1
+
 
         event.eventtime_set.all().delete()
 
