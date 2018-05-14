@@ -1046,6 +1046,9 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
                         event.event_status = 'takes_place'
                     elif flag_status == 2:  # ausverkauft
                         event.ticket_status = 'sold_out'
+                        if event.event_status == "trashed":
+                            self.stats['events_untrashed'] += 1
+                            event.event_status = 'takes_place'
 
                 self.parse_and_use_texts(event_node, event)
 
