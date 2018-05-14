@@ -2,6 +2,8 @@
 from optparse import make_option
 from django.core.management.base import NoArgsCommand
 
+from base_libs.utils.misc import strip_html
+
 SILENT, NORMAL, VERBOSE = 0, 1, 2
 
 
@@ -55,6 +57,9 @@ class Command(NoArgsCommand):
         14: 185,        # Skulpturensammlung und Museum für Byzantinische Kunst
         23: 195,        # Vorderasiatisches Museum
     }
+    DEFAULT_EXHIBITION_STATUS = 'published'
+    DEFAULT_EVENT_STATUS = 'published'
+    DEFAULT_WORKSHOP_STATUS = 'published'
 
     def handle_noargs(self, **options):
         self.verbosity = int(options.get('verbosity', NORMAL))
@@ -247,7 +252,7 @@ class Command(NoArgsCommand):
                     exhibition.shop_link_en = prices[0]['shop_link']
 
             if exhibition.status not in ("published", "trashed", "not_listed"):
-                exhibition.status = "import"
+                exhibition.status = self.DEFAULT_EXHIBITION_STATUS
             exhibition.save()
 
             exhibition.organizer_set.all().delete()
@@ -478,11 +483,13 @@ class Command(NoArgsCommand):
         from decimal import Decimal
 
         from django.db import models
-        from base_libs.utils.betterslugify import better_slugify
         from django.conf import settings
 
-        from filebrowser.models import FileDescription
+        from base_libs.utils.betterslugify import better_slugify
+        from base_libs.utils.misc import strip_html
         from base_libs.utils.misc import get_unique_value
+
+        from filebrowser.models import FileDescription
 
         image_mods = models.get_app("image_mods")
         Museum = models.get_model("museums", "Museum")
@@ -575,22 +582,29 @@ class Command(NoArgsCommand):
         workshop.press_text_en_markup_type = "hw"
 
         price_str = data_dict['kosten_de'].replace(",", ".").replace("-", "00").split(" ")[0]
+
+        workshop.admission_price = None
         if price_str:
             try:
                 workshop.admission_price = Decimal(price_str)
             except:
                 pass
-            else:
-                workshop.admission_price_info_en = ""
-                workshop.admission_price_info_de = ""
-                workshop.admission_price_info_en_markup_type = "pt"
-                workshop.admission_price_info_de_markup_type = "pt"
-        else:
-            workshop.admission_price = None
-            workshop.admission_price_info_en = self.cleanup_html(data_dict['kosten_en']) or self.cleanup_html(data_dict['kosten_de'])
-            workshop.admission_price_info_de = self.cleanup_html(data_dict['kosten_de'])
-            workshop.admission_price_info_en_markup_type = "pt"
-            workshop.admission_price_info_de_markup_type = "pt"
+
+        price_de_str = price_en_str = ''
+        if not workshop.admission_price:
+            price_de_str = self.cleanup_html(data_dict['kosten_de'])
+            price_en_str = self.cleanup_html(data_dict['kosten_en']) or self.cleanup_html(data_dict['kosten_de'])
+
+        workshop.admission_price_info_de = u"{} {}".format(
+            price_de_str,
+            strip_html(self.cleanup_html(data_dict['kosten_text_de']))
+        ).strip()
+        workshop.admission_price_info_en = u"{} {}".format(
+            price_en_str,
+            strip_html(self.cleanup_html(data_dict['kosten_text_en']) or self.cleanup_html(data_dict['kosten_text_de']))
+        ).strip()
+        workshop.admission_price_info_de_markup_type = "pt"
+        workshop.admission_price_info_en_markup_type = "pt"
 
         workshop.shop_link_de = data_dict.get('shop_link', "")
         workshop.shop_link_en = data_dict.get('shop_link', "")
@@ -647,7 +661,7 @@ class Command(NoArgsCommand):
                 workshop.exhibition = exh_mapper.content_object
 
         if workshop.status not in ("published", "trashed", "not_listed"):
-            workshop.status = "import"
+            workshop.status = self.DEFAULT_WORKSHOP_STATUS
         workshop.save()
 
         workshop.types.clear()
@@ -950,22 +964,29 @@ class Command(NoArgsCommand):
         event.press_text_en_markup_type = "hw"
 
         price_str = data_dict['kosten_de'].replace(",", ".").replace("-", "00").split(" ")[0]
+
+        event.admission_price = None
         if price_str:
             try:
                 event.admission_price = Decimal(price_str)
             except:
                 pass
-            else:
-                event.admission_price_info_en = ""
-                event.admission_price_info_de = ""
-                event.admission_price_info_en_markup_type = "pt"
-                event.admission_price_info_de_markup_type = "pt"
-        else:
-            event.admission_price = None
-            event.admission_price_info_en = self.cleanup_html(data_dict['kosten_en']) or self.cleanup_html(data_dict['kosten_de'])
-            event.admission_price_info_de = self.cleanup_html(data_dict['kosten_de'])
-            event.admission_price_info_en_markup_type = "pt"
-            event.admission_price_info_de_markup_type = "pt"
+
+        price_de_str = price_en_str = ''
+        if not event.admission_price:
+            price_de_str = self.cleanup_html(data_dict['kosten_de'])
+            price_en_str = self.cleanup_html(data_dict['kosten_en']) or self.cleanup_html(data_dict['kosten_de'])
+
+        event.admission_price_info_de = u"{} {}".format(
+            price_de_str,
+            strip_html(self.cleanup_html(data_dict['kosten_text_de']))
+        ).strip()
+        event.admission_price_info_en = u"{} {}".format(
+            price_en_str,
+            strip_html(self.cleanup_html(data_dict['kosten_text_en']) or self.cleanup_html(data_dict['kosten_text_de']))
+        ).strip()
+        event.admission_price_info_de_markup_type = "pt"
+        event.admission_price_info_en_markup_type = "pt"
 
         event.shop_link_de = data_dict.get('shop_link', "")
         event.shop_link_en = data_dict.get('shop_link', "")
@@ -1004,7 +1025,7 @@ class Command(NoArgsCommand):
                 event.exhibition = exh_mapper.content_object
 
         if event.status not in ("published", "trashed", "not_listed"):
-            event.status = "import"
+            event.status = self.DEFAULT_EVENT_STATUS
         event.save()
 
         event.categories.clear()
