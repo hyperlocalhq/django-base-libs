@@ -7,7 +7,7 @@
 		"uuidString": "C42923FE-474A-4621-95D3-95ADD297E1CD"
 		}
 	],
-"creatorBuild": "26148",
+"creatorBuild": "26330",
 "files": {
 	"\/ckeditor_config\/ckeditor_config.js": {
 		"ft": 64,
@@ -786,6 +786,17 @@
 		"oAP": "\/img\/footer\/kpb_logo.gif",
 		"oF": 0,
 		"opt": 0
+		},
+	"\/img\/footer\/kpb_logo.png": {
+		"ft": 32768,
+		"iS": 4617,
+		"oA": 0,
+		"oAP": "\/img\/footer\/kpb_logo.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
 		},
 	"\/img\/footer\/kulturprojekte.png": {
 		"ft": 32768,
@@ -4498,6 +4509,19 @@
 		"ma": 0,
 		"oA": 1,
 		"oAP": "\/css\/_header.css",
+		"oF": 0,
+		"oS": 0,
+		"uL": 1
+		},
+	"\/scss\/_infobanner.scss": {
+		"aP": 0,
+		"bl": 0,
+		"dP": 5,
+		"dS": 0,
+		"ft": 4,
+		"ma": 0,
+		"oA": 1,
+		"oAP": "\/css\/_infobanner.css",
 		"oF": 0,
 		"oS": 0,
 		"uL": 1
@@ -8323,6 +8347,7 @@
 	"animateCSSInjections": 1,
 	"autoBuildNewItems": 1,
 	"autoprefixerBrowserString": "> 1%, last 2 versions, ff 17, opera 12.1",
+	"autoprefixerEnableIEGrid": 0,
 	"babelAuxiliaryCommentAfter": "",
 	"babelAuxiliaryCommentBefore": "",
 	"babelConfigFileHandlingType": 0,
@@ -8886,6 +8911,10 @@
 		"id-match": {
 			"active": 0,
 			"optionString": "'^[a-z]+([A-Z][a-z]+)*$', {'properties': false, 'onlyDeclarations': true}"
+			},
+		"implicit-arrow-linebreak": {
+			"active": 0,
+			"optionString": "'beside'"
 			},
 		"indent": {
 			"active": 0,
