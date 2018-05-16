@@ -44,7 +44,7 @@ def object_history(request, app_label, model_name, object_id):
         'action_list': action_list,
         'paginator': paginator,
         'app_label': app_label,
-        'module_name': force_unicode(model._meta.verbose_name_plural).capitalize(),
+        'model_name': force_unicode(model._meta.verbose_name_plural).capitalize(),
         'object': obj,
         'opts': obj._meta,
     }
@@ -82,7 +82,7 @@ def user_activity_history(request, object_id):
         'title': _('Change history: %s') % obj,
         'action_list': action_list,
         'paginator': paginator,
-        'module_name': force_unicode(User._meta.verbose_name_plural).capitalize(),
+        'model_name': force_unicode(User._meta.verbose_name_plural).capitalize(),
         'object': obj,
         'opts': obj._meta,
     }

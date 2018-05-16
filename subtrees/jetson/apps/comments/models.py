@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 from datetime import datetime
 
+from django.apps import apps
 from django.db import models
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.utils.functional import lazy
@@ -10,7 +11,6 @@ try:
     from django.utils.timezone import now as tz_now
 except:
     tz_now = datetime.now
-from actstream import action
 
 from base_libs.models.models import UrlMixin
 from base_libs.models.models import ObjectRelationMixin
@@ -409,6 +409,8 @@ def comment_added(sender, instance, **kwargs):
                 },
             instance=instance,
             )
-        action.send(instance.user, verb="added comment", action_object=instance)
+        if apps.is_installed("actstream"):
+            from actstream import action
+            action.send(instance.user, verb="added comment", action_object=instance)
             
 #models.signals.post_save.connect(comment_added, sender=Comment)

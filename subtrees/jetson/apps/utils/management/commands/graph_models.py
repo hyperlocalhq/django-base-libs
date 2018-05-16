@@ -2,8 +2,6 @@ from optparse import make_option
 
 from django.core.management.base import BaseCommand, CommandError
 
-from jetson.apps.utils.management.modelviz import generate_dot
-
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
         make_option('--disable-fields', '-d', action='store_true', dest='disable_fields',
@@ -29,6 +27,7 @@ class Command(BaseCommand):
         if len(args) < 1 and not options['all_applications']:
             raise CommandError("need one or more arguments for appname")
 
+        from jetson.apps.utils.management.modelviz import generate_dot
         dotdata = generate_dot(args, **options)
         if options['outputfile']:
             self.render_output(dotdata, **options)
