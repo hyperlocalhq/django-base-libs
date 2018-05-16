@@ -24,11 +24,12 @@
     <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/MultilingualFieldHelper.js' %}"></script>
 
     <!-- CKEDITOR -->
-    <script type="text/javascript" src="{% static 'bower_components/ckeditor/ckeditor.js' %}"></script>
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='ckeditor/ckeditor.js' %}"></script>
     <script type="text/javascript" src="{% static 'filebrowser/js/FB_CKEditor.js' %}"></script>
     <script type="text/javascript">
         if (CKEDITOR) {
-            CKEDITOR.config.filebrowserBrowseUrl = '/admin/filebrowser/browse?pop=3';
+            var CUSTOM_CKEDITOR_CONFIG = '{% static "site/ckeditor_config/ckeditor_config.js" %}';
+            CKEDITOR.config.filebrowserBrowseUrl = '/{{ LANGUAGE_CODE }}/admin/filebrowser/browse/?pop=3';
         }
     </script>
 
@@ -37,7 +38,7 @@
 
     {% block tinymce_setup %}
     {% endblock %}
-	<script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/change_form.js' %}"></script>
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/change_form.js' %}"></script>
 
     <script type="text/javascript" charset="utf-8">
         (function($) {
@@ -156,7 +157,7 @@
 
 <!-- CONTENT -->
 {% block content %}
-    <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">{% csrf_token %}{% block form_top %}{% endblock %} 
+    <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.model_name }}_form">{% csrf_token %}{% block form_top %}{% endblock %}
         <div>
             <!-- Popup Hidden Field -->
             {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}

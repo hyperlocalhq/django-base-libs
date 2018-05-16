@@ -1,6 +1,5 @@
 # -*- coding: UTF-8 -*-
-from django.apps import AppConfig
-from actstream import registry
+from django.apps import AppConfig, apps
 
 
 def create_notice_types(app, created_models, verbosity, **kwargs):
@@ -20,5 +19,8 @@ class CommentsConfig(AppConfig):
         from django.db.models import signals
         from jetson.apps.notification import models as notification
 
-        registry.register(self.get_model('Comment'))
+        if apps.is_installed("actstream"):
+            from actstream import registry
+            registry.register(self.get_model('Comment'))
+
         signals.post_migrate.connect(create_notice_types, sender=notification)

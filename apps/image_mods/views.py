@@ -479,7 +479,7 @@ def recrop(request):
         orig_im = Image.open(abs_orig_path)
     except:
         return HttpResponseBadRequest(ugettext("Image does not exist"))
-    orig_size=orig_im.size
+    orig_size = orig_im.size
     del orig_im
     
     cp_mod_path, query_params = image_mods.FileManager.modified_path(

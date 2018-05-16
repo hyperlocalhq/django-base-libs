@@ -4,11 +4,12 @@ from django.conf import settings
 
 def get_user_language(user):
     """ Returns the iso2 code of user's preferred language or default website language """
-    Language = models.get_model("i18n", "Language")
-    langs = Language.objects.filter(
-        person__user = user,
-        ).values_list("iso2_code", flat=True)
-    if langs:
-        return langs[0]
+    if getattr(user, "profile", None):
+        Language = models.get_model("i18n", "Language")
+        langs = Language.objects.filter(
+            person__user = user,
+            ).values_list("iso2_code", flat=True)
+        if langs:
+            return langs[0]
     return settings.LANGUAGE_CODE
     

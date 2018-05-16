@@ -125,7 +125,11 @@ def modified_image(path_or_file_object, sysname):
     """
     if not mod_exists(path_or_file_object, sysname):
         return None
-    path = modified_path(path_or_file_object, sysname)
+    if isinstance(path_or_file_object, FileObject):
+        path = path_or_file_object.path
+    else:
+        path = path_or_file_object
+    path, query_params = image_mods.FileManager.modified_path(path, sysname)
     if not path:
         return None
     if path.startswith("/"):
@@ -133,4 +137,3 @@ def modified_image(path_or_file_object, sysname):
     return FileObject(path)
     
 register.filter('modified_image', modified_image)
-    
