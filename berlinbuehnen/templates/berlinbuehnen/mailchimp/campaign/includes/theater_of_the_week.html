@@ -4,162 +4,54 @@
 {% url "theater_of_the_week" as theater_of_the_week_url %}
 
 {% with article=articles.0 %}
-    <!-- header -->
-    <table width="600" border="0" cellpadding="0" cellspacing="0">
-        <tr>
-            <td width="100%" height="32" style="font-size:12px;">&nbsp;</td>
-        </tr>
-        <tr>
-            <td><a href="https://www.berlin-buehnen.de{{ theater_of_the_week_url }}"><img src="https://www.berlin-buehnen.de/media/{{ article.theater.first_image.path|modified_path:"newsletter_default" }}" width="600" height="232" /></a></td>
-        </tr>
-        <tr>
-            <td height="34" valign="middle" align="center" bgcolor="#000" style="font-size:18px; color:#fff; text-transform:uppercase; font-weight:200; background:#000; padding-top:2px;">EXTRA DER WOCHE</td>
-        </tr>
-    </table>
+    {% if article %}
+        <!-- header -->
+        <table width="600" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td width="100%" height="32" style="font-size:12px;">&nbsp;</td>
+            </tr>
+            <tr>
+                <td><a href="https://www.berlin-buehnen.de{{ theater_of_the_week_url }}"><img src="https://www.berlin-buehnen.de/media/{{ article.theater.first_image.path|modified_path:"newsletter_default" }}" width="600" height="232" /></a></td>
+            </tr>
+            <tr>
+                <td height="34" valign="middle" align="center" bgcolor="#000" style="font-size:18px; color:#fff; text-transform:uppercase; font-weight:200; background:#000; padding-top:2px;">EXTRA DER WOCHE</td>
+            </tr>
+        </table>
 
-    <!-- intro -->
-    <table width="600" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-            <td height="36" style="font-size:12px !important; padding:0 24px;">&nbsp;</td>
-        </tr>
-        <tr>
-            <td style="padding:0 24px;">
-                <h1><a href="https://www.berlin-buehnen.de{{ theater_of_the_week_url }}">{{ article.theater.title }}</a></h1>
-                <p> </p>
-                {{ article.get_rendered_description }}
-            </td>
-        </tr>
-    </table>
+        <!-- intro -->
+        <table width="600" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td height="36" style="font-size:12px !important; padding:0 24px;">&nbsp;</td>
+            </tr>
+            <tr>
+                <td style="padding:0 24px;">
+                    <h1><a href="https://www.berlin-buehnen.de{{ theater_of_the_week_url }}">{{ article.theater.title }}</a></h1>
+                    <p> </p>
+                    {{ article.get_rendered_description }}
+                </td>
+            </tr>
+        </table>
 
-    <!-- productions -->
-    <table width="600" border="0" cellpadding="0" cellspacing="0">
-        <tr>
-            <td width="100%" height="32" style="font-size:12px;">&nbsp;</td>
-        </tr>
-        <tr>
-            <td style="padding:0 24px;"><table width="552" cellpadding="0" cellspacing="0" border="0">
-                <tr>
-                    <td valign="top" style="font-weight:600; text-transform:uppercase;">PRODUKTIONEN</td>
-                </tr>
-                <tr>
-                    <td width="552" height="20"><img src="https://www.berlin-buehnen.de/media/newsletter/underline_big.gif" width="552" height="20"/></td>
-                </tr>
-            </table></td>
-        </tr>
-        {% if article.get_related_productions %}
+        <!-- productions -->
+        <table width="600" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td width="100%" height="32" style="font-size:12px;">&nbsp;</td>
+            </tr>
             <tr>
                 <td style="padding:0 24px;"><table width="552" cellpadding="0" cellspacing="0" border="0">
                     <tr>
-                        {% with article.get_related_productions.0 as project %}
-                            <td width="268" valign="top"><table width="268" cellpadding="0" cellspacing="0">
-                                {% if project.first_image %}
-                                    <tr>
-                                        <td width="268"><a href="{{ project.get_url }}" target="_blank"><img src="https://www.berlin-buehnen.de/media/{{ project.first_image.path|modified_path:"newsletter_project" }}" width="268" height="189" border="0"/></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td height="16" style="font-size:12px;">&nbsp;</td>
-                                    </tr>
-                                {% endif %}
-                                <tr>
-                                    <td><a href="{{ project.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%;" target="_blank"><span style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none;">{{ project.title }}</span></a></td>
-                                </tr>
-                                {% if project.subtitle %}
-                                    <tr>
-                                        <td height="4" style="font-size:1px;">&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="{{ project.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ project.subtitle }}</span></a></td>
-                                    </tr>
-                                {% endif %}
-                                {% if project.description %}
-                                    <tr>
-                                        <td height="8" style="font-size:1px;">&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="{{ project.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ project.get_rendered_description|striptags|wordwrap:30|truncatewords:"30" }}</span></a></td>
-                                    </tr>
-                                {% endif %}
-                            </table></td>
-                        {% endwith %}
-                        <td width="16">&nbsp;</td>
-                        {% if article.get_related_productions|length >= 2 %}
-                            {% with article.get_related_productions.1 as project %}
-                                <td width="268" valign="top"><table width="268" cellpadding="0" cellspacing="0">
-                                    {% if project.first_image %}
-                                        <tr>
-                                            <td width="268"><a href="{{ project.get_url }}" target="_blank"><img src="https://www.berlin-buehnen.de/media/{{ project.first_image.path|modified_path:"newsletter_project" }}" width="268" height="189" border="0"/></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td height="16" style="font-size:12px;">&nbsp;</td>
-                                        </tr>
-                                    {% endif %}
-                                    <tr>
-                                        <td><a href="{{ project.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%;" target="_blank"><span style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none;">{{ project.title }}</span></a></td>
-                                    </tr>
-                                    {% if project.subtitle %}
-                                        <tr>
-                                            <td height="4" style="font-size:1px;">&nbsp;</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="{{ project.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ project.subtitle }}</span></a></td>
-                                        </tr>
-                                    {% endif %}
-                                    {% if project.description %}
-                                        <tr>
-                                            <td height="8" style="font-size:1px;">&nbsp;</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="{{ project.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ project.get_rendered_description|striptags|wordwrap:30|truncatewords:"30" }}</span></a></td>
-                                        </tr>
-                                    {% endif %}
-                                </table></td>
-                            {% endwith %}
-                        {% else %}
-                            <td width="268">&nbsp;</td>
-                        {% endif %}
+                        <td valign="top" style="font-weight:600; text-transform:uppercase;">PRODUKTIONEN</td>
                     </tr>
                     <tr>
-                        <td height="16" style="font-size:12px;">&nbsp;</td>
-                        <td height="16" style="font-size:12px;">&nbsp;</td>
-                        <td height="16" style="font-size:12px;">&nbsp;</td>
+                        <td width="552" height="20"><img src="https://www.berlin-buehnen.de/media/newsletter/underline_big.gif" width="552" height="20"/></td>
                     </tr>
-                    <tr>
-                        {% with article.get_related_productions.0 as project %}
-                            <td valign="bottom"><table cellpadding="0" cellspacing="0" border="0">
-                                <tr>
-                                    <td valign="bottom"><a href="{{ project.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><span style="font-size:10px; font-weight:600; text-decoration:none;">ZUM PROJEKT</span></a></td>
-                                    <td valign="bottom"><a href="{{ project.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><img src="https://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
-                                </tr>
-                            </table></td>
-                        {% endwith %}
-                        <td>&nbsp;</td>
-                        {% if article.get_related_productions|length >= 2 %}
-                            {% with article.get_related_productions.1 as project %}
-                                <td valign="bottom"><table cellpadding="0" cellspacing="0" border="0">
-                                    <tr>
-                                        <td valign="bottom"><a href="{{ project.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><span style="font-size:10px; font-weight:600; text-decoration:none;">ZUM PROJEKT</span></a></td>
-                                        <td valign="bottom"><a href="{{ project.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><img src="https://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
-                                    </tr>
-                                </table></td>
-                            {% endwith %}
-                        {% else %}
-                            <td width="268">&nbsp;</td>
-                        {% endif %}
-                    </tr>
-                    {% if article.get_related_productions|length > 2 %}
-                        <tr>
-                            <td width="268" height="28"><img src="https://www.berlin-buehnen.de/media/newsletter/underline_big_short.gif" width="268" height="28"/></td>
-                            <td height="28" style="font-size:12px;">&nbsp;</td>
-                            <td width="268" height="28"><img src="https://www.berlin-buehnen.de/media/newsletter/underline_big_short.gif" width="268" height="28"/></td>
-                        </tr>
-                    {% endif %}
                 </table></td>
             </tr>
-            {% if article.get_related_productions|length > 2 %}
+            {% if article.get_related_productions %}
                 <tr>
                     <td style="padding:0 24px;"><table width="552" cellpadding="0" cellspacing="0" border="0">
                         <tr>
-                            {% with article.get_related_productions.2 as project %}
+                            {% with article.get_related_productions.0 as project %}
                                 <td width="268" valign="top"><table width="268" cellpadding="0" cellspacing="0">
                                     {% if project.first_image %}
                                         <tr>
@@ -190,9 +82,9 @@
                                     {% endif %}
                                 </table></td>
                             {% endwith %}
-                            <td width="16" style="font-size:12px;">&nbsp;</td>
-                            {% if article.get_related_productions|length == 4 %}
-                                {% with article.get_related_productions.3 as project %}
+                            <td width="16">&nbsp;</td>
+                            {% if article.get_related_productions|length >= 2 %}
+                                {% with article.get_related_productions.1 as project %}
                                     <td width="268" valign="top"><table width="268" cellpadding="0" cellspacing="0">
                                         {% if project.first_image %}
                                             <tr>
@@ -233,7 +125,7 @@
                             <td height="16" style="font-size:12px;">&nbsp;</td>
                         </tr>
                         <tr>
-                            {% with article.get_related_productions.2 as project %}
+                            {% with article.get_related_productions.0 as project %}
                                 <td valign="bottom"><table cellpadding="0" cellspacing="0" border="0">
                                     <tr>
                                         <td valign="bottom"><a href="{{ project.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><span style="font-size:10px; font-weight:600; text-decoration:none;">ZUM PROJEKT</span></a></td>
@@ -242,8 +134,8 @@
                                 </table></td>
                             {% endwith %}
                             <td>&nbsp;</td>
-                            {% if article.get_related_productions|length == 4 %}
-                                {% with article.get_related_productions.3 as project %}
+                            {% if article.get_related_productions|length >= 2 %}
+                                {% with article.get_related_productions.1 as project %}
                                     <td valign="bottom"><table cellpadding="0" cellspacing="0" border="0">
                                         <tr>
                                             <td valign="bottom"><a href="{{ project.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><span style="font-size:10px; font-weight:600; text-decoration:none;">ZUM PROJEKT</span></a></td>
@@ -255,9 +147,121 @@
                                 <td width="268">&nbsp;</td>
                             {% endif %}
                         </tr>
+                        {% if article.get_related_productions|length > 2 %}
+                            <tr>
+                                <td width="268" height="28"><img src="https://www.berlin-buehnen.de/media/newsletter/underline_big_short.gif" width="268" height="28"/></td>
+                                <td height="28" style="font-size:12px;">&nbsp;</td>
+                                <td width="268" height="28"><img src="https://www.berlin-buehnen.de/media/newsletter/underline_big_short.gif" width="268" height="28"/></td>
+                            </tr>
+                        {% endif %}
                     </table></td>
                 </tr>
+                {% if article.get_related_productions|length > 2 %}
+                    <tr>
+                        <td style="padding:0 24px;"><table width="552" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                                {% with article.get_related_productions.2 as project %}
+                                    <td width="268" valign="top"><table width="268" cellpadding="0" cellspacing="0">
+                                        {% if project.first_image %}
+                                            <tr>
+                                                <td width="268"><a href="{{ project.get_url }}" target="_blank"><img src="https://www.berlin-buehnen.de/media/{{ project.first_image.path|modified_path:"newsletter_project" }}" width="268" height="189" border="0"/></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td height="16" style="font-size:12px;">&nbsp;</td>
+                                            </tr>
+                                        {% endif %}
+                                        <tr>
+                                            <td><a href="{{ project.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%;" target="_blank"><span style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none;">{{ project.title }}</span></a></td>
+                                        </tr>
+                                        {% if project.subtitle %}
+                                            <tr>
+                                                <td height="4" style="font-size:1px;">&nbsp;</td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="{{ project.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ project.subtitle }}</span></a></td>
+                                            </tr>
+                                        {% endif %}
+                                        {% if project.description %}
+                                            <tr>
+                                                <td height="8" style="font-size:1px;">&nbsp;</td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="{{ project.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ project.get_rendered_description|striptags|wordwrap:30|truncatewords:"30" }}</span></a></td>
+                                            </tr>
+                                        {% endif %}
+                                    </table></td>
+                                {% endwith %}
+                                <td width="16" style="font-size:12px;">&nbsp;</td>
+                                {% if article.get_related_productions|length == 4 %}
+                                    {% with article.get_related_productions.3 as project %}
+                                        <td width="268" valign="top"><table width="268" cellpadding="0" cellspacing="0">
+                                            {% if project.first_image %}
+                                                <tr>
+                                                    <td width="268"><a href="{{ project.get_url }}" target="_blank"><img src="https://www.berlin-buehnen.de/media/{{ project.first_image.path|modified_path:"newsletter_project" }}" width="268" height="189" border="0"/></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="16" style="font-size:12px;">&nbsp;</td>
+                                                </tr>
+                                            {% endif %}
+                                            <tr>
+                                                <td><a href="{{ project.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%;" target="_blank"><span style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none;">{{ project.title }}</span></a></td>
+                                            </tr>
+                                            {% if project.subtitle %}
+                                                <tr>
+                                                    <td height="4" style="font-size:1px;">&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a href="{{ project.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ project.subtitle }}</span></a></td>
+                                                </tr>
+                                            {% endif %}
+                                            {% if project.description %}
+                                                <tr>
+                                                    <td height="8" style="font-size:1px;">&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a href="{{ project.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ project.get_rendered_description|striptags|wordwrap:30|truncatewords:"30" }}</span></a></td>
+                                                </tr>
+                                            {% endif %}
+                                        </table></td>
+                                    {% endwith %}
+                                {% else %}
+                                    <td width="268">&nbsp;</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                <td height="16" style="font-size:12px;">&nbsp;</td>
+                                <td height="16" style="font-size:12px;">&nbsp;</td>
+                                <td height="16" style="font-size:12px;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                {% with article.get_related_productions.2 as project %}
+                                    <td valign="bottom"><table cellpadding="0" cellspacing="0" border="0">
+                                        <tr>
+                                            <td valign="bottom"><a href="{{ project.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><span style="font-size:10px; font-weight:600; text-decoration:none;">ZUM PROJEKT</span></a></td>
+                                            <td valign="bottom"><a href="{{ project.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><img src="https://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
+                                        </tr>
+                                    </table></td>
+                                {% endwith %}
+                                <td>&nbsp;</td>
+                                {% if article.get_related_productions|length == 4 %}
+                                    {% with article.get_related_productions.3 as project %}
+                                        <td valign="bottom"><table cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td valign="bottom"><a href="{{ project.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><span style="font-size:10px; font-weight:600; text-decoration:none;">ZUM PROJEKT</span></a></td>
+                                                <td valign="bottom"><a href="{{ project.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><img src="https://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
+                                            </tr>
+                                        </table></td>
+                                    {% endwith %}
+                                {% else %}
+                                    <td width="268">&nbsp;</td>
+                                {% endif %}
+                            </tr>
+                        </table></td>
+                    </tr>
+                {% endif %}
             {% endif %}
-        {% endif %}
-    </table>
+        </table>
+    {% else %}
+        There are no current theaters of the week. Please create one.
+    {% endif %}
 {% endwith %}
