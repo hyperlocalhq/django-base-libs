@@ -48,6 +48,9 @@ class TheaterOfTheWeekProduction(CreationModificationDateMixin):
     production = models.ForeignKey('productions.Production', verbose_name=_("Production"), on_delete=models.CASCADE)
     sort_order = PositionField(_("Sort order"), collection="theater")
 
+    def __unicode__(self):
+        return self.production.title
+
     class Meta:
         ordering = ['theater', 'sort_order']
         verbose_name = _("Production for Theater of the week")
