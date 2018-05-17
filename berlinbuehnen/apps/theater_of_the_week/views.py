@@ -16,7 +16,7 @@ from base_libs.views import access_denied
 
 from jetson.apps.utils.views import object_list
 
-Theater = models.get_model("theater_of_the_week", "TheaterOfTheWeek")
+from .models import TheaterOfTheWeek
 
 
 def get_theaters(
@@ -28,9 +28,9 @@ def get_theaters(
     forms a queryset for Articles using some optional filters
     """
     if status == STATUS_CODE_PUBLISHED:
-        queryset = Theater.published_objects.select_related()
+        queryset = TheaterOfTheWeek.published_objects.select_related()
     elif status == STATUS_CODE_DRAFT:
-        queryset = Theater.draft_objects.select_related()
+        queryset = TheaterOfTheWeek.draft_objects.select_related()
     else:
         raise NotImplementedError('The provided status "{}" is not supported'.format(status))
 
@@ -108,15 +108,12 @@ def theater_of_the_week_archive_index(
     if not extra_context:
         extra_context = {}
     extra_context['article_filter'] = 'latest'
-    try:
-        extra_context['rel_root_dir'] = reverse("%s:theater_of_the_week_archive" % request.LANGUAGE_CODE)
-    except:
-        extra_context['rel_root_dir'] = reverse("theater_of_the_week_archive")
+    extra_context['rel_root_dir'] = reverse("theater_of_the_week_archive")
     
     extra_context['most_read_articles'] = get_most_read_articles(
         type_sysname,
         status,
-        )
+    )
     
     if template_name is None:
         template_name = 'theater_of_the_week/theater_of_the_week_overview.html'
@@ -136,15 +133,17 @@ def theater_of_the_week_archive_index(
         else:
             queryset = queryset.order_by('-'+date_field)
     else:
-        queryset = Theater.objects.none()
+        queryset = TheaterOfTheWeek.objects.none()
         
     extra_context['date_list'] = date_list
     
-    return object_list(request, queryset, 
-       paginate_by=paginate_by, page=page, allow_empty=allow_empty, 
-       template_name=template_name, template_loader=template_loader,
-       extra_context=extra_context, context_processors=context_processors,
-       template_object_name=template_object_name, content_type=content_type)
+    return object_list(
+        request, queryset,
+        paginate_by=paginate_by, page=page, allow_empty=allow_empty,
+        template_name=template_name, template_loader=template_loader,
+        extra_context=extra_context, context_processors=context_processors,
+        template_object_name=template_object_name, content_type=content_type,
+    )
 
     
 def theater_of_the_week_object_detail(
@@ -180,22 +179,17 @@ def theater_of_the_week_object_detail(
     # get the requested article
     try:
         theater = queryset.get(slug=theater_of_the_week_slug)
-    except Theater.DoesNotExist as err:
+    except TheaterOfTheWeek.DoesNotExist as err:
         # Staff users can access the detail view for preview no matter if that is published or not
         try:
-            theater = Theater.objects.get(slug=theater_of_the_week_slug)
-        except Theater.DoesNotExist as err:
+            theater = TheaterOfTheWeek.objects.get(slug=theater_of_the_week_slug)
+        except TheaterOfTheWeek.DoesNotExist as err:
             raise Http404
         if not request.user.is_staff:
             raise PermissionDenied()
 
     context_dict = extra_context
-
-    try:
-        context_dict['rel_root_dir'] = reverse("%s:theater_of_the_week" % request.LANGUAGE_CODE)
-    except:
-        context_dict['rel_root_dir'] = reverse("theater_of_the_week")
-    
+    context_dict['rel_root_dir'] = reverse("theater_of_the_week")
     context_dict['links_to_articles'] = queryset.exclude(
         slug=theater_of_the_week_slug
     ).order_by("-published_from")[0:5]

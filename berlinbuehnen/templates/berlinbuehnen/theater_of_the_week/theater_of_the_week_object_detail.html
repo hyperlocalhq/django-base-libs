@@ -8,6 +8,7 @@
 
 {% block js %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/accordion.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js"></script>
 {% endblock %}
 
 {% block details %}
@@ -105,14 +106,20 @@
                     <div class="article-content-cms">
                         {{ article.get_rendered_content }}
                     </div>
+
                 </div>
 
                 <!-- main sidebar -->
                 <div class="col-xs-12 col-md-4 right">
                     {% include "locations/includes/sidebar.html" with location=article.theater %}
                 </div>
-
             </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    {% include "productions/includes/theater_of_the_week_productions.html" %}
+                </div>
+            </div>
+
 
         </div>
     </div>

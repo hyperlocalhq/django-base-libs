@@ -445,6 +445,7 @@ MAILING_CONTENT_TYPE_CHOICES = (
     ('headline', _("Headline")),
     ('text', _("Text only")),
     ('page_teaser', _("Page Teaser")),
+    ('theater_of_the_week', _("Theater of the Week")),
 )
 
 ### DEBUG TOOLBAR ###

@@ -592,6 +592,13 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         except:
             return None
 
+    @staticmethod
+    def autocomplete_search_fields():
+        """
+        returns the lookups for grappelli's autocomplete fields
+        """
+        return ["title_{}__icontains".format(lang_code) for lang_code, lang_name in settings.LANGUAGES]
+
 
 class ProductionSocialMediaChannel(models.Model):
     production = models.ForeignKey(Production)
