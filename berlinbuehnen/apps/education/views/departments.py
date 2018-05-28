@@ -4,6 +4,7 @@ import shutil
 from datetime import datetime
 
 from django import forms
+from django.db.models.functions import Lower
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.views.decorators.cache import never_cache
@@ -33,7 +34,7 @@ class EducationFilterForm(forms.Form):
 def department_list(request):
     from berlinbuehnen.apps.advertising.templatetags.advertising_tags import not_empty_ad_zone
 
-    qs = Department.objects.filter(status="published")
+    qs = Department.objects.filter(status="published").order_by(Lower("title_%s" % request.LANGUAGE_CODE))
 
     form = EducationFilterForm(data=request.REQUEST)
 

@@ -12,6 +12,7 @@ from django.conf import settings
 from django.views.decorators.cache import never_cache
 from django.db import models
 from django.core.urlresolvers import reverse
+from django.db.models.functions import Lower
 
 from base_libs.views.views import access_denied
 
@@ -87,7 +88,7 @@ def event_list(request, year=None, month=None, day=None):
     facets = {
         'selected': {},
         'categories': {
-            'locations': Location.objects.all().filter(status="published"),
+            'locations': Location.objects.all().filter(status="published").order_by(Lower("title_%s" % request.LANGUAGE_CODE)),
             'categories': ProductionCategory.objects.filter(parent=None),
             'subcategories': ProductionCategory.objects.exclude(parent=None),
             'language_and_subtitles': LanguageAndSubtitles.objects.all(),

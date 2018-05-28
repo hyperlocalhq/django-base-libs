@@ -4,6 +4,7 @@ import shutil
 from datetime import datetime
 
 from django import forms
+from django.db.models.functions import Lower
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.views.decorators.cache import never_cache
@@ -53,7 +54,7 @@ class LocationFilterForm(forms.Form):
 
 def location_list(request, year=None, month=None, day=None):
     from berlinbuehnen.apps.advertising.templatetags.advertising_tags import not_empty_ad_zone
-    qs = Location.objects.filter(status="published")
+    qs = Location.objects.filter(status="published").order_by(Lower("title_%s" % request.LANGUAGE_CODE))
 
     form = LocationFilterForm(data=request.REQUEST)
 
