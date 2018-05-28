@@ -32,7 +32,7 @@ def get_theaters(
     elif status == STATUS_CODE_DRAFT:
         queryset = TheaterOfTheWeek.draft_objects.select_related()
     else:
-        raise NotImplementedError('The provided status "{}" is not supported'.format(status))
+        queryset = TheaterOfTheWeek.objects.select_related()
 
     if type_sysname and type_sysname != 'all':
         queryset = queryset.filter(article_type__slug=type_sysname)
@@ -204,12 +204,15 @@ def theater_of_the_week_object_detail(
     
 def theater_of_the_week(request, template_name=None, template_object_name='article', type_sysname=None, status=STATUS_CODE_PUBLISHED, extra_context={}):    
 
-    queryset = get_theaters(type_sysname, status)
+    queryset = get_theaters(type_sysname=template_name, status=None)
     try:
         theater = queryset.order_by('-published_from')[0]
     except IndexError:
         raise Http404
-    
+
+    if not theater.is_published() and not request.user.has_perm("theater_of_the_week.change_theateroftheweek"):
+        return access_denied(request)
+
     context_dict = extra_context
     
     if template_name is None:

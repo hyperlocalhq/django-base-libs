@@ -20,7 +20,7 @@
                 <div class="article-date">{{ article.published_from|datefmt:"long" }}</div>
                 <h2 class="article-category">{% trans 'Theater of the week' %}</h2>
                 <h1>{{ article.title|escape }}
-                    {% if article.is_draft %}<small>({% trans "Draft" %})</small>{% endif %}
+                    {% if not article.is_published %}<small>({% trans "Draft" %})</small>{% endif %}
                 </h1>
                 {% if article.subtitle %}
                     <h4 class="subtitle">{{ article.subtitle }}</h4>

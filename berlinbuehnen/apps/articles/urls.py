@@ -52,5 +52,4 @@ urlpatterns = patterns(path_in_installed_app('articles.views'),
     url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<article_slug>[^/]+)/$',
         'article_object_detail', name='article_object_detail'
     ),
-    
 )
