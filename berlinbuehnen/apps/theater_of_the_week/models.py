@@ -9,6 +9,8 @@ from base_libs.models.fields import PositionField
 
 from cms.models import CMSPlugin
 
+verbose_name = _("Theater of the week")
+
 
 class TheaterOfTheWeekManager(ArticleManagerBase):
     def latest_published(self):

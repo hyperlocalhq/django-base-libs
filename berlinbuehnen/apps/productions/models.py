@@ -601,9 +601,12 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
 
     def related_label(self):
         nearest_occurance = self.get_nearest_occurrence()
-        components = [self.title, self.get_status_display()]
+        components = [self.title]
+        if self.in_program_of.exists():
+            components.append(self.in_program_of.all()[0].title)
         if nearest_occurance:
             components.append(nearest_occurance.start_date.strftime('%Y-%m-%d'))
+        components.append(self.get_status_display())
         return " / ".join(components)
 
 
