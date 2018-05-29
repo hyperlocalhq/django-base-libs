@@ -27,7 +27,7 @@ class TheaterOfTheWeek(ArticleBase):
     objects = TheaterOfTheWeekManager()
 
     class Meta:
-        ordering = ['title']
+        ordering = ['-published_from']
         verbose_name = _("Theater of the week")
         verbose_name_plural = _("Theaters of the week")
         
