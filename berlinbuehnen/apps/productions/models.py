@@ -599,6 +599,13 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         """
         return ["title_{}__icontains".format(lang_code) for lang_code, lang_name in settings.LANGUAGES]
 
+    def related_label(self):
+        nearest_occurance = self.get_nearest_occurrence()
+        components = [self.title, self.get_status_display()]
+        if nearest_occurance:
+            components.append(nearest_occurance.start_date.strftime('%Y-%m-%d'))
+        return " / ".join(components)
+
 
 class ProductionSocialMediaChannel(models.Model):
     production = models.ForeignKey(Production)
