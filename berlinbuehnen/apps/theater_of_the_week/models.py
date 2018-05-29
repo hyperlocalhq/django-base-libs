@@ -9,7 +9,7 @@ from base_libs.models.fields import PositionField
 
 from cms.models import CMSPlugin
 
-verbose_name = _("Theater of the week")
+verbose_name = _("Theaters of the week")
 
 
 class TheaterOfTheWeekManager(ArticleManagerBase):

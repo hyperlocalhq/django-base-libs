@@ -297,7 +297,7 @@ ADMIN_APP_INDEX = (
                 'models': ('ArticleCategory','Article',),
             }),
             ('theater_of_the_week', {
-                'verbose_name': gettext("Theater of the week"),
+                'verbose_name': gettext("Theaters of the week"),
                 'models': ('TheaterOfTheWeek',),
             }),
             ('mega_menu', {
@@ -445,7 +445,7 @@ MAILING_CONTENT_TYPE_CHOICES = (
     ('headline', _("Headline")),
     ('text', _("Text only")),
     ('page_teaser', _("Page Teaser")),
-    ('theater_of_the_week', _("Theater of the Week")),
+    ('theater_of_the_week', _("Theater of the week")),
 )
 
 ### DEBUG TOOLBAR ###
