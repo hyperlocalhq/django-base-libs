@@ -19,8 +19,20 @@ class TheaterOfTheWeekProductionInline(admin.StackedInline):
     sortable_field_name = "sort_order"
 
 
+class TheaterOfTheWeekForm(forms.ModelForm):
+    class Meta:
+        model = TheaterOfTheWeek
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super(TheaterOfTheWeekForm, self).__init__(*args, **kwargs)
+        self.fields['published_from'].required = True
+        self.fields['published_till'].required = True
+
+
 @admin.register(TheaterOfTheWeek)
 class TheaterOfTheWeekAdmin(ExtendedModelAdmin):
+    form = TheaterOfTheWeekForm
     save_on_top = True
     
     list_display = ['id', 'title', 'theater', 'author', 'status', 'published_from', 'published_till', 'views', 'language']
