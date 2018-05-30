@@ -44,10 +44,10 @@
             var width = $top_slider.width();
             var height_1 = width * ratio[1] / ratio[0];
             var height_2 = (height_1 > ratio[1]) ? ratio[1] : height_1;
-            var margin = Math.round((height_1 - height_2) /2);
-            $slider.css('margin-top', '-' + Math.round(margin/2) + 'px');
-            $text.css('top', (height_1 - margin) + 'px');
-            $credits.css('top', (height_1 - margin) + 'px');
+            var margin = Math.round((height_1 - height_2) /4);
+            $slider.css('margin-top', '-' + margin + 'px');
+            $text.css('top', (height_1 - margin*3) + 'px');
+            $credits.css('top', (height_1 - margin*3) + 'px');
         }
 
         $(document).ready(centerSlider);
