@@ -94,36 +94,36 @@
                                             <li><time>{{ event.start_date|date:"l, j. F Y" }}{{ event.start_time|time:", H:i" }}</time></li>
                                         {% endif %}
                                         {% if event.production.in_program_of.exists or event.location_title or event.production.location_title or event.ev_or_prod_play_locations|length > 0 or event.ev_or_prod_play_stages|length > 0 %}
-                                                <li>
-                                                    <dl>
-                                                        {% if event.production.in_program_of.exists %}
-                                                            {% for location in event.production.in_program_of.all %}
-                                                                <dd>
-                                                                    {{ location.title }}
-                                                                </dd>
-                                                            {% endfor %}
-                                                        {% endif %}
-                                                        {% if event.location_title %}
-                                                            <dd>
-                                                                {{ event.location_title }}
-                                                            </dd>
-                                                        {% elif event.production.location_title %}
-                                                            <dd>
-                                                                {{ event.production.location_title }}
-                                                            </dd>
-                                                        {% endif %}
-                                                        {% for location in event.ev_or_prod_play_locations %}
+                                            <li>
+                                                <dl>
+                                                    {% if event.production.in_program_of.exists %}
+                                                        {% for location in event.production.in_program_of.all %}
                                                             <dd>
                                                                 {{ location.title }}
                                                             </dd>
                                                         {% endfor %}
-                                                        {% for stage in event.ev_or_prod_play_stages %}
-                                                            <dd>
-                                                                {{ stage.title }}
-                                                            </dd>
-                                                        {% endfor %}
-                                                    </dl>
-                                                </li>
+                                                    {% endif %}
+                                                    {% if event.location_title %}
+                                                        <dd>
+                                                            {{ event.location_title }}
+                                                        </dd>
+                                                    {% elif event.production.location_title %}
+                                                        <dd>
+                                                            {{ event.production.location_title }}
+                                                        </dd>
+                                                    {% endif %}
+                                                    {% for location in event.ev_or_prod_play_locations %}
+                                                        <dd>
+                                                            {{ location.title }}
+                                                        </dd>
+                                                    {% endfor %}
+                                                    {% for stage in event.ev_or_prod_play_stages %}
+                                                        <dd>
+                                                            {{ stage.title }}
+                                                        </dd>
+                                                    {% endfor %}
+                                                </dl>
+                                            </li>
                                         {% endif %}
                                     </ul>
                                     <div class="header-icons no-print">

@@ -140,6 +140,10 @@
         .row {
             margin-left: -10px;
             margin-right: -10px;
+            .row {
+                margin-left: -30px;
+                margin-right: -30px;
+            }
         }
         dl.listing {
             word-wrap: break-word;

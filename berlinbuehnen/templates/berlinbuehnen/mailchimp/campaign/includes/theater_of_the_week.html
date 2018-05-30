@@ -8,13 +8,19 @@
         <!-- header -->
         <table width="600" border="0" cellpadding="0" cellspacing="0">
             <tr>
-                <td width="100%" height="32" style="font-size:12px;">&nbsp;</td>
-            </tr>
-            <tr>
-                <td><a href="https://www.berlin-buehnen.de{{ theater_of_the_week_url }}"><img src="https://www.berlin-buehnen.de/media/{{ article.theater.first_image.path|modified_path:"newsletter_default" }}" width="600" height="232" /></a></td>
-            </tr>
-            <tr>
-                <td height="34" valign="middle" align="center" bgcolor="#000" style="font-size:18px; color:#fff; text-transform:uppercase; font-weight:200; background:#000; padding-top:2px;">EXTRA DER WOCHE</td>
+                <td width="100%" height="32" style="font-size:12px;" align="center">
+                    <table width="552" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="100%" height="32" style="font-size:12px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://www.berlin-buehnen.de{{ theater_of_the_week_url }}"><img src="https://www.berlin-buehnen.de/media/{{ article.theater.first_image.path|modified_path:"newsletter_default" }}" width="552" /></a></td>
+                        </tr>
+                        <tr>
+                            <td height="34" valign="middle" align="center" bgcolor="#000" style="font-size:18px; color:#fff; text-transform:uppercase; font-weight:200; background:#000; padding-top:2px;">EXTRA DER WOCHE</td>
+                        </tr>
+                    </table>
+                </td>
             </tr>
         </table>
 
@@ -32,7 +38,7 @@
             </tr>
         </table>
 
-        <!-- productions -->
+        <!-- prods -->
         <table width="600" border="0" cellpadding="0" cellspacing="0">
             <tr>
                 <td width="100%" height="32" style="font-size:12px;">&nbsp;</td>
@@ -51,69 +57,103 @@
                 <tr>
                     <td style="padding:0 24px;"><table width="552" cellpadding="0" cellspacing="0" border="0">
                         <tr>
-                            {% with article.get_related_productions.0 as project %}
-                                <td width="268" valign="top"><table width="268" cellpadding="0" cellspacing="0">
-                                    {% if project.first_image %}
-                                        <tr>
-                                            <td width="268"><a href="{{ project.get_url }}" target="_blank"><img src="https://www.berlin-buehnen.de/media/{{ project.first_image.path|modified_path:"newsletter_project" }}" width="268" height="189" border="0"/></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td height="16" style="font-size:12px;">&nbsp;</td>
-                                        </tr>
-                                    {% endif %}
-                                    <tr>
-                                        <td><a href="{{ project.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%;" target="_blank"><span style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none;">{{ project.title }}</span></a></td>
-                                    </tr>
-                                    {% if project.subtitle %}
-                                        <tr>
-                                            <td height="4" style="font-size:1px;">&nbsp;</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="{{ project.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ project.subtitle }}</span></a></td>
-                                        </tr>
-                                    {% endif %}
-                                    {% if project.description %}
-                                        <tr>
-                                            <td height="8" style="font-size:1px;">&nbsp;</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="{{ project.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ project.get_rendered_description|striptags|wordwrap:30|truncatewords:"30" }}</span></a></td>
-                                        </tr>
-                                    {% endif %}
-                                </table></td>
-                            {% endwith %}
-                            <td width="16">&nbsp;</td>
-                            {% if article.get_related_productions|length >= 2 %}
-                                {% with article.get_related_productions.1 as project %}
+                            {% with article.get_related_productions.0 as prod %}
+                                {% with event=prod.get_nearest_occurrence %}
                                     <td width="268" valign="top"><table width="268" cellpadding="0" cellspacing="0">
-                                        {% if project.first_image %}
+                                        {% if prod.first_image %}
                                             <tr>
-                                                <td width="268"><a href="{{ project.get_url }}" target="_blank"><img src="https://www.berlin-buehnen.de/media/{{ project.first_image.path|modified_path:"newsletter_project" }}" width="268" height="189" border="0"/></a></td>
+                                                <td width="268"><a href="{{ prod.get_url }}" target="_blank"><img src="https://www.berlin-buehnen.de/media/{{ prod.first_image.path|modified_path:"newsletter_prod" }}" width="268" height="189" border="0"/></a></td>
                                             </tr>
                                             <tr>
                                                 <td height="16" style="font-size:12px;">&nbsp;</td>
                                             </tr>
                                         {% endif %}
                                         <tr>
-                                            <td><a href="{{ project.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%;" target="_blank"><span style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none;">{{ project.title }}</span></a></td>
+                                            <td><a href="{{ prod.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%;" target="_blank"><span style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none;">{{ prod.title }}</span></a></td>
                                         </tr>
-                                        {% if project.subtitle %}
+                                        {% if prod.subtitle %}
                                             <tr>
                                                 <td height="4" style="font-size:1px;">&nbsp;</td>
                                             </tr>
                                             <tr>
-                                                <td><a href="{{ project.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ project.subtitle }}</span></a></td>
+                                                <td><a href="{{ prod.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ prod.subtitle }}</span></a></td>
                                             </tr>
                                         {% endif %}
-                                        {% if project.description %}
+                                        {% with future_events=prod.get_future_occurrences %}
+                                            {% if future_events %}
+                                                <tr>
+                                                    <td height="4" style="font-size:1px;">&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>
+                                                        {% for ev in future_events|slice:":2" %}
+                                                            <span class="date">{{ ev.start_date|date:"j.n.Y" }}</span>
+                                                            <span class="time">{{ ev.start_time|time:"H:i" }}</span>{% if ev.get_special_text %}
+                                                            {{ ev.get_special_text }}{% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}{% if future_events|length > 2 %}, …{% endif %}
+                                                    </strong></td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endwith %}
+                                        {% if event.ev_or_prod_teaser %}
                                             <tr>
                                                 <td height="8" style="font-size:1px;">&nbsp;</td>
                                             </tr>
                                             <tr>
-                                                <td><a href="{{ project.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ project.get_rendered_description|striptags|wordwrap:30|truncatewords:"30" }}</span></a></td>
+                                                <td><a href="{{ prod.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ event.ev_or_prod_teaser|striptags|wordwrap:30|truncatewords:"30" }}</span></a></td>
                                             </tr>
                                         {% endif %}
                                     </table></td>
+                                {% endwith %}
+                            {% endwith %}
+                            <td width="16">&nbsp;</td>
+                            {% if article.get_related_productions|length >= 2 %}
+                                {% with article.get_related_productions.1 as prod %}
+                                    {% with event=prod.get_nearest_occurrence %}
+                                        <td width="268" valign="top"><table width="268" cellpadding="0" cellspacing="0">
+                                            {% if prod.first_image %}
+                                                <tr>
+                                                    <td width="268"><a href="{{ prod.get_url }}" target="_blank"><img src="https://www.berlin-buehnen.de/media/{{ prod.first_image.path|modified_path:"newsletter_prod" }}" width="268" height="189" border="0"/></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="16" style="font-size:12px;">&nbsp;</td>
+                                                </tr>
+                                            {% endif %}
+                                            <tr>
+                                                <td><a href="{{ prod.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%;" target="_blank"><span style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none;">{{ prod.title }}</span></a></td>
+                                            </tr>
+                                            {% if prod.subtitle %}
+                                                <tr>
+                                                    <td height="4" style="font-size:1px;">&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a href="{{ prod.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ prod.subtitle }}</span></a></td>
+                                                </tr>
+                                            {% endif %}
+                                            {% with future_events=prod.get_future_occurrences %}
+                                                {% if future_events %}
+                                                    <tr>
+                                                        <td height="4" style="font-size:1px;">&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>
+                                                            {% for ev in future_events|slice:":2" %}
+                                                                <span class="date">{{ ev.start_date|date:"j.n.Y" }}</span>
+                                                                <span class="time">{{ ev.start_time|time:"H:i" }}</span>{% if ev.get_special_text %}
+                                                                {{ ev.get_special_text }}{% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}{% if future_events|length > 2 %}, …{% endif %}
+                                                        </strong></td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endwith %}
+                                            {% if event.ev_or_prod_teaser %}
+                                                <tr>
+                                                    <td height="8" style="font-size:1px;">&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a href="{{ prod.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ event.ev_or_prod_teaser|striptags|wordwrap:30|truncatewords:"30" }}</span></a></td>
+                                                </tr>
+                                            {% endif %}
+                                        </table></td>
+                                    {% endwith %}
                                 {% endwith %}
                             {% else %}
                                 <td width="268">&nbsp;</td>
@@ -125,21 +165,21 @@
                             <td height="16" style="font-size:12px;">&nbsp;</td>
                         </tr>
                         <tr>
-                            {% with article.get_related_productions.0 as project %}
+                            {% with article.get_related_productions.0 as prod %}
                                 <td valign="bottom"><table cellpadding="0" cellspacing="0" border="0">
                                     <tr>
-                                        <td valign="bottom"><a href="{{ project.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><span style="font-size:10px; font-weight:600; text-decoration:none;">ZUM PROJEKT</span></a></td>
-                                        <td valign="bottom"><a href="{{ project.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><img src="https://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
+                                        <td valign="bottom"><a href="{{ prod.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><span style="font-size:10px; font-weight:600; text-decoration:none;">MEHR</span></a></td>
+                                        <td valign="bottom"><a href="{{ prod.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><img src="https://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
                                     </tr>
                                 </table></td>
                             {% endwith %}
                             <td>&nbsp;</td>
                             {% if article.get_related_productions|length >= 2 %}
-                                {% with article.get_related_productions.1 as project %}
+                                {% with article.get_related_productions.1 as prod %}
                                     <td valign="bottom"><table cellpadding="0" cellspacing="0" border="0">
                                         <tr>
-                                            <td valign="bottom"><a href="{{ project.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><span style="font-size:10px; font-weight:600; text-decoration:none;">ZUM PROJEKT</span></a></td>
-                                            <td valign="bottom"><a href="{{ project.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><img src="https://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
+                                            <td valign="bottom"><a href="{{ prod.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><span style="font-size:10px; font-weight:600; text-decoration:none;">MEHR</span></a></td>
+                                            <td valign="bottom"><a href="{{ prod.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><img src="https://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
                                         </tr>
                                     </table></td>
                                 {% endwith %}
@@ -160,69 +200,103 @@
                     <tr>
                         <td style="padding:0 24px;"><table width="552" cellpadding="0" cellspacing="0" border="0">
                             <tr>
-                                {% with article.get_related_productions.2 as project %}
-                                    <td width="268" valign="top"><table width="268" cellpadding="0" cellspacing="0">
-                                        {% if project.first_image %}
-                                            <tr>
-                                                <td width="268"><a href="{{ project.get_url }}" target="_blank"><img src="https://www.berlin-buehnen.de/media/{{ project.first_image.path|modified_path:"newsletter_project" }}" width="268" height="189" border="0"/></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td height="16" style="font-size:12px;">&nbsp;</td>
-                                            </tr>
-                                        {% endif %}
-                                        <tr>
-                                            <td><a href="{{ project.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%;" target="_blank"><span style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none;">{{ project.title }}</span></a></td>
-                                        </tr>
-                                        {% if project.subtitle %}
-                                            <tr>
-                                                <td height="4" style="font-size:1px;">&nbsp;</td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="{{ project.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ project.subtitle }}</span></a></td>
-                                            </tr>
-                                        {% endif %}
-                                        {% if project.description %}
-                                            <tr>
-                                                <td height="8" style="font-size:1px;">&nbsp;</td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="{{ project.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ project.get_rendered_description|striptags|wordwrap:30|truncatewords:"30" }}</span></a></td>
-                                            </tr>
-                                        {% endif %}
-                                    </table></td>
-                                {% endwith %}
-                                <td width="16" style="font-size:12px;">&nbsp;</td>
-                                {% if article.get_related_productions|length == 4 %}
-                                    {% with article.get_related_productions.3 as project %}
+                                {% with article.get_related_productions.2 as prod %}
+                                    {% with event=prod.get_nearest_occurrence %}
                                         <td width="268" valign="top"><table width="268" cellpadding="0" cellspacing="0">
-                                            {% if project.first_image %}
+                                            {% if prod.first_image %}
                                                 <tr>
-                                                    <td width="268"><a href="{{ project.get_url }}" target="_blank"><img src="https://www.berlin-buehnen.de/media/{{ project.first_image.path|modified_path:"newsletter_project" }}" width="268" height="189" border="0"/></a></td>
+                                                    <td width="268"><a href="{{ prod.get_url }}" target="_blank"><img src="https://www.berlin-buehnen.de/media/{{ prod.first_image.path|modified_path:"newsletter_prod" }}" width="268" height="189" border="0"/></a></td>
                                                 </tr>
                                                 <tr>
                                                     <td height="16" style="font-size:12px;">&nbsp;</td>
                                                 </tr>
                                             {% endif %}
                                             <tr>
-                                                <td><a href="{{ project.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%;" target="_blank"><span style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none;">{{ project.title }}</span></a></td>
+                                                <td><a href="{{ prod.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%;" target="_blank"><span style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none;">{{ prod.title }}</span></a></td>
                                             </tr>
-                                            {% if project.subtitle %}
+                                            {% if prod.subtitle %}
                                                 <tr>
                                                     <td height="4" style="font-size:1px;">&nbsp;</td>
                                                 </tr>
                                                 <tr>
-                                                    <td><a href="{{ project.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ project.subtitle }}</span></a></td>
+                                                    <td><a href="{{ prod.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ prod.subtitle }}</span></a></td>
                                                 </tr>
                                             {% endif %}
-                                            {% if project.description %}
+                                            {% with future_events=prod.get_future_occurrences %}
+                                                {% if future_events %}
+                                                    <tr>
+                                                        <td height="4" style="font-size:1px;">&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>
+                                                            {% for ev in future_events|slice:":2" %}
+                                                                <span class="date">{{ ev.start_date|date:"j.n.Y" }}</span>
+                                                                <span class="time">{{ ev.start_time|time:"H:i" }}</span>{% if ev.get_special_text %}
+                                                                {{ ev.get_special_text }}{% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}{% if future_events|length > 2 %}, …{% endif %}
+                                                        </strong></td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endwith %}
+                                            {% if event.ev_or_prod_teaser %}
                                                 <tr>
                                                     <td height="8" style="font-size:1px;">&nbsp;</td>
                                                 </tr>
                                                 <tr>
-                                                    <td><a href="{{ project.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ project.get_rendered_description|striptags|wordwrap:30|truncatewords:"30" }}</span></a></td>
+                                                    <td><a href="{{ prod.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ event.ev_or_prod_teaser|striptags|wordwrap:30|truncatewords:"30" }}</span></a></td>
                                                 </tr>
                                             {% endif %}
                                         </table></td>
+                                    {% endwith %}
+                                {% endwith %}
+                                <td width="16" style="font-size:12px;">&nbsp;</td>
+                                {% if article.get_related_productions|length == 4 %}
+                                    {% with article.get_related_productions.3 as prod %}
+                                        {% with event=prod.get_nearest_occurrence %}
+                                            <td width="268" valign="top"><table width="268" cellpadding="0" cellspacing="0">
+                                                {% if prod.first_image %}
+                                                    <tr>
+                                                        <td width="268"><a href="{{ prod.get_url }}" target="_blank"><img src="https://www.berlin-buehnen.de/media/{{ prod.first_image.path|modified_path:"newsletter_prod" }}" width="268" height="189" border="0"/></a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="16" style="font-size:12px;">&nbsp;</td>
+                                                    </tr>
+                                                {% endif %}
+                                                <tr>
+                                                    <td><a href="{{ prod.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%;" target="_blank"><span style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none;">{{ prod.title }}</span></a></td>
+                                                </tr>
+                                                {% if prod.subtitle %}
+                                                    <tr>
+                                                        <td height="4" style="font-size:1px;">&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><a href="{{ prod.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ prod.subtitle }}</span></a></td>
+                                                    </tr>
+                                                {% endif %}
+                                                {% with future_events=prod.get_future_occurrences %}
+                                                    {% if future_events %}
+                                                        <tr>
+                                                            <td height="4" style="font-size:1px;">&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><strong>
+                                                                {% for ev in future_events|slice:":2" %}
+                                                                    <span class="date">{{ ev.start_date|date:"j.n.Y" }}</span>
+                                                                    <span class="time">{{ ev.start_time|time:"H:i" }}</span>{% if ev.get_special_text %}
+                                                                    {{ ev.get_special_text }}{% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}{% if future_events|length > 2 %}, …{% endif %}
+                                                            </strong></td>
+                                                        </tr>
+                                                    {% endif %}
+                                                {% endwith %}
+                                                {% if event.ev_or_prod_teaser %}
+                                                    <tr>
+                                                        <td height="8" style="font-size:1px;">&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><a href="{{ prod.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ event.ev_or_prod_teaser|striptags|wordwrap:30|truncatewords:"30" }}</span></a></td>
+                                                    </tr>
+                                                {% endif %}
+                                            </table></td>
+                                        {% endwith %}
                                     {% endwith %}
                                 {% else %}
                                     <td width="268">&nbsp;</td>
@@ -234,21 +308,21 @@
                                 <td height="16" style="font-size:12px;">&nbsp;</td>
                             </tr>
                             <tr>
-                                {% with article.get_related_productions.2 as project %}
+                                {% with article.get_related_productions.2 as prod %}
                                     <td valign="bottom"><table cellpadding="0" cellspacing="0" border="0">
                                         <tr>
-                                            <td valign="bottom"><a href="{{ project.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><span style="font-size:10px; font-weight:600; text-decoration:none;">ZUM PROJEKT</span></a></td>
-                                            <td valign="bottom"><a href="{{ project.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><img src="https://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
+                                            <td valign="bottom"><a href="{{ prod.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><span style="font-size:10px; font-weight:600; text-decoration:none;">MEHR</span></a></td>
+                                            <td valign="bottom"><a href="{{ prod.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><img src="https://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
                                         </tr>
                                     </table></td>
                                 {% endwith %}
                                 <td>&nbsp;</td>
                                 {% if article.get_related_productions|length == 4 %}
-                                    {% with article.get_related_productions.3 as project %}
+                                    {% with article.get_related_productions.3 as prod %}
                                         <td valign="bottom"><table cellpadding="0" cellspacing="0" border="0">
                                             <tr>
-                                                <td valign="bottom"><a href="{{ project.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><span style="font-size:10px; font-weight:600; text-decoration:none;">ZUM PROJEKT</span></a></td>
-                                                <td valign="bottom"><a href="{{ project.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><img src="https://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
+                                                <td valign="bottom"><a href="{{ prod.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><span style="font-size:10px; font-weight:600; text-decoration:none;">MEHR</span></a></td>
+                                                <td valign="bottom"><a href="{{ prod.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><img src="https://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11" style="display:inline;"/></a></td>
                                             </tr>
                                         </table></td>
                                     {% endwith %}

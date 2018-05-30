@@ -107,6 +107,10 @@
                         {{ article.get_rendered_content }}
                     </div>
 
+                    <br />
+
+                    {% include "productions/includes/theater_of_the_week_productions.html" %}
+
                 </div>
 
                 <!-- main sidebar -->
@@ -114,13 +118,6 @@
                     {% include "locations/includes/sidebar.html" with location=article.theater %}
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    {% include "productions/includes/theater_of_the_week_productions.html" %}
-                </div>
-            </div>
-
-
         </div>
     </div>
 {% endblock %}
