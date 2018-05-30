@@ -30,8 +30,7 @@
                                     {% for ev in future_events|slice:":3" %}
                                         <span class="date">{{ ev.start_date|date:"j. M Y" }}</span>
                                         <span class="time">{{ ev.start_time|time:"H:i" }}</span>{% if ev.get_special_text %}
-                                        {{ ev.get_special_text }}{% endif %}{% if not forloop.last %}, {% endif %}{% if future_events|length > 3 %}…{% endif %}
-                                    {% endfor %}
+                                        {{ ev.get_special_text }}{% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}{% if future_events|length > 3 %}…{% endif %}
                                 </strong>
                             </p>
                         {% endif %}
