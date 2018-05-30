@@ -8,8 +8,12 @@
                     {% if im.path %}
                         <a href="{{ event.get_url_path }}">
                             <div class="photo-credits-wrapper">
-                                <img src="{{ MEDIA_URL }}{{ im.path|modified_path:"detail_image" }}" alt="{{ prod.title|escape }}" />
-                                <span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>
+                                <img src="{{ MEDIA_URL }}{{ im.path|modified_path:"detail_image" }}" alt="{{ prod.title|escape }}" class="img-responsive" />
+                                {% with im.path|file_description as file_desc %}
+                                    {% if file_desc.author %}
+                                        <span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>
+                                    {% endif %}
+                                {% endwith %}
                             </div>
                         </a>
                         <br />
@@ -18,18 +22,20 @@
                     {% if prod.subtitle %}<h5>{{ prod.subtitle }}</h5>{% endif %}
                     {% if event.ev_or_prod_language_and_subtitles %}<p><strong>{{ event.ev_or_prod_language_and_subtitles.title }}</strong></p>{% endif %}
                     {{ event.ev_or_prod_teaser }}
-                    {% if prod.get_future_occurrences %}
-                        <p>
-                            <strong>
-                                {% trans "Events" %}:
-                                {% for ev in prod.get_future_occurrences %}
-                                    <span class="date">{{ ev.start_date|date:"j. M Y" }}</span>
-                                    <span class="time">{{ ev.start_time|time:"H:i" }}</span>{% if ev.get_special_text %}
-                                    {{ ev.get_special_text }}{% endif %}{% if not forloop.last %}, {% endif %}
-                                {% endfor %}
-                            </strong>
-                        </p>
-                    {% endif %}
+                    {% with future_events=prod.get_future_occurrences %}
+                        {% if future_events %}
+                            <p>
+                                <strong>
+                                    {% trans "Events" %}:
+                                    {% for ev in future_events|slice:":3" %}
+                                        <span class="date">{{ ev.start_date|date:"j. M Y" }}</span>
+                                        <span class="time">{{ ev.start_time|time:"H:i" }}</span>{% if ev.get_special_text %}
+                                        {{ ev.get_special_text }}{% endif %}{% if not forloop.last %}, {% endif %}{% if future_events|length > 3 %}…{% endif %}
+                                    {% endfor %}
+                                </strong>
+                            </p>
+                        {% endif %}
+                    {% endwith %}
                     <p class="text-right"><strong><a href="{{ event.get_url_path }}">&gt; {% trans "More" %}</a></strong></p>
                 {% endwith %}
             {% endwith %}
