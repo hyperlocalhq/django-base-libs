@@ -411,7 +411,8 @@ execfile(os.path.join(JETSON_PATH, "jetson/settings/filebrowser.py"))
 
 FILEBROWSER_EXTENSIONS = {
     'Folder': [''],
-    'Image': ['.jpg', '.jpeg', '.gif', '.png', '.tif', '.tiff', '.eps'],
+    'Image': ['.jpg', '.jpeg', '.gif', '.png', '.tif', '.tiff'],
+    'Vector Image': ['.eps'],
     'Video': ['.mov', '.wmv', '.mpeg', '.mpg', '.avi', '.rm', '.swf', '.flv', '.f4v'],
     'Document': ['.pdf', '.doc', '.docx', '.rtf', '.txt',
                  '.xls', '.xlsx', '.csv', '.ppt', '.pptx',
