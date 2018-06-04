@@ -59,6 +59,7 @@ MEDIA_ROOT = os.path.join(PROJECT_PATH, "berlinbuehnen", "media")
 STATIC_ROOT = os.path.join(PROJECT_PATH, "berlinbuehnen", "static")
 STATICFILES_DIRS = [os.path.join(PROJECT_PATH, "berlinbuehnen", "site_static")]
 MEDIA_URL = "/media/"
+MEDIA_HOST = "https://www.berlin-buehnen.de"
 STATIC_URL = PIPELINE_URL = "/static/%s/" % get_git_changeset(os.path.join(PROJECT_PATH, "berlinbuehnen"))
 PATH_TMP = os.path.join(PROJECT_PATH, "berlinbuehnen", "tmp")
 CSS_URL = "%scss/default/" % MEDIA_URL
