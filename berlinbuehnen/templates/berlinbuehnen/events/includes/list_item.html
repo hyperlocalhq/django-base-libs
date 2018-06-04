@@ -11,11 +11,11 @@
                 <div class="list-item-head-date col-xs-12 col-sm-4">
                     <div class="row">
                         <div class="list-item-head-date-day col-xs-3 col-sm-12">
-                            {{ event.start_date|date:"D" }}
+                            {{ event.start|date:"D" }}
                         </div>
                         <div class="list-item-head-date-month col-xs-3 col-sm-12">
-                            <span class="hidden-xs">{{ event.start_date|date:"j. F" }}</span>
-                            <span class="visible-xs">{{ event.start_date|date:"j. M" }}</span>
+                            <span class="hidden-xs">{{ event.start|date:"j. F" }}</span>
+                            <span class="visible-xs">{{ event.start|date:"j. M" }}</span>
                         </div>
                         <div class="list-item-head-date-type col-xs-3 col-sm-12">
                             {% if event.production.get_categories %}
@@ -23,15 +23,17 @@
                             {% endif %}
                         </div>
                         <div class="list-item-head-date-time col-xs-3 col-sm-12">
-                            {{ event.start_time|time:"H:i" }}
+                            {{ event.start|time:"H:i" }}
                         </div>
                         <div class="list-item-head-date-icons col-xs-3 col-sm-12">
+                            {% comment %}TMP
                             {% if request.user.is_authenticated %}
                                 {% adding2favorites for event using "favorites/includes/favorite_detail.html" %}
                             {% else %}
                                 {% login2favorites using "favorites/includes/favorite_detail_login.html" %}
                             {% endif %}
                             {% add_to_calender event=event %}
+                            {% endcomment %}
                             {% if event.ev_or_prod_tickets_website %}
                                 <a class="fawesome tickets" href="{{ event.ev_or_prod_tickets_website }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{% trans "Tickets" %}" data-tooltip-left="-10,.is-xs"><span class="sr-only">{% trans "Tickets" %}</span></a>
                             {% endif %}
@@ -103,10 +105,14 @@
                         {% endfor %}
                     </dl>
                 {% endif %}
-                {% if event.production.ensembles %}<h3 {% if event.get_special_text or event.is_canceled %} class="short" {% endif %}>{{ event.production.ensembles }}</h3>{% endif %}
-                {% if event.production.title %}<h2 {% if event.get_special_text or event.is_canceled %} class="short" {% endif %}>{% if event.production.prefix %}{{ event.production.prefix }} {% endif %}{{ event.production.title }}</h2>{% endif %}
-                {% if event.production.subtitle %}<h3>{{ event.production.subtitle }}</h3>
-                {% elif event.ev_or_prod_subtitles_text %}<h3>{{ event.ev_or_prod_subtitles_text|striptags }}</h3>{% endif %}
+                {% if event.ensembles %}<h3 {% if event.get_special_text or event.is_canceled %} class="short" {% endif %}>{{ event.ensembles }}</h3>{% endif %}
+
+                {% call event.get_title language=request.LANGUAGE_CODE as event_title %}
+                {% if event_title %}<h2 {% if event.get_special_text or event.is_canceled %} class="short" {% endif %}>{% if event.production.prefix %}{{ event.production.prefix }} {% endif %}{{ event_title }}</h2>{% endif %}
+
+                {% call event.get_title language=request.LANGUAGE_CODE as event_subtitle %}
+                {% if event_subtitle %}<h3>{{ event_subtitle }}</h3>{% endif %}
+
                 {% if event.production.original %}<h3>{{ event.production.original }}</h3>{% endif %}
                 {% if event.language_and_subtitles or event.production.language_and_subtitles %}<h3>{{ event.language_and_subtitles|default:event.production.language_and_subtitles }}</h3>{% endif %}
                 {% if event.ev_or_prod_teaser %}<div class="copy">{{ event.ev_or_prod_teaser }}</div>{% endif %}

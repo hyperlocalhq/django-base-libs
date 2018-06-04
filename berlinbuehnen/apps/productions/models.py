@@ -1100,13 +1100,22 @@ class Event(CreationModificationMixin, UrlMixin):
 
     ### special text ###
 
-    def get_special_text(self):
-        if not self.pk:
-            return u""
-        ch = self.characteristics.filter(slug="premiere")
-        if ch:
-            return ch[0].title
-        return u""
+    def get_special_text(self, language=None):
+        from django.core.exceptions import ObjectDoesNotExist
+        if self.pk:
+            try:
+                ch = self.characteristics.get(slug="premiere")
+            except ObjectDoesNotExist:
+                pass
+            else:
+                if language:
+                    return getattr(
+                        ch,
+                        'title_{}'.format(language),
+                        getattr(ch[0], 'title_{}'.format(settings.LANGUAGE_CODE))
+                    )
+                return ch.title
+        return ''
 
     def is_canceled(self):
         return self.event_status == 'canceled'

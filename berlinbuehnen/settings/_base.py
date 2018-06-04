@@ -119,6 +119,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "raven.contrib.django.raven_compat",
     "bootstrap_pagination",
+    "django_elasticsearch_dsl",
 
     ### Required CMS Django 2.4.1 apps ###
     "cms",
@@ -793,6 +794,14 @@ RAVEN_CONFIG = {
 ### API KEYS ###
 
 GOOGLE_API_KEY = get_secret("GOOGLE_API_KEY")
+
+### ELASTIC SEARCH ###
+
+ELASTICSEARCH_DSL={
+    'default': {
+        'hosts': 'localhost:9200'
+    },
+}
 
 ### SSL FIX FOR REQUESTS ###
 

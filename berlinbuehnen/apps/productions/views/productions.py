@@ -42,6 +42,8 @@ from berlinbuehnen.apps.productions.models import EventLeadership, EventAuthorsh
 from berlinbuehnen.apps.productions.models import ProductionCategory, LanguageAndSubtitles, ProductionCharacteristics, EventCharacteristics, EventSponsor
 from berlinbuehnen.utils.forms import timestamp_str
 
+from ..documents import EventDocument
+
 
 class EventFilterForm(forms.Form):
     date = forms.DateField(
@@ -51,7 +53,9 @@ class EventFilterForm(forms.Form):
         required=False,
     )
     locations = forms.ModelMultipleChoiceField(
-        queryset=Location.objects.all(),
+        queryset=Location.objects.filter(
+            status="published",
+        ).order_by(Lower("title_de")).only('pk', 'title_de', 'title_en'),
         required=False,
     )
     categories = forms.ModelMultipleChoiceField(
@@ -76,7 +80,7 @@ class EventFilterForm(forms.Form):
     )
 
 @never_cache
-def event_list(request, year=None, month=None, day=None):
+def event_list_deprecated(request, year=None, month=None, day=None):
     qs = Event.objects.filter(production__status="published").exclude(event_status="trashed")
 
     # exclude the parts of multipart productions
@@ -200,6 +204,126 @@ def event_list(request, year=None, month=None, day=None):
         httpstate_prefix="event_list",
         context_processors=(prev_next_processor,),
     )
+
+
+@never_cache
+def event_list(request, year=None, month=None, day=None):
+    from datetime import time
+    from elasticsearch_dsl.query import Q
+
+    search = EventDocument.search()
+
+    form = EventFilterForm(data=request.REQUEST)
+
+    facets = {
+        'selected': {},
+        'categories': {
+            'locations': form.fields['locations'].queryset,
+            'categories': form.fields['categories'].queryset,
+            'subcategories': form.fields['subcategories'].queryset,
+            'language_and_subtitles': form.fields['language_and_subtitles'].queryset,
+            'production_characteristics': form.fields['production_characteristics'].queryset,
+            'event_characteristics': form.fields['event_characteristics'].queryset,
+        },
+    }
+    # exclude all events in the past
+    now = datetime.now()
+    search = search.filter("range", start={"gte": now})
+
+    if form.is_valid():
+        cat = form.cleaned_data['date'] or datetime.today()
+        facets['selected']['date'] = cat
+        date_and_time = datetime.combine(cat, time(0,0))
+        search = search.filter("range", start={"gte": date_and_time})
+
+        cat = form.cleaned_data['starttime']
+        if cat:
+            facets['selected']['starttime'] = cat
+            # ???
+            # qs = qs.filter(
+            #     start_time__gte=cat,
+            # ).distinct()
+
+        # cats = form.cleaned_data['locations']
+        # if cats:
+        #     facets['selected']['locations'] = cats
+        #     qs = qs.filter(
+        #         models.Q(production__in_program_of__in=cats) |
+        #         models.Q(play_locations__in=cats) |
+        #         models.Q(production__play_locations__in=cats)
+        #     ).distinct()
+        #
+        # cats = form.cleaned_data['categories']
+        # subcats = form.cleaned_data['subcategories']
+        # if cats or subcats:
+        #     if cats:
+        #         facets['selected']['categories'] = cats
+        #     if subcats:
+        #         facets['selected']['subcategories'] = subcats
+        #     qs = qs.filter(
+        #         models.Q(production__categories__in=cats) |
+        #         models.Q(production__categories__in=subcats)
+        #     ).distinct()
+        #
+        # cats = form.cleaned_data['language_and_subtitles']
+        # if cats:
+        #     facets['selected']['language_and_subtitles'] = cats
+        #     qs = qs.filter(
+        #         models.Q(language_and_subtitles__in=cats) |
+        #         models.Q(production__language_and_subtitles__in=cats),
+        #     ).distinct()
+        #
+        # prodcats = form.cleaned_data['production_characteristics']
+        # eventcats = form.cleaned_data['event_characteristics']
+        # eventcats_main = []
+        # eventcats_sub = []
+        # if eventcats:
+        #     facets['selected']['event_characteristics'] = eventcats
+        #     eventcats_sub = EventCharacteristics.objects.filter(pk__in=eventcats, show_as_main_category=False).values_list('id', flat=True)
+        #     eventcats_main = EventCharacteristics.objects.filter(pk__in=eventcats, show_as_main_category=True).values_list('id', flat=True)
+        #
+        # if prodcats or eventcats_sub:
+        #     if prodcats:
+        #         facets['selected']['production_characteristics'] = prodcats
+        #     qs = qs.filter(
+        #         models.Q(production__characteristics__in=prodcats) |
+        #         models.Q(characteristics__in=eventcats_sub)
+        #     ).distinct()
+        #
+        # if eventcats_main:
+        #     qs = qs.filter(
+        #         characteristics__in=eventcats_main
+        #     ).distinct()
+
+    # abc_filter = request.GET.getlist('abc', None)
+    # abc_list = get_abc_list(qs, "production__title_%s" % request.LANGUAGE_CODE)
+    # if abc_filter:
+    #     facets['selected']['abc'] = abc_filter
+    #     for letter in abc_filter:
+    #         qs = filter_abc(qs, "production__title_%s" % request.LANGUAGE_CODE, letter)
+
+    # qs = qs.extra(select={
+    #     'title_uni': "IF (events_event.title_%(lang_code)s = '', events_event.title_de, events_event.title_%(lang_code)s)" % {
+    #         'lang_code': request.LANGUAGE_CODE,
+    #     }
+    # }).order_by("title_uni")
+
+    #qs = qs.prefetch_related("season_set", "mediafile_set", "categories", "accessibility_options").defer("tags")
+
+    # qs = qs.order_by('start_date', 'start_time', 'production__title_%s' % request.LANGUAGE_CODE)
+
+    context = {
+        'form': form,
+        # 'abc_list': abc_list,
+        'facets': facets,
+        'search': search,
+    }
+    # paginate_by = 24,
+    # extra_context = extra_context,
+    # httpstate_prefix = "event_list",
+    # context_processors = (prev_next_processor,),
+
+    return render(request, "events/event_list.html", context)
 
 
 def event_detail(request, slug, event_id=None):
