@@ -17,7 +17,8 @@ function gup( name ) {
 
 function OpenFile(fileUrl) {
     var CKEditorFuncNum = gup('CKEditorFuncNum');
-    window.top.opener.CKEDITOR.tools.callFunction(CKEditorFuncNum, fileUrl);
+    var host = (window.top.opener.CKEDITOR.config.media_host) ? window.top.opener.CKEDITOR.config.media_host : "";
+    window.top.opener.CKEDITOR.tools.callFunction(CKEditorFuncNum, host+fileUrl);
     window.top.close();
     window.top.opener.focus();
 }

@@ -54,6 +54,7 @@
         if (CKEDITOR) {
             var CUSTOM_CKEDITOR_CONFIG = '{% static "site/ckeditor_config/ckeditor_email_config.js" %}';
             CKEDITOR.config.filebrowserBrowseUrl = '/{{ LANGUAGE_CODE }}/admin/filebrowser/browse/?pop=3';
+            CKEDITOR.config.media_host = window.settings.media_host;
         }
     </script>
 

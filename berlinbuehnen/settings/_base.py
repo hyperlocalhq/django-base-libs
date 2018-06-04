@@ -59,6 +59,7 @@ MEDIA_ROOT = os.path.join(PROJECT_PATH, "berlinbuehnen", "media")
 STATIC_ROOT = os.path.join(PROJECT_PATH, "berlinbuehnen", "static")
 STATICFILES_DIRS = [os.path.join(PROJECT_PATH, "berlinbuehnen", "site_static")]
 MEDIA_URL = "/media/"
+MEDIA_HOST = "https://www.berlin-buehnen.de"
 STATIC_URL = PIPELINE_URL = "/static/%s/" % get_git_changeset(os.path.join(PROJECT_PATH, "berlinbuehnen"))
 PATH_TMP = os.path.join(PROJECT_PATH, "berlinbuehnen", "tmp")
 CSS_URL = "%scss/default/" % MEDIA_URL
@@ -411,7 +412,8 @@ execfile(os.path.join(JETSON_PATH, "jetson/settings/filebrowser.py"))
 
 FILEBROWSER_EXTENSIONS = {
     'Folder': [''],
-    'Image': ['.jpg', '.jpeg', '.gif', '.png', '.tif', '.tiff', '.eps'],
+    'Image': ['.jpg', '.jpeg', '.gif', '.png', '.tif', '.tiff'],
+    'Vector Image': ['.eps'],
     'Video': ['.mov', '.wmv', '.mpeg', '.mpg', '.avi', '.rm', '.swf', '.flv', '.f4v'],
     'Document': ['.pdf', '.doc', '.docx', '.rtf', '.txt',
                  '.xls', '.xlsx', '.csv', '.ppt', '.pptx',

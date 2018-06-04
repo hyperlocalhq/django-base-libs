@@ -148,7 +148,7 @@ register.tag(selectable)
 def file_description(fileobject):
     from filebrowser.models import FileDescription
     try:
-        file_description = FileDescription.objects.get(file_path=fileobject)
+        file_description = FileDescription.objects.get(file_path=fileobject.path)
     except:
         file_description = FileDescription(file_path=fileobject.path)
     return file_description
