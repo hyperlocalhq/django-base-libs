@@ -30,18 +30,42 @@ class EventDocument(DocType):
     title_en = fields.StringField()
     subtitle_de = fields.StringField()
     subtitle_en = fields.StringField()
+    special_text_de = fields.StringField()
+    special_text_en = fields.StringField()
+    is_canceled = fields.BooleanField()
+    teaser_de = fields.TextField()
+    teaser_en = fields.TextField()
+
     start = fields.DateField()
-    start_time = fields.DateField()
+    start_time = fields.StringField()
+
+    categories = fields.NestedField(properties={
+        'title_de': fields.StringField(),
+        'title_en': fields.StringField(),
+        'pk': fields.IntegerField(),
+    }, include_in_root=True)
+
     in_program_of = fields.NestedField(properties={
         'title_de': fields.StringField(),
         'title_en': fields.StringField(),
         'pk': fields.IntegerField(),
     }, include_in_root=True)
+
     play_locations = fields.NestedField(properties={
         'title_de': fields.StringField(),
         'title_en': fields.StringField(),
         'pk': fields.IntegerField(),
     }, include_in_root=True)
+
+    language_and_subtitles = fields.ObjectField(properties={
+        'title_de': fields.StringField(),
+        'title_en': fields.StringField(),
+        'pk': fields.IntegerField(),
+    }, include_in_root=True)
+
+    tickets_website = fields.StringField()
+
+    image_path = fields.StringField()
 
     class Meta:
         model = Event # The model associated with this DocType
@@ -117,6 +141,37 @@ class EventDocument(DocType):
     def get_subtitle(self, language=settings.LANGUAGE_CODE):
         return getattr(self, 'subtitle_{}'.format(language))
 
+    # special_text
+
+    def prepare_special_text_de(self, instance):
+        return instance.get_special_text(language='de')
+
+    def prepare_special_text_en(self, instance):
+        return instance.get_special_text(language='en')
+
+    def get_special_text(self, language=settings.LANGUAGE_CODE):
+        return getattr(self, 'special_text_{}'.format(language))
+
+    # is_canceled
+
+    def prepare_is_canceled(self, instance):
+        return instance.is_canceled()
+
+    # teaser
+
+    def prepare_teaser_de(self, instance):
+        return instance.get_rendered_teaser_de() or instance.production.get_rendered_teaser_de()
+
+    def prepare_teaser_en(self, instance):
+        return (
+            instance.get_rendered_teaser_en() or
+            instance.production.get_rendered_teaser_en() or
+            self.prepare_teaser_de(instance)
+        )
+
+    def get_teaser(self, language=settings.LANGUAGE_CODE):
+        return getattr(self, 'teaser_{}'.format(language))
+
     # start
 
     def prepare_start(self, instance):
@@ -124,7 +179,23 @@ class EventDocument(DocType):
         return datetime.combine(instance.start_date, instance.start_time)
 
     def prepare_start_time(self, instance):
-        return instance.start_time
+        if instance.start_time:
+            return instance.start_time.strftime('%H:%M')
+        return ''
+
+    # categories
+
+    def prepare_categories(self, instance):
+        return [{
+            'title_de': obj.title_de,
+            'title_en': obj.title_en or obj.title_de,
+            'pk': obj.pk,
+        } for obj in instance.production.get_categories()]
+
+    def get_first_category_title(self, language=settings.LANGUAGE_CODE):
+        if not self.categories:
+            return ''
+        return getattr(self.categories[0], 'title_{}'.format(language))
 
     # in_program_of
 
@@ -143,3 +214,29 @@ class EventDocument(DocType):
             'title_en': obj.title_en or obj.title_de,
             'pk': obj.pk,
         } for obj in instance.ev_or_prod_play_locations()]
+
+    # language_and_subtitles
+
+    def prepare_language_and_subtitles(self, instance):
+        obj = instance.language_and_subtitles or instance.production.language_and_subtitles
+        if obj:
+            return {
+                'title_de': obj.title_de,
+                'title_en': obj.title_en or obj.title_de,
+                'pk': obj.pk,
+            }
+        return None
+
+    # tickets_website
+
+    def prepare_tickets_website(self, instance):
+        return instance.ev_or_prod_tickets_website()
+
+    # image_path
+
+    def prepare_image_path(self, instance):
+        if instance.first_image:
+            return instance.first_image.path.path
+        elif instance.ev_or_prod_images():
+            return instance.ev_or_prod_images()[0].path.path
+        return ''

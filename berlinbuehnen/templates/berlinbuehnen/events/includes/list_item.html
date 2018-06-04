@@ -1,5 +1,7 @@
 {% load i18n image_modifications base_tags tagging_tags production_tags favorites_tags auth_extended fb_tags %}
 
+{% call event.get_title language=request.LANGUAGE_CODE as event_title %}
+
 <div class="list-item col-xs-12">
     <div class="row">
 
@@ -18,9 +20,8 @@
                             <span class="visible-xs">{{ event.start|date:"j. M" }}</span>
                         </div>
                         <div class="list-item-head-date-type col-xs-3 col-sm-12">
-                            {% if event.production.get_categories %}
-                                {{ event.production.get_categories.0.title }}
-                            {% endif %}
+                            {% call event.get_first_category_title language=request.LANGUAGE_CODE as event_first_category_title %}
+                            {{ event_first_category_title }}
                         </div>
                         <div class="list-item-head-date-time col-xs-3 col-sm-12">
                             {{ event.start|time:"H:i" }}
@@ -34,8 +35,8 @@
                             {% endif %}
                             {% add_to_calender event=event %}
                             {% endcomment %}
-                            {% if event.ev_or_prod_tickets_website %}
-                                <a class="fawesome tickets" href="{{ event.ev_or_prod_tickets_website }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{% trans "Tickets" %}" data-tooltip-left="-10,.is-xs"><span class="sr-only">{% trans "Tickets" %}</span></a>
+                            {% if event.tickets_website %}
+                                <a class="fawesome tickets" href="{{ event.tickets_website }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{% trans "Tickets" %}" data-tooltip-left="-10,.is-xs"><span class="sr-only">{% trans "Tickets" %}</span></a>
                             {% endif %}
                         </div>
                     </div>
@@ -43,17 +44,10 @@
 
                 <!-- image -->
                 <div class="list-item-head-image img hidden-xs col-sm-8">
-                    {% if event.first_image %}
-                        <img src="{{ MEDIA_URL }}{{ event.first_image.path|modified_path:"list_image" }}{% if event.production.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ event.production.title|escape }}" />
-                        {% with event.first_image.path|file_description as file_desc %}
+                    {% if event.image_path %}
+                        <img src="{{ MEDIA_URL }}{{ event.image_path|modified_path:"list_image" }}{% if event.production.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ event_title|escape }}" />
+                        {% with event.image_path|file_description as file_desc %}
                             {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
-                        {% endwith %}
-                    {% elif event.ev_or_prod_images %}
-                        {% with event.ev_or_prod_images|first as image %}
-                            <img src="{{ MEDIA_URL }}{{ image.path|modified_path:"list_image" }}{% if event.production.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ event.production.title|escape }}" />
-                            {% with image.path|file_description as file_desc %}
-                                {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
-                            {% endwith %}
                         {% endwith %}
                     {% else %}
                         <img src="{{ STATIC_URL }}site/img/placeholder_event.png" />
@@ -105,19 +99,26 @@
                         {% endfor %}
                     </dl>
                 {% endif %}
-                {% if event.ensembles %}<h3 {% if event.get_special_text or event.is_canceled %} class="short" {% endif %}>{{ event.ensembles }}</h3>{% endif %}
+                {% call event.get_prefix language=request.LANGUAGE_CODE as event_prefix %}
+                {% call event.get_special_text language=request.LANGUAGE_CODE as event_special_text %}
 
-                {% call event.get_title language=request.LANGUAGE_CODE as event_title %}
-                {% if event_title %}<h2 {% if event.get_special_text or event.is_canceled %} class="short" {% endif %}>{% if event.production.prefix %}{{ event.production.prefix }} {% endif %}{{ event_title }}</h2>{% endif %}
+                {% if event.ensembles %}<h3 {% if event_special_text or event.is_canceled %} class="short" {% endif %}>{{ event.ensembles }}</h3>{% endif %}
+
+                {% if event_title %}<h2 {% if event_special_text or event.is_canceled %} class="short" {% endif %}>{% if event_prefix %}{{ event_prefix }} {% endif %}{{ event_title }}</h2>{% endif %}
 
                 {% call event.get_title language=request.LANGUAGE_CODE as event_subtitle %}
                 {% if event_subtitle %}<h3>{{ event_subtitle }}</h3>{% endif %}
 
-                {% if event.production.original %}<h3>{{ event.production.original }}</h3>{% endif %}
+                {% call event.get_original language=request.LANGUAGE_CODE as event_original %}
+                {% if event_original %}<h3>{{ event_original }}</h3>{% endif %}
+
                 {% if event.language_and_subtitles or event.production.language_and_subtitles %}<h3>{{ event.language_and_subtitles|default:event.production.language_and_subtitles }}</h3>{% endif %}
-                {% if event.ev_or_prod_teaser %}<div class="copy">{{ event.ev_or_prod_teaser }}</div>{% endif %}
-                {% if event.get_special_text and not event.is_canceled %}<div class="extra"><span>{{ event.get_special_text }}</span></div>{% endif %}
-                {% if event.is_canceled %}<div class="extra canceled"><span>{% trans 'canceled' %}</span></div>{% endif %}
+
+                {% call event.get_teaser language=request.LANGUAGE_CODE as event_teaser %}
+                {% if event_teaser %}<div class="copy">{{ event_teaser }}</div>{% endif %}
+
+                {% if event_special_text and not event.is_canceled %}<div class="extra"><span>{{ event_special_text }}</span></div>{% endif %}
+                {% if event.is_canceled %}<div class="extra canceled"><span>{% trans "canceled" %}</span></div>{% endif %}
             </a>
         </div>
 

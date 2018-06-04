@@ -1112,7 +1112,7 @@ class Event(CreationModificationMixin, UrlMixin):
                     return getattr(
                         ch,
                         'title_{}'.format(language),
-                        getattr(ch[0], 'title_{}'.format(settings.LANGUAGE_CODE))
+                        getattr(ch, 'title_{}'.format(settings.LANGUAGE_CODE))
                     )
                 return ch.title
         return ''

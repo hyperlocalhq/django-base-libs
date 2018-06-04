@@ -312,6 +312,8 @@ def event_list(request, year=None, month=None, day=None):
 
     # qs = qs.order_by('start_date', 'start_time', 'production__title_%s' % request.LANGUAGE_CODE)
 
+    search = search.sort('start')
+
     context = {
         'form': form,
         # 'abc_list': abc_list,
