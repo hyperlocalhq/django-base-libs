@@ -19,7 +19,7 @@ class NewsMenu(CMSAttachMenu):
             nodes.append(NavigationNode(at.title, reverse("article_archive_for_news_by_type", kwargs={'type_sysname': at.slug}), at.id))
         return nodes
 
-menu_pool.register_menu(NewsMenu)
+#menu_pool.register_menu(NewsMenu)
 
 
 class InterviewsMenu(CMSAttachMenu):
@@ -35,6 +35,6 @@ class InterviewsMenu(CMSAttachMenu):
         nodes.append(NavigationNode(_("From the Blogs"), reverse("magazine_blog_posts"), 'magazine_blog_posts'))
         return nodes
 
-menu_pool.register_menu(InterviewsMenu)
+#menu_pool.register_menu(InterviewsMenu)
 
 
