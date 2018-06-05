@@ -6,6 +6,7 @@ from django.conf import settings
 
 from django_elasticsearch_dsl import DocType, Index, fields
 
+from filebrowser.models import FileDescription
 from ...apps.locations.models import Location
 from .models import Production, Event
 
@@ -66,6 +67,7 @@ class EventDocument(DocType):
     tickets_website = fields.StringField()
 
     image_path = fields.StringField()
+    image_author = fields.StringField()
 
     class Meta:
         model = Event # The model associated with this DocType
@@ -227,6 +229,11 @@ class EventDocument(DocType):
             }
         return None
 
+    def get_language_and_subtitles_title(self, language=settings.LANGUAGE_CODE):
+        if not self.language_and_subtitles:
+            return ''
+        return getattr(self.language_and_subtitles, 'title_{}'.format(language))
+
     # tickets_website
 
     def prepare_tickets_website(self, instance):
@@ -239,4 +246,21 @@ class EventDocument(DocType):
             return instance.first_image.path.path
         elif instance.ev_or_prod_images():
             return instance.ev_or_prod_images()[0].path.path
+        return ''
+
+    # image_author
+
+    def prepare_image_author(self, instance):
+        image_path = ''
+        if instance.first_image:
+            image_path = instance.first_image.path.path
+        elif instance.ev_or_prod_images():
+            image_path = instance.ev_or_prod_images()[0].path.path
+        if image_path:
+            try:
+                file_description = FileDescription.objects.get(file_path=image_path)
+            except (FileDescription.DoesNotExist, FileDescription.MultipleObjectsReturned):
+                return ''
+            else:
+                return file_description.author
         return ''

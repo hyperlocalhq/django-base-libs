@@ -13,6 +13,7 @@ from django.views.decorators.cache import never_cache
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.db.models.functions import Lower
+from django.core.paginator import Paginator, Page, EmptyPage, PageNotAnInteger
 
 from base_libs.views.views import access_denied
 
@@ -43,6 +44,7 @@ from berlinbuehnen.apps.productions.models import ProductionCategory, LanguageAn
 from berlinbuehnen.utils.forms import timestamp_str
 
 from ..documents import EventDocument
+from ..helpers import SearchResults
 
 
 class EventFilterForm(forms.Form):
@@ -211,6 +213,7 @@ def event_list(request, year=None, month=None, day=None):
     from datetime import time
     from elasticsearch_dsl.query import Q
 
+    paginate_by = 24
     search = EventDocument.search()
 
     form = EventFilterForm(data=request.REQUEST)
@@ -314,11 +317,24 @@ def event_list(request, year=None, month=None, day=None):
 
     search = search.sort('start')
 
+    search_results = SearchResults(search)
+
+    paginator = Paginator(search_results, paginate_by)
+    page_number = request.GET.get("page")
+    try:
+        page = paginator.page(page_number)
+    except PageNotAnInteger:
+        # If page parameter is not an integer, show first page.
+        page = paginator.page(1)
+    except EmptyPage:
+        # If page parameter is out of range, show last existing page.
+        page = paginator.page(paginator.num_pages)
+
     context = {
         'form': form,
         # 'abc_list': abc_list,
         'facets': facets,
-        'search': search,
+        'object_list': page,
     }
     # paginate_by = 24,
     # extra_context = extra_context,

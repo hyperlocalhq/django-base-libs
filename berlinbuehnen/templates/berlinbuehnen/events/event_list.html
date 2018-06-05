@@ -26,9 +26,9 @@
                     
                     <!-- the list -->
                     <div id="main_list" class="list list-autoload row print-small">
-                        {% if search %}
+                        {% if object_list %}
                             {% include "events/includes/list.html" %}
-                            {% include "utils/pagination.html" %}
+                            {% include "utils/pagination.html" with current_page=object_list %}
                         {% else %}
                             {% include "utils/container_empty.html" %}
                         {% endif %}

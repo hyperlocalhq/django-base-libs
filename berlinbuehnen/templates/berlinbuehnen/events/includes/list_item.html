@@ -46,9 +46,7 @@
                 <div class="list-item-head-image img hidden-xs col-sm-8">
                     {% if event.image_path %}
                         <img src="{{ MEDIA_URL }}{{ event.image_path|modified_path:"list_image" }}{% if event.production.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ event_title|escape }}" />
-                        {% with event.image_path|file_description as file_desc %}
-                            {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
-                        {% endwith %}
+                        {% if event.image_author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ event.image_author }}</span>{% endif %}
                     {% else %}
                         <img src="{{ STATIC_URL }}site/img/placeholder_event.png" />
                     {% endif %}
@@ -112,7 +110,10 @@
                 {% call event.get_original language=request.LANGUAGE_CODE as event_original %}
                 {% if event_original %}<h3>{{ event_original }}</h3>{% endif %}
 
-                {% if event.language_and_subtitles or event.production.language_and_subtitles %}<h3>{{ event.language_and_subtitles|default:event.production.language_and_subtitles }}</h3>{% endif %}
+                {% if event.language_and_subtitles %}
+                    {% call event.get_language_and_subtitles_title language=request.LANGUAGE_CODE as language_and_subtitles_title %}
+                    <h3>{{ language_and_subtitles_title }}</h3>
+                {% endif %}
 
                 {% call event.get_teaser language=request.LANGUAGE_CODE as event_teaser %}
                 {% if event_teaser %}<div class="copy">{{ event_teaser }}</div>{% endif %}

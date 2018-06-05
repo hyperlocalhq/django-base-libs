@@ -144,14 +144,24 @@ def selectable(parser, token):
 
 register.tag(selectable)
 
+
 @register.filter
 def file_description(fileobject):
+    from filebrowser.base import FileObject
     from filebrowser.models import FileDescription
+
+    if isinstance(fileobject, FileObject):
+        file_path = fileobject.path
+    else:
+        file_path = fileobject
+
     try:
-        file_description = FileDescription.objects.get(file_path=fileobject.path)
-    except:
-        file_description = FileDescription(file_path=fileobject.path)
+        file_description = FileDescription.objects.get(file_path=file_path)
+    except (FileDescription.DoesNotExist, FileDescription.MultipleObjectsReturned):
+        file_description = FileDescription(file_path=file_path)
+
     return file_description
+
 
 def get_file_extensions(qs):
     extensions = []
