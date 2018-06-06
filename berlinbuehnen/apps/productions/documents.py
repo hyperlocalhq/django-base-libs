@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.conf import settings
+from django.utils.translation import get_language, activate
 
 from django_elasticsearch_dsl import DocType, Index, fields
 
@@ -18,7 +19,12 @@ search_index.settings(
     number_of_replicas=0
 )
 
-# TODO: collect all the fields and relations necessary for search and display of events
+def _get_url_path(instance, language):
+    current_language = get_language()
+    activate(language)
+    url_path = instance.get_url_path()
+    activate(current_language)
+    return url_path
 
 @search_index.doc_type
 class EventDocument(DocType):
@@ -27,15 +33,17 @@ class EventDocument(DocType):
     original_en = fields.StringField()
     prefix_de = fields.StringField()
     prefix_en = fields.StringField()
-    title_de = fields.StringField()
-    title_en = fields.StringField()
+    title_de = fields.StringField(fielddata=True)
+    title_en = fields.StringField(fielddata=True)
     subtitle_de = fields.StringField()
     subtitle_en = fields.StringField()
-    special_text_de = fields.StringField()
-    special_text_en = fields.StringField()
+    is_premiere = fields.BooleanField()
     is_canceled = fields.BooleanField()
     teaser_de = fields.TextField()
     teaser_en = fields.TextField()
+
+    url_path_de = fields.StringField()
+    url_path_en = fields.StringField()
 
     start = fields.DateField()
     start_time = fields.StringField()
@@ -58,16 +66,40 @@ class EventDocument(DocType):
         'pk': fields.IntegerField(),
     }, include_in_root=True)
 
+    play_stages = fields.NestedField(properties={
+        'title_de': fields.StringField(),
+        'title_en': fields.StringField(),
+        'pk': fields.IntegerField(),
+    }, include_in_root=True)
+
+    festivals = fields.NestedField(properties={
+        'title_de': fields.StringField(),
+        'title_en': fields.StringField(),
+        'url_path_de': fields.StringField(),
+        'url_path_en': fields.StringField(),
+        'pk': fields.IntegerField(),
+    }, include_in_root=True)
+
     language_and_subtitles = fields.ObjectField(properties={
         'title_de': fields.StringField(),
         'title_en': fields.StringField(),
         'pk': fields.IntegerField(),
     }, include_in_root=True)
 
+    location_title = fields.StringField()
+
     tickets_website = fields.StringField()
 
     image_path = fields.StringField()
     image_author = fields.StringField()
+
+    # _meta and pk added just for possibility to add to favorites
+
+    _meta = Event._meta
+
+    @property
+    def pk(self):
+        return self.id
 
     class Meta:
         model = Event # The model associated with this DocType
@@ -143,16 +175,10 @@ class EventDocument(DocType):
     def get_subtitle(self, language=settings.LANGUAGE_CODE):
         return getattr(self, 'subtitle_{}'.format(language))
 
-    # special_text
+    # is_premiere
 
-    def prepare_special_text_de(self, instance):
-        return instance.get_special_text(language='de')
-
-    def prepare_special_text_en(self, instance):
-        return instance.get_special_text(language='en')
-
-    def get_special_text(self, language=settings.LANGUAGE_CODE):
-        return getattr(self, 'special_text_{}'.format(language))
+    def prepare_is_premiere(self, instance):
+        return bool(instance.get_special_text(language='de'))
 
     # is_canceled
 
@@ -208,6 +234,12 @@ class EventDocument(DocType):
             'pk': obj.pk,
         } for obj in instance.production.in_program_of.all()]
 
+    def get_in_program_of(self, language=settings.LANGUAGE_CODE):
+        return [{
+            'title': item['title_{}'.format(language)],
+            'pk': item['pk'],
+        } for item in self.in_program_of]
+
     # play_locations
 
     def prepare_play_locations(self, instance):
@@ -216,6 +248,47 @@ class EventDocument(DocType):
             'title_en': obj.title_en or obj.title_de,
             'pk': obj.pk,
         } for obj in instance.ev_or_prod_play_locations()]
+
+    def get_play_locations(self, language=settings.LANGUAGE_CODE):
+        return [{
+            'title': item['title_{}'.format(language)],
+            'pk': item['pk'],
+        } for item in self.play_locations]
+
+    # play_stages
+
+    def prepare_play_stages(self, instance):
+        return [{
+            'title_de': obj.title_de,
+            'title_en': obj.title_en or obj.title_de,
+            'pk': obj.pk,
+        } for obj in instance.ev_or_prod_play_stages()]
+
+    def get_play_stages(self, language=settings.LANGUAGE_CODE):
+        return [{
+            'title': item['title_{}'.format(language)],
+            'pk': item['pk'],
+        } for item in self.play_stages]
+
+
+    # play_stages
+
+    def prepare_festivals(self, instance):
+        return [{
+            'title_de': obj.title_de,
+            'title_en': obj.title_en or obj.title_de,
+            'url_path_de': _get_url_path(obj, language='de'),
+            'url_path_en': _get_url_path(obj, language='en'),
+            'pk': obj.pk,
+        } for obj in instance.get_festivals()]
+
+    def get_festivals(self, language=settings.LANGUAGE_CODE):
+        return [{
+            'title': item['title_{}'.format(language)],
+            'url_path': item['url_path_{}'.format(language)],
+            'pk': item['pk'],
+        } for item in self.festivals]
+
 
     # language_and_subtitles
 
@@ -264,3 +337,19 @@ class EventDocument(DocType):
             else:
                 return file_description.author
         return ''
+
+    # location_title
+
+    def prepare_location_title(self, instance):
+        return instance.location_title or instance.production.location_title
+
+    # url_path
+
+    def prepare_url_path_de(self, instance):
+        return _get_url_path(instance, language='de')
+
+    def prepare_url_path_en(self, instance):
+        return _get_url_path(instance, language='en')
+
+    def get_url_path(self, language=settings.LANGUAGE_CODE):
+        return getattr(self, 'url_path_{}'.format(language))
