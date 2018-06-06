@@ -72,12 +72,7 @@ class EventFilterForm(forms.Form):
         queryset=LanguageAndSubtitles.objects.all(),
         required=False,
     )
-    production_characteristics = forms.ModelMultipleChoiceField(
-        queryset=ProductionCharacteristics.objects.all(),
-        required=False,
-    )
-    event_characteristics = forms.ModelMultipleChoiceField(
-        queryset=EventCharacteristics.objects.all(),
+    is_premiere = forms.BooleanField(
         required=False,
     )
 
@@ -210,8 +205,10 @@ def event_list_deprecated(request, year=None, month=None, day=None):
 
 @never_cache
 def event_list(request, year=None, month=None, day=None):
+    import operator
     from datetime import time
     from elasticsearch_dsl.query import Q
+    from django.utils.six.moves import reduce
 
     paginate_by = 24
     search = EventDocument.search()
@@ -225,97 +222,89 @@ def event_list(request, year=None, month=None, day=None):
             'categories': form.fields['categories'].queryset,
             'subcategories': form.fields['subcategories'].queryset,
             'language_and_subtitles': form.fields['language_and_subtitles'].queryset,
-            'production_characteristics': form.fields['production_characteristics'].queryset,
-            'event_characteristics': form.fields['event_characteristics'].queryset,
         },
     }
     # exclude all events in the past
     now = datetime.now()
-    search = search.filter("range", start={"gte": now})
+    queries = []
 
     if form.is_valid():
         cat = form.cleaned_data['date'] or datetime.today()
-        facets['selected']['date'] = cat
-        date_and_time = datetime.combine(cat, time(0,0))
-        search = search.filter("range", start={"gte": date_and_time})
+        if now.date() == cat:
+            queries.append(
+                Q("range", start={"gte": now})
+            )
+        else:
+            facets['selected']['date'] = cat
+            date_and_time = datetime.combine(cat, time(0,0))
+            queries.append(
+                Q("range", start={"gte": date_and_time})
+            )
 
         cat = form.cleaned_data['starttime']
         if cat:
             facets['selected']['starttime'] = cat
-            # ???
-            # qs = qs.filter(
-            #     start_time__gte=cat,
-            # ).distinct()
+            queries.append(
+                Q("range", start_time={"gte": cat.strftime('%H:%M')})
+            )
 
-        # cats = form.cleaned_data['locations']
-        # if cats:
-        #     facets['selected']['locations'] = cats
-        #     qs = qs.filter(
-        #         models.Q(production__in_program_of__in=cats) |
-        #         models.Q(play_locations__in=cats) |
-        #         models.Q(production__play_locations__in=cats)
-        #     ).distinct()
-        #
-        # cats = form.cleaned_data['categories']
-        # subcats = form.cleaned_data['subcategories']
-        # if cats or subcats:
-        #     if cats:
-        #         facets['selected']['categories'] = cats
-        #     if subcats:
-        #         facets['selected']['subcategories'] = subcats
-        #     qs = qs.filter(
-        #         models.Q(production__categories__in=cats) |
-        #         models.Q(production__categories__in=subcats)
-        #     ).distinct()
-        #
-        # cats = form.cleaned_data['language_and_subtitles']
-        # if cats:
-        #     facets['selected']['language_and_subtitles'] = cats
-        #     qs = qs.filter(
-        #         models.Q(language_and_subtitles__in=cats) |
-        #         models.Q(production__language_and_subtitles__in=cats),
-        #     ).distinct()
-        #
-        # prodcats = form.cleaned_data['production_characteristics']
-        # eventcats = form.cleaned_data['event_characteristics']
-        # eventcats_main = []
-        # eventcats_sub = []
-        # if eventcats:
-        #     facets['selected']['event_characteristics'] = eventcats
-        #     eventcats_sub = EventCharacteristics.objects.filter(pk__in=eventcats, show_as_main_category=False).values_list('id', flat=True)
-        #     eventcats_main = EventCharacteristics.objects.filter(pk__in=eventcats, show_as_main_category=True).values_list('id', flat=True)
-        #
-        # if prodcats or eventcats_sub:
-        #     if prodcats:
-        #         facets['selected']['production_characteristics'] = prodcats
-        #     qs = qs.filter(
-        #         models.Q(production__characteristics__in=prodcats) |
-        #         models.Q(characteristics__in=eventcats_sub)
-        #     ).distinct()
-        #
-        # if eventcats_main:
-        #     qs = qs.filter(
-        #         characteristics__in=eventcats_main
-        #     ).distinct()
+        cats = form.cleaned_data['locations']
+        if cats:
+            facets['selected']['locations'] = cats
+            queries.append(
+                Q(
+                    "nested",
+                    path="in_program_of",
+                    query=Q("match", in_program_of__pk=cats[0].pk),
+                ) |
+                Q(
+                    "nested",
+                    path="play_locations",
+                    query=Q("match", play_locations__pk=cats[0].pk),
+                )
 
-    # abc_filter = request.GET.getlist('abc', None)
-    # abc_list = get_abc_list(qs, "production__title_%s" % request.LANGUAGE_CODE)
-    # if abc_filter:
-    #     facets['selected']['abc'] = abc_filter
-    #     for letter in abc_filter:
-    #         qs = filter_abc(qs, "production__title_%s" % request.LANGUAGE_CODE, letter)
+            )
 
-    # qs = qs.extra(select={
-    #     'title_uni': "IF (events_event.title_%(lang_code)s = '', events_event.title_de, events_event.title_%(lang_code)s)" % {
-    #         'lang_code': request.LANGUAGE_CODE,
-    #     }
-    # }).order_by("title_uni")
+        is_premiere = form.cleaned_data['is_premiere']
+        if is_premiere:
+            facets['selected']['is_premiere'] = is_premiere
+            queries.append(
+                Q("match", is_premiere=is_premiere)
+            )
 
-    #qs = qs.prefetch_related("season_set", "mediafile_set", "categories", "accessibility_options").defer("tags")
+        cats = form.cleaned_data['subcategories']
+        if cats:
+            facets['selected']['subcategories'] = cats
 
-    # qs = qs.order_by('start_date', 'start_time', 'production__title_%s' % request.LANGUAGE_CODE)
+            # TODO: operator.iand returns empty results for multiple subcategories - need reconsidering
+            queries.append(
+                reduce(operator.iand, [
+                    Q(
+                        "nested",
+                        path="categories",
+                        query=Q("match", categories__pk=cat.pk),
+                    )
+                    for cat in cats
+                ])
+            )
 
-    search = search.sort('start')
+        cats = form.cleaned_data['language_and_subtitles']
+        if cats:
+            facets['selected']['language_and_subtitles'] = cats
+            queries.append(
+                Q(
+                    "nested",
+                    path="language_and_subtitles",
+                    query=reduce(operator.ior, [Q("match", categories__pk=cat.pk) for cat in cats]),
+                )
+            )
+    else:
+        queries.append(
+            Q("range", start={"gte": now})
+        )
+
+    search = search.query(reduce(operator.iand, queries))
+    search = search.sort('start', 'title_{}'.format(request.LANGUAGE_CODE))
 
     search_results = SearchResults(search)
 
@@ -332,15 +321,9 @@ def event_list(request, year=None, month=None, day=None):
 
     context = {
         'form': form,
-        # 'abc_list': abc_list,
         'facets': facets,
         'object_list': page,
     }
-    # paginate_by = 24,
-    # extra_context = extra_context,
-    # httpstate_prefix = "event_list",
-    # context_processors = (prev_next_processor,),
-
     return render(request, "events/event_list.html", context)
 
 

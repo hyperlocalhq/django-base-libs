@@ -1,6 +1,7 @@
 {% load i18n image_modifications base_tags tagging_tags production_tags favorites_tags auth_extended fb_tags %}
 
 {% call event.get_title language=request.LANGUAGE_CODE as event_title %}
+{% call event.get_prefix language=request.LANGUAGE_CODE as event_prefix %}
 
 <div class="list-item col-xs-12">
     <div class="row">
@@ -27,14 +28,12 @@
                             {{ event.start|time:"H:i" }}
                         </div>
                         <div class="list-item-head-date-icons col-xs-3 col-sm-12">
-                            {% comment %}TMP
                             {% if request.user.is_authenticated %}
                                 {% adding2favorites for event using "favorites/includes/favorite_detail.html" %}
                             {% else %}
                                 {% login2favorites using "favorites/includes/favorite_detail_login.html" %}
                             {% endif %}
                             {% add_to_calender event=event %}
-                            {% endcomment %}
                             {% if event.tickets_website %}
                                 <a class="fawesome tickets" href="{{ event.tickets_website }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{% trans "Tickets" %}" data-tooltip-left="-10,.is-xs"><span class="sr-only">{% trans "Tickets" %}</span></a>
                             {% endif %}
@@ -58,51 +57,52 @@
         <!-- list item body -->
         <div class="list-item-body col-xs-12 col-sm-7 col-md-8 col-lg-9">
             <a class="list-item-link" href="{{ event.get_url_path }}{% remove_from_query "page" %}">
-                {% if event.production.in_program_of.exists or event.location_title or event.production.location_title or event.ev_or_prod_play_locations|length > 0 or event.ev_or_prod_play_stages|length > 0 %}
-                    <dl {% if event.get_special_text or event.is_canceled %} class="short" {% endif %}>
-                        {% with event.get_festivals as festivals %}
-                            {% if festivals %}
-                                <dd class="festivals">
-                                    {% for festival in festivals %}
-                                        <span class="festival" data-url="{{ festival.get_url_path }}">{% if forloop.counter == 1 %}{% trans "Festival" %}: {% endif %}{{ festival.title }}</span>
-                                    {% endfor %}
-                                </dd>
-                            {% endif %}
-                        {% endwith %}
-                        {% if event.production.in_program_of.exists %}
-                            {% for location in event.production.in_program_of.all %}
+                {% if event.in_program_of or event.location_title or event.play_locations or event.play_stages %}
+                    <dl {% if event.is_premiere or event.is_canceled %} class="short" {% endif %}>
+
+                        {% call event.get_festivals language=request.LANGUAGE_CODE as festivals %}
+                        {% if festivals %}
+                            <dd class="festivals">
+                                {% for festival in festivals %}
+                                    <span class="festival" data-url="{{ festival.url_path }}">{% if forloop.counter == 1 %}{% trans "Festival" %}: {% endif %}{{ festival.title }}</span>
+                                {% endfor %}
+                            </dd>
+                        {% endif %}
+
+                        {% if event.in_program_of %}
+                            {% call event.get_in_program_of language=request.LANGUAGE_CODE as in_program_of %}
+                            {% for location in in_program_of %}
                                 <dd>
                                     {{ location.title }}
                                 </dd>
                             {% endfor %}
                         {% endif %}
+
                         {% if event.location_title %}
                             <dd>
                                 {{ event.location_title }}
                             </dd>
-                        {% elif event.production.location_title %}
-                            <dd>
-                                {{ event.production.location_title }}
-                            </dd>
                         {% endif %}
-                        {% for location in event.ev_or_prod_play_locations %}
+
+                        {% call event.get_play_locations language=request.LANGUAGE_CODE as play_locations %}
+                        {% for location in play_locations %}
                             <dd>
                                 {{ location.title }}
                             </dd>
                         {% endfor %}
-                        {% for stage in event.ev_or_prod_play_stages %}
+
+                        {% call event.get_play_stages language=request.LANGUAGE_CODE as play_stages %}
+                        {% for stage in play_stages %}
                             <dd>
                                 {{ stage.title }}
                             </dd>
                         {% endfor %}
                     </dl>
                 {% endif %}
-                {% call event.get_prefix language=request.LANGUAGE_CODE as event_prefix %}
-                {% call event.get_special_text language=request.LANGUAGE_CODE as event_special_text %}
 
-                {% if event.ensembles %}<h3 {% if event_special_text or event.is_canceled %} class="short" {% endif %}>{{ event.ensembles }}</h3>{% endif %}
+                {% if event.ensembles %}<h3 {% if event.is_premiere or event.is_canceled %} class="short" {% endif %}>{{ event.ensembles }}</h3>{% endif %}
 
-                {% if event_title %}<h2 {% if event_special_text or event.is_canceled %} class="short" {% endif %}>{% if event_prefix %}{{ event_prefix }} {% endif %}{{ event_title }}</h2>{% endif %}
+                {% if event_title %}<h2 {% if event.is_premiere or event.is_canceled %} class="short" {% endif %}>{% if event_prefix %}{{ event_prefix }} {% endif %}{{ event_title }}</h2>{% endif %}
 
                 {% call event.get_title language=request.LANGUAGE_CODE as event_subtitle %}
                 {% if event_subtitle %}<h3>{{ event_subtitle }}</h3>{% endif %}
@@ -116,9 +116,9 @@
                 {% endif %}
 
                 {% call event.get_teaser language=request.LANGUAGE_CODE as event_teaser %}
-                {% if event_teaser %}<div class="copy">{{ event_teaser }}</div>{% endif %}
+                {% if event_teaser %}<div class="copy">{{ event_teaser|safe }}</div>{% endif %}
 
-                {% if event_special_text and not event.is_canceled %}<div class="extra"><span>{{ event_special_text }}</span></div>{% endif %}
+                {% if event.is_premiere and not event.is_canceled %}<div class="extra"><span>{% trans "Premiere" %}</span></div>{% endif %}
                 {% if event.is_canceled %}<div class="extra canceled"><span>{% trans "canceled" %}</span></div>{% endif %}
             </a>
         </div>

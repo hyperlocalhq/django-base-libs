@@ -165,12 +165,14 @@ def pin(context, image, description=""):
 def add_to_calender(context, event):
 
     start_datetime = None
-    if event.start_date and event.start_time:
+    if hasattr(event, "start"):
+        start_datetime = event.start
+    elif event.start_date and event.start_time:
         start_datetime = datetime(year=event.start_date.year, month=event.start_date.month, day=event.start_date.day, hour=event.start_time.hour, minute=event.start_time.minute)
     end_datetime = None
 
-    end_date = event.end_date
-    end_time = event.end_time
+    end_date = getattr(event, "end_date", None)
+    end_time = getattr(event, "end_time", None)
 
     two_hours = timedelta(hours=2)
 
@@ -181,7 +183,11 @@ def add_to_calender(context, event):
         end_date = date(year=end_datetime.year, month=end_datetime.month, day=end_datetime.day)
         end_time = time(hour=end_datetime.hour, minute=end_datetime.minute)
 
-    description = event.ev_or_prod_teaser()
+    if hasattr(event, "get_teaser"):
+        description = event.get_teaser(language=context['request'].LANGUAGE_CODE)
+    else:
+        description = event.ev_or_prod_teaser()
+
     if description:
         description += "\n\n"
     description += context['request'].build_absolute_uri(event.get_url_path())
