@@ -226,16 +226,16 @@ def event_list(request, year=None, month=None, day=None):
     }
     # exclude all events in the past
     now = datetime.now()
-    queries = []
+    queries = [Q("match", is_published=True)]
 
     if form.is_valid():
-        cat = form.cleaned_data['date'] or datetime.today()
+        cat = form.cleaned_data['date'] or datetime.now().date()
+        facets['selected']['date'] = cat
         if now.date() == cat:
             queries.append(
                 Q("range", start={"gte": now})
             )
         else:
-            facets['selected']['date'] = cat
             date_and_time = datetime.combine(cat, time(0,0))
             queries.append(
                 Q("range", start={"gte": date_and_time})

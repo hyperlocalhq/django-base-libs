@@ -39,6 +39,7 @@ class EventDocument(DocType):
     subtitle_en = fields.StringField()
     is_premiere = fields.BooleanField()
     is_canceled = fields.BooleanField()
+    is_published = fields.BooleanField()
     teaser_de = fields.TextField()
     teaser_en = fields.TextField()
 
@@ -106,7 +107,7 @@ class EventDocument(DocType):
 
         # The fields of the model you want to be indexed in Elasticsearch
         fields = ['id']
-        related_model = [Production, Location]
+        related_models = [Production, Location]
 
     def get_queryset(self):
         return super(EventDocument, self).get_queryset().select_related('production').filter(
@@ -184,6 +185,11 @@ class EventDocument(DocType):
 
     def prepare_is_canceled(self, instance):
         return instance.is_canceled()
+
+    # is_published
+
+    def prepare_is_published(self, instance):
+        return instance.event_status != "trashed" and instance.production.status == "published"
 
     # teaser
 

@@ -1,4 +1,4 @@
-{% load i18n base_tags %}
+{% load i18n base_tags mptt_tags %}
 
 <div class="filter-wrapper top-widget-wrapper">
     <div class="top-widget-button-up-wrapper">
@@ -62,35 +62,40 @@
         </div>
 
         <div id="main-filter-suboptions" class="panel-group" >
-            {% for cat in facets.categories.categories %}
-                <div class="panel">
-                    <div id="filter-categories-{{ cat.pk }}" class="filter-suboptions panel-collapse collapse col-xs-12">
-                        <h5>{% trans "filter by" %}:</h5>
-                        <ul class="option-set">
-                            {% if cat in facets.selected.categories %}
-                                <li class="parent active" data-value="categories={{ cat.pk }}">
-                                    <a href="{% remove_from_query "page" categories=cat.pk %}">{% trans "All" %}</a>
-                                </li>
-                            {% else %}
-                                <li class="parent">
-                                    <a href="{% add_to_query "page" categories=cat.pk %}">{% trans "All" %}</a>
-                                </li>
-                            {% endif %}
-                            {% for child in cat.children.all %}
-                                {% if child in facets.selected.subcategories %}
-                                    <li class="child active" data-value="subcategories={{ child.pk }}">
-                                        <a href="{% remove_from_query "page" subcategories=child.pk %}">{{ child.title }}</a>
-                                    </li>
-                                {% else %}
-                                    <li class="child">
-                                        <a href="{% add_to_query "page" subcategories=child.pk %}">{{ child.title }}</a>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            {% endfor %}
+            {% full_tree_for_model productions.ProductionCategory as categories %}
+            {% recursetree categories %}
+                {% with cat=node %}
+                    {% if cat.is_root_node %}{# Categories #}
+                        <div class="panel">
+                            <div id="filter-categories-{{ cat.pk }}" class="filter-suboptions panel-collapse collapse col-xs-12">
+                                <h5>{% trans "filter by" %}:</h5>
+                                <ul class="option-set">
+                                    {% if cat in facets.selected.categories %}
+                                        <li class="parent active" data-value="categories={{ cat.pk }}">
+                                            <a href="{% remove_from_query "page" categories=cat.pk %}">{% trans "All" %}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="parent">
+                                            <a href="{% add_to_query "page" categories=cat.pk %}">{% trans "All" %}</a>
+                                        </li>
+                                    {% endif %}
+                                    {{ children }}
+                                </ul>
+                            </div>
+                        </div>
+                    {% else %}{# Subcategories #}
+                        {% if cat in facets.selected.subcategories %}
+                            <li class="child active" data-value="subcategories={{ cat.pk }}">
+                                <a href="{% remove_from_query "page" subcategories=cat.pk %}">{{ cat.title }}</a>
+                            </li>
+                        {% else %}
+                            <li class="child">
+                                <a href="{% add_to_query "page" subcategories=cat.pk %}">{{ cat.title }}</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                {% endwith %}
+            {% endrecursetree %}
 
             <div class="panel">
                 <div id="filter-location" class="filter-suboptions panel-collapse collapse col-xs-12">
