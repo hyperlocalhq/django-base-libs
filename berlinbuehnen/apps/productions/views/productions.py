@@ -276,7 +276,6 @@ def event_list(request, year=None, month=None, day=None):
         if cats:
             facets['selected']['subcategories'] = cats
 
-            # TODO: operator.iand returns empty results for multiple subcategories - need reconsidering
             queries.append(
                 reduce(operator.iand, [
                     Q(
@@ -292,11 +291,14 @@ def event_list(request, year=None, month=None, day=None):
         if cats:
             facets['selected']['language_and_subtitles'] = cats
             queries.append(
-                Q(
-                    "nested",
-                    path="language_and_subtitles",
-                    query=reduce(operator.ior, [Q("match", categories__pk=cat.pk) for cat in cats]),
-                )
+                reduce(operator.ior, [
+                    Q(
+                        "nested",
+                        path="language_and_subtitles",
+                        query=Q("match", language_and_subtitles__pk=cat.pk),
+                    )
+                    for cat in cats
+                ])
             )
     else:
         queries.append(

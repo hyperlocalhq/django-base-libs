@@ -81,7 +81,8 @@ class EventDocument(DocType):
         'pk': fields.IntegerField(),
     }, include_in_root=True)
 
-    language_and_subtitles = fields.ObjectField(properties={
+    # There are no examples online how to use ObjectField in queries, so let's NestedField instead
+    language_and_subtitles = fields.NestedField(properties={
         'title_de': fields.StringField(),
         'title_en': fields.StringField(),
         'pk': fields.IntegerField(),
@@ -301,17 +302,17 @@ class EventDocument(DocType):
     def prepare_language_and_subtitles(self, instance):
         obj = instance.language_and_subtitles or instance.production.language_and_subtitles
         if obj:
-            return {
+            return [{
                 'title_de': obj.title_de,
                 'title_en': obj.title_en or obj.title_de,
                 'pk': obj.pk,
-            }
+            }]
         return None
 
     def get_language_and_subtitles_title(self, language=settings.LANGUAGE_CODE):
         if not self.language_and_subtitles:
             return ''
-        return getattr(self.language_and_subtitles, 'title_{}'.format(language))
+        return getattr(self.language_and_subtitles[0], 'title_{}'.format(language))
 
     # tickets_website
 

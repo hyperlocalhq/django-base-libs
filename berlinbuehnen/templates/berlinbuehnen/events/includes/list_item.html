@@ -104,7 +104,7 @@
 
                 {% if event_title %}<h2 {% if event.is_premiere or event.is_canceled %} class="short" {% endif %}>{% if event_prefix %}{{ event_prefix }} {% endif %}{{ event_title }}</h2>{% endif %}
 
-                {% call event.get_title language=request.LANGUAGE_CODE as event_subtitle %}
+                {% call event.get_subtitle language=request.LANGUAGE_CODE as event_subtitle %}
                 {% if event_subtitle %}<h3>{{ event_subtitle }}</h3>{% endif %}
 
                 {% call event.get_original language=request.LANGUAGE_CODE as event_original %}
