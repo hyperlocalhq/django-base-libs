@@ -14,7 +14,7 @@
                             <td width="100%" height="32" style="font-size:12px;">&nbsp;</td>
                         </tr>
                         <tr>
-                            <td><a href="https://www.berlin-buehnen.de{{ theater_of_the_week_url }}"><img src="https://www.berlin-buehnen.de/media/{{ article.theater.first_image.path|modified_path:"newsletter_default" }}" width="552" /></a></td>
+                            <td><a href="https://www.berlin-buehnen.de{{ theater_of_the_week_url }}">{% if article.image %}<img src="https://www.berlin-buehnen.de/media/{{ article.image|modified_path:"newsletter_default" }}" width="552" />{% elif article.theater.cover_image %}<img src="https://www.berlin-buehnen.de/media/{{ article.theater.cover_image.path|modified_path:"newsletter_default" }}" width="552" />{% elif article.theater.first_image %}<img src="https://www.berlin-buehnen.de/media/{{ article.theater.first_image.path|modified_path:"newsletter_default" }}" width="552" />{% endif %}</a></td>
                         </tr>
                         <tr>
                             <td height="34" valign="middle" align="center" bgcolor="#000" style="font-size:18px; color:#fff; text-transform:uppercase; font-weight:200; background:#000; padding-top:2px;">EXTRA DER WOCHE</td>
@@ -62,7 +62,7 @@
                                     <td width="268" valign="top"><table width="268" cellpadding="0" cellspacing="0">
                                         {% if prod.first_image %}
                                             <tr>
-                                                <td width="268"><a href="{{ prod.get_url }}" target="_blank"><img src="https://www.berlin-buehnen.de/media/{{ prod.first_image.path|modified_path:"newsletter_prod" }}" width="268" height="189" border="0"/></a></td>
+                                                <td width="268"><a href="{{ prod.get_url }}" target="_blank"><img src="https://www.berlin-buehnen.de/media/{{ prod.first_image.path|modified_path:"detail_image" }}" width="268" height="189" border="0"/></a></td>
                                             </tr>
                                             <tr>
                                                 <td height="16" style="font-size:12px;">&nbsp;</td>
@@ -89,7 +89,7 @@
                                                         {% for ev in future_events|slice:":2" %}
                                                             <span class="date">{{ ev.start_date|date:"j.n.Y" }}</span>
                                                             <span class="time">{{ ev.start_time|time:"H:i" }}</span>{% if ev.get_special_text %}
-                                                            {{ ev.get_special_text }}{% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}{% if future_events|length > 2 %}…{% endif %}
+                                                            {{ ev.get_special_text }}{% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}{% if future_events|length > 2 %} …{% endif %}
                                                     </strong></td>
                                                 </tr>
                                             {% endif %}
@@ -112,7 +112,7 @@
                                         <td width="268" valign="top"><table width="268" cellpadding="0" cellspacing="0">
                                             {% if prod.first_image %}
                                                 <tr>
-                                                    <td width="268"><a href="{{ prod.get_url }}" target="_blank"><img src="https://www.berlin-buehnen.de/media/{{ prod.first_image.path|modified_path:"newsletter_prod" }}" width="268" height="189" border="0"/></a></td>
+                                                    <td width="268"><a href="{{ prod.get_url }}" target="_blank"><img src="https://www.berlin-buehnen.de/media/{{ prod.first_image.path|modified_path:"detail_image" }}" width="268" height="189" border="0"/></a></td>
                                                 </tr>
                                                 <tr>
                                                     <td height="16" style="font-size:12px;">&nbsp;</td>
@@ -205,7 +205,7 @@
                                         <td width="268" valign="top"><table width="268" cellpadding="0" cellspacing="0">
                                             {% if prod.first_image %}
                                                 <tr>
-                                                    <td width="268"><a href="{{ prod.get_url }}" target="_blank"><img src="https://www.berlin-buehnen.de/media/{{ prod.first_image.path|modified_path:"newsletter_prod" }}" width="268" height="189" border="0"/></a></td>
+                                                    <td width="268"><a href="{{ prod.get_url }}" target="_blank"><img src="https://www.berlin-buehnen.de/media/{{ prod.first_image.path|modified_path:"detail_image" }}" width="268" height="189" border="0"/></a></td>
                                                 </tr>
                                                 <tr>
                                                     <td height="16" style="font-size:12px;">&nbsp;</td>
@@ -255,7 +255,7 @@
                                             <td width="268" valign="top"><table width="268" cellpadding="0" cellspacing="0">
                                                 {% if prod.first_image %}
                                                     <tr>
-                                                        <td width="268"><a href="{{ prod.get_url }}" target="_blank"><img src="https://www.berlin-buehnen.de/media/{{ prod.first_image.path|modified_path:"newsletter_prod" }}" width="268" height="189" border="0"/></a></td>
+                                                        <td width="268"><a href="{{ prod.get_url }}" target="_blank"><img src="https://www.berlin-buehnen.de/media/{{ prod.first_image.path|modified_path:"detail_image" }}" width="268" height="189" border="0"/></a></td>
                                                     </tr>
                                                     <tr>
                                                         <td height="16" style="font-size:12px;">&nbsp;</td>
@@ -282,7 +282,7 @@
                                                                 {% for ev in future_events|slice:":2" %}
                                                                     <span class="date">{{ ev.start_date|date:"j.n.Y" }}</span>
                                                                     <span class="time">{{ ev.start_time|time:"H:i" }}</span>{% if ev.get_special_text %}
-                                                                    {{ ev.get_special_text }}{% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}{% if future_events|length > 2 %}…{% endif %}
+                                                                    {{ ev.get_special_text }}{% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}{% if future_events|length > 2 %} …{% endif %}
                                                             </strong></td>
                                                         </tr>
                                                     {% endif %}
