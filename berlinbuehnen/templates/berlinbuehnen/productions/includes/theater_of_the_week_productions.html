@@ -1,6 +1,6 @@
 {% load base_tags i18n image_modifications fb_tags %}
 {% if article.get_related_productions %}
-    <div class="row">
+    <div class="row theater-of-the-week-productions">
     {% for prod in article.get_related_productions %}
         <div class="col-md-6">
             {% with event=prod.get_nearest_occurrence %}
@@ -27,13 +27,14 @@
                             <p>
                                 <strong>
                                     {% trans "Events" %}:
-                                    {% for ev in future_events|slice:":2" %}
-                                        {% if forloop.counter == 1 %}
+                                    {% for ev in future_events|slice:":4" %}
+                                        {% if forloop.counter < 4 %}
                                             <span class="date">{{ ev.start_date|date:"j.n.Y" }}</span>
                                             <span class="time">{{ ev.start_time|time:"H:i" }}</span>{% if ev.get_special_text %}
                                             {{ ev.get_special_text }}{% endif %}
+                                            {% if not forloop.last %}{% if forloop.counter < 3 %}, {% endif %}{% endif %}
                                         {% else %}
-                                            &nbsp;…
+                                             …
                                         {% endif %}
                                     {% endfor %}
                                 </strong>
