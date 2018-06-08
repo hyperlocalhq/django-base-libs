@@ -31,8 +31,7 @@
                                         {% if forloop.counter < 4 %}
                                             <span class="date">{{ ev.start_date|date:"j.n.Y" }}</span>
                                             <span class="time">{{ ev.start_time|time:"H:i" }}</span>{% if ev.get_special_text %}
-                                            {{ ev.get_special_text }}{% endif %}
-                                            {% if not forloop.last %}{% if forloop.counter < 3 %}, {% endif %}{% endif %}
+                                            {{ ev.get_special_text }}{% endif %}{% if not forloop.last %}{% if forloop.counter < 3 %}, {% endif %}{% endif %}
                                         {% else %}
                                              …
                                         {% endif %}

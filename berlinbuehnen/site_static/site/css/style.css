@@ -5742,6 +5742,11 @@ select {
   padding-right: 8px;
 }
 
+.theater-of-the-week .theater-of-the-week-productions h5 {
+  font-size: 1.8rem;
+  text-transform: none;
+}
+
 .top-widgets-wrapper .theater-of-the-week-widget-wrapper .top-widget-button-up-wrapper {
   background: #4583c8;
 }
@@ -5834,11 +5839,6 @@ select {
 
 .theater-of-the-week-widget-wrapper span.more:hover {
   color: white;
-}
-
-.theater-of-the-week-widget-wrapper .theater-of-the-week-productions h5 {
-  font-size: 1.8rem;
-  text-transform: none;
 }
 
 .is-xs .theater-of-the-week .main-container {

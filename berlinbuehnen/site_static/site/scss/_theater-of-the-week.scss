@@ -137,6 +137,13 @@
             }
         }
     }
+
+    .theater-of-the-week-productions {
+        h5 {
+            font-size: 1.8rem;
+            text-transform: none;
+        }
+    }
 }
 
 
@@ -221,13 +228,6 @@
         font-weight: $bold;
         &:hover {
             color: white;
-        }
-    }
-
-    .theater-of-the-week-productions {
-        h5 {
-            font-size: 1.8rem;
-            text-transform: none;
         }
     }
 }
