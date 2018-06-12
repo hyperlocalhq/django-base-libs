@@ -126,9 +126,9 @@ class Command(NoArgsCommand):
                 if not job_offer:
                     stats['skipped'] += 1
                     continue
-                #if job_offer.modified_date > change_date:
-                #    stats['skipped'] += 1
-                #    continue
+                if job_offer.modified_date > change_date:
+                    stats['skipped'] += 1
+                    continue
                 stats['updated'] += 1
             except models.ObjectDoesNotExist:
                 # or create a new job offer and then create a mapper
