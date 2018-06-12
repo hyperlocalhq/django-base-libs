@@ -19,6 +19,7 @@ class Command(NoArgsCommand):
         from django.apps import apps
         from django.db import transaction
         from django.db import models
+        from django.utils.html import strip_tags
 
         from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 
@@ -125,9 +126,9 @@ class Command(NoArgsCommand):
                 if not job_offer:
                     stats['skipped'] += 1
                     continue
-                if job_offer.modified_date > change_date:
-                    stats['skipped'] += 1
-                    continue
+                #if job_offer.modified_date > change_date:
+                #    stats['skipped'] += 1
+                #    continue
                 stats['updated'] += 1
             except models.ObjectDoesNotExist:
                 # or create a new job offer and then create a mapper
@@ -137,7 +138,7 @@ class Command(NoArgsCommand):
             job_offer.modified_date = change_date
 
             job_offer.position = position
-            job_offer.description = get_value(node_job, "description")
+            job_offer.description = strip_tags(get_value(node_job, "description")).replace("\n", "\n\n")
             job_offer.job_type = JOB_TYPES.get(
                 get_value(node_job, "job_listing:job_type"),
                 JOB_TYPES['Sonstiges'],
