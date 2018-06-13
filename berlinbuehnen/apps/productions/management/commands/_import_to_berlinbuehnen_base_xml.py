@@ -229,12 +229,12 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
                 prod.import_source = self.service
             else:
                 prod = mapper.content_object
-                self.production_ids_to_keep.add(prod.pk)
                 if not prod:
                     # if production was deleted after import,
                     # don't import it again
                     self.stats['prods_skipped'] += 1
                     continue
+                self.production_ids_to_keep.add(prod.pk)
                 if prod.status == "trashed":
                     self.stats['prods_untrashed'] += 1
 

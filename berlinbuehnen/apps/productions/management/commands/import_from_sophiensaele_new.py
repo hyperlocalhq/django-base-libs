@@ -6,6 +6,7 @@ class Command(ImportToBerlinBuehnenBaseJSON):
     help = "Imports productions and events from Sophiensaele"
 
     IMPORT_URL = "https://sophiensaele.poltmann.com/api/v1/stuecke/berlin-buehnen"
+    DEFAULT_IN_PROGRAM_OF_LOCATION_ID = 4
 
     def prepare(self):
         from django.apps import apps
