@@ -108,7 +108,9 @@ class EventDocument(DocType):
 
         # The fields of the model you want to be indexed in Elasticsearch
         fields = ['id']
-        related_models = [Production, Location]
+        # For now we get rid of Location model, because the saving of locations takes too long and times out
+        #related_models = [Production, Location]
+        related_models = [Production]
 
     def get_queryset(self):
         return super(EventDocument, self).get_queryset().select_related('production').filter(
@@ -121,12 +123,17 @@ class EventDocument(DocType):
     def get_instances_from_related(self, related_instance):
         if isinstance(related_instance, Production):
             return related_instance.event_set.all()
-        elif isinstance(related_instance, Location):
-            return Event.objects.filter(
-                models.Q(production__in_program_of=related_instance) |
-                models.Q(production__play_locations=related_instance) |
-                models.Q(play_locations=related_instance)
-            )
+
+        # For now we get rid of Location model, because the saving of locations takes too long and times out
+        # If a location is renamed or deleted, all indexes have to be rebuilt with:
+        # python manage.py search_index --rebuild
+        #
+        # elif isinstance(related_instance, Location):
+        #     return Event.objects.filter(
+        #         models.Q(production__in_program_of=related_instance) |
+        #         models.Q(production__play_locations=related_instance) |
+        #         models.Q(play_locations=related_instance)
+        #     )
 
     # ensembles
 
