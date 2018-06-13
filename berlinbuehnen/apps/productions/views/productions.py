@@ -81,10 +81,12 @@ class EventFilterForm(forms.Form):
 def event_list(request, year=None, month=None, day=None):
     import operator
     from datetime import time
+    from elasticsearch import TransportError
     from elasticsearch_dsl.query import Q
     from django.utils.six.moves import reduce
 
     paginate_by = 24
+    maintenance_mode = False
     search = EventDocument.search()
 
     form = EventFilterForm(data=request.REQUEST)
@@ -187,18 +189,23 @@ def event_list(request, year=None, month=None, day=None):
     paginator = Paginator(search_results, paginate_by)
     page_number = request.GET.get("page")
     try:
-        page = paginator.page(page_number)
-    except PageNotAnInteger:
-        # If page parameter is not an integer, show first page.
-        page = paginator.page(1)
-    except EmptyPage:
-        # If page parameter is out of range, show last existing page.
-        page = paginator.page(paginator.num_pages)
+        try:
+            page = paginator.page(page_number)
+        except PageNotAnInteger:
+            # If page parameter is not an integer, show first page.
+            page = paginator.page(1)
+        except EmptyPage:
+            # If page parameter is out of range, show last existing page.
+            page = paginator.page(paginator.num_pages)
+    except TransportError:
+        page = None
+        maintenance_mode = True
 
     context = {
         'form': form,
         'facets': facets,
         'object_list': page,
+        'maintenance_mode': maintenance_mode,
     }
     return render(request, "events/event_list.html", context)
 

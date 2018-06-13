@@ -801,7 +801,7 @@ GOOGLE_API_KEY = get_secret("GOOGLE_API_KEY")
 
 ELASTICSEARCH_DSL={
     'default': {
-        'hosts': 'localhost:9200'
+        'hosts': 'localhost:9201'
     },
 }
 
