@@ -12,7 +12,7 @@ from ...apps.locations.models import Location
 from .models import Production, Event
 
 # Name of the Elasticsearch index
-search_index = Index('library')
+search_index = Index('events')
 # See Elasticsearch Indices API reference for available settings
 search_index.settings(
     number_of_shards=1,
