@@ -14,82 +14,42 @@
                 <span class="sr-only">{% trans "close filter" %}</span>
             </button>
             <div class="row">
-                        
-                        
+
+
 <!-- filters -->
 <div class="filter-options-wrapper col-xs-12 col-md-9 col-lg-10">
     <h4>{% trans "Filter" %}:</h4>
     <div class="row">
         <div id="main-filter-options" class="filter-options btn-group clearfix" data-toggle="buttons">
-            
-            {% for cat in facets.categories.categories %}
-                <label type="button" class="filter-option col-xs-6 col-sm-4 col-md-3" data-parent="#main-filter-suboptions" data-toggle="collapse" data-target="#filter-categories-{{ cat.pk }}" aria-expanded="false">
-                    <input type="radio" name="options" id="filter-toggle-categories-{{ cat.pk }}">
-                    <span>{{ cat.title }}</span>
-                </label>
-            {% endfor %}
 
-            <label type="button" class="filter-option col-xs-6 col-sm-4 col-md-3" data-parent="#main-filter-suboptions" data-toggle="collapse" data-target="#filter-location" aria-expanded="false">
-                <input type="radio" name="options" id="filter-toggle-location">
-                <span>{% trans "Location" %}</span>
-            </label>
-            
-            {% if facets.selected.is_premiere %}
-                <label class="singleton active col-xs-6 col-sm-4 col-md-3" data-value="is_premiere=1">
-                    <a href="{% remove_from_query "page" is_premiere=1 %}">{% trans "Premiere" %}</a>
-                </label>
-            {% else %}
-                <label class="singleton col-xs-6 col-sm-4 col-md-3" data-value="is_premiere=1">
-                    <a href="{% add_to_query "page" is_premiere=1 %}">{% trans "Premiere" %}</a>
-                </label>
-            {% endif %}
-
-            {% if facets.selected.starttime|time:'H:i' == '18:00' %}
-                <label class="singleton active col-xs-6 col-sm-4 col-md-3" data-value="starttime=18:00">
-                    <a href="{% remove_from_query "page" starttime='18:00' %}">{% trans 'Evening' %}</a>
-                </label>
-            {% else %}
-                <label class="singleton col-xs-6 col-sm-4 col-md-3" data-value="starttime=18:00">
-                    <a href="{% add_to_query "page" starttime='18:00' %}">{% trans 'Evening' %}</a>
-                </label>
-            {% endif %}
-            
-            <label type="button" class="filter-option col-xs-6 col-sm-4 col-md-3" data-parent="#main-filter-suboptions" data-toggle="collapse" data-target="#filter-language" aria-expanded="false">
-                <input type="radio" name="options" id="filter-toggle-language">
-                <span>{% trans "Language" %}</span>
-            </label>
-
-        </div>
-
-        <div id="main-filter-suboptions" class="panel-group" >
             {% full_tree_for_model productions.ProductionCategory as categories %}
             {% recursetree categories %}
                 {% with cat=node %}
                     {% if cat.is_root_node %}{# Categories #}
-                        <div class="panel">
-                            <div id="filter-categories-{{ cat.pk }}" class="filter-suboptions panel-collapse collapse col-xs-12">
-                                <h5>{% trans "filter by" %}:</h5>
-                                <ul class="option-set">
-                                    {% if cat in facets.selected.categories %}
-                                        <li class="parent active" data-value="categories={{ cat.pk }}">
-                                            <a href="{% remove_from_query "page" categories=cat.pk %}">{% trans "All" %}</a>
-                                        </li>
-                                    {% else %}
-                                        <li class="parent" data-value="categories={{ cat.pk }}">
-                                            <a href="{% add_to_query "page" categories=cat.pk %}">{% trans "All" %}</a>
-                                        </li>
-                                    {% endif %}
-                                    {{ children }}
-                                </ul>
+                        <div class="filter-option-wrapper filter-selection col-xs-6 col-sm-4 col-md-3">
+                            <label type="button" class="filter-option">
+                                <input type="radio" name="options" id="filter-toggle-categories-{{ cat.pk }}">
+                                <span>{{ cat.title }}</span>
+                            </label>
+
+                            <div class="filter-option-dropdown">
+                                <a class="fawesome delete"></a>
+                                <div class="filter-option-dropdown-header">{{ cat.title }}</div>
+                                <input class="filter-option-dropdown-search" type="text" placeholder="{% trans "search" %}" />
+                                <div class="filter-option-dropdown-scroll">
+                                    <ul>
+                                        {{ children }}
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     {% else %}{# Subcategories #}
                         {% if cat in facets.selected.subcategories %}
-                            <li class="child active" data-value="subcategories={{ cat.pk }}">
+                            <li class="active">
                                 <a href="{% remove_from_query "page" subcategories=cat.pk %}">{{ cat.title }}</a>
                             </li>
                         {% else %}
-                            <li class="child" data-value="subcategories={{ cat.pk }}">
+                            <li>
                                 <a href="{% add_to_query "page" subcategories=cat.pk %}">{{ cat.title }}</a>
                             </li>
                         {% endif %}
@@ -97,48 +57,86 @@
                 {% endwith %}
             {% endrecursetree %}
 
-            <div class="panel">
-                <div id="filter-location" class="filter-suboptions panel-collapse collapse col-xs-12">
-                    <h5>{% trans "filter by" %}:</h5>
-                    <ul class="option-set">
-                        {% for cat in facets.categories.locations %}
-                            {% if cat in facets.selected.locations %} 
-                                <li class="active" data-value="locations={{ cat.pk }}">
-                                    <a href="{% remove_from_query "page" locations=cat.pk %}">{{ cat.title }}</a>
-                                </li>
-                            {% else %}
-                                <li data-value="locations={{ cat.pk }}">
-                                    <a href="{% add_to_query "page" locations=cat.pk %}">{{ cat.title }}</a>
-                                </li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
+            <div class="filter-option-wrapper filter-selection col-xs-6 col-sm-4 col-md-3">
+                <label type="button" class="filter-option">
+                    <input type="radio" name="options" id="filter-toggle-location">
+                    <span>{% trans "Location" %}</span>
+                </label>
+
+                <div class="filter-option-dropdown">
+                    <a class="fawesome delete"></a>
+                    <div class="filter-option-dropdown-header">{% trans "Location" %}</div>
+                    <input class="filter-option-dropdown-search" type="text" placeholder="{% trans "search" %}" />
+                    <div class="filter-option-dropdown-scroll">
+                        <ul>
+                            {% for cat in facets.categories.locations %}
+                                {% if cat in facets.selected.locations %}
+                                    <li class="active">
+                                        <a href="{% remove_from_query "page" locations=cat.pk %}">{{ cat.title }}</a>
+                                    </li>
+                                {% else %}
+                                    <li>
+                                        <a href="{% add_to_query "page" locations=cat.pk %}">{{ cat.title }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
             </div>
 
-            <div class="panel">
-                <div id="filter-language" class="filter-suboptions panel-collapse collapse col-xs-12">
-                    <h5>{% trans "filter by" %}:</h5>
-                    <ul class="option-set">
-                        {% for cat in facets.categories.language_and_subtitles %}
-                            {% if cat in facets.selected.language_and_subtitles %}
-                                <li class="active" data-value="language_and_subtitles={{ cat.pk }}">
-                                    <a href="{% remove_from_query "page" language_and_subtitles=cat.pk %}">{{ cat.title }}</a>
-                                </li>
-                            {% else %}
-                                <li data-value="language_and_subtitles={{ cat.pk }}">
-                                    <a href="{% add_to_query "page" language_and_subtitles=cat.pk %}">{{ cat.title }}</a>
-                                </li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
+            {% if facets.selected.is_premiere %}
+                <label class="singleton filter-selection active col-xs-6 col-sm-4 col-md-3" data-value="is_premiere=1">
+                    <a href="{% remove_from_query "page" is_premiere=1 %}">{% trans "Premiere" %}</a>
+                </label>
+            {% else %}
+                <label class="singleton filter-selection col-xs-6 col-sm-4 col-md-3" data-value="is_premiere=1">
+                    <a href="{% add_to_query "page" is_premiere=1 %}">{% trans "Premiere" %}</a>
+                </label>
+            {% endif %}
+
+            {% if facets.selected.starttime|time:'H:i' == '18:00' %}
+                <label class="singleton filter-selection active col-xs-6 col-sm-4 col-md-3" data-value="starttime=18:00">
+                    <a href="{% remove_from_query "page" starttime='18:00' %}">{% trans 'Evening' %}</a>
+                </label>
+            {% else %}
+                <label class="singleton filter-selection col-xs-6 col-sm-4 col-md-3" data-value="starttime=18:00">
+                    <a href="{% add_to_query "page" starttime='18:00' %}">{% trans 'Evening' %}</a>
+                </label>
+            {% endif %}
+
+            <div class="filter-option-wrapper filter-selection col-xs-6 col-sm-4 col-md-3">
+                <label type="button" class="filter-option">
+                    <input type="radio" name="options" id="filter-toggle-language">
+                    <span>{% trans "Language" %}</span>
+                </label>
+
+                <div class="filter-option-dropdown">
+                    <a class="fawesome delete"></a>
+                    <div class="filter-option-dropdown-header">{% trans "Language" %}</div>
+                    <input class="filter-option-dropdown-search" type="text" placeholder="{% trans "search" %}" />
+                    <div class="filter-option-dropdown-scroll">
+                        <ul>
+                            {% for cat in facets.categories.language_and_subtitles %}
+                                {% if cat in facets.selected.language_and_subtitles %}
+                                    <li class="active">
+                                        <a href="{% remove_from_query "page" language_and_subtitles=cat.pk %}">{{ cat.title }}</a>
+                                    </li>
+                                {% else %}
+                                    <li>
+                                        <a href="{% add_to_query "page" language_and_subtitles=cat.pk %}">{{ cat.title }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
             </div>
 
         </div>
     </div>
 </div>
-                        
+
 
 <!-- search -->
 <div class="filter-search-wrapper col-xs-12 col-md-3 col-lg-2"></div>
