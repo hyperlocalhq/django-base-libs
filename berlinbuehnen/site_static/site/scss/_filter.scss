@@ -84,6 +84,9 @@
                                 }
                             }
                         }
+                        &.open {
+                            color: $blue;
+                        }
                         &:hover {
                             color: $blue;
                         }
@@ -96,6 +99,10 @@
                             font-weight: $bold;
                             color: black;
                             &:hover {
+                                color: $blue;
+                            }
+
+                            &.active {
                                 color: $blue;
                             }
                         }
@@ -113,28 +120,46 @@
                         .filter-option-dropdown {
                             position: absolute;
                             left: -10px;
-                            top: -19px;
+                            top: -20px;
                             z-index: 2;
-                            min-width: 200%;
+                            min-width: 100%;
                             padding: 20px 20px 20px 20px;
                             margin: 0 0 0 5px;
                             background: #F1F6FA;
                             box-shadow: 0px 0px 5px black;
                             display: none;
 
-                            .is-sm & {
-                                min-width: 110%;
-                            }
+                            -webkit-transition: opacity 0.2s ease-out,  min-width 0.3s ease-out;
+                            transition: opacity 0.2s ease-out,  min-width 0.3s ease-out;
 
-                            .is-xs & {
-                                min-width: 150%;
-                                max-width: 200%;
+                            &.preopen {
+                                display: block;
+                                opacity: 0;
+
+                                &.open {
+                                    opacity: 1;
+                                    min-width: 200%;
+
+                                    .is-sm & {
+                                        min-width: 110%;
+                                    }
+
+                                    .is-xs & {
+                                        min-width: 150%;
+                                        max-width: 200%;
+                                    }
+                                }
                             }
 
                             .delete {
                                 position: absolute;
                                 top: 5px;
                                 right: 5px;
+                                border: none;
+                                margin: 0;
+                                padding: 0;
+                                background: transparent;
+                                outline: none;
 
                                 &:before {
                                     color: black;
@@ -149,6 +174,7 @@
                                 text-transform: uppercase;
                                 font-size: 0.875em;
                                 font-weight: 700;
+                                color: $blue;
                             }
 
                             .filter-option-dropdown-search {
@@ -159,9 +185,9 @@
                             .filter-option-dropdown-scroll {
                                 margin-top: 20px;
                                 max-height: 300px;
-                                overflow: scroll;
+                                overflow: auto;
                                 overflow-x: hidden;
-                                overflow-y: scroll;
+                                overflow-y: auto;
                             }
 
                             ul {
@@ -171,6 +197,15 @@
                                     padding: 3px 0;
                                     a {
                                         color: $black;
+
+                                        &.active {
+                                            color: $blue;
+                                            font-weight: 700;
+                                        }
+
+                                        &:hover {
+                                            color: $blue;
+                                        }
                                     }
                                 }
                             }

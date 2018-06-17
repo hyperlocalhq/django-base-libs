@@ -8326,6 +8326,10 @@ body.is-xs .grid .grid-item button.favorite:before {
   color: #4583c8;
 }
 
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option.open, .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .singleton.open {
+  color: #4583c8;
+}
+
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option:hover, .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .singleton:hover {
   color: #4583c8;
 }
@@ -8343,6 +8347,10 @@ body.is-xs .grid .grid-item button.favorite:before {
   color: #4583c8;
 }
 
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option a.active, .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .singleton a.active {
+  color: #4583c8;
+}
+
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper {
   position: relative;
   padding: 0 15px;
@@ -8356,21 +8364,33 @@ body.is-xs .grid .grid-item button.favorite:before {
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown {
   position: absolute;
   left: -10px;
-  top: -19px;
+  top: -20px;
   z-index: 2;
-  min-width: 200%;
+  min-width: 100%;
   padding: 20px 20px 20px 20px;
   margin: 0 0 0 5px;
   background: #F1F6FA;
   box-shadow: 0px 0px 5px black;
   display: none;
+  -webkit-transition: opacity 0.2s ease-out,  min-width 0.3s ease-out;
+  transition: opacity 0.2s ease-out,  min-width 0.3s ease-out;
 }
 
-.is-sm .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown {
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown.preopen {
+  display: block;
+  opacity: 0;
+}
+
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown.preopen.open {
+  opacity: 1;
+  min-width: 200%;
+}
+
+.is-sm .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown.preopen.open {
   min-width: 110%;
 }
 
-.is-xs .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown {
+.is-xs .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown.preopen.open {
   min-width: 150%;
   max-width: 200%;
 }
@@ -8379,6 +8399,11 @@ body.is-xs .grid .grid-item button.favorite:before {
   position: absolute;
   top: 5px;
   right: 5px;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  outline: none;
 }
 
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown .delete:before {
@@ -8393,6 +8418,7 @@ body.is-xs .grid .grid-item button.favorite:before {
   text-transform: uppercase;
   font-size: 0.875em;
   font-weight: 700;
+  color: #4583c8;
 }
 
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown .filter-option-dropdown-search {
@@ -8403,9 +8429,9 @@ body.is-xs .grid .grid-item button.favorite:before {
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown .filter-option-dropdown-scroll {
   margin-top: 20px;
   max-height: 300px;
-  overflow: scroll;
+  overflow: auto;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown ul {
@@ -8418,6 +8444,15 @@ body.is-xs .grid .grid-item button.favorite:before {
 
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown ul li a {
   color: #000000;
+}
+
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown ul li a.active {
+  color: #4583c8;
+  font-weight: 700;
+}
+
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown ul li a:hover {
+  color: #4583c8;
 }
 
 .is-xs .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-selection:nth-child(even) .filter-option-dropdown {
