@@ -128,17 +128,22 @@ def event_list(request, year=None, month=None, day=None):
         if cats:
             facets['selected']['locations'] = cats
             queries.append(
-                Q(
-                    "nested",
-                    path="in_program_of",
-                    query=Q("match", in_program_of__pk=cats[0].pk),
-                ) |
-                Q(
-                    "nested",
-                    path="play_locations",
-                    query=Q("match", play_locations__pk=cats[0].pk),
-                )
-
+                reduce(operator.ior, [
+                    Q(
+                        "nested",
+                        path="in_program_of",
+                        query=Q("match", in_program_of__pk=cat.pk),
+                    )
+                    for cat in cats
+                ]) |
+                reduce(operator.ior, [
+                    Q(
+                        "nested",
+                        path="play_locations",
+                        query=Q("match", play_locations__pk=cat.pk),
+                    )
+                    for cat in cats
+                ])
             )
 
         is_premiere = form.cleaned_data['is_premiere']
@@ -153,7 +158,7 @@ def event_list(request, year=None, month=None, day=None):
             facets['selected']['subcategories'] = cats
 
             queries.append(
-                reduce(operator.iand, [
+                reduce(operator.ior, [
                     Q(
                         "nested",
                         path="categories",
