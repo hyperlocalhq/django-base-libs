@@ -477,6 +477,10 @@ class ImageField(forms.FileField):
         elif not data and initial:
             return initial
 
+        # if the FILES were already used outside of the form,
+        # let's move the cursor back to the beginning of the file
+        data.seek(0)
+
         if data.name.split(".")[-1].lower() not in self.valid_file_extensions:
             raise forms.ValidationError(
                 self.error_messages['invalid_extension'],
@@ -511,7 +515,7 @@ class ImageField(forms.FileField):
             #  but it must be called immediately after the constructor
             trial_image = Image.open(file)
             trial_image.verify()
-        except:
+        except IndexError:
             raise forms.ValidationError(self.error_messages['invalid_image'])
         else:
             width, height = trial_image.size

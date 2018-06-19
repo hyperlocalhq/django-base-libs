@@ -8,7 +8,7 @@ from django.contrib.admin import util
 from django.contrib.admin import options
 from django.contrib.admin import validation
 from django.contrib.admin.validation import (check_isseq, get_field, check_isdict)
-from django.contrib.admin.options import HORIZONTAL, VERTICAL, ModelAdmin
+from django.contrib.admin.options import HORIZONTAL, VERTICAL
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.forms.formsets import all_valid
@@ -17,6 +17,7 @@ from django.forms.models import (BaseModelForm, BaseModelFormSet, fields_for_mod
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.core.exceptions import ImproperlyConfigured
+from django.db.models.fields import FieldDoesNotExist
 
 try:
     from django.utils.encoding import force_text
@@ -28,28 +29,6 @@ from base_libs.models.base_libs_settings import MARKUP_HTML_WYSIWYG
 from base_libs.models.base_libs_settings import MARKUP_RAW_HTML
 from base_libs.models.fields import ExtendedTextField
 from base_libs.widgets import TreeSelectWidget, TreeSelectMultipleWidget
-
-### Back-port from Django 1.5
-### TODO check if backport was removed for safety reasons
-
-def check_formfield(cls, model, opts, label, field):
-    if getattr(cls.form, 'base_fields', None):
-        try:
-            cls.form.base_fields[field]
-        except KeyError:
-            raise ImproperlyConfigured("'%s.%s' refers to field '%s' that "
-                "is missing from the form." % (cls.__name__, label, field))
-    else:
-        get_form_is_overridden = hasattr(cls, 'get_form') and cls.get_form != ModelAdmin.get_form
-        if not get_form_is_overridden:
-            fields = fields_for_model(model)
-            try:
-                fields[field]
-            except KeyError:
-                raise ImproperlyConfigured("'%s.%s' refers to field '%s' that "
-                    "is missing from the form." % (cls.__name__, label, field))
-
-
 
 ### Guerilla patches for nested fieldsets
 
@@ -314,12 +293,14 @@ def _declared_fieldsets(self):
                         new_fields.extend(traverse_fields(field))
                 else:
                     # it's a field name
-                    if isinstance(
-                        model._meta.get_field(field),
-                        ExtendedTextField,
-                        ):
-                        if "%s_markup_type" % field not in fields:
-                            new_fields.append("%s_markup_type" % field)
+                    try:
+                        f = model._meta.get_field(field)
+                    except FieldDoesNotExist: # allow readonly methods instead of fields
+                        pass
+                    else:
+                        if isinstance(f, ExtendedTextField):
+                            if "%s_markup_type" % field not in fields:
+                                new_fields.append("%s_markup_type" % field)
                     new_fields.append(field)
             return new_fields
             
@@ -333,102 +314,53 @@ def _declared_fieldsets(self):
     return None
 
 
-def _formfield_for_choice_field(cls, instance, db_field, request=None, **kwargs):
-    # catch markup type fields
-    if re.search('markup_type$', db_field.name):
-        new_choices = ()
-        for choice in db_field.choices:
-            if choice[0] in type(instance).allowed_markup_admin:
-                new_choices += (choice,)
-        kwargs['choices'] = new_choices
-        if len(new_choices)>0:
-            kwargs['default'] = new_choices[-1][0]
-    return super(cls, instance).formfield_for_choice_field(db_field, request, **kwargs)
-
-
-def _formfield_for_dbfield(cls, instance, db_field, **kwargs):
-    # catch markup type fields here and modify the widget to assign
-    # a special css class. we need that for javascript stuff alter....
-    field = super(cls, instance).formfield_for_dbfield(db_field, **kwargs)
-    #if isinstance(db_field, (models.ForeignKey, models.ManyToManyField)):
-    #    try:
-    #        # if a foreign key points to a model which has a field "parent"..
-    #        db_field.rel.to._meta.get_field("parent")
-    #    except models.FieldDoesNotExist:
-    #        pass
-    #    else:
-    #        # .. then display the select options in a hierarchical view
-    #        if isinstance(db_field, models.ForeignKey):
-    #            field.widget = TreeSelectWidget(
-    #                model=db_field.rel.to,
-    #                choices=field.widget.choices,
-    #                )
-    #        else:
-    #            field.widget = TreeSelectMultipleWidget(
-    #                model=db_field.rel.to,
-    #                choices=field.widget.choices,
-    #                )
-    #el
-    if re.search('markup_type$', db_field.name):
-        field.widget.attrs['class'] = "markupType"
-    return field
-
-
-class ExtendedStackedInline(admin.StackedInline):
-    classes = ("grp-collapse grp-closed",)
-
+class MarkupTypeOptions(object):
     # default allowed markup types for TextFields in the Admin ...
     allowed_markup_admin = [
-        MARKUP_PLAIN_TEXT, 
-        MARKUP_RAW_HTML, 
-        MARKUP_HTML_WYSIWYG, 
+        MARKUP_PLAIN_TEXT,
+        MARKUP_RAW_HTML,
+        MARKUP_HTML_WYSIWYG,
         #MARKUP_MARKDOWN
     ]
 
     def formfield_for_choice_field(self, db_field, request=None, **kwargs):
-        return _formfield_for_choice_field(ExtendedStackedInline, self, db_field, request=None, **kwargs)
-  
+        # catch markup type fields
+        if re.search('markup_type$', db_field.name):
+            new_choices = ()
+            for choice in db_field.choices:
+                if choice[0] in self.allowed_markup_admin:
+                    new_choices += (choice,)
+            kwargs['choices'] = new_choices
+            if len(new_choices) > 0:
+                kwargs['default'] = new_choices[-1][0]
+        return super(MarkupTypeOptions, self).formfield_for_choice_field(db_field, request, **kwargs)
+
     def formfield_for_dbfield(self, db_field, **kwargs):
-        return _formfield_for_dbfield(ExtendedStackedInline, self, db_field, **kwargs)
+        # catch markup type fields here and modify the widget to assign
+        # a special css class. we need that for javascript stuff alter....
+        field = super(MarkupTypeOptions, self).formfield_for_dbfield(db_field, **kwargs)
+        if re.search('markup_type$', db_field.name):
+            field.widget.attrs['class'] = "markupType"
+        return field
 
-    declared_fieldsets = property(_declared_fieldsets)
 
-
-class ExtendedTabularInline(admin.TabularInline):
+class ExtendedStackedInline(MarkupTypeOptions, admin.StackedInline):
     classes = ("grp-collapse grp-closed",)
-    
-    # default allowed markup types for TextFields in the Admin ...
-    allowed_markup_admin = [
-        MARKUP_PLAIN_TEXT, 
-        MARKUP_RAW_HTML, 
-        MARKUP_HTML_WYSIWYG, 
-        #MARKUP_MARKDOWN
-        ]
-
-    def formfield_for_choice_field(self, db_field, request=None, **kwargs):
-        return _formfield_for_choice_field(ExtendedTabularInline, self, db_field, request=None, **kwargs)
-  
-    def formfield_for_dbfield(self, db_field, **kwargs):
-        return _formfield_for_dbfield(ExtendedTabularInline, self, db_field, **kwargs)
-  
     declared_fieldsets = property(_declared_fieldsets)
 
 
-class ExtendedModelAdmin(admin.ModelAdmin):
+class ExtendedTabularInline(MarkupTypeOptions, admin.TabularInline):
+    classes = ("grp-collapse grp-closed",)
+    declared_fieldsets = property(_declared_fieldsets)
+
+
+class ExtendedModelAdmin(MarkupTypeOptions, admin.ModelAdmin):
     """
     overwritten to handle custom buttons for the admin 
     add and change view and other stuff
     """
     # additional save buttons
     additional_buttons = []
-    
-    # default allowed markup types for TextFields in the Admin ...
-    allowed_markup_admin = [
-        MARKUP_PLAIN_TEXT, 
-        MARKUP_RAW_HTML, 
-        MARKUP_HTML_WYSIWYG, 
-        #MARKUP_MARKDOWN,
-        ]
     
     @classmethod
     def get_modified_fieldsets(cls, additional_fields, prefixed=True):
@@ -620,11 +552,5 @@ class ExtendedModelAdmin(admin.ModelAdmin):
                         if response:
                             result = response
         return result
-    
-    def formfield_for_choice_field(self, db_field, request=None, **kwargs):
-        return _formfield_for_choice_field(ExtendedModelAdmin, self, db_field, request=None, **kwargs)
-  
-    def formfield_for_dbfield(self, db_field, **kwargs):
-        return _formfield_for_dbfield(ExtendedModelAdmin, self, db_field, **kwargs)
-  
+
     declared_fieldsets = property(_declared_fieldsets)
