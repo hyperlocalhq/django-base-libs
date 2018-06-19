@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 SECONDS=0
 PROJECT_PATH=/usr/local/www/apache24/data/creative-city-berlin.de
-CRON_LOG_FILE=${PROJECT_PATH}/logs/import_from_theaterjobs.log
+CRON_LOG_FILE=${PROJECT_PATH}/logs/import_jobs_from_musicjob.log
 
-echo "Importing from Theaterjobs" > ${CRON_LOG_FILE}
+echo "Importing from Musicjob" > ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
 
 cd ${PROJECT_PATH}
-. bin/activate
+source bin/activate
 cd project/ccb    
-python manage.py import_from_theaterjobs --traceback --settings=settings.production >> ${CRON_LOG_FILE}  2>&1
+python manage.py import_jobs_from_musicjob --traceback --settings=settings.production >> ${CRON_LOG_FILE}  2>&1
 
 echo "Finished." >> ${CRON_LOG_FILE}
 duration=$SECONDS
