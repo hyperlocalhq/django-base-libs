@@ -9,7 +9,7 @@ date >> ${CRON_LOG_FILE}
 cd ${PROJECT_PATH}
 source bin/activate
 cd project/ccb    
-python manage.py import_jobs_from_kulturmanagement --traceback --settings=settings.production >> ${CRON_LOG_FILE}  2>&1
+python manage.py import_jobs_from_kulturmanagement --verbosity=2 --traceback --settings=settings.production >> ${CRON_LOG_FILE}  2>&1
 
 echo "Finished." >> ${CRON_LOG_FILE}
 duration=$SECONDS
