@@ -1,0 +1,20 @@
+{% load i18n uni_form_field %}
+<div class="ctrlHolder">
+    {{ form.establishment_mm.error_tag }}
+    {{ form.establishment_yyyy.error_tag }}
+    <p class="label">{% trans "Established at" %}</p>
+    <ul class="alternate2">
+        <li>
+            <label for="id_establishment_mm">
+                {% trans "Month" %}
+                {{ form.establishment_mm|with_class }}
+            </label>
+        </li>
+        <li>
+            <label for="id_establishment_yyyy">
+                {% trans "Year" %}
+                {{ form.establishment_yyyy|with_class }}
+            </label>
+        </li>
+    </ul>
+</div>

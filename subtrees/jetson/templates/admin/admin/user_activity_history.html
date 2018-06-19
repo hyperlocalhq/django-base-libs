@@ -1,0 +1,75 @@
+{% extends "admin/base_site.html" %}
+{% load admin_list i18n babel %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumbs">
+        <li><a href="../../../../">{% trans 'Home' %}</a></li>
+        <li><a href="../../">{{ model_name }}</a></li>
+        <li><a href="../">{{ object|truncatewords:"18" }}</a></li>
+        <li>{% trans 'History' %}</li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+<div class="module">
+
+{% if action_list %}
+    <table id="change-history" width="100%">
+        <thead>
+        <tr>
+            <th scope="col">{% trans 'Date/time' %}</th>
+            <th scope="col">{% trans 'Object' %}</th>
+            <th scope="col">{% trans 'Action' %}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for action in action_list %}
+        <tr>
+            <th scope="row">{{ action.action_time|datetimefmt }}</th>
+            <td>
+            {% if action.content_object %}
+                <a href="/admin/{{ action.content_type.app_label }}/{{ action.content_type.model }}/{{ action.object_id }}/">{{ action.content_object }}</a>
+            {% endif %}
+            </td>
+            <td>{{ action.change_message }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <!-- PAGINATION BOTTOM -->
+    {% block pagination_bottom %}
+        {% if paginator.num_pages > 1 %}
+            <div class="grp-module">
+                <div class="grp-row">
+                    <nav class="grp-pagination">
+                        <header style="display:none"><h1>Pagination</h1></header>
+                        <ul>
+                            <li class="grp-results">
+                                <span>{% blocktrans with paginator.count as full_result_count %}{{ full_result_count }} total{% endblocktrans %}</span>
+                            </li>
+                            {% for i in paginator.page_range %}
+                                {% ifequal i "." %}
+                                    <li class="grp-separator"><span>...</span></li>
+                                {% else %}
+                                    <li>
+                                        {% if action_list.number == i %}
+                                            <span class="this-page">{{ i }}</span>
+                                        {% else %}
+                                            <a href="?p={{ i }}">{{ i }}</a>
+                                        {% endif %}
+                                    </li>
+                                {% endifequal %}
+                            {% endfor %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        {% endif %}
+    {% endblock %}
+{% else %}
+    <p>{% trans "This user has no change history." %}</p>
+{% endif %}
+</div>
+</div>
+{% endblock %}

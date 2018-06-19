@@ -1,0 +1,25 @@
+{% comment %}<!--
+The base for context item in context item lists
+-->{% endcomment %}
+<div class="list-item clearfix expanded {{ extra_css_classes|default:"" }}"
+    onclick="redirect('{% block object_absolute_url %}{% endblock %}');">
+    {% block list-content %}
+        {% block object_col1_container %}
+            <div class="list-item-image">{% block object_image %}{% endblock %}</div>
+            <div class="list-item-details">
+                <div class="object_title">
+                    <h5>
+                        {% block object_title %}TITLE{% endblock %}
+                    </h5>
+                </div>
+                <div class="object_col1">{% block object_col1 %}{% endblock %}</div>
+                {% block object_col2_container %}
+                    <div class="object_col2">{% block object_col2 %}{% endblock %}</div>
+                {% endblock %}
+            </div>
+            <div class="list-item-controls">{% block object_controls %}{% endblock %}</div>
+        {% endblock %}
+        <hr class="hidden"/>
+    {% endblock %}
+</div>
+

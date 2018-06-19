@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block extrahead %}
+	{{ block.super }}
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+{% endblock %}
+
+{% block title %}
+	{% if not current_forum %}
+		{{ container.title|escape }}
+	{% else %}
+		{{ current_forum.short_title|escape }}
+	{% endif %}
+{% endblock %}
+{% block bodyclass %}forum{% endblock %}
+
+{% block headline %}
+	<h2 class="main">
+		{{ container.title|escape }}
+	</h2>	
+{% endblock %}
+{% block content %}
+	{% block details %}
+	{% endblock %}
+{% endblock %}

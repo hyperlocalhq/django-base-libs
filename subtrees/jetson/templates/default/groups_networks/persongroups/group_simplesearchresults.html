@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load i18n base_tags navigation_tags auth_extended %}
+
+{% block extrahead %}
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/groups_networks.js"></script>
+{% endblock %}
+
+
+{% block title %}{% trans "Groups" %}{% endblock %}
+
+{% block headline %}
+	<h2 class="main">{% trans "Groups" %}</h2>
+{% endblock %}			
+
+
+
+{% block content %}
+<div class="list">
+    {% block tabs %}
+        <div id="tabs">
+            {% children_of "groups" using "navigation/children_in_tabs.html" %}
+        </div>
+    {% endblock %}
+
+    {% if object_list %}
+
+		{% include "utils/sorting_view_pagination_header.html" %}
+		        
+        {% block breadcrumbs %}
+            <div class="breadcrumbs">
+                <div>
+                    {% include "utils/abc_filters.html" %}
+                </div>
+            </div>
+        {% endblock %}
+        
+        {% for object in object_list %}
+			{% with object.content_object as group %}
+
+	            <div class="info {% cycle odd,even %} expanded" onclick="redirect('{{ group.get_url_path }}');">
+	                <div class="info_address">
+	                    <h4>
+	                        <a class="group_hl" href="{{ group.get_url_path }}">{{ group.get_title }}</a>
+	                        {% if request.user.is_staff %}{% if_has_perm "groups_networks.change_persongroup" group %} <a href="{{ root_dir}}admin/groups_networks/persongroup/{{ group.id }}/" class="edit_link" onclick="open_new_window(event)">({% trans "edit" %})</a>{% end_if_has_perm %}{% endif %}
+	                   </h4>
+	                </div>
+	                <div class="info_facts">
+	                    {% if group.group_type %}
+	                        <div class="type">{{ group.group_type.get_title }}</div>
+	                    {% endif %}	
+	                    {% if group.get_description %}
+	                        {% with group.get_description|striptags|truncatewords:"60" as filtered_desc %}{% with filtered_desc|truncatewords:"40" as shortened_desc %}
+	                            <p class="description hidable">{{ shortened_desc }}
+	                                {% ifnotequal shortened_desc filtered_desc %}
+	                                <a href="{{ group.get_url_path }}">{% trans "read more" %}</a>
+	                                {% endifnotequal %}
+	                            </p>
+	                        {% endwith %}{% endwith %}
+	                    {% endif %}	
+	                </div>
+                        {% include "groups_networks/persongroups/controls.html" %}
+	                <div class="cleaner"></div>
+	            </div><!-- end of info -->
+	    	{% endwith %}	            
+        {% endfor %}
+	
+   		{% include "utils/pagination_footer.html" %}
+   
+    {% else %}
+        <p>{% trans "No objects found within the selected conditions." %}</p>
+    {% endif %}
+    <div class="cleaner"></div>
+</div>
+{% endblock %}
+

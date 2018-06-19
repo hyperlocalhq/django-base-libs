@@ -1,0 +1,82 @@
+{% extends "admin/base_site.html" %}
+
+<!-- LOADING -->
+{% load url from future %}
+{% load admin_list i18n admin_urls %}
+
+<!-- BREADCRUMBS -->
+{% block breadcrumbs %}
+    <ul class="grp-horizontal-list">
+        <li><a href="{% url 'admin:index' %}">{% trans 'Home' %}</a></li>
+        <li><a href="{% url 'admin:app_list' app_label=app_label %}">{% trans app_label|capfirst|escape %}</a></li>
+        <li><a href="{% url opts|admin_urlname:'changelist' %}">{{ model_name }}</a></li>
+        <li><a href="{% url opts|admin_urlname:'changelist' %}{{ object.pk }}">{{ object|truncatewords:"18" }}</a></li>
+        <li>{% trans 'History' %}</li>
+    </ul>
+{% endblock %}
+
+<!-- CONTENT -->
+{% block content %}
+    <div id="content-main">
+    <div class="module">
+        {% if action_list %}
+            <table id="grp-change-history" width="100%">
+                <thead>
+                    <tr>
+                        <th scope="col">{% trans 'Date/time' %}</th>
+                        <th scope="col">{% trans 'User' %}</th>
+                        <th scope="col">{% trans 'Action' %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for action in action_list %}
+                        <tr>
+                            <th scope="grp-row">{{ action.action_time|date:_("DATETIME_FORMAT") }}</th>
+                            <td>{{ action.user.username }}{% if action.user.get_full_name %} ({{ action.user.get_full_name }}){% endif %}</td>
+                            <td>
+                            {% ifequal forloop.counter 1 %}
+                                {% trans "Created object" %}
+                            {% else %}
+                                {{ action.change_message }}
+                            {% endifequal %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <!-- PAGINATION BOTTOM -->
+            {% block pagination_bottom %}
+                {% if paginator.num_pages > 1 %}
+                    <div class="grp-module">
+                        <div class="grp-row">
+                            <nav class="grp-pagination">
+                                <header style="display:none"><h1>Pagination</h1></header>
+                                <ul>
+                                    <li class="grp-results">
+                                        <span>{% blocktrans with paginator.count as full_result_count %}{{ full_result_count }} total{% endblocktrans %}</span>
+                                    </li>
+                                    {% for i in paginator.page_range %}
+                                        {% ifequal i "." %}
+                                            <li class="grp-separator"><span>...</span></li>
+                                        {% else %}
+                                            <li>
+                                                {% if action_list.number == i %}
+                                                    <span class="this-page">{{ i }}</span>
+                                                {% else %}
+                                                    <a href="?p={{ i }}">{{ i }}</a>
+                                                {% endif %}
+                                            </li>
+                                        {% endifequal %}
+                                    {% endfor %}
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endblock %}
+        {% else %}
+            <p>{% trans "This object doesn't have a change history. It probably wasn't added via this admin site." %}</p>
+        {% endif %}
+    </div>
+    </div>
+{% endblock %}

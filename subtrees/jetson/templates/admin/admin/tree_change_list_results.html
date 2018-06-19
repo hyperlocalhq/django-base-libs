@@ -1,0 +1,27 @@
+{% if results %}
+    <div class="grp-module grp-changelist-results">
+        <table id="tree" cellspacing="0" class="grp-sortable">
+            <thead>
+                <tr>
+                    {% comment %} <!-- Headers are not sortable!!!! --> {% endcomment %}
+                    {% for header in result_headers %}
+                        <th scope="col" {{ header.class_attrib }}>
+                             <div class="grp-text"><span>{{ header.text|capfirst }}</span></div>
+                        </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                    <tr id="node-{{ result.0.id }}" class="grp-row grp-row-even {% if result.0.parent %}child-of-node-{{ result.0.parent.id }}{% endif %}">
+                        {% for item in result %}
+                            {% if not forloop.first %}
+                                {{ item }}
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}

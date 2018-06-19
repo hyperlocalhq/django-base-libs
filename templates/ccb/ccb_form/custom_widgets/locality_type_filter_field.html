@@ -1,0 +1,31 @@
+{% load crispy_forms_filters l10n %}
+
+{# TODO: find a way to check the current category without referencing to the field by name #}
+{% with html_name=field.html_name value=field.value|add:"0" choices=field.field.choices attrs=field.field.widget.attrs current_category=field.form.cleaned_data.locality_type %}
+<li class="accordion-inside accordion-trigger {% if current_category %}opened{% endif %}" id="{{ html_name }}">
+    <input type="hidden" name="{{ html_name }}" value="{% if value|add:"0" != 0 %}{{ value }}{% endif %}" />
+    <div class="child accordion-trigger">{{ field.label }}</div>
+    <ul class="accordion">
+        {% for choice_value, choice_instance in choices %}
+            {% with choice_instance.level|default:0 as level %}
+                {# all those complex if-else conditions are necessary to distinguish when the level has changed #}
+                {% if not level or current_category and choice_instance.tree_id == current_category.tree_id %}
+                    {% ifchanged level %}
+                        {% if not level %}
+                            <li data-level="{{ level }}"><a href="javascript:void(0);" data-value="{{ choice_value }}" class="level-{{ level }}{% if not forloop.first %} level-changed{% endif %}{% if value == choice_value|add:"0" or value == choice_value %} active{% endif %}">{{ choice_instance.title }}{% if not forloop.first %}<!-- level changed -->{% endif %}</a></li>
+                        {% elif current_category and choice_instance.tree_id == current_category.tree_id %}
+                            <li data-level="{{ level }}"><a href="javascript:void(0);" data-value="{{ choice_value }}" class="level-{{ level }} level-changed{% if value == choice_value|add:"0" or value == choice_value %} active{% endif %}">{{ choice_instance.title }}<!-- level changed --></a></li>
+                        {% endif %}
+                    {% else %}
+                        {% if not level %}
+                            <li data-level="{{ level }}"><a href="javascript:void(0);" data-value="{{ choice_value }}" class="level-{{ level }}{% if value == choice_value|add:"0" or value == choice_value %} active{% endif %}">{{ choice_instance.title }}</a></li>
+                        {% elif current_category and choice_instance.tree_id == current_category.tree_id %}
+                            <li data-level="{{ level }}"><a href="javascript:void(0);" data-value="{{ choice_value }}" class="level-{{ level }}{% if value == choice_value|add:"0" or value == choice_value %} active{% endif %}">{{ choice_instance.title }}</a></li>
+                        {% endif %}
+                    {% endifchanged %}
+                {% endif %}
+            {% endwith %}
+        {% endfor %}
+    </ul>
+</li>
+{% endwith %}

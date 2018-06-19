@@ -1,0 +1,9 @@
+{% load image_mods_tags fb_tags i18n %}
+{% with slide=slides.0 %}
+    {% if slide %}
+        <img src="{{ UPLOADS_URL }}{{ slide.path|modified_path:"header" }}" alt="{{ slide.title|escape }}"/>
+        {% with  slide.path|file_description as file_desc %}
+            {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+        {% endwith %}
+    {% endif %}
+{% endwith %}

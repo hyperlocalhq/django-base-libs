@@ -1,0 +1,62 @@
+{% load i18n base_tags auth_extended infoblocks %}
+
+<noscript>{% infoblock "js_warning" %}</noscript>
+
+{% if list_of_files %}
+    <div id="dyn_portfolio" class="hidden">
+        <div id="media_file">
+            <div class="hidable" id="media_file_content"></div>
+            <div id="in_progress">
+                <img src="{{ STATIC_URL }}site/js/jquery/indicator.gif" alt="{% trans "in progress..." %}"/>
+                <span>{% trans "Loading. Please wait." %}</span>
+            </div>
+        </div>
+        <div>
+            {% if not list_of_files|length_is:"1" %}
+                <div class="media_nav paginated">
+                    <a id="media_previous" href="" class="previous">
+                        <span class="disabled">
+                            <span class="hidden">{% trans "Previous media file" %}</span>
+                        </span>
+                    </a>
+                    <a id="media_next" href="" class="next">
+                        <span class="disabled">
+                            <span class="hidden">{% trans "Next media file" %}</span>
+                        </span>
+                    </a>
+                </div>
+            {% endif %}
+            <div id="media_desc">
+                <div class="hidable" id="media_desc_content"></div>
+            </div>
+        </div>
+        {% for f in list_of_files %}
+            {% if forloop.first %}
+                <ul id="media_thumbs" class="clearfix">
+            {% endif %}
+        <li class="image_container">
+            <a href="#file_{{ f.id }}">
+                <img src="{{ f.get_thumbnail_url }}{% if permission_name %}{% if_has_perm permission_name object %}?now={% now "YmdHis" %}{% end_if_has_perm %}{% endif %}"
+                    alt="{{ f.title|escape }}"
+                    title="{{ f.get_file_type_display }}. {{ f.title|escape }}"/>
+            </a>
+            {% if permission_name %}
+                {% if_has_perm permission_name object %}
+                    {% if f.get_recroppable_thumbnail_path %}
+                        <a href="{% cropping_url f.get_recroppable_thumbnail_path "gt" request request.path %}"
+                            class="recrop_link">
+                            <span><span>{% trans "Adjust image" %}</span></span>
+                        </a>
+                    {% endif %}
+                {% end_if_has_perm %}
+            {% endif %}
+        </li>
+        {% if forloop.last %}
+            </ul>
+        {% endif %}
+        {% endfor %}
+    </div>
+{% else %}
+    <span class="nothing">{% trans "There are no media files uploaded." %}</span>
+{% endif %}
+

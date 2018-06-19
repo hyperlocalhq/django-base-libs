@@ -1,0 +1,87 @@
+{% load i18n %}
+<fieldset class="grp-module grp-aligned grp-collapse grp-closed">
+    <h2 class="grp-collapse-handler">{% if form.is_featured %}
+        {{ _("Status & Featured")|force_escape }}
+    {% else %}
+        {% trans "Status" %}
+    {% endif %}
+    </h2>
+    {% if form.completeness %}
+        <div class="grp-row grp-cells-1{% if form.completeness.errors %} grp-errors{% endif %}">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    <label{% if form.completeness.field.required %}
+                        class="required"{% endif %}>{{ form.completeness.label }}</label>
+                </div>
+                <div class="c-2">
+                    {{ form.completeness }}
+                    {% if form.completeness.errors %}
+                        <ul class="errorlist">
+                            <li>{{ form.completeness.errors|join:", " }}</li>
+                        </ul>
+                    {% endif %}
+
+                    {% if form.completeness.help_text %}
+                        <p class="grp-help">{{ form.completeness.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <div class="grp-row grp-cells-1{% if form.status.errors %} grp-errors{% endif %}">
+        <div class="l-2c-fluid l-d-4">
+            <div class="c-1">
+                <label{% if form.status.field.required %} class="required"{% endif %}>{{ form.status.label }}</label>
+            </div>
+            <div class="c-2">
+                {{ form.status }}
+                {% if form.status.errors %}
+                    <ul class="errorlist">
+                        <li>{{ form.status.errors|join:", " }}</li>
+                    </ul>
+                {% endif %}
+
+                {% if form.status.help_text %}
+                    <p class="grp-help">{{ form.status.help_text }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% if form.is_featured %}
+        <div class="grp-row">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    &nbsp;
+                </div>
+                <div class="c-2">
+                    {{ form.is_featured }}
+                    <label class="vCheckboxLabel"
+                        for="id_is_featured">{{ form.is_featured.label }}</label>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if form.importance %}
+        <div class="grp-row grp-cells-1{% if form.importance.errors %} grp-errors{% endif %}">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    <label{% if form.importance.field.required %}
+                        class="required"{% endif %}>{{ form.importance.label }}</label>
+                </div>
+                <div class="c-2">
+                    {{ form.importance }}
+                    {% if form.importance.errors %}
+                        <ul class="errorlist">
+                            <li>{{ form.importance.errors|join:", " }}</li>
+                        </ul>
+                    {% endif %}
+
+                    {% if form.importance.help_text %}
+                        <p class="grp-help">{{ form.importance.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</fieldset>
+

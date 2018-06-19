@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n base_tags %}
+
+{% block title %}{{ flatpage.get_title|escape }}{% endblock %}
+
+{% block headline %}
+    <h1>{% trans "directory" %}</h1>
+{% endblock %}
+
+{% block content %}
+
+    <div id="info"></div>
+    {% include "site_specific/count_of.html" %}
+    <div class="info-facts">
+        <h2>VITRA Design Museum</h2>
+
+        <p>Rooms, furnishings and objects</p>
+    </div>
+
+    <div id="pic_show"></div>
+    <div class="pic"></div>
+    <div class="pic_navi">
+        <p>museum entrance</p>
+
+        <div id="next_pre">
+            <div class="previous_pic"><span>previous</span></div>
+            <div class="next_pic"><span>next</span></div>
+        </div>
+    </div>
+    <div id="pic_show_links">
+        <h3 class="first">thumbnails</h3>
+    </div>
+{% endblock %}

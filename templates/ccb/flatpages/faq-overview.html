@@ -1,0 +1,267 @@
+{% extends "articles/articles_base.html" %}
+{% load i18n base_tags navigation_tags %}
+
+{% block extrahead %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(".faq-but").click(function () {
+                console.log($(this));
+                $(this).nextAll(".panel").slideToggle("slow");
+                $(this).toggleClass("off");
+                return false;
+            });
+        });
+    </script>
+{% endblock %}
+
+
+{% block title %}{{ get_title|escape }}{% endblock %}
+
+{% block headline %}
+    <h1>{{ creative_sector.get_title|escape }}</h1>
+    <h2 class="sub">{{ flatpage.get_title|escape }}</h2>
+{% endblock %}
+
+{% block content %}
+    <div class="faq overview txt">
+        <div>
+            <h3>
+                <a href="#">Allgemeine Fragen zur Kulturförderung</a>
+            </h3>
+            <ul>
+                <li class="level_1">
+                    <a class="faq-but off txt_stong" href="#"><span class="pic"></span>Kulturförderung und Stipendien
+                        des Berliner Senats
+                    </a>
+                    <ul class="panel">
+                        <li class="child">
+                            <a href="#">Stipendien</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="alone">
+                    <a class="txt_stong" href="#"><span class="pic"></span>Weitere Informationsquellen zum
+                        Thema Kulturförderung
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <hr/>
+        <div>
+            <h3>
+                <a href="#">Fragen zu Wirtschaft und Unternehmertum</a>
+            </h3>
+            <ul>
+                <li class="alone">
+                    <a class="txt_stong" href="#"><span class="pic"></span>Ansprechpartner, Kontakte und
+                        weitere Informationsquellen
+                    </a>
+                </li>
+                <li class="alone">
+                    <a class="txt_stong" href="#"><span class="pic"></span>Finanzierungs- und
+                        Fördermöglichkeiten
+                    </a>
+                </li>
+                <li class="alone">
+                    <a class="txt_stong" href="#"><span class="pic"></span>Gründerberatung</a>
+                </li>
+                <li class="alone">
+                    <a class="txt_stong" href="#"><span class="pic"></span>Coaching- Angebote und Praktika</a>
+                </li>
+            </ul>
+        </div>
+        <hr/>
+        <div>
+            <h3>
+                <a href="#">Fragen zu einzelnen Kreativbereichen</a>
+            </h3>
+            <ul>
+                <li class="level_1">
+                    <a class="faq-but off txt_stong" href="#"><span class="pic"></span>Bildende Kunst</a>
+                    <ul class="panel">
+                        <li class="child">
+                            <a href="#">Netzwerke</a>
+                        </li>
+                        <li class="child">
+                            <a href="#">Kulturförderung</a>
+                            <ul>
+                                <li>
+                                    <a href="#">Förderkommission Bildende Kunst</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="child">
+                            <a href="#">Künstlerinnen</a>
+                        </li>
+                        <li class="child">
+                            <a href="#">Arbeitsräume</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li class="level_1">
+                    <a class="" href="#"></a>
+                    <a class="faq-but off txt_stong" href="#"><span class="pic"></span>Darstellende Kunst</a>
+                    <ul class="panel">
+                        <li class="child">
+                            <a href="#"> Netzwerke</a>
+                        </li>
+                        <li class="child">
+                            <a href="#"> Kulturförderung</a>
+                        </li>
+                        <li class="child">
+                            <a href="#">Diverses</a>
+                            <ul>
+                                <li>
+                                    <a href="#">Arbeitsräume</a>
+                                </li>
+                                <li>
+                                    <a href="#">Umsatzsteuer</a>
+                                </li>
+                                <li>
+                                    <a href="#">Urheberrecht</a>
+                                </li>
+                                <li>
+                                    <a href="#">Künstlersozialkasse</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li class="level_1">
+                    <a class="faq-but off txt_stong" href="#"><span class="pic"></span>Literatur</a>
+                    <ul class="panel">
+                        <li class="child">
+                            <a href="#">Netzwerke</a>
+                            <ul>
+                                <li>
+                                    <a href="#"> Institutionen</a>
+                                </li>
+                                <li>
+                                    <a href="#">Interessenvertretung</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="child">
+                            <a href="#">Kulturförderung</a>
+                        </li>
+                        <li class="child">
+                            <a href="#">Diverses</a>
+                            <ul>
+                                <li>
+                                    <a href="#">Arbeitsräume</a>
+                                </li>
+                                <li>
+                                    <a href="#">Umsatzsteuer</a>
+                                </li>
+                                <li>
+                                    <a href="#">Urheberrecht</a>
+                                </li>
+                                <li>
+                                    <a href="#">Künstlersozialkasse</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li class="level_1">
+                    <a class="faq-but off txt_stong" href="#"><span class="pic"></span>Musik</a>
+                    <ul class="panel">
+                        <li class="child">
+                            <a href="#">Netzwerke</a>
+                        </li>
+                        <li class="child">
+                            <a href="#">Kulturförderung</a>
+                        </li>
+                        <li class="child">
+                            <a href="#">Diverses</a>
+                            <ul>
+                                <li>
+                                    <a href="#">Übungsräume</a>
+                                </li>
+                                <li>
+                                    <a href="#">Weiterbildung</a>
+                                </li>
+                                <li>
+                                    <a href="#">Steuern</a>
+                                </li>
+                                <li>
+                                    <a href="#">Urheberrecht</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="alone">
+                    <a class="txt_stong" href="#"><span class="pic"></span>Interactive &amp; Games</a>
+                </li>
+            </ul>
+        </div>
+        <hr/>
+        <div>
+            <h3>
+                <a href="#">Querschnittsthemen</a>
+            </h3>
+            <ul>
+                <li class="alone">
+                    <a class="txt_stong" href="#"><span class="pic"></span>Interkulturelle
+                        Projektarbeit
+                    </a>
+                </li>
+                <li class="alone">
+                    <a class="txt_stong" href="#"><span class="pic"></span>Kulturaustausch- und
+                        Auslandsstipendien
+                    </a>
+                </li>
+                <li class="alone">
+                    <a class="txt_stong" href="#"><span class="pic"></span>Künstlerinnenprogramm</a>
+                </li>
+            </ul>
+        </div>
+        <hr/>
+        <div>
+            <h3>
+                <a href="#">Allgemeine Fragen</a>
+            </h3>
+            <ul>
+                <li class="level_1">
+                    <a class="faq-but off txt_stong" href="#"><span class="pic"></span>Steuern</a>
+                    <ul class="panel">
+                        <li class="child">
+                            <a href="#">Umsatzsteuer</a>
+                        </li>
+                        <li class="child">
+                            <a href="#">Ausländersteuer</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="alone">
+                    <a class="txt_stong" href="#"><span class="pic"></span>Migration/Aufenthalt</a>
+                </li>
+                <li class="alone">
+                    <a class="txt_stong" href="#"><span class="pic"></span>Diverses</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <div>
+            <a href="/">{% trans "Home" %}</a>
+            <span class="b-sep"><span>::</span></span>
+            <a
+                href="/creative-sector/games-and-interoff/faq/general-questions/">{% trans "Overview" %}</a>
+            <span class="b-sep"><span>::</span></span><span>{{ flatpage.get_title|escape }}</span>
+        </div>
+    </div>
+{% endblock %}
+

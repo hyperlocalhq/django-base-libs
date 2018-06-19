@@ -1,0 +1,4 @@
+{% load i18n %}
+<button type="button" class="btn" onclick="window.redirect(document.location.pathname + '?step=' + ({{ form_step_data.step_counter|default:"0" }} - 1))">
+    {% trans "Previous" %}
+</button>

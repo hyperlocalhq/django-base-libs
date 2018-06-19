@@ -1,0 +1,22 @@
+{% extends "media_gallery/portfolio_base.html" %}
+{% load i18n base_tags auth_extended infoblocks image_mods_tags uni_form_tags %}
+
+{% block details %}
+    <div id="create_update_section">
+        {% if section.pk %}
+            <h4>{% trans "Change Portfolio Section" %}</h4>
+        {% else %}
+            <h4>{% trans "Create Portfolio Section" %}</h4>
+        {% endif %}
+        <form action="" method="post" class="uniForm">{% csrf_token %}
+            <fieldset class="inlineLabels">
+                {{ form.title_en|as_uni_field }}
+                {{ form.title_de|as_uni_field }}
+                {{ form.show_title|as_uni_field }}
+                <div class="buttonHolder">
+                    <input type="submit" value="{% trans "Save" %}" class="primaryAction"/>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% comment %}<!-- UNUSED -->{% endcomment %}
+{% load i18n base_tags auth_extended configurable_blocks %}
+
+{% block headline %}
+    <h1>
+        {% trans "Welcome" %}
+        <strong>{{ flatpage.get_title|escape }}</strong>
+    </h1>
+{% endblock %}
+
+{% block sidebar-b %}
+    <div id="content_partner" class="categories nav_expanded">
+        <h3>
+            <a class="open_but" href="#">
+                <b>{% trans "Content Partner" %}</b>
+                <span class="pic"></span>
+            </a>
+        </h3>
+
+        <div class="hidable">
+            <ul>
+                <li>
+                    <a href="/creative-sector/{{ object.slug }}/">{% trans "Sector" %}: {{ flatpage.get_title|escape }}</a>
+                    {% if_has_perm "flatpages.change_flatpage" flatpage %}
+                        <a href="/admin/flatpages/flatpage/{{ flatpage.id }}/" class="edit_link"
+                            onclick="open_new_window(event)">({% trans "edit" %})
+                        </a>
+                    {% end_if_has_perm %}
+
+                </li>
+                <li>
+                    <a href="">{% trans "Partner" %}: TODO</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="m_info_{{ LANGUAGE_CODE }}" class="categories nav_expanded">
+        <h3>
+            <a class="open_but" href="#">
+                <b>{% trans "More Info" %}</b>
+                <span class="pic"></span>
+            </a>
+        </h3>
+
+        <div class="hidable">
+            <ul>
+                <li>
+                    <a href="/browse/feeds/rss/{{ LANGUAGE_CODE }}/?{{ query|escape }}">{% trans "News" %}</a>
+                </li>
+                <li>
+                    <a href="/browse/feeds/atom/{{ LANGUAGE_CODE }}/?{{ query|escape }}">{% trans "Knowledge" %}</a>
+                </li>
+                <li>
+                    <a href="#" onclick="window.print(); return false;">{% trans "Partner" %}</a>
+                </li>
+                <li>
+                    <a href="#" onclick="window.print(); return false;">{% trans "FAQ" %}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="customize_page_{{ LANGUAGE_CODE }}" class="categories nav_collapsed">
+        <h3>
+            <a class="open_but" href="#">
+                <b>{% trans "Customize Page" %}</b>
+                <span class="pic"></span>
+            </a>
+        </h3>
+
+        <div class="hidable">
+            <p>On the TODO list</p>
+        </div>
+    </div>
+
+    <div id="my_account_{{ LANGUAGE_CODE }}" class="categories nav_collapsed">
+        <h3>
+            <a class="open_but" href="#">
+                <b>{% trans "Your Account" %}</b>
+                <span class="pic"></span>
+            </a>
+        </h3>
+
+        <div class="hidable">
+            <ul>
+                <li>
+                    <a href="/browse/feeds/rss/{{ LANGUAGE_CODE }}/?{{ query|escape }}">{% trans "Messages" %} (<span
+                        id="memo_count">{{ request|get_memo_count }}</span>)
+                    </a>
+                </li>
+                <li>
+                    <a href="/browse/feeds/atom/{{ LANGUAGE_CODE }}/?{{ query|escape }}">{% trans "Settings" %}</a>
+                </li>
+                <li>
+                    <a href="#" onclick="window.print(); return false;">{% trans "Blog" %}</a>
+                </li>
+                <li>
+                    <a href="#" onclick="window.print(); return false;">{% trans "Forum" %}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="stats_box_{{ LANGUAGE_CODE }}" class="categories nav_collapsed">
+        <h3>
+            <a class="open_but" href="#">
+                <b>{% trans "Statistics" %}</b>
+                <span class="pic"></span>
+            </a>
+        </h3>
+
+        <div class="hidable">
+            <ul>
+                {% ifequal context_item.get_reviewed 1 %}
+                    <li>
+                        <a href="#"
+                            onclick="window.cancelEvent(event)">{{ context_item.get_reviewed }} {% trans "Review" %}</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="#"
+                            onclick="window.cancelEvent(event)">{{ context_item.get_reviewed }} {% trans "Reviews" %}</a>
+                    </li>
+                {% endifequal %}
+                <li>
+                    <a href="#" onclick="window.cancelEvent(event)">
+                        {% blocktrans with context_item.get_recommended_by as recommended_by %}Recommended by
+                            {{ recommended_by }} people{% endblocktrans %}</a>
+                </li>
+                <li>
+                    <a href="#" onclick="window.cancelEvent(event)">
+                        {% blocktrans with context_item.get_saved_by as saved_by %}Saved by {{ saved_by }}
+                            people{% endblocktrans %}</a>
+                </li>
+
+                {% comment %} 
+                    TODO: currently we have no information about last modification 
+                    <li><a href="#" onclick="window.cancelEvent(event)">{% blocktrans with context_item.get_viewed_by as viewed_by %}Viewed by {{ viewed_by }} people{% endblocktrans %}</a></li>
+                {% endcomment %}
+                <li>
+                    <a href="#" onclick="window.cancelEvent(event)">
+                        {% blocktrans with context_item.get_created|date:_("DATETIME_FORMAT") as created %}Created:
+                            {{ created }}{% endblocktrans %}</a>
+                </li>
+                {% comment %} 
+                    TODO: currently we have no information about last modification 
+                    <li><a href="#" onclick="window.cancelEvent(event)">{% blocktrans with context_item.get_last_updated|date:_("DATETIME_FORMAT") as last_updated %}Last updated: {{ last_updated }}{% endblocktrans %}</a></li>
+                {% endcomment %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="dashboard infoblock">
+        <div class="sector-head">
+            {{ flatpage.get_content }}
+        </div>
+        {% with request.path|get_sector_info as info %}
+            <div class="dragging_target col1">
+                {% include "site_specific/blocks/block_sector_new_people.html" %}
+                {% include "site_specific/blocks/block_sector_new_events.html" %}
+            </div>
+            <div class="dragging_target col2">
+                {% include "site_specific/blocks/block_sector_new_institutions.html" %}
+                {% include "site_specific/blocks/block_sector_new_documents.html" %}
+                {% include "site_specific/blocks/block_sector_new_lists.html" %}
+            </div>
+        {% endwith %}
+    </div>
+{% endblock %}
