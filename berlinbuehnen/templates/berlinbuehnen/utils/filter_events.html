@@ -120,7 +120,7 @@
                 <div class="filter-option-dropdown">
                     <button class="fawesome delete"></button>
                     <div class="filter-option-dropdown-header">{% trans "Language" %}</div>
-                    <input class="filter-option-dropdown-search" type="text" placeholder="{% trans "search" %}" />
+                    <!--<input class="filter-option-dropdown-search" type="text" placeholder="{% trans "search" %}" />-->
                     <div class="filter-option-dropdown-scroll">
                         <ul>
                             {% for cat in facets.categories.language_and_subtitles %}
@@ -152,7 +152,7 @@
                             <div class="filter-option-dropdown parent-child">
                                 <button class="fawesome delete"></button>
                                 <div class="filter-option-dropdown-header">{{ cat.title }}</div>
-                                <input class="filter-option-dropdown-search" type="text" placeholder="{% trans "search" %}" />
+                                <!--<input class="filter-option-dropdown-search" type="text" placeholder="{% trans "search" %}" />-->
                                 <div class="filter-option-dropdown-scroll">
                                     <ul>
                                         {% if cat in facets.selected.categories %}
