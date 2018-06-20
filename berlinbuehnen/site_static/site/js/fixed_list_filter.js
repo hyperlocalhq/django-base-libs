@@ -180,7 +180,7 @@
             return function() {me.searchFilter($my_input)};
         }
 
-        window.setInterval(callSearchFilter(), 300);
+        me.search_filter_interval = window.setInterval(callSearchFilter(), 300);
     }
 
     /**
@@ -430,6 +430,17 @@
 
                 $old_option.attr('class', $new_option.attr('class'));
                 $old_option.attr('href', $new_option.attr('href'));
+            }
+
+            var $old_headline = $('.filter-headline', me.$main);
+            var $new_headline = $('.filter-headline', $new_main);
+
+            for (i=0, length = $new_headline.length; i<length; i++) {
+
+                $new_option = $($new_headline.get(i));
+                $old_option = $($old_headline.get(i));
+
+                $old_option.attr('class', $new_option.attr('class'));
             }
 
             $('.filter-set', me.$main).html($('.filter-set', $new_main).html());

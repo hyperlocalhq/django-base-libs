@@ -245,6 +245,24 @@ strong {
   margin-bottom: 2px;
 }
 
+.fawesome.delete.after::before {
+  content: none;
+}
+
+.fawesome.delete.after:after {
+  content: "\f00d";
+  color: white;
+  background: black;
+  padding-left: 0;
+  margin-left: 3px;
+  font-size: 1em;
+  width: 15px;
+  height: 15px;
+  line-height: 14px;
+  text-align: center;
+  margin-bottom: 2px;
+}
+
 .fawesome.twitter:before {
   content: "\f099";
 }
@@ -8238,6 +8256,24 @@ body.is-xs .grid .grid-item button.favorite:before {
   background: #F1F6FA;
 }
 
+.filter-wrapper.top-widget-wrapper .top-widget-button-up-wrapper {
+  background: #F1F6FA;
+}
+
+.filter-wrapper.top-widget-wrapper .top-widget-button-up-wrapper .filter-headline {
+  margin-top: 7px;
+  margin-bottom: 0;
+  float: left;
+}
+
+.is-xs .filter-wrapper.top-widget-wrapper .top-widget-button-up-wrapper .container {
+  padding: 0 20px;
+}
+
+.filter-wrapper.top-widget-wrapper .top-widget-space {
+  margin-bottom: 35px;
+}
+
 .filter-wrapper {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -8251,7 +8287,15 @@ body.is-xs .grid .grid-item button.favorite:before {
   margin: 0 -15px;
 }
 
+.filter-wrapper .filter-headline {
+  text-transform: uppercase;
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+
 .filter-wrapper .filter-reset-button {
+  float: right;
+  margin-top: -38px;
   border: none;
   background: transparent;
   text-transform: uppercase;
@@ -8265,6 +8309,10 @@ body.is-xs .grid .grid-item button.favorite:before {
   color: #4583c8;
 }
 
+.is-sm .filter-wrapper .filter-reset-button, .is-xs .filter-wrapper .filter-reset-button {
+  margin-right: 50px;
+}
+
 .filter-wrapper .filter-space {
   background: #F1F6FA;
 }
@@ -8273,20 +8321,27 @@ body.is-xs .grid .grid-item button.favorite:before {
   padding-bottom: 25px;
 }
 
+.filter-wrapper .filter-space .filter .top-widget-button {
+  position: relative;
+  z-index: 1;
+}
+
+.is-xs .filter-wrapper .filter-space .filter .top-widget-button {
+  right: -10px;
+}
+
 .filter-wrapper .filter-space .filter .filter-options-wrapper {
-  margin-top: 30px;
+  margin-top: 7px;
   margin-bottom: 0px;
   padding: 0 15px;
 }
 
-.filter-wrapper .filter-space .filter .filter-options-wrapper h4 {
-  text-transform: uppercase;
-  font-size: 1em;
-  margin-bottom: 20px;
-}
-
 .filter-wrapper .filter-space .filter .filter-options-wrapper .panel {
   margin: 0;
+}
+
+.is-xs .filter-wrapper .filter-space .filter .filter-options-wrapper {
+  padding: 0 10px;
 }
 
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options {
@@ -8301,6 +8356,10 @@ body.is-xs .grid .grid-item button.favorite:before {
   display: table;
 }
 
+.is-xs .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option, .is-xs .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .singleton {
+  padding: 0 10px;
+}
+
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option input, .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .singleton input {
   display: none;
 }
@@ -8312,6 +8371,14 @@ body.is-xs .grid .grid-item button.favorite:before {
   font-size: 0.875em;
   font-weight: 700;
   cursor: pointer;
+  height: 22px;
+}
+
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option span:after, .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .singleton span:after {
+  float: right;
+  height: 22px;
+  position: absolute;
+  right: 15px;
 }
 
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option.active, .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .singleton.active {
@@ -8356,6 +8423,10 @@ body.is-xs .grid .grid-item button.favorite:before {
   padding: 0 15px;
 }
 
+.is-xs .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper {
+  padding: 0 10px;
+}
+
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option {
   width: 100%;
   padding: 0;
@@ -8364,7 +8435,7 @@ body.is-xs .grid .grid-item button.favorite:before {
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown {
   position: absolute;
   left: -10px;
-  top: -20px;
+  top: -21px;
   z-index: 2;
   min-width: 100%;
   padding: 20px 20px 20px 20px;
@@ -8374,6 +8445,10 @@ body.is-xs .grid .grid-item button.favorite:before {
   display: none;
   -webkit-transition: opacity 0.2s ease-out,  min-width 0.3s ease-out;
   transition: opacity 0.2s ease-out,  min-width 0.3s ease-out;
+}
+
+.is-xs .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown {
+  padding-left: 15px;
 }
 
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown.preopen {
@@ -8391,7 +8466,7 @@ body.is-xs .grid .grid-item button.favorite:before {
 }
 
 .is-xs .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown.preopen.open {
-  min-width: 150%;
+  min-width: 190%;
   max-width: 200%;
 }
 
@@ -8419,6 +8494,7 @@ body.is-xs .grid .grid-item button.favorite:before {
   font-size: 0.875em;
   font-weight: 700;
   color: #4583c8;
+  padding-bottom: 1px;
 }
 
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown .filter-option-dropdown-search {
@@ -8517,12 +8593,17 @@ body.is-xs .grid .grid-item button.favorite:before {
 }
 
 .filter-wrapper .filter-space .filter .filter-search-wrapper {
-  margin-top: 30px;
+  margin-top: 7px;
   padding: 0 15px;
 }
 
 .filter-wrapper .filter-space .filter .filter-set-wrapper {
+  margin-top: 7px;
   padding: 0 15px;
+}
+
+.is-xs .filter-wrapper .filter-space .filter .filter-set-wrapper {
+  padding: 0 5px;
 }
 
 .filter-wrapper .filter-space .filter .filter-set-wrapper .filter-set {
@@ -8531,27 +8612,32 @@ body.is-xs .grid .grid-item button.favorite:before {
   text-transform: uppercase;
   display: block;
   overflow: hidden;
-  margin-top: 25px;
+  margin-top: -15px;
   margin-bottom: 10px;
 }
 
 .filter-wrapper .filter-space .filter .filter-set-wrapper .filter-set li {
   float: left;
-  margin-right: 15px;
+  margin-right: 10px;
   display: inline-block;
+  /*&:first-child {
+                            font-weight: $bold;
+                            color: black;
+                        }*/
 }
 
 .filter-wrapper .filter-space .filter .filter-set-wrapper .filter-set li a {
   color: black;
+  background: white;
+  box-shadow: 0px 0px 0px 1px black inset;
+  line-height: 18px;
+  height: 17px;
+  display: inline-block;
+  padding-left: 3px;
 }
 
 .filter-wrapper .filter-space .filter .filter-set-wrapper .filter-set li a:hover {
   color: #4583c8;
-}
-
-.filter-wrapper .filter-space .filter .filter-set-wrapper .filter-set li:first-child {
-  font-weight: 700;
-  color: black;
 }
 
 .info {

@@ -9,6 +9,28 @@
     }
 }
 
+.filter-wrapper.top-widget-wrapper {
+    .top-widget-button-up-wrapper {
+        background: #F1F6FA;
+
+        .filter-headline {
+            margin-top: 7px;
+            margin-bottom: 0;
+            float: left;
+        }
+
+        .is-xs & {
+            .container {
+                padding: 0 20px;
+            }
+        }
+    }
+
+    .top-widget-space {
+        margin-bottom: 35px;
+    }
+}
+
 .filter-wrapper {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -21,7 +43,15 @@
         margin: 0 -15px;
     }
 
+    .filter-headline {
+        text-transform: uppercase;
+        font-size: 1em;
+        margin-bottom: 20px;
+    }
+
     .filter-reset-button {
+        float: right;
+        margin-top: -38px;
         border: none;
         background: transparent;
         text-transform: uppercase;
@@ -32,6 +62,10 @@
         &:hover {
             color: $blue;
         }
+
+        .is-sm &, .is-xs & {
+            margin-right: 50px;
+        }
     }
 
     .filter-space {
@@ -40,19 +74,26 @@
         .filter {
             padding-bottom: 25px;
 
+            .top-widget-button {
+                position: relative;
+                z-index: 1;
+
+                .is-xs & {
+                    right: -10px;
+                }
+            }
+
             .filter-options-wrapper {
-                margin-top: 30px;
+                margin-top: 7px;
                 margin-bottom: 0px;
                 padding: 0 15px;
 
-                h4 {
-                    text-transform: uppercase;
-                    font-size: 1em;
-                    margin-bottom: 20px;
-                }
-
                 .panel {
                     margin: 0;
+                }
+
+                .is-xs & {
+                    padding: 0 10px;
                 }
 
                 .filter-options {
@@ -64,6 +105,10 @@
                         cursor: default;
                         display: table;
 
+                        .is-xs & {
+                            padding: 0 10px;
+                        }
+
                         input {
                             display: none;
                         }
@@ -74,6 +119,14 @@
                             font-size: 0.875em;
                             font-weight: $bold;
                             cursor: pointer;
+                            height: 22px;
+
+                            &:after {
+                                float:right;
+                                height: 22px;
+                                position: absolute;
+                                right: 15px;
+                            }
                         }
                         &.active {
                             color: $blue;
@@ -112,6 +165,10 @@
                         position: relative;
                         padding: 0 15px;
 
+                        .is-xs & {
+                            padding: 0 10px;
+                        }
+
                         .filter-option {
                             width: 100%;
                             padding: 0;
@@ -120,7 +177,7 @@
                         .filter-option-dropdown {
                             position: absolute;
                             left: -10px;
-                            top: -20px;
+                            top: -21px;
                             z-index: 2;
                             min-width: 100%;
                             padding: 20px 20px 20px 20px;
@@ -131,6 +188,10 @@
 
                             -webkit-transition: opacity 0.2s ease-out,  min-width 0.3s ease-out;
                             transition: opacity 0.2s ease-out,  min-width 0.3s ease-out;
+
+                            .is-xs & {
+                                padding-left: 15px;
+                            }
 
                             &.preopen {
                                 display: block;
@@ -145,7 +206,7 @@
                                     }
 
                                     .is-xs & {
-                                        min-width: 150%;
+                                        min-width: 190%;
                                         max-width: 200%;
                                     }
                                 }
@@ -175,6 +236,7 @@
                                 font-size: 0.875em;
                                 font-weight: 700;
                                 color: $blue;
+                                padding-bottom: 1px;
                             }
 
                             .filter-option-dropdown-search {
@@ -277,12 +339,17 @@
             }
 
             .filter-search-wrapper {
-                margin-top: 30px;
+                margin-top: 7px;
                 padding: 0 15px;
             }
 
             .filter-set-wrapper {
+                margin-top: 7px;
                 padding: 0 15px;
+
+                .is-xs & {
+                    padding: 0 5px;
+                }
 
                 .filter-set {
                     list-style: none;
@@ -290,25 +357,31 @@
                     text-transform: uppercase;
                     display: block;
                     overflow: hidden;
-                    margin-top: 25px;
+                    margin-top: -15px;
                     margin-bottom: 10px;
 
                     li {
                         float: left;
-                        margin-right: 15px;
+                        margin-right: 10px;
                         display: inline-block;
 
                         a {
                             color: black;
+                            background: white;
+                            box-shadow: 0px 0px 0px 1px black inset;
+                            line-height: 18px;
+                            height: 17px;
+                            display: inline-block;
+                            padding-left: 3px;
                             &:hover {
                                 color: $blue;
                             }
                         }
 
-                        &:first-child {
+                        /*&:first-child {
                             font-weight: $bold;
                             color: black;
-                        }
+                        }*/
                     }
                 }
             }
