@@ -1,6 +1,4 @@
-==============
-Django Tagging
-==============
+# Django Tagging
 
 This is a generic tagging application for Django projects
 
