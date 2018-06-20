@@ -1,9 +1,0 @@
-{% load i18n menu_tags %}
-{% if languages|length > 1 %}
-    <select id="language-navi" required>
-        <option value="">--------</option>
-        {% for language in languages %}
-            <option value="{% page_language_url language.0 %}" {% if current_language == language.0 %} selected="selected" {% endif %}>{{ language.1|upper }}</option>
-        {% endfor %}
-    </select>
-{% endif %}

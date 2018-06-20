@@ -1,9 +1,0 @@
-{% load base_tags i18n %}
-{% with forloop.counter|default:0 as counter %}
-    {% if is_not_favorite_for_user %}
-        <a href="#Favorites" rel="nofollow" class="fawesome fa-favorite button text switch adding_to_favorites_{{ counter|default:0 }}" onclick="FavoriteManager.toggle({{ counter|default:0 }}, {{ content_type_id }}, {{ object.id }}, '/'); this.blur(); window.cancelEvent(event);" id="adding_to_favorites_{{ counter|default:0 }}"><span class="text">{% trans "Favorite" %}</span></a>
-    {% else %}
-        <a href="#Favorites" rel="nofollow" class="fawesome fa-favorite button text switch on active adding_to_favorites_{{ counter|default:0 }}" onclick="FavoriteManager.toggle({{ counter|default:0 }}, {{ content_type_id }}, {{ object.id }}, '/'); this.blur(); window.cancelEvent(event);" id="adding_to_favorites_{{ counter|default:0 }}"><span class="text">{% trans "Favorite" %}</span></a>
-    {% endif %}
-{% endwith %}
-
