@@ -31,6 +31,8 @@ class Command(NoArgsCommand):
         ObjectMapper = apps.get_model("external_services", "ObjectMapper")
         Service = apps.get_model("external_services", "Service")
         URLType = apps.get_model("optionset", "URLType")
+        JobSector = apps.get_model("marketplace", "JobSector")
+        Category = apps.get_model("structure", "Category")
 
         stats = {
             'added': 0,
@@ -63,6 +65,9 @@ class Command(NoArgsCommand):
                 'title_de': "JOBWRK",
             },
         )
+
+        default_job_sectors = list(JobSector.objects.filter(slug__in=("music-scene", "tv-movie")))
+        default_categories = list(Category.objects.filter(slug__in=("film-rundfunk", "tanz-theater")))
 
         if verbosity > NORMAL:
             self.stdout.write("Reading the feed at {}\n".format(s.url))
@@ -160,6 +165,13 @@ class Command(NoArgsCommand):
             #job_offer.offering_institution_title = get_value(node_job, "company")
 
             job_offer.save()
+
+            # add sectors and categories
+            for job_sector in default_job_sectors:
+                job_offer.job_sectors.add(job_sector)
+
+            for category in default_categories:
+                job_offer.categories.add(category)
 
             # add address
 

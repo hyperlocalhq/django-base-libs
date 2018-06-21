@@ -171,8 +171,7 @@ class Command(BaseCommand):
                 job_offer.description = "N/A"
 
                 job_offer.url0_link = get_value(node_job, "Detaillink")
-                if "v__exdet" in job_offer.url0_link:
-                    job_offer.is_commercial = True
+                job_offer.is_commercial = True
 
                 job_offer.published_from = get_value(node_job, "Startzeit")
                 job_offer.published_till = get_value(node_job, "Endzeit")
