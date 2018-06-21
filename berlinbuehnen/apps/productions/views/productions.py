@@ -153,6 +153,21 @@ def event_list(request, year=None, month=None, day=None):
                 Q("match", is_premiere=is_premiere)
             )
 
+        cats = form.cleaned_data['categories']
+        if cats:
+            facets['selected']['categories'] = cats
+
+            queries.append(
+                reduce(operator.ior, [
+                    Q(
+                        "nested",
+                        path="categories",
+                        query=Q("match", categories__pk=cat.pk),
+                    )
+                    for cat in cats
+                ])
+            )
+
         cats = form.cleaned_data['subcategories']
         if cats:
             facets['selected']['subcategories'] = cats
