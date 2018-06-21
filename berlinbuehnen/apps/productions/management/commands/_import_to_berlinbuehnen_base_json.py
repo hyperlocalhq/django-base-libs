@@ -362,7 +362,9 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
             for video_dict in videos:
                 video = ProductionVideo(production=prod)
                 video.creation_date = parse_datetime(video_dict.get('creation_date', ""))
-                video.modified_date = parse_datetime(video_dict.get('modified_date', ""))
+                modified_date_string = video_dict.get('modified_date', "")
+                if modified_date_string:
+                    video.modified_date = parse_datetime(modified_date_string)
                 video.title_de = video_dict.get('title_de', "")
                 video.title_en = video_dict.get('title_en', "")
                 video.link_or_embed = video_dict.get('embed', "")
@@ -382,7 +384,9 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
             for live_stream_dict in live_streams:
                 ls = ProductionLiveStream(production=prod)
                 ls.creation_date = parse_datetime(live_stream_dict.get('creation_date', ""))
-                ls.modified_date = parse_datetime(live_stream_dict.get('modified_date', ""))
+                modified_date_string = live_stream_dict.get('modified_date', "")
+                if modified_date_string:
+                    ls.modified_date = parse_datetime(modified_date_string)
                 ls.title_de = live_stream_dict.get('title_de', "")
                 ls.title_en = live_stream_dict.get('title_en', "")
                 ls.link_or_embed = live_stream_dict.get('embed', "")

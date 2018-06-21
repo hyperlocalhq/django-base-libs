@@ -372,7 +372,9 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
             for video_node in prod_node.findall("./videos/video"):
                 video = ProductionVideo(production=prod)
                 video.creation_date = parse_datetime(self.get_child_text(video_node, 'creation_date'))
-                video.modified_date = parse_datetime(self.get_child_text(video_node, 'modified_date'))
+                modified_date_string = self.get_child_text(video_node, 'modified_date')
+                if modified_date_string:
+                    video.modified_date = parse_datetime(modified_date_string)
                 video.title_de = self.get_child_text(video_node, 'title_de')
                 video.title_en = self.get_child_text(video_node, 'title_en')
                 video.link_or_embed = self.get_child_text(video_node, 'embed')
@@ -386,7 +388,9 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
             for live_stream_node in prod_node.findall("./live_streams/live_stream"):
                 ls = ProductionLiveStream(production=prod)
                 ls.creation_date = parse_datetime(self.get_child_text(live_stream_node, 'creation_date'))
-                ls.modified_date = parse_datetime(self.get_child_text(live_stream_node, 'modified_date'))
+                modified_date_string = self.get_child_text(live_stream_node, 'modified_date')
+                if modified_date_string:
+                    ls.modified_date = parse_datetime(modified_date_string)
                 ls.title_de = self.get_child_text(live_stream_node, 'title_de')
                 ls.title_en = self.get_child_text(live_stream_node, 'title_en')
                 ls.link_or_embed = self.get_child_text(live_stream_node, 'embed')
