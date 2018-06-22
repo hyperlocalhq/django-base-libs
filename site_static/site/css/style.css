@@ -8995,6 +8995,8 @@ img[data-popup-image-src] {
   height: 100%;
   margin: 0;
   padding: 15px 0;
+  position: relative;
+  z-index: 9;
   -webkit-transition: width 0.4s, height 0.4s, padding 0.4s;
   transition: width 0.4s, height 0.4s, padding 0.4s;
 }
