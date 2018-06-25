@@ -111,9 +111,11 @@
         height: 100%;
         margin: 0;
         padding: $header-logo-padding 0;
+        position: relative;
+        z-index: 9;
 
-            -webkit-transition: width 0.4s, height 0.4s, padding 0.4s;
-            transition: width 0.4s, height 0.4s, padding 0.4s;
+        -webkit-transition: width 0.4s, height 0.4s, padding 0.4s;
+        transition: width 0.4s, height 0.4s, padding 0.4s;
 
         .is-xs & {
             padding: $header-logo-padding-top-xs 0 $header-logo-padding-bottom-xs;
