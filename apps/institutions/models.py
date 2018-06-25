@@ -29,7 +29,7 @@ class Institution(InstitutionBase):
         blank=True,
     )
     categories = TreeManyToManyField(
-        Category,
+        "structure.Category",
         verbose_name=_("categories"),
         blank=True
     )
