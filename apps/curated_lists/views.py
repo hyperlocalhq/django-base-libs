@@ -8,7 +8,7 @@ from jetson.apps.utils.decorators import login_required
 from base_libs.views.views import access_denied
 
 
-from .forms import CuratedListForm
+from .forms import CuratedListForm, CuratedListFilterForm
 from .models import CuratedList
 
 
@@ -76,4 +76,13 @@ def change_curated_list(request, token, **kwargs):
 
 def featured_curated_lists(request):
     qs = CuratedList.objects.filter(is_featured=True)
-    return render(request, "curated_lists/featured_curated_lists.html", {'object_list': qs})
+    form = CuratedListFilterForm(data=request.GET)
+    if form.is_valid():
+        pass
+
+    context = {
+        'object_list': qs,
+        'form': form,
+    }
+
+    return render(request, "curated_lists/featured_curated_lists.html", context)

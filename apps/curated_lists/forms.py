@@ -2,9 +2,12 @@
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django import forms
+from django.contrib.auth.models import User
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
+
+from jetson.apps.structure.models import Category
 
 
 class CuratedListForm(forms.Form):
@@ -52,3 +55,35 @@ class CuratedListForm(forms.Form):
         if commit:
             self.instance.save()
         return self.instance
+
+
+class CuratedListFilterForm(forms.Form):
+    owner = forms.ModelChoiceField(
+        empty_label=_("All"),
+        queryset=User.objects.filter(is_active=True, groups__name="Curators"),
+        required=False,
+    )
+    category = forms.ModelChoiceField(
+        empty_label=_("All"),
+        queryset=Category.objects.filter(level=0),
+        required=False,
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(CuratedListFilterForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "GET"
+        self.helper.form_id = "filter_form"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Filter"),
+                layout.Field("owner", template="ccb_form/custom_widgets/filter_field.html"),
+                layout.Field("category", template="ccb_form/custom_widgets/category_filter_field.html"),
+                template="ccb_form/custom_widgets/filter.html"
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Search')),
+            )
+        )
