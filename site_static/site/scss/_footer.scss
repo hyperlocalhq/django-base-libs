@@ -1,3 +1,5 @@
+// main:style.scss
+
 #footer {
   ul.navigation {
     white-space: nowrap;
@@ -10,7 +12,7 @@
       padding-right: 7px;
       margin-right: 4px;
       border-right: 1px solid #ebebeb;
-      
+
       &.selected a   { color: $blue;}
       a{
         color: black;
@@ -18,6 +20,11 @@
         &:hover   { color: $blue;}
       }
     }
+  }
+
+  @media (max-width: 767px) {
+      position: relative !important;
+      margin-top: 20px;
   }
 }
 
@@ -27,7 +34,7 @@
   h4 {
     font-size: 10px;
     margin-bottom: 5px;
-    
+
     &.second-row {
         margin-top: 10px;
     }
@@ -43,11 +50,24 @@
       padding-right: 2%;
       white-space: nowrap;
       border-right: 1px solid #ebebeb;
-      
+
+      @media (max-width: 767px) {
+        overflow: hidden;
+        height: auto;
+        margin-bottom: 20px;
+        margin-right: 20px;
+        white-space: normal;
+      }
+
       a {
         padding-right: 5px;
         display: inline-block;
         opacity: 0.85;
+
+        @media (max-width: 767px) {
+            padding-bottom: 5px;
+        }
+
         &:hover {
           color: black;
           opacity: 1;
@@ -56,9 +76,9 @@
         span {
           display: none;
         }
-        
+
         img {
-            height: 40px;   
+            height: 40px;
         }
       }
     }

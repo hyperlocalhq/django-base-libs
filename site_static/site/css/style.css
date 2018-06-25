@@ -12127,6 +12127,13 @@ select {
   color: #00aefd;
 }
 
+@media (max-width: 767px) {
+  #footer {
+    position: relative !important;
+    margin-top: 20px;
+  }
+}
+
 #sponsors {
   padding-bottom: 20px;
   background-color: #f2f2f2;
@@ -12153,10 +12160,26 @@ select {
   border-right: 1px solid #ebebeb;
 }
 
+@media (max-width: 767px) {
+  #sponsors .container > div {
+    overflow: hidden;
+    height: auto;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    white-space: normal;
+  }
+}
+
 #sponsors .container > div a {
   padding-right: 5px;
   display: inline-block;
   opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  #sponsors .container > div a {
+    padding-bottom: 5px;
+  }
 }
 
 #sponsors .container > div a:hover {
