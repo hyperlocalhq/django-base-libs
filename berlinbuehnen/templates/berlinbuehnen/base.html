@@ -124,6 +124,8 @@
 <script>
         // forcing django CMS to use the already included version of jQuery
         var django = {jQuery: jQuery};
+        var language = new Object();
+        language.Photo = '{% trans "Photo" %}';
 </script>
 {{ site_settings.extra_head|safe }}
 {% render_block "head_js" %}
