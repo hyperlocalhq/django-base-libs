@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n base_tags image_modifications tagging_tags sekizai_tags cms_tags crispy_forms_tags %}
+{% load i18n base_tags image_modifications tagging_tags sekizai_tags cms_tags crispy_forms_tags fb_tags %}
 
 {% block title %}{% page_attribute "title" %}{% endblock %}
 
@@ -26,30 +26,71 @@
             </div>
             <div class="col-xs-12 col-sm-8 col-md-9">
             {% if object_list %}
-                <div class="row profile-grid profile-list">
-                    {% for object in object_list %}
+                <div class="row article-list">
+                    {% for curated_list in object_list %}
 
-                        <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="col-xs-12">
                             <div class="wrapper">
-                                <a class="content" href="{{ object.get_url_path }}">
-                                    {% if object.image %}
-                                        <div class="image-wrapper">
-                                            <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}" alt="{{ object.title|escape }}"/>
-                                            {% if object.content_object.photo_author %}<span class="photo-credits-beneath">{% trans "Photo" %}: {{ object.content_object.photo_author }}</span>{% endif %}
-                                        </div>
-                                    {% endif %}
+                                <a class="content" href="{{ curated_list.get_url_path }}">
+                                    <div class="image-wrapper">
+                                        {% if curated_list.image %}
+                                            {% with curated_list.image|file_description as file_desc %}
+                                                <img src="{{ UPLOADS_URL }}{{ curated_list.image|modified_path:"list" }}" alt="{{ curated_list.get_title|escape }}"/>
+                                                {% if file_desc.author %}
+                                                    <div class="photo-credits-beneath">{% trans "Photo" %}: {{ file_desc.author }}</div>
+                                                {% elif curated_list.image_description %}
+                                                    <div class="photo-credits-beneath">{{ curated_list.get_rendered_image_description }}</div>
+                                                {% endif %}
+                                            {% endwith %}
+                                        {% else %}
+                                            <img src="{{ STATIC_URL }}site/img/placeholder/infolink.png" alt="{{ curated_list.get_title|escape }}"/>
+                                        {% endif %}
+                                    </div>
                                     <div class="text">
-                                        <h2>{{ object.title|escape }}</h2>
-                                        <h3 class="owners">{% for owner in object.listowner_set.all %}{% if forloop.first %}{% trans "by" %} {% endif %}{{ owner.representation }}{% if not forloop.last %}, {% endif %}{% endfor %}</h3>
-                                        <h3 class="count">{% blocktrans count counter=object.get_item_count %}1 item{% plural %}{{ counter }} items{% endblocktrans %}</h3>
+                                        {% if curated_list.categories.exists %}
+                                            <h3>
+                                                {% for cat in curated_list.categories.all %}
+                                                    {{ cat.title }}{% if not forloop.last %}, {% endif %}
+                                                {% endfor %}
+                                            </h3>
+                                        {% endif %}
+                                        <h2>{{ curated_list.title|escape }}</h2>
+                                        {% if curated_list.listowner_set.exists %}
+                                            <p><em>
+                                                {% trans "curated by" %}
+                                                {% for owner in curated_list.listowner_set.all %}
+                                                    {{ owner.owner_content_object.get_title }}{% if not forloop.last %}, {% endif %}
+                                                {% endfor %}
+                                            </em></p>
+                                        {% endif %}
+                                        <p>
+                                            {% parse curated_list.get_rendered_description as content %}
+                                            {{ content|striptags|truncatewords:"30" }}
+                                        </p>
                                     </div>
                                 </a>
+                                <div class="button-group">
+                                    <div>
+                                        {% blocktrans count counter=curated_list.get_item_count trimmed %}
+                                            1 item
+                                        {% plural %}
+                                            {{ counter }} items
+                                        {% endblocktrans %}
+                                    </div>
+                                    {% comment %}
+                                    {% if request.user.is_authenticated %}
+                                        {% adding2favorites for curated_list using "generic/favorite_icon.html" %}
+                                    {% else %}
+                                        <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}" class="fawesome fa-favorite button"><span class="sr-only">{% trans "Add to favorites" %}</span></a>
+                                    {% endif %}
+                                    {% endcomment %}
+                                </div>
                             </div>
                         </div>
-
                     {% endfor %}
 
                 </div>
+                {% include "utils/includes/pagination.html" %}
             {% else %}
                 <div class="box col-xs-12">
                     <h3>{% trans "There are no featured curated lists." %}</h3>

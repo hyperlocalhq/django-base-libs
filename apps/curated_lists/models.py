@@ -23,7 +23,7 @@ PRIVACY_CHOICES = (
 
 limit_owner_content_type_choices_to = (
     models.Q(app_label="institutions", model="institution") |
-    models.Q(app_label="auth", model="user")
+    models.Q(app_label="people", model="person")
 )
 
 

@@ -1,12 +1,16 @@
 # -*- coding: UTF-8 -*-
+import operator
+
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _, ugettext
+from django.db import models
 from django import forms
-from django.contrib.auth.models import User
 
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
+from ccb.apps.curated_lists.models import ListOwner
+from ccb.apps.site_specific.models import ContextItem
 from jetson.apps.structure.models import Category
 
 
@@ -58,11 +62,6 @@ class CuratedListForm(forms.Form):
 
 
 class CuratedListFilterForm(forms.Form):
-    owner = forms.ModelChoiceField(
-        empty_label=_("All"),
-        queryset=User.objects.filter(is_active=True, groups__name="Curators"),
-        required=False,
-    )
     category = forms.ModelChoiceField(
         empty_label=_("All"),
         queryset=Category.objects.filter(level=0),
@@ -71,6 +70,22 @@ class CuratedListFilterForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(CuratedListFilterForm, self).__init__(*args, **kwargs)
+
+        unique_owners = ListOwner.objects.values(
+            "owner_content_type", "owner_object_id"
+        ).order_by("owner_content_type", "owner_object_id").distinct()
+
+        self.fields['owner'] = forms.ModelChoiceField(
+            empty_label=_("All"),
+            queryset=ContextItem.objects.filter(
+                reduce(operator.ior, [
+                    models.Q(content_type__id=owner['owner_content_type']) &
+                    models.Q(object_id=owner['owner_object_id'])
+                    for owner in unique_owners
+                ])
+            ).order_by("title"),
+            required=False,
+        )
 
         self.helper = FormHelper()
         self.helper.form_action = ""
