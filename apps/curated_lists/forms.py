@@ -71,19 +71,27 @@ class CuratedListFilterForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(CuratedListFilterForm, self).__init__(*args, **kwargs)
 
-        unique_owners = ListOwner.objects.values(
+        # Get all unique Person and Institution instances
+        # that apply for owners of published and featured curated lists
+        unique_owners = ListOwner.objects.filter(
+            curated_list__privacy="public",
+            curated_list__is_featured=True,
+        ).values(
             "owner_content_type", "owner_object_id"
         ).order_by("owner_content_type", "owner_object_id").distinct()
 
+        # Create an owner ModelChoiceField with ContextItem instances matching unique owners
+        context_item_qs = ContextItem.objects.filter(
+            reduce(operator.ior, [
+                models.Q(content_type__id=owner['owner_content_type']) &
+                models.Q(object_id=owner['owner_object_id'])
+                for owner in unique_owners
+            ])
+        ).order_by("title")
+
         self.fields['owner'] = forms.ModelChoiceField(
             empty_label=_("All"),
-            queryset=ContextItem.objects.filter(
-                reduce(operator.ior, [
-                    models.Q(content_type__id=owner['owner_content_type']) &
-                    models.Q(object_id=owner['owner_object_id'])
-                    for owner in unique_owners
-                ])
-            ).order_by("title"),
+            queryset=context_item_qs,
             required=False,
         )
 
