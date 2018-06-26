@@ -7,19 +7,22 @@ from django.conf import settings
 
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.models.admin import ObjectRelationMixinAdminOptions
-from base_libs.admin import ExtendedModelAdmin
+from base_libs.admin import ExtendedModelAdmin, ExtendedStackedInline
 
 from jetson.apps.structure.models import Category
 from .models import CuratedList, ListOwner, ListItem
 
 
-class ListItemInline(admin.StackedInline):
+class ListItemInline(ExtendedStackedInline):
     model = ListItem
     extra = 0
     sortable_field_name = "sort_order"
-    fieldsets = ObjectRelationMixinAdminOptions().fieldsets + [
-        (None, {'fields': ['sort_order']}),
-    ]
+    fieldsets = (
+        ObjectRelationMixinAdminOptions().fieldsets +
+        get_admin_lang_section(_("Title and Description"), ['title', 'description']) + [
+            (None, {'fields': ['sort_order']}),
+        ]
+    )
     autocomplete_lookup_fields = {
         'generic': [['content_type', 'object_id']],
     }

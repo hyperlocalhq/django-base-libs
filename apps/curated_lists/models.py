@@ -131,10 +131,14 @@ limit_item_content_type_choices_to = (
     models.Q(app_label="media_gallery", model="mediagallery")
 )
 
+
 class ListItem(CreationModificationDateMixin, ObjectRelationMixin(limit_content_type_choices_to=limit_item_content_type_choices_to), UrlMixin):
     curated_list = models.ForeignKey(CuratedList, verbose_name=_("Curated list"), on_delete=models.CASCADE)
     representation = MultilingualCharField(_("Representation"), max_length=255, blank=True)
     sort_order = models.IntegerField(_("Sort order"), blank=True, default=0)
+
+    title = MultilingualCharField(_("Title"), max_length=255, blank=True)
+    description = MultilingualTextField(_("Description"), blank=True)
 
     class Meta:
         verbose_name = _("List Item")

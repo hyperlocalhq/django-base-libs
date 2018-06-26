@@ -18,13 +18,10 @@ from jetson.apps.utils.views import filter_abc
 
 from ccb.apps.people.models import Person
 from ccb.apps.institutions.models import Institution
-from ccb.apps.marketplace.models import JobOffer
-from ccb.apps.bulletin_board.models import Bulletin
 from ccb.apps.site_specific.models import ContextItem
 from ccb.apps.events.views import event_list
 from ccb.apps.marketplace.views import job_offer_list
 from ccb.apps.bulletin_board.views import bulletin_list
-from ccb.apps.institutions.views import institution_list
 
 from actstream.models import following
 
