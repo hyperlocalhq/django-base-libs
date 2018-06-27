@@ -93,6 +93,19 @@ class Person(PersonBase):
     def autocomplete_search_fields():
         return ("id__iexact", "user__username__icontains", "user__first_name__icontains", "user__last_name__icontains",)
 
+    def is_curator(self):
+        return self.user.groups.filter(name="Curators").exists()
+
+    def get_containing_curated_lists(self):
+        from django.contrib.contenttypes.models import ContentType
+        from ccb.apps.curated_lists.models import CuratedList
+        ct = ContentType.objects.get_for_model(self)
+        return CuratedList.objects.filter(
+            privacy="public",
+            listitem__content_type=ct,
+            listitem__object_id=self.pk,
+        )
+
 
 class IndividualContact(IndividualContactBase):
     def is_public(self):

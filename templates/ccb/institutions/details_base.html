@@ -45,7 +45,15 @@
 
                         <div class="content">
                             <h2>{{ object.title }}</h2>
-                            <h3>{{ object.title2 }}</h3>
+                            <h3>
+                                {{ object.title2 }}
+                                {% if object.is_curator %} <span class="fawesome fa-eye"><span class="text">{% trans "Curator" %}</span></span>{% endif %}
+                                {% for curated_list in object.get_containing_curated_lists %}{% if forloop.first %}
+                                    <span class="fawesome fa-heart"><span class="text">{% trans "Appears in" %}{% endif %}
+                                    <a href="{{ curated_list.get_url_path }}">{{ curated_list.title }}</a>{% if not forloop.last %},
+                                    {% else %}</span></span>
+                                {% endif %}{% endfor %}
+                            </h3>
                             <div class="buttons">
                                 {% if request.user.is_authenticated and request.user.profile in object.get_owners %}
                                     {% navigation_links "menu_institutional_activities" %}

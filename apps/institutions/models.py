@@ -296,6 +296,30 @@ class Institution(InstitutionBase):
     def autocomplete_search_fields():
         return ("id__iexact", "title__icontains",)
 
+    def is_curator(self):
+        """
+        An institution will be considered as a curator if it has at least one public curated list
+        :return: True or False
+        """
+        from django.contrib.contenttypes.models import ContentType
+        from ccb.apps.curated_lists.models import CuratedList
+        ct = ContentType.objects.get_for_model(self)
+        return CuratedList.objects.filter(
+            privacy="public",
+            listowner__owner_content_type=ct,
+            listowner__owner_object_id=self.pk,
+        ).exists()
+
+    def get_containing_curated_lists(self):
+        from django.contrib.contenttypes.models import ContentType
+        from ccb.apps.curated_lists.models import CuratedList
+        ct = ContentType.objects.get_for_model(self)
+        return CuratedList.objects.filter(
+            privacy="public",
+            listitem__content_type=ct,
+            listitem__object_id=self.pk,
+        )
+
 
 class InstitutionalContact(InstitutionalContactBase):
     def is_public(self):
