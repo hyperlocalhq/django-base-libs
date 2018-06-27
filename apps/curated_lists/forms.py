@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 import operator
+from functools import reduce
 
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _, ugettext
@@ -80,14 +81,17 @@ class CuratedListFilterForm(forms.Form):
             "owner_content_type", "owner_object_id"
         ).order_by("owner_content_type", "owner_object_id").distinct()
 
-        # Create an owner ModelChoiceField with ContextItem instances matching unique owners
-        context_item_qs = ContextItem.objects.filter(
-            reduce(operator.ior, [
-                models.Q(content_type__id=owner['owner_content_type']) &
-                models.Q(object_id=owner['owner_object_id'])
-                for owner in unique_owners
-            ])
-        ).order_by("title")
+        if unique_owners:
+            # Create an owner ModelChoiceField with ContextItem instances matching unique owners
+            context_item_qs = ContextItem.objects.filter(
+                reduce(operator.ior, [
+                    models.Q(content_type__id=owner['owner_content_type']) &
+                    models.Q(object_id=owner['owner_object_id'])
+                    for owner in unique_owners
+                ])
+            ).order_by("title")
+        else:
+            context_item_qs = ContextItem.objects.none()
 
         self.fields['owner'] = forms.ModelChoiceField(
             empty_label=_("All"),
