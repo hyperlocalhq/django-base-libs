@@ -12674,6 +12674,13 @@ a:hover .icon-social-instagram {
   border-bottom: 10px solid white;
 }
 
+@media (max-width: 991px) {
+  .museumssommer .museumssommer-logo {
+    top: 50px;
+    position: relative;
+  }
+}
+
 .museumssommer .museumssommer-button {
   display: block;
   width: 100%;
@@ -12684,6 +12691,8 @@ a:hover .icon-social-instagram {
   display: block;
   width: 100%;
   height: auto;
+  max-width: 320px;
+  margin: 0px auto;
 }
 
 .museumssommer .museumssommer-button img:last-child {
