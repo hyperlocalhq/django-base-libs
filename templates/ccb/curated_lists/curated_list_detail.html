@@ -44,70 +44,79 @@
                 <div class="line thick"></div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-3">
-                {% if curated_list.image %}
-                    <img class="img-responsive" src="{{ MEDIA_URL }}{{ curated_list.image|modified_path:"overview_image" }}" alt="{{ curated_list.title }}" data-popup-image-src="{{ MEDIA_URL }}{{ curated_list.image.path }}" />
-                {% endif %}
-            </div>
-            <div class="col-md-9">
-                {% if curated_list.description %}<div class="personalize-copy">{{ curated_list.get_rendered_description }}</div>{% endif %}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="line"></div>
-            </div>
-        </div>
 
-        <div class="row profile-grid profile-list">
+        {% if curated_list.image or curated_list.description %}
+            <div class="row">
+                {% if curated_list.image %}
+                    <div class="col-xs-12 col-md-3">
+                            <img class="img-responsive" src="{{ MEDIA_URL }}{{ curated_list.image|modified_path:"overview_image" }}" alt="{{ curated_list.title }}" data-popup-image-src="{{ MEDIA_URL }}{{ curated_list.image.path }}" />
+                    </div>
+                    <div class="col-xs-12 col-md-9">
+                {% else %}
+                    <div class="col-xs-12">
+                {% endif %}
+                        {% if curated_list.description %}<div class="personalize-copy">{{ curated_list.get_rendered_description }}</div>{% endif %}
+                    </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="line"></div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="row profile-grid profile-list curatet-list">
             {% if curated_list.listitem_set.exists %}
                 {% for item in curated_list.listitem_set.all %}
-                    <div class="col-xs-12 col-sm-6 col-md-3">
-                        {% with object=item.content_object %}
-                            <div class="wrapper">
-                                <a class="content" href="{{ object.get_url_path }}">
-                                    {% if object.image %}
-                                        <div class="image-wrapper">
-                                            <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}" alt="{{ object.get_title|escape }}"/>
-                                            {% if object.photo_author %}<span class="photo-credits-beneath">{% trans "Photo" %}: {{ object.photo_author }}</span>{% endif %}
-                                        </div>
-                                    {% else %}
-                                        {% if object.is_institution %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder/institution.png" alt="{{ object.get_title|escape }}"/>
-                                        {% elif object.is_person %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder/profile.png" alt="{{ object.get_title|escape }}"/>
+                    {% with object=item.content_object %}
+                        <a class="curated-list col-xs-12 col-sm-6" href="{{ object.get_url_path }}">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="wrapper">
+                                    <div class="content" href="{{ object.get_url_path }}">
+                                        {% if object.image %}
+                                            <div class="image-wrapper">
+                                                <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}" alt="{{ object.get_title|escape }}"/>
+                                                {% if object.photo_author %}<span class="photo-credits-beneath">{% trans "Photo" %}: {{ object.photo_author }}</span>{% endif %}
+                                            </div>
                                         {% else %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder/gallery_square.png" alt="{{ object.get_title|escape }}"/>
+                                            {% if object.is_institution %}
+                                                <img src="{{ STATIC_URL }}site/img/placeholder/institution.png" alt="{{ object.get_title|escape }}"/>
+                                            {% elif object.is_person %}
+                                                <img src="{{ STATIC_URL }}site/img/placeholder/profile.png" alt="{{ object.get_title|escape }}"/>
+                                            {% else %}
+                                                <img src="{{ STATIC_URL }}site/img/placeholder/gallery_square.png" alt="{{ object.get_title|escape }}"/>
+                                            {% endif %}
                                         {% endif %}
-                                    {% endif %}
-                                    <div class="text">
-                                        {% if object.get_title %}<h2>{{ object.get_title|escape }}</h2>{% endif %}
-                                        {% if object.occupation or object.get_categories %}
-                                            <h3>
-                                                {{ object.occupation }}
-                                                {% if object.get_categories %}
-                                                    <span class="feature">
-                                                        {% for cat in object.get_categories %}
-                                                            {{ cat.title|escape }}{% if not forloop.last %}, {% endif %}
-                                                        {% endfor %}
-                                                    </span>
-                                                {% endif %}
-                                            </h3>
-                                        {% endif %}
+                                        <div class="text">
+                                            {% if object.get_title %}<h2>{{ object.get_title|escape }}</h2>{% endif %}
+                                            {% if object.occupation or object.get_categories %}
+                                                <h3>
+                                                    {{ object.occupation }}
+                                                    {% if object.get_categories %}
+                                                        <span class="feature">
+                                                            {% for cat in object.get_categories %}
+                                                                {{ cat.title|escape }}{% if not forloop.last %}, {% endif %}
+                                                            {% endfor %}
+                                                        </span>
+                                                    {% endif %}
+                                                </h3>
+                                            {% endif %}
+                                        </div>
                                     </div>
-                                </a>
+                                </div>
                             </div>
-                        {% endwith %}
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-3">
-                        <h3>{{ item.title }}</h3>
-                        {{ item.get_rendered_description }}
-                    </div>
-                    {% if forloop.counter|divisibleby:"2" and not forloop.last %}
-                        </div>
-                        <div class="row profile-grid profile-list">
-                    {% endif %}
+                            <div class="col-xs-12 col-md-6">
+                                <h2>{{ item.title }}</h2>
+                                {{ item.get_rendered_description }}
+                            </div>
+                        {% if forloop.counter|divisibleby:"2" and not forloop.last %}
+                            </a>
+                            </div>
+                            <div class="row profile-grid profile-list curatet-list">
+                        {% else %}
+                            </a>
+                        {% endif %}
+                    {% endwith %}
                 {% endfor %}
             {% endif %}
         </div>

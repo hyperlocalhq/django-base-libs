@@ -18,7 +18,7 @@
     {% if not object_list %}
         <p>{% trans "No objects found within the selected conditions." %}</p>
     {% else %}
-        <div class="row event-list">
+        <div class="row curated-list">
             {% for curated_list in object_list %}
                 {% include "curated_lists/lists/curated_list_item.html" %}
             {% endfor %}

@@ -17,16 +17,9 @@
                 {% endif %}
             </div>
             <div class="text">
-                {% if curated_list.categories.exists %}
-                    <h3>
-                        {% for cat in curated_list.categories.all %}
-                            {{ cat.title }}{% if not forloop.last %}, {% endif %}
-                        {% endfor %}
-                    </h3>
-                {% endif %}
                 <h2>{{ curated_list.title|escape }}</h2>
                 {% if curated_list.listowner_set.exists %}
-                    <p><em>
+                    <p class="owner"><em>
                         {% trans "curated by" %}
                         {% for owner in curated_list.listowner_set.all %}
                             {{ owner.owner_content_object.get_title }}{% if not forloop.last %}, {% endif %}
@@ -37,23 +30,30 @@
                     {% parse curated_list.get_rendered_description as content %}
                     {{ content|striptags|truncatewords:"30" }}
                 </p>
+                {% if curated_list.categories.exists %}
+                    <ul>
+                        {% for cat in curated_list.categories.all %}
+                            <li>{{ cat.title }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <div>
+                    {% blocktrans count counter=curated_list.get_item_count trimmed %}
+                        1 item
+                    {% plural %}
+                        {{ counter }} items
+                    {% endblocktrans %}
+                </div>
             </div>
         </a>
+        {% comment %}
         <div class="button-group">
-            <div>
-                {% blocktrans count counter=curated_list.get_item_count trimmed %}
-                    1 item
-                {% plural %}
-                    {{ counter }} items
-                {% endblocktrans %}
-            </div>
-            {% comment %}
             {% if request.user.is_authenticated %}
                 {% adding2favorites for curated_list using "generic/favorite_icon.html" %}
             {% else %}
                 <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}" class="fawesome fa-favorite button"><span class="sr-only">{% trans "Add to favorites" %}</span></a>
             {% endif %}
-            {% endcomment %}
         </div>
+        {% endcomment %}
     </div>
 </div>
