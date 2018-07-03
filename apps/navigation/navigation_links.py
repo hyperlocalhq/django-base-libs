@@ -126,13 +126,15 @@ def show_member_institutions(context):
 
 
 def show_member_curated_lists(context):
+    from django.contrib.contenttypes.models import ContentType
     from ccb.apps.curated_lists.models import ListOwner
     obj = context.get("object", None)
     if obj and getattr(obj, "is_editable", lambda: False)():
         return True
+    ct = ContentType.objects.get_for_model(obj)
     return ListOwner.objects.filter(
-        owner_content_type=obj.content_type,
-        owner_object_id=obj.object_id,
+        owner_content_type=ct,
+        owner_object_id=obj.pk,
     ).exists()
 
 # TODO: 1) add more conditions where to show what for anonymous users.
