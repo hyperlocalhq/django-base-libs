@@ -225,17 +225,82 @@ def user_curated_lists_json(request):
 
 @login_required
 def add_user_curated_list_json(request):
+    if request.method == "POST":
+        form = CuratedListForm(request=request, instance=None, data=request.POST)
+        if form.is_valid():
+            curated_list = form.save()
+            data = {
+                'success': True,
+                'token': curated_list.get_token(),
+                'title': curated_list.title,
+                'description': curated_list.description,
+            }
+            return JsonResponse(data)
+        data = {
+            'success': False,
+            'errors': form.errors,
+        }
+        return JsonResponse(data)
     data = {}
     return JsonResponse(data)
 
 
 @login_required
 def change_user_curated_list_json(request, token):
-    data = {}
+    hashids = Hashids(min_length=6)
+
+    try:
+        curated_list_id = hashids.decode(token)[0]
+    except IndexError:
+        raise Http404
+
+    try:
+        curated_list = CuratedList.objects.filter(pk=curated_list_id)[0]
+    except IndexError:
+        raise Http404
+
+    if request.method == "POST":
+        form = CuratedListForm(request=request, instance=curated_list, data=request.POST)
+        if form.is_valid():
+            curated_list = form.save()
+            data = {
+                'success': True,
+                'token': curated_list.get_token(),
+                'title': curated_list.title,
+                'description': curated_list.description,
+            }
+            return JsonResponse(data)
+        data = {
+            'success': False,
+            'errors': form.errors,
+        }
+        return JsonResponse(data)
+    data = {
+        'token': curated_list.get_token(),
+        'title': curated_list.title,
+        'description': curated_list.description,
+    }
     return JsonResponse(data)
 
 
 @login_required
 def delete_user_curated_list_json(request, token):
-    data = {}
+    hashids = Hashids(min_length=6)
+
+    try:
+        curated_list_id = hashids.decode(token)[0]
+    except IndexError:
+        raise Http404
+
+    try:
+        curated_list = CuratedList.objects.filter(pk=curated_list_id)[0]
+    except IndexError:
+        raise Http404
+
+    if request.method == "POST":
+        curated_list.delete()
+
+    data = {
+        'success': True,
+    }
     return JsonResponse(data)

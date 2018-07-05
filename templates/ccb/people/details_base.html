@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n base_tags auth_extended image_mods_tags navigation_tags browsing favorites individual_relations activity_tags cms_tags %}
+{% load i18n base_tags auth_extended image_mods_tags navigation_tags browsing favorites individual_relations activity_tags cms_tags staticfiles %}
 
 {% block title %}
     {% ifequal request.user object.user %}
@@ -150,6 +150,7 @@
                         {% endif %}
                     {% endifequal %}
 
+                    {% include "curated_lists/includes/add_to_own_curated_lists.html" %}
                 </div>
 
                 {% block sidebar %}
