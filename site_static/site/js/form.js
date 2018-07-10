@@ -13,6 +13,8 @@ window.addToFormInit.functions = [];
 
 $(document).ready(function() {
 
+    window.form_elements = {};
+
 
     // adds the functionality of all form elements
     // add the class "dont-add-form-functionality" to an element or one of its parents to not add form functionality to it
@@ -1731,6 +1733,7 @@ $(document).ready(function() {
             me.$main.append($option);
         };
     }
+    window.form_elements.SelectBox = SelectBox;
 
 
 
