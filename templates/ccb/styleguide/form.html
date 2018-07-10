@@ -50,7 +50,7 @@
     &lt;li>&lt;a href="#">A&lt;/a>&lt;/li>
     &lt;li>&lt;a href="#">B&lt;/a>&lt;/li>
     &lt;li>&lt;a href="#">C&lt;/a>&lt;/li>
-    ... and so on ...    
+    ... and so on ...
     &lt;li class="disabled">Y&lt;/li>
     &lt;li class="active">&lt;a href="#">Z&lt;/a>&lt;/li>
     &lt;li>&lt;a class="active" href="#">0-9&lt;/a>&lt;/li>
@@ -389,6 +389,43 @@
         &lt;option value="option-1">Option 1&lt;/option>
         &lt;option value="option-2">Option 2&lt;/option>
         ...
+        &lt;option value="option-8">Option 8&lt;/option>
+    &lt;/select>
+&lt;/div></pre>
+            <br/>
+            <div><b>Option groups</b></div>
+            <div class="input-field select">
+                <select placeholder="{% trans 'Please choose' %}" multiple>
+                    <option>--------</option>
+                    <optgroup label="First Group">
+                        <option value="option-1">Option 1</option>
+                        <option value="option-2">Option 2</option>
+                        <option value="option-3">Option 3</option>
+                    </optgroup>
+                    <optgroup label="Second Group">
+                        <option value="option-4">Option 4</option>
+                        <option value="option-5">Option 5</option>
+                        <option value="option-6">Option 6</option>
+                    </optgroup>
+                    <option value="option-7">Option 7</option>
+                    <option value="option-8">Option 8</option>
+                </select>
+            </div>
+            <br/>
+<pre>&lt;div class="input-field select">
+    &lt;select placeholder="{% trans 'Please choose' %}" multiple>
+        &lt;option>--------&lt;/option>
+        &lt;optgroup label="First Group">
+            &lt;option value="option-1">Option 1&lt;/option>
+            &lt;option value="option-2">Option 2&lt;/option>
+            &lt;option value="option-3">Option 3&lt;/option>
+        &lt;/optgroup>
+        &lt;optgroup label="Second Group">
+            &lt;option value="option-4">Option 4&lt;/option>
+            &lt;option value="option-5">Option 5&lt;/option>
+            &lt;option value="option-6">Option 6&lt;/option>
+        &lt;/optgroup>
+        &lt;option value="option-7">Option 7&lt;/option>
         &lt;option value="option-8">Option 8&lt;/option>
     &lt;/select>
 &lt;/div></pre>
@@ -746,7 +783,7 @@
                     <dl class="input-fields">
                         <dt>Section</dt>
                         <dd><div class="text-field">Value</div></dd>
-                        <dd class="clearfix"></dd>                        
+                        <dd class="clearfix"></dd>
                     </dl>
                     <dl class="input-fields">
                         <dt>Section</dt>
@@ -801,4 +838,3 @@
         </div>
     </div>
 {% endblock %}
-

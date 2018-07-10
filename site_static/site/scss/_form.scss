@@ -1097,12 +1097,24 @@ input {
         -ms-user-select: none;
         user-select: none;
 
+        &.is-in-option-group {
+            padding-left: 2em;
+        }
+
+        &.first-none-group {
+            padding-top: 20px;
+        }
+
         &:hover, &.focus {
             background: $cyan;
         }
 
         &.multiple {
             padding-left: 10px;
+
+            &.is-in-option-group {
+                padding-left: 35px;
+            }
 
             &:before {
                 content: "";
@@ -1120,6 +1132,24 @@ input {
                 }
             }
         }
+    }
+
+    .select-option-group {
+        width: 100%;
+        padding: 20px 5px 7px 1em;
+        font-weight: bold;
+
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+        &.multiple {
+            padding-left: 10px;
+        }
+
     }
 
     // the dropdown
@@ -1283,7 +1313,7 @@ input {
     float: left;
     font-family: $font-2, $font-family-1;
     font-weight: $font-regular;
-    font-size: 1.2em;
+    font-size: 1.2rem;
     line-height: 300%;
     background: $white-dirty;
     color: $grey-light;
@@ -1293,11 +1323,13 @@ input {
     border-bottom-left-radius: 4px;
     padding: 0 1em;
     margin: 5px 0 10px 0;
+    height: 3.5rem;
     cursor: default;
 
     .is-xs & {
-        font-size: 1.07em;
+        font-size: 1.07rem;
         line-height: 260%;
+        height: 3rem;
     }
 
     &.focus {

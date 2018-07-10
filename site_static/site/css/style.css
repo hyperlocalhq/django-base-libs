@@ -4195,12 +4195,24 @@ input:focus {
   user-select: none;
 }
 
+.input-field .select-option.is-in-option-group {
+  padding-left: 2em;
+}
+
+.input-field .select-option.first-none-group {
+  padding-top: 20px;
+}
+
 .input-field .select-option:hover, .input-field .select-option.focus {
   background: #00cdff;
 }
 
 .input-field .select-option.multiple {
   padding-left: 10px;
+}
+
+.input-field .select-option.multiple.is-in-option-group {
+  padding-left: 35px;
 }
 
 .input-field .select-option.multiple:before {
@@ -4215,6 +4227,22 @@ input:focus {
 
 .input-field .select-option.multiple.selected:before {
   background-position: 0 -15px;
+}
+
+.input-field .select-option-group {
+  width: 100%;
+  padding: 20px 5px 7px 1em;
+  font-weight: bold;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.input-field .select-option-group.multiple {
+  padding-left: 10px;
 }
 
 .input-field .select-dropdown {
@@ -4352,7 +4380,7 @@ input:focus {
   float: left;
   font-family: "Lato", "sans-serif";
   font-weight: 400;
-  font-size: 1.2em;
+  font-size: 1.2rem;
   line-height: 300%;
   background: #efefef;
   color: #afaeae;
@@ -4362,12 +4390,14 @@ input:focus {
   border-bottom-left-radius: 4px;
   padding: 0 1em;
   margin: 5px 0 10px 0;
+  height: 3.5rem;
   cursor: default;
 }
 
 .is-xs .input-prefix {
-  font-size: 1.07em;
+  font-size: 1.07rem;
   line-height: 260%;
+  height: 3rem;
 }
 
 .input-prefix.focus {
