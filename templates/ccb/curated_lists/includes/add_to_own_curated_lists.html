@@ -1,0 +1,22 @@
+{% load i18n sekizai_tags staticfiles %}
+{% if request.user.profile.is_curator %}
+    <div class="input-field select">
+        <select placeholder="{% trans 'Add to curated list' %}" multiple>
+            <optgroup label="User">
+                <option value="option-1">Option 1</option>
+            </optgroup>
+            <optgroup label="Institution 1">
+                <option value="option-2">Option 2</option>
+                <option value="option-3">Option 3</option>
+            </optgroup>
+            <optgroup label="Institution 2">
+                <option value="option-4">Option 4</option>
+                <option value="option-4">Option 4</option>
+            </optgroup>
+        </select>
+    </div>
+
+    {% addtoblock "js" %}
+        <script src="{% static "site/js/curated-lists.min.js" %}" defer></script>
+    {% endaddtoblock %}
+{% endif %}

@@ -22,11 +22,74 @@ class CuratedListForm(forms.Form):
     )
     description = forms.CharField(
         label=_("Description"),
+        required=False,
+    )
+    image = forms.ImageField(
+        label=_("Image"),
+        required=False,
+    )
+
+    def __init__(self, request, instance, *args, **kwargs):
+        super(CuratedListForm, self).__init__(*args, **kwargs)
+        self.request = request
+        self.instance = instance
+
+        if not self.instance:
+            choices = [
+                ('people.person.{}'.format(request.user.pk), request.user.profile.get_title())
+            ]
+            for contact in request.user.profile.individualcontact_set.exclude(institution=None).only("institution"):
+                choices.append(('institutions.institution.{}'.format(contact.institution.pk), contact.institution.title))
+            self.field['owner'] = forms.ChoiceField(
+                label=_("Owner"),
+                choices=choices,
+            )
+
+        if not self.initial:
+            self.initial = {
+                'title': getattr(instance, "title_{}".format(settings.LANGUAGE_CODE), ""),
+                'description': getattr(instance, "description_{}".format(settings.LANGUAGE_CODE), ""),
+            }
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Edit Curated List Description"),
+                "title",
+                layout.Field("description", rows=5),
+                layout.Field("image"),
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Save')),
+            )
+        )
+
+    def save(self, commit=True):
+        cleaned = self.cleaned_data
+        for lang_code, lang_name in settings.LANGUAGES:
+            setattr(self.instance, "title_{}".format(lang_code), cleaned['title'])
+            setattr(self.instance, "description_{}".format(lang_code), cleaned['description'])
+            if not getattr(self.instance, "description_{}_markup_type".format(lang_code)):
+                setattr(self.instance, "description_{}_markup_type".format(lang_code), "pt")
+        if commit:
+            self.instance.save()
+        return self.instance
+
+
+class CuratedListItemForm(forms.Form):
+    title = forms.CharField(
+        label=_("Title"),
         required=True,
+    )
+    description = forms.CharField(
+        label=_("Description"),
+        required=False,
     )
 
     def __init__(self, instance, *args, **kwargs):
-        super(CuratedListForm, self).__init__(*args, **kwargs)
+        super(CuratedListItemForm, self).__init__(*args, **kwargs)
 
         self.instance = instance
 

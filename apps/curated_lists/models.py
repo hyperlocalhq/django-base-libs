@@ -52,11 +52,16 @@ class CuratedList(
     def __unicode__(self):
         return self.title
 
-    def get_url_path(self):
+    def get_token(self):
         if not self.pk:
             return ""
         hashids = Hashids(min_length=6)
-        token = hashids.encode(self.pk)
+        return hashids.encode(self.pk)
+
+    def get_url_path(self):
+        if not self.pk:
+            return ""
+        token = self.get_token()
         try:
             path = reverse("curated_list_detail", kwargs={'token': token})
         except:
