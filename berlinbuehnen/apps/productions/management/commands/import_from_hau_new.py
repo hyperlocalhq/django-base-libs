@@ -5,7 +5,9 @@ from ._import_to_berlinbuehnen_base_json import ImportToBerlinBuehnenBaseJSON
 class Command(ImportToBerlinBuehnenBaseJSON):
     help = "Imports productions and events from HAU"
 
-    IMPORT_URL = "http://alpha.tia.docker.brettinghams-dev.de/typo3conf/ext/tbsproductions/Classes/Hook/json_result/berlinbuehne.json"
+    IMPORT_URL = "https://www.tanzimaugust.de/typo3conf/ext/tbsproductions/Classes/Hook/json_result/berlinbuehne.json"
+    DEFAULT_PUBLISHING_STATUS = "published"
+    DEFAULT_IN_PROGRAM_OF_LOCATION_ID = 13
 
     def prepare(self):
         from django.db import models
@@ -32,3 +34,7 @@ class Command(ImportToBerlinBuehnenBaseJSON):
                 'title': "HAU Productions",
             },
         )
+
+        if self.service.url != self.IMPORT_URL:
+            self.service.url = self.IMPORT_URL
+            self.service.save()

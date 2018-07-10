@@ -56,7 +56,7 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
             self.stdout.write(u"Processing page {}\n".format(self.service.url))
 
         r = requests_session.get(self.service.url)
-        if r.status_code != 200:
+        if r.status_code != requests.codes.ok:
             self.all_feeds_alright = False
             self.stderr.write(u"Error status {} when trying to access {}".format(r.status_code, self.service.url))
             return
@@ -78,7 +78,7 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
             if self.verbosity >= self.NORMAL:
                 self.stdout.write(u"Processing page {}\n".format(next_page))
             r = requests_session.get(next_page)
-            if r.status_code != 200:
+            if r.status_code != requests.codes.ok:
                 self.all_feeds_alright = False
                 self.stderr.write(u"Error status {} when trying to access {}".format(r.status_code, next_page))
                 break # we want to show summary even if at some point the import breaks
@@ -404,8 +404,10 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
                 image_ids_to_keep = []
                 for image_node in prod_node.findall('./images/image'):
                     image_url = self.get_child_text(image_node, 'url')
-                    if not image_url.startswith('http'):
+                    if not image_url:
                         continue
+
+                    image_url = self.get_full_url(image_url)
 
                     image_external_id = "prod-%s-%s" % (prod.pk, image_url)
                     image_mapper = None
@@ -438,7 +440,7 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
                         # clear the query parameters
                         filename = filename.split("?")[0]
                     image_response = requests.get(image_url)
-                    if image_response.status_code == 200:
+                    if image_response.status_code in (requests.codes.ok, requests.codes.not_modified):
                         image_mods.FileManager.delete_file_for_object(
                             mf,
                             field_name="path",
@@ -480,8 +482,10 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
             pdf_ids_to_keep = []
             for pdf_node in prod_node.findall('./pdfs/pdf'):
                 pdf_url = self.get_child_text(pdf_node, 'url')
-                if not pdf_url.startswith('http'):
+                if not pdf_url:
                     continue
+
+                pdf_url = self.get_full_url(pdf_url)
 
                 pdf_external_id = "prod-%s-%s" % (prod.pk, pdf_url)
                 pdf_mapper = None
@@ -506,7 +510,7 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
                     # clear the query parameters
                     filename = filename.split("?")[0]
                 pdf_response = requests.get(pdf_url)
-                if pdf_response.status_code == 200:
+                if pdf_response.status_code in (requests.codes.ok, requests.codes.not_modified):
                     image_mods.FileManager.save_file_for_object(
                         mf,
                         filename,
@@ -650,12 +654,13 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
                 sponsor.save()
                 image_url = self.get_child_text(sponsor_node, 'image_url')
                 if image_url:
+                    image_url = self.get_full_url(image_url)
                     filename = image_url.split("/")[-1]
                     if "?" in filename:
                         # clear the query parameters
                         filename = filename.split("?")[0]
                     image_response = requests.get(image_url)
-                    if image_response.status_code == 200:
+                    if image_response.status_code in (requests.codes.ok, requests.codes.not_modified):
                         image_mods.FileManager.save_file_for_object(
                             sponsor,
                             filename,
@@ -843,8 +848,10 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
                     image_ids_to_keep = []
                     for image_node in event_node.findall('./images/image'):
                         image_url = self.get_child_text(image_node, 'url')
-                        if not image_url.startswith('http'):
+                        if not image_url:
                             continue
+
+                        image_url = self.get_full_url(image_url)
     
                         image_external_id = "event-%s-%s" % (event.pk, image_url)
                         image_mapper = None
@@ -877,7 +884,7 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
                             # clear the query parameters
                             filename = filename.split("?")[0]
                         image_response = requests.get(image_url)
-                        if image_response.status_code == 200:
+                        if image_response.status_code in (requests.codes.ok, requests.codes.not_modified):
                             image_mods.FileManager.delete_file_for_object(
                                 mf,
                                 field_name="path",
@@ -918,9 +925,11 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
                 pdf_ids_to_keep = []
                 for pdf_node in event_node.findall('./pdfs/pdf'):
                     pdf_url = self.get_child_text(pdf_node, 'url')
-                    if not pdf_url.startswith('http'):
+                    if not pdf_url:
                         continue
-    
+
+                    pdf_url = self.get_full_url(pdf_url)
+
                     pdf_external_id = "event-%s-%s" % (event.pk, pdf_url)
                     pdf_mapper = None
                     try:
@@ -944,7 +953,7 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
                         # clear the query parameters
                         filename = filename.split("?")[0]
                     pdf_response = requests.get(pdf_url)
-                    if pdf_response.status_code == 200:
+                    if pdf_response.status_code in (requests.codes.ok, requests.codes.not_modified):
                         image_mods.FileManager.save_file_for_object(
                             mf,
                             filename,
@@ -1088,12 +1097,13 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
                     sponsor.save()
                     image_url = self.get_child_text(sponsor_node, 'image_url')
                     if image_url:
+                        image_url = self.get_full_url(image_url)
                         filename = image_url.split("/")[-1]
                         if "?" in filename:
                             # clear the query parameters
                             filename = filename.split("?")[0]
                         image_response = requests.get(image_url)
-                        if image_response.status_code == 200:
+                        if image_response.status_code in (requests.codes.ok, requests.codes.not_modified):
                             image_mods.FileManager.save_file_for_object(
                                 sponsor,
                                 filename,

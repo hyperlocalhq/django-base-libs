@@ -19,7 +19,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
             self.stdout.write(u"Processing page {}\n".format(self.service.url))
 
         r = requests_session.get(self.service.url, auth=self.AUTH)
-        if r.status_code != 200:
+        if r.status_code != requests.codes.ok:
             self.all_feeds_alright = False
             self.stderr.write(u"Error status {} when trying to access {}\n".format(r.status_code, self.service.url))
             return
@@ -39,7 +39,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
             if self.verbosity >= self.NORMAL:
                 self.stdout.write(u"Processing page {}\n".format(next_page))
             r = requests_session.get(next_page, auth=self.AUTH)
-            if r.status_code != 200:
+            if r.status_code != requests.codes.ok:
                 self.all_feeds_alright = False
                 self.stderr.write(u"Error status {} when trying to access {}\n".format(r.status_code, next_page))
                 break  # we want to show summary even if at some point the import breaks
@@ -150,8 +150,8 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
 
             external_prod_id = prod_dict.get('id', "")
 
-            title_de = prod_dict.get('title_de', "").replace('\n', ' ').strip()
-            title_en = prod_dict.get('title_en', "").replace('\n', ' ').strip()
+            title_de = (prod_dict.get('title_de') or "").replace('\n', ' ').strip()
+            title_en = (prod_dict.get('title_en') or "").replace('\n', ' ').strip() or title_de
 
             if self.verbosity >= self.NORMAL:
                 self.stdout.write(u"%d/%d %s | %s" % (self._production_counter, self._total_production_count, title_de, title_en))
@@ -406,8 +406,9 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     images = images.values()
                 for image_dict in images:
                     image_url = image_dict.get('url', "")
-                    if not image_url.startswith('http'):
+                    if not image_url:
                         continue
+                    image_url = self.get_full_url(image_url)
 
                     image_external_id = "prod-%s-%s" % (prod.pk, image_url)
                     image_mapper = None
@@ -441,7 +442,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                         # clear the query parameters
                         filename = filename.split("?")[0]
                     image_response = requests.get(image_url, auth=self.AUTH)
-                    if image_response.status_code == 200:
+                    if image_response.status_code in (requests.codes.ok, requests.codes.not_modified):
                         image_mods.FileManager.delete_file_for_object(
                             mf,
                             field_name="path",
@@ -489,8 +490,10 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                 pdfs = pdfs.values()
             for pdf_dict in pdfs:
                 pdf_url = pdf_dict.get('url')
-                if not pdf_url.startswith('http'):
+                if not pdf_url:
                     continue
+
+                pdf_url = self.get_full_url(pdf_url)
 
                 pdf_external_id = "prod-%s-%s" % (prod.pk, pdf_url)
                 pdf_mapper = None
@@ -516,7 +519,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     # clear the query parameters
                     filename = filename.split("?")[0]
                 pdf_response = requests.get(pdf_url, auth=self.AUTH)
-                if pdf_response.status_code == 200:
+                if pdf_response.status_code in (requests.codes.ok, requests.codes.not_modified):
                     image_mods.FileManager.save_file_for_object(
                         mf,
                         filename,
@@ -685,12 +688,13 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                 sponsor.save()
                 image_url = sponsor_dict.get('image_url', "")
                 if image_url:
+                    image_url = self.get_full_url(image_url)
                     filename = image_url.split("/")[-1]
                     if "?" in filename:
                         # clear the query parameters
                         filename = filename.split("?")[0]
                     image_response = requests.get(image_url, auth=self.AUTH)
-                    if image_response.status_code == 200:
+                    if image_response.status_code in (requests.codes.ok, requests.codes.not_modified):
                         image_mods.FileManager.save_file_for_object(
                             sponsor,
                             filename,
@@ -923,8 +927,10 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                         images = images.values()
                     for image_dict in images:
                         image_url = image_dict.get('url', "")
-                        if not image_url.startswith('http'):
+                        if not image_url:
                             continue
+
+                        image_url = self.get_full_url(image_url)
 
                         image_external_id = "event-%s-%s" % (event.pk, image_url)
                         image_mapper = None
@@ -958,7 +964,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                             # clear the query parameters
                             filename = filename.split("?")[0]
                         image_response = requests.get(image_url, auth=self.AUTH)
-                        if image_response.status_code == 200:
+                        if image_response.status_code in (requests.codes.ok, requests.codes.not_modified):
                             image_mods.FileManager.delete_file_for_object(
                                 mf,
                                 field_name="path",
@@ -1005,8 +1011,10 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     pdfs = pdfs.values()
                 for pdf_dict in pdfs:
                     pdf_url = pdf_dict.get('url', "")
-                    if not pdf_url.startswith('http'):
+                    if not pdf_url:
                         continue
+
+                    pdf_url = self.get_full_url(pdf_url)
 
                     pdf_external_id = "event-%s-%s" % (event.pk, pdf_url)
                     pdf_mapper = None
@@ -1032,7 +1040,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                         # clear the query parameters
                         filename = filename.split("?")[0]
                     pdf_response = requests.get(pdf_url, auth=self.AUTH)
-                    if pdf_response.status_code == 200:
+                    if pdf_response.status_code in (requests.codes.ok, requests.codes.not_modified):
                         image_mods.FileManager.save_file_for_object(
                             mf,
                             filename,
@@ -1201,12 +1209,13 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     sponsor.save()
                     image_url = sponsor_dict.get('image_url', "")
                     if image_url:
+                        image_url = self.get_full_url(image_url)
                         filename = image_url.split("/")[-1]
                         if "?" in filename:
                             # clear the query parameters
                             filename = filename.split("?")[0]
                         image_response = requests.get(image_url, auth=self.AUTH)
-                        if image_response.status_code == 200:
+                        if image_response.status_code in (requests.codes.ok, requests.codes.not_modified):
                             image_mods.FileManager.save_file_for_object(
                                 sponsor,
                                 filename,
