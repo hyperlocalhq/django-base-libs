@@ -590,7 +590,7 @@ class NewlyOpenedExhibition(CMSPlugin):
 
 class MediaFile(CreationModificationDateMixin):
     exhibition = models.ForeignKey(Exhibition, verbose_name=_("Exhibition"))
-    path = FileBrowseField(_('File path'), max_length=255, directory="exhibitions/", help_text=_("A path to a locally stored image, video, or audio file."))
+    path = FileBrowseField(_('File path'), max_length=500, directory="exhibitions/", help_text=_("A path to a locally stored image, video, or audio file."))
     sort_order = PositionField(_("Sort order"), collection="exhibition")
 
     class Meta:

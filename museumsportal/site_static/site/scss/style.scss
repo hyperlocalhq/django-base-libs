@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import 'bootstrap/bootstrap';
 @import 'ding';
 @import 'variables';
 @import 'header';
@@ -37,6 +38,7 @@
 @import "museumssommer";
 @import 'tips-365';
 @import 'language-chooser-mobile';
+@import 'infobanner';
 
 html {
   height: 100%;

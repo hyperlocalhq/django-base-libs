@@ -68,7 +68,7 @@ class WorkshopAdmin(ExtendedModelAdmin):
             "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
         )
     save_on_top = True
-    list_display = ('id', 'title', 'slug', 'creation_date', 'status', 'is_geoposition_set', 'favorites_count')
+    list_display = ('id', 'title', 'slug', 'creation_date', 'modified_date', 'status', 'is_geoposition_set', 'favorites_count')
     list_display_links = ('title', )
     list_filter = ('creation_date', 'types', 'status', 'has_group_offer', 'is_for_preschool', 'is_for_primary_school', 'is_for_youth', 'is_for_families', 'is_for_wheelchaired', 'is_for_deaf', 'is_for_blind', 'is_for_learning_difficulties', 'is_for_dementia_sufferers', 'linkgroup')
     search_fields = ('title', 'subtitle', 'workshop_type', 'slug')

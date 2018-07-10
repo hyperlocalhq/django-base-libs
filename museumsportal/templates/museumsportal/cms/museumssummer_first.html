@@ -8,7 +8,7 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="relative">
-                        <img class="img-responsive" alt="{% page_attribute "title" %}" src="{{ STATIC_URL }}site/img/museumssummer/logo_{% if LANGUAGE_CODE == "de" %}de{% else %}en{% endif %}.png" />
+                        <img class="img-responsive museumssommer-logo" alt="{% page_attribute "title" %}" src="{{ STATIC_URL }}site/img/museumssummer/logo_{% if LANGUAGE_CODE == "de" %}de{% else %}en{% endif %}.png" />
                         <h1>{% page_attribute "title" %}</h1>
                     </div>
 					{% placeholder "intro" %}
@@ -22,7 +22,7 @@
     				</div>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-					<a class="museumssommer-button" href="{% page_url "museumssommer_quiz" %}"><img alt="{% trans "Quiz" %}" src="{{ STATIC_URL }}site/img/museumssummer/quiz_{% if LANGUAGE_CODE == "de" %}de{% else %}en{% endif %}.png" /><img alt="{% trans "Quiz" %}" src="{{ STATIC_URL }}site/img/museumssummer/quiz_hover_{% if LANGUAGE_CODE == "de" %}de{% else %}en{% endif %}.png" /></a>
+					<a class="museumssommer-button" href="{% page_url "museumssommer_photo_campaign" %}"><img alt="{% trans "Quiz" %}" src="{{ STATIC_URL }}site/img/museumssummer/fotoaktion_{% if LANGUAGE_CODE == "de" %}de{% else %}en{% endif %}.png" /><img alt="{% trans "Quiz" %}" src="{{ STATIC_URL }}site/img/museumssummer/fotoaktion_hover_{% if LANGUAGE_CODE == "de" %}de{% else %}en{% endif %}.png" /></a>
 				</div>
 			</div>
 			<div class="row">
