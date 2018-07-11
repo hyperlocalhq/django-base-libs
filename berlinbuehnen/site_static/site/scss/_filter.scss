@@ -206,8 +206,14 @@
                                     }
 
                                     .is-xs & {
-                                        min-width: 190%;
-                                        max-width: 200%;
+                                        position: fixed;
+                                        min-width: unset;
+                                        max-width: unset;
+                                        z-index: 9999999;
+                                        left: -5px;
+                                        top: 0;
+                                        width: 100%;
+                                        height: 100%;
                                     }
                                 }
                             }
@@ -244,12 +250,24 @@
                                 margin: 5px 0;
                             }
 
+                            .filter-option-dropdown-scroll-wrapper {
+                                .is-xs & {
+                                    height: 100%;
+                                    padding-bottom: 90px;
+                                }
+                            }
+
                             .filter-option-dropdown-scroll {
                                 margin-top: 20px;
                                 max-height: 300px;
                                 overflow: auto;
                                 overflow-x: hidden;
                                 overflow-y: auto;
+
+                                .is-xs & {
+                                    max-height: unset;
+                                    height: 100%;
+                                }
                             }
 
                             ul {
@@ -388,4 +406,8 @@
         }
 
     }
+}
+
+body.filter-option-dropdown-open.is-xs {
+    overflow: hidden;
 }

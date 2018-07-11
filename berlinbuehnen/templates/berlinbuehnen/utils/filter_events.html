@@ -73,20 +73,22 @@
                     <button class="fawesome delete"></button>
                     <div class="filter-option-dropdown-header">{% trans "Location" %}</div>
                     <input class="filter-option-dropdown-search" type="text" placeholder="{% trans "search" %}" />
-                    <div class="filter-option-dropdown-scroll">
-                        <ul>
-                            {% for cat in facets.categories.locations %}
-                                {% if cat in facets.selected.locations %}
-                                    <li>
-                                        <a class="active" href="{% remove_from_query "page" locations=cat.pk %}">{{ cat.title }}</a>
-                                    </li>
-                                {% else %}
-                                    <li>
-                                        <a class="" href="{% add_to_query "page" locations=cat.pk %}">{{ cat.title }}</a>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
+                    <div class="filter-option-dropdown-scroll-wrapper">
+                        <div class="filter-option-dropdown-scroll">
+                            <ul>
+                                {% for cat in facets.categories.locations %}
+                                    {% if cat in facets.selected.locations %}
+                                        <li>
+                                            <a class="active" href="{% remove_from_query "page" locations=cat.pk %}">{{ cat.title }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li>
+                                            <a class="" href="{% add_to_query "page" locations=cat.pk %}">{{ cat.title }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -121,20 +123,22 @@
                     <button class="fawesome delete"></button>
                     <div class="filter-option-dropdown-header">{% trans "Language" %}</div>
                     <!--<input class="filter-option-dropdown-search" type="text" placeholder="{% trans "search" %}" />-->
-                    <div class="filter-option-dropdown-scroll">
-                        <ul>
-                            {% for cat in facets.categories.language_and_subtitles %}
-                                {% if cat in facets.selected.language_and_subtitles %}
-                                    <li>
-                                        <a class="active" href="{% remove_from_query "page" language_and_subtitles=cat.pk %}">{{ cat.title }}</a>
-                                    </li>
-                                {% else %}
-                                    <li>
-                                        <a class="" href="{% add_to_query "page" language_and_subtitles=cat.pk %}">{{ cat.title }}</a>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
+                    <div class="filter-option-dropdown-scroll-wrapper">
+                        <div class="filter-option-dropdown-scroll">
+                            <ul>
+                                {% for cat in facets.categories.language_and_subtitles %}
+                                    {% if cat in facets.selected.language_and_subtitles %}
+                                        <li>
+                                            <a class="active" href="{% remove_from_query "page" language_and_subtitles=cat.pk %}">{{ cat.title }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li>
+                                            <a class="" href="{% add_to_query "page" language_and_subtitles=cat.pk %}">{{ cat.title }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -153,19 +157,21 @@
                                 <button class="fawesome delete"></button>
                                 <div class="filter-option-dropdown-header">{{ cat.title }}</div>
                                 <!--<input class="filter-option-dropdown-search" type="text" placeholder="{% trans "search" %}" />-->
-                                <div class="filter-option-dropdown-scroll">
-                                    <ul>
-                                        {% if cat in facets.selected.categories %}
-                                            <li>
-                                                <a class="active parent" data-query="categories" data-pk="{{ cat.pk }}" href="{% remove_from_query "page" categories=cat.pk %}">{% trans "All" %}</a>
-                                            </li>
-                                        {% else %}
-                                            <li>
-                                                <a class="remover parent" data-query="categories" data-pk="{{ cat.pk }}" href="{% add_to_query "page" categories=cat.pk %}">{% trans "All" %}</a>
-                                            </li>
-                                        {% endif %}
-                                        {{ children }}
-                                    </ul>
+                                <div class="filter-option-dropdown-scroll-wrapper">
+                                    <div class="filter-option-dropdown-scroll">
+                                        <ul>
+                                            {% if cat in facets.selected.categories %}
+                                                <li>
+                                                    <a class="active parent" data-query="categories" data-pk="{{ cat.pk }}" href="{% remove_from_query "page" categories=cat.pk %}">{% trans "All" %}</a>
+                                                </li>
+                                            {% else %}
+                                                <li>
+                                                    <a class="remover parent" data-query="categories" data-pk="{{ cat.pk }}" href="{% add_to_query "page" categories=cat.pk %}">{% trans "All" %}</a>
+                                                </li>
+                                            {% endif %}
+                                            {{ children }}
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -28,6 +28,7 @@
         me.loading = false;
 
         me.$main = $main;
+        me.$body = $('body');
         var connect_id = me.$main.attr('id').split('_', 2);
         me.connect_id = connect_id[0];
         me.date = null;
@@ -133,14 +134,15 @@
         var me = this;
 
         var $dropdown = $trigger.parents('.filter-option-wrapper');
-        var $body = $('.filter-option-dropdown', $dropdown);
+        var $dropdown_body = $('.filter-option-dropdown', $dropdown);
 
         me.closeAllDropdowns();
+        me.$body.addClass('filter-option-dropdown-open');
         $trigger.addClass('open');
-        $body.addClass('preopen');
+        $dropdown_body.addClass('preopen');
 
         window.setTimeout(function() {
-            $body.addClass('open');
+            $dropdown_body.addClass('open');
         }, 0);
     }
 
@@ -158,6 +160,7 @@
         if (me.dropdown_opening) window.clearTimeout(me.dropdown_opening);
         me.dropdown_opening = null;
 
+        me.$body.removeClass('filter-option-dropdown-open');
         me.$dropdown_triggers.removeClass('open');
         me.$dropdown_bodies.removeClass('open preopen');
     }
