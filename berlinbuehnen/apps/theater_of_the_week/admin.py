@@ -38,7 +38,7 @@ class TheaterOfTheWeekAdmin(ExtendedModelAdmin):
     list_display = ['id', 'title', 'theater', 'author', 'status', 'published_from', 'published_till', 'views', 'language']
     list_display_links = ['title']
     list_filter = ('theater', 'published_from', 'published_till', 'status', 'language')
-    search_fields = ('title', 'description', 'content', 'author__username', 'theater')
+    search_fields = ('title', 'description', 'content', 'author__username', 'theater__title_de', 'theater__title_en')
     
     fieldsets = []
     fieldsets += [(_("Theater of the week"), {'fields': ('title', 'subtitle', 'short_title', 'content', 'description', 'theater', 'language')})]

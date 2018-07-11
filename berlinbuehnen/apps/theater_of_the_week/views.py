@@ -160,7 +160,7 @@ def theater_of_the_week_object_detail(
     template_name=None,
     template_loader=loader,
     template_name_field=None,
-    extra_context={},
+    extra_context=None,
     context_processors=None,
     template_object_name='article',
     content_type=None,
@@ -188,6 +188,8 @@ def theater_of_the_week_object_detail(
         if not request.user.is_staff:
             raise PermissionDenied()
 
+    if not extra_context:
+        extra_context = {}
     context_dict = extra_context
     context_dict['rel_root_dir'] = reverse("theater_of_the_week")
     context_dict['links_to_articles'] = queryset.exclude(
@@ -204,11 +206,15 @@ def theater_of_the_week_object_detail(
     
 def theater_of_the_week(request, template_name=None, template_object_name='article', type_sysname=None, status=STATUS_CODE_PUBLISHED, extra_context={}):    
 
-    queryset = get_theaters(type_sysname=template_name, status=None)
+    queryset = get_theaters(type_sysname=template_name)  # get published ones first
     try:
         theater = queryset.order_by('-published_from')[0]
     except IndexError:
-        raise Http404
+        queryset = get_theaters(type_sysname=template_name, status=None)  # get any, if published don't exist
+        try:
+            theater = queryset.order_by('-published_from')[0]
+        except IndexError:
+            raise Http404
 
     if not theater.is_published() and not request.user.has_perm("theater_of_the_week.change_theateroftheweek"):
         return access_denied(request)
@@ -226,7 +232,6 @@ def theater_of_the_week(request, template_name=None, template_object_name='artic
 def theater_of_the_week_feed(
     request,
     feed_type,
-    theater_of_the_week_feeds={},
     type_sysname=None,
     status=STATUS_CODE_PUBLISHED,
     num_latest=5,

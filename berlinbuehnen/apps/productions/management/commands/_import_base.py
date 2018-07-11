@@ -250,6 +250,17 @@ class ImportCommandMixin(object):
     }
     all_feeds_alright = True
 
+    def get_full_url(self, url):
+        from urlparse import urlparse
+        if url.startswith('//'):
+            url = "http:" + url
+        if url.startswith('/'):
+            if not hasattr(self, "_protocol_and_domain"):
+                url_parts = urlparse(self.IMPORT_URL)
+                self._protocol_and_domain = "{}://{}".format(url_parts.scheme, url_parts.netloc)
+            url = self._protocol_and_domain + url
+        return url
+
     def deactivate_nonactual_productions_and_events(self):
         from datetime import datetime, time
 

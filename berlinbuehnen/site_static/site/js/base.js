@@ -310,7 +310,22 @@ function PageTeaserAdjustment($main) {
 }
 
 
+function SetRichTextEditorFotoCredits() {
+
+    $('img[data-fb-author]').each(function() {
+
+        var $img = $(this);
+        var author = $img.attr('data-fb-author');
+        if (author) {
+            var $wrapper = $('<div class="photo-credits-wrapper"><span class="photo-credits-over">'+language.Photo+': '+author+'</span></div>');
+            $img.after($wrapper);
+            $wrapper.prepend($img);
+        }
+    })
+}
+
 $(document).ready(function() {
+    SetRichTextEditorFotoCredits();
     window.tooltipAdjustments();
 
     $('.page-teaser').each(function() {
