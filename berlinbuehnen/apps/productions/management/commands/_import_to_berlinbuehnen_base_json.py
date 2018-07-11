@@ -115,6 +115,7 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
 
     def save_page(self, productions):
         from decimal import Decimal
+        from django.apps import apps
         from berlinbuehnen.apps.people.models import Person
         from berlinbuehnen.apps.people.models import Prefix
         from berlinbuehnen.apps.people.models import AuthorshipType
@@ -135,10 +136,10 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
         from berlinbuehnen.apps.productions.models import EventImage
         from berlinbuehnen.apps.productions.models import EventSponsor
         from berlinbuehnen.apps.productions.models import LanguageAndSubtitles
-        from filebrowser.models import FileDescription
+        from berlinbuehnen.apps.productions.models import EVENT_STATUS_CHOICES, TICKET_STATUS_CHOICES
 
-        ObjectMapper = models.get_model("external_services", "ObjectMapper")
-        image_mods = models.get_app("image_mods")
+        ObjectMapper = apps.get_model("external_services", "ObjectMapper")
+        image_mods = apps.get_app("image_mods")
 
         # productions can be of one of these formats:
         # [{...}, {...}] - this is a preferred one
@@ -821,8 +822,11 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
 
                 if event.event_status == "trashed":
                     self.stats['events_untrashed'] += 1
-                event.event_status = event_dict.get('event_status', "")
-                event.ticket_status = event_dict.get('ticket_status', "")
+                event_status = event_dict.get('event_status')
+                event.event_status = event_status if event_status in dict(EVENT_STATUS_CHOICES) else ""
+
+                ticket_status = event_dict.get('ticket_status')
+                event.ticket_status = ticket_status if ticket_status in dict(TICKET_STATUS_CHOICES) else ""
 
                 event.classiccard = (event_dict.get('classiccard', "") == "true")
 
