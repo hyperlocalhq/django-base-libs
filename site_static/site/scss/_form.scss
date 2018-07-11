@@ -1105,6 +1105,10 @@ input {
             padding-top: 20px;
         }
 
+        &.is-hidden {
+            display: none;
+        }
+
         &:hover, &.focus {
             background: $cyan;
         }

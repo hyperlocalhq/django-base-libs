@@ -610,7 +610,7 @@ $(document).ready(function() {
         var first_val = $first_option.attr('value');
         $first_option.html(first_html);
         if (first_val && first_val != "") {
-            $first_option.before($('<option>--------</option>'));
+            $first_option.before($('<option class="is-hidden">--------</option>'));
         }
 
 
@@ -1230,8 +1230,9 @@ $(document).ready(function() {
                 old_group = group;
             }
 
+            var is_hidden = $option.hasClass('is-hidden');
             var text = ($option.attr('data-display')) ? $option.attr('data-display') : $option.text();
-            var $element = $('<div class="select-option select-index-'+index+multiple+first_none_group+' '+((group != "") ? "is-in-option-group" : "")+'">'+text+'</div>');
+            var $element = $('<div class="select-option select-index-'+index+multiple+first_none_group+' '+((group != "") ? "is-in-option-group" : "")+' '+((is_hidden) ? "is-hidden" : "")+'">'+text+'</div>');
             me.$dropdown.append($element);
 
             $element.click(function() {me.onOptionClick($(this));});

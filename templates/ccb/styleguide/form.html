@@ -392,11 +392,11 @@
         &lt;option value="option-8">Option 8&lt;/option>
     &lt;/select>
 &lt;/div></pre>
+            <p>Multiple choices select boxes don't need to have the empty option at the beginning (see next example "Option groups").</p>
             <br/>
             <div><b>Option groups</b></div>
             <div class="input-field select">
                 <select placeholder="{% trans 'Please choose' %}" multiple>
-                    <option>--------</option>
                     <optgroup label="First Group">
                         <option value="option-1">Option 1</option>
                         <option value="option-2">Option 2</option>
@@ -414,7 +414,6 @@
             <br/>
 <pre>&lt;div class="input-field select">
     &lt;select placeholder="{% trans 'Please choose' %}" multiple>
-        &lt;option>--------&lt;/option>
         &lt;optgroup label="First Group">
             &lt;option value="option-1">Option 1&lt;/option>
             &lt;option value="option-2">Option 2&lt;/option>
