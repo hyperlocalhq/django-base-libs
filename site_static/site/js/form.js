@@ -1432,13 +1432,6 @@ $(document).ready(function() {
                 else $(this).prop('selected', false);
             });
 
-
-            console.log("...........................");
-            $options.each(function(index) {
-                console.log(this);
-                console.log(this.selected);
-            });
-            console.log("-------------------------------");
         }
 
         me.$main.trigger('changed');
