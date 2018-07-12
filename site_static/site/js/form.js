@@ -984,6 +984,7 @@ $(document).ready(function() {
         me.$display.attr('value', me.getValue());
 
         me.selectSelectedOptions();
+        me.$main.trigger('changed');
     }
 
     /**
@@ -1156,6 +1157,7 @@ $(document).ready(function() {
         me.$display.attr('value', me.getValue());
 
         me.selectSelectedOptions();
+        me.$main.trigger('changed');
     }
 
     /**
