@@ -984,7 +984,7 @@ $(document).ready(function() {
         me.$display.attr('value', me.getValue());
 
         me.selectSelectedOptions();
-        me.$main.trigger('changed');
+        me.triggerChanged();
     }
 
     /**
@@ -1157,7 +1157,7 @@ $(document).ready(function() {
         me.$display.attr('value', me.getValue());
 
         me.selectSelectedOptions();
-        me.$main.trigger('changed');
+        me.triggerChanged();
     }
 
     /**
@@ -1410,6 +1410,39 @@ $(document).ready(function() {
                 }
             }
         }
+    }
+
+    /**
+     * Triggers the "changed" event.
+     * Applies the changes of the pseudo dropdown of a mulitple choice select box
+     * to the actual select box before triggering the event.
+     */
+    SelectBox.prototype.triggerChanged = function() {
+
+        var me = this.me;
+
+        // if multiple, select the marked options
+        if (me.multiple) {
+
+            var $options = $('option', me.$main);
+
+            $options.each(function(index) {
+
+                if (me.option_selected[index]) $(this).prop('selected', true);
+                else $(this).prop('selected', false);
+            });
+
+
+            console.log("...........................");
+            $options.each(function(index) {
+                console.log(this);
+                console.log(this.selected);
+            });
+            console.log("-------------------------------");
+        }
+
+        me.$main.trigger('changed');
+
     }
 
     /**
