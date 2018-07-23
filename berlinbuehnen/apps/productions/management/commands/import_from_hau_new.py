@@ -10,7 +10,7 @@ class Command(ImportToBerlinBuehnenBaseJSON):
     DEFAULT_IN_PROGRAM_OF_LOCATION_ID = 13
 
     def prepare(self):
-        from django.db import models
+        from django.apps import apps
         from berlinbuehnen.apps.locations.models import Location
 
         self.in_program_of, created = Location.objects.get_or_create(
@@ -25,7 +25,7 @@ class Command(ImportToBerlinBuehnenBaseJSON):
         )
         self.owners = list(self.in_program_of.get_owners())
 
-        Service = models.get_model("external_services", "Service")
+        Service = apps.get_model("external_services", "Service")
 
         self.service, created = Service.objects.get_or_create(
             sysname="hau_prods",
