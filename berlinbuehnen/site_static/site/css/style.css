@@ -5766,8 +5766,17 @@ select {
   margin-top: -10px;
 }
 
+.top-widgets-wrapper .theater-of-the-week-widget-wrapper {
+  margin-top: -68px;
+}
+
 .top-widgets-wrapper .theater-of-the-week-widget-wrapper .top-widget-button-up-wrapper {
   background: #4583c8;
+}
+
+.is-xs .top-widgets-wrapper .theater-of-the-week-widget-wrapper .container {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .theater-of-the-week-widget-wrapper {
@@ -8293,6 +8302,10 @@ body.is-xs .grid .grid-item button.favorite:before {
   margin-bottom: 20px;
 }
 
+.is-xs .filter-wrapper .filter-options-wrapper .filter-headline {
+  margin-left: -5px;
+}
+
 .filter-wrapper .filter-reset-button {
   float: right;
   margin-top: -38px;
@@ -8534,6 +8547,11 @@ body.is-xs .grid .grid-item button.favorite:before {
   padding: 6px 0;
 }
 
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown ul li.inactive {
+  cursor: default;
+  color: #dddddd;
+}
+
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown ul li a {
   color: #000000;
 }
@@ -8545,6 +8563,23 @@ body.is-xs .grid .grid-item button.favorite:before {
 
 .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown ul li a:hover {
   color: #4583c8;
+}
+
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown ul.flat {
+  margin-left: -15px;
+}
+
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown ul.flat li {
+  display: inline-block;
+  padding: 0 15px 15px;
+}
+
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown ul.flat li:last-child {
+  padding-right: 0;
+}
+
+.filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-option-wrapper .filter-option-dropdown ul.flat li a {
+  display: block;
 }
 
 .is-xs .filter-wrapper .filter-space .filter .filter-options-wrapper .filter-options .filter-selection:nth-child(even) .filter-option-dropdown {
@@ -9128,12 +9163,28 @@ span.pin a {
 .top-widgets-wrapper {
   margin: 0;
   position: relative;
+  margin-bottom: 35px;
 }
 
 .top-widgets-wrapper .top-widgets {
   position: relative;
   top: -33px;
-  overflow: hidden;
+}
+
+.top-widgets-wrapper .top-widget-button-up-wrapper {
+  background: #F1F6FA;
+}
+
+.top-widgets-wrapper .top-widget-button-up-wrapper .filter-headline {
+  margin-top: 7px;
+  margin-bottom: 0;
+  float: left;
+  text-transform: uppercase;
+  font-size: 1em;
+}
+
+.is-xs .top-widgets-wrapper .top-widget-button-up-wrapper .container {
+  padding: 0 20px;
 }
 
 .top-widgets-wrapper .top-widget-wrapper {

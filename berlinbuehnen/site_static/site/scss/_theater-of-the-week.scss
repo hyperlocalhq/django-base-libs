@@ -149,8 +149,16 @@
 
 
 .top-widgets-wrapper .theater-of-the-week-widget-wrapper {
+    margin-top: -68px;
     .top-widget-button-up-wrapper {
         background: $blue;
+    }
+
+    .is-xs & {
+        .container {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
     }
 }
 
