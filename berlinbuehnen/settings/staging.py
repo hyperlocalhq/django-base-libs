@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 from __future__ import unicode_literals
 from ._base import *
+ENVIRONMENT = 'staging'
 
 DEBUG = False
 TEMPLATE_DEBUG = False

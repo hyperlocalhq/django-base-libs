@@ -2,6 +2,8 @@
 from __future__ import unicode_literals
 from ._base import *
 
+ENVIRONMENT = 'local'
+
 DATABASES = {
     'postgresql': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',

@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 from __future__ import unicode_literals
 from ._base import *
+ENVIRONMENT = 'test'
 
 DEBUG = True
 TEMPLATE_DEBUG = True

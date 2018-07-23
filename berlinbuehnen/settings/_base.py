@@ -228,6 +228,7 @@ TEMPLATES = [
                 "jetson.apps.configuration.context_processors.configuration",
                 "jetson.apps.utils.context_processors.general",
                 "berlinbuehnen.apps.site_specific.context_processors.languages",
+                "berlinbuehnen.apps.site_specific.context_processors.environment",
             ),
             'loaders': [
                 "django.template.loaders.filesystem.Loader",

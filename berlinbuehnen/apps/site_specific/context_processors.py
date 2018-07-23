@@ -9,3 +9,9 @@ def languages(request=None):
         'FRONTEND_LANGUAGES': settings.FRONTEND_LANGUAGES,
         'OPEN_GRAPH_LOCALE': OPEN_GRAPH_LOCALE_MAPPER.get(request.LANGUAGE_CODE, "en_US")
     }
+
+
+def environment(request=None):
+    return {
+        'ENVIRONMENT': getattr(settings, 'ENVIRONMENT'),
+    }
