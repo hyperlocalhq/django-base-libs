@@ -128,7 +128,7 @@ def festival_events(request, slug):
         production__festivals=obj,
         start_date__gte=obj.start,
         start_date__lte=obj.end,
-    )
+    ).exclude(event_status="trashed")
 
     # exclude the parts of multipart productions
     # qs = qs.filter(production__part=None)
