@@ -6,7 +6,7 @@
 
 {% block js %}
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/grid.js" defer="defer"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/list_filter.js" defer="defer"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/fixed_list_filter.js" defer="defer"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/top_widgets.js" defer="defer"></script>
     {% include "utils/favorites_scripts.html" %}
 {% endblock %}
@@ -14,10 +14,13 @@
 {% block content %}
     <div class="content overview">
         <div class="top-widgets-wrapper">
-            <div class="container">
-                <button id="top-widget-button" class="top-widget-button fawesome down pull-right" data-toggle="collapse" data-target="#theater_of_the_week_widget, #main_filter">
-                    <span class="sr-only">{% trans "open widgets" %}</span>
-                </button>
+            <div class="top-widget-button-up-wrapper">
+                <div class="container">
+                    <h4 class="filter-headline">{% trans "Filter" %}:</h4>
+                    <button id="top-widget-button" class="top-widget-button fawesome down pull-right" data-toggle="collapse" data-target="#theater_of_the_week_widget, #main_filter">
+                        <span class="sr-only">{% trans "open widgets" %}</span>
+                    </button>
+                </div>
             </div>
             <div class="top-widgets">
                 {% include "utils/filter_locations.html" %}

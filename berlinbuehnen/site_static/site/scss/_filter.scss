@@ -49,6 +49,10 @@
         margin-bottom: 20px;
     }
 
+    .is-xs & .filter-options-wrapper .filter-headline {
+        margin-left: -5px;
+    }
+
     .filter-reset-button {
         float: right;
         margin-top: -38px;
@@ -274,7 +278,12 @@
                                 list-style: none;
                                 li {
                                     //white-space: nowrap;
-                                    padding: 3px 0;
+                                    padding: 6px 0;
+
+                                    &.inactive {
+                                        cursor: default;
+                                        color: $lightgrey;
+                                    }
                                     a {
                                         color: $black;
 
@@ -285,6 +294,23 @@
 
                                         &:hover {
                                             color: $blue;
+                                        }
+                                    }
+                                }
+
+                                &.flat {
+                                    margin-left: -15px;
+
+                                    li {
+                                        display: inline-block;
+                                        padding: 0 15px 15px;
+
+                                        &:last-child {
+                                            padding-right: 0;
+                                        }
+
+                                        a {
+                                            display: block;
                                         }
                                     }
                                 }
@@ -381,6 +407,7 @@
                     li {
                         float: left;
                         margin-right: 10px;
+                        margin-top: 10px;
                         display: inline-block;
 
                         a {
