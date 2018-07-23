@@ -1,7 +1,9 @@
-{% load i18n %}
-<script type="text/javascript">
+{% load i18n sekizai_tags %}
+{% now "u" as microseconds %}
+<script nonce="{{ microseconds }}">
     var favorite_tooltip_text = {};
     favorite_tooltip_text.Add_to_My_Favorites = '{% trans "Add to My Favorites" %}';
     favorite_tooltip_text.Remove_from_My_Favorites = '{% trans "Remove from My Favorites" %}';
 </script>
-<script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.min.js" defer="defer"></script>
+{% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
+<script src="{{ STATIC_URL }}site/js/favorites.min.js" defer="defer"></script>

@@ -17,10 +17,11 @@
 
 {% block multistep_form %}
     {% crispy form %}
-    <script src="//maps.google.com/maps/api/js?language={{ LANGUAGE_CODE }}&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
+    <script src="https://maps.google.com/maps/api/js?language={{ LANGUAGE_CODE }}&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
     <script src="{{ STATIC_URL }}site/js/locating.min.js"></script>
     <script src="{{ STATIC_URL }}site/js/checkbox-tree.js"></script>
-    <script>
+    {% now "u" as microseconds %}
+    <script nonce="{{ microseconds }}">
         var translatable_file_uploader_options = {
             template: '<div class="qq-uploader">' +
                 '<div class="qq-upload-drop-area"><span>{% trans "Drop image here" %}</span></div>' +
@@ -236,4 +237,5 @@
         
         new SortingByOrder('members', 'member', 'sort_order');
     </script>
+    {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
 {% endblock %}

@@ -1,5 +1,5 @@
 {% extends "site_specific/base.html" %}
-{% load base_tags i18n crispy_forms_tags infoblocks %}
+{% load base_tags i18n crispy_forms_tags infoblocks sekizai_tags %}
 
 {% block title %}{% trans "Claiming confirmation" %}{% endblock %}
 
@@ -31,22 +31,24 @@
                 <p>{% trans "Don't have an account?" %} <a href="#signup" id="signup_link">{% trans "Signup" %}</a></p>
             </footer>
         </div>
-        <script>
+        {% now "u" as microseconds %}
+        <script nonce="{{ microseconds }}">
         $(function() {
             $('#login_link').click(function() {
                 $('#claiming_signup').hide();
                 $('#claiming_login').show();
-            })
+            });
             $('#signup_link').click(function() {
                 $('#claiming_login').hide();
                 $('#claiming_signup').show();
-            })
+            });
             if (location.hash.replace(/^#/, "") == "login") {
                 $('#claiming_signup').hide();
                 $('#claiming_login').show();
             }
         });
         </script>
+        {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
     {% endif %}
     <!-- Modal -->
     <div id="confirm_ownership" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
@@ -64,7 +66,8 @@
             </div>
         </div>
     </div>
-    <script>
+    {% now "u" as microseconds %}
+    <script nonce="{{ microseconds }}">
     $(function() {
         $('#confirm_ownership').modal('show');
         $('#button-id-confirm-ownership').click(function() {
@@ -75,5 +78,6 @@
         });
     });
     </script>
+    {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
 {% endblock %}
 

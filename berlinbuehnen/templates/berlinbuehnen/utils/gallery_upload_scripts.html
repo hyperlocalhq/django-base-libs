@@ -1,5 +1,6 @@
-{% load i18n %}
-<script>
+{% load i18n sekizai_tags %}
+{% now "u" as microseconds %}
+<script nonce="{{ microseconds }}">
 var translatable_file_uploader_options = {
     template: '<div class="qq-uploader">' + 
         '<div class="qq-upload-drop-area"><span>{% trans "Drop file here" %}</span></div>' +
@@ -23,10 +24,13 @@ var translatable_file_uploader_options = {
         onLeave: '{% trans "The files are being uploaded, if you leave now the upload will be cancelled." %}'            
     }
 };
-
-
 </script>
+{% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
+
 <script src="{{ STATIC_URL }}site/js/gallery_form.min.js"></script>
-<script> 
+
+{% now "u" as microseconds %}
+<script nonce="{{ microseconds }}">
     $(".qq-uploader").click(function(){ $(".qq-upload-button input").click() });
 </script>
+{% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}

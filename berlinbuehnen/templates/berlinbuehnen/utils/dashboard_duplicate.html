@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n sekizai_tags %}
 
 <div id="duplicateConfirmation" class="modal" tabindex="-1" role="dialog" aria-labelledby="duplicateConfirmationLabel" aria-hidden="true">
     <div class="modal-centered">
@@ -19,7 +19,8 @@
     </div>
 </div>    
 
-<script>
+{% now "u" as microseconds %}
+<script nonce="{{ microseconds }}">
 $(function() {
     $('.duplicate').click(function() {
         var $item = $(this).closest('tr');
@@ -44,7 +45,7 @@ $(function() {
                 title_en: $('.modal-form [name="title_en"]', $modal).val(),
                 csrfmiddlewaretoken: $('.form [name="csrfmiddlewaretoken"]', $modal).val()
             }).done(function(data) {
-                if (data.indexOf('<') == -1) {
+                if (data.indexOf('<') === -1) {
                     if (data) {
                         $modal.modal('hide');
                         location.href = data;
@@ -62,3 +63,4 @@ $(function() {
     });
 });
 </script>
+{% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}

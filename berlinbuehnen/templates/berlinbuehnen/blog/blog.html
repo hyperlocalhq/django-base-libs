@@ -15,12 +15,12 @@
 
 {% block js %}
     {{ block.super }}
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/comment.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/blog.js"></script>
+    <script src="{{ STATIC_URL }}site/js/comment.js"></script>
+    <script src="{{ STATIC_URL }}site/js/blog.js"></script>
 {% endblock %}
 
 {% block details %}
-	  {{ block.super }}
+      {{ block.super }}
     <div class="content clearfix">
         <div class="container">
             {% block breadcrumbs %}
@@ -123,6 +123,6 @@
             {% endifequal %}
         </div>
     </div>
-	        
+
 {% endblock %}
 

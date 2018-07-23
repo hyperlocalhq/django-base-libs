@@ -1,4 +1,4 @@
-{% load  i18n  %}
+{% load i18n sekizai_tags %}
 
 {% if list_item.street_address %}
 <div class="panel panel-default">
@@ -58,12 +58,14 @@
       </form>
     </div>
   </div>
-  <script type="text/javascript">
+  {% now "u" as microseconds %}
+  <script nonce="{{ microseconds }}">
   $('#fahrinfo_formular').submit(function() {
     $('#wdgt_from').val($('#wdgt_from').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));
     $('#wdgt_to').val($('#wdgt_to').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));
   })
   </script>
+  {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
 </div>
 
 {% endif %}

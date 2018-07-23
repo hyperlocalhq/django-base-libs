@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n sekizai_tags %}
 
 <div id="deleteConfirmation" class="modal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
     <div class="modal-centered">
@@ -23,7 +23,8 @@
     </div>
 </div>    
 
-<script>
+{% now "u" as microseconds %}
+<script nonce="{{ microseconds }}">
 $(function() {
     $('.delete').click(function() {
         var $item = $(this).closest('tr');
@@ -40,7 +41,7 @@ $(function() {
         $('#button-id-confirm-deletion').click(function() {
             $.post(delete_url, {}, function(data) {
                 $modal.modal('hide');
-                if (data == "OK") {
+                if (data === "OK") {
                     $item.fadeOut();
                 }
             });
@@ -50,3 +51,4 @@ $(function() {
     });
 });
 </script>
+{% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}

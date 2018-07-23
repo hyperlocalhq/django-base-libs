@@ -1,4 +1,4 @@
-{% load base_tags fb_tags i18n image_modifications %}
+{% load base_tags fb_tags i18n image_modifications sekizai_tags %}
 {% if object.mediafile_set.count > 1 %}
   <div id="images" class="content">
     <div class="container">
@@ -37,7 +37,8 @@
     </div>
   </div>
 
-  <script type="text/javascript">
+  {% now "u" as microseconds %}
+  <script nonce="{{ microseconds }}">
     function isotope_images() {
         $('.isotope-images').each(function(){
             var $container = $(this);
@@ -71,4 +72,5 @@
       }
     });
   </script>
+  {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
 {% endif %}

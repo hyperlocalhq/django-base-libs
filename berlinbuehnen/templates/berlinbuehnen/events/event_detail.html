@@ -28,13 +28,13 @@
 {% endblock %}
 
 {% block js %}
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/accordion.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/gallery.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/slider.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/add_to_calender_1.5_atc.min.js" defer="defer"></script>
+    <script src="{{ STATIC_URL }}site/js/accordion.js"></script>
+    <script src="{{ STATIC_URL }}site/js/gallery.js"></script>
+    <script src="{{ STATIC_URL }}site/js/slider.js"></script>
+    <script src="{{ STATIC_URL }}site/js/add_to_calender_1.5_atc.min.js" defer="defer"></script>
     {% include "utils/favorites_scripts.html" %}
-    <script type="text/javascript">
-
+    {% now "u" as microseconds %}
+    <script nonce="{{ microseconds }}">
         $(document).ready(function() {
 
             $('a.more-dates').click(function() {
@@ -62,10 +62,6 @@
             });
 
         });
-
-    </script>
-
-    <script type="text/javascript">
         /*(function(d){
             var f = d.getElementsByTagName('SCRIPT')[0], p = d.createElement('SCRIPT');
             p.type = 'text/javascript';
@@ -74,6 +70,7 @@
             f.parentNode.insertBefore(p, f);
         }(document));*/
     </script>
+    {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
 
 {% endblock %}
 

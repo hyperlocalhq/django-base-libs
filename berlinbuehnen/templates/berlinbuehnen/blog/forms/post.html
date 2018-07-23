@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load i18n base_tags blog %}
+{% load i18n base_tags blog sekizai_tags %}
 
 {% block stylesheet %}
     {{ block.super }}
@@ -12,11 +12,15 @@
     <script src="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.autocomplete.js"></script>
     <script src="{{ STATIC_URL }}site/js/blog.js"></script>
     <script src="{{ STATIC_URL }}site/js/jquery.autosize.min.js"></script>
-    <script>
+
+    {% now "u" as microseconds %}
+    <script nonce="{{ microseconds }}">
         $(document).ready(function(){
             $('textarea').autosize();
         });
     </script>
+    {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
+
 {% endblock %}
 
 

@@ -1,11 +1,12 @@
-{% load i18n %}
-<script type="text/javascript" src="//maps.google.com/maps/api/js?language=de&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/2.1.3/mustache.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}site/js/markerwithlabel.js"></script>
-<!--<script type="text/javascript" src="{{ STATIC_URL }}site/js/styledinfowindow.js"></script>-->
-<script type="text/javascript" src="{{ STATIC_URL }}site/js/listing_map.js"></script>
+{% load i18n sekizai_tags %}
+<script src="https://maps.google.com/maps/api/js?language=de&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.1.3/mustache.js"></script>
+<script src="{{ STATIC_URL }}site/js/markerwithlabel.js"></script>
+<!--<script src="{{ STATIC_URL }}site/js/styledinfowindow.js"></script>-->
+<script src="{{ STATIC_URL }}site/js/listing_map.js"></script>
 
-<script type="text/javascript">
+{% now "u" as microseconds %}
+<script nonce="{{ microseconds }}">
     (function($, undefined) {
         $(function() {
             $('#gmap_toggle').click(function() {
@@ -36,4 +37,4 @@
         });
     }(jQuery));
 </script>
-
+{% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}

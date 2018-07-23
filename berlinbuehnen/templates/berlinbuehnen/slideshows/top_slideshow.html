@@ -1,4 +1,4 @@
-{% load base_tags i18n image_modifications fb_tags %}
+{% load base_tags i18n image_modifications fb_tags sekizai_tags %}
 <div id="top_slider">
     <div class="slider" data-image-ratio="1060:544" data-slider-timer="5000">
         <ul class="slider-body row">
@@ -29,8 +29,8 @@
         </ul>
     </div>
 </div>
-<script type="text/javascript">
-
+{% now "u" as microseconds %}
+<script nonce="{{ microseconds }}">
     $(document).ready(function() {
 
         var $top_slider = $('#top_slider');
@@ -48,10 +48,11 @@
             $slider.css('margin-top', '-' + margin + 'px');
             $text.css('top', (height_1 - margin*3) + 'px');
             $credits.css('top', (height_1 - margin*3) + 'px');
-        }
+        };
 
         $(document).ready(centerSlider);
         $(window).resize(centerSlider);
     });
 
 </script>
+{% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}

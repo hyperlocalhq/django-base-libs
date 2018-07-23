@@ -4,12 +4,15 @@
 {% block bodyclass %}event-list{% endblock %}
 
 {% block js %}
-  <script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
-  <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.min.js"></script>
-  {% include "utils/favorites_scripts.html" %}
-  <script type="text/javascript">
-    var str_filter_selection = "{% trans "Filter selection" %}";
-  </script>
+    <script src="{{ STATIC_URL }}site/js/GetSet.js"></script>
+    <script src="{{ STATIC_URL }}site/js/list.min.js"></script>
+    {% include "utils/favorites_scripts.html" %}
+    {% now "u" as microseconds %}
+    <script nonce="{{ microseconds }}">
+        var str_filter_selection = "{% trans "Filter selection" %}";
+    </script>
+    {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
+
 {% endblock %}
 
 {% block filters %}
@@ -41,7 +44,8 @@
     {% endfor %}
   </div>
 
-  <script>
+  {% now "u" as microseconds %}
+  <script nonce="{{ microseconds }}">
     var aGeopositions = [];
     {% for museum in favorites.museums %}
       {% if museum.latitude and museum.longitude %}
@@ -79,5 +83,6 @@
         });
     {% endfor %}
   </script>
+  {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
   {% include "utils/gmap_scripts.html" %}
 {% endblock %}

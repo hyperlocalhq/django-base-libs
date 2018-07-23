@@ -1,5 +1,5 @@
 {% extends "productions/events/base.html" %}
-{% load crispy_forms_tags i18n %}
+{% load crispy_forms_tags i18n sekizai_tags %}
 
 {% block stylesheet %}
     {{ block.super }}
@@ -14,8 +14,9 @@
 
 {% block multistep_form %}
     {% crispy form %}
-    <script>
-    $(function() {
+    {% now "u" as microseconds %}
+    <script nonce="{{ microseconds }}">
+        $(function() {
         var CALENDAR_LOCALE = {
             daysMin: ('{% trans "S|M|T|W|T|F|S" %}').split('|'),
             months: ['{% trans "January" %}', '{% trans "February" %}', '{% trans "March" %}', '{% trans "April" %}', '{% trans "May" %}', '{% trans "June" %}', '{% trans "July" %}', '{% trans "August" %}', '{% trans "September" %}', '{% trans "October" %}', '{% trans "November" %}', '{% trans "December" %}'],
@@ -66,4 +67,5 @@
         });
     });
     </script>
+    {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
 {% endblock %}

@@ -5,9 +5,9 @@
 {% block bodyclass %}location-list no-transition{% endblock %}
 
 {% block js %}
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/grid.js" defer="defer"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/fixed_list_filter.js" defer="defer"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/top_widgets.js" defer="defer"></script>
+    <script src="{{ STATIC_URL }}site/js/grid.js" defer="defer"></script>
+    <script src="{{ STATIC_URL }}site/js/fixed_list_filter.js" defer="defer"></script>
+    <script src="{{ STATIC_URL }}site/js/top_widgets.js" defer="defer"></script>
     {% include "utils/favorites_scripts.html" %}
 {% endblock %}
 

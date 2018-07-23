@@ -1,5 +1,5 @@
 {% extends "productions/events/base.html" %}
-{% load crispy_forms_tags i18n %}
+{% load crispy_forms_tags i18n sekizai_tags %}
 
 {% block stylesheet %}
     {{ block.super }}
@@ -27,10 +27,11 @@
 
 {% block multistep_form %}
     {% crispy form %}
-    <script src="//maps.google.com/maps/api/js?language={{ LANGUAGE_CODE }}&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
+    <script src="https://maps.google.com/maps/api/js?language={{ LANGUAGE_CODE }}&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
     <script src="{{ STATIC_URL }}site/js/locating.min.js"></script>
     <script src="{{ STATIC_URL }}site/js/checkbox-tree.js"></script>
-    <script>
+    {% now "u" as microseconds %}
+    <script nonce="{{ microseconds }}">
         $(function() {
             $('body').on('change', '.autocomplete-light-widget select[name$=play_locations],.autocomplete-light-widget select[name$=in_program_of]', function() {
                 var $this = $(this);
@@ -79,4 +80,5 @@
             str_close: '{% trans "Close" %}'
         });
     </script>
+    {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
 {% endblock %}

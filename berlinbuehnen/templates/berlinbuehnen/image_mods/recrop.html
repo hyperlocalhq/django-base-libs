@@ -1,6 +1,6 @@
 {% extends "accounts/../site_specific/dashboard.html" %}
 
-{% load i18n base_tags image_modifications %}
+{% load i18n base_tags image_modifications sekizai_tags %}
 
 {% block stylesheet %}
     {{ block.super }}
@@ -48,10 +48,10 @@
 {% endblock %}
 
 {% block js %}
-    <script type="text/javascript" src="{{ jetson_media_url }}Jcrop/js/jquery.Jcrop.min.js"></script>
-    <script type="text/javascript" src="{{ jetson_media_url }}colorpicker/js/colorpicker.js"></script>    
-    <script type="text/javascript">
-    //<![CDATA[
+    <script src="{{ jetson_media_url }}Jcrop/js/jquery.Jcrop.min.js"></script>
+    <script src="{{ jetson_media_url }}colorpicker/js/colorpicker.js"></script>    
+    {% now "u" as microseconds %}
+    <script nonce="{{ microseconds }}">
     if (!window.nothing) {
         nothing = function(){};
     }
@@ -140,9 +140,8 @@
             oCroppingAPI.focus();
         });
     }(jQuery));
-    //]]>
     </script>
-
+    {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
 {% endblock %}
 
 {% block title %}{% trans "Adjust Image" %}{% endblock %}

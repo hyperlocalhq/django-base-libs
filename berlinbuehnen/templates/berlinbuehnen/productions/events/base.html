@@ -1,6 +1,6 @@
 {% extends "site_specific/dashboard.html" %}
 {% block bodyclass %}dashboard{% endblock %}
-{% load i18n %}
+{% load i18n sekizai_tags %}
 
 {% block title %}
     {% if production %}
@@ -120,10 +120,12 @@
 
 {% block footer %}
     {{ block.super }}
-    <script>
+    {% now "u" as microseconds %}
+    <script nonce="{{ microseconds }}">
         $(function() {
             $("select:visible").not('[name*="__prefix__"]').selectbox();
         });
     </script>
+    {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
 {% endblock %}
 

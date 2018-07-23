@@ -1,6 +1,6 @@
 {% extends "site_specific/dashboard.html" %}
 {% block bodyclass %}dashboard{% endblock %}
-{% load i18n %}
+{% load i18n sekizai_tags %}
 
 {% block title %}
     {% if department %}
@@ -50,7 +50,8 @@
                         <option value="expired"{% if department.status == "expired" %} selected="selected"{% endif %}>{% trans "Expired" %}</option>
                     </select>
                 </div>
-                <script>
+                {% now "u" as microseconds %}
+                <script nonce="{{ microseconds }}">
                     $(function() {
                         $('.status').hover(function() {
                             $(this).addClass('hover');
@@ -63,6 +64,7 @@
                         });
                     });
                 </script>
+                {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
             {% endif %}
 
             {% if department.slug %}
@@ -101,10 +103,12 @@
 
 {% block footer %}
     {{ block.super }}
-    <script>
+    {% now "u" as microseconds %}
+    <script nonce="{{ microseconds }}">
         $(function() {
             $("select:visible").not('[name*="__prefix__"]').selectbox();
         });
     </script>
+    {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
 {% endblock %}
 

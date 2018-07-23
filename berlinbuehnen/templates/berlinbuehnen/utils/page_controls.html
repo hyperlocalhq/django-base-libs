@@ -1,4 +1,4 @@
-{% load i18n base_tags %}
+{% load i18n base_tags sekizai_tags %}
 <div id="page-controls" class="hidden-xs">
     {% with prev_item=object.get_previous_item next_item=object.get_next_item %}
     {# overwriting the prev_item and next_item with values not dependent on httpstate #}
@@ -27,7 +27,8 @@
     {% endwith %}
 </div>
 
-<script>
+{% now "u" as microseconds %}
+<script nonce="{{ microseconds }}">
     $(document).keydown(function(e){
         switch(e.which) {
             case 37: // left
@@ -50,3 +51,4 @@
         e.preventDefault();
     });
 </script>
+{% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}

@@ -6,18 +6,22 @@
     </div>
 </div>
 
+{% now "u" as microseconds %}
 {% addtoblock "head_js" %}
-<script>
+<script nonce="{{ microseconds }}">
 if (document.cookie.indexOf('{{ cookie_variable }}') !== -1) {
     dyn_css_rule('#js_top_alert', 'display: none;');
 }
 </script>
 {% endaddtoblock %}
+{% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
 
+{% now "u" as microseconds %}
 {% addtoblock "js" %}
-<script>
+<script nonce="{{ microseconds }}">
 $('#js_top_alert').on('closed.bs.alert', function () {
     document.cookie = '{{ cookie_variable }}=1;path=/';
 });
 </script>
 {% endaddtoblock %}
+{% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}

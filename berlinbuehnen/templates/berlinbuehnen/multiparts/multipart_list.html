@@ -1,18 +1,20 @@
 {% extends "base.html" %}
 {% load url from future %}
-{% load i18n image_modifications base_tags tagging_tags favorites_tags auth_extended %}
+{% load i18n image_modifications base_tags tagging_tags favorites_tags auth_extended sekizai_tags %}
 {% block title %}{% trans "Multipart Productions" %} – {% endblock %}
 {% block bodyclass %}multipart-list no-transition{% endblock %}
 
 
 {% block js %}
-  <script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
-  <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.min.js"></script>
-  {% include "utils/favorites_scripts.html" %}
-  <script type="text/javascript">
-    var aGeopositions = [];
-    var str_filter_selection = "{% trans "Filter selection" %}";
-  </script>
+    <script src="{{ STATIC_URL }}site/js/GetSet.js"></script>
+    <script src="{{ STATIC_URL }}site/js/list.min.js"></script>
+    {% include "utils/favorites_scripts.html" %}
+    {% now "u" as microseconds %}
+    <script nonce="{{ microseconds }}">
+        var aGeopositions = [];
+        var str_filter_selection = "{% trans "Filter selection" %}";
+    </script>
+    {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
 {% endblock %}
 
 {% block content %}

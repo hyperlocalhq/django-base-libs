@@ -1,5 +1,5 @@
 {% extends "base_fullscreen.html" %}
-{% load crispy_forms_tags i18n %}
+{% load crispy_forms_tags i18n sekizai_tags %}
 
 {% block bodyclass %}popup{% endblock %}
 
@@ -8,12 +8,14 @@
         <h2 style="margin-bottom:30px;">{% trans "Your message has been sent!" %}</h2>
         <button id="close_window" class="btn btn-lg btn-primary">{% trans "Close" %}</button>
     </div>
-    <script>
-    $('#close_window').on('click', function() {
-         window.close();
-    });
-    setTimeout(function() {
-        window.close();
-    }, 5000);
+    {% now "u" as microseconds %}
+    <script nonce="{{ microseconds }}">
+        $('#close_window').on('click', function() {
+            window.close();
+        });
+        setTimeout(function() {
+            window.close();
+        }, 5000);
     </script>
+    {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
 {% endblock %}

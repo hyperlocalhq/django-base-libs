@@ -1,6 +1,6 @@
 {% extends "site_specific/dashboard.html" %}
 {% block bodyclass %}dashboard{% endblock %}
-{% load i18n %}
+{% load i18n sekizai_tags %}
 
 {% block title %}
     {% if job_offer %}
@@ -46,7 +46,8 @@
                         <option value="not_listed"{% if job_offer.status == "not_listed" %} selected="selected"{% endif %}>{% trans "Not listed" %}</option>
                     </select>
                 </div>
-                <script>
+                {% now "u" as microseconds %}
+                <script nonce="{{ microseconds }}">
                     $(function() {
                         $('.status').hover(function() {
                             $(this).addClass('hover');
@@ -59,6 +60,7 @@
                         });
                     });
                 </script>
+                {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
             {% endif %}
             
             <a class="btn btn-primary" id="preview_page" href="{{ job_offer.get_url_path }}?preview" ><span>{% trans "Preview" %}</span></a>
@@ -93,10 +95,12 @@
 
 {% block footer %}
     {{ block.super }}
-    <script>
+    {% now "u" as microseconds %}
+    <script nonce="{{ microseconds }}">
         $(function() {
             $("select").not('[name*="__prefix__"]').selectbox();
         });
     </script>
+    {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
 {% endblock %}
 

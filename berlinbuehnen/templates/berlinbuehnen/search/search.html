@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load base_tags i18n crispy_forms_tags %}
+{% load base_tags i18n crispy_forms_tags sekizai_tags %}
 {% block bodyclass %}search{% endblock %}
 {% block title %}{% trans "Search" %}{% endblock %}
 
@@ -15,7 +15,8 @@
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         {% crispy form %}
-                        <script>
+                        {% now "u" as microseconds %}
+                        <script nonce="{{ microseconds }}">
                             $('label').click(function(e) {
                                 e.stopPropagation();
                             });
@@ -24,6 +25,7 @@
                                 $('#id_q').focus();
                             }
                         </script>
+                        {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
                     </div>
                 </div>
             </div>        
