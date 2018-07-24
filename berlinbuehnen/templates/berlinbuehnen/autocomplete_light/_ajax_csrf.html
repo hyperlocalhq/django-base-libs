@@ -1,4 +1,4 @@
-{% load sekizai_tags %}
+{% load base_tags sekizai_tags %}
 {% now "u" as microseconds %}
 <script nonce="{{ microseconds|to_base64 }}">
 jQuery(function($) {

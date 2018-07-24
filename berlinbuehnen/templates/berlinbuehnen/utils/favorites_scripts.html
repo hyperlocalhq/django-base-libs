@@ -1,4 +1,4 @@
-{% load i18n sekizai_tags %}
+{% load i18n base_tags sekizai_tags %}
 {% now "u" as microseconds %}
 <script nonce="{{ microseconds|to_base64 }}">
     var favorite_tooltip_text = {};
