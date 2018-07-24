@@ -14,3 +14,23 @@ def patch_filebrowser():
         FileDescription._meta.get_field('description_%s' % lang_code).verbose_name = _('Description (will be used as alt attribute)')
 
 patch_filebrowser()
+
+
+def patch_sekizai():
+    from sekizai.templatetags.sekizai_tags import WithData
+
+    def _render_tag(self, context, name, variable, inner_nodelist, nodelist):
+        from sekizai.helpers import get_varname
+        rendered_contents = nodelist.render(context)
+        varname = get_varname()
+        data = context[varname][name]
+        context.push()
+        context[variable] = data
+        inner_contents = inner_nodelist.render(context)
+        context.pop()
+        # replaced \n with a space, because the former doesn't fit for content security policy
+        return '%s %s' % (inner_contents, rendered_contents)
+
+    WithData.render_tag = _render_tag
+
+patch_sekizai()
