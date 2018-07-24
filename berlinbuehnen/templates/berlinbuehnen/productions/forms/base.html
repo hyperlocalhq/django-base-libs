@@ -50,7 +50,7 @@
                         <option value="expired"{% if production.status == "expired" %} selected="selected"{% endif %}>{% trans "Expired" %}</option>
                     </select>
                 </div>
-                {% now "u" as microseconds %}
+                {% now "uuuu" as microseconds %}
                 <script nonce="{{ microseconds|to_base64 }}">
                     $(function() {
                         $('.status').hover(function() {
@@ -108,7 +108,7 @@
 
 {% block footer %}
     {{ block.super }}
-    {% now "u" as microseconds %}
+    {% now "uuuu" as microseconds %}
     <script nonce="{{ microseconds|to_base64 }}">
         $(function() {
             $("select:visible").not('[name*="__prefix__"]').selectbox();

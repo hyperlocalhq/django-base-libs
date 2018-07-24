@@ -1,5 +1,5 @@
 {% load base_tags i18n sekizai_tags %}
-{% now "u" as microseconds %}
+{% now "uuuu" as microseconds %}
 <script nonce="{{ microseconds|to_base64 }}">
 var translatable_file_uploader_options = {
     template: '<div class="qq-uploader">' + 
@@ -29,7 +29,7 @@ var translatable_file_uploader_options = {
 
 <script src="{{ STATIC_URL }}site/js/gallery_form.min.js"></script>
 
-{% now "u" as microseconds %}
+{% now "uuuu" as microseconds %}
 <script nonce="{{ microseconds|to_base64 }}">
     $(".qq-uploader").click(function(){ $(".qq-upload-button input").click() });
 </script>

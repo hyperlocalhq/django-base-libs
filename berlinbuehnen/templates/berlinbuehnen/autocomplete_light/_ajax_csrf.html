@@ -1,5 +1,5 @@
 {% load base_tags sekizai_tags %}
-{% now "u" as microseconds %}
+{% now "uuuu" as microseconds %}
 <script nonce="{{ microseconds|to_base64 }}">
 jQuery(function($) {
 function getCookie(name) {

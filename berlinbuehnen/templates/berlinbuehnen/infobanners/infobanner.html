@@ -6,7 +6,7 @@
     </div>
 </div>
 
-{% now "u" as microseconds %}
+{% now "uuuu" as microseconds %}
 {% addtoblock "head_js" %}
 <script nonce="{{ microseconds|to_base64 }}">
 if (document.cookie.indexOf('{{ cookie_variable }}') !== -1) {
@@ -16,7 +16,7 @@ if (document.cookie.indexOf('{{ cookie_variable }}') !== -1) {
 {% endaddtoblock %}
 {% add_data "script_nonces" microseconds|to_base64 %}
 
-{% now "u" as microseconds %}
+{% now "uuuu" as microseconds %}
 {% addtoblock "js" %}
 <script nonce="{{ microseconds|to_base64 }}">
 $('#js_top_alert').on('closed.bs.alert', function () {

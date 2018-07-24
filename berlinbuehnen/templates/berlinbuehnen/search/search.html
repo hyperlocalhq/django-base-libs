@@ -15,7 +15,7 @@
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         {% crispy form %}
-                        {% now "u" as microseconds %}
+                        {% now "uuuu" as microseconds %}
                         <script nonce="{{ microseconds|to_base64 }}">
                             $('label').click(function(e) {
                                 e.stopPropagation();

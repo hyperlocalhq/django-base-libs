@@ -58,7 +58,7 @@
       </form>
     </div>
   </div>
-  {% now "u" as microseconds %}
+  {% now "uuuu" as microseconds %}
   <script nonce="{{ microseconds|to_base64 }}">
   $('#fahrinfo_formular').submit(function() {
     $('#wdgt_from').val($('#wdgt_from').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));

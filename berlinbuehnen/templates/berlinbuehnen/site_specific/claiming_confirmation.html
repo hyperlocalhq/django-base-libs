@@ -31,7 +31,7 @@
                 <p>{% trans "Don't have an account?" %} <a href="#signup" id="signup_link">{% trans "Signup" %}</a></p>
             </footer>
         </div>
-        {% now "u" as microseconds %}
+        {% now "uuuu" as microseconds %}
         <script nonce="{{ microseconds|to_base64 }}">
         $(function() {
             $('#login_link').click(function() {
@@ -66,7 +66,7 @@
             </div>
         </div>
     </div>
-    {% now "u" as microseconds %}
+    {% now "uuuu" as microseconds %}
     <script nonce="{{ microseconds|to_base64 }}">
     $(function() {
         $('#confirm_ownership').modal('show');

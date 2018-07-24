@@ -152,7 +152,7 @@
         </div>
     </div>
 
-    {% now "u" as microseconds %}
+    {% now "uuuu" as microseconds %}
     <script nonce="{{ microseconds|to_base64 }}">
         $('#dashboard_search').submit(function (e) {
             e.preventDefault();

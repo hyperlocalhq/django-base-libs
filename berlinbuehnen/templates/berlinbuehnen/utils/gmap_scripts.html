@@ -5,7 +5,7 @@
 <!--<script src="{{ STATIC_URL }}site/js/styledinfowindow.js"></script>-->
 <script src="{{ STATIC_URL }}site/js/listing_map.js"></script>
 
-{% now "u" as microseconds %}
+{% now "uuuu" as microseconds %}
 <script nonce="{{ microseconds|to_base64 }}">
     (function($, undefined) {
         $(function() {

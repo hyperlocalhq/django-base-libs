@@ -51,7 +51,7 @@
                         <option value="not_listed"{% if production.status == "not_listed" %} selected="selected"{% endif %}>{% trans "Not listed" %}</option>
                     </select>
                 </div>
-                {% now "u" as microseconds %}
+                {% now "uuuu" as microseconds %}
                 <script nonce="{{ microseconds|to_base64 }}">
                     $(function() {
                         $('.status').hover(function() {
@@ -122,7 +122,7 @@
 
 {% block footer %}
     {{ block.super }}
-    {% now "u" as microseconds %}
+    {% now "uuuu" as microseconds %}
     <script nonce="{{ microseconds|to_base64 }}">
         $(function() {
             $("select:visible").not('[name*="__prefix__"]').selectbox();

@@ -33,7 +33,7 @@
     <script src="{{ STATIC_URL }}site/js/slider.js"></script>
     <script src="{{ STATIC_URL }}site/js/add_to_calender_1.5_atc.min.js" defer="defer"></script>
     {% include "utils/favorites_scripts.html" %}
-    {% now "u" as microseconds %}
+    {% now "uuuu" as microseconds %}
     <script nonce="{{ microseconds|to_base64 }}">
         $(document).ready(function() {
 

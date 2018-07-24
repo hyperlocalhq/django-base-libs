@@ -17,7 +17,7 @@
     {% endblock %}
 
     {% render_block "css" %}
-    {% now "u" as microseconds %}
+    {% now "uuuu" as microseconds %}
     <script nonce="{{ microseconds|to_base64 }}">
       (function() {
         var config = {

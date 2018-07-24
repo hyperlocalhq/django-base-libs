@@ -7,7 +7,7 @@
         <h2 style="margin-bottom:30px;">{% trans "Your changes have been saved!" %}</h2>
         <button id="close_window" class="btn btn-lg btn-primary">{% trans "Close" %}</button>
     </div>
-    {% now "u" as microseconds %}
+    {% now "uuuu" as microseconds %}
     <script nonce="{{ microseconds|to_base64 }}">
         window.opener.location.reload();
         $('#close_window').on('click', function() {

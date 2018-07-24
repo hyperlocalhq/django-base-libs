@@ -1,5 +1,5 @@
 {% load i18n base_tags sekizai_tags %}
-{% now "u" as microseconds %}
+{% now "uuuu" as microseconds %}
 <script nonce="{{ microseconds|to_base64 }}">
     var favorite_tooltip_text = {};
     favorite_tooltip_text.Add_to_My_Favorites = '{% trans "Add to My Favorites" %}';

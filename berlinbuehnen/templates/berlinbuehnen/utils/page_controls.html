@@ -27,7 +27,7 @@
     {% endwith %}
 </div>
 
-{% now "u" as microseconds %}
+{% now "uuuu" as microseconds %}
 <script nonce="{{ microseconds|to_base64 }}">
     $(document).keydown(function(e){
         switch(e.which) {

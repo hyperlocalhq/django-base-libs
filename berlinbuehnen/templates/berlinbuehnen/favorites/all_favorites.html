@@ -243,7 +243,7 @@
     </div>
 
     {% if facets.selected.latitude and facets.selected.longitude %}
-        {% now "u" as microseconds %}
+        {% now "uuuu" as microseconds %}
         {% addtoblock "js" %}
             <script src="//maps.google.com/maps/api/js?libraries=geometry&amp;key={{ GOOGLE_API_KEY }}"></script>
             <script nonce="{{ microseconds|to_base64 }}">
@@ -265,7 +265,7 @@
         {% endaddtoblock %}
         {% add_data "script_nonces" microseconds|to_base64 %}
     {% endif %}
-    {% now "u" as microseconds %}
+    {% now "uuuu" as microseconds %}
     {% addtoblock "js" %}
         <script nonce="{{ microseconds|to_base64 }}">
             $('#change_favorites_list').on('click', function() {

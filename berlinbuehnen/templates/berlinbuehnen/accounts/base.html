@@ -19,7 +19,7 @@
     
     {% render_block "css" %}
 
-    {% now "u" as microseconds %}
+    {% now "uuuu" as microseconds %}
     <script nonce="{{ microseconds|to_base64 }}">
       (function() {
         var config = {
@@ -61,7 +61,7 @@
 {% render_block "js" %}
 {{ site_settings.get_extra_body_with_nonces }}
 
-{% now "u" as microseconds %}
+{% now "uuuu" as microseconds %}
 <script nonce="{{ microseconds|to_base64 }}">
 $(function() {
     $("a[href^='http']").attr("target","_blank");

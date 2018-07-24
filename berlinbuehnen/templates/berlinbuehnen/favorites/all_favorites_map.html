@@ -7,7 +7,7 @@
     <script src="{{ STATIC_URL }}site/js/GetSet.js"></script>
     <script src="{{ STATIC_URL }}site/js/list.min.js"></script>
     {% include "utils/favorites_scripts.html" %}
-    {% now "u" as microseconds %}
+    {% now "uuuu" as microseconds %}
     <script nonce="{{ microseconds|to_base64 }}">
         var str_filter_selection = "{% trans "Filter selection" %}";
     </script>
@@ -44,7 +44,7 @@
     {% endfor %}
   </div>
 
-  {% now "u" as microseconds %}
+  {% now "uuuu" as microseconds %}
   <script nonce="{{ microseconds|to_base64 }}">
     var aGeopositions = [];
     {% for museum in favorites.museums %}

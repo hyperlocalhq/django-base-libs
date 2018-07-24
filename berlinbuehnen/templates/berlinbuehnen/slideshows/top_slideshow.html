@@ -29,7 +29,7 @@
         </ul>
     </div>
 </div>
-{% now "u" as microseconds %}
+{% now "uuuu" as microseconds %}
 <script nonce="{{ microseconds|to_base64 }}">
     $(document).ready(function() {
 
