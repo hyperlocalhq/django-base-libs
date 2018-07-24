@@ -1,4 +1,4 @@
-{% load base_tags i18n %}
+{% load base_tags i18n sekizai_tags %}
 <!-- Begin MailChimp Signup Form -->
 <div id="mc_embed_signup">
     <form action="#" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
@@ -25,8 +25,9 @@
         </div>
     </form>
 </div>
-<script src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
-<script>
+<script src='https://s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+{% now "u" as microseconds %}
+<script nonce="{{ microseconds }}">
     (function($) {
     
         var actions = new Array();
@@ -153,4 +154,5 @@
     }(jQuery));
     var $mcj = jQuery.noConflict(true);
 </script>
+{% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
 <!--End mc_embed_signup-->

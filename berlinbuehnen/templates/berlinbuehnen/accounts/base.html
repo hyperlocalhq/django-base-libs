@@ -2,16 +2,16 @@
 {% load cms_tags menu_tags sekizai_tags i18n image_modifications %}
 <html lang="{{ LANGUAGE_CODE }}"> 
 <head>
-    <meta http-equiv="Content-Security-Policy" content="
+<meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
-    font-src 'self' https://fonts.gstatic.com/ https://maxcdn.bootstrapcdn.com/font-awesome/;
+    font-src 'self' https://fonts.gstatic.com/ https://maxcdn.bootstrapcdn.com/font-awesome/ https://use.typekit.net/;
     frame-src 'self';
-    img-src 'self' data: {% static "" %};
+    img-src *;
     manifest-src 'self';
     media-src 'self';
     object-src 'self';
-    script-src 'self' {% static "" %}{% render_block "script_nonces" %} https://www.google.com/recaptcha/ https://www.gstatic.com/ https://code.jquery.com/;
-    style-src 'self' https://fonts.googleapis.com/ https://maxcdn.bootstrapcdn.com/font-awesome/ {% static "" %}{% render_block "style_nonces" %};
+    script-src 'self' {% render_block "script_nonces" %} {{ site_settings.get_script_nonces }} https://www.google.com/recaptcha/ https://www.gstatic.com/ https://code.jquery.com/ https://maps.google.com/ https://cdnjs.cloudflare.com/ https://www.google-analytics.com/ http://use.typekit.net/;
+    style-src 'self' https://fonts.googleapis.com/ https://maxcdn.bootstrapcdn.com/font-awesome/ {% render_block "style_nonces" %} {{ site_settings.get_style_nonces|safe }} 'unsafe-inline';
     worker-src 'self'
     " />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -51,7 +51,7 @@
     <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap.js"></script>
     {% comment %} <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-modal.js"></script>{% endcomment %}
     <script src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
-    {{ site_settings.extra_head|safe }}
+    {{ site_settings.get_extra_head_with_nonces }}
     {% block js %}{% endblock %}
 </head>
 
@@ -69,7 +69,7 @@
     
 
 {% render_block "js" %}
-{{ site_settings.extra_body|safe }}
+{{ site_settings.get_extra_body_with_nonces }}
 
 {% now "u" as microseconds %}
 <script nonce="{{ microseconds }}">

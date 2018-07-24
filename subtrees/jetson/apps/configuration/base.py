@@ -29,7 +29,12 @@ class SiteSettingsBase(MetaTagsMixin):
     extra_body = PlainTextModelField(_("Extra body"), help_text=_("Third-party code snippets to be added to the end of the BODY section."), blank=True)
     
     objects = SiteSettingsManager()
-    
+
+    _extra_head_with_nonces = ""
+    _extra_body_with_nonces = ""
+    _script_nonces = []
+    _style_nonces = []
+
     class Meta:
         abstract = True
         verbose_name = _("site settings")
@@ -41,6 +46,50 @@ class SiteSettingsBase(MetaTagsMixin):
     def get_site_name(self):
         return self.site.name
     get_site_name.short_description = _("Site")
+
+    def _add_style_nonce(self, match):
+        from datetime import datetime
+        nonce = str(datetime.now().microsecond)
+        self._style_nonces.append(nonce)
+        return match.group(0).replace('>', ' nonce="{}">'.format(nonce))
+
+    def _add_script_nonce(self, match):
+        from datetime import datetime
+        nonce = str(datetime.now().microsecond)
+        self._script_nonces.append(nonce)
+        return match.group(0).replace('>', ' nonce="{}">'.format(nonce))
+
+    def prepare_nonces_for_extra_head_and_extra_body(self):
+        import re
+        script_pattern = re.compile(r'<script((?!src=).)*?>')
+        style_pattern = re.compile(r'<style*?>')
+        if self.extra_head:
+            self._extra_head_with_nonces = style_pattern.sub(self._add_style_nonce, self.extra_head)
+            self._extra_head_with_nonces = script_pattern.sub(self._add_script_nonce, self._extra_head_with_nonces)
+        if self.extra_body:
+            self._extra_body_with_nonces = style_pattern.sub(self._add_style_nonce, self.extra_body)
+            self._extra_body_with_nonces = script_pattern.sub(self._add_script_nonce, self._extra_body_with_nonces)
+
+    def get_extra_head_with_nonces(self):
+        if (self.extra_head and not self._extra_head_with_nonces) or (self.extra_body and not self._extra_body_with_nonces):
+            self.prepare_nonces_for_extra_head_and_extra_body()
+        return mark_safe(self._extra_head_with_nonces)
+
+    def get_extra_body_with_nonces(self):
+        if (self.extra_head and not self._extra_head_with_nonces) or (self.extra_body and not self._extra_body_with_nonces):
+            self.prepare_nonces_for_extra_head_and_extra_body()
+        return mark_safe(self._extra_body_with_nonces)
+
+    def get_script_nonces(self):
+        if (self.extra_head and not self._extra_head_with_nonces) or (self.extra_body and not self._extra_body_with_nonces):
+            self.prepare_nonces_for_extra_head_and_extra_body()
+        return mark_safe(' '.join(["'nonce-{}'".format(nonce) for nonce in self._script_nonces]))
+
+    def get_style_nonces(self):
+        if (self.extra_head and not self._extra_head_with_nonces) or (self.extra_body and not self._extra_body_with_nonces):
+            self.prepare_nonces_for_extra_head_and_extra_body()
+        return mark_safe(' '.join(["'nonce-{}'".format(nonce) for nonce in self._style_nonces]))
+
 
 class PageSettingsManager(models.Manager):
     def get_settings_for_page(self, path):
