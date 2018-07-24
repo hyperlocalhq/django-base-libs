@@ -1,6 +1,6 @@
 {% load i18n sekizai_tags staticfiles %}
 {% if request.user.profile.is_curator %}
-    <div class="add_to_own_curated_lists input-field select">
+    <div class="add_to_own_curated_lists input-field select" data-content_type_id="{{ content_type_id }}" data-object_id="{{ object_id }}">
         <select placeholder="{% trans 'Add to curated list' %}" multiple>
         </select>
     </div>
