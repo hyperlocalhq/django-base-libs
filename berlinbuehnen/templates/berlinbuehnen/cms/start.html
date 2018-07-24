@@ -141,7 +141,7 @@
                                             {% if event.production.subtitle %}<h3>{{ event.production.subtitle }}</h3>
                                             {% elif event.ev_or_prod_subtitles_text %}<h3>{{ event.ev_or_prod_subtitles_text }}</h3>{% endif %}
                                             {% if event.production.original %}<h3>{{ event.production.original }}</h3>{% endif %}
-                                            {% if event.ev_or_prod_teaser %}<div class="copy"><p>{{ event.ev_or_prod_teaser }}</p></div>{% endif %}
+                                            {% if event.ev_or_prod_teaser %}<div class="copy"><p>{{ event.ev_or_prod_teaser|striptags }}</p></div>{% endif %}
                                             {% if event.get_special_text %}<div class="extra"><span>{{ event.get_special_text }}</span></div>{% endif %}
                                         </a>
                                     </div>
