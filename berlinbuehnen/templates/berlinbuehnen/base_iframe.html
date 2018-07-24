@@ -6,12 +6,35 @@
     default-src 'self';
     font-src 'self' https://fonts.gstatic.com/ https://maxcdn.bootstrapcdn.com/font-awesome/ https://use.typekit.net/;
     frame-src 'self';
-    img-src *;
+    img-src * data:;
     manifest-src 'self';
     media-src 'self';
     object-src 'self';
-    script-src 'self' {% render_block "script_nonces" %} {{ site_settings.get_script_nonces }} https://www.google.com/recaptcha/ https://www.gstatic.com/ https://code.jquery.com/ https://maps.google.com/ https://cdnjs.cloudflare.com/ https://www.google-analytics.com/ http://use.typekit.net/;
-    style-src 'self' https://fonts.googleapis.com/ https://maxcdn.bootstrapcdn.com/font-awesome/ {% render_block "style_nonces" %} {{ site_settings.get_style_nonces|safe }} 'unsafe-inline';
+    script-src 'self'
+        {% with_data "script_nonces" as script_nonces %}
+            {% if request.user.is_staff %}
+                'unsafe-inline' {# for djangp-cms and django-debug-toolbar #}
+            {% else %}
+                {% for nonce in script_nonces %}{{ nonce|safe }}{% endfor %}
+                {{ site_settings.get_script_nonces }}
+            {% endif %}
+        {% end_with_data %}
+        http://ajax.googleapis.com/
+        https://www.gstatic.com/
+        https://www.google-analytics.com/
+        https://www.google.com/recaptcha/
+        https://code.jquery.com/
+        https://maps.google.com/
+        https://cdnjs.cloudflare.com/
+        http://use.typekit.net/
+    ;
+    style-src 'self'
+        'unsafe-inline'
+        {% render_block "style_nonces" %}
+        {{ site_settings.get_style_nonces|safe }}
+        https://fonts.googleapis.com/
+        https://maxcdn.bootstrapcdn.com/font-awesome/
+    ;
     worker-src 'self'
     " />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -26,7 +49,7 @@
         }
     };
     </script>
-    {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
+    {% add_data "script_nonces" " 'nonce-"|add:microseconds|add:"'" %}
 </head>
 
 <body>

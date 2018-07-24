@@ -69,7 +69,7 @@
                         });
                     });
                 </script>
-                {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
+                {% add_data "script_nonces" " 'nonce-"|add:microseconds|add:"'" %}
             {% endif %}
 
             {% if production.slug %}
@@ -114,6 +114,6 @@
             $("select:visible").not('[name*="__prefix__"]').selectbox();
         });
     </script>
-    {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
+    {% add_data "script_nonces" " 'nonce-"|add:microseconds|add:"'" %}
 {% endblock %}
 

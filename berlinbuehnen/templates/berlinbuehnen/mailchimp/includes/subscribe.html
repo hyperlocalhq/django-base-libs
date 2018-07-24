@@ -154,5 +154,5 @@
     }(jQuery));
     var $mcj = jQuery.noConflict(true);
 </script>
-{% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
+{% add_data "script_nonces" " 'nonce-"|add:microseconds|add:"'" %}
 <!--End mc_embed_signup-->

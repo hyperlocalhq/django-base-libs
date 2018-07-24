@@ -5,5 +5,5 @@
     favorite_tooltip_text.Add_to_My_Favorites = '{% trans "Add to My Favorites" %}';
     favorite_tooltip_text.Remove_from_My_Favorites = '{% trans "Remove from My Favorites" %}';
 </script>
-{% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
+{% add_data "script_nonces" " 'nonce-"|add:microseconds|add:"'" %}
 <script src="{{ STATIC_URL }}site/js/favorites.min.js" defer="defer"></script>

@@ -65,7 +65,7 @@
                         });
                     });
                 </script>
-                {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
+                {% add_data "script_nonces" " 'nonce-"|add:microseconds|add:"'" %}
             {% endif %}
             {% if event.pk %}
                 <a class="btn btn-primary" id="preview_page" href="{% url "event_detail" slug=production.slug event_id=event.pk %}?preview" target="_blank" ><span>{% trans "Preview" %}</span></a>
@@ -128,6 +128,6 @@
             $("select:visible").not('[name*="__prefix__"]').selectbox();
         });
     </script>
-    {% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
+    {% add_data "script_nonces" " 'nonce-"|add:microseconds|add:"'" %}
 {% endblock %}
 

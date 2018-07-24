@@ -32,8 +32,8 @@ class SiteSettingsBase(MetaTagsMixin):
 
     _extra_head_with_nonces = ""
     _extra_body_with_nonces = ""
-    _script_nonces = []
-    _style_nonces = []
+    _script_nonces = None
+    _style_nonces = None
 
     class Meta:
         abstract = True
@@ -61,6 +61,10 @@ class SiteSettingsBase(MetaTagsMixin):
 
     def prepare_nonces_for_extra_head_and_extra_body(self):
         import re
+        if self._style_nonces is None:
+            self._style_nonces = []
+        if self._script_nonces is None:
+            self._script_nonces = []
         script_pattern = re.compile(r'<script((?!src=).)*?>')
         style_pattern = re.compile(r'<style*?>')
         if self.extra_head:

@@ -14,7 +14,7 @@ if (document.cookie.indexOf('{{ cookie_variable }}') !== -1) {
 }
 </script>
 {% endaddtoblock %}
-{% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
+{% add_data "script_nonces" " 'nonce-"|add:microseconds|add:"'" %}
 
 {% now "u" as microseconds %}
 {% addtoblock "js" %}
@@ -24,4 +24,4 @@ $('#js_top_alert').on('closed.bs.alert', function () {
 });
 </script>
 {% endaddtoblock %}
-{% addtoblock "script_nonces" %} 'nonce-{{ microseconds }}'{% endaddtoblock %}
+{% add_data "script_nonces" " 'nonce-"|add:microseconds|add:"'" %}
