@@ -4,7 +4,11 @@
 <head>
 <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
-    font-src 'self' https://fonts.gstatic.com/ https://maxcdn.bootstrapcdn.com/font-awesome/ https://use.typekit.net/;
+    font-src 'self'
+        https://fonts.gstatic.com/
+        https://maxcdn.bootstrapcdn.com/font-awesome/
+        https://use.typekit.net/
+    ;
     frame-src 'self';
     img-src * data:;
     manifest-src 'self';
@@ -15,7 +19,7 @@
             {% if request.user.is_staff %}
                 'unsafe-inline' {# for djangp-cms and django-debug-toolbar #}
             {% else %}
-                {% for nonce in script_nonces %}{{ nonce|safe }}{% endfor %}
+                {% for nonce in script_nonces %} 'nonce-{{ nonce }}'{% endfor %}
                 {{ site_settings.get_script_nonces }}
             {% endif %}
         {% end_with_data %}
@@ -30,13 +34,16 @@
     ;
     style-src 'self'
         'unsafe-inline'
-        {% render_block "style_nonces" %}
+        {% with_data "style_nonces" as style_nonces %}
+            {% for nonce in style_nonces %} 'nonce-{{ nonce }}'{% endfor %}
+        {% end_with_data %}
         {{ site_settings.get_style_nonces|safe }}
         https://fonts.googleapis.com/
         https://maxcdn.bootstrapcdn.com/font-awesome/
     ;
     worker-src 'self'
     " />
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
@@ -90,7 +97,7 @@
           "{{ STATIC_URL }}site/img/placeholder_cover.gif"
         );
     </script>
-    {% add_data "script_nonces" " 'nonce-"|add:microseconds|add:"'" %}
+    {% add_data "script_nonces" microseconds %}
 
     <script src="/{{ LANGUAGE_CODE }}/jssettings/"></script>
     <script src="/{{ LANGUAGE_CODE }}/jsi18n/"></script>
@@ -137,7 +144,7 @@
             $('html').addClass('msie');
         }
     </script>
-    {% add_data "script_nonces" " 'nonce-"|add:microseconds|add:"'" %}
+    {% add_data "script_nonces" microseconds %}
 
     {{ site_settings.get_extra_head_with_nonces }}
     {% block js %}{% endblock %}

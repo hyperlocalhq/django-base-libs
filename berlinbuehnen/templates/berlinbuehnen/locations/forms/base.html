@@ -60,7 +60,7 @@
                         });
                     });
                 </script>
-                {% add_data "script_nonces" " 'nonce-"|add:microseconds|add:"'" %}
+                {% add_data "script_nonces" microseconds %}
             {% endif %}
             
             <a class="btn btn-primary" id="preview_page" href="{{ location.get_url_path }}?preview" ><span>{% trans "Preview" %}</span></a>
@@ -103,6 +103,6 @@
             $("select").not('[name*="__prefix__"]').selectbox();
         });
     </script>
-    {% add_data "script_nonces" " 'nonce-"|add:microseconds|add:"'" %}
+    {% add_data "script_nonces" microseconds %}
 {% endblock %}
 

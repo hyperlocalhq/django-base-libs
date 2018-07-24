@@ -65,7 +65,7 @@
     $('#wdgt_to').val($('#wdgt_to').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));
   })
   </script>
-  {% add_data "script_nonces" " 'nonce-"|add:microseconds|add:"'" %}
+  {% add_data "script_nonces" microseconds %}
 </div>
 
 {% endif %}

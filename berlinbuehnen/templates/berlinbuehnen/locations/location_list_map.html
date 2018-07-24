@@ -11,7 +11,7 @@
     <script nonce="{{ microseconds }}">
         var str_filter_selection = "{% trans "Filter selection" %}";
     </script>
-    {% add_data "script_nonces" " 'nonce-"|add:microseconds|add:"'" %}
+    {% add_data "script_nonces" microseconds %}
 {% endblock %}
 
 {% block filters %}
@@ -57,7 +57,7 @@
             {% endif %}
         {% endfor %}
     </script>
-    {% add_data "script_nonces" " 'nonce-"|add:microseconds|add:"'" %}
+    {% add_data "script_nonces" microseconds %}
 
     {% include "utils/gmap_scripts.html" %}
 {% endblock %}

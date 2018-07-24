@@ -25,7 +25,7 @@ var translatable_file_uploader_options = {
     }
 };
 </script>
-{% add_data "script_nonces" " 'nonce-"|add:microseconds|add:"'" %}
+{% add_data "script_nonces" microseconds %}
 
 <script src="{{ STATIC_URL }}site/js/gallery_form.min.js"></script>
 
@@ -33,4 +33,4 @@ var translatable_file_uploader_options = {
 <script nonce="{{ microseconds }}">
     $(".qq-uploader").click(function(){ $(".qq-upload-button input").click() });
 </script>
-{% add_data "script_nonces" " 'nonce-"|add:microseconds|add:"'" %}
+{% add_data "script_nonces" microseconds %}

@@ -4,7 +4,11 @@
 <head>
 <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
-    font-src 'self' https://fonts.gstatic.com/ https://maxcdn.bootstrapcdn.com/font-awesome/ https://use.typekit.net/;
+    font-src 'self'
+        https://fonts.gstatic.com/
+        https://maxcdn.bootstrapcdn.com/font-awesome/
+        https://use.typekit.net/
+    ;
     frame-src 'self';
     img-src * data:;
     manifest-src 'self';
@@ -15,7 +19,7 @@
             {% if request.user.is_staff %}
                 'unsafe-inline' {# for djangp-cms and django-debug-toolbar #}
             {% else %}
-                {% for nonce in script_nonces %}{{ nonce|safe }}{% endfor %}
+                {% for nonce in script_nonces %} 'nonce-{{ nonce }}'{% endfor %}
                 {{ site_settings.get_script_nonces }}
             {% endif %}
         {% end_with_data %}
@@ -30,13 +34,16 @@
     ;
     style-src 'self'
         'unsafe-inline'
-        {% render_block "style_nonces" %}
+        {% with_data "style_nonces" as style_nonces %}
+            {% for nonce in style_nonces %} 'nonce-{{ nonce }}'{% endfor %}
+        {% end_with_data %}
         {{ site_settings.get_style_nonces|safe }}
         https://fonts.googleapis.com/
         https://maxcdn.bootstrapcdn.com/font-awesome/
     ;
     worker-src 'self'
     " />
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Berlin Bühnen {% block title %}{% endblock %}</title>
     <link rel="icon" href="{{ STATIC_URL }}site/img/favicon.ico" type="image/png">
@@ -62,7 +69,7 @@
         var h=document.getElementsByTagName("html")[0];h.className+=" wf-loading";var t=setTimeout(function(){h.className=h.className.replace(/(\s|^)wf-loading(\s|$)/g," ");h.className+=" wf-inactive"},config.scriptTimeout);var tk=document.createElement("script"),d=false;tk.src='//use.typekit.net/'+config.kitId+'.js';tk.type="text/javascript";tk.async="true";tk.onload=tk.onreadystatechange=function(){var a=this.readyState;if(d||a&&a!="complete"&&a!="loaded")return;d=true;clearTimeout(t);try{Typekit.load(config)}catch(b){}};var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(tk,s)
       })();
     </script>
-    {% add_data "script_nonces" " 'nonce-"|add:microseconds|add:"'" %}
+    {% add_data "script_nonces" microseconds %}
 
     <script src="/{{ LANGUAGE_CODE }}/jssettings/"></script>
     <script src="https://code.jquery.com/jquery-1.8.3.min.js" integrity="sha384-lifoBlbdwizTl3Yoe612uhI3AcOam/QtWkozF7SuiACaf5UJl5reOYu4MigVxrCH" crossorigin="anonymous"></script>
@@ -106,7 +113,7 @@ $(function() {
     }
 });
 </script>
-{% add_data "script_nonces" " 'nonce-"|add:microseconds|add:"'" %}
+{% add_data "script_nonces" microseconds %}
 
 </body>
 </html>
