@@ -1084,3 +1084,10 @@ def better_slugify(value):
 def convert_umlauts(value):
     from base_libs.utils.betterslugify import better_slugify as utils_better_slugify
     return utils_better_slugify(value, remove_stopwords=False, slugify=False)
+
+
+@register.filter
+@stringfilter
+def to_base64(value):
+    import base64
+    return base64.b64encode(str(value).encode())
