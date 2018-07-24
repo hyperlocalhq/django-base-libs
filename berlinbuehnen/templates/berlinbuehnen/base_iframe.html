@@ -49,14 +49,14 @@
     <link rel="icon" href="{{ STATIC_URL }}site/img/favicon.ico" type="image/png">
 
     {% now "u" as microseconds %}
-    <script nonce="{{ microseconds }}">
+    <script nonce="{{ microseconds|to_base64 }}">
     window.onload = function() {
         if (top.hidden_iframe_loaded) {
             top.hidden_iframe_loaded(document.body.innerHTML);
         }
     };
     </script>
-    {% add_data "script_nonces" microseconds %}
+    {% add_data "script_nonces" microseconds|to_base64 %}
 </head>
 
 <body>

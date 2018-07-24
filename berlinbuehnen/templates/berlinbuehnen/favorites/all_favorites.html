@@ -246,7 +246,7 @@
         {% now "u" as microseconds %}
         {% addtoblock "js" %}
             <script src="//maps.google.com/maps/api/js?libraries=geometry&amp;key={{ GOOGLE_API_KEY }}"></script>
-            <script nonce="{{ microseconds }}">
+            <script nonce="{{ microseconds|to_base64 }}">
                 $(function() {
                     var visitor_position = new google.maps.LatLng({{ facets.selected.latitude|stringformat:"f" }}, {{ facets.selected.longitude|stringformat:"f" }});
                     $('.overview-item').each(function(index, el) {
@@ -263,11 +263,11 @@
                 })
             </script>
         {% endaddtoblock %}
-        {% add_data "script_nonces" microseconds %}
+        {% add_data "script_nonces" microseconds|to_base64 %}
     {% endif %}
     {% now "u" as microseconds %}
     {% addtoblock "js" %}
-        <script nonce="{{ microseconds }}">
+        <script nonce="{{ microseconds|to_base64 }}">
             $('#change_favorites_list').on('click', function() {
                 window.open($(this).data('href'), '_blank', 'width=600,height=750,resizable=yes,scrollbars=yes,location=no,menubar=no,toolbar=no');
             });
@@ -276,5 +276,5 @@
             });
         </script>
     {% endaddtoblock %}
-    {% add_data "script_nonces" microseconds %}
+    {% add_data "script_nonces" microseconds|to_base64 %}
 {% endblock %}

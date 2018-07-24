@@ -21,7 +21,7 @@
     <script src="{{ STATIC_URL }}site/js/locating.min.js"></script>
     <script src="{{ STATIC_URL }}site/js/checkbox-tree.js"></script>
     {% now "u" as microseconds %}
-    <script nonce="{{ microseconds }}">
+    <script nonce="{{ microseconds|to_base64 }}">
         var translatable_file_uploader_options = {
             template: '<div class="qq-uploader">' +
                 '<div class="qq-upload-drop-area"><span>{% trans "Drop image here" %}</span></div>' +
@@ -366,5 +366,5 @@
         new SortingByOrder('authorships', 'authorship', 'sort_order');
         new SortingByOrder('involvements', 'involvement', 'sort_order');
     </script>
-    {% add_data "script_nonces" microseconds %}
+    {% add_data "script_nonces" microseconds|to_base64 %}
 {% endblock %}

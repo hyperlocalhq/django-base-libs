@@ -24,7 +24,7 @@
 </div>    
 
 {% now "u" as microseconds %}
-<script nonce="{{ microseconds }}">
+<script nonce="{{ microseconds|to_base64 }}">
 $(function() {
     $('.delete').click(function() {
         var $item = $(this).closest('tr');
@@ -51,4 +51,4 @@ $(function() {
     });
 });
 </script>
-{% add_data "script_nonces" microseconds %}
+{% add_data "script_nonces" microseconds|to_base64 %}

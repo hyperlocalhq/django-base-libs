@@ -6,7 +6,7 @@
 <script src="{{ STATIC_URL }}site/js/listing_map.js"></script>
 
 {% now "u" as microseconds %}
-<script nonce="{{ microseconds }}">
+<script nonce="{{ microseconds|to_base64 }}">
     (function($, undefined) {
         $(function() {
             $('#gmap_toggle').click(function() {
@@ -37,4 +37,4 @@
         });
     }(jQuery));
 </script>
-{% add_data "script_nonces" microseconds %}
+{% add_data "script_nonces" microseconds|to_base64 %}

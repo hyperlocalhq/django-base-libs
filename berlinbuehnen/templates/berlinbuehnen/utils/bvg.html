@@ -59,13 +59,13 @@
     </div>
   </div>
   {% now "u" as microseconds %}
-  <script nonce="{{ microseconds }}">
+  <script nonce="{{ microseconds|to_base64 }}">
   $('#fahrinfo_formular').submit(function() {
     $('#wdgt_from').val($('#wdgt_from').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));
     $('#wdgt_to').val($('#wdgt_to').val().replace(/([Ss]tr)a(ß|ss)e/, "$1."));
   })
   </script>
-  {% add_data "script_nonces" microseconds %}
+  {% add_data "script_nonces" microseconds|to_base64 %}
 </div>
 
 {% endif %}

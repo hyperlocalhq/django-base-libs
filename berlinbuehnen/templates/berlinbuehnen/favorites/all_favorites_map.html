@@ -8,10 +8,10 @@
     <script src="{{ STATIC_URL }}site/js/list.min.js"></script>
     {% include "utils/favorites_scripts.html" %}
     {% now "u" as microseconds %}
-    <script nonce="{{ microseconds }}">
+    <script nonce="{{ microseconds|to_base64 }}">
         var str_filter_selection = "{% trans "Filter selection" %}";
     </script>
-    {% add_data "script_nonces" microseconds %}
+    {% add_data "script_nonces" microseconds|to_base64 %}
 
 {% endblock %}
 
@@ -45,7 +45,7 @@
   </div>
 
   {% now "u" as microseconds %}
-  <script nonce="{{ microseconds }}">
+  <script nonce="{{ microseconds|to_base64 }}">
     var aGeopositions = [];
     {% for museum in favorites.museums %}
       {% if museum.latitude and museum.longitude %}
@@ -83,6 +83,6 @@
         });
     {% endfor %}
   </script>
-  {% add_data "script_nonces" microseconds %}
+  {% add_data "script_nonces" microseconds|to_base64 %}
   {% include "utils/gmap_scripts.html" %}
 {% endblock %}

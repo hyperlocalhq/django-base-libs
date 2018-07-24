@@ -10,11 +10,11 @@
     <script src="{{ STATIC_URL }}site/js/list.min.js"></script>
     {% include "utils/favorites_scripts.html" %}
     {% now "u" as microseconds %}
-    <script nonce="{{ microseconds }}">
+    <script nonce="{{ microseconds|to_base64 }}">
         var aGeopositions = [];
         var str_filter_selection = "{% trans "Filter selection" %}";
     </script>
-    {% add_data "script_nonces" microseconds %}
+    {% add_data "script_nonces" microseconds|to_base64 %}
 {% endblock %}
 
 {% block content %}

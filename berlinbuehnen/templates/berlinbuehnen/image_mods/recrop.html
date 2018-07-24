@@ -51,7 +51,7 @@
     <script src="{{ jetson_media_url }}Jcrop/js/jquery.Jcrop.min.js"></script>
     <script src="{{ jetson_media_url }}colorpicker/js/colorpicker.js"></script>    
     {% now "u" as microseconds %}
-    <script nonce="{{ microseconds }}">
+    <script nonce="{{ microseconds|to_base64 }}">
     if (!window.nothing) {
         nothing = function(){};
     }
@@ -141,7 +141,7 @@
         });
     }(jQuery));
     </script>
-    {% add_data "script_nonces" microseconds %}
+    {% add_data "script_nonces" microseconds|to_base64 %}
 {% endblock %}
 
 {% block title %}{% trans "Adjust Image" %}{% endblock %}

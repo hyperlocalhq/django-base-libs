@@ -48,14 +48,16 @@ class SiteSettingsBase(MetaTagsMixin):
     get_site_name.short_description = _("Site")
 
     def _add_style_nonce(self, match):
+        import base64
         from datetime import datetime
-        nonce = str(datetime.now().microsecond)
+        nonce = base64.b64encode(str(datetime.now().microsecond).encode())
         self._style_nonces.append(nonce)
         return match.group(0).replace('>', ' nonce="{}">'.format(nonce))
 
     def _add_script_nonce(self, match):
+        import base64
         from datetime import datetime
-        nonce = str(datetime.now().microsecond)
+        nonce = base64.b64encode(str(datetime.now().microsecond).encode())
         self._script_nonces.append(nonce)
         return match.group(0).replace('>', ' nonce="{}">'.format(nonce))
 

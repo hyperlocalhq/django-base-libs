@@ -15,7 +15,7 @@
 {% block multistep_form %}
     {% crispy form %}
     {% now "u" as microseconds %}
-    <script nonce="{{ microseconds }}">
+    <script nonce="{{ microseconds|to_base64 }}">
         $(function() {
         var CALENDAR_LOCALE = {
             daysMin: ('{% trans "S|M|T|W|T|F|S" %}').split('|'),
@@ -67,5 +67,5 @@
         });
     });
     </script>
-    {% add_data "script_nonces" microseconds %}
+    {% add_data "script_nonces" microseconds|to_base64 %}
 {% endblock %}

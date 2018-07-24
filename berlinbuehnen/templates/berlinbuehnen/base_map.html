@@ -84,7 +84,7 @@
     {% render_block "css" %}
 
     {% now "u" as microseconds %}
-    <script nonce="{{ microseconds }}">
+    <script nonce="{{ microseconds|to_base64 }}">
         var images = [];
         function preload() {
           for (i = 0; i < preload.arguments.length; i++) {
@@ -97,7 +97,7 @@
           "{{ STATIC_URL }}site/img/placeholder_cover.gif"
         );
     </script>
-    {% add_data "script_nonces" microseconds %}
+    {% add_data "script_nonces" microseconds|to_base64 %}
 
     <script src="/{{ LANGUAGE_CODE }}/jssettings/"></script>
     <script src="/{{ LANGUAGE_CODE }}/jsi18n/"></script>
@@ -124,7 +124,7 @@
     <script src="{{ STATIC_URL }}site/js/map.js"></script>
 
     {% now "u" as microseconds %}
-    <script nonce="{{ microseconds }}">
+    <script nonce="{{ microseconds|to_base64 }}">
         // forcing django CMS to use the already included version of jQuery
         var django = {jQuery: jQuery};
         var csrftoken = $.cookie('csrftoken');
@@ -144,7 +144,7 @@
             $('html').addClass('msie');
         }
     </script>
-    {% add_data "script_nonces" microseconds %}
+    {% add_data "script_nonces" microseconds|to_base64 %}
 
     {{ site_settings.get_extra_head_with_nonces }}
     {% block js %}{% endblock %}

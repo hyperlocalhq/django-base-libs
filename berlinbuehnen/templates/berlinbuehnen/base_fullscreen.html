@@ -85,7 +85,7 @@
     {% render_block "css" %}
 
     {% now "u" as microseconds %}
-    <script nonce="{{ microseconds }}">
+    <script nonce="{{ microseconds|to_base64 }}">
         var images = [];
         function preload() {
           for (i = 0; i < preload.arguments.length; i++) {
@@ -113,7 +113,7 @@
     <script src="{{ STATIC_URL }}site/js/jquery.sharrre-1.3.2.js"></script>
     <script src="{{ STATIC_URL }}site/js/base.js"></script>
     {% now "u" as microseconds %}
-    <script nonce="{{ microseconds }}">
+    <script nonce="{{ microseconds|to_base64 }}">
       var csrftoken = $.cookie('csrftoken');
       function csrfSafeMethod(method) {
         // these HTTP methods do not require CSRF protection
@@ -131,7 +131,7 @@
         $('html').addClass('msie');
       }
     </script>
-    {% add_data "script_nonces" microseconds %}
+    {% add_data "script_nonces" microseconds|to_base64 %}
 
     {{ site_settings.get_extra_head_with_nonces }}
     {% block js %}{% endblock %}

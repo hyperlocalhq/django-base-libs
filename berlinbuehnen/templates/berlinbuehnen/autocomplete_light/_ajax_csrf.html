@@ -1,6 +1,6 @@
 {% load sekizai_tags %}
 {% now "u" as microseconds %}
-<script nonce="{{ microseconds }}">
+<script nonce="{{ microseconds|to_base64 }}">
 jQuery(function($) {
 function getCookie(name) {
     var cookieValue = null;
@@ -46,4 +46,4 @@ $.ajaxSetup({
 });
 });
 </script>
-{% add_data "script_nonces" microseconds %}
+{% add_data "script_nonces" microseconds|to_base64 %}

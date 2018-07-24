@@ -48,7 +48,7 @@
                     </select>
                 </div>
                 {% now "u" as microseconds %}
-                <script nonce="{{ microseconds }}">
+                <script nonce="{{ microseconds|to_base64 }}">
                     $(function() {
                         $('.status').hover(function() {
                             $(this).addClass('hover');
@@ -61,7 +61,7 @@
                         });
                     });
                 </script>
-                {% add_data "script_nonces" microseconds %}
+                {% add_data "script_nonces" microseconds|to_base64 %}
             {% endif %}
             
             <a class="btn btn-primary" id="preview_page" href="{{ festival.get_url_path }}?preview" ><span>{% trans "Preview" %}</span></a>
@@ -99,11 +99,11 @@
 {% block footer %}
     {{ block.super }}
     {% now "u" as microseconds %}
-    <script nonce="{{ microseconds }}">
+    <script nonce="{{ microseconds|to_base64 }}">
         $(function() {
             $("select:visible").not('[name*="__prefix__"]').selectbox();
         });
     </script>
-    {% add_data "script_nonces" microseconds %}
+    {% add_data "script_nonces" microseconds|to_base64 %}
 {% endblock %}
 

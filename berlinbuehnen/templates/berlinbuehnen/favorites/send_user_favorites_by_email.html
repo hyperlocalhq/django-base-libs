@@ -9,8 +9,8 @@
     </div>
     <script src="{{ STATIC_URL }}site/js/jquery.autosize.min.js"></script>
     {% now "u" as microseconds %}
-    <script nonce="{{ microseconds }}">
+    <script nonce="{{ microseconds|to_base64 }}">
         $('textarea').autosize();
     </script>
-    {% add_data "script_nonces" microseconds %}
+    {% add_data "script_nonces" microseconds|to_base64 %}
 {% endblock %}

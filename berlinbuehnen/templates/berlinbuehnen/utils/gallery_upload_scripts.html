@@ -1,6 +1,6 @@
 {% load i18n sekizai_tags %}
 {% now "u" as microseconds %}
-<script nonce="{{ microseconds }}">
+<script nonce="{{ microseconds|to_base64 }}">
 var translatable_file_uploader_options = {
     template: '<div class="qq-uploader">' + 
         '<div class="qq-upload-drop-area"><span>{% trans "Drop file here" %}</span></div>' +
@@ -25,12 +25,12 @@ var translatable_file_uploader_options = {
     }
 };
 </script>
-{% add_data "script_nonces" microseconds %}
+{% add_data "script_nonces" microseconds|to_base64 %}
 
 <script src="{{ STATIC_URL }}site/js/gallery_form.min.js"></script>
 
 {% now "u" as microseconds %}
-<script nonce="{{ microseconds }}">
+<script nonce="{{ microseconds|to_base64 }}">
     $(".qq-uploader").click(function(){ $(".qq-upload-button input").click() });
 </script>
-{% add_data "script_nonces" microseconds %}
+{% add_data "script_nonces" microseconds|to_base64 %}

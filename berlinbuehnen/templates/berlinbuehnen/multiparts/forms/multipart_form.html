@@ -8,7 +8,7 @@
     <script src="{{ STATIC_URL }}site/js/locating.min.js"></script>
     <script src="{{ STATIC_URL }}site/js/checkbox-tree.js"></script>
     {% now "u" as microseconds %}
-    <script nonce="{{ microseconds }}">
+    <script nonce="{{ microseconds|to_base64 }}">
         function reinit_widgets() {
             $('[rel=tooltip]').tooltip();
         }
@@ -103,5 +103,5 @@
             }
         });
     </script>
-    {% add_data "script_nonces" microseconds %}
+    {% add_data "script_nonces" microseconds|to_base64 %}
 {% endblock %}

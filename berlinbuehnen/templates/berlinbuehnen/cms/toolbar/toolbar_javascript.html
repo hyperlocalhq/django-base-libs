@@ -7,7 +7,7 @@
 {% language request.toolbar.toolbar_language %}
 
 {% now "u" as microseconds %}
-<script nonce="{{ microseconds }}">
+<script nonce="{{ microseconds|to_base64 }}">
 CMS._plugins = [];
 // this is a global shared configuration
 CMS.config = {
@@ -139,6 +139,6 @@ $(document).ready(function () {
 });
 })(CMS.$);
 </script>
-{% add_data "script_nonces" microseconds %}
+{% add_data "script_nonces" microseconds|to_base64 %}
 {% endlanguage %}
 {% endaddtoblock %}

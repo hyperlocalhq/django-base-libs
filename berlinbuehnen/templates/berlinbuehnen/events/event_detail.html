@@ -34,7 +34,7 @@
     <script src="{{ STATIC_URL }}site/js/add_to_calender_1.5_atc.min.js" defer="defer"></script>
     {% include "utils/favorites_scripts.html" %}
     {% now "u" as microseconds %}
-    <script nonce="{{ microseconds }}">
+    <script nonce="{{ microseconds|to_base64 }}">
         $(document).ready(function() {
 
             $('a.more-dates').click(function() {
@@ -70,7 +70,7 @@
             f.parentNode.insertBefore(p, f);
         }(document));*/
     </script>
-    {% add_data "script_nonces" microseconds %}
+    {% add_data "script_nonces" microseconds|to_base64 %}
 
 {% endblock %}
 

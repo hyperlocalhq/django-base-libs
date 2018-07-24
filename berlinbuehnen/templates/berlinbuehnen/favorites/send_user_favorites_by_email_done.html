@@ -9,7 +9,7 @@
         <button id="close_window" class="btn btn-lg btn-primary">{% trans "Close" %}</button>
     </div>
     {% now "u" as microseconds %}
-    <script nonce="{{ microseconds }}">
+    <script nonce="{{ microseconds|to_base64 }}">
         $('#close_window').on('click', function() {
             window.close();
         });
@@ -17,5 +17,5 @@
             window.close();
         }, 5000);
     </script>
-    {% add_data "script_nonces" microseconds %}
+    {% add_data "script_nonces" microseconds|to_base64 %}
 {% endblock %}
