@@ -109,7 +109,7 @@
                 {% elif event.ev_or_prod_subtitles_text %}<h3>{{ event.ev_or_prod_subtitles_text|striptags }}</h3>{% endif %}
                 {% if event.production.original %}<h3>{{ event.production.original }}</h3>{% endif %}
                 {% if event.language_and_subtitles or event.production.language_and_subtitles %}<h3>{{ event.language_and_subtitles|default:event.production.language_and_subtitles }}</h3>{% endif %}
-                {% if event.ev_or_prod_teaser %}<div class="copy">{{ event.ev_or_prod_teaser }}</div>{% endif %}
+                {% if event.ev_or_prod_teaser %}<div class="copy">{{ event.ev_or_prod_teaser|striptags }}</div>{% endif %}
                 {% if event.get_special_text and not event.is_canceled %}<div class="extra"><span>{{ event.get_special_text }}</span></div>{% endif %}
                 {% if event.is_canceled %}<div class="extra canceled"><span>{% trans 'canceled' %}</span></div>{% endif %}
             </a>
