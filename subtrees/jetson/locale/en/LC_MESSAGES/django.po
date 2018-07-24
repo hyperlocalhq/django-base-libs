@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-10 16:45+0100\n"
+"POT-Creation-Date: 2018-07-24 18:15+0200\n"
 "PO-Revision-Date: 2017-09-28 06:36+0053\n"
 "Last-Translator: Super Admin <jetsonadmin@studio38.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -143,7 +143,7 @@ msgstr ""
 
 #: .\subtrees\jetson\apps\advertising\models.py:58
 #: .\subtrees\jetson\apps\advertising\models.py:72
-#: .\subtrees\jetson\apps\articles\admin.py:57
+#: .\subtrees\jetson\apps\articles\admin.py:58
 #: .\subtrees\jetson\apps\configuration\south_migrations\0001_initial.py:27
 #: .\subtrees\jetson\apps\configuration\south_migrations\0002_no_gmaps_api_key.py:74
 #: .\subtrees\jetson\apps\events\base.py:224
@@ -268,11 +268,11 @@ msgstr ""
 msgid "Advertisement"
 msgstr ""
 
-#: .\subtrees\jetson\apps\articles\admin.py:52
+#: .\subtrees\jetson\apps\articles\admin.py:53
 msgid "Article"
 msgstr ""
 
-#: .\subtrees\jetson\apps\articles\admin.py:55
+#: .\subtrees\jetson\apps\articles\admin.py:56
 msgid "Additional Content"
 msgstr ""
 
@@ -6066,11 +6066,11 @@ msgstr ""
 msgid "No Template"
 msgstr ""
 
-#: .\subtrees\jetson\apps\mailing\views.py:127
+#: .\subtrees\jetson\apps\mailing\views.py:129
 msgid "LOCALE_DATETIME"
 msgstr ""
 
-#: .\subtrees\jetson\apps\mailing\views.py:493
+#: .\subtrees\jetson\apps\mailing\views.py:495
 #: .\subtrees\jetson\templates\default\groups_networks\persongroups\invite_group_members.html:79
 #: .\subtrees\jetson\templates\default\institutions\institution_message.html:68
 #: .\subtrees\jetson\templates\default\mailing\generic_mail.html:131
@@ -7777,7 +7777,7 @@ msgstr ""
 
 #: .\subtrees\jetson\templates\admin\admin\actions.html:10
 #, python-format
-msgid "Select all %(total_count)s %(module_name)s"
+msgid "Select all %(total_count)s %(model_name)s"
 msgstr ""
 
 #: .\subtrees\jetson\templates\admin\admin\actions.html:11
@@ -8084,6 +8084,48 @@ msgstr ""
 msgid "Yes, I'm sure"
 msgstr ""
 
+#: .\subtrees\jetson\templates\admin\admin\edit_inline\tabular.html:9
+#: .\subtrees\jetson\templates\admin\admin\row_level_permissions.html:28
+#: .\subtrees\jetson\templates\admin\extendedadmin\document_change.html:236
+#: .\subtrees\jetson\templates\admin\extendedadmin\includes\fieldset_categories.html:18
+#: .\subtrees\jetson\templates\default\widget\selectrow.html:14
+msgid "Add Another"
+msgstr ""
+
+#: .\subtrees\jetson\templates\admin\admin\edit_inline\tabular.html:68
+#: .\subtrees\jetson\templates\admin\extendedadmin\includes\individual_contact_change.html:7
+#: .\subtrees\jetson\templates\admin\extendedadmin\includes\institutional_contact_change.html:7
+msgid "View on Site"
+msgstr ""
+
+#: .\subtrees\jetson\templates\admin\admin\edit_inline\tabular.html:70
+msgid "Move Item"
+msgstr ""
+
+#: .\subtrees\jetson\templates\admin\admin\edit_inline\tabular.html:74
+#: .\subtrees\jetson\templates\admin\admin\edit_inline\tabular.html:79
+#: .\subtrees\jetson\templates\admin\extendedadmin\includes\event_time.html:8
+#: .\subtrees\jetson\templates\admin\extendedadmin\includes\event_time.html:10
+#: .\subtrees\jetson\templates\admin\extendedadmin\includes\individual_contact_change.html:11
+#: .\subtrees\jetson\templates\admin\extendedadmin\includes\individual_contact_change.html:13
+#: .\subtrees\jetson\templates\admin\extendedadmin\includes\institutional_contact_change.html:10
+#: .\subtrees\jetson\templates\admin\extendedadmin\includes\institutional_contact_change.html:12
+msgid "Delete Item"
+msgstr ""
+
+#: .\subtrees\jetson\templates\admin\admin\edit_inline\tabular.html:93
+#, python-format
+msgid "Add another %(verbose_name)s"
+msgstr ""
+
+#: .\subtrees\jetson\templates\admin\admin\edit_inline\tabular.html:95
+#: .\subtrees\jetson\templates\admin\admin\row_level_permissions.html:124
+#: .\subtrees\jetson\templates\admin\extendedadmin\event_change_base.html:180
+#: .\subtrees\jetson\templates\admin\extendedadmin\institution_change.html:220
+#: .\subtrees\jetson\templates\admin\extendedadmin\person_change.html:289
+msgid "Add Item"
+msgstr ""
+
 #: .\subtrees\jetson\templates\admin\admin\email_campaigns\infosubscription\change_list.html:25
 msgid "Choose an email template to send a message to the subscribers"
 msgstr ""
@@ -8239,13 +8281,6 @@ msgstr ""
 msgid "Change Access to %(original)s"
 msgstr ""
 
-#: .\subtrees\jetson\templates\admin\admin\row_level_permissions.html:28
-#: .\subtrees\jetson\templates\admin\extendedadmin\document_change.html:236
-#: .\subtrees\jetson\templates\admin\extendedadmin\includes\fieldset_categories.html:18
-#: .\subtrees\jetson\templates\default\widget\selectrow.html:14
-msgid "Add Another"
-msgstr ""
-
 #: .\subtrees\jetson\templates\admin\admin\row_level_permissions.html:52
 #: .\subtrees\jetson\templates\admin\admin\row_level_permissions.html:89
 msgid "Permission Set"
@@ -8261,13 +8296,6 @@ msgstr ""
 
 #: .\subtrees\jetson\templates\admin\admin\row_level_permissions.html:122
 msgid "Add permission owner"
-msgstr ""
-
-#: .\subtrees\jetson\templates\admin\admin\row_level_permissions.html:124
-#: .\subtrees\jetson\templates\admin\extendedadmin\event_change_base.html:180
-#: .\subtrees\jetson\templates\admin\extendedadmin\institution_change.html:220
-#: .\subtrees\jetson\templates\admin\extendedadmin\person_change.html:289
-msgid "Add Item"
 msgstr ""
 
 #: .\subtrees\jetson\templates\admin\admin\tree_change_list.html:22
@@ -8362,15 +8390,6 @@ msgstr ""
 
 #: .\subtrees\jetson\templates\admin\extendedadmin\includes\event_time.html:4
 msgid "Event Time"
-msgstr ""
-
-#: .\subtrees\jetson\templates\admin\extendedadmin\includes\event_time.html:8
-#: .\subtrees\jetson\templates\admin\extendedadmin\includes\event_time.html:10
-#: .\subtrees\jetson\templates\admin\extendedadmin\includes\individual_contact_change.html:11
-#: .\subtrees\jetson\templates\admin\extendedadmin\includes\individual_contact_change.html:13
-#: .\subtrees\jetson\templates\admin\extendedadmin\includes\institutional_contact_change.html:10
-#: .\subtrees\jetson\templates\admin\extendedadmin\includes\institutional_contact_change.html:12
-msgid "Delete Item"
 msgstr ""
 
 #: .\subtrees\jetson\templates\admin\extendedadmin\includes\fieldset_categories.html:5
@@ -8523,11 +8542,6 @@ msgstr ""
 #: .\subtrees\jetson\templates\default\institutions\institution_projects.html:57
 #: .\subtrees\jetson\templates\default\people\person_projects.html:53
 msgid "Contact"
-msgstr ""
-
-#: .\subtrees\jetson\templates\admin\extendedadmin\includes\individual_contact_change.html:7
-#: .\subtrees\jetson\templates\admin\extendedadmin\includes\institutional_contact_change.html:7
-msgid "View on Site"
 msgstr ""
 
 #: .\subtrees\jetson\templates\admin\extendedadmin\includes\individual_contact_change.html:156

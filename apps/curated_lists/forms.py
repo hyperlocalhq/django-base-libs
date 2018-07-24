@@ -127,6 +127,7 @@ class CuratedListItemForm(forms.Form):
 
 class CuratedListFilterForm(forms.Form):
     category = forms.ModelChoiceField(
+        label=_("Category"),
         empty_label=_("All"),
         queryset=Category.objects.filter(level=0),
         required=False,
@@ -157,10 +158,12 @@ class CuratedListFilterForm(forms.Form):
             context_item_qs = ContextItem.objects.none()
 
         self.fields['owner'] = forms.ModelChoiceField(
+            label=_("Owner"),
             empty_label=_("All"),
             queryset=context_item_qs,
             required=False,
         )
+
 
         self.helper = FormHelper()
         self.helper.form_action = ""

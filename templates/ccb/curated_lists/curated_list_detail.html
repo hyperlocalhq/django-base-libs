@@ -50,10 +50,10 @@
         {% if curated_list.image or curated_list.description %}
             <div class="row">
                 {% if curated_list.image %}
-                    <div class="col-xs-12 col-md-3">
+                    <div class="col-xs-12 col-md-6">
                             <img class="img-responsive" src="{{ MEDIA_URL }}{{ curated_list.image|modified_path:"overview_image" }}" alt="{{ curated_list.title }}" data-popup-image-src="{{ MEDIA_URL }}{{ curated_list.image.path }}" />
                     </div>
-                    <div class="col-xs-12 col-md-9">
+                    <div class="col-xs-12 col-md-6">
                 {% else %}
                     <div class="col-xs-12">
                 {% endif %}

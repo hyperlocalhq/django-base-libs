@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-20 13:45+0100\n"
+"POT-Creation-Date: 2018-07-24 18:15+0200\n"
 "PO-Revision-Date: 2016-03-10 17:20+0053\n"
 "Last-Translator: Josephine Natalie Weisflog <j.weisflog@kulturprojekte-"
 "berlin.de>\n"
@@ -128,15 +128,15 @@ msgstr ""
 #: .\apps\articles\models.py:150 .\apps\bulletin_board\admin.py:35
 #: .\apps\bulletin_board\forms.py:136 .\apps\bulletin_board\forms.py:203
 #: .\apps\bulletin_board\forms.py:205 .\apps\bulletin_board\models.py:163
-#: .\apps\editorial\models.py:39 .\apps\events\forms.py:1511
-#: .\apps\events\forms.py:1535 .\apps\external_services\models.py:40
-#: .\apps\external_services\models.py:76 .\apps\institutions\forms.py:1215
-#: .\apps\institutions\forms.py:1237 .\apps\marketplace\forms.py:408
-#: .\apps\marketplace\forms.py:424 .\apps\marketplace\forms.py:431
-#: .\apps\marketplace\models.py:23 .\apps\media_gallery\admin.py:29
-#: .\apps\media_gallery\forms.py:345 .\apps\media_gallery\forms.py:388
-#: .\apps\media_gallery\models.py:149 .\apps\site_specific\admin.py:40
-#: .\apps\site_specific\forms\events.py:1989
+#: .\apps\curated_lists\admin.py:42 .\apps\editorial\models.py:39
+#: .\apps\events\forms.py:1511 .\apps\events\forms.py:1535
+#: .\apps\external_services\models.py:40 .\apps\external_services\models.py:76
+#: .\apps\institutions\forms.py:1215 .\apps\institutions\forms.py:1237
+#: .\apps\marketplace\forms.py:408 .\apps\marketplace\forms.py:424
+#: .\apps\marketplace\forms.py:431 .\apps\marketplace\models.py:23
+#: .\apps\media_gallery\admin.py:29 .\apps\media_gallery\forms.py:345
+#: .\apps\media_gallery\forms.py:388 .\apps\media_gallery\models.py:149
+#: .\apps\site_specific\admin.py:40 .\apps\site_specific\forms\events.py:1989
 #: .\apps\site_specific\forms\events.py:2017
 #: .\apps\site_specific\forms\institutions.py:1667
 #: .\apps\site_specific\forms\institutions.py:1693
@@ -333,8 +333,9 @@ msgid "Additional Content"
 msgstr ""
 
 #: .\apps\articles\admin.py:90 .\apps\bulletin_board\models.py:139
-#: .\apps\cms_extensions\models.py:45 .\apps\curated_lists\forms.py:16
-#: .\apps\curated_lists\models.py:40 .\apps\editorial\models.py:29
+#: .\apps\cms_extensions\models.py:45 .\apps\curated_lists\forms.py:24
+#: .\apps\curated_lists\forms.py:87 .\apps\curated_lists\models.py:36
+#: .\apps\curated_lists\models.py:146 .\apps\editorial\models.py:29
 #: .\apps\events\base.py:222 .\apps\events\forms.py:915
 #: .\apps\institutions\forms.py:503 .\apps\marketplace\forms.py:83
 #: .\apps\media_gallery\forms.py:93 .\apps\media_gallery\forms.py:176
@@ -465,7 +466,8 @@ msgstr ""
 #: .\apps\articles\forms.py:17 .\apps\bulletin_board\forms.py:130
 #: .\apps\bulletin_board\forms.py:613 .\apps\bulletin_board\forms.py:620
 #: .\apps\bulletin_board\forms.py:629 .\apps\bulletin_board\forms.py:633
-#: .\apps\bulletin_board\forms.py:642 .\apps\events\forms.py:1870
+#: .\apps\bulletin_board\forms.py:642 .\apps\curated_lists\forms.py:130
+#: .\apps\curated_lists\forms.py:160 .\apps\events\forms.py:1870
 #: .\apps\events\forms.py:1876 .\apps\events\forms.py:1882
 #: .\apps\institutions\forms.py:1448 .\apps\institutions\forms.py:1454
 #: .\apps\institutions\forms.py:1460 .\apps\institutions\forms.py:1466
@@ -504,10 +506,10 @@ msgid "Category"
 msgstr ""
 
 #: .\apps\articles\forms.py:31 .\apps\bulletin_board\forms.py:653
-#: .\apps\events\forms.py:1905 .\apps\institutions\forms.py:1481
-#: .\apps\marketplace\forms.py:727 .\apps\media_gallery\forms.py:416
-#: .\apps\network\forms.py:56 .\apps\people\forms.py:53
-#: .\apps\resources\forms.py:39
+#: .\apps\curated_lists\forms.py:171 .\apps\events\forms.py:1905
+#: .\apps\institutions\forms.py:1481 .\apps\marketplace\forms.py:727
+#: .\apps\media_gallery\forms.py:416 .\apps\network\forms.py:56
+#: .\apps\people\forms.py:53 .\apps\resources\forms.py:39
 #: .\templates\ccb\bulletin_board\my_bulletin_list.html:18
 #: .\templates\ccb\site_specific\browsing.html:36
 #: .\templates\ccb\site_specific\lists\list_list.html:36
@@ -517,11 +519,12 @@ msgid "Filter"
 msgstr ""
 
 #: .\apps\articles\forms.py:36 .\apps\bulletin_board\forms.py:661
-#: .\apps\events\forms.py:1914 .\apps\institutions\forms.py:1489
-#: .\apps\marketplace\forms.py:735 .\apps\media_gallery\forms.py:421
-#: .\apps\network\forms.py:63 .\apps\people\forms.py:61
-#: .\apps\resources\forms.py:45 .\apps\search\cms_apps.py:10
-#: .\apps\search\forms.py:22 .\templates\admin\admin\owners.html:31
+#: .\apps\curated_lists\forms.py:177 .\apps\events\forms.py:1914
+#: .\apps\institutions\forms.py:1489 .\apps\marketplace\forms.py:735
+#: .\apps\media_gallery\forms.py:421 .\apps\network\forms.py:63
+#: .\apps\people\forms.py:61 .\apps\resources\forms.py:45
+#: .\apps\search\cms_apps.py:10 .\apps\search\forms.py:22
+#: .\templates\admin\admin\owners.html:31
 #: .\templates\ccb\articles\articles_archive.html:8
 #: .\templates\ccb\articles\articles_archive_day.html:8
 #: .\templates\ccb\articles\articles_archive_month.html:8
@@ -581,7 +584,8 @@ msgstr ""
 #: .\apps\bulletin_board\models.py:49 .\apps\bulletin_board\models.py:62
 #: .\apps\bulletin_board\models.py:138 .\apps\cms_extensions\models.py:44
 #: .\apps\cms_extensions\plugins\headline\models.py:9
-#: .\apps\curated_lists\forms.py:12 .\apps\curated_lists\models.py:39
+#: .\apps\curated_lists\forms.py:20 .\apps\curated_lists\forms.py:83
+#: .\apps\curated_lists\models.py:35 .\apps\curated_lists\models.py:145
 #: .\apps\editorial\models.py:28 .\apps\events\admin.py:36
 #: .\apps\events\admin.py:67 .\apps\events\base.py:216
 #: .\apps\events\base.py:461 .\apps\events\forms.py:316 .\apps\faqs\admin.py:29
@@ -627,9 +631,10 @@ msgstr ""
 #: .\apps\bulletin_board\models.py:148 .\apps\cms_extensions\models.py:46
 #: .\apps\cms_extensions\plugins\filebrowser_image\cms_plugins.py:14
 #: .\apps\cms_extensions\plugins\filebrowser_image\models.py:14
-#: .\apps\curated_lists\models.py:41 .\apps\editorial\models.py:36
-#: .\apps\events\base.py:223 .\apps\events\forms.py:923
-#: .\apps\events\forms.py:925 .\apps\site_specific\forms\events.py:253
+#: .\apps\curated_lists\forms.py:28 .\apps\curated_lists\models.py:37
+#: .\apps\editorial\models.py:36 .\apps\events\base.py:223
+#: .\apps\events\forms.py:923 .\apps\events\forms.py:925
+#: .\apps\site_specific\forms\events.py:253
 #: .\apps\site_specific\forms\events.py:255
 #: .\apps\site_specific\forms\institutions.py:194
 #: .\apps\site_specific\forms\institutions.py:196
@@ -1000,7 +1005,7 @@ msgstr ""
 #: .\templates\ccb\site_specific\popups\delete_contact.html:17
 #: .\templates\ccb\site_specific\review_delete.html:22
 #: .\templates\ccb\styleguide\base.html:33
-#: .\templates\ccb\styleguide\form.html:649
+#: .\templates\ccb\styleguide\form.html:687
 msgid "Cancel"
 msgstr ""
 
@@ -1127,7 +1132,7 @@ msgstr ""
 msgid "Region"
 msgstr ""
 
-#: .\apps\bulletin_board\admin.py:39 .\apps\curated_lists\admin.py:34
+#: .\apps\bulletin_board\admin.py:39 .\apps\curated_lists\admin.py:79
 #: .\apps\marketplace\forms.py:341
 msgid "Publishing"
 msgstr ""
@@ -1196,7 +1201,7 @@ msgstr ""
 #: .\apps\site_specific\forms\marketplace.py:30
 #: .\apps\site_specific\forms\misc.py:53 .\apps\site_specific\forms\misc.py:123
 #: .\apps\site_specific\forms\people.py:1002
-#: .\templates\ccb\styleguide\form.html:559
+#: .\templates\ccb\styleguide\form.html:597
 #: .\templates\ccb\uni_form\includes\birthday.html:22
 #: .\templates\ccb\uni_form\includes\establishment.html:15
 #: .\templates\ccb\uni_form\includes\event_time.html:24
@@ -1216,7 +1221,7 @@ msgstr ""
 #: .\apps\site_specific\forms\marketplace.py:31
 #: .\apps\site_specific\forms\misc.py:54 .\apps\site_specific\forms\misc.py:125
 #: .\apps\site_specific\forms\people.py:996
-#: .\templates\ccb\styleguide\form.html:540
+#: .\templates\ccb\styleguide\form.html:578
 #: .\templates\ccb\uni_form\includes\birthday.html:16
 #: .\templates\ccb\uni_form\includes\establishment.html:9
 #: .\templates\ccb\uni_form\includes\event_time.html:18
@@ -1234,7 +1239,7 @@ msgstr ""
 #: .\apps\site_specific\forms\marketplace.py:32
 #: .\apps\site_specific\forms\misc.py:55
 #: .\apps\site_specific\forms\people.py:990
-#: .\templates\ccb\styleguide\form.html:502
+#: .\templates\ccb\styleguide\form.html:540
 #: .\templates\ccb\uni_form\includes\birthday.html:10
 #: .\templates\ccb\uni_form\includes\event_time.html:12
 #: .\templates\ccb\uni_form\includes\event_time.html:72
@@ -1300,7 +1305,7 @@ msgstr ""
 #: .\templates\ccb\groups_networks\persongroups\add_group_profile.html:12
 #: .\templates\ccb\institutions\add_institution_confirm.html:6
 #: .\templates\ccb\institutions\details_base.html:30
-#: .\templates\ccb\institutions\details_base.html:87
+#: .\templates\ccb\institutions\details_base.html:95
 #: .\templates\ccb\marketplace\profile\contact.html:12
 #: .\templates\ccb\network\details_base.html:123
 #: .\templates\ccb\network\details_base.html:175
@@ -1454,8 +1459,8 @@ msgstr ""
 msgid "bulletin-content providers"
 msgstr ""
 
-#: .\apps\bulletin_board\models.py:63 .\apps\curated_lists\models.py:42
-#: .\apps\curated_lists\models.py:112 .\apps\media_gallery\models.py:93
+#: .\apps\bulletin_board\models.py:63 .\apps\curated_lists\models.py:38
+#: .\apps\curated_lists\models.py:143 .\apps\media_gallery\models.py:93
 #: .\apps\partners\models.py:26 .\apps\partners\models.py:46
 #: .\apps\slideshows\models.py:33
 msgid "Sort order"
@@ -1722,7 +1727,7 @@ msgstr ""
 msgid "content"
 msgstr ""
 
-#: .\apps\cms_extensions\plugins\richtext\cms_plugins.py:14
+#: .\apps\cms_extensions\plugins\richtext\cms_plugins.py:13
 msgid "Rich Text"
 msgstr ""
 
@@ -1740,26 +1745,28 @@ msgstr ""
 msgid "Counselling Events"
 msgstr ""
 
-#: .\apps\counselling_events\views.py:74 .\apps\institutions\views.py:275
-#: .\apps\network\views.py:279
+#: .\apps\counselling_events\views.py:83 .\apps\institutions\views.py:278
+#: .\apps\network\views.py:277
 #, python-format
 msgid "Events by/at %s"
 msgstr ""
 
-#: .\apps\curated_lists\admin.py:31 .\apps\site_specific\admin.py:37
+#: .\apps\curated_lists\admin.py:22 .\apps\curated_lists\admin.py:77
+#: .\apps\site_specific\admin.py:37
 msgid "Title and Description"
 msgstr ""
 
-#: .\apps\curated_lists\admin.py:33 .\apps\curated_lists\models.py:34
-msgid "Owner"
+#: .\apps\curated_lists\admin.py:88 .\apps\institutions\admin.py:324
+#: .\templates\admin\admin\owners.html:16
+msgid "Owners"
 msgstr ""
 
-#: .\apps\curated_lists\admin.py:45 .\apps\curated_lists\models.py:116
+#: .\apps\curated_lists\admin.py:93 .\apps\curated_lists\models.py:150
 msgid "List Items"
 msgstr ""
 
-#: .\apps\curated_lists\apps.py:8 .\apps\curated_lists\models.py:16
-#: .\apps\curated_lists\models.py:48
+#: .\apps\curated_lists\apps.py:8 .\apps\curated_lists\models.py:17
+#: .\apps\curated_lists\models.py:49
 msgid "Curated Lists"
 msgstr ""
 
@@ -1767,13 +1774,18 @@ msgstr ""
 msgid "Featured Curated Lists"
 msgstr ""
 
-#: .\apps\curated_lists\forms.py:36
+#: .\apps\curated_lists\forms.py:44 .\apps\curated_lists\models.py:109
+msgid "Owner"
+msgstr ""
+
+#: .\apps\curated_lists\forms.py:59 .\apps\curated_lists\forms.py:107
 msgid "Edit Curated List Description"
 msgstr ""
 
-#: .\apps\curated_lists\forms.py:41 .\apps\media_gallery\forms.py:101
-#: .\apps\media_gallery\forms.py:183 .\apps\media_gallery\forms.py:265
-#: .\apps\media_gallery\forms.py:395 .\apps\site_specific\forms\events.py:150
+#: .\apps\curated_lists\forms.py:65 .\apps\curated_lists\forms.py:112
+#: .\apps\media_gallery\forms.py:101 .\apps\media_gallery\forms.py:183
+#: .\apps\media_gallery\forms.py:265 .\apps\media_gallery\forms.py:395
+#: .\apps\site_specific\forms\events.py:150
 #: .\apps\site_specific\forms\events.py:202
 #: .\apps\site_specific\forms\events.py:262
 #: .\apps\site_specific\forms\events.py:731
@@ -1826,44 +1838,60 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: .\apps\curated_lists\models.py:19
+#: .\apps\curated_lists\models.py:20
 #: .\apps\site_specific\forms\groups_networks.py:28
 #: .\apps\site_specific\forms\misc.py:100
 msgid "Private"
 msgstr ""
 
-#: .\apps\curated_lists\models.py:20
+#: .\apps\curated_lists\models.py:21
 #: .\apps\site_specific\forms\groups_networks.py:27
 #: .\apps\site_specific\forms\misc.py:99
 msgid "Public"
 msgstr ""
 
-#: .\apps\curated_lists\models.py:43
+#: .\apps\curated_lists\models.py:41 .\apps\events\forms.py:1844
+#: .\apps\events\models.py:40 .\apps\groups_networks\models.py:19
+#: .\apps\institutions\forms.py:1427 .\apps\institutions\models.py:33
+#: .\apps\marketplace\forms.py:670 .\apps\people\models.py:44
+#: .\apps\resources\models.py:26
+#: .\templates\ccb\events\add_event_confirm.html:426
+msgid "categories"
+msgstr ""
+
+#: .\apps\curated_lists\models.py:44
 msgid "Privacy"
 msgstr ""
 
-#: .\apps\curated_lists\models.py:44 .\apps\resources\models.py:30
+#: .\apps\curated_lists\models.py:45 .\apps\resources\models.py:30
 msgid "Featured"
 msgstr ""
 
-#: .\apps\curated_lists\models.py:47
+#: .\apps\curated_lists\models.py:48
 #: .\templates\ccb\curated_lists\curated_list_detail.html:12
 #: .\templates\ccb\curated_lists\curated_list_detail.html:16
 #: .\templates\ccb\curated_lists\curated_list_detail.html:27
+#: .\templates\ccb\curated_lists\curated_list_detail.html:29
 msgid "Curated List"
 msgstr ""
 
-#: .\apps\curated_lists\models.py:110
-#: .\templates\ccb\curated_lists\curated_list_detail.html:60
-#: .\templates\ccb\curated_lists\curated_list_detail.html:63
+#: .\apps\curated_lists\models.py:113 .\apps\curated_lists\models.py:141
 msgid "Curated list"
 msgstr ""
 
-#: .\apps\curated_lists\models.py:111
+#: .\apps\curated_lists\models.py:114 .\apps\curated_lists\models.py:142
 msgid "Representation"
 msgstr ""
 
-#: .\apps\curated_lists\models.py:115
+#: .\apps\curated_lists\models.py:117
+msgid "List Owner"
+msgstr ""
+
+#: .\apps\curated_lists\models.py:118
+msgid "List Owners"
+msgstr ""
+
+#: .\apps\curated_lists\models.py:149
 msgid "List Item"
 msgstr ""
 
@@ -1871,7 +1899,7 @@ msgstr ""
 msgid "Question and Answer"
 msgstr ""
 
-#: .\apps\editorial\cms_plugins.py:38 .\apps\editorial\models.py:45
+#: .\apps\editorial\cms_plugins.py:31 .\apps\editorial\models.py:45
 #: .\templates\admin\extendedadmin\document_change.html:88
 #: .\templates\admin\extendedadmin\document_change.html:128
 #: .\templates\admin\extendedadmin\document_change.html:148
@@ -1974,7 +2002,7 @@ msgid "Publish selected events"
 msgstr ""
 
 #: .\apps\events\admin.py:336
-#: .\subtrees\base_libs\base_libs\admin\options.py:583
+#: .\subtrees\base_libs\base_libs\admin\options.py:515
 #, python-format
 msgid "Add %s"
 msgstr ""
@@ -2652,7 +2680,7 @@ msgstr ""
 
 #: .\apps\events\forms.py:920 .\apps\institutions\forms.py:508
 #: .\apps\institutions\models.py:38 .\apps\media_gallery\models.py:156
-#: .\apps\media_gallery\models.py:182 .\apps\site_specific\forms\events.py:222
+#: .\apps\media_gallery\models.py:192 .\apps\site_specific\forms\events.py:222
 #: .\apps\site_specific\forms\groups_networks.py:90
 #: .\apps\site_specific\forms\institutions.py:163
 #: .\apps\site_specific\forms\people.py:183
@@ -2691,15 +2719,17 @@ msgstr ""
 #: .\templates\ccb\counselling_blog\post_detail.html:7
 #: .\templates\ccb\counselling_events\event_details.html:30
 #: .\templates\ccb\counselling_events\lists\event.html:9
+#: .\templates\ccb\curated_lists\curated_list_detail.html:81
+#: .\templates\ccb\curated_lists\lists\curated_list_item.html:10
 #: .\templates\ccb\events\details_base.html:40
 #: .\templates\ccb\events\details_base.html:90
 #: .\templates\ccb\events\includes\latest_published_events.html:27
 #: .\templates\ccb\events\lists\event_icons.html:10
 #: .\templates\ccb\institutions\details_base.html:41
-#: .\templates\ccb\institutions\details_base.html:110
+#: .\templates\ccb\institutions\details_base.html:118
 #: .\templates\ccb\institutions\includes\latest_published_institutions.html:29
 #: .\templates\ccb\institutions\institution_list.html:83
-#: .\templates\ccb\media_gallery\gallery_detail\gallery_base.html:55
+#: .\templates\ccb\media_gallery\gallery_detail\gallery_base.html:57
 #: .\templates\ccb\media_gallery\gallery_detail\gallery_listed.html:11
 #: .\templates\ccb\media_gallery\includes\latest_published_galleries.html:30
 #: .\templates\ccb\media_gallery\manage_gallery.html:62
@@ -2708,7 +2738,7 @@ msgstr ""
 #: .\templates\ccb\metro\tile.html:9
 #: .\templates\ccb\network\member_list.html:86
 #: .\templates\ccb\people\details_base.html:41
-#: .\templates\ccb\people\details_base.html:111
+#: .\templates\ccb\people\details_base.html:119
 #: .\templates\ccb\people\includes\latest_published_people.html:29
 #: .\templates\ccb\people\includes\latest_published_people_start.html:29
 #: .\templates\ccb\people\person_list.html:83
@@ -3061,14 +3091,6 @@ msgstr ""
 msgid "fees and opening hours"
 msgstr ""
 
-#: .\apps\events\forms.py:1844 .\apps\events\models.py:40
-#: .\apps\groups_networks\models.py:19 .\apps\institutions\forms.py:1427
-#: .\apps\institutions\models.py:33 .\apps\marketplace\forms.py:670
-#: .\apps\people\models.py:44 .\apps\resources\models.py:26
-#: .\templates\ccb\events\add_event_confirm.html:426
-msgid "categories"
-msgstr ""
-
 #: .\apps\events\forms.py:1892
 msgid "Featured events only"
 msgstr ""
@@ -3080,11 +3102,11 @@ msgstr ""
 msgid "Creative sectors"
 msgstr ""
 
-#: .\apps\events\views.py:206 .\apps\events\views.py:212
+#: .\apps\events\views.py:208 .\apps\events\views.py:214
 msgid "Naughty hacker!"
 msgstr ""
 
-#: .\apps\events\views.py:313
+#: .\apps\events\views.py:315
 msgid "CCB Events"
 msgstr ""
 
@@ -3380,10 +3402,6 @@ msgstr ""
 msgid "Manage owners"
 msgstr ""
 
-#: .\apps\institutions\admin.py:324 .\templates\admin\admin\owners.html:16
-msgid "Owners"
-msgstr ""
-
 #: .\apps\institutions\admin.py:360
 #, python-format
 msgid "The owners of %(institution)s"
@@ -3624,11 +3642,11 @@ msgstr ""
 msgid "Completeness in %"
 msgstr ""
 
-#: .\apps\institutions\models.py:312
+#: .\apps\institutions\models.py:340
 msgid "System"
 msgstr ""
 
-#: .\apps\institutions\views.py:300 .\apps\people\views.py:376
+#: .\apps\institutions\views.py:303 .\apps\people\views.py:377
 #, python-format
 msgid "Job offers by %s"
 msgstr ""
@@ -4418,19 +4436,24 @@ msgstr ""
 msgid "Object Type"
 msgstr ""
 
-#: .\apps\network\views.py:318
+#: .\apps\network\views.py:316
 #, python-format
 msgid "Jobs by/at %s"
 msgstr ""
 
-#: .\apps\network\views.py:357
+#: .\apps\network\views.py:355
 #, python-format
 msgid "Bulletins by/at %s"
 msgstr ""
 
-#: .\apps\network\views.py:389
+#: .\apps\network\views.py:387
 #, python-format
 msgid "Institutions of %s"
+msgstr ""
+
+#: .\apps\network\views.py:410
+#, python-format
+msgid "Lists curated by %s"
 msgstr ""
 
 #: .\apps\partners\admin.py:26 .\apps\partners\admin.py:63
@@ -4487,7 +4510,7 @@ msgstr ""
 msgid "Completeness (complete first)"
 msgstr ""
 
-#: .\apps\people\views.py:350
+#: .\apps\people\views.py:351
 #, python-format
 msgid "Events by %s"
 msgstr ""
@@ -5381,7 +5404,7 @@ msgstr ""
 msgid "ticket history"
 msgstr ""
 
-#: .\apps\twitter\views.py:42
+#: .\apps\twitter\views.py:45
 #, python-format
 msgid "%s ago"
 msgstr ""
@@ -5623,7 +5646,7 @@ msgid ""
 msgstr ""
 
 #: .\subtrees\base_libs\base_libs\models\admin.py:540
-#: .\templates\ccb\styleguide\form.html:650
+#: .\templates\ccb\styleguide\form.html:688
 msgid "Publish"
 msgstr ""
 
@@ -6420,7 +6443,7 @@ msgstr ""
 #: .\templates\ccb\accounts\my_profile\privacy_settings.html:25
 #: .\templates\ccb\accounts\password_change_done.html:24
 #: .\templates\ccb\accounts\password_change_form.html:24
-#: .\templates\ccb\institutions\details_base.html:86
+#: .\templates\ccb\institutions\details_base.html:94
 #: .\templates\ccb\network\details_base.html:7
 #: .\templates\ccb\network\details_base.html:44
 #: .\templates\ccb\network\details_base.html:101
@@ -6428,7 +6451,7 @@ msgstr ""
 #: .\templates\ccb\notification\settings.html:40
 #: .\templates\ccb\people\details_base.html:6
 #: .\templates\ccb\people\details_base.html:25
-#: .\templates\ccb\people\details_base.html:88
+#: .\templates\ccb\people\details_base.html:96
 msgid "My Profile"
 msgstr ""
 
@@ -6437,7 +6460,7 @@ msgstr ""
 #: .\templates\ccb\network\details_base.html:44
 #: .\templates\ccb\network\details_base.html:101
 #: .\templates\ccb\people\details_base.html:30
-#: .\templates\ccb\people\details_base.html:88
+#: .\templates\ccb\people\details_base.html:96
 msgid "Person"
 msgstr ""
 
@@ -6892,11 +6915,7 @@ msgstr ""
 #: .\templates\ccb\base.html:301 .\templates\ccb\base_counselling.html:72
 #: .\templates\ccb\base_counselling.html:288
 #: .\templates\ccb\base_counselling.html:298
-#: .\templates\ccb\base_iframe.html:29
-#: .\templates\ccb\curated_lists\curated_list_detail.html:111
-#: .\templates\ccb\curated_lists\curated_list_detail.html:129
-#: .\templates\ccb\curated_lists\curated_list_detail.html:177
-#: .\templates\ccb\styleguide\base.html:36
+#: .\templates\ccb\base_iframe.html:29 .\templates\ccb\styleguide\base.html:36
 #: .\templates\ccb\styleguide\base.html:258
 #: .\templates\ccb\styleguide\base.html:268
 msgid "close"
@@ -7198,7 +7217,6 @@ msgstr ""
 
 #: .\templates\ccb\bootstrap3\custom_widgets\previous_button.html:3
 #: .\templates\ccb\ccb_form\custom_widgets\previous_button.html:3
-#: .\templates\ccb\curated_lists\curated_list_detail.html:39
 #: .\templates\ccb\utils\step_buttons.html:6
 #: .\templates\ccb\utils\step_buttons_reg.html:6
 msgid "Previous"
@@ -7271,6 +7289,7 @@ msgstr ""
 #: .\templates\ccb\groups_networks\persongroups\group_list_own.html:38
 #: .\templates\ccb\groups_networks\persongroups\group_simplesearchresults.html:39
 #: .\templates\ccb\institutions\institution_bulletins.html:18
+#: .\templates\ccb\institutions\institution_curated_lists.html:18
 #: .\templates\ccb\institutions\institution_events.html:43
 #: .\templates\ccb\institutions\institution_groups.html:23
 #: .\templates\ccb\institutions\institution_job_offers.html:18
@@ -7284,6 +7303,7 @@ msgstr ""
 #: .\templates\ccb\network\member_list.html:129
 #: .\templates\ccb\network\member_list_under_category.html:146
 #: .\templates\ccb\people\person_bulletins.html:19
+#: .\templates\ccb\people\person_curated_lists.html:19
 #: .\templates\ccb\people\person_events.html:46
 #: .\templates\ccb\people\person_groups.html:20
 #: .\templates\ccb\people\person_institution_contacts.html:21
@@ -7631,119 +7651,25 @@ msgstr ""
 msgid "Organizing Person"
 msgstr ""
 
-#: .\templates\ccb\curated_lists\curated_list_detail.html:41
-msgid "Featured Tours"
+#: .\templates\ccb\curated_lists\curated_list_detail.html:32
+#: .\templates\ccb\curated_lists\lists\curated_list_item.html:23
+msgid "curated by"
 msgstr ""
 
-#: .\templates\ccb\curated_lists\curated_list_detail.html:43
-#: .\templates\ccb\utils\step_buttons.html:9
-#: .\templates\ccb\utils\step_buttons_reg.html:9
-msgid "Next"
-msgstr ""
-
-#: .\templates\ccb\curated_lists\curated_list_detail.html:52
-msgid "Edit My Tour description"
-msgstr ""
-
-#: .\templates\ccb\curated_lists\curated_list_detail.html:53
-msgid "Edit my tour description"
-msgstr ""
-
-#: .\templates\ccb\curated_lists\curated_list_detail.html:56
-msgid "Email list to a friend"
-msgstr ""
-
-#: .\templates\ccb\curated_lists\curated_list_detail.html:57
-msgid "Email this list to a friend"
-msgstr ""
-
-#: .\templates\ccb\curated_lists\curated_list_detail.html:60
-msgid "Tweet list"
-msgstr ""
-
-#: .\templates\ccb\curated_lists\curated_list_detail.html:61
-msgid "Tweet this list"
-msgstr ""
-
-#: .\templates\ccb\curated_lists\curated_list_detail.html:63
-msgid "Share list on Facebook"
-msgstr ""
-
-#: .\templates\ccb\curated_lists\curated_list_detail.html:64
-msgid "Share this list on Facebook"
-msgstr ""
-
-#: .\templates\ccb\curated_lists\curated_list_detail.html:66
-msgid "Show list on map"
-msgstr ""
-
-#: .\templates\ccb\curated_lists\curated_list_detail.html:67
-msgid "Show this list on map"
-msgstr ""
-
-#: .\templates\ccb\curated_lists\curated_list_detail.html:116
-msgid "Toggle Sidebar"
-msgstr ""
-
-#: .\templates\ccb\curated_lists\curated_list_detail.html:121
-msgid "Show my current location"
-msgstr ""
-
-#: .\templates\ccb\curated_lists\curated_list_detail.html:135
-msgid "filter"
-msgstr ""
-
-#: .\templates\ccb\curated_lists\curated_list_detail.html:136
-#: .\templates\ccb\styleguide\form.html:74
-#: .\templates\ccb\utils\step_buttons.html:3
-#: .\templates\ccb\utils\step_buttons_reg.html:4
-msgid "Reset"
-msgstr ""
-
-#: .\templates\ccb\curated_lists\curated_list_detail.html:182
-msgid "Nothing is selected"
-msgstr ""
-
-#: .\templates\ccb\curated_lists\curated_list_detail.html:183
-msgid "Please select a location on the map first!"
-msgstr ""
-
-#: .\templates\ccb\curated_lists\curated_list_detail.html:196
-#, python-format
-msgid "%(title)s has 1 item"
-msgid_plural "%(title)s has %(counter)s items"
-msgstr[0] ""
-msgstr[1] ""
-
-#: .\templates\ccb\curated_lists\curated_list_detail.html:208
-msgid "You didn't favor any objects."
-msgstr ""
-
-#: .\templates\ccb\curated_lists\curated_list_detail.html:215
-msgid "Other Curated Lists"
-msgstr ""
-
-#: .\templates\ccb\curated_lists\curated_list_detail.html:224
-#, python-format
-msgid "The tour of %(first_name)s %(last_name)s"
-msgstr ""
-
-#: .\templates\ccb\curated_lists\curated_list_detail.html:230
 #: .\templates\ccb\curated_lists\featured_curated_lists.html:38
+msgid "There are no featured curated lists."
+msgstr ""
+
+#: .\templates\ccb\curated_lists\includes\add_to_own_curated_lists.html:4
+msgid "Add to curated list"
+msgstr ""
+
+#: .\templates\ccb\curated_lists\lists\curated_list_item.html:41
 #, python-format
 msgid "1 item"
 msgid_plural "%(counter)s items"
 msgstr[0] ""
 msgstr[1] ""
-
-#: .\templates\ccb\curated_lists\featured_curated_lists.html:32
-#, python-format
-msgid "The route of %(first_name)s %(last_name)s"
-msgstr ""
-
-#: .\templates\ccb\curated_lists\featured_curated_lists.html:44
-msgid "There are no featured curated lists."
-msgstr ""
 
 #: .\templates\ccb\email_campaigns\infosubscription.html:4
 #: .\templates\ccb\email_campaigns\infosubscription.html:7
@@ -9231,8 +9157,8 @@ msgstr ""
 #: .\templates\ccb\network\details_base.html:229
 #: .\templates\ccb\people\controls.html:24
 #: .\templates\ccb\people\controls.html:25
-#: .\templates\ccb\people\details_base.html:65
-#: .\templates\ccb\people\details_base.html:133
+#: .\templates\ccb\people\details_base.html:73
+#: .\templates\ccb\people\details_base.html:141
 msgid "Edit Person"
 msgstr ""
 
@@ -9261,8 +9187,8 @@ msgstr ""
 
 #: .\templates\ccb\institutions\controls.html:18
 #: .\templates\ccb\institutions\controls.html:21
-#: .\templates\ccb\institutions\details_base.html:66
-#: .\templates\ccb\institutions\details_base.html:134
+#: .\templates\ccb\institutions\details_base.html:74
+#: .\templates\ccb\institutions\details_base.html:142
 #: .\templates\ccb\network\details_base.html:154
 #: .\templates\ccb\network\details_base.html:272
 msgid "Edit Institution"
@@ -9275,21 +9201,31 @@ msgstr ""
 msgid "My Institution"
 msgstr ""
 
-#: .\templates\ccb\institutions\details_base.html:57
-#: .\templates\ccb\institutions\details_base.html:123
+#: .\templates\ccb\institutions\details_base.html:51
+#: .\templates\ccb\people\details_base.html:51
+msgid "Curator"
+msgstr ""
+
+#: .\templates\ccb\institutions\details_base.html:53
+#: .\templates\ccb\people\details_base.html:53
+msgid "Appears in"
+msgstr ""
+
+#: .\templates\ccb\institutions\details_base.html:65
+#: .\templates\ccb\institutions\details_base.html:131
 #: .\templates\ccb\network\details_base.html:71
 #: .\templates\ccb\network\details_base.html:145
 #: .\templates\ccb\network\details_base.html:222
 #: .\templates\ccb\network\details_base.html:259
-#: .\templates\ccb\people\details_base.html:58
-#: .\templates\ccb\people\details_base.html:126
+#: .\templates\ccb\people\details_base.html:66
+#: .\templates\ccb\people\details_base.html:134
 msgid "Unfollow"
 msgstr ""
 
-#: .\templates\ccb\institutions\details_base.html:59
-#: .\templates\ccb\institutions\details_base.html:69
-#: .\templates\ccb\institutions\details_base.html:125
-#: .\templates\ccb\institutions\details_base.html:138
+#: .\templates\ccb\institutions\details_base.html:67
+#: .\templates\ccb\institutions\details_base.html:77
+#: .\templates\ccb\institutions\details_base.html:133
+#: .\templates\ccb\institutions\details_base.html:146
 #: .\templates\ccb\network\details_base.html:73
 #: .\templates\ccb\network\details_base.html:83
 #: .\templates\ccb\network\details_base.html:147
@@ -9298,17 +9234,17 @@ msgstr ""
 #: .\templates\ccb\network\details_base.html:234
 #: .\templates\ccb\network\details_base.html:261
 #: .\templates\ccb\network\details_base.html:275
-#: .\templates\ccb\people\details_base.html:60
-#: .\templates\ccb\people\details_base.html:70
-#: .\templates\ccb\people\details_base.html:128
-#: .\templates\ccb\people\details_base.html:138
+#: .\templates\ccb\people\details_base.html:68
+#: .\templates\ccb\people\details_base.html:78
+#: .\templates\ccb\people\details_base.html:136
+#: .\templates\ccb\people\details_base.html:146
 msgid "Follow"
 msgstr ""
 
-#: .\templates\ccb\institutions\details_base.html:63
 #: .\templates\ccb\institutions\details_base.html:71
-#: .\templates\ccb\institutions\details_base.html:132
+#: .\templates\ccb\institutions\details_base.html:79
 #: .\templates\ccb\institutions\details_base.html:140
+#: .\templates\ccb\institutions\details_base.html:148
 #: .\templates\ccb\institutions\institution_list.html:105
 #: .\templates\ccb\institutions\institution_list.html:109
 #: .\templates\ccb\network\details_base.html:76
@@ -9323,10 +9259,10 @@ msgstr ""
 #: .\templates\ccb\network\member_list.html:116
 #: .\templates\ccb\network\member_list_under_category.html:129
 #: .\templates\ccb\network\member_list_under_category.html:133
-#: .\templates\ccb\people\details_base.html:63
-#: .\templates\ccb\people\details_base.html:72
-#: .\templates\ccb\people\details_base.html:131
-#: .\templates\ccb\people\details_base.html:140
+#: .\templates\ccb\people\details_base.html:71
+#: .\templates\ccb\people\details_base.html:80
+#: .\templates\ccb\people\details_base.html:139
+#: .\templates\ccb\people\details_base.html:148
 #: .\templates\ccb\people\person_institutions.html:49
 #: .\templates\ccb\people\person_institutions.html:53
 #: .\templates\ccb\people\person_list.html:105
@@ -9346,12 +9282,14 @@ msgid "New Institutions"
 msgstr ""
 
 #: .\templates\ccb\institutions\institution_bulletins.html:7
+#: .\templates\ccb\institutions\institution_curated_lists.html:7
 #: .\templates\ccb\institutions\institution_job_offers.html:7
 #, python-format
 msgid "RSS Feed of Jobs at %(institution_title)s"
 msgstr ""
 
 #: .\templates\ccb\institutions\institution_bulletins.html:11
+#: .\templates\ccb\institutions\institution_curated_lists.html:11
 #: .\templates\ccb\institutions\institution_job_offers.html:11
 #, python-format
 msgid "Atom Feed of Jobs at %(institution_title)s"
@@ -9650,7 +9588,7 @@ msgid "Refuse Comment"
 msgstr ""
 
 #: .\templates\ccb\media_gallery\create_update_mediafile.html:11
-#: .\templates\ccb\media_gallery\gallery_detail\gallery_base.html:67
+#: .\templates\ccb\media_gallery\gallery_detail\gallery_base.html:69
 #: .\templates\ccb\media_gallery\manage_gallery.html:100
 #: .\templates\ccb\media_gallery\portfolio_base.html:5
 msgid "Portfolio"
@@ -10116,11 +10054,13 @@ msgid "New People"
 msgstr ""
 
 #: .\templates\ccb\people\person_bulletins.html:7
+#: .\templates\ccb\people\person_curated_lists.html:7
 #, python-format
 msgid "RSS Feed of Bulletins by %(person_title)s"
 msgstr ""
 
 #: .\templates\ccb\people\person_bulletins.html:11
+#: .\templates\ccb\people\person_curated_lists.html:11
 #, python-format
 msgid "Atom Feed of Bulletins by %(person_title)s"
 msgstr ""
@@ -10702,26 +10642,34 @@ msgstr ""
 msgid "all"
 msgstr ""
 
+#: .\templates\ccb\styleguide\form.html:74
+#: .\templates\ccb\utils\step_buttons.html:3
+#: .\templates\ccb\utils\step_buttons_reg.html:4
+msgid "Reset"
+msgstr ""
+
 #: .\templates\ccb\styleguide\form.html:189
 #: .\templates\ccb\styleguide\form.html:193
 #: .\templates\ccb\styleguide\form.html:201
 #: .\templates\ccb\styleguide\form.html:205
 #: .\templates\ccb\styleguide\form.html:210
-#: .\templates\ccb\styleguide\form.html:605
+#: .\templates\ccb\styleguide\form.html:643
 msgid "No file selected"
 msgstr ""
 
 #: .\templates\ccb\styleguide\form.html:318
-#: .\templates\ccb\styleguide\form.html:347
-#: .\templates\ccb\styleguide\form.html:373
-#: .\templates\ccb\styleguide\form.html:415
-#: .\templates\ccb\styleguide\form.html:442
-#: .\templates\ccb\styleguide\form.html:467
-#: .\templates\ccb\styleguide\form.html:616
+#: .\templates\ccb\styleguide\form.html:349
+#: .\templates\ccb\styleguide\form.html:375
+#: .\templates\ccb\styleguide\form.html:401
+#: .\templates\ccb\styleguide\form.html:418
+#: .\templates\ccb\styleguide\form.html:453
+#: .\templates\ccb\styleguide\form.html:480
+#: .\templates\ccb\styleguide\form.html:505
+#: .\templates\ccb\styleguide\form.html:654
 msgid "Please choose"
 msgstr ""
 
-#: .\templates\ccb\styleguide\form.html:398
+#: .\templates\ccb\styleguide\form.html:436
 msgid "Please start typing"
 msgstr ""
 
@@ -10768,6 +10716,11 @@ msgstr ""
 #: .\templates\ccb\utils\registration_step_list.html:36
 #: .\templates\ccb\utils\registration_step_list.html:38
 msgid "approve your identity"
+msgstr ""
+
+#: .\templates\ccb\utils\step_buttons.html:9
+#: .\templates\ccb\utils\step_buttons_reg.html:9
+msgid "Next"
 msgstr ""
 
 #: .\templates\ccb\utils\step_list.html:6

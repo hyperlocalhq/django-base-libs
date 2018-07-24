@@ -61,6 +61,10 @@
   font-size: 1.73rem;
 }
 
+.is-xs .fawesome.icon-dynamic-size:before, .is-xs .fawesome.icon-dynamic-size.after:after {
+  font-size: 6.5vw;
+}
+
 .fawesome.active {
   color: #00cdff !important;
 }
@@ -1178,6 +1182,10 @@ canvas.fawesome.big {
   content: "\f02d";
 }
 
+.fawesome.fa-curated:before {
+  content: "\f0f6";
+}
+
 .fawesome.fa-questionmark:before {
   content: "\f059";
 }
@@ -1540,6 +1548,10 @@ canvas.fawesome.big {
 
 .fawesome.fa-book.after:after {
   content: "\f02d";
+}
+
+.fawesome.fa-curated.after:after {
+  content: "\f0f6";
 }
 
 .fawesome.fa-questionmark.after:after {

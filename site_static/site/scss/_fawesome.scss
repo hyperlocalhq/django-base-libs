@@ -38,6 +38,14 @@
         }
     }
 
+    &.icon-dynamic-size {
+        &:before, &.after:after {
+            .is-xs & {
+                font-size: 6.5vw;
+            }
+        }
+    }
+
     &.active {
         color: $cyan !important;
     }
@@ -1064,6 +1072,9 @@ canvas.fawesome {
 .fawesome.fa-book:before {
     content: "\f02d";
 }
+.fawesome.fa-curated:before {
+    content: "\f0f6";
+}
 .fawesome.fa-questionmark:before {
     content: "\f059";
 }
@@ -1341,6 +1352,9 @@ canvas.fawesome {
 }
 .fawesome.fa-book.after:after {
     content: "\f02d";
+}
+.fawesome.fa-curated.after:after {
+    content: "\f0f6";
 }
 .fawesome.fa-questionmark.after:after {
     content: "\f059";
