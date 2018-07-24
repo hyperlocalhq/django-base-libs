@@ -17,7 +17,7 @@
     script-src 'self'
         {% with_data "script_nonces" as script_nonces %}
             {% if request.user.is_staff %}
-                'unsafe-inline' {# for djangp-cms and django-debug-toolbar #}
+                'unsafe-inline' {# for django-cms and django-debug-toolbar #}
             {% else %}
                 {% for nonce in script_nonces %} 'nonce-{{ nonce }}'{% endfor %}
                 {{ site_settings.get_script_nonces }}
