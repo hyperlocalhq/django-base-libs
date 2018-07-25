@@ -128,7 +128,7 @@ def article_archive_index(
     if not allow_future:
         queryset = queryset.filter(**{'%s__lte' % date_field: tz_now()})
 
-    date_list = queryset.dates(date_field, 'year')[::-1]
+    date_list = queryset.datetimes(date_field, 'year')[::-1]
     if not date_list and not allow_empty:
         raise Http404, "No object available"
 
@@ -207,7 +207,7 @@ def article_archive_year(
     # Only bother to check current date if the year isn't in the past and future objects aren't requested.
     if int(year) >= now.year and not allow_future:
         lookup_kwargs['%s__lte' % date_field] = now
-    date_list = queryset.filter(**lookup_kwargs).dates(date_field, 'month')
+    date_list = queryset.filter(**lookup_kwargs).datetimes(date_field, 'month')
     
     # build up month list for posts
     month_has_posts_list = []
@@ -311,7 +311,7 @@ def article_archive_month(
     else:
         next_month = None
         
-    day_list = queryset.filter(**lookup_kwargs).dates(date_field, 'day')  
+    day_list = queryset.filter(**lookup_kwargs).datetimes(date_field, 'day')
     queryset = queryset.order_by('-'+date_field)      
 
     extra_context['month'] = date

@@ -608,7 +608,7 @@ class ImageModification(models.Model):
 
 
 class ImageCropping(models.Model):
-    original = FileBrowseField(_("Original"), max_length=255, extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'])
+    original = FileBrowseField(_("Original"), max_length=500, extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'])
     mods = models.ManyToManyField(ImageModification, verbose_name=_("Modifications"), help_text=_('Modifications with the same ratio which should be used to recrop images together.'))
     x1 = models.IntegerField(_('X1'), default=0)
     y1 = models.IntegerField(_('Y1'), default=0)

@@ -33,7 +33,9 @@ class Recipient(object):
             self.first_name = first_name or user.first_name
             self.last_name = last_name or user.last_name
             if not self.url:
-                self.url = user.profile.get_absolute_url()
+                profile = getattr(user, "profile", None)
+                if profile:
+                    self.url = profile.get_absolute_url()
                 
         else:
             self.id = id and unicode(id) or self._generate_id()
@@ -92,7 +94,7 @@ class Recipient(object):
         
         language:            the preferred language ("de" or "en")
         """
-        if self.user:
+        if self.user and getattr(self.user, "profile", None):
             person = self.user.profile
             if language == 'de':
                 return person.get_salutation(language) or "Hallo %s %s!" %(self.user.first_name, self.user.last_name)

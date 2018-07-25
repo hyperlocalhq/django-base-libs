@@ -32,6 +32,7 @@ class ArticleTypeOptions(TreeEditor):
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
+        fields = "__all__"
     def __init__(self, *args, **kwargs):
         super(ArticleForm, self).__init__(*args, **kwargs)
         if ARTICLES_HAVE_TYPES:

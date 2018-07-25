@@ -240,17 +240,17 @@ class JobOfferBase(CreationModificationMixin, PublishingMixin, UrlMixin):
     # WEBSITES
     
     url0_type = models.ForeignKey(URLType, verbose_name=_("URL Type"), blank=True, null=True, related_name='job_offers0', on_delete=models.SET_NULL)
-    url0_link = URLField(_("URL"), blank=True)
+    url0_link = URLField(_("URL"), max_length=500, blank=True)
     is_url0_default = models.BooleanField(_("Default?"), default=True)
     is_url0_on_hold = models.BooleanField(_("On Hold?"), default=False)
     
     url1_type = models.ForeignKey(URLType, verbose_name=_("URL Type"), blank=True, null=True, related_name='job_offers1', on_delete=models.SET_NULL)
-    url1_link = URLField(_("URL"), blank=True)
+    url1_link = URLField(_("URL"), max_length=500, blank=True)
     is_url1_default = models.BooleanField(_("Default?"), default=False)
     is_url1_on_hold = models.BooleanField(_("On Hold?"), default=False)
     
     url2_type = models.ForeignKey(URLType, verbose_name=_("URL Type"), blank=True, null=True, related_name='job_offers2', on_delete=models.SET_NULL)
-    url2_link = URLField(_("URL"), blank=True)
+    url2_link = URLField(_("URL"), max_length=500, blank=True)
     is_url2_default = models.BooleanField(_("Default?"), default=False)
     is_url2_on_hold = models.BooleanField(_("On Hold?"), default=False)
     

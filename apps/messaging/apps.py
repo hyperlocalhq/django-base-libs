@@ -1,11 +1,12 @@
 # -*- coding: UTF-8 -*-
-from django.apps import AppConfig
-from actstream import registry
+from django.apps import AppConfig, apps
 
 
 class MessagingConfig(AppConfig):
     name = 'jetson.apps.messaging'
 
     def ready(self):
-        registry.register(self.get_model('InternalMessage'))
+        if apps.is_installed("actstream"):
+            from actstream import registry
+            registry.register(self.get_model('InternalMessage'))
 
