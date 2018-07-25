@@ -148,6 +148,9 @@ INSTALLED_APPS = [
     "ccb.apps.cms_extensions.plugins.headline",
     "ccb.apps.editorial",
 
+    ### base_libs_app ###
+    "base_libs.apps.base_libs_app",
+
     ### jetson apps ###
     "jetson.apps.image_mods",
     "jetson.apps.httpstate",

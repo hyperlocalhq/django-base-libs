@@ -18,7 +18,7 @@ class Command(BaseCommand):
         from django.apps import apps
 
         from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
-        from base_libs.templatetags.base_tags import decode_entities
+        from base_libs.utils.html import decode_entities
 
         from jetson.apps.external_services.utils import get_first
         from jetson.apps.external_services.utils import get_value
