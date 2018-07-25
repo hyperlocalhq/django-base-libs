@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load base_tags i18n %}
+
+{% block extrahead %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/categories.js"></script>
+{% endblock %}
+
+{% block title %}{% trans "Registration" %} - {% trans "Institution" %}{% endblock %}
+
+{% block headline %}
+    <h2 class="main">{% trans "Registration" %}</h2>
+    <h2 class="sub">{% trans "Institution" %}</h2>
+{% endblock %}
+
+{% block sidebar-a %}
+    {% include "utils/step_list.html" %}
+{% endblock %}
+
+{% block sidebar-b %}
+{% endblock %}
+
+{% block content %}
+<div class="reg">
+    <div class="details">
+        <div class="search">
+            <form action="" class="search_form" method="post">{% csrf_token %}
+                <div class="field_layout">
+                    {% include "site_specific/categories/categories.html" %}
+                    <div  class="space_correction_more">
+                        {% include "utils/step_buttons_reg.html" %}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

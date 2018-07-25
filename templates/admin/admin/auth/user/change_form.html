@@ -1,0 +1,23 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_modify base_tags auth_extended %}
+
+<!-- OBJECT TOOLS -->
+{% block object-tools %}
+    {% if change %}
+        {% if not is_popup %}
+            <ul class="grp-object-tools">
+                {% url "admin_user_activity_history" object_id=object_id as admin_user_activity_history_url %}
+                {% if admin_user_activity_history_url %}
+                    <li><a href="{{ admin_user_activity_history_url }}" class="historylink">{% trans "User Activities" %}</a></li>
+                {% endif %}
+                <li><a href="history/" class="historylink">{% trans "History" %}</a></li>
+                {% if original.row_level_permissions %}
+                    {% if_has_perm "auth.change_rowlevelpermission" original %}
+                        <li><a href="permissions/" class="rowlevelpermissions">{% trans "Edit Permissions" %}</a></li>
+                    {% end_if_has_perm %}
+                {% endif %}
+                {% if has_absolute_url %}<li><a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="grp-state-focus viewsitelink" target="_blank">{% trans "View on site" %}</a></li>{% endif%}
+            </ul>
+        {% endif %}
+    {% endif %}
+{% endblock %}
