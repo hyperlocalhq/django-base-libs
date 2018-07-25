@@ -3,8 +3,6 @@ from django.utils.encoding import force_unicode
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
-from base_libs.templatetags.base_tags import decode_entities
-
 from haystack import indexes
 from aldryn_search.base import AldrynIndexBase
 

@@ -142,6 +142,9 @@ INSTALLED_APPS = [
     # "djangocms_text",
     # "djangocms_video",
 
+    ### base_libs_app ###
+    "base_libs.apps.base_libs_app",
+
     ### jetson apps ###
     "jetson.apps.i18n",
     "jetson.apps.image_mods",

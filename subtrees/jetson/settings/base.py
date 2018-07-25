@@ -151,6 +151,3 @@ SUBDOMAINS_SUPPORTED = False
 ### TESTING ###
 
 TEST_CHARSET = "utf8"
-
-from base_libs import register_template_tags
-register_template_tags()
