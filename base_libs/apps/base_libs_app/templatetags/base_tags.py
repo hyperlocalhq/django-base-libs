@@ -3,7 +3,6 @@ import datetime
 import random
 import re
 import urllib
-from htmlentitydefs import name2codepoint
 from django.db import models
 from django import template
 from django.conf import settings
@@ -900,32 +899,14 @@ def encode_string(value):
     return e_string
 
 
-entity_re = re.compile(
-    "&(#?)([Xx]?)(\d+|[A-Fa-f0-9]+|%s);" % '|'.join(name2codepoint)
-    )
-
-entity_no_escape_chars_re = re.compile(
-    r"&(#?)([Xx]?)((?!39;)(\d+|[A-Fa-f0-9]+)|%s);" % '|'.join(
-        [k for k in name2codepoint if k not in ('amp', 'lt', 'gt', 'quot')]
-        )
-    )
-
-
 @register.filter
 def decode_entities(html, decode_all=False):
     """
     Replaces HTML entities with unicode equivalents.
     Ampersands, quotes and carets are not replaced by default.
     """
-    def _replace_entity(m):
-        entity = m.group(3)
-        if m.group(1) == '#':
-            val = int(entity, m.group(2) == '' and 10 or 16)
-        else:
-            val = name2codepoint[entity]
-        return unichr(val)
-    regexp = decode_all and entity_re or entity_no_escape_chars_re
-    return regexp.sub(_replace_entity, force_unicode(html))
+    from base_libs.utils.html import decode_entities as _decode_entities
+    return _decode_entities(html=html, decode_all=decode_all)
 
 
 @register.filter
@@ -1084,3 +1065,10 @@ def better_slugify(value):
 def convert_umlauts(value):
     from base_libs.utils.betterslugify import better_slugify as utils_better_slugify
     return utils_better_slugify(value, remove_stopwords=False, slugify=False)
+
+
+@register.filter
+@stringfilter
+def to_base64(value):
+    import base64
+    return base64.b64encode(str(value).encode())
