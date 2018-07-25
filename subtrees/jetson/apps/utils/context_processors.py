@@ -21,6 +21,7 @@ def general(request=None):
         cookie_domain = cookie_domain[1:]
     d = {
         'media_url': settings.MEDIA_URL,
+        'media_host': getattr(settings, "MEDIA_HOST", ""),
         'jetson_media_url': settings.JETSON_MEDIA_URL,
         'JETSON_MEDIA_URL': settings.JETSON_MEDIA_URL,
         'cookie_domain': cookie_domain,
@@ -55,19 +56,19 @@ def prev_next_processor(request):
     queryset_index_dict = request.httpstate.get('current_queryset_index_dict', {})
     source_list = request.httpstate.get('source_list', "")
     paginate_by = request.httpstate.get('paginate_by', None)
-    last_query_string = request.httpstate.get('last_query_string', None) 
-    
+    last_query_string = request.httpstate.get('last_query_string', None)
+
     count = 0
     prev = None
     next = None
-    current_list = None 
+    current_list = None
     index = -1
 
     if queryset_model and queryset_pk_list and object_id in queryset_pk_list:
-        count = len(queryset_pk_list)     
+        count = len(queryset_pk_list)
         ct = ContentType.objects.get_for_model(queryset_model)
         index = queryset_index_dict.get('%s_%s' % (ct.id, object_id), 0)
-            
+
         if index > 0:
             try: # try in case if the previous item is deleted in the meantime
                 prev = queryset_model._default_manager.get(
@@ -82,7 +83,7 @@ def prev_next_processor(request):
                     )
             except:
                 pass
-        
+
         # now make the link to the list...
         current_list = source_list
         if not current_list.endswith("/"):
@@ -93,7 +94,7 @@ def prev_next_processor(request):
                 current_list += "?%s&page=%d" % (last_query_string, page)
             else:
                 current_list += "?page=%d" % page
-    
+
     return {'current_count' : count,
             'current_index' : index + 1,   # we pass the index 1-based to the template
             'prev_item': prev,
@@ -101,4 +102,3 @@ def prev_next_processor(request):
             'current_list': current_list,
             'queryset_pk_list': queryset_pk_list,
             }
-

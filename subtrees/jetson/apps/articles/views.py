@@ -31,8 +31,9 @@ def get_articles(
     elif status == STATUS_CODE_DRAFT:
         queryset = Article.draft_objects.select_related()
     else:
-        raise NotImplementedError, "You provided an unknown status. Cannot continue."
-    
+        # any status
+        queryset = Article.objects.select_related()
+
     if type_sysname and type_sysname != 'all':
         queryset = queryset.filter(article_type__slug=type_sysname)
         
@@ -429,7 +430,7 @@ def article_object_detail(request, year, month, day, article_slug, type_sysname=
     """
     if not extra_context:
         extra_context = {}
-    queryset = get_articles(type_sysname, status)
+    queryset = get_articles(type_sysname=type_sysname, status=None)
     
     # get the requested article
     try:
@@ -439,7 +440,10 @@ def article_object_detail(request, year, month, day, article_slug, type_sysname=
     else:
         #update the "views field"
         article.increase_views()
-    
+
+    if not article.is_published() and not request.user.has_perm("articles.change_article"):
+        return access_denied(request)
+
     context_dict = extra_context
 
     try:

@@ -49,7 +49,7 @@
                     {% selectable fileobject.filetype query.type %}
                     {% if selectable and fileobject.filetype != "Folder" %}
                         <!-- select original -->
-                        <button class="grp-button fb_selectlink" onclick="OpenFile(ProtectPath('{{ fileobject.url|escapejs }}'));return false;">
+                        <button class="grp-button fb_selectlink" onclick="OpenFile(ProtectPath('{{ fileobject.url|escapejs }}'), '{{ f_description.author|escapejs }}', '{{ f_description.title|escapejs }}');return false;">
                             {% trans "Select" %}
                         </button>
                         <!-- select versions -->
@@ -142,4 +142,3 @@
         {% endwith %}
     </tr>
 {% endfor %}
-
