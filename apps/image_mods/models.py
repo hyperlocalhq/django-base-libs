@@ -468,7 +468,7 @@ class ImageModification(models.Model):
             im.load()
         except IOError:
             pass
-        except ValueError:
+        except (ValueError, OSError):
             return False
 
         if im.mode != "RGB":

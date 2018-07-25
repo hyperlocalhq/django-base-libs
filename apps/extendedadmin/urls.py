@@ -78,7 +78,7 @@ if is_installed("mailing.models"):
 urlpatterns += patterns(path_in_installed_app('history.views'),
     # history views
     url(r'^(?P<app_label>[^/]+)/(?P<model_name>[^/]+)/(?P<object_id>.+)/history/$', 'object_history', name="admin_object_history"),
-    url(r'^auth/user/(?P<object_id>.+)/activities/$', 'user_activity_history', name="admin_user_activity_history"),
+    url(r'^auth/user/(?P<object_id>[^/]+)/activities/$', 'user_activity_history', name="admin_user_activity_history"),
     )
 
 # file browser

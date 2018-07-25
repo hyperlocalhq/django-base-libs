@@ -11,6 +11,7 @@ if (!(domain_bits.length==4 && !isNaN(domain_bits[3]))) {
 window.settings = {
     root_dir: "/",
     media_url: "{{ media_url }}",
+    media_host: "{{ media_host }}",
     jetson_media_url: "{{ jetson_media_url }}",
     css_url: "{{ css_url }}",
     img_url: "{{ img_url }}",
@@ -127,7 +128,7 @@ window.dyn_css_rule = function(sSelector, sCssText) {
         }
     } catch(err) {
         var tag = document.createElement('style');
-        tag.type = 'text/css'; 
+        tag.type = 'text/css';
         try {
             tag.innerHTML = sSelector + " {" + sCssText + "}";
         } catch(err) {
@@ -142,7 +143,7 @@ window.dyn_css_rule = function(sSelector, sCssText) {
  *  Adds or replaces GET parameters or hash parameters and redirects to that view.
  *  @sParams - string of params with leading "?" or "#"
  *  @oDict - a dictionary of parameters to add or replace.
- *  @bReturn - true if params string should be returned, false if page should be redirected 
+ *  @bReturn - true if params string should be returned, false if page should be redirected
  *  If null is passed as a value for a parameter, the parameter will be removed.
  *  Example:
  *      append_to_get({paginate_by: 2, page: null}) will change
@@ -172,10 +173,10 @@ window.append_to_params = function(sParams, oDict, bReturn) {
             aParams.push(sKey + "=" + encodeURI(oParams[sKey]));
         }
     }
-    var sPath = ""; 
+    var sPath = "";
     sParams = aParams.join("&");
     sPath = sSep + sParams;
-    
+
     if (bReturn) {
         return sParams;
     } else {

@@ -7,8 +7,8 @@ from django.utils.encoding import force_unicode
 from django.db import models
 from django.db.models.query import QuerySet
 from django.template.defaultfilters import striptags
-from base_libs.templatetags.base_tags import decode_entities
 
+from base_libs.utils.html import decode_entities
 from base_libs.utils.misc import get_website_url
 
 def add_vevent(cal, event_time):
