@@ -1,6 +1,8 @@
 {% extends "productions/events/base.html" %}
 {% load i18n crispy_forms_tags %}
 
+{% block csp_scripts %}'unsafe-eval'{% endblock %}
+
 {% block stylesheet %}
     {{ block.super }}
     <link href="{{ STATIC_URL }}site/css/fileuploader.css" media="screen" rel="stylesheet" type="text/css" />

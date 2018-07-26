@@ -1,6 +1,8 @@
 {% extends "productions/forms/base.html" %}
 {% load base_tags crispy_forms_tags i18n sekizai_tags %}
 
+{% block csp_scripts %}'unsafe-eval'{% endblock %}
+
 {% block stylesheet %}
     {{ block.super }}
     <link href="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.autocomplete.css" rel="stylesheet" />
