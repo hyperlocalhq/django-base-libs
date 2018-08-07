@@ -151,10 +151,10 @@
                         $.post(
                             '/' + self.settings.lang + '/helper/modified-path/',
                             {
-                                file_path: responseJSON.path,
+                                file_path: self.settings.media_url + responseJSON.path,
                                 mod_sysname: 'medium'
                             }, function(data, textStatus, jqXHR) {
-                                $('.preview', $logo_upload_widget).html('<img class="img-responsive" alt="" src="/media/' + data + '" />');
+                                $('.preview', $logo_upload_widget).html('<img class="img-responsive" alt="" src="' + data + '" />');
                             },
                             'text'
                         );
