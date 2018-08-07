@@ -1,3 +1,5 @@
+// main:style.scss
+
 @charset "UTF-8";
 
 #body {
@@ -20,26 +22,26 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-        
+
     margin-bottom: 60px;
-    
+
     .is-xs & {
-        margin-bottom: 30px; 
+        margin-bottom: 30px;
     }
-    
+
     a.content {
         width: 100%;
         display: block;
         position: relative;
         margin: 0 0 20px;
         background: $cyan;
-        
+
         img {
             width: 100%;
             padding: 0;
             margin: 0;
         }
-        
+
         h2 {
             width: 100%;
             padding: 0 20px;
@@ -54,14 +56,14 @@
             word-wrap: break-word;
             color: $white;
             visibility: hidden;
-            
+
             .is-sm & {
                 font-size: 1.6em;
                 line-height: 100%;
                 padding: 0 10px;
             }
         }
-        
+
         p {
             width: 100%;
             padding: 0 20px;
@@ -73,33 +75,50 @@
             line-height: 125%;
             color: $white;
             visibility: hidden;
-            
+
             .is-sm & {
                 padding: 0 10px;
             }
-            
+
             time {
                 display: block;
                 margin-bottom: 5px;
             }
         }
-        
+
+        .event-grid-over {
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+
+            h2 {
+                position: static;
+            }
+
+            p {
+                position: static;
+            }
+        }
+
         &:hover, &:focus, &.hover {
             img {
                 opacity: 0.33;
             }
             h2 {
                 visibility: visible;
+                margin-bottom: 10px;
+                font-size: 1.5rem;
             }
             p {
                 visibility: visible;
+                margin-bottom: 10px;
             }
         }
     }
-    
+
     &.magazine {
         margin-bottom: 80px;
-        
+
         a.content {
             h2 {
                 .is-md & {

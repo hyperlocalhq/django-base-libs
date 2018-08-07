@@ -16,7 +16,7 @@
 
     {% show_welcome_message request.user %}
 
-    {% if object_list %}
+    {% if not object_list %}
 
         <h2>{% trans "Activities" %}</h2>
 

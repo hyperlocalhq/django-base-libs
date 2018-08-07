@@ -7513,16 +7513,33 @@ ul.info-box li ul.content .line + * a:hover, ul.info-box li ul.content .line + *
   margin-bottom: 5px;
 }
 
+.row.event-grid a.content .event-grid-over {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+}
+
+.row.event-grid a.content .event-grid-over h2 {
+  position: static;
+}
+
+.row.event-grid a.content .event-grid-over p {
+  position: static;
+}
+
 .row.event-grid a.content:hover img, .row.event-grid a.content:focus img, .row.event-grid a.content.hover img {
   opacity: 0.33;
 }
 
 .row.event-grid a.content:hover h2, .row.event-grid a.content:focus h2, .row.event-grid a.content.hover h2 {
   visibility: visible;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
 }
 
 .row.event-grid a.content:hover p, .row.event-grid a.content:focus p, .row.event-grid a.content.hover p {
   visibility: visible;
+  margin-bottom: 10px;
 }
 
 .row.event-grid.magazine {
