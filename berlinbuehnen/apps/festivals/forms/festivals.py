@@ -840,7 +840,7 @@ def cancel_editing(request, instance=None):
 
 FESTIVAL_FORM_STEPS = {
     'basic': {
-        'title': _("Theater"),
+        'title': _("Festival"),
         'template': "festivals/forms/basic_info_form.html",
         'form': BasicInfoForm,
         'formsets': {
