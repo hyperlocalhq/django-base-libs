@@ -1070,6 +1070,12 @@ canvas.fawesome {
 .fawesome.fa-info:before {
     content: "\f05a";
 }
+.fawesome.fa-person:before {
+    content: "\f21d";
+}
+.fawesome.fa-institution:before {
+    content: "\f19c";
+}
 
 
 
@@ -1347,4 +1353,10 @@ canvas.fawesome {
 }
 .fawesome.fa-info.after:after {
     content: "\f05a";
+}
+.fawesome.fa-person.after:after {
+    content: "\f21d";
+}
+.fawesome.fa-institution.after:after {
+    content: "\f19c";
 }

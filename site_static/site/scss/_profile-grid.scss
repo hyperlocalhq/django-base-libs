@@ -28,6 +28,15 @@
 
     .is-xs & {
         margin-bottom: 30px;
+
+        > div {
+            a.content {
+                &:after {
+                    right: 20px;
+                    bottom: inherit;
+                }
+            }
+        }
     }
 
     > div {
@@ -36,6 +45,15 @@
         a.content {
             display: block;
             background: $grey-dark;
+
+            &:after {
+                position: absolute;
+                right: 20px;
+                bottom: 30px;
+                font-size: 1.2rem;
+                color: $white;
+            }
+
             &:hover, &:focus {
                 background: $black;
             }
@@ -189,9 +207,23 @@
                 border-bottom: 1px solid $grey-bright;
                 padding-top: 20px;
                 position: relative;
+
+                &.fa-institution {
+                    background: $institution-bg;
+                }
+
+                &:after {
+                    position: absolute;
+                    right: 10px;
+                    top: 20px;
+                    font-size: 1.2rem;
+                    color: $black;
+                }
+
                 &:hover, &:focus {
                     background: $white-dirty;
                 }
+
                 img {
                     width: 100px;
                     float: left;
@@ -351,6 +383,17 @@
                 border-bottom: 1px solid $grey;
                 padding-top: 20px;
 
+                &.fa-institution, &.fa-institution:hover {
+                    background: $institution-bg;
+                }
+
+                &:after {
+                    position: absolute;
+                    top: 20px;
+                    font-size: 1.2rem;
+                    color: $black;
+                }
+
                 &:hover {
                     background: $white;
                 }
@@ -430,6 +473,7 @@
     .is-xs &.profile-list, .is-xs.list &.profile-list {
         > div {
             a.content {
+
                 img {
                     width: 80px;
                 }
@@ -446,7 +490,7 @@
                 .text, .name {
                     margin-left: 100px;
                     h2 {
-                        padding-right: 0;
+                        padding-right: 30px;
                     }
                     h3 {
                         padding-top: 3px;

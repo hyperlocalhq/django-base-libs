@@ -1197,7 +1197,7 @@ $(document).ready(function() {
         me.$lists.css('left', '');
 
         var left = 0;
-        var margin = (me.$body.hasClass('is-xs')) ? 40 : 60 ;
+        var margin = (me.$body.hasClass('is-xs')) ? 25 : 60 ;
         me.$lists.each(function() {
 
             var $list = $(this);

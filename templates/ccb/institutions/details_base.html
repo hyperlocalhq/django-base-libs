@@ -16,20 +16,21 @@
 
 
 {% block content %}
-    <div class="header">
+    <div class="header institution">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
+                    {% comment %}
                     <h1>
                         {% if request.user.profile|in_list:object.get_groups.0.get_owners %}
                             {% trans "My Institution" %}
                         {% else %}
                             <a href="{% page_url request.current_page %}">
-                                {% comment %}{% page_attribute "page_title" request.current_page %}{% endcomment %}
                                 {% trans "Institution" %}
                             </a>
                         {% endif %}
                     </h1>
+                    {% endcomment %}
                     <div class="profile">
 
                         <div class="edit-avatar avatar-edit-frame">
@@ -81,8 +82,8 @@
         <div class="menu tabs">
             <div class="container">
                 <div class="row">
-                    <div class="hidden-xs col-sm-4 col-md-3 headline">
-                        <h2>{% ifequal request.user object.user %}{% trans "My Profile" %}{% else %}
+                    <div class="col-sm-4 col-md-3 headline">
+                        <h2 class="fawesome fa-institution">{% ifequal request.user object.user %}{% trans "My Profile" %}{% else %}
                             {% trans "Institution" %}{% endifequal %}</h2>
                     </div>
                     <div class="navi">
