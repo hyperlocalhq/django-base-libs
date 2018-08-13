@@ -1,0 +1,853 @@
+<?xml version="1.0" encoding="utf-8"?>
+<response>
+    <meta>
+        <!-- The API URL for the next page (or empty string for the last page) -->
+        <next>http://example.com/api/productions/?page=3</next>
+        <!-- The API URL for the previous page (or empty string for the first page) -->
+        <previous>http://example.com/api/productions/?page=1</previous>
+        <!-- How many productions are there in total? -->
+        <total_count>200</total_count>
+        <!-- What is the maximal amount of productions per page? -->
+        <items_per_page>50</items_per_page>
+    </meta>
+    <productions>
+        <production>
+            <!-- Unique production ID on your website -->
+            <id>123</id>
+            <!-- Production creation timestamp in ISO 8601 format -->
+            <creation_date>2016-04-14T16:27:38</creation_date>
+            <!-- Production modification timestamp in ISO 8601 format -->
+            <modified_date>2016-04-14T16:27:38</modified_date>
+            <!-- Publishing status, one of: "draft", "published", "not_listed", "expired", "trashed" -->
+            <status>published</status>
+            <!-- Title prefix in German -->
+            <prefix_de></prefix_de>
+            <!-- Title prefix in English -->
+            <prefix_en></prefix_en>
+            <!-- Title in German -->
+            <title_de>Rotkäppchen</title_de>
+            <!-- Title in English -->
+            <title_en>Little Red Riding Hood</title_en>
+            <!-- Subtitle (Unterüberschrift) in German -->
+            <subtitle_de></subtitle_de>
+            <!-- Subtitle (Unterüberschrift) in English -->
+            <subtitle_en></subtitle_en>
+            <!-- Original title in German -->
+            <original_de></original_de>
+            <!-- Original title in English -->
+            <original_en></original_en>
+            <!-- A link to the your website page about this production in German -->
+            <website_de>http://example.com/de/productions/123/</website_de>
+            <!-- A link to the your website page about this production in English -->
+            <website_en>http://example.com/en/productions/123/</website_en>
+            <!-- Plain-text description in German -->
+            <description_de></description_de>
+            <!-- Plain-text description in English -->
+            <description_en></description_en>
+            <!-- Plain-text teaser in German -->
+            <teaser_de></teaser_de>
+            <!-- Plain-text teaser in English -->
+            <teaser_en></teaser_en>
+            <!-- Plain-text work info in German -->
+            <work_info_de></work_info_de>
+            <!-- Plain-text work info in English -->
+            <work_info_en></work_info_en>
+            <!-- Plain-text contents in German -->
+            <contents_de></contents_de>
+            <!-- Plain-text contents in English -->
+            <contents_en></contents_en>
+            <!-- Plain-text press text in German -->
+            <press_text_de></press_text_de>
+            <!-- Plain-text press text in English -->
+            <press_text_en></press_text_en>
+            <!-- Plain-text credits in German -->
+            <credits_de></credits_de>
+            <!-- Plain-text credits in English -->
+            <credits_en></credits_en>
+
+            <!-- Plain-text concert program in German -->
+            <concert_program_de></concert_program_de>
+            <!-- Plain-text concert program in English -->
+            <concert_program_en></concert_program_en>
+            <!-- Plain-text supporting program in German -->
+            <supporting_program_de></supporting_program_de>
+            <!-- Plain-text supporting program in English -->
+            <supporting_program_en></supporting_program_en>
+            <!-- Plain-text remarks in German -->
+            <remarks_de></remarks_de>
+            <!-- Plain-text remarks in English -->
+            <remarks_en></remarks_en>
+            <!-- Plain-text information about duration in German -->
+            <duration_text_de></duration_text_de>
+            <!-- Plain-text information about duration in English -->
+            <duration_text_en></duration_text_en>
+            <!-- Plain-text information about subtitles in German -->
+            <subtitles_text_de></subtitles_text_de>
+            <!-- Plain-text information about subtitles in English -->
+            <subtitles_text_en></subtitles_text_en>
+            <!-- Plain-text information about the age of the audience in German -->
+            <age_text_de></age_text_de>
+            <!-- Plain-text information about the age of the audience in English -->
+            <age_text_en></age_text_en>
+
+            <!-- Ensemble or ensembles playing in this production -->
+            <ensembles></ensembles>
+            <!-- Organizer or organizers of this production -->
+            <organizers></organizers>
+            <!-- Cooperator or cooperators -->
+            <in_cooperation_with></in_cooperation_with>
+            <!-- Is the entrance free? One of "true" or "false" -->
+            <free_entrance>false</free_entrance>
+            <!-- Price from in Euros (decimal, no currency sign included) -->
+            <price_from>8.00</price_from>
+            <!-- Price till in Euros (decimal, no currency sign included) -->
+            <price_till>12.00</price_till>
+            <!-- The URL of a website page where you can buy tickets to this production -->
+            <tickets_website></tickets_website>
+            <!-- Additional plain-text information about prices in German -->
+            <price_information_de></price_information_de>
+            <!-- Additional plain-text information about prices in English -->
+            <price_information_en></price_information_en>
+            <!-- Audience age from (integer) -->
+            <age_from></age_from>
+            <!-- Audience age till (integer) -->
+            <age_till></age_till>
+            <!-- The URL of a website page with educational offer -->
+            <edu_offer_website></edu_offer_website>
+
+            <!-- Theaters organizing this production. Check the list of available IDs at the specification -->
+            <in_program_of>
+                <location_id>2</location_id>
+                <location_id>3</location_id>
+            </in_program_of>
+            <!-- Theaters where this production takes place. Check the list of available IDs at the specification -->
+            <play_locations>
+                <location_id>4</location_id>
+                <location_id>5</location_id>
+            </play_locations>
+            <!-- Stages where this production takes place. Check the list of available IDs at the specification -->
+            <play_stages>
+                <stage_id>1</stage_id>
+                <stage_id>2</stage_id>
+            </play_stages>
+
+            <!-- Location title (if play_locations is empty) -->
+            <location_title></location_title>
+            <!-- Street address (first line) of the location (if play_locations is empty) -->
+            <street_address></street_address>
+            <!-- Street address (second line) of the location (if play_locations is empty) -->
+            <street_address2></street_address2>
+            <!-- Postal code of the location (if play_locations is empty) -->
+            <postal_code></postal_code>
+            <!-- City of the location (if play_locations is empty) -->
+            <city></city>
+            <!-- Latitude of the location (if play_locations is empty, decimal format) -->
+            <latitude>52.5192</latitude>
+            <!-- Longitude of the location (if play_locations is empty, decimal format) -->
+            <longitude>13.4061</longitude>
+
+            <!-- Categories. Check the list of available IDs at the specification -->
+            <categories>
+                <category_id>1</category_id>
+                <category_id>2</category_id>
+            </categories>
+            <!-- Characteristics. Check the list of available IDs at the specification -->
+            <characteristics>
+                <characteristic_id>premiere</characteristic_id>
+                <characteristic_id>vorauffuehrung</characteristic_id>
+            </characteristics>
+
+            <leaders>
+                <leader>
+                    <!-- One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" -->
+                    <prefix_id>ms-dr</prefix_id>
+                    <!-- First name of the person -->
+                    <first_name>Erika E.</first_name>
+                    <!-- Last name of the person -->
+                    <last_name>M. Mustermann</last_name>
+                    <!-- Description in German what this leader is doing for the production -->
+                    <function_de>Direktorin</function_de>
+                    <!-- Description in English what this leader is doing for the production -->
+                    <function_en>Director</function_en>
+                    <!-- Sort order (integer) -->
+                    <sort_order>1</sort_order>
+                </leader>
+                <leader>
+                    <!-- Last name of the person -->
+                    <last_name>Mustermann</last_name>
+                    <!-- Description in German what this leader is doing for the production -->
+                    <function_de>Direktorin</function_de>
+                    <!-- Description in English what this leader is doing for the production -->
+                    <function_en>Director</function_en>
+                    <!-- Sort order (integer) -->
+                    <sort_order>2</sort_order>
+                </leader>
+            </leaders>
+            <authors>
+                <author>
+                    <!-- One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" -->
+                    <prefix_id>mr</prefix_id>
+                    <!-- First name of the person -->
+                    <first_name>Max M.</first_name>
+                    <!-- Last name of the person -->
+                    <last_name>M. Mustermann</last_name>
+                    <!-- What did this author do in the production? One of: "komponist", "autor", "uebersetzer" -->
+                    <authorship_type_id>komponist</authorship_type_id>
+                    <!-- Sort order (integer) -->
+                    <sort_order>1</sort_order>
+                </author>
+                <author>
+                    <!-- Last name of the person -->
+                    <last_name>Mustermann</last_name>
+                    <!-- What did this author do in the production? One of: "komponist", "autor", "uebersetzer" -->
+                    <authorship_type_id>komponist</authorship_type_id>
+                    <!-- Sort order (integer) -->
+                    <sort_order>2</sort_order>
+                </author>
+            </authors>
+            <participants>
+                <participant>
+                    <!-- One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" -->
+                    <prefix_id>mr</prefix_id>
+                    <!-- First name of the person -->
+                    <first_name>Otto</first_name>
+                    <!-- Last name of the person -->
+                    <last_name>Normalverbraucher</last_name>
+                    <!-- Involvement type ID. Check the list of available IDs at the specification -->
+                    <involvement_type_id>musik</involvement_type_id>
+                    <!-- Role in German -->
+                    <role_de/>
+                    <!-- Role in English -->
+                    <role_en/>
+                    <!-- Instrument in German -->
+                    <instrument_de>Klavier</instrument_de>
+                    <!-- Instrument in English -->
+                    <instrument_en>Piano</instrument_en>
+                    <!-- Sort order (integer) -->
+                    <sort_order>1</sort_order>
+                </participant>
+                <participant>
+                    <!-- Last name of the person -->
+                    <last_name>Müller</last_name>
+                    <!-- Involvement type ID. Check the list of available IDs at the specification -->
+                    <involvement_type_id>schauspieler</involvement_type_id>
+                    <!-- Sort order (integer) -->
+                    <sort_order>2</sort_order>
+                </participant>
+            </participants>
+
+            <videos>
+                <video>
+                    <!-- Creation timestamp in ISO 8601 format -->
+                    <creation_date>2016-04-14T16:27:38</creation_date>
+                    <!-- Modification timestamp in ISO 8601 format -->
+                    <modified_date>2016-04-14T16:27:38</modified_date>
+                    <!-- Title in German -->
+                    <title_de></title_de>
+                    <!-- Title in English -->
+                    <title_en></title_en>
+                    <!-- HTML embed code -->
+                    <embed></embed>
+                    <!-- Sort order of the video (integer) -->
+                    <sort_order>1</sort_order>
+                </video>
+                <video>
+                    <!-- Creation timestamp in ISO 8601 format -->
+                    <creation_date>2016-04-14T16:27:38</creation_date>
+                    <!-- Title in German -->
+                    <title_de></title_de>
+                    <!-- Title in English -->
+                    <title_en></title_en>
+                    <!-- HTML embed code -->
+                    <embed></embed>
+                    <!-- Sort order of the video (integer) -->
+                    <sort_order>2</sort_order>
+                </video>
+            </videos>
+            <live_streams>
+                <live_stream>
+                    <!-- Creation timestamp in ISO 8601 format -->
+                    <creation_date>2016-04-14T16:27:38</creation_date>
+                    <!-- Modification timestamp in ISO 8601 format -->
+                    <modified_date>2016-04-14T16:27:38</modified_date>
+                    <!-- Title in German -->
+                    <title_de></title_de>
+                    <!-- Title in English -->
+                    <title_en></title_en>
+                    <!-- HTML embed code -->
+                    <embed></embed>
+                    <!-- Sort order of the video (integer) -->
+                    <sort_order>1</sort_order>
+                </live_stream>
+                <live_stream>
+                    <!-- Creation timestamp in ISO 8601 format -->
+                    <creation_date>2016-04-14T16:27:38</creation_date>
+                    <!-- Title in German -->
+                    <title_de></title_de>
+                    <!-- Title in English -->
+                    <title_en></title_en>
+                    <!-- HTML embed code -->
+                    <embed></embed>
+                    <!-- Sort order of the video (integer) -->
+                    <sort_order>2</sort_order>
+                </live_stream>
+            </live_streams>
+            <images>
+                <image>
+                    <!-- Creation timestamp in ISO 8601 format -->
+                    <creation_date>2016-04-14T16:27:38</creation_date>
+                    <!-- Modification timestamp in ISO 8601 format -->
+                    <modified_date>2016-04-14T16:27:38</modified_date>
+                    <!-- URL of the original (largest scale) image in JPG or PNG format -->
+                    <url>http://example.com/media/589231.jpg</url>
+                    <!-- Title in German -->
+                    <title_de></title_de>
+                    <!-- Title in English -->
+                    <title_en></title_en>
+                    <!-- Plain-text description in German -->
+                    <description_de></description_de>
+                    <!-- Plain-text description in English -->
+                    <description_en></description_en>
+                    <!-- Author's first and last name -->
+                    <author></author>
+                    <!-- One of: "general_use" or "protected" -->
+                    <copyright_restrictions>general_use</copyright_restrictions>
+                    <!-- Copyright information -->
+                    <copyright>© 2016 example.com</copyright>
+                    <!-- Sort order of the image (integer) -->
+                    <sort_order>1</sort_order>
+                </image>
+                <image>
+                    <!-- Creation timestamp in ISO 8601 format -->
+                    <creation_date>2016-04-14T16:27:38</creation_date>
+                    <!-- URL of the original (largest scale) image in JPG or PNG format -->
+                    <url>http://example.com/media/589231.jpg</url>
+                    <!-- Title in German -->
+                    <title_de></title_de>
+                    <!-- Title in English -->
+                    <title_en></title_en>
+                    <!-- One of: "general_use" or "protected" -->
+                    <copyright_restrictions>general_use</copyright_restrictions>
+                    <!-- Sort order of the image (integer) -->
+                    <sort_order>2</sort_order>
+                </image>
+            </images>
+            <pdfs>
+                <pdf>
+                    <!-- Creation timestamp in ISO 8601 format -->
+                    <creation_date>2016-04-14T16:27:38</creation_date>
+                    <!-- Modification timestamp in ISO 8601 format -->
+                    <modified_date>2016-04-14T16:27:38</modified_date>
+                    <!-- URL of the PDF document -->
+                    <url>http://example.com/media/564285.pdf</url>
+                    <!-- Title in German -->
+                    <title_de></title_de>
+                    <!-- Title in English -->
+                    <title_en></title_en>
+                    <!-- Plain-text description in German -->
+                    <description_de></description_de>
+                    <!-- Plain-text description in English -->
+                    <description_en></description_en>
+                    <!-- Author's first and last name -->
+                    <author></author>
+                    <!-- Copyright information -->
+                    <copyright>© 2016 example.com</copyright>
+                    <!-- Sort order of the image (integer) -->
+                    <sort_order>1</sort_order>
+                </pdf>
+                <pdf>
+                    <!-- Creation timestamp in ISO 8601 format -->
+                    <creation_date>2016-04-14T16:27:38</creation_date>
+                    <!-- URL of the PDF document -->
+                    <url>http://example.com/media/564285.pdf</url>
+                    <!-- Title in German -->
+                    <title_de></title_de>
+                    <!-- Title in English -->
+                    <title_en></title_en>
+                    <!-- Sort order of the image (integer) -->
+                    <sort_order>2</sort_order>
+                </pdf>
+            </pdfs>
+            <social_media>
+                <social_media_channel>
+                    <!-- "Facebook", "Twitter", "Google+", etc. -->
+                    <channel_type>Facebook</channel_type>
+                    <!-- URL of the social media profile -->
+                    <url>https://www.facebook.com/berlinbuehnen</url>
+                </social_media_channel>
+                <social_media_channel>
+                    <!-- "Facebook", "Twitter", "Google+", etc. -->
+                    <channel_type>Facebook</channel_type>
+                    <!-- URL of the social media profile -->
+                    <url>https://www.facebook.com/berlinbuehnen</url>
+                </social_media_channel>
+            </social_media>
+            <!-- Language and subtitles. Check the list of available IDs at the specification -->
+            <language_and_subtitles_id>in-deutscher-sprache</language_and_subtitles_id>
+            <sponsors>
+                <sponsor>
+                    <!-- Creation timestamp in ISO 8601 format -->
+                    <creation_date>2016-04-14T16:27:38</creation_date>
+                    <!-- Modification timestamp in ISO 8601 format -->
+                    <modified_date>2016-04-14T16:27:38</modified_date>
+                    <!-- URL of the sponsor website -->
+                    <website>http://example.com/sponsor/</website>
+                    <!-- URL of the sponsor logo in JPG or PNG format -->
+                    <image_url>http://example.com/media/sponsor-logo.png</image_url>
+                    <!-- Title in German -->
+                    <title_de></title_de>
+                    <!-- Title in English -->
+                    <title_en></title_en>
+                </sponsor>
+                <sponsor>
+                    <!-- Creation timestamp in ISO 8601 format -->
+                    <creation_date>2016-04-14T16:27:38</creation_date>
+                    <!-- URL of the sponsor website -->
+                    <website>http://example.com/sponsor/</website>
+                    <!-- URL of the sponsor logo in JPG or PNG format -->
+                    <image_url>http://example.com/media/sponsor-logo.png</image_url>
+                </sponsor>
+                <sponsor>
+                    <!-- Creation timestamp in ISO 8601 format -->
+                    <creation_date>2016-04-14T16:27:38</creation_date>
+                    <!-- Title in German -->
+                    <title_de></title_de>
+                    <!-- Title in English -->
+                    <title_en></title_en>
+                </sponsor>
+                <sponsor>
+                    <!-- Creation timestamp in ISO 8601 format -->
+                    <creation_date>2016-04-14T16:27:38</creation_date>
+                </sponsor>
+            </sponsors>
+
+            <events>
+                <event>
+                    <!-- Unique event ID on your website -->
+                    <id>123</id>
+                    <!-- Event creation timestamp in ISO 8601 format -->
+                    <creation_date>2016-04-14T16:27:38</creation_date>
+                    <!-- Event modification timestamp in ISO 8601 format -->
+                    <modified_date>2016-04-14T16:27:38</modified_date>
+                    <!-- Start date in ISO 8601 format -->
+                    <start_date>2016-04-14</start_date>
+                    <!-- End date in ISO 8601 format -->
+                    <end_date>2016-04-14</end_date>
+                    <!-- Start time in ISO 8601 format -->
+                    <start_time>20:00</start_time>
+                    <!-- End time in ISO 8601 format -->
+                    <end_time>23:00</end_time>
+                    <!-- Duration time in ISO 8601 format -->
+                    <duration>3:00</duration>
+                    <!-- Amount of pauses (integer) -->
+                    <pauses>2</pauses>
+
+                    <!-- Theaters where this event takes place. Check the list of available IDs at the specification -->
+                    <play_locations>
+                        <location_id>2</location_id>
+                        <location_id>3</location_id>
+                    </play_locations>
+                    <!-- Stages where this event takes place. Check the list of available IDs at the specification -->
+                    <play_stages>
+                        <stage_id>1</stage_id>
+                        <stage_id>2</stage_id>
+                    </play_stages>
+
+                    <!-- Location title (if play_locations is empty) -->
+                    <location_title></location_title>
+                    <!-- Street address (first line) of the location (if play_locations is empty) -->
+                    <street_address></street_address>
+                    <!-- Street address (second line) of the location (if play_locations is empty) -->
+                    <street_address2></street_address2>
+                    <!-- Postal code of the location (if play_locations is empty) -->
+                    <postal_code></postal_code>
+                    <!-- City of the location (if play_locations is empty) -->
+                    <city></city>
+                    <!-- Latitude of the location (if play_locations is empty, decimal format) -->
+                    <latitude>52.5192</latitude>
+                    <!-- Longitude of the location (if play_locations is empty, decimal format) -->
+                    <longitude>13.4061</longitude>
+
+                    <organizers></organizers>
+
+                    <!-- Plain-text description in German -->
+                    <description_de></description_de>
+                    <!-- Plain-text description in English -->
+                    <description_en></description_en>
+                    <!-- Plain-text teaser in German -->
+                    <teaser_de></teaser_de>
+                    <!-- Plain-text teaser in English -->
+                    <teaser_en></teaser_en>
+                    <!-- Plain-text work info in German -->
+                    <work_info_de></work_info_de>
+                    <!-- Plain-text work info in English -->
+                    <work_info_en></work_info_en>
+                    <!-- Plain-text contents in German -->
+                    <contents_de></contents_de>
+                    <!-- Plain-text contents in English -->
+                    <contents_en></contents_en>
+                    <!-- Plain-text press text in German -->
+                    <press_text_de></press_text_de>
+                    <!-- Plain-text press text in English -->
+                    <press_text_en></press_text_en>
+                    <!-- Plain-text credits in German -->
+                    <credits_de></credits_de>
+                    <!-- Plain-text credits in English -->
+                    <credits_en></credits_en>
+
+                    <!-- Plain-text concert program in German -->
+                    <concert_program_de></concert_program_de>
+                    <!-- Plain-text concert program in English -->
+                    <concert_program_en></concert_program_en>
+                    <!-- Plain-text supporting program in German -->
+                    <supporting_program_de></supporting_program_de>
+                    <!-- Plain-text supporting program in English -->
+                    <supporting_program_en></supporting_program_en>
+                    <!-- Plain-text remarks in German -->
+                    <remarks_de></remarks_de>
+                    <!-- Plain-text remarks in English -->
+                    <remarks_en></remarks_en>
+                    <!-- Plain-text information about duration in German -->
+                    <duration_text_de></duration_text_de>
+                    <!-- Plain-text information about duration in English -->
+                    <duration_text_en></duration_text_en>
+                    <!-- Plain-text information about subtitles in German -->
+                    <subtitles_text_de></subtitles_text_de>
+                    <!-- Plain-text information about subtitles in English -->
+                    <subtitles_text_en></subtitles_text_en>
+                    <!-- Plain-text information about the age of the audience in German -->
+                    <age_text_de></age_text_de>
+                    <!-- Plain-text information about the age of the audience in English -->
+                    <age_text_en></age_text_en>
+
+                    <!-- Is the entrance free? One of "true" or "false" -->
+                    <free_entrance>false</free_entrance>
+                    <!-- Price from in Euros (decimal, no currency sign included) -->
+                    <price_from>8.00</price_from>
+                    <!-- Price till in Euros (decimal, no currency sign included) -->
+                    <price_till>12.00</price_till>
+                    <!-- The URL of a website page where you can buy tickets to this event -->
+                    <tickets_website></tickets_website>
+                    <!-- Additional plain-text information about prices in German -->
+                    <price_information_de></price_information_de>
+                    <!-- Additional plain-text information about prices in English -->
+                    <price_information_en></price_information_en>
+
+                    <!-- Event status. One of: "takes_place" or "canceled" -->
+                    <event_status>takes_place</event_status>
+                    <!-- Tickets' status. One of: "tickets_@_box_office" or "sold_out" -->
+                    <ticket_status>tickets_@_box_office</ticket_status>
+
+                    <!-- Intended for ClassicCard holders? One of "true" or "false" -->
+                    <classiccard>false</classiccard>
+
+                    <!-- Characteristics. Check the list of available IDs at the specification -->
+                    <characteristics>
+                        <characteristic_id>premiere</characteristic_id>
+                        <characteristic_id>vorauffuehrung</characteristic_id>
+                    </characteristics>
+
+                    <leaders>
+                        <leader>
+                            <!-- One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" -->
+                            <prefix_id>ms-dr</prefix_id>
+                            <!-- First name of the person -->
+                            <first_name>Erika</first_name>
+                            <!-- Last name of the person -->
+                            <last_name>Mustermann</last_name>
+                            <!-- Description in German what this leader is doing for the event -->
+                            <function_de>Direktorin</function_de>
+                            <!-- Description in English what this leader is doing for the event -->
+                            <function_en>Director</function_en>
+                            <!-- Sort order (integer) -->
+                            <sort_order>1</sort_order>
+                        </leader>
+                        <leader>
+                            <!-- Last name of the person -->
+                            <last_name>Mustermann</last_name>
+                            <!-- Description in German what this leader is doing for the event -->
+                            <function_de>Direktorin</function_de>
+                            <!-- Description in English what this leader is doing for the event -->
+                            <function_en>Director</function_en>
+                            <!-- Sort order (integer) -->
+                            <sort_order>2</sort_order>
+                        </leader>
+                    </leaders>
+                    <authors>
+                        <author>
+                            <!-- One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" -->
+                            <prefix_id>mr</prefix_id>
+                            <!-- First name of the person -->
+                            <first_name>Max</first_name>
+                            <!-- Last name of the person -->
+                            <last_name>Mustermann</last_name>
+                            <!-- What did this author do in the event? One of: "komponist", "autor", "uebersetzer" -->
+                            <authorship_type_id>komponist</authorship_type_id>
+                            <!-- Sort order (integer) -->
+                            <sort_order>1</sort_order>
+                        </author>
+                        <author>
+                            <!-- Last name of the person -->
+                            <last_name>Mustermann</last_name>
+                            <!-- What did this author do in the event? One of: "komponist", "autor", "uebersetzer" -->
+                            <authorship_type_id>komponist</authorship_type_id>
+                            <!-- Sort order (integer) -->
+                            <sort_order>2</sort_order>
+                        </author>
+                    </authors>
+                    <participants>
+                        <participant>
+                            <!-- One of: "mr", "ms", "dr", "prof", "mr-dr", "ms-dr", "mr-prof", "ms-prof", "mr-prof-dr", "ms-prof-dr" -->
+                            <prefix_id>mr</prefix_id>
+                            <!-- First name of the person -->
+                            <first_name>Otto</first_name>
+                            <!-- Last name of the person -->
+                            <last_name>Normalverbraucher</last_name>
+                            <!-- Involvement type ID. Check the list of available IDs at the specification -->
+                            <involvement_type_id>musik</involvement_type_id>
+                            <!-- Role in German -->
+                            <role_de/>
+                            <!-- Role in English -->
+                            <role_en/>
+                            <!-- Instrument in German -->
+                            <instrument_de>Klavier</instrument_de>
+                            <!-- Instrument in English -->
+                            <instrument_en>Piano</instrument_en>
+                            <!-- Sort order (integer) -->
+                            <sort_order>1</sort_order>
+                        </participant>
+                        <participant>
+                            <!-- Last name of the person -->
+                            <last_name>Müller</last_name>
+                            <!-- Involvement type ID. Check the list of available IDs at the specification -->
+                            <involvement_type_id>schauspieler</involvement_type_id>
+                            <!-- Role in German -->
+                            <role_de>Rotkäppchen</role_de>
+                            <!-- Role in English -->
+                            <role_en>Little Red Riding Hood</role_en>
+                            <!-- Instrument in German -->
+                            <instrument_de/>
+                            <!-- Instrument in English -->
+                            <instrument_en/>
+                            <!-- Sort order (integer) -->
+                            <sort_order>2</sort_order>
+                        </participant>
+                    </participants>
+
+                    <videos>
+                        <video>
+                            <!-- Creation timestamp in ISO 8601 format -->
+                            <creation_date>2016-04-14T16:27:38</creation_date>
+                            <!-- Modification timestamp in ISO 8601 format -->
+                            <modified_date>2016-04-14T16:27:38</modified_date>
+                            <!-- Title in German -->
+                            <title_de></title_de>
+                            <!-- Title in English -->
+                            <title_en></title_en>
+                            <!-- HTML embed code -->
+                            <embed></embed>
+                            <!-- Sort order of the video (integer) -->
+                            <sort_order>1</sort_order>
+                        </video>
+                        <video>
+                            <!-- Creation timestamp in ISO 8601 format -->
+                            <creation_date>2016-04-14T16:27:38</creation_date>
+                            <!-- Title in German -->
+                            <title_de></title_de>
+                            <!-- Title in English -->
+                            <title_en></title_en>
+                            <!-- HTML embed code -->
+                            <embed></embed>
+                            <!-- Sort order of the video (integer) -->
+                            <sort_order>2</sort_order>
+                        </video>
+                    </videos>
+                    <live_streams>
+                        <live_stream>
+                            <!-- Creation timestamp in ISO 8601 format -->
+                            <creation_date>2016-04-14T16:27:38</creation_date>
+                            <!-- Modification timestamp in ISO 8601 format -->
+                            <modified_date>2016-04-14T16:27:38</modified_date>
+                            <!-- Title in German -->
+                            <title_de></title_de>
+                            <!-- Title in English -->
+                            <title_en></title_en>
+                            <!-- HTML embed code -->
+                            <embed></embed>
+                            <!-- Sort order of the video (integer) -->
+                            <sort_order>1</sort_order>
+                        </live_stream>
+                        <live_stream>
+                            <!-- Creation timestamp in ISO 8601 format -->
+                            <creation_date>2016-04-14T16:27:38</creation_date>
+                            <!-- Title in German -->
+                            <title_de></title_de>
+                            <!-- Title in English -->
+                            <title_en></title_en>
+                            <!-- HTML embed code -->
+                            <embed></embed>
+                            <!-- Sort order of the video (integer) -->
+                            <sort_order>2</sort_order>
+                        </live_stream>
+                    </live_streams>
+                    <images>
+                        <image>
+                            <!-- Creation timestamp in ISO 8601 format -->
+                            <creation_date>2016-04-14T16:27:38</creation_date>
+                            <!-- Modification timestamp in ISO 8601 format -->
+                            <modified_date>2016-04-14T16:27:38</modified_date>
+                            <!-- URL of the original (largest scale) image in JPG or PNG format -->
+                            <url>http://example.com/media/876263.jpg</url>
+                            <!-- Title in German -->
+                            <title_de></title_de>
+                            <!-- Title in English -->
+                            <title_en></title_en>
+                            <!-- Plain-text description in German -->
+                            <description_de></description_de>
+                            <!-- Plain-text description in English -->
+                            <description_en></description_en>
+                            <!-- Author's first and last name -->
+                            <author></author>
+                            <!-- One of: "general_use" or "protected" -->
+                            <copyright_restrictions>general_use</copyright_restrictions>
+                            <!-- Copyright information -->
+                            <copyright>© 2016 example.com</copyright>
+                            <!-- Sort order of the image (integer) -->
+                            <sort_order>1</sort_order>
+                        </image>
+                        <image>
+                            <!-- Creation timestamp in ISO 8601 format -->
+                            <creation_date>2016-04-14T16:27:38</creation_date>
+                            <!-- URL of the original (largest scale) image in JPG or PNG format -->
+                            <url>http://example.com/media/876263.jpg</url>
+                            <!-- Title in German -->
+                            <title_de></title_de>
+                            <!-- Title in English -->
+                            <title_en></title_en>
+                            <!-- Plain-text description in German -->
+                            <description_de></description_de>
+                            <!-- Plain-text description in English -->
+                            <description_en></description_en>
+                            <!-- Author's first and last name -->
+                            <author>Max Mustermann</author>
+                            <!-- One of: "general_use" or "protected" -->
+                            <copyright_restrictions>general_use</copyright_restrictions>
+                            <!-- Copyright information -->
+                            <copyright>© 2016 example.com</copyright>
+                            <!-- Sort order of the image (integer) -->
+                            <sort_order>2</sort_order>
+                        </image>
+                    </images>
+                    <pdfs>
+                        <pdf>
+                            <!-- Creation timestamp in ISO 8601 format -->
+                            <creation_date>2016-04-14T16:27:38</creation_date>
+                            <!-- Modification timestamp in ISO 8601 format -->
+                            <modified_date>2016-04-14T16:27:38</modified_date>
+                            <!-- URL of the PDF document -->
+                            <url>http://example.com/media/985659.pdf</url>
+                            <!-- Title in German -->
+                            <title_de></title_de>
+                            <!-- Title in English -->
+                            <title_en></title_en>
+                            <!-- Plain-text description in German -->
+                            <description_de></description_de>
+                            <!-- Plain-text description in English -->
+                            <description_en></description_en>
+                            <!-- Author's first and last name -->
+                            <author></author>
+                            <!-- Copyright information -->
+                            <copyright>© 2016 example.com</copyright>
+                            <!-- Sort order of the image (integer) -->
+                            <sort_order>1</sort_order>
+                        </pdf>
+                        <pdf>
+                            <!-- Creation timestamp in ISO 8601 format -->
+                            <creation_date>2016-04-14T16:27:38</creation_date>
+                            <!-- URL of the PDF document -->
+                            <url>http://example.com/media/985659.pdf</url>
+                            <!-- Title in German -->
+                            <title_de></title_de>
+                            <!-- Title in English -->
+                            <title_en></title_en>
+                            <!-- Plain-text description in German -->
+                            <description_de></description_de>
+                            <!-- Plain-text description in English -->
+                            <description_en></description_en>
+                            <!-- Author's first and last name -->
+                            <author></author>
+                            <!-- Copyright information -->
+                            <copyright>© 2016 example.com</copyright>
+                            <!-- Sort order of the image (integer) -->
+                            <sort_order>2</sort_order>
+                        </pdf>
+                    </pdfs>
+                    <!-- Language and subtitles. Check the list of available IDs at the specification -->
+                    <language_and_subtitles_id>in-deutscher-sprache</language_and_subtitles_id>
+                    <sponsors>
+                        <sponsor>
+                            <!-- Creation timestamp in ISO 8601 format -->
+                            <creation_date>2016-04-14T16:27:38</creation_date>
+                            <!-- Modification timestamp in ISO 8601 format -->
+                            <modified_date>2016-04-14T16:27:38</modified_date>
+                            <!-- URL of the sponsor website -->
+                            <website>http://example.com/sponsor/</website>
+                            <!-- URL of the sponsor logo in JPG or PNG format -->
+                            <image_url>http://example.com/media/sponsor-logo.png</image_url>
+                            <!-- Title in German -->
+                            <title_de></title_de>
+                            <!-- Title in English -->
+                            <title_en></title_en>
+                        </sponsor>
+                        <sponsor>
+                            <!-- Creation timestamp in ISO 8601 format -->
+                            <creation_date>2016-04-14T16:27:38</creation_date>
+                            <!-- URL of the sponsor website -->
+                            <website>http://example.com/sponsor/</website>
+                            <!-- URL of the sponsor logo in JPG or PNG format -->
+                            <image_url>http://example.com/media/sponsor-logo.png</image_url>
+                        </sponsor>
+                        <sponsor>
+                            <!-- Creation timestamp in ISO 8601 format -->
+                            <creation_date>2016-04-14T16:27:38</creation_date>
+                            <!-- Title in German -->
+                            <title_de></title_de>
+                            <!-- Title in English -->
+                            <title_en></title_en>
+                        </sponsor>
+                        <sponsor>
+                            <!-- Creation timestamp in ISO 8601 format -->
+                            <creation_date>2016-04-14T16:27:38</creation_date>
+                        </sponsor>
+                    </sponsors>
+                </event>
+                <event>
+                    <!-- Unique event ID on your website -->
+                    <id>123</id>
+                    <!-- Event creation timestamp in ISO 8601 format -->
+                    <creation_date>2016-04-14T16:27:38</creation_date>
+                    <!-- Start date in ISO 8601 format -->
+                    <start_date>2016-04-14</start_date>
+                    <!-- Start time in ISO 8601 format -->
+                    <start_time>20:00</start_time>
+
+                    <!-- Event status. One of: "takes_place" or "canceled" -->
+                    <event_status>takes_place</event_status>
+                </event>
+            </events>
+        </production>
+        <production>
+            <!-- Unique production ID on your website -->
+            <id>123</id>
+            <!-- Production creation timestamp in ISO 8601 format -->
+            <creation_date>2016-04-14T16:27:38</creation_date>
+            <!-- Publishing status, one of: "draft", "published", "not_listed", "expired", "trashed" -->
+            <status>trashed</status>
+            <!-- Title in German -->
+            <title_de>Pinocchio</title_de>
+            <!-- Title in English -->
+            <title_en>Pinocchio</title_en>
+            <!-- Subtitle (Unterüberschrift) in German -->
+        </production>
+    </productions>
+</response>

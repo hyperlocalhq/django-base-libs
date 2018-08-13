@@ -1,0 +1,280 @@
+{% extends "base.html" %}
+{% load i18n base_tags image_modifications tagging_tags favorites_tags sekizai_tags auth_extended %}
+
+{% block bodyclass %}favorites{% endblock %}
+
+
+{% block js %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}site/js/share.min.js" defer="defer"></script>
+    <script src="{{ STATIC_URL }}site/js/grid.js" defer="defer"></script>
+    {% include "utils/favorites_scripts.html" %}
+{% endblock %}
+
+{% block title %}{% trans "Favorites" %}{% endblock %}
+{% block open_graph %}
+    <meta property="og:image" content="https://www.berlin-buehnen.de/media/logo_berlinbuehnen_fb_v3.png" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{{ list_options.title|default:_("Favorites") }}" />
+    {% if list_options.description_striped %}<meta property="og:description" content="{{ list_options.description_striped|urlize|striptags }}" />{% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <header>
+                    {% if favorites.locations or favorites.events or favorites.festivals or favorites.departments or favorites.projects %}
+                        <div class="header-icons no-print">
+                            {% if request.user.is_authenticated %}
+                                {% if request.user.id == user_id or request.user.is_staff %}
+                                    <a id="change_favorites_list" class="fawesome edit" data-href="{{ request.path }}change/" data-toggle="tooltip" data-placement="top" title="{% trans "Edit my favorites description" %}" data-tooltip-left="-11">
+                                        <span class="sr-only">{% trans "Edit my favorites description" %}</span>
+                                    </a>
+                                {% endif %}
+                                <a id="send_user_favorites_by_email" class="fawesome email" data-href="{{ request.path }}email/" data-toggle="tooltip" data-placement="top" title="{% trans "Email list to a friend" %}" data-tooltip-left="-11">
+                                    <span class="sr-only">{% trans "Email this list to a friend" %}</span>
+                                </a>
+                            {% endif %}
+                            <a class="fawesome facebook share-facebook" href="javascript:void(0);" data-url="{{ website_url|slice:":-1" }}{{ request.path }}?rand={{ random }}" data-text="{% trans "My favorites at Berlin Bühnen." %}" data-toggle="tooltip" data-placement="top" title="{% trans "Share list on Facebook" %}" data-tooltip-left="-18" data-tooltip-width="150">
+                                <span class="sr-only">{% trans "Share this list on Facebook" %}</span>
+                            </a>
+                            <a class="fawesome twitter share-twitter" data-url="{{ website_url|slice:":-1" }}{{ request.path }}" data-text="{% trans "My favorites at Berlin Bühnen." %}" data-toggle="tooltip" data-placement="top" title="{% trans "Tweet list" %}" data-tooltip-left="-11">
+                                <span class="sr-only">{% trans "Tweet this list" %}</span>
+                            </a>
+                            {% comment %}
+                            <a class="sozial-button icon icon-location" href="{{ request.path }}map/{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}" data-toggle="tooltip" data-placement="left" data-original-title="{% trans "Show list on map" %}">
+                                <span class="sr-only">{% trans "Show this list on map" %}</span>
+                            </a>
+                            {% endcomment %}
+                        </div>
+                    {% endif %}
+                    <h1 class="bottom-line">{{ list_options.title|default:_("Favorites") }}</h1>
+                </header>
+                <div class="col-xs-12 print-padding">
+                    <div class="personalize-wrapper">
+                        {% if list_options.description %}<div class="personalize-copy">{{ list_options.description|urlize|linebreaks }}</div>{% endif %}
+                    </div>
+                    {% if not favorites.locations and not favorites.productions and not favorites.festivals and not favorites.projects %}
+                        <h3>{% trans "You didn't favor any objects." %}</h3>
+                    {% endif %}
+                </div>
+                {% if favorites.locations %}
+                    <div class="col-xs-12 print-padding">
+                        <h2 class="section">{% trans "Theaters" %}</h2>
+                        <div class="grid favorites-grid row">
+                            {% for location in favorites.locations %}
+                                <div class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite">
+                                    <a href="{{ location.get_url_path }}" target="_blank">
+
+                                        <!-- image -->
+                                        <span class="grid-item-image img">
+                                            {% if location.first_image %}
+                                                <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ location.first_image.path|modified_path:"detail_image" }}{% if location.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ location.title|escape }}" />
+                                            {% else %}
+                                                <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
+                                            {% endif %}
+                                            {% if request.user.is_authenticated %}
+                                                {% adding2favorites for location using "favorites/includes/favorite_grid.html" %}
+                                            {% endif %}
+                                        </span>
+
+                                        {% if location.title %}<h2>{{ location.title }}</h2>{% endif %}
+                                        {% if location.subtitle %}<h3>{{ location.subtitle }}</h3>{% endif %}
+                                        {% if location.teaser %}
+                                            <div class="copy">{{ location.get_rendered_teaser }}</div>
+                                        {% elif location.description %}
+                                            <div class="copy">{{ location.get_rendered_description|striptags|truncatewords:20 }}</div>
+                                        {% endif %}
+
+                                    </a>
+                                    <a href="{% url "event_list" %}?locations={{ location.pk }}" class="fawesome more" target="_blank">{% trans "to schedule" %}</a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+                {% if favorites.events %}
+                    <div class="col-xs-12 print-padding">
+                        <h2 class="section">{% trans "Events" %}</h2>
+                        <div class="grid favorites-grid row">
+                            {% for event in favorites.events %}
+                                {% with production=event.production %}
+                                    <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ event.get_url_path }}" target="_blank">
+
+                                        <!-- image -->
+                                        <span class="grid-item-image img">
+                                            {% if production.first_image %}
+                                                <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ production.first_image.path|modified_path:"detail_image" }}{% if production.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ event.production.title|escape }}" />
+                                            {% else %}
+                                                <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
+                                            {% endif %}
+                                            {% if request.user.is_authenticated %}
+                                                {% adding2favorites for event using "favorites/includes/favorite_grid.html" %}
+                                            {% endif %}
+                                        </span>
+
+                                        {% if production.location_title %}
+                                            <h4>{{ production.location_title }}</h4>
+                                        {% elif production.play_locations.exists %}
+                                            <h4>{% for stage in production.play_locations.all %}<span>{{ stage.title }}</span>{% endfor %}</h4>
+                                        {% elif production.in_program_of.exists %}
+                                            <h4>{% for stage in production.in_program_of.all %}<span>{{ stage.title }}</span>{% endfor %}</h4>
+                                        {% endif %}
+                                        {% if production.title %}<h2>{{ production.title }}</h2>{% endif %}
+                                        {% if production.subtitle %}<h3>{{ production.subtitle }}</h3>{% endif %}
+                                        <h3>{{ event.start_date|date:"j. F" }} {{ event.start_time|date:"H:i" }}</h3>
+                                        {% if production.teaser %}
+                                            <div class="copy">{{ production.get_rendered_teaser }}</div>
+                                        {% elif production.description %}
+                                            <div class="copy">{{ production.get_rendered_description|striptags|truncatewords:20 }}</div>
+                                        {% endif %}
+
+                                    </a>
+                                {% endwith %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+                {% if favorites.festivals %}
+                    <div class="col-xs-12 print-padding">
+                        <h2 class="section">{% trans "Festivals" %}</h2>
+                        <div class="grid favorites-grid row">
+                            {% for festival in favorites.festivals %}
+                                <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ festival.get_url_path }}" target="_blank">
+
+                                    <!-- image -->
+                                    <span class="grid-item-image img">
+                                        {% if festival.first_image %}
+                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"detail_image" }}{% if festival.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ festival.title|escape }}" />
+                                        {% else %}
+                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
+                                        {% endif %}
+                                        {% if request.user.is_authenticated %}
+                                            {% adding2favorites for festival using "favorites/includes/favorite_grid.html" %}
+                                        {% endif %} 
+                                    </span>
+                                    {% if festival.organizers.all %}<h4>{% for organizer in festival.organizers.all %}<span>{{ organizer }}</span>{% endfor %}</h4>{% endif %}
+                                    {% if festival.title %}<h2>{{ festival.title }}</h2>{% endif %}
+                                    {% if festival.subtitle %}<h3>{{ festival.subtitle }}</h3>{% endif %}
+                                    {% if festival.start %}
+                                        <h5><time>{{ festival.start|date:"j.m.Y" }}</time>{% if festival.end and festival.start != festival.end %} &nbsp;–&nbsp; <time>{{ festival.end|date:"j.m.Y" }}</time>{% endif %}</h5>
+                                    {% endif %}
+                                    {% if festival.teaser %}
+                                        <div class="copy">{{ festival.get_rendered_teaser }}</div>
+                                    {% elif festival.description %}
+                                        <div class="copy">{{ festival.get_rendered_description|striptags|truncatewords:20 }}</div>
+                                    {% endif %}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+                {% if favorites.departments %}
+                    <div class="col-xs-12 print-padding">
+                        <h2 class="section">{% trans "Educational Departments" %}</h2>
+                        <div class="grid favorites-grid row">
+                            {% for department in favorites.departments %}
+                                <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ department.get_url_path }}" target="_blank">
+
+                                    <!-- image -->
+                                    <span class="grid-item-image img">
+                                        {% if department.first_image %}
+                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ location.first_image.path|modified_path:"detail_image" }}{% if location.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ location.title|escape }}" />
+                                        {% else %}
+                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
+                                        {% endif %}
+                                        {% if request.user.is_authenticated %}
+                                            {% adding2favorites for department using "favorites/includes/favorite_grid.html" %}
+                                        {% endif %}
+                                    </span>
+
+                                    {% if department.title %}<h2>{{ department.title }}</h2>{% endif %}
+                                    {% if department.teaser %}
+                                        <div class="copy">{{ department.get_rendered_teaser }}</div>
+                                    {% elif location.department %}
+                                        <div class="copy">{{ department.get_rendered_description|striptags|truncatewords:20 }}</div>
+                                    {% endif %}
+
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+                {% if favorites.projects %}
+                    <div class="col-xs-12 print-padding">
+                        <h2 class="section">{% trans "Educational Projects" %}</h2>
+                        <div class="grid favorites-grid row">
+                            {% for project in favorites.projects %}
+                                <a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item-favorite" href="{{ project.get_url_path }}" target="_blank">
+
+                                    <!-- image -->
+                                    <span class="grid-item-image img">
+                                        {% with project.get_first_department as department %}
+                                            {% if project.first_image %}
+                                                <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ project.first_image.path|modified_path:"detail_image" }}{% if project.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ project.title|escape }}" />
+                                            {% elif department.first_image %}
+                                                <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ department.first_image.path|modified_path:"detail_image" }}{% if department.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ project.title|escape }}" />
+                                            {% else %}
+                                                <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
+                                            {% endif %}
+                                            {% if request.user.is_authenticated %}
+                                                {% adding2favorites for project using "favorites/includes/favorite_grid.html" %}
+                                            {% endif %}
+                                        {% endwith %}
+                                    </span>
+
+                                    {% if project.get_first_department %}<h4>{{ project.get_first_department.title }}</h4>{% endif %}
+                                    {% if project.title %}<h2>{{ project.title }}</h2>{% endif %}
+                                    {% if project.subtitle %}<h3>{{ project.subtitle }}</h3>{% endif %}
+                                    {% if project.teaser %}
+                                        <div class="copy">{{ project.get_rendered_teaser }}</div>
+                                    {% elif project.description %}
+                                        <div class="copy">{{ project.get_rendered_description|striptags|truncatewords:20 }}</div>
+                                    {% endif %}
+
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {% if facets.selected.latitude and facets.selected.longitude %}
+        {% now "uuuu" as microseconds %}
+        {% addtoblock "js" %}
+            <script src="//maps.google.com/maps/api/js?libraries=geometry&amp;key={{ GOOGLE_API_KEY }}"></script>
+            <script nonce="{{ microseconds|to_base64 }}">
+                $(function() {
+                    var visitor_position = new google.maps.LatLng({{ facets.selected.latitude|stringformat:"f" }}, {{ facets.selected.longitude|stringformat:"f" }});
+                    $('.overview-item').each(function(index, el) {
+                        var object_position = new google.maps.LatLng(parseFloat($(el).data('latitude')), parseFloat($(el).data('longitude')));
+                        var distance_in_meters = google.maps.geometry.spherical.computeDistanceBetween(visitor_position, object_position);
+                        var humanized_distance;
+                        if (distance_in_meters >= 1000) {
+                            humanized_distance = (distance_in_meters/1000).toFixed(1) + ' km';
+                        } else {
+                            humanized_distance = distance_in_meters.toFixed(0) + ' m';
+                        }
+                        $(el).find('.distance').html(humanized_distance);
+                    });
+                })
+            </script>
+        {% endaddtoblock %}
+        {% add_data "script_nonces" microseconds|to_base64 %}
+    {% endif %}
+    {% now "uuuu" as microseconds %}
+    {% addtoblock "js" %}
+        <script nonce="{{ microseconds|to_base64 }}">
+            $('#change_favorites_list').on('click', function() {
+                window.open($(this).data('href'), '_blank', 'width=600,height=750,resizable=yes,scrollbars=yes,location=no,menubar=no,toolbar=no');
+            });
+            $('#send_user_favorites_by_email').on('click', function() {
+                window.open($(this).data('href'), '_blank', 'width=600,height=750,resizable=yes,scrollbars=yes,location=no,menubar=no,toolbar=no');
+            });
+        </script>
+    {% endaddtoblock %}
+    {% add_data "script_nonces" microseconds|to_base64 %}
+{% endblock %}

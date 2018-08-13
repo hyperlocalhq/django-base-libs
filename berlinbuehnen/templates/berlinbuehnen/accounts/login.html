@@ -1,0 +1,18 @@
+{% extends "accounts/base.html" %}
+
+{% load base_tags cms_tags i18n crispy_forms_tags infoblocks %}
+
+{% block title %}{% trans "login" %}{% endblock %}
+
+{% block content %}
+<header>
+  <h2>{% trans "Login" %}</h2>
+</header>
+<div class="infoblock">{% infoblock "login" %}</div>
+{% crispy form %}{# Login form #}
+<footer>
+  <p>{% trans "Forgot your Password?" %} <a href="/{{ LANGUAGE_CODE }}/password-reset/">{% trans "Reset" %}</a></p>
+  <p>{% trans "Don't have an account?" %} <a href="/{{ LANGUAGE_CODE }}/signup/">{% trans "Sign Up" %}</a></p>
+</footer>
+<a class="fawesome back uc" href="{% page_url 'start_page' %}">{% trans "back to home" %}</a>
+{% endblock %}

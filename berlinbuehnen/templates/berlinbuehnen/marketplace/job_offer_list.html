@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n image_modifications base_tags tagging_tags favorites_tags auth_extended %}
+{% block title %}{% trans "Job Offers" %} – {% endblock %}
+{% block bodyclass %}job_offer-list no-transition{% endblock %}
+
+
+{% block js %}
+    <script src="{{ STATIC_URL }}site/js/grid.js" defer="defer"></script>
+    <script src="{{ STATIC_URL }}site/js/list_filter.js" defer="defer"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="content overview">
+        {% include "utils/filter_job_offers.html" %}
+        
+        <div class="container">
+            <div class="row">
+                
+                <h1 class="bottom-line">{% trans "Job Offers" %}</h1>
+                
+                <div class="col-xs-12 print-padding">
+                    
+                    <!-- the list -->
+                    <div id="main_list" class="grid job_offer-grid grid-two-columns grid-autoload row">
+                        {% if page == 1 %}
+                            {% load advertising_tags %}
+                            {% if show_ad %}
+                                {% get_random_zone_ad "marketplace" as job_offers_ad_html %}
+                            {% endif %}
+                        {% endif %}
+                        {% if object_list %}
+                            {% for job_offer in object_list %}
+                                <a class="grid-item col-xs-12 col-sm-12 col-md-6 col-lg-6" href="{{ job_offer.get_url_path }}">
+                                    {% if job_offer.deadline %}<h3>{% trans "Deadline" %}: {{ job_offer.deadline|date:"d.m.Y" }}</h3>{% endif %}
+                                    {% if job_offer.position %}<h2>{{ job_offer.position }}</h2>{% endif %}
+                                    {% if job_offer.company %}<h5>{{ job_offer.company }}</h5>{% endif %}
+                                    {% if job_offer.description %}
+                                        <div class="copy">{{ job_offer.get_rendered_description|striptags|truncatewords:20 }}</div>
+                                    {% endif %}
+                                </a>
+
+                                {% if job_offers_ad_html %}
+                                    {% if forloop.counter == 1 %}
+                                        <div class="grid-item visible-xs col-xs-12 ad-xs">{{ job_offers_ad_html }}</div>
+                                        <div class="grid-item visible-sm col-sm-12 ad-sm">{{ job_offers_ad_html }}</div>
+                                        <div class="grid-item visible-md col-md-6 ad-md">{{ job_offers_ad_html }}</div>
+                                        <div class="grid-item visible-lg col-lg-6 ad-md">{{ job_offers_ad_html }}</div>
+                                    {% endif %}
+                                {% endif %}
+
+                            {% endfor %}
+                            
+                            {% include "utils/pagination.html" %}
+                        {% else %}
+                            {% include "utils/container_empty.html" %}
+                        {% endif %}
+                    </div>
+                        
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,62 @@
+/*
+Error: Undefined variable: "$regular".
+        on line 7 of /Users/aidas/DjangoProjects/git_berlinbuehnen/project/berlinbuehnen/berlinbuehnen/site_static/site/scss/_fonts.scss
+
+2: 
+3: @font-face {
+4:     font-family: 'Webfont';
+5:     src: url('../fonts/web/TitilliumWeb-Regular.eot');
+6:     src: local('☺'), url('../fonts/web/TitilliumWeb-Regular.eot?#') format('embedded-opentype'), url('../fonts/web/TitilliumWeb-Regular.woff') format('woff'), url('../fonts/web/TitilliumWeb-Regular.otf') format('opentype'), url('../fonts/web/TitilliumWeb-Regular.ttf') format('truetype'), url('../fonts/web/TitilliumWeb-Regular.svg#TitilliumWeb-Regular') format('svg');
+7:     font-weight: $regular;
+8: }
+9: @font-face {
+10:     font-family: 'Webfont';
+11:     src: url('../fonts/web/TitilliumWeb-Italic.eot');
+12:     src: local('☺'), url('../fonts/web/TitilliumWeb-Italic.eot?#') format('embedded-opentype'), url('../fonts/web/TitilliumWeb-Italic.woff') format('woff'), url('../fonts/web/TitilliumWeb-Italic.otf') format('opentype'), url('../fonts/web/TitilliumWeb-Italic.ttf') format('truetype'), url('../fonts/web/TitilliumWeb-Italic.svg#TitilliumWeb-Italic') format('svg');
+
+Backtrace:
+/Users/aidas/DjangoProjects/git_berlinbuehnen/project/berlinbuehnen/berlinbuehnen/site_static/site/scss/_fonts.scss:7
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/script/tree/variable.rb:49:in `_perform'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/script/tree/node.rb:50:in `perform'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/visitors/perform.rb:394:in `visit_prop'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/stack.rb:79:in `block in with_base'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/stack.rb:115:in `with_frame'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/stack.rb:79:in `with_base'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/visitors/perform.rb:501:in `block (2 levels) in visit_directive'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/visitors/perform.rb:501:in `map'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/visitors/perform.rb:501:in `block in visit_directive'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/visitors/perform.rb:500:in `visit_directive'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/stack.rb:79:in `block in with_base'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/stack.rb:115:in `with_frame'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/stack.rb:79:in `with_base'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/visitors/base.rb:52:in `map'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/visitors/perform.rb:167:in `block in visit_children'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/visitors/perform.rb:166:in `visit_children'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/visitors/perform.rb:186:in `visit_root'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/visitors/perform.rb:157:in `visit'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/visitors/perform.rb:8:in `visit'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/root_node.rb:36:in `css_tree'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/tree/root_node.rb:20:in `render'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/engine.rb:278:in `render'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/exec/sass_scss.rb:418:in `run'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/exec/sass_scss.rb:63:in `process_result'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/exec/base.rb:52:in `parse'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/exec/base.rb:19:in `parse!'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/bin/scss:13:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Undefined variable: \"$regular\".\A         on line 7 of /Users/aidas/DjangoProjects/git_berlinbuehnen/project/berlinbuehnen/berlinbuehnen/site_static/site/scss/_fonts.scss\A \A 2: \A 3: @font-face {\A 4:     font-family: 'Webfont';\A 5:     src: url('../fonts/web/TitilliumWeb-Regular.eot');\A 6:     src: local('☺'), url('../fonts/web/TitilliumWeb-Regular.eot?#') format('embedded-opentype'), url('../fonts/web/TitilliumWeb-Regular.woff') format('woff'), url('../fonts/web/TitilliumWeb-Regular.otf') format('opentype'), url('../fonts/web/TitilliumWeb-Regular.ttf') format('truetype'), url('../fonts/web/TitilliumWeb-Regular.svg#TitilliumWeb-Regular') format('svg');\A 7:     font-weight: $regular;\A 8: }\A 9: @font-face {\A 10:     font-family: 'Webfont';\A 11:     src: url('../fonts/web/TitilliumWeb-Italic.eot');\A 12:     src: local('☺'), url('../fonts/web/TitilliumWeb-Italic.eot?#') format('embedded-opentype'), url('../fonts/web/TitilliumWeb-Italic.woff') format('woff'), url('../fonts/web/TitilliumWeb-Italic.otf') format('opentype'), url('../fonts/web/TitilliumWeb-Italic.ttf') format('truetype'), url('../fonts/web/TitilliumWeb-Italic.svg#TitilliumWeb-Italic') format('svg');"; }

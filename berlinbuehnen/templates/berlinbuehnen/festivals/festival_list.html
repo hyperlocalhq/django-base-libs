@@ -1,0 +1,97 @@
+{% extends "cms/default.html" %}
+{% load url from future %}
+{% load i18n image_modifications base_tags tagging_tags favorites_tags auth_extended festival_tags fb_tags advertising_tags %}
+
+{% block bodyclass %}festival-list no-transition{% endblock %}
+
+{% block js %}
+    <script src="{{ STATIC_URL }}site/js/grid.js" defer="defer"></script>
+    <script src="{{ STATIC_URL }}site/js/month_slider.js" defer="defer"></script>
+    {% include "utils/favorites_scripts.html" %}
+{% endblock %}
+
+{% block content %}
+    <div class="content overview">
+        <div class="container">
+            <div class="row">
+
+                <a class="fawesome back uc main_clear clear_toggle pull-right headline-link" href="javascript:void(0);">{% trans "back to overview" %}</a>
+                <h1 class="bottom-line"><a href="javascript:void(0);" class="headline-link main_clear">{% trans "Festivals" %}</a></h1>
+                {% month_slider id='main_monthslider' %}
+
+                <div class="col-xs-12 print-padding">
+
+                    <!-- the list -->
+                    {% if object_list %}
+                        <div id="main_list" class="grid festival-grid mazery-grid row">
+
+                            {% if "festivals"|not_empty_ad_zone and show_ad %}
+                                {% random_zone_ad "festivals" %}
+                            {% endif %}
+
+                            {% for festival in object_list %}
+                                <div class="grid-item {% if festival.featured %} featured {% endif %}{% if not festival.first_image %} no-image {% endif %} col-xs-12 col-sm-6 col-md-4 grid-item-favorite"
+                                    data-start="{{ festival.start|date:"U" }}"
+                                    {% if festival.end %}data-end="{{ festival.end|date:"U" }}"
+                                        {% else %}data-end="{{ festival.start|date:"U" }}"{% endif %}>
+                                    <div class="row">
+                                        <a href="{{ festival.get_url_path }}">
+                                            {% if festival.first_image %}
+                                                <span class="grid-item-image">
+                                                    {% if not festival.featured %}
+                                                        <img class="hidden-xs no-print"
+                                                            src="
+                                                                {{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"mazery_image" }}{% if festival.is_editable %}?now={% now "YmdHis" %}{% endif %}"
+                                                            alt="{{ festival.title|escape }}"/>{% endif %}
+                                                    <img class="{% if not festival.featured %} visible-xs {% endif %} no-print"
+                                                        src="
+                                                            {{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"gallery_image" }}{% if festival.is_editable %}?now={% now "YmdHis" %}{% endif %}"
+                                                        alt="{{ festival.title|escape }}"/>
+                                                    {% with festival.first_image.path|file_description as file_desc %}
+                                                        {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                                                    {% endwith %}
+                                                    {% if request.user.is_authenticated %}
+                                                        {% adding2favorites for festival using "favorites/includes/favorite_grid.html" %}
+                                                    {% else %}
+                                                        {% login2favorites using "favorites/includes/favorite_grid_login.html" %}
+                                                    {% endif %}
+                                                </span>
+                                            {% endif %}
+
+                                            {% if festival.title %}
+                                                <h2>{{ festival.title }}</h2>{% endif %}
+                                            {% if festival.subtitle %}
+                                                <h3>{{ festival.subtitle }}</h3>{% endif %}
+                                            {% if festival.start %}
+                                                <h4>
+                                                    <time>{{ festival.start|date:"j.m.Y" }}</time>
+                                                    {% if festival.end and festival.start != festival.end %} &nbsp;–
+                                                        &nbsp;
+                                                        <time>{{ festival.end|date:"j.m.Y" }}</time>{% endif %}
+                                                </h4>{% endif %}
+                                            {% if festival.organizers.all %}
+                                                <dl>
+                                                    <dt>{% trans "Organizer" %}</dt>
+                                                    {% for location in festival.organizers.all %}
+                                                        <dd>
+                                                            {{ location.title }}
+                                                        </dd>
+                                                    {% endfor %}
+                                                </dl>
+                                            {% endif %}
+                                            {% if festival.description %}
+                                                <p class="copy">{{ festival.get_rendered_description|striptags|wordwrap:30|truncatewords:"30" }}</p>{% endif %}
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% include "utils/pagination.html" %}
+                    {% else %}
+                        {% include "utils/container_empty.html" %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
