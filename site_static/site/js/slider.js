@@ -394,6 +394,14 @@
             var wrapper_width = me.$wrapper.width() + 2 * me.margin*2;
             var elements_length = me.$elements.length;
 
+            console.log("-------------------------");
+            console.log("prev: "+me.previous_element);
+            console.log("curr: "+me.current_element);
+            console.log("left: "+$current_element.position().left);
+            console.log("widt: "+$current_element.width());
+            console.log("wrap: "+wrapper_width);
+            console.log("marg: "+me.margin);
+            console.log("---");
 
             // checking if second or second last element are already visible in the slider and move to next element
             if (me.previous_element == 0 && me.previous_element != me.current_element && me.current_element < elements_length-2 && $current_element.position().left + $current_element.width() <= wrapper_width + me.margin) {
@@ -403,6 +411,8 @@
                 me.current_element--;
                 $current_element = $(me.$elements.get(me.current_element));
             }
+            console.log("newc: "+me.current_element);
+            console.log("-------------------------");
 
             me.$elements.css('left', '');
             var current = me.current_element;
