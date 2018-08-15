@@ -420,6 +420,8 @@
             var $next_element = $(me.$elements.get(next_element));
             while (!me.portfolio_first) {
 
+                console.log("next: "+next_element);
+
                 if ( next_element < me.$elements.length && $next_element.position().left + me.margin + ($next_element.width()/2) < me.$wrapper.width()/2 ) {
                     next_element += 1;
                     $next_element = $(me.$elements.get(next_element));
@@ -429,6 +431,8 @@
                 }
 
             }
+
+            console.log("curr: "+me.current_element);
 
             var $current_element = $(me.$elements.get(me.current_element));
 
