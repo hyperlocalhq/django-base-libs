@@ -417,6 +417,7 @@
 
             // checking if the middle of the first current element is next to the middle of the fool slider
 
+            console.log("is_n: "+((me.doing_next) ? "Y" : "N"));
             console.log("cur1: "+me.current_element);
 
             var loaded = true;
