@@ -39,7 +39,7 @@
         me.$prev = null;
         me.$next = null;
 
-        me.doing_next = true;
+        me.doing_next = false;
 
         me.$window.resize(function() {me.styleIt(false, 200);});
         $(document).ready(function() {me.styleIt();});
