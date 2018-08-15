@@ -131,6 +131,8 @@
                             me.animating = false;
                             me.checkNextPrev();
 
+                            me.first_sliding++;
+
                             if (me.timer && me.goto_element < 0) {
                                 me.timeout = setTimeout(function() {me.next();}, me.timer);
                             }
@@ -434,8 +436,7 @@
                         next_element += 1;
                         $next_element = $(me.$elements.get(next_element));
                     } else {
-                        if (me.current_element == next_element) me.first_sliding++;
-                        else me.current_element = next_element;
+                        me.current_element = next_element;
                         first_done = true
                     }
 
