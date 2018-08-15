@@ -416,20 +416,27 @@
             //console.log("-------------------------");
 
             // checking if the middle of the first current element is next to the middle of the fool slider
-            var next_element = me.current_element+1;
-            var $next_element = $(me.$elements.get(next_element));
-            while (!me.portfolio_first) {
+            var loaded = true;
+            $('img', me.$main).each(function() {
+                console.log(this.complete);
+                if (!this.complete) loaded = false;
+            });
+            if (loaded) {
+                var next_element = me.current_element+1;
+                var $next_element = $(me.$elements.get(next_element));
+                while (!me.portfolio_first) {
 
-                console.log("next: "+next_element);
+                    console.log("next: "+next_element);
 
-                if ( next_element < me.$elements.length && $next_element.position().left + me.margin + ($next_element.width()/2) < me.$wrapper.width()/2 ) {
-                    next_element += 1;
-                    $next_element = $(me.$elements.get(next_element));
-                } else {
-                    me.current_element = next_element-1;
-                    me.portfolio_first = true;
+                    if ( next_element < me.$elements.length && $next_element.position().left + me.margin + ($next_element.width()/2) < me.$wrapper.width()/2 ) {
+                        next_element += 1;
+                        $next_element = $(me.$elements.get(next_element));
+                    } else {
+                        me.current_element = next_element-1;
+                        me.portfolio_first = true;
+                    }
+
                 }
-
             }
 
             console.log("curr: "+me.current_element);
