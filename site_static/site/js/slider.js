@@ -416,12 +416,12 @@
             //console.log("-------------------------");
 
             // checking if the middle of the first current element is next to the middle of the fool slider
-            //var loaded = true;
-            //$('img', me.$main).each(function() {
-            //    console.log(this.complete);
-            //    if (!this.complete) loaded = false;
-            //});
-            //if (loaded) {
+            var loaded = true;
+            $('img', me.$main).each(function() {
+                console.log(this.complete);
+                if (!this.complete) loaded = false;
+            });
+            if (loaded) {
                 var first_done = false;
                 var next_element = me.current_element+1;
                 var $next_element = $(me.$elements.get(next_element));
@@ -439,7 +439,7 @@
                     }
 
                 }
-            //}
+            }
 
             console.log("curr: "+me.current_element);
 
