@@ -416,15 +416,16 @@
             //console.log("-------------------------");
 
             // checking if the middle of the first current element is next to the middle of the fool slider
-            var loaded = true;
-            $('img', me.$main).each(function() {
-                console.log(this.complete);
-                if (!this.complete) loaded = false;
-            });
-            if (loaded) {
+            //var loaded = true;
+            //$('img', me.$main).each(function() {
+            //    console.log(this.complete);
+            //    if (!this.complete) loaded = false;
+            //});
+            //if (loaded) {
+                var first_done = false;
                 var next_element = me.current_element+1;
                 var $next_element = $(me.$elements.get(next_element));
-                while (!me.portfolio_first) {
+                while (!me.portfolio_first && !first_done) {
 
                     console.log("next: "+next_element);
 
@@ -433,11 +434,12 @@
                         $next_element = $(me.$elements.get(next_element));
                     } else {
                         me.current_element = next_element-1;
-                        me.portfolio_first = true;
+                        first_done = true;
+                        //me.portfolio_first = true;
                     }
 
                 }
-            }
+            //}
 
             console.log("curr: "+me.current_element);
 
@@ -716,6 +718,7 @@
         }
 
         me.styleIt(true);
+        me.portfolio_first = true;
 
         return false;
     }
@@ -739,6 +742,7 @@
         }
 
         me.styleIt(true);
+        me.portfolio_first = true;
     }
 
     /**
@@ -766,6 +770,7 @@
         }
 
         me.styleIt(true);
+        me.portfolio_first = true;
     }
 
     /**
