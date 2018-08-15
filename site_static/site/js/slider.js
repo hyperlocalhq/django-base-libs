@@ -772,7 +772,6 @@
             else me.current_element = 0;
         }
 
-        me.doing_next = false;
         me.styleIt(true);
     }
 
