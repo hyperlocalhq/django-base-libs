@@ -433,6 +433,8 @@
                         $next_element = $(me.$elements.get(next_element));
                     } else {
                         me.current_element = next_element;
+                        me.previous_element = me.current_element-1;
+                        if (me.previous_element < 0) me.previous_element = 0;
                         me.first_sliding++;
                     }
 
