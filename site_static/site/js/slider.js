@@ -422,7 +422,7 @@
                 if (!this.complete) loaded = false;
             });
             if (loaded) {
-                var next_element = me.current_element+1;
+                var next_element = me.current_element;
                 var $next_element = $(me.$elements.get(next_element));
                 while (me.first_sliding == 1) {
 
@@ -432,7 +432,7 @@
                         next_element += 1;
                         $next_element = $(me.$elements.get(next_element));
                     } else {
-                        me.current_element = next_element-1;
+                        me.current_element = next_element;
                         me.first_sliding++;
                     }
 
