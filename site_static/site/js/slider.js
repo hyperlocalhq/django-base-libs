@@ -40,6 +40,7 @@
         me.$next = null;
 
         me.first_sliding = 0;
+        me.first_slide_to = 0;
 
         me.$window.resize(function() {me.styleIt(false, 200);});
         $(document).ready(function() {me.styleIt();});
@@ -422,9 +423,10 @@
                 if (!this.complete) loaded = false;
             });
             if (loaded) {
+                var first_done = false;
                 var next_element = me.current_element;
                 var $next_element = $(me.$elements.get(next_element));
-                while (me.first_sliding == 1) {
+                while (me.first_sliding == 1 && !first_done) {
 
                     console.log("next: "+next_element);
 
@@ -432,10 +434,9 @@
                         next_element += 1;
                         $next_element = $(me.$elements.get(next_element));
                     } else {
-                        me.current_element = next_element;
-                        me.previous_element = me.current_element-1;
-                        if (me.previous_element < 0) me.previous_element = 0;
-                        me.first_sliding++;
+                        if (me.current_element == next_element) me.first_sliding++;
+                        else me.current_element = next_element;
+                        first_done = true
                     }
 
                 }
