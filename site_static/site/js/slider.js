@@ -39,8 +39,7 @@
         me.$prev = null;
         me.$next = null;
 
-        me.first_sliding = 0;
-        me.first_slide_to = 0;
+        me.doing_next = true;
 
         me.$window.resize(function() {me.styleIt(false, 200);});
         $(document).ready(function() {me.styleIt();});
@@ -130,8 +129,6 @@
 
                             me.animating = false;
                             me.checkNextPrev();
-
-                            me.first_sliding++;
 
                             if (me.timer && me.goto_element < 0) {
                                 me.timeout = setTimeout(function() {me.next();}, me.timer);
@@ -419,6 +416,9 @@
             //console.log("-------------------------");
 
             // checking if the middle of the first current element is next to the middle of the fool slider
+
+            console.log("cur1: "+me.current_element);
+
             var loaded = true;
             $('img', me.$main).each(function() {
                 console.log(this.complete);
@@ -428,7 +428,7 @@
                 var first_done = false;
                 var next_element = me.current_element;
                 var $next_element = $(me.$elements.get(next_element));
-                while (me.first_sliding == 1 && !first_done) {
+                while (me.doing_next && !first_done) {
 
                     console.log("next: "+next_element);
 
@@ -443,7 +443,7 @@
                 }
             }
 
-            console.log("curr: "+me.current_element);
+            console.log("cur2: "+me.current_element);
 
             var $current_element = $(me.$elements.get(me.current_element));
 
@@ -719,7 +719,7 @@
             else me.current_element = 0;
         }
 
-        me.first_sliding++;
+        me.doing_next = true;
         me.styleIt(true);
 
         return false;
@@ -743,7 +743,7 @@
             else me.current_element = me.$elements.length - 1;
         }
 
-        me.first_sliding++;
+        me.doing_next = false;
         me.styleIt(true);
     }
 
@@ -771,7 +771,7 @@
             else me.current_element = 0;
         }
 
-        me.first_sliding++;
+        me.doing_next = false;
         me.styleIt(true);
     }
 
