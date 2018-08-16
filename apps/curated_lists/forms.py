@@ -158,7 +158,7 @@ class CuratedListFilterForm(forms.Form):
             context_item_qs = ContextItem.objects.none()
 
         self.fields['owner'] = forms.ModelChoiceField(
-            label=_("Owner"),
+            label=_("Curator"),
             empty_label=_("All"),
             queryset=context_item_qs,
             required=False,
