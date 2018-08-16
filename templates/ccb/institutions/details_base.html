@@ -83,8 +83,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-4 col-md-3 headline">
-                        <h2 class="fawesome fa-institution">{% ifequal request.user object.user %}{% trans "My Profile" %}{% else %}
-                            {% trans "Institution" %}{% endifequal %}</h2>
+                        <a href="{% page_url 'network' %}"><h2 class="fawesome fa-institution">{% ifequal request.user object.user %}{% trans "My Profile" %}{% else %}{% trans "Institution" %}{% endifequal %}</h2></a>
                     </div>
                     <div class="navi">
                         <nav>

@@ -5062,8 +5062,8 @@ dd.autocomplete .input-field.ac_loading:after {
 
 .row.profile-grid > div a.content:after {
   position: absolute;
-  right: 20px;
-  bottom: 30px;
+  right: 19px;
+  bottom: 31px;
   font-size: 1.2rem;
   color: #fff;
 }
@@ -5089,13 +5089,15 @@ dd.autocomplete .input-field.ac_loading:after {
 .row.profile-grid > div a.content .text h2, .row.profile-grid > div a.content .name h2 {
   font-family: "MetronicSlabPro", "sans-serif";
   font-weight: 900;
-  font-size: 1.5rem;
-  line-height: 108%;
+  font-size: 1.4rem;
+  line-height: 119%;
   color: #fff;
   padding-left: 20px;
-  padding-right: 10px;
+  padding-right: 35px;
   padding-top: 30px;
   margin: 0;
+  word-break: break-word;
+  word-wrap: break-word;
 }
 
 .row.profile-grid > div a.content .text h3, .row.profile-grid > div a.content .name h3 {
@@ -5228,7 +5230,7 @@ dd.autocomplete .input-field.ac_loading:after {
 .list .row.profile-grid.profile-list > div a.content:after {
   position: absolute;
   right: 10px;
-  top: 20px;
+  top: 19px;
   font-size: 1.2rem;
   color: #000;
 }
@@ -5403,7 +5405,7 @@ dd.autocomplete .input-field.ac_loading:after {
 
 .is-xs .row.profile-grid > div a.content:after, .is-xs.list .row.profile-grid.profile-list > div a.content:after {
   position: absolute;
-  top: 20px;
+  top: 17px;
   font-size: 1.2rem;
   color: #000;
 }
@@ -5511,6 +5513,8 @@ dd.autocomplete .input-field.ac_loading:after {
 
 .is-xs .row.profile-grid.profile-list > div a.content .text h2, .is-xs .row.profile-grid.profile-list > div a.content .name h2, .is-xs.list .row.profile-grid.profile-list > div a.content .text h2, .is-xs.list .row.profile-grid.profile-list > div a.content .name h2 {
   padding-right: 30px;
+  word-break: break-word;
+  word-wrap: break-word;
 }
 
 .is-xs .row.profile-grid.profile-list > div a.content .text h3, .is-xs .row.profile-grid.profile-list > div a.content .name h3, .is-xs.list .row.profile-grid.profile-list > div a.content .text h3, .is-xs.list .row.profile-grid.profile-list > div a.content .name h3 {
@@ -9908,6 +9912,11 @@ img[data-popup-image-src] {
   margin-right: 10px;
   margin-bottom: 5px;
   vertical-align: middle;
+}
+
+.header .menu.tabs a h2 {
+  cursor: pointer;
+  display: inline-block;
 }
 
 .header .menu.tabs ul li a {
