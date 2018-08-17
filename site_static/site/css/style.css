@@ -65,6 +65,11 @@
   font-size: 6.5vw;
 }
 
+.is-xs .fawesome.icon-dynamic-size.smaller:before, .is-xs .fawesome.icon-dynamic-size.smaller.after:after {
+  font-size: 5vw;
+  top: -1vw;
+}
+
 .fawesome.active {
   color: #00cdff !important;
 }
@@ -1184,6 +1189,8 @@ canvas.fawesome.big {
 
 .fawesome.fa-curated:before {
   content: "\f0f6";
+  position: relative;
+  top: -2px;
 }
 
 .fawesome.fa-questionmark:before {

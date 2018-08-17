@@ -44,6 +44,15 @@
                 font-size: 6.5vw;
             }
         }
+
+        &.smaller {
+            &:before, &.after:after {
+                .is-xs & {
+                    font-size: 5vw;
+                    top: -1vw;
+                }
+            }
+        }
     }
 
     &.active {
@@ -1074,6 +1083,8 @@ canvas.fawesome {
 }
 .fawesome.fa-curated:before {
     content: "\f0f6";
+    position: relative;
+    top: -2px;
 }
 .fawesome.fa-questionmark:before {
     content: "\f059";
