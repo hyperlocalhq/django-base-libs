@@ -9,7 +9,7 @@ from django_elasticsearch_dsl import DocType, Index, fields
 
 from filebrowser.models import FileDescription
 from ...apps.locations.models import Location
-from .models import Production, Event
+from .models import Production, Event, ProductionImage, EventImage
 
 # Name of the Elasticsearch index
 search_index = Index('events')
@@ -110,7 +110,7 @@ class EventDocument(DocType):
         fields = ['id']
         # For now we get rid of Location model, because the saving of locations takes too long and times out
         #related_models = [Production, Location]
-        related_models = [Production]
+        related_models = [Production, ProductionImage, EventImage]
 
     def get_queryset(self):
         return super(EventDocument, self).get_queryset().select_related('production').filter(
@@ -123,6 +123,10 @@ class EventDocument(DocType):
     def get_instances_from_related(self, related_instance):
         if isinstance(related_instance, Production):
             return related_instance.event_set.all()
+        elif isinstance(related_instance, ProductionImage):
+            return related_instance.production.event_set.all()
+        elif isinstance(related_instance, EventImage):
+            return related_instance.event
 
         # For now we get rid of Location model, because the saving of locations takes too long and times out
         # If a location is renamed or deleted, all indexes have to be rebuilt with:
