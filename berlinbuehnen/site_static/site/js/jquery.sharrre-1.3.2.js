@@ -1,6 +1,6 @@
 /*
  *  Sharrre.com - Make your sharing widget!
- *  Version: beta 1.3.2 
+ *  Version: beta 1.3.2
  *  Author: Julien Hany
  *  License: MIT http://en.wikipedia.org/wiki/MIT_License or GPLv2 http://en.wikipedia.org/wiki/GNU_General_Public_License
  */
@@ -99,9 +99,11 @@
   ================================================== */
   urlJson = {
     googlePlus: "",
-    facebook: "http://graph.facebook.com/?id={url}&callback=?",
+    facebook: "",
+    //facebook: "http://graph.facebook.com/?id={url}&callback=?",
     //facebook : "http://api.ak.facebook.com/restserver.php?v=1.0&method=links.getStats&urls={url}&format=json"
-    twitter: "http://cdn.api.twitter.com/1/urls/count.json?url={url}&callback=?",
+    twitter: "",
+    //twitter: "http://cdn.api.twitter.com/1/urls/count.json?url={url}&callback=?",
     digg: "http://services.digg.com/2.0/story.getInfo?links={url}&type=javascript&callback=?",
     delicious: 'http://feeds.delicious.com/v2/json/urlinfo/data?url={url}&callback=?',
     //stumbleupon: "http://www.stumbleupon.com/services/1.01/badge.getinfo?url={url}&format=jsonp&callback=?",
@@ -204,7 +206,7 @@
       '<div style="'+cssCount+'background-color:#fff;margin-bottom:5px;overflow:hidden;text-align:center;border:1px solid #ccc;border-radius:3px;">'+count+'</div>'+
       '<div style="'+cssShare+'display:block;padding:0;text-align:center;text-decoration:none;width:50px;background-color:#7EACEE;border:1px solid #40679C;border-radius:3px;color:#fff;">'+
       '<img src="http://www.delicious.com/static/img/delicious.small.gif" height="10" width="10" alt="Delicious" /> Add</div></div></div>');
-      
+
       $(self.element).find('.delicious').on('click', function(){
         self.openPopup('delicious');
       });
@@ -217,7 +219,7 @@
         loading = 1;
         (function() {
           var li = document.createElement('script');li.type = 'text/javascript';li.async = true;
-          li.src = '//platform.stumbleupon.com/1/widgets.js'; 
+          li.src = '//platform.stumbleupon.com/1/widgets.js';
           var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(li, s);
         })();
         s = window.setTimeout(function(){
@@ -239,7 +241,7 @@
         loading = 1;
         (function() {
           var li = document.createElement('script');li.type = 'text/javascript';li.async = true;
-          li.src = '//platform.linkedin.com/in.js'; 
+          li.src = '//platform.linkedin.com/in.js';
           var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(li, s);
         })();
       }
@@ -253,7 +255,7 @@
 
       (function() {
         var li = document.createElement('script');li.type = 'text/javascript';li.async = true;
-        li.src = '//assets.pinterest.com/js/pinit.js'; 
+        li.src = '//assets.pinterest.com/js/pinit.js';
         var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(li, s);
       })();
     }
@@ -344,16 +346,16 @@
   ================================================== */
   function Plugin( element, options ) {
     this.element = element;
-    
+
     this.options = $.extend( true, {}, defaults, options);
     this.options.share = options.share; //simple solution to allow order of buttons
-    
+
     this._defaults = defaults;
     this._name = pluginName;
-    
+
     this.init();
   };
-  
+
   /* Initialization method
   ================================================== */
   Plugin.prototype.init = function () {
@@ -364,7 +366,7 @@
       urlJson.pinterest = this.options.urlCurl + '?url={url}&type=pinterest'; // PHP script for Pinterest...
     }
     $(this.element).addClass(this.options.className); //add class
-    
+
     //HTML5 Custom data
     if(typeof $(this.element).data('title') !== 'undefined'){
       this.options.title = $(this.element).attr('data-title');
@@ -375,14 +377,14 @@
     if(typeof $(this.element).data('text') !== 'undefined'){
       this.options.text = $(this.element).data('text');
     }
-    
+
     //how many social website have been selected
     $.each(this.options.share, function(name, val) {
       if(val === true){
         self.options.shareTotal ++;
       }
     });
-    
+
     if(self.options.enableCounter === true){  //if for some reason you don't need counter
       //get count of social share that have been selected
       $.each(this.options.share, function(name, val) {
@@ -399,7 +401,7 @@
       this.loadButtons();
       this.options.render(this, this.options);
     }
-    
+
     //add hover event
     $(this.element).hover(function(){
       //load social button if enable and 1 time
@@ -410,14 +412,14 @@
     }, function(){
       self.options.hide(self, self.options);
     });
-    
+
     //click event
     $(this.element).click(function(){
       self.options.click(self, self.options);
       return false;
     });
   };
-  
+
   /* loadButtons methode
   ================================================== */
   Plugin.prototype.loadButtons = function () {
@@ -432,7 +434,7 @@
       }
     });
   };
-  
+
   /* getSocialJson methode
   ================================================== */
   Plugin.prototype.getSocialJson = function (name) {
@@ -467,7 +469,7 @@
         self.rendererPerso();
         //console.log(json); //debug
       })
-      .error(function() { 
+      .error(function() {
         self.options.count[name] = 0;
         self.rendererPerso();
        });
@@ -478,7 +480,7 @@
       self.rendererPerso();
     }
   };
-  
+
   /* launch render methode
   ================================================== */
   Plugin.prototype.rendererPerso = function () {
@@ -489,7 +491,7 @@
       this.options.render(this, this.options);
     }
   };
-  
+
   /* render methode
   ================================================== */
   Plugin.prototype.renderer = function () {
@@ -498,31 +500,31 @@
     if(this.options.shorterTotal === true){  //format number like 1.2k or 5M
       total = this.shorterTotal(total);
     }
-    
+
     if(template !== ''){  //if there is a template
       template = template.replace('{total}', total);
       $(this.element).html(template);
     }
     else{ //template by defaults
       $(this.element).html(
-                            '<div class="box"><a class="count" href="#">' + total + '</a>' + 
+                            '<div class="box"><a class="count" href="#">' + total + '</a>' +
                             (this.options.title !== '' ? '<a class="share" href="#">' + this.options.title + '</a>' : '') +
                             '</div>'
                           );
     }
   };
-  
+
   /* format total numbers like 1.2k or 5M
   ================================================== */
   Plugin.prototype.shorterTotal = function (num) {
     if (num >= 1e6){
       num = (num / 1e6).toFixed(2) + "M"
-    } else if (num >= 1e3){ 
+    } else if (num >= 1e3){
       num = (num / 1e3).toFixed(1) + "k"
     }
     return num;
   };
-  
+
   /* Methode for open popup
   ================================================== */
   Plugin.prototype.openPopup = function (site) {
@@ -541,14 +543,14 @@
       _gaq.push(['_trackSocial', tracking[site].site, tracking[site].action]);
     }
   };
-  
+
   /* Methode for add +1 to a counter
   ================================================== */
   Plugin.prototype.simulateClick = function () {
     var html = $(this.element).html();
     $(this.element).html(html.replace(this.options.total, this.options.total+1));
   };
-  
+
   /* Methode for add +1 to a counter
   ================================================== */
   Plugin.prototype.update = function (url, text) {
