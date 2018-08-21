@@ -1230,6 +1230,9 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         if not instance.slug:
             instance.slug = get_unique_value(Production, better_slugify(instance.title_de) or u"production", instance_pk=instance.pk)
 
+        # Don't trigger saving of the search document for the instance and each m2m relationship. We'll do that later.
+        instance._skip_search_document_update = True
+
         instance.save()
 
         instance.festivals.clear()
@@ -1261,6 +1264,10 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             for in_program_of in instance.in_program_of.all():
                 for owner in in_program_of.get_owners():
                     instance.set_owner(owner)
+
+        # Now the time has come! Trigger saving of the search document.
+        instance._skip_search_document_update = False
+        models.signals.post_save.send(type(instance), instance=instance, created=False)
 
         form_step_data['_pk'] = instance.pk
 

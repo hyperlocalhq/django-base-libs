@@ -122,11 +122,24 @@ class EventDocument(DocType):
 
     def get_instances_from_related(self, related_instance):
         if isinstance(related_instance, Production):
-            return related_instance.event_set.all()
+            production = related_instance
+            if not getattr(production, "_skip_search_document_update", False):
+                if production.status == "published" and production.part_set.count() == 0:
+                    return production.event_set.exclude(
+                        event_status="trashed",
+                    )
         elif isinstance(related_instance, ProductionImage):
-            return related_instance.production.event_set.all()
+            production = related_instance.production
+            if production.status == "published" and production.part_set.count() == 0:
+                return production.event_set.exclude(
+                    event_status="trashed",
+                )
         elif isinstance(related_instance, EventImage):
-            return related_instance.event
+            event = related_instance.event
+            production = event.production
+            if production.status == "published" and production.part_set.count() == 0:
+                if event.event_status != "trashed":
+                    return [event]
 
         # For now we get rid of Location model, because the saving of locations takes too long and times out
         # If a location is renamed or deleted, all indexes have to be rebuilt with:
