@@ -47,19 +47,19 @@ def project_detail(request, slug, event_id=None):
     extra_context = {}
     extra_context['department'] = None
     extra_context['event'] = None
-    
+
     if obj.departments.filter(status="published").count():
         try:
             extra_context['department'] = obj.departments.filter(status="published")[0]
         except IndexError:
             pass
-        
+
     if event_id:
         try:
             extra_context['event'] = ProjectTime.objects.filter(pk=event_id)[0]
         except IndexError:
             pass
-        
+
     return object_detail(
         request,
         queryset=qs,
@@ -283,7 +283,7 @@ def duplicate_project(request, slug):
 #
 #     form.helper.form_action = request.path + "?hidden_iframe=1"
 #
-#     base_template = "base.html"
+#     base_template = "base_main.html"
 #     if "hidden_iframe" in request.REQUEST:
 #         base_template = "base_iframe.html"
 #

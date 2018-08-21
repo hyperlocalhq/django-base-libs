@@ -136,7 +136,7 @@ def create_update_video(request, slug, event_id, mediafile_token="", **kwargs):
 
     form.helper.form_action = request.path + "?hidden_iframe=1"
 
-    base_template = "base.html"
+    base_template = "base_main.html"
     if "hidden_iframe" in request.REQUEST:
         base_template = "base_iframe.html"
 
@@ -304,7 +304,7 @@ def create_update_streaming(request, slug, event_id, mediafile_token="", **kwarg
 
     form.helper.form_action = request.path + "?hidden_iframe=1"
 
-    base_template = "base.html"
+    base_template = "base_main.html"
     if "hidden_iframe" in request.REQUEST:
         base_template = "base_iframe.html"
 
@@ -521,7 +521,7 @@ def create_update_image(request, slug, event_id, mediafile_token="", **kwargs):
 
     form.helper.form_action = request.path + "?hidden_iframe=1"
 
-    base_template = "base.html"
+    base_template = "base_main.html"
     if "hidden_iframe" in request.REQUEST:
         base_template = "base_iframe.html"
 
@@ -744,7 +744,7 @@ def create_update_pdf(request, slug, event_id, mediafile_token="", **kwargs):
 
     form.helper.form_action = request.path + "?hidden_iframe=1"
 
-    base_template = "base.html"
+    base_template = "base_main.html"
     if "hidden_iframe" in request.REQUEST:
         base_template = "base_iframe.html"
 
