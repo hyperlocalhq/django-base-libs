@@ -1,7 +1,7 @@
 {% extends "base_fullscreen.html" %}
 {% load base_tags crispy_forms_tags i18n sekizai_tags %}
 
-{% block bodyclass %}popup{% endblock %}
+{% block bodyclass %}{{ block.super }} popup{% endblock %}
 
 {% block content %}
     <div class="form">

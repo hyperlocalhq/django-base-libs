@@ -1,9 +1,9 @@
-{% extends "base.html" %}
+{% extends "base_main.html" %}
 {% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites_tags education_tags production_tags %}
 
 {% block title %}{% trans "Educational Project" %} – {{ object.title }} – {% endblock %}
 
-{% block bodyclass %}project-detail{% endblock %}
+{% block bodyclass %}{{ block.super }} project-detail{% endblock %}
 
 {% block meta_tags %}
     <meta name="description" lang="{{ LANGUAGE_CODE }}" content="{{ object.title }} – {% trans "Educational Projects" %} – Berlin Bühnen" />

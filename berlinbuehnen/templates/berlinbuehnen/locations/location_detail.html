@@ -1,9 +1,9 @@
-{% extends "base.html" %}
+{% extends "base_main.html" %}
 {% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites_tags production_tags festival_tags education_tags cms_tags %}
 
 {% block title %}{% trans "Location" %} – {{ object.title }} – {% endblock %}
 
-{% block bodyclass %}location-detail{% endblock %}
+{% block bodyclass %}{{ block.super }} location-detail{% endblock %}
 
 {% block meta_tags %}
     <link rel="canonical" href="https://www.berlin-buehnen.de{{ request.path }}" />

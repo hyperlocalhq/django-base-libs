@@ -1,7 +1,7 @@
-{% extends "base.html" %}
+{% extends "base_main.html" %}
 {% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites_tags production_tags %}
 {% block title %}{% trans "Job Offer" %} – {{ object.position }} – {% endblock %}
-{% block bodyclass %}job_offer-detail{% endblock %}
+{% block bodyclass %}{{ block.super }} job_offer-detail{% endblock %}
 
 {% block open_graph %}
     <meta property="og:title" content="{{ object.position }}" />
@@ -29,7 +29,7 @@
                     <div class="col-xs-12 print-padding">
                         <a class="fawesome back uc no-print" href="{% url 'job_offer_list' %}">{% trans "back to overview" %}</a>
                         <article>
-                            
+
                             <!-- headlines -->
                             <header>
                                 <!--<div class="header-icons no-print">
@@ -43,12 +43,12 @@
                                     {% endif %}
                                 </h1>
                             </header>
-                            
+
                             <!-- main  part (including sidebar) -->
                             <div class="main">
                                 <div class="container">
                                     <div class="row">
-                                        
+
                                         <!-- main content -->
                                         <div class="col-xs-12 col-md-8 left">
                                             <div class="description">
@@ -58,17 +58,17 @@
                                                 {{ job_offer.get_rendered_remarks }}
                                             </div>
                                         </div>
-                                        
+
                                         <!-- main sidebar -->
                                         <div class="col-xs-12 col-md-4 right">
                                             {% include "marketplace/includes/sidebar.html" %}
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
-                                    
-                            
+
+
 
                         </article>
                     </div>

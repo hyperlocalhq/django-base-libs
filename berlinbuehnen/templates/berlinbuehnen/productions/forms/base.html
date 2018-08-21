@@ -1,5 +1,5 @@
 {% extends "site_specific/dashboard.html" %}
-{% block bodyclass %}dashboard{% endblock %}
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
 {% load base_tags i18n sekizai_tags %}
 
 {% block title %}
@@ -116,4 +116,3 @@
     </script>
     {% add_data "script_nonces" microseconds|to_base64 %}
 {% endblock %}
-

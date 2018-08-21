@@ -1,6 +1,6 @@
-{% extends "base.html" %}
+{% extends "base_main.html" %}
 {% load base_tags i18n crispy_forms_tags sekizai_tags %}
-{% block bodyclass %}search{% endblock %}
+{% block bodyclass %}{{ block.super }} search{% endblock %}
 {% block title %}{% trans "Search" %}{% endblock %}
 
 {% block stylesheet %}
@@ -28,7 +28,7 @@
                         {% add_data "script_nonces" microseconds|to_base64 %}
                     </div>
                 </div>
-            </div>        
+            </div>
         </div>
     </div>
     {% if query and result_groups %}

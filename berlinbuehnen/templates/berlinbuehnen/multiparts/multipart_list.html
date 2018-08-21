@@ -1,8 +1,8 @@
-{% extends "base.html" %}
+{% extends "base_main.html" %}
 {% load url from future %}
 {% load i18n image_modifications base_tags tagging_tags favorites_tags auth_extended sekizai_tags %}
 {% block title %}{% trans "Multipart Productions" %} – {% endblock %}
-{% block bodyclass %}multipart-list no-transition{% endblock %}
+{% block bodyclass %}{{ block.super }} multipart-list no-transition{% endblock %}
 
 
 {% block js %}

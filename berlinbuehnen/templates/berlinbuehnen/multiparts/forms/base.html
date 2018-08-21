@@ -1,5 +1,5 @@
 {% extends "site_specific/dashboard.html" %}
-{% block bodyclass %}dashboard{% endblock %}
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
 {% load i18n %}
 
 {% block title %}
@@ -75,4 +75,3 @@
 {% block footer %}
     {{ block.super }}
 {% endblock %}
-

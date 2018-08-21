@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_main.html" %}
 {% load i18n image_modifications fb_tags base_tags %}
 
 {% block content %}
@@ -24,7 +24,7 @@
                     <a href="{% cropping_url media_file.path "list_image" request request.path %}" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop list image" %}" class="crop icon icon-white icon-tool-crop crop_list_image"></a>
                     <a href="{% cropping_url media_file.path "detail_image" request request.path %}" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop cover image" %}" class="crop icon icon-white icon-tool-crop crop_cover_image"></a>
                 </nav>
-            </div>        
+            </div>
         {% endfor %}
     </div>
 </div>

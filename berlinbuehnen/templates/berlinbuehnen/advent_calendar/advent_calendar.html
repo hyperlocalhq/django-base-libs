@@ -1,7 +1,7 @@
 {% extends "cms/default.html" %}
 {% load cms_tags i18n image_modifications fb_tags %}
 
-{% block bodyclass %}advent-calendar-body{% endblock %}
+{% block bodyclass %}{{ block.super }} advent-calendar-body{% endblock %}
 
 {% block content %}
     <div class="content advent-calendar">

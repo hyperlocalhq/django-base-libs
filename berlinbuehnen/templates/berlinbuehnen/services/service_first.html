@@ -2,7 +2,7 @@
 {% load cms_tags %}
 {# The plugin limitations of this template are defined in settings.CMS_PLACEHOLDER_CONF #}
 
-{% block bodyclass %}service-list no-transition{% endblock %}
+{% block bodyclass %}{{ block.super }} service-list no-transition{% endblock %}
 
 {% block js %}
     <script src="{{ STATIC_URL }}site/js/grid.js" defer="defer"></script>

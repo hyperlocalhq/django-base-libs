@@ -1,7 +1,7 @@
 {% extends "base_map.html" %}
 {% load i18n image_modifications base_tags tagging_tags favorites_tags auth_extended sekizai_tags %}
 {% block title %}{% trans "Theaters" %} – {% endblock %}
-{% block bodyclass %}location-list{% endblock %}
+{% block bodyclass %}{{ block.super }} location-list{% endblock %}
 
 {% block js %}
     <script src="{{ STATIC_URL }}site/js/GetSet.js"></script>
