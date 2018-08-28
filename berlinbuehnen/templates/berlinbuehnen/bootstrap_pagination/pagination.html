@@ -22,14 +22,14 @@
         </li>
     {% endif %}
 {% endif %}
-{% for pagenum, url in page_urls %}
+{% for pagenum, index_range, url in page_urls %}
     {% if page.number == pagenum %}
         <li class="active">
-            <span title="{% trans "Current Page" %}">{{ pagenum }}</span>
+            <span title="Current Page">{% if show_index_range %} {{ index_range }} {% else %} {{ pagenum }} {%endif %}</span>
         </li>
     {% else %}
         <li>
-            <a title="{% blocktrans with num_pages=page.paginator.num_pages %}Page {{ pagenum }} of {{ num_pages }}{% endblocktrans %}" href="{{ url }}">{{ pagenum }}</a>
+            <a title="Page {{ pagenum }} of {{ page.paginator.num_pages }}" href="{{ url|escape }}">{% if show_index_range %} {{ index_range }} {% else %} {{ pagenum }} {%endif %}</a>
         </li>
     {% endif %}
 {% endfor %}
