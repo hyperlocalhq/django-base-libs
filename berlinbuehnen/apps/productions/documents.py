@@ -346,20 +346,19 @@ class EventDocument(DocType):
     # image_path
 
     def prepare_image_path(self, instance):
-        if instance.first_image:
-            return instance.first_image.path.path
+        image_path = ''
+        if instance.first_image and instance.first_image.path:
+            image_path = instance.first_image.path.path
         elif instance.ev_or_prod_images():
-            return instance.ev_or_prod_images()[0].path.path
-        return ''
+            ev_or_prod_image = instance.ev_or_prod_images()[0]
+            if ev_or_prod_image.path:
+                image_path = ev_or_prod_image.path.path
+        return image_path
 
     # image_author
 
     def prepare_image_author(self, instance):
-        image_path = ''
-        if instance.first_image:
-            image_path = instance.first_image.path.path
-        elif instance.ev_or_prod_images():
-            image_path = instance.ev_or_prod_images()[0].path.path
+        image_path = self.prepare_image_path(instance)
         if image_path:
             try:
                 file_description = FileDescription.objects.get(file_path=image_path)
