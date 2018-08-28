@@ -188,7 +188,9 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
     def main(self):
         import requests
         from xml.etree import ElementTree
-        r = requests.get(self.service.url, params={})
+        r = requests.get(self.service.url, params={}, headers={
+            'User-Agent': 'Berlin Buehnen',
+        })
         if r.status_code != 200:
             self.all_feeds_alright = False
             self.stderr.write(u"Error status: %s" % r.status_code)
