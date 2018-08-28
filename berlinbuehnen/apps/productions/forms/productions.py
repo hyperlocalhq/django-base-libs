@@ -1512,7 +1512,13 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             sponsor_dict['id'] = sponsor.pk
             sponsor_ids_to_keep.append(sponsor.pk)
         instance.productionsponsor_set.exclude(pk__in=sponsor_ids_to_keep).delete()
-
+    if current_step == "gallery":
+        if "_pk" in form_step_data:
+            instance = Production.objects.get(pk=form_step_data['_pk'])
+        else:
+            return
+        # trigger saving to the Elasticsearch index
+        models.signals.post_save.send(type(instance), instance=instance, created=False)
     return form_step_data
 
 
