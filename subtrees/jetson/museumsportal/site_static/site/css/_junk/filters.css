@@ -1,0 +1,152 @@
+#filters {
+  max-width: 1200px;
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: 30px !important;
+  background-color: white;
+  z-index: 10000; }
+  #filters .panel + .panel {
+    margin-top: 0px; }
+  #filters .panel-collapse,
+  #filters .panel {
+    background-color: transparent; }
+    #filters .panel-collapse .panel-body,
+    #filters .panel .panel-body {
+      border: none;
+      margin: 0px;
+      padding: 0px; }
+      #filters .panel-collapse .panel-body ul,
+      #filters .panel .panel-body ul {
+        margin: 0px; }
+
+#filter-toggle {
+  display: inline-block; }
+
+#filters .btn {
+  margin-right: 5px;
+  margin-bottom: 5px; }
+  #filters .btn.active {
+    background-color: #00aefd !important;
+    color: white !important; }
+    #filters .btn.active.collapsed {
+      background-color: #f2f2f2 !important;
+      color: black !important; }
+
+#filter-summary {
+  padding-bottom: 15px; }
+  #filter-summary li {
+    display: inline-block;
+    margin-right: 5px; }
+    #filter-summary li a:hover {
+      color: #ff4582; }
+      #filter-summary li a:hover:after {
+        font-size: 15px;
+        top: 2px;
+        position: relative;
+        margin-left: 5px;
+        content: " ";
+        color: white !important;
+        font-weight: 900 !important;
+        background-color: #ff4582;
+        border-radius: 20px;
+        display: inline-block;
+        height: 14px;
+        width: 14px;
+        text-align: center;
+        line-height: 13px;
+        background-image: url("../img/icons/inv/cancel.png");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat; }
+    #filter-summary li:after {
+      content: " / ";
+      opacity: 0.25; }
+    #filter-summary li:first-child:after, #filter-summary li:last-child:after {
+      content: "" !important; }
+  #filter-summary:empty {
+    display: none !important; }
+
+.tags,
+.filter {
+  font-size: 0px;
+  -webkit-transform: translate(0px, 0px);
+  /* Safari and Chrome */
+  -webkit-transition-property: all;
+  -webkit-transition-duration: 0.5s;
+  -webkit-transition-delay: 0s;
+  -webkit-transition-timing: ease-in-out; }
+  .tags .title,
+  .filter .title {
+    display: block;
+    padding-bottom: 10px;
+    font-weight: 700; }
+  .tags li,
+  .filter li {
+    font-size: 16px;
+    line-height: 10px;
+    display: inline-block;
+    color: black;
+    margin-bottom: 5px;
+    margin-right: 5px; }
+    .tags li.x-level-1 a,
+    .filter li.x-level-1 a {
+      background-color: rgba(0, 0, 0, 0.025); }
+    .tags li.x-level-1 .selected, .tags li.x-level-1.active,
+    .filter li.x-level-1 .selected,
+    .filter li.x-level-1.active {
+      background-color: #00aefd;
+      color: white; }
+    .tags li .selected, .tags li.active,
+    .filter li .selected,
+    .filter li.active {
+      background-color: #00aefd;
+      color: white; }
+    .tags li:hover,
+    .filter li:hover {
+      background-color: #f2f2f2; }
+      .tags li:hover a,
+      .filter li:hover a {
+        opacity: 0.8; }
+    .tags li a,
+    .filter li a {
+      color: inherit;
+      background-color: #f2f2f2;
+      display: inline-block;
+      line-height: 10px;
+      white-space: nowrap;
+      padding: 10px;
+      box-sizing: border-box !important;
+      -moz-box-sizing: border-box !important;
+      -webkit-background-clip: padding-box;
+      -moz-background-clip: padding;
+      background-clip: padding-box;
+      -webkit-transform: translate3d(0px, 0, 0) !important;
+      -moz-transform: translate3d(0px, 0, 0) !important;
+      -o-transform: translate3d(0px, 0, 0) !important;
+      transform: translate3d(0px, 0, 0) !important; }
+    .tags li span,
+    .filter li span {
+      background-color: #f2f2f2;
+      color: rgba(0, 0, 0, 0.5);
+      display: inline-block;
+      white-space: nowrap;
+      margin-bottom: 5px;
+      line-height: 10px;
+      padding: 10px; }
+
+.level-1-container li {
+  background-color: #00aefd; }
+  .level-1-container li a {
+    color: white !important;
+    background-color: transparent; }
+  .level-1-container li:hover {
+    background-color: black !important; }
+    .level-1-container li:hover a {
+      opacity: 1 !important; }
+  .level-1-container li.selected, .level-1-container li.active {
+    background-color: black !important; }
+    .level-1-container li.selected a, .level-1-container li.active a {
+      background-color: black !important;
+      color: white !important; }
+    .level-1-container li.selected:hover, .level-1-container li.active:hover {
+      background-color: black !important; }

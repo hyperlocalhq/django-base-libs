@@ -1,0 +1,21 @@
+<div class="tweet" data-tweet-id="t{{ tweet.id }}">
+    <div class="tweet-header">
+        <a href="http://twitter.com/{{ tweet.user.screen_name }}/" title="{{ tweet.user.name }}">
+            <img class="avatar" src="{{ tweet.user.profile_image_url }}" alt="{{ tweet.user.screen_name }}" />
+            <span class="time">{{ tweet.creation_date|date:"j.M Y H:i" }}</span>
+            <span class="fullname">{{ tweet.user.name }}</span>
+            <span class="username">@{{ tweet.user.screen_name }}</span>
+        </a>
+    </div>
+
+    <div class="tweet-text">
+        {% if tweet.tweetmedia_set.count %}
+        <div class="tweet-media">
+            {% for tweet_media in tweet.tweetmedia_set.all %}
+                <img src="{{ tweet_media.media_url }}:thumb" alt="" />
+            {% endfor %}
+        </div>
+        {% endif %}
+        <p>{{ tweet.html|safe }}</p>
+    </div>
+</div>

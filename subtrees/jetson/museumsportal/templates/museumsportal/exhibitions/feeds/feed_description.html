@@ -1,0 +1,11 @@
+{% load i18n image_modifications %}
+{% if obj.start and obj.end %}
+    <h3>{% blocktrans with start=obj.start|date:"d.m.Y" end=obj.end|date:"d.m.Y" museum=obj.museum.title %} From {{ start }} till {{ end }} at {{ museum }}{% endblocktrans %}</h3>
+{% endif %}
+{% if obj.cover_image %}
+    <img alt="" src="http://{{ request.META.HTTP_HOST }}{{ MEDIA_URL }}{{ obj.cover_image|modified_path:"rss" }}" />
+{% else %}{% if obj.museum.cover_image %}
+    <img slt="" src="http://{{ request.META.HTTP_HOST }}{{ MEDIA_URL }}{{ obj.museum.cover_image|modified_path:"rss" }}" />
+{% endif %}{% endif %}
+
+{{ obj.get_rendered_description }}

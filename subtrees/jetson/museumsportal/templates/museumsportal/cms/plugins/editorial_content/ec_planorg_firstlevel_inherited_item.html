@@ -1,0 +1,25 @@
+{% load i18n image_modifications fb_tags %}
+
+<div class="editorial item col-xs-{{ object.col_xs_width|default:"6" }} col-sm-{{ object.col_sm_width|default:"4" }} col-md-{{ object.col_md_width|default:"3" }} col-lg-{{ object.col_lg_width|default:"2" }}{% if object.css_class %} {{ object.css_class }}{% endif %}">
+  <a class="img_left" href="{{ object.website }}">
+    <span class="img" style="margin-top: 8px;">
+      {% if object.image %}
+        <div class="photo-credits-wrapper">
+            <img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{{ object.get_rendered_image_caption|striptags }}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" />
+            {% with object.image|file_description as file_desc %}
+                {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}
+            {% endwith %}
+        </div>
+    {% endif %}
+      {% if object.image_caption %}<p class="sr-only caption">{{ object.get_rendered_image_caption|removetags:"p"|safe }}</p> {% endif %}
+    </span>
+  </a>
+  <a href="{{ object.website }}">
+    <h6>
+      <b>{{ object.title }}</b>
+      {% if object.image_caption %}
+        <br/>{{ object.subtitle }}
+      {% endif %}
+    </h6>
+  </a>
+</div>

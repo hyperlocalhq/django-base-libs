@@ -1,0 +1,69 @@
+{% extends "base_map.html" %}
+{% load i18n image_modifications base_tags tagging_tags favorites auth_extended %}
+{% block title %}{% trans "Exhibitions" %} – {% endblock %}
+{% block bodyclass %}exhibition-list{% endblock %}
+
+{% block js %}
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.min.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
+  <script type="text/javascript">
+    var str_filter_selection = "{% trans "Filter selection" %}";
+  </script>
+{% endblock %}
+
+{% block filters %}
+  {% include "utils/filter_exhibitions.html" %}
+{% endblock %}
+
+{% block list-title %}
+  {% trans "Exhibitions in the Museums of Berlin" %}
+{% endblock %}
+
+{% block map-list %}
+  <div id="container">
+    {% for exhibition in object_list %}
+      {% tags_for_object exhibition as tags %}
+      {% comment %}
+      {% if forloop.counter0 == 1 %}
+          <div class="item">
+              {% load advertising_tags %}
+              {% random_zone_ad 'exhibitions' %}
+          </div>
+      {% endif %}
+      {% endcomment %}
+      <div class="item" data-filter-categories="initial_{{ exhibition.title|slugify|slice:"0:1" }}{% for cat in exhibition.categories.all %} cat_{{ cat.slug }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if exhibition.is_newly_open %} is_newly_open{% endif %}{% if exhibition.is_closing_soon %} is_closing_soon{% endif %}{% if exhibition.is_actual or exhibition.permanent %} is_actual{% endif %}{% if exhibition.is_upcoming %} is_upcoming{% endif %}{% if exhibition.free_entrance %} is_free_entrance{% endif %}{% if exhibition.show_family_ticket %} is_family_ticket{% endif %}{% if exhibition.show_group_ticket %} is_group_ticket{% endif %}{% if exhibition.show_yearly_ticket %} is_yearly_ticket{% endif %}{% if exhibition.member_of_museumspass %} is_museumspass{% endif %}{% if exhibition.suitable_for_disabled %} is_for_disabled{% endif %}{% if exhibition.is_for_children %} is_for_children{% endif %}{% if exhibition.is_today %} is_today{% endif %}{% if exhibition.is_tomorrow %} is_tomorrow{% endif %}{% if exhibition.is_within_7_days %} is_within_7_days{% endif %}{% if exhibition.is_within_30_days %} is_within_30_days{% endif %}{% if exhibition.suitable_for_disabled %} is_suitable_for_disabled{% endif %}{% if exhibition.special %} is_special{% endif %}{% if exhibition.permanent %} is_permanent{% endif %}" style="cursor: pointer" data-geo="{% if exhibition.latitude %}{{ exhibition.latitude|stringformat:"f" }}{% else %}{{ exhibition.museum.latitude|stringformat:"f" }}{% endif %},{% if exhibition.longitude %}{{ exhibition.longitude|stringformat:"f" }}{% else %}{{ exhibition.museum.longitude|stringformat:"f" }}{% endif %}" data-object_id="{{ exhibition.pk }}">
+
+        <a href="{{ exhibition.get_url_path }}">
+          <h4><span class="from_date">{{ exhibition.start|date:"d.m.Y" }}</span> {% if exhibition.permanent %}{% trans "until further notice" %}{% else %}{% if exhibition.end %}{% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %}</h4>
+          <h3>{{ exhibition.title }}</h3>
+          <h4>{{ exhibition.subtitle }}</h4>
+          {% if exhibition.location_name %}
+          <h5>{{ exhibition.location_name }}</h5>
+          {% else %}
+          <h5>{{ exhibition.museum.title }}</h5>
+          {% endif %}
+        </a>
+      </div>
+      <!-- item -->
+    {% endfor %}
+  </div>
+  
+  <script>
+    var aGeopositions = [];
+    {% for exhibition in object_list %}
+      {% if exhibition.latitude or exhibition.museum.latitude %}
+        {% tags_for_object exhibition as tags %}
+        aGeopositions.push({
+            object_id: '{{ exhibition.pk }}',
+            html_src: '{{ exhibition.get_url_path }}ajax/map/',
+            latitude: {% if exhibition.latitude %}{{ exhibition.latitude|stringformat:"f" }}{% else %}{{ exhibition.museum.latitude|stringformat:"f" }}{% endif %},
+            longitude: {% if exhibition.longitude %}{{ exhibition.longitude|stringformat:"f" }}{% else %}{{ exhibition.museum.longitude|stringformat:"f" }}{% endif %},
+            geo: "{% if exhibition.latitude %}{{ exhibition.latitude|stringformat:"f" }}{% else %}{{ exhibition.museum.latitude|stringformat:"f" }}{% endif %},{% if exhibition.longitude %}{{ exhibition.longitude|stringformat:"f" }}{% else %}{{ exhibition.museum.longitude|stringformat:"f" }}{% endif %}",
+            categories: 'initial_{{ exhibition.title|slugify|slice:"0:1" }}{% for cat in exhibition.categories.all %} cat_{{ cat.slug }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if exhibition.is_newly_open %} is_newly_open{% endif %}{% if exhibition.is_closing_soon %} is_closing_soon{% endif %}{% if exhibition.is_actual or exhibition.permanent %} is_actual{% endif %}{% if exhibition.is_upcoming %} is_upcoming{% endif %}{% if exhibition.free_entrance %} is_free_entrance{% endif %}{% if exhibition.show_family_ticket %} is_family_ticket{% endif %}{% if exhibition.show_group_ticket %} is_group_ticket{% endif %}{% if exhibition.show_yearly_ticket %} is_yearly_ticket{% endif %}{% if exhibition.member_of_museumspass %} is_museumspass{% endif %}{% if exhibition.suitable_for_disabled %} is_for_disabled{% endif %}{% if exhibition.is_for_children %} is_for_children{% endif %}{% if exhibition.is_today %} is_today{% endif %}{% if exhibition.is_tomorrow %} is_tomorrow{% endif %}{% if exhibition.is_within_7_days %} is_within_7_days{% endif %}{% if exhibition.is_within_30_days %} is_within_30_days{% endif %}{% if exhibition.suitable_for_disabled %} is_suitable_for_disabled{% endif %}{% if exhibition.special %} is_special{% endif %}{% if exhibition.permanent %} is_permanent{% endif %}'
+        });
+      {% endif %}
+    {% endfor %}
+  </script>
+  {% include "utils/gmap_scripts.html" %}
+{% endblock %}

@@ -1,0 +1,20 @@
+{% load image_modifications fb_tags %}
+<div class="img_block col-xs-{{ object.col_xs_width|default:"12" }} col-sm-{{ object.col_sm_width|default:"12" }} col-md-{{ object.col_md_width|default:"12" }} col-lg-{{ object.col_lg_width|default:"12" }}{% if object.css_class %} {{ object.css_class }}{% endif %}">
+    <div class="photo-credits-wrapper">
+    {% if object.mod %}
+        <img class="img-responsive{% if object.css_class %} {{ object.css_class }}{% endif %}" src="{{ UPLOADS_URL }}{{ object.image|modified_path:object.mod.sysname }}" alt="{{ object.alt|escape }}" />
+    {% else %}
+        <img class="img-responsive{% if object.css_class %} {{ object.css_class }}{% endif %}" src="{{ UPLOADS_URL }}{{ object.image.path|escape }}" alt="{{ object.alt|escape }}" />
+    {% endif %}
+
+    {% with object.image|file_description as file_desc %}
+        {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}
+    </div>
+        {% if file_desc.title %}
+            <span class="title">{{ file_desc.title }}</span>
+        {% endif %}
+        {% if file_desc.description %}
+            <span class="description">{{ file_desc.description }}</span>
+        {% endif %}
+    {% endwith %}
+</div>
