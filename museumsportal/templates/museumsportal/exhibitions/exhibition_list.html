@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n image_modifications base_tags tagging_tags favorites auth_extended exhibitions_tags fb_tags %}
+{% block title %}{% trans "Exhibitions" %} – {% endblock %}
+{% block bodyclass %}exhibition-list no-transition{% endblock %}
+
+{% block js %}
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.min.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/share.js" defer="defer"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
+  <script type="text/javascript">
+    var aGeopositions = [];
+    var str_filter_selection = "{% trans "Filter selection" %}";
+  </script>
+{% endblock %}
+
+{% block content %}
+  <div class="content">
+    <div class="container">
+      <header class="list-header clearfix">
+        <h4 class="visible-xs">{% trans "Exhibitions in the Museums of Berlin" %}</h4>
+
+        <div class="list-controls">
+          <div class="btn-group pull-right" >
+            <a class="btn btn-info" href="{% url "exhibition_list_map" %}">{% trans "Show map" %}</a>
+            <a class="btn btn-info hidden-xs" href="{% url "exhibitions_rss" %}">
+              {% trans "RSS Feed" %}
+            </a>
+          </div>
+          <div class="btn-group pull-left" style="margin-right: 15px;">
+            <button id="toggle-list-filter" class="btn btn-info"  data-parent="#list-filter" data-toggle="collapse" data-target="#list-filter">{% trans "filter" %}<span class="caret black"></span></button>
+            <button id="filter-reset" type="button" class="filter-reset btn btn-info">{% trans "Reset" %}</button>
+          </div>
+          <ul id="filter-summary" class="pull-left">
+            {% if facets.selected.abc or facets.selected.category or facets.selected.subcategory or facets.selected.smart or facets.selected.calendar or facets.selected.selected_date %}
+              <li><b>{% trans "Filter selection" %}:</b></li>
+              {% if facets.selected.abc %}<li data-param="abc" data-value="{{ facets.selected.abc }}"><a href="{% append_to_get abc="" %}">{{ facets.selected.abc }}</a></li>{% endif %}
+              {% if facets.selected.category %}<li data-param="category" data-value="{{ facets.selected.category.slug }}"><a href="{% append_to_get category="" %}">{{ facets.selected.category.title }}</a></li>{% endif %}
+              {% if facets.selected.subcategory %}<li data-param="subcategory" data-value="{{ facets.selected.subcategory.slug }}"><a href="{% append_to_get subcategory="" %}">{{ facets.selected.subcategory.title }}</a></li>{% endif %}
+              {% if facets.selected.smart %}<li data-param="smart" data-value="{{ facets.selected.smart.0 }}"><a href="{% append_to_get smart="" %}">{{ facets.selected.smart.1 }}</a></li>{% endif %}
+              {% if facets.selected.calendar %}<li data-param="calendar" data-value="{{ facets.selected.calendar.0 }}"><a href="{% append_to_get calendar="" %}">{{ facets.selected.calendar.1 }}</a></li>{% endif %}
+              {% if facets.selected.selected_date %}<li data-param="selected_date" data-value="{{ facets.selected.selected_date|date:"Y-m-d" }}"><a href="{% append_to_get selected_date="" %}">{{ facets.selected.selected_date }}</a></li>{% endif %}
+            {% endif %}
+          </ul>
+        </div>
+      </header>
+    </div>
+
+    <div id="list-filter" class="collapse">
+      <div>
+        <div class="container relative">
+          <button class="cancel btn btn-info btn-lg btn-icon"  data-parent="#list-filter" data-toggle="collapse" data-target="#list-filter">
+            <span class="icon icon-remove"></span>
+            <span class="sr-only">{% trans "close" %}</span>
+          </button>
+          {% include "utils/filter_exhibitions.html" %}
+        </div>
+      </div>
+    </div>
+
+    <div id="list">
+      <div class="container">
+        <div id="container">
+          <div class="row row-md grid">
+            {% if page == 1 %}
+              {% load advertising_tags %}
+              {% if show_ad %}
+                {% get_random_zone_ad "exhibitions" as exhibitions_ad_html %}
+              {% endif %}
+            {% endif %}
+            {% if object_list %}
+              {% for exhibition in object_list|are_open:facets.selected %}
+                {% tags_for_object exhibition as tags %}
+                <div class="item col-xs-12 col-sm-4 col-md-4 col-lg-3" data-filter-categories="initial_{{ exhibition.title|slugify|slice:"0:1" }}{% for cat in exhibition.categories.all %} cat_{{ cat.slug }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if exhibition.is_newly_open %} is_newly_open{% endif %}{% if exhibition.is_closing_soon %} is_closing_soon{% endif %}{% if exhibition.is_actual or exhibition.permanent %} is_actual{% endif %}{% if exhibition.is_upcoming %} is_upcoming{% endif %}{% if exhibition.free_entrance %} is_free_entrance{% endif %}{% if exhibition.show_family_ticket %} is_family_ticket{% endif %}{% if exhibition.show_group_ticket %} is_group_ticket{% endif %}{% if exhibition.show_yearly_ticket %} is_yearly_ticket{% endif %}{% if exhibition.member_of_museumspass %} is_museumspass{% endif %}{% if exhibition.suitable_for_disabled %} is_for_disabled{% endif %}{% if exhibition.is_for_children %} is_for_children{% endif %}{% if exhibition.is_today %} is_today{% endif %}{% if exhibition.is_tomorrow %} is_tomorrow{% endif %}{% if exhibition.is_within_7_days %} is_within_7_days{% endif %}{% if exhibition.is_within_30_days %} is_within_30_days{% endif %}{% if exhibition.suitable_for_disabled %} is_suitable_for_disabled{% endif %}{% if exhibition.special %} is_special{% endif %}{% if exhibition.permanent %} is_permanent{% endif %}" style="cursor: pointer" data-description-src="{{ exhibition.get_url_path }}ajax/">
+                  <a href="{{ exhibition.get_url_path }}">
+                    <span class="img">
+                        <div class="photo-credits-wrapper">
+                            {% if exhibition.cover_image %}
+                              <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"exhibition_list" }}{% if_has_perm "exhibitions.change_exhibition" exhibition %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+                              {% with exhibition.cover_image|file_description as file_desc %}
+                                  {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}
+                              {% endwith %}
+                            {% else %}
+                              <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ exhibition.museum.cover_image|modified_path:"exhibition_list" }}{% if_has_perm "exhibitions.change_exhibition" exhibition %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+                              {% with exhibition.museum.cover_image|file_description as file_desc %}
+                                  {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}
+                              {% endwith %}
+                            {% endif %}
+                        </div>
+                    </span>
+
+                    <h4><span class="from_date">{{ exhibition.start|date:"d.m.Y" }}</span> {% if exhibition.permanent %}{% trans "until further notice" %}{% else %}{% if exhibition.end %}{% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %}</h4>
+                    <h3>{{ exhibition.title }}</h3>
+                    <h4>{{ exhibition.subtitle }}</h4>
+                    {% if exhibition.location_name %}
+                    <h5>{{ exhibition.location_name }}</h5>
+                    {% else %}
+                    <h5>{{ exhibition.museum.title }}</h5>
+                    {% endif %}
+                  </a>
+                  {% if not request.is_mobile %}
+                    {% if_has_perm "exhibitions.change_exhibition" exhibition %}
+                      {% if exhibition.cover_image %}
+                        <a href="{% cropping_url exhibition.cover_image "exhibition_list" request request.path %}" class="btn btn-default btn-round crop hidden-xs" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}">
+                          <span class="icon icon-white icon-tool-crop"></span>
+                        </a>
+                      {% else %}
+                        <a href="{% cropping_url exhibition.museum.cover_image "exhibition_list" request request.path %}" class="btn btn-default btn-round crop hidden-xs" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}">
+                          <span class="icon icon-white icon-tool-crop"></span>
+                        </a>
+                      {% endif %}
+                    {% end_if_has_perm %}
+                  {% endif %}
+                  <div class="description"></div>
+                </div>
+                {% if exhibitions_ad_html %}
+                  {% if forloop.counter == 2 %}
+                    <div class="item visible-sm col-sm-4">{{ exhibitions_ad_html }}</div>
+                    <div class="item visible-md col-md-4">{{ exhibitions_ad_html }}</div>
+                  {% endif %}
+                  {% if forloop.counter == 3 %}
+                    <div class="item visible-lg col-lg-3">{{ exhibitions_ad_html }}</div>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+              {% include "utils/pagination.html" %}
+            {% else %}
+              {% include "utils/container_empty.html" %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

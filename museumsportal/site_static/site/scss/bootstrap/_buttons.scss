@@ -1,0 +1,232 @@
+//
+// Buttons
+// --------------------------------------------------
+
+
+// Base styles
+// --------------------------------------------------
+
+// Core styles
+.btn-icon {
+  padding: 0px !important;
+}
+
+.btn-round,
+.btn-icon {
+  padding: 0px !important;
+  text-align: center;
+  max-height: 40px;
+
+  .icon {
+    display: inline-block;
+    font-family: 'DingRegular';
+    font-style: normal;
+    font-weight: normal;
+    text-align: center;
+    font-size: 13px;
+    -webkit-font-smoothing: antialiased;
+    line-height: 35px;
+    height: 40px;
+    width: 40px;
+  }
+
+  &.btn-xs { max-height: 20px; .icon { font-size: 14px; height: 20px; width: 20px; line-height: 15px;}}
+  &.btn-sm { max-height: 30px; .icon { font-size: 10px; height: 30px; width: 30px; line-height: 28px;}}
+  &.btn-lg { max-height: 50px; .icon { font-size: 14px; height: 50px; width: 50px; line-height: 46px;}}
+}
+.btn {
+  display: inline-block;
+  padding: 0 13px;
+  margin-bottom: 0; // For input.btn
+  font-size: 14px;
+  font-weight: $btn-font-weight;
+  // line-height: $line-height-base;
+  min-height: 40px;
+  line-height: 40px;
+  min-width: 40px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  // border: 1px solid transparent;
+  border: none;
+  // border-radius: $border-radius-base;
+  // white-space: nowrap;
+  // text-transform: uppercase;
+  // text-transform: capitalize;
+
+  &:first-letter {text-transform: uppercase; }
+
+  @include user-select(none);
+
+  &:focus {
+    @include tab-focus();
+  }
+
+  &:hover,
+  &:focus {
+    color: $btn-default-color;
+    text-decoration: none;
+  }
+
+  &:active,
+  &.active {
+    outline: 0;
+    background-image: none;
+    // @include box-shadow(inset 0 3px 5px rgba(0,0,0,.125));
+  }
+
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    cursor: not-allowed;
+    pointer-events: none; // Future-proof disabling of clicks
+    @include opacity(.65);
+    // @include box-shadow(none);
+  }
+
+}
+
+// remove unwanted glow/border after click
+.btn:active, .btn:focus,input, input:active, input:focus{     outline: 0;     outline-style:none;     outline-width:0; }
+.btn:active, .btn:focus,button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="file"] > input[type="button"]::-moz-focus-inner
+{     border: none; }
+
+.btn-round {
+  padding: 0px;
+  border-radius: 100%;
+}
+
+// Alternate buttons
+// --------------------------------------------------
+
+.btn-default {
+  @include button-variant($btn-default-color, $btn-default-bg, $btn-default-border);
+}
+.btn-primary {
+  @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+}
+// Warning appears as orange
+.btn-warning {
+  @include button-variant($btn-warning-color, $btn-warning-bg, $btn-warning-border);
+}
+// Danger and error appear as red
+.btn-danger {
+  @include button-variant($btn-danger-color, $btn-danger-bg, $btn-danger-border);
+}
+// Success appears as green
+.btn-success {
+  @include button-variant($btn-success-color, $btn-success-bg, $btn-success-border);
+}
+// Info appears as blue-green
+.btn-info {
+  @include button-variant($btn-info-color, $btn-info-bg, $btn-info-border);
+  background-color: transparent;
+  background-image: url("../img/trns-1.png") !important;
+  color: #404040;
+  &:hover,
+  &:focus {
+    background-color: transparent;
+    background-image: url("../img/trns-2.png") !important;
+  }
+}
+
+
+// Link buttons
+// -------------------------
+
+// Make a button look and behave like a link
+.btn-link {
+  color: $link-color;
+  color: black;
+  font-weight: normal;
+  cursor: pointer;
+  border-radius: 0;
+
+  &,
+  &:active,
+  &[disabled],
+  fieldset[disabled] & {
+    background-color: transparent;
+    @include box-shadow(none);
+  }
+  &,
+  &:hover,
+  &:focus,
+  &:active {
+    border-color: transparent;
+  }
+  &:hover,
+  &:focus {
+    color: $link-hover-color;
+    text-decoration: underline;
+    background-color: transparent;
+  }
+  &[disabled],
+  fieldset[disabled] & {
+    &:hover,
+    &:focus {
+      color: $btn-link-disabled-color;
+      text-decoration: none;
+    }
+  }
+}
+
+
+// Button Sizes
+// --------------------------------------------------
+
+.btn-lg {
+  // line-height: ensure even-numbered height of button next to large input
+  min-height: 50px;
+  line-height: 30px;
+  min-width: 50px;
+  padding: 10px 15px;
+  text-transform: none;
+  font-size: 18px;
+  line-height: 30px;
+  // @include button-size($padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $border-radius-large);
+}
+.btn-sm{
+  // line-height: ensure proper height of button next to small input
+  // @include button-size($padding-small-vertical, $padding-small-horizontal, $font-size-small, $line-height-small, $border-radius-small);
+  min-height: 30px;
+  min-width: 30px;
+  line-height: 20px;
+  padding: 5px 8px;
+  font-size: 14px;
+}
+.btn-xs {
+  min-height: 20px;
+  min-width: 20px;
+  padding: 5px 8px;
+
+  line-height: 10px;
+  font-size: 10px;
+  // padding: 1px 5px;
+}
+
+
+// Block button
+// --------------------------------------------------
+
+.btn-block {
+  display: block;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  text-align: center;
+}
+
+// Vertically space out multiple block buttons
+.btn-block + .btn-block {
+  margin-top: 5px;
+}
+
+// Specificity overrides
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  &.btn-block {
+    width: 100%;
+  }
+}

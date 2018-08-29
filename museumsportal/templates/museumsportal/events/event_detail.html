@@ -1,0 +1,463 @@
+{% extends "base.html" %} {% load base_tags i18n image_modifications tagging_tags babel auth_extended favorites events_tags %}
+{% block title %}{% trans "Event" %} – {{ object.title }} – {% endblock %}
+{% block bodyclass %}event-detail{% endblock %}
+
+{% block open_graph %}
+    <meta property="og:title" content="{{ object.title }}" />
+    <meta property="og:type" content="article" />
+    {% if object.cover_image %}
+      <meta property="og:image" content="http://{{ request.get_host }}{{ MEDIA_URL }}{{ object.cover_image|modified_path:"og" }}" />
+    {% else %}
+      <meta property="og:image" content="http://{{ request.get_host }}{{ STATIC_URL }}site/img/logo/museumsportal-og.jpg" />
+    {% endif %}
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="600" />
+    <meta property="og:image:height" content="600" />
+    <meta property="og:description" content="{{ object.get_rendered_description|striptags|truncatewords:20|escape }}" />
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/share.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
+    <script type="text/javascript">
+        var aGeopositions = [];
+        $(document).ready(function(){
+            $(".toggle_bvg").click(function () {
+                $("#bvg_widget").toggleClass("on");
+                return false;
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+  {% with object as event %}
+    <div id="exhibition" class="content">
+      <div class="container">
+
+        <div class="row">
+
+          <!-- ======= Main Collumn ======= -->
+
+          <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            <article>
+              <header>
+                <h2>
+                  {% if selected_date %}
+                    {% with event|get_selected_date:selected_date as event_time %}
+                      <time datetime="{{ event_time.event_date|date:"Y-m-d" }}">
+                        {% for cat in event.categories.all %}{{ cat.title }}{% if not forloop.last %}, {% else %}: {% endif %}{% endfor %}
+                        {{ event_time.event_date|date:"j. F Y" }}
+                        {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
+                        </br>
+                      </time>
+                    {% endwith %}
+                  {% else %}
+                    {% with event.get_closest_event_time as event_time %}
+                      <time datetime="{{ event_time.event_date|date:"Y-m-d" }}">
+                        {% for cat in event.categories.all %}{{ cat.title }}{% if not forloop.last %}, {% else %}: {% endif %}{% endfor %}
+                        {{ event_time.event_date|date:"j. F Y" }}
+                        {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}
+                        </br>
+                      </time>
+                    {% endwith %}
+                  {% endif %}
+                </h2>
+
+                <h1> {{ event.title }}
+                  {% if_has_perm "events.change_event" object %}
+                    {% if not request.is_mobile %}
+                      <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
+                    {% endif %}
+                  {% end_if_has_perm %}
+                </h1>
+                {% if event.subtitle %}
+                  <h2>{{ event.subtitle }}</h2>
+                {% endif %}
+
+                <!-- {% if event.event_type %}
+                  <h3>{{ event.event_type }}</h3>
+                {% endif %} -->
+                {% if event.location_name %}
+                  <h3>{{ event.location_name }}</h3>
+                {% else %}
+                  {% if event.museum %}
+                    <a href="{{ event.museum.get_url_path }}"><h3>{{ event.museum.title }}</h3></a>
+                  {% endif %}
+                {% endif %}
+              </header>
+
+              <!-- ======= Tools ======= -->
+
+              <div class="tools">
+                <a class="btn btn-default btn-round location" href="{% url "event_list_map" %}#object_id={{ event.pk }}">
+                  <span class="icon icon-location"></span>
+                  <span class="sr-only">{% trans "Show location on map" %}</span>
+                </a>
+
+                {% if request.user.is_authenticated %}
+                  {% adding2favorites for event using "favorites/includes/favorite_detail.html" %}
+                {% endif %}
+
+                <button class="btn btn-default btn-round  share-twitter" data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">
+                  <span class="icon icon-social-twitter"></span>
+                  <span class="sr-only">{% trans "Share on Twitter" %}</span>
+                </button>
+
+                <button class="btn btn-default btn-round  share-facebook" data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">
+                  <span class="icon icon-social-facebook"></span>
+                  <span class="sr-only">{% trans "Share on Facebook" %}</span>
+                </button>
+              </div>
+
+              {% comment %}
+              {% if object.mediafile_set.count > 1 or museum.get_twitter_username or object.get_published_exhibitions or object.get_other_events or object.get_published_workshops or object.get_related_products %}
+              <div class="btn-group" style="margin-bottom: 15px;">
+                {% if object.mediafile_set.count > 1 %}
+                  <a class="btn btn-info btn-sm" href="#section-images">{% trans "Images" %}</a>
+                {% endif %}
+                {% if museum.get_twitter_username %}
+                  <a class="btn btn-info btn-sm" href="#section-tweets">{% trans "Current Tweets" %}</a>
+                {% endif %}
+                {% if object.get_published_exhibitions %}
+                  <a class="btn btn-info btn-sm" href="#section-exhibitions">{% trans "Exhibitions" %}</a>
+                {% endif %}
+                {% if object.get_other_events %}
+                  <a class="btn btn-info btn-sm" href="#section-events">{% trans "More Events" %}</a>
+                {% endif %}
+                {% if object.get_published_workshops %}
+                  <a class="btn btn-info btn-sm" href="#section-workshops">{% trans "Current Guided Tours, Workshops and educational offers" %}</a>
+                {% endif %}
+                {% if object.get_related_products %}
+                  <a class="btn btn-info btn-sm" href="#section-related-products">{% trans "Products" %}</a>
+                {% endif %}
+              </div>
+              {% endif %}
+              {% endcomment %}
+
+              {% include "utils/cover_image.html" %}
+
+              <div class="lead">
+                {{ event.get_rendered_description|disarm_user_input }}
+              </div>
+
+              {% if event.meeting_place or event.get_languages %}
+              <div class="extras">
+                {% if event.meeting_place %}
+                  <dl>
+                    <dt>{% trans "Meeting point" %}</dt>
+                    <dd class="meeting_place">{{ event.meeting_place }}</dd>
+                  </dl>
+                {% endif %}
+                {% if event.get_languages %}
+                  <dl>
+                    <dt>{% trans "Languages" %}</dt>
+                    <dd class="languages">{{ event.get_languages|join:", " }}</dd>
+                  </dl>
+                {% endif %}
+              </div>
+              {% endif %}
+            </article>
+
+          </div> <!-- ======= End Main Collumn ======= -->
+
+          <!-- ======= Marginal Collumn ======= -->
+
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <div class="panel-group" id="details">
+              <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#details" href="#collapse-location">
+                      {% trans "Venue" %}
+                    </a>
+                  </div>
+                  <div id="collapse-location" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                      {% if event.museum %}
+                        {% with event.museum as museum %}
+                          <p class="address">
+                            <b><a href="{{ museum.get_url_path }}">{{ museum.title }}</a></b><br/>
+                            {{ museum.street_address }}<br/>
+                            {% if museum.street_address2 %}{{ museum.street_address2 }}<br/>{% endif %}
+                            {{ museum.postal_code }} {{ museum.city }}<br/>
+                          </p>
+                        {% endwith %}
+                      {% else %}
+                        <p class="address">
+                          <b>{{ event.location_name }}</b><br/>
+                          {{ event.street_address }}<br/>
+                          {% if event.street_address2 %}{{ event.street_address2 }}<br/>{% endif %}
+                          {{ event.postal_code }} {{ event.city }}
+                        </p>
+                      {% endif %}
+
+                      {% if event.exhibition %}
+                        <dl>
+                          <dt>{% trans "Related exhibition" %}</dt>
+                          <dd><a href="{{ event.exhibition.get_url_path }}">{{ event.exhibition.title }}</a></dd>
+                        </dl>
+                      {% endif %}
+
+                      {% if event.museum.service_phone_number %}
+                        <dl>
+                          <dt>{% trans "Service Telephone" %}</dt>
+                          <dd>+{{ event.museum.service_phone_country }} ({{ event.museum.service_phone_area }}) {{ event.museum.service_phone_number }}</dd>
+                        </dl>
+                      {% endif %}
+
+                      {% if event.museum.phone_number %}
+                        <dl>
+                          <dt>{% trans "Telephone" %}</dt>
+                          <dd>+{{ event.museum.phone_country }} ({{ event.museum.phone_area }}) {{ event.museum.phone_number }}</dd>
+                        </dl>
+                      {% endif %}
+
+                      {% if event.museum.group_bookings_phone_number %}
+                        <dl>
+                          <dt>{% trans "Booking Telephone" %}</dt>
+                          <dd>+{{ event.museum.group_bookings_phone_country }} ({{ event.museum.group_bookings_phone_area }}) {{ event.museum.group_bookings_phone_number }}</dd>
+                        </dl>
+                      {% endif %}
+
+                      {% if event.museum.fax_number %}
+                        <dl>
+                          <dt>{% trans "Fax" %}</dt>
+                          <dd>+{{ event.museum.fax_country }} ({{ event.museum.fax_area }}) {{ event.museum.fax_number }}</dd>
+                        </dl>
+                      {% endif %}
+
+                      {% if event.website %}
+                        <dl>
+                          <dt>{% trans "Website" %}</dt>
+                          <dd><a class="crop" href="{{ event.website }}">{{ event.website|humanize_url:"25" }}</a></dd>
+                        </dl>
+                      {% endif %}
+
+                      {% if event.organizer_set.count %}
+                        <dl>
+                          <dt>{% trans "Organizer" %}</dt>
+                          {% for organizer in event.organizer_set.all %}
+                            {% if organizer.organizing_museum %}
+                              <dd><a href="{{ organizer.organizing_museum.get_url_path }}">{{ organizer.organizing_museum.title }}</a></dd>
+                            {% endif %}
+
+                            {% if organizer.organizer_title %}
+                              {% if organizer.organizer_url_link %}
+                                <dd><a href="{{ organizer.organizer_url_link }}">{{ organizer.organizer_title }}</a></dd>
+                              {% else %}
+                                <dd>{{ organizer.organizer_title }}</dd>
+                              {% endif %}
+                            {% endif %}
+                          {% endfor %}
+                        </dl>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+
+                {% if event.museum %}
+                  {% with event.museum as list_item %}
+                    {% include "utils/bvg.html" %}
+                  {% endwith %}
+                {% else %}
+                  {% with event as list_item %}
+                    {% include "utils/bvg.html" %}
+                  {% endwith %}
+                {% endif %}
+
+                <!-- ======= Date and Time ======= -->
+
+                {% if event.get_upcoming_event_times.count %}
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#details" href="#collapse-times">
+                        {% trans "Date and Time" %}
+                      </a>
+                    </div>
+                    <div id="collapse-times" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        {% for event_time in event.get_upcoming_event_times %}
+                            <dl class="{% if forloop.counter > 10 %} hidable{% endif %}">
+                              <dt>
+                              {{ event_time.event_date|date:"j. F Y" }}
+                               <dd>{{ event_time.start|time:"H:i" }}{% if event_time.end %} {% trans "till" %} {{ event_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</span>
+                              </dt>
+                            </dl>
+                        {% endfor %}
+                      </div>
+                    </div>
+                    <script>
+                        $(function() {
+                            var $dates = $('#collapse-times');
+                            var $hidden_times = $('.hidable', $dates).hide();
+                            if ($hidden_times.length) {
+                                $('<a class="btn btn-sm btn-default" href="" data-action="expand">{% trans "more" %}...</a>').click(function() {
+                                    if ($(this).data('action') == 'expand') {
+                                        $hidden_times.show();
+                                        $(this).data('action', 'collapse').html('{% trans "less" %}...');
+                                    } else {
+                                        $hidden_times.hide();
+                                        $(this).data('action', 'expand').html('{% trans "more" %}...');
+                                    }
+                                    return false;
+                                }).appendTo('<div class="panel-body"></div>').parent().appendTo($dates);
+                            }
+                        });
+                    </script>
+                  </div>
+                {% endif %}
+
+                <!-- ======= Prices ======= -->
+
+                {% if event.free_admission or event.admission_price or event.admission_price_info or event.reduced_price or event.reduced_price_info or event.booking_info %}
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#details" href="#collapse-prices">
+                        {% trans "Prices" %}
+                      </a>
+                    </div>
+                    <div id="collapse-prices" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        {% if event.free_admission %}
+                          <dl>
+                            <dt>{% trans "Free entrance" %}</dt>
+                          </dl>
+                        {% else %}
+                          {% if event.admission_price %}
+                            <dl>
+                              <dt>{% trans "Admission price" %}</dt>
+                              <dd>{{ event.admission_price|currencyfmt:"EUR" }}</dd>
+                            </dl>
+                          {% endif %}
+
+                          {% if event.admission_price_info %}
+                            <p class="admission_price_info">{{ event.get_rendered_admission_price_info }}</p>
+                          {% endif %}
+
+                          {% if event.reduced_price %}
+                            <dl>
+                              <dt>{% trans "Reduced price" %}</dt>
+                              <dd>{{ event.reduced_price|currencyfmt:"EUR" }}</dd>
+                            </dl>
+                          {% endif %}
+
+                          {% if event.reduced_price_info %}
+                            <p class="reduced_price_info">{{ event.get_rendered_reduced_price_info }}</p>
+                          {% endif %}
+
+                          {% if event.shop_link %}
+                              <p>
+                                  <a class="btn btn-default btn-lg btn-block" href="{{ event.shop_link }}" target="_blank">{% trans "Buy ticket" %}</a>
+                              </p>
+                          {% endif %}
+
+                        {% endif %}
+                      </div>
+                      {% if event.booking_info %}
+                      <div class="panel-body">
+                        <dl>
+                          <dt>{% trans "Booking info" %}</dt>
+                          <dd class="booking_info">{{ event.get_rendered_booking_info }}</dd>
+                        </dl>
+                      </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                {% endif %}
+            </div>
+            {% if event.linkgroup_set.count %}
+              {% for link_group in event.linkgroup_set.all %}
+                {% if LANGUAGE_CODE == link_group.language %}
+                  <div class="link-group">
+                    {% if link_group.group_title %}<h4>{{ link_group.group_title }}</h4>{% endif %}
+                    {% with link_group.get_links as links %}
+                      {% if links %}
+                        <ul>
+                          {% for link in links %}
+                            <li><a href="{{ link.url }}">{{ link.text }}</a></li>
+                          {% endfor %}
+                        </ul>
+                      {% endif %}
+                    {% endwith %}
+                  </div>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          </div> <!-- ======= End Marginal Collumn ======= -->
+        </div>
+      </div>
+    </div>
+
+    {% include "utils/images.html" %}
+
+    <!-- ======= Other Events ======= -->
+    <div id="additional-contents">
+    {% if object.get_other_events %}
+      <div id="events" class="content">
+        <div class="container">
+          <h2 class="section-head" id="section-events">{% trans "More Events" %}</h2>
+          <div class="list">
+            {% for event in object.get_other_events %}
+              <div class="item">
+                <a href="{{ event.get_url_path }}">
+                  {% with event.get_closest_event_time as event_time %}
+                    <h4>
+                      {% for cat in event.categories.all %}{{ cat.title }}{% if not forloop.last %}, {% else %}: {% endif %}{% endfor %}
+                      {% with event.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }} {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}{% endwith %}
+                    </h4>
+                  {% endwith %}
+                  <h3>{{ event.title }}</h3>
+                  <h4>{{ event.subtitle }}</h4>
+                </a>
+                {% with event as list_item %}
+                    {% include "utils/geo_position.html" %}
+                {% endwith %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    </div>
+
+      <!-- ======= Products ======= -->
+
+      {% if object.get_related_products %}
+          <div id="list" class="shop-product-list">
+              <div class="container">
+                  <header class="clearfix">
+                      <h2 class="section-head pull-left" id="section-related-products">{% trans "Products" %}</h2>
+                      <a href="{% url "event_products" slug=object.slug %}" class="pull-right">{% trans "All products of the event" %}</a>
+                  </header>
+                  <div id="container">
+                      <div class="row row-md grid">
+                          {% for product in object.get_related_products|slice:':4' %}
+                              <div class="item col-xs-12 col-sm-4 col-md-4 col-lg-3{% if forloop.counter == 4 %} hidden-sm hidden-md{% endif %}">
+                                  <a href="{{ product.get_url_path }}">
+                                      {% if product.image %}
+                                          <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="product.title" /></span>
+                                      {% endif %}
+                                      {% if product.price %}
+                                          <span class="price pull-right">{{ product.price|currencyfmt:"€" }}</span>
+                                      {% endif %}
+                                      <h3>
+                                          {{ product.title }}
+                                      </h3>
+                                      {% if product.subtitle %}
+                                          <h4>{{ product.subtitle }}</h4>
+                                      {% endif %}
+                                  </a>
+                              </div>
+                          {% endfor %}
+                      </div>
+                  </div>
+              </div>
+          </div>
+      {% endif %}
+
+
+  {% endwith %}
+
+  {% include "utils/page_controls.html" %}
+  {% include "utils/gmap_scripts.html" %}
+{% endblock %}

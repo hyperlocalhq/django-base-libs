@@ -1,0 +1,75 @@
+{% load menu_tags i18n base_tags %}
+
+<header id="header" class="hidden-xs clearfix">
+  <div class="container">
+    <div id="meta" class="pull-right clearfix">
+      {% if request.user.is_authenticated %}
+      <div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+            {% blocktrans with first_name=request.user.first_name|default:request.user.username %}{{ first_name }}{% endblocktrans %} <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            {% if request.user|in_group:"Museum Owners" or request.user.is_superuser %}
+              <li><a href="/{{ LANGUAGE_CODE }}/dashboard/">{% trans "Input Mask" %}</a></li>
+              <li class="divider"></li>
+              <li><a href="/{{ LANGUAGE_CODE }}/dashboard/exhibitions/">{% trans "Exhibitions" %}</a></li>
+              <li><a href="/{{ LANGUAGE_CODE }}/dashboard/events/">{% trans "Events" %}</a></li>
+              <li><a href="/{{ LANGUAGE_CODE }}/dashboard/guided-tours/">{% trans "Workshops" %}</a></li>
+              <li><a href="/{{ LANGUAGE_CODE }}/dashboard/museums/">{% trans "Museums" %}</a></li>
+              <li><a href="/{{ LANGUAGE_CODE }}/dashboard/shop/">{% trans "Shop" %}</a></li>
+              <li class="divider"></li>
+            {% endif %}
+            <li><a href="/{{ LANGUAGE_CODE }}/logout/">{% trans "Logout" %}</a></li>
+          </ul>
+        </div>
+      </div>
+      {% else %}
+        {% comment %}
+            <!-- <li><a class="login" href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login" %}</a></li>
+            <li><a class="signup" href="/{{ LANGUAGE_CODE }}/signup/">{% trans "Signup" %}</a></li> -->
+        {% endcomment %}
+
+        <div><a class="btn btn-info" href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login" %}</a></div>
+      {% endif %}
+
+      {% block edit_item %}
+      {% endblock %}
+
+      {% comment %}
+      {% if request.user.is_authenticated %}
+        <div>
+          <a class="btn btn-info" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Favorites" %}" href="/{{ LANGUAGE_CODE }}/my-profile/favorites/">
+            <span class="icon icon-star"></span>
+            <span class="sr-only">{% trans "Favorites" %}</span>
+          </a>
+        </div>
+      {% endif %}
+
+      <div>
+        <a class="btn btn-info" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Print" %}" onclick="window.print();return false" href="#">
+        <span class="icon icon-printer"></span>
+        <span class="sr-only">{% trans "Print" %}</span></a>
+      </div>
+      {% endcomment %}
+
+      {% comment %}
+      <div>
+        <a class="btn btn-info" data-toggle="tooltip" data-placement="bottom" data-original-title="Twitter" href="https://twitter.com/museumsportal" target="_blank">
+        <span class="icon icon-social-twitter"></span>
+        <span class="sr-only">Twitter</span></a>
+      </div>
+
+      <div>
+        <a class="btn btn-info" data-toggle="tooltip" data-placement="bottom" data-original-title="Facebook" href="https://www.facebook.com/pages/Museumsportal-Berlin/44199608380" target="_blank">
+        <span class="icon icon-social-facebook"></span>
+        <span class="sr-only">Facebook</span></a>
+      </div>
+      {% endcomment %}
+
+      {% block language_chooser %}
+          {% language_chooser %}
+      {% endblock %}
+    </div>
+  </div>
+</header>
