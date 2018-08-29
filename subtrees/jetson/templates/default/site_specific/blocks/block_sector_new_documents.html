@@ -1,0 +1,27 @@
+{% load i18n image_mods_tags %}
+<div class="draggable_block">
+    <h3 class="dragging_handle">{% trans "New Documents" %}</h3>
+    {% if info.get_new_documents %}
+        <ul>
+        {% for document in info.get_new_documents %}
+            <li>
+                <a href="{{ document.get_url_path }}">
+                    {% if document.image %}
+                        <img alt="{{ document.get_title|escape }}" src="{{ UPLOADS_URL }}{{ document.image|modified_path:"at" }}" />
+                    {% else %}
+                        <img alt="{{ document.get_title|escape }}" src="{{ DEFAULT_SMALL_LOGO_4_DOCUMENT }}" />
+                    {% endif %}
+                    <strong>{{ document.get_title|escape }}</strong>
+                </a>
+                <p>{% for cat in document.get_object_types %}
+                    {{ cat.get_title|escape }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+            </li>
+        {% endfor %}
+        </ul>
+        <p class="more"><a href="/{{ URL_ID_DOCUMENTS }}/?order_by=creation_date_desc">{% trans "more..." %}</a></p>
+    {% else %}
+        <p class="nothing">{% trans "There are no public documents." %}</p>
+    {% endif %}
+</div>

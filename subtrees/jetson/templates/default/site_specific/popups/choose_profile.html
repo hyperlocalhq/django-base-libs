@@ -1,0 +1,20 @@
+{% load i18n %}
+<div id="popup_content">
+    <form action="" method="post">
+        <div class="pop_edit">
+            <div>
+                <label>{% blocktrans with contact.postal_address as postal_address %}Please choose the profile{% endblocktrans %}</label>
+                <select id="dyn_go_to_profile">
+                    <option value="{{ request.user.profile.get_url_path }}">{{ request.user.profile.get_title|escape }}</option>
+                    {% for inst in request.user.profile.get_institutions %}
+                        <option value="{{ inst.get_url_path }}">{{ inst.get_title|escape }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="buttons">
+                <input class="button_bad" name="cancel" type="button" value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" onclick="{% if object %}redirect('{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/#file_{{ file.filename }}'){% endif %}" />
+                <input class="button_good" type="submit" value="{% filter upper %}{% trans "Go" %}{% endfilter %}" />
+            </div>
+        </div>
+    </form>
+</div>

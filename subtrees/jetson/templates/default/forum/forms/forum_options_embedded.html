@@ -1,0 +1,44 @@
+{% load base_tags babel i18n image_mods_tags %}
+
+<div class="first-item-txt">
+    <form action="" method="post">
+        <div class="field_layout">
+            <fieldset class="fieldset_end">
+	            <legend>
+                    {% trans "Options" %}	          		  
+	            </legend>
+                <ul>
+                    <li>
+                    	{{ form.title.label_tag }}
+                        {{ form.title }}
+                        {{ form.title.help_text_tag }}                        
+                        {{ form.title.error_tag }}
+                    </li>
+                
+                    <li>
+                    	{{ form.allow_bumping.label_tag }}
+                        {{ form.allow_bumping }}
+                        {{ form.allow_bumping.help_text_tag }}
+                        {{ form.allow_bumping.error_tag }}
+                    </li>
+                    
+                    <li>
+                    	{{ form.max_level.label_tag }}
+                        {{ form.max_level }}
+                        {{ form.max_level.help_text_tag }}                        
+                        {{ form.max_level.error_tag }}
+                    </li>
+                </ul>
+            </fieldset>
+            <div class="buttons">
+                <input id="id_cancel" type="submit" class="button_bad" name="{{ cancel_stage_field }}" value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}" />
+                <input id="id_post" class="button_good" type="submit" name="{{ post_stage_field }}" value="{% filter upper %}{% trans 'Save' %}{% endfilter %}" />
+                {% comment %}this one is used for security reasons -->{% endcomment %}
+            </div>
+        </div>
+    </form>	
+</div>
+
+
+
+

@@ -1,0 +1,32 @@
+{% load i18n base_tags auth_extended babel %}
+
+{% if object.has_opening_hours %}
+    <div class="timeboard">
+        {% for opening in object.get_opening_hours %}
+            {% if forloop.first %}
+                <dl>
+                <dt>{% trans "OPENING HOURS" %}</dt>
+            {% endif %}
+            <dd class="day">{{ opening.weekday|slice:":2" }}: 
+                <span class="time">
+                    {% if opening.open %}
+                         {{ opening.open|time:"H:i" }}
+                         {% if opening.break_close %}
+                            - {{ opening.break_close|time:"H:i" }}
+                              {{ opening.break_open|time:"H:i" }} 
+                            - {{ opening.close|time:"H:i" }}
+                         {% else %}
+                            - {{ opening.close|time:"H:i" }}
+                         {% endif %}
+                    {% else %}				 
+                        {% trans "closed" %}
+                    {% endif %}
+                </span>
+            </dd>
+            {% if forloop.last %}
+                </dl>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}
+
