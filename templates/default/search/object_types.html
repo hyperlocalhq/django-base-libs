@@ -1,0 +1,20 @@
+{% load i18n base_tags %}
+{% for cat in categories %}
+    {% if forloop.first %}
+        <ul>
+    {% endif %}
+    {% if cat.item_count %}
+	    <li> 
+            <a href="#" class="no-children"><span>O</span></a>
+            {% with form.object_types|dict_value:cat.slug as object_type %}
+   		   		{{ form|dict_value:object_type.field_name }}
+   				<label for="id_OT_{{object_type.id}}">{{ cat.get_title|escape }} <em>({{ cat.item_count }})</em></label>
+			{% endwith %}		            
+            {% institution_types_under cat.slug using "search/object_types.html" %}
+        </li>
+    {% endif %}
+    {% if forloop.last %}
+        </ul>
+    {% endif %}
+{% endfor %}
+

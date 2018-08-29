@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block head %}
+    {% block meta %}
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        
+        <meta name="author" content="(C) {{ site_settings.site.name }}" />
+        
+        <meta name="keywords" lang="de" content="{% infoblock "meta_keywords_de" %}" />
+    
+        <meta name="keywords" lang="en-us" content="{% infoblock "meta_keywords_en" %}"/>
+    
+        <meta name="description" lang="de" content="{% infoblock "meta_description_de" %}"/>
+    
+        <meta name="description" lang="en-us" content="{% infoblock "meta_description_en" %}"/>
+        
+        <meta name="abstract" content="" />
+        <title>{{ site_settings.site.name }} - {% block title %}{% endblock %}</title>
+        
+        {% block stylesheet %}
+        <link rel="stylesheet" type="text/css" media="screen"  href="{{ STATIC_URL }}site/css/ccb/base.css" />
+        {% endblock %}
+        {% if "Safari"|in_list:request.META.HTTP_USER_AGENT %}
+            <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}site/css/default/safari-hack.css" />
+        {% endif %}
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}site/css/default/ie_hack.css" />	
+        <link rel="stylesheet" type="text/css" media="print" href="{{ STATIC_URL }}site/css/default/print.css" />
+    {% endbock %}
+
+    {% block extrahead %}
+    {% endblock %}
+
+{% endbock %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="top"></div>  
+        <div id="main_nav">
+            {% block main_navi %}
+            {% endblock %}
+        </div>
+        <div id="bg">
+            <div class="container">
+                {% block site %}
+                    {% block h1 %}
+                        <h1><a href="/" id="logo">
+                        {% ifequal LANGUAGE_CODE "de" %}
+                            <img title="{{ site_settings.site.name }}" src="{{ STATIC_URL }}site/img/default/logo_de.png" alt="{{ site_settings.site.name }}" /></a>
+                        {% else %}
+                            <img title="{{ site_settings.site.name }}" src="{{ STATIC_URL }}site/img/default/logo_en.png" alt="{{ site_settings.site.name }}" /></a>
+                        {% endifequal %}
+                        </h1>
+                    {% endblock %}
+                    <div class="sidebar-a">
+                        {% block sidebar-a %}
+                        {% endblock %}
+                    </div>
+                    <div id="content">
+                        <div id="headline">
+                            {% block headline %}
+                            {% endblock %}
+                        </div>
+                        {% block content %}
+                        {% endblock %}
+                    </div>
+                {% endblock %}
+            </div>
+            <div id="footer">
+                {% block footer %}
+                {% endblock %}
+            </div>
+            {% infoblock "google_analytics" %}
+        </div>
+    </div>
+{% endblock %}

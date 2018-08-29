@@ -1,0 +1,149 @@
+{% load i18n %}
+<fieldset class="grp-module grp-aligned grp-collapse grp-closed">
+    <h2 class="grp-collapse-handler">{% trans "Opening hours" %}</h2>
+    <div class="grp-row">
+        <div class="l-2c-fluid l-d-4">
+            <div class="c-1">
+                &nbsp;
+            </div>
+            <div class="c-2">
+                {{ form.is_appointment_based }}<label class="vCheckboxLabel" for="id_is_appointment_based">{{ form.is_appointment_based.label }}</label>
+            </div>
+        </div>
+    </div>
+    <div class="grp-tabular grp-module">
+        <div summary="{% trans "Opening hours" %}" class="working-hours grp-module grp-table">
+            <div class="grp-module grp-thead">
+                <div class="grp-tr">
+                    <div class="grp-th">&nbsp;</div>
+                    <div class="grp-th">{% trans "Monday" %}</div>
+                    <div class="grp-th">{% trans "Tuesday" %}</div>
+                    <div class="grp-th">{% trans "Wednesday" %}</div>
+                    <div class="grp-th">{% trans "Thursday" %}</div>
+                    <div class="grp-th">{% trans "Friday" %}</div>
+                    <div class="grp-th">{% trans "Saturday" %}</div>
+                    <div class="grp-th">{% trans "Sunday" %}</div>
+                    <div class="grp-th">&nbsp;</div>
+                </div>
+            </div>
+            <div class="grp-module grp-tbody">
+                <div class="grp-tr">
+                    <div class="label grp-td span-4"><label>{% trans "Opens" %}:</label></div>
+                    <div class="grp-td span-3{% if form.mon_open.errors %} grp-errors{% endif %}">{{ form.mon_open.errors }}
+                    {{ form.mon_open }}</div>
+                    <div class="grp-td span-3{% if form.tue_open.errors %} grp-errors{% endif %}">{{ form.tue_open.errors }}
+                    {{ form.tue_open }}</div>
+                    <div class="grp-td span-3{% if form.wed_open.errors %} grp-errors{% endif %}">{{ form.wed_open.errors }}
+                    {{ form.wed_open }}</div>
+                    <div class="grp-td span-3{% if form.thu_open.errors %} grp-errors{% endif %}">{{ form.thu_open.errors }}
+                    {{ form.thu_open }}</div>
+                    <div class="grp-td span-3{% if form.fri_open.errors %} grp-errors{% endif %}">{{ form.fri_open.errors }}
+                    {{ form.fri_open }}</div>
+                    <div class="grp-td span-3{% if form.sat_open.errors %} grp-errors{% endif %}">{{ form.sat_open.errors }}
+                    {{ form.sat_open }}</div>
+                    <div class="grp-td span-3{% if form.sun_open.errors %} grp-errors{% endif %}">{{ form.sun_open.errors }}
+                    {{ form.sun_open }}</div>
+                    <div class="grp-td span-flexible">&nbsp;</div>
+                </div>
+                <div id="break_start_row" class="grp-tr">
+                    <div class="label grp-td span-4"><label>{% trans "Break starts" %}:</label></div>
+                    <div class="grp-td span-3{% if form.mon_break_close.errors %} grp-errors{% endif %}">{{ form.mon_break_close.errors }}
+                    {{ form.mon_break_close }}</div>
+                    <div class="grp-td span-3{% if form.tue_break_close.errors %} grp-errors{% endif %}">{{ form.tue_break_close.errors }}
+                    {{ form.tue_break_close }}</div>
+                    <div class="grp-td span-3{% if form.wed_break_close.errors %} grp-errors{% endif %}">{{ form.wed_break_close.errors }}
+                    {{ form.wed_break_close }}</div>
+                    <div class="grp-td span-3{% if form.thu_break_close.errors %} grp-errors{% endif %}">{{ form.thu_break_close.errors }}
+                    {{ form.thu_break_close }}</div>
+                    <div class="grp-td span-3{% if form.fri_break_close.errors %} grp-errors{% endif %}">{{ form.fri_break_close.errors }}
+                    {{ form.fri_break_close }}</div>
+                    <div class="grp-td span-3{% if form.sat_break_close.errors %} grp-errors{% endif %}">{{ form.sat_break_close.errors }}
+                    {{ form.sat_break_close }}</div>
+                    <div class="grp-td span-3{% if form.sun_break_close.errors %} grp-errors{% endif %}">{{ form.sun_break_close.errors }}
+                    {{ form.sun_break_close }}</div>
+                    <div class="grp-td span-flexible">&nbsp;</div>
+                </div>
+                <div id="break_end_row" class="grp-tr">
+                    <div class="label grp-td span-4"><label>{% trans "Break ends" %}:</label></div>
+                    <div class="grp-td span-3{% if form.mon_break_open.errors %} grp-errors{% endif %}">{{ form.mon_break_open.errors }}
+                    {{ form.mon_break_open }}</div>
+                    <div class="grp-td span-3{% if form.tue_break_open.errors %} grp-errors{% endif %}">{{ form.tue_break_open.errors }}
+                    {{ form.tue_break_open }}</div>
+                    <div class="grp-td span-3{% if form.wed_break_open.errors %} grp-errors{% endif %}">{{ form.wed_break_open.errors }}
+                    {{ form.wed_break_open }}</div>
+                    <div class="grp-td span-3{% if form.thu_break_open.errors %} grp-errors{% endif %}">{{ form.thu_break_open.errors }}
+                    {{ form.thu_break_open }}</div>
+                    <div class="grp-td span-3{% if form.fri_break_open.errors %} grp-errors{% endif %}">{{ form.fri_break_open.errors }}
+                    {{ form.fri_break_open }}</div>
+                    <div class="grp-td span-3{% if form.sat_break_open.errors %} grp-errors{% endif %}">{{ form.sat_break_open.errors }}
+                    {{ form.sat_break_open }}</div>
+                    <div class="grp-td span-3{% if form.sun_break_open.errors %} grp-errors{% endif %}">{{ form.sun_break_open.errors }}
+                    {{ form.sun_break_open }}</div>
+                    <div class="grp-td span-flexible">&nbsp;</div>
+                </div>
+                <div class="grp-tr">
+                    <div class="label td span-4"><label>{% trans "Closes" %}:</label></div>
+                    <div class="grp-td span-3{% if form.mon_close.errors %} grp-errors{% endif %}">{{ form.mon_close.errors }}
+                    {{ form.mon_close }}</div>
+                    <div class="grp-td span-3{% if form.tue_close.errors %} grp-errors{% endif %}">{{ form.tue_close.errors }}
+                    {{ form.tue_close }}</div>
+                    <div class="grp-td span-3{% if form.wed_close.errors %} grp-errors{% endif %}">{{ form.wed_close.errors }}
+                    {{ form.wed_close }}</div>
+                    <div class="grp-td span-3{% if form.thu_close.errors %} grp-errors{% endif %}">{{ form.thu_close.errors }}
+                    {{ form.thu_close }}</div>
+                    <div class="grp-td span-3{% if form.fri_close.errors %} grp-errors{% endif %}">{{ form.fri_close.errors }}
+                    {{ form.fri_close }}</div>
+                    <div class="grp-td span-3{% if form.sat_close.errors %} grp-errors{% endif %}">{{ form.sat_close.errors }}
+                    {{ form.sat_close }}</div>
+                    <div class="grp-td span-3{% if form.sun_close.errors %} grp-errors{% endif %}">{{ form.sun_close.errors }}
+                    {{ form.sun_close }}</div>
+                    <div class="grp-td span-flexible">&nbsp;</div>
+                </div>
+                <div class="last grp-tr">
+                    <div class="grp-td span-4">&nbsp;</div>
+                    <div class="grp-td span-3 row"><input type="checkbox" id="id_closed_on_mon" onclick="OpeningHoursManager.modifyDay('mon')" class="vCheckboxField" /><label for="id_closed_on_mon" class="vCheckboxLabel"> {% trans "Closed" %}</label></div>
+                    <div class="grp-td span-3 row"><input type="checkbox" id="id_closed_on_tue" onclick="OpeningHoursManager.modifyDay('tue')" class="vCheckboxField" /><label for="id_closed_on_tue" class="vCheckboxLabel"> {% trans "Closed" %}</label></div>
+                    <div class="grp-td span-3 row"><input type="checkbox" id="id_closed_on_wed" onclick="OpeningHoursManager.modifyDay('wed')" class="vCheckboxField" /><label for="id_closed_on_wed" class="vCheckboxLabel"> {% trans "Closed" %}</label></div>
+                    <div class="grp-td span-3 row"><input type="checkbox" id="id_closed_on_thu" onclick="OpeningHoursManager.modifyDay('thu')" class="vCheckboxField" /><label for="id_closed_on_thu" class="vCheckboxLabel"> {% trans "Closed" %}</label></div>
+                    <div class="grp-td span-3 row"><input type="checkbox" id="id_closed_on_fri" onclick="OpeningHoursManager.modifyDay('fri')" class="vCheckboxField" /><label for="id_closed_on_fri" class="vCheckboxLabel"> {% trans "Closed" %}</label></div>
+                    <div class="grp-td span-3 row"><input type="checkbox" id="id_closed_on_sat" onclick="OpeningHoursManager.modifyDay('sat')" class="vCheckboxField" /><label for="id_closed_on_sat" class="vCheckboxLabel"> {% trans "Closed" %}</label></div>
+                    <div class="grp-td span-3 row"><input type="checkbox" id="id_closed_on_sun" onclick="OpeningHoursManager.modifyDay('sun')" class="vCheckboxField" /><label for="id_closed_on_sun" class="vCheckboxLabel"> {% trans "Closed" %}</label></div>
+                    <div class="grp-td span-flexible">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if form.exceptions_en %}
+        <fieldset class="grp-module grp-aligned grp-collapse grp-closed multilingual multilingual-set-1 multilingual-language-en">
+            <h2 class="grp-collapse-handler">{% trans "Exceptions for working hours" %} (English)</h2>
+            <div class="row{% if form.exception_en.errors %} grp-errors{% endif %}">
+                <div>
+                    <div class="column span-4"><label for="id_exceptions_en"{% if form.exceptions_en.field.required %} class="required"{% endif %}>{% trans "Exceptions" %}:</label></div>
+                    <div class="column span-flexible">
+                        {{ form.exceptions_en_markup_type }}
+                        {% if form.exceptions_en_markup_type.help_text %}<span class="help">{{ form.exceptions_en_markup_type.help_text|safe }}</span>{% endif %}
+                        <p>{{ form.exceptions_en }}</p>
+                        {{ form.exceptions_en.errors }}
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    {% endif %}
+    {% if form.exceptions_de %}
+        <fieldset class="grp-module grp-aligned grp-collapse grp-closed multilingual multilingual-set-1 multilingual-language-de">
+            <h2 class="grp-collapse-handler">{% trans "Exceptions for working hours" %} (Deutsch)</h2>
+            <div class="row{% if form.exceptions_de.errors %} grp-errors{% endif %}">
+                <div>
+                    <div class="column span-4"><label for="id_exceptions_de"{% if form.exceptions_de.field.required %} class="required"{% endif %}>{% trans "Exceptions" %}:</label></div>
+                    <div class="column span-flexible">
+                        {{ form.exceptions_de_markup_type }}
+                        {% if form.exceptions_de_markup_type.help_text %}<span class="help">{{ form.exceptions_de_markup_type.help_text|safe }}</span>{% endif %}
+                        <p>{{ form.exceptions_de }}</p>
+                        {{ form.exceptions_de.errors }}
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    {% endif %}
+</fieldset>
+

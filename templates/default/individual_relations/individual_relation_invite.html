@@ -1,0 +1,64 @@
+{% load i18n %}
+<div id="popup_content">
+    <form action="" method="post">
+        <div class="pop_edit edit_permissions">
+            <div>
+                {{ form.message.label_tag }}
+                {{ form.message }}
+                {{ form.message.error_tag }}
+            </div>
+            <div class="line_checkbox">
+                {{ form.relation_types.label_tag }}
+                {{ form.relation_types }}
+                {{ form.relation_types.error_tag }}
+            </div>
+            <div class="permissions">
+            <label>{% trans "Permissions" %}</label>
+                <ul class="r-box">
+                    {% spaceless %}
+                    <li class="line_checkbox">
+                        {{ form.display_birthday }}
+                        {{ form.display_birthday.label_tag }}
+                        {{ form.display_birthday.error_tag }}
+                    </li>
+                    {% endspaceless %}
+                    {% spaceless %}
+                    <li class="line_checkbox">
+                        {{ form.display_address }}
+                        {{ form.display_address.label_tag }}
+                        {{ form.display_address.error_tag }}
+                    </li>
+                    {% endspaceless %}
+                    {% spaceless %}
+                    <li class="line_checkbox">
+                        {{ form.display_im }}
+                        {{ form.display_im.label_tag }}
+                        {{ form.display_im.error_tag }}
+                    </li>
+                    {% endspaceless %}
+                </ul>
+                <ul class="l-box">
+                    <li class="line_checkbox">
+                        {{ form.display_phone }}
+                        {{ form.display_phone.label_tag }}
+                        {{ form.display_phone.error_tag }}
+                    </li>
+                    <li class="line_checkbox">
+                        {{ form.display_fax }}
+                        {{ form.display_fax.label_tag }}
+                        {{ form.display_fax.error_tag }}
+                    </li>
+                    <li class="line_checkbox">
+                        {{ form.display_mobile }}
+                        {{ form.display_mobile.label_tag }}
+                        {{ form.display_mobile.error_tag }}
+                    </li>
+                </ul>
+            </div>
+            <div class="buttons">
+                <input class="button_bad" type="button" name="cancel" value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}" />
+                <input class="button_good" type="submit" id="post" name="post" value='{% filter upper %}{% trans "Invite" %}{% endfilter %}'/>       	
+            </div>
+        </div>
+    </form>
+</div>
