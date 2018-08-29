@@ -26,13 +26,10 @@ def get_secret(setting, secrets=secrets):
         raise ImproperlyConfigured(error_msg)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-JETSON_PATH = os.path.dirname(BASE_DIR)
+JETSON_PATH = os.path.abspath(os.path.join(BASE_DIR, "subtrees"))
 PROJECT_PATH = BASE_DIR
-EXTERNALS_PATH = os.path.join(BASE_DIR, "museumsportal", "externals")
 
-sys.path = ["", JETSON_PATH, EXTERNALS_PATH] + [p for p in sys.path if p]
-
-execfile(os.path.join(BASE_DIR, "museumsportal", "settings", "_jetson_base.py"), globals(), locals())
+execfile(os.path.join(JETSON_PATH, "jetson/settings/base.py"), globals(), locals())
 
 ### DOMAINS ###
 
@@ -62,7 +59,7 @@ MEDIA_ROOT = os.path.join(PROJECT_PATH, "media")
 STATIC_ROOT = os.path.join(PROJECT_PATH, "static")
 STATICFILES_DIRS = [os.path.join(PROJECT_PATH, "museumsportal", "site_static")]
 MEDIA_URL = "/media/"
-STATIC_URL = PIPELINE_URL = "/static/%s/" % get_git_changeset(PROJECT_PATH)
+STATIC_URL = PIPELINE_URL = "/static/%s/" % get_git_changeset(os.path.join(PROJECT_PATH, "museumsportal"))
 PATH_TMP = os.path.join(PROJECT_PATH, "museumsportal", "tmp")
 CSS_URL = "%scss/default/" % MEDIA_URL
 IMG_URL = "%simg/website/" % MEDIA_URL
@@ -122,7 +119,6 @@ INSTALLED_APPS = [
 
     ### more third-party apps ###
     "pipeline",
-    "uni_form",
     "tastypie",
     "tagging",
     "tagging_autocomplete",
@@ -131,22 +127,21 @@ INSTALLED_APPS = [
     "babeldjango",
     "haystack",
     "ajaxuploader",
-    "debug_toolbar",
     "raven.contrib.django.raven_compat",
 
     ### Required CMS Django 2.4.1 apps ###
     "cms",
     "mptt",
     "menus",
-    "south",
     "sekizai",
     "aldryn_search",
+    "treebeard",
 
     ### CMS plugins ###
-    "cms.plugins.inherit",
-    "cms.plugins.picture",
-    "cms.plugins.snippet",
-    "cms.plugins.teaser",
+    "djangocms_inherit",
+    "djangocms_picture",
+    "djangocms_snippet",
+    "djangocms_teaser",
     # "cms.plugins.file",
     # "cms.plugins.flash",
     # "cms.plugins.googlemap",
@@ -155,6 +150,9 @@ INSTALLED_APPS = [
     # "cms.plugins.twitter",
     # "cms.plugins.video",
 
+    ### base_libs_app ###
+    "base_libs.apps.base_libs_app",
+
     ### jetson apps ###
     "jetson.apps.i18n",
     "jetson.apps.image_mods",
@@ -162,12 +160,12 @@ INSTALLED_APPS = [
     "jetson.apps.history",
     "jetson.apps.utils",
     "jetson.apps.extendedadmin",
+    "jetson.apps.permissions",
     #"jetson.apps.external_services",
     "jetson.apps.favorites",
     "jetson.apps.blog",
 
     ### museumsportal apps ###
-    "museumsportal.apps.permissions",
     "museumsportal.apps.museums",
     "museumsportal.apps.exhibitions",
     "museumsportal.apps.exhibitions_plugins",
@@ -223,39 +221,41 @@ MIDDLEWARE_CLASSES = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
-TEMPLATESADMIN_TEMPLATE_DIRS = TEMPLATE_DIRS = [
-    os.path.join(PROJECT_PATH, "museumsportal", "templates", "museumsportal"),
-    os.path.join(PROJECT_PATH, "museumsportal", "templates", "admin"),
-] + TEMPLATE_DIRS
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.request',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'cms.context_processors.media',
-    'sekizai.context_processors.sekizai',
-    "jetson.apps.utils.context_processors.general",
-    "jetson.apps.configuration.context_processors.configuration",
-    "jetson.apps.advertising.context_processors.source_features",
-    "django.contrib.messages.context_processors.messages",
-    "museumsportal.apps.site_specific.context_processors.languages",
-)
-
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
-
-if not DEBUG:
-    TEMPLATE_LOADERS = (
-        (
-            'django.template.loaders.cached.Loader',
-            TEMPLATE_LOADERS
-        ),
-    )
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(PROJECT_PATH, "museumsportal", "templates", "museumsportal"),
+            os.path.join(PROJECT_PATH, "museumsportal", "templates", "admin"),
+            os.path.join(JETSON_PATH, "jetson", "templates", "default"),
+            os.path.join(JETSON_PATH, "jetson", "templates", "admin"),
+            os.path.join(JETSON_PATH, "jetson", "externals", "apps", "grappelli", "templates", "grappelli"),
+            os.path.join(JETSON_PATH, "jetson", "externals", "apps", "grappelli", "templates"),
+        ],
+        'OPTIONS': {
+            'context_processors': (
+                'django.contrib.auth.context_processors.auth',
+                'django.core.context_processors.i18n',
+                'django.core.context_processors.request',
+                'django.core.context_processors.media',
+                'django.core.context_processors.static',
+                "cms.context_processors.cms_settings",
+                'sekizai.context_processors.sekizai',
+                "jetson.apps.utils.context_processors.general",
+                "jetson.apps.configuration.context_processors.configuration",
+                "jetson.apps.advertising.context_processors.source_features",
+                "django.contrib.messages.context_processors.messages",
+                "museumsportal.apps.site_specific.context_processors.languages",
+            ),
+            'loaders': [
+                ("django.template.loaders.cached.Loader", [
+                     "django.template.loaders.app_directories.Loader",
+                     "django.template.loaders.filesystem.Loader",
+                 ]),
+            ],
+        }
+    },
+]
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -433,14 +433,15 @@ execfile(os.path.join(JETSON_PATH, "jetson/settings/filebrowser.py"))
 
 FILEBROWSER_EXTENSIONS = {
     'Folder': [''],
-    'Image': ['.jpg','.jpeg','.gif','.png','.tif','.tiff'],
-    'Video': ['.mov','.wmv','.mpeg','.mpg','.avi','.rm','.swf','.flv','.f4v'],
-    'Document': ['.pdf','.doc','.docx','.rtf','.txt',
-        '.xls','.xlsx','.csv','.ppt','.pptx',
-        ],
-    'Audio': ['.mp3','.mp4','.wav','.aiff','.midi','.m4p'],
-    'Code': ['.html','.py','.js','.css'],
-    'Archive': ['.zip','.rar','.tar','.gz'],
+    'Image': ['.jpg', '.jpeg', '.gif', '.png', '.tif', '.tiff'],
+    'Vector Image': ['.eps'],
+    'Video': ['.mov', '.wmv', '.mpeg', '.mpg', '.avi', '.rm', '.swf', '.flv', '.f4v'],
+    'Document': ['.pdf', '.doc', '.docx', '.rtf', '.txt',
+                 '.xls', '.xlsx', '.csv', '.ppt', '.pptx',
+                 ],
+    'Audio': ['.mp3', '.mp4', '.wav', '.aiff', '.midi', '.m4p'],
+    'Code': ['.html', '.py', '.js', '.css'],
+    'Archive': ['.zip', '.rar', '.tar', '.gz'],
 }
 
 FILEBROWSER_VERSIONS = {

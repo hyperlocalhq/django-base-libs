@@ -6,8 +6,6 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponse, Http404
 from django.utils.translation import ugettext_lazy as _, ugettext
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.models.admin import ObjectRelationMixinAdminOptions
@@ -16,11 +14,6 @@ from .models import TipOfTheDay
 
 
 class TipOfTheDayAdmin(ObjectRelationMixinAdminOptions()):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-        )
-
     save_on_top = True
     list_display = ('day', 'content_type', 'get_content_object_display', 'title', 'subtitle', )
     list_filter = ('event_type', 'content_type')

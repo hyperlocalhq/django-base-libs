@@ -161,7 +161,7 @@ class EmailTemplate(SingleSiteMixin, SlugMixin(prepopulate_from=("name",))):
     body_html_es = models.TextField(_("Template HTML (Spanish)"), null=True, blank=True)
     body_html_it = models.TextField(_("Template HTML (Italian)"), null=True, blank=True)
     timestamp = models.DateTimeField(_("Written"), auto_now_add=True)
-    allowed_placeholders = models.ManyToManyField(EmailTemplatePlaceholder, verbose_name=_("Allowed Placeholders"), blank=True, null=True)
+    allowed_placeholders = models.ManyToManyField(EmailTemplatePlaceholder, verbose_name=_("Allowed Placeholders"), blank=True)
     
     class Meta:
         verbose_name = _("email template")

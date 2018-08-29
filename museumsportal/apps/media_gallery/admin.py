@@ -2,7 +2,6 @@
 from django.db import models
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
-from django.utils.encoding import force_unicode
 from django.forms.models import ModelForm
 from django.forms.models import BaseModelFormSet
 from django.forms.models import BaseInlineFormSet
@@ -10,17 +9,11 @@ from django.forms.models import modelformset_factory
 from django.forms.models import save_instance
 from django.forms.formsets import DELETION_FIELD_NAME
 from django.contrib.admin.util import flatten_fieldsets
-from django.conf import settings
 
-from base_libs.admin.options import ExtendedStackedInline
 from base_libs.models.admin import ObjectRelationMixinAdminOptions
 from base_libs.models.admin import ObjectRelationMixinAdminForm
 from base_libs.models.admin import get_admin_lang_section
-from base_libs.middleware import get_current_language
-from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
-
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
 
 MediaGallery = models.get_model("media_gallery", "MediaGallery")
 MediaFile = models.get_model("media_gallery", "MediaFile")
@@ -201,10 +194,6 @@ class MediaGalleryAdminForm(ObjectRelationMixinAdminForm()):
 
 
 class MediaGalleryOptions(ObjectRelationMixinAdminOptions(admin_order_field="content_object_repr")):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-        )
     form = MediaGalleryAdminForm
     save_on_top = True
     inlines = [MediaFile_Inline]

@@ -4,7 +4,7 @@ import os
 from optparse import make_option
 
 from twython import TwythonStreamer, Twython
-from daemon_command import DaemonCommand
+from ._daemon_command import DaemonCommand
 
 from django.core.management.base import NoArgsCommand
 from django.conf import settings

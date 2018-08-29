@@ -110,7 +110,7 @@ class Comment(ObjectRelationMixin(is_required=True), UrlMixin):
     valid_rating = models.BooleanField(_('is valid rating'))
     submit_date = models.DateTimeField(_('date/time submitted'), auto_now_add=True)
     is_public = models.BooleanField(_('is public'))
-    ip_address = models.IPAddressField(_('IP address'), blank=True, null=True)
+    ip_address = models.GenericIPAddressField(_('IP address'), blank=True, null=True)
     is_removed = models.BooleanField(_('is removed'), default=False, help_text=_('Check this box if the comment is inappropriate. A "This comment has been removed" message will be displayed instead.'))
     is_spam = models.BooleanField(_('is spam'), default=False, help_text=_('Check this box if the comment should be marked as spam. The comment will not be displayed in this case.'))
     site = models.ForeignKey("sites.Site")

@@ -10,8 +10,6 @@ from django.conf.urls import *
 from django.contrib.admin.util import unquote
 from django.contrib import messages
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
@@ -29,6 +27,7 @@ admin.site.register(Settings, SettingsAdmin)
 class SubscriptionAdminForm(forms.ModelForm):
     class Meta:
         model = Subscription
+        fields = '__all__'
         
     def clean(self, *args, **kwargs):
         cleaned = super(SubscriptionAdminForm, self).clean(*args, **kwargs)
@@ -57,6 +56,7 @@ class MListAdminForm(forms.ModelForm):
 
     class Meta:
         model = MList
+        fields = '__all__'
         
     def __init__(self, *args, **kwargs):
         super(MListAdminForm, self).__init__(*args, **kwargs)
@@ -135,10 +135,6 @@ class CampaignAdmin(ExtendedModelAdmin):
     fieldsets = [(None, {'fields': ('sender_name', 'sender_email', 'mailinglist', 'template')}),]
     fieldsets += [(_("Content"), {'fields': ['subject', 'body_html']})]
     inlines = (MailingContentBlockInline,)
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
     save_on_top = True
 
     def get_urls(self):

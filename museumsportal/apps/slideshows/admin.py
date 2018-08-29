@@ -12,8 +12,6 @@ from base_libs.models.admin import get_admin_lang_section
 from base_libs.middleware import get_current_language
 from base_libs.admin import ExtendedModelAdmin
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
 Slideshow = models.get_model("slideshows", "Slideshow")
 Slide = models.get_model("slideshows", "Slide")
 
@@ -33,10 +31,6 @@ class Slide_Inline(ExtendedStackedInline):
 
 
 class SlideshowOptions(ExtendedModelAdmin):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
     save_on_top = True
     inlines = [Slide_Inline]
     list_display = ('id', '__unicode__', )

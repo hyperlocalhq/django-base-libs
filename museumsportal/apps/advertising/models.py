@@ -166,7 +166,7 @@ class AdImpression(models.Model):
     """
     impression_date = models.DateTimeField(
         verbose_name=_(u'When'), auto_now_add=True)
-    source_ip = models.IPAddressField(
+    source_ip = models.GenericIPAddressField(
         verbose_name=_(u'Who'), null=True, blank=True)
     ad = models.ForeignKey(AdBase)
 
@@ -181,7 +181,7 @@ class AdClick(models.Model):
     """
     click_date = models.DateTimeField(
         verbose_name=_(u'When'), auto_now_add=True)
-    source_ip = models.IPAddressField(
+    source_ip = models.GenericIPAddressField(
         verbose_name=_(u'Who'), null=True, blank=True)
     ad = models.ForeignKey(AdBase)
 

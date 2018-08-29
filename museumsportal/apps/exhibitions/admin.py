@@ -6,8 +6,6 @@ from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
 from base_libs.models.admin import get_admin_lang_section
@@ -105,16 +103,11 @@ class ExhibitionAdminForm(forms.ModelForm):
 
     class Meta:
         model = Exhibition
+        fields = '__all__'
 
 
 class ExhibitionAdmin(ExtendedModelAdmin):
     form = ExhibitionAdminForm
-
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-        )
-
     save_on_top = True
     list_display = ('id', 'title', 'slug', 'get_museum_display', 'start', 'end', 'is_geoposition_set', 'favorites_count', 'status', 'newly_opened', 'special', 'featured', 'featured_in_magazine', 'closing_soon')
     list_editable = ('status', 'newly_opened', 'special', 'featured', 'featured_in_magazine', 'closing_soon')

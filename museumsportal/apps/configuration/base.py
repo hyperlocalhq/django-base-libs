@@ -27,7 +27,7 @@ class SiteSettingsManager(models.Manager):
         return site_settings
         
 class SiteSettingsBase(MetaTagsMixin):
-    site = models.ForeignKey(Site, verbose_name=_("Site"), unique=True)
+    site = models.OneToOneField(Site, verbose_name=_("Site"), on_delete=models.CASCADE)
     registration_type = models.CharField(_("Registration type"), max_length=10, choices=ACCOUNT_REGISTRATION_TYPES, default="simple")
     login_by_email = models.BooleanField(_("Login by email"))
     
@@ -64,7 +64,7 @@ class PageSettingsBase(models.Model):
     1. Individual users have personalized blocks for /my-profile/
     2. Different sections have own blocks for section pages 
     """
-    site = models.ForeignKey(Site, verbose_name=_("Site"), unique=True)
+    site = models.ForeignKey(Site, verbose_name=_("Site"), on_delete=models.CASCADE)
     user = models.ForeignKey(User, verbose_name=_("Viewer"), null=True)
     path = models.CharField(_('Path'), max_length=100, help_text=_("All that goes after '/', for example: 'about/contact/'. Make sure to have trailing slash. Use '*' for all pages."), blank=True)
     pickled_settings = models.TextField(_('Settings'), editable=False)
@@ -75,6 +75,7 @@ class PageSettingsBase(models.Model):
         abstract = True
         verbose_name = _('page settings')
         verbose_name_plural = _('page settings')
+        unique_together = ('site', 'user')
         ordering = ('path',)
         
     def __unicode__(self):

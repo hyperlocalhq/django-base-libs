@@ -31,9 +31,6 @@ from mptt.models import MPTTModel
 from mptt.managers import TreeManager
 from mptt.fields import TreeForeignKey, TreeManyToManyField
 
-from south.modelsinspector import add_introspection_rules
-
-add_introspection_rules([], ["^tagging_autocomplete\.models\.TagAutocompleteField"])
 
 COUNTRY_CHOICES = (
     ('de', _("Germany")),

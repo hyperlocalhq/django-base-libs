@@ -1,20 +1,12 @@
 # -*- coding: UTF-8 -*-
 
 from django.contrib import admin
-from django.db import models
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _, ugettext
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.models import User
-from django.conf.urls import patterns, include, url
-from django import forms
-
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
+from django.utils.translation import ugettext_lazy as _
 
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
 from base_libs.models.admin import get_admin_lang_section
-from base_libs.admin.tree_editor import TreeEditor
 
 from .models import Location, Season
 
@@ -27,10 +19,6 @@ class SeasonInline(ExtendedStackedInline):
 
 
 class LocationAdmin(ExtendedModelAdmin):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
     save_on_top = True
     list_display = ('id', 'title', 'subtitle', 'creation_date', 'status', 'is_geoposition_set')
     list_editable = ('status', )

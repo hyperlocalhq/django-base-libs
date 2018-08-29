@@ -6,8 +6,6 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
 from base_libs.models.admin import get_admin_lang_section
@@ -69,10 +67,6 @@ class EventForm(forms.ModelForm):
 
 class EventAdmin(ExtendedModelAdmin):
     form = EventForm
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-        )
     save_on_top = True
     list_display = ('id', 'title', 'slug', 'creation_date', 'status', 'featured', 'is_geoposition_set', 'favorites_count')
     list_display_links = ('title', )

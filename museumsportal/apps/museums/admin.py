@@ -9,8 +9,6 @@ from django.contrib.auth.models import User
 from django.conf.urls import patterns, include, url
 from django import forms
 
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
-
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.admin import ExtendedStackedInline
 from base_libs.models.admin import get_admin_lang_section
@@ -95,10 +93,6 @@ class OwnersForm(forms.Form):
 
 
 class MuseumAdmin(ExtendedModelAdmin):
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-            )
     save_on_top = True
     list_display = ('id', 'title', 'subtitle', 'get_owners_list', 'creation_date', 'status', 'participates_in_langenacht', 'participates_in_berlinartweek', 'participates_in_emop', 'is_geoposition_set', 'favorites_count')
     list_editable = ('status', 'participates_in_langenacht', 'participates_in_berlinartweek', 'participates_in_emop')

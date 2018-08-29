@@ -52,7 +52,7 @@ class Subscription(CreationModificationDateMixin):
     first_name = models.CharField(_("First name"), max_length=200, blank=True)
     last_name = models.CharField(_("Last name"), max_length=200, blank=True)
     email = models.EmailField(_("Email address"), blank=True)
-    ip = models.IPAddressField(_("IP Address"), blank=True)
+    ip = models.GenericIPAddressField(_("IP Address"), blank=True, null=True)
     mailinglist = models.ForeignKey('MList', verbose_name=_("Mailing list"))
     status = models.CharField(_("Status"), max_length=200, blank=True, choices=INFOSUBSCRIPTION_STATUS_CHOICES)
     

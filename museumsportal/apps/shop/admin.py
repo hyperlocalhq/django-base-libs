@@ -1,20 +1,14 @@
 # -*- coding: UTF-8 -*-
-
-from django import forms
 from django.forms import TextInput
 from django.forms.models import modelform_factory
 from django.contrib import admin
 from django.db import models
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _, ugettext
-
-from filebrowser.settings import URL_FILEBROWSER_MEDIA
+from django.utils.translation import ugettext_lazy as _
 
 from base_libs.admin import ExtendedModelAdmin
-from base_libs.admin import ExtendedStackedInline
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin.tree_editor import TreeEditor
-from base_libs.forms.fields import AutocompleteModelChoiceField
 
 
 ShopProductCategory = models.get_model("shop", "ShopProductCategory")
@@ -46,14 +40,9 @@ admin.site.register(ShopProductType, ShopProductTypeAdmin)
 
 class ShopProductAdmin(ExtendedModelAdmin):
 
-    ShopProductAdminForm = modelform_factory(ShopProduct)
+    ShopProductAdminForm = modelform_factory(ShopProduct, fields='__all__')
     form = modelform_factory(ShopProduct, form=ShopProductAdminForm, widgets={"price": TextInput(attrs={'size':'10'})})
 
-    class Media:
-        js = (
-            "%sjs/AddFileBrowser.js" % URL_FILEBROWSER_MEDIA,
-        )
-        
     save_on_top = True
     list_display = ('id', 'title', 'subtitle', 'get_owners_display', 'get_categories_display', 'get_types_display', 'price', 'is_featured', 'is_new', 'is_for_children', 'status')
     list_editable = ('is_featured', 'is_for_children', 'is_new', 'status')
