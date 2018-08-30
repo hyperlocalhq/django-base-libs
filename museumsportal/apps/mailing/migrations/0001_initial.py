@@ -1,156 +1,117 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-from south.db import db
-from django.db import models
-from jetson.apps.mailing.models import *
-from base_libs.utils.misc import south_clean_multilingual_fields
-from base_libs.utils.misc import south_cleaned_fields
+from django.db import migrations, models
+import django.db.models.deletion
+from django.conf import settings
+import base_libs.models.fields
 
-class Migration:
-    
-    def forwards(self, orm):
-        
-        # Adding model 'EmailTemplate'
-        db.create_table('mailing_emailtemplate', south_cleaned_fields((
-            ('id', models.AutoField(primary_key=True)),
-            ('site', models.ForeignKey(orm['sites.Site'], null=True, blank=True)),
-            ('slug', models.SlugField(unique=True, max_length=255)),
-            ('owner', models.ForeignKey(orm['auth.User'])),
-            ('name', models.CharField(_("Template Name"), max_length=255)),
-            ('subject', models.CharField(_("Subject (English)"), max_length=255)),
-            ('subject_de', models.CharField(_("Subject (German)"), max_length=255)),
-            ('body', PlainTextModelField(_("Template Text (English)"), blank=True)),
-            ('body_de', PlainTextModelField(_("Template Text (German)"), blank=True)),
-            ('body_html', models.TextField(_("Template HTML (English)"), null=True, blank=True)),
-            ('body_html_de', models.TextField(_("Template HTML (German)"), null=True, blank=True)),
-            ('timestamp', models.DateTimeField(_("Written"), auto_now_add=True)),
-        )))
-        db.send_create_signal('mailing', ['EmailTemplate'])
-        
-        # Adding model 'EmailTemplatePlaceholder'
-        db.create_table('mailing_emailtemplateplaceholder', south_cleaned_fields((
-            ('id', models.AutoField(primary_key=True)),
-            ('sysname', models.SlugField(unique=True, max_length=255)),
-            ('name', MultilingualCharField(_('Placeholder Name'), unique=True, max_length=64)),
-            ('relates_to', models.IntegerField(_("relates to"), default=1)),
-            ('help_text', models.CharField(_("Placeholder Help text"), max_length=255, null=True, blank=True)),
-            ('timestamp', models.DateTimeField(_("Written"), auto_now_add=True)),
-            ('name_de', models.CharField(u'Placeholder Name', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=64, db_tablespace='', blank=False, unique=True, db_index=False)),
-            ('name_en', models.CharField(u'Placeholder Name', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=64, db_tablespace='', blank=False, unique=True, db_index=False)),
-        )))
-        db.send_create_signal('mailing', ['EmailTemplatePlaceholder'])
-        
-        # Adding model 'EmailMessage'
-        db.create_table('mailing_emailmessage', south_cleaned_fields((
-            ('id', models.AutoField(primary_key=True)),
-            ('slug', models.SlugField(unique=True, max_length=255)),
-            ('sender', models.ForeignKey(orm['auth.User'], related_name="sent_by_message_set", null=True, blank=True)),
-            ('recipient', models.ForeignKey(orm['auth.User'], related_name="received_by_message_set", null=True, blank=True)),
-            ('sender_name', models.CharField(_("Sender name"), max_length=255, null=True, blank=True)),
-            ('sender_email', models.EmailField(_("Sender email"), null=True, blank=True)),
-            ('recipient_emails', PlainTextModelField(_("Recipient email(s)"), null=True, blank=True)),
-            ('subject', models.CharField(_("Subject"), max_length=255, blank=True)),
-            ('body', PlainTextModelField(_("Message (Plain text)"), blank=True)),
-            ('body_html', ExtendedTextField(_("Message (HTML)"), blank=True)),
-            ('timestamp', models.DateTimeField(_("Written"), auto_now_add=True)),
-            ('is_read', models.BooleanField(_("Read"), default=False)),
-            ('is_deleted', models.BooleanField(_("Deleted"), default=False)),
-            ('is_replied', models.BooleanField(_("Replied"), default=False)),
-            ('is_spam', models.BooleanField(_("Spam"), default=False)),
-            ('is_sent', models.BooleanField(_("Sent"), default=False)),
-            ('is_internal', models.BooleanField(_("Internal"), default=False)),
-            ('is_draft', models.BooleanField(_("Draft"), default=False)),
-            ('delete_after_sending', models.BooleanField(_("Delete after sending"), default=False)),
-            ('body_html_markup_type', models.CharField('Markup type', default='pt', max_length=10, blank=False)),
-        )))
-        db.send_create_signal('mailing', ['EmailMessage'])
-        
-        # Adding ManyToManyField 'EmailTemplate.allowed_placeholders'
-        db.create_table('mailing_emailtemplate_allowed_placeholders', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('emailtemplate', models.ForeignKey(orm.EmailTemplate, null=False)),
-            ('emailtemplateplaceholder', models.ForeignKey(orm.EmailTemplatePlaceholder, null=False))
-        ))
-        
-    
-    
-    def backwards(self, orm):
-        
-        # Deleting model 'EmailTemplate'
-        db.delete_table('mailing_emailtemplate')
-        
-        # Deleting model 'EmailTemplatePlaceholder'
-        db.delete_table('mailing_emailtemplateplaceholder')
-        
-        # Deleting model 'EmailMessage'
-        db.delete_table('mailing_emailmessage')
-        
-        # Dropping ManyToManyField 'EmailTemplate.allowed_placeholders'
-        db.delete_table('mailing_emailtemplate_allowed_placeholders')
-        
-    
-    
-    models = {
-        'auth.user': {
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'sites.site': {
-            'Meta': {'ordering': "('domain',)", 'db_table': "'django_site'"},
-            '_stub': True,
-            'id': ('models.AutoField', [], {'primary_key': 'True'})
-        },
-        'mailing.emailtemplate': {
-            'Meta': {'ordering': "['-timestamp','name']"},
-            'allowed_placeholders': ('models.ManyToManyField', ["orm['mailing.EmailTemplatePlaceholder']"], {'null': 'True', 'blank': 'True'}),
-            'body': ('PlainTextModelField', ['_("Template Text (English)")'], {'blank': 'True'}),
-            'body_de': ('PlainTextModelField', ['_("Template Text (German)")'], {'blank': 'True'}),
-            'body_html': ('models.TextField', ['_("Template HTML (English)")'], {'null': 'True', 'blank': 'True'}),
-            'body_html_de': ('models.TextField', ['_("Template HTML (German)")'], {'null': 'True', 'blank': 'True'}),
-            'id': ('models.AutoField', [], {'primary_key': 'True'}),
-            'name': ('models.CharField', ['_("Template Name")'], {'max_length': '255'}),
-            'owner': ('models.ForeignKey', ["orm['auth.User']"], {}),
-            'site': ('models.ForeignKey', ["orm['sites.Site']"], {'null': 'True', 'blank': 'True'}),
-            'slug': ('models.SlugField', [], {'unique': 'True', 'max_length': '255'}),
-            'subject': ('models.CharField', ['_("Subject (English)")'], {'max_length': '255'}),
-            'subject_de': ('models.CharField', ['_("Subject (German)")'], {'max_length': '255'}),
-            'timestamp': ('models.DateTimeField', ['_("Written")'], {'auto_now_add': 'True'})
-        },
-        'mailing.emailtemplateplaceholder': {
-            'Meta': {'ordering': "['relates_to','name']"},
-            'help_text': ('models.CharField', ['_("Placeholder Help text")'], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'id': ('models.AutoField', [], {'primary_key': 'True'}),
-            'name': ('MultilingualCharField', ["_('Placeholder Name')"], {'unique': 'True', 'max_length': '64'}),
-            'name_de': ('models.CharField', ["u'Placeholder Name'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '64', 'db_tablespace': "''", 'blank': 'False', 'unique': 'True', 'db_index': 'False'}),
-            'name_en': ('models.CharField', ["u'Placeholder Name'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '64', 'db_tablespace': "''", 'blank': 'False', 'unique': 'True', 'db_index': 'False'}),
-            'relates_to': ('models.IntegerField', ['_("relates to")'], {'default': '1'}),
-            'sysname': ('models.SlugField', [], {'unique': 'True', 'max_length': '255'}),
-            'timestamp': ('models.DateTimeField', ['_("Written")'], {'auto_now_add': 'True'})
-        },
-        'mailing.emailmessage': {
-            'Meta': {'ordering': "('-timestamp','subject',)"},
-            'body': ('PlainTextModelField', ['_("Message (Plain text)")'], {'blank': 'True'}),
-            'body_html': ('ExtendedTextField', ['_("Message (HTML)")'], {'blank': 'True'}),
-            'body_html_markup_type': ('models.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'delete_after_sending': ('models.BooleanField', ['_("Delete after sending")'], {'default': 'False'}),
-            'id': ('models.AutoField', [], {'primary_key': 'True'}),
-            'is_deleted': ('models.BooleanField', ['_("Deleted")'], {'default': 'False'}),
-            'is_draft': ('models.BooleanField', ['_("Draft")'], {'default': 'False'}),
-            'is_internal': ('models.BooleanField', ['_("Internal")'], {'default': 'False'}),
-            'is_read': ('models.BooleanField', ['_("Read")'], {'default': 'False'}),
-            'is_replied': ('models.BooleanField', ['_("Replied")'], {'default': 'False'}),
-            'is_sent': ('models.BooleanField', ['_("Sent")'], {'default': 'False'}),
-            'is_spam': ('models.BooleanField', ['_("Spam")'], {'default': 'False'}),
-            'recipient': ('models.ForeignKey', ["orm['auth.User']"], {'related_name': '"received_by_message_set"', 'null': 'True', 'blank': 'True'}),
-            'recipient_emails': ('PlainTextModelField', ['_("Recipient email(s)")'], {'null': 'True', 'blank': 'True'}),
-            'sender': ('models.ForeignKey', ["orm['auth.User']"], {'related_name': '"sent_by_message_set"', 'null': 'True', 'blank': 'True'}),
-            'sender_email': ('models.EmailField', ['_("Sender email")'], {'null': 'True', 'blank': 'True'}),
-            'sender_name': ('models.CharField', ['_("Sender name")'], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'slug': ('models.SlugField', [], {'unique': 'True', 'max_length': '255'}),
-            'subject': ('models.CharField', ['_("Subject")'], {'max_length': '255', 'blank': 'True'}),
-            'timestamp': ('models.DateTimeField', ['_("Written")'], {'auto_now_add': 'True'})
-        }
-    }
-    south_clean_multilingual_fields(models)
-    
-    complete_apps = ['mailing']
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('sites', '0001_initial'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='EmailMessage',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
+                ('sender_name', models.CharField(max_length=255, null=True, verbose_name='Sender name', blank=True)),
+                ('sender_email', models.EmailField(max_length=254, null=True, verbose_name='Sender email', blank=True)),
+                ('recipient_emails', base_libs.models.fields.PlainTextModelField(null=True, verbose_name='Recipient email(s)', blank=True)),
+                ('subject', models.CharField(max_length=255, verbose_name='Subject', blank=True)),
+                ('body', base_libs.models.fields.PlainTextModelField(verbose_name='Message (Plain text)', blank=True)),
+                ('body_html', base_libs.models.fields.ExtendedTextField(verbose_name='Message (HTML)', blank=True)),
+                ('is_sent', models.BooleanField(default=False, verbose_name='Sent')),
+                ('delete_after_sending', models.BooleanField(default=False, verbose_name='Delete after sending')),
+                ('body_html_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('creator', models.ForeignKey(related_name='emailmessage_creator', on_delete=django.db.models.deletion.SET_NULL, editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='creator')),
+                ('modifier', models.ForeignKey(related_name='emailmessage_modifier', on_delete=django.db.models.deletion.SET_NULL, editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='modifier')),
+                ('recipient', models.ForeignKey(related_name='received_by_message_set', verbose_name='Recipient', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('sender', models.ForeignKey(related_name='sent_by_message_set', verbose_name='Sender', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+            ],
+            options={
+                'ordering': ('-creation_date', 'subject'),
+                'verbose_name': 'email message',
+                'verbose_name_plural': 'email messages',
+            },
+        ),
+        migrations.CreateModel(
+            name='EmailTemplate',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('slug', models.SlugField(unique=True, max_length=255, verbose_name='Slug for URIs')),
+                ('name', models.CharField(max_length=255, verbose_name='Template Name')),
+                ('subject', models.CharField(max_length=255, verbose_name='Subject (English)')),
+                ('subject_de', models.CharField(max_length=255, verbose_name='Subject (German)')),
+                ('subject_fr', models.CharField(max_length=255, verbose_name='Subject (French)')),
+                ('subject_pl', models.CharField(max_length=255, verbose_name='Subject (Polish)')),
+                ('subject_tr', models.CharField(max_length=255, verbose_name='Subject (Turkish)')),
+                ('subject_es', models.CharField(max_length=255, verbose_name='Subject (Spanish)')),
+                ('subject_it', models.CharField(max_length=255, verbose_name='Subject (Italian)')),
+                ('body', base_libs.models.fields.PlainTextModelField(verbose_name='Template Text (English)', blank=True)),
+                ('body_de', base_libs.models.fields.PlainTextModelField(verbose_name='Template Text (German)', blank=True)),
+                ('body_fr', base_libs.models.fields.PlainTextModelField(verbose_name='Template Text (French)', blank=True)),
+                ('body_pl', base_libs.models.fields.PlainTextModelField(verbose_name='Template Text (Polish)', blank=True)),
+                ('body_tr', base_libs.models.fields.PlainTextModelField(verbose_name='Template Text (Turkish)', blank=True)),
+                ('body_es', base_libs.models.fields.PlainTextModelField(verbose_name='Template Text (Spanish)', blank=True)),
+                ('body_it', base_libs.models.fields.PlainTextModelField(verbose_name='Template Text (Italian)', blank=True)),
+                ('body_html', models.TextField(null=True, verbose_name='Template HTML (English)', blank=True)),
+                ('body_html_de', models.TextField(null=True, verbose_name='Template HTML (German)', blank=True)),
+                ('body_html_fr', models.TextField(null=True, verbose_name='Template HTML (French)', blank=True)),
+                ('body_html_pl', models.TextField(null=True, verbose_name='Template HTML (Polish)', blank=True)),
+                ('body_html_tr', models.TextField(null=True, verbose_name='Template HTML (Turkish)', blank=True)),
+                ('body_html_es', models.TextField(null=True, verbose_name='Template HTML (Spanish)', blank=True)),
+                ('body_html_it', models.TextField(null=True, verbose_name='Template HTML (Italian)', blank=True)),
+                ('timestamp', models.DateTimeField(auto_now_add=True, verbose_name='Written')),
+            ],
+            options={
+                'ordering': ['-timestamp', 'name'],
+                'verbose_name': 'email template',
+                'verbose_name_plural': 'email templates',
+            },
+        ),
+        migrations.CreateModel(
+            name='EmailTemplatePlaceholder',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('sysname', models.SlugField(help_text='Do not change this value!', unique=True, max_length=255, verbose_name='Placeholder Internal Name')),
+                ('name', models.CharField(verbose_name='Placeholder Name', max_length=64, null=True, editable=False)),
+                ('relates_to', models.IntegerField(default=1, verbose_name='relates to', choices=[(1, 'Recipient'), (2, 'Sender'), (3, 'Object'), (4, 'Global')])),
+                ('help_text', models.CharField(max_length=255, null=True, verbose_name='Placeholder Help text', blank=True)),
+                ('timestamp', models.DateTimeField(auto_now_add=True, verbose_name='Written')),
+                ('name_de', models.CharField(max_length=64, verbose_name='Placeholder Name')),
+                ('name_en', models.CharField(max_length=64, verbose_name='Placeholder Name', blank=True)),
+                ('name_fr', models.CharField(max_length=64, verbose_name='Placeholder Name', blank=True)),
+                ('name_pl', models.CharField(max_length=64, verbose_name='Placeholder Name', blank=True)),
+                ('name_tr', models.CharField(max_length=64, verbose_name='Placeholder Name', blank=True)),
+                ('name_es', models.CharField(max_length=64, verbose_name='Placeholder Name', blank=True)),
+                ('name_it', models.CharField(max_length=64, verbose_name='Placeholder Name', blank=True)),
+            ],
+            options={
+                'ordering': ['relates_to', 'name'],
+                'verbose_name': 'email template placeholder',
+                'verbose_name_plural': 'email template placeholders',
+            },
+        ),
+        migrations.AddField(
+            model_name='emailtemplate',
+            name='allowed_placeholders',
+            field=models.ManyToManyField(to='mailing.EmailTemplatePlaceholder', verbose_name='Allowed Placeholders', blank=True),
+        ),
+        migrations.AddField(
+            model_name='emailtemplate',
+            name='owner',
+            field=models.ForeignKey(verbose_name='Owner', to=settings.AUTH_USER_MODEL),
+        ),
+        migrations.AddField(
+            model_name='emailtemplate',
+            name='site',
+            field=models.ForeignKey(blank=True, to='sites.Site', help_text='Restrict this object only for the selected site', null=True, verbose_name='Site'),
+        ),
+    ]

@@ -30,7 +30,7 @@ from base_libs.models.fields import MultilingualPlainTextField
 from base_libs.models.fields import PlainTextModelField # for south to work
 
 from jetson.apps.people.functions import get_user_language
-from jetson.apps.mailing.models import EmailTemplate
+EmailTemplate = apps.get_model("mailing", "EmailTemplate")
 
 verbose_name = _("Notification")
 

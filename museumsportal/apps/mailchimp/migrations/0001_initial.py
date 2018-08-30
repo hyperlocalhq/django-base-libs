@@ -1,244 +1,124 @@
-# encoding: utf-8
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
-from base_libs.utils.misc import south_clean_multilingual_fields
-from base_libs.utils.misc import south_cleaned_fields
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-class Migration(SchemaMigration):
-    
-    def forwards(self, orm):
-        
-        # Adding model 'Settings'
-        db.create_table('mailchimp_settings', south_cleaned_fields((
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('api_key', self.gf('django.db.models.fields.CharField')(max_length=200, blank=True)),
-            ('double_optin', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('update_existing', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('send_welcome', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('delete_member', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('send_goodbye', self.gf('django.db.models.fields.BooleanField')(default=True)),
-        )))
-        db.send_create_signal('mailchimp', ['Settings'])
+from django.db import migrations, models
+import django.db.models.deletion
+from django.conf import settings
+import base_libs.models.fields
 
-        # Adding model 'Subscription'
-        db.create_table('mailchimp_subscription', south_cleaned_fields((
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('creation_date', self.gf('django.db.models.fields.DateTimeField')()),
-            ('modified_date', self.gf('django.db.models.fields.DateTimeField')(null=True)),
-            ('subscriber', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True, blank=True)),
-            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=200, blank=True)),
-            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=200, blank=True)),
-            ('email', self.gf('django.db.models.fields.EmailField')(max_length=75, blank=True)),
-            ('ip', self.gf('django.db.models.fields.IPAddressField')(max_length=15, blank=True)),
-            ('mailinglist', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mailchimp.MList'])),
-            ('status', self.gf('django.db.models.fields.CharField')(max_length=200, blank=True)),
-        )))
-        db.send_create_signal('mailchimp', ['Subscription'])
 
-        # Adding model 'MList'
-        db.create_table('mailchimp_mlist', south_cleaned_fields((
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('site', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['sites.Site'], null=True, blank=True)),
-            ('title', self.gf('base_libs.models.fields.MultilingualCharField')(max_length=255, null=True)),
-            ('is_public', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('title_de', self.gf('django.db.models.fields.CharField')(u'Title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=False, unique=False, db_index=False)),
-            ('title_en', self.gf('django.db.models.fields.CharField')(u'Title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=False, unique=False, db_index=False)),
-        )))
-        db.send_create_signal('mailchimp', ['MList'])
+class Migration(migrations.Migration):
 
-        # Adding model 'Campaign'
-        db.create_table('mailchimp_campaign', south_cleaned_fields((
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('creation_date', self.gf('django.db.models.fields.DateTimeField')()),
-            ('modified_date', self.gf('django.db.models.fields.DateTimeField')(null=True)),
-            ('creator', self.gf('django.db.models.fields.related.ForeignKey')(related_name='campaign_creator', null=True, to=orm['auth.User'])),
-            ('modifier', self.gf('django.db.models.fields.related.ForeignKey')(related_name='campaign_modifier', null=True, to=orm['auth.User'])),
-            ('sender_name', self.gf('django.db.models.fields.CharField')(default='Creative City Berlin', max_length=255, null=True, blank=True)),
-            ('sender_email', self.gf('django.db.models.fields.EmailField')(default='ccb-contact@kulturprojekte-berlin.de', max_length=75, null=True, blank=True)),
-            ('subject', self.gf('base_libs.models.fields.MultilingualCharField')(max_length=255, null=True, blank=True)),
-            ('body_html', self.gf('base_libs.models.fields.MultilingualTextField')(default='', null=True, blank=True)),
-            ('mailinglist', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mailchimp.MList'])),
-            ('template', self.gf('base_libs.models.fields.TemplatePathField')(path='mailchimp/mailing/', max_length=100, match='\\.html$')),
-            ('status', self.gf('django.db.models.fields.PositiveIntegerField')(default=1)),
-            ('body_html_de', self.gf('base_libs.models.fields.ExtendedTextField')(u'Message', unique_for_month=None, unique_for_date=None, primary_key=False, db_column=None, max_length=None, unique_for_year=None, rel=None, blank=True, unique=False, db_tablespace='', db_index=False)),
-            ('body_html_de_markup_type', self.gf('django.db.models.fields.CharField')('Markup type', default='pt', max_length=10, blank=False)),
-            ('body_html_en', self.gf('base_libs.models.fields.ExtendedTextField')(u'Message', unique_for_month=None, unique_for_date=None, primary_key=False, db_column=None, max_length=None, unique_for_year=None, rel=None, blank=True, unique=False, db_tablespace='', db_index=False)),
-            ('body_html_en_markup_type', self.gf('django.db.models.fields.CharField')('Markup type', default='pt', max_length=10, blank=False)),
-            ('body_html_markup_type', self.gf('django.db.models.fields.CharField')('Markup type', default='pt', max_length=10, blank=False)),
-            ('subject_de', self.gf('django.db.models.fields.CharField')(u'Subject', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('subject_en', self.gf('django.db.models.fields.CharField')(u'Subject', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-        )))
-        db.send_create_signal('mailchimp', ['Campaign'])
+    dependencies = [
+        ('sites', '0001_initial'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+    ]
 
-        # Adding model 'MailingContentBlock'
-        db.create_table('mailchimp_mailingcontentblock', south_cleaned_fields((
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('topic', self.gf('base_libs.models.fields.MultilingualCharField')(max_length=255, null=True, blank=True)),
-            ('title', self.gf('base_libs.models.fields.MultilingualCharField')(max_length=255, null=True, blank=True)),
-            ('text', self.gf('base_libs.models.fields.MultilingualTextField')(default='', null=True, blank=True)),
-            ('image', self.gf('filebrowser.fields.FileBrowseField')(directory='newsletter/', max_length=255, extensions=['.jpg', '.jpeg', '.gif', '.png'], blank=True)),
-            ('link', self.gf('django.db.models.fields.URLField')(max_length=200, blank=True)),
-            ('campaign', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mailchimp.Campaign'])),
-            ('title_de', self.gf('django.db.models.fields.CharField')(u'Title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('title_en', self.gf('django.db.models.fields.CharField')(u'Title', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('text_de', self.gf('base_libs.models.fields.ExtendedTextField')(u'Text', unique_for_month=None, unique_for_date=None, primary_key=False, db_column=None, max_length=None, unique_for_year=None, rel=None, blank=True, unique=False, db_tablespace='', db_index=False)),
-            ('text_de_markup_type', self.gf('django.db.models.fields.CharField')('Markup type', default='pt', max_length=10, blank=False)),
-            ('text_en', self.gf('base_libs.models.fields.ExtendedTextField')(u'Text', unique_for_month=None, unique_for_date=None, primary_key=False, db_column=None, max_length=None, unique_for_year=None, rel=None, blank=True, unique=False, db_tablespace='', db_index=False)),
-            ('text_en_markup_type', self.gf('django.db.models.fields.CharField')('Markup type', default='pt', max_length=10, blank=False)),
-            ('text_markup_type', self.gf('django.db.models.fields.CharField')('Markup type', default='pt', max_length=10, blank=False)),
-            ('topic_de', self.gf('django.db.models.fields.CharField')(u'Topic', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-            ('topic_en', self.gf('django.db.models.fields.CharField')(u'Topic', null=False, primary_key=False, db_column=None, default='', editable=True, max_length=255, db_tablespace='', blank=True, unique=False, db_index=False)),
-        )))
-        db.send_create_signal('mailchimp', ['MailingContentBlock'])
-    
-    
-    def backwards(self, orm):
-        
-        # Deleting model 'Settings'
-        db.delete_table('mailchimp_settings')
-
-        # Deleting model 'Subscription'
-        db.delete_table('mailchimp_subscription')
-
-        # Deleting model 'MList'
-        db.delete_table('mailchimp_mlist')
-
-        # Deleting model 'Campaign'
-        db.delete_table('mailchimp_campaign')
-
-        # Deleting model 'MailingContentBlock'
-        db.delete_table('mailchimp_mailingcontentblock')
-    
-    
-    models = {
-        'auth.group': {
-            'Meta': {'object_name': 'Group'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '80'}),
-            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
-        },
-        'auth.permission': {
-            'Meta': {'ordering': "('content_type__app_label', 'content_type__model', 'codename')", 'unique_together': "(('content_type', 'codename'),)", 'object_name': 'Permission'},
-            'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        },
-        'auth.user': {
-            'Meta': {'ordering': "('username',)", 'object_name': 'User'},
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
-            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
-        },
-        'contenttypes.contenttype': {
-            'Meta': {'ordering': "('app_label', 'name')", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        'mailchimp.campaign': {
-            'Meta': {'object_name': 'Campaign'},
-            'body_html': ('base_libs.models.fields.MultilingualTextField', [], {'default': "''", 'null': 'True', 'blank': 'True'}),
-            'body_html_de': ('base_libs.models.fields.ExtendedTextField', ["u'Message'"], {'unique_for_month': 'None', 'unique_for_date': 'None', 'primary_key': 'False', 'db_column': 'None', 'max_length': 'None', 'unique_for_year': 'None', 'rel': 'None', 'blank': 'True', 'unique': 'False', 'db_tablespace': "''", 'db_index': 'False'}),
-            'body_html_de_markup_type': ('django.db.models.fields.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'body_html_en': ('base_libs.models.fields.ExtendedTextField', ["u'Message'"], {'unique_for_month': 'None', 'unique_for_date': 'None', 'primary_key': 'False', 'db_column': 'None', 'max_length': 'None', 'unique_for_year': 'None', 'rel': 'None', 'blank': 'True', 'unique': 'False', 'db_tablespace': "''", 'db_index': 'False'}),
-            'body_html_en_markup_type': ('django.db.models.fields.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'body_html_markup_type': ('django.db.models.fields.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'creation_date': ('django.db.models.fields.DateTimeField', [], {}),
-            'creator': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'campaign_creator'", 'null': 'True', 'to': "orm['auth.User']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'mailinglist': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mailchimp.MList']"}),
-            'modified_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
-            'modifier': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'campaign_modifier'", 'null': 'True', 'to': "orm['auth.User']"}),
-            'sender_email': ('django.db.models.fields.EmailField', [], {'default': "'ccb-contact@kulturprojekte-berlin.de'", 'max_length': '75', 'null': 'True', 'blank': 'True'}),
-            'sender_name': ('django.db.models.fields.CharField', [], {'default': "'Creative City Berlin'", 'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'status': ('django.db.models.fields.PositiveIntegerField', [], {'default': '1'}),
-            'subject': ('base_libs.models.fields.MultilingualCharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'subject_de': ('django.db.models.fields.CharField', ["u'Subject'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'subject_en': ('django.db.models.fields.CharField', ["u'Subject'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'template': ('base_libs.models.fields.TemplatePathField', [], {'path': "'mailchimp/mailing/'", 'max_length': '100', 'match': "'\\\\.html$'"})
-        },
-        'mailchimp.mailingcontentblock': {
-            'Meta': {'object_name': 'MailingContentBlock'},
-            'campaign': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mailchimp.Campaign']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('filebrowser.fields.FileBrowseField', [], {'directory': "'newsletter/'", 'max_length': '255', 'extensions': "['.jpg', '.jpeg', '.gif', '.png']", 'blank': 'True'}),
-            'link': ('django.db.models.fields.URLField', [], {'max_length': '200', 'blank': 'True'}),
-            'text': ('base_libs.models.fields.MultilingualTextField', [], {'default': "''", 'null': 'True', 'blank': 'True'}),
-            'text_de': ('base_libs.models.fields.ExtendedTextField', ["u'Text'"], {'unique_for_month': 'None', 'unique_for_date': 'None', 'primary_key': 'False', 'db_column': 'None', 'max_length': 'None', 'unique_for_year': 'None', 'rel': 'None', 'blank': 'True', 'unique': 'False', 'db_tablespace': "''", 'db_index': 'False'}),
-            'text_de_markup_type': ('django.db.models.fields.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'text_en': ('base_libs.models.fields.ExtendedTextField', ["u'Text'"], {'unique_for_month': 'None', 'unique_for_date': 'None', 'primary_key': 'False', 'db_column': 'None', 'max_length': 'None', 'unique_for_year': 'None', 'rel': 'None', 'blank': 'True', 'unique': 'False', 'db_tablespace': "''", 'db_index': 'False'}),
-            'text_en_markup_type': ('django.db.models.fields.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'text_markup_type': ('django.db.models.fields.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'title': ('base_libs.models.fields.MultilingualCharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'title_de': ('django.db.models.fields.CharField', ["u'Title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'title_en': ('django.db.models.fields.CharField', ["u'Title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'topic': ('base_libs.models.fields.MultilingualCharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'topic_de': ('django.db.models.fields.CharField', ["u'Topic'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'}),
-            'topic_en': ('django.db.models.fields.CharField', ["u'Topic'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'True', 'unique': 'False', 'db_index': 'False'})
-        },
-        'mailchimp.mlist': {
-            'Meta': {'ordering': "('title',)", 'object_name': 'MList'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_public': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'site': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['sites.Site']", 'null': 'True', 'blank': 'True'}),
-            'title': ('base_libs.models.fields.MultilingualCharField', [], {'max_length': '255', 'null': 'True'}),
-            'title_de': ('django.db.models.fields.CharField', ["u'Title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'False', 'unique': 'False', 'db_index': 'False'}),
-            'title_en': ('django.db.models.fields.CharField', ["u'Title'"], {'null': 'False', 'primary_key': 'False', 'db_column': 'None', 'default': "''", 'editable': 'True', 'max_length': '255', 'db_tablespace': "''", 'blank': 'False', 'unique': 'False', 'db_index': 'False'})
-        },
-        'mailchimp.settings': {
-            'Meta': {'ordering': "['api_key']", 'object_name': 'Settings'},
-            'api_key': ('django.db.models.fields.CharField', [], {'max_length': '200', 'blank': 'True'}),
-            'delete_member': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'double_optin': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'send_goodbye': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'send_welcome': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'update_existing': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
-        },
-        'mailchimp.subscription': {
-            'Meta': {'ordering': "['email']", 'object_name': 'Subscription'},
-            'creation_date': ('django.db.models.fields.DateTimeField', [], {}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '200', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'ip': ('django.db.models.fields.IPAddressField', [], {'max_length': '15', 'blank': 'True'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '200', 'blank': 'True'}),
-            'mailinglist': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mailchimp.MList']"}),
-            'modified_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
-            'status': ('django.db.models.fields.CharField', [], {'max_length': '200', 'blank': 'True'}),
-            'subscriber': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']", 'null': 'True', 'blank': 'True'})
-        },
-        'permissions.rowlevelpermission': {
-            'Meta': {'object_name': 'RowLevelPermission', 'db_table': "'auth_rowlevelpermission'"},
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'negative': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'object_id': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '255'}),
-            'owner_content_type': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'owner'", 'to': "orm['contenttypes.ContentType']"}),
-            'owner_object_id': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '255'}),
-            'permission': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.Permission']"})
-        },
-        'sites.site': {
-            'Meta': {'ordering': "('domain',)", 'object_name': 'Site', 'db_table': "'django_site'"},
-            'domain': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        }
-    }
-    south_clean_multilingual_fields(models)
-    
-    complete_apps = ['mailchimp']
+    operations = [
+        migrations.CreateModel(
+            name='Campaign',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
+                ('sender_name', models.CharField(default='Museumsportal Berlin', max_length=255, verbose_name='Sender name')),
+                ('sender_email', models.EmailField(default='museumsportal@kulturprojekte-berlin.de', max_length=254, verbose_name='Sender email')),
+                ('subject', models.CharField(max_length=255, verbose_name='Subject')),
+                ('body_html', base_libs.models.fields.ExtendedTextField(verbose_name='Message', blank=True)),
+                ('template', base_libs.models.fields.TemplatePathField(path=b'mailchimp/campaign/', verbose_name='Template', match=b'\\.html$')),
+                ('sent', models.BooleanField(default=False, verbose_name='Sent', editable=False)),
+                ('body_html_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('creator', models.ForeignKey(related_name='campaign_creator', on_delete=django.db.models.deletion.SET_NULL, editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='creator')),
+            ],
+            options={
+                'ordering': ('-creation_date',),
+                'verbose_name': 'Campaign',
+                'verbose_name_plural': 'Campaigns',
+            },
+        ),
+        migrations.CreateModel(
+            name='MailingContentBlock',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('content_type', models.CharField(blank=True, max_length=20, verbose_name=b'Content Type', choices=[('exhibitions', 'Exhibitions'), ('magazine', 'Magazine'), ('events', 'Events'), ('social', 'Social'), ('authorship', 'Image authorship')])),
+                ('content', base_libs.models.fields.ExtendedTextField(verbose_name='Content', blank=True)),
+                ('sort_order', base_libs.models.fields.PositionField(default=None, verbose_name='Sort order')),
+                ('content_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('campaign', models.ForeignKey(to='mailchimp.Campaign')),
+            ],
+            options={
+                'ordering': ('sort_order',),
+                'verbose_name': 'Content Block',
+                'verbose_name_plural': 'Content Blocks',
+            },
+        ),
+        migrations.CreateModel(
+            name='MList',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('title', models.CharField(verbose_name='Title', max_length=255, null=True, editable=False)),
+                ('is_public', models.BooleanField(default=True, help_text='Will this mailing list be displayed in the public settings of subscriptions?', verbose_name='Public')),
+                ('last_sync', models.DateTimeField(null=True, verbose_name='Last sync', blank=True)),
+                ('title_de', models.CharField(max_length=255, verbose_name='Title')),
+                ('title_en', models.CharField(max_length=255, verbose_name='Title', blank=True)),
+                ('title_fr', models.CharField(max_length=255, verbose_name='Title', blank=True)),
+                ('title_pl', models.CharField(max_length=255, verbose_name='Title', blank=True)),
+                ('title_tr', models.CharField(max_length=255, verbose_name='Title', blank=True)),
+                ('title_es', models.CharField(max_length=255, verbose_name='Title', blank=True)),
+                ('title_it', models.CharField(max_length=255, verbose_name='Title', blank=True)),
+                ('site', models.ForeignKey(blank=True, to='sites.Site', help_text='Restrict this object only for the selected site', null=True, verbose_name='Site')),
+            ],
+            options={
+                'ordering': ['title'],
+                'verbose_name': 'Mailing List',
+                'verbose_name_plural': 'Mailing Lists',
+            },
+        ),
+        migrations.CreateModel(
+            name='Settings',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('api_key', models.CharField(max_length=200, verbose_name='API key', blank=True)),
+                ('double_optin', models.BooleanField(default=True, help_text='Flag to control whether a double opt-in confirmation message is sent. ABUSING THIS MAY CAUSE YOUR ACCOUNT TO BE SUSPENDED.', verbose_name='Double Optin')),
+                ('update_existing', models.BooleanField(default=False, help_text='Flag to congtrol whether the existing subscribers should be updated instead of throwing an error.', verbose_name='Update existing')),
+                ('send_welcome', models.BooleanField(default=False, help_text='If double optin is false and this is true, MailChimp will send a welcome message to new subscribers.', verbose_name='Send welcome')),
+                ('delete_member', models.BooleanField(default=False, help_text='Flag to completely delete the member from the list instead of just unsubscribing', verbose_name='Delete member')),
+                ('send_goodbye', models.BooleanField(default=True, help_text='Flag to send the goodbye message to the email address.', verbose_name='Send goodbye')),
+            ],
+            options={
+                'ordering': ['api_key'],
+                'verbose_name': 'MailChimp Settings',
+                'verbose_name_plural': 'MailChimp Settings',
+            },
+        ),
+        migrations.CreateModel(
+            name='Subscription',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('modified_date', models.DateTimeField(verbose_name='modified date', null=True, editable=False)),
+                ('first_name', models.CharField(max_length=200, verbose_name='First name', blank=True)),
+                ('last_name', models.CharField(max_length=200, verbose_name='Last name', blank=True)),
+                ('email', models.EmailField(max_length=254, verbose_name='Email address', blank=True)),
+                ('ip', models.GenericIPAddressField(null=True, verbose_name='IP Address', blank=True)),
+                ('status', models.CharField(blank=True, max_length=200, verbose_name='Status', choices=[(b'pending', 'Pending'), (b'subscribed', 'Subscribed'), (b'unsubscribed', 'Unsubscribed')])),
+                ('mailinglist', models.ForeignKey(verbose_name='Mailing list', to='mailchimp.MList')),
+                ('subscriber', models.ForeignKey(verbose_name='Subscriber', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+            ],
+            options={
+                'ordering': ['email'],
+                'verbose_name': 'subscription',
+                'verbose_name_plural': 'subscriptions',
+            },
+        ),
+        migrations.AddField(
+            model_name='campaign',
+            name='mailinglist',
+            field=models.ForeignKey(verbose_name='Mailing list', to='mailchimp.MList'),
+        ),
+        migrations.AddField(
+            model_name='campaign',
+            name='modifier',
+            field=models.ForeignKey(related_name='campaign_modifier', on_delete=django.db.models.deletion.SET_NULL, editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='modifier'),
+        ),
+    ]

@@ -1,178 +1,94 @@
-# encoding: utf-8
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
-from base_libs.utils.misc import south_clean_multilingual_fields
-from base_libs.utils.misc import south_cleaned_fields
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-class Migration(SchemaMigration):
-    
-    def forwards(self, orm):
-        
-        # Adding model 'SearchSettings'
-        db.create_table('twitterwall_searchsettings', south_cleaned_fields((
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('query', self.gf('django.db.models.fields.CharField')(max_length=140)),
-        )))
-        db.send_create_signal('twitterwall', ['SearchSettings'])
+from django.db import migrations, models
+import base_libs.models.fields
 
-        # Adding M2M table for field sites on 'SearchSettings'
-        db.create_table('twitterwall_searchsettings_sites', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('searchsettings', models.ForeignKey(orm['twitterwall.searchsettings'], null=False)),
-            ('site', models.ForeignKey(orm['sites.site'], null=False))
-        ))
-        db.create_unique('twitterwall_searchsettings_sites', ['searchsettings_id', 'site_id'])
 
-        # Adding model 'UserTimelineSettings'
-        db.create_table('twitterwall_usertimelinesettings', south_cleaned_fields((
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('screen_name', self.gf('django.db.models.fields.CharField')(max_length=20)),
-            ('include_rts', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('exclude_replies', self.gf('django.db.models.fields.BooleanField')(default=True)),
-        )))
-        db.send_create_signal('twitterwall', ['UserTimelineSettings'])
+class Migration(migrations.Migration):
 
-        # Adding M2M table for field sites on 'UserTimelineSettings'
-        db.create_table('twitterwall_usertimelinesettings_sites', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('usertimelinesettings', models.ForeignKey(orm['twitterwall.usertimelinesettings'], null=False)),
-            ('site', models.ForeignKey(orm['sites.site'], null=False))
-        ))
-        db.create_unique('twitterwall_usertimelinesettings_sites', ['usertimelinesettings_id', 'site_id'])
+    dependencies = [
+    ]
 
-        # Adding model 'TwitterUser'
-        db.create_table('twitterwall_twitteruser', south_cleaned_fields((
-            ('id', self.gf('django.db.models.fields.CharField')(max_length=20, primary_key=True)),
-            ('id_str', self.gf('django.db.models.fields.CharField')(max_length=20)),
-            ('screen_name', self.gf('django.db.models.fields.CharField')(max_length=20)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=20, blank=True)),
-            ('location', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('profile_image_url', self.gf('base_libs.models.fields.URLField')(max_length=255)),
-            ('url', self.gf('base_libs.models.fields.URLField')(max_length=255, blank=True)),
-            ('description', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('language', self.gf('django.db.models.fields.CharField')(max_length=5, blank=True)),
-        )))
-        db.send_create_signal('twitterwall', ['TwitterUser'])
-
-        # Adding model 'Tweet'
-        db.create_table('twitterwall_tweet', south_cleaned_fields((
-            ('id', self.gf('django.db.models.fields.CharField')(max_length=20, primary_key=True)),
-            ('id_str', self.gf('django.db.models.fields.CharField')(max_length=20)),
-            ('creation_date', self.gf('django.db.models.fields.DateTimeField')()),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['twitterwall.TwitterUser'])),
-            ('text', self.gf('django.db.models.fields.TextField')()),
-            ('html', self.gf('django.db.models.fields.TextField')()),
-            ('latitude', self.gf('django.db.models.fields.FloatField')(null=True, blank=True)),
-            ('longitude', self.gf('django.db.models.fields.FloatField')(null=True, blank=True)),
-            ('from_search', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('by_user', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('status', self.gf('django.db.models.fields.CharField')(default='published', max_length=20, blank=True)),
-        )))
-        db.send_create_signal('twitterwall', ['Tweet'])
-
-        # Adding M2M table for field sites on 'Tweet'
-        db.create_table('twitterwall_tweet_sites', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('tweet', models.ForeignKey(orm['twitterwall.tweet'], null=False)),
-            ('site', models.ForeignKey(orm['sites.site'], null=False))
-        ))
-        db.create_unique('twitterwall_tweet_sites', ['tweet_id', 'site_id'])
-
-        # Adding model 'TweetMedia'
-        db.create_table('twitterwall_tweetmedia', south_cleaned_fields((
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('tweet', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['twitterwall.Tweet'])),
-            ('media_url', self.gf('base_libs.models.fields.URLField')(max_length=200)),
-            ('media_type', self.gf('django.db.models.fields.CharField')(default='photo', max_length=20)),
-        )))
-        db.send_create_signal('twitterwall', ['TweetMedia'])
-    
-    
-    def backwards(self, orm):
-        
-        # Deleting model 'SearchSettings'
-        db.delete_table('twitterwall_searchsettings')
-
-        # Removing M2M table for field sites on 'SearchSettings'
-        db.delete_table('twitterwall_searchsettings_sites')
-
-        # Deleting model 'UserTimelineSettings'
-        db.delete_table('twitterwall_usertimelinesettings')
-
-        # Removing M2M table for field sites on 'UserTimelineSettings'
-        db.delete_table('twitterwall_usertimelinesettings_sites')
-
-        # Deleting model 'TwitterUser'
-        db.delete_table('twitterwall_twitteruser')
-
-        # Deleting model 'Tweet'
-        db.delete_table('twitterwall_tweet')
-
-        # Removing M2M table for field sites on 'Tweet'
-        db.delete_table('twitterwall_tweet_sites')
-
-        # Deleting model 'TweetMedia'
-        db.delete_table('twitterwall_tweetmedia')
-    
-    
-    models = {
-        'sites.site': {
-            'Meta': {'ordering': "('domain',)", 'object_name': 'Site', 'db_table': "'django_site'"},
-            'domain': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        },
-        'twitterwall.searchsettings': {
-            'Meta': {'object_name': 'SearchSettings'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'query': ('django.db.models.fields.CharField', [], {'max_length': '140'}),
-            'sites': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['sites.Site']", 'symmetrical': 'False'})
-        },
-        'twitterwall.tweet': {
-            'Meta': {'ordering': "('-creation_date',)", 'object_name': 'Tweet'},
-            'by_user': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'creation_date': ('django.db.models.fields.DateTimeField', [], {}),
-            'from_search': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'html': ('django.db.models.fields.TextField', [], {}),
-            'id': ('django.db.models.fields.CharField', [], {'max_length': '20', 'primary_key': 'True'}),
-            'id_str': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
-            'latitude': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'}),
-            'longitude': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'}),
-            'sites': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['sites.Site']", 'symmetrical': 'False'}),
-            'status': ('django.db.models.fields.CharField', [], {'default': "'published'", 'max_length': '20', 'blank': 'True'}),
-            'text': ('django.db.models.fields.TextField', [], {}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['twitterwall.TwitterUser']"})
-        },
-        'twitterwall.tweetmedia': {
-            'Meta': {'ordering': "('id',)", 'object_name': 'TweetMedia'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'media_type': ('django.db.models.fields.CharField', [], {'default': "'photo'", 'max_length': '20'}),
-            'media_url': ('base_libs.models.fields.URLField', [], {'max_length': '200'}),
-            'tweet': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['twitterwall.Tweet']"})
-        },
-        'twitterwall.twitteruser': {
-            'Meta': {'ordering': "('screen_name',)", 'object_name': 'TwitterUser'},
-            'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'id': ('django.db.models.fields.CharField', [], {'max_length': '20', 'primary_key': 'True'}),
-            'id_str': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
-            'language': ('django.db.models.fields.CharField', [], {'max_length': '5', 'blank': 'True'}),
-            'location': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '20', 'blank': 'True'}),
-            'profile_image_url': ('base_libs.models.fields.URLField', [], {'max_length': '255'}),
-            'screen_name': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
-            'url': ('base_libs.models.fields.URLField', [], {'max_length': '255', 'blank': 'True'})
-        },
-        'twitterwall.usertimelinesettings': {
-            'Meta': {'object_name': 'UserTimelineSettings'},
-            'exclude_replies': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'include_rts': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'screen_name': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
-            'sites': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['sites.Site']", 'symmetrical': 'False'})
-        }
-    }
-    south_clean_multilingual_fields(models)
-    
-    complete_apps = ['twitterwall']
+    operations = [
+        migrations.CreateModel(
+            name='SearchSettings',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('query', models.CharField(help_text=b'\nA comma-separated list of phrases which will be used to determine what Tweets will be delivered on the stream.\nA phrase may be one or more terms separated by spaces, and a phrase will match if all of the terms in the phrase\nare present in the Tweet, regardless of order and ignoring case.\n', max_length=140, verbose_name='Search query')),
+            ],
+            options={
+                'verbose_name': 'Twitter search settings',
+                'verbose_name_plural': 'Twitter search settings',
+            },
+        ),
+        migrations.CreateModel(
+            name='Tweet',
+            fields=[
+                ('id', models.CharField(max_length=20, serialize=False, verbose_name='ID', primary_key=True)),
+                ('id_str', models.CharField(help_text='Used in URLs', max_length=20, verbose_name='ID String')),
+                ('creation_date', models.DateTimeField(verbose_name='Creation date')),
+                ('text', models.TextField(help_text='Text as imported from twitter', verbose_name='Text')),
+                ('html', models.TextField(verbose_name='HTML')),
+                ('latitude', models.FloatField(help_text='Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90).', null=True, verbose_name='Latitude', blank=True)),
+                ('longitude', models.FloatField(help_text='Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west).', null=True, verbose_name='Longitude', blank=True)),
+                ('from_search', models.BooleanField(verbose_name='from search by query')),
+                ('by_user', models.BooleanField(verbose_name='by twitter user from user timeline settings')),
+                ('status', models.CharField(default=b'published', max_length=20, verbose_name='Status', blank=True, choices=[(b'published', 'Published'), (b'not_listed', 'Not Listed')])),
+            ],
+            options={
+                'ordering': ('-creation_date',),
+                'verbose_name': 'Tweet',
+                'verbose_name_plural': 'Tweets',
+            },
+        ),
+        migrations.CreateModel(
+            name='TweetMedia',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('media_url', base_libs.models.fields.URLField(verbose_name='Media URL')),
+                ('media_type', models.CharField(default=b'photo', max_length=20, verbose_name='MediaType', choices=[(b'photo', 'Photo')])),
+                ('tweet', models.ForeignKey(verbose_name='Tweet', to='twitterwall.Tweet')),
+            ],
+            options={
+                'ordering': ('id',),
+                'verbose_name': 'Tweet media',
+                'verbose_name_plural': 'Tweet media',
+            },
+        ),
+        migrations.CreateModel(
+            name='TwitterUser',
+            fields=[
+                ('id', models.CharField(max_length=20, serialize=False, verbose_name='ID', primary_key=True)),
+                ('id_str', models.CharField(help_text='Used in URLs', max_length=20, verbose_name='ID String')),
+                ('screen_name', models.CharField(max_length=20, verbose_name='Screen name')),
+                ('name', models.CharField(max_length=20, verbose_name='Name', blank=True)),
+                ('location', models.CharField(max_length=100, verbose_name='Location', blank=True)),
+                ('profile_image_url', base_libs.models.fields.URLField(max_length=255, verbose_name='Profile image URL')),
+                ('url', base_libs.models.fields.URLField(max_length=255, verbose_name='URL', blank=True)),
+                ('description', models.TextField(verbose_name='Description', blank=True)),
+                ('language', models.CharField(blank=True, max_length=5, verbose_name='Language', choices=[(b'ar', 'Arabic'), (b'ca', 'Catalan'), (b'da', 'Danish'), (b'nl', 'Dutch'), (b'en', 'English'), (b'fa', 'Farsi'), (b'fil', 'Filipino'), (b'fi', 'Finnish'), (b'fr', 'French'), (b'de', 'German'), (b'he', 'Hebrew'), (b'hi', 'Hindi'), (b'hu', 'Hungarian'), (b'id', 'Indonesian'), (b'it', 'Italian'), (b'ja', 'Japanese'), (b'ko', 'Korean'), (b'msa', 'Malay'), (b'no', 'Norwegian'), (b'pl', 'Polish'), (b'pt', 'Portuguese'), (b'ru', 'Russian'), (b'zh-cn', 'Simplified Chinese'), (b'es', 'Spanish'), (b'sv', 'Swedish'), (b'th', 'Thai'), (b'zh-tw', 'Traditional Chinese'), (b'tr', 'Turkish'), (b'uk', 'Ukrainian'), (b'ur', 'Urdu')])),
+            ],
+            options={
+                'ordering': ('screen_name',),
+                'verbose_name': 'Twitter user',
+                'verbose_name_plural': 'Twitter users',
+            },
+        ),
+        migrations.CreateModel(
+            name='UserTimelineSettings',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('screen_name', models.CharField(max_length=20, verbose_name='Screen name')),
+            ],
+            options={
+                'verbose_name': 'Twitter user timeline settings',
+                'verbose_name_plural': 'Twitter user timeline settings',
+            },
+        ),
+        migrations.AddField(
+            model_name='tweet',
+            name='user',
+            field=models.ForeignKey(verbose_name='Twitter user', to='twitterwall.TwitterUser'),
+        ),
+    ]

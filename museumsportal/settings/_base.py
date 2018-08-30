@@ -118,7 +118,6 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
 
     ### more third-party apps ###
-    "pipeline",
     "tastypie",
     "tagging",
     "tagging_autocomplete",

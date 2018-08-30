@@ -1,70 +1,115 @@
-# encoding: utf-8
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
-from base_libs.utils.misc import south_clean_multilingual_fields
-from base_libs.utils.misc import south_cleaned_fields
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-class Migration(SchemaMigration):
-    
-    def forwards(self, orm):
-        
-        # Adding model 'EditorialContent'
-        db.create_table('cmsplugin_editorialcontent', south_cleaned_fields((
-            ('cmsplugin_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['cms.CMSPlugin'], unique=True, primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('subtitle', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('description', self.gf('base_libs.models.fields.ExtendedTextField')(blank=True)),
-            ('website', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('image', self.gf('filebrowser.fields.FileBrowseField')(max_length=255, extensions=['.jpg', '.jpeg', '.gif', '.png', '.tif', '.tiff'], blank=True)),
-            ('image_caption', self.gf('base_libs.models.fields.ExtendedTextField')(max_length=255, blank=True)),
-            ('description_markup_type', self.gf('django.db.models.fields.CharField')('Markup type', default='pt', max_length=10, blank=False)),
-            ('image_caption_markup_type', self.gf('django.db.models.fields.CharField')('Markup type', default='pt', max_length=10, blank=False)),
-        )))
-        db.send_create_signal('editorial', ['EditorialContent'])
-    
-    
-    def backwards(self, orm):
-        
-        # Deleting model 'EditorialContent'
-        db.delete_table('cmsplugin_editorialcontent')
-    
-    
-    models = {
-        'cms.cmsplugin': {
-            'Meta': {'object_name': 'CMSPlugin'},
-            'creation_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'language': ('django.db.models.fields.CharField', [], {'max_length': '15', 'db_index': 'True'}),
-            'level': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
-            'lft': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
-            'parent': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['cms.CMSPlugin']", 'null': 'True', 'blank': 'True'}),
-            'placeholder': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['cms.Placeholder']", 'null': 'True'}),
-            'plugin_type': ('django.db.models.fields.CharField', [], {'max_length': '50', 'db_index': 'True'}),
-            'position': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'rght': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
-            'tree_id': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'})
-        },
-        'cms.placeholder': {
-            'Meta': {'object_name': 'Placeholder'},
-            'default_width': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'slot': ('django.db.models.fields.CharField', [], {'max_length': '50', 'db_index': 'True'})
-        },
-        'editorial.editorialcontent': {
-            'Meta': {'ordering': "['title']", 'object_name': 'EditorialContent', 'db_table': "'cmsplugin_editorialcontent'", '_ormbases': ['cms.CMSPlugin']},
-            'cmsplugin_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['cms.CMSPlugin']", 'unique': 'True', 'primary_key': 'True'}),
-            'description': ('base_libs.models.fields.ExtendedTextField', [], {'blank': 'True'}),
-            'description_markup_type': ('django.db.models.fields.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'image': ('filebrowser.fields.FileBrowseField', [], {'max_length': '255', 'extensions': "['.jpg', '.jpeg', '.gif', '.png', '.tif', '.tiff']", 'blank': 'True'}),
-            'image_caption': ('base_libs.models.fields.ExtendedTextField', [], {'max_length': '255', 'blank': 'True'}),
-            'image_caption_markup_type': ('django.db.models.fields.CharField', ["'Markup type'"], {'default': "'pt'", 'max_length': '10', 'blank': 'False'}),
-            'subtitle': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'website': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'})
-        }
-    }
-    south_clean_multilingual_fields(models)
-    
-    complete_apps = ['editorial']
+from django.db import migrations, models
+import filebrowser.fields
+import base_libs.models.fields
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('cms', '0016_auto_20160608_1535'),
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='EditorialContent',
+            fields=[
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='editorial_editorialcontent', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('title', models.CharField(max_length=255, verbose_name='Title')),
+                ('subtitle', models.CharField(max_length=255, verbose_name='Subtitle', blank=True)),
+                ('description', base_libs.models.fields.ExtendedTextField(verbose_name='Description', blank=True)),
+                ('website', models.CharField(max_length=255, verbose_name='Website', blank=True)),
+                ('image', filebrowser.fields.FileBrowseField(max_length=255, verbose_name='Image', blank=True)),
+                ('image_caption', base_libs.models.fields.ExtendedTextField(max_length=255, verbose_name='Image Caption', blank=True)),
+                ('col_xs_width', models.PositiveIntegerField(blank=True, null=True, verbose_name='Column width for phones', choices=[(3, '25% of the full width'), (4, '33.3% of the full width'), (6, '50% of the full width'), (8, '66.6% of the full width'), (9, '75% of the full width'), (12, 'Full width')])),
+                ('col_sm_width', models.PositiveIntegerField(blank=True, null=True, verbose_name='Column width for tablets', choices=[(3, '25% of the full width'), (4, '33.3% of the full width'), (6, '50% of the full width'), (8, '66.6% of the full width'), (9, '75% of the full width'), (12, 'Full width')])),
+                ('col_md_width', models.PositiveIntegerField(blank=True, null=True, verbose_name='Column width for small desktops', choices=[(3, '25% of the full width'), (4, '33.3% of the full width'), (6, '50% of the full width'), (8, '66.6% of the full width'), (9, '75% of the full width'), (12, 'Full width')])),
+                ('col_lg_width', models.PositiveIntegerField(blank=True, null=True, verbose_name='Column width for large desktops', choices=[(3, '25% of the full width'), (4, '33.3% of the full width'), (6, '50% of the full width'), (8, '66.6% of the full width'), (9, '75% of the full width'), (12, 'Full width')])),
+                ('css_class', models.CharField(max_length=255, verbose_name='CSS Class', blank=True)),
+                ('description_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('image_caption_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+            ],
+            options={
+                'ordering': ['title'],
+                'verbose_name': 'Editorial content',
+                'verbose_name_plural': 'Editorial contents',
+            },
+            bases=('cms.cmsplugin',),
+        ),
+        migrations.CreateModel(
+            name='Footnote',
+            fields=[
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='editorial_footnote', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('title', models.CharField(default=b'Literatur', max_length=255, verbose_name='Title')),
+                ('description', base_libs.models.fields.ExtendedTextField(verbose_name='Description', blank=True)),
+                ('description_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+            ],
+            options={
+                'ordering': ['title'],
+                'verbose_name': 'Footnote',
+                'verbose_name_plural': 'Footnotes',
+            },
+            bases=('cms.cmsplugin',),
+        ),
+        migrations.CreateModel(
+            name='FrontpageTeaser',
+            fields=[
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='editorial_frontpageteaser', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('title', models.CharField(max_length=255, verbose_name='Title')),
+                ('title2', models.CharField(max_length=255, verbose_name='Title 2', blank=True)),
+                ('title3', models.CharField(max_length=255, verbose_name='Title 3', blank=True)),
+                ('description', base_libs.models.fields.ExtendedTextField(verbose_name='Description', blank=True)),
+                ('website', models.CharField(max_length=255, verbose_name='Website', blank=True)),
+                ('image', filebrowser.fields.FileBrowseField(max_length=255, verbose_name='Image', blank=True)),
+                ('image_caption', base_libs.models.fields.ExtendedTextField(max_length=255, verbose_name='Image Caption', blank=True)),
+                ('description_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('image_caption_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+            ],
+            options={
+                'ordering': ['title'],
+                'verbose_name': 'Frontpage Teaser',
+                'verbose_name_plural': 'Frontpage Teasers',
+            },
+            bases=('cms.cmsplugin',),
+        ),
+        migrations.CreateModel(
+            name='Intro',
+            fields=[
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='editorial_intro', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('title', models.CharField(max_length=200, verbose_name='Title')),
+                ('subtitle', models.CharField(max_length=200, verbose_name='Subtitle', blank=True)),
+                ('description', base_libs.models.fields.ExtendedTextField(verbose_name='Description', blank=True)),
+                ('subdescription', base_libs.models.fields.ExtendedTextField(verbose_name='Subdescription', blank=True)),
+                ('description_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('subdescription_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+            ],
+            options={
+                'ordering': ['title'],
+                'verbose_name': 'Intro',
+                'verbose_name_plural': 'Intros',
+            },
+            bases=('cms.cmsplugin',),
+        ),
+        migrations.CreateModel(
+            name='TeaserBlock',
+            fields=[
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='editorial_teaserblock', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('title', models.CharField(max_length=255, verbose_name='Title')),
+                ('subtitle', models.CharField(max_length=255, verbose_name='Subtitle', blank=True)),
+                ('description', base_libs.models.fields.ExtendedTextField(verbose_name='Description', blank=True)),
+                ('website', models.CharField(max_length=255, verbose_name='Website', blank=True)),
+                ('image', filebrowser.fields.FileBrowseField(max_length=255, verbose_name='Image', blank=True)),
+                ('image_caption', base_libs.models.fields.ExtendedTextField(max_length=255, verbose_name='Image Caption', blank=True)),
+                ('description_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+                ('image_caption_markup_type', models.CharField(default=b'pt', help_text='You can select an appropriate markup type here', max_length=10, verbose_name='Markup type', choices=[(b'hw', 'HTML WYSIWYG'), (b'pt', 'Plain Text'), (b'rh', 'Raw HTML'), (b'md', 'Markdown')])),
+            ],
+            options={
+                'ordering': ['title'],
+                'verbose_name': 'Teaser',
+                'verbose_name_plural': 'Teasers',
+            },
+            bases=('cms.cmsplugin',),
+        ),
+    ]

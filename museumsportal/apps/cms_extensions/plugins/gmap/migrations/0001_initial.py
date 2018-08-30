@@ -1,77 +1,34 @@
-# encoding: utf-8
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
-from base_libs.utils.misc import south_clean_multilingual_fields
-from base_libs.utils.misc import south_cleaned_fields
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-class Migration(SchemaMigration):
-    
-    def forwards(self, orm):
-        
-        # Adding model 'GMap'
-        db.create_table('cmsplugin_gmap', south_cleaned_fields((
-            ('city', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=100, null=True, blank=True)),
-            ('cmsplugin_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['cms.CMSPlugin'], unique=True, primary_key=True)),
-            ('zipcode', self.gf('django.db.models.fields.CharField')(max_length=30)),
-            ('zoom', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
-            ('content', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
-            ('route_planer_title', self.gf('django.db.models.fields.CharField')(default=u'Calculate your fastest way to here', max_length=150, null=True, blank=True)),
-            ('route_planer', self.gf('django.db.models.fields.BooleanField')(default=False, blank=True)),
-            ('address', self.gf('django.db.models.fields.CharField')(max_length=150)),
-            ('lat', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=10, decimal_places=6, blank=True)),
-            ('lng', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=10, decimal_places=6, blank=True)),
-        )))
-        db.send_create_signal('gmap', ['GMap'])
-    
-    
-    def backwards(self, orm):
-        
-        # Deleting model 'GMap'
-        db.delete_table('cmsplugin_gmap')
-    
-    
-    models = {
-        'cms.cmsplugin': {
-            'Meta': {'object_name': 'CMSPlugin'},
-            'creation_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'language': ('django.db.models.fields.CharField', [], {'max_length': '5', 'db_index': 'True'}),
-            'level': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
-            'lft': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
-            'parent': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['cms.CMSPlugin']", 'null': 'True', 'blank': 'True'}),
-            'placeholder': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['cms.Placeholder']", 'null': 'True'}),
-            'plugin_type': ('django.db.models.fields.CharField', [], {'max_length': '50', 'db_index': 'True'}),
-            'position': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'publisher_is_draft': ('django.db.models.fields.BooleanField', [], {'default': 'True', 'db_index': 'True', 'blank': 'True'}),
-            'publisher_public': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'publisher_draft'", 'unique': 'True', 'null': 'True', 'to': "orm['cms.CMSPlugin']"}),
-            'publisher_state': ('django.db.models.fields.SmallIntegerField', [], {'default': '0', 'db_index': 'True'}),
-            'rght': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
-            'tree_id': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'})
-        },
-        'cms.placeholder': {
-            'Meta': {'object_name': 'Placeholder'},
-            'default_width': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'slot': ('django.db.models.fields.CharField', [], {'max_length': '50', 'db_index': 'True'})
-        },
-        'gmap.gmap': {
-            'Meta': {'object_name': 'GMap', 'db_table': "'cmsplugin_gmap'", '_ormbases': ['cms.CMSPlugin']},
-            'address': ('django.db.models.fields.CharField', [], {'max_length': '150'}),
-            'city': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'cmsplugin_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['cms.CMSPlugin']", 'unique': 'True', 'primary_key': 'True'}),
-            'content': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'lat': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '10', 'decimal_places': '6', 'blank': 'True'}),
-            'lng': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '10', 'decimal_places': '6', 'blank': 'True'}),
-            'route_planer': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'route_planer_title': ('django.db.models.fields.CharField', [], {'default': "u'Calculate your fastest way to here'", 'max_length': '150', 'null': 'True', 'blank': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'zipcode': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'zoom': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'})
-        }
-    }
-    south_clean_multilingual_fields(models)
-    
-    complete_apps = ['gmap']
+from django.db import migrations, models
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('cms', '0016_auto_20160608_1535'),
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='GMap',
+            fields=[
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='gmap_gmap', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('title', models.CharField(max_length=100, null=True, verbose_name='map title', blank=True)),
+                ('address', models.CharField(max_length=150, verbose_name='address')),
+                ('zipcode', models.CharField(max_length=30, verbose_name='zip code')),
+                ('city', models.CharField(max_length=100, verbose_name='city')),
+                ('content', models.CharField(max_length=255, null=True, verbose_name='additional content', blank=True)),
+                ('zoom', models.IntegerField(null=True, verbose_name='zoom level', blank=True)),
+                ('lat', models.DecimalField(decimal_places=6, max_digits=10, blank=True, help_text='Use latitude & longitude to fine tune the map possiton.', null=True, verbose_name='latitude')),
+                ('lng', models.DecimalField(null=True, verbose_name='longitude', max_digits=10, decimal_places=6, blank=True)),
+                ('route_planer_title', models.CharField(default='Calculate your fastest way to here', max_length=150, null=True, verbose_name='route planer title', blank=True)),
+                ('route_planer', models.BooleanField(default=False, verbose_name='route planer')),
+            ],
+            options={
+                'abstract': False,
+            },
+            bases=('cms.cmsplugin',),
+        ),
+    ]
