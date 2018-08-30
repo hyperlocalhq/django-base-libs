@@ -392,8 +392,6 @@ ADMIN_APP_INDEX = (
 
 ### CACHING ###
 
-
-
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',

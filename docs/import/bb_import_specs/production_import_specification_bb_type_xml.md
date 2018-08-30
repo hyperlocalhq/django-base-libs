@@ -136,7 +136,7 @@ The `<production>` node has the following elements:
 | `<images>` | list of `<image>` nodes | no | Images | |
 | `<pdfs>` | list of `<pdf>` nodes | no | PDF documents | |
 | `<social_media>` | list of `<social_media_channel>` nodes | no | Social media | |
-| `<language_and_subtitles_id>` | xs:string | no | Language and subtitles | in-deutscher-sprache |
+| `<language_and_subtitles_id>` | xs:string | no | Language and subtitles | sprache-kein-problem |
 | `<sponsors>` | list of `<sponsor>` nodes | no | Sponsors | |
 | `<events>` | list of `<event>` nodes | no | Events | |
 | `<classiccard>` | xs:boolean | no | Intended for ClassicCard holders. One of “true” or “false” | false |
@@ -808,7 +808,6 @@ This is a list of choices for the `<language_and_subtitles_id>` node:
 - Mit französischen Übertiteln | With French surtitles (ID = "mit-franzoesischen-uebertiteln")
 - Andere Sprache | Other Languages (ID = "andere-sprache")
 - Simultanübersetzung englisch-deutsch | Simultaneous translation English-German (ID = "simultanubersetzung-englisch-deutsch")
-- In deutscher Sprache | In German (ID = "in-deutscher-sprache")
 
 For example, if you want to tell that the language for production doesn't matter, you would use such XML:
 
@@ -913,7 +912,7 @@ These elements are available for the `<event>` node:
 | `<live_streams>` | list of `<live_stream>` nodes | no | Live streams | |
 | `<images>` | list of `<image>` nodes | no | Images | |
 | `<pdfs>` | list of `<pdf>` nodes | no | PDF documents | |
-| `<language_and_subtitles_id>` | xs:string | no | Language and subtitles | in-deutscher-sprache |
+| `<language_and_subtitles_id>` | xs:string | no | Language and subtitles | sprache-kein-problem |
 | `<sponsors>` | list of `<sponsor>` nodes | no | Sponsors | |
 | `<classiccard>` | xs:boolean | no | Intended for ClassicCard holders. One of “true” or “false” | false |
 

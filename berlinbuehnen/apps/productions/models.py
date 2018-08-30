@@ -179,7 +179,7 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     age_text = MultilingualCharField(_("Age text"), max_length=255, blank=True)
 
     festivals = models.ManyToManyField("festivals.Festival", verbose_name=_("Festivals"), blank=True)
-    language_and_subtitles = models.ForeignKey(LanguageAndSubtitles, verbose_name=_("Language / Subtitles"), blank=True, null=True)
+    language_and_subtitles = models.ForeignKey(LanguageAndSubtitles, verbose_name=_("Language / Subtitles"), blank=True, null=True, on_delete=models.SET_NULL)
     related_productions = models.ManyToManyField("self", verbose_name=_("Related productions"), blank=True)
 
     free_entrance = models.BooleanField(_("Free entrance"), default=False)
@@ -889,7 +889,7 @@ class Event(CreationModificationMixin, UrlMixin):
     event_status = models.CharField(_("Event status"), max_length=20, choices=EVENT_STATUS_CHOICES, blank=True)
     ticket_status = models.CharField(_("Ticket status"), max_length=20, choices=TICKET_STATUS_CHOICES, blank=True)
 
-    language_and_subtitles = models.ForeignKey(LanguageAndSubtitles, verbose_name=_("Language / Subtitles"), blank=True, null=True)
+    language_and_subtitles = models.ForeignKey(LanguageAndSubtitles, verbose_name=_("Language / Subtitles"), blank=True, null=True, on_delete=models.SET_NULL)
 
     free_entrance = models.BooleanField(_("Free entrance"), default=False)
     price_from = models.DecimalField(_(u"Price from (€). Separate cents by a point."), max_digits=5, decimal_places=2, blank=True, null=True)

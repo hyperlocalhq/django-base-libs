@@ -143,7 +143,7 @@ Each `production` object has the following keys and values:
 | `"images"` | list of `image` objects | no | Images | |
 | `"pdfs"` | list of `pdf` objects | no | PDF documents | |
 | `"social_media"` | list of `social_media_channel` objects | no | Social media | |
-| `"language_and_subtitles_id"` | string | no | Language and subtitles | "in-deutscher-sprache" |
+| `"language_and_subtitles_id"` | string | no | Language and subtitles | "sprache-kein-problem" |
 | `"sponsors"` | list of `sponsor` objects | no | Sponsors | |
 | `"events"` | list of `event` objects | no | Events | |
 | `"classiccard"` | string | no | Intended for ClassicCard holders. One of “true” or “false” | "false" |
@@ -802,7 +802,6 @@ This is a list of choices for the `"language_and_subtitles_id"` object:
 - Mit französischen Übertiteln | With French surtitles (ID = "mit-franzoesischen-uebertiteln")
 - Andere Sprache | Other Languages (ID = "andere-sprache")
 - Simultanübersetzung englisch-deutsch | Simultaneous translation English-German (ID = "simultanubersetzung-englisch-deutsch")
-- In deutscher Sprache | In German (ID = "in-deutscher-sprache")
 
 For example, if you want to tell that the language for production doesn't matter, you would use such key and value:
 
@@ -907,7 +906,7 @@ These elements are available for the `event` object:
 | `"live_streams"` | list of `live_stream` objects | no | Live streams | |
 | `"images"` | list of `image` objects | no | Images | |
 | `"pdfs"` | list of `pdf` objects | no | PDF documents | |
-| `"language_and_subtitles_id"` | string | no | Language and subtitles | "in-deutscher-sprache" |
+| `"language_and_subtitles_id"` | string | no | Language and subtitles | "sprache-kein-problem" |
 | `"sponsors"` | list of `sponsor` objects | no | Sponsors | |
 | `"classiccard"` | string | no | Intended for ClassicCard holders. One of “true” or “false” | "false" |
 

@@ -866,6 +866,12 @@ def culturebase_export_productions(request, location_slug):
 
 API_CHANGELOG = [
     {
+        'date': datetime(2018, 8, 30, 12, 0),
+        'changes': [
+            u"""Language and Subtitle "In deutscher Sprache" (ID = "in-deutscher-sprache") removed from the database.""",
+        ],
+    },
+    {
         'date': datetime(2017, 9, 10, 12, 0),
         'changes': [
             u"""Marmorsaal (Stage ID = 213) added to Maxim Gorki Theater (Location ID = 12).""",
