@@ -113,33 +113,19 @@ class EventDocument(DocType):
         related_models = [Production, ProductionImage, EventImage]
 
     def get_queryset(self):
-        return super(EventDocument, self).get_queryset().select_related('production').filter(
-            production__status="published",
-            production__part=None,
-        ).exclude(
-            event_status="trashed",
-        )
+        return super(EventDocument, self).get_queryset().select_related('production')
 
     def get_instances_from_related(self, related_instance):
         if isinstance(related_instance, Production):
             production = related_instance
             if not getattr(production, "_skip_search_document_update", False):
-                if production.status == "published" and production.part_set.count() == 0:
-                    return production.event_set.exclude(
-                        event_status="trashed",
-                    )
+                return production.event_set.all()
         elif isinstance(related_instance, ProductionImage):
             production = related_instance.production
-            if production.status == "published" and production.part_set.count() == 0:
-                return production.event_set.exclude(
-                    event_status="trashed",
-                )
+            return production.event_set.all()
         elif isinstance(related_instance, EventImage):
             event = related_instance.event
-            production = event.production
-            if production.status == "published" and production.part_set.count() == 0:
-                if event.event_status != "trashed":
-                    return [event]
+            return [event]
 
         # For now we get rid of Location model, because the saving of locations takes too long and times out
         # If a location is renamed or deleted, all indexes have to be rebuilt with:
@@ -214,7 +200,7 @@ class EventDocument(DocType):
     # is_published
 
     def prepare_is_published(self, instance):
-        return instance.event_status != "trashed" and instance.production.status == "published"
+        return instance.event_status != "trashed" and instance.production.status == "published" and instance.production.part_set.count() == 0
 
     # teaser
 
