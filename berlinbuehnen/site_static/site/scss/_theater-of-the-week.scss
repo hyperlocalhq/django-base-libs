@@ -31,12 +31,6 @@
         font-weight: $light;
         font-size: 1.125em;
         text-transform: uppercase;
-
-        &.ensembles {
-            font-size: 1.125em;
-            font-weight: $bold;
-            line-height: 120%;
-        }
     }
 
     h6 {
@@ -149,6 +143,13 @@
             font-size: 1.8rem;
             text-transform: none;
             margin-top: -10px;
+
+            &.ensembles {
+                font-size: 1.6rem;
+                font-weight: $bold;
+                line-height: 120%;
+                margin: 0;
+            }
         }
     }
 }

@@ -5667,12 +5667,6 @@ select {
   text-transform: uppercase;
 }
 
-.theater-of-the-week h5.ensembles {
-  font-size: 1.125em;
-  font-weight: 700;
-  line-height: 120%;
-}
-
 .theater-of-the-week h6 {
   font-weight: 700;
   font-size: 1em;
@@ -5770,6 +5764,13 @@ select {
   font-size: 1.8rem;
   text-transform: none;
   margin-top: -10px;
+}
+
+.theater-of-the-week .theater-of-the-week-productions h5.ensembles {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 120%;
+  margin: 0;
 }
 
 .top-widgets-wrapper .theater-of-the-week-widget-wrapper {
