@@ -241,7 +241,7 @@ TEMPLATES = [
                 "cms.context_processors.cms_settings",
                 'sekizai.context_processors.sekizai',
                 "jetson.apps.utils.context_processors.general",
-                "jetson.apps.configuration.context_processors.configuration",
+                "museumsportal.apps.configuration.context_processors.configuration",
                 "jetson.apps.advertising.context_processors.source_features",
                 "django.contrib.messages.context_processors.messages",
                 "museumsportal.apps.site_specific.context_processors.languages",

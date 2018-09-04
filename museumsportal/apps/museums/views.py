@@ -15,10 +15,10 @@ from django.http import Http404
 from django.utils.translation import string_concat
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from base_libs.templatetags.base_tags import decode_entities
 from base_libs.forms import dynamicforms
 from base_libs.utils.misc import ExtendedJSONEncoder
 from base_libs.utils.misc import get_related_queryset
+from base_libs.utils.html import decode_entities
 from base_libs.views.views import access_denied
 
 from jetson.apps.utils.decorators import login_required

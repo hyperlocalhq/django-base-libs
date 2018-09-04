@@ -1,5 +1,7 @@
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 
-urlpatterns = patterns('museumsportal.apps.advertising.views',
-    url(r'^view/(?P<id>[\d]+)/$', 'ad_view', name='advertising_ad_view'),
-)
+from . import views
+
+urlpatterns = [
+    url(r'^view/(?P<id>[\d]+)/$', views.ad_view, name='advertising_ad_view'),
+]

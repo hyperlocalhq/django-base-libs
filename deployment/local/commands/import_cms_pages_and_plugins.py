@@ -64,12 +64,37 @@ class DataImporter(object):
                 'placeholders': [
                     '<placeholder name 1>': {
                         'plugins': {
+                            'de': [
+                                {...plugin 1 fields...},
+                                {...plugin 2 fields...},
+                                ...
+                            ],
                             'en': [
                                 {...plugin 1 fields...},
                                 {...plugin 2 fields...},
                                 ...
                             ],
-                            'de': [
+                            'fr': [
+                                {...plugin 1 fields...},
+                                {...plugin 2 fields...},
+                                ...
+                            ],
+                            'pl': [
+                                {...plugin 1 fields...},
+                                {...plugin 2 fields...},
+                                ...
+                            ],
+                            'tr': [
+                                {...plugin 1 fields...},
+                                {...plugin 2 fields...},
+                                ...
+                            ],
+                            'es': [
+                                {...plugin 1 fields...},
+                                {...plugin 2 fields...},
+                                ...
+                            ],
+                            'it': [
                                 {...plugin 1 fields...},
                                 {...plugin 2 fields...},
                                 ...
@@ -79,37 +104,52 @@ class DataImporter(object):
                     },
                     '<placeholder name 2>': {
                         'plugins': {
-                            'en': [],
                             'de': [],
+                            'en': [],
+                            'fr': [],
+                            'pl': [],
+                            'tr': [],
+                            'es': [],
+                            'it': [],
                         },
                         ...
                     },
                     ...
                 ],
                 'titles': {
-                    'en': {...en title fields...},
                     'de': {...de title fields...},
+                    'en': {...en title fields...},
+                    'fr': {...fr title fields...},
+                    'pl': {...pl title fields...},
+                    'tr': {...tr title fields...},
+                    'es': {...es title fields...},
+                    'it': {...it title fields...},
                 }
                 ...other page fields...
                 'children': [...]
             }
         ]
         '''
-        # collect links (very specific to Berlin Bühnen)
-        for pk, fields in data['services']['link'].items():
-            data['services']['linkcategory'][fields['category']].setdefault('links', []).append(fields)
 
         # combine all plugins into cms.cmsplugin fields
         plugin_models = [
+            # ("djangocms_inherit", "inherit"),
+            # ("djangocms_picture", "picture"),
+            # ("djangocms_snippet", "snippet"),
+            # ("djangocms_teaser", "teaser"),
             ("richtext", "richtext"),
-            ("page_teaser", "pageteaser"),
-            ("services", "indexitem"),
-            ("services", "servicepagebanner"),
-            ("services", "servicegriditem"),
-            ("services", "servicelistitem"),
-            ("services", "linkcategory"),
-            ("services", "titleandtext"),
-            ("services", "imageandtext"),
+            ("filebrowser_image", "filebrowserimage"),
+            ("gmap", "gmap"),
+            # ("headline", "headline"),
+            ("editorial", "editorialcontent"),
+            # ("editorial", "teaserblock"),
+            ("editorial", "footnote"),
+            ("editorial", "intro"),
+            ("editorial", "frontpageteaser"),
+            ("cms_ads", "cmsadzone"),
+            ("articles", "articleselection"),
+            # ("exhibitions", "newlyopenedexhibition"),
+            # ("exhibitions_plugins", "newlyopenedexhibitionext"),
         ]
         for app_label, model in plugin_models:
             for pk, fields in data[app_label][model].items():
