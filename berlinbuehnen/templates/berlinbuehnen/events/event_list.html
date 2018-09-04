@@ -1,6 +1,6 @@
 {% extends "cms/default.html" %}
 {% load url from future %}
-{% load i18n image_modifications base_tags tagging_tags production_tags favorites_tags auth_extended %}
+{% load i18n image_modifications base_tags tagging_tags production_tags favorites_tags auth_extended advertising_tags %}
 
 {% block bodyclass %}{{ block.super }} event-list no-transition{% endblock %}
 
@@ -35,6 +35,17 @@
                     {% date_slider page='event_list' id='main_dateslider' active=facets.selected.date %}
 
                     <div class="col-xs-12 print-padding">
+
+                        {% if "schedule"|not_empty_ad_zone or "schedule_2"|not_empty_ad_zone %}
+                            <div class="row advertising-list">
+                                {% if "schedule_2"|not_empty_ad_zone %}
+                                    <div class="col-xs-12 col-md-6">{% random_zone_ad "schedule" %}</div>
+                                    <div class="col-xs-12 col-md-6">{% random_zone_ad "schedule_2" %}</div>
+                                {% else %}
+                                    <div class="col-xs-12">{% random_zone_ad "schedule" %}</div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
 
                         <!-- the list -->
                         <div id="main_list" class="list list-autoload row print-small">
