@@ -18,6 +18,7 @@
                         </a>
                         <br />
                     {% endif %}
+                    {% if prod.ensembles %}<h5 class="ensembles">{{ prod.ensembles }}</h5>{% endif %}
                     <h4>{{ prod.title }}</h4>
                     {% if prod.subtitle %}<h5>{{ prod.subtitle }}</h5>{% endif %}
                     {% if event.ev_or_prod_language_and_subtitles %}<p><strong>{{ event.ev_or_prod_language_and_subtitles.title }}</strong></p>{% endif %}
