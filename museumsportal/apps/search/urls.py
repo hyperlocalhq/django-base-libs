@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 
 from museumsportal.apps.search.views import SearchView
 from museumsportal.apps.search.query import MultilingualSearchQuerySet
 
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(
         r'^$',
         SearchView(
@@ -25,4 +24,4 @@ urlpatterns = patterns(
         ),
         name='haystack_full_search'
     ),
-)
+]

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 import os
 import shutil
+import json
 from datetime import datetime, date, timedelta
 
 from django.db import models
 from django.http import HttpResponse
 from django import forms
-from django.utils import simplejson
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import redirect
 from django.views.decorators.cache import never_cache
@@ -14,10 +14,10 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.conf import settings
 from django.http import Http404
 
-from base_libs.templatetags.base_tags import decode_entities
 from base_libs.forms import dynamicforms
 from base_libs.utils.misc import ExtendedJSONEncoder
 from base_libs.utils.misc import get_related_queryset
+from base_libs.utils.html import decode_entities
 from base_libs.views.views import access_denied
 
 from jetson.apps.utils.decorators import login_required
@@ -434,8 +434,8 @@ def batch_event_times(request, slug):
                             })
                 if wd == 6:
                     week_count += 1
-            return HttpResponse(simplejson.dumps(event_times))
-        return HttpResponse(simplejson.dumps([]))
+            return HttpResponse(json.dumps(event_times))
+        return HttpResponse(json.dumps([]))
     return redirect(instance.get_url_path())
 
 

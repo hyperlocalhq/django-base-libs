@@ -1,7 +1,4 @@
 # -*- coding: UTF-8 -*-
-from django.utils import simplejson
-from django.http import HttpResponse, HttpResponseRedirect
-from django.views.decorators.cache import never_cache
 from django.db import models
 
 from base_libs.middleware import get_current_language

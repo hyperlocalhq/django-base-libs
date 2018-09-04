@@ -22,6 +22,7 @@ class Command(NoArgsCommand):
         
         import re
         import urllib2
+        import json
         from datetime import datetime
         from datetime import timedelta
         from time import strptime
@@ -30,7 +31,6 @@ class Command(NoArgsCommand):
         
         from django.db import models
         from django.template.defaultfilters import slugify
-        from django.utils import simplejson
 
         from filebrowser.models import FileDescription
         
@@ -63,7 +63,7 @@ class Command(NoArgsCommand):
         data = response.read()
         response.close()
         
-        data_dict = simplejson.loads(data)
+        data_dict = json.loads(data)
 
         stats = {
             'added': 0,
@@ -252,7 +252,7 @@ class Command(NoArgsCommand):
 
         data = get_events_data()
         
-        data_dict = simplejson.loads(data)
+        data_dict = json.loads(data)
 
         stats = {
             'added': 0,
