@@ -540,3 +540,26 @@ body.is-xs {
         }
     }
 }
+
+.advertising-list {
+    margin: 20px -5px 0;
+
+    .is-xs & {
+        margin: 20px -25px 0;
+    }
+
+    > div {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    img {
+        margin: 0 0 10px;
+        padding: 0;
+        width: 100%;
+        height: auto;
+    }
+    h6 {
+        margin-bottom: 4px;
+    }
+}

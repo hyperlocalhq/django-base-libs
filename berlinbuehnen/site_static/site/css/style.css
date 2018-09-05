@@ -7991,6 +7991,30 @@ body.is-xs.safari .list-item-head-date .list-item-head-date-icons {
   top: 21px !important;
 }
 
+.advertising-list {
+  margin: 20px -5px 0;
+}
+
+.is-xs .advertising-list {
+  margin: 20px -25px 0;
+}
+
+.advertising-list > div {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.advertising-list img {
+  margin: 0 0 10px;
+  padding: 0;
+  width: 100%;
+  height: auto;
+}
+
+.advertising-list h6 {
+  margin-bottom: 4px;
+}
+
 .grid {
   margin: 0 -8px;
 }
