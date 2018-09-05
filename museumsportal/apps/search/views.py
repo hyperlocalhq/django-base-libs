@@ -1,7 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+from django.shortcuts import render
 from django.http import Http404
 from django.core.paginator import Paginator
 from django.db import models
@@ -13,8 +12,8 @@ from functions import model_choices, get_dictionaries
 
 
 class SearchView(haystack_views.SearchView):
-    def __init__(self, template=None, load_all=True, form_class=ModelSearchForm, searchqueryset=None, context_class=RequestContext, results_per_page=None, limit=None):
-        super(SearchView, self).__init__(template, load_all, form_class, searchqueryset, context_class, results_per_page)
+    def __init__(self, template=None, load_all=True, form_class=ModelSearchForm, searchqueryset=None, results_per_page=None, limit=None):
+        super(SearchView, self).__init__(template, load_all, form_class, searchqueryset, results_per_page)
         self.limit = limit
 
     def create_response(self):
@@ -60,4 +59,4 @@ class SearchView(haystack_views.SearchView):
         }
         context.update(self.extra_context())
 
-        return render_to_response(self.template, context, context_instance=self.context_class(self.request))
+        return render(self.request, self.template, context)

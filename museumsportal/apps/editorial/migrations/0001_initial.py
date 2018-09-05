@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('description', base_libs.models.fields.ExtendedTextField(verbose_name='Description', blank=True)),
                 ('website', models.CharField(max_length=255, verbose_name='Website', blank=True)),
                 ('image', filebrowser.fields.FileBrowseField(max_length=255, verbose_name='Image', blank=True)),
-                ('image_caption', base_libs.models.fields.ExtendedTextField(max_length=255, verbose_name='Image Caption', blank=True)),
+                ('image_caption', base_libs.models.fields.ExtendedTextField(max_length=300, verbose_name='Image Caption', blank=True)),
                 ('col_xs_width', models.PositiveIntegerField(blank=True, null=True, verbose_name='Column width for phones', choices=[(3, '25% of the full width'), (4, '33.3% of the full width'), (6, '50% of the full width'), (8, '66.6% of the full width'), (9, '75% of the full width'), (12, 'Full width')])),
                 ('col_sm_width', models.PositiveIntegerField(blank=True, null=True, verbose_name='Column width for tablets', choices=[(3, '25% of the full width'), (4, '33.3% of the full width'), (6, '50% of the full width'), (8, '66.6% of the full width'), (9, '75% of the full width'), (12, 'Full width')])),
                 ('col_md_width', models.PositiveIntegerField(blank=True, null=True, verbose_name='Column width for small desktops', choices=[(3, '25% of the full width'), (4, '33.3% of the full width'), (6, '50% of the full width'), (8, '66.6% of the full width'), (9, '75% of the full width'), (12, 'Full width')])),

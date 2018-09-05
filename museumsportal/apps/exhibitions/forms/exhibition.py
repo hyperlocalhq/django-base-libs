@@ -19,7 +19,7 @@ from crispy_forms import layout, bootstrap
 from babeldjango.templatetags.babel import decimalfmt
 
 from base_libs.forms.fields import AutocompleteModelChoiceField, DecimalField
-from base_libs.models.settings import MARKUP_HTML_WYSIWYG, MARKUP_PLAIN_TEXT
+from base_libs.models.base_libs_settings import MARKUP_HTML_WYSIWYG, MARKUP_PLAIN_TEXT
 from base_libs.middleware import get_current_user
 
 from jetson.apps.image_mods.models import FileManager
@@ -422,6 +422,7 @@ class OrganizerForm(ModelForm):
     
     class Meta:
         model = Organizer
+        fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         super(OrganizerForm, self).__init__(*args, **kwargs)

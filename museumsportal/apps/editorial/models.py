@@ -27,7 +27,7 @@ class EditorialContent(CMSPlugin):
     website = models.CharField(_("Website"), max_length=255, blank=True)
 
     image = FileBrowseField(_('Image'), max_length=255, extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True)
-    image_caption = ExtendedTextField(_("Image Caption"), max_length=255, blank=True)
+    image_caption = ExtendedTextField(_("Image Caption"), max_length=300, blank=True)
 
     col_xs_width = models.PositiveIntegerField(_("Column width for phones"), blank=True, null=True, choices=COLUMN_WIDTHS)
     col_sm_width = models.PositiveIntegerField(_("Column width for tablets"), blank=True, null=True, choices=COLUMN_WIDTHS)

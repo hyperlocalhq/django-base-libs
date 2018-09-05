@@ -271,8 +271,8 @@ class DataImporter(object):
 
     def update_page_mapper(self):
         for pk, fields in self.refined_data['cms']['page'].items():
-            if fields['publisher_is_draft']:
-                self.old_page_id_to_new_page[pk] = self.old_page_id_to_new_page[fields['publisher_public']]
+            if fields.get('publisher_is_draft') and fields.get('publisher_public'):
+                self.old_page_id_to_new_page[pk] = self.old_page_id_to_new_page.get(fields['publisher_public'])
 
     def save_plugins(self, page_tree, parent_page=None):
         from copy import deepcopy
@@ -369,7 +369,11 @@ class DataImporter(object):
                 continue
 
             if page_dict['published']:
-                user = User.objects.get(username=page_dict['created_by'])
+                user = User.objects.get(username="admin")
+                # try:
+                #     user = User.objects.get(username=page_dict['created_by'])
+                # except User.DoesNotExist:
+                #     pass
                 for lang_code, title_dict in page_dict.get('titles').items():
                     publish_page(page, user, lang_code)
 

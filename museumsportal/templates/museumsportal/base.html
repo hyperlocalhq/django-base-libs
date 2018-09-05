@@ -113,7 +113,7 @@
     {% if not request.is_mobile %}This is a desktop.{% endif %}
   -->
   {% block map %}{% endblock %}
-  {% block toolbar %}{% cms_toolbar %}{% endblock %}
+  {% cms_toolbar %}
   <div id="wrapper">
     {% block header %}
       {# {% include "utils/header.html" %} #}

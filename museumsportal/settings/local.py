@@ -17,7 +17,7 @@ DATABASES = {
         'CONN_MAX_AGE': 0,
         'HOST': 'localhost',
         'OPTIONS': {
-            'init_command': 'SET character_set_connection=utf8,'
+            'init_command': 'SET default_storage_engine=MyISAM,character_set_connection=utf8,'
                 'collation_connection=utf8_general_ci,'
                 'foreign_key_checks=0'
             # 'init_command': 'SET storage_engine=INNODB,'

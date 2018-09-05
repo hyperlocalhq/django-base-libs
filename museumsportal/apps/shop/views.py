@@ -13,7 +13,7 @@ from django.views.decorators.cache import never_cache
 
 from base_libs.views import access_denied
 from base_libs.forms import dynamicforms
-from base_libs.models.settings import MARKUP_HTML_WYSIWYG
+from base_libs.models.base_libs_settings import MARKUP_HTML_WYSIWYG
 from base_libs.utils.misc import get_related_queryset
 
 from jetson.apps.utils.decorators import login_required

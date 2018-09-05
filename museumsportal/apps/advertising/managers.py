@@ -23,7 +23,7 @@ class AdManager(models.Manager):
         """
         language = get_current_language()
         time_now = now()
-        qs = self.get_query_set().filter(
+        qs = self.get_queryset().filter(
             start_showing__lte=time_now,
             stop_showing__gte=time_now,
             zone__sysname=ad_zone,

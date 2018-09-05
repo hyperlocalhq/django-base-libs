@@ -27,7 +27,6 @@ from jetson.apps.utils.views import filter_abc
 from jetson.apps.utils.views import show_form_step
 from jetson.apps.utils.context_processors import prev_next_processor
 
-WorkshopCategory = models.get_model("workshops", "WorkshopCategory")
 Workshop = models.get_model("workshops", "Workshop")
 MediaFile = models.get_model("workshops", "MediaFile")
 
