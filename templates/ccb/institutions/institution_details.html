@@ -88,6 +88,7 @@
             <script type="text/javaScript">
                 var show_tip_no_profile_image = {% if object.image %}false{% else %}true{% endif %};
                 var show_tip_no_creative_sector = {% if object.get_categories %}false{% else %}true{% endif %};
+                var is_institution = true;
             </script>
             <script type="text/javascript" src="{% url 'missing_profile_data_tips' %}"></script>
         {% endif %}

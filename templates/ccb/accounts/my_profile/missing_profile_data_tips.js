@@ -2,8 +2,13 @@
 
 $( document ).ready(function() {
 
-    if (sessionStorage.getItem('missing_profile_data_tips')) return;
-    sessionStorage.setItem('missing_profile_data_tips', 'done');
+    if (is_institution) {
+        if (sessionStorage.getItem('missing_profile_data_tips_institution')) return;
+        sessionStorage.setItem('missing_profile_data_tips_institution', 'done');
+    } else {
+        if (sessionStorage.getItem('missing_profile_data_tips_person')) return;
+        sessionStorage.setItem('missing_profile_data_tips_person', 'done');
+    }
 
     $('.header .menu.tabs .navi li').each(function(index) {
 
