@@ -2,12 +2,12 @@
 
 $( document ).ready(function() {
 
-    console.log("guided_tour yo");
-
     if ($('body').hasClass('is-xs')) return;
 
     if (sessionStorage.getItem('guided_tour')) return;
     sessionStorage.setItem('guided_tour', 'done');
+
+        console.log("guided_tour ya");
 
     $('.header .menu.tabs .navi li').each(function(index) {
 
