@@ -101,7 +101,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-4 col-md-3 headline">
-                            <a href="{% page_url 'network' %}"><h2 class="fawesome fa-person">{% if request.user == object.user %}{% trans "My Profile" %}{% else %}{% trans "Person" %}{% endif %}</h2></a>
+                            <a href="{% url 'member_list_global' as member_list_global_url %}{{ member_list_global_url }}"><h2 class="fawesome fa-person">{% if request.user == object.user %}{% trans "My Profile" %}{% else %}{% trans "Person" %}{% endif %}</h2></a>
                         </div>
                         <div class="navi">
                             <nav>
@@ -177,7 +177,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-4 col-md-3 headline">
-                            <a href="{% page_url 'network' %}"><h2 class="fawesome fa-institution">{% if request.user == object.user %}{% trans "My Profile" %}{% else %}{% trans "Institution" %}{% endif %}</h2></a>
+                            <a href="{% url 'member_list_global' as member_list_global_url %}{{ member_list_global_url }}"><h2 class="fawesome fa-institution">{% if request.user == object.user %}{% trans "My Profile" %}{% else %}{% trans "Institution" %}{% endif %}</h2></a>
                         </div>
                         <div class="navi">
                             <nav>
