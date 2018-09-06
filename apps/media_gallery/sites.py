@@ -1,9 +1,9 @@
 import time
-import urllib2
 from datetime import datetime
 from functools import update_wrapper
-
+import requests
 import os
+
 from django import forms
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render_to_response
@@ -1047,12 +1047,17 @@ class PortfolioSite(object):
                     fname, fext = os.path.splitext(image_url)
                     filename = datetime.now().strftime("%Y%m%d%H%M%S") + fext
                     path = "".join((rel_dir, filename))
-                    image_data = urllib2.urlopen(image_url)
-                    image_mods.FileManager.save_file(
-                        path=path,
-                        content=image_data.read(),
-                    )
-                    media_file_obj.path = path
+                    response = requests.get(image_url, stream=True)
+                    if response.status_code != requests.status_codes.codes.OK:
+                        media_file_obj.external_url = image_url
+                    else:
+                        response.raw.decode_content = True
+                        image_data = response.raw
+                        image_mods.FileManager.save_file(
+                            path=path,
+                            content=image_data.read(),
+                        )
+                        media_file_obj.path = path
                 else:
                     media_file_obj.external_url = image_url
 
