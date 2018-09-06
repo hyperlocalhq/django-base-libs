@@ -402,14 +402,15 @@ class PersonBase(CreationModificationDateMixin, UrlMixin):
                     d = {}
                     for lang_code, lang_verbose in settings.LANGUAGES:
                         d["title_%s" % lang_code] = district
-                    term, created = LocalityType.objects.get_or_create(
-                        slug=better_slugify(district),
-                        parent=regional,
-                        defaults=d,
-                    )
-                    return term
-                else:
-                    return regional
+                    try:
+                        return LocalityType.objects.get(
+                            slug=better_slugify(district),
+                            parent=regional,
+                            defaults=d,
+                        )
+                    except LocalityType.DoesNotExist:
+                        pass
+                return regional
         else:
             return None
         
