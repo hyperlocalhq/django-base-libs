@@ -7,7 +7,7 @@
 		"uuidString": "266D50C6-A122-4618-9370-90AB25049B18"
 		}
 	],
-"creatorBuild": "26330",
+"creatorBuild": "26680",
 "files": {
 	"\/bootstrap\/config.json": {
 		"ft": 524288,
@@ -364,6 +364,16 @@
 		"ma": 0,
 		"oA": 0,
 		"oAP": "\/css\/style-min.css",
+		"oF": 0,
+		"oS": 3
+		},
+	"\/css\/style.min.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "\/css\/style.min-min.css",
 		"oF": 0,
 		"oS": 3
 		},
@@ -1345,6 +1355,7 @@
 	"\/img\/default\/ccb_opengraph.jpg": {
 		"ft": 16384,
 		"iS": 43811,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/img\/default\/ccb_opengraph.jpg",
 		"oF": 0,
@@ -6482,6 +6493,7 @@
 	"\/tinymce\/jscripts\/tiny_mce\/themes\/advanced\/img\/colorpicker.jpg": {
 		"ft": 16384,
 		"iS": 2584,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/tinymce\/jscripts\/tiny_mce\/themes\/advanced\/img\/colorpicker.jpg",
 		"oF": 0,
@@ -7159,6 +7171,7 @@
 	"\/Workfiles\/110411_banner\/ccb_banner_artnet_175X80.jpg": {
 		"ft": 16384,
 		"iS": 39458,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/Workfiles\/110411_banner\/ccb_banner_artnet_175X80.jpg",
 		"oF": 0,
@@ -7169,6 +7182,7 @@
 	"\/Workfiles\/110411_banner\/ccb_banner_artnet_200x200.jpg": {
 		"ft": 16384,
 		"iS": 59367,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/Workfiles\/110411_banner\/ccb_banner_artnet_200x200.jpg",
 		"oF": 0,
@@ -7179,6 +7193,7 @@
 	"\/Workfiles\/110411_banner\/ccb_banner_artnet_420x65.jpg": {
 		"ft": 16384,
 		"iS": 41278,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/Workfiles\/110411_banner\/ccb_banner_artnet_420x65.jpg",
 		"oF": 0,
@@ -7189,6 +7204,7 @@
 	"\/Workfiles\/110411_banner\/ccb_banner_facebook_110x80.jpg": {
 		"ft": 16384,
 		"iS": 33216,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/Workfiles\/110411_banner\/ccb_banner_facebook_110x80.jpg",
 		"oF": 0,
@@ -7207,6 +7223,7 @@
 	"\/Workfiles\/110411_banner\/ccb_banner_musikmarkt_728x90.jpg": {
 		"ft": 16384,
 		"iS": 64201,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/Workfiles\/110411_banner\/ccb_banner_musikmarkt_728x90.jpg",
 		"oF": 0,
@@ -8072,7 +8089,8 @@
 	"creationDate": 531255137,
 	"displayValue": "CCB",
 	"displayValueWasSetByUser": 1,
-	"iconImageName": "meme-angryPicard"
+	"iconImageName": "\/favicons\/apple-touch-icon-114x114.png",
+	"iconImageWasSetByUser": 0
 	},
 "projectSettings": {
 	"abortBuildOnError": 1,
@@ -9875,6 +9893,7 @@
 		"autoOutputPathReplace1": "",
 		"autoOutputPathReplace2": "",
 		"autoOutputPathStyle": 0,
+		"outputFormat": 0,
 		"quality": 100
 		},
 	"languageDefaultsJS": {
