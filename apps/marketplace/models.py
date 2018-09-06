@@ -9,6 +9,7 @@ from mptt.fields import TreeManyToManyField
 from actstream import action
 from actstream.models import following, followers
 
+from base_libs.utils.betterslugify import better_slugify
 from jetson.apps.marketplace.base import *
 
 
@@ -57,14 +58,15 @@ class JobOffer(JobOfferBase):
                     d = {}
                     for lang_code, lang_verbose in settings.LANGUAGES:
                         d["title_%s" % lang_code] = district
-                    term, created = LocalityType.objects.get_or_create(
-                        slug=slugify(district),
-                        parent=regional,
-                        defaults=d,
-                    )
-                    return term
-                else:
-                    return regional
+                    try:
+                        return LocalityType.objects.get(
+                            slug=better_slugify(district),
+                            parent=regional,
+                            defaults=d,
+                        )
+                    except LocalityType.DoesNotExist:
+                        pass
+                return regional
         except Exception:
             return None
 
