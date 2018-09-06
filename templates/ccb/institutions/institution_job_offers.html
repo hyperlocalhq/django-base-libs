@@ -15,7 +15,11 @@
 
 {% block details %}
     {% if not object_list %}
-        <p>{% trans "No objects found within the selected conditions." %}</p>
+        {% if request.user.is_authenticated and request.user.profile in object.get_owners %}
+            {% navigation_links "menu_institutional_activitie_job" using "navigation/includes/box.html" %}
+        {% else %}
+            <p>{% trans "No objects found within the selected conditions." %}</p>
+        {% endif %}
     {% else %}
         <div class="row job-list">
             {% for job_offer in object_list %}

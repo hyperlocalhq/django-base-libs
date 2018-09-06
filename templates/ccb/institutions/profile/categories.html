@@ -1,7 +1,7 @@
 {% load i18n base_tags auth_extended %}
 
 {% if object.get_categories or object.institution_types.count or object.is_editable %}
-    <div class="fieldset {% if object.is_editable %}editable switch{% else %}not-editable{% endif %}" data-edit-url="{% url 'edit_profile' object_type='institution' slug=object.slug %}categories/">
+    <div id="tip_no_creative_sector" class="fieldset {% if object.is_editable %}editable switch{% else %}not-editable{% endif %}" data-edit-url="{% url 'edit_profile' object_type='institution' slug=object.slug %}categories/">
         <fieldset disabled>
             <h2>{% trans "Categories" %}</h2>
 
@@ -26,7 +26,7 @@
                     <dd class="clearfix"></dd>
                 </dl>
             {% endif %}
-            
+
             {% if object.institution_types.count %}
                 <dl class="input-fields">
                     <dt>
@@ -44,9 +44,9 @@
                         </div>
                     </dd>
                     <dd class="clearfix"></dd>
-                </dl>    
+                </dl>
             {% endif %}
-            
+
         </fieldset>
     </div>
 {% endif %}

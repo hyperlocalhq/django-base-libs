@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Django 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-20 13:45+0100\n"
+"POT-Creation-Date: 2018-08-22 16:09+0200\n"
 "PO-Revision-Date: 2017-10-27 11:38+0053\n"
 "Last-Translator: Laura Casadevall <casadeluxe@web.de>\n"
 "Language-Team: \n"
@@ -27,6 +27,9 @@ msgstr ""
 #: .\templates\ccb\marketplace\add_job_offer_confirm.html:140
 msgid "Email"
 msgstr "E-Mail"
+
+msgid "Ok, Understood"
+msgstr "Ok, Verstanden"
 
 #: .\apps\accounts\forms.py:57
 msgid "Username"
@@ -354,7 +357,7 @@ msgstr "Zusätzliche Inhalte"
 
 #: .\apps\articles\admin.py:90 .\apps\bulletin_board\models.py:139
 #: .\apps\cms_extensions\models.py:45 .\apps\curated_lists\forms.py:16
-#: .\apps\curated_lists\models.py:40 .\apps\editorial\models.py:29
+#: .\apps\curated_lists\models.py:36 .\apps\editorial\models.py:29
 #: .\apps\events\base.py:222 .\apps\events\forms.py:915
 #: .\apps\institutions\forms.py:503 .\apps\marketplace\forms.py:83
 #: .\apps\media_gallery\forms.py:93 .\apps\media_gallery\forms.py:176
@@ -630,7 +633,7 @@ msgstr "Beitrag schreiben"
 #: .\apps\bulletin_board\models.py:49 .\apps\bulletin_board\models.py:62
 #: .\apps\bulletin_board\models.py:138 .\apps\cms_extensions\models.py:44
 #: .\apps\cms_extensions\plugins\headline\models.py:9
-#: .\apps\curated_lists\forms.py:12 .\apps\curated_lists\models.py:39
+#: .\apps\curated_lists\forms.py:12 .\apps\curated_lists\models.py:35
 #: .\apps\editorial\models.py:28 .\apps\events\admin.py:36
 #: .\apps\events\admin.py:67 .\apps\events\base.py:216
 #: .\apps\events\base.py:461 .\apps\events\forms.py:316 .\apps\faqs\admin.py:29
@@ -676,7 +679,7 @@ msgstr "URL"
 #: .\apps\bulletin_board\models.py:148 .\apps\cms_extensions\models.py:46
 #: .\apps\cms_extensions\plugins\filebrowser_image\cms_plugins.py:14
 #: .\apps\cms_extensions\plugins\filebrowser_image\models.py:14
-#: .\apps\curated_lists\models.py:41 .\apps\editorial\models.py:36
+#: .\apps\curated_lists\models.py:37 .\apps\editorial\models.py:36
 #: .\apps\events\base.py:223 .\apps\events\forms.py:923
 #: .\apps\events\forms.py:925 .\apps\site_specific\forms\events.py:253
 #: .\apps\site_specific\forms\events.py:255
@@ -835,7 +838,7 @@ msgstr "Dez"
 msgid "Posts"
 msgstr "Alle Beiträge"
 
-#: .\apps\blog\admin.py:62 .\settings\_base.py:659
+#: .\apps\blog\admin.py:62 .\settings\_base.py:662
 msgid "Magazine"
 msgstr ""
 
@@ -1204,7 +1207,7 @@ msgstr "Hauptinformation"
 msgid "Region"
 msgstr "Beziehung"
 
-#: .\apps\bulletin_board\admin.py:39 .\apps\curated_lists\admin.py:34
+#: .\apps\bulletin_board\admin.py:39 .\apps\curated_lists\admin.py:42
 #: .\apps\marketplace\forms.py:341
 msgid "Publishing"
 msgstr "Veröffentlichen"
@@ -1376,11 +1379,9 @@ msgstr "Beginn Minuten"
 #: .\templates\ccb\groups_networks\persongroups\add_group_confirm.html:13
 #: .\templates\ccb\groups_networks\persongroups\add_group_profile.html:12
 #: .\templates\ccb\institutions\add_institution_confirm.html:6
-#: .\templates\ccb\institutions\details_base.html:30
 #: .\templates\ccb\institutions\details_base.html:87
 #: .\templates\ccb\marketplace\profile\contact.html:12
-#: .\templates\ccb\network\details_base.html:123
-#: .\templates\ccb\network\details_base.html:175
+#: .\templates\ccb\network\details_base.html:182
 #: .\templates\ccb\people\profile\contact.html:15
 #: .\templates\ccb\people\profile\contact.html:67
 msgid "Institution"
@@ -1535,8 +1536,8 @@ msgstr "Projektbörse Content-Provider"
 msgid "bulletin-content providers"
 msgstr "Projektbörse Content-Providers"
 
-#: .\apps\bulletin_board\models.py:63 .\apps\curated_lists\models.py:42
-#: .\apps\curated_lists\models.py:112 .\apps\media_gallery\models.py:93
+#: .\apps\bulletin_board\models.py:63 .\apps\curated_lists\models.py:38
+#: .\apps\curated_lists\models.py:137 .\apps\media_gallery\models.py:93
 #: .\apps\partners\models.py:26 .\apps\partners\models.py:46
 #: .\apps\slideshows\models.py:33
 msgid "Sort order"
@@ -1825,7 +1826,7 @@ msgstr "Seitentitel"
 msgid "content"
 msgstr "Content"
 
-#: .\apps\cms_extensions\plugins\richtext\cms_plugins.py:14
+#: .\apps\cms_extensions\plugins\richtext\cms_plugins.py:13
 #, fuzzy
 #| msgid "Plain Text"
 msgid "Rich Text"
@@ -1845,28 +1846,29 @@ msgstr "Blog der Kreativwirtschaftsberatung Berlin"
 msgid "Counselling Events"
 msgstr "Veranstaltung der Kreativwirtschaftsberatung Berlin"
 
-#: .\apps\counselling_events\views.py:74 .\apps\institutions\views.py:275
-#: .\apps\network\views.py:279
+#: .\apps\counselling_events\views.py:83 .\apps\institutions\views.py:278
+#: .\apps\network\views.py:280
 #, python-format
 msgid "Events by/at %s"
 msgstr "Veranstaltungen von %s"
 
-#: .\apps\curated_lists\admin.py:31 .\apps\site_specific\admin.py:37
+#: .\apps\curated_lists\admin.py:40 .\apps\site_specific\admin.py:37
 msgid "Title and Description"
 msgstr "Titel und Beschreibung"
 
-#: .\apps\curated_lists\admin.py:33 .\apps\curated_lists\models.py:34
-msgid "Owner"
+#: .\apps\curated_lists\admin.py:51 .\apps\institutions\admin.py:324
+#: .\templates\admin\admin\owners.html:16
+msgid "Owners"
 msgstr "Besitzer"
 
-#: .\apps\curated_lists\admin.py:45 .\apps\curated_lists\models.py:116
+#: .\apps\curated_lists\admin.py:56 .\apps\curated_lists\models.py:141
 #, fuzzy
 #| msgid "Lists"
 msgid "List Items"
 msgstr "Listen"
 
-#: .\apps\curated_lists\apps.py:8 .\apps\curated_lists\models.py:16
-#: .\apps\curated_lists\models.py:48
+#: .\apps\curated_lists\apps.py:8 .\apps\curated_lists\models.py:17
+#: .\apps\curated_lists\models.py:49
 #, fuzzy
 #| msgid "Curated lists"
 msgid "Curated Lists"
@@ -1939,27 +1941,36 @@ msgstr "Titel und Beschreibung"
 msgid "Save"
 msgstr "Sichern"
 
-#: .\apps\curated_lists\models.py:19
+#: .\apps\curated_lists\models.py:20
 #: .\apps\site_specific\forms\groups_networks.py:28
 #: .\apps\site_specific\forms\misc.py:100
 msgid "Private"
 msgstr "privat"
 
-#: .\apps\curated_lists\models.py:20
+#: .\apps\curated_lists\models.py:21
 #: .\apps\site_specific\forms\groups_networks.py:27
 #: .\apps\site_specific\forms\misc.py:99
 msgid "Public"
 msgstr "öffentlich"
 
-#: .\apps\curated_lists\models.py:43
+#: .\apps\curated_lists\models.py:41 .\apps\events\forms.py:1844
+#: .\apps\events\models.py:40 .\apps\groups_networks\models.py:19
+#: .\apps\institutions\forms.py:1427 .\apps\institutions\models.py:33
+#: .\apps\marketplace\forms.py:670 .\apps\people\models.py:44
+#: .\apps\resources\models.py:26
+#: .\templates\ccb\events\add_event_confirm.html:426
+msgid "categories"
+msgstr "Kategorien"
+
+#: .\apps\curated_lists\models.py:44
 msgid "Privacy"
 msgstr "Privatsphäre"
 
-#: .\apps\curated_lists\models.py:44 .\apps\resources\models.py:30
+#: .\apps\curated_lists\models.py:45 .\apps\resources\models.py:30
 msgid "Featured"
 msgstr "Featured"
 
-#: .\apps\curated_lists\models.py:47
+#: .\apps\curated_lists\models.py:48
 #: .\templates\ccb\curated_lists\curated_list_detail.html:12
 #: .\templates\ccb\curated_lists\curated_list_detail.html:16
 #: .\templates\ccb\curated_lists\curated_list_detail.html:27
@@ -1968,7 +1979,11 @@ msgstr "Featured"
 msgid "Curated List"
 msgstr "Kuratierte Listen"
 
-#: .\apps\curated_lists\models.py:110
+#: .\apps\curated_lists\models.py:104
+msgid "Owner"
+msgstr "Besitzer"
+
+#: .\apps\curated_lists\models.py:108 .\apps\curated_lists\models.py:135
 #: .\templates\ccb\curated_lists\curated_list_detail.html:60
 #: .\templates\ccb\curated_lists\curated_list_detail.html:63
 #, fuzzy
@@ -1976,13 +1991,25 @@ msgstr "Kuratierte Listen"
 msgid "Curated list"
 msgstr "Kuratierte Listen"
 
-#: .\apps\curated_lists\models.py:111
+#: .\apps\curated_lists\models.py:109 .\apps\curated_lists\models.py:136
 #, fuzzy
 #| msgid "Registration"
 msgid "Representation"
 msgstr "Anmeldung"
 
-#: .\apps\curated_lists\models.py:115
+#: .\apps\curated_lists\models.py:112
+#, fuzzy
+#| msgid "Owner"
+msgid "List Owner"
+msgstr "Besitzer"
+
+#: .\apps\curated_lists\models.py:113
+#, fuzzy
+#| msgid "Owners"
+msgid "List Owners"
+msgstr "Besitzer"
+
+#: .\apps\curated_lists\models.py:140
 #, fuzzy
 #| msgid "List View"
 msgid "List Item"
@@ -1992,7 +2019,7 @@ msgstr "Listen Ansicht"
 msgid "Question and Answer"
 msgstr "Fragen und Antworten"
 
-#: .\apps\editorial\cms_plugins.py:38 .\apps\editorial\models.py:45
+#: .\apps\editorial\cms_plugins.py:31 .\apps\editorial\models.py:45
 #: .\templates\admin\extendedadmin\document_change.html:88
 #: .\templates\admin\extendedadmin\document_change.html:128
 #: .\templates\admin\extendedadmin\document_change.html:148
@@ -2103,7 +2130,7 @@ msgid "Publish selected events"
 msgstr "Ausgewählte Veranstaltungen veröffentlichen"
 
 #: .\apps\events\admin.py:336
-#: .\subtrees\base_libs\base_libs\admin\options.py:583
+#: .\subtrees\base_libs\base_libs\admin\options.py:515
 #, python-format
 msgid "Add %s"
 msgstr "%s hinzufügen"
@@ -2121,7 +2148,7 @@ msgstr "%s ändern"
 
 #: .\apps\events\base.py:50 .\apps\events\cms_apps.py:8
 #: .\apps\search\search_indexes.py:112 .\apps\site_specific\feeds.py:86
-#: .\settings\_base.py:657
+#: .\settings\_base.py:660
 #: .\templates\ccb\counselling_events\event_list.html:27
 #: .\templates\ccb\events\add_event_base.html:7
 #: .\templates\ccb\events\event_base.html:35
@@ -2848,9 +2875,9 @@ msgstr ""
 #: .\templates\ccb\counselling_events\lists\event.html:9
 #: .\templates\ccb\events\details_base.html:40
 #: .\templates\ccb\events\details_base.html:90
-#: .\templates\ccb\events\includes\latest_published_events.html:27
+#: .\templates\ccb\events\includes\latest_published_events.html:29
 #: .\templates\ccb\events\lists\event_icons.html:10
-#: .\templates\ccb\institutions\details_base.html:41
+#: .\templates\ccb\institutions\details_base.html:42
 #: .\templates\ccb\institutions\details_base.html:110
 #: .\templates\ccb\institutions\includes\latest_published_institutions.html:29
 #: .\templates\ccb\institutions\institution_list.html:83
@@ -2862,8 +2889,8 @@ msgstr ""
 #: .\templates\ccb\media_gallery\portfolio_overview.html:41
 #: .\templates\ccb\metro\tile.html:9
 #: .\templates\ccb\network\member_list.html:86
-#: .\templates\ccb\people\details_base.html:41
-#: .\templates\ccb\people\details_base.html:111
+#: .\templates\ccb\people\details_base.html:42
+#: .\templates\ccb\people\details_base.html:112
 #: .\templates\ccb\people\includes\latest_published_people.html:29
 #: .\templates\ccb\people\includes\latest_published_people_start.html:29
 #: .\templates\ccb\people\person_list.html:83
@@ -3218,14 +3245,6 @@ msgstr "Profildaten"
 msgid "fees and opening hours"
 msgstr "Eintritt und Öffnungszeiten"
 
-#: .\apps\events\forms.py:1844 .\apps\events\models.py:40
-#: .\apps\groups_networks\models.py:19 .\apps\institutions\forms.py:1427
-#: .\apps\institutions\models.py:33 .\apps\marketplace\forms.py:670
-#: .\apps\people\models.py:44 .\apps\resources\models.py:26
-#: .\templates\ccb\events\add_event_confirm.html:426
-msgid "categories"
-msgstr "Kategorien"
-
 #: .\apps\events\forms.py:1892
 msgid "Featured events only"
 msgstr "Nur gefeaturte Events"
@@ -3237,11 +3256,11 @@ msgstr "Nur gefeaturte Events"
 msgid "Creative sectors"
 msgstr "Kreativbereiche"
 
-#: .\apps\events\views.py:206 .\apps\events\views.py:212
+#: .\apps\events\views.py:208 .\apps\events\views.py:214
 msgid "Naughty hacker!"
 msgstr "Naughty Hacker!"
 
-#: .\apps\events\views.py:313
+#: .\apps\events\views.py:315
 msgid "CCB Events"
 msgstr "CCB Veranstaltungen"
 
@@ -3277,7 +3296,7 @@ msgstr ""
 "Enthält der Feed nicht die kompletten Nachrichten, sondern nur Excerpte, "
 "dann führt der Link in der Liste der Artikel auf die externe URL ."
 
-#: .\apps\external_services\models.py:22 .\settings\_base.py:409
+#: .\apps\external_services\models.py:22 .\settings\_base.py:412
 #: .\subtrees\base_libs\base_libs\models\admin.py:520
 #: .\subtrees\base_libs\base_libs\models\models.py:594
 #: .\subtrees\base_libs\base_libs\models\models.py:616
@@ -3551,10 +3570,6 @@ msgstr "Die ausgewählten Institutionen als kommerziell veröffentlichen "
 msgid "Manage owners"
 msgstr "Portfolio bearbeiten"
 
-#: .\apps\institutions\admin.py:324 .\templates\admin\admin\owners.html:16
-msgid "Owners"
-msgstr "Besitzer"
-
 #: .\apps\institutions\admin.py:360
 #, fuzzy, python-format
 #| msgid "Own institutions"
@@ -3796,11 +3811,11 @@ msgstr ""
 msgid "Completeness in %"
 msgstr "Vollständigkeit in %"
 
-#: .\apps\institutions\models.py:312
+#: .\apps\institutions\models.py:316
 msgid "System"
 msgstr "Website"
 
-#: .\apps\institutions\views.py:300 .\apps\people\views.py:376
+#: .\apps\institutions\views.py:303 .\apps\people\views.py:377
 #, python-format
 msgid "Job offers by %s"
 msgstr "Jobangebote von %s"
@@ -3848,7 +3863,7 @@ msgid "Other logins"
 msgstr "Andere Logins"
 
 #: .\apps\logins\models.py:60 .\apps\recommendations\admin.py:30
-#: .\settings\_base.py:286 .\subtrees\base_libs\base_libs\models\admin.py:516
+#: .\settings\_base.py:289 .\subtrees\base_libs\base_libs\models\admin.py:516
 #: .\subtrees\base_libs\base_libs\models\models.py:1048
 #: .\templates\ccb\media_gallery\manage_galleries.html:93
 msgid "Content"
@@ -4074,7 +4089,7 @@ msgid "Media Gallery"
 msgstr "Mediengalerie"
 
 #: .\apps\media_gallery\cms_apps.py:8 .\apps\search\search_indexes.py:259
-#: .\settings\_base.py:658 .\templates\ccb\media_gallery\gallery_list.html:14
+#: .\settings\_base.py:661 .\templates\ccb\media_gallery\gallery_list.html:14
 #: .\templates\ccb\media_gallery\gallery_list.html:24
 #: .\templates\ccb\media_gallery\gallery_list.html:35
 #: .\templates\ccb\media_gallery\gallery_list.html:62
@@ -4650,19 +4665,19 @@ msgstr "Institutionen"
 msgid "Object Type"
 msgstr "Objekt-Typ"
 
-#: .\apps\network\views.py:318
+#: .\apps\network\views.py:319
 #, fuzzy, python-format
 #| msgid "Events by/at %s"
 msgid "Jobs by/at %s"
 msgstr "Veranstaltungen von %s"
 
-#: .\apps\network\views.py:357
+#: .\apps\network\views.py:358
 #, fuzzy, python-format
 #| msgid "Events by/at %s"
 msgid "Bulletins by/at %s"
 msgstr "Veranstaltungen von %s"
 
-#: .\apps\network\views.py:389
+#: .\apps\network\views.py:390
 #, fuzzy, python-format
 #| msgid "Institutions"
 msgid "Institutions of %s"
@@ -4722,7 +4737,7 @@ msgstr "Alphabetisch (A-Z)"
 msgid "Completeness (complete first)"
 msgstr "Vollständigkeit (komplette zuerst)"
 
-#: .\apps\people\views.py:350
+#: .\apps\people\views.py:351
 #, python-format
 msgid "Events by %s"
 msgstr "Veranstaltungen nach %s"
@@ -4799,7 +4814,7 @@ msgstr "Rang"
 msgid "Other Content 2"
 msgstr "Weitere Inhalte"
 
-#: .\apps\search\search_indexes.py:28 .\settings\_base.py:655
+#: .\apps\search\search_indexes.py:28 .\settings\_base.py:658
 #: .\templates\ccb\articles\articles_archive.html:21
 #: .\templates\ccb\articles\articles_archive_day.html:12
 #: .\templates\ccb\articles\articles_archive_day.html:33
@@ -5118,7 +5133,7 @@ msgid "Role"
 msgstr "Rolle"
 
 #: .\apps\site_specific\forms\misc.py:195 .\apps\site_specific\models.py:564
-#: .\settings\_base.py:444 .\templates\ccb\styleguide\layout.html:425
+#: .\settings\_base.py:447 .\templates\ccb\styleguide\layout.html:425
 msgid "Comments"
 msgstr "Kommentare"
 
@@ -5633,7 +5648,7 @@ msgstr "Modifikation "
 msgid "ticket history"
 msgstr "Ticket Historie"
 
-#: .\apps\twitter\views.py:42
+#: .\apps\twitter\views.py:45
 #, python-format
 msgid "%s ago"
 msgstr "Vor %s"
@@ -5646,95 +5661,95 @@ msgstr "Englisch"
 msgid "German"
 msgstr "Deutsch"
 
-#: .\settings\_base.py:331
+#: .\settings\_base.py:334
 msgid "Community"
 msgstr "Community"
 
-#: .\settings\_base.py:350
+#: .\settings\_base.py:353
 msgid "Authentication & Authorization"
 msgstr "Authentifikation"
 
-#: .\settings\_base.py:375
+#: .\settings\_base.py:378
 msgid "Commerce"
 msgstr "Commerce"
 
-#: .\settings\_base.py:378
+#: .\settings\_base.py:381
 msgid "Campaign"
 msgstr "Campaign"
 
-#: .\settings\_base.py:393
+#: .\settings\_base.py:396
 msgid "Configure"
 msgstr "Configure"
 
-#: .\settings\_base.py:402
+#: .\settings\_base.py:405
 #: .\templates\ccb\media_gallery\create_update_mediafile.html:14
 msgid "Media"
 msgstr "Medien"
 
-#: .\settings\_base.py:416
+#: .\settings\_base.py:419
 msgid "Redirects"
 msgstr "Weiterleitungen"
 
-#: .\settings\_base.py:430
+#: .\settings\_base.py:433
 #: .\templates\ccb\facebook_app\manage_connections.html:48
 #: .\templates\ccb\facebook_app\manage_pages.html:71
 msgid "Connect"
 msgstr "Connect"
 
-#: .\settings\_base.py:437
+#: .\settings\_base.py:440
 msgid "Control"
 msgstr "Control"
 
-#: .\settings\_base.py:440
+#: .\settings\_base.py:443
 #, fuzzy
 #| msgid "Login"
 msgid "Logins"
 msgstr "Login"
 
-#: .\settings\_base.py:653
+#: .\settings\_base.py:656
 msgid "Image and text"
 msgstr ""
 
-#: .\settings\_base.py:654
+#: .\settings\_base.py:657
 msgid "Text only"
 msgstr "Nur Text"
 
-#: .\settings\_base.py:656
+#: .\settings\_base.py:659
 #, fuzzy
 #| msgid "fees and opening hours"
 msgid "Tenders and Competitions"
 msgstr "Eintritt und Öffnungszeiten"
 
-#: .\settings\_base.py:660
+#: .\settings\_base.py:663
 #, fuzzy
 #| msgid "New Bulletin"
 msgid "Jobs and Bulletins"
 msgstr "Neues Inserat"
 
-#: .\settings\_base.py:661 .\templates\ccb\network\member_list.html:60
+#: .\settings\_base.py:664 .\templates\ccb\network\member_list.html:60
 #: .\templates\ccb\network\member_list_under_category.html:62
 #: .\templates\ccb\people\person_list.html:57
 #: .\templates\ccb\styleguide\elements.html:71
 msgid "Profiles"
 msgstr "Profile"
 
-#: .\settings\_base.py:669
+#: .\settings\_base.py:672
 msgid "Latest Profiles"
 msgstr "Letzte Profile"
 
-#: .\settings\_base.py:670
+#: .\settings\_base.py:673
 msgid "Latest Bulletins"
 msgstr "Letzte Inserate"
 
-#: .\settings\_base.py:671
+#: .\settings\_base.py:674
 msgid "Latest News of the Category"
 msgstr "Letzte News der Kategorie"
 
-#: .\settings\_base.py:726
+#: .\settings\_base.py:729
 msgid "de"
 msgstr ""
 
-#: .\settings\_base.py:733
+#: .\settings\_base.py:736
 msgid "en"
 msgstr ""
 
@@ -5950,20 +5965,20 @@ msgstr "Gruppenart"
 msgid "You can select an appropriate markup type here"
 msgstr ""
 
-#: .\subtrees\base_libs\base_libs\models\fields.py:140
+#: .\subtrees\base_libs\base_libs\models\fields.py:141
 msgid "Model field for Textarea which won't be converted to RTE"
 msgstr ""
 
-#: .\subtrees\base_libs\base_libs\models\fields.py:188
+#: .\subtrees\base_libs\base_libs\models\fields.py:189
 #, python-format
 msgid "Multilingual string (up to %(max_length)s)"
 msgstr ""
 
-#: .\subtrees\base_libs\base_libs\models\fields.py:285
+#: .\subtrees\base_libs\base_libs\models\fields.py:286
 msgid "Multilingual Text"
 msgstr ""
 
-#: .\subtrees\base_libs\base_libs\models\fields.py:447
+#: .\subtrees\base_libs\base_libs\models\fields.py:449
 msgid "Plain text Multilingual text fields"
 msgstr ""
 
@@ -6710,24 +6725,20 @@ msgstr "Du bist noch nicht angemeldet? Lege Dir jetzt ein Profil an. "
 #: .\templates\ccb\accounts\my_profile\privacy_settings.html:25
 #: .\templates\ccb\accounts\password_change_done.html:24
 #: .\templates\ccb\accounts\password_change_form.html:24
-#: .\templates\ccb\institutions\details_base.html:86
+#: .\templates\ccb\institutions\details_base.html:87
 #: .\templates\ccb\network\details_base.html:7
-#: .\templates\ccb\network\details_base.html:44
-#: .\templates\ccb\network\details_base.html:101
-#: .\templates\ccb\network\details_base.html:174
+#: .\templates\ccb\network\details_base.html:105
+#: .\templates\ccb\network\details_base.html:182
 #: .\templates\ccb\notification\settings.html:40
 #: .\templates\ccb\people\details_base.html:6
-#: .\templates\ccb\people\details_base.html:25
-#: .\templates\ccb\people\details_base.html:88
+#: .\templates\ccb\people\details_base.html:89
 msgid "My Profile"
 msgstr "Mein Profil"
 
 #: .\templates\ccb\accounts\my_profile\base.html:12
 #: .\templates\ccb\accounts\my_profile\base.html:73
-#: .\templates\ccb\network\details_base.html:44
-#: .\templates\ccb\network\details_base.html:101
-#: .\templates\ccb\people\details_base.html:30
-#: .\templates\ccb\people\details_base.html:88
+#: .\templates\ccb\network\details_base.html:105
+#: .\templates\ccb\people\details_base.html:89
 msgid "Person"
 msgstr "Person"
 
@@ -8399,7 +8410,7 @@ msgstr "Löschen"
 msgid "Post a review (login required)"
 msgstr "Schreibe eine Bewertung"
 
-#: .\templates\ccb\events\includes\latest_published_events.html:33
+#: .\templates\ccb\events\includes\latest_published_events.html:35
 #: .\templates\ccb\events\includes\latest_published_events_index.html:39
 #: .\templates\ccb\events\includes\nearest_published_events.html:132
 #: .\templates\ccb\events\includes\nearest_published_featured_events.html:132
@@ -9626,12 +9637,12 @@ msgstr ""
 
 #: .\templates\ccb\individual_relations\lists\person_invitation.html:40
 #: .\templates\ccb\individual_relations\lists\person_invitation.html:41
-#: .\templates\ccb\network\details_base.html:78
-#: .\templates\ccb\network\details_base.html:229
+#: .\templates\ccb\network\details_base.html:82
+#: .\templates\ccb\network\details_base.html:236
 #: .\templates\ccb\people\controls.html:24
 #: .\templates\ccb\people\controls.html:25
-#: .\templates\ccb\people\details_base.html:65
-#: .\templates\ccb\people\details_base.html:133
+#: .\templates\ccb\people\details_base.html:66
+#: .\templates\ccb\people\details_base.html:134
 msgid "Edit Person"
 msgstr "Person bearbeiten"
 
@@ -9660,72 +9671,70 @@ msgstr "Ja"
 
 #: .\templates\ccb\institutions\controls.html:18
 #: .\templates\ccb\institutions\controls.html:21
-#: .\templates\ccb\institutions\details_base.html:66
+#: .\templates\ccb\institutions\details_base.html:67
 #: .\templates\ccb\institutions\details_base.html:134
-#: .\templates\ccb\network\details_base.html:154
-#: .\templates\ccb\network\details_base.html:272
+#: .\templates\ccb\network\details_base.html:162
+#: .\templates\ccb\network\details_base.html:279
 msgid "Edit Institution"
 msgstr "Institution bearbeiten"
 
 #: .\templates\ccb\institutions\details_base.html:6
-#: .\templates\ccb\institutions\details_base.html:25
 #: .\templates\ccb\network\details_base.html:13
-#: .\templates\ccb\network\details_base.html:123
 msgid "My Institution"
 msgstr "Meine Institution"
 
-#: .\templates\ccb\institutions\details_base.html:57
+#: .\templates\ccb\institutions\details_base.html:58
 #: .\templates\ccb\institutions\details_base.html:123
-#: .\templates\ccb\network\details_base.html:71
-#: .\templates\ccb\network\details_base.html:145
-#: .\templates\ccb\network\details_base.html:222
-#: .\templates\ccb\network\details_base.html:259
-#: .\templates\ccb\people\details_base.html:58
-#: .\templates\ccb\people\details_base.html:126
+#: .\templates\ccb\network\details_base.html:75
+#: .\templates\ccb\network\details_base.html:153
+#: .\templates\ccb\network\details_base.html:229
+#: .\templates\ccb\network\details_base.html:266
+#: .\templates\ccb\people\details_base.html:59
+#: .\templates\ccb\people\details_base.html:127
 msgid "Unfollow"
 msgstr "Nicht länger folgen"
 
-#: .\templates\ccb\institutions\details_base.html:59
-#: .\templates\ccb\institutions\details_base.html:69
+#: .\templates\ccb\institutions\details_base.html:60
+#: .\templates\ccb\institutions\details_base.html:70
 #: .\templates\ccb\institutions\details_base.html:125
 #: .\templates\ccb\institutions\details_base.html:138
-#: .\templates\ccb\network\details_base.html:73
-#: .\templates\ccb\network\details_base.html:83
-#: .\templates\ccb\network\details_base.html:147
-#: .\templates\ccb\network\details_base.html:158
-#: .\templates\ccb\network\details_base.html:224
-#: .\templates\ccb\network\details_base.html:234
-#: .\templates\ccb\network\details_base.html:261
-#: .\templates\ccb\network\details_base.html:275
-#: .\templates\ccb\people\details_base.html:60
-#: .\templates\ccb\people\details_base.html:70
-#: .\templates\ccb\people\details_base.html:128
-#: .\templates\ccb\people\details_base.html:138
+#: .\templates\ccb\network\details_base.html:77
+#: .\templates\ccb\network\details_base.html:87
+#: .\templates\ccb\network\details_base.html:155
+#: .\templates\ccb\network\details_base.html:166
+#: .\templates\ccb\network\details_base.html:231
+#: .\templates\ccb\network\details_base.html:241
+#: .\templates\ccb\network\details_base.html:268
+#: .\templates\ccb\network\details_base.html:282
+#: .\templates\ccb\people\details_base.html:61
+#: .\templates\ccb\people\details_base.html:71
+#: .\templates\ccb\people\details_base.html:129
+#: .\templates\ccb\people\details_base.html:139
 msgid "Follow"
 msgstr "Folgen"
 
-#: .\templates\ccb\institutions\details_base.html:63
-#: .\templates\ccb\institutions\details_base.html:71
+#: .\templates\ccb\institutions\details_base.html:64
+#: .\templates\ccb\institutions\details_base.html:72
 #: .\templates\ccb\institutions\details_base.html:132
 #: .\templates\ccb\institutions\details_base.html:140
 #: .\templates\ccb\institutions\institution_list.html:105
 #: .\templates\ccb\institutions\institution_list.html:109
-#: .\templates\ccb\network\details_base.html:76
-#: .\templates\ccb\network\details_base.html:85
-#: .\templates\ccb\network\details_base.html:151
-#: .\templates\ccb\network\details_base.html:160
-#: .\templates\ccb\network\details_base.html:227
-#: .\templates\ccb\network\details_base.html:236
-#: .\templates\ccb\network\details_base.html:270
+#: .\templates\ccb\network\details_base.html:80
+#: .\templates\ccb\network\details_base.html:89
+#: .\templates\ccb\network\details_base.html:159
+#: .\templates\ccb\network\details_base.html:168
+#: .\templates\ccb\network\details_base.html:234
+#: .\templates\ccb\network\details_base.html:243
 #: .\templates\ccb\network\details_base.html:277
+#: .\templates\ccb\network\details_base.html:284
 #: .\templates\ccb\network\member_list.html:112
 #: .\templates\ccb\network\member_list.html:116
 #: .\templates\ccb\network\member_list_under_category.html:129
 #: .\templates\ccb\network\member_list_under_category.html:133
-#: .\templates\ccb\people\details_base.html:63
-#: .\templates\ccb\people\details_base.html:72
-#: .\templates\ccb\people\details_base.html:131
-#: .\templates\ccb\people\details_base.html:140
+#: .\templates\ccb\people\details_base.html:64
+#: .\templates\ccb\people\details_base.html:73
+#: .\templates\ccb\people\details_base.html:132
+#: .\templates\ccb\people\details_base.html:141
 #: .\templates\ccb\people\person_institutions.html:49
 #: .\templates\ccb\people\person_institutions.html:53
 #: .\templates\ccb\people\person_list.html:105
@@ -10425,8 +10434,8 @@ msgstr "Antworten"
 msgid "forward"
 msgstr "Weiterleiten"
 
-#: .\templates\ccb\network\details_base.html:44
-#: .\templates\ccb\network\details_base.html:123
+#: .\templates\ccb\network\details_base.html:48
+#: .\templates\ccb\network\details_base.html:131
 msgid "CCB MAGAZINE"
 msgstr "CCB MAGAZIN"
 

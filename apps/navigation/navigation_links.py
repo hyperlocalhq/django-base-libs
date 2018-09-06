@@ -732,3 +732,13 @@ navigation_links = {
         },
     ],
 }
+
+navigation_links['menu_personal_activitie_event'] = [navigation_links['menu_personal_activities'][1],]
+navigation_links['menu_personal_activitie_job'] = [navigation_links['menu_personal_activities'][2],]
+navigation_links['menu_personal_activitie_bulletin'] = [navigation_links['menu_personal_activities'][3],]
+navigation_links['menu_personal_activitie_blog'] = [navigation_links['menu_personal_activities'][4],]
+
+navigation_links['menu_institutional_activitie_event'] = [navigation_links['menu_institutional_activities'][1],]
+navigation_links['menu_institutional_activitie_job'] = [navigation_links['menu_institutional_activities'][2],]
+navigation_links['menu_institutional_activitie_bulletin'] = [navigation_links['menu_institutional_activities'][3],]
+navigation_links['menu_institutional_activitie_blog'] = [navigation_links['menu_institutional_activities'][4],]

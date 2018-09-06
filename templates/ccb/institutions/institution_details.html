@@ -50,23 +50,23 @@
     {% if object.is_editable %}
         <div id="avatar-edit-frame" class="edit-iframe"></div>
     {% endif %}
-    
+
     {% include "institutions/profile/identity.html" %}
 
     {% include "institutions/profile/contact.html" %}
-    
+
     {% include "institutions/profile/description.html" %}
-    
+
     {% include "institutions/profile/details.html" %}
-    
+
     {% include "institutions/profile/payment.html" %}
-    
+
     {% include "institutions/profile/opening_hours.html" %}
-    
+
     {% include "institutions/profile/categories.html" %}
-    
+
     {% include "institutions/profile/map.html" %}
-    
+
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -79,4 +79,23 @@
     {{ block.super }}
     <script type="text/javascript" src="//maps.google.com/maps/api/js?language=de&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/locating.js"></script>
+
+    {% if object.is_editable %}
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/intro.min.js"></script>
+        {% if request.user.last_login.date == request.user.date_joined.date %}
+            <script type="text/javascript" src="{% url 'guided_tour' %}"></script>
+        {% else %}
+            <script type="text/javaScript">
+                var show_tip_no_profile_image = {% if object.image %}false{% else %}true{% endif %};
+                var show_tip_no_creative_sector = {% if object.get_categories %}false{% else %}true{% endif %};
+            </script>
+            <script type="text/javascript" src="{% url 'missing_profile_data_tips' %}"></script>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+
+{% block stylesheet %}
+    {{ block.super }}
+    <link href="{{ STATIC_URL }}site/css/introjs.min.css" rel="stylesheet" media="screen, print" type="text/css" />
 {% endblock %}
