@@ -2,6 +2,8 @@
 
 $( document ).ready(function() {
 
+    console.log("guided_tour yo");
+
     if ($('body').hasClass('is-xs')) return;
 
     if (sessionStorage.getItem('guided_tour')) return;
