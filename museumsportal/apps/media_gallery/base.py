@@ -114,7 +114,7 @@ class MediaGalleryManager(models.Manager):
             **kwargs
         )
 
-    def get_query_set(self):
+    def get_queryset(self):
         q = ExtendedQuerySet(self.model)
         gallery_db_table = self.model._meta.db_table
         ct = ContentType.objects.get_for_model(self.model)

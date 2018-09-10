@@ -90,16 +90,16 @@ class MuseumManager(models.Manager):
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
         if not user.is_authenticated():
-            return self.get_query_set().none()
+            return self.get_queryset().none()
         if user.has_perm("museums.change_museum"):
-            return self.get_query_set().exclude(status="trashed")
+            return self.get_queryset().exclude(status="trashed")
         ids = PerObjectGroup.objects.filter(
             content_type__app_label="museums",
             content_type__model="museum",
             sysname__startswith="owners",
             users=user,
         ).values_list("object_id", flat=True)
-        return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
+        return self.get_queryset().filter(pk__in=ids).exclude(status="trashed")
 
 
 class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):

@@ -85,21 +85,21 @@ class EventCategory(MPTTModel, SlugMixin()):
 
 class EventManager(models.Manager):
     def nearest_published_featured(self):
-        return self.get_query_set().filter(featured=True, status="published").order_by("closest_event_date", "closest_event_time")
+        return self.get_queryset().filter(featured=True, status="published").order_by("closest_event_date", "closest_event_time")
 
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
         if not user.is_authenticated():
-            return self.get_query_set().none()
+            return self.get_queryset().none()
         if user.has_perm("events.change_event"):
-            return self.get_query_set().exclude(status="trashed")
+            return self.get_queryset().exclude(status="trashed")
         ids = PerObjectGroup.objects.filter(
             content_type__app_label="events",
             content_type__model="event",
             sysname__startswith="owners",
             users=user,
         ).values_list("object_id", flat=True)
-        return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
+        return self.get_queryset().filter(pk__in=ids).exclude(status="trashed")
 
     def update_expired(self):
         for obj in self.exclude(

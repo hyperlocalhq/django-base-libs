@@ -70,16 +70,16 @@ class WorkshopManager(models.Manager):
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
         if not user.is_authenticated():
-            return self.get_query_set().none()
+            return self.get_queryset().none()
         if user.has_perm("workshop.change_workshop"):
-            return self.get_query_set().exclude(status="trashed")
+            return self.get_queryset().exclude(status="trashed")
         ids = PerObjectGroup.objects.filter(
             content_type__app_label="workshops",
             content_type__model="workshop",
             sysname__startswith="owners",
             users=user,
         ).values_list("object_id", flat=True)
-        return self.get_query_set().filter(pk__in=ids).exclude(status="trashed")
+        return self.get_queryset().filter(pk__in=ids).exclude(status="trashed")
 
     def fix_bookable(self):
         self.filter(

@@ -24,7 +24,7 @@ class LatestCommentsFeed(Feed):
             self._site = Site.objects.get_current()
         return "Latest comments on %s" % self._site.name
 
-    def get_query_set(self):
+    def get_queryset(self):
         qs = self.comments_class.objects.filter(site__pk=settings.SITE_ID, is_public=True)
         qs = qs.filter(is_removed=False)
         if settings.COMMENTS_BANNED_USERS_GROUP:
@@ -34,7 +34,7 @@ class LatestCommentsFeed(Feed):
         return qs
 
     def items(self):
-        return self.get_query_set()[:40]
+        return self.get_queryset()[:40]
     
     def item_pubdate(self, obj):
         """

@@ -62,9 +62,9 @@ class ShopProductManager(models.Manager):
     def owned_by(self, user):
         from jetson.apps.permissions.models import PerObjectGroup
         if not user.is_authenticated():
-            return self.get_query_set().none()
+            return self.get_queryset().none()
         if user.has_perm("shop.change_shopproduct"):
-            return self.get_query_set().exclude(status="trashed")
+            return self.get_queryset().exclude(status="trashed")
         product_ids = PerObjectGroup.objects.filter(
             content_type__app_label="shop",
             content_type__model="shopproduct",
@@ -79,7 +79,7 @@ class ShopProductManager(models.Manager):
             users=user,
         ).values_list("object_id", flat=True)
 
-        return self.get_query_set().filter(
+        return self.get_queryset().filter(
             models.Q(pk__in=product_ids) | models.Q(museums__id__in=museum_ids)
         ).exclude(status="trashed").distinct()
 
