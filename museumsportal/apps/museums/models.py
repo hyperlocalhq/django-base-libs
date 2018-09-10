@@ -285,7 +285,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
             if actual_seasons.count():
                 self._actual_season = actual_seasons[0]
         if self._actual_season:
-            return closing_time <= getattr(self._actual_season, "%s_close" % weekday, time(0, 0))
+            return closing_time <= (getattr(self._actual_season, "%s_close" % weekday, None) or time(0, 0))
         return False
 
     # open till 20:00

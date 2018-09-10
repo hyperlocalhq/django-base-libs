@@ -475,7 +475,7 @@
                 ui.placeholder.height(ui.item.height() + 12);
             },
         });
-        $("#{{ opts.module_name }}_form").bind("submit", function(){
+        $("#{{ opts.model_name }}_form").bind("submit", function(){
             var sortable_field_name = "{{ inline_admin_formset.opts.sortable_field_name }}";
             var i = 0;
             $("#{{ inline_admin_formset.formset.prefix }}-group").find("div.dynamic-form").each(function(){

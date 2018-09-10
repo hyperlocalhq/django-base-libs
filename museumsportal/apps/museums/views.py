@@ -392,7 +392,7 @@ def export_json_museums(request):
         museums.append(data)
     
     json_str = json.dumps(museums, ensure_ascii=False, cls=ExtendedJSONEncoder)
-    return HttpResponse(json_str, mimetype='text/javascript; charset=utf-8')
+    return HttpResponse(json_str, content_type='text/javascript; charset=utf-8')
 
 
 @never_cache
@@ -665,4 +665,4 @@ def json_museum_attrs(request, museum_id):
             'status': m.status,
         }
         json_str = json.dumps(data, ensure_ascii=False, cls=ExtendedJSONEncoder)
-    return HttpResponse(json_str, mimetype='text/javascript; charset=utf-8')
+    return HttpResponse(json_str, content_type='text/javascript; charset=utf-8')

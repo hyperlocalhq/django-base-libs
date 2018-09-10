@@ -6,6 +6,7 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic import TemplateView
 from django.conf.urls.i18n import i18n_patterns
+from django.contrib.admin.views.decorators import staff_member_required
 
 from filebrowser.sites import site
 import autocomplete_light
@@ -131,7 +132,7 @@ urlpatterns += i18n_patterns('',
     url(r'^dashboard/guided-tours/$', 'museumsportal.apps.site_specific.views.dashboard_workshops', name="dashboard_workshops"),
     url(r'^dashboard/shop/$', 'museumsportal.apps.site_specific.views.dashboard_shopproducts', name="dashboard_shopproducts"),
     url(r'^claiming-invitation/$', 'museumsportal.apps.site_specific.views.invite_to_claim_museum', name="invite_to_claim_museum"),
-    url(r'^claiming-invitation/done/$', TemplateView.as_view(template_name='site_specific/claiming_invitation_done.html'), name="invite_to_claim_museum_done"),
+    url(r'^claiming-invitation/done/$', staff_member_required(TemplateView.as_view(template_name='site_specific/claiming_invitation_done.html')), name="invite_to_claim_museum_done"),
     url(r'^claiming-confirmation/(?P<invitation_code>[a-zA-Z0-9_\-=]+)/$', 'museumsportal.apps.site_specific.views.register_and_claim_museum', name="register_and_claim_museum"),
     url(r'^favorites/(?P<user_token>[^/]+)/$', 'museumsportal.apps.site_specific.views.user_favorites', {'template_name': 'favorites/all_favorites.html'}, name="user_favorites"),
     url(r'^my-profile/favorites/$', 'museumsportal.apps.site_specific.views.redirect_to_user_favorites', name="favorites"),

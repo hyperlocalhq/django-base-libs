@@ -109,44 +109,16 @@ class Urls(object):
             "/de/tweets/museumsportal/",
             "/de/tweets/thisuserdoesnotexist/",
             "/de/filebrowser/get-version/",
-            '/de/admin/filebrowser/browse/',  # shouldn't this redirect to login screen instead of opening one?
-            '/de/admin/filebrowser/createdir/',  # shouldn't this redirect to login screen instead of opening one?
-            '/de/admin/filebrowser/upload/',  # shouldn't this redirect to login screen instead of opening one?
-            '/de/admin/filebrowser/delete_confirm/',  # shouldn't this redirect to login screen instead of opening one?
-            '/de/admin/filebrowser/detail/',  # shouldn't this redirect to login screen instead of opening one?
-            '/de/admin/filebrowser/version/',  # shouldn't this redirect to login screen instead of opening one?
             '/de/recrop/cropping-preview/fff/',
             '/de/sitemap.xml',
             '/de/api/v1/?format=json',
             '/de/api/v2/?format=json',
-            '/de/tagging_autocomplete/list',
+            '/de/tagging_autocomplete/list/',
             '/de/helper/autocomplete/i18n/get_countries/name/get_name/',
             '/de/helper/modified-path/',
             '/de/helper/menu/',
             '/de/jsi18n/',
             '/de/jssettings/',
-            '/de/grappelli/grp-doc/change-form/',
-            '/de/grappelli/grp-doc/change-list/',
-            '/de/grappelli/grp-doc/admin-index/',
-            '/de/grappelli/grp-doc/tables/',
-            '/de/grappelli/grp-doc/pagination/',
-            '/de/grappelli/grp-doc/search-form/',
-            '/de/grappelli/grp-doc/filter/',
-            '/de/grappelli/grp-doc/date-hierarchy/',
-            '/de/grappelli/grp-doc/fieldsets/',
-            '/de/grappelli/grp-doc/errors/',
-            '/de/grappelli/grp-doc/form-fields/',
-            '/de/grappelli/grp-doc/submit-rows/',
-            '/de/grappelli/grp-doc/modules/',
-            '/de/grappelli/grp-doc/groups/',
-            '/de/grappelli/grp-doc/navigation/',
-            '/de/grappelli/grp-doc/context-navigation/',
-            '/de/grappelli/grp-doc/basic-page-structure/',
-            '/de/grappelli/grp-doc/tools/',
-            '/de/grappelli/grp-doc/object-tools/',
-            '/de/grappelli/grp-doc/mueller-grid-system/',
-            '/de/grappelli/grp-doc/mueller-grid-system-layouts/',
-            '/de/grappelli/grp-doc',
             '/de/styleguide/',
             '/de/styleguide/grid/',
             '/de/styleguide/typography/',
@@ -159,8 +131,6 @@ class Urls(object):
             '/de/password-reset/',
             '/de/password-reset/done/',
             '/de/password-reset/complete/',
-            '/de/claiming-invitation/',
-            '/de/claiming-invitation/done/',
             '/autocomplete/OwnEventAutocomplete/',
             '/autocomplete/MuseumAutocomplete/',
             '/autocomplete/OwnMuseumAutocomplete/',
@@ -170,8 +140,8 @@ class Urls(object):
             '/autocomplete/OwnExhibitionAutocomplete/',
             '/autocomplete/EventAutocomplete/',
             '/de/shop/',
-            '/de/blog/',
-            '/de/blog/all/',
+            #'/de/blog/',
+            #'/de/blog/all/',
             '/de/suche/',
             '/de/suche/full/',
             '/de/museen/',
@@ -187,10 +157,55 @@ class Urls(object):
             '/de/fuehrungen/',
             '/de/fuehrungen/map/',
             '/de/fuehrungen/rss/',
-            '/de/museumsummer-copy/map/',  # What is this?
+            '/de/admin/tips/tipoftheday/details-json/59/768/',
         ]
 
         self.anonymous_200 = [
+        ]
+
+        querysets = [
+            Museum.objects.filter(status="published").order_by("?"),
+            Exhibition.objects.filter(status="published").order_by("?"),
+            Event.objects.filter(status="published").order_by("?"),
+            Workshop.objects.filter(status="published").order_by("?"),
+            ShopProduct.objects.filter(status="published").order_by("?"),
+        ]
+        for qs in querysets:
+            if limit_detail_pages_to:
+                qs = qs[:3]
+            for obj in qs:
+                self.anonymous_200_authenticated_200.append(obj.get_url_path())
+
+        # Redirect (to language-specific or other page)
+        self.anonymous_302_authenticated_302 = [
+            '/de/museumsummer-copy/map/',  # What is this?
+            '/de/i18n/',
+            '/de/my-profile/favorites/',
+            '/de/rosetta/download/',
+            '/de/logout/',  # keep the logout last, because it changes the request user
+            '/logout/',  # keep the logout last, because it changes the request user
+        ]
+
+        # Redirect (to login or other page) if anonymous; OK otherwise
+        self.anonymous_302 = [
+            '/de/claiming-invitation/',
+            '/de/claiming-invitation/done/',
+            '/de/dashboard/',
+            '/de/dashboard/museums/',
+            '/de/dashboard/exhibitions/',
+            '/de/dashboard/events/',
+            '/de/dashboard/guided-tours/',
+            '/de/dashboard/shop/',
+            '/de/signup/welcome/',
+            '/de/password-change/',
+            '/de/password-change/done/',
+            '/de/rosetta/',
+            '/de/rosetta/pick/',
+            '/de/shop/add/',
+            '/de/museen/add/',
+            '/de/ausstellungen/add/',
+            '/de/veranstaltungen/add/',
+            '/de/fuehrungen/add/',
             '/de/admin/',
             '/de/admin/accounts/',
             '/de/admin/accounts/privacysettings/',
@@ -234,16 +249,12 @@ class Urls(object):
             '/de/admin/cms/globalpagepermission/',
             '/de/admin/cms/globalpagepermission/add/',
             '/de/admin/cms/page/',
-            '/de/admin/cms/page/5/change-navigation/',
-            '/de/admin/cms/page/5/change-status/',
-            '/de/admin/cms/page/5/change_template/',
-            '/de/admin/cms/page/5/copy-page/',
             '/de/admin/cms/page/5/delete-translation/',
-            '/de/admin/cms/page/5/descendants/',
-            '/de/admin/cms/page/5/moderation-states/',
-            '/de/admin/cms/page/5/move-page/',
             '/de/admin/cms/page/5/permissions/',
-            '/de/admin/cms/page/5/preview/',
+            '/de/admin/cms/page/5/moderation-states/',
+            '/de/admin/cms/page/5/descendants/',
+            '/de/admin/cms/page/5/copy-page/',
+            '/de/admin/cms/page/5/change-navigation/',
             '/de/admin/cms/page/add-plugin/',
             '/de/admin/cms/page/add/',
             '/de/admin/cms/page/copy-plugins/',
@@ -370,9 +381,6 @@ class Urls(object):
             '/de/admin/slideshows/',
             '/de/admin/slideshows/slideshow/',
             '/de/admin/slideshows/slideshow/add/',
-            '/de/admin/snippet/',
-            '/de/admin/snippet/snippet/',
-            '/de/admin/snippet/snippet/add/',
             '/de/admin/tagging/',
             '/de/admin/tagging/tag/',
             '/de/admin/tagging/tag/add/',
@@ -384,7 +392,6 @@ class Urls(object):
             '/de/admin/tips/',
             '/de/admin/tips/tipoftheday/',
             '/de/admin/tips/tipoftheday/add/',
-            '/de/admin/tips/tipoftheday/details-json/59/768/',
             '/de/admin/tracker/',
             '/de/admin/tracker/concern/',
             '/de/admin/tracker/concern/add/',
@@ -404,48 +411,12 @@ class Urls(object):
             '/de/admin/workshops/workshop/add/',
             '/de/admin/workshops/workshoptype/',
             '/de/admin/workshops/workshoptype/add/',
-        ]
-
-        querysets = [
-            Museum.objects.filter(status="published").order_by("?"),
-            Exhibition.objects.filter(status="published").order_by("?"),
-            Event.objects.filter(status="published").order_by("?"),
-            Workshop.objects.filter(status="published").order_by("?"),
-            ShopProduct.objects.filter(status="published").order_by("?"),
-        ]
-        for qs in querysets:
-            if limit_detail_pages_to:
-                qs = qs[:3]
-            for obj in qs:
-                self.anonymous_200_authenticated_200.append(obj.get_url_path())
-
-        # Redirect (to language-specific or other page)
-        self.anonymous_302_authenticated_302 = [
-            '/de/i18n/',
-            '/de/my-profile/favorites/',
-            '/de/rosetta/download/',
-            '/de/logout/',  # keep the logout last, because it changes the request user
-            '/logout/',  # keep the logout last, because it changes the request user
-        ]
-
-        # Redirect (to login or other page) if anonymous; OK otherwise
-        self.anonymous_302 = [
-            '/de/dashboard/',
-            '/de/dashboard/museums/',
-            '/de/dashboard/exhibitions/',
-            '/de/dashboard/events/',
-            '/de/dashboard/guided-tours/',
-            '/de/dashboard/shop/',
-            '/de/signup/welcome/',
-            '/de/password-change/',
-            '/de/password-change/done/',
-            '/de/rosetta/',
-            '/de/rosetta/pick/',
-            '/de/shop/add/',
-            '/de/museen/add/',
-            '/de/ausstellungen/add/',
-            '/de/veranstaltungen/add/',
-            '/de/fuehrungen/add/',
+            '/de/admin/filebrowser/browse/',
+            '/de/admin/filebrowser/createdir/',
+            '/de/admin/filebrowser/upload/',
+            '/de/admin/filebrowser/delete_confirm/',
+            '/de/admin/filebrowser/detail/',
+            '/de/admin/filebrowser/version/',
             '/de/admin/logout/',  # keep the logout last, because it changes the request user
         ]
 
@@ -509,16 +480,10 @@ class Urls(object):
             '/de/admin/cms/globalpagepermission/',
             '/de/admin/cms/globalpagepermission/add/',
             '/de/admin/cms/page/',
-            '/de/admin/cms/page/5/change-navigation/',
-            '/de/admin/cms/page/5/change-status/',
-            '/de/admin/cms/page/5/change_template/',
-            '/de/admin/cms/page/5/copy-page/',
             '/de/admin/cms/page/5/delete-translation/',
-            '/de/admin/cms/page/5/descendants/',
-            '/de/admin/cms/page/5/moderation-states/',
-            '/de/admin/cms/page/5/move-page/',
             '/de/admin/cms/page/5/permissions/',
-            '/de/admin/cms/page/5/preview/',
+            '/de/admin/cms/page/5/moderation-states/',
+            '/de/admin/cms/page/5/descendants/',
             '/de/admin/cms/page/add-plugin/',
             '/de/admin/cms/page/add/',
             '/de/admin/cms/page/copy-plugins/',
@@ -688,15 +653,16 @@ class Urls(object):
         ]
 
         self.authenticated_302 = [
-            '/de/admin/cms/page/5/move-page/',
-            '/de/admin/cms/page/5/copy-page/',
-            '/de/admin/cms/page/5/preview/',
             '/de/admin/filebrowser/delete/',  # shouldn't this redirect to login screen instead of opening one?
         ]
 
         # Bad request paramethers
         self.authenticated_400 = [
-            "/de/admin/filebrowser/upload_file/",
+        ]
+
+        # Bad request paramethers
+        self.anonymous_400 = [
+            '/de/recrop/'
         ]
 
         self.anonymous_401_authenticated_401 = [
@@ -765,7 +731,6 @@ class Urls(object):
         ]
 
         self.anonymous_404_authenticated_404 = [
-            "/de/recrop/",
         ]
 
         self.anonymous_405_authenticated_405 = [
@@ -773,9 +738,10 @@ class Urls(object):
         ]
 
         self.authenticated_405 = [
-            '/de/admin/cms/page/1/change-status/',
             '/de/admin/cms/page/1/change-navigation/',
-            '/de/admin/cms/page/1/change_template/',
+            '/de/admin/cms/page/1/move-page/',
+            '/de/admin/cms/page/1/copy-page/',
+            '/de/admin/filebrowser/upload_file/'
         ]
 
         self.anonymous_500_authenticated_500 = [
@@ -797,6 +763,7 @@ def suite():
         (200, urls.anonymous_200),
         (302, urls.anonymous_302_authenticated_302),
         (302, urls.anonymous_302),
+        (400, urls.anonymous_400),
         (401, urls.anonymous_401_authenticated_401),
         (403, urls.anonymous_403),
         (404, urls.anonymous_404_authenticated_404),
@@ -838,5 +805,9 @@ if __name__ == "__main__":
     PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
     sys.path = ["", PROJECT_PATH] + sys.path
     os.chdir(os.path.dirname(__file__))
-    os.environ["DJANGO_SETTINGS_MODULE"] = "museumsportal.settings.local"
-    unittest.TextTestRunner(verbosity=1).run(suite())
+    os.environ["DJANGO_SETTINGS_MODULE"] = "museumsportal.settings.test"
+
+    import django
+    django.setup()
+
+    unittest.TextTestRunner(verbosity=1, failfast=True).run(suite())

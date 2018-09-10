@@ -556,7 +556,7 @@ def export_json_exhibitions(request):
         ensure_ascii=False,
         cls=ExtendedJSONEncoder
     )
-    return HttpResponse(json_data, mimetype='text/javascript; charset=utf-8')
+    return HttpResponse(json_data, content_type='text/javascript; charset=utf-8')
     
 
 @never_cache

@@ -198,7 +198,7 @@ class DoCommentForm:
 
     Syntax::
 
-        {% comment_form [using <template_path>] for [pkg].[py_module_name] [context_var_containing_obj_id] with [list of options] %}
+        {% comment_form [using <template_path>] for [pkg].[py_model_name] [context_var_containing_obj_id] with [list of options] %}
 
     Example usage::
 
@@ -224,7 +224,7 @@ class DoCommentForm:
         if tokens[token_index] != 'for':
             raise template.TemplateSyntaxError, "Argument %d in %r tag must be 'for'" % (token_index + 1, tokens[0])
         
-        # ok, maybe the content_type is in the form [pkg].[py_module_name] 
+        # ok, maybe the content_type is in the form [pkg].[py_model_name]
         # or it is a context variable name!!!
         content_type_lookup_var, content_type = None, None
         try:
@@ -290,7 +290,7 @@ class DoCommentCount:
 
     Syntax::
 
-        {% get_comment_count for [pkg].[py_module_name] [context_var_containing_obj_id] as [varname]  %}
+        {% get_comment_count for [pkg].[py_model_name] [context_var_containing_obj_id] as [varname]  %}
 
     Example usage::
 
@@ -343,7 +343,7 @@ class DoGetCommentLatest:
 
     Syntax::
 
-        {% get_comment_latest for [pkg].[py_module_name] [context_var_containing_obj_id] as [varname]  %}
+        {% get_comment_latest for [pkg].[py_model_name] [context_var_containing_obj_id] as [varname]  %}
 
     Example usage::
 
@@ -396,7 +396,7 @@ class DoGetCommentList:
 
     Syntax::
 
-        {% get_comment_list for [pkg].[py_module_name] [context_var_containing_obj_id] as [varname] (reversed) %}
+        {% get_comment_list for [pkg].[py_model_name] [context_var_containing_obj_id] as [varname] (reversed) %}
 
     Example usage::
 

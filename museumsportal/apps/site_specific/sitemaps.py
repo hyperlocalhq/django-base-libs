@@ -11,16 +11,17 @@ from museumsportal.apps.workshops.models import Workshop
 
 
 class CMSSitemap(CMSSitemapBase):
+    limit = 100
+
     def items(self):
-        from cms.utils.page_resolver import get_page_queryset
-        page_queryset = get_page_queryset(None)
-        all_pages = page_queryset.published().filter(login_required=False, in_navigation=True)
+        all_pages = super(CMSSitemap, self).items().filter(page__in_navigation=True)
         return all_pages
 
 
 class MuseumSitemap(Sitemap):
     changefreq = "daily"
     priority = 0.5
+    limit = 100
 
     def items(self):
         return Museum.objects.filter(status="published")
@@ -32,6 +33,7 @@ class MuseumSitemap(Sitemap):
 class ExhibitionSitemap(Sitemap):
     changefreq = "daily"
     priority = 0.5
+    limit = 100
 
     def items(self):
         return Exhibition.objects.filter(status="published")
@@ -43,6 +45,7 @@ class ExhibitionSitemap(Sitemap):
 class EventSitemap(Sitemap):
     changefreq = "daily"
     priority = 0.5
+    limit = 100
 
     def items(self):
         return Event.objects.filter(status="published")
@@ -54,6 +57,7 @@ class EventSitemap(Sitemap):
 class WorkshopSitemap(Sitemap):
     changefreq = "daily"
     priority = 0.5
+    limit = 100
 
     def items(self):
         return Workshop.objects.filter(status="published")

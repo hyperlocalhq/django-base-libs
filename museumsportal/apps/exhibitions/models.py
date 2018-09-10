@@ -224,6 +224,8 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         return today - two_weeks <= self.start <= today
         
     def is_closing_soon(self):
+        if self.end is None:
+            return False
         today = date.today()
         two_weeks = timedelta(days=14)
         return today <= self.end <= today + two_weeks
@@ -290,16 +292,18 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         # .. which started before and will end after the selected range
         # -----[-selected range-]------- time ->
         #    [------event---------]
-        conditions = conditions or (
-            self.start <= selected_start and selected_end <= self.end
-        )
+        if self.end is not None:
+            conditions = conditions or (
+                self.start <= selected_start and selected_end <= self.end
+            )
         # .. or which end date is within the selected range
         # -----[--selected range--]----- time ->
         #          [-event-]
         #   [-event-]
-        conditions = conditions or (
-            selected_start <= self.end <= selected_end
-        )
+        if self.end is not None:
+            conditions = conditions or (
+                selected_start <= self.end <= selected_end
+            )
         return conditions
         
     def is_within_7_days(self):
