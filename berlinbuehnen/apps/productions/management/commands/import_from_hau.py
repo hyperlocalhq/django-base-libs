@@ -5,7 +5,7 @@ from ._import_from_heimat_base_xml import ImportFromHeimatBase
 class Command(ImportFromHeimatBase):
     help = "Imports productions and events from HAU"
 
-    IMPORT_URL = "http://www.hebbel-am-ufer.de/cbstage/export.xml"
+    IMPORT_URL = "https://www.hebbel-am-ufer.de/cbstage/export.xml"
 
     def prepare(self):
         from django.db import models
@@ -32,3 +32,7 @@ class Command(ImportFromHeimatBase):
                 'title': "HAU Productions",
             },
         )
+
+        if self.service.url != self.IMPORT_URL:
+            self.service.url = self.IMPORT_URL
+            self.service.save()
