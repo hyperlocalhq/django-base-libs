@@ -12,16 +12,29 @@ date
 
 export DJANGO_SETTINGS_MODULE=museumsportal.settings.local
 
-echo "- Remove column name from content types table, and other deprecated columns"
+echo "- Remove column name from content types table"
 SQL=$(cat << EOM
 ALTER TABLE django_content_type DROP COLUMN name;
-ALTER TABLE comments_moderatordeletionreason DROP COLUMN reason_markup_type;
+EOM
+)
+echo $SQL | python manage.py dbshell --traceback
+
+#echo "- Remove other deprecated columns"
+#SQL=$(cat << EOM
+#ALTER TABLE comments_moderatordeletionreason DROP reason_markup_type;
+#EOM
+#)
+#echo $SQL | python manage.py dbshell --traceback
+
+echo "- Remove filebrowser index for file_path"
+SQL=$(cat << EOM
+ALTER TABLE filebrowser_filedescription DROP INDEX filebrowser_filedescription_97fd815a;
 EOM
 )
 echo $SQL | python manage.py dbshell --traceback
 
 echo "- Create migration history table and missing content types"
-python manage.py migrate --fake --traceback
+echo "yes" | python manage.py migrate --fake --traceback
 
 echo "- Unapply all migrations"
 SQL=$(cat << EOM
@@ -77,11 +90,13 @@ python manage.py migrate tracker --fake --noinput
 python manage.py migrate twitterwall --fake --noinput
 python manage.py migrate utils --fake --noinput
 
-echo "- Migrate configuration and image_mods"
+echo "- Migrate configuration, image_mods, and filebrowser"
 python manage.py migrate configuration 0001 --fake --noinput
 python manage.py migrate configuration --noinput
 python manage.py migrate image_mods 0001 --fake --noinput
 python manage.py migrate image_mods --noinput
+python manage.py migrate filebrowser 0001 --fake --noinput
+python manage.py migrate filebrowser --noinput
 
 echo "- Migrate apps related to Django CMS"
 python manage.py migrate menus --noinput

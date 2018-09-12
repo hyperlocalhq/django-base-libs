@@ -29,7 +29,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 JETSON_PATH = os.path.abspath(os.path.join(BASE_DIR, "subtrees"))
 PROJECT_PATH = BASE_DIR
 
-execfile(os.path.join(JETSON_PATH, "jetson/settings/base.py"), globals(), locals())
+execfile(os.path.join(BASE_DIR, "museumsportal/settings/_jetson_base.py"), globals(), locals())
 
 ### DOMAINS ###
 
@@ -126,7 +126,7 @@ INSTALLED_APPS = [
     "babeldjango",
     "haystack",
     "ajaxuploader",
-    "raven.contrib.django.raven_compat",
+    "raven.contrib.django.raven_compat",  # uncomment later
 
     ### Required CMS Django 2.4.1 apps ###
     "cms",

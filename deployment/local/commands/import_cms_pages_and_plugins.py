@@ -292,7 +292,7 @@ class DataImporter(object):
                 if not placeholder:
                     # there seemed to be some trash data in the database,
                     # where placeholder was commented out or removed from the template
-                    print("Deprecated placholder found: " + placeholder_dict['slot'])
+                    print("Deprecated placeholder found: " + placeholder_dict['slot'])
                     continue
                 for lang_code, plugin_dict_list in placeholder_dict.get("plugins", {}).items():
                     for plugin_dict in sorted(plugin_dict_list, key=lambda d: d['position']):

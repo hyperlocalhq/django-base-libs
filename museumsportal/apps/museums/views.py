@@ -160,11 +160,12 @@ def museum_list(request):
     if abc_filter:
         qs = filter_abc(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
 
-    qs = qs.extra(select={
-        'title_uni': "IF (museums_museum.title_%(lang_code)s = '', museums_museum.title_de, museums_museum.title_%(lang_code)s)" % {
-            'lang_code': request.LANGUAGE_CODE,
-        }
-    }).order_by("title_uni")
+    request_specific_field_name = 'title_{}'.format(request.LANGUAGE_CODE)
+    qs = qs.annotate(title_uni=models.Case(
+        models.When(then=models.Value('title_de'), **{request_specific_field_name: ''}),
+        default=models.Value(request_specific_field_name),
+        output_field=models.CharField(),
+    )).order_by("title_uni")
 
     qs = qs.prefetch_related("season_set", "mediafile_set", "categories", "accessibility_options").defer("tags")
     

@@ -6,20 +6,20 @@ DEBUG = False
 TEMPLATES_DEBUG = False
 
 DATABASES = {
-    # 'postgresql': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': get_secret("DATABASE_NAME"),
-    #     'USER': get_secret("DATABASE_USER"),
-    #     'PASSWORD': get_secret("DATABASE_PASSWORD"),
-    # },
-    'mysql': {
-        'ENGINE': 'django.db.backends.mysql',
+    'postgresql': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': get_secret("DATABASE_NAME"),
         'USER': get_secret("DATABASE_USER"),
         'PASSWORD': get_secret("DATABASE_PASSWORD"),
+    },
+    'mysql': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': get_secret("MYSQL_DATABASE_NAME"),
+        'USER': get_secret("MYSQL_DATABASE_USER"),
+        'PASSWORD': get_secret("MYSQL_DATABASE_PASSWORD"),
         'HOST': '83.138.80.207',
         'OPTIONS': {
-            'init_command': 'SET storage_engine=MyISAM,'
+            'init_command': 'SET default_storage_engine=MyISAM,'
                 'character_set_connection=utf8,'
                 'collation_connection=utf8_general_ci,'
                 'foreign_key_checks=0'

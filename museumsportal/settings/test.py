@@ -6,18 +6,17 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 DATABASES = {
-    # 'postgresql': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': get_secret("DATABASE_NAME"),
-    #     'USER': get_secret("DATABASE_USER"),
-    #     'PASSWORD': get_secret("DATABASE_PASSWORD"),
-    # },
-    'mysql': {
-        'ENGINE': 'django.db.backends.mysql',
+    'postgresql': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': get_secret("DATABASE_NAME"),
         'USER': get_secret("DATABASE_USER"),
         'PASSWORD': get_secret("DATABASE_PASSWORD"),
-        'CONN_MAX_AGE': 0,
+    },
+    'mysql': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': get_secret("MYSQL_DATABASE_NAME"),
+        'USER': get_secret("MYSQL_DATABASE_USER"),
+        'PASSWORD': get_secret("MYSQL_DATABASE_PASSWORD"),
         'HOST': 'localhost',
         'OPTIONS': {
             'init_command': 'SET default_storage_engine=MyISAM,'
@@ -27,7 +26,7 @@ DATABASES = {
         },
     }
 }
-DATABASES['default'] = DATABASES['mysql']
+DATABASES['default'] = DATABASES['postgresql']
 
 HTTPS_PROTOCOL = "http"
 

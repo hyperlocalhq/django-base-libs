@@ -22,7 +22,7 @@ def depopulate_file_path_hash(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('filebrowser', '0003_file_path_revisited'),
+        ('filebrowser', '0002_file_path_revisited'),
     ]
 
     operations = [

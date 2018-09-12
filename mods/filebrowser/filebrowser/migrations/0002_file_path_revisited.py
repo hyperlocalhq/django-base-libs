@@ -8,7 +8,7 @@ import filebrowser.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('filebrowser', '0002_auto_20180301_2039'),
+        ('filebrowser', '0001_initial'),
     ]
 
     operations = [
