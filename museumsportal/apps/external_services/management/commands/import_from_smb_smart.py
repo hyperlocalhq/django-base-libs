@@ -662,6 +662,30 @@ class Command(NoArgsCommand):
 
         if workshop.status not in ("published", "trashed", "not_listed"):
             workshop.status = self.DEFAULT_WORKSHOP_STATUS
+        if not workshop.description_locked:
+            workshop.description_locked = False
+        if not workshop.free_admission:
+            workshop.free_admission = False
+        if not workshop.has_group_offer:
+            workshop.has_group_offer = False
+        if not workshop.is_for_preschool:
+            workshop.is_for_preschool = False
+        if not workshop.is_for_primary_school:
+            workshop.is_for_primary_school = False
+        if not workshop.is_for_youth:
+            workshop.is_for_youth = False
+        if not workshop.is_for_families:
+            workshop.is_for_families = False
+        if not workshop.is_for_wheelchaired:
+            workshop.is_for_wheelchaired = False
+        if not workshop.is_for_deaf:
+            workshop.is_for_deaf = False
+        if not workshop.is_for_blind:
+            workshop.is_for_blind = False
+        if not workshop.is_for_learning_difficulties:
+            workshop.is_for_learning_difficulties = False
+        if not workshop.is_for_dementia_sufferers:
+            workshop.is_for_dementia_sufferers = False
         workshop.save()
 
         workshop.types.clear()
@@ -1026,6 +1050,14 @@ class Command(NoArgsCommand):
 
         if event.status not in ("published", "trashed", "not_listed"):
             event.status = self.DEFAULT_EVENT_STATUS
+        if not event.description_locked:
+            event.description_locked = False
+        if not event.featured:
+            event.featured = False
+        if not event.free_admission:
+            event.free_admission = False
+        if not event.suitable_for_children:
+            event.suitable_for_children = False
         event.save()
 
         event.categories.clear()
