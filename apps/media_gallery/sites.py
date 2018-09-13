@@ -972,7 +972,7 @@ class PortfolioSite(object):
                 media_file_type = "image"
             elif media_file_obj.file_type == "a":
                 media_file_type = "audio"
-            elif media_file_obj.file_type in ("v", "y"):
+            elif media_file_obj.file_type in ("v", "y", "m"):
                 media_file_type = "video"
 
         form_class = MEDIA_FILE_FORM_MAP[media_file_type]
