@@ -129,14 +129,17 @@ class VideoFileForm(PortfolioFileForm):
     )
     splash_image_file = ImageField(
         label=_("Illustration File"),
-        help_text=_(
-            "It will be used for the thumbnail. You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_IMAGE_MIN_DIMENSIONS,
         required=False,
         min_dimensions=IMAGE_MIN_DIMENSIONS,
     )
 
     def __init__(self, *args, **kwargs):
         super(VideoFileForm, self).__init__(*args, **kwargs)
+
+        self.fields['splash_image_file'].help_text = _(
+            "It will be used for the thumbnail. You can upload GIF, JPG, PNG, TIFF, and BMP images. "
+            "The minimal dimensions are %s px."
+        ) % STR_IMAGE_MIN_DIMENSIONS
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -211,14 +214,18 @@ class AudioFileForm(PortfolioFileForm):
     )
     splash_image_file = ImageField(
         label=_("Illustration File"),
-        help_text=_(
-            "It will be used for the thumbnail of the audio file as well as for the splash image in the player. You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_IMAGE_MIN_DIMENSIONS,
         required=False,
         min_dimensions=IMAGE_MIN_DIMENSIONS,
     )
 
     def __init__(self, *args, **kwargs):
         super(AudioFileForm, self).__init__(*args, **kwargs)
+
+        self.fields['splash_image_file'].help_text=_(
+            "It will be used for the thumbnail of the audio file as well as for the splash image in the player. "
+            "You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px."
+        ) % STR_IMAGE_MIN_DIMENSIONS,
+
 
         self.helper = FormHelper()
         self.helper.form_action = ""
