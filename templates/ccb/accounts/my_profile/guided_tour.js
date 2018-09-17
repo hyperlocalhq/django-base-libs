@@ -7,6 +7,12 @@ $( document ).ready(function() {
     if (sessionStorage.getItem('guided_tour')) return;
     sessionStorage.setItem('guided_tour', 'done');
 
+    window.setTimeout(doGuidedTour, 1000);
+
+});
+
+function doGuidedTour() {
+
     $('.header .menu.tabs .navi li').each(function(index) {
 
         var id = "";
@@ -146,12 +152,13 @@ $( document ).ready(function() {
         intro.setOptions({
 
             steps: steps,
-            doneLabel: "{% trans 'Ok, Understood' %}",
-            nextLabel: "{% trans 'Ok, Understood' %}",
+            doneLabel: "{% trans 'Ok, got it' %}",
+            nextLabel: "{% trans 'Ok, got it' %}",
             prevLabel: "{% trans 'back' %}",
             skipLabel: "{% trans 'close'  %}",
             hidePrev: true,
             hideNext: true,
+            showBullets: !(!(steps.length > 1)),
             showStepNumbers: false,
             exitOnOverlayClick: false
 
@@ -164,4 +171,4 @@ $( document ).ready(function() {
 
     }
 
-});
+}

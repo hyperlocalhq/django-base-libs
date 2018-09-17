@@ -516,6 +516,7 @@ tr.introjs-showElement > th {
 .introjs-tooltip h2 {
     font-size: 1.3rem;
     margin-bottom: 10px;
+    margin-top: -1.3rem;
 }
 .introjs-tooltip p {
     font-size: 1rem;
@@ -543,8 +544,8 @@ tr.introjs-showElement > th {
     float: right;
     color: white;
     text-shadow: 1px 1px 0 #333;
-    background: #03bf62;
-    border-color: #009b4a;
+    background: #00cdff;
+    border-color: #999999;
 }
 .introjs-tooltip .introjs-prevbutton {
     text-transform: capitalize;
@@ -557,12 +558,72 @@ tr.introjs-showElement > th {
     width: 85px;
     color: white;
     text-shadow: 1px 1px 0 #333;
-    background: #03bf62;
-    border-color: #009b4a;
+    background: #00cdff;
+    border-color: #999999;
 }
 .introjs-tooltip .introjs-donebutton:hover, .introjs-tooltip .introjs-nextbutton:hover {
     color: white;
     text-shadow: 1px 1px 0 #333;
-    background: #009b4a;
-    border-color: #009b4a;
+    background: #00bbdd;
+    border-color: #999999;
+}
+.introjs-dontshowagain {
+    display: block;
+    float: left;
+    margin-left: 0 !important;
+}
+
+
+.introjs-arrow {
+    border: 20px solid transparent;
+}
+.introjs-arrow.top {
+  top: -40px;
+  border-bottom-color: #f9f9f9;
+}
+.introjs-arrow.top-right {
+  top: -40px;
+  right: 10px;
+  border-bottom-color: #f9f9f9;
+}
+.introjs-arrow.top-middle {
+  top: -40px;
+  left: 50%;
+  margin-left: -20px;
+  border-bottom-color: #f9f9f9;
+}
+.introjs-arrow.right {
+  right: -40px;
+  top: 10px;
+  border-left-color: #f9f9f9;
+}
+.introjs-arrow.right-bottom {
+  bottom: 40px;
+  right: -10px;
+  border-left-color: #f9f9f9;
+}
+.introjs-arrow.bottom {
+  bottom: -40px;
+  border-top-color: #f9f9f9;
+}
+.introjs-arrow.bottom-right {
+  bottom: -40px;
+  right: 10px;
+  border-top-color: #f9f9f9;
+}
+.introjs-arrow.bottom-middle {
+  bottom: -40px;
+  left: 50%;
+  margin-left: -20px;
+  border-top-color: #f9f9f9;
+}
+.introjs-arrow.left {
+    left: -40px;
+    top: 10px;
+    border-right-color: #f9f9f9;
+}
+.introjs-arrow.left-bottom {
+  left: -40px;
+  bottom: 10px;
+  border-right-color: #f9f9f9;
 }

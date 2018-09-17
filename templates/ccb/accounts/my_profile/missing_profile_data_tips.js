@@ -2,6 +2,24 @@
 
 $( document ).ready(function() {
 
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    if (getCookie('dont_show_tips_again') == 1) return;
+
     if (is_institution) {
         if (sessionStorage.getItem('missing_profile_data_tips_institution')) return;
         sessionStorage.setItem('missing_profile_data_tips_institution', 'done');
@@ -9,6 +27,15 @@ $( document ).ready(function() {
         if (sessionStorage.getItem('missing_profile_data_tips_person')) return;
         sessionStorage.setItem('missing_profile_data_tips_person', 'done');
     }
+
+    window.setTimeout(doMissingProfileDataTips, 1000);
+
+
+
+});
+
+
+function doMissingProfileDataTips() {
 
     $('.header .menu.tabs .navi li').each(function(index) {
 
@@ -79,6 +106,26 @@ $( document ).ready(function() {
         $navi.css('left', left+'px');
     }
 
+    var createDontShowTipsAgain = function() {
+
+        var $tooltip = $('.introjs-tooltip');
+        $('.introjs-dontshowagain', $tooltip).remove();
+
+        var $link = $('<a class="introjs-button introjs-dontshowagain" role="button" tabindex="0">{% trans "Do not show these tips again" %}</a>');
+
+        $link.click(function() {
+
+            var d = new Date();
+            d.setTime(d.getTime() + (10*365*24*60*60*1000));
+            var expires = "expires="+ d.toUTCString();
+            document.cookie = "dont_show_tips_again=1;" + expires + ";path=/";
+
+            intro.exit(true);
+        });
+
+        $tooltip.append($link);
+    }
+
 
     var steps = [];
     if (show_tip_no_profile_image) steps.push(
@@ -111,23 +158,23 @@ $( document ).ready(function() {
         intro.setOptions({
 
             steps: steps,
-            doneLabel: "{% trans 'Ok, Understood' %}",
-            nextLabel: "{% trans 'Ok, Understood' %}",
+            doneLabel: "{% trans 'Ok, got it' %}",
+            nextLabel: "{% trans 'Ok, got it' %}",
             prevLabel: "{% trans 'back' %}",
             skipLabel: "{% trans 'close'  %}",
             hidePrev: true,
             hideNext: true,
+            showBullets: !(!(steps.length > 1)),
             showStepNumbers: false,
             exitOnOverlayClick: true
 
         });
 
         intro.onbeforechange(prepareStep);
-        intro.onafterchange(prepareStep);
+        intro.onafterchange(createDontShowTipsAgain);
         intro.onexit(cleanUp);
         intro.start();
 
     }
 
-
-});
+}
