@@ -220,8 +220,10 @@ class EventDocument(DocType):
     # start
 
     def prepare_start(self, instance):
-        from datetime import datetime
-        return datetime.combine(instance.start_date, instance.start_time)
+        from datetime import datetime, time
+        if instance.start_time:
+            return datetime.combine(instance.start_date, instance.start_time)
+        return datetime.combine(instance.start_date, time(0, 0))
 
     def prepare_start_time(self, instance):
         if instance.start_time:

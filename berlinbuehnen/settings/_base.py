@@ -122,7 +122,7 @@ INSTALLED_APPS = [
     "bootstrap_pagination",
     "django_elasticsearch_dsl",
 
-    ### Required CMS Django 2.4.1 apps ###
+    ### Required Django CMS 3.4 apps ###
     "cms",
     "mptt",
     "menus",
