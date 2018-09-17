@@ -2,19 +2,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-23 15:57+0100\n"
-"PO-Revision-Date: 2016-09-06 10:51+0053\n"
-"Last-Translator:   <>\n"
+"PO-Revision-Date: 2018-05-30 17:12+0053\n"
+"Last-Translator:   <j.boehmler@kulturprojekte.berlin>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Translated-Using: django-rosetta 0.7.2\n"
 
@@ -27,6 +27,9 @@ msgstr "Inhalt"
 #: settings.py:316
 msgid "Community"
 msgstr "Benutzer"
+
+msgid "Mediadata"
+msgstr "Mediadaten"
 
 #: settings.py:319
 msgid "Authentication"
@@ -229,9 +232,9 @@ msgstr "Shop - 1. Ebene"
 msgid "Dashboard Default"
 msgstr "Zurück zur Übersicht"
 
-#: settings.py:852 apps/exhibitions/cms_app.py:8 apps/exhibitions/models.py:211
-#: apps/internal_links/admin.py:39 apps/internal_links/models.py:26
-#: apps/search/search_indexes.py:98
+#: settings.py:852 apps/exhibitions/cms_app.py:8
+#: apps/exhibitions/models.py:211 apps/internal_links/admin.py:39
+#: apps/internal_links/models.py:26 apps/search/search_indexes.py:98
 #: templates/museumsportal/accounts/dashboard_admin.html:37
 #: templates/museumsportal/accounts/dashboard_exhibitions.html:36
 #: templates/museumsportal/exhibitions/exhibition_list.html:4
@@ -285,7 +288,6 @@ msgid "Email or Username"
 msgstr "E-Mail oder Username"
 
 #: apps/accounts/forms.py:36
-#, fuzzy
 msgid "Forgot password?"
 msgstr "Passwort vergessen?"
 
@@ -301,8 +303,8 @@ msgstr "Login"
 
 #: apps/accounts/forms.py:64 apps/site_specific/forms.py:123
 msgid ""
-"Please enter a correct email or username and password. Note that both fields "
-"are case-sensitive."
+"Please enter a correct email or username and password. Note that both fields"
+" are case-sensitive."
 msgstr ""
 "Bitte geben Sie Ihre Mailadresse oder den Benutzernamen sowie das Passwort "
 "ein. Achten Sie auf eine korrekte Groß-/Kleinschreibung"
@@ -347,8 +349,8 @@ msgid ""
 "I accept <a href=\"/%(lang_code)s/privacy/\" target=\"_blank\">the privacy "
 "policy</a>."
 msgstr ""
-"Ja, ich bin mit den <a href=\"/%(lang_code)s/privacy/\" target=\"_blank"
-"\">Datenschutzrichtlinien</a> einverstanden."
+"Ja, ich bin mit den <a href=\"/%(lang_code)s/privacy/\" "
+"target=\"_blank\">Datenschutzrichtlinien</a> einverstanden."
 
 #: apps/accounts/forms.py:106
 #, python-format
@@ -356,8 +358,8 @@ msgid ""
 "I accept <a href=\"/%(lang_code)s/terms-of-use/\" target=\"_blank\">the "
 "terms of use</a>."
 msgstr ""
-"Ja, ich bin mit den <a href=\"/%(lang_code)s/terms-of-use/\" target=\"_blank"
-"\">Nutzungsbedingungen</a> einverstanden."
+"Ja, ich bin mit den <a href=\"/%(lang_code)s/terms-of-use/\" "
+"target=\"_blank\">Nutzungsbedingungen</a> einverstanden."
 
 #: apps/accounts/forms.py:114
 #, python-format
@@ -376,9 +378,8 @@ msgid "A user with that username already exists."
 msgstr "Ein Benutzer mit diesem Username existiert bereits."
 
 #: apps/accounts/forms.py:170
-#, fuzzy
 msgid "A user with that email already exists."
-msgstr "Ein Benutzer mit diesem Username existiert bereits."
+msgstr "Ein Benutzer mit dieser E-Mail-Adresse existiert bereits"
 
 #: apps/accounts/forms.py:176 apps/site_specific/forms.py:78
 msgid "The two password fields didn't match."
@@ -598,13 +599,14 @@ msgstr "Beginn"
 msgid "Stop showing"
 msgstr "Nicht mehr anzeigen"
 
-#: apps/advertising/models.py:102 apps/advertising/plugins/cms_ads/models.py:11
-#: apps/articles/models.py:55 apps/exhibitions/models.py:70
-#: apps/museums/models.py:68
+#: apps/advertising/models.py:102
+#: apps/advertising/plugins/cms_ads/models.py:11 apps/articles/models.py:55
+#: apps/exhibitions/models.py:70 apps/museums/models.py:68
 msgid "Category"
 msgstr "Kategorie"
 
-#: apps/advertising/models.py:103 apps/advertising/plugins/cms_ads/models.py:10
+#: apps/advertising/models.py:103
+#: apps/advertising/plugins/cms_ads/models.py:10
 msgid "Zone"
 msgstr ""
 
@@ -991,8 +993,8 @@ msgstr ""
 
 #: apps/comments/models.py:115
 msgid ""
-"Check this box if the comment should be marked as spam. The comment will not "
-"be displayed in this case."
+"Check this box if the comment should be marked as spam. The comment will not"
+" be displayed in this case."
 msgstr ""
 
 #: apps/comments/models.py:120
@@ -1204,13 +1206,11 @@ msgstr "Kommentar schreiben"
 #: apps/comments/views/comments.py:292
 #, python-format
 msgid ""
-"This comment was posted by a user who has posted fewer than %(count)s "
-"comment:\n"
+"This comment was posted by a user who has posted fewer than %(count)s comment:\n"
 "\n"
 "%(text)s"
 msgid_plural ""
-"This comment was posted by a user who has posted fewer than %(count)s "
-"comments:\n"
+"This comment was posted by a user who has posted fewer than %(count)s comments:\n"
 "\n"
 "%(text)s"
 msgstr[0] ""
@@ -1771,13 +1771,13 @@ msgstr "Längengrad"
 msgid ""
 "Longitude (Long.) is the angle east or west of an arbitrary point on Earth "
 "from Greenwich (UK), which is the international zero-longitude point "
-"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction "
-"to east) and -180 (direction to west)."
+"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction"
+" to east) and -180 (direction to west)."
 msgstr ""
 "Longitude (Long.) is the angle east or west of an arbitrary point on Earth "
 "from Greenwich (UK), which is the international zero-longitude point "
-"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction "
-"to east) and -180 (direction to west)."
+"(longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction"
+" to east) and -180 (direction to west)."
 
 #: apps/events/models.py:151 apps/events/forms/event.py:60
 #: apps/events/forms/event.py:246 apps/workshops/models.py:154
@@ -2134,14 +2134,12 @@ msgstr "* = Pflichtfeld. Bitte ausfüllen."
 
 #: apps/events/forms/event.py:354 apps/exhibitions/forms/exhibition.py:408
 #: apps/workshops/forms/workshop.py:378
-msgid ""
-"Museum from the list <b>(active)</b> / <a href=\"#\">Other Organizer</a>"
+msgid "Museum from the list <b>(active)</b> / <a href=\"#\">Other Organizer</a>"
 msgstr "Gelistetes Museum <b>(aktiv)</b> / <a href=\"#\">Sonstiger Ort</a>"
 
 #: apps/events/forms/event.py:375 apps/exhibitions/forms/exhibition.py:429
 #: apps/workshops/forms/workshop.py:399
-msgid ""
-"Other Organizer <b>(active)</b> / <a href=\"#\">Museum from the list</a>"
+msgid "Other Organizer <b>(active)</b> / <a href=\"#\">Museum from the list</a>"
 msgstr ""
 "Sonstiger Veranstalter <b>(aktiv)</b> / <a href=\"#\">Gelistetes Museum</a>"
 
@@ -2423,14 +2421,15 @@ msgid ""
 "Available formats are JPG, GIF, PNG, TIFF, and BMP. Minimal size is 100 × "
 "100 px. Optimal size is 1000 × 350 px (min)."
 msgstr ""
-"Bitte das Format JPG verwenden. Optimal sind Abbildungen mit einer minimalen "
-"Breite von 1000 px und einer minimalen Höhe von 350 px. Maximale Bildgröße "
+"Bitte das Format JPG verwenden. Optimal sind Abbildungen mit einer minimalen"
+" Breite von 1000 px und einer minimalen Höhe von 350 px. Maximale Bildgröße "
 "10 MB. Bitte im Dateinamen keine Sonderzeichen verwenden."
 
 #: apps/events/forms/gallery.py:51 apps/exhibitions/forms/gallery.py:51
 #: apps/museums/forms/gallery.py:51 apps/workshops/forms/gallery.py:51
 msgid "Copyright / Photographer"
-msgstr "Copyright / Fotograf(in) - bitte das ©-Zeichen bei Bedarf mit einfügen"
+msgstr ""
+"Copyright / Fotograf(in) - bitte das ©-Zeichen bei Bedarf mit einfügen"
 
 #: apps/events/forms/gallery.py:56 apps/exhibitions/forms/gallery.py:56
 #: apps/museums/forms/gallery.py:56 apps/site_specific/models.py:8
@@ -2463,10 +2462,8 @@ msgstr "Bildunterschrift <span class=\"lang\">%s</span>"
 #: apps/events/forms/gallery.py:72 apps/exhibitions/forms/gallery.py:72
 #: apps/museums/forms/gallery.py:72 apps/workshops/forms/gallery.py:72
 #, python-format
-msgid ""
-"Description (will be used as alt attribute) <span class=\"lang\">%s</span>"
-msgstr ""
-"Beschreibung (wird als Alt-tag ausgegeben) <span class=\"lang\">%s</span>"
+msgid "Description (will be used as alt attribute) <span class=\"lang\">%s</span>"
+msgstr "Beschreibung (wird als Alt-tag ausgegeben) <span class=\"lang\">%s</span>"
 
 #: apps/events/forms/gallery.py:150 apps/exhibitions/forms/gallery.py:149
 #: apps/museums/forms/gallery.py:150 apps/workshops/forms/gallery.py:150
@@ -3609,8 +3606,8 @@ msgstr ""
 msgid "Cover image"
 msgstr "Coverbild"
 
-#: apps/media_gallery/base.py:181 apps/shop/models.py:101 apps/shop/views.py:89
-#: templates/museumsportal/shop/product_list.html:35
+#: apps/media_gallery/base.py:181 apps/shop/models.py:101
+#: apps/shop/views.py:89 templates/museumsportal/shop/product_list.html:35
 #: templates/museumsportal/utils/filter_products.html:89
 msgid "Featured"
 msgstr "Featured"
@@ -3703,9 +3700,9 @@ msgstr "Videodatei"
 
 #: apps/media_gallery/forms.py:161
 msgid ""
-"You can link to a FLV file, Youtube video (e.g. http://www.youtube.com/watch?"
-"v=rd2izv5JBcE or http://youtu.be/rd2izv5JBcE) or Vimeo video (e.g. http://"
-"vimeo.com/17853047)."
+"You can link to a FLV file, Youtube video (e.g. "
+"http://www.youtube.com/watch?v=rd2izv5JBcE or http://youtu.be/rd2izv5JBcE) "
+"or Vimeo video (e.g. http://vimeo.com/17853047)."
 msgstr ""
 
 #: apps/media_gallery/forms.py:196
@@ -4412,7 +4409,8 @@ msgstr "Neue Produkte"
 msgid "Product"
 msgstr "Produkt"
 
-#: apps/shop/models.py:125 templates/museumsportal/events/event_detail.html:430
+#: apps/shop/models.py:125
+#: templates/museumsportal/events/event_detail.html:430
 #: templates/museumsportal/events/event_products.html:42
 #: templates/museumsportal/exhibitions/exhibition_detail.html:126
 #: templates/museumsportal/exhibitions/exhibition_detail.html:1016
@@ -4535,7 +4533,8 @@ msgstr "Datum"
 msgid "Tip of the Day"
 msgstr "Zur Karte"
 
-#: apps/tips/models.py:40 templates/museumsportal/cms/includes/start_de.html:54
+#: apps/tips/models.py:40
+#: templates/museumsportal/cms/includes/start_de.html:54
 #: templates/museumsportal/cms/includes/start_en.html:43
 #: templates/museumsportal/cms/includes/start_es.html:38
 #: templates/museumsportal/cms/includes/start_fr.html:38
@@ -4545,7 +4544,8 @@ msgstr "Zur Karte"
 msgid "Tips of the Day"
 msgstr "Tagestipps"
 
-#: apps/tracker/admin.py:36 templates/museumsportal/events/event_detail.html:70
+#: apps/tracker/admin.py:36
+#: templates/museumsportal/events/event_detail.html:70
 #: templates/museumsportal/events/event_products.html:26
 #: templates/museumsportal/exhibitions/exhibition_detail.html:65
 #: templates/museumsportal/exhibitions/exhibition_products.html:26
@@ -5484,8 +5484,8 @@ msgstr "Passwort ändern"
 
 #: templates/museumsportal/accounts/password_change_form.html:9
 msgid ""
-"Please enter your old password, for security's sake, and then enter your new "
-"password twice so we can verify you typed it in correctly."
+"Please enter your old password, for security's sake, and then enter your new"
+" password twice so we can verify you typed it in correctly."
 msgstr ""
 "Bitte geben Sie zuerst Ihr altes Passwort ein und danach zweimal Ihr neues "
 "Passwort, um sicherzugehen, dass Sie dieses korrekt eingegeben haben."
@@ -5504,11 +5504,11 @@ msgstr "Passwort zurücksetzen"
 #: templates/museumsportal/accounts/password_reset_complete.html:10
 #, python-format
 msgid ""
-"Your password has been set. You may go ahead and <a href=\"%(login_url)s"
-"\">log in</a> now."
+"Your password has been set. You may go ahead and <a "
+"href=\"%(login_url)s\">log in</a> now."
 msgstr ""
-"Ihr Passwort wurde gespeichert. Sie können sich nun unter <a href="
-"\"%(login_url)s\">einloggen</a>."
+"Ihr Passwort wurde gespeichert. Sie können sich nun unter <a "
+"href=\"%(login_url)s\">einloggen</a>."
 
 #: templates/museumsportal/accounts/password_reset_confirm.html:13
 msgid ""
@@ -5534,8 +5534,8 @@ msgstr ""
 #: templates/museumsportal/accounts/password_reset_email.html:3
 #, python-format
 msgid ""
-"You're receiving this e-mail because you requested a password reset for your "
-"user account at %(site_name)s."
+"You're receiving this e-mail because you requested a password reset for your"
+" user account at %(site_name)s."
 msgstr ""
 "Sie erhalten diese Email, da Sie das Zurücksetzen Ihres Passwortes für Ihr "
 "Nutzerkonto bei %(site_name)s beantragt haben."
@@ -6645,8 +6645,8 @@ msgstr "Autorisierung bestätigen"
 #, python-format
 msgid ""
 "Please fill in this form to create and account at Museumsportal Berlin and "
-"to confirm that you are the owner of <a href=\"%(museum_link)s\">"
-"%(museum_title)s</a>."
+"to confirm that you are the owner of <a "
+"href=\"%(museum_link)s\">%(museum_title)s</a>."
 msgstr ""
 "Bitte füllen Sie die Felder aus, um ein Nutzerkonto für das Museumsportal "
 "Berlin anzulegen. Nach Fertigstellung können Sie für Ihr Haus Daten "
@@ -6655,8 +6655,8 @@ msgstr ""
 #: templates/museumsportal/site_specific/claiming_confirmation.html:27
 #, python-format
 msgid ""
-"Please login to confirm that you are the owner of <a href=\"%(museum_link)s"
-"\">%(museum_title)s</a>."
+"Please login to confirm that you are the owner of <a "
+"href=\"%(museum_link)s\">%(museum_title)s</a>."
 msgstr ""
 "Bitte füllen Sie die Felder aus, um ein Nutzerkonto für das Museumsportal "
 "Berlin anzulegen. Nach Fertigstellung können Sie für Ihr Haus Daten "
@@ -6856,8 +6856,7 @@ msgstr "Freibuchbares Gruppenangebot"
 #, python-format
 msgid ""
 "\n"
-"                                                Accompanying program for "
-"exhibition \"%(exhibition_title)s\n"
+"                                                Accompanying program for exhibition \"%(exhibition_title)s\n"
 "                                                \""
 msgstr ""
 "\n"
@@ -6895,8 +6894,8 @@ msgstr "Terminserie anlegen"
 
 #~ msgid ""
 #~ "In order to complete registration, we need to confirm you entered a valid "
-#~ "e-mail address. You should be getting a confirmation e-mail very shortly. "
-#~ "It will contain instructions on how to finalize your registration."
+#~ "e-mail address. You should be getting a confirmation e-mail very shortly. It"
+#~ " will contain instructions on how to finalize your registration."
 #~ msgstr ""
 #~ "Um die Registrierung abzuschließen, müssen wir überprüfen, dass Sie eine "
 #~ "gültige E-Mail-Adresse eingegeben haben. Sie erhalten dazu in Kürze eine "
@@ -6906,8 +6905,8 @@ msgstr "Terminserie anlegen"
 #~ "Please also check your Spam folder to make sure that our message has not "
 #~ "been filtered out."
 #~ msgstr ""
-#~ "Bitte überprüfen Sie auch Ihren Spamordner. Eventuell ist unsere E-Mail "
-#~ "dort gelandet."
+#~ "Bitte überprüfen Sie auch Ihren Spamordner. Eventuell ist unsere E-Mail dort"
+#~ " gelandet."
 
 #~ msgid "to shop"
 #~ msgstr "Produkt kaufen"
@@ -7063,22 +7062,22 @@ msgstr "Terminserie anlegen"
 #~ msgstr "Bis"
 
 #~ msgid ""
-#~ "If location doesn't exist in the database, please click <a href=\"#"
-#~ "\">here</a> to enter it."
+#~ "If location doesn't exist in the database, please click <a "
+#~ "href=\"#\">here</a> to enter it."
 #~ msgstr ""
-#~ "Sollte der Veranstaltungsort nicht in der Datenbank  existieren, klicken "
-#~ "Sie bitte <a href=\"#\">hier,</a> um ihn einzutragen.  "
+#~ "Sollte der Veranstaltungsort nicht in der Datenbank  existieren, klicken Sie"
+#~ " bitte <a href=\"#\">hier,</a> um ihn einzutragen.  "
 
 #~ msgid ""
-#~ "If you want to select a location from the database, please click <a href="
-#~ "\"#\">here</a>."
+#~ "If you want to select a location from the database, please click <a "
+#~ "href=\"#\">here</a>."
 #~ msgstr ""
-#~ "Zum Eintragen eines in der Datenbank gelisteten Veranstaltungsortes "
-#~ "klicken Sie bitte <a href=\"#\">hier</a>."
+#~ "Zum Eintragen eines in der Datenbank gelisteten Veranstaltungsortes klicken "
+#~ "Sie bitte <a href=\"#\">hier</a>."
 
 #~ msgid ""
-#~ "If organizer doesn't exist in the database, please click <a href=\"#"
-#~ "\">here</a> to enter it."
+#~ "If organizer doesn't exist in the database, please click <a "
+#~ "href=\"#\">here</a> to enter it."
 #~ msgstr ""
 #~ "Sollte der Veranstalter nicht in der Datenbank  existieren, klicken Sie "
 #~ "bitte <a href=\"#\">hier,</a> um ihn einzutragen.  "
@@ -7169,8 +7168,8 @@ msgstr "Terminserie anlegen"
 #~ msgstr "Themenverwandte Museen"
 
 #~ msgid ""
-#~ "Please confirm that you are the owner of <a href=\"%(museum_link)s\">"
-#~ "%(museum_title)s</a>."
+#~ "Please confirm that you are the owner of <a "
+#~ "href=\"%(museum_link)s\">%(museum_title)s</a>."
 #~ msgstr ""
 #~ "Bitte füllen Sie die Felder aus, um ein Nutzerkonto für das Museumsportal "
 #~ "Berlin anzulegen. Nach Fertigstellung können Sie für Ihr Haus Daten "
@@ -7192,8 +7191,8 @@ msgstr "Terminserie anlegen"
 #~ "Your Web browser doesn't appear to have cookies enabled. Cookies are "
 #~ "required for logging in."
 #~ msgstr ""
-#~ "Bei Ihrem Webbrowser scheint das Speichern von Cookies deaktiviert zu "
-#~ "sein. Cookies müssen aktiviert sein für den Login."
+#~ "Bei Ihrem Webbrowser scheint das Speichern von Cookies deaktiviert zu sein. "
+#~ "Cookies müssen aktiviert sein für den Login."
 
 #~ msgid "Claiming Invitation"
 #~ msgstr "Einladung an Museumsadministratoren"
