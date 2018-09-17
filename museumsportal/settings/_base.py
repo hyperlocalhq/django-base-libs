@@ -1,12 +1,10 @@
 # -*- coding: UTF-8 -*-
 from __future__ import unicode_literals
-from datetime import timedelta
 
 import os
 import sys
 import json
 from django.core.exceptions import ImproperlyConfigured
-from django.core.urlresolvers import reverse_lazy
 
 _ = gettext = lambda s: s
 
@@ -29,7 +27,116 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 JETSON_PATH = os.path.abspath(os.path.join(BASE_DIR, "subtrees"))
 PROJECT_PATH = BASE_DIR
 
-execfile(os.path.join(BASE_DIR, "museumsportal/settings/_jetson_base.py"), globals(), locals())
+### MODE ###
+
+INTERNAL_IPS = (
+    "127.0.0.1",
+)
+
+HTTPS_PROTOCOL = 'http' if DEBUG else "https"
+
+### EMAILS ###
+
+SERVER_EMAIL = "jetsonadmin@studio38.de"
+
+### PATHS AND URLS ###
+
+EXTERNAL_LIBS_PATH = os.path.join(JETSON_PATH, "jetson", "externals", "libs")
+EXTERNAL_APPS_PATH = os.path.join(JETSON_PATH, "jetson", "externals", "apps")
+BASE_LIBS_PATH = os.path.join(JETSON_PATH, "base_libs")
+TAGGING_PATH = os.path.join(JETSON_PATH, "tagging")
+TAGGING_AUTOCOMPLETE_PATH = os.path.join(JETSON_PATH, "tagging_autocomplete")
+FILEBROWSER_PATH = os.path.join(BASE_DIR, "mods", "filebrowser")
+sys.path = [
+    "",
+    EXTERNAL_LIBS_PATH,
+    EXTERNAL_APPS_PATH,
+    BASE_LIBS_PATH,
+    TAGGING_PATH,
+    TAGGING_AUTOCOMPLETE_PATH,
+    FILEBROWSER_PATH,
+    JETSON_PATH,
+    PROJECT_PATH,
+] + [p for p in sys.path if p]
+
+from jetson.apps.utils.utils import get_git_changeset
+
+JETSON_MEDIA_ROOT = os.path.join(JETSON_PATH, "jetson", "media")
+JETSON_MEDIA_URL = "/jetson-media/%s/" % get_git_changeset(JETSON_MEDIA_ROOT)
+
+LOGIN_URL = "/login/"
+LOGOUT_URL = "/logout/"
+LOGIN_REDIRECT_URL = "/"
+
+TAGGING_AUTOCOMPLETE_JS_BASE_URL = "%sjs/jquery/autocomplete_1.0" % JETSON_MEDIA_URL
+
+### MAIN ###
+
+AUTHENTICATION_BACKENDS = (
+    "jetson.apps.permissions.backends.RowLevelPermissionsBackend",
+    "jetson.apps.utils.backends.EmailBackend",
+)
+
+DEFAULT_CHARSET = "UTF-8"
+TEST_DATABASE_CHARSET = "utf8"
+TEST_DATABASE_COLLATION = "utf8_general_ci"
+
+TIME_ZONE = "Europe/Berlin"
+
+SITE_ID = 1
+
+PREPEND_WWW = not DEBUG
+
+REDIRECT_FIELD_NAME = "goto_next"
+
+FILE_UPLOAD_PERMISSIONS = 0664
+
+### SESSION ###
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_COOKIE_AGE = 14 * 24 * 60 * 60 # 2 weeks
+HTTPSTATE_COOKIE_AGE = 24 * 60 * 60 # 1 day
+
+### LOGGING ###
+
+# See http://docs.djangoproject.com/en/dev/topics/logging for
+# more details on how to customize your logging configuration.
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+            'include_html': True,
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    }
+}
+
+### STORAGE ###
+
+DEFAULT_FILE_STORAGE = 'base_libs.storage.ASCIIFileSystemStorage'
+
+### OTHER SETTINGS ###
+
+SUBDOMAINS_SUPPORTED = False
+
+### TESTING ###
+
+TEST_CHARSET = "utf8"
 
 ### DOMAINS ###
 
@@ -128,7 +235,7 @@ INSTALLED_APPS = [
     "ajaxuploader",
     "raven.contrib.django.raven_compat",  # uncomment later
 
-    ### Required CMS Django 2.4.1 apps ###
+    ### Required Django CMS 3.4 apps ###
     "cms",
     "mptt",
     "menus",
@@ -248,8 +355,8 @@ TEMPLATES = [
             ),
             'loaders': [
                 ("django.template.loaders.cached.Loader", [
-                     "django.template.loaders.app_directories.Loader",
                      "django.template.loaders.filesystem.Loader",
+                     "django.template.loaders.app_directories.Loader",
                  ]),
             ],
         }

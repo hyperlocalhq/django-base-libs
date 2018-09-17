@@ -14,7 +14,7 @@ from .models import Footnote
 from .models import FrontpageTeaser
 
 
-class EditorialContentPlugin(CMSPluginBase, ExtendedModelAdmin):
+class EditorialContentPlugin(MarkupTypeOptions, CMSPluginBase):
     model = EditorialContent
     name = _("Editorial Content")
     render_template = "cms/plugins/editorial_content.html"
@@ -22,22 +22,15 @@ class EditorialContentPlugin(CMSPluginBase, ExtendedModelAdmin):
     change_form_template = "cms/plugins/editorial_content_plugin_change_form.html"
 
     fieldsets = (
-        (_("Main Content"), {'fields': ('title', 'subtitle', 'description', 'website'), 'classes': ['collapse open']}),
-        (_("Image"), {'fields': ('image', 'image_caption'), 'classes': ['collapse open']}),
+        (_("Main Content"), {'fields': ('title', 'subtitle', 'description_markup_type', 'description', 'website'), 'classes': ['collapse open']}),
+        (_("Image"), {'fields': ('image', 'image_caption_markup_type', 'image_caption'), 'classes': ['collapse open']}),
         (_("Presentation"), {'fields': ('col_xs_width', 'col_sm_width', 'col_md_width', 'col_lg_width', 'css_class'), 'classes': ['collapse closed']}),
     )
 
     def render(self, context, instance, placeholder):
-        # choose the first available template from the list:
-        #   "editorial_content_for_<placeholder>_in_<page_id>.html"
-        #   "editorial_content_for_<placeholder>.html"
-        #   "editorial_content.html"
         template_name_list = [
-            # "cms/plugins/editorial_content_for_%s.html" % placeholder,
             "cms/plugins/editorial_content.html",
         ]
-        # if context['request'].current_page.reverse_id:
-        #     template_name_list.insert(0, "cms/plugins/editorial_content_for_%s_in_%s.html" % (placeholder, context['request'].current_page.reverse_id))
         self.render_template = select_template(template_name_list)
         context.update({
             'object': instance,
