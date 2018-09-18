@@ -65,19 +65,19 @@ class ShopProductManager(models.Manager):
             return self.get_queryset().none()
         if user.has_perm("shop.change_shopproduct"):
             return self.get_queryset().exclude(status="trashed")
-        product_ids = PerObjectGroup.objects.filter(
+        product_ids = map(int, PerObjectGroup.objects.filter(
             content_type__app_label="shop",
             content_type__model="shopproduct",
             sysname__startswith="owners",
             users=user,
-        ).values_list("object_id", flat=True)
+        ).values_list("object_id", flat=True))
 
-        museum_ids = PerObjectGroup.objects.filter(
+        museum_ids = map(int, PerObjectGroup.objects.filter(
             content_type__app_label="museums",
             content_type__model="museum",
             sysname__startswith="owners",
             users=user,
-        ).values_list("object_id", flat=True)
+        ).values_list("object_id", flat=True))
 
         return self.get_queryset().filter(
             models.Q(pk__in=product_ids) | models.Q(museums__id__in=museum_ids)

@@ -73,12 +73,12 @@ class WorkshopManager(models.Manager):
             return self.get_queryset().none()
         if user.has_perm("workshop.change_workshop"):
             return self.get_queryset().exclude(status="trashed")
-        ids = PerObjectGroup.objects.filter(
+        ids = map(int, PerObjectGroup.objects.filter(
             content_type__app_label="workshops",
             content_type__model="workshop",
             sysname__startswith="owners",
             users=user,
-        ).values_list("object_id", flat=True)
+        ).values_list("object_id", flat=True))
         return self.get_queryset().filter(pk__in=ids).exclude(status="trashed")
 
     def fix_bookable(self):

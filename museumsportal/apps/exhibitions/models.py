@@ -112,12 +112,12 @@ class ExhibitionManager(models.Manager):
             return self.get_queryset().none()
         if user.has_perm("exhibitions.change_exhibition"):
             return self.get_queryset().exclude(status="trashed")
-        ids = PerObjectGroup.objects.filter(
+        ids = map(int, PerObjectGroup.objects.filter(
             content_type__app_label="exhibitions",
             content_type__model="exhibition",
             sysname__startswith="owners",
             users=user,
-        ).values_list("object_id", flat=True)
+        ).values_list("object_id", flat=True))
         return self.get_queryset().filter(pk__in=ids).exclude(status="trashed")
 
     def populate_press_text(self):
