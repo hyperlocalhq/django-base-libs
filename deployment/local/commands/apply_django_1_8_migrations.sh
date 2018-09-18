@@ -28,7 +28,7 @@ echo $SQL | python manage.py dbshell --traceback
 
 echo "- Remove filebrowser index for file_path"
 SQL=$(cat << EOM
-ALTER TABLE filebrowser_filedescription DROP INDEX filebrowser_filedescription_97fd815a;
+ALTER TABLE filebrowser_filedescription DROP KEY filebrowser_filedescription_97fd815a;
 EOM
 )
 echo $SQL | python manage.py dbshell --traceback
@@ -69,7 +69,6 @@ python manage.py migrate haystack --fake --noinput
 python manage.py migrate history --fake --noinput
 python manage.py migrate httpstate --fake --noinput
 python manage.py migrate i18n --fake --noinput
-python manage.py migrate image_mods --fake --noinput
 python manage.py migrate infobanners --fake --noinput
 python manage.py migrate mailchimp --fake --noinput
 python manage.py migrate mailing --fake --noinput
