@@ -164,17 +164,19 @@ DEFAULT_FROM_EMAIL = 'museumsportal@kulturprojekte-berlin.de'
 
 MEDIA_ROOT = os.path.join(PROJECT_PATH, "media")
 STATIC_ROOT = os.path.join(PROJECT_PATH, "static")
+PATH_TMP = os.path.join(PROJECT_PATH, "tmp")
+
 STATICFILES_DIRS = [os.path.join(PROJECT_PATH, "museumsportal", "site_static")]
+
 MEDIA_URL = "/media/"
 STATIC_URL = PIPELINE_URL = "/static/%s/" % get_git_changeset(os.path.join(PROJECT_PATH, "museumsportal"))
-PATH_TMP = os.path.join(PROJECT_PATH, "museumsportal", "tmp")
 CSS_URL = "%scss/default/" % MEDIA_URL
 IMG_URL = "%simg/website/" % MEDIA_URL
 FILE_UPLOAD_TEMP_DIR = SESSION_FILE_PATH = PATH_TMP
 FILE_UPLOAD_PERMISSIONS = 0775
 
 LOCALE_PATHS = [
-    os.path.join(PROJECT_PATH, "museumsportal", "locale"),
+    os.path.join(PROJECT_PATH, "locale"),
 ]
 
 ### LANGUAGES ###

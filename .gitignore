@@ -1,9 +1,12 @@
 .DS_Store
 /local_settings.py
-/media/
-/static/*
 /settings/secrets.json
-/tmp/
+/media/*
+!/media/.gitkeep
+/static/*
+!/static/.gitkeep
+/tmp/*
+!/tmp/.gitkeep
 .sass-cache
 *.pyc
 config.codekit
