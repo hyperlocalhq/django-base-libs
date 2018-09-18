@@ -26,7 +26,7 @@ DATABASES = {
         },
     }
 }
-DATABASES['default'] = DATABASES['postgresql']
+DATABASES['default'] = DATABASES['mysql']
 
 PREPEND_WWW = True
 
