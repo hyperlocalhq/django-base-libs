@@ -58,7 +58,7 @@ class ExhibitionAdminForm(forms.ModelForm):
         help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
         app="museums",
         qs_function="get_published_museums",
-        display_attr="title",
+        display_attr="title_uni",
         add_display_attr="get_address",
         options={
             "minChars": 1,
@@ -74,7 +74,7 @@ class ExhibitionAdminForm(forms.ModelForm):
         help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
         app="museums",
         qs_function="get_published_museums",
-        display_attr="title",
+        display_attr="title_uni",
         add_display_attr="get_address",
         options={
             "minChars": 1,

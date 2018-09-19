@@ -67,7 +67,7 @@ class BasicInfoForm(ModelForm):
         # help_text=_("If location doesn't exist in the database, please click <a href=\"#\">here</a> to enter it."),
         app="museums",
         qs_function="get_published_museums",
-        display_attr="title",
+        display_attr="title_uni",
         add_display_attr="get_address",
         options={
             "minChars": 1,
@@ -409,7 +409,7 @@ class OrganizerForm(ModelForm):
         # help_text=_("If organizer doesn't exist in the database, please click <a href=\"#\">here</a> to enter it."),
         app="museums",
         qs_function="get_published_museums",
-        display_attr="title",
+        display_attr="title_uni",
         add_display_attr="get_address",
         options={
             "minChars": 1,
@@ -1036,10 +1036,10 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.end = form_step_data['basic']['end']
         instance.permanent = form_step_data['basic']['permanent'] 
         instance.exhibition_extended = form_step_data['basic']['exhibition_extended']
-        try:
-            instance.museum = Museum.objects.get(pk=form_step_data['basic']['museum'])
+        if form_step_data['basic']['museum']:
+            instance.museum = form_step_data['basic']['museum']
             instance.location_name = ""
-        except:
+        else:
             instance.museum = None
             instance.location_name = form_step_data['basic']['location_name']
         instance.street_address = form_step_data['basic']['street_address']
@@ -1114,12 +1114,15 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         for organizer_dict in form_step_data['basic']['sets']['organizers']:
             organizer = Organizer(exhibition=instance)
             if organizer_dict.get('organizing_museum', None):
-                try:
-                    organizer.organizing_museum = Museum.objects.get(pk=organizer_dict['organizing_museum'])
-                except:
-                    pass
-            organizer.organizer_title = organizer_dict.get('organizer_title', "")
-            organizer.organizer_url_link = organizer_dict.get('organizer_url_link', "")
+                organizer.organizing_museum = Museum.objects.get(
+                    pk=organizer_dict['organizing_museum'],
+                )
+                organizer.organizer_title = ""
+                organizer.organizer_url_link = ""
+            else:
+                organizer.organizer_title = organizer_dict.get('organizer_title', "")
+                organizer.organizer_url_link = organizer_dict.get('organizer_url_link', "")
+                organizer.organizing_museum = None
             organizer.save()
         
         form_step_data['_pk'] = instance.pk

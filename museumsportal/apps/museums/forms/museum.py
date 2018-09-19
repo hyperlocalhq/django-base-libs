@@ -711,7 +711,7 @@ class AddressForm(ModelForm):
         # help_text=u"Bitte geben Sie einen Anfangsbuchstaben ein, um eine entsprechende Auswahl der verfügbaren Museums angezeigt zu bekommen.",
         app="museums",
         qs_function="get_published_museums",
-        display_attr="title",
+        display_attr="title_uni",
         add_display_attr="get_address",
         options={
             "minChars": 1,
@@ -1317,10 +1317,9 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             for f in fields:
                 setattr(instance, f, form_step_data['address'][f])
             if form_step_data['address']['parent']:
-                try:
-                    instance.parent = Museum.objects.get(pk=form_step_data['address']['parent'])
-                except:
-                    pass
+                instance.parent = form_step_data['address']['parent']
+            else:
+                instance.parent = None
             instance.save()
             instance.socialmediachannel_set.all().delete()
             for social_dict in form_step_data['address']['sets']['social']:
