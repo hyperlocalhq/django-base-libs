@@ -51,6 +51,8 @@ class MuseumIndex(AldrynIndexBase, indexes.Indexable):
         return obj.description
 
     def get_search_data(self, obj, language, request):
+        if language == "default":
+            language = settings.LANGUAGE_CODE
         # collect multilingual data
         all_text = u"\n".join(
             force_unicode(getattr(obj, field))
@@ -107,6 +109,8 @@ class ExhibitionIndex(AldrynIndexBase, indexes.Indexable):
         return obj.description
 
     def get_search_data(self, obj, language, request):
+        if language == "default":
+            language = settings.LANGUAGE_CODE
         # collect multilingual data
         all_text = u"\n".join(
             force_unicode(getattr(obj, field))
@@ -168,6 +172,8 @@ class EventIndex(AldrynIndexBase, indexes.Indexable):
         return obj.description
 
     def get_search_data(self, obj, language, request):
+        if language == "default":
+            language = settings.LANGUAGE_CODE
         # collect multilingual data
         all_text = u"\n".join(
             force_unicode(getattr(obj, field))
@@ -229,6 +235,8 @@ class WorkshopIndex(AldrynIndexBase, indexes.Indexable):
         return obj.description
 
     def get_search_data(self, obj, language, request):
+        if language == "default":
+            language = settings.LANGUAGE_CODE
         # collect multilingual data
         all_text = u"\n".join(
             force_unicode(getattr(obj, field))
