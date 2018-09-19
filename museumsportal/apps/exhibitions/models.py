@@ -140,15 +140,15 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     website = MultilingualCharField(_("Website"), max_length=255, blank=True)
     catalog = MultilingualTextField(_("Catalog"), blank=True)
     catalog_ordering = MultilingualCharField(_("Catalog ordering possibilities"), max_length=255, blank=True)
-    description_locked = models.BooleanField(_("Description locked"), help_text=_("When checked, press text won't be copied automatically to description."))
+    description_locked = models.BooleanField(_("Description locked"), help_text=_("When checked, press text won't be copied automatically to description."), default=False)
 
     start = models.DateField(_("Start"), blank=True, null=True)
     end = models.DateField(_("End"), blank=True, null=True)
     vernissage = models.DateTimeField(u"Vernissage", blank=True, null=True)
     finissage = models.DateTimeField(u"Finissage", blank=True, null=True)
-    exhibition_extended = models.BooleanField(_("Exhibition extended"))
-    permanent = models.BooleanField(_("Permanent exhibition"))
-    special = models.BooleanField(_("Special exhibition"))
+    exhibition_extended = models.BooleanField(_("Exhibition extended"), default=False)
+    permanent = models.BooleanField(_("Permanent exhibition"), default=False)
+    special = models.BooleanField(_("Special exhibition"), default=False)
 
     image = FileBrowseField(_('Image'), max_length=255, directory="exhibitions/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True, editable=False)
     image_caption = MultilingualTextField(_("Image Caption"), max_length=255, blank=True, editable=False)
@@ -166,29 +166,29 @@ class Exhibition(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     longitude = models.FloatField(_("Longitude"), help_text=_("Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west)."), blank=True, null=True)
     other_locations = MultilingualTextField(_("Other exhibition locations"), blank=True)
 
-    newly_opened = models.BooleanField(_("Newly opened"))
-    featured = models.BooleanField(_("Featured in Newsletter"))
-    featured_in_magazine = models.BooleanField(_("Featured in Magazine"))
-    closing_soon = models.BooleanField(_("Closing soon"))
+    newly_opened = models.BooleanField(_("Newly opened"), default=False)
+    featured = models.BooleanField(_("Featured in Newsletter"), default=False)
+    featured_in_magazine = models.BooleanField(_("Featured in Magazine"), default=False)
+    closing_soon = models.BooleanField(_("Closing soon"), default=False)
     
     # prices
-    museum_prices = models.BooleanField(_("See prices from museum"))
-    free_entrance = models.BooleanField(_("Free entrance"))
+    museum_prices = models.BooleanField(_("See prices from museum"), default=False)
+    free_entrance = models.BooleanField(_("Free entrance"), default=False)
     admission_price = models.DecimalField(_(u"Admission price (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
     admission_price_info = MultilingualTextField(_("Admission price info"), blank=True)
     reduced_price = models.DecimalField(_(u"Reduced admission price (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
     reduced_price_info = MultilingualTextField(_("Reduced admission price info"), blank=True)
     shop_link = MultilingualCharField(_("Buy ticket"), max_length=255, blank=True, help_text=_("A link to an external ticket shop"))
 
-    museum_opening_hours = models.BooleanField(_("See opening hours from museum"))
+    museum_opening_hours = models.BooleanField(_("See opening hours from museum"), default=False)
 
-    suitable_for_disabled = models.BooleanField(_("Exhibition suitable for people with disabilities"))
+    suitable_for_disabled = models.BooleanField(_("Exhibition suitable for people with disabilities"), default=False)
     suitable_for_disabled_info = MultilingualTextField(_("Suitability for people with disabilities info"), blank=True)
     
     categories = TreeManyToManyField(ExhibitionCategory, verbose_name=_("Categories"), blank=True)
     tags = TagAutocompleteField(verbose_name=_("tags"))
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
-    is_for_children = models.BooleanField(_("Special for children / families / youth"), blank=True)
+    is_for_children = models.BooleanField(_("Special for children / families / youth"), default=False)
 
     search_keywords = MultilingualPlainTextField(_("Search keywords"), blank=True)
 
@@ -532,7 +532,7 @@ class Organizer(models.Model):
 class Season(OpeningHoursMixin):
     exhibition = models.ForeignKey(Exhibition)
     last_entry = MultilingualCharField(_("Last entry"), max_length=255, blank=True)
-    is_open_24_7 = models.BooleanField(_("Open 24/7"))
+    is_open_24_7 = models.BooleanField(_("Open 24/7"), default=False)
     
     def __unicode__(self):
         return ugettext("Individual Opening Time of the Exhibition")

@@ -29,7 +29,7 @@ class SiteSettingsManager(models.Manager):
 class SiteSettingsBase(MetaTagsMixin):
     site = models.OneToOneField(Site, verbose_name=_("Site"), on_delete=models.CASCADE)
     registration_type = models.CharField(_("Registration type"), max_length=10, choices=ACCOUNT_REGISTRATION_TYPES, default="simple")
-    login_by_email = models.BooleanField(_("Login by email"))
+    login_by_email = models.BooleanField(_("Login by email"), default=False)
     
     extra_head = PlainTextModelField(_("Extra head"), help_text=_("Third-party code snippets to be added to the end of the HEAD section."), blank=True)
     extra_body = PlainTextModelField(_("Extra body"), help_text=_("Third-party code snippets to be added to the end of the BODY section."), blank=True)

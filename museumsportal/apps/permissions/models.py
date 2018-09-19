@@ -131,7 +131,7 @@ class RowLevelPermission(ObjectRelationMixin(is_required=True), RowLevelPermissi
     This uses generic relations to minimize the number of tables, and connects to the
     permissions table using a many to one relation.
     """
-    negative = models.BooleanField()
+    negative = models.BooleanField(default=False)
     permission = models.ForeignKey(Permission)
     objects = RowLevelPermissionManager()
 

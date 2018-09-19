@@ -102,8 +102,8 @@ class Tweet(models.Model):
     html = models.TextField(_("HTML"))
     latitude = models.FloatField(_("Latitude"), help_text=_("Latitude (Lat.) is the angle between any point and the equator (north pole is at 90; south pole is at -90)."), blank=True, null=True)
     longitude = models.FloatField(_("Longitude"), help_text=_("Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west)."), blank=True, null=True)
-    from_search = models.BooleanField(_("from search by query"))
-    by_user = models.BooleanField(_("by twitter user from user timeline settings"))
+    from_search = models.BooleanField(_("from search by query"), default=False)
+    by_user = models.BooleanField(_("by twitter user from user timeline settings"), default=False)
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="published")
 
     class Meta:

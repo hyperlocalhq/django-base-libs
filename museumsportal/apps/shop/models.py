@@ -100,9 +100,9 @@ class ShopProduct(CreationModificationDateMixin, SlugMixin()):
     exhibitions = models.ManyToManyField(Exhibition, verbose_name=_("Related Exhibitions"), blank=True)
     events = models.ManyToManyField(Event, verbose_name=_("Related Events"), blank=True)
     workshops = models.ManyToManyField(Workshop, verbose_name=_("Related Workshops"), blank=True)
-    is_featured = models.BooleanField(_('Featured'), blank=True)
-    is_for_children = models.BooleanField(_('For children'), blank=True)
-    is_new = models.BooleanField(_('New'), blank=True)
+    is_featured = models.BooleanField(_('Featured'), default=False)
+    is_for_children = models.BooleanField(_('For children'), default=False)
+    is_new = models.BooleanField(_('New'), default=False)
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
     
     objects = ShopProductManager()

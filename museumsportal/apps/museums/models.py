@@ -114,7 +114,7 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
 
     categories = TreeManyToManyField(MuseumCategory, verbose_name=_("Categories"),)
     tags = TagAutocompleteField(verbose_name=_("tags"))
-    is_for_children = models.BooleanField(_("Special for children"), blank=True)
+    is_for_children = models.BooleanField(_("Special for children"), default=False)
 
     street_address = models.CharField(_("Street address"), max_length=255)
     street_address2 = models.CharField(_("Street address (second line)"), max_length=255, blank=True)
@@ -139,10 +139,10 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     service_phone_area = models.CharField(_("Area Code"), max_length=6, blank=True)
     service_phone_number = models.CharField(_("Subscriber Number and Extension"), max_length=25, blank=True)
 
-    open_on_mondays = models.BooleanField(_("Open on Mondays"))
+    open_on_mondays = models.BooleanField(_("Open on Mondays"), default=False)
 
     # prices
-    free_entrance = models.BooleanField(_("Free entrance"))
+    free_entrance = models.BooleanField(_("Free entrance"), default=False)
     admission_price = models.DecimalField(_(u"Admission price (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
     admission_price_info = MultilingualTextField(_("Admission price info"), blank=True)
     reduced_price = models.DecimalField(_(u"Reduced admission price (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
@@ -151,31 +151,31 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
     show_group_ticket = models.BooleanField(_("Group ticket"), blank=True)
     group_ticket = MultilingualTextField(_("Group ticket"), blank=True)
     show_yearly_ticket = models.BooleanField(_("Yearly ticket"), blank=True)
-    member_of_museumspass = models.BooleanField(_("Museumspass Berlin"))
+    member_of_museumspass = models.BooleanField(_("Museumspass Berlin"), default=False)
 
     # accessibility
     accessibility = MultilingualTextField(_("Accessibility"), blank=True)
     mobidat = MultilingualTextField(_("Mobidat"), blank=True)
     accessibility_options = models.ManyToManyField(AccessibilityOption, verbose_name=_("Accessibility options"), blank=True)
 
-    service_shop = models.BooleanField(_("Museum Shop"), blank=True)
-    service_restaurant = models.BooleanField(_("Restaurant"), blank=True)
-    service_cafe = models.BooleanField(_("Cafe"), blank=True)
-    service_library = models.BooleanField(_("Library"), blank=True)
-    service_archive = models.BooleanField(_("Archive"), blank=True)
-    service_diaper_changing_table = models.BooleanField(_("Diaper changing table"), blank=True)
+    service_shop = models.BooleanField(_("Museum Shop"), default=False)
+    service_restaurant = models.BooleanField(_("Restaurant"), default=False)
+    service_cafe = models.BooleanField(_("Cafe"), default=False)
+    service_library = models.BooleanField(_("Library"), default=False)
+    service_archive = models.BooleanField(_("Archive"), default=False)
+    service_diaper_changing_table = models.BooleanField(_("Diaper changing table"), default=False)
 
-    has_audioguide = models.BooleanField(_("Audioguide"), blank=True)
-    has_audioguide_de = models.BooleanField(_("German"), blank=True)
-    has_audioguide_en = models.BooleanField(_("English"), blank=True)
-    has_audioguide_fr = models.BooleanField(_("French"), blank=True)
-    has_audioguide_it = models.BooleanField(_("Italian"), blank=True)
-    has_audioguide_sp = models.BooleanField(_("Spanish"), blank=True)
-    has_audioguide_pl = models.BooleanField(_("Polish"), blank=True)
-    has_audioguide_tr = models.BooleanField(_("Turkish"), blank=True)
+    has_audioguide = models.BooleanField(_("Audioguide"), default=False)
+    has_audioguide_de = models.BooleanField(_("German"), default=False)
+    has_audioguide_en = models.BooleanField(_("English"), default=False)
+    has_audioguide_fr = models.BooleanField(_("French"), default=False)
+    has_audioguide_it = models.BooleanField(_("Italian"), default=False)
+    has_audioguide_sp = models.BooleanField(_("Spanish"), default=False)
+    has_audioguide_pl = models.BooleanField(_("Polish"), default=False)
+    has_audioguide_tr = models.BooleanField(_("Turkish"), default=False)
     audioguide_other_languages = models.CharField(_("Other languages"), max_length=255, blank=True)
-    has_audioguide_for_children = models.BooleanField(_("Audioguide for children"), blank=True)
-    has_audioguide_for_learning_difficulties = models.BooleanField(_("Audioguide for people with learning difficulties"), blank=True)
+    has_audioguide_for_children = models.BooleanField(_("Audioguide for children"), default=False)
+    has_audioguide_for_learning_difficulties = models.BooleanField(_("Audioguide for people with learning difficulties"), default=False)
 
     participates_in_langenacht = models.BooleanField(_("Participates in Lange Nacht"), default=False)
     participates_in_berlinartweek = models.BooleanField(_("Participates in Berlin Art Week"), default=False)
@@ -540,8 +540,8 @@ class SpecialOpeningTime(models.Model):
 
     day_label = MultilingualCharField(_('Day label'), max_length=255, blank=True, help_text=_("e.g. Christmas, Easter, etc."))
 
-    is_closed = models.BooleanField(_("Closed"))
-    is_regular = models.BooleanField(_("Regular Opening hours"))
+    is_closed = models.BooleanField(_("Closed"), default=False)
+    is_regular = models.BooleanField(_("Regular Opening hours"), default=False)
 
     opening = models.TimeField(_('Opens'), blank=True, null=True)
     break_close = models.TimeField(_('Break Starts'), blank=True, null=True)

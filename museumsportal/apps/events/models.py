@@ -127,19 +127,19 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
     press_text = MultilingualTextField(_("Press text"), blank=True)
     website = MultilingualCharField(_("Website"), max_length=255, blank=True)
     image = FileBrowseField(_('Image'), max_length=200, directory="events/", extensions=['.jpg', '.jpeg', '.gif','.png','.tif','.tiff'], blank=True, editable=False)
-    description_locked = models.BooleanField(_("Description locked"), help_text=_("When checked, press text won't be copied automatically to description."))
+    description_locked = models.BooleanField(_("Description locked"), help_text=_("When checked, press text won't be copied automatically to description."), default=False)
     
     pdf_document_de = FileBrowseField(_('PDF Document in German'), max_length=255, directory="exhibitions/", extensions=['.pdf'], blank=True)
     pdf_document_en = FileBrowseField(_('PDF Document in English'), max_length=255, directory="exhibitions/", extensions=['.pdf'], blank=True)
 
     status = models.CharField(_("Status"), max_length=20, choices=STATUS_CHOICES, blank=True, default="draft")
-    featured = models.BooleanField(_("Featured in Newsletter"))
+    featured = models.BooleanField(_("Featured in Newsletter"), default=False)
 
     categories = TreeManyToManyField(EventCategory, verbose_name=_("Categories"))
     tags = TagAutocompleteField(verbose_name=_("tags"))
     languages = models.ManyToManyField(Language, verbose_name=_("Languages"), blank=True, limit_choices_to={'display': True})
     other_languages = models.CharField(_("Other languages"), max_length=255, blank=True)
-    suitable_for_children = models.BooleanField(_("Also suitable for children"), blank=True)
+    suitable_for_children = models.BooleanField(_("Also suitable for children"), default=False)
     
     museum = models.ForeignKey(Museum, verbose_name=_("Museum"), blank=True, null=True)
     location_name = models.CharField(_("Location name"), max_length=255, blank=True)
@@ -152,7 +152,7 @@ class Event(CreationModificationMixin, UrlMixin, SlugMixin()):
     longitude = models.FloatField(_("Longitude"), help_text=_("Longitude (Long.) is the angle east or west of an arbitrary point on Earth from Greenwich (UK), which is the international zero-longitude point (longitude=0 degrees). The anti-meridian of Greenwich is both 180 (direction to east) and -180 (direction to west)."), blank=True, null=True)
     exhibition = models.ForeignKey(Exhibition, verbose_name=_("Related exhibition"), blank=True, null=True)
 
-    free_admission = models.BooleanField(_("Free admission"))
+    free_admission = models.BooleanField(_("Free admission"), default=False)
     meeting_place = MultilingualCharField(_("Meeting place"), max_length=255, blank=True)
     admission_price = models.DecimalField(_(u"Admission price (€)"), max_digits=5, decimal_places=2, blank=True, null=True)
     admission_price_info = MultilingualTextField(_("Admission price info"), blank=True)
