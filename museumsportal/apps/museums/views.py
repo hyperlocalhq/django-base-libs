@@ -5,13 +5,14 @@ from datetime import datetime, time
 import json
 
 from django.db import models
+from django.db.models.functions import Lower
 from django.http import HttpResponse
+from django.http import Http404
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.cache import never_cache
 from django.shortcuts import get_object_or_404, render, redirect
 from django.conf import settings
-from django.http import Http404
 from django.utils.translation import string_concat
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -162,10 +163,10 @@ def museum_list(request):
 
     request_specific_field_name = 'title_{}'.format(request.LANGUAGE_CODE)
     qs = qs.annotate(title_uni=models.Case(
-        models.When(then=models.Value('title_de'), **{request_specific_field_name: ''}),
-        default=models.Value(request_specific_field_name),
+        models.When(then=models.F('title_de'), **{request_specific_field_name: ''}),
+        default=models.F(request_specific_field_name),
         output_field=models.CharField(),
-    )).order_by("title_uni")
+    )).order_by(Lower("title_uni"))
 
     qs = qs.prefetch_related("season_set", "mediafile_set", "categories", "accessibility_options").defer("tags")
     
