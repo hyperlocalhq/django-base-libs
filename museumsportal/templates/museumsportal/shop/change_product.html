@@ -58,10 +58,10 @@
                     $('#id_image_path').val(responseJSON.path);
                     // load the modified version for the preview
                     $.post('/' + settings.lang + '/helper/modified-path/', {
-                        file_path: responseJSON.path,
+                        file_path: settings.media_url + responseJSON.path,
                         mod_sysname: 'shop_small'
                     }, function(data, textStatus, jqXHR) {
-                        $('#image_preview').html('<img alt="" src="/media/' + data + '" />');
+                        $('#image_preview').html('<img alt="" src="' + data + '" />');
                         // $('#image_uploader').hide();
                         // $('#image_help_text').hide();
                     },
