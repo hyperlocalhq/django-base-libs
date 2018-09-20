@@ -24,7 +24,7 @@ DATABASES = {
         },
     }
 }
-DATABASES['default'] = DATABASES['postgresql']
+DATABASES['default'] = DATABASES['mysql']
 
 HTTPS_PROTOCOL = "http"
 

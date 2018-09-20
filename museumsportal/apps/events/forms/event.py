@@ -1063,10 +1063,10 @@ def save_data(form_steps, form_step_data, instance=None):
             setattr(instance, 'description_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
             setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
     instance.other_languages = form_step_data['basic']['other_languages']
-    try:
-        instance.museum = Museum.objects.get(pk=form_step_data['basic']['museum'])
+    if form_step_data['basic']['museum']:
+        instance.museum = form_step_data['basic']['museum']
         instance.location_name = ""
-    except:
+    else:
         instance.museum = None
         instance.location_name = form_step_data['basic']['location_name']
     instance.street_address = form_step_data['basic']['street_address']

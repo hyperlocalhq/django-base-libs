@@ -1343,10 +1343,10 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.end = form_step_data['basic']['end']
     instance.permanent = form_step_data['basic']['permanent'] 
     instance.exhibition_extended = form_step_data['basic']['exhibition_extended']
-    try:
-        instance.museum = Museum.objects.get(pk=form_step_data['basic']['museum'])
+    if form_step_data['basic']['museum']:
+        instance.museum = form_step_data['basic']['museum']
         instance.location_name = ""
-    except:
+    else:
         instance.museum = None
         instance.location_name = form_step_data['basic']['location_name']
     instance.street_address = form_step_data['basic']['street_address']
