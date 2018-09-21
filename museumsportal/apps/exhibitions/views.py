@@ -595,8 +595,8 @@ def change_exhibition_status(request, slug):
     instance = get_object_or_404(Exhibition, slug=slug)
     if not request.user.has_perm("exhibitions.change_exhibition", instance):
         return access_denied(request)
-    if request.method == "GET" and request.is_ajax():
-        instance.status = request.GET['status']
+    if request.method == "POST" and request.is_ajax():
+        instance.status = request.POST['status']
         instance.save()
         return HttpResponse("OK")
     return redirect(instance.get_url_path())
