@@ -30,7 +30,7 @@ ExhibitionCategory = models.get_model("exhibitions", "ExhibitionCategory")
 Exhibition = models.get_model("exhibitions", "Exhibition")
 MediaFile = models.get_model("exhibitions", "MediaFile")
 
-FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES) 
+FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 
 from forms.exhibition import EXHIBITION_FORM_STEPS
 from forms.gallery import ImageFileForm, ImageDeletionForm
@@ -90,12 +90,12 @@ class ExhibitionFilterForm(dynamicforms.Form):
 def exhibition_list(request):
     from museumsportal.apps.advertising.templatetags.advertising_tags import not_empty_ad_zone
     qs = Exhibition.objects.filter(status="published")
-    
+
     #if not request.REQUEST.keys():
     #    return redirect("/%s%s?status=newly_opened" % (request.LANGUAGE_CODE, request.path))
-    
+
     form = ExhibitionFilterForm(data=request.REQUEST)
-    
+
     facets = {
         'selected': {},
         'categories': {
@@ -529,7 +529,7 @@ def exhibition_products(request, slug):
 def export_json_exhibitions(request):
     #create queryset
     qs = Exhibition.objects.filter(status="published")
-    
+
     exhibitions = []
     for ex in qs:
         start = None
@@ -557,7 +557,7 @@ def export_json_exhibitions(request):
         cls=ExtendedJSONEncoder
     )
     return HttpResponse(json_data, content_type='text/javascript; charset=utf-8')
-    
+
 
 @never_cache
 @login_required
@@ -595,12 +595,12 @@ def change_exhibition_status(request, slug):
     instance = get_object_or_404(Exhibition, slug=slug)
     if not request.user.has_perm("exhibitions.change_exhibition", instance):
         return access_denied(request)
-    if request.method == "POST" and request.is_ajax():
-        instance.status = request.POST['status']
+    if request.method == "GET" and request.is_ajax():
+        instance.status = request.GET['status']
         instance.save()
         return HttpResponse("OK")
     return redirect(instance.get_url_path())
-    
+
 
 ### MEDIA FILE MANAGEMENT ###
 
@@ -644,16 +644,16 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
     instance = get_object_or_404(Exhibition, slug=slug)
     if not request.user.has_perm("exhibitions.change_exhibition", instance):
         return access_denied(request)
-    
+
     media_file_type = media_file_type or "image"
     if media_file_type not in ("image",):
         raise Http404
-    
+
     if not "extra_context" in kwargs:
         kwargs["extra_context"] = {}
 
     rel_dir = "exhibitions/%s/" % instance.slug
-    
+
     filters = {}
     if mediafile_token:
         media_file_obj = get_object_or_404(
@@ -663,15 +663,15 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
         )
     else:
         media_file_obj = None
-    
+
     form_class = ImageFileForm
 
     if request.method=="POST":
         # just after submitting data
         form = form_class(media_file_obj, request.POST, request.FILES)
         # Passing request.FILES to the form always breaks the form validation
-        # WHY!?? As a workaround, let's validate just the POST and then 
-        # manage FILES separately. 
+        # WHY!?? As a workaround, let's validate just the POST and then
+        # manage FILES separately.
         if form.is_valid():
             cleaned = form.cleaned_data
             path = ""
@@ -685,47 +685,47 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
                     except OSError:
                         pass
                     path = ""
-                    
+
             if not media_file_obj:
                 media_file_obj = MediaFile(
                     exhibition=instance
                 )
-                    
+
             media_file_path = ""
             if cleaned.get("media_file_path", None):
                 tmp_path = cleaned['media_file_path']
                 abs_tmp_path = os.path.join(settings.MEDIA_ROOT, tmp_path)
-                
+
                 fname, fext = os.path.splitext(tmp_path)
                 filename = datetime.now().strftime("%Y%m%d%H%M%S") + fext
                 dest_path = "".join((rel_dir, filename))
                 FileManager.path_exists(os.path.join(settings.MEDIA_ROOT, rel_dir))
                 abs_dest_path = os.path.join(settings.MEDIA_ROOT, dest_path)
-                
+
                 shutil.copy2(abs_tmp_path, abs_dest_path)
-                
+
                 os.remove(abs_tmp_path);
                 media_file_obj.path = media_file_path = dest_path
                 media_file_obj.save()
-            
-            
+
+
             from filebrowser.base import FileObject
-            
+
             try:
                 file_description = FileDescription.objects.filter(
                     file_path=FileObject(media_file_path or path),
                 ).order_by("pk")[0]
             except:
                 file_description = FileDescription(file_path=media_file_path or path)
-            
+
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 setattr(file_description, 'title_%s' % lang_code, cleaned['title_%s' % lang_code])
                 setattr(file_description, 'description_%s' % lang_code, cleaned['description_%s' % lang_code])
             setattr(file_description, 'author', cleaned['author'])
             setattr(file_description, 'copyright_limitations', cleaned['copyright_limitations'])
-            
+
             file_description.save()
-            
+
             if not media_file_obj.pk:
                 media_file_obj.sort_order = MediaFile.objects.filter(
                     exhibition=instance,
@@ -734,7 +734,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
                 # trick not to reorder media files on save
                 media_file_obj.sort_order = media_file_obj.sort_order
             media_file_obj.save()
-            
+
             if "hidden_iframe" in request.REQUEST:
                 return render(
                     request,
@@ -776,7 +776,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
         'form': form,
         'exhibition': instance,
     }
-    
+
     return render(
         request,
         "exhibitions/gallery/create_update_mediafile.html",
@@ -790,7 +790,7 @@ def delete_mediafile(request, slug, mediafile_token="", **kwargs):
     instance = get_object_or_404(Exhibition, slug=slug)
     if not request.user.has_perm("exhibitions.change_exhibition", instance):
         return access_denied(request)
-    
+
     filters = {
         'id': MediaFile.token_to_pk(mediafile_token),
     }
@@ -800,7 +800,7 @@ def delete_mediafile(request, slug, mediafile_token="", **kwargs):
         media_file_obj = MediaFile.objects.get(**filters)
     except:
         raise Http404
-        
+
     if "POST" == request.method:
         form = ImageDeletionForm(request.POST)
         if media_file_obj:
@@ -813,19 +813,19 @@ def delete_mediafile(request, slug, mediafile_token="", **kwargs):
                     file_path=media_file_obj.path,
                 ).delete()
             media_file_obj.delete()
-            
+
             return HttpResponse("OK")
     else:
         form = ImageDeletionForm()
 
     form.helper.form_action = request.path
-    
+
     context_dict = {
         'media_file': media_file_obj,
         'form': form,
         'exhibition': instance,
     }
-    
+
     return render(
         request,
         "exhibitions/gallery/delete_mediafile.html",
@@ -836,12 +836,12 @@ def delete_mediafile(request, slug, mediafile_token="", **kwargs):
 ### VERNISSAGES
 def vernissage_list(request):
     qs = Exhibition.objects.filter(status="published").exclude(vernissage__isnull=True)
-    
+
     #if not request.REQUEST.keys():
     #    return redirect("/%s%s?status=newly_opened" % (request.LANGUAGE_CODE, request.path))
-    
+
     form = ExhibitionFilterForm(data=request.REQUEST)
-    
+
     facets = {
         'selected': {},
         'categories': {
@@ -858,7 +858,7 @@ def vernissage_list(request):
             ).distinct()
 
     qs = qs.order_by("-start", "title_%s" % request.LANGUAGE_CODE)
-        
+
     extra_context = {}
     extra_context['form'] = form
     extra_context['facets'] = facets
