@@ -925,7 +925,7 @@ def load_data(instance=None, request=None):
         form_step_data['basic']['permanent'] = instance.permanent
         form_step_data['basic']['exhibition_extended'] = instance.exhibition_extended
         if instance.museum:
-            form_step_data['basic']['museum'] = instance.museum.pk
+            form_step_data['basic']['museum'] = instance.museum
         form_step_data['basic']['location_name'] = instance.location_name
         form_step_data['basic']['street_address'] = instance.street_address
         form_step_data['basic']['street_address2'] = instance.street_address2
@@ -1471,7 +1471,7 @@ def save_data(form_steps, form_step_data, instance=None):
     return form_step_data
 
 
-def cancel_editing(request):
+def cancel_editing(request, instance=None):
     return redirect("dashboard")
 
 
