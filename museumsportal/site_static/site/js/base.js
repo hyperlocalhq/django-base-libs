@@ -118,9 +118,36 @@ if ($.browser.msie) {
     $('html').addClass('msie');
 }
 
-$.backendCall = function(url, data, success, data_type) {
+$.postFix = function(url, data, success, data_type) {
+    $.ajaxFix(url, 'post', data, success, data_type);
+}
 
-    var query = "";
+$.getFix = function(url, data, success, data_type) {
+    $.ajaxFix(url, 'get', data, success, data_type);
+}
+
+$.ajaxFix = function(url, method, data, success, data_type) {
+
+    $('#ajax_call_form').remove();
+    $('#ajax_call_frame').remove();
+
+    if (typeof method == "undefined" || !method) method="get";
+
+    var $frame = $('<iframe id="ajax_call_frame" name="ajax_call_frame" src="" style="display:none"></iframe>')
+    var $form = $('<form id="ajax_call_form" method="'+method+'" action="'+url+'" target="ajax_call_frame"></form>');
+
+    $('body').append($frame).append($form);
+
+    var form = document.getElementById('ajax_call_form');
+    if (typeof data != "undefined") {
+        for (var key in data) {
+            form[key] = data[key];
+        }
+    }
+    form.submit();
+
+
+    /*var query = "";
     if (typeof data != "undefined") {
         for (var key in data) {
             query += key+"="+encodeURIComponent(data[key]);
@@ -130,5 +157,5 @@ $.backendCall = function(url, data, success, data_type) {
 
     var $frame = $('<iframe src="'+(url+query)+'" style="display:none"></iframe>');
 
-    $('body').append($frame);
+    $('body').append($frame);*/
 }
