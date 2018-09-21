@@ -100,7 +100,6 @@ $(document).ready(function() {
 // ADD crsftoken TO AJAX CALLS
 (function() {
     var csrftoken = $.cookie('csrftoken');
-    console.log("token:" + csrftoken);
     function csrfSafeMethod(method) {
         // these HTTP methods do not require CSRF protection
         return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
