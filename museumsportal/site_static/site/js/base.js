@@ -133,7 +133,7 @@ $.ajaxFix = function(url, method, data, success, data_type) {
 
     if (typeof method == "undefined" || !method) method="get";
 
-    var $frame = $('<iframe id="ajax_call_frame" name="ajax_call_frame" src="" style="display:none"></iframe>')
+    var $frame = $('<iframe id="ajax_call_frame" name="ajax_call_frame" src="#" style="display:none"></iframe>')
     var $form = $('<form id="ajax_call_form" method="'+method+'" action="'+url+'" target="ajax_call_frame"></form>');
 
     $('body').append($frame).append($form);
