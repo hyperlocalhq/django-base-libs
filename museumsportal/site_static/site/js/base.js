@@ -117,3 +117,18 @@ $(document).ready(function() {
 if ($.browser.msie) {
     $('html').addClass('msie');
 }
+
+$.backendCall = function(url, data, success, data_type) {
+
+    var query = "";
+    if (typeof data != "undefined") {
+        for (var key in data) {
+            query += key+"="+encodeURIComponent(data[key]);
+        }
+    }
+    if (query != "") query = "?"+query;
+
+    var $frame = $('<iframe src="'+(url+query)+'" style="display:none"></iframe>');
+
+    $('body').append($frame);
+}
