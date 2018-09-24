@@ -202,7 +202,9 @@ def event_list(request, year=None, month=None, day=None):
         )
 
     search = search.query(reduce(operator.iand, queries))
-    search = search.sort('start', 'title_{}'.format(request.LANGUAGE_CODE))
+    # TODO: restore secondary sort by title
+    # search = search.sort('start', 'title_{}'.format(request.LANGUAGE_CODE))
+    search = search.sort('start')
 
     search_results = SearchResults(search)
 
@@ -217,7 +219,7 @@ def event_list(request, year=None, month=None, day=None):
         except EmptyPage:
             # If page parameter is out of range, show last existing page.
             page = paginator.page(paginator.num_pages)
-    except TransportError:
+    except TransportError as te:
         page = None
         maintenance_mode = True
 
