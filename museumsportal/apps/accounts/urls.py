@@ -21,7 +21,7 @@ urlpatterns = patterns("",
     url(r'^password-reset/done/$', 'django.contrib.auth.views.password_reset_done', {'template_name': 'accounts/password_reset_done.html'}, name="password_reset_done"),
     url(r'^password-reset/complete/$', 'django.contrib.auth.views.password_reset_complete', {'template_name': 'accounts/password_reset_complete.html'}, name="password_reset_complete"),
     url(r'^password-change/$', 'django.contrib.auth.views.password_change', {'template_name': 'accounts/password_change_form.html', 'extra_context': {'form_helper': password_change_form_helper}}),
-    url(r'^password-change/done/$', 'django.contrib.auth.views.password_change_done', {'template_name': 'accounts/password_change_done.html'}),
+    url(r'^password-change/done/$', 'django.contrib.auth.views.password_change_done', {'template_name': 'accounts/password_change_done.html'}, name="password_change_done"),
     url(r'^privacy-settings/$', 'museumsportal.apps.accounts.views.change_privacy_settings', name="change_privacy_settings"),
     url(r'^my-profile/change/$', 'museumsportal.apps.accounts.views.change_profile', name="change_profile"),
 )
