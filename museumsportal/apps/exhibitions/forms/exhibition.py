@@ -1036,7 +1036,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         instance.end = form_step_data['basic']['end']
         instance.permanent = form_step_data['basic']['permanent'] 
         instance.exhibition_extended = form_step_data['basic']['exhibition_extended']
-        if form_step_data['basic']['museum']:
+        if form_step_data['basic'].get('museum'):
             instance.museum = form_step_data['basic']['museum']
             instance.location_name = ""
         else:
@@ -1343,7 +1343,7 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.end = form_step_data['basic']['end']
     instance.permanent = form_step_data['basic']['permanent'] 
     instance.exhibition_extended = form_step_data['basic']['exhibition_extended']
-    if form_step_data['basic']['museum']:
+    if form_step_data['basic'].get('museum'):
         instance.museum = form_step_data['basic']['museum']
         instance.location_name = ""
     else:
