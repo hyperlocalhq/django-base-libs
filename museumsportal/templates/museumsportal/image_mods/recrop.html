@@ -11,7 +11,7 @@
         .image-version {
             border: 1px solid #D4D4D4;
             background: #fff;
-            width: {{ cp_mod.width }}px; 
+            width: {{ cp_mod.width }}px;
             height: {{ cp_mod.height }}px;
         }
         .image-version img {
@@ -20,7 +20,7 @@
             top: 0;
         }
         #cropbox {
-            width: {{ cp_mod.width }}px; 
+            width: {{ cp_mod.width }}px;
             height: {{ cp_mod.height }}px;
         }
         .colorpicker input {
@@ -43,13 +43,13 @@
         .colorpicker {
             z-index: 300;
         }
-        
+
     </style>
 {% endblock %}
 
 {% block js %}
     <script type="text/javascript" src="{{ jetson_media_url }}Jcrop/js/jquery.Jcrop.min.js"></script>
-    <script type="text/javascript" src="{{ jetson_media_url }}colorpicker/js/colorpicker.js"></script>    
+    <script type="text/javascript" src="{{ jetson_media_url }}colorpicker/js/colorpicker.js"></script>
     <script type="text/javascript">
     //<![CDATA[
     if (!window.nothing) {
@@ -64,16 +64,16 @@
             {{ default_initial.y2 }}
         ];
         var sDefaultBgColor = "{{ default_initial.bgcolor }}";
-        
+
         function updateCoords(c) {
-            if (c.x == c.x2 || c.y == c.y2) {
+            if (c.x === c.x2 || c.y === c.y2) {
                 setDefault();
                 return
             }
-            $('#id_x1').val(c.x);
-            $('#id_y1').val(c.y);
-            $('#id_x2').val(c.x2);
-            $('#id_y2').val(c.y2);
+            $('#id_x1').val(Math.floor(c.x));
+            $('#id_y1').val(Math.floor(c.y));
+            $('#id_x2').val(Math.floor(c.x2));
+            $('#id_y2').val(Math.floor(c.y2));
         }
         function setDefault() {
             oCroppingAPI.animateTo(aDefaultSelection);
@@ -84,11 +84,11 @@
                 y2: aDefaultSelection[3]
             });
             $('#id_bgcolor').val(sDefaultBgColor);
-            $('#colorSelector div').css('backgroundColor', sDefaultBgColor);
+            $('#colorSelector').find('div').css('backgroundColor', sDefaultBgColor);
             updateImage(sDefaultBgColor);
         }
         function updateImage(sBgColor) {
-            var sBgColor = sBgColor.replace(/#/, "");
+            sBgColor = sBgColor.replace(/#/, "");
             $(".image-version img").each(function() {
                 var sSrc = $(this).attr("src");
                 sSrc = sSrc.replace(/[^\/]+\/\?/, sBgColor + '/?');
@@ -105,14 +105,14 @@
                 onChange: updateCoords,
                 allowSelect: false,
                 setSelect: [ x1, y1, x2, y2 ]
-            }
+            };
             {% if mod.width and mod.height and mod.crop %}
                 options['aspectRatio'] = {{ mod.width }} / {{ mod.height }};
             {% endif %}
             oCroppingAPI = $.Jcrop('#cropbox', options);
             $(document).keyup(function(e) {
                 // ESCAPE key pressed
-                if (e.keyCode == 27) {
+                if (e.keyCode === 27) {
                     setDefault();
                 }
             });
@@ -120,7 +120,7 @@
                 livePreview: true,
                 onSubmit: function(hsb, hex, rgb, el) {
                     $('#id_bgcolor').val("#" + hex);
-                    $('#colorSelector div').css('backgroundColor', '#' + hex);
+                    $('#colorSelector').find('div').css('backgroundColor', '#' + hex);
                     $(el).ColorPickerHide();
                     updateImage(hex);
                 },
@@ -136,7 +136,7 @@
                     return false;
                 },
             });
-            
+
             oCroppingAPI.focus();
         });
     }(jQuery));
@@ -165,7 +165,7 @@
                         <div id="colorSelector"><div style="background-color: {{ form.bgcolor.data }};"></div></div>
                     </div>
                 </fieldset>
-            
+
                 <div class="form-actions">
                     {{ form.x1 }}{{ form.y1 }}{{ form.x2 }}{{ form.y2 }}
                     <input class="default btn btn-lg btn-primary pull-right" type="submit" value="{% trans "Save" %}" />
