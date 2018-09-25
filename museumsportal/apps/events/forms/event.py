@@ -30,7 +30,7 @@ Event = models.get_model("events", "Event")
 EventTime = models.get_model("events", "EventTime")
 Organizer = models.get_model("events", "Organizer")
 
-FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES) 
+FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 EXCLUDED_LANGUAGES = set(dict(settings.LANGUAGES).keys()) - set(dict(FRONTEND_LANGUAGES).keys())
 
 from museumsportal.utils.forms import PrimarySubmit
@@ -94,7 +94,7 @@ class BasicInfoForm(ModelForm):
 
     class Meta:
         model = Event
-        
+
         fields = [
             'categories', 'tags', 'languages', 'other_languages', 'suitable_for_children',
             'museum', 'location_name', 'street_address', 'street_address2', 'postal_code',
@@ -144,11 +144,11 @@ class BasicInfoForm(ModelForm):
 
         self.fields['latitude'].widget = forms.HiddenInput()
         self.fields['longitude'].widget = forms.HiddenInput()
-        
+
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "POST"
-        
+
         layout_blocks = []
 
         fieldset_content = []  # collect multilingual divs into one list...
@@ -294,13 +294,13 @@ class BasicInfoForm(ModelForm):
         ))
         layout_blocks.append(layout.Fieldset(
             _("Categories and Tags"),
-            
+
             layout.Div(
                 layout.Div("languages", css_class="min"),
                 layout.Div("other_languages", css_class="max"),
                 css_class="flex merge",
             ),
-            
+
             layout.Div(
                 layout.Div("categories", css_class="min"),
                 layout.Div(layout.HTML("""<label>&nbsp;</label> """),"suitable_for_children", css_class="inline max"),
@@ -322,7 +322,7 @@ class BasicInfoForm(ModelForm):
                 PrimarySubmit('submit', _('Next')),
                 SecondarySubmit('reset', _('Cancel')),
             ))
-        
+
         self.helper.layout = layout.Layout(
             *layout_blocks
         )
@@ -365,7 +365,7 @@ class OrganizerForm(ModelForm):
             "multipleSeparator": ",,, ",
         },
     )
-    
+
     class Meta:
         model = Organizer
         fields = "__all__"
@@ -384,7 +384,7 @@ class OrganizerForm(ModelForm):
         layout_blocks.append(
             layout.Div(
                 layout.Div(
-                    bootstrap.PrependedText("organizing_museum", ""), 
+                    bootstrap.PrependedText("organizing_museum", ""),
                     css_class="toggle-option"
                 ),
                 layout.Row(
@@ -452,7 +452,7 @@ class PricesForm(ModelForm):
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "POST"
-        
+
         layout_blocks = []
 
         fieldset_content = []  # collect multilingual divs into one list...
@@ -520,7 +520,7 @@ class PricesForm(ModelForm):
                 PrimarySubmit('submit', _('Next')),
                 SecondarySubmit('reset', _('Cancel')),
             ))
-        
+
         self.helper.layout = layout.Layout(
             *layout_blocks
         )
@@ -531,7 +531,7 @@ class TimesForm(ModelForm):
     class Meta:
         model = Event
         fields = []
-    
+
     def __init__(self, *args, **kwargs):
         super(TimesForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -558,16 +558,16 @@ class EventTimeForm(ModelForm):
     class Meta:
         model = EventTime
         fields = "__all__"
-        
+
     def __init__(self, *args, **kwargs):
         super(EventTimeForm, self).__init__(*args, **kwargs)
         self.fields['event_date'].widget = forms.DateInput(format='%d.%m.%Y')
         self.fields['event_date'].input_formats=('%d.%m.%Y',)
-        
+
         self.fields['start'].required = True
         self.fields['start'].widget = forms.TimeInput(format='%H:%M')
         self.fields['end'].widget = forms.TimeInput(format='%H:%M')
-        
+
         self.helper = FormHelper()
         self.helper.form_tag = False
         layout_blocks = []
@@ -690,10 +690,10 @@ class BatchEventTimeForm(forms.Form):
         super(BatchEventTimeForm, self).__init__(*args, **kwargs)
         self.fields['range_start'].widget = forms.DateInput(format='%d.%m.%Y')
         self.fields['range_start'].input_formats=('%d.%m.%Y',)
-        
+
         self.fields['range_end'].widget = forms.DateInput(format='%d.%m.%Y')
         self.fields['range_end'].input_formats=('%d.%m.%Y',)
-        
+
         self.helper = FormHelper()
         self.helper.form_id = "batch_event_time_form"
         self.helper.form_action = ""
@@ -701,7 +701,7 @@ class BatchEventTimeForm(forms.Form):
         layout_blocks = []
         layout_blocks.append(layout.Fieldset(
             _("Batch event time creation"),
-            
+
             layout.Row(
                 layout.Div(
                     bootstrap.PrependedText("range_start", "", placeholder="dd.mm.yyyy"),
@@ -781,7 +781,7 @@ class BatchEventTimeForm(forms.Form):
                 css_id="batch_workshop_time",
             ),
         ))
-        
+
         layout_blocks.append(bootstrap.FormActions(
             PrimarySubmit('submit', _('Create event times')),
             layout.Button('go_back', _('Go back')),
@@ -797,7 +797,7 @@ class GalleryForm(ModelForm):
     class Meta:
         model = Event
         fields = []
-        
+
     def __init__(self, *args, **kwargs):
         super(GalleryForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -852,7 +852,7 @@ def load_data(instance=None, request=None):
         form_step_data['basic']['longitude'] = instance.longitude
         if instance.exhibition:
             form_step_data['basic']['exhibition'] = instance.exhibition.pk
-    
+
         for organizer in instance.organizer_set.all():
             organizer_dict = {}
             if organizer.organizing_museum:
@@ -860,14 +860,14 @@ def load_data(instance=None, request=None):
             organizer_dict['organizer_title'] = organizer.organizer_title
             organizer_dict['organizer_url_link'] = organizer.organizer_url_link
             form_step_data['basic']['sets']['organizers'].append(organizer_dict)
-            
+
         for event_time in instance.eventtime_set.all():
             event_time_dict = {}
             event_time_dict['event_date'] = event_time.event_date
             event_time_dict['start'] = event_time.start
             event_time_dict['end'] = event_time.end
             form_step_data['times']['sets']['event_times'].append(event_time_dict)
-    
+
         fields = ['free_admission', 'admission_price', 'reduced_price']
         for lang_code, lang_name in FRONTEND_LANGUAGES:
             fields += [
@@ -892,7 +892,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             form_step_data['_is_new'] = True
 
         for lang_code, lang_name in FRONTEND_LANGUAGES:
-            setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code]) 
+            setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code])
             setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
             setattr(instance, 'press_text_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
             setattr(instance, 'website_%s' % lang_code, form_step_data['basic']['website_%s' % lang_code])
@@ -902,13 +902,16 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
         instance.other_languages = form_step_data['basic']['other_languages']
         if form_step_data['basic'].get('museum'):
-            instance.museum = form_step_data['basic']['museum']
+            if isinstance(form_step_data['basic']['museum'], Museum):
+                instance.museum = form_step_data['basic']['museum']
+            else:
+                instance.museum = Museum.objects.get(pk=form_step_data['basic']['museum'])
             instance.location_name = ""
         else:
             instance.museum = None
             instance.location_name = form_step_data['basic']['location_name']
         instance.street_address = form_step_data['basic']['street_address']
-        instance.street_address2 = form_step_data['basic']['street_address2'] 
+        instance.street_address2 = form_step_data['basic']['street_address2']
         instance.postal_code = form_step_data['basic']['postal_code']
         instance.city = form_step_data['basic']['city']
         instance.latitude = form_step_data['basic']['latitude']
@@ -921,11 +924,11 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             form_step_data['basic']['tags'] = form_step_data['basic']['tags'] + ","
         instance.tags = form_step_data['basic']['tags']
         instance.suitable_for_children = form_step_data['basic']['suitable_for_children']
-        
+
         if not instance.status:
             instance.status = "draft"
         instance.save()
-        
+
         rel_dir = "events/%s/" % instance.slug
 
         if form_step_data['basic']['delete_pdf_document_de'] and instance.pdf_document_de:
@@ -973,15 +976,15 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
         if '_pk' not in form_step_data:
             user = get_current_user()
             instance.set_owner(user)
-        
+
         instance.categories.clear()
         for cat in form_step_data['basic']['categories']:
             instance.categories.add(cat)
-        
+
         instance.languages.clear()
         for cat in form_step_data['basic']['languages']:
             instance.languages.add(cat)
-        
+
         instance.organizer_set.all().delete()
         for organizer_dict in form_step_data['basic']['sets']['organizers']:
             organizer = Organizer(event=instance)
@@ -996,9 +999,9 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 organizer.organizer_title = organizer_dict.get('organizer_title', "")
                 organizer.organizer_url_link = organizer_dict.get('organizer_url_link', "")
             organizer.save()
-        
+
         form_step_data['_pk'] = instance.pk
-    
+
     if current_step == "times":
         if "_pk" in form_step_data:
             instance = Event.objects.get(pk=form_step_data['_pk'])
@@ -1006,17 +1009,17 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
             instance.eventtime_set.all().delete()
             for event_time_dict in form_step_data['times']['sets']['event_times']:
                 event_time = EventTime(event=instance)
-                event_time.event_date = event_time_dict['event_date'] 
+                event_time.event_date = event_time_dict['event_date']
                 event_time.start = event_time_dict['start']
                 event_time.end = event_time_dict['end']
                 event_time.save()
-                
+
             instance.update_closest_event_time()
 
     if current_step == "prices":
         if "_pk" in form_step_data:
             instance = Event.objects.get(pk=form_step_data['_pk'])
-        
+
             fields = ['free_admission', 'admission_price', 'reduced_price']
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 fields += [
@@ -1028,7 +1031,7 @@ def submit_step(current_step, form_steps, form_step_data, instance=None):
                 setattr(instance, "admission_price_info_%s_markup_type" % lang_code, MARKUP_PLAIN_TEXT)
                 setattr(instance, "meeting_place_%s_markup_type" % lang_code, MARKUP_PLAIN_TEXT)
                 setattr(instance, "booking_info_%s_markup_type" % lang_code, MARKUP_PLAIN_TEXT)
-                    
+
             for f in fields:
                 setattr(instance, f, form_step_data['prices'][f])
             instance.save()
@@ -1047,14 +1050,14 @@ def set_extra_context(current_step, form_steps, form_step_data, instance=None, r
 
 def save_data(form_steps, form_step_data, instance=None):
     is_new = form_step_data.get('_is_new', False)
-    
+
     if not instance:
         if '_pk' in form_step_data:
             instance = Event.objects.get(pk=form_step_data['_pk'])
         else:
             instance = Event()
     for lang_code, lang_name in FRONTEND_LANGUAGES:
-        setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code]) 
+        setattr(instance, 'title_%s' % lang_code, form_step_data['basic']['title_%s' % lang_code])
         setattr(instance, 'subtitle_%s' % lang_code, form_step_data['basic']['subtitle_%s' % lang_code])
         setattr(instance, 'press_text_%s' % lang_code, form_step_data['basic']['press_text_%s' % lang_code])
         setattr(instance, 'website_%s' % lang_code, form_step_data['basic']['website_%s' % lang_code])
@@ -1064,13 +1067,16 @@ def save_data(form_steps, form_step_data, instance=None):
             setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
     instance.other_languages = form_step_data['basic']['other_languages']
     if form_step_data['basic'].get('museum'):
-        instance.museum = form_step_data['basic']['museum']
+        if isinstance(form_step_data['basic']['museum'], Museum):
+            instance.museum = form_step_data['basic']['museum']
+        else:
+            instance.museum = Museum.objects.get(pk=form_step_data['basic']['museum'])
         instance.location_name = ""
     else:
         instance.museum = None
         instance.location_name = form_step_data['basic']['location_name']
     instance.street_address = form_step_data['basic']['street_address']
-    instance.street_address2 = form_step_data['basic']['street_address2'] 
+    instance.street_address2 = form_step_data['basic']['street_address2']
     instance.postal_code = form_step_data['basic']['postal_code']
     instance.city = form_step_data['basic']['city']
     instance.latitude = form_step_data['basic']['latitude']
@@ -1096,26 +1102,26 @@ def save_data(form_steps, form_step_data, instance=None):
         setattr(instance, "admission_price_info_%s_markup_type" % lang_code, MARKUP_PLAIN_TEXT)
         setattr(instance, "meeting_place_%s_markup_type" % lang_code, MARKUP_PLAIN_TEXT)
         setattr(instance, "booking_info_%s_markup_type" % lang_code, MARKUP_PLAIN_TEXT)
-            
+
     for f in fields:
         setattr(instance, f, form_step_data['prices'][f])
 
     if is_new:
         instance.status = "published"
     instance.save()
-    
+
     #if is_new:
     #    user = get_current_user()
     #    instance.set_owner(user)
-    
+
     instance.categories.clear()
     for cat in form_step_data['basic']['categories']:
         instance.categories.add(cat)
-    
+
     instance.languages.clear()
     for cat in form_step_data['basic']['languages']:
         instance.languages.add(cat)
-    
+
     instance.organizer_set.all().delete()
     for organizer_dict in form_step_data['basic']['sets']['organizers']:
         organizer = Organizer(event=instance)
@@ -1131,7 +1137,7 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.eventtime_set.all().delete()
     for event_time_dict in form_step_data['times']['sets']['event_times']:
         event_time = EventTime(event=instance)
-        event_time.event_date = event_time_dict['event_date'] 
+        event_time.event_date = event_time_dict['event_date']
         event_time.start = event_time_dict['start']
         event_time.end = event_time_dict['end']
         event_time.save()
@@ -1139,7 +1145,7 @@ def save_data(form_steps, form_step_data, instance=None):
     instance.update_closest_event_time()
 
     form_steps['success_url'] = reverse("dashboard") #instance.get_url_path()
-    
+
     return form_step_data
 
 
