@@ -4,7 +4,7 @@
         var dynamic = [];
         var that = this;
         this.init = function() {
-            var i, iLen=dynamic.length; 
+            var i, iLen=dynamic.length;
             for(i=0; i<iLen; i++) {
                 var oEl = dynamic[i];
                 this.set_autocomplete(
@@ -15,7 +15,7 @@
             }
         };
         this.reinit = function($oRow) {
-            var i, iLen=dynamic.length; 
+            var i, iLen=dynamic.length;
             for(i=0; i<iLen; i++) {
                 var oEl = dynamic[i];
                 this.set_autocomplete(
@@ -42,6 +42,9 @@
             }
         };
         this.set_autocomplete = function($oField, urlOrData, options) {
+
+            options["formatResult"] = that.formatResult;
+
             if ($oField.length) {
                 $oField.autocomplete(urlOrData, options).result(that.result);
                 $oField.click(function(){
@@ -60,13 +63,13 @@
             var $oHidden = $("#" + $oField.attr("id").replace(/_text$/, ""));
             if (aData) {
                 $oHidden.val(aData[1]);
-            } else { 
+            } else {
                 $oHidden.val("");
             }
             $oHidden.change();
             $oHidden.blur();
         };
-            
+
         this.formatItem = function(aRow) {
             var sHtml = '<span class="ac_title">' + aRow[0] + '</span>';
             if (aRow[2]) {
@@ -74,7 +77,13 @@
             }
             return sHtml;
         };
-            
+
+        this.formatResult = function(value) {
+            var elem = document.createElement('textarea');
+            elem.innerHTML = value[0];
+            return elem.value;
+        }
+
         this.test = function() {
             console.log(registered_selectors);
         };
@@ -83,7 +92,7 @@
 
     function AutocompleteMultipleManagerClass() {
         var that = this;
-        
+
         this.remove_item = function() {
             var $oLI = $(this).parent("li");
             var sFieldID = $oLI.attr("id");
@@ -103,8 +112,11 @@
             });
             return false;
         };
-        
+
         this.set_autocomplete = function($oField, urlOrData, options) {
+
+            options["formatResult"] = that.formatResult;
+            
             if ($oField.length) {
                 $oField.unautocomplete().autocomplete(urlOrData, options).result(that.result);
                 $oField.click(function(){
@@ -144,21 +156,27 @@
                 });
             }
         };
+
+        this.formatResult = function(value) {
+            var elem = document.createElement('textarea');
+            elem.innerHTML = value[0];
+            return elem.value;
+        }
     }
     /* inherits from AutocompleteManagerClass */
     AutocompleteMultipleManagerClass.prototype = new AutocompleteManagerClass();
     AutocompleteMultipleManagerClass.prototype.constructor = AutocompleteMultipleManagerClass;
-    
+
     self.AutocompleteMultipleManager = new AutocompleteMultipleManagerClass();
-    
+
     $(document).ready(function() {
         self.AutocompleteManager.init();
         self.AutocompleteMultipleManager.init();
     });
-    
+
     $(window).unload(function() {
         self.AutocompleteManager = null;
         self.AutocompleteMultipleManager = null;
     });
-    
+
 }(jQuery));
