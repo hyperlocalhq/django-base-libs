@@ -130,14 +130,14 @@ function doMissingProfileDataTips() {
     var steps = [];
     if (show_tip_no_profile_image) steps.push(
         {
-            position: (is_xs) ? "bottom" : "right",
+            position: (is_xs) ? "bottom-fixed" : "right",
             element: document.querySelector(image_id),
             intro: '{% infoblock "tip_no_profile_image" using "blocks/addslashes.html" %}'
         }
     );
     if (show_tip_no_creative_sector) steps.push(
         {
-            position: (is_xs) ? "bottom" : "bottom",
+            position: (is_xs) ? "bottom-fixed" : "bottom",
             element: document.querySelector('#tip_no_creative_sector'),
             intro: '{% infoblock "tip_no_creative_sector" using "blocks/addslashes.html" %}'
         }
@@ -164,6 +164,7 @@ function doMissingProfileDataTips() {
             skipLabel: "{% trans 'close'  %}",
             hidePrev: true,
             hideNext: true,
+            disableInteraction: true,
             showBullets: !(!(steps.length > 1)),
             showStepNumbers: false,
             exitOnOverlayClick: true
