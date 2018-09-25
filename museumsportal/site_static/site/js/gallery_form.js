@@ -125,7 +125,6 @@
                         file_path: self.settings.media_url + responseJSON.path,
                         mod_sysname: 'medium'
                     }, function(data, textStatus, jqXHR) {
-                        console.log(data);
                         $('#image_preview').html('<img class="img-responsive" alt="" src="' + data + '" />');
                         $('#image_uploader').hide();
                         $('#image_help_text').hide();

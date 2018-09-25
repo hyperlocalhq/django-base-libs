@@ -17,7 +17,7 @@ from museumsportal.utils.forms import SecondaryButton
 IMAGE_MIN_DIMENSIONS = getattr(settings, "GALLERY_IMAGE_MIN_DIMENSIONS", (100,100))
 STR_IMAGE_MIN_DIMENSIONS = "%s x %s" % IMAGE_MIN_DIMENSIONS
 
-FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES) 
+FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 
 # translatable strings to collect
 _("Please enable JavaScript to use file uploader.")
@@ -147,7 +147,7 @@ class ImageFileForm(forms.Form):
 
         layout_blocks.append(bootstrap.FormActions(
             PrimarySubmit('submit', _('Save file')),
-            SecondarySubmit('cancel', _('Cancel')),
+            SecondaryButton('cancel', _('Cancel')),
             layout.HTML(u"""{% load i18n base_tags image_modifications %}
                 {% if media_file %}
                     {% parse "{{ exhibition.get_url_path }}change/" as goto_next %}
@@ -167,7 +167,7 @@ class ImageFileForm(forms.Form):
                                 </div>
                             </div>
                         </div>
-                    </div>    
+                    </div>
                 {% endif %}
             """),
         ))
@@ -222,4 +222,3 @@ class ImageDeletionForm(forms.Form):
         self.helper.layout = layout.Layout(
             *layout_blocks
         )
-
