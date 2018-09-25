@@ -42,7 +42,7 @@ class ModelSearchForm(_SearchForm):
                     layout.Div(
                         layout.Field(self.MODELS_PARAM_NAME, css_class="pull-right", template="bootstrap/layout/dropdown_checkboxselectmultiple.html"),
                         layout.Submit('submit', _('Search'), css_class="pull-right"),
-                        css_class="btn-group col-md-2"
+                        css_class="btn-group col-xs-12 col-md-2"
                     ),
                     css_class="row",
                 )
