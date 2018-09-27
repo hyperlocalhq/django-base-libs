@@ -401,7 +401,7 @@ class MailingContentBlock(models.Model):
         verbose_name_plural = _("Content Blocks")
     
     def save(self, *args, **kwargs):
-        from base_libs.models.settings import MARKUP_HTML_WYSIWYG
+        from base_libs.models.base_libs_settings import MARKUP_HTML_WYSIWYG
         if not self.content and self.content_type:
             self.content = self.get_content_from_template()
             self.content_markup_type = MARKUP_HTML_WYSIWYG
