@@ -1378,7 +1378,7 @@ def save_data(form_steps, form_step_data, instance=None):
             'shop_link_%s' % lang_code,
         ]
     for f in fields:
-        setattr(instance, f, form_step_data['prices'][f])
+        setattr(instance, f, form_step_data['prices'].get(f, ''))
 
     for lang_code, lang_name in FRONTEND_LANGUAGES:
         for f in [
