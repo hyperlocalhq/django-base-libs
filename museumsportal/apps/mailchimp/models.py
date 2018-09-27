@@ -295,7 +295,8 @@ class Campaign(CreationModificationMixin):
     mailchimp_id = property(_get_mailchimp_id, _set_mailchimp_id)
 
     def get_rendered_html(self):
-        from django.template.loader import get_template, Context
+        from django.template.loader import get_template
+        from django.template.context import Context
         from filebrowser.settings import MEDIA_URL as UPLOADS_URL
         from base_libs.utils.misc import get_website_url
         
