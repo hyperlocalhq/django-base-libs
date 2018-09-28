@@ -83,7 +83,8 @@ class PortfolioSite(object):
             **{self.object_detail_dict['slug_field'] + '__iexact': kwargs['slug']}
         )
         if hasattr(self.obj, "content_object"):  # if the obj is ContextItem, then use its related object
-            self.obj = self.obj.content_object
+            related_object = self.obj.content_object
+            self.obj = related_object
         self.obj_ct = ContentType.objects.get_for_model(self.obj)
         self.obj_app_name = type(self.obj)._meta.app_label
         self.obj_model_name = type(self.obj).__name__.lower()
