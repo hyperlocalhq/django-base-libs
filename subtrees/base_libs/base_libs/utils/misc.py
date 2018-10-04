@@ -5,6 +5,7 @@ import sys
 import json
 from datetime import datetime, time
 from time import strptime
+from decimal import Decimal
 
 from django.contrib.sites.models import Site
 from django.utils.encoding import smart_str, force_unicode
@@ -274,6 +275,8 @@ class ExtendedJSONEncoder(json.JSONEncoder):
                 'second': o.second,
                 'microsecond': o.microsecond,
             }
+        if isinstance(o, Decimal):
+            return str(o)
         if hasattr(o, "path"): # FileObject
             return o.path
         if type(o).__name__ == "ModelState":

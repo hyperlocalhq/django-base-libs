@@ -346,94 +346,6 @@ class CallNode(template.Node):
 register.tag('call', do_call)
 
 
-def auto_populated_field_script_fixed(auto_pop_fields, change = False):
-    t = []
-    for field in auto_pop_fields:
-        if change:
-            t.append('document.getElementById("id_%s")._changed = true;' % field.name)
-        else:
-            t.append('document.getElementById("id_%s").onchange = function() { this._changed = true; };' % field.name)
-
-        add_values = ' + " " + '.join(['document.getElementById("id_%s").value' % g for g in field.prepopulate_from])
-        for f in field.prepopulate_from:
-            t.append('document.getElementById("id_%s").onkeyup = function() {' \
-                     ' var e = document.getElementById("id_%s");' \
-                     ' if(!e._changed) { e.value = URLify(%s, %s);} }; ' % (
-                     f, field.name, add_values, field.maxlength))
-    return ''.join(t)
-auto_populated_field_script_fixed = register.simple_tag(auto_populated_field_script_fixed)
-
-def do_ifvalue(parser, token, name, negate=False):
-    bits = list(token.split_contents())
-    if len(bits) != 2 and len(bits) != 4:
-        raise template.TemplateSyntaxError, "%r takes one or three arguments" % bits[0]
-    tagname, variable = tuple(bits)[:2]
-    if len(bits) == 4:
-        if bits[2] != "as":
-            raise template.TemplateSyntaxError, "%r with three arguments must be 'value as name'" % tagname
-        name = bits[3]
-
-    end_tag = 'end' + tagname
-    nodelist_true = parser.parse(('else', end_tag))
-    token = parser.next_token()
-    if token.contents == 'else':
-        nodelist_false = parser.parse((end_tag,))
-        parser.delete_first_token()
-    else:
-        nodelist_false = template.NodeList()
-    return IfValueNode(variable, name, nodelist_true, nodelist_false, negate)
-
-def ifvalue(parser, token, name="value"):
-    """
-    Output the contents of the block if the argument is true, assigning
-    the value of the argument to a context variable ("value" by default).
-
-    Examples::
-
-        {% ifvalue user.name %}
-            {{ value }}
-            ...
-        {% else %}
-            ...
-        {% endifvalue %}
-
-        {% ifvalue user.name as username %}
-            {{ username }}
-            ...
-        {% else %}
-            ...
-        {% endifvalue %}
-    """
-    return do_ifvalue(parser, token, name, False)
-ifvalue = register.tag(ifvalue)
-
-def ifnotvalue(parser, token, name="value"):
-    """Output the contents of the block if the argument is false. See ifvalue."""
-    return do_ifvalue(parser, token, name, True)
-ifnotvalue=register.tag(ifnotvalue)
-
-class IfValueNode(template.Node):
-    def __init__(self, var, name, nodelist_true, nodelist_false, negate):
-        self.var = var
-        self.name = name
-        self.nodelist_true, self.nodelist_false = nodelist_true, nodelist_false
-        self.negate = negate
-
-    def __repr__(self):
-        return "<IfValueNode>"
-
-    def render(self, context):
-        try:
-            val = template.resolve_variable(self.var, context)
-        except template.VariableDoesNotExist:
-            val = None
-
-        context[self.name] = val
-
-        if (self.negate and not val) or (not self.negate and val):
-            return self.nodelist_true.render(context)
-        return self.nodelist_false.render(context)
-
 def do_parse(parser, token):
     """
     Parses the value as a template and prints it or saves to a variable
@@ -845,34 +757,10 @@ def content_type_id(value):
 
 
 @register.filter
-def remainder_eq_zero(value, divisor):
-
-    """Returns True, if the remainder of the division value/divisor equals 0,
-       false otherwise.
-    """
-    return value % divisor == 0
-
-
-@register.filter
-def remainder_eq_minus1(value, divisor):
-
-    """Returns True, if the remainder of the division value/divisor equals -1,
-       that is (divisor -1), false otherwise.
-    """
-    # You are right, Aidas: Python does not the same like C does
-    # In algebraic words, divisor-1 and -1 is the same in an
-	# algebraic group modulo divisor....
-    return value % divisor == divisor - 1
-
-
-@register.filter
-def dict_value(dict, key):
+def dict_value(dictionary, key):
     """ returns the value of a dictionary key ...
     """
-    try:
-        return dict[key]
-    except:
-        return None
+    return dictionary.get(key, None)
 
 
 @register.filter
@@ -928,7 +816,7 @@ def disarm_user_input(html):
         html = defaultfilters.linebreaks(html)
     html = bleach.clean(
         html,
-        tags=[u'a', u'abbr', u'acronym', u'b', u'blockquote', u'br', u'code', u'em', u'i', u'iframe', u'img', u'li', u'ol', u'p', u'strong', u'ul', u'h1', u'h2', u'h3', u'h4', u'h5', u'h6', u'span'],
+        tags=[u'a', u'abbr', u'acronym', u'b', u'blockquote', u'br', u'code', u'em', u'i', u'iframe', u'img', u'li', u'ol', u'p', u'strong', u'ul', u'h1', u'h2', u'h3', u'h4', u'h5', u'hr', u'h6', u'span'],
         attributes={
             u'*': [u'class'],
             u'a': [u'href', u'title', u'target'],
@@ -986,37 +874,7 @@ def humanize_url(url, letter_count):
     return url
 
 
-@register.filter
-def truncated_multiply(value, arg):
-    """
-    Multiplies the arg with the value and returns
-    the rounded ("integered") value as string.
-    """
-    return int(value * arg)
-
-
 register.filter('get_user_title', get_user_title)
-
-
-@register.filter
-@stringfilter
-def cssclass(value, arg):
-    """
-    Replace the attribute css class for Field 'value' with 'arg'.
-    """
-    attrs = value.field.widget.attrs
-    if 'class' in attrs:
-        orig = attrs['class']
-    else:
-        orig = None
-
-    attrs['class'] = arg
-    rendered = str(value)
-
-    if not orig:
-        del attrs['class']
-
-    return rendered
 
 
 @register.filter

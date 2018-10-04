@@ -83,7 +83,8 @@ class PortfolioSite(object):
             **{self.object_detail_dict['slug_field'] + '__iexact': kwargs['slug']}
         )
         if hasattr(self.obj, "content_object"):  # if the obj is ContextItem, then use its related object
-            self.obj = self.obj.content_object
+            related_object = self.obj.content_object
+            self.obj = related_object
         self.obj_ct = ContentType.objects.get_for_model(self.obj)
         self.obj_app_name = type(self.obj)._meta.app_label
         self.obj_model_name = type(self.obj).__name__.lower()
@@ -972,7 +973,7 @@ class PortfolioSite(object):
                 media_file_type = "image"
             elif media_file_obj.file_type == "a":
                 media_file_type = "audio"
-            elif media_file_obj.file_type in ("v", "y"):
+            elif media_file_obj.file_type in ("v", "y", "m"):
                 media_file_type = "video"
 
         form_class = MEDIA_FILE_FORM_MAP[media_file_type]

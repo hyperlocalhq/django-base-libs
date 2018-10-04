@@ -989,3 +989,15 @@ CKEDITOR_CONFIGS = {
 CKEDITOR_EXTERNAL_PLUGIN_SOURCES = [
     ('oembed', '{}ckeditor/plugins/oembed/'.format(JETSON_MEDIA_URL), 'plugin.js'),
 ]
+
+### Media Gallery ###
+
+VIDEO_SPLASH_URL = ""
+VIDEO_SPLASH_TN_URL = ""
+VIDEO_SPLASH_LIST_URL = ""
+AUDIO_SPLASH_URL = ""
+AUDIO_SPLASH_TN_URL = ""
+AUDIO_SPLASH_LIST_URL = ""
+IMAGE_SPLASH_URL = ""
+IMAGE_SPLASH_TN_URL = ""
+IMAGE_SPLASH_LIST_URL = ""

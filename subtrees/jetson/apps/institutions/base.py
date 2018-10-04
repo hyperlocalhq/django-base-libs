@@ -381,14 +381,10 @@ class InstitutionBase(CreationModificationDateMixin, UrlMixin, OpeningHoursMixin
                 elif postal_code in POSTAL_CODE_2_DISTRICT:
                     district = POSTAL_CODE_2_DISTRICT[postal_code]
                 if district:
-                    d = {}
-                    for lang_code, lang_verbose in settings.LANGUAGES:
-                        d["title_%s" % lang_code] = district
                     try:
                         return LocalityType.objects.get(
                             slug=better_slugify(district),
                             parent=regional,
-                            defaults=d,
                         )
                     except LocalityType.DoesNotExist:
                         pass
