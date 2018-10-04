@@ -120,6 +120,16 @@ urlpatterns = [
     ),
     # activity stream
     url(r'^dashboard/$', views.dashboard, name='dashboard'),
+    url(
+        r'^dashboard/guided_tour.js$',
+        TemplateView.as_view(template_name='accounts/my_profile/guided_tour.js'),
+        name="guided_tour",
+    ),
+    url(
+        r'^dashboard/missing_profile_data_tips.js$',
+        TemplateView.as_view(template_name='accounts/my_profile/missing_profile_data_tips.js'),
+        name="missing_profile_data_tips",
+    ),
 
     url(r'', include('social_django.urls', namespace='social')),
 ]

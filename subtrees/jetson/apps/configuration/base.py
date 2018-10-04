@@ -89,12 +89,12 @@ class SiteSettingsBase(MetaTagsMixin):
     def get_script_nonces(self):
         if (self.extra_head and not self._extra_head_with_nonces) or (self.extra_body and not self._extra_body_with_nonces):
             self.prepare_nonces_for_extra_head_and_extra_body()
-        return mark_safe(' '.join(["'nonce-{}'".format(nonce) for nonce in self._script_nonces]))
+        return mark_safe(' '.join(["'nonce-{}'".format(nonce) for nonce in (self._script_nonces or [])]))
 
     def get_style_nonces(self):
         if (self.extra_head and not self._extra_head_with_nonces) or (self.extra_body and not self._extra_body_with_nonces):
             self.prepare_nonces_for_extra_head_and_extra_body()
-        return mark_safe(' '.join(["'nonce-{}'".format(nonce) for nonce in self._style_nonces]))
+        return mark_safe(' '.join(["'nonce-{}'".format(nonce) for nonce in (self._style_nonces or [])]))
 
 
 class PageSettingsManager(models.Manager):

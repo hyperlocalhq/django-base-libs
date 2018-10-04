@@ -688,17 +688,14 @@ class ComplexEventBase(EventBase, OpeningHoursMixin):
                 elif postal_code in POSTAL_CODE_2_DISTRICT:
                     district = POSTAL_CODE_2_DISTRICT[postal_code]
                 if district:
-                    d = {}
-                    for lang_code, lang_verbose in settings.LANGUAGES:
-                        d["title_%s" % lang_code] = district
-                    term, created = LocalityType.objects.get_or_create(
-                        slug=better_slugify(district),
-                        parent=regional,
-                        defaults=d,
-                    )
-                    return term
-                else:
-                    return regional
+                    try:
+                        return LocalityType.objects.get(
+                            slug=better_slugify(district),
+                            parent=regional,
+                        )
+                    except LocalityType.DoesNotExist:
+                        pass
+                return regional
         except Exception:
             return self.venue and self.venue.get_locality_type() or None
 

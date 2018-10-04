@@ -49,17 +49,17 @@
     {% endif %}
 
     {% include "people/profile/identity.html" %}
-    
+
     {% include "people/profile/contact.html" %}
-        
+
     {% include "people/profile/description.html" %}
-    
+
     {% include "people/profile/details.html" %}
-    
+
     {% include "people/profile/categories.html" %}
-    
+
     {% include "people/profile/map.html" %}
-    
+
 {% endblock %}
 
 
@@ -73,4 +73,24 @@
     {{ block.super }}
     <script type="text/javascript" src="//maps.google.com/maps/api/js?language=de&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/locating.js"></script>
+
+    {% if object.user == request.user and object.is_editable %}
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/intro.min.js"></script>
+        {% if request.user.last_login.date == request.user.date_joined.date %}
+            <script type="text/javascript" src="{% url 'guided_tour' %}"></script>
+        {% else %}
+            <script type="text/javaScript">
+                var show_tip_no_profile_image = {% if object.image %}false{% else %}true{% endif %};
+                var show_tip_no_creative_sector = {% if object.get_categories %}false{% else %}true{% endif %};
+                var is_institution = false;
+            </script>
+            <script type="text/javascript" src="{% url 'missing_profile_data_tips' %}"></script>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+
+{% block stylesheet %}
+    {{ block.super }}
+    <link href="{{ STATIC_URL }}site/css/introjs.min.css" rel="stylesheet" media="screen, print" type="text/css" />
 {% endblock %}

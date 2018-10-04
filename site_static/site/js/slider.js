@@ -39,6 +39,8 @@
         me.$prev = null;
         me.$next = null;
 
+        me.doing_next = false;
+
         me.$window.resize(function() {me.styleIt(false, 200);});
         $(document).ready(function() {me.styleIt();});
         $('img', me.$main).load(function() {me.styleIt();});
@@ -390,19 +392,35 @@
                 $element.data('old-left', $element.position().left);
             });
 
-            var $current_element = $(me.$elements.get(me.current_element));
             var wrapper_width = me.$wrapper.width() + 2 * me.margin*2;
             var elements_length = me.$elements.length;
 
+            // checking if the middle of the first current element is next to the middle of the fool slider
+            var loaded = true;
+            $('img', me.$main).each(function() {
+                if (!this.complete) loaded = false;
+            });
+            if (loaded) {
+                var first_done = false;
+                var next_element = me.current_element;
+                var $next_element = $(me.$elements.get(next_element));
+                while (me.doing_next && !first_done) {
 
-            // checking if second or second last element are already visible in the slider and move to next element
-            if (me.previous_element == 0 && me.previous_element != me.current_element && me.current_element < elements_length-2 && $current_element.position().left + $current_element.width() <= wrapper_width + me.margin) {
-                me.current_element++;
-                $current_element = $(me.$elements.get(me.current_element));
-            } else if (me.previous_element == elements_length-1 && me.previous_element != me.current_element && me.current_element > 0 && $current_element.position().left >= 0) {
-                me.current_element--;
-                $current_element = $(me.$elements.get(me.current_element));
+                    if ( next_element < me.$elements.length && $next_element.position().left + me.margin + ($next_element.width()/2) < me.$wrapper.width()/2 ) {
+                        next_element += 1;
+                        $next_element = $(me.$elements.get(next_element));
+                    } else {
+                        me.current_element = next_element;
+                        me.goto_element = next_element;
+                        me.previous_element = next_element-1;
+                        if (me.previous_element < 0) me.previous_element = 0;
+                        first_done = true
+                    }
+
+                }
             }
+
+            var $current_element = $(me.$elements.get(me.current_element));
 
             me.$elements.css('left', '');
             var current = me.current_element;
@@ -676,6 +694,7 @@
             else me.current_element = 0;
         }
 
+        me.doing_next = true;
         me.styleIt(true);
 
         return false;
@@ -699,6 +718,7 @@
             else me.current_element = me.$elements.length - 1;
         }
 
+        me.doing_next = false;
         me.styleIt(true);
     }
 
@@ -726,6 +746,7 @@
             else me.current_element = 0;
         }
 
+        me.doing_next = false;
         me.styleIt(true);
     }
 

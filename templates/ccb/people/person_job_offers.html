@@ -16,7 +16,11 @@
 
 {% block details %}
     {% if not object_list %}
-        <p>{% trans "No objects found within the selected conditions." %}</p>
+        {% ifequal request.user object.user %}
+            {% navigation_links "menu_personal_activitie_job" using "navigation/includes/box.html" %}
+        {% else %}
+            <p>{% trans "No objects found within the selected conditions." %}</p>
+        {% endifequal %}
     {% else %}
         <div class="row job-list">
             {% for job_offer in object_list %}

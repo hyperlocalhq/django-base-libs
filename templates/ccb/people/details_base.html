@@ -20,16 +20,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <h1>
-                        {% ifequal request.user object.user %}
+                    {% comment %}
+                    {% ifequal request.user object.user %}
+                        <h1>
                             {% trans "My Profile" %}
-                        {% else %}
-                            <a href="{% page_url request.current_page %}">
-                                {% comment %}{% page_attribute "page_title" request.current_page %}{% endcomment %}
-                                {% trans "Person" %}
-                            </a>
-                        {% endifequal %}
-                    </h1>
+                            {% else %}
+                                <a href="{% page_url request.current_page %}">
+                                    {% trans "Person" %}
+                                </a>
+                        </h1>
+                    {% endifequal %}
+                    {% endcomment %}
                     <div class="profile">
 
                         <div class="edit-avatar avatar-edit-frame">
@@ -90,8 +91,8 @@
         <div class="menu tabs">
             <div class="container">
                 <div class="row">
-                    <div class="hidden-xs col-sm-4 col-md-3 headline">
-                        <h2>{% ifequal request.user object.user %}{% trans "My Profile" %}{% else %}{% trans "Person" %}{% endifequal %}</h2>
+                    <div class="col-sm-4 col-md-3 headline">
+                        <a href="{% url 'member_list_global' as member_list_global_url %}{{ member_list_global_url }}"><h2 class="fawesome fa-person">{% ifequal request.user object.user %}{% trans "My Profile" %}{% else %}{% trans "Person" %}{% endifequal %}</h2></a>
                     </div>
                     <div class="navi">
                         <nav>

@@ -32,6 +32,15 @@
 
     .is-xs & {
         margin-bottom: 30px;
+
+        > div {
+            a.content {
+                &:after {
+                    right: 20px;
+                    bottom: inherit;
+                }
+            }
+        }
     }
 
     > div, a.curated-list > div {
@@ -40,6 +49,15 @@
         .content {
             display: block;
             background: $grey-dark;
+
+            &:after {
+                position: absolute;
+                right: 19px;
+                bottom: 31px;
+                font-size: 1.2rem;
+                color: $white;
+            }
+
             &:hover, &:focus {
                 background: $black;
             }
@@ -56,13 +74,15 @@
                 h2 {
                     font-family: $font-1, $font-family-1;
                     font-weight: $font-black;
-                    font-size: 1.73em;
-                    line-height: 108%;
+                    font-size: 1.4rem;
+                    line-height: 119%;
                     color: $white;
                     padding-left: 20px;
-                    padding-right: 10px;
+                    padding-right: 35px;
                     padding-top: 30px;
                     margin: 0;
+                    word-break: break-word;
+                    word-wrap: break-word;
                 }
                 h3 {
                     font-family: $font-2, $font-family-1;
@@ -241,9 +261,23 @@
                 border-bottom: 1px solid $grey-bright;
                 padding-top: 20px;
                 position: relative;
+
+                &.fa-institution {
+                    background: $institution-bg;
+                }
+
+                &:after {
+                    position: absolute;
+                    right: 10px;
+                    top: 19px;
+                    font-size: 1.2rem;
+                    color: $black;
+                }
+
                 &:hover, &:focus {
                     background: $white-dirty;
                 }
+
                 img {
                     width: 100px;
                     float: left;
@@ -403,6 +437,17 @@
                 border-bottom: 1px solid $grey;
                 padding-top: 20px;
 
+                &.fa-institution, &.fa-institution:hover {
+                    background: $institution-bg;
+                }
+
+                &:after {
+                    position: absolute;
+                    top: 17px;
+                    font-size: 1.2rem;
+                    color: $black;
+                }
+
                 &:hover {
                     background: $white;
                 }
@@ -482,6 +527,7 @@
     .is-xs &.profile-list, .is-xs.list &.profile-list {
         > div {
             a.content {
+
                 img {
                     width: 80px;
                 }
@@ -498,7 +544,9 @@
                 .text, .name {
                     margin-left: 100px;
                     h2 {
-                        padding-right: 0;
+                        padding-right: 30px;
+                        word-break: break-word;
+                        word-wrap: break-word;
                     }
                     h3 {
                         padding-top: 3px;

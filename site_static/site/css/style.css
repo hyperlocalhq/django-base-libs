@@ -1201,6 +1201,14 @@ canvas.fawesome.big {
   content: "\f05a";
 }
 
+.fawesome.fa-person:before {
+  content: "\f21d";
+}
+
+.fawesome.fa-institution:before {
+  content: "\f19c";
+}
+
 .fawesome.fa-whatsapp.after:after {
   content: "\f232";
 }
@@ -1567,6 +1575,14 @@ canvas.fawesome.big {
 
 .fawesome.fa-info.after:after {
   content: "\f05a";
+}
+
+.fawesome.fa-person.after:after {
+  content: "\f21d";
+}
+
+.fawesome.fa-institution.after:after {
+  content: "\f19c";
 }
 
 html, body {
@@ -2777,6 +2793,7 @@ body.show-layer.image-layer .layer#image-layer {
   margin-right: 0px;
   font-weight: 400 !important;
   font-style: italic !important;
+  line-height: 1.42857143;
 }
 
 .photo-credits-over p {
@@ -2805,6 +2822,7 @@ body.show-layer.image-layer .layer#image-layer {
   display: block;
   font-weight: 400 !important;
   font-style: italic !important;
+  line-height: 1.42857143;
 }
 
 .photo-credits-beneath p {
@@ -2833,6 +2851,47 @@ body.show-layer.image-layer .layer#image-layer {
 #body .no-row-margin > .row {
   margin-left: 0px !important;
   margin-right: 0px !important;
+}
+
+.box {
+  width: 100%;
+  height: 250px;
+  background: #d8d8d8;
+  text-align: center;
+  display: block;
+}
+
+.box .fawesome {
+  color: #979797;
+  padding-top: 59px;
+  padding-bottom: 15px;
+  line-height: 3.07rem;
+}
+
+.is-xs .box .fawesome:before {
+  font-size: 2.7rem;
+}
+
+.box h3 {
+  color: #979797;
+  text-transform: none;
+  font-size: 1.7em;
+  line-height: 130%;
+  padding: 0 20px;
+}
+
+.is-sm .box h3 {
+  font-size: 1.5em;
+  line-height: 125%;
+  padding: 0 10px;
+}
+
+.box:hover {
+  background: #00cdff;
+}
+
+.box:hover .fawesome, .box:hover h3 {
+  color: #fff;
 }
 
 #navigation {
@@ -5085,7 +5144,12 @@ dd.autocomplete .input-field.ac_loading:after {
   margin-bottom: 30px;
 }
 
-.row.profile-grid > div, .row.profile-grid a.curated-list > div {
+.is-xs .row.profile-grid > div a.content:after {
+  right: 20px;
+  bottom: inherit;
+}
+
+.row.profile-grid > div {
   padding-bottom: 20px;
 }
 
@@ -5094,7 +5158,15 @@ dd.autocomplete .input-field.ac_loading:after {
   background: #444444;
 }
 
-.row.profile-grid > div .content:hover, .row.profile-grid > div .content:focus, .row.profile-grid a.curated-list > div .content:hover, .row.profile-grid a.curated-list > div .content:focus {
+.row.profile-grid > div a.content:after {
+  position: absolute;
+  right: 19px;
+  bottom: 31px;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.row.profile-grid > div a.content:hover, .row.profile-grid > div a.content:focus {
   background: #000;
 }
 
@@ -5115,13 +5187,15 @@ dd.autocomplete .input-field.ac_loading:after {
 .row.profile-grid > div .content .text h2, .row.profile-grid > div .content .name h2, .row.profile-grid a.curated-list > div .content .text h2, .row.profile-grid a.curated-list > div .content .name h2 {
   font-family: "MetronicSlabPro", "sans-serif";
   font-weight: 900;
-  font-size: 1.73em;
-  line-height: 108%;
+  font-size: 1.4rem;
+  line-height: 119%;
   color: #fff;
   padding-left: 20px;
-  padding-right: 10px;
+  padding-right: 35px;
   padding-top: 30px;
   margin: 0;
+  word-break: break-word;
+  word-wrap: break-word;
 }
 
 .row.profile-grid > div .content .text h3, .row.profile-grid > div .content .name h3, .row.profile-grid a.curated-list > div .content .text h3, .row.profile-grid a.curated-list > div .content .name h3 {
@@ -5296,6 +5370,18 @@ dd.autocomplete .input-field.ac_loading:after {
   position: relative;
 }
 
+.list .row.profile-grid.profile-list > div a.content.fa-institution {
+  background: #f4fcff;
+}
+
+.list .row.profile-grid.profile-list > div a.content:after {
+  position: absolute;
+  right: 10px;
+  top: 19px;
+  font-size: 1.2rem;
+  color: #000;
+}
+
 .list .row.profile-grid.profile-list > div a.content:hover, .list .row.profile-grid.profile-list > div a.content:focus {
   background: #efefef;
 }
@@ -5460,6 +5546,17 @@ dd.autocomplete .input-field.ac_loading:after {
   padding-top: 20px;
 }
 
+.is-xs .row.profile-grid > div a.content.fa-institution, .is-xs .row.profile-grid > div a.content.fa-institution:hover, .is-xs.list .row.profile-grid.profile-list > div a.content.fa-institution, .is-xs.list .row.profile-grid.profile-list > div a.content.fa-institution:hover {
+  background: #f4fcff;
+}
+
+.is-xs .row.profile-grid > div a.content:after, .is-xs.list .row.profile-grid.profile-list > div a.content:after {
+  position: absolute;
+  top: 17px;
+  font-size: 1.2rem;
+  color: #000;
+}
+
 .is-xs .row.profile-grid > div a.content:hover, .is-xs.list .row.profile-grid.profile-list > div a.content:hover {
   background: #fff;
 }
@@ -5562,7 +5659,9 @@ dd.autocomplete .input-field.ac_loading:after {
 }
 
 .is-xs .row.profile-grid.profile-list > div a.content .text h2, .is-xs .row.profile-grid.profile-list > div a.content .name h2, .is-xs.list .row.profile-grid.profile-list > div a.content .text h2, .is-xs.list .row.profile-grid.profile-list > div a.content .name h2 {
-  padding-right: 0;
+  padding-right: 30px;
+  word-break: break-word;
+  word-wrap: break-word;
 }
 
 .is-xs .row.profile-grid.profile-list > div a.content .text h3, .is-xs .row.profile-grid.profile-list > div a.content .name h3, .is-xs.list .row.profile-grid.profile-list > div a.content .text h3, .is-xs.list .row.profile-grid.profile-list > div a.content .name h3 {
@@ -7619,16 +7718,33 @@ ul.info-box li ul.content .line + * a:hover, ul.info-box li ul.content .line + *
   margin-bottom: 5px;
 }
 
+.row.event-grid a.content .event-grid-over {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+}
+
+.row.event-grid a.content .event-grid-over h2 {
+  position: static;
+}
+
+.row.event-grid a.content .event-grid-over p {
+  position: static;
+}
+
 .row.event-grid a.content:hover img, .row.event-grid a.content:focus img, .row.event-grid a.content.hover img {
   opacity: 0.33;
 }
 
 .row.event-grid a.content:hover h2, .row.event-grid a.content:focus h2, .row.event-grid a.content.hover h2 {
   visibility: visible;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
 }
 
 .row.event-grid a.content:hover p, .row.event-grid a.content:focus p, .row.event-grid a.content.hover p {
   visibility: visible;
+  margin-bottom: 10px;
 }
 
 .row.event-grid.magazine {
@@ -9687,6 +9803,10 @@ img[data-popup-image-src] {
   user-select: none;
 }
 
+.header.institution {
+  background: #f4fcff;
+}
+
 .is-xs .header.has-menu, .header.has-tabs {
   border-bottom: 1px solid #d8d8d8;
 }
@@ -9761,7 +9881,7 @@ img[data-popup-image-src] {
 .header .profile {
   width: 100%;
   height: 115px;
-  margin: 80px 0 0;
+  margin: 40px 0 0;
 }
 
 .is-sm .header .profile {
@@ -9771,7 +9891,7 @@ img[data-popup-image-src] {
 
 .is-xs .header .profile {
   height: auto;
-  margin: 50px 0 0;
+  margin: 30px 0 0;
   overflow: hidden;
   padding-bottom: 3.5%;
   position: relative;
@@ -10059,6 +10179,23 @@ img[data-popup-image-src] {
   padding-right: 10px;
 }
 
+.is-xs .header .menu > .container > .row > div.headline {
+  position: absolute;
+}
+
+.is-xs .header .menu > .container > .row > div.headline h2 {
+  font-size: 1.07rem;
+  line-height: 40px;
+  padding-right: 15px;
+}
+
+.is-xs .header .menu > .container > .row > div.headline h2:before {
+  font-size: 1rem;
+  line-height: 1rem;
+  margin-right: 5px;
+  margin-bottom: 4px;
+}
+
 .header .menu > .container > .row > div.navi {
   position: absolute;
   top: 0;
@@ -10187,6 +10324,24 @@ img[data-popup-image-src] {
 
 .header .menu.tabs h2 {
   padding-right: 0;
+}
+
+.header .menu.tabs h2.fawesome {
+  opacity: 1;
+  color: #000;
+}
+
+.header .menu.tabs h2.fawesome:before {
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  vertical-align: middle;
+}
+
+.header .menu.tabs a h2 {
+  cursor: pointer;
+  display: inline-block;
 }
 
 .header .menu.tabs ul li a {
@@ -10376,6 +10531,10 @@ img[data-popup-image-src] {
 
 .header.fixed .menu h2 {
   opacity: 1;
+}
+
+.header.fixed .menu h2.fawesome {
+  color: #d8d8d8;
 }
 
 .header.fixed .menu ul li a:hover, .header.fixed .menu ul li a.active {
