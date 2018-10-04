@@ -158,6 +158,7 @@ function doGuidedTour() {
             skipLabel: "{% trans 'close'  %}",
             hidePrev: true,
             hideNext: true,
+            disableInteraction: true,
             showBullets: !(!(steps.length > 1)),
             showStepNumbers: false,
             exitOnOverlayClick: false
