@@ -5,7 +5,7 @@ from ._import_from_heimat_base_xml import ImportFromHeimatBase
 class Command(ImportFromHeimatBase):
     help = "Imports productions and events from Sophiensaele"
 
-    IMPORT_URL = "http://sophiensaele.com/tool/cbstage.php"
+    IMPORT_URL = "https://sophiensaele.com/tool/cbstage.php"
 
     def prepare(self):
         from django.db import models
