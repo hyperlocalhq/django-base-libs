@@ -67,7 +67,9 @@
                                     <div class="item col-xs-12 col-sm-6 col-md-6 col-lg-4">
                                         <a href="{{ product.get_url_path }}">
                                             {% if product.image %}
-                                                <span class="img"><span class="photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="{{ product.title }}" />{% with product.image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}</span></span>
+                                                {% with product.image|file_description as file_desc %}
+                                                    <span class="img"><span class="photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="{% if file_desc.description %}{{ file_desc.description|remove_newlines|escape }}{% else %}{{ product.title }}{% endif %}" />{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}</span></span>
+                                                {% endwith %}
                                             {% endif %}
                                             {% if product.price %}
                                                 <span class="price pull-right">{{ product.price|currencyfmt:"€" }}</span>

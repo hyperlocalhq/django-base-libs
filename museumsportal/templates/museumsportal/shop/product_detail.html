@@ -53,12 +53,16 @@
                         </div>
                         <div class="col-xs-12 visible-xs">
                             <a href="{{ object.link }}" target="_blank" class="product-img-hidden-xs">
-                                <span class="img"><span class="photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{{ object.title }}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"shop_big" }}" />{% with object.image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}</span></span>
+                                {% with object.image|file_description as file_desc %}
+                                    <span class="img"><span class="photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{% if file_desc.description %}{{ file_desc.description|remove_newlines|escape }}{% else %}{{ object.title }}{% endif %}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"shop_big" }}" />{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}</span></span>
+                                {% endwith %}
                             </a>
                         </div>
                         <div class="col-xs-12">
                             <a href="{{ object.link }}" target="_blank" class="hidden-xs col-sm-6 product-img-hidden-xs">
-                                <span class="img"><span class="photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{{ object.title }}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"shop_small" }}" />{% with object.image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}</span></span>
+                                {% with object.image|file_description as file_desc %}
+                                    <span class="img"><span class="photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{% if file_desc.description %}{{ file_desc.description|remove_newlines|escape }}{% else %}{{ file_desc.description|remove_newlines|escape }}{% endif %}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"shop_small" }}" />{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}</span></span>
+                                {% endwith %}
                             </a>
                             {{ object.get_rendered_description }}
                             {% if object.price %}
@@ -150,7 +154,9 @@
                             <div class="item col-xs-12 col-sm-4 col-md-4 col-lg-3{% if forloop.counter == 4 %} hidden-sm hidden-md{% endif %}">
                                 <a href="{{ product.get_url_path }}">
                                     {% if product.image %}
-                                        <span class="img"><span class="photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="product.title" />{% with product.image|file_description as file_desc %}{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}{% endwith %}</span></span>
+                                        {% with product.image|file_description as file_desc %}
+                                            <span class="img"><span class="photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="{% if file_desc.description %}{{ file_desc.description|remove_newlines|escape }}{% else %}{{ product.title }}{% endif %}" />{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}</span></span>
+                                        {% endwith %}
                                     {% endif %}
                                     {% if product.price %}
                                         <span class="price pull-right">{{ product.price|currencyfmt:"€" }}</span>
