@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% load base_tags i18n image_modifications tagging_tags babel auth_extended favorites events_tags %}
+{% extends "base.html" %} {% load base_tags i18n image_modifications tagging_tags babel auth_extended favorites events_tags fb_tags %}
 {% block title %}{% trans "Event" %} – {{ object.title }} – {% endblock %}
 {% block bodyclass %}event-detail{% endblock %}
 
@@ -435,7 +435,9 @@
                               <div class="item col-xs-12 col-sm-4 col-md-4 col-lg-3{% if forloop.counter == 4 %} hidden-sm hidden-md{% endif %}">
                                   <a href="{{ product.get_url_path }}">
                                       {% if product.image %}
-                                          <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="product.title" /></span>
+                                          {% with product.image|file_description as file_desc %}
+                                              <span class="img"><span class="photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="{% if file_desc.description %}{{ file_desc.description|remove_newlines|escape }}{% else %}{{ product.title }}{% endif %}"/>{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}</span></span>
+                                          {% endwith %}
                                       {% endif %}
                                       {% if product.price %}
                                           <span class="price pull-right">{{ product.price|currencyfmt:"€" }}</span>

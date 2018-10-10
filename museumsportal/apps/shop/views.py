@@ -20,6 +20,7 @@ from jetson.apps.utils.decorators import login_required
 from jetson.apps.utils.views import object_list, object_detail
 from jetson.apps.utils.context_processors import prev_next_processor
 from jetson.apps.image_mods.models import FileManager
+from filebrowser.models import FileDescription
 
 from datetime import datetime, time
 
@@ -177,8 +178,8 @@ def shop_product_list(request):
         context_processors=(prev_next_processor,),
         extra_context=extra_context,
     )
-    
-    
+
+
 def shop_product_detail(request, slug):
     if "preview" in request.REQUEST:
         qs = ShopProduct.objects.all()
@@ -203,37 +204,56 @@ def shop_product_detail(request, slug):
 def add_shop_product(request):
     if not request.user.has_perm("shop.add_shopproduct"):
         return access_denied(request)
-        
+
     if request.method == "POST":
-    
+
         form = ShopProductForm(request.POST, request.FILES)
-        
+
         if 'reset' in request.POST:
             return redirect("dashboard_shopproducts")
-            
+
         if form.is_valid():
-        
+
             instance = form.save(commit=False)
-            
+
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
-            
+
             rel_dir = "shop/"
-            
+
             tmp_path = form.cleaned_data['image_path']
             abs_tmp_path = os.path.join(settings.MEDIA_ROOT, tmp_path)
-                
+
             fname, fext = os.path.splitext(tmp_path)
             filename = datetime.now().strftime("%Y%m%d%H%M%S") + fext
             dest_path = "".join((rel_dir, filename))
             FileManager.path_exists(os.path.join(settings.MEDIA_ROOT, rel_dir))
             abs_dest_path = os.path.join(settings.MEDIA_ROOT, dest_path)
-                
+
             shutil.copy2(abs_tmp_path, abs_dest_path)
-                
+
             os.remove(abs_tmp_path)
             instance.image = dest_path
-                
+
+
+            from filebrowser.base import FileObject
+
+            try:
+                file_description = FileDescription.objects.filter(
+                    file_path=FileObject(instance.image or path),
+                ).order_by("pk")[0]
+            except:
+                file_description = FileDescription(file_path=instance.image or path)
+
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
+                setattr(file_description, 'title_%s' % lang_code, form.cleaned_data['image_title_%s' % lang_code])
+                setattr(file_description, 'description_%s' % lang_code, form.cleaned_data['image_description_%s' % lang_code])
+            setattr(file_description, 'author', form.cleaned_data['image_author'])
+            # setattr(file_description, 'copyright_limitations', form.cleaned_data['copyright_limitations'])
+
+            file_description.save()
+
+
             instance.save()
             form.save_m2m()
 
@@ -242,7 +262,7 @@ def add_shop_product(request):
             return HttpResponseRedirect(reverse("dashboard_shopproducts") + "?status=%s" % instance.status)
     else:
         form = ShopProductForm()
-            
+
     return render(request, "shop/change_product.html", {'form': form})
 
 
@@ -261,46 +281,84 @@ def change_shop_product(request, slug):
 
     if not can_edit:
         return access_denied(request)
-        
+
     if request.method == "POST":
-        
+
         form = ShopProductForm(request.POST, request.FILES, instance=instance)
-        
+
         if 'reset' in request.POST:
             instance = form.save(commit=False)
             return HttpResponseRedirect(reverse("dashboard_shopproducts") + "?status=%s" % instance.status)
-        
+
         if form.is_valid():
-        
+
             instance = form.save(commit=False)
-            
+
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 setattr(instance, 'description_%s_markup_type' % lang_code, MARKUP_HTML_WYSIWYG)
-            
+
             tmp_path = form.cleaned_data['image_path']
             if tmp_path != "preset":
-            
+
                 rel_dir = "shop/"
                 abs_tmp_path = os.path.join(settings.MEDIA_ROOT, tmp_path)
-                
+
                 fname, fext = os.path.splitext(tmp_path)
                 filename = datetime.now().strftime("%Y%m%d%H%M%S") + fext
                 dest_path = "".join((rel_dir, filename))
                 FileManager.path_exists(os.path.join(settings.MEDIA_ROOT, rel_dir))
                 abs_dest_path = os.path.join(settings.MEDIA_ROOT, dest_path)
-                
+
                 shutil.copy2(abs_tmp_path, abs_dest_path)
-                
+
                 os.remove(abs_tmp_path)
                 instance.image = dest_path
-            
+
+
+            from filebrowser.base import FileObject
+
+            try:
+                file_description = FileDescription.objects.filter(
+                    file_path=FileObject(instance.image or path),
+                ).order_by("pk")[0]
+            except:
+                file_description = FileDescription(file_path=instance.image or path)
+
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
+                setattr(file_description, 'title_%s' % lang_code, form.cleaned_data['image_title_%s' % lang_code])
+                setattr(file_description, 'description_%s' % lang_code, form.cleaned_data['image_description_%s' % lang_code])
+            setattr(file_description, 'author', form.cleaned_data['image_author'])
+            # setattr(file_description, 'copyright_limitations', form.cleaned_data['copyright_limitations'])
+
+            file_description.save()
+
+
             instance.save()
             form.save_m2m()
-            
+
             return HttpResponseRedirect(reverse("dashboard_shopproducts") + "?status=%s" % instance.status)
     else:
+
+        try:
+            file_description = FileDescription.objects.filter(
+                file_path=FileObject(instance.image or path),
+            ).order_by("pk")[0]
+
+            instance.image_title_de = file_description.title_de
+            instance.image_title_en = file_description.title_en
+            instance.image_description_de = file_description.description_de
+            instance.image_description_en = file_description.description_de
+            instance.image_author = file_description.author
+
+        except:
+            instance.image_title_de = ''
+            instance.image_title_en = ''
+            instance.image_description_de = ''
+            instance.image_description_en = ''
+            instance.image_author = ''
+
         form = ShopProductForm(instance=instance)
-        
+
     return render(request, "shop/change_product.html", {'form': form, 'object': instance})
 
 
@@ -350,5 +408,3 @@ def change_shop_product_status(request, slug):
         instance.save()
         return HttpResponse("OK")
     return redirect(instance.get_url_path())
-    
-    

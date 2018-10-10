@@ -17,7 +17,7 @@ from museumsportal.utils.forms import PrimarySubmit
 from museumsportal.utils.forms import SecondarySubmit
 from museumsportal.utils.forms import ModelMultipleChoiceTreeField
 
-FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES) 
+FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES)
 
 ShopProduct = models.get_model("shop", "ShopProduct")
 ShopProductType = models.get_model("shop", "ShopProductType")
@@ -31,16 +31,46 @@ class ShopProductForm(autocomplete_light.ModelForm):
         widget=forms.TextInput(),
         required=True,
     )
-    
+
     product_types = ModelMultipleChoiceTreeField(
         label=_("Types"),
         required=False,
         queryset=ShopProductType.objects.all(),
     )
 
+    image_title_de = forms.CharField(
+        label=_('Caption')+' DE',
+        required=False,
+        max_length=255,
+    )
+
+    image_title_en = forms.CharField(
+        label=_('Caption')+' EN',
+        required=False,
+        max_length=255,
+    )
+
+    image_description_de = forms.CharField(
+        label=_('Description (will be used as alt attribute)')+' DE',
+        required=False,
+        max_length=255,
+    )
+
+    image_description_en = forms.CharField(
+        label=_('Description (will be used as alt attribute)')+' EN',
+        required=False,
+        max_length=255,
+    )
+
+    image_author = forms.CharField(
+        label=_('Copyright / Photographer'),
+        required=False,
+        max_length=255,
+    )
+
     class Meta:
         model = ShopProduct
-        
+
         fields = [
             'price', 'link', 'languages',
             'product_types',
@@ -66,7 +96,7 @@ class ShopProductForm(autocomplete_light.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ShopProductForm, self).__init__(*args, **kwargs)
-        
+
         self.fields['link'] = forms.URLField(
             label=_("Shop Link"),
         )
@@ -96,7 +126,7 @@ class ShopProductForm(autocomplete_light.ModelForm):
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "POST"
-        
+
         layout_blocks = []
 
         fieldset_content = []  # collect multilingual divs into one list...
@@ -133,7 +163,26 @@ class ShopProductForm(autocomplete_light.ModelForm):
             css_class="fieldset-basic-info",
             *fieldset_content
         ))
-        
+
+
+        fieldset_content = []
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
+                layout.Field('image_title_%s' % lang_code),
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
+        fieldset_content.append(layout.Row(
+            css_class="row-md",
+            *[layout.Div(
+                layout.Field('image_description_%s' % lang_code),
+                css_class="col-xs-6 col-sm-6 col-md-6 col-lg-6",
+            ) for lang_code, lang_name in FRONTEND_LANGUAGES]
+        ))
+        fieldset_content.append(
+            "image_author"
+        )
         layout_blocks.append(layout.Fieldset(
             _("Image"),
             layout.Field("image_path"),
@@ -159,8 +208,9 @@ class ShopProductForm(autocomplete_light.ModelForm):
             """),
             css_id="profile_image_upload",
             css_class="fieldset-pdf-files",
+            *fieldset_content
         ))
-        
+
         fieldset_content = []
         fieldset_content.append(
             "languages"
@@ -189,7 +239,7 @@ class ShopProductForm(autocomplete_light.ModelForm):
             css_class="fieldset-categories-tags",
             *fieldset_content
         ))
-        
+
         layout_blocks.append(layout.Fieldset(
             _("Related museums, exhibitions, events, and guided tours"),
             layout.Field("museums", placeholder=_("Type some text to search in your museums")),
@@ -203,7 +253,7 @@ class ShopProductForm(autocomplete_light.ModelForm):
             PrimarySubmit('submit', _('Save')),
             SecondarySubmit('reset', _('Cancel')),
         ))
-        
+
         self.helper.layout = layout.Layout(
             *layout_blocks
         )
@@ -213,4 +263,3 @@ class ShopProductForm(autocomplete_light.ModelForm):
         if ".." in data:
             raise forms.ValidationError(_("Double dots are not allowed in the file name."))
         return data
-
