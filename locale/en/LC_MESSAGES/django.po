@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-13 19:23+0200\n"
+"POT-Creation-Date: 2018-10-10 18:33+0200\n"
 "PO-Revision-Date: 2018-08-13 18:17+0053\n"
 "Last-Translator: Reinhard Knobelspies <knobelspies@mac.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -133,7 +133,7 @@ msgstr ""
 #: apps/institutions/forms.py:1237 apps/marketplace/forms.py:408
 #: apps/marketplace/forms.py:424 apps/marketplace/forms.py:431
 #: apps/marketplace/models.py:24 apps/media_gallery/admin.py:29
-#: apps/media_gallery/forms.py:345 apps/media_gallery/forms.py:388
+#: apps/media_gallery/forms.py:352 apps/media_gallery/forms.py:395
 #: apps/media_gallery/models.py:149 apps/site_specific/admin.py:40
 #: apps/site_specific/forms/events.py:1989
 #: apps/site_specific/forms/events.py:2017
@@ -336,8 +336,8 @@ msgstr ""
 #: apps/curated_lists/models.py:36 apps/editorial/models.py:29
 #: apps/events/base.py:222 apps/events/forms.py:915
 #: apps/institutions/forms.py:503 apps/marketplace/forms.py:83
-#: apps/media_gallery/forms.py:93 apps/media_gallery/forms.py:176
-#: apps/media_gallery/forms.py:258 apps/metro/models.py:18
+#: apps/media_gallery/forms.py:93 apps/media_gallery/forms.py:179
+#: apps/media_gallery/forms.py:265 apps/metro/models.py:18
 #: apps/navigation/admin.py:33 apps/site_specific/forms/events.py:197
 #: apps/site_specific/forms/institutions.py:136
 #: apps/site_specific/forms/marketplace.py:79
@@ -470,7 +470,7 @@ msgstr ""
 #: apps/institutions/forms.py:1460 apps/institutions/forms.py:1466
 #: apps/marketplace/forms.py:694 apps/marketplace/forms.py:700
 #: apps/marketplace/forms.py:706 apps/marketplace/forms.py:712
-#: apps/media_gallery/forms.py:402 apps/network/forms.py:20
+#: apps/media_gallery/forms.py:409 apps/network/forms.py:20
 #: apps/network/forms.py:27 apps/network/forms.py:33 apps/people/forms.py:20
 #: apps/people/forms.py:26 apps/people/forms.py:32 apps/people/forms.py:38
 #: apps/resources/forms.py:18 apps/resources/forms.py:24
@@ -488,7 +488,7 @@ msgstr ""
 
 #: apps/articles/forms.py:18 apps/bulletin_board/forms.py:614
 #: apps/events/forms.py:1871 apps/marketplace/forms.py:701
-#: apps/media_gallery/forms.py:403 apps/network/forms.py:28
+#: apps/media_gallery/forms.py:410 apps/network/forms.py:28
 #: apps/resources/forms.py:19 templates/ccb/articles/articles_detail.html:96
 #: templates/ccb/counselling_events/profile/categories.html:14
 #: templates/ccb/events/profile/categories.html:16
@@ -502,7 +502,7 @@ msgstr ""
 
 #: apps/articles/forms.py:31 apps/bulletin_board/forms.py:653
 #: apps/events/forms.py:1905 apps/institutions/forms.py:1481
-#: apps/marketplace/forms.py:727 apps/media_gallery/forms.py:416
+#: apps/marketplace/forms.py:727 apps/media_gallery/forms.py:423
 #: apps/network/forms.py:56 apps/people/forms.py:53 apps/resources/forms.py:39
 #: templates/ccb/bulletin_board/my_bulletin_list.html:18
 #: templates/ccb/site_specific/browsing.html:36
@@ -514,7 +514,7 @@ msgstr ""
 
 #: apps/articles/forms.py:36 apps/bulletin_board/forms.py:661
 #: apps/events/forms.py:1914 apps/institutions/forms.py:1489
-#: apps/marketplace/forms.py:735 apps/media_gallery/forms.py:421
+#: apps/marketplace/forms.py:735 apps/media_gallery/forms.py:428
 #: apps/network/forms.py:63 apps/people/forms.py:61 apps/resources/forms.py:45
 #: apps/search/cms_apps.py:10 apps/search/forms.py:22
 #: templates/admin/admin/owners.html:31
@@ -802,7 +802,7 @@ msgid ""
 msgstr ""
 
 #: apps/blog/forms.py:41 apps/events/forms.py:899 apps/events/models.py:44
-#: apps/media_gallery/forms.py:56 apps/media_gallery/forms.py:350
+#: apps/media_gallery/forms.py:56 apps/media_gallery/forms.py:357
 #: apps/people/models.py:49 apps/site_specific/forms/events.py:229
 #: apps/site_specific/forms/institutions.py:170
 #: apps/site_specific/forms/people.py:190
@@ -1407,7 +1407,7 @@ msgstr ""
 
 #: apps/bulletin_board/models.py:40 apps/bulletin_board/views.py:353
 #: apps/events/base.py:56 apps/external_services/models.py:14
-#: apps/external_services/models.py:70 apps/media_gallery/forms.py:334
+#: apps/external_services/models.py:70 apps/media_gallery/forms.py:341
 #: apps/partners/models.py:14 apps/partners/models.py:20
 #: apps/recommendations/models.py:18
 #: subtrees/base_libs/base_libs/models/models.py:213
@@ -1754,8 +1754,8 @@ msgid "Edit Curated List Description"
 msgstr ""
 
 #: apps/curated_lists/forms.py:41 apps/media_gallery/forms.py:101
-#: apps/media_gallery/forms.py:183 apps/media_gallery/forms.py:265
-#: apps/media_gallery/forms.py:395 apps/site_specific/forms/events.py:150
+#: apps/media_gallery/forms.py:186 apps/media_gallery/forms.py:272
+#: apps/media_gallery/forms.py:402 apps/site_specific/forms/events.py:150
 #: apps/site_specific/forms/events.py:202
 #: apps/site_specific/forms/events.py:262
 #: apps/site_specific/forms/events.py:731
@@ -2621,7 +2621,7 @@ msgid "Profile photo"
 msgstr ""
 
 #: apps/events/forms.py:894 apps/institutions/forms.py:487
-#: apps/media_gallery/forms.py:46 apps/media_gallery/forms.py:289
+#: apps/media_gallery/forms.py:46 apps/media_gallery/forms.py:296
 #: apps/site_specific/forms/events.py:224
 #: apps/site_specific/forms/groups_networks.py:92
 #: apps/site_specific/forms/institutions.py:165
@@ -2682,7 +2682,7 @@ msgstr ""
 #: templates/ccb/institutions/institution_list.html:83
 #: templates/ccb/media_gallery/gallery_detail/gallery_base.html:55
 #: templates/ccb/media_gallery/gallery_detail/gallery_listed.html:11
-#: templates/ccb/media_gallery/includes/latest_published_galleries.html:30
+#: templates/ccb/media_gallery/includes/latest_published_galleries.html:28
 #: templates/ccb/media_gallery/manage_gallery.html:62
 #: templates/ccb/media_gallery/manage_gallery.html:81
 #: templates/ccb/media_gallery/portfolio_overview.html:41
@@ -3917,7 +3917,7 @@ msgid ""
 msgstr ""
 
 #: apps/media_gallery/forms.py:119 apps/media_gallery/forms.py:125
-#: apps/media_gallery/forms.py:208
+#: apps/media_gallery/forms.py:211
 msgid "Video File"
 msgstr ""
 
@@ -3932,47 +3932,47 @@ msgid ""
 "vimeo.com/17853047)."
 msgstr ""
 
-#: apps/media_gallery/forms.py:131 apps/media_gallery/forms.py:213
+#: apps/media_gallery/forms.py:131 apps/media_gallery/forms.py:216
 msgid "Illustration File"
 msgstr ""
 
-#: apps/media_gallery/forms.py:133
+#: apps/media_gallery/forms.py:140
 #, python-format
 msgid ""
-"It will be used for the thumbnail. You can upload GIF, JPG, PNG, TIFF, and "
-"BMP images. The minimal dimensions are %s px."
+"It will be used for the thumbnail of uploaded FLV files. You can upload GIF, "
+"JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px."
 msgstr ""
 
-#: apps/media_gallery/forms.py:150
+#: apps/media_gallery/forms.py:153
 msgid "Upload Video"
 msgstr ""
 
-#: apps/media_gallery/forms.py:160
+#: apps/media_gallery/forms.py:163
 msgid "Link to External Video"
 msgstr ""
 
-#: apps/media_gallery/forms.py:170 apps/media_gallery/forms.py:252
+#: apps/media_gallery/forms.py:173 apps/media_gallery/forms.py:259
 msgid "Upload Illustration"
 msgstr ""
 
-#: apps/media_gallery/forms.py:196
+#: apps/media_gallery/forms.py:199
 msgid ""
 "You can only link to FLV files, Youtube video pages or Vimeo video pages."
 msgstr ""
 
-#: apps/media_gallery/forms.py:202
+#: apps/media_gallery/forms.py:205
 msgid "Audio File"
 msgstr ""
 
-#: apps/media_gallery/forms.py:203
+#: apps/media_gallery/forms.py:206
 msgid "You can upload only MP3 files."
 msgstr ""
 
-#: apps/media_gallery/forms.py:209
+#: apps/media_gallery/forms.py:212
 msgid "You can link to an MP3 file."
 msgstr ""
 
-#: apps/media_gallery/forms.py:215
+#: apps/media_gallery/forms.py:225
 #, python-format
 msgid ""
 "It will be used for the thumbnail of the audio file as well as for the "
@@ -3980,73 +3980,73 @@ msgid ""
 "images. The minimal dimensions are %s px."
 msgstr ""
 
-#: apps/media_gallery/forms.py:232
+#: apps/media_gallery/forms.py:239
 msgid "Upload Audio"
 msgstr ""
 
-#: apps/media_gallery/forms.py:242
+#: apps/media_gallery/forms.py:249
 msgid "Link to External Audio"
 msgstr ""
 
-#: apps/media_gallery/forms.py:276
+#: apps/media_gallery/forms.py:283
 msgid "You can only link to MP3 files. This is not MP3."
 msgstr ""
 
-#: apps/media_gallery/forms.py:282 apps/media_gallery/models.py:41
+#: apps/media_gallery/forms.py:289 apps/media_gallery/models.py:41
 #: templates/ccb/media_gallery/portfolio_settings.html:10
 msgid "Landing page"
 msgstr ""
 
-#: apps/media_gallery/forms.py:287
+#: apps/media_gallery/forms.py:294
 #: templates/ccb/media_gallery/portfolio_settings.html:13
 #: templates/ccb/media_gallery/portfolio_settings.html:18
 msgid "Image for landing page"
 msgstr ""
 
-#: apps/media_gallery/forms.py:297 apps/media_gallery/forms.py:314
+#: apps/media_gallery/forms.py:304 apps/media_gallery/forms.py:321
 msgid "Title in English"
 msgstr ""
 
-#: apps/media_gallery/forms.py:302 apps/media_gallery/forms.py:319
+#: apps/media_gallery/forms.py:309 apps/media_gallery/forms.py:326
 msgid "Title in German"
 msgstr ""
 
-#: apps/media_gallery/forms.py:307 apps/media_gallery/models.py:94
+#: apps/media_gallery/forms.py:314 apps/media_gallery/models.py:94
 msgid "Show title"
 msgstr ""
 
-#: apps/media_gallery/forms.py:324
+#: apps/media_gallery/forms.py:331
 msgid "Short Description in English"
 msgstr ""
 
-#: apps/media_gallery/forms.py:329
+#: apps/media_gallery/forms.py:336
 msgid "Short Description in German"
 msgstr ""
 
-#: apps/media_gallery/forms.py:338
+#: apps/media_gallery/forms.py:345
 msgid "Cover image"
 msgstr ""
 
-#: apps/media_gallery/forms.py:340
+#: apps/media_gallery/forms.py:347
 #, python-format
 msgid ""
 "If unspecified, the first image from the album will be used. You can upload "
 "GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px."
 msgstr ""
 
-#: apps/media_gallery/forms.py:355 apps/media_gallery/models.py:158
+#: apps/media_gallery/forms.py:362 apps/media_gallery/models.py:158
 msgid "Show image in portfolio"
 msgstr ""
 
-#: apps/media_gallery/forms.py:371
+#: apps/media_gallery/forms.py:378
 msgid "Change Album"
 msgstr ""
 
-#: apps/media_gallery/forms.py:371
+#: apps/media_gallery/forms.py:378
 msgid "Create Album"
 msgstr ""
 
-#: apps/media_gallery/forms.py:374 apps/media_gallery/forms.py:376
+#: apps/media_gallery/forms.py:381 apps/media_gallery/forms.py:383
 msgid "Cover Image"
 msgstr ""
 
@@ -6654,7 +6654,7 @@ msgstr ""
 #: templates/ccb/institutions/controls.html:30
 #: templates/ccb/institutions/includes/latest_published_institutions.html:42
 #: templates/ccb/marketplace/lists/job_offer_listed.html:45
-#: templates/ccb/media_gallery/includes/latest_published_galleries.html:41
+#: templates/ccb/media_gallery/includes/latest_published_galleries.html:36
 #: templates/ccb/media_gallery/lists/gallery_item.html:18
 #: templates/ccb/media_gallery/portfolio_overview.html:47
 #: templates/ccb/people/includes/latest_published_people.html:42
@@ -9696,7 +9696,7 @@ msgstr ""
 msgid "Next media file"
 msgstr ""
 
-#: templates/ccb/media_gallery/includes/latest_published_galleries.html:53
+#: templates/ccb/media_gallery/includes/latest_published_galleries.html:47
 msgid "There are no portfolios."
 msgstr ""
 
