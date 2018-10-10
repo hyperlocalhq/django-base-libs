@@ -46,112 +46,112 @@ Field | Type | Description
 id |	integer |	Unique identifier
 created |	string |	Creation date and time in a format "yyyy-mm-ddThh:mm:as"
 modified |	string |	Modification date and time in a format "yyyy-mm-ddThh:mm:ss"
-title_de |	string |	Title in German
-title_en |	string |	Title in English
-subtitle_de |	string |	Subtitle in German
-subtitle_en |	string |	Subtitle in English
-press_text_de |	string |	Press text in German
-press_text_en |	string |	Press text in English
-catalog_de |	string |	Catalog information in German
-catalog_en |	string |	Catalog information in English
-catalog_ordering_de |	string |	Catalog ordering link for German readers
-catalog_ordering_en |	string |	Catalog ordering link for English readers
-website_de |	string |	The URL of the exhibition at your website in German
-website_en |	string |	The URL of the exhibition at your website in English
+title\_de |	string |	Title in German
+title\_en |	string |	Title in English
+subtitle\_de |	string |	Subtitle in German
+subtitle\_en |	string |	Subtitle in English
+press\_text\_de |	string |	Press text in German
+press\_text\_en |	string |	Press text in English
+catalog\_de |	string |	Catalog information in German
+catalog\_en |	string |	Catalog information in English
+catalog\_ordering\_de |	string |	Catalog ordering link for German readers
+catalog\_ordering\_en |	string |	Catalog ordering link for English readers
+website\_de |	string |	The URL of the exhibition at your website in German
+website\_en |	string |	The URL of the exhibition at your website in English
 start |	string |	Start date in a format "yyyy-mm-dd"
 end |	string |	End date in a format "yyyy-mm-dd"
 vernissage |	string |	The date and time of the vernissage in a format "yyyy-mm-ddThh:mm"
 finissage |	string |	The date and time of the finissage in a format "yyyy-mm-ddThh:mm"
-exhibition_extended |	boolean |	Is this exhibition extended?
+exhibition\_extended |	boolean |	Is this exhibition extended?
 permanent |	boolean |	Is this exhibition permanent?
-museum_id |	integer |	Unique identifier of the museum
-location_name |	string |	Location name, when differs from museum
-street_address |	string | Street address
-street_address2 |	string |	Second line of street address
-postal_code |	string |	Postal code
+museum\_id |	integer |	Unique identifier of the museum
+location\_name |	string |	Location name, when differs from museum
+street\_address |	string | Street address
+street\_address2 |	string |	Second line of street address
+postal\_code |	string |	Postal code
 city |	string |	City
 country |	string |	Country code e.g. "de"
 latitude |	float |	Latitude
 longitude |	float |	Longitude
-other_locations_de |	string |	Other locations in German
-other_locations_en |	string |	Other locations in English
+other\_locations\_de |	string |	Other locations in German
+other\_locations\_en |	string |	Other locations in English
 organizers |	list |	List of additional organizers
-museum_prices |	boolean |	Are the prices the same as at the museum?
-free_entrance |	boolean |	Is the entrance free?
-admission_price |	string |	Admission price in Euros, e.g. "12.00"
-admission_price_info_de |	string |	Admission price information in German
-admission_price_info_en |	string |	Admission price information in English
-reduced_price |	string |	Reduced admission price in Euros e.g. "8.00"
-reduced_price_info_de |	string |	Reduced admission price information in German
-reduced_price_info_en |	string |	Reduced admission price information in English
-museum_opening_hours |	boolean |	Opening hours of the museum
+museum\_prices |	boolean |	Are the prices the same as at the museum?
+free\_entrance |	boolean |	Is the entrance free?
+admission\_price |	string |	Admission price in Euros, e.g. "12.00"
+admission\_price\_info\_de |	string |	Admission price information in German
+admission\_price\_info\_en |	string |	Admission price information in English
+reduced\_price |	string |	Reduced admission price in Euros e.g. "8.00"
+reduced\_price\_info\_de |	string |	Reduced admission price information in German
+reduced\_price\_info\_en |	string |	Reduced admission price information in English
+museum\_opening\_hours |	boolean |	Opening hours of the museum
 seasons |	list |	List of season objects (one or none items)
-suitable_for_disabled |	boolean |	Is the exhibition suitable for disabled?
-suitable_for_disabled_info_de |	string |	Information in German about suitability for disabled people
-suitable_for_disabled_info_en |	string |	Information in English about suitability for disabled people
-is_for_children |	boolean |	Is the exhibition suitable for children?
-media_files |	list |	List of media files
+suitable\_for\_disabled |	boolean |	Is the exhibition suitable for disabled?
+suitable\_for\_disabled\_info\_de |	string |	Information in German about suitability for disabled people
+suitable\_for\_disabled\_info\_en |	string |	Information in English about suitability for disabled people
+is\_for\_children |	boolean |	Is the exhibition suitable for children?
+media\_files |	list |	List of media files
 
 Exhibition **organizers** should have these fields:
 
 Field |	Type |	Description
 ---|---|---
-organizing_museum_id |	string | Unique identifier of a museum
-organizer_title |	string |	Organizer title if not organized by a museum
-organizer_url_link |	string |	Organizer URL if not organized by a museum
+organizing\_museum\_id |	string | Unique identifier of a museum
+organizer\_title |	string |	Organizer title if not organized by a museum
+organizer\_url\_link |	string |	Organizer URL if not organized by a museum
 
 Exhibition **seasons** should have these fields:
 
 Field |	Type |	Description
 ---|---|---
-is_appointment_based |	boolean |	Are the visits based on appointments?
-is_open_24_7 |	boolean |	Is open 24/7?
-mon_open |	string |	Opening time on Mondays in a format "hh:mm"
-mon_close |	string |	Closing time on Mondays in a format "hh:mm"
-mon_break_close |	string |	Start time of the break on Mondays in a format "hh:mm"
-mon_break_open |	string |	End time of the break on Mondays in a format "hh:mm"
-tue_open |	string |	Opening time on Tuesdays in a format "hh:mm"
-tue_close |	string |	Closing tine on Tuesdays in a format "hh:mm"
-tue_break_close |	string |	Start time of the break on Tuesdays in a format "hh:mm"
-tue_break_open |	string |	End time of the break on Tuesdays in a format "hh:mm"
-wed_open |	string |	Opening time on Wednesdays in a format "hh:mm"
-wed_close |	string |	Closing time on Wednesdays in a format "hh:mm"
-wed_break_close |	string |	Start time of the break on Wednesdays in a format "hh:mm"
-wed_break_open |	string |	End time of the break on Wednesdays in a format "hh:mm"
-thu_open |	string |	Opening time on Thursdays in a format "hh:mm"
-thu_close |	string |	Closing time on Thursdays in a format "hh:mm"
-thu_break_close |	string |	Start time of the break on Thursdays in a format "hh:mm"
-thu_break_open |	string |	End time of the break on Thursdays in a format "hh:mm"
-fri_open |	string |	Opening time on Fridays in a format "hh:mm"
-fri_close |	string |	Closing time on Fridays in a format "hh:mm"
-fri_break_close |	string |	Start time of the break on Fridays in a format "hh:mm"
-fri_break_open |	string |	End time of the break on Fridays in a format "hh:mm"
-sat_open |	string |	Opening time on Saturdays in a format "hh:mm"
-sat_close |	string |	Closing time on Saturdays in a format "hh:mm"
-sat_break_close |	string |	Start time of the break on Saturdays in a format "hh:mm"
-sat_break_open |	string |	End time of the break on Saturdays in a format "hh:mm"
-sun_open |	string |	Opening time on Sundays in a format "hh:mm"
-sun_close |	string |	Closing time on Sundays in a format "hh:mm"
-sun_break_close |	string |	Start time of the break on Sundays in a format "hh:mm"
-sun_break_open |	string |	End time of the break on Sundays in a format "hh:mm"
-exceptions_de |	string |	Exceptional opening hours in German
-exceptions_en |	string |	Exceptional opening hours in English
-last_entry_de |	string |	Information about last entry in German
-last_entry_en |	string |	Information about last entry in English
+is\_appointment_based |	boolean |	Are the visits based on appointments?
+is\_open\_24\_7 |	boolean |	Is open 24/7?
+mon\_open |	string |	Opening time on Mondays in a format "hh:mm"
+mon\_close |	string |	Closing time on Mondays in a format "hh:mm"
+mon\_break\_close |	string |	Start time of the break on Mondays in a format "hh:mm"
+mon\_break\_open |	string |	End time of the break on Mondays in a format "hh:mm"
+tue\_open |	string |	Opening time on Tuesdays in a format "hh:mm"
+tue\_close |	string |	Closing tine on Tuesdays in a format "hh:mm"
+tue\_break\_close |	string |	Start time of the break on Tuesdays in a format "hh:mm"
+tue\_break\_open |	string |	End time of the break on Tuesdays in a format "hh:mm"
+wed\_open |	string |	Opening time on Wednesdays in a format "hh:mm"
+wed\_close |	string |	Closing time on Wednesdays in a format "hh:mm"
+wed\_break\_close |	string |	Start time of the break on Wednesdays in a format "hh:mm"
+wed\_break\_open |	string |	End time of the break on Wednesdays in a format "hh:mm"
+thu\_open |	string |	Opening time on Thursdays in a format "hh:mm"
+thu\_close |	string |	Closing time on Thursdays in a format "hh:mm"
+thu\_break\_close |	string |	Start time of the break on Thursdays in a format "hh:mm"
+thu\_break\_open |	string |	End time of the break on Thursdays in a format "hh:mm"
+fri\_open |	string |	Opening time on Fridays in a format "hh:mm"
+fri\_close |	string |	Closing time on Fridays in a format "hh:mm"
+fri\_break\_close |	string |	Start time of the break on Fridays in a format "hh:mm"
+fri\_break\_open |	string |	End time of the break on Fridays in a format "hh:mm"
+sat\_open |	string |	Opening time on Saturdays in a format "hh:mm"
+sat\_close |	string |	Closing time on Saturdays in a format "hh:mm"
+sat\_break\_close |	string |	Start time of the break on Saturdays in a format "hh:mm"
+sat\_break\_open |	string |	End time of the break on Saturdays in a format "hh:mm"
+sun\_open |	string |	Opening time on Sundays in a format "hh:mm"
+sun\_close |	string |	Closing time on Sundays in a format "hh:mm"
+sun\_break\_close |	string |	Start time of the break on Sundays in a format "hh:mm"
+sun\_break\_open |	string |	End time of the break on Sundays in a format "hh:mm"
+exceptions\_de |	string |	Exceptional opening hours in German
+exceptions\_en |	string |	Exceptional opening hours in English
+last\_entry\_de |	string |	Information about last entry in German
+last\_entry\_en |	string |	Information about last entry in English
 
 Exhibition **media_files** should have these fields:
 
 Field |	Type |	Description
 ---|---|---
-created | 	string |	Creation date and time in a format "yyyy-mm-ddThh:mm:ss"
-modified |	string |	Modification date and time in a format "yyyy-mm-ddThh:mm:ss"
+created | string |	Creation date and time in a format "yyyy-mm-ddThh:mm:ss"
+modified | string |	Modification date and time in a format "yyyy-mm-ddThh:mm:ss"
 url |	string |	High-quality image URL
-title_de |	string |	Title in German
-title_en |	string |	Title in English
-description_de |	string |	Description in German
-description_en |	string |	Description in English
+title\_de |	string |	Title in German
+title\_en |	string |	Title in English
+description\_de |	string |	Description in German
+description\_en |	string |	Description in English
 author |	string |	Author and Copyright
-copyright_limitations |	string |	Additional Copyright Information
+copyright\_limitations |	string |	Additional Copyright Information
 
 So when accessed by **http://yourwebsite.de/api/exhibitions/?api_key=abc123** or similar path, we should get information about exhibitions in the following JSON format:
 
@@ -281,45 +281,45 @@ Field |	Type |	Description
 id |	integer |	Unique identifier
 created |	string |	Creation date and time in a fornat "yyyy-mm-ddThh:mm:ss"
 modified |	string |	Modification date and time in a format "yyyy-mm-ddThh:mm:ss"
-title_de |	string |	Title in German
-title_en |	string |	Title in English
-subtitle_de |	string |	Subtitle in German
-subtitle_en |	string |	Subtitle in English
-press_text_de | string | Press text in German
-press_text_en | string | Press text in English
-event_type_de |	string |	Event type in German
-event_type_en |	string |	Event type in English
-website_de |	string |	The URL of the event at your website in German
-website_en |	string |	The URL of the event at your website in English
-event_times |	list |	List of event times
-museum_id |	integer |	The ID of the museum
-location_name |	string |	Location name, when differs from museum
-street_address |	string | Street address
-street_address2 |	string |	Second line of street address
-postal_code |	string |	Postal code
+title\_de |	string |	Title in German
+title\_en |	string |	Title in English
+subtitle\_de |	string |	Subtitle in German
+subtitle\_en |	string |	Subtitle in English
+press\_text\_de | string | Press text in German
+press\_text\_en | string | Press text in English
+event\_type\_de |	string |	Event type in German
+event\_type\_en |	string |	Event type in English
+website\_de |	string |	The URL of the event at your website in German
+website\_en |	string |	The URL of the event at your website in English
+event\_times |	list |	List of event times
+museum\_id |	integer |	The ID of the museum
+location\_name |	string |	Location name, when differs from museum
+street\_address |	string | Street address
+street\_address2 |	string |	Second line of street address
+postal\_code |	string |	Postal code
 city |	string |	City
 country |	string |	Country code e.g. "de"
 latitude |	float |	Latitude
 longitude |	float |	Longitude
-meeting_place_de |	string |	Meeting place in German
-meeting_place_en |	string |	Meeting place in English
+meeting\_place\_de |	string |	Meeting place in German
+meeting\_place\_en |	string |	Meeting place in English
 organizers |	list |	List of organizers
-exhibition_id |	integer |	The ID of the related exhibition
+exhibition\_id |	integer |	The ID of the related exhibition
 languages |	list |	List of language codes
-free_admission |	boolean |	Is the admission free?
-admission_price |	string |	Admission price in Euros, e.g. "12.00"
-admission_price_info_de |	string |	Admission price information in German
-admission_price_info_en |	string |	Admission price information in English
-reduced_price |	string |	Reduced admission price in Euros e.g. "8.00"
-booking_info_de |	string |	Booking information in German
-booking_info_en |	string |	Booking information in English
-media_files |	list |	List of media files
+free\_admission |	boolean |	Is the admission free?
+admission\_price |	string |	Admission price in Euros, e.g. "12.00"
+admission\_price\_info\_de |	string |	Admission price information in German
+admission\_price\_info\_en |	string |	Admission price information in English
+reduced\_price |	string |	Reduced admission price in Euros e.g. "8.00"
+booking\_info\_de |	string |	Booking information in German
+booking\_info\_en |	string |	Booking information in English
+media\_files |	list |	List of media files
 
 The **event_times** should have these fields:
 
 Field |	Type |	Description
 ---|---|---
-event_date |	string |	Event date in a format "yyyy-mm-dd"
+event\_date |	string |	Event date in a format "yyyy-mm-dd"
 start |	string |	Start time in a format "hh:mm"
 end |	string |	End tine in a format "hh:mm"
 
@@ -327,9 +327,9 @@ Event **organizers** should have these fields:
 
 Field |	Type |	Description
 ---|---|---
-organizing_museum_id |	string | Unique identifier of a museum
-organizer_title |	string |	Organizer title if not organized by a museum
-organizer_url_link |	string |	Organizer URL if not organized by a museum
+organizing\_museum\_id |	string | Unique identifier of a museum
+organizer\_title |	string |	Organizer title if not organized by a museum
+organizer\_url\_link |	string |	Organizer URL if not organized by a museum
 
 Event **media_files** should have these fields:
 
@@ -338,10 +338,10 @@ Field |	Type |	Description
 created | string |	Creation date and time in a format "yyyy-mm-ddThh:mm:ss"
 modified |	string |	Modification date and time in a format "yyyy-mm-ddThh:mm:ss"
 url |	string |	High-quality image URL
-title_de |	string |	Title in German
-title_en |	string |	Title in English
-description_de |	string |	Description in German
-description_en |	string |	Description in English
+title\_de |	string |	Title in German
+title\_en |	string |	Title in English
+description\_de |	string |	Description in German
+description\_en |	string |	Description in English
 author |	string |	Author and Copyright
 
 So when accessed by **http://yourwebsite.de/api/events/?api_key=abc123** or similar path, we should get information about events in the following JSON format:
@@ -427,55 +427,55 @@ Field |	Type |	Description
 id |	integer |	Unique identifier
 created |	string |	Creation date and time in a fornat "yyyy-mm-ddThh:mm:ss"
 modified |	string |	Modification date and time in a format "yyyy-mm-ddThh:mm:ss"
-title_de |	string |	Title in German
-title_en |	string | Title in English
-subtitle_de |	string |	Subtitle in German
-subtitle_en |	string |	Subtitle in English
-press_text_de | string | Press text in German
-press_text_en | string | Press text in English
-workshop_type_de |	string |	Workshop type in German
-workshop_type_en |	string |	Workshop type in English
-website_de |	string |	External website in German
-website_en |	string |	External website in English
-workshop_times |	list |	List of workshop times
-museum_id |	integer |	The ID of the museum
-location_name |	string |	Location name, when differs from museum
-street_address |	string | Street address
-street_address2 |	string |	Second line of street address
-postal_code |	string |	Postal code
+title\_de |	string |	Title in German
+title\_en |	string | Title in English
+subtitle\_de |	string |	Subtitle in German
+subtitle\_en |	string |	Subtitle in English
+press\_text\_de | string | Press text in German
+press\_text\_en | string | Press text in English
+workshop\_type\_de |	string |	Workshop type in German
+workshop\_type\_en |	string |	Workshop type in English
+website\_de |	string |	External website in German
+website\_en |	string |	External website in English
+workshop\_times |	list |	List of workshop times
+museum\_id |	integer |	The ID of the museum
+location\_name |	string |	Location name, when differs from museum
+street\_address |	string | Street address
+street\_address2 |	string |	Second line of street address
+postal\_code |	string |	Postal code
 city |	string |	City
 country |	string |	Country code e.g. "de"
 latitude |	float |	Latitude
 longitude |	float |	Longitude
-meeting_place_de |	string |	Meeting place in German
-meeting_place_en |	string |	Meeting place in English
+meeting\_place\_de |	string |	Meeting place in German
+meeting\_place\_en |	string |	Meeting place in English
 organizers |	list |	List of organizers
-exhibition_id |	integer |	The ID of the related exhibition
+exhibition\_id |	integer |	The ID of the related exhibition
 languages |	list |	List of language codes
-free_admission |	boolean |	Is the admission free?
-admission_price |	string |	Admission price in Euros, e.g. "12.00"
-admission_price_info_de |	string |	Admission price information in German
-admission_price_info_en |	string |	Admission price information in English
-reduced_price |	string |	Reduced admission price in Euros e.g. "8.00"
-booking_info_de |	string |	Booking information in German
-booking_info_en |	string |	Booking information in English
-has_group_offer |	boolean |	Has bookable group offer?
-is_for_preschool |	boolean |	Is special for preschool children (up to 5 years)?
-is_for_primary_school |	boolean |	Is special for children of primary school age (6-12 years)?
-is_for_youth |	boolean |	Is special for youth (aged 13 years)?
-is_for_families |	boolean |	Is special for families?
-is_for_wheelchaired |	boolean |	Is special for people in wheelchairs?
-is_for_deaf |	boolean |	Is special for deaf people?
-is_for_blind |	boolean |	Is special for blind people?
-is_for_learning_difficulties |	boolean |	Is special for people with learning difficulties?
-media_files |	list |	List of media files
+free\_admission |	boolean |	Is the admission free?
+admission\_price |	string |	Admission price in Euros, e.g. "12.00"
+admission\_price\_info\_de |	string |	Admission price information in German
+admission\_price\_info\_en |	string |	Admission price information in English
+reduced\_price |	string |	Reduced admission price in Euros e.g. "8.00"
+booking\_info\_de |	string |	Booking information in German
+booking\_info\_en |	string |	Booking information in English
+has\_group\_offer |	boolean |	Has bookable group offer?
+is\_for\_preschool |	boolean |	Is special for preschool children (up to 5 years)?
+is\_for\_primary\_school |	boolean |	Is special for children of primary school age (6-12 years)?
+is\_for\_youth |	boolean |	Is special for youth (aged 13 years)?
+is\_for\_families |	boolean |	Is special for families?
+is\_for\_wheelchaired |	boolean |	Is special for people in wheelchairs?
+is\_for\_deaf |	boolean |	Is special for deaf people?
+is\_for\_blind |	boolean |	Is special for blind people?
+is\_for\_learning\_difficulties |	boolean |	Is special for people with learning difficulties?
+media\_files |	list |	List of media files
 types | list | List of types
 
 The **workshop_times** should have these fields:
 
 Field |	Type |	Description
 ---|---|---
-workshop_date |	string |	Workshop date in a format "yyyy-mm-dd"
+workshop\_date |	string |	Workshop date in a format "yyyy-mm-dd"
 start |	string |	Start time in a format "hh:mm"
 end |	string |	End tine in a format "hh:mm"
 
@@ -483,9 +483,9 @@ Workshop **organizers** should have these fields:
 
 Field |	Type |	Description
 ---|---|---
-organizing_museum_id |	string | Unique identifier of a museum
-organizer_title |	string |	Organizer title if not organized by a museum
-organizer_url_link |	string |	Organizer URL if not organized by a museum
+organizing\_museum\_id |	string | Unique identifier of a museum
+organizer\_title |	string |	Organizer title if not organized by a museum
+organizer\_url\_link |	string |	Organizer URL if not organized by a museum
 
 Workshop **media_files** should have these fields:
 
@@ -494,10 +494,10 @@ Field |	Type |	Description
 created | string |	Creation date and time in a fornat "yyyy-mm-ddThh:mm:ss"
 modified |	string |	Modification date and time in a format "yyyy-mm-ddThh:mm:ss"
 url |	string |	High-quality image URL
-title_de |	string |	Title in German
-title_en |	string |	Title in English
-description_de |	string |	Description in German
-description_en |	string |	Description in English
+title\_de |	string |	Title in German
+title\_en |	string |	Title in English
+description\_de |	string |	Description in German
+description\_en |	string |	Description in English
 author |	string |	Author and Copyright
 
 Workshop **types** will be matched to "Workshops" or "Guided Tours" at Museumsportal. Workshop **types** should have these fields:
@@ -505,8 +505,8 @@ Workshop **types** will be matched to "Workshops" or "Guided Tours" at Museumspo
 Field |	Type |	Description
 ---|---|---
 id |	string | Unique identifier of a type
-title_de |	string |	Title in German
-title_en |	string |	Title in English
+title\_de |	string |	Title in German
+title\_en |	string |	Title in English
 
 So when accessed by **http://yourwebsite.de/api/workshops/?api_key=abc123** or similar path, we should get information about workshops and guided tours in the following JSON format:
 
