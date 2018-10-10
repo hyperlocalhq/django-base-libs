@@ -145,6 +145,15 @@ The `<production>` node has the following elements:
 
 This is a list of all available locations and stages with location IDs and stage IDs to enter as values at `<location_id>` and `<stage_id>`:
 
+<!--
+>>> from berlinbuehnen.apps.locations.models import Location
+>>> ls = Location.objects.all()
+>>> for l in ls:
+    print u'- {0} (Location ID = {1})'.format(l.title, l.pk)
+    for s in l.stage_set.all():
+        print u'  - {0} (Stage ID = {1})'.format(s.title, s.pk)        
+-->
+
 - Acker Stadt Palast (Location ID = 68)
 - ACUD Theater (Location ID = 69)
 - Admiralspalast (Location ID = 53)
@@ -418,6 +427,15 @@ For example, if a production is organized by "Volksbühne Berlin" and happens in
 
 This is a list of all available categories and subcategories with IDs to enter as values at `<category_id>`:
 
+<!--
+>>> from berlinbuehnen.apps.productions.models import ProductionCategory
+>>> cs = ProductionCategory.objects.filter(parent=None)
+>>> for c in cs:
+    print u'- {0} | {1} (Category ID = {2})'.format(c.title_de, c.title_en, c.pk)
+    for s in c.children.all():
+        print u'  - {0} | {1} (Category ID = {2})'.format(s.title_de, s.title_en, s.pk)
+-->
+
 - Schauspiel | Theatre (Category ID = 1)
   - Boulevardtheater | Boulevard Theatre (Category ID = 11)
   - Dokumentarisches Theater | Documentary Theatre (Category ID = 12)
@@ -518,6 +536,13 @@ For example, if a production can be classified as "Tanz", "Ballet", and "Neue Me
 
 This is a list of all available characteristics with IDs to enter as values at `<characteristic_id>` of the production:
 
+<!--
+>>> from berlinbuehnen.apps.productions.models import ProductionCharacteristics
+>>> ps = ProductionCharacteristics.objects.all()
+>>> for p in ps:
+    print u'- {0} | {1} (ID = "{2}")'.format(p.title_de, p.title_en, p.slug)
+-->
+
 - On Tour | On Tour (ID = "on-tour")
 - Gastspiel | Guest Play (ID = "gastspiel")
 - Repertoire | Repertoire (ID = "repertoire")
@@ -573,6 +598,13 @@ Either `<involvement_type_id>`, or `<role_*>`, or `<instrument_*>` should be pro
 
 Prefixes and their IDs are these:
 
+<!--
+>>> from berlinbuehnen.apps.people.models import Prefix 
+>>> ps = Prefix.objects.all()
+>>> for p in ps:
+    print u'- {0} | {1} (ID = "{2}")'.format(p.title_de, p.title_en, p.slug)
+-->
+
 - Herr | Mr. (ID = "mr")
 - Frau | Mrs./Ms. (ID = "ms")
 - Dr. | Dr. (ID = "dr")
@@ -585,6 +617,13 @@ Prefixes and their IDs are these:
 - Frau Prof. Dr. | Ms. Prof. Dr. (ID = "ms-prof-dr")
 
 Involvement types and their IDs are these:
+
+<!--
+>>> from berlinbuehnen.apps.people.models import InvolvementType 
+>>> its = InvolvementType.objects.all()
+>>> for it in its:
+    print u'- {0} | {1} (ID = "{2}")'.format(it.title_de, it.title_en, it.slug)
+-->
 
 - Ausstatter/-in | Decorator (ID = "ausstatter")
 - Bühnenbildner/-in | Scene builder (ID = "buhnenbildner")
@@ -802,6 +841,13 @@ For example, Twitter and Facebook profiles for the production can be defined lik
 
 This is a list of choices for the `<language_and_subtitles_id>` node:
 
+<!--
+>>> from berlinbuehnen.apps.productions.models import LanguageAndSubtitles
+>>> ls = LanguageAndSubtitles.objects.all()
+>>> for l in ls:
+    print u'- {0} | {1} (ID = "{2}")'.format(l.title_de, l.title_en, l.slug)
+-->
+
 - In englischer Sprache | In English (ID = "in-englischer-sprache")
 - Sprache kein Problem | Language no Problem (ID = "sprache-kein-problem")
 - Mit englischen Übertiteln | With English surtitles (ID = "mit-engl-uebertiteln")
@@ -919,6 +965,13 @@ These elements are available for the `<event>` node:
 ### The Event Characteristics ###
 
 This is a list of all available characteristics with IDs to enter as values at `<characteristic_id>` of the event:
+
+<!--
+>>> from berlinbuehnen.apps.productions.models import EventCharacteristics
+>>> es = EventCharacteristics.objects.all()
+>>> for e in es:
+    print u'- {0} | {1} (ID = "{2}")'.format(e.title_de, e.title_en, e.slug)
+-->
 
 - Premiere | Premiere (ID = "premiere")
 - Deutsche Erstaufführung | Premiere in Germany (ID = "deutsche-erstauffuehrung")
