@@ -50,9 +50,20 @@ HTTPSTATE_COOKIE_HTTPONLY = True
 CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
 
-# Let's try to disable caching to see if the broken-navigation-urls issue still happening
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    "default": {
+        "BACKEND": "django.core.cache.backends.memcached.PyLibMCCache",
+        "LOCATION": "127.0.0.1:11212",
+        "KEY_PREFIX": "ccb_production_",
+        "TIMEOUT": 3000,
+        "MAX_ENTRIES": 4000,
     }
 }
+
+
+# Let's try to disable caching to see if the broken-navigation-urls issue still happening
+#CACHES = {
+#    'default': {
+#        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+#    }
+#}
