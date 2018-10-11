@@ -17,7 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Translated-Using: django-rosetta 0.7.6\n"
+"X-Translated-Using: django-rosetta 0.7.13\n"
 
 #: apps/accounts/forms.py:53 apps/accounts/forms.py:336
 #: apps/bulletin_board/models.py:146 apps/events/forms.py:221
@@ -3957,8 +3957,8 @@ msgstr ""
 #: apps/media_gallery/forms.py:140
 #, python-format
 msgid ""
-"It will be used for the thumbnail. You can upload GIF, JPG, PNG, TIFF, and "
-"BMP images. The minimal dimensions are %s px."
+"It will be used for the thumbnail of uploaded FLV files. You can upload GIF, "
+"JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px."
 msgstr ""
 
 #: apps/media_gallery/forms.py:153
@@ -6046,6 +6046,8 @@ msgstr ""
 msgid "Translations"
 msgstr ""
 
+#: templates/admin/admin/includes/navigation.html:15
+#: templates/admin/admin/includes/navigation.html:18
 #: templates/admin/admin/institutions/institution/mailchimp_subscribe_selected.html:9
 #: templates/admin/admin/institutions/institution/merge_selected.html:19
 #: templates/admin/admin/owners.html:12
@@ -6751,10 +6753,8 @@ msgid "No posts are available"
 msgstr ""
 
 #: templates/ccb/articles/magazine_overview.html:177
-#, fuzzy
-#| msgid "From our Partner"
 msgid "From our network partner"
-msgstr "From our network partners"
+msgstr "Von unseren Netzwerkpartnern"
 
 #: templates/ccb/articles/news_under_category.html:9
 #, python-format
@@ -6830,6 +6830,9 @@ msgstr ""
 #: templates/ccb/base.html:301 templates/ccb/base_counselling.html:72
 #: templates/ccb/base_counselling.html:288
 #: templates/ccb/base_counselling.html:298 templates/ccb/base_iframe.html:29
+#: templates/ccb/curated_lists/curated_list_detail.html:111
+#: templates/ccb/curated_lists/curated_list_detail.html:129
+#: templates/ccb/curated_lists/curated_list_detail.html:177
 #: templates/ccb/styleguide/base.html:36 templates/ccb/styleguide/base.html:258
 #: templates/ccb/styleguide/base.html:268
 msgid "close"
@@ -7129,6 +7132,7 @@ msgstr ""
 
 #: templates/ccb/bootstrap3/custom_widgets/previous_button.html:3
 #: templates/ccb/ccb_form/custom_widgets/previous_button.html:3
+#: templates/ccb/curated_lists/curated_list_detail.html:39
 #: templates/ccb/utils/step_buttons.html:6
 #: templates/ccb/utils/step_buttons_reg.html:6
 msgid "Previous"
@@ -7581,6 +7585,8 @@ msgid_plural "%(counter)s items"
 msgstr[0] ""
 msgstr[1] ""
 
+#: templates/ccb/curated_lists/featured_curated_lists.html:32
+#: templates/ccb/curated_lists/featured_curated_lists.html:44
 #: templates/ccb/email_campaigns/infosubscription.html:4
 #: templates/ccb/email_campaigns/infosubscription.html:7
 #: templates/ccb/index.html:114 templates/ccb/mailchimp/subscription.html:4
