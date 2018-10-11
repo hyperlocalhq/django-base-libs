@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils.translation import string_concat
 from django import forms
 from django.conf import settings
@@ -16,7 +16,7 @@ from crispy_forms import layout, bootstrap
 from jetson.apps.utils.forms import ModelMultipleChoiceTreeField, ModelChoiceTreeField
 
 IMAGE_MIN_DIMENSIONS = getattr(settings, "GALLERY_IMAGE_MIN_DIMENSIONS", (850, 400))
-STR_IMAGE_MIN_DIMENSIONS = "%s x %s" % IMAGE_MIN_DIMENSIONS
+STR_IMAGE_MIN_DIMENSIONS = u"%s × %s" % IMAGE_MIN_DIMENSIONS
 
 PortfolioSettings = models.get_model("media_gallery", "PortfolioSettings")
 Section = models.get_model("media_gallery", "Section")
@@ -42,8 +42,6 @@ class PortfolioFileForm(dynamicforms.Form):
 class ImageFileForm(PortfolioFileForm):
     media_file = ImageField(
         label=_("Image File"),
-        help_text=_(
-            "You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px.") % STR_IMAGE_MIN_DIMENSIONS,
         required=False,
         min_dimensions=IMAGE_MIN_DIMENSIONS,
     )
@@ -60,6 +58,11 @@ class ImageFileForm(PortfolioFileForm):
 
     def __init__(self, *args, **kwargs):
         super(ImageFileForm, self).__init__(*args, **kwargs)
+
+        self.fields['media_file'].help_text = ugettext(
+            "You can upload GIF, JPG, PNG, TIFF, and BMP images. "
+            "The minimal dimensions are %s px."
+        ) % STR_IMAGE_MIN_DIMENSIONS
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -98,10 +101,10 @@ class ImageFileForm(PortfolioFileForm):
                     "description_en",
                 ),
                 bootstrap.FormActions(
-                    layout.Submit("submit", _("Save"), css_class = "prepend-cancel"),
-                    css_class = "button-group form-buttons"
+                    layout.Submit("submit", _("Save"), css_class="prepend-cancel"),
+                    css_class="button-group form-buttons"
                 ),
-                css_class = "media-upload"
+                css_class="media-upload"
             )
         )
 
@@ -136,8 +139,8 @@ class VideoFileForm(PortfolioFileForm):
     def __init__(self, *args, **kwargs):
         super(VideoFileForm, self).__init__(*args, **kwargs)
 
-        self.fields['splash_image_file'].help_text = _(
-            "It will be used for the thumbnail. You can upload GIF, JPG, PNG, TIFF, and BMP images. "
+        self.fields['splash_image_file'].help_text = ugettext(
+            "It will be used for the thumbnail of uploaded FLV files. You can upload GIF, JPG, PNG, TIFF, and BMP images. "
             "The minimal dimensions are %s px."
         ) % STR_IMAGE_MIN_DIMENSIONS
 
@@ -183,10 +186,10 @@ class VideoFileForm(PortfolioFileForm):
                     "description_en",
                 ),
                 bootstrap.FormActions(
-                    layout.Submit("submit", _("Save"), css_class = "prepend-cancel"),
-                    css_class = "button-group form-buttons"
+                    layout.Submit("submit", _("Save"), css_class="prepend-cancel"),
+                    css_class="button-group form-buttons"
                 ),
-                css_class = "media-upload"
+                css_class="media-upload"
             )
         )
 
@@ -221,10 +224,10 @@ class AudioFileForm(PortfolioFileForm):
     def __init__(self, *args, **kwargs):
         super(AudioFileForm, self).__init__(*args, **kwargs)
 
-        self.fields['splash_image_file'].help_text=_(
+        self.fields['splash_image_file'].help_text=ugettext(
             "It will be used for the thumbnail of the audio file as well as for the splash image in the player. "
             "You can upload GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px."
-        ) % STR_IMAGE_MIN_DIMENSIONS,
+        ) % STR_IMAGE_MIN_DIMENSIONS
 
 
         self.helper = FormHelper()
@@ -269,10 +272,10 @@ class AudioFileForm(PortfolioFileForm):
                     "description_en",
                 ),
                 bootstrap.FormActions(
-                    layout.Submit("submit", _("Save"), css_class = "prepend-cancel"),
-                    css_class = "button-group form-buttons"
+                    layout.Submit("submit", _("Save"), css_class="prepend-cancel"),
+                    css_class="button-group form-buttons"
                 ),
-                css_class = "media-upload"
+                css_class="media-upload"
             )
         )
 

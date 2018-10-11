@@ -17,34 +17,28 @@ Usage in any template:
 
         <div class="row slider portfolio">
             <div class="wrapper">
-
                 {% for gallery in newest_objects %}
-                    {% with gallery.content_object as content_object %}
-
-                        <div class="col-xs-12 slide">
-                            <a class="content" href="{{ content_object.get_url_path }}portfolio/">
-                                <span class="image-hover-bg">
-                                    {% if gallery.mediafile_set.count %}
-                                        <img src="{{ UPLOADS_URL }}{{ gallery.mediafile_set.all.0.path|modified_path:"portfolio_slide" }}" alt="{{ content_object.get_title|escape }}"/>
+                    {% with content_object=gallery.content_object first_media_file_path=gallery.mediafile_set.all.0.path|modified_path:"portfolio_slide" %}
+                        {% if first_media_file_path %}
+                            <div class="col-xs-12 slide">
+                                <a class="content" href="{{ content_object.get_url_path }}portfolio/">
+                                    <span class="image-hover-bg">
+                                        <img src="{{ UPLOADS_URL }}{{ first_media_file_path }}" alt="{{ content_object.get_title|escape }}" />
                                         {% if gallery.photo_author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ gallery.photo_author }}</span>{% endif %}
+                                    </span>
+                                    <h2>{{ content_object.get_title }}</h2>
+                                </a>
+                                <div class="button-group">
+                                    {% if request.user.is_authenticated %}
+                                        {% adding2favorites for content_object using "generic/favorite_icon.html" %}
                                     {% else %}
-                                        <img src="{{ STATIC_URL }}site/img/placeholder/infolink_square.png" alt="{{ content_object.get_title|escape }}"/>
+                                        <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}" class="fawesome fa-favorite button"><span class="sr-only">{% trans "Add to favorites" %}</span></a>
                                     {% endif %}
-                                </span>
-                                <h2>{{ content_object.get_title }}</h2>
-                            </a>
-                            <div class="button-group">
-                                {% if request.user.is_authenticated %}
-                                    {% adding2favorites for content_object using "generic/favorite_icon.html" %}
-                                {% else %}
-                                    <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}" class="fawesome fa-favorite button"><span class="sr-only">{% trans "Add to favorites" %}</span></a>
-                                {% endif %}
+                                </div>
                             </div>
-                        </div>
-
+                        {% endif %}
                     {% endwith %}
                 {% endfor %}
-
             </div>
         </div>
 

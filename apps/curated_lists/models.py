@@ -23,7 +23,7 @@ PRIVACY_CHOICES = (
 
 limit_owner_content_type_choices_to = (
     models.Q(app_label="institutions", model="institution") |
-    models.Q(app_label="auth", model="user")
+    models.Q(app_label="people", model="person")
 )
 
 
@@ -52,11 +52,16 @@ class CuratedList(
     def __unicode__(self):
         return self.title
 
-    def get_url_path(self):
+    def get_token(self):
         if not self.pk:
             return ""
         hashids = Hashids(min_length=6)
-        token = hashids.encode(self.pk)
+        return hashids.encode(self.pk)
+
+    def get_url_path(self):
+        if not self.pk:
+            return ""
+        token = self.get_token()
         try:
             path = reverse("curated_list_detail", kwargs={'token': token})
         except:
@@ -131,10 +136,14 @@ limit_item_content_type_choices_to = (
     models.Q(app_label="media_gallery", model="mediagallery")
 )
 
+
 class ListItem(CreationModificationDateMixin, ObjectRelationMixin(limit_content_type_choices_to=limit_item_content_type_choices_to), UrlMixin):
     curated_list = models.ForeignKey(CuratedList, verbose_name=_("Curated list"), on_delete=models.CASCADE)
     representation = MultilingualCharField(_("Representation"), max_length=255, blank=True)
     sort_order = models.IntegerField(_("Sort order"), blank=True, default=0)
+
+    title = MultilingualCharField(_("Title"), max_length=255, blank=True)
+    description = MultilingualTextField(_("Description"), blank=True)
 
     class Meta:
         verbose_name = _("List Item")

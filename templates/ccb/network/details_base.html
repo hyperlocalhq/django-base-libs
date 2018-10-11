@@ -59,7 +59,14 @@
 
                             <div class="content">
                                 <h2>{{ object.get_title|escape }}</h2>
-                                <h3>{{ object.occupation }}</h3>
+                                <h3>
+                                    {{ object.occupation }}
+                                    {% if object.is_curator %}<a href="/{{ LANGUAGE_CODE }}/network/member/{{ object.slug }}/curated-lists/" class="color-black"><span class="fawesome fa-eye icon-dynamic-size"></span></a>&nbsp; {% trans "Curator" %}{% endif %}
+                                    {% for curated_list in object.get_containing_curated_lists %}{% if forloop.first %}
+                                        <a href="/{{ LANGUAGE_CODE }}/network/member/{{ object.slug }}/curated-lists/" class="color-black"><span class="fawesome fa-curated smaller icon-dynamic-size"></span></a>&nbsp; {% trans "Appears in" %}{% endif %}
+                                        <a href="{{ curated_list.get_url_path }}">{{ curated_list.title }}</a>{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </h3>
                                 <div class="buttons">
                                     {% if request.user == object.user %}
 
