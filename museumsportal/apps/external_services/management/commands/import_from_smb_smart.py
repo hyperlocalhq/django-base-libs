@@ -75,7 +75,7 @@ class Command(NoArgsCommand):
         from django.db import models
         Service = models.get_model("external_services", "Service")
 
-        URL_EXHIBITIONS = "http://ww2.smb.museum/smb/export/getExhibitionListFromSMart.php?format=json"
+        URL_EXHIBITIONS = "https://smart.smb.museum/export/getExhibitionListFromSMart.php?format=json"
         self.service_exhibitions, created = Service.objects.get_or_create(
             sysname="smb_exhibitions_smart",
             defaults={
@@ -86,9 +86,9 @@ class Command(NoArgsCommand):
         if self.service_exhibitions.url != URL_EXHIBITIONS:
             self.service_exhibitions.url = URL_EXHIBITIONS
             self.service_exhibitions.save()
-        self.URL_EXHIBITION = "http://ww2.smb.museum/smb/export/getExhibitionFromSMart.php?format=json&SMart_id={}"
+        self.URL_EXHIBITION = "https://smart.smb.museum/export/getExhibitionFromSMart.php?format=json&SMart_id={}"
 
-        URL_EVENTS = "http://ww2.smb.museum/smb/export/getEventListFromSMart.php?format=json"
+        URL_EVENTS = "https://smart.smb.museum/export/getEventListFromSMart.php?format=json"
         self.service_events, created = Service.objects.get_or_create(
             sysname="smb_events_smart",
             defaults={
@@ -99,7 +99,7 @@ class Command(NoArgsCommand):
         if self.service_events.url != URL_EVENTS:
             self.service_events.url = URL_EVENTS
             self.service_events.save()
-        self.URL_EVENT = "http://ww2.smb.museum/smb/export/getEventFromSMartByTerminId.php?format=json&SMarttermin_id={}"
+        self.URL_EVENT = "https://smart.smb.museum/export/getEventFromSMartByTerminId.php?format=json&SMarttermin_id={}"
 
         self.stats = {
             'exhibitions_added': 0,
@@ -116,6 +116,7 @@ class Command(NoArgsCommand):
         }
 
     def import_exhibitions(self):
+        from datetime import datetime
         weekdays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
 
         import requests
@@ -207,7 +208,10 @@ class Command(NoArgsCommand):
 
             exhibition.slug = get_unique_value(Exhibition, better_slugify(data_dict['title_de'], remove_stopwords=False), instance_pk=exhibition.pk)
 
-            exhibition.start = parse_datetime(data_dict['start_date'])
+            if data_dict['start_date']:
+                exhibition.start = parse_datetime(data_dict['start_date'])
+            else:
+                exhibition.start = datetime.today()
             if data_dict['perma_exhibition'] == 1 or data_dict['end_date'] == "unlimited":
                 exhibition.permanent = True
                 exhibition.museum_prices = True
@@ -702,8 +706,11 @@ class Command(NoArgsCommand):
             img_teaser = []
             if images_keys:
                 img_teaser = data_dict[images_keys[-1]]  # take the last size
+                # sometimes the image teaser is a dict, sometimes a list of dicts
+                if isinstance(img_teaser, dict):
+                    img_teaser = [img_teaser]
             for image_dict in img_teaser:
-                image_url = image_dict['path_xl']
+                image_url = image_dict.get('path_xl') or image_dict.get('path')
 
                 image_external_id = "wrk-{}-{}".format(workshop.pk, image_url)
                 image_mapper = None
@@ -1104,8 +1111,11 @@ class Command(NoArgsCommand):
             img_teaser = []
             if images_keys:
                 img_teaser = data_dict[images_keys[-1]]  # take the last size
+                # sometimes the image teaser is a dict, sometimes a list of dicts
+                if isinstance(img_teaser, dict):
+                    img_teaser = [img_teaser]
             for image_dict in img_teaser:
-                image_url = image_dict['path_xl']
+                image_url = image_dict.get('path_xl') or image_dict.get('path')
 
                 image_external_id = "ev-{}-{}".format(event.pk, image_url)
                 image_mapper = None
