@@ -169,6 +169,7 @@ PATH_TMP = os.path.join(PROJECT_PATH, "tmp")
 STATICFILES_DIRS = [os.path.join(PROJECT_PATH, "museumsportal", "site_static")]
 
 MEDIA_URL = "/media/"
+MEDIA_HOST = "https://www.museumsportal-berlin.de"
 STATIC_URL = PIPELINE_URL = "/static/%s/" % get_git_changeset(os.path.join(PROJECT_PATH, "museumsportal"))
 CSS_URL = "%scss/default/" % MEDIA_URL
 IMG_URL = "%simg/website/" % MEDIA_URL
