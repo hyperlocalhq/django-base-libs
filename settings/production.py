@@ -57,13 +57,9 @@ CACHES = {
         "KEY_PREFIX": "ccb_production_",
         "TIMEOUT": 3000,
         "MAX_ENTRIES": 4000,
+    },
+    'dummy': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
     }
 }
 
-
-# Let's try to disable caching to see if the broken-navigation-urls issue still happening
-#CACHES = {
-#    'default': {
-#        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-#    }
-#}

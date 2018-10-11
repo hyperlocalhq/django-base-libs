@@ -227,8 +227,13 @@ urlpatterns = [
     url(
         r'^member/(?P<slug>[^/]+)/institutions/',
         network_views.member_institution_list,
-        event_list_info,
-        name="member_event_list"
+        name="member_institution_list"
+    ),
+
+    url(
+        r'^member/(?P<slug>[^/]+)/curated-lists/',
+        network_views.member_curated_lists,
+        name="member_curated_lists"
     ),
 
     # url(

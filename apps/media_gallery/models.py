@@ -176,6 +176,16 @@ class MediaGallery(MediaGalleryBase, PublishingMixin):
             )
         return ""
 
+    def get_containing_curated_lists(self):
+        from django.contrib.contenttypes.models import ContentType
+        from ccb.apps.curated_lists.models import CuratedList
+        ct = ContentType.objects.get_for_model(self)
+        return CuratedList.objects.filter(
+            privacy="public",
+            listitem__content_type=ct,
+            listitem__object_id=self.pk,
+        )
+
 
 class MediaFile(MediaFileBase):
 

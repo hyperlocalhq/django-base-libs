@@ -15,15 +15,11 @@
 
 {% block details %}
     {% if not object_list %}
-        {% if request.user.is_authenticated and request.user.profile in object.get_owners %}
-            {% navigation_links "menu_institutional_activitie_bulletin" using "navigation/includes/box.html" %}
-        {% else %}
-            <p>{% trans "No objects found within the selected conditions." %}</p>
-        {% endif %}
+        <p>{% trans "No objects found within the selected conditions." %}</p>
     {% else %}
-        <div class="row event-list">
-            {% for bulletin in object_list %}
-                {% include "bulletin_board/lists/bulletin_list_item.html" %}
+        <div class="row curated-list">
+            {% for curated_list in object_list %}
+                {% include "curated_lists/lists/curated_list_item.html" %}
             {% endfor %}
         </div>
         {% include "utils/includes/pagination.html" %}

@@ -18,13 +18,10 @@ from jetson.apps.utils.views import filter_abc
 
 from ccb.apps.people.models import Person
 from ccb.apps.institutions.models import Institution
-from ccb.apps.marketplace.models import JobOffer
-from ccb.apps.bulletin_board.models import Bulletin
 from ccb.apps.site_specific.models import ContextItem
 from ccb.apps.events.views import event_list
 from ccb.apps.marketplace.views import job_offer_list
 from ccb.apps.bulletin_board.views import bulletin_list
-from ccb.apps.institutions.views import institution_list
 
 from actstream.models import following
 
@@ -388,4 +385,31 @@ def member_institution_list(request, slug, **kwargs):
     kwargs.setdefault("extra_context", {})
     kwargs['extra_context']['object'] = person
     kwargs['title'] = _("Institutions of %s") % person.get_title()
+    return object_list(request, **kwargs)
+
+
+@never_cache
+def member_curated_lists(request, slug, **kwargs):
+    from ccb.apps.curated_lists.models import CuratedList
+    item = get_object_or_404(
+        ContextItem,
+        content_type__model__in=("person", "institution"),
+        slug__iexact=slug,
+    )
+
+    qs = CuratedList.objects.filter(
+        listowner__owner_content_type=item.content_type,
+        listowner__owner_object_id=item.object_id,
+    )
+
+    if item.is_person():
+        kwargs['template_name'] = "people/person_curated_lists.html"
+    else:
+        kwargs['template_name'] = "institutions/institution_curated_lists.html"
+    kwargs['queryset'] = qs.distinct()
+    kwargs['title'] = _("Lists curated by %s") % item.get_title()
+
+    extra_context = kwargs.setdefault("extra_context", {})
+    extra_context['object'] = item.content_object
+
     return object_list(request, **kwargs)

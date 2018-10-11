@@ -125,6 +125,18 @@ def show_member_institutions(context):
     return obj.get_institutions().exists()
 
 
+def show_member_curated_lists(context):
+    from django.contrib.contenttypes.models import ContentType
+    from ccb.apps.curated_lists.models import ListOwner
+    obj = context.get("object", None)
+    if obj and getattr(obj, "is_editable", lambda: False)():
+        return True
+    ct = ContentType.objects.get_for_model(obj)
+    return ListOwner.objects.filter(
+        owner_content_type=ct,
+        owner_object_id=obj.pk,
+    ).exists()
+
 # TODO: 1) add more conditions where to show what for anonymous users.
 # TODO: 2) maybe show some links with login required as teasers.
 # TODO: 3) add badges for some of the links with object count.
@@ -249,6 +261,14 @@ navigation_links = {
             'text_en': 'Institutions',
             'should_be_shown': show_member_institutions,
             'highlight_pattern': r'^/(de|en)/network/member/{{ object.slug }}/institutions/',
+        },
+        {
+            'url_de': '/de/network/member/{{ object.slug }}/curated-lists/',
+            'url_en': '/en/network/member/{{ object.slug }}/curated-lists/',
+            'text_de': 'Kuratierte Liste',
+            'text_en': 'Curated Lists',
+            'should_be_shown': show_member_curated_lists,
+            'highlight_pattern': r'^/(de|en)/network/member/{{ object.slug }}/curated-lists/',
         },
     ],
 
@@ -732,3 +752,13 @@ navigation_links = {
         },
     ],
 }
+
+navigation_links['menu_personal_activitie_event'] = [navigation_links['menu_personal_activities'][1],]
+navigation_links['menu_personal_activitie_job'] = [navigation_links['menu_personal_activities'][2],]
+navigation_links['menu_personal_activitie_bulletin'] = [navigation_links['menu_personal_activities'][3],]
+navigation_links['menu_personal_activitie_blog'] = [navigation_links['menu_personal_activities'][4],]
+
+navigation_links['menu_institutional_activitie_event'] = [navigation_links['menu_institutional_activities'][1],]
+navigation_links['menu_institutional_activitie_job'] = [navigation_links['menu_institutional_activities'][2],]
+navigation_links['menu_institutional_activitie_bulletin'] = [navigation_links['menu_institutional_activities'][3],]
+navigation_links['menu_institutional_activitie_blog'] = [navigation_links['menu_institutional_activities'][4],]

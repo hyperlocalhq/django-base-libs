@@ -38,6 +38,23 @@
         }
     }
 
+    &.icon-dynamic-size {
+        &:before, &.after:after {
+            .is-xs & {
+                font-size: 6.5vw;
+            }
+        }
+
+        &.smaller {
+            &:before, &.after:after {
+                .is-xs & {
+                    font-size: 5vw;
+                    top: -1vw;
+                }
+            }
+        }
+    }
+
     &.active {
         color: $cyan !important;
     }
@@ -1064,6 +1081,11 @@ canvas.fawesome {
 .fawesome.fa-book:before {
     content: "\f02d";
 }
+.fawesome.fa-curated:before {
+    content: "\f0f6";
+    position: relative;
+    top: -2px;
+}
 .fawesome.fa-questionmark:before {
     content: "\f059";
 }
@@ -1347,6 +1369,9 @@ canvas.fawesome {
 }
 .fawesome.fa-book.after:after {
     content: "\f02d";
+}
+.fawesome.fa-curated.after:after {
+    content: "\f0f6";
 }
 .fawesome.fa-questionmark.after:after {
     content: "\f059";

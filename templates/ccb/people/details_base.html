@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n base_tags auth_extended image_mods_tags navigation_tags browsing favorites individual_relations activity_tags cms_tags %}
+{% load i18n base_tags auth_extended image_mods_tags navigation_tags browsing favorites individual_relations activity_tags cms_tags staticfiles %}
 
 {% block title %}
     {% ifequal request.user object.user %}
@@ -46,7 +46,14 @@
 
                         <div class="content">
                             <h2>{{ object.get_title|escape }}</h2>
-                            <h3>{{ object.occupation }}</h3>
+                            <h3>
+                                {{ object.occupation }}
+                                {% if object.is_curator %}<a href="/{{ LANGUAGE_CODE }}/network/member/{{ object.slug }}/curated-lists/" class="color-black"><span class="fawesome fa-eye icon-dynamic-size"></span></a>&nbsp; {% trans "Curator" %}{% endif %}
+                                {% for curated_list in object.get_containing_curated_lists %}{% if forloop.first %}
+                                    <a href="/{{ LANGUAGE_CODE }}/network/member/{{ object.slug }}/curated-lists/" class="color-black"><span class="fawesome fa-curated smaller icon-dynamic-size"></span></a>&nbsp; {% trans "Appears in" %}{% endif %}
+                                    <a href="{{ curated_list.get_url_path }}">{{ curated_list.title }}</a>{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </h3>
                             <div class="buttons">
                             {% ifequal request.user object.user %}
                                 {% navigation_links "menu_personal_activities" %}
@@ -143,6 +150,7 @@
                         {% endif %}
                     {% endifequal %}
 
+                    {% include "curated_lists/includes/add_to_own_curated_lists.html" with content_type_id=object|content_type_id object_id=object.pk %}
                 </div>
 
                 {% block sidebar %}

@@ -40,6 +40,8 @@
 {% block details %}
     <h2>{{ gallery.title }}</h2>
 
+    {% include "curated_lists/includes/add_to_own_curated_lists.html" with content_type_id=gallery|content_type_id object_id=gallery.pk %}
+
     {% comment %}
         {% if gallery.cover_image %}
             <img src="{{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"article" }}" alt=""/>
