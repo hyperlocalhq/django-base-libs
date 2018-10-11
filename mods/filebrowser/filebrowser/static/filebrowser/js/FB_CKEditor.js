@@ -15,9 +15,16 @@ function gup( name ) {
     return results[1];
 }
 
-function OpenFile(fileUrl) {
+function OpenFile(fileUrl, fileAuthor, fileDescription) {
+
+    if (typeof fileAuthor === "undefined") fileAuthor = '';
+    if (typeof fileDescription === "undefined") fileDescription = '';
+    window.top.opener.fb_fileAuthor = fileAuthor;
+    window.top.opener.fb_fileDescription = fileDescription;
+
     var CKEditorFuncNum = gup('CKEditorFuncNum');
-    window.top.opener.CKEDITOR.tools.callFunction(CKEditorFuncNum, fileUrl);
+    var host = (window.top.opener.CKEDITOR.config.media_host) ? window.top.opener.CKEDITOR.config.media_host : "";
+    window.top.opener.CKEDITOR.tools.callFunction(CKEditorFuncNum, host+fileUrl);
     window.top.close();
     window.top.opener.focus();
 }
