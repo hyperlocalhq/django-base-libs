@@ -543,9 +543,9 @@ pre.line-numbers > code {
 <ul>
 <li>The document should be encoded in UTF-8.</li>
 <li>The date and time format used should be &quot;yyyy-mm-ddThh:mm&quot; (with &quot;T&quot; or without), like &quot;2007-04-05 14:30&quot;.</li>
-<li>All URLs in the links should start with protocol, like &quot;<strong>http://</strong>www.google.com/&quot;.</li>
-<li>If data is paginated, there should be some variable telling the total amount of pages.</li>
-<li>If data should not be open to public, the API should be secured under an API<em>KEY that will be passed as URL query parameter, e.g. **?api</em>key=abc123**.</li>
+<li>All URLs in the links should start with protocol, like &quot;<strong>https://</strong>yourwebsite.de/&quot;.</li>
+<li>If data is paginated, there should be fields telling the current page number, the total amount of pages, the total count of the items, the URL of the next page, and the URL of the previous page.</li>
+<li>If data should not be open to public, the API should be secured under an API_KEY that will be passed as URL query parameter, e.g. <strong>?api_key=abc123</strong>.</li>
 <li>If you manage multiple museums, please additionally provide a list of their IDs mapping to museum names.</li>
 <li>If your database structure doesn&#39;t match and you can&#39;t provide all information that is stored at Museumsportal, just skip some fields and give us a note.</li>
 </ul>
@@ -556,7 +556,9 @@ pre.line-numbers > code {
     &quot;meta&quot;: {
         &quot;page&quot;: 1,
         &quot;total_pages&quot;: 9,
-        &quot;total_count&quot;: 521
+        &quot;total_count&quot;: 521,
+        &quot;next&quot;: &quot;https://yourwebsite.de/api/events/?api_key=abc123&amp;page=2&quot;,
+        &quot;previous&quot;: null
     },
     &quot;objects&quot;: [
         {
@@ -580,250 +582,355 @@ pre.line-numbers > code {
 <tr>
 <th>Field</th>
 <th>Type</th>
+<th>Required</th>
 <th>Description</th>
+<th>Example</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
 <td>id</td>
-<td>integer</td>
-<td>Unique identifier</td>
+<td>string or integer</td>
+<td>yes</td>
+<td>Unique exhibition identifier on your website</td>
+<td>12</td>
 </tr>
 <tr>
 <td>created</td>
-<td>string </td>
-<td>Creation date and time in a format &quot;yyyy-mm-ddThh:mm:as&quot;</td>
+<td>string</td>
+<td>yes</td>
+<td>Creation date and time in a format &quot;yyyy-mm-ddThh:mm:ss&quot;</td>
+<td>&quot;2018-12-01T15:00:00&quot;</td>
 </tr>
 <tr>
 <td>modified</td>
 <td>string</td>
-<td>Modification date and time in a format &quot;yyyy-mm-ddThh:mm:ss&quot;</td>
+<td>no</td>
+<td>Last modification date and time in a format &quot;yyyy-mm-ddThh:mm:ss&quot;</td>
+<td>&quot;2018-12-01T15:00:00&quot;</td>
 </tr>
 <tr>
 <td>title_de</td>
 <td>string</td>
+<td>yes</td>
 <td>Title in German</td>
+<td></td>
 </tr>
 <tr>
 <td>title_en</td>
 <td>string</td>
+<td>no</td>
 <td>Title in English</td>
+<td></td>
 </tr>
 <tr>
 <td>subtitle_de</td>
 <td>string</td>
+<td>no</td>
 <td>Subtitle in German</td>
+<td></td>
 </tr>
 <tr>
 <td>subtitle_en</td>
 <td>string</td>
+<td>no</td>
 <td>Subtitle in English</td>
+<td></td>
 </tr>
 <tr>
 <td>press_text_de</td>
 <td>string</td>
-<td>Press text in German</td>
+<td>yes</td>
+<td>Press text in German. Can contain simple HTML.</td>
+<td></td>
 </tr>
 <tr>
 <td>press_text_en</td>
 <td>string</td>
-<td>Press text in English</td>
+<td>no</td>
+<td>Press text in English. Can contain simple HTML.</td>
+<td></td>
 </tr>
 <tr>
 <td>catalog_de</td>
 <td>string</td>
-<td>Catalog information in German</td>
+<td>no</td>
+<td>Catalog information in German. Plain text.</td>
+<td></td>
 </tr>
 <tr>
 <td>catalog_en</td>
 <td>string</td>
-<td>Catalog information in English</td>
+<td>no</td>
+<td>Catalog information in English. Plain text.</td>
+<td></td>
 </tr>
 <tr>
 <td>catalog_ordering_de</td>
-<td>string</td>
+<td>URL</td>
+<td>no</td>
 <td>Catalog ordering link for German readers</td>
+<td>&quot;https://example.com/de/catalog/&quot;</td>
 </tr>
 <tr>
 <td>catalog_ordering_en</td>
-<td>string</td>
+<td>URL</td>
+<td>no</td>
 <td>Catalog ordering link for English readers</td>
+<td>&quot;https://example.com/en/catalog/&quot;</td>
 </tr>
 <tr>
 <td>website_de</td>
-<td>string</td>
+<td>URL</td>
+<td>no</td>
 <td>The URL of the exhibition at your website in German</td>
+<td>&quot;https://example.com/de/triennale/&quot;</td>
 </tr>
 <tr>
 <td>website_en</td>
-<td>string</td>
+<td>URL</td>
+<td>no</td>
 <td>The URL of the exhibition at your website in English</td>
+<td>&quot;https://example.com/en/triennale/&quot;</td>
 </tr>
 <tr>
 <td>start</td>
 <td>string</td>
+<td>yes</td>
 <td>Start date in a format &quot;yyyy-mm-dd&quot;</td>
+<td>&quot;2019-01-01&quot;</td>
 </tr>
 <tr>
 <td>end</td>
 <td>string</td>
+<td>no</td>
 <td>End date in a format &quot;yyyy-mm-dd&quot;</td>
+<td>&quot;2019-04-30&quot;</td>
 </tr>
 <tr>
 <td>vernissage</td>
 <td>string</td>
+<td>no</td>
 <td>The date and time of the vernissage in a format &quot;yyyy-mm-ddThh:mm&quot;</td>
+<td>&quot;2019-01-01T19:00&quot;</td>
 </tr>
 <tr>
 <td>finissage</td>
 <td>string</td>
+<td>no</td>
 <td>The date and time of the finissage in a format &quot;yyyy-mm-ddThh:mm&quot;</td>
+<td>&quot;2019-04-30T19:00&quot;</td>
 </tr>
 <tr>
 <td>exhibition_extended</td>
 <td>boolean</td>
+<td>no</td>
 <td>Is this exhibition extended?</td>
+<td>true</td>
 </tr>
 <tr>
 <td>permanent</td>
 <td>boolean</td>
+<td>no</td>
 <td>Is this exhibition permanent?</td>
+<td>false</td>
 </tr>
 <tr>
 <td>museum_id</td>
-<td>integer</td>
+<td>string or integer</td>
+<td>no</td>
 <td>Unique identifier of the museum</td>
+<td></td>
 </tr>
 <tr>
 <td>location_name</td>
 <td>string</td>
+<td>no</td>
 <td>Location name, when differs from museum</td>
+<td></td>
 </tr>
 <tr>
 <td>street_address</td>
 <td>string</td>
+<td>yes</td>
 <td>Street address</td>
+<td></td>
 </tr>
 <tr>
 <td>street_address2</td>
 <td>string</td>
+<td>no</td>
 <td>Second line of street address</td>
+<td></td>
 </tr>
 <tr>
 <td>postal_code</td>
 <td>string</td>
+<td>yes</td>
 <td>Postal code</td>
+<td></td>
 </tr>
 <tr>
 <td>city</td>
 <td>string</td>
+<td>yes</td>
 <td>City</td>
+<td></td>
 </tr>
 <tr>
 <td>country</td>
 <td>string</td>
-<td>Country code e.g. &quot;de&quot;</td>
+<td>yes</td>
+<td>Country code</td>
+<td>&quot;de&quot;</td>
 </tr>
 <tr>
 <td>latitude</td>
-<td>float</td>
+<td>string</td>
+<td>no</td>
 <td>Latitude</td>
+<td>&quot;52.5192&quot;</td>
 </tr>
 <tr>
 <td>longitude</td>
-<td>float</td>
+<td>string</td>
+<td>no</td>
 <td>Longitude</td>
+<td>&quot;13.4061&quot;</td>
 </tr>
 <tr>
 <td>other_locations_de</td>
 <td>string</td>
+<td>no</td>
 <td>Other locations in German</td>
+<td></td>
 </tr>
 <tr>
 <td>other_locations_en</td>
 <td>string</td>
+<td>no</td>
 <td>Other locations in English</td>
+<td></td>
 </tr>
 <tr>
 <td>organizers</td>
 <td>list</td>
+<td>no</td>
 <td>List of additional organizers</td>
+<td></td>
 </tr>
 <tr>
 <td>museum_prices</td>
 <td>boolean</td>
+<td>no</td>
 <td>Are the prices the same as at the museum?</td>
+<td></td>
 </tr>
 <tr>
 <td>free_entrance</td>
 <td>boolean</td>
+<td>no</td>
 <td>Is the entrance free?</td>
+<td>false</td>
 </tr>
 <tr>
 <td>admission_price</td>
 <td>string</td>
-<td>Admission price in Euros, e.g. &quot;12.00&quot;</td>
+<td>no</td>
+<td>Decimal admission price in Euros</td>
+<td>&quot;12.00&quot;</td>
 </tr>
 <tr>
 <td>admission_price_info_de</td>
 <td>string</td>
+<td>no</td>
 <td>Admission price information in German</td>
+<td></td>
 </tr>
 <tr>
 <td>admission_price_info_en</td>
 <td>string</td>
+<td>no</td>
 <td>Admission price information in English</td>
+<td></td>
 </tr>
 <tr>
 <td>reduced_price</td>
 <td>string</td>
-<td>Reduced admission price in Euros e.g. &quot;8.00&quot;</td>
+<td>no</td>
+<td>Decimal reduced admission price in Euros</td>
+<td>&quot;8.00&quot;</td>
 </tr>
 <tr>
 <td>reduced_price_info_de</td>
 <td>string</td>
+<td>no</td>
 <td>Reduced admission price information in German</td>
+<td></td>
 </tr>
 <tr>
 <td>reduced_price_info_en</td>
 <td>string</td>
+<td>no</td>
 <td>Reduced admission price information in English</td>
+<td></td>
 </tr>
 <tr>
 <td>museum_opening_hours</td>
 <td>boolean</td>
+<td>no</td>
 <td>Opening hours of the museum</td>
+<td></td>
 </tr>
 <tr>
 <td>seasons</td>
 <td>list</td>
+<td>no</td>
 <td>List of season objects (one or none items)</td>
+<td></td>
 </tr>
 <tr>
 <td>suitable_for_disabled</td>
 <td>boolean</td>
+<td>no</td>
 <td>Is the exhibition suitable for disabled?</td>
+<td></td>
 </tr>
 <tr>
 <td>suitable_for_disabled_info_de</td>
 <td>string</td>
+<td>no</td>
 <td>Information in German about suitability for disabled people</td>
+<td></td>
 </tr>
 <tr>
 <td>suitable_for_disabled_info_en</td>
 <td>string</td>
+<td>no</td>
 <td>Information in English about suitability for disabled people</td>
+<td></td>
 </tr>
 <tr>
 <td>is_for_children</td>
 <td>boolean</td>
+<td>no</td>
 <td>Is the exhibition suitable for children?</td>
+<td></td>
 </tr>
 <tr>
 <td>media_files</td>
 <td>list</td>
+<td>no</td>
 <td>List of media files</td>
+<td></td>
+</tr>
+<tr>
+<td>categories</td>
+<td>list</td>
+<td>no</td>
+<td>List of categories</td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -834,29 +941,39 @@ pre.line-numbers > code {
 <thead>
 <tr>
 <th>Field</th>
-<th>Type </th>
+<th>Type</th>
+<th>Required</th>
 <th>Description</th>
+<th>Example</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
 <td>organizing_museum_id</td>
-<td>string</td>
+<td>string or integer</td>
+<td>no</td>
 <td>Unique identifier of a museum</td>
+<td>42</td>
 </tr>
 <tr>
-<td>organizer_title </td>
+<td>organizer_title</td>
 <td>string</td>
+<td>no</td>
 <td>Organizer title if not organized by a museum</td>
+<td></td>
 </tr>
 <tr>
 <td>organizer_url_link</td>
-<td>string</td>
+<td>URL</td>
+<td>no</td>
 <td>Organizer URL if not organized by a museum</td>
+<td></td>
 </tr>
 </tbody>
 </table>
+
+<p>Either the museum ID or museum title and URL should be provided.</p>
 
 <p>Exhibition <strong>seasons</strong> should have these fields:</p>
 
@@ -865,7 +982,9 @@ pre.line-numbers > code {
 <tr>
 <th>Field</th>
 <th>Type</th>
+<th>Required</th>
 <th>Description</th>
+<th>Example</th>
 </tr>
 </thead>
 
@@ -873,172 +992,240 @@ pre.line-numbers > code {
 <tr>
 <td>is_appointment_based</td>
 <td>boolean</td>
+<td>no</td>
 <td>Are the visits based on appointments?</td>
+<td>false</td>
 </tr>
 <tr>
 <td>is_open_24_7</td>
 <td>boolean</td>
+<td>no</td>
 <td>Is open 24/7?</td>
+<td>true</td>
 </tr>
 <tr>
 <td>mon_open</td>
 <td>string</td>
+<td>no</td>
 <td>Opening time on Mondays in a format &quot;hh:mm&quot;</td>
+<td>&quot;10:00&quot;</td>
 </tr>
 <tr>
 <td>mon_close</td>
 <td>string</td>
+<td>no</td>
 <td>Closing time on Mondays in a format &quot;hh:mm&quot;</td>
+<td>&quot;19:00&quot;</td>
 </tr>
 <tr>
 <td>mon_break_close</td>
 <td>string</td>
+<td>no</td>
 <td>Start time of the break on Mondays in a format &quot;hh:mm&quot;</td>
+<td>&quot;13:00&quot;</td>
 </tr>
 <tr>
 <td>mon_break_open</td>
 <td>string</td>
+<td>no</td>
 <td>End time of the break on Mondays in a format &quot;hh:mm&quot;</td>
+<td>&quot;14:00&quot;</td>
 </tr>
 <tr>
 <td>tue_open</td>
 <td>string</td>
+<td>no</td>
 <td>Opening time on Tuesdays in a format &quot;hh:mm&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>tue_close</td>
 <td>string</td>
+<td>no</td>
 <td>Closing tine on Tuesdays in a format &quot;hh:mm&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>tue_break_close</td>
 <td>string</td>
+<td>no</td>
 <td>Start time of the break on Tuesdays in a format &quot;hh:mm&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>tue_break_open</td>
 <td>string</td>
+<td>no</td>
 <td>End time of the break on Tuesdays in a format &quot;hh:mm&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>wed_open</td>
 <td>string</td>
+<td>no</td>
 <td>Opening time on Wednesdays in a format &quot;hh:mm&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>wed_close</td>
 <td>string</td>
+<td>no</td>
 <td>Closing time on Wednesdays in a format &quot;hh:mm&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>wed_break_close</td>
 <td>string</td>
+<td>no</td>
 <td>Start time of the break on Wednesdays in a format &quot;hh:mm&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>wed_break_open</td>
 <td>string</td>
+<td>no</td>
 <td>End time of the break on Wednesdays in a format &quot;hh:mm&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>thu_open</td>
 <td>string</td>
+<td>no</td>
 <td>Opening time on Thursdays in a format &quot;hh:mm&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>thu_close</td>
 <td>string</td>
+<td>no</td>
 <td>Closing time on Thursdays in a format &quot;hh:mm&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>thu_break_close</td>
 <td>string</td>
+<td>no</td>
 <td>Start time of the break on Thursdays in a format &quot;hh:mm&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>thu_break_open</td>
 <td>string</td>
+<td>no</td>
 <td>End time of the break on Thursdays in a format &quot;hh:mm&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>fri_open</td>
 <td>string</td>
+<td>no</td>
 <td>Opening time on Fridays in a format &quot;hh:mm&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>fri_close</td>
 <td>string</td>
+<td>no</td>
 <td>Closing time on Fridays in a format &quot;hh:mm&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>fri_break_close</td>
 <td>string</td>
+<td>no</td>
 <td>Start time of the break on Fridays in a format &quot;hh:mm&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>fri_break_open</td>
 <td>string</td>
+<td>no</td>
 <td>End time of the break on Fridays in a format &quot;hh:mm&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>sat_open</td>
 <td>string</td>
+<td>no</td>
 <td>Opening time on Saturdays in a format &quot;hh:mm&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>sat_close</td>
 <td>string</td>
+<td>no</td>
 <td>Closing time on Saturdays in a format &quot;hh:mm&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>sat_break_close</td>
 <td>string</td>
+<td>no</td>
 <td>Start time of the break on Saturdays in a format &quot;hh:mm&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>sat_break_open</td>
 <td>string</td>
+<td>no</td>
 <td>End time of the break on Saturdays in a format &quot;hh:mm&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>sun_open</td>
 <td>string</td>
+<td>no</td>
 <td>Opening time on Sundays in a format &quot;hh:mm&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>sun_close</td>
 <td>string</td>
+<td>no</td>
 <td>Closing time on Sundays in a format &quot;hh:mm&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>sun_break_close</td>
 <td>string</td>
+<td>no</td>
 <td>Start time of the break on Sundays in a format &quot;hh:mm&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>sun_break_open</td>
 <td>string</td>
+<td>no</td>
 <td>End time of the break on Sundays in a format &quot;hh:mm&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>exceptions_de</td>
 <td>string</td>
-<td>Exceptional opening hours in German</td>
+<td>no</td>
+<td>Exceptional opening hours in German. Plain text.</td>
+<td></td>
 </tr>
 <tr>
 <td>exceptions_en</td>
 <td>string</td>
-<td>Exceptional opening hours in English</td>
+<td>no</td>
+<td>Exceptional opening hours in English. Plain text.</td>
+<td></td>
 </tr>
 <tr>
 <td>last_entry_de</td>
 <td>string</td>
-<td>Information about last entry in German</td>
+<td>no</td>
+<td>Information about last entry in German. Plain text.</td>
+<td></td>
 </tr>
 <tr>
 <td>last_entry_en</td>
 <td>string</td>
-<td>Information about last entry in English</td>
+<td>no</td>
+<td>Information about last entry in English. Plain text.</td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -1049,67 +1236,89 @@ pre.line-numbers > code {
 <thead>
 <tr>
 <th>Field</th>
-<th>Type </th>
+<th>Type</th>
+<th>Required</th>
 <th>Description</th>
+<th>Example</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
 <td>created</td>
-<td> string</td>
+<td>string</td>
+<td>yes</td>
 <td>Creation date and time in a format &quot;yyyy-mm-ddThh:mm:ss&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>modified</td>
-<td>string </td>
-<td>Modification date and time in a format &quot;yyyy-mm-ddThh:mm:ss&quot;</td>
+<td>string</td>
+<td>no</td>
+<td>Last modification date and time in a format &quot;yyyy-mm-ddThh:mm:ss&quot;</td>
+<td>&quot;2018-12-01T15:00:00&quot;</td>
 </tr>
 <tr>
-<td>url </td>
-<td>string </td>
+<td>url</td>
+<td>string</td>
+<td>yes</td>
 <td>High-quality image URL</td>
+<td>&quot;https://example.com/triennale.jpg&quot;</td>
 </tr>
 <tr>
 <td>title_de</td>
 <td>string</td>
-<td>Title in German</td>
+<td>no</td>
+<td>Title/caption in German</td>
+<td></td>
 </tr>
 <tr>
 <td>title_en</td>
-<td>string </td>
-<td>Title in English</td>
+<td>string</td>
+<td>no</td>
+<td>Title/caption in English</td>
+<td></td>
 </tr>
 <tr>
 <td>description_de</td>
 <td>string</td>
-<td>Description in German</td>
+<td>no</td>
+<td>Description in German. Plain text.</td>
+<td></td>
 </tr>
 <tr>
 <td>description_en</td>
 <td>string</td>
-<td>Description in English</td>
+<td>no</td>
+<td>Description in English. Plain text.</td>
+<td></td>
 </tr>
 <tr>
 <td>author</td>
 <td>string</td>
-<td>Author and Copyright</td>
+<td>no</td>
+<td>Author and Copyright. Plain text.</td>
+<td></td>
 </tr>
 <tr>
 <td>copyright_limitations</td>
 <td>string</td>
-<td>Additional Copyright Information</td>
+<td>no</td>
+<td>Additional Copyright Information. Plain text.</td>
+<td></td>
 </tr>
 </tbody>
 </table>
 
-<p>So when accessed by <strong>http://yourwebsite.de/api/exhibitions/?api_key=abc123</strong> or similar path, we should get information about exhibitions in the following JSON format:</p>
+<p>So when accessed by <strong>https://yourwebsite.de/api/exhibitions/?api_key=abc123</strong> or similar path, we should get information about exhibitions in the following JSON format:</p>
 
 <div><pre class="line-numbers"><code class="language-none">{
     &quot;meta&quot;: {
         &quot;page&quot;: 1,
         &quot;total_pages&quot;: 9,
-        &quot;total_count&quot;: 521
+        &quot;total_count&quot;: 521,
+        &quot;next&quot;: &quot;https://yourwebsite.de/api/exhibitions/?api_key=abc123&amp;page=2&quot;,
+        &quot;previous&quot;: null
     },
     &quot;objects&quot;: [
         {
@@ -1126,8 +1335,8 @@ pre.line-numbers > code {
             &quot;catalog_en&quot;: &quot;&quot;,
             &quot;catalog_ordering_de&quot;: &quot;&quot;,
             &quot;catalog_ordering_en&quot;: &quot;&quot;,
-            &quot;website_de&quot;: &quot;http://www.smb.museum/smb/kalender/details.php?objID=33824&quot;,
-            &quot;website_en&quot;: &quot;http://www.smb.museum/smb/kalender/details.php?objID=33824&quot;,
+            &quot;website_de&quot;: &quot;https://www.smb.museum/smb/kalender/details.php?objID=33824&quot;,
+            &quot;website_en&quot;: &quot;https://www.smb.museum/smb/kalender/details.php?objID=33824&quot;,
             &quot;start&quot;: &quot;2012-03-23&quot;,
             &quot;end&quot;: &quot;2012-06-24&quot;,
             &quot;vernissage&quot;: null,
@@ -1207,7 +1416,7 @@ pre.line-numbers > code {
                 {
                     &quot;created&quot;: &quot;2013-02-20T22:28:45&quot;,
                     &quot;modified&quot;: null,
-                    &quot;url&quot;: &quot;http://yourwebsite.de/media/exhibitions/den-alten-fritz-der-im-volke-lebt-das-bild-friedrichs-des-grossen-bei-adolph-menzel/menzel_floetenkonzert.jpg&quot;
+                    &quot;url&quot;: &quot;https://yourwebsite.de/media/exhibitions/den-alten-fritz-der-im-volke-lebt-das-bild-friedrichs-des-grossen-bei-adolph-menzel/menzel_floetenkonzert.jpg&quot;
                     &quot;title_de&quot;: &quot;Menzel Flötenkonzert&quot;,
                     &quot;title_en&quot;: &quot;&quot;
                     &quot;description_de&quot;: &quot;&quot;,
@@ -1231,190 +1440,264 @@ pre.line-numbers > code {
 <tr>
 <th>Field</th>
 <th>Type</th>
+<th>Required</th>
 <th>Description</th>
+<th>Example</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
 <td>id</td>
-<td>integer</td>
-<td>Unique identifier</td>
+<td>string or integer</td>
+<td>yes</td>
+<td>Unique event identifier on your website</td>
+<td>12</td>
 </tr>
 <tr>
 <td>created</td>
 <td>string</td>
+<td>yes</td>
 <td>Creation date and time in a fornat &quot;yyyy-mm-ddThh:mm:ss&quot;</td>
+<td>&quot;2018-12-01T15:00:00&quot;</td>
 </tr>
 <tr>
 <td>modified</td>
 <td>string</td>
-<td>Modification date and time in a format &quot;yyyy-mm-ddThh:mm:ss&quot;</td>
+<td>no</td>
+<td>Last modification date and time in a format &quot;yyyy-mm-ddThh:mm:ss&quot;</td>
+<td>&quot;2018-12-05T12:30:00&quot;</td>
 </tr>
 <tr>
 <td>title_de</td>
 <td>string</td>
+<td>yes</td>
 <td>Title in German</td>
+<td></td>
 </tr>
 <tr>
 <td>title_en</td>
 <td>string</td>
+<td>no</td>
 <td>Title in English</td>
+<td></td>
 </tr>
 <tr>
 <td>subtitle_de</td>
 <td>string</td>
+<td>no</td>
 <td>Subtitle in German</td>
+<td></td>
 </tr>
 <tr>
 <td>subtitle_en</td>
 <td>string</td>
+<td>no</td>
 <td>Subtitle in English</td>
+<td></td>
 </tr>
 <tr>
 <td>press_text_de</td>
 <td>string</td>
-<td>Press text in German</td>
+<td>no</td>
+<td>Press text in German. Can contain simple HTML.</td>
+<td></td>
 </tr>
 <tr>
 <td>press_text_en</td>
-<td>string </td>
-<td>Press text in English</td>
+<td>string</td>
+<td>no</td>
+<td>Press text in English. Can contain simple HTML.</td>
+<td></td>
 </tr>
 <tr>
 <td>event_type_de</td>
 <td>string</td>
+<td>no</td>
 <td>Event type in German</td>
+<td></td>
 </tr>
 <tr>
 <td>event_type_en</td>
 <td>string</td>
+<td>no</td>
 <td>Event type in English</td>
+<td></td>
 </tr>
 <tr>
 <td>website_de</td>
 <td>string</td>
+<td>no</td>
 <td>The URL of the event at your website in German</td>
+<td></td>
 </tr>
 <tr>
 <td>website_en</td>
 <td>string</td>
+<td>no</td>
 <td>The URL of the event at your website in English</td>
+<td></td>
 </tr>
 <tr>
 <td>event_times</td>
 <td>list</td>
+<td>no</td>
 <td>List of event times</td>
+<td></td>
 </tr>
 <tr>
 <td>museum_id</td>
-<td>integer</td>
+<td>string or integer</td>
+<td>no</td>
 <td>The ID of the museum</td>
+<td></td>
 </tr>
 <tr>
 <td>location_name</td>
 <td>string</td>
+<td>no</td>
 <td>Location name, when differs from museum</td>
+<td></td>
 </tr>
 <tr>
 <td>street_address</td>
 <td>string</td>
+<td>yes</td>
 <td>Street address</td>
+<td></td>
 </tr>
 <tr>
 <td>street_address2</td>
 <td>string</td>
+<td>no</td>
 <td>Second line of street address</td>
+<td></td>
 </tr>
 <tr>
 <td>postal_code</td>
 <td>string</td>
+<td>yes</td>
 <td>Postal code</td>
+<td></td>
 </tr>
 <tr>
 <td>city</td>
 <td>string</td>
+<td>yes</td>
 <td>City</td>
+<td></td>
 </tr>
 <tr>
 <td>country</td>
 <td>string</td>
-<td>Country code e.g. &quot;de&quot;</td>
+<td>yes</td>
+<td>Country code</td>
+<td>&quot;de&quot;</td>
 </tr>
 <tr>
 <td>latitude</td>
-<td>float</td>
+<td>string</td>
+<td>no</td>
 <td>Latitude</td>
+<td>&quot;52.5192&quot;</td>
 </tr>
 <tr>
 <td>longitude</td>
-<td>float</td>
+<td>string</td>
+<td>no</td>
 <td>Longitude</td>
+<td>&quot;13.4061&quot;</td>
 </tr>
 <tr>
 <td>meeting_place_de</td>
 <td>string</td>
-<td>Meeting place in German</td>
+<td>no</td>
+<td>Meeting place in German. Plain text.</td>
+<td></td>
 </tr>
 <tr>
 <td>meeting_place_en</td>
 <td>string</td>
-<td>Meeting place in English</td>
+<td>no</td>
+<td>Meeting place in English. Plain text.</td>
+<td></td>
 </tr>
 <tr>
 <td>organizers</td>
 <td>list</td>
+<td>no</td>
 <td>List of organizers</td>
+<td></td>
 </tr>
 <tr>
 <td>exhibition_id</td>
-<td>integer</td>
+<td>string or integer</td>
+<td>no</td>
 <td>The ID of the related exhibition</td>
+<td></td>
 </tr>
 <tr>
 <td>languages</td>
 <td>list</td>
+<td>no</td>
 <td>List of language codes</td>
+<td></td>
 </tr>
 <tr>
 <td>free_admission</td>
 <td>boolean</td>
+<td>no</td>
 <td>Is the admission free?</td>
+<td>false</td>
 </tr>
 <tr>
 <td>admission_price</td>
 <td>string</td>
-<td>Admission price in Euros, e.g. &quot;12.00&quot;</td>
+<td>no</td>
+<td>Decimal admission price in Euros</td>
+<td>&quot;12.00&quot;</td>
 </tr>
 <tr>
 <td>admission_price_info_de</td>
 <td>string</td>
+<td>no</td>
 <td>Admission price information in German</td>
+<td></td>
 </tr>
 <tr>
 <td>admission_price_info_en</td>
 <td>string</td>
+<td>no</td>
 <td>Admission price information in English</td>
+<td></td>
 </tr>
 <tr>
 <td>reduced_price</td>
 <td>string</td>
-<td>Reduced admission price in Euros e.g. &quot;8.00&quot;</td>
+<td>no</td>
+<td>Decimal reduced admission price in Euros</td>
+<td>&quot;8.00&quot;</td>
 </tr>
 <tr>
 <td>booking_info_de</td>
 <td>string</td>
-<td>Booking information in German</td>
+<td>no</td>
+<td>Booking information in German. Plain text.</td>
+<td></td>
 </tr>
 <tr>
 <td>booking_info_en</td>
 <td>string</td>
-<td>Booking information in English</td>
+<td>no</td>
+<td>Booking information in English. Plain text.</td>
+<td></td>
 </tr>
 <tr>
 <td>media_files</td>
 <td>list</td>
+<td>no</td>
 <td>List of media files</td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -1426,7 +1709,9 @@ pre.line-numbers > code {
 <tr>
 <th>Field</th>
 <th>Type</th>
+<th>Required</th>
 <th>Description</th>
+<th>Example</th>
 </tr>
 </thead>
 
@@ -1434,17 +1719,23 @@ pre.line-numbers > code {
 <tr>
 <td>event_date</td>
 <td>string</td>
+<td>yes</td>
 <td>Event date in a format &quot;yyyy-mm-dd&quot;</td>
+<td>&quot;2018-12-10&quot;</td>
 </tr>
 <tr>
 <td>start</td>
 <td>string</td>
+<td>yes</td>
 <td>Start time in a format &quot;hh:mm&quot;</td>
+<td>&quot;19:00&quot;</td>
 </tr>
 <tr>
 <td>end</td>
 <td>string</td>
+<td>no</td>
 <td>End tine in a format &quot;hh:mm&quot;</td>
+<td>&quot;21:00&quot;</td>
 </tr>
 </tbody>
 </table>
@@ -1455,29 +1746,39 @@ pre.line-numbers > code {
 <thead>
 <tr>
 <th>Field</th>
-<th>Type </th>
+<th>Type</th>
+<th>Required</th>
 <th>Description</th>
+<th>Example</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
 <td>organizing_museum_id</td>
-<td>string</td>
+<td>string or integer</td>
+<td>no</td>
 <td>Unique identifier of a museum</td>
+<td>42</td>
 </tr>
 <tr>
-<td>organizer_title </td>
+<td>organizer_title</td>
 <td>string</td>
+<td>no</td>
 <td>Organizer title if not organized by a museum</td>
+<td></td>
 </tr>
 <tr>
 <td>organizer_url_link</td>
-<td>string</td>
+<td>URL</td>
+<td>no</td>
 <td>Organizer URL if not organized by a museum</td>
+<td></td>
 </tr>
 </tbody>
 </table>
+
+<p>Either the museum ID or museum title and URL should be provided.</p>
 
 <p>Event <strong>media_files</strong> should have these fields:</p>
 
@@ -1485,8 +1786,10 @@ pre.line-numbers > code {
 <thead>
 <tr>
 <th>Field</th>
-<th>Type </th>
+<th>Type</th>
+<th>Required</th>
 <th>Description</th>
+<th>Example</th>
 </tr>
 </thead>
 
@@ -1494,53 +1797,78 @@ pre.line-numbers > code {
 <tr>
 <td>created</td>
 <td>string</td>
+<td>yes</td>
 <td>Creation date and time in a format &quot;yyyy-mm-ddThh:mm:ss&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>modified</td>
-<td>string </td>
-<td>Modification date and time in a format &quot;yyyy-mm-ddThh:mm:ss&quot;</td>
+<td>string</td>
+<td>no</td>
+<td>Last modification date and time in a format &quot;yyyy-mm-ddThh:mm:ss&quot;</td>
+<td>&quot;2018-12-01T15:00:00&quot;</td>
 </tr>
 <tr>
-<td>url </td>
-<td>string </td>
+<td>url</td>
+<td>string</td>
+<td>yes</td>
 <td>High-quality image URL</td>
+<td>&quot;https://example.com/triennale.jpg&quot;</td>
 </tr>
 <tr>
 <td>title_de</td>
 <td>string</td>
-<td>Title in German</td>
+<td>no</td>
+<td>Title/caption in German</td>
+<td></td>
 </tr>
 <tr>
 <td>title_en</td>
-<td>string </td>
-<td>Title in English</td>
+<td>string</td>
+<td>no</td>
+<td>Title/caption in English</td>
+<td></td>
 </tr>
 <tr>
 <td>description_de</td>
 <td>string</td>
-<td>Description in German</td>
+<td>no</td>
+<td>Description in German. Plain text.</td>
+<td></td>
 </tr>
 <tr>
 <td>description_en</td>
 <td>string</td>
-<td>Description in English</td>
+<td>no</td>
+<td>Description in English. Plain text.</td>
+<td></td>
 </tr>
 <tr>
 <td>author</td>
 <td>string</td>
-<td>Author and Copyright</td>
+<td>no</td>
+<td>Author and Copyright. Plain text.</td>
+<td></td>
+</tr>
+<tr>
+<td>copyright_limitations</td>
+<td>string</td>
+<td>no</td>
+<td>Additional Copyright Information. Plain text.</td>
+<td></td>
 </tr>
 </tbody>
 </table>
 
-<p>So when accessed by <strong>http://yourwebsite.de/api/events/?api_key=abc123</strong> or similar path, we should get information about events in the following JSON format:</p>
+<p>So when accessed by <strong>https://yourwebsite.de/api/events/?api_key=abc123</strong> or similar path, we should get information about events in the following JSON format:</p>
 
 <div><pre class="line-numbers"><code class="language-none">{
     &quot;meta&quot;: {
         &quot;page&quot;: 1,
         &quot;total_pages&quot;: 9,
-        &quot;total_count&quot;: 521
+        &quot;total_count&quot;: 521,
+        &quot;next&quot;: &quot;https://yourwebsite.de/api/events/?api_key=abc123&amp;page=2&quot;,
+        &quot;previous&quot;: null
     },
     &quot;objects&quot;: [
         {
@@ -1555,7 +1883,7 @@ pre.line-numbers > code {
             &quot;press_text_en&quot;: &quot;&quot;,
             &quot;event_type_de&quot;: &quot;&quot;,
             &quot;event_type_en&quot;: &quot;&quot;,
-            &quot;website_de&quot;: &quot;http://www.fhxb-museum.de/index.php?id=19&quot;,
+            &quot;website_de&quot;: &quot;https://www.fhxb-museum.de/index.php?id=19&quot;,
             &quot;website_en&quot;: &quot;&quot;
             &quot;event_times&quot;: [
                 {
@@ -1591,12 +1919,12 @@ pre.line-numbers > code {
                 {
                     &quot;created&quot;: &quot;2014-02-04T15:21:06&quot;,
                     &quot;modified_date&quot;: &quot;2014-02-04T15:21:06&quot;,
-                    &quot;url&quot;: &quot;http://yourwebsite.de/media/events/agnes-wir-mussen-uns-offnen-damit-etwas-bleibt-und-agnes-es-hat-sich-gelohnt-so-lange-zu-leben/20140204152106.png&quot;
+                    &quot;url&quot;: &quot;https://yourwebsite.de/media/events/agnes-wir-mussen-uns-offnen-damit-etwas-bleibt-und-agnes-es-hat-sich-gelohnt-so-lange-zu-leben/20140204152106.png&quot;
                     &quot;title_de&quot;: &quot;Ágnes Bartha (li) mit Frieda Malter, April 2001&quot;,
                     &quot;title_en&quot;: &quot;&quot;,
                     &quot;description_de&quot;: &quot;Ágnes Bartha (li) mit Frieda Malter, April 2001 &quot;,
                     &quot;description_en&quot;: &quot;&quot;,
-                    &quot;author&quot;: &quot;http://www.gesichter-der-zwangsarbeit.de&quot;,
+                    &quot;author&quot;: &quot;https://www.gesichter-der-zwangsarbeit.de&quot;,
                     &quot;copyright_limitations&quot;: &quot;&quot;
                 }
             ]
@@ -1616,240 +1944,334 @@ pre.line-numbers > code {
 <tr>
 <th>Field</th>
 <th>Type</th>
+<th>Required</th>
 <th>Description</th>
+<th>Example</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
 <td>id</td>
-<td>integer</td>
-<td>Unique identifier</td>
+<td>string or integer</td>
+<td>yes</td>
+<td>Unique workshop identifier on your website</td>
+<td>12</td>
 </tr>
 <tr>
 <td>created</td>
 <td>string</td>
+<td>yes</td>
 <td>Creation date and time in a fornat &quot;yyyy-mm-ddThh:mm:ss&quot;</td>
+<td>&quot;2018-10-01T15:00:00&quot;</td>
 </tr>
 <tr>
 <td>modified</td>
 <td>string</td>
-<td>Modification date and time in a format &quot;yyyy-mm-ddThh:mm:ss&quot;</td>
+<td>no</td>
+<td>Last modification date and time in a format &quot;yyyy-mm-ddThh:mm:ss&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>title_de</td>
 <td>string</td>
+<td>yes</td>
 <td>Title in German</td>
+<td></td>
 </tr>
 <tr>
 <td>title_en</td>
 <td>string</td>
+<td>no</td>
 <td>Title in English</td>
+<td></td>
 </tr>
 <tr>
 <td>subtitle_de</td>
 <td>string</td>
+<td>no</td>
 <td>Subtitle in German</td>
+<td></td>
 </tr>
 <tr>
 <td>subtitle_en</td>
 <td>string</td>
+<td>no</td>
 <td>Subtitle in English</td>
+<td></td>
 </tr>
 <tr>
 <td>press_text_de</td>
 <td>string</td>
-<td>Press text in German</td>
+<td>no</td>
+<td>Press text in German. Can contain simple HTML.</td>
+<td></td>
 </tr>
 <tr>
 <td>press_text_en</td>
-<td>string </td>
-<td>Press text in English</td>
+<td>string</td>
+<td>no</td>
+<td>Press text in English. Can contain simple HTML.</td>
+<td></td>
 </tr>
 <tr>
 <td>workshop_type_de</td>
 <td>string</td>
+<td>no</td>
 <td>Workshop type in German</td>
+<td></td>
 </tr>
 <tr>
 <td>workshop_type_en</td>
 <td>string</td>
+<td>no</td>
 <td>Workshop type in English</td>
+<td></td>
 </tr>
 <tr>
 <td>website_de</td>
 <td>string</td>
+<td>no</td>
 <td>External website in German</td>
+<td></td>
 </tr>
 <tr>
 <td>website_en</td>
 <td>string</td>
+<td>no</td>
 <td>External website in English</td>
+<td></td>
 </tr>
 <tr>
 <td>workshop_times</td>
 <td>list</td>
+<td>no</td>
 <td>List of workshop times</td>
+<td></td>
 </tr>
 <tr>
 <td>museum_id</td>
-<td>integer</td>
+<td>string or integer</td>
+<td>no</td>
 <td>The ID of the museum</td>
+<td></td>
 </tr>
 <tr>
 <td>location_name</td>
 <td>string</td>
+<td>no</td>
 <td>Location name, when differs from museum</td>
+<td></td>
 </tr>
 <tr>
 <td>street_address</td>
 <td>string</td>
+<td>yes</td>
 <td>Street address</td>
+<td></td>
 </tr>
 <tr>
 <td>street_address2</td>
 <td>string</td>
+<td>no</td>
 <td>Second line of street address</td>
+<td></td>
 </tr>
 <tr>
 <td>postal_code</td>
 <td>string</td>
+<td>yes</td>
 <td>Postal code</td>
+<td></td>
 </tr>
 <tr>
 <td>city</td>
 <td>string</td>
+<td>yes</td>
 <td>City</td>
+<td></td>
 </tr>
 <tr>
 <td>country</td>
 <td>string</td>
-<td>Country code e.g. &quot;de&quot;</td>
+<td>yes</td>
+<td>Country code</td>
+<td>&quot;de&quot;</td>
 </tr>
 <tr>
 <td>latitude</td>
-<td>float</td>
+<td>string</td>
+<td>no</td>
 <td>Latitude</td>
+<td>&quot;52.5192&quot;</td>
 </tr>
 <tr>
 <td>longitude</td>
-<td>float</td>
+<td>string</td>
+<td>no</td>
 <td>Longitude</td>
+<td>&quot;13.4061&quot;</td>
 </tr>
 <tr>
 <td>meeting_place_de</td>
 <td>string</td>
-<td>Meeting place in German</td>
+<td>no</td>
+<td>Meeting place in German. Plain text.</td>
+<td></td>
 </tr>
 <tr>
 <td>meeting_place_en</td>
 <td>string</td>
-<td>Meeting place in English</td>
+<td>no</td>
+<td>Meeting place in English. Plain text.</td>
+<td></td>
 </tr>
 <tr>
 <td>organizers</td>
 <td>list</td>
+<td>no</td>
 <td>List of organizers</td>
+<td></td>
 </tr>
 <tr>
 <td>exhibition_id</td>
-<td>integer</td>
+<td>string or integer</td>
+<td>no</td>
 <td>The ID of the related exhibition</td>
+<td></td>
 </tr>
 <tr>
 <td>languages</td>
 <td>list</td>
+<td>no</td>
 <td>List of language codes</td>
+<td></td>
 </tr>
 <tr>
 <td>free_admission</td>
 <td>boolean</td>
+<td>no</td>
 <td>Is the admission free?</td>
+<td></td>
 </tr>
 <tr>
 <td>admission_price</td>
 <td>string</td>
-<td>Admission price in Euros, e.g. &quot;12.00&quot;</td>
+<td>no</td>
+<td>Decimal admission price in Euros</td>
+<td>&quot;12.00&quot;</td>
 </tr>
 <tr>
 <td>admission_price_info_de</td>
 <td>string</td>
+<td>no</td>
 <td>Admission price information in German</td>
+<td></td>
 </tr>
 <tr>
 <td>admission_price_info_en</td>
 <td>string</td>
+<td>no</td>
 <td>Admission price information in English</td>
+<td></td>
 </tr>
 <tr>
 <td>reduced_price</td>
 <td>string</td>
-<td>Reduced admission price in Euros e.g. &quot;8.00&quot;</td>
+<td>no</td>
+<td>Decimal reduced admission price in Euros</td>
+<td>&quot;8.00&quot;</td>
 </tr>
 <tr>
 <td>booking_info_de</td>
 <td>string</td>
+<td>no</td>
 <td>Booking information in German</td>
+<td></td>
 </tr>
 <tr>
 <td>booking_info_en</td>
 <td>string</td>
+<td>no</td>
 <td>Booking information in English</td>
+<td></td>
 </tr>
 <tr>
 <td>has_group_offer</td>
 <td>boolean</td>
+<td>no</td>
 <td>Has bookable group offer?</td>
+<td>true</td>
 </tr>
 <tr>
 <td>is_for_preschool</td>
 <td>boolean</td>
+<td>no</td>
 <td>Is special for preschool children (up to 5 years)?</td>
+<td>false</td>
 </tr>
 <tr>
 <td>is_for_primary_school</td>
 <td>boolean</td>
+<td>no</td>
 <td>Is special for children of primary school age (6-12 years)?</td>
+<td>false</td>
 </tr>
 <tr>
 <td>is_for_youth</td>
 <td>boolean</td>
+<td>no</td>
 <td>Is special for youth (aged 13 years)?</td>
+<td>false</td>
 </tr>
 <tr>
 <td>is_for_families</td>
 <td>boolean</td>
+<td>no</td>
 <td>Is special for families?</td>
+<td>true</td>
 </tr>
 <tr>
 <td>is_for_wheelchaired</td>
 <td>boolean</td>
+<td>no</td>
 <td>Is special for people in wheelchairs?</td>
+<td>true</td>
 </tr>
 <tr>
 <td>is_for_deaf</td>
 <td>boolean</td>
+<td>no</td>
 <td>Is special for deaf people?</td>
+<td>true</td>
 </tr>
 <tr>
 <td>is_for_blind</td>
 <td>boolean</td>
+<td>no</td>
 <td>Is special for blind people?</td>
+<td>true</td>
 </tr>
 <tr>
 <td>is_for_learning_difficulties</td>
 <td>boolean</td>
+<td>no</td>
 <td>Is special for people with learning difficulties?</td>
+<td>true</td>
 </tr>
 <tr>
 <td>media_files</td>
 <td>list</td>
+<td>no</td>
 <td>List of media files</td>
+<td></td>
 </tr>
 <tr>
-<td>types </td>
-<td> list</td>
+<td>types</td>
+<td>list</td>
+<td>yes</td>
 <td>List of types</td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -1861,7 +2283,9 @@ pre.line-numbers > code {
 <tr>
 <th>Field</th>
 <th>Type</th>
+<th>Required</th>
 <th>Description</th>
+<th>Example</th>
 </tr>
 </thead>
 
@@ -1869,17 +2293,23 @@ pre.line-numbers > code {
 <tr>
 <td>workshop_date</td>
 <td>string</td>
+<td>yes</td>
 <td>Workshop date in a format &quot;yyyy-mm-dd&quot;</td>
+<td>&quot;2018-12-10&quot;</td>
 </tr>
 <tr>
 <td>start</td>
 <td>string</td>
+<td>yes</td>
 <td>Start time in a format &quot;hh:mm&quot;</td>
+<td>&quot;19:00&quot;</td>
 </tr>
 <tr>
 <td>end</td>
 <td>string</td>
+<td>no</td>
 <td>End tine in a format &quot;hh:mm&quot;</td>
+<td>&quot;21:00&quot;</td>
 </tr>
 </tbody>
 </table>
@@ -1890,29 +2320,39 @@ pre.line-numbers > code {
 <thead>
 <tr>
 <th>Field</th>
-<th>Type </th>
+<th>Type</th>
+<th>Required</th>
 <th>Description</th>
+<th>Example</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
 <td>organizing_museum_id</td>
-<td>string</td>
+<td>string or integer</td>
+<td>no</td>
 <td>Unique identifier of a museum</td>
+<td>42</td>
 </tr>
 <tr>
-<td>organizer_title </td>
+<td>organizer_title</td>
 <td>string</td>
+<td>no</td>
 <td>Organizer title if not organized by a museum</td>
+<td></td>
 </tr>
 <tr>
 <td>organizer_url_link</td>
-<td>string</td>
+<td>URL</td>
+<td>no</td>
 <td>Organizer URL if not organized by a museum</td>
+<td></td>
 </tr>
 </tbody>
 </table>
+
+<p>Either the museum ID or museum title and URL should be provided.</p>
 
 <p>Workshop <strong>media_files</strong> should have these fields:</p>
 
@@ -1920,8 +2360,10 @@ pre.line-numbers > code {
 <thead>
 <tr>
 <th>Field</th>
-<th>Type </th>
+<th>Type</th>
+<th>Required</th>
 <th>Description</th>
+<th>Example</th>
 </tr>
 </thead>
 
@@ -1929,42 +2371,65 @@ pre.line-numbers > code {
 <tr>
 <td>created</td>
 <td>string</td>
-<td>Creation date and time in a fornat &quot;yyyy-mm-ddThh:mm:ss&quot;</td>
+<td>yes</td>
+<td>Creation date and time in a format &quot;yyyy-mm-ddThh:mm:ss&quot;</td>
+<td></td>
 </tr>
 <tr>
 <td>modified</td>
-<td>string </td>
-<td>Modification date and time in a format &quot;yyyy-mm-ddThh:mm:ss&quot;</td>
+<td>string</td>
+<td>no</td>
+<td>Last modification date and time in a format &quot;yyyy-mm-ddThh:mm:ss&quot;</td>
+<td>&quot;2018-12-01T15:00:00&quot;</td>
 </tr>
 <tr>
-<td>url </td>
-<td>string </td>
+<td>url</td>
+<td>string</td>
+<td>yes</td>
 <td>High-quality image URL</td>
+<td>&quot;https://example.com/triennale.jpg&quot;</td>
 </tr>
 <tr>
 <td>title_de</td>
 <td>string</td>
-<td>Title in German</td>
+<td>no</td>
+<td>Title/caption in German</td>
+<td></td>
 </tr>
 <tr>
 <td>title_en</td>
-<td>string </td>
-<td>Title in English</td>
+<td>string</td>
+<td>no</td>
+<td>Title/caption in English</td>
+<td></td>
 </tr>
 <tr>
 <td>description_de</td>
 <td>string</td>
-<td>Description in German</td>
+<td>no</td>
+<td>Description in German. Plain text.</td>
+<td></td>
 </tr>
 <tr>
 <td>description_en</td>
 <td>string</td>
-<td>Description in English</td>
+<td>no</td>
+<td>Description in English. Plain text.</td>
+<td></td>
 </tr>
 <tr>
 <td>author</td>
 <td>string</td>
-<td>Author and Copyright</td>
+<td>no</td>
+<td>Author and Copyright. Plain text.</td>
+<td></td>
+</tr>
+<tr>
+<td>copyright_limitations</td>
+<td>string</td>
+<td>no</td>
+<td>Additional Copyright Information. Plain text.</td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -1975,8 +2440,10 @@ pre.line-numbers > code {
 <thead>
 <tr>
 <th>Field</th>
-<th>Type </th>
+<th>Type</th>
+<th>Required</th>
 <th>Description</th>
+<th>Example</th>
 </tr>
 </thead>
 
@@ -1984,28 +2451,43 @@ pre.line-numbers > code {
 <tr>
 <td>id</td>
 <td>string</td>
+<td>yes</td>
 <td>Unique identifier of a type</td>
+<td>1</td>
 </tr>
 <tr>
-<td>title_de </td>
+<td>title_de</td>
 <td>string</td>
+<td>yes</td>
 <td>Title in German</td>
+<td>&quot;Workshop&quot;</td>
 </tr>
 <tr>
 <td>title_en</td>
 <td>string</td>
+<td>no</td>
 <td>Title in English</td>
+<td>&quot;Workshop&quot;</td>
 </tr>
 </tbody>
 </table>
 
-<p>So when accessed by <strong>http://yourwebsite.de/api/workshops/?api_key=abc123</strong> or similar path, we should get information about workshops and guided tours in the following JSON format:</p>
+<p>Currently existing workshop types are:</p>
+
+<ul>
+<li>Workshop | Workshop (id=1)</li>
+<li>Führung | Guided tour (id=2)</li>
+</ul>
+
+<p>So when accessed by <strong>https://yourwebsite.de/api/workshops/?api_key=abc123</strong> or similar path, we should get information about workshops and guided tours in the following JSON format:</p>
 
 <div><pre class="line-numbers"><code class="language-none">{
     &quot;meta&quot;: {
         &quot;page&quot;: 1,
         &quot;total_pages&quot;: 9,
-        &quot;total_count&quot;: 521
+        &quot;total_count&quot;: 521,
+        &quot;next&quot;: &quot;https://yourwebsite.de/api/workshops/?api_key=abc123&amp;page=2&quot;,
+        &quot;previous&quot;: null
     },
     &quot;objects&quot;: [
         {
@@ -2020,7 +2502,7 @@ pre.line-numbers > code {
             &quot;press_text_en&quot;: &quot;&quot;,
             &quot;workshop_type_de&quot;: &quot;&quot;,
             &quot;workshop_type_en&quot;: &quot;&quot;                
-            &quot;website_de&quot;: &quot;http://www.dhm.de/ausstellungen/auf-dem-schlachtfeld-bei-leipzig/fuehrungen.html&quot;,
+            &quot;website_de&quot;: &quot;https://www.dhm.de/ausstellungen/auf-dem-schlachtfeld-bei-leipzig/fuehrungen.html&quot;,
             &quot;website_en&quot;: &quot;&quot;,
             &quot;workshop_times&quot;: [
                 {
@@ -2071,7 +2553,7 @@ pre.line-numbers > code {
                 {
                     &quot;created&quot;: &quot;2013-12-18T16:12:10&quot;,
                     &quot;modified&quot;: &quot;2013-12-18T16:12:10&quot;,
-                    &quot;url&quot;: &quot;http://yourwebsite.de/media/workshops/1813-kinderreporter-decken-auf-was-bei-leipzig-wirklich-geschah/20131218161210.jpg&quot;
+                    &quot;url&quot;: &quot;https://yourwebsite.de/media/workshops/1813-kinderreporter-decken-auf-was-bei-leipzig-wirklich-geschah/20131218161210.jpg&quot;
                     &quot;title_de&quot;: &quot;&quot;,
                     &quot;title_en&quot;: &quot;&quot;,
                     &quot;description_de&quot;: &quot;&quot;,
