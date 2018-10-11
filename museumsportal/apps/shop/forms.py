@@ -3,7 +3,7 @@
 from django.db import models
 from django import forms
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _, ugettext
+from django.utils.translation import ugettext_lazy as _, ugettext, string_concat
 from django.utils import timezone
 
 import autocomplete_light
@@ -39,25 +39,25 @@ class ShopProductForm(autocomplete_light.ModelForm):
     )
 
     image_title_de = forms.CharField(
-        label=_('Caption')+' DE',
+        label=string_concat(_('Caption'), ' DE'),
         required=False,
         max_length=255,
     )
 
     image_title_en = forms.CharField(
-        label=_('Caption')+' EN',
+        label=string_concat(_('Caption'), ' EN'),
         required=False,
         max_length=255,
     )
 
     image_description_de = forms.CharField(
-        label=_('Description (will be used as alt attribute)')+' DE',
+        label=string_concat(_('Description (will be used as alt attribute)'), ' DE'),
         required=False,
         max_length=255,
     )
 
     image_description_en = forms.CharField(
-        label=_('Description (will be used as alt attribute)')+' EN',
+        label=string_concat(_('Description (will be used as alt attribute)'), ' EN'),
         required=False,
         max_length=255,
     )

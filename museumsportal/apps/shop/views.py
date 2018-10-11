@@ -269,6 +269,7 @@ def add_shop_product(request):
 @never_cache
 @login_required
 def change_shop_product(request, slug):
+    from filebrowser.base import FileObject
     instance = get_object_or_404(ShopProduct, slug=slug)
     can_edit = False
     if request.user.has_perm("shop.change_shopproduct", instance):
@@ -312,17 +313,16 @@ def change_shop_product(request, slug):
                 shutil.copy2(abs_tmp_path, abs_dest_path)
 
                 os.remove(abs_tmp_path)
-                instance.image = dest_path
-
-
-            from filebrowser.base import FileObject
+                instance.image = FileObject(dest_path)
 
             try:
                 file_description = FileDescription.objects.filter(
-                    file_path=FileObject(instance.image or path),
+                    file_path=instance.image.path,
                 ).order_by("pk")[0]
-            except:
-                file_description = FileDescription(file_path=instance.image or path)
+            except IndexError:
+                file_description = FileDescription(
+                    file_path=instance.image.path
+                )
 
             for lang_code, lang_name in FRONTEND_LANGUAGES:
                 setattr(file_description, 'title_%s' % lang_code, form.cleaned_data['image_title_%s' % lang_code])
@@ -339,25 +339,23 @@ def change_shop_product(request, slug):
             return HttpResponseRedirect(reverse("dashboard_shopproducts") + "?status=%s" % instance.status)
     else:
 
+        initial = {}
         try:
             file_description = FileDescription.objects.filter(
-                file_path=FileObject(instance.image or path),
+                file_path=instance.image.path,
             ).order_by("pk")[0]
 
-            instance.image_title_de = file_description.title_de
-            instance.image_title_en = file_description.title_en
-            instance.image_description_de = file_description.description_de
-            instance.image_description_en = file_description.description_de
-            instance.image_author = file_description.author
+            initial = {
+                'image_title_de': file_description.title_de,
+                'image_title_en': file_description.title_en,
+                'image_description_de': file_description.description_de,
+                'image_description_en': file_description.description_de,
+                'image_author': file_description.author,
+            }
+        except IndexError:
+            pass
 
-        except:
-            instance.image_title_de = ''
-            instance.image_title_en = ''
-            instance.image_description_de = ''
-            instance.image_description_en = ''
-            instance.image_author = ''
-
-        form = ShopProductForm(instance=instance)
+        form = ShopProductForm(instance=instance, initial=initial)
 
     return render(request, "shop/change_product.html", {'form': form, 'object': instance})
 
