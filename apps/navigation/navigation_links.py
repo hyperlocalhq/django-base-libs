@@ -353,8 +353,8 @@ navigation_links = {
         {
             'url_de': '/de/jobs/',
             'url_en': '/en/jobs/',
-            'text_de': 'Jobs',
-            'text_en': 'Jobs',
+            'text_de': 'Alle',
+            'text_en': 'All',
             'should_be_shown': for_all,
             'highlight_pattern': r'^/(de|en)/jobs/$',
         },
@@ -365,14 +365,6 @@ navigation_links = {
             'text_en': 'Internships',
             'should_be_shown': for_all,
             'highlight_pattern': r'^/(de|en)/jobs/internships/$',
-        },
-        {
-            'url_de': '/de/jobs/all/',
-            'url_en': '/en/jobs/all/',
-            'text_de': 'Alle',
-            'text_en': 'All',
-            'should_be_shown': for_all,
-            'highlight_pattern': r'^/(de|en)/jobs/all/$',
         },
         {
             'url_de': '/de/jobs/favorites/',
