@@ -49,5 +49,5 @@ class NavigationLinkOptions(TreeEditor, ObjectRelationMixinAdminOptions(prefix_v
         return _("(broken link)")
     get_link_display.short_description = _("Link target")
 
-admin.site.register(NavigationLink, NavigationLinkOptions)
+#admin.site.register(NavigationLink, NavigationLinkOptions)
 
