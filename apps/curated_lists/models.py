@@ -125,6 +125,8 @@ class CuratedList(
         from django.contrib.contenttypes.models import ContentType
         if user is None:
             user = get_current_user()
+        if not user.is_authenticated():
+            return False
         ct = ContentType.objects.get_for_model(user)
         editable = bool(user.is_staff or self.listowner_set.filter(
             owner_content_type=ct,
