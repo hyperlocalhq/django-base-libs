@@ -23,6 +23,7 @@ class CuratedListForm(forms.Form):
     description = forms.CharField(
         label=_("Description"),
         required=False,
+        widget=forms.Textarea(),
     )
     image = forms.ImageField(
         label=_("Image"),
@@ -86,6 +87,7 @@ class CuratedListItemForm(forms.Form):
     description = forms.CharField(
         label=_("Description"),
         required=False,
+        widget=forms.Textarea(attrs={'rows': 5}),
     )
 
     def __init__(self, instance, *args, **kwargs):
@@ -180,3 +182,107 @@ class CuratedListFilterForm(forms.Form):
                 layout.Submit('submit', _('Search')),
             )
         )
+
+
+class OwnerInvitationForm(forms.Form):
+    email = forms.EmailField(
+        label=_("Another owner's email"),
+        required=True,
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(OwnerInvitationForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                "",
+                "email",
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Send invitation')),
+            )
+        )
+
+
+class CuratedListDeletionForm(forms.Form):
+    def __init__(self, curated_list, *args, **kwargs):
+        super(CuratedListDeletionForm, self).__init__(*args, **kwargs)
+        self.curated_list = curated_list
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Confirm deletion"),
+                layout.HTML("""{% load i18n %}
+                <p>{% blocktrans with curated_list_title=form.curated_list.title trimmed %}
+                    Do you realy want to delete the curated list "{{ curated_list_title }}"?
+                {% endblocktrans %}</p>
+                """)
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Delete')),
+            )
+        )
+
+    def delete(self):
+        self.curated_list.delete()
+
+
+class CuratedListItemRemovalForm(forms.Form):
+    def __init__(self, curated_list, item, *args, **kwargs):
+        super(CuratedListItemRemovalForm, self).__init__(*args, **kwargs)
+        self.curated_list = curated_list
+        self.item = item
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Confirm deletion"),
+                layout.HTML("""{% load i18n %}
+                <p>{% blocktrans with curated_list_title=form.curated_list.title item_title=form.item.title trimmed %}
+                    Do you realy want to remove "{{ item_title }}" from the curated list "{{ curated_list_title }}"?
+                {% endblocktrans %}</p>
+                """)
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Remove')),
+            )
+        )
+
+    def remove(self):
+        self.item.delete()
+
+
+class CuratedListOwnerRemovalForm(forms.Form):
+    def __init__(self, curated_list, owner, *args, **kwargs):
+        super(CuratedListOwnerRemovalForm, self).__init__(*args, **kwargs)
+        self.curated_list = curated_list
+        self.owner = owner
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Confirm deletion"),
+                layout.HTML("""{% load i18n %}
+                <p>{% blocktrans with curated_list_title=form.curated_list.title owner_title=form.owner.owner_content_object.get_title trimmed %}
+                    Do you realy want to remove {{ owner_title }} from the owners of the curated list "{{ curated_list_title }}"?
+                {% endblocktrans %}</p>
+                """)
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Remove')),
+            )
+        )
+
+    def remove(self):
+        self.owner.delete()

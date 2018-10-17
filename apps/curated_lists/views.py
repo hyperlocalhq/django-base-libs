@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 from django.contrib.contenttypes.models import ContentType
-from hashids import Hashids
+from django import forms
 from django.db import models
 from django.shortcuts import render, redirect
 from django.http import Http404, JsonResponse
@@ -11,7 +11,10 @@ from jetson.apps.utils.views import object_list
 from base_libs.views.views import access_denied
 
 
-from .forms import CuratedListForm, CuratedListFilterForm
+from .forms import (
+    CuratedListForm, CuratedListItemForm, CuratedListFilterForm, OwnerInvitationForm,
+    CuratedListDeletionForm, CuratedListItemRemovalForm, CuratedListOwnerRemovalForm
+)
 from .models import CuratedList
 
 
@@ -19,25 +22,20 @@ def curated_list_detail(request, token, **kwargs):
     """
     Displays the list of favorite objects
     """
-    hashids = Hashids(min_length=6)
-
-    try:
-        curated_list_id = hashids.decode(token)[0]
-    except IndexError:
-        raise Http404
-
-    try:
-        curated_list = CuratedList.objects.filter(pk=curated_list_id)[0]
-    except IndexError:
+    curated_list = CuratedList.objects.get_by_token(token=token)
+    if not curated_list:
         raise Http404
 
     other_curated_lists = []
     if curated_list.is_featured:
-        other_curated_lists = CuratedList.objects.filter(is_featured=True).exclude(pk=curated_list_id)
+        other_curated_lists = CuratedList.objects.filter(is_featured=True).exclude(pk=curated_list.pk)
+
+    editable = curated_list.is_editable(user=request.user)
 
     return render(request, "curated_lists/curated_list_detail.html", {
         'curated_list': curated_list,
         'other_curated_lists': other_curated_lists,
+        'editable': editable,
     })
 
 
@@ -46,30 +44,22 @@ def change_curated_list(request, token, **kwargs):
     """
     Displays the list of favorite objects
     """
-    hashids = Hashids(min_length=6)
-
-    try:
-        curated_list_id = hashids.decode(token)[0]
-    except IndexError:
+    curated_list = CuratedList.objects.get_by_token(token=token)
+    if not curated_list:
         raise Http404
 
-    try:
-        curated_list = CuratedList.objects.filter(pk=curated_list_id)[0]
-    except IndexError:
-        raise Http404
-
-    if request.user != curated_list.user and not request.user.is_staff:
+    if not curated_list.is_editable(user=request.user):
         return access_denied(request)
 
     if request.method == "POST":
-        form = CuratedListForm(data=request.POST, instance=curated_list)
+        form = CuratedListForm(request=request, instance=curated_list, data=request.POST)
         if form.is_valid():
             opts = form.save(commit=False)
             opts.save()
-            return render(request, "curated_lists/change_curated_list_done.html", {})
+            return redirect('curated_list_detail', token=token)
 
     else:
-        form = CuratedListForm(instance=curated_list)
+        form = CuratedListForm(request=request, instance=curated_list)
 
     return render(request, "curated_lists/change_curated_list.html", {
         'form': form,
@@ -119,6 +109,8 @@ def featured_curated_lists(request, **kwargs):
 
     return object_list(request, **kwargs)
 
+
+### JSON views ###
 
 @login_required
 def user_curated_lists_json(request):
@@ -247,17 +239,12 @@ def add_user_curated_list_json(request):
 
 @login_required
 def change_user_curated_list_json(request, token):
-    hashids = Hashids(min_length=6)
-
-    try:
-        curated_list_id = hashids.decode(token)[0]
-    except IndexError:
+    curated_list = CuratedList.objects.get_by_token(token=token)
+    if not curated_list:
         raise Http404
 
-    try:
-        curated_list = CuratedList.objects.filter(pk=curated_list_id)[0]
-    except IndexError:
-        raise Http404
+    if not curated_list.is_editable(user=request.user):
+        return access_denied(request)
 
     if request.method == "POST":
         form = CuratedListForm(request=request, instance=curated_list, data=request.POST)
@@ -285,16 +272,8 @@ def change_user_curated_list_json(request, token):
 
 @login_required
 def delete_user_curated_list_json(request, token):
-    hashids = Hashids(min_length=6)
-
-    try:
-        curated_list_id = hashids.decode(token)[0]
-    except IndexError:
-        raise Http404
-
-    try:
-        curated_list = CuratedList.objects.filter(pk=curated_list_id)[0]
-    except IndexError:
+    curated_list = CuratedList.objects.get_by_token(token=token)
+    if not curated_list:
         raise Http404
 
     if request.method == "POST":
@@ -304,3 +283,150 @@ def delete_user_curated_list_json(request, token):
         'success': True,
     }
     return JsonResponse(data)
+
+
+### Editing of curated lists, items, and owners ###
+
+@login_required
+def delete_curated_list(request, token):
+    curated_list = CuratedList.objects.get_by_token(token=token)
+    if not curated_list:
+        raise Http404
+
+    if not curated_list.is_editable(user=request.user):
+        return access_denied(request)
+
+    if request.method == 'POST':
+        form = CuratedListDeletionForm(curated_list=curated_list, data=request.POST)
+        if form.is_valid():
+            form.delete()
+            return redirect('featured_curated_lists')
+    else:
+        form = CuratedListDeletionForm(curated_list=curated_list)
+
+    return render(request, "curated_lists/delete_curated_list.html", {
+        'curated_list': curated_list,
+        'form': form,
+    })
+
+
+@login_required
+def change_curated_list_item(request, token, item_id):
+    curated_list = CuratedList.objects.get_by_token(token=token)
+    if not curated_list:
+        raise Http404
+
+    if not curated_list.is_editable(user=request.user):
+        return access_denied(request)
+
+    try:
+        item = curated_list.listitem_set.filter(pk=item_id)[0]
+    except IndexError:
+        raise Http404
+
+    if request.method == 'POST':
+        form = CuratedListItemForm(instance=item, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("curated_list_details", token=token)
+    else:
+        form = CuratedListItemForm(instance=item)
+
+    return render(request, "curated_lists/change_curated_list_item.html", {
+        'curated_list': curated_list,
+        'form': form,
+    })
+
+
+@login_required
+def remove_curated_list_item(request, token, item_id):
+    curated_list = CuratedList.objects.get_by_token(token=token)
+    if not curated_list:
+        raise Http404
+
+    if not curated_list.is_editable(user=request.user):
+        return access_denied(request)
+
+    try:
+        item = curated_list.listitem_set.filter(pk=item_id)[0]
+    except IndexError:
+        raise Http404
+
+    if request.method == 'POST':
+        form = CuratedListItemRemovalForm(curated_list=curated_list, item=item, data=request.POST)
+        if form.is_valid():
+            form.remove()
+            return redirect('curated_list_detail', token=token)
+    else:
+        form = CuratedListItemRemovalForm(curated_list=curated_list, item=item)
+
+    return render(request, "curated_lists/remove_curated_list_item.html", {
+        'curated_list': curated_list,
+        'form': form,
+    })
+
+
+@login_required
+def curated_list_owners(request, token):
+    curated_list = CuratedList.objects.get_by_token(token=token)
+    if not curated_list:
+        raise Http404
+
+    if not curated_list.is_editable(user=request.user):
+        return access_denied(request)
+
+    return render(request, "curated_lists/curated_list_owners.html", {
+        'curated_list': curated_list,
+    })
+
+
+@login_required
+def invite_curated_list_owner(request, token):
+    curated_list = CuratedList.objects.get_by_token(token=token)
+    if not curated_list:
+        raise Http404
+
+    if not curated_list.is_editable(user=request.user):
+        return access_denied(request)
+
+    if request.method == 'POST':
+        form = OwnerInvitationForm(data=request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            # TODO: do the saving and notification
+            return redirect("curated_list_owners", token=token)
+    else:
+        form = OwnerInvitationForm()
+
+    return render(request, "curated_lists/invite_curated_list_owner.html", {
+        'curated_list': curated_list,
+        'form': form,
+    })
+
+
+@login_required
+def remove_curated_list_owner(request, token, owner_id):
+    curated_list = CuratedList.objects.get_by_token(token=token)
+    if not curated_list:
+        raise Http404
+
+    if not curated_list.is_editable(user=request.user):
+        return access_denied(request)
+
+    try:
+        owner = curated_list.listowner_set.filter(pk=owner_id)[0]
+    except IndexError:
+        raise Http404
+
+    if request.method == 'POST':
+        form = CuratedListOwnerRemovalForm(curated_list=curated_list, owner=owner, data=request.POST)
+        if form.is_valid():
+            form.remove()
+            return redirect('curated_list_owners', token=token)
+    else:
+        form = CuratedListOwnerRemovalForm(curated_list=curated_list, owner=owner)
+
+    return render(request, "curated_lists/remove_curated_list_owner.html", {
+        'curated_list': curated_list,
+        'form': form,
+    })

@@ -9,6 +9,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from mptt.fields import TreeManyToManyField
 
+from base_libs.middleware import get_current_user
 from filebrowser.fields import FileBrowseField
 
 from base_libs.models.models import CreationModificationDateMixin, SlugMixin, ObjectRelationMixin, UrlMixin
@@ -27,6 +28,23 @@ limit_owner_content_type_choices_to = (
 )
 
 
+class CuratedListManager(models.Manager):
+    def get_by_token(self, token):
+        hashids = Hashids(min_length=6)
+
+        try:
+            curated_list_id = hashids.decode(token)[0]
+        except IndexError:
+            return None
+
+        try:
+            curated_list = self.get_queryset().filter(pk=curated_list_id)[0]
+        except IndexError:
+            return None
+
+        return curated_list
+
+
 class CuratedList(
         CreationModificationDateMixin,
         SlugMixin(unique=False),
@@ -43,6 +61,8 @@ class CuratedList(
     )
     privacy = models.CharField(_("Privacy"), max_length=20, choices=PRIVACY_CHOICES, default="public")
     is_featured = models.BooleanField(_("Featured"), default=False)
+
+    objects = CuratedListManager()
 
     class Meta:
         verbose_name = _("Curated List")
@@ -100,6 +120,17 @@ class CuratedList(
             ).order_by('-{}'.format(field_name))[0]
         except:
             return None
+
+    def is_editable(self, user=None):
+        from django.contrib.contenttypes.models import ContentType
+        if user is None:
+            user = get_current_user()
+        ct = ContentType.objects.get_for_model(user)
+        editable = bool(user.is_staff or self.listowner_set.filter(
+            owner_content_type=ct,
+            owner_object_id=user.pk,
+        ).exists())
+        return editable
 
 
 class ListOwner(
