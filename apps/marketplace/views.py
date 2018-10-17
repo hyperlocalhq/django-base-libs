@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.cache import never_cache
+from django.apps import apps
 from django.db import models
 from django.db import transaction
 from django.shortcuts import render_to_response, get_object_or_404
@@ -20,7 +21,6 @@ from jetson.apps.utils.views import object_list, object_detail, show_form_step
 from jetson.apps.memos.models import Memo, MEMO_TOKEN_NAME
 from ccb.apps.marketplace.forms import ADD_JOB_OFFER_FORM_STEPS, JobOfferSearchForm
 from ccb.apps.marketplace.models import JobOffer, JobSector, URL_ID_JOB_OFFERS
-from ccb.apps.institutions.models import Institution
 from jetson.apps.structure.models import Category
 
 
@@ -111,7 +111,7 @@ def job_offer_list(request, criterion="", slug="", show="", title="", job_sector
     elif show == "own-%s" % URL_ID_JOB_OFFERS:
         if not request.user.is_authenticated():
             return access_denied(request)
-        PersonGroup = models.get_model("groups_networks", "PersonGroup")
+        PersonGroup = apps.get_model("groups_networks", "PersonGroup")
         ct = ContentType.objects.get_for_model(kwargs['queryset'].model)
         owned_inst_ids = [
             int(el['object_id']) for el in PersonGroup.objects.filter(
