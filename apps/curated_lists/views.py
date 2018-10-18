@@ -114,6 +114,9 @@ def featured_curated_lists(request, **kwargs):
 
 @login_required
 def user_curated_lists_json(request):
+    from ccb.apps.institutions.models import Institution
+    from ccb.apps.groups_networks.models import PersonGroup
+
     """
     Returns a list of curated lists created by the currently logged in user or their institutions
 
@@ -154,10 +157,31 @@ def user_curated_lists_json(request):
         'title': person.get_title(),
         'type': 'people.person',
     }
-    curated_lists = CuratedList.objects.filter(
+    # Get a list of institutions for which the current user is the owner
+    user_institutions = [group.content_object for group in PersonGroup.objects.filter(
+        content_type__model="institution",
+        groupmembership__user=request.user,
+        groupmembership__role="owners",
+    ).exclude(
+        groupmembership__activation=None,
+    ).prefetch_related("content_type") if group.content_object]
+
+    # curated list filter consist of person selection...
+    curated_list_filters = models.Q(
         listowner__owner_content_type=ContentType.objects.get_for_model(person),
         listowner__owner_object_id=person.pk,
     )
+    institution_ct = ContentType.objects.get_for_model(Institution)
+    for institution in user_institutions:
+        # ... and the selection of each their institution
+        curated_list_filters |= models.Q(
+            listowner__owner_content_type=institution_ct,
+            listowner__owner_object_id=institution.pk,
+        )
+
+    # let's do the filtering now
+    curated_lists = CuratedList.objects.filter(curated_list_filters)
+
     if item_content_type and item_object_id:
         curated_lists = curated_lists.annotate(
             item_included=models.Sum(
