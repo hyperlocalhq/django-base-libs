@@ -35,7 +35,8 @@
         {% if curated_list.listitem_set.exists %}
             {% for item in curated_list.listitem_set.all %}
                 {% with object=item.content_object %}
-                    <a class="curated-list col-xs-12 col-sm-6" href="{{ object.get_url_path }}">
+                    <div class="col-xs-12 col-sm-6 curated-list-item">
+                    <a class="" href="{{ object.get_url_path }}">
                         <div class="col-xs-12 col-md-6">
                             <div class="wrapper">
                                 <div class="content" href="{{ object.get_url_path }}">
@@ -78,17 +79,23 @@
                     {% if forloop.counter|divisibleby:"2" and not forloop.last %}
                         </a>
                         {% if editable %}
-                            <a href="{% url 'change_curated_list_item' token=curated_list.get_token item_id=item.pk %}" class="fawesome fa-edit button"></a>
-                            <a href="{% url 'remove_curated_list_item' token=curated_list.get_token item_id=item.pk %}" class="fawesome fa-close-circle button"></a>
+                            <div class="button-group">
+                                <a href="{% url 'remove_curated_list_item' token=curated_list.get_token item_id=item.pk %}" class="fawesome fa-close-circle button"></a>
+                                <a href="{% url 'change_curated_list_item' token=curated_list.get_token item_id=item.pk %}" class="fawesome fa-edit button"></a>
+                            </div>
                         {% endif %}
+                        </div>
                         </div>
                         <div class="row profile-grid profile-list curated-list">
                     {% else %}
                         </a>
                         {% if editable %}
-                            <a href="{% url 'change_curated_list_item' token=curated_list.get_token item_id=item.pk %}" class="fawesome fa-edit button"></a>
-                            <a href="{% url 'remove_curated_list_item' token=curated_list.get_token item_id=item.pk %}" class="fawesome fa-close-circle button"></a>
+                            <div class="button-group">
+                                <a href="{% url 'remove_curated_list_item' token=curated_list.get_token item_id=item.pk %}" class="fawesome fa-close-circle button"></a>
+                                <a href="{% url 'change_curated_list_item' token=curated_list.get_token item_id=item.pk %}" class="fawesome fa-edit button"></a>
+                            </div>
                         {% endif %}
+                        </div>
                     {% endif %}
                 {% endwith %}
             {% endfor %}
