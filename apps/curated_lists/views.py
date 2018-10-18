@@ -497,8 +497,8 @@ def invite_curated_list_owner(request, token):
                 owner.last_name = last_name
                 owner.email = email
                 owner.save()
-                # TODO: send an invitation email with a special link to create user's account.
-                # th
+                # TODO: 1. Send an invitation email with a special link to create user's account.
+                # TODO: 2. The custom registration form should add create the user from with the default first_name, last_name, email values, and add them to the Curators group, and assign the user.profile to this owner.owner_content_object.
             else:
                 # A user with this email exists. Add them to the owners and to the Curators group
                 # TODO: don't add the user to the list if it already exists there.
