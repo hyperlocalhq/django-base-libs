@@ -472,6 +472,8 @@ def curated_list_owners(request, token):
 
 @login_required
 def invite_curated_list_owner(request, token):
+    from django.contrib.auth.models import User, Group
+
     curated_list = CuratedList.objects.get_by_token(token=token)
     if not curated_list:
         raise Http404
@@ -482,8 +484,29 @@ def invite_curated_list_owner(request, token):
     if request.method == 'POST':
         form = OwnerInvitationForm(data=request.POST)
         if form.is_valid():
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
             email = form.cleaned_data['email']
-            # TODO: do the saving and notification
+
+            try:
+                user = User.objects.filter(email=email)[0]
+            except IndexError:
+                # It's a person who is not yet registered at CCB
+                owner = ListOwner(curated_list=curated_list)
+                owner.first_name = first_name
+                owner.last_name = last_name
+                owner.email = email
+                owner.save()
+                # TODO: send an invitation email with a special link to create user's account.
+                # th
+            else:
+                # A user with this email exists. Add them to the owners and to the Curators group
+                # TODO: don't add the user to the list if it already exists there.
+                owner = ListOwner(curated_list=curated_list)
+                owner.owner_content_object = user.profile
+                owner.save()
+                group = Group.objects.get(name="Curators")
+                user.groups.add(group)
             return redirect("curated_list_owners", token=token)
     else:
         form = OwnerInvitationForm()

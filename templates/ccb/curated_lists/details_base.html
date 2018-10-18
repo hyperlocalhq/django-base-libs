@@ -32,7 +32,7 @@
                                 <h3>
                                     {% trans "curated by" %}
                                     {% for owner in curated_list.listowner_set.all %}
-                                        <a href="{{ owner.owner_content_object.get_url_path }}">{{ owner.owner_content_object.get_title }}</a>{% if not forloop.last %}, {% endif %}
+                                        {% if owner.owner_content_object %}<a href="{{ owner.owner_content_object.get_url_path }}">{{ owner.owner_content_object.get_title }}</a>{% else %}{{ owner.representation }}{% endif %}{% if not forloop.last %}, {% endif %}
                                     {% endfor %}
                                 </h3>
                             {% endif %}

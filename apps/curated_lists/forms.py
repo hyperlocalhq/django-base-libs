@@ -242,8 +242,16 @@ class CuratedListFilterForm(forms.Form):
 
 
 class OwnerInvitationForm(forms.Form):
+    first_name = forms.CharField(
+        label=_("First name"),
+        required=True,
+    )
+    last_name = forms.CharField(
+        label=_("Last name"),
+        required=True,
+    )
     email = forms.EmailField(
-        label=_("Another owner's email"),
+        label=_("Email"),
         required=True,
     )
 
@@ -256,8 +264,10 @@ class OwnerInvitationForm(forms.Form):
 
         self.helper.layout = layout.Layout(
             layout.Fieldset(
-                "",
-                "email",
+                _("Invite another owner of the curated list"),
+                layout.Field("first_name"),
+                layout.Field("last_name"),
+                layout.Field("email"),
             ),
             bootstrap.FormActions(
                 layout.Submit('submit', _('Send invitation')),
@@ -331,7 +341,7 @@ class CuratedListOwnerRemovalForm(forms.Form):
             layout.Fieldset(
                 _("Confirm deletion"),
                 layout.HTML("""{% load i18n %}
-                <p>{% blocktrans with curated_list_title=form.curated_list.title owner_title=form.owner.owner_content_object.get_title trimmed %}
+                <p>{% blocktrans with curated_list_title=form.curated_list.title owner_title=form.owner.representation trimmed %}
                     Do you realy want to remove {{ owner_title }} from the owners of the curated list "{{ curated_list_title }}"?
                 {% endblocktrans %}</p>
                 """)

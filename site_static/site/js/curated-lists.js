@@ -109,6 +109,7 @@ $(function() {
                     curated_list_token = newChoice.toString();
                     if (curated_list_token.indexOf('new-for-') === 0) {
                         var owner_app_model_pk = curated_list_token.replace('new-for-', '').split('.');
+                        // TODO: replace the prompt with nice dialog or dummy title that is to be renamed in the next steps
                         var curated_list_title = prompt('Enter list title', 'My new list');
                         $.post(
                             '/' + settings.lang + '/helper/user-curated-lists/add-item-to-new/',
@@ -122,6 +123,8 @@ $(function() {
                             function(data) {
                                 if (data.success) {
                                     location.href = data.redirect_url;
+                                    // TODO: maybe you want to redirect to the curated list editing form?
+                                    // location.href = data.redirect_url + 'change/';
                                 }
                             },
                             'json'

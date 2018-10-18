@@ -176,7 +176,10 @@ class ListOwner(
         current_language = get_language()
         for lang_code, lang_name in settings.LANGUAGES:
             activate(lang_code)
-            setattr(self, 'representation_{}'.format(lang_code), force_text(self.owner_content_object))
+            if self.owner_content_object:
+                setattr(self, 'representation_{}'.format(lang_code), force_text(self.owner_content_object))
+            else:
+                setattr(self, 'representation_{}'.format(lang_code), '{} {}'.format(self.first_name, self.last_name))
         activate(current_language)
         super(ListOwner, self).save(*args, **kwargs)
 
