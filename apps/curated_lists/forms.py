@@ -343,3 +343,26 @@ class CuratedListOwnerRemovalForm(forms.Form):
 
     def remove(self):
         self.owner.delete()
+
+
+### Forms for JSON views ###
+
+class AddItemToNewCuratedListForm(forms.Form):
+    """Form used for creating a new curated list by Ajax and adding an item to it"""
+    owner_app_model = forms.ChoiceField(
+        choices=(
+            ('people.person', 'Person'),
+            ('institutions.institution', 'Institution'),
+        )
+    )
+    owner_pk = forms.CharField()
+    title = forms.CharField()
+    item_content_type_id = forms.IntegerField()
+    item_object_id = forms.CharField()
+
+
+class ItemAtCuratedListForm(forms.Form):
+    """Form used for adding or removing items by Ajax to and from an existing curated list"""
+    curated_list_token = forms.CharField()
+    item_content_type_id = forms.IntegerField()
+    item_object_id = forms.CharField()

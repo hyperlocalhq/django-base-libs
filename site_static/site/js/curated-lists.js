@@ -74,20 +74,76 @@ $(function() {
 
             $newWidget.replaceAll($oldWidget).each(function() {
                 var $select = $(this).find('select');
-                $select.data('previous', $select.val());
+                $select.data('previous-value', $select.val());
                 new window.form_elements.SelectBox($select);
             });
 
             $newWidget.on('changed', function() {
+                var curated_list_token;
                 var $select = $(this).find('select');
                 var newChoice = $select.val().filter(function(value) {
-                    return -1 === $select.data('previous').indexOf(value);
+                    return -1 === ($select.data('previous-value') || []).indexOf(value);
                 });
-                var deletedChoice = $select.data('previous').filter(function(value) {
-                    return -1 === $select.val().indexOf(value);
+                var deletedChoice = ($select.data('previous-value') || []).filter(function(value) {
+                    return -1 === ($select.val() || []).indexOf(value);
                 });
                 console.log({newChoice: newChoice.toString(), deletedChoice: deletedChoice.toString()});
-                $select.data('previous', $select.val());
+                if (deletedChoice.toString()) {
+                    curated_list_token = deletedChoice.toString();
+                    $.post(
+                        '/' + settings.lang + '/helper/user-curated-lists/remove-item/',
+                        {
+                            curated_list_token: curated_list_token,
+                            item_content_type_id: content_type_id,
+                            item_object_id: object_id
+                        },
+                        function(data) {
+                            if (data.success) {
+                                console.log('Item deleted from the curated list');
+                            }
+                        },
+                        'json'
+                    );
+                }
+                if (newChoice.toString()) {
+                    curated_list_token = newChoice.toString();
+                    if (curated_list_token.indexOf('new-for-') === 0) {
+                        var owner_app_model_pk = curated_list_token.replace('new-for-', '').split('.');
+                        var curated_list_title = prompt('Enter list title', 'My new list');
+                        $.post(
+                            '/' + settings.lang + '/helper/user-curated-lists/add-item-to-new/',
+                            {
+                                owner_app_model: owner_app_model_pk[0] + '.' + owner_app_model_pk[1],
+                                owner_pk: owner_app_model_pk[2],
+                                title: curated_list_title,
+                                item_content_type_id: content_type_id,
+                                item_object_id: object_id
+                            },
+                            function(data) {
+                                if (data.success) {
+                                    location.href = data.redirect_url;
+                                }
+                            },
+                            'json'
+                        );
+                    } else {
+                        $.post(
+                            '/' + settings.lang + '/helper/user-curated-lists/add-item-to-existing/',
+                            {
+                                curated_list_token: curated_list_token,
+                                item_content_type_id: content_type_id,
+                                item_object_id: object_id
+                            },
+                            function(data) {
+                                if (data.success) {
+                                    location.href = data.redirect_url;
+                                }
+                            },
+                            'json'
+                        );
+                    }
+                }
+                $select.data('previous-value', $select.val());
             });
 
 

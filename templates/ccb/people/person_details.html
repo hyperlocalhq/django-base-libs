@@ -33,12 +33,10 @@
                             <div class="text">{% blocktrans count followers_count as amount %}{{ followers_count_formated }} follower{% plural %}{{ followers_count_formated }} followers{% endblocktrans %}</div>
                         {% endwith %}
                     </div>
-                    {% comment %} TODO: uncomment and adapt when curated lists are implemented
                     <div class="statistic">
                         <div class="fawesome fa-list-short big"></div>
                         <div class="text">{% blocktrans with amount='<b>3</b>' %}On {{ amount }} curated lists{% endblocktrans %}</div>
                     </div>
-                    {% endcomment %}
                 </div>
             </div>
         </div>

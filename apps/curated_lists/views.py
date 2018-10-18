@@ -7,6 +7,7 @@ from django.db import models
 from django.shortcuts import render, redirect
 from django.http import Http404, JsonResponse
 from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
 
 from jetson.apps.utils.decorators import login_required
 from jetson.apps.utils.views import object_list
@@ -18,9 +19,10 @@ image_mods = apps.get_app("image_mods")
 
 from .forms import (
     CuratedListForm, CuratedListItemForm, CuratedListFilterForm, OwnerInvitationForm,
-    CuratedListDeletionForm, CuratedListItemRemovalForm, CuratedListOwnerRemovalForm
+    CuratedListDeletionForm, CuratedListItemRemovalForm, CuratedListOwnerRemovalForm,
+    AddItemToNewCuratedListForm, ItemAtCuratedListForm,
 )
-from .models import CuratedList
+from .models import CuratedList, ListOwner, ListItem
 
 
 def get_unique_filename(filename):
@@ -264,17 +266,38 @@ def user_curated_lists_json(request):
     return JsonResponse(data, safe=False)
 
 
+@csrf_exempt
 @login_required
-def add_user_curated_list_json(request):
+def add_item_to_new_curated_list_json(request):
+    if not request.user.is_staff and not request.user.profile.is_curator():
+        return access_denied(request)
+
     if request.method == "POST":
-        form = CuratedListForm(request=request, curated_list=None, data=request.POST)
+        form = AddItemToNewCuratedListForm(data=request.POST)
         if form.is_valid():
-            curated_list = form.save()
+            curated_list = CuratedList()
+            for lang_code, lang_name in settings.LANGUAGES:
+                setattr(curated_list, 'title_{}'.format(lang_code), form.cleaned_data['title'])
+            curated_list.save()
+
+            owner_model = apps.get_model(*form.cleaned_data['owner_app_model'].split('.'))
+            try:
+                owner_content_object = owner_model.objects.get(pk=form.cleaned_data['owner_pk'])
+            except owner_model.DoesNotExist:
+                raise Http404
+            owner = ListOwner(curated_list=curated_list)
+            owner.owner_content_object = owner_content_object
+            owner.save()
+
+            item_content_type = ContentType.objects.get(pk=form.cleaned_data['item_content_type_id'])
+            item_content_object = item_content_type.get_object_for_this_type(pk=form.cleaned_data['item_object_id'])
+            item = ListItem(curated_list=curated_list)
+            item.content_object = item_content_object
+            item.save()
+
             data = {
                 'success': True,
-                'token': curated_list.get_token(),
-                'title': curated_list.title,
-                'description': curated_list.description,
+                'redirect_url': curated_list.get_url_path(),
             }
             return JsonResponse(data)
         data = {
@@ -286,24 +309,28 @@ def add_user_curated_list_json(request):
     return JsonResponse(data)
 
 
+@csrf_exempt
 @login_required
-def change_user_curated_list_json(request, token):
-    curated_list = CuratedList.objects.get_by_token(token=token)
-    if not curated_list:
-        raise Http404
-
-    if not curated_list.is_editable(user=request.user):
+def add_item_to_existing_curated_list_json(request):
+    if not request.user.is_staff and not request.user.profile.is_curator():
         return access_denied(request)
 
     if request.method == "POST":
-        form = CuratedListForm(request=request, curated_list=curated_list, data=request.POST)
+        form = ItemAtCuratedListForm(data=request.POST)
         if form.is_valid():
-            curated_list = form.save()
+            curated_list = CuratedList.objects.get_by_token(form.cleaned_data['curated_list_token'])
+            if not curated_list:
+                raise Http404
+
+            item_content_type = ContentType.objects.get(pk=form.cleaned_data['item_content_type_id'])
+            item_content_object = item_content_type.get_object_for_this_type(pk=form.cleaned_data['item_object_id'])
+            item = ListItem(curated_list=curated_list)
+            item.content_object = item_content_object
+            item.save()
+
             data = {
                 'success': True,
-                'token': curated_list.get_token(),
-                'title': curated_list.title,
-                'description': curated_list.description,
+                'redirect_url': curated_list.get_url_path(),
             }
             return JsonResponse(data)
         data = {
@@ -311,26 +338,40 @@ def change_user_curated_list_json(request, token):
             'errors': form.errors,
         }
         return JsonResponse(data)
-    data = {
-        'token': curated_list.get_token(),
-        'title': curated_list.title,
-        'description': curated_list.description,
-    }
+    data = {}
     return JsonResponse(data)
 
 
+@csrf_exempt
 @login_required
-def delete_user_curated_list_json(request, token):
-    curated_list = CuratedList.objects.get_by_token(token=token)
-    if not curated_list:
-        raise Http404
+def remove_item_from_curated_list_json(request):
+    if not request.user.is_staff and not request.user.profile.is_curator():
+        return access_denied(request)
 
     if request.method == "POST":
-        curated_list.delete()
+        form = ItemAtCuratedListForm(data=request.POST)
+        if form.is_valid():
+            curated_list = CuratedList.objects.get_by_token(form.cleaned_data['curated_list_token'])
+            if not curated_list:
+                raise Http404
 
-    data = {
-        'success': True,
-    }
+            ListItem.objects.filter(
+                curated_list=curated_list,
+                content_type__pk=form.cleaned_data['item_content_type_id'],
+                object_id=form.cleaned_data['item_object_id'],
+            ).delete()
+
+            data = {
+                'success': True,
+                'redirect_url': curated_list.get_url_path(),
+            }
+            return JsonResponse(data)
+        data = {
+            'success': False,
+            'errors': form.errors,
+        }
+        return JsonResponse(data)
+    data = {}
     return JsonResponse(data)
 
 

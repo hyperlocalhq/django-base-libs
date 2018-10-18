@@ -201,9 +201,9 @@ urlpatterns += i18n_patterns(
         URL_ID_INSTITUTION, URL_ID_PERSON), 'ccb.apps.site_specific.views.delete_contact', name="delete_profile_contact"),
 
     url(r'^helper/user-curated-lists/$', curated_lists_views.user_curated_lists_json),
-    url(r'^helper/user-curated-lists/add/$', curated_lists_views.add_user_curated_list_json),
-    url(r'^helper/user-curated-lists/(?P<token>[^/]+)/$', curated_lists_views.change_user_curated_list_json),
-    url(r'^helper/user-curated-lists/(?P<token>[^/]+)/delete/$', curated_lists_views.delete_user_curated_list_json),
+    url(r'^helper/user-curated-lists/add-item-to-new/$', curated_lists_views.add_item_to_new_curated_list_json),
+    url(r'^helper/user-curated-lists/add-item-to-existing/$', curated_lists_views.add_item_to_existing_curated_list_json),
+    url(r'^helper/user-curated-lists/remove-item/$', curated_lists_views.remove_item_from_curated_list_json),
 
     url(
         r'^helper/edit-(?P<object_type>%s|%s|%s|%s|%s)-profile/'
