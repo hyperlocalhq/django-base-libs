@@ -53,6 +53,8 @@ class CuratedList(
     title = MultilingualCharField(_("Title"), max_length=255)
     description = MultilingualTextField(_("Description"), blank=True)
     image = FileBrowseField(_('Image'), max_length=255, directory="curated_lists/", extensions=['.jpg', '.jpeg', '.gif', '.png'], blank=True)
+    image_author = models.CharField(_("Image Credits"), max_length=100, blank=True)
+
     sort_order = models.IntegerField(_("Sort order"), blank=True, default=0)
     categories = TreeManyToManyField(
         "structure.Category",

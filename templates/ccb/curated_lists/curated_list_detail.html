@@ -11,8 +11,8 @@
                             <img class="img-responsive" src="{{ MEDIA_URL }}{{ curated_list.image|modified_path:"overview_image" }}" alt="{{ curated_list.title }}" data-popup-image-src="{{ MEDIA_URL }}{{ curated_list.image.path }}" />
                             {% if file_desc.author %}
                                 <span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>
-                            {% elif curated_list.image_description %}
-                                <span class="photo-credits-over">{{ curated_list.get_rendered_image_description }}</span>
+                            {% elif curated_list.image_author %}
+                                <span class="photo-credits-over">{{ curated_list.image_author }}</span>
                             {% endif %}
                         </div>
                     {% endwith %}
@@ -43,7 +43,7 @@
                                     {% if object.image %}
                                         <div class="image-wrapper">
                                             <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}" alt="{{ object.get_title|escape }}"/>
-                                            {% if object.photo_author %}<span class="photo-credits-beneath">{% trans "Photo" %}: {{ object.photo_author }}</span>{% endif %}
+                                            {% if object.image_author %}<span class="photo-credits-beneath">{% trans "Photo" %}: {{ object.image_author }}</span>{% endif %}
                                         </div>
                                     {% else %}
                                         {% if object.is_institution %}

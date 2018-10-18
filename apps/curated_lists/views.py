@@ -1,14 +1,19 @@
 # -*- coding: UTF-8 -*-
+import os
+
 from django.contrib.contenttypes.models import ContentType
-from django import forms
+from django.apps import apps
 from django.db import models
 from django.shortcuts import render, redirect
 from django.http import Http404, JsonResponse
+from django.conf import settings
 
 from jetson.apps.utils.decorators import login_required
 from jetson.apps.utils.views import object_list
 
 from base_libs.views.views import access_denied
+
+image_mods = apps.get_app("image_mods")
 
 
 from .forms import (
@@ -16,6 +21,42 @@ from .forms import (
     CuratedListDeletionForm, CuratedListItemRemovalForm, CuratedListOwnerRemovalForm
 )
 from .models import CuratedList
+
+
+def get_unique_filename(filename):
+    from django.utils.timezone import now as timezone_now
+    filename_base, filename_ext = os.path.splitext(filename)
+    now = timezone_now()
+    filename = "".join((
+        now.strftime("%Y%m%d%H%M%S"),
+        ("000" + str(int(round(now.microsecond / 1000))))[-4:],
+        filename_ext.lower(),
+    ))
+    return filename
+
+
+def save_tmp_image(f):
+    filename = get_unique_filename(f.name)
+    with open(os.path.join(settings.PATH_TMP, filename), 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
+    return filename
+
+
+def save_final_image(curated_list, tmp_image_filename):
+    tmp_file_path = os.path.join(settings.PATH_TMP, tmp_image_filename)
+    with open(tmp_file_path, 'r') as source:
+        image_mods.FileManager.save_file_for_object(
+            curated_list,
+            tmp_image_filename,
+            source.read(),
+            subpath="curated-lists/{}/".format(curated_list.pk)
+        )
+    os.unlink(tmp_file_path)
+
+
+def delete_blog_post_image(post):
+    image_mods.FileManager.delete_file_for_object(post)
 
 
 def curated_list_detail(request, token, **kwargs):
@@ -52,14 +93,21 @@ def change_curated_list(request, token, **kwargs):
         return access_denied(request)
 
     if request.method == "POST":
-        form = CuratedListForm(request=request, instance=curated_list, data=request.POST)
+        data = request.POST.copy()
+        if 'image' in request.FILES:
+            # the image will be saved temporarily in case if there are any form validation errors,
+            # so that it can be retrieved later
+            data['tmp_image_filename'] = save_tmp_image(request.FILES['image'])
+        form = CuratedListForm(request=request, curated_list=curated_list, data=data)
         if form.is_valid():
-            opts = form.save(commit=False)
-            opts.save()
+            curated_list = form.save(commit=False)
+            curated_list.save()
+            if form.cleaned_data['tmp_image_filename']:
+                save_final_image(curated_list, form.cleaned_data['tmp_image_filename'])
             return redirect('curated_list_detail', token=token)
 
     else:
-        form = CuratedListForm(request=request, instance=curated_list)
+        form = CuratedListForm(request=request, curated_list=curated_list)
 
     return render(request, "curated_lists/change_curated_list.html", {
         'form': form,
@@ -114,9 +162,6 @@ def featured_curated_lists(request, **kwargs):
 
 @login_required
 def user_curated_lists_json(request):
-    from ccb.apps.institutions.models import Institution
-    from ccb.apps.groups_networks.models import PersonGroup
-
     """
     Returns a list of curated lists created by the currently logged in user or their institutions
 
@@ -222,7 +267,7 @@ def user_curated_lists_json(request):
 @login_required
 def add_user_curated_list_json(request):
     if request.method == "POST":
-        form = CuratedListForm(request=request, instance=None, data=request.POST)
+        form = CuratedListForm(request=request, curated_list=None, data=request.POST)
         if form.is_valid():
             curated_list = form.save()
             data = {
@@ -251,7 +296,7 @@ def change_user_curated_list_json(request, token):
         return access_denied(request)
 
     if request.method == "POST":
-        form = CuratedListForm(request=request, instance=curated_list, data=request.POST)
+        form = CuratedListForm(request=request, curated_list=curated_list, data=request.POST)
         if form.is_valid():
             curated_list = form.save()
             data = {
@@ -329,12 +374,12 @@ def change_curated_list_item(request, token, item_id):
         raise Http404
 
     if request.method == 'POST':
-        form = CuratedListItemForm(instance=item, data=request.POST)
+        form = CuratedListItemForm(curated_list=curated_list, item=item, data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect("curated_list_details", token=token)
+            return redirect("curated_list_detail", token=token)
     else:
-        form = CuratedListItemForm(instance=item)
+        form = CuratedListItemForm(curated_list=curated_list, item=item)
 
     return render(request, "curated_lists/change_curated_list_item.html", {
         'curated_list': curated_list,

@@ -14,6 +14,14 @@ from ccb.apps.curated_lists.models import ListOwner
 from ccb.apps.site_specific.models import ContextItem
 from jetson.apps.structure.models import Category
 
+from base_libs.forms.fields import ImageField
+
+from .models import CuratedList, ListItem
+
+
+MIN_LOGO_SIZE = getattr(settings, "LOGO_SIZE", (850, 400))
+STR_MIN_LOGO_SIZE = "%sx%s" % MIN_LOGO_SIZE
+
 
 class CuratedListForm(forms.Form):
     title = forms.CharField(
@@ -25,17 +33,30 @@ class CuratedListForm(forms.Form):
         required=False,
         widget=forms.Textarea(),
     )
-    image = forms.ImageField(
-        label=_("Image"),
+    image = ImageField(
+        label=_("Main Photo"),
+        help_text=_(
+            "You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px.") % STR_MIN_LOGO_SIZE,
         required=False,
+        min_dimensions=MIN_LOGO_SIZE,
+    )
+    tmp_image_filename = forms.CharField(
+        required=False,
+        max_length=255,
+        widget=forms.HiddenInput(),
+    )
+    image_author = forms.CharField(
+        label=_("Photo Credits"),
+        required=False,
+        max_length=100,
     )
 
-    def __init__(self, request, instance, *args, **kwargs):
+    def __init__(self, request, curated_list, *args, **kwargs):
         super(CuratedListForm, self).__init__(*args, **kwargs)
         self.request = request
-        self.instance = instance
+        self.curated_list = curated_list
 
-        if not self.instance:
+        if not self.curated_list:
             choices = [
                 ('people.person.{}'.format(request.user.pk), request.user.profile.get_title())
             ]
@@ -48,8 +69,9 @@ class CuratedListForm(forms.Form):
 
         if not self.initial:
             self.initial = {
-                'title': getattr(instance, "title_{}".format(settings.LANGUAGE_CODE), ""),
-                'description': getattr(instance, "description_{}".format(settings.LANGUAGE_CODE), ""),
+                'title': getattr(curated_list, "title_{}".format(settings.LANGUAGE_CODE), ""),
+                'description': getattr(curated_list, "description_{}".format(settings.LANGUAGE_CODE), ""),
+                'image_author': getattr(curated_list, "image_author"),
             }
 
         self.helper = FormHelper()
@@ -58,25 +80,57 @@ class CuratedListForm(forms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Edit Curated List Description"),
-                "title",
+                layout.Field("title"),
                 layout.Field("description", rows=5),
                 layout.Field("image"),
+                layout.HTML("""{% load image_modifications %}
+                <dl>
+                {% if form.tmp_image_filename.data %}
+                    <dt>&nbsp;</dt>
+                    <dd>
+                        <img src="/{{ LANGUAGE_CODE }}/helper/tmpimage/{{ form.tmp_image_filename.data }}/800x600/" alt="" />
+                    </dd>
+                {% elif curated_list.image %}
+                    <dt>&nbsp;</dt>
+                    <dd>
+                        <img src="{{ UPLOADS_URL }}{{ form.curated_list.image|modified_path:'article' }}" alt="" />
+                    </dd>
+                {% else %}
+                    <dt>&nbsp;</dt>
+                    <dd>
+                        <img src="{{ STATIC_URL }}site/img/placeholder/gallery_square.png" alt="" />
+                    </dd>
+                {% endif %}
+                </dl>
+                """),
+                layout.Field("tmp_image_filename"),
+                layout.Field("image_author"),
             ),
             bootstrap.FormActions(
                 layout.Submit('submit', _('Save')),
             )
         )
 
+    def clean_tmp_image_filename(self):
+        value = self.cleaned_data['tmp_image_filename']
+        if "/" in value:
+            # quick security check ensuring that there are no relative paths instead of just a filename
+            raise forms.ValidationError(_("Temporary image filename is invalid"))
+        return value
+
     def save(self, commit=True):
         cleaned = self.cleaned_data
+        if not self.curated_list:
+            self.curated_list = CuratedList
         for lang_code, lang_name in settings.LANGUAGES:
-            setattr(self.instance, "title_{}".format(lang_code), cleaned['title'])
-            setattr(self.instance, "description_{}".format(lang_code), cleaned['description'])
-            if not getattr(self.instance, "description_{}_markup_type".format(lang_code)):
-                setattr(self.instance, "description_{}_markup_type".format(lang_code), "pt")
+            setattr(self.curated_list, "title_{}".format(lang_code), cleaned['title'])
+            setattr(self.curated_list, "description_{}".format(lang_code), cleaned['description'])
+            if not getattr(self.curated_list, "description_{}_markup_type".format(lang_code)):
+                setattr(self.curated_list, "description_{}_markup_type".format(lang_code), "pt")
+        self.curated_list.image_author = cleaned['image_author']
         if commit:
-            self.instance.save()
-        return self.instance
+            self.curated_list.save()
+        return self.curated_list
 
 
 class CuratedListItemForm(forms.Form):
@@ -90,15 +144,16 @@ class CuratedListItemForm(forms.Form):
         widget=forms.Textarea(attrs={'rows': 5}),
     )
 
-    def __init__(self, instance, *args, **kwargs):
+    def __init__(self, curated_list, item, *args, **kwargs):
         super(CuratedListItemForm, self).__init__(*args, **kwargs)
 
-        self.instance = instance
+        self.curated_list = curated_list
+        self.item = item
 
         if not self.initial:
             self.initial = {
-                'title': getattr(instance, "title_{}".format(settings.LANGUAGE_CODE), ""),
-                'description': getattr(instance, "description_{}".format(settings.LANGUAGE_CODE), ""),
+                'title': getattr(item, "title_{}".format(settings.LANGUAGE_CODE), ""),
+                'description': getattr(item, "description_{}".format(settings.LANGUAGE_CODE), ""),
             }
 
         self.helper = FormHelper()
@@ -117,14 +172,16 @@ class CuratedListItemForm(forms.Form):
 
     def save(self, commit=True):
         cleaned = self.cleaned_data
+        if not self.item:
+            self.item = ListItem(curated_list=self.curated_list)
         for lang_code, lang_name in settings.LANGUAGES:
-            setattr(self.instance, "title_{}".format(lang_code), cleaned['title'])
-            setattr(self.instance, "description_{}".format(lang_code), cleaned['description'])
-            if not getattr(self.instance, "description_{}_markup_type".format(lang_code)):
-                setattr(self.instance, "description_{}_markup_type".format(lang_code), "pt")
+            setattr(self.item, "title_{}".format(lang_code), cleaned['title'])
+            setattr(self.item, "description_{}".format(lang_code), cleaned['description'])
+            if not getattr(self.item, "description_{}_markup_type".format(lang_code)):
+                setattr(self.item, "description_{}_markup_type".format(lang_code), "pt")
         if commit:
-            self.instance.save()
-        return self.instance
+            self.item.save()
+        return self.item
 
 
 class CuratedListFilterForm(forms.Form):
