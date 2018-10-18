@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 from django.conf.urls import url
 from django.views.generic import TemplateView
+from django.shortcuts import redirect
 
 from ccb.apps.marketplace.models import JobOffer
 from jetson.apps.utils.context_processors import prev_next_processor
@@ -23,9 +24,7 @@ job_offer_details_info = {
 
 urlpatterns = (
     url(r'^$',
-        'ccb.apps.marketplace.views.job_offer_list',
-        job_offer_list_info,
-        name="job_offer_list_global",
+        lambda request: redirect('job_offer_list_global', show='all'),
         ),
     url(r'^create-berlin-jobboard/$',
         'ccb.apps.marketplace.views.job_board'
