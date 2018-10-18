@@ -122,17 +122,28 @@ class CuratedList(
             return None
 
     def is_editable(self, user=None):
-        from django.contrib.contenttypes.models import ContentType
         if user is None:
+            # get current user from the local thread
             user = get_current_user()
         if not user.is_authenticated():
+            # anonymous users can't edit curated lists
             return False
-        ct = ContentType.objects.get_for_model(user)
-        editable = bool(user.is_staff or self.listowner_set.filter(
-            owner_content_type=ct,
-            owner_object_id=user.pk,
-        ).exists())
-        return editable
+        if user.is_staff:
+            # staff users always can edit curated lists
+            return True
+        if not user.groups.filter(name="Curators").exists():
+            # non-staff user should belong to a "Curators" group in order to edit curated lists
+            return False
+        for owner in self.listowner_set.exclude(owner_content_type=None).prefetch_related('owner_content_type'):
+            if owner.owner_content_type.model.lower() == "person":
+                if owner.owner_content_object and user.profile == owner.owner_content_object:
+                    # if the owner is a person of the current user, let them edit curated list
+                    return True
+            elif owner.owner_content_type.model.lower() == "institution":
+                if owner.owner_content_object and user.profile in owner.owner_content_object.get_owners():
+                    # if the owner of the curated list is in the owners of related institution, let them edit the list
+                    return True
+        return False
 
 
 class ListOwner(
@@ -144,6 +155,11 @@ class ListOwner(
         ),
     ):
     curated_list = models.ForeignKey(CuratedList, verbose_name=_("Curated list"), on_delete=models.CASCADE)
+
+    first_name = models.CharField(_('first name'), max_length=30, blank=True)
+    last_name = models.CharField(_('last name'), max_length=30, blank=True)
+    email = models.EmailField(_('email address'), blank=True)
+
     representation = MultilingualCharField(_("Representation"), max_length=255, blank=True)
 
     class Meta:
