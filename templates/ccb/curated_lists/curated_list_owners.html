@@ -6,7 +6,7 @@
         <div class="col-xs-12 col-sm-4 col-md-3">
         </div>
         <div class="col-xs-12 col-sm-8 col-md-9">
-            <div class="row profile-grid profile-list">
+            <div class="row profile-grid profile-list curated-list-owners">
                 {% for owner in curated_list.listowner_set.all %}
                     <div class="col-xs-12 col-sm-6 col-md-4">
                         <div class="wrapper">
@@ -28,7 +28,12 @@
                     </div>
                 {% endfor %}
             </div>
-            <p><a href="{% url 'invite_curated_list_owner' token=curated_list.get_token %}" class="button">{% trans "Invite owners" %}</a></p>
+            <div class="row">
+                <div class="col-xs-12">
+                    <a href="{% url 'invite_curated_list_owner' token=curated_list.get_token %}" class="button btn-primary curated-list-invite">{% trans "Invite owners" %}</a>
+                    <a href="javascript:history.back();" class="btn btn-secondary curated-list-back">{% trans 'back' %}</a>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

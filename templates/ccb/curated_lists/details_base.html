@@ -17,7 +17,7 @@
     {% if curated_list.description_striped %}<meta property="og:description" content="{{ curated_list.single_line_description }}" />{% endif %}
 {% endblock %}
 
-{% block bodyclass %}gmap map-only{% endblock %}
+{% block bodyclass %}curated-list{% endblock %}
 
 {% block content %}
     <div class="header">
@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <h1><a href="{% url "featured_curated_lists" %}">{% trans "Curated List" %}</a></h1>
-                    <div class="profile wrapper">
+                    <div class="profile wrapper curated-list">
                         <div class="content">
                             <a href="{{ curated_list.get_url_path }}"><h2>{{ curated_list.title|default:_("Curated List") }}</h2></a>
                             {% if curated_list.listowner_set.exists %}

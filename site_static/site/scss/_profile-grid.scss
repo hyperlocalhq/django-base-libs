@@ -43,7 +43,7 @@
         }
     }
 
-    > div, a.curated-list > div {
+    > div, .curated-list-item a > div {
         padding-bottom: 20px;
 
         .content {
@@ -176,7 +176,7 @@
         }
     }
 
-    a.curated-list {
+    .curated-list-item a {
         padding-left: 10px;
         padding-right: 10px;
 
