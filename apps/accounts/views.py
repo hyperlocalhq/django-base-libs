@@ -32,7 +32,7 @@ from social.backends.utils import load_backends
 from social_django.utils import psa
 
 from ccb.apps.curated_lists.models import ListOwner
-from ccb.apps.accounts.forms import EmailOrUsernameAuthentication, CuratorRegistrationForm
+from ccb.apps.accounts.forms import EmailOrUsernameAuthentication, SimpleRegistrationForm
 from ccb.apps.accounts.forms import SimpleRegistrationForm
 from ccb.apps.accounts.forms import PrivacySettingsForm
 
