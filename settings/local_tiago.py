@@ -12,3 +12,8 @@ ALLOWED_HOSTS = [
 INSTALLED_APPS += ["debug_toolbar"]
 MIDDLEWARE_CLASSES.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
 execfile(os.path.join(JETSON_PATH, "jetson/settings/debug_toolbar.py"))
+
+# Start a dummy SMTP server with:
+# python -m smtpd -n -c DebuggingServer localhost:1025
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
