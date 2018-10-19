@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 18:01+0200\n"
+"POT-Creation-Date: 2018-10-19 17:07+0200\n"
 "PO-Revision-Date: 2018-08-13 18:17+0053\n"
 "Last-Translator: Reinhard Knobelspies <knobelspies@mac.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,9 +19,9 @@ msgstr ""
 "X-Translated-Using: django-rosetta 0.7.13\n"
 
 #: apps/accounts/forms.py:53 apps/accounts/forms.py:336
-#: apps/bulletin_board/models.py:146 apps/events/forms.py:221
-#: apps/site_specific/forms/misc.py:145 apps/site_specific/models.py:557
-#: apps/tracker/forms.py:52
+#: apps/bulletin_board/models.py:146 apps/curated_lists/forms.py:254
+#: apps/events/forms.py:221 apps/site_specific/forms/misc.py:145
+#: apps/site_specific/models.py:557 apps/tracker/forms.py:52
 #: templates/ccb/bulletin_board/bulletin_detail.html:91
 #: templates/ccb/bulletin_board/change_bulletin_confirm.html:101
 #: templates/ccb/events/add_event_confirm.html:135
@@ -48,11 +48,11 @@ msgstr ""
 msgid "Prefix"
 msgstr ""
 
-#: apps/accounts/forms.py:71
+#: apps/accounts/forms.py:71 apps/curated_lists/forms.py:246
 msgid "First name"
 msgstr ""
 
-#: apps/accounts/forms.py:76
+#: apps/accounts/forms.py:76 apps/curated_lists/forms.py:250
 msgid "Last name"
 msgstr ""
 
@@ -332,9 +332,9 @@ msgid "Additional Content"
 msgstr ""
 
 #: apps/articles/admin.py:90 apps/bulletin_board/models.py:139
-#: apps/cms_extensions/models.py:45 apps/curated_lists/forms.py:24
-#: apps/curated_lists/forms.py:87 apps/curated_lists/models.py:36
-#: apps/curated_lists/models.py:146 apps/editorial/models.py:29
+#: apps/cms_extensions/models.py:45 apps/curated_lists/forms.py:32
+#: apps/curated_lists/forms.py:142 apps/curated_lists/models.py:54
+#: apps/curated_lists/models.py:200 apps/editorial/models.py:29
 #: apps/events/base.py:222 apps/events/forms.py:915
 #: apps/institutions/forms.py:503 apps/marketplace/forms.py:83
 #: apps/media_gallery/forms.py:96 apps/media_gallery/forms.py:182
@@ -465,8 +465,8 @@ msgstr ""
 #: apps/articles/forms.py:17 apps/bulletin_board/forms.py:130
 #: apps/bulletin_board/forms.py:613 apps/bulletin_board/forms.py:620
 #: apps/bulletin_board/forms.py:629 apps/bulletin_board/forms.py:633
-#: apps/bulletin_board/forms.py:642 apps/curated_lists/forms.py:131
-#: apps/curated_lists/forms.py:162 apps/events/forms.py:1870
+#: apps/bulletin_board/forms.py:642 apps/curated_lists/forms.py:190
+#: apps/curated_lists/forms.py:221 apps/events/forms.py:1870
 #: apps/events/forms.py:1876 apps/events/forms.py:1882
 #: apps/institutions/forms.py:1448 apps/institutions/forms.py:1454
 #: apps/institutions/forms.py:1460 apps/institutions/forms.py:1466
@@ -489,7 +489,7 @@ msgid "All"
 msgstr ""
 
 #: apps/articles/forms.py:18 apps/bulletin_board/forms.py:614
-#: apps/curated_lists/forms.py:130 apps/events/forms.py:1871
+#: apps/curated_lists/forms.py:189 apps/events/forms.py:1871
 #: apps/marketplace/forms.py:701 apps/media_gallery/forms.py:413
 #: apps/network/forms.py:28 apps/resources/forms.py:19
 #: templates/ccb/articles/articles_detail.html:96
@@ -504,7 +504,7 @@ msgid "Category"
 msgstr ""
 
 #: apps/articles/forms.py:31 apps/bulletin_board/forms.py:653
-#: apps/curated_lists/forms.py:174 apps/events/forms.py:1905
+#: apps/curated_lists/forms.py:233 apps/events/forms.py:1905
 #: apps/institutions/forms.py:1481 apps/marketplace/forms.py:727
 #: apps/media_gallery/forms.py:426 apps/network/forms.py:56
 #: apps/people/forms.py:53 apps/resources/forms.py:39
@@ -517,7 +517,7 @@ msgid "Filter"
 msgstr ""
 
 #: apps/articles/forms.py:36 apps/bulletin_board/forms.py:661
-#: apps/curated_lists/forms.py:180 apps/events/forms.py:1914
+#: apps/curated_lists/forms.py:239 apps/events/forms.py:1914
 #: apps/institutions/forms.py:1489 apps/marketplace/forms.py:735
 #: apps/media_gallery/forms.py:431 apps/network/forms.py:63
 #: apps/people/forms.py:61 apps/resources/forms.py:45
@@ -580,8 +580,8 @@ msgstr ""
 #: apps/bulletin_board/models.py:49 apps/bulletin_board/models.py:62
 #: apps/bulletin_board/models.py:138 apps/cms_extensions/models.py:44
 #: apps/cms_extensions/plugins/headline/models.py:9
-#: apps/curated_lists/forms.py:20 apps/curated_lists/forms.py:83
-#: apps/curated_lists/models.py:35 apps/curated_lists/models.py:145
+#: apps/curated_lists/forms.py:28 apps/curated_lists/forms.py:138
+#: apps/curated_lists/models.py:53 apps/curated_lists/models.py:199
 #: apps/editorial/models.py:28 apps/events/admin.py:36 apps/events/admin.py:67
 #: apps/events/base.py:216 apps/events/base.py:461 apps/events/forms.py:316
 #: apps/faqs/admin.py:29 apps/groups_networks/admin.py:21
@@ -626,9 +626,9 @@ msgstr ""
 #: apps/bulletin_board/models.py:148 apps/cms_extensions/models.py:46
 #: apps/cms_extensions/plugins/filebrowser_image/cms_plugins.py:14
 #: apps/cms_extensions/plugins/filebrowser_image/models.py:14
-#: apps/curated_lists/forms.py:28 apps/curated_lists/models.py:37
-#: apps/editorial/models.py:36 apps/events/base.py:223 apps/events/forms.py:923
-#: apps/events/forms.py:925 apps/site_specific/forms/events.py:253
+#: apps/curated_lists/models.py:55 apps/editorial/models.py:36
+#: apps/events/base.py:223 apps/events/forms.py:923 apps/events/forms.py:925
+#: apps/site_specific/forms/events.py:253
 #: apps/site_specific/forms/events.py:255
 #: apps/site_specific/forms/institutions.py:194
 #: apps/site_specific/forms/institutions.py:196
@@ -797,17 +797,18 @@ msgstr ""
 msgid "Latest posts"
 msgstr ""
 
-#: apps/blog/forms.py:29
+#: apps/blog/forms.py:29 apps/curated_lists/forms.py:37
 msgid "Main Photo"
 msgstr ""
 
-#: apps/blog/forms.py:31
+#: apps/blog/forms.py:31 apps/curated_lists/forms.py:39
 #, python-format
 msgid ""
 "You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px."
 msgstr ""
 
-#: apps/blog/forms.py:41 apps/events/forms.py:899 apps/events/models.py:44
+#: apps/blog/forms.py:41 apps/curated_lists/forms.py:49
+#: apps/events/forms.py:899 apps/events/models.py:44
 #: apps/media_gallery/forms.py:54 apps/media_gallery/forms.py:360
 #: apps/people/models.py:49 apps/site_specific/forms/events.py:229
 #: apps/site_specific/forms/institutions.py:170
@@ -997,7 +998,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: apps/blog/forms.py:155
+#: apps/blog/forms.py:155 apps/curated_lists/forms.py:118
 msgid "Temporary image filename is invalid"
 msgstr ""
 
@@ -1046,7 +1047,7 @@ msgstr ""
 msgid "Main Image"
 msgstr ""
 
-#: apps/blog/models.py:96
+#: apps/blog/models.py:96 apps/curated_lists/models.py:56
 msgid "Image Credits"
 msgstr ""
 
@@ -1442,8 +1443,8 @@ msgstr ""
 msgid "bulletin-content providers"
 msgstr ""
 
-#: apps/bulletin_board/models.py:63 apps/curated_lists/models.py:38
-#: apps/curated_lists/models.py:143 apps/media_gallery/models.py:93
+#: apps/bulletin_board/models.py:63 apps/curated_lists/models.py:58
+#: apps/curated_lists/models.py:197 apps/media_gallery/models.py:93
 #: apps/partners/models.py:26 apps/partners/models.py:46
 #: apps/slideshows/models.py:33
 msgid "Sort order"
@@ -1743,12 +1744,12 @@ msgstr ""
 msgid "Owners"
 msgstr ""
 
-#: apps/curated_lists/admin.py:93 apps/curated_lists/models.py:150
+#: apps/curated_lists/admin.py:93 apps/curated_lists/models.py:204
 msgid "List Items"
 msgstr ""
 
-#: apps/curated_lists/apps.py:8 apps/curated_lists/models.py:17
-#: apps/curated_lists/models.py:49
+#: apps/curated_lists/apps.py:8 apps/curated_lists/models.py:18
+#: apps/curated_lists/models.py:71
 msgid "Curated Lists"
 msgstr ""
 
@@ -1756,15 +1757,15 @@ msgstr ""
 msgid "Featured Curated Lists"
 msgstr ""
 
-#: apps/curated_lists/forms.py:44 apps/curated_lists/models.py:109
+#: apps/curated_lists/forms.py:66 apps/curated_lists/models.py:155
 msgid "Owner"
 msgstr ""
 
-#: apps/curated_lists/forms.py:59 apps/curated_lists/forms.py:107
+#: apps/curated_lists/forms.py:82 apps/curated_lists/forms.py:164
 msgid "Edit Curated List Description"
 msgstr ""
 
-#: apps/curated_lists/forms.py:65 apps/curated_lists/forms.py:112
+#: apps/curated_lists/forms.py:110 apps/curated_lists/forms.py:169
 #: apps/media_gallery/forms.py:104 apps/media_gallery/forms.py:189
 #: apps/media_gallery/forms.py:275 apps/media_gallery/forms.py:405
 #: apps/site_specific/forms/events.py:150
@@ -1819,26 +1820,74 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: apps/curated_lists/forms.py:161
+#: apps/curated_lists/forms.py:220
 #: templates/ccb/institutions/details_base.html:52
 #: templates/ccb/network/details_base.html:65
 #: templates/ccb/people/details_base.html:52
 msgid "Curator"
 msgstr ""
 
-#: apps/curated_lists/models.py:20
+#: apps/curated_lists/forms.py:267
+msgid "Invite another owner of the curated list"
+msgstr ""
+
+#: apps/curated_lists/forms.py:273
+msgid "Send invitation"
+msgstr ""
+
+#: apps/curated_lists/forms.py:288 apps/curated_lists/forms.py:315
+#: apps/curated_lists/forms.py:342
+msgid "Confirm deletion"
+msgstr ""
+
+#: apps/curated_lists/forms.py:296 apps/site_specific/forms/misc.py:390
+#: templates/ccb/blog/forms/confirm_delete_embedded.html:15
+#: templates/ccb/blog/post_delete.html:17
+#: templates/ccb/bulletin_board/delete_bulletin.html:18
+#: templates/ccb/confirm_delete.html:15
+#: templates/ccb/counselling_blog/forms/confirm_delete_embedded.html:15
+#: templates/ccb/counselling_blog/post_delete.html:17
+#: templates/ccb/events/delete_event_embedded.html:15
+#: templates/ccb/forum/forms/confirm_delete_embedded.html:10
+#: templates/ccb/marketplace/delete_job_offer_embedded.html:19
+#: templates/ccb/media_gallery/delete_gallery.html:17
+#: templates/ccb/media_gallery/delete_gallery_cover.html:18
+#: templates/ccb/media_gallery/delete_landing_page_image.html:17
+#: templates/ccb/media_gallery/delete_mediafile.html:15
+#: templates/ccb/media_gallery/delete_section.html:24
+#: templates/ccb/media_gallery/includes/delete_media_file.html:13
+#: templates/ccb/media_gallery/manage_galleries.html:42
+#: templates/ccb/media_gallery/manage_galleries.html:95
+#: templates/ccb/media_gallery/manage_gallery.html:39
+#: templates/ccb/media_gallery/manage_gallery.html:77
+#: templates/ccb/messaging/delete_message.html:15
+#: templates/ccb/site_specific/blogs/popups/post_delete.html:11
+#: templates/ccb/site_specific/popups/delete_avatar.html:8
+#: templates/ccb/site_specific/popups/delete_contact.html:18
+#: templates/ccb/site_specific/review_delete.html:20
+msgid "Delete"
+msgstr ""
+
+#: apps/curated_lists/forms.py:323 apps/curated_lists/forms.py:350
+#: templates/ccb/groups_networks/group_membership_remove-user.html:9
+#: templates/ccb/individual_relations/individual_relation_edit.html:26
+#: templates/ccb/individual_relations/individual_relation_remove.html:9
+msgid "Remove"
+msgstr ""
+
+#: apps/curated_lists/models.py:21
 #: apps/site_specific/forms/groups_networks.py:28
 #: apps/site_specific/forms/misc.py:100
 msgid "Private"
 msgstr ""
 
-#: apps/curated_lists/models.py:21
+#: apps/curated_lists/models.py:22
 #: apps/site_specific/forms/groups_networks.py:27
 #: apps/site_specific/forms/misc.py:99
 msgid "Public"
 msgstr ""
 
-#: apps/curated_lists/models.py:41 apps/events/forms.py:1844
+#: apps/curated_lists/models.py:61 apps/events/forms.py:1844
 #: apps/events/models.py:40 apps/groups_networks/models.py:19
 #: apps/institutions/forms.py:1427 apps/institutions/models.py:33
 #: apps/marketplace/forms.py:670 apps/people/models.py:44
@@ -1846,39 +1895,51 @@ msgstr ""
 msgid "categories"
 msgstr ""
 
-#: apps/curated_lists/models.py:44
+#: apps/curated_lists/models.py:64
 msgid "Privacy"
 msgstr ""
 
-#: apps/curated_lists/models.py:45 apps/resources/models.py:30
+#: apps/curated_lists/models.py:65 apps/resources/models.py:30
 msgid "Featured"
 msgstr ""
 
-#: apps/curated_lists/models.py:48
-#: templates/ccb/curated_lists/curated_list_detail.html:12
-#: templates/ccb/curated_lists/curated_list_detail.html:16
-#: templates/ccb/curated_lists/curated_list_detail.html:27
-#: templates/ccb/curated_lists/curated_list_detail.html:29
+#: apps/curated_lists/models.py:70
+#: templates/ccb/curated_lists/details_base.html:12
+#: templates/ccb/curated_lists/details_base.html:16
+#: templates/ccb/curated_lists/details_base.html:27
+#: templates/ccb/curated_lists/details_base.html:30
 msgid "Curated List"
 msgstr ""
 
-#: apps/curated_lists/models.py:113 apps/curated_lists/models.py:141
+#: apps/curated_lists/models.py:159 apps/curated_lists/models.py:195
 msgid "Curated list"
 msgstr ""
 
-#: apps/curated_lists/models.py:114 apps/curated_lists/models.py:142
+#: apps/curated_lists/models.py:161
+msgid "first name"
+msgstr ""
+
+#: apps/curated_lists/models.py:162
+msgid "last name"
+msgstr ""
+
+#: apps/curated_lists/models.py:163
+msgid "email address"
+msgstr ""
+
+#: apps/curated_lists/models.py:165 apps/curated_lists/models.py:196
 msgid "Representation"
 msgstr ""
 
-#: apps/curated_lists/models.py:117
+#: apps/curated_lists/models.py:168
 msgid "List Owner"
 msgstr ""
 
-#: apps/curated_lists/models.py:118
+#: apps/curated_lists/models.py:169
 msgid "List Owners"
 msgstr ""
 
-#: apps/curated_lists/models.py:149
+#: apps/curated_lists/models.py:203
 msgid "List Item"
 msgstr ""
 
@@ -2686,8 +2747,8 @@ msgstr ""
 #: templates/ccb/counselling_blog/post_detail.html:7
 #: templates/ccb/counselling_events/event_details.html:30
 #: templates/ccb/counselling_events/lists/event.html:9
-#: templates/ccb/curated_lists/curated_list_detail.html:58
-#: templates/ccb/curated_lists/curated_list_detail.html:90
+#: templates/ccb/curated_lists/curated_list_detail.html:13
+#: templates/ccb/curated_lists/curated_list_detail.html:46
 #: templates/ccb/curated_lists/lists/curated_list_item.html:10
 #: templates/ccb/events/details_base.html:40
 #: templates/ccb/events/details_base.html:90
@@ -4901,34 +4962,6 @@ msgstr ""
 msgid "Additional Options"
 msgstr ""
 
-#: apps/site_specific/forms/misc.py:390
-#: templates/ccb/blog/forms/confirm_delete_embedded.html:15
-#: templates/ccb/blog/post_delete.html:17
-#: templates/ccb/bulletin_board/delete_bulletin.html:18
-#: templates/ccb/confirm_delete.html:15
-#: templates/ccb/counselling_blog/forms/confirm_delete_embedded.html:15
-#: templates/ccb/counselling_blog/post_delete.html:17
-#: templates/ccb/events/delete_event_embedded.html:15
-#: templates/ccb/forum/forms/confirm_delete_embedded.html:10
-#: templates/ccb/marketplace/delete_job_offer_embedded.html:19
-#: templates/ccb/media_gallery/delete_gallery.html:17
-#: templates/ccb/media_gallery/delete_gallery_cover.html:18
-#: templates/ccb/media_gallery/delete_landing_page_image.html:17
-#: templates/ccb/media_gallery/delete_mediafile.html:15
-#: templates/ccb/media_gallery/delete_section.html:24
-#: templates/ccb/media_gallery/includes/delete_media_file.html:13
-#: templates/ccb/media_gallery/manage_galleries.html:42
-#: templates/ccb/media_gallery/manage_galleries.html:95
-#: templates/ccb/media_gallery/manage_gallery.html:39
-#: templates/ccb/media_gallery/manage_gallery.html:77
-#: templates/ccb/messaging/delete_message.html:15
-#: templates/ccb/site_specific/blogs/popups/post_delete.html:11
-#: templates/ccb/site_specific/popups/delete_avatar.html:8
-#: templates/ccb/site_specific/popups/delete_contact.html:18
-#: templates/ccb/site_specific/review_delete.html:20
-msgid "Delete"
-msgstr ""
-
 #: apps/site_specific/forms/misc.py:397
 msgid "You haven't selected anything to delete."
 msgstr ""
@@ -6260,6 +6293,7 @@ msgid "Ooops! Connection error"
 msgstr ""
 
 #: templates/ccb/accounts/500.html:24
+#: templates/ccb/curated_lists/curated_list_owners.html:48
 #: templates/ccb/institutions/institution_message.html:41
 #: templates/ccb/people/person_message.html:16
 msgid "back"
@@ -6303,12 +6337,14 @@ msgid ""
 msgstr ""
 
 #: templates/ccb/accounts/account_verification_email.html:4
+#: templates/ccb/accounts/curation_invitation.html:4
 msgid ""
 "To verify your e-mail address and continue the registration process, please "
 "click the link below:"
 msgstr ""
 
 #: templates/ccb/accounts/account_verification_email.html:8
+#: templates/ccb/accounts/curation_invitation.html:8
 msgid ""
 "If you have no idea what this e-mail is referring to, simply ignore it and "
 "no account will be created\n"
@@ -6316,11 +6352,18 @@ msgid ""
 msgstr ""
 
 #: templates/ccb/accounts/account_verification_email.html:11
+#: templates/ccb/accounts/curation_invitation.html:11
 #, python-format
 msgid ""
 "\n"
 "    Thanks,\n"
 "    The %(site_name)s team\n"
+msgstr ""
+
+#: templates/ccb/accounts/curation_invitation.html:2
+msgid ""
+"You're receiving this e-mail because you (or someone using your email "
+"address) is attempting to add you as an owner of a curated list at "
 msgstr ""
 
 #: templates/ccb/accounts/index.html:4
@@ -7560,7 +7603,39 @@ msgstr ""
 msgid "Organizing Person"
 msgstr ""
 
-#: templates/ccb/curated_lists/curated_list_detail.html:32
+#: templates/ccb/curated_lists/change_curated_list.html:10
+#: templates/ccb/curated_lists/change_curated_list_item.html:10
+#: templates/ccb/curated_lists/delete_curated_list.html:10
+#: templates/ccb/curated_lists/invite_curated_list_owner.html:10
+#: templates/ccb/curated_lists/remove_curated_list_item.html:10
+#: templates/ccb/curated_lists/remove_curated_list_owner.html:10
+#: templates/ccb/generic/bookmarklist.html:41
+#: templates/ccb/generic/bookmarklist.html:51
+msgid "cancel"
+msgstr ""
+
+#: templates/ccb/curated_lists/curated_list_owners.html:20
+#: templates/ccb/curated_lists/curated_list_owners.html:32
+msgid "Followers"
+msgstr ""
+
+#: templates/ccb/curated_lists/curated_list_owners.html:21
+#: templates/ccb/curated_lists/curated_list_owners.html:33
+#: templates/ccb/styleguide/elements.html:108
+#: templates/ccb/styleguide/elements.html:128
+#: templates/ccb/styleguide/elements.html:148
+msgid "Curated lists"
+msgstr ""
+
+#: templates/ccb/curated_lists/curated_list_owners.html:30
+msgid "invited"
+msgstr ""
+
+#: templates/ccb/curated_lists/curated_list_owners.html:47
+msgid "Invite owners"
+msgstr ""
+
+#: templates/ccb/curated_lists/details_base.html:33
 #: templates/ccb/curated_lists/lists/curated_list_item.html:23
 msgid "curated by"
 msgstr ""
@@ -8281,11 +8356,6 @@ msgstr ""
 msgid "rename"
 msgstr ""
 
-#: templates/ccb/generic/bookmarklist.html:41
-#: templates/ccb/generic/bookmarklist.html:51
-msgid "cancel"
-msgstr ""
-
 #: templates/ccb/generic/bookmarklist.html:49
 msgid "save"
 msgstr ""
@@ -8530,12 +8600,6 @@ msgid ""
 "Do\n"
 "            you really want to remove %(person_name)s from the members of "
 "%(group_name)s?"
-msgstr ""
-
-#: templates/ccb/groups_networks/group_membership_remove-user.html:9
-#: templates/ccb/individual_relations/individual_relation_edit.html:26
-#: templates/ccb/individual_relations/individual_relation_remove.html:9
-msgid "Remove"
 msgstr ""
 
 #: templates/ccb/groups_networks/group_membership_remove.html:4
@@ -9961,6 +10025,13 @@ msgstr ""
 msgid "Atom Feed of Bulletins by %(person_title)s"
 msgstr ""
 
+#: templates/ccb/people/person_details.html:38
+#: templates/ccb/styleguide/elements.html:952
+#: templates/ccb/styleguide/layout.html:344
+#, python-format
+msgid "On %(amount)s curated lists"
+msgstr ""
+
 #: templates/ccb/people/person_events.html:6
 #: templates/ccb/site_specific/kreativarbeiten_events.html:7
 #, python-format
@@ -10471,12 +10542,6 @@ msgstr ""
 msgid "Follower"
 msgstr ""
 
-#: templates/ccb/styleguide/elements.html:108
-#: templates/ccb/styleguide/elements.html:128
-#: templates/ccb/styleguide/elements.html:148
-msgid "Curated lists"
-msgstr ""
-
 #: templates/ccb/styleguide/elements.html:429
 msgid "Dream Job"
 msgstr ""
@@ -10485,12 +10550,6 @@ msgstr ""
 #: templates/ccb/styleguide/layout.html:340
 #, python-format
 msgid "%(amount)s Follower"
-msgstr ""
-
-#: templates/ccb/styleguide/elements.html:952
-#: templates/ccb/styleguide/layout.html:344
-#, python-format
-msgid "On %(amount)s curated lists"
 msgstr ""
 
 #: templates/ccb/styleguide/elements.html:1004
