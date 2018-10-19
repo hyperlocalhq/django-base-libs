@@ -69,6 +69,11 @@ urlpatterns = [
         name="register_confirm",
     ),
     url(
+        r'^register_curator/(?P<encrypted_email>[a-zA-Z0-9\+/_\-=]+)/$',
+        'ccb.apps.accounts.views.register_curator',
+        name="register_curator",
+    ),
+    url(
         r'^password-reset/$',
         'django.contrib.auth.views.password_reset',
         {

@@ -14,13 +14,25 @@ from jetson.apps.utils.views import object_list
 
 from base_libs.views.views import access_denied
 
+from jetson.apps.mailing.views import send_email_using_template
+
+from jetson.apps.mailing.recipient import Recipient
+
+from django.contrib.sites.models import Site
+from base_libs.utils.crypt import cryptString
+
 image_mods = apps.get_app("image_mods")
 
-
 from .forms import (
-    CuratedListForm, CuratedListItemForm, CuratedListFilterForm, OwnerInvitationForm,
-    CuratedListDeletionForm, CuratedListItemRemovalForm, CuratedListOwnerRemovalForm,
-    AddItemToNewCuratedListForm, ItemAtCuratedListForm,
+    CuratedListForm,
+    CuratedListItemForm,
+    CuratedListFilterForm,
+    OwnerInvitationForm,
+    CuratedListDeletionForm,
+    CuratedListItemRemovalForm,
+    CuratedListOwnerRemovalForm,
+    AddItemToNewCuratedListForm,
+    ItemAtCuratedListForm,
 )
 from .models import CuratedList, ListOwner, ListItem
 
@@ -497,8 +509,24 @@ def invite_curated_list_owner(request, token):
                 owner.last_name = last_name
                 owner.email = email
                 owner.save()
-                # TODO: 1. Send an invitation email with a special link to create user's account.
-                # TODO: 2. The custom registration form should add create the user from with the default first_name, last_name, email values, and add them to the Curators group, and assign the user.profile to this owner.owner_content_object.
+
+                # Send an invitation email with a special link to create user's account.
+                current_site = Site.objects.get_current()
+                encrypted_email = cryptString(email)
+
+                sender_name, sender_email = settings.MANAGERS[0]
+                send_email_using_template(
+                    [Recipient(email=email)],
+                    "curation_invitation",
+                    obj_placeholders={
+                        'encrypted_email': encrypted_email,
+                        'site_name': current_site.name,
+                    },
+                    delete_after_sending=False,
+                    sender_name=sender_name,
+                    sender_email=sender_email,
+                    send_immediately=True,
+                )
             else:
                 # A user with this email exists. Add them to the owners and to the Curators group
                 # TODO: don't add the user to the list if it already exists there.

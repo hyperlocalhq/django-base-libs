@@ -30,7 +30,9 @@ from social.backends.oauth import BaseOAuth1, BaseOAuth2
 from social.backends.google import GooglePlusAuth
 from social.backends.utils import load_backends
 from social_django.utils import psa
-from ccb.apps.accounts.forms import EmailOrUsernameAuthentication
+
+from ccb.apps.curated_lists.models import ListOwner
+from ccb.apps.accounts.forms import EmailOrUsernameAuthentication, CuratorRegistrationForm
 from ccb.apps.accounts.forms import SimpleRegistrationForm
 from ccb.apps.accounts.forms import PrivacySettingsForm
 
@@ -349,6 +351,41 @@ def confirm_registration(request, encrypted_email):
         send_immediately=True,
     )
     return redirect('register_all_done')
+
+
+@never_cache
+def register_curator(request, encrypted_email, *arguments, **keywords):
+    """The custom registration form should add create the user from with the default first_name, last_name, email values, and add them to the Curators group, and assign the user.profile to this owner.owner_content_object.
+"""
+    redirect_to = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
+    try:
+        email = decryptString(encrypted_email)
+    except Exception as e:
+        raise Http404
+    try:
+        owner = ListOwner.objects.get(email=email)
+    except Exception as e:
+        return redirect('register')
+    m = hashlib.md5()
+    m.update(request.META['REMOTE_ADDR'])
+    request.session.session_id = m.hexdigest()[:20]
+    redirect_to = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
+    site_settings = SiteSettings.objects.get_current()
+    if request.method == "POST":
+        form = SimpleRegistrationForm(request, request.POST, request.FILES)
+        if form.is_valid():
+            user = form.save()
+            return redirect('register_done')
+    else:
+        form = SimpleRegistrationForm(request, initial=dict(first_name=owner.first_name, last_name=owner.last_name,
+                                                            email=owner.email))
+    request.session.set_test_cookie()
+    return render_to_response('accounts/register.html', {
+        'form': form,
+        settings.REDIRECT_FIELD_NAME: redirect_to,
+        'site_name': Site.objects.get_current().name,
+        'login_by_email': site_settings.login_by_email,
+    }, context_instance=RequestContext(request))
 
 
 @login_required
