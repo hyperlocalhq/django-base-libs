@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Django 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-22 12:59+0100\n"
+"POT-Creation-Date: 2018-10-22 15:42+0100\n"
 "PO-Revision-Date: 2018-08-13 17:44+0053\n"
 "Last-Translator: Super Admin <jetsonadmin@studio38.de>\n"
 "Language-Team: \n"
@@ -1943,14 +1943,13 @@ msgstr "Noch einen Kurator einladen"
 msgid "Send invitation"
 msgstr "Einladung verschicken"
 
-#: apps/curated_lists/forms.py:287 apps/curated_lists/forms.py:314
-#: apps/curated_lists/forms.py:341
+#: apps/curated_lists/forms.py:287
 #, fuzzy
 #| msgid "Confirmation"
-msgid "Confirm deletion"
+msgid "Confirm curated list deletion"
 msgstr "Bestätigung"
 
-#: apps/curated_lists/forms.py:295 apps/site_specific/forms/misc.py:390
+#: apps/curated_lists/forms.py:291 apps/site_specific/forms/misc.py:390
 #: templates/ccb/blog/forms/confirm_delete_embedded.html:15
 #: templates/ccb/blog/post_delete.html:17
 #: templates/ccb/bulletin_board/delete_bulletin.html:18
@@ -1978,12 +1977,22 @@ msgstr "Bestätigung"
 msgid "Delete"
 msgstr "Löschen"
 
-#: apps/curated_lists/forms.py:322 apps/curated_lists/forms.py:349
+#: apps/curated_lists/forms.py:310
+#, fuzzy
+#| msgid "Confirmation"
+msgid "Confirm deletion from curated list"
+msgstr "Bestätigung"
+
+#: apps/curated_lists/forms.py:314 apps/curated_lists/forms.py:337
 #: templates/ccb/groups_networks/group_membership_remove-user.html:9
 #: templates/ccb/individual_relations/individual_relation_edit.html:26
 #: templates/ccb/individual_relations/individual_relation_remove.html:9
 msgid "Remove"
 msgstr "Entfernen"
+
+#: apps/curated_lists/forms.py:333
+msgid "Confirm removal from owners"
+msgstr ""
 
 #: apps/curated_lists/models.py:21
 #: apps/site_specific/forms/groups_networks.py:28
@@ -7993,6 +8002,31 @@ msgstr "Es gibt keine gefeatureten kuratierten Listen."
 msgid "Add to curated list"
 msgstr "Zur kuratierten Liste hinzufügen"
 
+#: templates/ccb/curated_lists/includes/confirm_curated_list_deletion.html:3
+#, python-format
+msgid ""
+"Do you really want to delete the curated list \"%(curated_list_title)s\"?"
+msgstr ""
+"Willst Du die kuratierte Liste \"%(curated_list_title)s\" wirklich löschen?"
+
+#: templates/ccb/curated_lists/includes/confirm_deletion_from_curated_list.html:3
+#, python-format
+msgid ""
+"Do you really want to remove \"%(item_title)s\" from the curated list "
+"\"%(curated_list_title)s\"?"
+msgstr ""
+"Willst Du \"%(item_title)s\" von der kuratierten Liste \"%(curated_list_title)s"
+"\" wirklich löschen?"
+
+#: templates/ccb/curated_lists/includes/confirm_removal_from_owners.html:3
+#, python-format
+msgid ""
+"Do you really want to remove %(owner_title)s from the owners of the curated "
+"list \"%(curated_list_title)s\"?"
+msgstr ""
+"Willst Du den Besitzer %(owner_title)s von der kuratierten Liste "
+"\"%(curated_list_title)s\" wirklich entfernen?"
+
 #: templates/ccb/curated_lists/lists/curated_list_item.html:41
 #, python-format
 msgid "1 item"
@@ -10433,12 +10467,21 @@ msgstr "RSS-Feed von Veranstaltungen von %(person_title)s "
 msgid "Atom Feed of Bulletins by %(person_title)s"
 msgstr "Atom-Feed von Veranstaltungen von %(person_title)s "
 
-#: templates/ccb/people/person_details.html:38
-#: templates/ccb/styleguide/elements.html:952
-#: templates/ccb/styleguide/layout.html:344
-#, python-format
-msgid "On %(amount)s curated lists"
-msgstr "Auf %(amount)s kuratierte Listen"
+#: templates/ccb/people/person_details.html:40
+#, fuzzy, python-format
+#| msgid ""
+#| "Created:\n"
+#| "                            %(created)s"
+msgid ""
+"On %(amount)s\n"
+"                            curated list"
+msgid_plural "On %(amount)s curated lists"
+msgstr[0] ""
+"Estellt:\n"
+"                            %(created)s"
+msgstr[1] ""
+"Estellt:\n"
+"                            %(created)s"
 
 #: templates/ccb/people/person_events.html:6
 #: templates/ccb/site_specific/kreativarbeiten_events.html:7
@@ -10968,6 +11011,12 @@ msgstr ""
 #, python-format
 msgid "%(amount)s Follower"
 msgstr ""
+
+#: templates/ccb/styleguide/elements.html:952
+#: templates/ccb/styleguide/layout.html:344
+#, python-format
+msgid "On %(amount)s curated lists"
+msgstr "Auf %(amount)s kuratierte Listen"
 
 #: templates/ccb/styleguide/elements.html:1004
 #: templates/ccb/styleguide/elements.html:1026

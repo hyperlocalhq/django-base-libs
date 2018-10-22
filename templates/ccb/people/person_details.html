@@ -34,8 +34,14 @@
                         {% endwith %}
                     </div>
                     <div class="statistic">
+                        {% load curated_lists_tags %}
+                        {% with curated_list_count=object.user|curated_list_count %}
+                        {% parse "<b>{{ curated_list_count }}</b>" as curated_list_count_formatted %}
                         <div class="fawesome fa-list-short big"></div>
-                        <div class="text">{% blocktrans with amount='<b>3</b>' %}On {{ amount }} curated lists{% endblocktrans %}</div>
+                        <div class="text">{% blocktrans count curated_list_count_formatted as amount %}On {{ amount }}
+                            curated list{% plural %}On {{ amount }} curated lists{% endblocktrans %}
+                        </div>
+                        {% endwith %}
                     </div>
                 </div>
             </div>
