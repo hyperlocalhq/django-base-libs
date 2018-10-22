@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-22 12:59+0100\n"
+"POT-Creation-Date: 2018-10-22 15:42+0100\n"
 "PO-Revision-Date: 2018-08-13 18:17+0053\n"
 "Last-Translator: Reinhard Knobelspies <knobelspies@mac.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1835,12 +1835,11 @@ msgstr ""
 msgid "Send invitation"
 msgstr ""
 
-#: apps/curated_lists/forms.py:287 apps/curated_lists/forms.py:314
-#: apps/curated_lists/forms.py:341
-msgid "Confirm deletion"
+#: apps/curated_lists/forms.py:287
+msgid "Confirm curated list deletion"
 msgstr ""
 
-#: apps/curated_lists/forms.py:295 apps/site_specific/forms/misc.py:390
+#: apps/curated_lists/forms.py:291 apps/site_specific/forms/misc.py:390
 #: templates/ccb/blog/forms/confirm_delete_embedded.html:15
 #: templates/ccb/blog/post_delete.html:17
 #: templates/ccb/bulletin_board/delete_bulletin.html:18
@@ -1868,11 +1867,19 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: apps/curated_lists/forms.py:322 apps/curated_lists/forms.py:349
+#: apps/curated_lists/forms.py:310
+msgid "Confirm deletion from curated list"
+msgstr ""
+
+#: apps/curated_lists/forms.py:314 apps/curated_lists/forms.py:337
 #: templates/ccb/groups_networks/group_membership_remove-user.html:9
 #: templates/ccb/individual_relations/individual_relation_edit.html:26
 #: templates/ccb/individual_relations/individual_relation_remove.html:9
 msgid "Remove"
+msgstr ""
+
+#: apps/curated_lists/forms.py:333
+msgid "Confirm removal from owners"
 msgstr ""
 
 #: apps/curated_lists/models.py:21
@@ -7648,6 +7655,26 @@ msgstr ""
 msgid "Add to curated list"
 msgstr ""
 
+#: templates/ccb/curated_lists/includes/confirm_curated_list_deletion.html:3
+#, python-format
+msgid ""
+"Do you really want to delete the curated list \"%(curated_list_title)s\"?"
+msgstr ""
+
+#: templates/ccb/curated_lists/includes/confirm_deletion_from_curated_list.html:3
+#, python-format
+msgid ""
+"Do you really want to remove \"%(item_title)s\" from the curated list "
+"\"%(curated_list_title)s\"?"
+msgstr ""
+
+#: templates/ccb/curated_lists/includes/confirm_removal_from_owners.html:3
+#, python-format
+msgid ""
+"Do you really want to remove %(owner_title)s from the owners of the curated "
+"list \"%(curated_list_title)s\"?"
+msgstr ""
+
 #: templates/ccb/curated_lists/lists/curated_list_item.html:41
 #, python-format
 msgid "1 item"
@@ -10025,12 +10052,14 @@ msgstr ""
 msgid "Atom Feed of Bulletins by %(person_title)s"
 msgstr ""
 
-#: templates/ccb/people/person_details.html:38
-#: templates/ccb/styleguide/elements.html:952
-#: templates/ccb/styleguide/layout.html:344
+#: templates/ccb/people/person_details.html:40
 #, python-format
-msgid "On %(amount)s curated lists"
-msgstr ""
+msgid ""
+"On %(amount)s\n"
+"                            curated list"
+msgid_plural "On %(amount)s curated lists"
+msgstr[0] ""
+msgstr[1] ""
 
 #: templates/ccb/people/person_events.html:6
 #: templates/ccb/site_specific/kreativarbeiten_events.html:7
@@ -10550,6 +10579,12 @@ msgstr ""
 #: templates/ccb/styleguide/layout.html:340
 #, python-format
 msgid "%(amount)s Follower"
+msgstr ""
+
+#: templates/ccb/styleguide/elements.html:952
+#: templates/ccb/styleguide/layout.html:344
+#, python-format
+msgid "On %(amount)s curated lists"
 msgstr ""
 
 #: templates/ccb/styleguide/elements.html:1004

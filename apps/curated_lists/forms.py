@@ -284,12 +284,8 @@ class CuratedListDeletionForm(forms.Form):
         self.helper.form_method = "POST"
         self.helper.layout = layout.Layout(
             layout.Fieldset(
-                _("Confirm deletion"),
-                layout.HTML("""{% load i18n %}
-                <p>{% blocktrans trimmed with curated_list_title=form.curated_list.title %}
-                    Do you really want to delete the curated list "{{ curated_list_title }}"?
-                {% endblocktrans %}</p>
-                """)
+                _("Confirm curated list deletion"),
+                layout.HTML("""{% include "curated_list/includes/confirm_curated_list_deletion.html" %}""")
             ),
             bootstrap.FormActions(
                 layout.Submit('submit', _('Delete')),
@@ -311,12 +307,8 @@ class CuratedListItemRemovalForm(forms.Form):
         self.helper.form_method = "POST"
         self.helper.layout = layout.Layout(
             layout.Fieldset(
-                _("Confirm deletion"),
-                layout.HTML("""{% load i18n %}
-                <p>{% blocktrans trimmed with curated_list_title=form.curated_list.title item_title=form.item.title %}
-                    Do you really want to remove "{{ item_title }}" from the curated list "{{ curated_list_title }}"?
-                {% endblocktrans %}</p>
-                """)
+                _("Confirm deletion from curated list"),
+                layout.HTML("""{% include "curated_list/includes/confirm_deletion_from_curated_list.html" %}""")
             ),
             bootstrap.FormActions(
                 layout.Submit('submit', _('Remove')),
@@ -338,12 +330,8 @@ class CuratedListOwnerRemovalForm(forms.Form):
         self.helper.form_method = "POST"
         self.helper.layout = layout.Layout(
             layout.Fieldset(
-                _("Confirm deletion"),
-                layout.HTML("""{% load i18n %}
-                <p>{% blocktrans trimmed with curated_list_title=form.curated_list.title owner_title=form.owner.representation %}
-                    Do you really want to remove {{ owner_title }} from the owners of the curated list "{{ curated_list_title }}"?
-                {% endblocktrans %}</p>
-                """)
+                _("Confirm removal from owners"),
+                layout.HTML("""{% include "curated_list/includes/confirm_removal_from_owners.html" %}""")
             ),
             bootstrap.FormActions(
                 layout.Submit('submit', _('Remove')),
