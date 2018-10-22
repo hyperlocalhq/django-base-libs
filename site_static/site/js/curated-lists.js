@@ -3,19 +3,20 @@ $(function() {
     var promptForTitle = function(callback) {
 
         var $prompt = $('<div class="prompt"></div>');
-        var $content = $('<div class="prompt-content"><h2>Enter list title</h2></div>');
-        var $input = $('<input type="text" value="My new list"/>');
-        var $ok = $('<button class="btn btn-success">OK</button>');
-        var $cancel = $('<button class="btn btn-default">cancel</button>');
+        var $content = $('<div class="prompt-content"><h2>'+trans['Enter list title']+'</h2></div>');
+        var $input = $('<input type="text" value="'+trans['My new list']+'"/>');
+        var $ok = $('<button class="btn btn-success">'+trans['OK']+'</button>');
+        var $cancel = $('<button class="btn btn-default">'+trans['cancel']+'</button>');
 
         var success = function() {
             var value = $input.val().trim();
-            cancel();
+            $prompt.remove();
             if (value) callback(value);
         }
 
         var cancel = function() {
             $prompt.remove();
+            callback(null);
         }
 
         $ok.click(success);
@@ -84,7 +85,7 @@ $(function() {
 
             */
 
-            var $newWidget = $('<select placeholder="Add to curated list" multiple></select>').wrap('<div class="add_to_own_curated_lists input-field select"></div>');
+            var $newWidget = $('<select placeholder="'+trans['Add to curated list']+'" multiple></select>').wrap('<div class="add_to_own_curated_lists input-field select"></div>');
             for (i=0, ilen=data.length; i<ilen; i++) {
                 var personOrInstitution = data[i];
                 var owner = personOrInstitution.owner;
@@ -97,7 +98,7 @@ $(function() {
                     }
                     $optgroup.append($option);
                 }
-                $option = $('<option value="new-for-' + owner.type + '.' + owner.id + '">New Curated List...</option>');
+                $option = $('<option value="new-for-' + owner.type + '.' + owner.id + '">'+trans['New Curated List']+'</option>');
                 $optgroup.append($option);
                 $newWidget.append($optgroup);
             }
@@ -118,7 +119,7 @@ $(function() {
                 var deletedChoice = ($select.data('previous-value') || []).filter(function(value) {
                     return -1 === ($select.val() || []).indexOf(value);
                 });
-                console.log({newChoice: newChoice.toString(), deletedChoice: deletedChoice.toString()});
+                //console.log({newChoice: newChoice.toString(), deletedChoice: deletedChoice.toString()});
                 if (deletedChoice.toString()) {
                     curated_list_token = deletedChoice.toString();
                     $.post(
@@ -142,24 +143,27 @@ $(function() {
                         var owner_app_model_pk = curated_list_token.replace('new-for-', '').split('.');
 
                         var callback = function(curated_list_title) {
-                            $.post(
-                                '/' + settings.lang + '/helper/user-curated-lists/add-item-to-new/',
-                                {
-                                    owner_app_model: owner_app_model_pk[0] + '.' + owner_app_model_pk[1],
-                                    owner_pk: owner_app_model_pk[2],
-                                    title: curated_list_title,
-                                    item_content_type_id: content_type_id,
-                                    item_object_id: object_id
-                                },
-                                function(data) {
-                                    if (data.success) {
-                                        location.href = data.redirect_url;
-                                        // TODO: maybe you want to redirect to the curated list editing form?
-                                        // location.href = data.redirect_url + 'change/';
-                                    }
-                                },
-                                'json'
-                            );
+
+                            if (curated_list_title) {
+                                $.post(
+                                    '/' + settings.lang + '/helper/user-curated-lists/add-item-to-new/',
+                                    {
+                                        owner_app_model: owner_app_model_pk[0] + '.' + owner_app_model_pk[1],
+                                        owner_pk: owner_app_model_pk[2],
+                                        title: curated_list_title,
+                                        item_content_type_id: content_type_id,
+                                        item_object_id: object_id
+                                    },
+                                    function(data) {
+                                        if (data.success) {
+                                            location.href = data.redirect_url;
+                                            // TODO: maybe you want to redirect to the curated list editing form?
+                                            // location.href = data.redirect_url + 'change/';
+                                        }
+                                    },
+                                    'json'
+                                );
+                            }
                         }
 
                         promptForTitle(callback);

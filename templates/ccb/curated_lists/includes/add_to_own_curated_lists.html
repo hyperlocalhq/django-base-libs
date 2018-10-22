@@ -1,5 +1,5 @@
 {% load i18n sekizai_tags staticfiles %}
-{% if request.user.profile.is_curator %}
+{% if request.user.profile.is_curator or True %}
     <div class="add_to_own_curated_lists input-field select" data-content_type_id="{{ content_type_id }}" data-object_id="{{ object_id }}">
         <select placeholder="{% trans 'Add to curated list' %}" multiple>
         </select>
@@ -7,5 +7,14 @@
 
     {% addtoblock "js" %}
         <script src="{% static "site/js/curated-lists.min.js" %}" defer></script>
+    {% endaddtoblock %}
+
+    {% addtoblock "trans" %}
+        trans['Add to curated list'] = '{% trans 'Add to curated list' %}';
+        trans['Enter list title'] = '{% trans 'Enter list title' %}';
+        trans['My new list'] = '{% trans 'My new list' %}';
+        trans['OK'] = '{% trans 'OK' %}';
+        trans['cancel'] = '{% trans 'cancel' %}';
+        trans['New Curated List'] = '{% trans 'New Curated List' %}';
     {% endaddtoblock %}
 {% endif %}
