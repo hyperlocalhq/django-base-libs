@@ -31,7 +31,7 @@
         </div>
     {% endif %}
 
-    <div class="row profile-grid profile-list curatet-list">
+    <div class="row profile-grid profile-list curated-list">
         {% if curated_list.listitem_set.exists %}
             {% for item in curated_list.listitem_set.all %}
                 {% with object=item.content_object %}
