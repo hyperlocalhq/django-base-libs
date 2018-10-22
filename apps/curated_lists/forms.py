@@ -285,7 +285,7 @@ class CuratedListDeletionForm(forms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Confirm curated list deletion"),
-                layout.HTML("""{% include "curated_list/includes/confirm_curated_list_deletion.html" %}""")
+                layout.HTML("""{% include "curated_lists/includes/confirm_curated_list_deletion.html" %}""")
             ),
             bootstrap.FormActions(
                 layout.Submit('submit', _('Delete')),
@@ -308,7 +308,7 @@ class CuratedListItemRemovalForm(forms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Confirm deletion from curated list"),
-                layout.HTML("""{% include "curated_list/includes/confirm_deletion_from_curated_list.html" %}""")
+                layout.HTML("""{% include "curated_lists/includes/confirm_deletion_from_curated_list.html" %}""")
             ),
             bootstrap.FormActions(
                 layout.Submit('submit', _('Remove')),
@@ -331,7 +331,7 @@ class CuratedListOwnerRemovalForm(forms.Form):
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 _("Confirm removal from owners"),
-                layout.HTML("""{% include "curated_list/includes/confirm_removal_from_owners.html" %}""")
+                layout.HTML("""{% include "curated_lists/includes/confirm_removal_from_owners.html" %}""")
             ),
             bootstrap.FormActions(
                 layout.Submit('submit', _('Remove')),
