@@ -301,6 +301,13 @@
 
         {% include "institutions/includes/latest_published_institutions.html" %}
 
+        <div class="claim">
+            <div class="fawesome fa-list-short big"></div>
+            <p>{% trans 'Curated lists from the community' %}</p>
+        </div>
+
+        {% include "curated_lists/includes/random_featured_curated_lists.html" %}
+
     {% endif %}
 
 {% endblock %}
