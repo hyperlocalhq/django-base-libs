@@ -98,12 +98,12 @@ def job_offer_list(request, criterion="", slug="", show="", title="", job_sector
             where=condition,
         ).distinct()
         kwargs['queryset'] = queryset
-    elif not show:
+    elif show == "all":
+        pass
+    elif show == "jobs":
         kwargs['queryset'] = kwargs['queryset'].exclude(
             job_type__is_internship=True,
         ).distinct()
-    elif show == "all":
-        pass
     elif show == "internships":
         kwargs['queryset'] = kwargs['queryset'].filter(
             job_type__is_internship=True,
