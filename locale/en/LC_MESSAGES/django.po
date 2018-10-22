@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-19 17:07+0200\n"
+"POT-Creation-Date: 2018-10-22 11:34+0200\n"
 "PO-Revision-Date: 2018-08-13 18:17+0053\n"
 "Last-Translator: Reinhard Knobelspies <knobelspies@mac.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1290,9 +1290,9 @@ msgstr ""
 #: templates/ccb/groups_networks/persongroups/add_group_confirm.html:13
 #: templates/ccb/groups_networks/persongroups/add_group_profile.html:12
 #: templates/ccb/institutions/add_institution_confirm.html:6
-#: templates/ccb/institutions/details_base.html:94
+#: templates/ccb/institutions/details_base.html:97
 #: templates/ccb/marketplace/profile/contact.html:12
-#: templates/ccb/network/details_base.html:189
+#: templates/ccb/network/details_base.html:192
 #: templates/ccb/people/profile/contact.html:15
 #: templates/ccb/people/profile/contact.html:67
 msgid "Institution"
@@ -1821,9 +1821,9 @@ msgid "Save"
 msgstr ""
 
 #: apps/curated_lists/forms.py:220
-#: templates/ccb/institutions/details_base.html:52
-#: templates/ccb/network/details_base.html:65
-#: templates/ccb/people/details_base.html:52
+#: templates/ccb/institutions/details_base.html:55
+#: templates/ccb/network/details_base.html:68
+#: templates/ccb/people/details_base.html:55
 msgid "Curator"
 msgstr ""
 
@@ -2755,7 +2755,7 @@ msgstr ""
 #: templates/ccb/events/includes/latest_published_events.html:29
 #: templates/ccb/events/lists/event_icons.html:10
 #: templates/ccb/institutions/details_base.html:42
-#: templates/ccb/institutions/details_base.html:117
+#: templates/ccb/institutions/details_base.html:120
 #: templates/ccb/institutions/includes/latest_published_institutions.html:29
 #: templates/ccb/institutions/institution_list.html:83
 #: templates/ccb/media_gallery/gallery_detail/gallery_base.html:57
@@ -2766,7 +2766,7 @@ msgstr ""
 #: templates/ccb/media_gallery/portfolio_overview.html:41
 #: templates/ccb/metro/tile.html:9 templates/ccb/network/member_list.html:86
 #: templates/ccb/people/details_base.html:42
-#: templates/ccb/people/details_base.html:119
+#: templates/ccb/people/details_base.html:122
 #: templates/ccb/people/includes/latest_published_people.html:29
 #: templates/ccb/people/includes/latest_published_people_start.html:29
 #: templates/ccb/people/person_list.html:83
@@ -6337,14 +6337,12 @@ msgid ""
 msgstr ""
 
 #: templates/ccb/accounts/account_verification_email.html:4
-#: templates/ccb/accounts/curation_invitation.html:4
 msgid ""
 "To verify your e-mail address and continue the registration process, please "
 "click the link below:"
 msgstr ""
 
 #: templates/ccb/accounts/account_verification_email.html:8
-#: templates/ccb/accounts/curation_invitation.html:8
 msgid ""
 "If you have no idea what this e-mail is referring to, simply ignore it and "
 "no account will be created\n"
@@ -6352,18 +6350,11 @@ msgid ""
 msgstr ""
 
 #: templates/ccb/accounts/account_verification_email.html:11
-#: templates/ccb/accounts/curation_invitation.html:11
 #, python-format
 msgid ""
 "\n"
 "    Thanks,\n"
 "    The %(site_name)s team\n"
-msgstr ""
-
-#: templates/ccb/accounts/curation_invitation.html:2
-msgid ""
-"You're receiving this e-mail because you (or someone using your email "
-"address) is attempting to add you as an owner of a curated list at "
 msgstr ""
 
 #: templates/ccb/accounts/index.html:4
@@ -6408,20 +6399,20 @@ msgstr ""
 #: templates/ccb/accounts/my_profile/privacy_settings.html:25
 #: templates/ccb/accounts/password_change_done.html:24
 #: templates/ccb/accounts/password_change_form.html:24
-#: templates/ccb/institutions/details_base.html:94
+#: templates/ccb/institutions/details_base.html:97
 #: templates/ccb/network/details_base.html:7
-#: templates/ccb/network/details_base.html:112
-#: templates/ccb/network/details_base.html:189
+#: templates/ccb/network/details_base.html:115
+#: templates/ccb/network/details_base.html:192
 #: templates/ccb/notification/settings.html:40
 #: templates/ccb/people/details_base.html:6
-#: templates/ccb/people/details_base.html:96
+#: templates/ccb/people/details_base.html:99
 msgid "My Profile"
 msgstr ""
 
 #: templates/ccb/accounts/my_profile/base.html:12
 #: templates/ccb/accounts/my_profile/base.html:73
-#: templates/ccb/network/details_base.html:112
-#: templates/ccb/people/details_base.html:96
+#: templates/ccb/network/details_base.html:115
+#: templates/ccb/people/details_base.html:99
 msgid "Person"
 msgstr ""
 
@@ -9121,11 +9112,11 @@ msgstr ""
 
 #: templates/ccb/individual_relations/lists/person_invitation.html:40
 #: templates/ccb/individual_relations/lists/person_invitation.html:41
-#: templates/ccb/network/details_base.html:89
-#: templates/ccb/network/details_base.html:243
+#: templates/ccb/network/details_base.html:92
+#: templates/ccb/network/details_base.html:246
 #: templates/ccb/people/controls.html:24 templates/ccb/people/controls.html:25
-#: templates/ccb/people/details_base.html:73
-#: templates/ccb/people/details_base.html:141
+#: templates/ccb/people/details_base.html:76
+#: templates/ccb/people/details_base.html:144
 msgid "Edit Person"
 msgstr ""
 
@@ -9154,10 +9145,10 @@ msgstr ""
 
 #: templates/ccb/institutions/controls.html:18
 #: templates/ccb/institutions/controls.html:21
-#: templates/ccb/institutions/details_base.html:74
-#: templates/ccb/institutions/details_base.html:141
-#: templates/ccb/network/details_base.html:169
-#: templates/ccb/network/details_base.html:286
+#: templates/ccb/institutions/details_base.html:77
+#: templates/ccb/institutions/details_base.html:144
+#: templates/ccb/network/details_base.html:172
+#: templates/ccb/network/details_base.html:289
 msgid "Edit Institution"
 msgstr ""
 
@@ -9166,64 +9157,64 @@ msgstr ""
 msgid "My Institution"
 msgstr ""
 
-#: templates/ccb/institutions/details_base.html:54
-#: templates/ccb/network/details_base.html:67
-#: templates/ccb/people/details_base.html:54
+#: templates/ccb/institutions/details_base.html:57
+#: templates/ccb/network/details_base.html:70
+#: templates/ccb/people/details_base.html:57
 msgid "Appears in"
 msgstr ""
 
-#: templates/ccb/institutions/details_base.html:65
-#: templates/ccb/institutions/details_base.html:130
-#: templates/ccb/network/details_base.html:82
-#: templates/ccb/network/details_base.html:160
-#: templates/ccb/network/details_base.html:236
-#: templates/ccb/network/details_base.html:273
-#: templates/ccb/people/details_base.html:66
-#: templates/ccb/people/details_base.html:134
+#: templates/ccb/institutions/details_base.html:68
+#: templates/ccb/institutions/details_base.html:133
+#: templates/ccb/network/details_base.html:85
+#: templates/ccb/network/details_base.html:163
+#: templates/ccb/network/details_base.html:239
+#: templates/ccb/network/details_base.html:276
+#: templates/ccb/people/details_base.html:69
+#: templates/ccb/people/details_base.html:137
 msgid "Unfollow"
 msgstr ""
 
-#: templates/ccb/institutions/details_base.html:67
-#: templates/ccb/institutions/details_base.html:77
-#: templates/ccb/institutions/details_base.html:132
-#: templates/ccb/institutions/details_base.html:145
-#: templates/ccb/network/details_base.html:84
-#: templates/ccb/network/details_base.html:94
-#: templates/ccb/network/details_base.html:162
-#: templates/ccb/network/details_base.html:173
-#: templates/ccb/network/details_base.html:238
-#: templates/ccb/network/details_base.html:248
-#: templates/ccb/network/details_base.html:275
-#: templates/ccb/network/details_base.html:289
-#: templates/ccb/people/details_base.html:68
-#: templates/ccb/people/details_base.html:78
-#: templates/ccb/people/details_base.html:136
-#: templates/ccb/people/details_base.html:146
+#: templates/ccb/institutions/details_base.html:70
+#: templates/ccb/institutions/details_base.html:80
+#: templates/ccb/institutions/details_base.html:135
+#: templates/ccb/institutions/details_base.html:148
+#: templates/ccb/network/details_base.html:87
+#: templates/ccb/network/details_base.html:97
+#: templates/ccb/network/details_base.html:165
+#: templates/ccb/network/details_base.html:176
+#: templates/ccb/network/details_base.html:241
+#: templates/ccb/network/details_base.html:251
+#: templates/ccb/network/details_base.html:278
+#: templates/ccb/network/details_base.html:292
+#: templates/ccb/people/details_base.html:71
+#: templates/ccb/people/details_base.html:81
+#: templates/ccb/people/details_base.html:139
+#: templates/ccb/people/details_base.html:149
 msgid "Follow"
 msgstr ""
 
-#: templates/ccb/institutions/details_base.html:71
-#: templates/ccb/institutions/details_base.html:79
-#: templates/ccb/institutions/details_base.html:139
-#: templates/ccb/institutions/details_base.html:147
+#: templates/ccb/institutions/details_base.html:74
+#: templates/ccb/institutions/details_base.html:82
+#: templates/ccb/institutions/details_base.html:142
+#: templates/ccb/institutions/details_base.html:150
 #: templates/ccb/institutions/institution_list.html:105
 #: templates/ccb/institutions/institution_list.html:109
-#: templates/ccb/network/details_base.html:87
-#: templates/ccb/network/details_base.html:96
-#: templates/ccb/network/details_base.html:166
-#: templates/ccb/network/details_base.html:175
-#: templates/ccb/network/details_base.html:241
-#: templates/ccb/network/details_base.html:250
-#: templates/ccb/network/details_base.html:284
-#: templates/ccb/network/details_base.html:291
+#: templates/ccb/network/details_base.html:90
+#: templates/ccb/network/details_base.html:99
+#: templates/ccb/network/details_base.html:169
+#: templates/ccb/network/details_base.html:178
+#: templates/ccb/network/details_base.html:244
+#: templates/ccb/network/details_base.html:253
+#: templates/ccb/network/details_base.html:287
+#: templates/ccb/network/details_base.html:294
 #: templates/ccb/network/member_list.html:112
 #: templates/ccb/network/member_list.html:116
 #: templates/ccb/network/member_list_under_category.html:129
 #: templates/ccb/network/member_list_under_category.html:133
-#: templates/ccb/people/details_base.html:71
-#: templates/ccb/people/details_base.html:80
-#: templates/ccb/people/details_base.html:139
-#: templates/ccb/people/details_base.html:148
+#: templates/ccb/people/details_base.html:74
+#: templates/ccb/people/details_base.html:83
+#: templates/ccb/people/details_base.html:142
+#: templates/ccb/people/details_base.html:151
 #: templates/ccb/people/person_institutions.html:49
 #: templates/ccb/people/person_institutions.html:53
 #: templates/ccb/people/person_list.html:105
@@ -9901,7 +9892,7 @@ msgid "forward"
 msgstr ""
 
 #: templates/ccb/network/details_base.html:48
-#: templates/ccb/network/details_base.html:138
+#: templates/ccb/network/details_base.html:141
 msgid "CCB MAGAZINE"
 msgstr ""
 
