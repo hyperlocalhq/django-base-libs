@@ -8,4 +8,13 @@
     {% addtoblock "js" %}
         <script src="{% static "site/js/curated-lists.min.js" %}" defer></script>
     {% endaddtoblock %}
+
+    {% addtoblock "trans" %}
+        trans['Add to curated list'] = '{% trans 'Add to curated list' %}';
+        trans['Enter list title'] = '{% trans 'Enter list title' %}';
+        trans['My new list'] = '{% trans 'My new list' %}';
+        trans['OK'] = '{% trans 'OK' %}';
+        trans['cancel'] = '{% trans 'cancel' %}';
+        trans['New Curated List'] = '{% trans 'New Curated List' %}';
+    {% endaddtoblock %}
 {% endif %}
