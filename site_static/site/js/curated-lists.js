@@ -1,4 +1,35 @@
 $(function() {
+
+    var promptForTitle = function(callback) {
+
+        var $prompt = $('<div class="prompt"></div>');
+        var $content = $('<div class="prompt-content"><h2>Enter list title</h2></div>');
+        var $input = $('<input type="text" value="My new list"/>');
+        var $ok = $('<button class="btn btn-success">OK</button>');
+        var $cancel = $('<button class="btn btn-default">cancel</button>');
+
+        var success = function() {
+            var value = $input.val().trim();
+            cancel();
+            if (value) callback(value);
+        }
+
+        var cancel = function() {
+            $prompt.remove();
+        }
+
+        $ok.click(success);
+        $cancel.click(cancel);
+
+        $content.append($input);
+        $content.append($ok);
+        $content.append($cancel);
+        $prompt.append($content);
+
+        $('body').append($prompt);
+    }
+
+
     $('.add_to_own_curated_lists').each(function() {
         var $oldWidget = $(this);
         var content_type_id = $oldWidget.data('content_type_id');
@@ -109,26 +140,30 @@ $(function() {
                     curated_list_token = newChoice.toString();
                     if (curated_list_token.indexOf('new-for-') === 0) {
                         var owner_app_model_pk = curated_list_token.replace('new-for-', '').split('.');
-                        // TODO: replace the prompt with nice dialog or dummy title that is to be renamed in the next steps
-                        var curated_list_title = prompt('Enter list title', 'My new list');
-                        $.post(
-                            '/' + settings.lang + '/helper/user-curated-lists/add-item-to-new/',
-                            {
-                                owner_app_model: owner_app_model_pk[0] + '.' + owner_app_model_pk[1],
-                                owner_pk: owner_app_model_pk[2],
-                                title: curated_list_title,
-                                item_content_type_id: content_type_id,
-                                item_object_id: object_id
-                            },
-                            function(data) {
-                                if (data.success) {
-                                    location.href = data.redirect_url;
-                                    // TODO: maybe you want to redirect to the curated list editing form?
-                                    // location.href = data.redirect_url + 'change/';
-                                }
-                            },
-                            'json'
-                        );
+
+                        var callback = function(curated_list_title) {
+                            $.post(
+                                '/' + settings.lang + '/helper/user-curated-lists/add-item-to-new/',
+                                {
+                                    owner_app_model: owner_app_model_pk[0] + '.' + owner_app_model_pk[1],
+                                    owner_pk: owner_app_model_pk[2],
+                                    title: curated_list_title,
+                                    item_content_type_id: content_type_id,
+                                    item_object_id: object_id
+                                },
+                                function(data) {
+                                    if (data.success) {
+                                        location.href = data.redirect_url;
+                                        // TODO: maybe you want to redirect to the curated list editing form?
+                                        // location.href = data.redirect_url + 'change/';
+                                    }
+                                },
+                                'json'
+                            );
+                        }
+
+                        promptForTitle(callback);
+
                     } else {
                         $.post(
                             '/' + settings.lang + '/helper/user-curated-lists/add-item-to-existing/',
@@ -152,4 +187,5 @@ $(function() {
 
         }, 'json');
     });
+
 });
