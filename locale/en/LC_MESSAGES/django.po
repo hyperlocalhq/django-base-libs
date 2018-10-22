@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-22 15:42+0100\n"
+"POT-Creation-Date: 2018-10-22 17:41+0100\n"
 "PO-Revision-Date: 2018-08-13 18:17+0053\n"
 "Last-Translator: Reinhard Knobelspies <knobelspies@mac.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -333,8 +333,8 @@ msgstr ""
 
 #: apps/articles/admin.py:90 apps/bulletin_board/models.py:139
 #: apps/cms_extensions/models.py:45 apps/curated_lists/forms.py:31
-#: apps/curated_lists/forms.py:142 apps/curated_lists/models.py:54
-#: apps/curated_lists/models.py:200 apps/editorial/models.py:29
+#: apps/curated_lists/forms.py:142 apps/curated_lists/models.py:57
+#: apps/curated_lists/models.py:203 apps/editorial/models.py:29
 #: apps/events/base.py:222 apps/events/forms.py:915
 #: apps/institutions/forms.py:503 apps/marketplace/forms.py:83
 #: apps/media_gallery/forms.py:96 apps/media_gallery/forms.py:182
@@ -571,7 +571,7 @@ msgstr ""
 #: apps/articles/menu.py:35 templates/ccb/articles/articles_base.html:76
 #: templates/ccb/articles/includes/interviews_types_in_tabs.html:10
 #: templates/ccb/articles/includes/interviews_types_nav.html:14
-#: templates/ccb/articles/magazine_overview.html:215
+#: templates/ccb/articles/magazine_overview.html:217
 msgid "From the Blogs"
 msgstr ""
 
@@ -581,7 +581,7 @@ msgstr ""
 #: apps/bulletin_board/models.py:138 apps/cms_extensions/models.py:44
 #: apps/cms_extensions/plugins/headline/models.py:9
 #: apps/curated_lists/forms.py:27 apps/curated_lists/forms.py:138
-#: apps/curated_lists/models.py:53 apps/curated_lists/models.py:199
+#: apps/curated_lists/models.py:56 apps/curated_lists/models.py:202
 #: apps/editorial/models.py:28 apps/events/admin.py:36 apps/events/admin.py:67
 #: apps/events/base.py:216 apps/events/base.py:461 apps/events/forms.py:316
 #: apps/faqs/admin.py:29 apps/groups_networks/admin.py:21
@@ -626,7 +626,7 @@ msgstr ""
 #: apps/bulletin_board/models.py:148 apps/cms_extensions/models.py:46
 #: apps/cms_extensions/plugins/filebrowser_image/cms_plugins.py:14
 #: apps/cms_extensions/plugins/filebrowser_image/models.py:14
-#: apps/curated_lists/models.py:55 apps/editorial/models.py:36
+#: apps/curated_lists/models.py:58 apps/editorial/models.py:36
 #: apps/events/base.py:223 apps/events/forms.py:923 apps/events/forms.py:925
 #: apps/site_specific/forms/events.py:253
 #: apps/site_specific/forms/events.py:255
@@ -801,13 +801,7 @@ msgstr ""
 msgid "Main Photo"
 msgstr ""
 
-#: apps/blog/forms.py:31 apps/curated_lists/forms.py:38
-#, python-format
-msgid ""
-"You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px."
-msgstr ""
-
-#: apps/blog/forms.py:41 apps/curated_lists/forms.py:48
+#: apps/blog/forms.py:39 apps/curated_lists/forms.py:46
 #: apps/events/forms.py:899 apps/events/models.py:44
 #: apps/media_gallery/forms.py:54 apps/media_gallery/forms.py:360
 #: apps/people/models.py:49 apps/site_specific/forms/events.py:229
@@ -817,7 +811,7 @@ msgstr ""
 msgid "Photo Credits"
 msgstr ""
 
-#: apps/blog/forms.py:46 apps/events/forms.py:1517 apps/events/forms.py:1540
+#: apps/blog/forms.py:44 apps/events/forms.py:1517 apps/events/forms.py:1540
 #: apps/marketplace/forms.py:400 apps/site_specific/forms/events.py:1995
 #: apps/site_specific/forms/events.py:2019
 #: apps/site_specific/forms/marketplace.py:752 templates/ccb/blog/blog.html:113
@@ -835,17 +829,17 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
-#: apps/blog/forms.py:50
+#: apps/blog/forms.py:48
 msgid ""
 "Use commas to separate your tags. Tags can have multiple words. For example: "
 "'one, two, three apples' would define three tags."
 msgstr ""
 
-#: apps/blog/forms.py:54
+#: apps/blog/forms.py:52
 msgid "Body"
 msgstr ""
 
-#: apps/blog/forms.py:62 apps/bulletin_board/forms.py:640
+#: apps/blog/forms.py:60 apps/bulletin_board/forms.py:640
 #: apps/bulletin_board/models.py:191 apps/events/base.py:229
 #: apps/partners/admin.py:28 apps/partners/admin.py:65
 #: apps/partners/models.py:27 apps/partners/models.py:47
@@ -858,25 +852,31 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: apps/blog/forms.py:68 apps/bulletin_board/models.py:179
+#: apps/blog/forms.py:66 apps/bulletin_board/models.py:179
 #: subtrees/base_libs/base_libs/models/models.py:227
 msgid "publishing date"
 msgstr ""
 
-#: apps/blog/forms.py:70
+#: apps/blog/forms.py:68
 msgid ""
 "Please use the format 'yyyy-mm-dd hh:mi:ss'. If not provided and the status "
 "is set to 'published', the post will be published immediately."
 msgstr ""
 
-#: apps/blog/forms.py:75
+#: apps/blog/forms.py:73
 msgid "expire date"
 msgstr ""
 
-#: apps/blog/forms.py:77
+#: apps/blog/forms.py:75
 msgid ""
 "Please use the format 'yyyy-mm-dd hh:mi:ss'. If not provided and the status "
 "is set to 'published', the post will be published forever."
+msgstr ""
+
+#: apps/blog/forms.py:86 apps/curated_lists/forms.py:56
+#, python-format
+msgid ""
+"You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px."
 msgstr ""
 
 #: apps/blog/forms.py:143 templates/ccb/blog/comments/form_embedded.html:63
@@ -1047,7 +1047,7 @@ msgstr ""
 msgid "Main Image"
 msgstr ""
 
-#: apps/blog/models.py:96 apps/curated_lists/models.py:56
+#: apps/blog/models.py:96 apps/curated_lists/models.py:59
 msgid "Image Credits"
 msgstr ""
 
@@ -1443,8 +1443,8 @@ msgstr ""
 msgid "bulletin-content providers"
 msgstr ""
 
-#: apps/bulletin_board/models.py:63 apps/curated_lists/models.py:58
-#: apps/curated_lists/models.py:197 apps/media_gallery/models.py:93
+#: apps/bulletin_board/models.py:63 apps/curated_lists/models.py:61
+#: apps/curated_lists/models.py:200 apps/media_gallery/models.py:93
 #: apps/partners/models.py:26 apps/partners/models.py:46
 #: apps/slideshows/models.py:33
 msgid "Sort order"
@@ -1744,20 +1744,23 @@ msgstr ""
 msgid "Owners"
 msgstr ""
 
-#: apps/curated_lists/admin.py:93 apps/curated_lists/models.py:204
+#: apps/curated_lists/admin.py:93 apps/curated_lists/models.py:207
 msgid "List Items"
 msgstr ""
 
 #: apps/curated_lists/apps.py:8 apps/curated_lists/models.py:18
-#: apps/curated_lists/models.py:71
+#: apps/curated_lists/models.py:74
+#: templates/ccb/articles/includes/interviews_types_in_tabs.html:14
+#: templates/ccb/articles/includes/interviews_types_nav.html:18
 msgid "Curated Lists"
 msgstr ""
 
 #: apps/curated_lists/cms_apps.py:7
+#: templates/ccb/curated_lists/includes/random_featured_curated_lists.html:4
 msgid "Featured Curated Lists"
 msgstr ""
 
-#: apps/curated_lists/forms.py:66 apps/curated_lists/models.py:155
+#: apps/curated_lists/forms.py:66 apps/curated_lists/models.py:158
 msgid "Owner"
 msgstr ""
 
@@ -1894,7 +1897,7 @@ msgstr ""
 msgid "Public"
 msgstr ""
 
-#: apps/curated_lists/models.py:61 apps/events/forms.py:1844
+#: apps/curated_lists/models.py:64 apps/events/forms.py:1844
 #: apps/events/models.py:40 apps/groups_networks/models.py:19
 #: apps/institutions/forms.py:1427 apps/institutions/models.py:33
 #: apps/marketplace/forms.py:670 apps/people/models.py:44
@@ -1902,15 +1905,15 @@ msgstr ""
 msgid "categories"
 msgstr ""
 
-#: apps/curated_lists/models.py:64
+#: apps/curated_lists/models.py:67
 msgid "Privacy"
 msgstr ""
 
-#: apps/curated_lists/models.py:65 apps/resources/models.py:30
+#: apps/curated_lists/models.py:68 apps/resources/models.py:30
 msgid "Featured"
 msgstr ""
 
-#: apps/curated_lists/models.py:70
+#: apps/curated_lists/models.py:73
 #: templates/ccb/curated_lists/details_base.html:12
 #: templates/ccb/curated_lists/details_base.html:16
 #: templates/ccb/curated_lists/details_base.html:27
@@ -1918,35 +1921,35 @@ msgstr ""
 msgid "Curated List"
 msgstr ""
 
-#: apps/curated_lists/models.py:159 apps/curated_lists/models.py:195
+#: apps/curated_lists/models.py:162 apps/curated_lists/models.py:198
 msgid "Curated list"
 msgstr ""
 
-#: apps/curated_lists/models.py:161
+#: apps/curated_lists/models.py:164
 msgid "first name"
 msgstr ""
 
-#: apps/curated_lists/models.py:162
+#: apps/curated_lists/models.py:165
 msgid "last name"
 msgstr ""
 
-#: apps/curated_lists/models.py:163
+#: apps/curated_lists/models.py:166
 msgid "email address"
 msgstr ""
 
-#: apps/curated_lists/models.py:165 apps/curated_lists/models.py:196
+#: apps/curated_lists/models.py:168 apps/curated_lists/models.py:199
 msgid "Representation"
 msgstr ""
 
-#: apps/curated_lists/models.py:168
+#: apps/curated_lists/models.py:171
 msgid "List Owner"
 msgstr ""
 
-#: apps/curated_lists/models.py:169
+#: apps/curated_lists/models.py:172
 msgid "List Owners"
 msgstr ""
 
-#: apps/curated_lists/models.py:203
+#: apps/curated_lists/models.py:206
 msgid "List Item"
 msgstr ""
 
@@ -2744,8 +2747,8 @@ msgstr ""
 #: templates/ccb/articles/magazine_overview.html:62
 #: templates/ccb/articles/magazine_overview.html:75
 #: templates/ccb/articles/magazine_overview.html:88
-#: templates/ccb/articles/magazine_overview.html:188
-#: templates/ccb/articles/magazine_overview.html:224
+#: templates/ccb/articles/magazine_overview.html:190
+#: templates/ccb/articles/magazine_overview.html:226
 #: templates/ccb/blog/forms/post_embedded.html:9
 #: templates/ccb/blog/forms/post_embedded.html:14
 #: templates/ccb/blog/post_brief.html:8 templates/ccb/blog/post_detail.html:7
@@ -2756,6 +2759,7 @@ msgstr ""
 #: templates/ccb/counselling_events/lists/event.html:9
 #: templates/ccb/curated_lists/curated_list_detail.html:13
 #: templates/ccb/curated_lists/curated_list_detail.html:46
+#: templates/ccb/curated_lists/includes/random_featured_curated_lists.html:21
 #: templates/ccb/curated_lists/lists/curated_list_item.html:10
 #: templates/ccb/events/details_base.html:40
 #: templates/ccb/events/details_base.html:90
@@ -6300,7 +6304,7 @@ msgid "Ooops! Connection error"
 msgstr ""
 
 #: templates/ccb/accounts/500.html:24
-#: templates/ccb/curated_lists/curated_list_owners.html:56
+#: templates/ccb/curated_lists/curated_list_owners.html:48
 #: templates/ccb/institutions/institution_message.html:41
 #: templates/ccb/people/person_message.html:16
 msgid "back"
@@ -6344,14 +6348,12 @@ msgid ""
 msgstr ""
 
 #: templates/ccb/accounts/account_verification_email.html:4
-#: templates/ccb/accounts/curation_invitation.html:4
 msgid ""
 "To verify your e-mail address and continue the registration process, please "
 "click the link below:"
 msgstr ""
 
 #: templates/ccb/accounts/account_verification_email.html:8
-#: templates/ccb/accounts/curation_invitation.html:8
 msgid ""
 "If you have no idea what this e-mail is referring to, simply ignore it and "
 "no account will be created\n"
@@ -6359,18 +6361,11 @@ msgid ""
 msgstr ""
 
 #: templates/ccb/accounts/account_verification_email.html:11
-#: templates/ccb/accounts/curation_invitation.html:11
 #, python-format
 msgid ""
 "\n"
 "    Thanks,\n"
 "    The %(site_name)s team\n"
-msgstr ""
-
-#: templates/ccb/accounts/curation_invitation.html:2
-msgid ""
-"You're receiving this e-mail because you (or someone using your email "
-"address) is attempting to add you as an owner of a curated list at "
 msgstr ""
 
 #: templates/ccb/accounts/index.html:4
@@ -6799,7 +6794,7 @@ msgstr ""
 msgid "No posts are available"
 msgstr ""
 
-#: templates/ccb/articles/magazine_overview.html:177
+#: templates/ccb/articles/magazine_overview.html:179
 #, fuzzy
 #| msgid "From our Partner"
 msgid "From our network partner"
@@ -7621,24 +7616,24 @@ msgstr ""
 msgid "cancel"
 msgstr ""
 
-#: templates/ccb/curated_lists/curated_list_owners.html:21
-#: templates/ccb/curated_lists/curated_list_owners.html:37
+#: templates/ccb/curated_lists/curated_list_owners.html:20
+#: templates/ccb/curated_lists/curated_list_owners.html:32
 msgid "Followers"
 msgstr ""
 
-#: templates/ccb/curated_lists/curated_list_owners.html:23
-#: templates/ccb/curated_lists/curated_list_owners.html:39
+#: templates/ccb/curated_lists/curated_list_owners.html:21
+#: templates/ccb/curated_lists/curated_list_owners.html:33
 #: templates/ccb/styleguide/elements.html:108
 #: templates/ccb/styleguide/elements.html:128
 #: templates/ccb/styleguide/elements.html:148
 msgid "Curated lists"
 msgstr ""
 
-#: templates/ccb/curated_lists/curated_list_owners.html:34
+#: templates/ccb/curated_lists/curated_list_owners.html:30
 msgid "invited"
 msgstr ""
 
-#: templates/ccb/curated_lists/curated_list_owners.html:55
+#: templates/ccb/curated_lists/curated_list_owners.html:47
 msgid "Invite owners"
 msgstr ""
 
@@ -7647,7 +7642,7 @@ msgstr ""
 msgid "curated by"
 msgstr ""
 
-#: templates/ccb/curated_lists/featured_curated_lists.html:38
+#: templates/ccb/curated_lists/featured_curated_lists.html:56
 msgid "There are no featured curated lists."
 msgstr ""
 
@@ -10052,7 +10047,7 @@ msgstr ""
 msgid "Atom Feed of Bulletins by %(person_title)s"
 msgstr ""
 
-#: templates/ccb/people/person_details.html:40
+#: templates/ccb/people/person_details.html:41
 #, python-format
 msgid ""
 "On %(amount)s\n"
