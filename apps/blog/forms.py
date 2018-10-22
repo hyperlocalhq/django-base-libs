@@ -27,8 +27,6 @@ class BlogPostForm(dynamicforms.Form):
     )
     image = ImageField(
         label=_("Main Photo"),
-        help_text=_(
-            "You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px.") % STR_MIN_LOGO_SIZE,
         required=False,
         min_dimensions=MIN_LOGO_SIZE,
     )
@@ -84,6 +82,8 @@ class BlogPostForm(dynamicforms.Form):
     #     )
 
     def __init__(self, *args, **kwargs):
+        self.fields['image'].help_text = _(
+            "You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px.") % STR_MIN_LOGO_SIZE
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.action = ''

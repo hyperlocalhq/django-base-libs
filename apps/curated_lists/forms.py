@@ -34,8 +34,6 @@ class CuratedListForm(forms.Form):
     )
     image = ImageField(
         label=_("Main Photo"),
-        help_text=_(
-            "You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px.") % STR_MIN_LOGO_SIZE,
         required=False,
         min_dimensions=MIN_LOGO_SIZE,
     )
@@ -54,6 +52,8 @@ class CuratedListForm(forms.Form):
         super(CuratedListForm, self).__init__(*args, **kwargs)
         self.request = request
         self.curated_list = curated_list
+        self.fields['image'].help_text = _(
+            "You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px.") % STR_MIN_LOGO_SIZE
 
         if not self.curated_list:
             choices = [

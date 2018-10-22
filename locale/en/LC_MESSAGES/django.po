@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-22 18:48+0200\n"
+"POT-Creation-Date: 2018-10-22 17:41+0100\n"
 "PO-Revision-Date: 2018-08-13 18:17+0053\n"
 "Last-Translator: Reinhard Knobelspies <knobelspies@mac.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -801,13 +801,7 @@ msgstr ""
 msgid "Main Photo"
 msgstr ""
 
-#: apps/blog/forms.py:31 apps/curated_lists/forms.py:38
-#, python-format
-msgid ""
-"You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px."
-msgstr ""
-
-#: apps/blog/forms.py:41 apps/curated_lists/forms.py:48
+#: apps/blog/forms.py:39 apps/curated_lists/forms.py:46
 #: apps/events/forms.py:899 apps/events/models.py:44
 #: apps/media_gallery/forms.py:54 apps/media_gallery/forms.py:360
 #: apps/people/models.py:49 apps/site_specific/forms/events.py:229
@@ -817,7 +811,7 @@ msgstr ""
 msgid "Photo Credits"
 msgstr ""
 
-#: apps/blog/forms.py:46 apps/events/forms.py:1517 apps/events/forms.py:1540
+#: apps/blog/forms.py:44 apps/events/forms.py:1517 apps/events/forms.py:1540
 #: apps/marketplace/forms.py:400 apps/site_specific/forms/events.py:1995
 #: apps/site_specific/forms/events.py:2019
 #: apps/site_specific/forms/marketplace.py:752 templates/ccb/blog/blog.html:113
@@ -835,17 +829,17 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
-#: apps/blog/forms.py:50
+#: apps/blog/forms.py:48
 msgid ""
 "Use commas to separate your tags. Tags can have multiple words. For example: "
 "'one, two, three apples' would define three tags."
 msgstr ""
 
-#: apps/blog/forms.py:54
+#: apps/blog/forms.py:52
 msgid "Body"
 msgstr ""
 
-#: apps/blog/forms.py:62 apps/bulletin_board/forms.py:640
+#: apps/blog/forms.py:60 apps/bulletin_board/forms.py:640
 #: apps/bulletin_board/models.py:191 apps/events/base.py:229
 #: apps/partners/admin.py:28 apps/partners/admin.py:65
 #: apps/partners/models.py:27 apps/partners/models.py:47
@@ -858,25 +852,31 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: apps/blog/forms.py:68 apps/bulletin_board/models.py:179
+#: apps/blog/forms.py:66 apps/bulletin_board/models.py:179
 #: subtrees/base_libs/base_libs/models/models.py:227
 msgid "publishing date"
 msgstr ""
 
-#: apps/blog/forms.py:70
+#: apps/blog/forms.py:68
 msgid ""
 "Please use the format 'yyyy-mm-dd hh:mi:ss'. If not provided and the status "
 "is set to 'published', the post will be published immediately."
 msgstr ""
 
-#: apps/blog/forms.py:75
+#: apps/blog/forms.py:73
 msgid "expire date"
 msgstr ""
 
-#: apps/blog/forms.py:77
+#: apps/blog/forms.py:75
 msgid ""
 "Please use the format 'yyyy-mm-dd hh:mi:ss'. If not provided and the status "
 "is set to 'published', the post will be published forever."
+msgstr ""
+
+#: apps/blog/forms.py:86 apps/curated_lists/forms.py:56
+#, python-format
+msgid ""
+"You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px."
 msgstr ""
 
 #: apps/blog/forms.py:143 templates/ccb/blog/comments/form_embedded.html:63
@@ -1756,6 +1756,7 @@ msgid "Curated Lists"
 msgstr ""
 
 #: apps/curated_lists/cms_apps.py:7
+#: templates/ccb/curated_lists/includes/random_featured_curated_lists.html:4
 msgid "Featured Curated Lists"
 msgstr ""
 
@@ -2757,12 +2758,9 @@ msgstr ""
 #: templates/ccb/counselling_events/event_details.html:30
 #: templates/ccb/counselling_events/lists/event.html:9
 #: templates/ccb/curated_lists/curated_list_detail.html:13
-#: templates/ccb/curated_lists/curated_list_detail.html:15
 #: templates/ccb/curated_lists/curated_list_detail.html:46
 #: templates/ccb/curated_lists/includes/random_featured_curated_lists.html:21
-#: templates/ccb/curated_lists/includes/random_featured_curated_lists.html:25
 #: templates/ccb/curated_lists/lists/curated_list_item.html:10
-#: templates/ccb/curated_lists/lists/curated_list_item.html:12
 #: templates/ccb/events/details_base.html:40
 #: templates/ccb/events/details_base.html:90
 #: templates/ccb/events/includes/latest_published_events.html:29
@@ -7670,10 +7668,6 @@ msgstr ""
 msgid ""
 "Do you really want to remove %(owner_title)s from the owners of the curated "
 "list \"%(curated_list_title)s\"?"
-msgstr ""
-
-#: templates/ccb/curated_lists/includes/random_featured_curated_lists.html:4
-msgid "Curated lists from the community"
 msgstr ""
 
 #: templates/ccb/curated_lists/lists/curated_list_item.html:41
