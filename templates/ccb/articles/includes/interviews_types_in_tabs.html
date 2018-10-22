@@ -9,3 +9,7 @@
 <li{% if blog_post_list %} class="active"{% endif %}>
     <a{% if blog_post_list %} class="active"{% endif %} href="{% url "magazine_blog_posts" %}"><span>{% trans "From the Blogs" %}</span></a>
 </li>
+{% url "featured_curated_lists" as featured_curated_lists_url %}
+<li{% if request.path == featured_curated_lists_url %} class="active"{% endif %}>
+    <a{% if request.path == featured_curated_lists_url %} class="active"{% endif %} href="{% url "featured_curated_lists" %}"><span>{% trans "Curated Lists" %}</span></a>
+</li>

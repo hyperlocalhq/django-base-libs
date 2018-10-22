@@ -29,6 +29,9 @@ limit_owner_content_type_choices_to = (
 
 
 class CuratedListManager(models.Manager):
+    def random_featured(self):
+        return self.filter(is_featured=True).order_by("?")
+
     def get_by_token(self, token):
         hashids = Hashids(min_length=6)
 

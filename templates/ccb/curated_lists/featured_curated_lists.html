@@ -13,6 +13,24 @@
                 </div>
             </div>
         </div>
+        {% block tabs %}
+            <div class="menu magazine-menu">
+                <div class="container">
+                    <div class="row">
+                        <div class="hidden-xs col-sm-4 col-md-3 headline">
+                            <h2>{% page_attribute "page_title" %}</h2>
+                        </div>
+                        <div class="navi">
+                            <nav>
+                                <ul>
+                                    {% include "articles/includes/interviews_types_in_tabs.html" %}
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
     </div>
     <div class="container">
         <div class="row">
