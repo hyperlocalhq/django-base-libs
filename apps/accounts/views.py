@@ -353,46 +353,6 @@ def confirm_registration(request, encrypted_email):
     return redirect('register_all_done')
 
 
-@never_cache
-def register_curator(request, encrypted_email, *arguments, **keywords):
-    """The custom registration form should add create the user from with the default first_name, last_name, email values, and add them to the Curators group, and assign the user.profile to this owner.owner_content_object.
-"""
-    redirect_to = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
-    try:
-        email = decryptString(encrypted_email)
-    except Exception as e:
-        raise Http404
-    owners = ListOwner.objects.filter(email=email)
-    if not owners.exists():
-        raise Http404
-    m = hashlib.md5()
-    m.update(request.META['REMOTE_ADDR'])
-    request.session.session_id = m.hexdigest()[:20]
-    redirect_to = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
-    site_settings = SiteSettings.objects.get_current()
-    if request.method == "POST":
-        form = SimpleRegistrationForm(request, request.POST, request.FILES)
-        if form.is_valid():
-            user = form.save()
-            for owner in owners:
-                owner.owner_content_object = user.profile
-                owner.email=''
-                owner.first_name=''
-                owner.last_name=''
-                owner.save()
-            return redirect('curated_list_owners', token=owners[0].get_token())
-    else:
-        form = SimpleRegistrationForm(request, initial=dict(first_name=owners[0].first_name, last_name=owners[0].last_name,
-                                                            email=owners[0].email))
-    request.session.set_test_cookie()
-    return render_to_response('accounts/register.html', {
-        'form': form,
-        settings.REDIRECT_FIELD_NAME: redirect_to,
-        'site_name': Site.objects.get_current().name,
-        'login_by_email': site_settings.login_by_email,
-    }, context_instance=RequestContext(request))
-
-
 @login_required
 @never_cache
 def change_privacy_settings(request):

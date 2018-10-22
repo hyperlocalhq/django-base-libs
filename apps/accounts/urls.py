@@ -64,14 +64,9 @@ urlpatterns = [
         name="register_all_done",
     ),
     url(
-        r'^register/(?P<encrypted_email>[a-zA-Z0-9\+/_\-=]+)/$',
+        r'^register/(?P<encrypted_email>[a-zA-Z0-9+/_\-=]+)/$',
         'ccb.apps.accounts.views.confirm_registration',
         name="register_confirm",
-    ),
-    url(
-        r'^register_curator/(?P<encrypted_email>[a-zA-Z0-9\+/_\-=]+)/$',
-        'ccb.apps.accounts.views.register_curator',
-        name="register_curator",
     ),
     url(
         r'^password-reset/$',

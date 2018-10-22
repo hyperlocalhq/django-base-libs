@@ -1,14 +1,20 @@
 # -*- coding: UTF-8 -*-
+import hashlib
 import os
 
 from django.contrib.contenttypes.models import ContentType
 from django.apps import apps
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.shortcuts import render, redirect
 from django.http import Http404, JsonResponse
 from django.conf import settings
+from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User, Group
+from django import forms
 
+from ccb.apps.accounts.forms import SimpleRegistrationForm
 from jetson.apps.utils.decorators import login_required
 from jetson.apps.utils.views import object_list
 
@@ -19,9 +25,11 @@ from jetson.apps.mailing.views import send_email_using_template
 from jetson.apps.mailing.recipient import Recipient
 
 from django.contrib.sites.models import Site
-from base_libs.utils.crypt import cryptString
+from base_libs.utils.crypt import cryptString, decryptString
 
 image_mods = apps.get_app("image_mods")
+SiteSettings = apps.get_model("configuration", "SiteSettings")
+
 
 from .forms import (
     CuratedListForm,
@@ -484,8 +492,6 @@ def curated_list_owners(request, token):
 
 @login_required
 def invite_curated_list_owner(request, token):
-    from django.contrib.auth.models import User, Group
-
     curated_list = CuratedList.objects.get_by_token(token=token)
     if not curated_list:
         raise Http404
@@ -570,4 +576,56 @@ def remove_curated_list_owner(request, token, owner_id):
     return render(request, "curated_lists/remove_curated_list_owner.html", {
         'curated_list': curated_list,
         'form': form,
+    })
+
+
+@never_cache
+def register_curator(request, encrypted_email, *arguments, **keywords):
+    """The custom registration form should add create the user from with the default first_name, last_name, email values, and add them to the Curators group, and assign the user.profile to this owner.owner_content_object.
+"""
+    redirect_to = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
+    try:
+        email = decryptString(encrypted_email)
+    except Exception as e:
+        raise Http404
+    owners = ListOwner.objects.filter(email=email)
+    if not owners.exists():
+        raise Http404
+    m = hashlib.md5()
+    m.update(request.META['REMOTE_ADDR'])
+    request.session.session_id = m.hexdigest()[:20]
+    redirect_to = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
+    site_settings = SiteSettings.objects.get_current()
+    initial = {
+        'first_name': owners[0].first_name,
+        'last_name': owners[0].last_name,
+        'email': owners[0].email,
+    }
+    if request.method == "POST":
+        data = request.POST.copy()
+        data['email'] = owners[0].email
+        form = SimpleRegistrationForm(request, data=request.POST, files=request.FILES, initial=initial)
+        form.helper.form_action = request.path
+        form.fields['email'].widget = forms.EmailInput(attrs={'readonly': True})
+        if form.is_valid():
+            user = form.save(activate_immediately=True)
+            for owner in owners:
+                owner.owner_content_object = user.profile
+                owner.email = ''
+                owner.first_name = ''
+                owner.last_name = ''
+                owner.save()
+                group = Group.objects.get(name="Curators")
+                user.groups.add(group)
+            return redirect('curated_list_change', token=owners[0].curated_list.get_token())
+    else:
+        form = SimpleRegistrationForm(request, initial=initial)
+        form.helper.form_action = request.path
+        form.fields['email'].widget = forms.EmailInput(attrs={'readonly': True})
+    request.session.set_test_cookie()
+    return render(request, 'curated_lists/accept_invitation.html', {
+        'form': form,
+        settings.REDIRECT_FIELD_NAME: redirect_to,
+        'site_name': Site.objects.get_current().name,
+        'login_by_email': site_settings.login_by_email,
     })
