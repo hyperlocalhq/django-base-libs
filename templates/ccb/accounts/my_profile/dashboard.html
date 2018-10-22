@@ -16,7 +16,7 @@
 
     {% show_welcome_message request.user %}
 
-    {% if object_list %}
+    {% if object_list and False %}
 
         <h2>{% trans "Activities" %}</h2>
 
@@ -306,7 +306,7 @@
             <p>{% trans 'Curated lists from the community' %}</p>
         </div>
 
-        {% include "curated_lists/includes/random_featured_curated_lists.html" %}
+        {% include "curated_lists/includes/random_featured_curated_lists_dashboard.html" %}
 
     {% endif %}
 
