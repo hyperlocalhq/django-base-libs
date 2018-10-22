@@ -5,6 +5,11 @@ from . import views as app_views
 
 urlpatterns = [
     url(r'^$', app_views.featured_curated_lists, name='featured_curated_lists'),
+    url(
+        r'^register-curator/(?P<encrypted_email>[a-zA-Z0-9+/_\-=]+)/$',
+        app_views.register_curator,
+        name="register_curator",
+    ),
     url(r'^(?P<token>[^/]+)/$', app_views.curated_list_detail, name='curated_list_detail'),
     url(r'^(?P<token>[^/]+)/change/$', app_views.change_curated_list, name='change_curated_list'),
     url(r'^(?P<token>[^/]+)/delete/$', app_views.delete_curated_list, name='delete_curated_list'),
