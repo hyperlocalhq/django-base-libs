@@ -18,7 +18,6 @@ from base_libs.forms.fields import ImageField
 
 from .models import CuratedList, ListItem
 
-
 MIN_LOGO_SIZE = getattr(settings, "LOGO_SIZE", (850, 400))
 STR_MIN_LOGO_SIZE = "%sx%s" % MIN_LOGO_SIZE
 
@@ -61,7 +60,8 @@ class CuratedListForm(forms.Form):
                 ('people.person.{}'.format(request.user.pk), request.user.profile.get_title())
             ]
             for contact in request.user.profile.individualcontact_set.exclude(institution=None).only("institution"):
-                choices.append(('institutions.institution.{}'.format(contact.institution.pk), contact.institution.title))
+                choices.append(
+                    ('institutions.institution.{}'.format(contact.institution.pk), contact.institution.title))
             self.field['owner'] = forms.ChoiceField(
                 label=_("Owner"),
                 choices=choices,
@@ -223,7 +223,6 @@ class CuratedListFilterForm(forms.Form):
             required=False,
         )
 
-
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "GET"
@@ -287,8 +286,8 @@ class CuratedListDeletionForm(forms.Form):
             layout.Fieldset(
                 _("Confirm deletion"),
                 layout.HTML("""{% load i18n %}
-                <p>{% blocktrans with curated_list_title=form.curated_list.title trimmed %}
-                    Do you realy want to delete the curated list "{{ curated_list_title }}"?
+                <p>{% blocktrans trimmed with curated_list_title=form.curated_list.title %}
+                    Do you really want to delete the curated list "{{ curated_list_title }}"?
                 {% endblocktrans %}</p>
                 """)
             ),
@@ -314,8 +313,8 @@ class CuratedListItemRemovalForm(forms.Form):
             layout.Fieldset(
                 _("Confirm deletion"),
                 layout.HTML("""{% load i18n %}
-                <p>{% blocktrans with curated_list_title=form.curated_list.title item_title=form.item.title trimmed %}
-                    Do you realy want to remove "{{ item_title }}" from the curated list "{{ curated_list_title }}"?
+                <p>{% blocktrans trimmed with curated_list_title=form.curated_list.title item_title=form.item.title %}
+                    Do you really want to remove "{{ item_title }}" from the curated list "{{ curated_list_title }}"?
                 {% endblocktrans %}</p>
                 """)
             ),
@@ -341,8 +340,8 @@ class CuratedListOwnerRemovalForm(forms.Form):
             layout.Fieldset(
                 _("Confirm deletion"),
                 layout.HTML("""{% load i18n %}
-                <p>{% blocktrans with curated_list_title=form.curated_list.title owner_title=form.owner.representation trimmed %}
-                    Do you realy want to remove {{ owner_title }} from the owners of the curated list "{{ curated_list_title }}"?
+                <p>{% blocktrans trimmed with curated_list_title=form.curated_list.title owner_title=form.owner.representation %}
+                    Do you really want to remove {{ owner_title }} from the owners of the curated list "{{ curated_list_title }}"?
                 {% endblocktrans %}</p>
                 """)
             ),
