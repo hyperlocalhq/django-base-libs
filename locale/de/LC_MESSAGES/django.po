@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Django 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-22 17:41+0100\n"
+"POT-Creation-Date: 2018-10-22 19:02+0200\n"
 "PO-Revision-Date: 2018-08-13 17:44+0053\n"
 "Last-Translator: Super Admin <jetsonadmin@studio38.de>\n"
 "Language-Team: \n"
@@ -619,7 +619,7 @@ msgstr "Übersicht"
 #: apps/articles/menu.py:35 templates/ccb/articles/articles_base.html:76
 #: templates/ccb/articles/includes/interviews_types_in_tabs.html:10
 #: templates/ccb/articles/includes/interviews_types_nav.html:14
-#: templates/ccb/articles/magazine_overview.html:217
+#: templates/ccb/articles/magazine_overview.html:221
 #, fuzzy
 #| msgid "Post To the Blog"
 msgid "From the Blogs"
@@ -1864,7 +1864,6 @@ msgid "Curated Lists"
 msgstr "Kuratierte Listen"
 
 #: apps/curated_lists/cms_apps.py:7
-#: templates/ccb/curated_lists/includes/random_featured_curated_lists.html:4
 msgid "Featured Curated Lists"
 msgstr "Gefeaturte Kuratierte Listen"
 
@@ -2904,8 +2903,8 @@ msgstr ""
 #: templates/ccb/articles/magazine_overview.html:62
 #: templates/ccb/articles/magazine_overview.html:75
 #: templates/ccb/articles/magazine_overview.html:88
-#: templates/ccb/articles/magazine_overview.html:190
-#: templates/ccb/articles/magazine_overview.html:226
+#: templates/ccb/articles/magazine_overview.html:194
+#: templates/ccb/articles/magazine_overview.html:230
 #: templates/ccb/blog/forms/post_embedded.html:9
 #: templates/ccb/blog/forms/post_embedded.html:14
 #: templates/ccb/blog/post_brief.html:8 templates/ccb/blog/post_detail.html:7
@@ -2915,9 +2914,12 @@ msgstr ""
 #: templates/ccb/counselling_events/event_details.html:30
 #: templates/ccb/counselling_events/lists/event.html:9
 #: templates/ccb/curated_lists/curated_list_detail.html:13
+#: templates/ccb/curated_lists/curated_list_detail.html:15
 #: templates/ccb/curated_lists/curated_list_detail.html:46
+#: templates/ccb/curated_lists/includes/random_featured_curated_lists.html:17
 #: templates/ccb/curated_lists/includes/random_featured_curated_lists.html:21
 #: templates/ccb/curated_lists/lists/curated_list_item.html:10
+#: templates/ccb/curated_lists/lists/curated_list_item.html:12
 #: templates/ccb/events/details_base.html:40
 #: templates/ccb/events/details_base.html:90
 #: templates/ccb/events/includes/latest_published_events.html:29
@@ -6698,7 +6700,7 @@ msgstr "Du bist noch nicht angemeldet? Lege Dir jetzt ein Profil an. "
 #: templates/ccb/accounts/my_profile/base.html:4
 #: templates/ccb/accounts/my_profile/base.html:11
 #: templates/ccb/accounts/my_profile/base.html:71
-#: templates/ccb/accounts/my_profile/dashboard.html:310
+#: templates/ccb/accounts/my_profile/dashboard.html:317
 #: templates/ccb/accounts/my_profile/delete_profile.html:48
 #: templates/ccb/accounts/my_profile/delete_profile_done.html:37
 #: templates/ccb/accounts/my_profile/privacy_settings.html:25
@@ -6775,6 +6777,11 @@ msgstr "Willkommen! Die Neuen auf Creative City Berlin"
 #: templates/ccb/accounts/my_profile/dashboard.html:300
 msgid "New institutions at Creative City Berlin"
 msgstr "Neue Unternehmen & Institutionen auf Creative City Berlin"
+
+#: templates/ccb/accounts/my_profile/dashboard.html:307
+#: templates/ccb/articles/magazine_overview.html:158
+msgid "Curated lists from the community"
+msgstr "Kuratierte Listen aus der Community"
 
 #: templates/ccb/accounts/my_profile/delete_profile.html:5
 #: templates/ccb/accounts/my_profile/delete_profile.html:14
@@ -7108,7 +7115,7 @@ msgstr "Wissen & Analyse"
 msgid "No posts are available"
 msgstr "Keine News vorhanden"
 
-#: templates/ccb/articles/magazine_overview.html:179
+#: templates/ccb/articles/magazine_overview.html:183
 msgid "From our network partner"
 msgstr "Beiträge unserer Netzwerkpartner"
 
