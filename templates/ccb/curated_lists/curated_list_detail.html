@@ -9,10 +9,10 @@
                     {% with curated_list.image|file_description as file_desc %}
                         <div class="photo-credits-wrapper">
                             <img class="img-responsive" src="{{ MEDIA_URL }}{{ curated_list.image|modified_path:"overview_image" }}" alt="{{ curated_list.title }}" data-popup-image-src="{{ MEDIA_URL }}{{ curated_list.image.path }}" />
-                            {% if file_desc.author %}
+                            {% if curated_list.image_author %}
+                                <span class="photo-credits-over">{% trans "Photo" %}: {{ curated_list.image_author }}</span>
+                            {% elif file_desc.author %}
                                 <span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>
-                            {% elif curated_list.image_author %}
-                                <span class="photo-credits-over">{{ curated_list.image_author }}</span>
                             {% endif %}
                         </div>
                     {% endwith %}

@@ -153,9 +153,13 @@
         </div>
         {% endcomment %}
 
+        <div class="fawesome fa-list-short big center"></div>
+        <h2 class="center icon">{% trans 'Curated lists from the community' %}</h2>
+
+        {% include "curated_lists/includes/random_featured_curated_lists.html" %}
+
     </div>
 
-    {% include "curated_lists/includes/random_featured_curated_lists.html" %}
 
     {% comment %}
     <div class="question-of-the-week">
