@@ -35,6 +35,13 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
+                <div class="header-search">
+                    <div class="result">{{ object_list.count }} <span class="text">{% trans 'Curated lists' %}</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
                 {% static_placeholder "featured_curated_lists" %}
             </div>
         </div>
