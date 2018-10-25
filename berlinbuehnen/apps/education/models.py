@@ -20,6 +20,7 @@ from base_libs.utils.misc import get_unique_value
 from base_libs.utils.betterslugify import better_slugify
 
 from berlinbuehnen.apps.locations.models import Location, District
+from berlinbuehnen.apps.sponsors.models import SponsorBase
 
 from filebrowser.fields import FileBrowseField
 
@@ -430,7 +431,6 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
     remarks = MultilingualTextField(_("Remarks"), blank=True)
     cooperation = MultilingualTextField(_("Cooperation partners"), blank=True)
     supporters = MultilingualTextField(_("Supporters"), blank=True)
-    sponsors = models.ManyToManyField("sponsors.Sponsor", verbose_name=_("Sponsors"), blank=True)
 
     target_groups = models.ManyToManyField("ProjectTargetGroup", verbose_name=_("Target groups"), blank=True)
     formats = models.ManyToManyField("ProjectFormat", verbose_name=_("Project formats"), blank=True)
@@ -598,7 +598,6 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
 
         # add m2m relationships
         target_proj.departments = source_proj.departments.all()
-        target_proj.sponsors = source_proj.sponsors.all()
         target_proj.target_groups = source_proj.target_groups.all()
         target_proj.formats = source_proj.formats.all()
 
@@ -640,6 +639,10 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
             member.pk = None
             member.project = target_proj
             member.save()
+        for sponsor in source_proj.projectsponsor_set.all():
+            sponsor.pk = None
+            sponsor.project = target_proj
+            sponsor.save()
 
         # set ownership
         for owner in source_proj.get_owners():
@@ -817,16 +820,5 @@ class ProjectVideo(CreationModificationDateMixin):
         return int(token) - TOKENIZATION_SUMMAND
 
 
-class ProjectSponsor(CreationModificationDateMixin):
+class ProjectSponsor(SponsorBase):
     project = models.ForeignKey(Project, verbose_name=_("Project"), on_delete=models.CASCADE)
-    title = MultilingualCharField(_("Title"), max_length=255, blank=True)
-    image = FileBrowseField(_("Image"), max_length=255, directory="education/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."), blank=True)
-    website = URLField(_("Website"), blank=True)
-
-    class Meta:
-        ordering = ["title"]
-        verbose_name = _("Sponsor")
-        verbose_name_plural = _("Sponsors")
-
-    def __unicode__(self):
-        return self.title or (self.image and self.image.filename) or self.pk

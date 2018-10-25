@@ -13,21 +13,7 @@ DATABASES = {
         'USER': get_secret("DATABASE_USER"),
         'PASSWORD': get_secret("DATABASE_PASSWORD"),
     },
-    'mysql': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': get_secret("DATABASE_NAME"),
-        'USER': get_secret("DATABASE_USER"),
-        'PASSWORD': get_secret("DATABASE_PASSWORD"),
-        'CONN_MAX_AGE': 0,
-        'HOST': 'localhost',
-        'OPTIONS': {
-            'init_command': 'SET character_set_connection=utf8,'
-                'collation_connection=utf8_general_ci,'
-                'foreign_key_checks=0'
-        },
-    }
 }
-del DATABASES['mysql']
 DATABASES['default'] = DATABASES['postgresql']
 
 HTTPS_PROTOCOL = "http"

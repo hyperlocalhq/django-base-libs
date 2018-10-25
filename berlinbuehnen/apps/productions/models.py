@@ -26,6 +26,8 @@ from base_libs.utils.betterslugify import better_slugify
 
 from filebrowser.fields import FileBrowseField
 
+from berlinbuehnen.apps.sponsors.models import SponsorBase
+
 from mptt.models import MPTTModel
 from mptt.managers import TreeManager
 from mptt.fields import TreeForeignKey, TreeManyToManyField
@@ -193,8 +195,6 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
     age_from = models.PositiveSmallIntegerField(_(u"Age from"), blank=True, null=True)
     age_till = models.PositiveSmallIntegerField(_(u"Age till"), blank=True, null=True)
     edu_offer_website = URLField(_("Educational offer website"), blank=True, max_length=255)
-
-    sponsors = models.ManyToManyField("sponsors.Sponsor", verbose_name=_("Sponsors"), blank=True)
 
     show_among_others = models.BooleanField(_("Show among others"), default=True, help_text=_("Should this production be shown in event details among other productions at the same venue?"))
     no_overwriting = models.BooleanField(_("Do not overwrite by the next import"), default=False)
@@ -495,7 +495,6 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
         target_prod.categories = source_prod.categories.all()
         target_prod.festivals = source_prod.festivals.all()
         target_prod.related_productions = source_prod.related_productions.all()
-        target_prod.sponsors = source_prod.sponsors.all()
         # copy media directory
         source_media_dir = "productions/%s" % source_prod.slug
         target_media_dir = "productions/%s" % target_prod.slug
@@ -542,6 +541,10 @@ class Production(CreationModificationMixin, UrlMixin, SlugMixin()):
             member.pk = None
             member.production = target_prod
             member.save()
+        for sponsor in source_prod.productionsponsor_set.all():
+            sponsor.pk = None
+            sponsor.production = target_prod
+            sponsor.save()
         # set ownership
         for owner in source_prod.get_owners():
             target_prod.set_owner(owner)
@@ -899,8 +902,6 @@ class Event(CreationModificationMixin, UrlMixin):
 
     characteristics = models.ManyToManyField(EventCharacteristics, verbose_name=_("Characteristics"), blank=True)
     other_characteristics = MultilingualTextField(_("Other characteristics"), blank=True)
-
-    sponsors = models.ManyToManyField("sponsors.Sponsor", verbose_name=_("Sponsors"), blank=True)
 
     classiccard = models.BooleanField(_("Intended for ClassicCard holders"), default=False)
 
@@ -1337,31 +1338,9 @@ class EventInvolvement(CreationModificationDateMixin):
         return getattr(self, 'another_type_%s' % lang_code, '') or getattr(self, 'involvement_role_%s' % lang_code, '') or getattr(self, 'involvement_instrument_%s' % lang_code, '')
 
 
-class ProductionSponsor(CreationModificationDateMixin):
+class ProductionSponsor(SponsorBase):
     production = models.ForeignKey(Production, verbose_name=_("Production"), on_delete=models.CASCADE)
-    title = MultilingualCharField(_("Title"), max_length=255, blank=True)
-    image = FileBrowseField(_("Image"), max_length=255, directory="productions/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."), blank=True)
-    website = URLField(_("Website"), blank=True)
-
-    class Meta:
-        ordering = ["title"]
-        verbose_name = _("Sponsor")
-        verbose_name_plural = _("Sponsors")
-
-    def __unicode__(self):
-        return self.title or (self.image and self.image.filename) or self.pk
 
 
-class EventSponsor(CreationModificationDateMixin):
+class EventSponsor(SponsorBase):
     event = models.ForeignKey(Event, verbose_name=_("Event"), on_delete=models.CASCADE)
-    title = MultilingualCharField(_("Title"), max_length=255, blank=True)
-    image = FileBrowseField(_("Image"), max_length=255, directory="events/", extensions=['.jpg', '.jpeg', '.gif', '.png'], help_text=_("A path to a locally stored image."), blank=True)
-    website = URLField(_("Website"), blank=True)
-
-    class Meta:
-        ordering = ["title"]
-        verbose_name = _("Sponsor")
-        verbose_name_plural = _("Sponsors")
-
-    def __unicode__(self):
-        return self.title or (self.image and self.image.filename) or self.pk

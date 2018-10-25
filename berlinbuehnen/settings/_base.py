@@ -293,9 +293,6 @@ ADMIN_APP_INDEX = (
                 'verbose_name': gettext("Advent Calendar"),
                 'models': ('Day',),
             }),
-            ('sponsors', {
-                'models': ('Sponsor',),
-            }),
             ('slideshows', {
                 'models': ('Slideshow',),
             }),

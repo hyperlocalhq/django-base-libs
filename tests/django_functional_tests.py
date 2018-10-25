@@ -355,8 +355,6 @@ class Urls(object):
             '/de/admin/productions/languageandsubtitles/add/',
             '/de/admin/comments/comment/',
             '/de/admin/comments/comment/add/',
-            '/de/admin/sponsors/sponsor/',
-            '/de/admin/sponsors/sponsor/add/',
             '/de/admin/advertising/textad/',
             '/de/admin/advertising/textad/add/',
             '/de/admin/infobanners/infobanner/',
@@ -509,6 +507,7 @@ class Urls(object):
 
         # Page not found
         self.authenticated_404 = [
+            "/de/admin/filebrowser/delete-version/",
             "/de/admin/filebrowser/delete-version/",
         ]
 
