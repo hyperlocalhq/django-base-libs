@@ -916,7 +916,7 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
                         # delete image mapper
                         self.service.objectmapper_set.filter(
                             object_id=mf.pk,
-                            content_type__app_label="events",
+                            content_type__app_label="productions",
                             content_type__model="eventimage",
                         ).delete()
                         # delete image model instance
