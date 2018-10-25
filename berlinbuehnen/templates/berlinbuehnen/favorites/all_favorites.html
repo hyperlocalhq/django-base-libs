@@ -180,7 +180,7 @@
                                     <!-- image -->
                                     <span class="grid-item-image img">
                                         {% if department.first_image %}
-                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ location.first_image.path|modified_path:"detail_image" }}{% if location.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ location.title|escape }}" />
+                                            <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ department.first_image.path|modified_path:"detail_image" }}{% if location.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ location.title|escape }}" />
                                         {% else %}
                                             <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" />
                                         {% endif %}
@@ -192,7 +192,7 @@
                                     {% if department.title %}<h2>{{ department.title }}</h2>{% endif %}
                                     {% if department.teaser %}
                                         <div class="copy">{{ department.get_rendered_teaser }}</div>
-                                    {% elif location.department %}
+                                    {% elif department.description %}
                                         <div class="copy">{{ department.get_rendered_description|striptags|truncatewords:20 }}</div>
                                     {% endif %}
 

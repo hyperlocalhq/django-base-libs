@@ -9,7 +9,7 @@ date >> ${CRON_LOG_FILE}
 cd ${PROJECT_PATH}
 source venv/bin/activate
 cd project/berlinbuehnen
-python manage.py search_index --rebuild --settings=berlinbuehnen.settings.production --noinput --traceback >> ${CRON_LOG_FILE} 2>&1
+python manage.py search_index --rebuild --settings=berlinbuehnen.settings.production -f --traceback >> ${CRON_LOG_FILE} 2>&1
 
 echo "Finished." >> ${CRON_LOG_FILE}
 duration=$SECONDS

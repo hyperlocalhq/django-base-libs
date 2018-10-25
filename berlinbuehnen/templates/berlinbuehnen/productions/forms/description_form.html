@@ -69,10 +69,10 @@
                             $('[name$="media_file_path"]', $formset_form).val(responseJSON.path);
                             // load the modified version for the preview
                             $.post('/' + self.settings.lang + '/helper/modified-path/', {
-                                file_path: responseJSON.path,
+                                file_path: self.settings.media_url + responseJSON.path,
                                 mod_sysname: 'medium'
                             }, function(data, textStatus, jqXHR) {
-                                $('.image_preview', $formset_form).html('<img class="img-responsive" alt="" src="/media/' + data + '" />');
+                                $('.image_preview', $formset_form).html('<img class="img-responsive" alt="" src="' + data + '" />');
                                 $('.image_uploader', $formset_form).hide();
                                 $('.image_help_text', $formset_form).hide();
                             },
@@ -135,7 +135,7 @@
                 }
             });
         }
-            
+
         $(function() {
             $(
                 '<a class="add btn btn-primary" id="add_leaderships" href="#">{% trans "Add staff" %}</a>'
@@ -167,7 +167,7 @@
                 $formset_form.hide();
                 return false;
             });
-            
+
             // Initial state
             var $total_forms = $('#id_leaderships-TOTAL_FORMS');
             if ($total_forms.val() == "0") {
@@ -191,7 +191,7 @@
             if ($total_forms.val() == "0") {
                 $('#add_authorships').click();
             }
-          
+
             $(
                 '<a class="add btn btn-primary" id="add_involvements" href="#">{% trans "Add another involved person" %}</a>'
             ).insertAfter('#involvements').click(function() {
@@ -246,7 +246,7 @@
             if ($total_forms.val() == "0") {
                 $('#add_sponsors').click();
             }
-          
+
             $('.enter_person').on('click', function(e) {
                 e.preventDefault();
                 var $formset_form = $(this).closest('.formset-form');
@@ -363,7 +363,7 @@
             });
 
         });
-        
+
         new SortingByOrder('leaderships', 'leadership', 'sort_order');
         new SortingByOrder('authorships', 'authorship', 'sort_order');
         new SortingByOrder('involvements', 'involvement', 'sort_order');

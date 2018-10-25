@@ -84,10 +84,10 @@
                             $('[name$="media_file_path"]', $formset_form).val(responseJSON.path);
                             // load the modified version for the preview
                             $.post('/' + self.settings.lang + '/helper/modified-path/', {
-                                file_path: responseJSON.path,
+                                file_path: self.settings.media_url + responseJSON.path,
                                 mod_sysname: 'medium'
                             }, function(data, textStatus, jqXHR) {
-                                $('.image_preview', $formset_form).html('<img class="img-responsive" alt="" src="/media/' + data + '" />');
+                                $('.image_preview', $formset_form).html('<img class="img-responsive" alt="" src="' + data + '" />');
                                 $('.image_uploader', $formset_form).hide();
                                 $('.image_help_text', $formset_form).hide();
                             },
@@ -385,7 +385,7 @@
             });
 
         });
-        
+
         new SortingByOrder('leaderships', 'leadership', 'sort_order');
         new SortingByOrder('authorships', 'authorship', 'sort_order');
         new SortingByOrder('involvements', 'involvement', 'sort_order');

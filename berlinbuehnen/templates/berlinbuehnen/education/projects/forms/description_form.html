@@ -69,10 +69,10 @@
                             $('[name$="media_file_path"]', $formset_form).val(responseJSON.path);
                             // load the modified version for the preview
                             $.post('/' + self.settings.lang + '/helper/modified-path/', {
-                                file_path: responseJSON.path,
+                                file_path: self.settings.media_url + responseJSON.path,
                                 mod_sysname: 'medium'
                             }, function(data, textStatus, jqXHR) {
-                                $('.image_preview', $formset_form).html('<img class="img-responsive" alt="" src="/media/' + data + '" />');
+                                $('.image_preview', $formset_form).html('<img class="img-responsive" alt="" src="' + data + '" />');
                                 $('.image_uploader', $formset_form).hide();
                                 $('.image_help_text', $formset_form).hide();
                             },
@@ -135,7 +135,7 @@
                 }
             });
         }
-            
+
         $(function() {
             $(
                 '<a class="add btn btn-primary" id="add_member" href="#">{% trans "Add member" %}</a>'
@@ -167,7 +167,7 @@
                 $formset_form.hide();
                 return false;
             });
-            
+
             // Initial state
             var $total_forms = $('#id_members-TOTAL_FORMS');
             /*
@@ -215,7 +215,7 @@
                 $('#add_sponsors').click();
             }
             */
-          
+
             $('.enter_person').on('click', function(e) {
                 e.preventDefault();
                 var $formset_form = $(this).closest('.formset-form');
@@ -236,7 +236,7 @@
             reinit_widgets();
 
         });
-        
+
         new SortingByOrder('members', 'member', 'sort_order');
     </script>
     {% add_data "script_nonces" microseconds|to_base64 %}
