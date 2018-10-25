@@ -859,7 +859,7 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
                             # get image model instance from saved mapper
                             image_mapper = self.service.objectmapper_set.get(
                                 external_id=image_external_id,
-                                content_type__app_label="events",
+                                content_type__app_label="productions",
                                 content_type__model="eventimage",
                             )
                         except models.ObjectDoesNotExist:
