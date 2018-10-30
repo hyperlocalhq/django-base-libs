@@ -36,11 +36,13 @@ from .forms import (
     CuratedListItemForm,
     CuratedListFilterForm,
     OwnerInvitationForm,
+    PersonOrInstitutionInvitationForm,
     CuratedListDeletionForm,
     CuratedListItemRemovalForm,
     CuratedListOwnerRemovalForm,
     AddItemToNewCuratedListForm,
     ItemAtCuratedListForm,
+    PersonAndInstitutionRegistrationForm,
 )
 from .models import CuratedList, ListOwner, ListItem
 
@@ -98,6 +100,7 @@ def curated_list_detail(request, token, **kwargs):
     return render(request, "curated_lists/curated_list_detail.html", {
         'curated_list': curated_list,
         'other_curated_lists': other_curated_lists,
+        'visible_list_items': curated_list.get_visible_list_items(user=request.user),
         'editable': editable,
     })
 
@@ -535,15 +538,74 @@ def invite_curated_list_owner(request, token):
                 )
             else:
                 # A user with this email exists. Add them to the owners and to the Curators group
-                # TODO: don't add the user to the list if it already exists there.
-                owner = ListOwner(curated_list=curated_list)
-                owner.owner_content_object = user.profile
-                owner.save()
-                group = Group.objects.get(name="Curators")
-                user.groups.add(group)
+                # (but skip the user if he already is the owner of this curated list)
+                ct = ContentType.objects.get_for_model(user.profile)
+                if not ListOwner.objects.filter(
+                    curated_list=curated_list,
+                    owner_content_type=ct,
+                    object_id=user.profile.pk,
+                ).exists():
+                    owner = ListOwner(curated_list=curated_list)
+                    owner.owner_content_object = user.profile
+                    owner.save()
+                    group = Group.objects.get(name="Curators")
+                    user.groups.add(group)
             return redirect("curated_list_owners", token=token)
     else:
         form = OwnerInvitationForm()
+
+    return render(request, "curated_lists/invite_curated_list_owner.html", {
+        'curated_list': curated_list,
+        'form': form,
+    })
+
+
+@login_required
+def invite_person_or_institution_to_curated_list(request, token):
+    curated_list = CuratedList.objects.get_by_token(token=token)
+    if not curated_list:
+        raise Http404
+
+    if not curated_list.is_editable(user=request.user):
+        return access_denied(request)
+
+    if request.method == 'POST':
+        form = PersonOrInstitutionInvitationForm(data=request.POST)
+        if form.is_valid():
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            email = form.cleaned_data['email']
+            institution_title = form.cleaned_data['institution_title']
+
+            if not User.objects.filter(email=email).exists():
+                # It's the person who is not yet registered at CCB
+                item = ListItem(curated_list=curated_list)
+                item.first_name = first_name
+                item.last_name = last_name
+                item.institution_title = institution_title
+                item.email = email
+                item.save()
+
+                # Send an invitation email with a special link to create user's account.
+                current_site = Site.objects.get_current()
+                encrypted_email = cryptString(email)
+
+                sender_name, sender_email = settings.MANAGERS[0]
+                send_email_using_template(
+                    [Recipient(email=email)],
+                    "curated_list_invitation",
+                    obj_placeholders={
+                        'encrypted_email': encrypted_email,
+                        'site_name': current_site.name,
+                    },
+                    delete_after_sending=False,
+                    sender_name=sender_name,
+                    sender_email=sender_email,
+                    send_immediately=True,
+                )
+            return redirect("curated_list_detail", token=token)
+    else:
+        form = PersonOrInstitutionInvitationForm()
 
     return render(request, "curated_lists/invite_curated_list_owner.html", {
         'curated_list': curated_list,
@@ -581,8 +643,13 @@ def remove_curated_list_owner(request, token, owner_id):
 
 @never_cache
 def register_curator(request, encrypted_email, *arguments, **keywords):
-    """The custom registration form should add create the user from with the default first_name, last_name, email values, and add them to the Curators group, and assign the user.profile to this owner.owner_content_object.
-"""
+    """
+    The custom registration should do these things:
+    - create the user form with the default first_name, last_name, email values,
+    - create the user,
+    - add the user to the "Curators" group,
+    - and assign the user.profile to owner.owner_content_object.
+    """
     redirect_to = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
     try:
         email = decryptString(encrypted_email)
@@ -617,9 +684,73 @@ def register_curator(request, encrypted_email, *arguments, **keywords):
                 owner.save()
                 group = Group.objects.get(name="Curators")
                 user.groups.add(group)
-            return redirect('curated_list_change', token=owners[0].curated_list.get_token())
+            redirect_url = "{}?goto_next={}".format(
+                reverse("login"),
+                reverse("curated_list_detail", kwargs={'token': owners[0].curated_list.get_token()}),
+            )
+            return redirect(redirect_url)
     else:
         form = SimpleRegistrationForm(request, initial=initial)
+        form.helper.form_action = request.path
+        form.fields['email'].widget = forms.EmailInput(attrs={'readonly': True})
+    request.session.set_test_cookie()
+    return render(request, 'curated_lists/accept_invitation.html', {
+        'form': form,
+        settings.REDIRECT_FIELD_NAME: redirect_to,
+        'site_name': Site.objects.get_current().name,
+        'login_by_email': site_settings.login_by_email,
+    })
+
+
+def register_person_or_institution(request, encrypted_email, *arguments, **keywords):
+    """
+    The custom registration should do these things:
+    - create the user form with the default first_name, last_name, email, institution title values,
+    - create the user,
+    - optionally create the institution
+    - and assign the institution or user.profile to item.content_object.
+    """
+    redirect_to = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
+    try:
+        email = decryptString(encrypted_email)
+    except Exception as e:
+        raise Http404
+    items = ListItem.objects.filter(email=email)
+    if not items.exists():
+        raise Http404
+    m = hashlib.md5()
+    m.update(request.META['REMOTE_ADDR'])
+    request.session.session_id = m.hexdigest()[:20]
+    redirect_to = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
+    site_settings = SiteSettings.objects.get_current()
+    initial = {
+        'first_name': items[0].first_name,
+        'last_name': items[0].last_name,
+        'email': items[0].email,
+        'institution_title': items[0].institution_title,
+    }
+    if request.method == "POST":
+        data = request.POST.copy()
+        data['email'] = items[0].email
+        form = PersonAndInstitutionRegistrationForm(request, data=request.POST, files=request.FILES, initial=initial)
+        form.helper.form_action = request.path
+        form.fields['email'].widget = forms.EmailInput(attrs={'readonly': True})
+        if form.is_valid():
+            user = form.save(activate_immediately=True)
+            institution = form.institution
+            for item in items:
+                if institution:
+                    item.content_object = institution
+                else:
+                    item.content_object = user.profile
+                item.email = ''
+                item.first_name = ''
+                item.last_name = ''
+                item.institution_title = ''
+                item.save()
+            return redirect('curated_list_detail', token=items[0].curated_list.get_token())
+    else:
+        form = PersonAndInstitutionRegistrationForm(request, initial=initial)
         form.helper.form_action = request.path
         form.fields['email'].widget = forms.EmailInput(attrs={'readonly': True})
     request.session.set_test_cookie()

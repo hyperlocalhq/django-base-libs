@@ -2,7 +2,10 @@
 import operator
 from functools import reduce
 
+from mailchimp3 import MailChimp
+
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.db import models
 from django import forms
@@ -10,8 +13,12 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
+from ccb.apps.accounts.forms import SimpleRegistrationForm
 from ccb.apps.curated_lists.models import ListOwner
 from ccb.apps.site_specific.models import ContextItem
+
+from jetson.apps.mailchimp.models import MList
+from jetson.apps.mailchimp.models import Settings
 from jetson.apps.structure.models import Category
 
 from base_libs.forms.fields import ImageField
@@ -274,6 +281,52 @@ class OwnerInvitationForm(forms.Form):
         )
 
 
+class PersonOrInstitutionInvitationForm(forms.Form):
+    first_name = forms.CharField(
+        label=_("First name"),
+        required=True,
+    )
+    last_name = forms.CharField(
+        label=_("Last name"),
+        required=True,
+    )
+    email = forms.EmailField(
+        label=_("Email"),
+        required=True,
+    )
+    institution_title = forms.CharField(
+        label=_("Institution title"),
+        required=False,
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(PersonOrInstitutionInvitationForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = ""
+        self.helper.form_method = "POST"
+
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Invite a person or institution to get included in the curated list"),
+                layout.Field("first_name"),
+                layout.Field("last_name"),
+                layout.Field("email"),
+                layout.Field("institution_title"),
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Send invitation')),
+            )
+        )
+
+    def clean_email(self):
+        User = get_user_model()
+        data = self.cleaned_data['email']
+        if User.objects.filter(email=data).exists():
+            raise forms.ValidationError(_("A user with this email already exist! Add her or him to the curated list from their profile."))
+        return data
+
+
 class CuratedListDeletionForm(forms.Form):
     def __init__(self, curated_list, *args, **kwargs):
         super(CuratedListDeletionForm, self).__init__(*args, **kwargs)
@@ -363,3 +416,103 @@ class ItemAtCuratedListForm(forms.Form):
     curated_list_token = forms.CharField()
     item_content_type_id = forms.IntegerField()
     item_object_id = forms.CharField()
+
+
+### Person or Institution registration ###
+
+
+class PersonAndInstitutionRegistrationForm(SimpleRegistrationForm):
+    institution_title = forms.CharField(
+        label=_("Institution title"),
+        required=False,
+        max_length=255,
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(PersonAndInstitutionRegistrationForm, self).__init__(*args, **kwargs)
+
+        self.fields['email'].widget = forms.EmailInput(attrs={'readonly': True})
+
+        self.helper = FormHelper()
+        self.helper.form_action = "register"
+        self.helper.form_method = "POST"
+        self.helper.layout = layout.Layout(
+            layout.Fieldset(
+                _("Profile"),
+                "prefix",
+                "first_name",
+                "last_name",
+                "email",
+            ),
+            layout.Fieldset(
+                _("Login"),
+                "username",
+                "password",
+                "password_confirm",
+            ),
+            layout.Fieldset(
+                _("Institution"),
+                "institution_title",
+            ),
+            layout.Fieldset(
+                _("Categories"),
+                layout.Field("categories", template="ccb_form/custom_widgets/checkboxselectmultipletree.html"),
+                css_class="no-label",
+            ),
+            layout.Fieldset(
+                _("Confirmation"),
+                "privacy_policy",
+                "terms_of_use",
+                "prevent_spam",
+                *self.newsletter_field_names,
+                css_class="no-label"
+            ),
+            bootstrap.FormActions(
+                layout.Submit('submit', _('Create account')),
+                css_class='button-group form-buttons',
+            )
+        )
+
+    def save(self, activate_immediately=False):
+        from base_libs.utils.misc import get_unique_value
+        from base_libs.utils.betterslugify import better_slugify
+        from ccb.apps.institutions.models import Institution
+        from ccb.apps.site_specific.models import ContextItem
+
+        user = super(PersonAndInstitutionRegistrationForm, self).save(activate_immediately=activate_immediately)
+        cleaned = self.cleaned_data
+
+        self.institution = None
+        if cleaned['institution_title']:
+            slug = get_unique_value(
+                ContextItem,
+                better_slugify(cleaned['institution_title']).replace("-", "_"),
+                field_name="slug",
+                separator="_",
+                ignore_case=True,
+            )
+            institution = Institution(
+                title=cleaned['institution_title'],
+                slug=slug,
+                status="published",
+            )
+            institution.calculate_completeness()
+            institution.save()
+
+            institution.categories.clear()
+            institution.categories.add(*cleaned['categories'])
+
+            if hasattr(institution, "create_default_group"):
+                person_group = institution.create_default_group()
+                person_group.content_object = institution
+                person_group.save()
+                membership = person_group.groupmembership_set.create(
+                    user=user,
+                    role="owners",
+                    inviter=user,
+                    confirmer=user,
+                    is_accepted=True,
+                )
+            self.institution = institution
+
+        return user

@@ -1,10 +1,10 @@
 # -*- coding: UTF-8 -*-
-
+import hashlib
 import re
 from mailchimp3 import MailChimp
 
 from django import forms
-from django.db import models
+from django.apps import apps
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate
 from django.contrib.sites.models import Site
@@ -29,11 +29,10 @@ from jetson.apps.configuration.models import SiteSettings
 from jetson.apps.mailing.views import Recipient, send_email_using_template
 from jetson.apps.utils.forms import ModelMultipleChoiceTreeField
 
-image_mods = models.get_app("image_mods")
+image_mods = apps.get_app("image_mods")
 
-from ccb.apps.people.app_settings import PREFIX_CI
 
-app = models.get_app("people")
+app = apps.get_app("people")
 Person, IndividualContact, URL_ID_PERSON, URL_ID_PEOPLE = (
     app.Person, app.IndividualContact, app.URL_ID_PERSON, app.URL_ID_PEOPLE
 )
@@ -46,9 +45,8 @@ username_re = re.compile(r"^[a-zA-Z][0-9a-zA-Z\-_]{2,}$")
 site_settings = SiteSettings.objects.get_current()
 
 
-class SimpleRegistrationFormBase(dynamicforms.Form):
+class SimpleRegistrationForm(dynamicforms.Form):
     """ One-step registration form """
-    # TODO: merge this class with SimpleRegistrationForm as it doesn't add any value when used separately
     email = forms.EmailField(
         label=_("Email"),
         required=True,
@@ -89,6 +87,13 @@ class SimpleRegistrationFormBase(dynamicforms.Form):
         required=True,
         max_length=30,
     )
+
+    categories = ModelMultipleChoiceTreeField(
+        label=_("Categories"),
+        queryset=get_related_queryset(Person, "categories"),
+        required=True,
+    )
+
     privacy_policy = forms.BooleanField(
         required=True,
         label=_("I accept <a href=\"/privacy/\">the privacy policy</a>."),
@@ -100,8 +105,19 @@ class SimpleRegistrationFormBase(dynamicforms.Form):
     prevent_spam = SecurityField()
 
     def __init__(self, request, *args, **kwargs):
-        super(SimpleRegistrationFormBase, self).__init__(*args, **kwargs)
+        super(SimpleRegistrationForm, self).__init__(*args, **kwargs)
         self.request = request
+
+        self.newsletter_fields = []
+        self.newsletter_field_names = []
+        for ml in MList.site_objects.filter(is_public=True):
+            f = self.fields['newsletter_%s' % ml.pk] = forms.BooleanField(
+                label=_("I want to subscribe to %s.") % ml.title,
+                initial=False,
+                required=False,
+            )
+            self.newsletter_fields.append(("newsletter_%s" % ml.pk, f))
+            self.newsletter_field_names.append("newsletter_%s" % ml.pk)
 
         self.helper = FormHelper()
         self.helper.form_action = "register"
@@ -121,13 +137,21 @@ class SimpleRegistrationFormBase(dynamicforms.Form):
                 "password_confirm",
             ),
             layout.Fieldset(
+                _("Categories"),
+                layout.Field("categories", template="ccb_form/custom_widgets/checkboxselectmultipletree.html"),
+                css_class="no-label",
+            ),
+            layout.Fieldset(
                 _("Confirmation"),
                 "privacy_policy",
                 "terms_of_use",
                 "prevent_spam",
+                *self.newsletter_field_names,
+                css_class="no-label"
             ),
             bootstrap.FormActions(
                 layout.Submit('submit', _('Create account')),
+                css_class='button-group form-buttons',
             )
         )
 
@@ -227,74 +251,6 @@ class SimpleRegistrationFormBase(dynamicforms.Form):
             )
 
             user.password = encrypted_password
-        return user
-
-
-class SimpleRegistrationForm(SimpleRegistrationFormBase):
-    categories = ModelMultipleChoiceTreeField(
-        label=_("Categories"),
-        queryset=get_related_queryset(Person, "categories"),
-        required=True,
-    )
-
-    def __init__(self, *args, **kwargs):
-        super(SimpleRegistrationForm, self).__init__(*args, **kwargs)
-
-        self.newsletter_fields = []
-        self.newsletter_field_names = []
-        for ml in MList.site_objects.filter(is_public=True):
-            f = self.fields['newsletter_%s' % ml.pk] = forms.BooleanField(
-                label=_("I want to subscribe to %s.") % ml.title,
-                initial=False,
-                required=False,
-            )
-            self.newsletter_fields.append(("newsletter_%s" % ml.pk, f))
-            self.newsletter_field_names.append("newsletter_%s" % ml.pk)
-
-        self.helper = FormHelper()
-        self.helper.form_action = "register"
-        self.helper.form_method = "POST"
-        self.helper.layout = layout.Layout(
-            layout.Fieldset(
-                _("Profile"),
-                "prefix",
-                "first_name",
-                "last_name",
-                "email",
-            ),
-            layout.Fieldset(
-                _("Login"),
-                "username",
-                "password",
-                "password_confirm",
-            ),
-            layout.Fieldset(
-                _("Categories"),
-                layout.Field("categories", template="ccb_form/custom_widgets/checkboxselectmultipletree.html"),
-                css_class="no-label",
-            ),
-            layout.Fieldset(
-                _("Confirmation"),
-                "privacy_policy",
-                "terms_of_use",
-                "prevent_spam",
-                *self.newsletter_field_names,
-                css_class="no-label"
-            ),
-            bootstrap.FormActions(
-                layout.Submit('submit', _('Create account')),
-                css_class='button-group form-buttons',
-            )
-        )
-
-    def save(self, activate_immediately=False):
-        import hashlib
-        user = super(SimpleRegistrationForm, self).save(activate_immediately=activate_immediately)
-        cleaned = self.cleaned_data
-
-        # TODO: Update the save method to use creatives sectors from crispy form
-
-        person = user.profile
 
         person.categories.clear()
         person.categories.add(*cleaned['categories'])

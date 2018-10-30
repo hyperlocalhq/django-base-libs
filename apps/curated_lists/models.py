@@ -150,6 +150,13 @@ class CuratedList(
                     return True
         return False
 
+    def get_visible_list_items(self, user=None):
+        if self.is_editable(user=user):
+            return self.listitem_set.all()
+        else:
+            return self.listitem_set.exclude(object_id="")
+
+
 
 class ListOwner(
         CreationModificationDateMixin,
@@ -161,9 +168,9 @@ class ListOwner(
     ):
     curated_list = models.ForeignKey(CuratedList, verbose_name=_("Curated list"), on_delete=models.CASCADE)
 
-    first_name = models.CharField(_('first name'), max_length=30, blank=True)
-    last_name = models.CharField(_('last name'), max_length=30, blank=True)
-    email = models.EmailField(_('email address'), blank=True)
+    first_name = models.CharField(_('First name'), max_length=30, blank=True)
+    last_name = models.CharField(_('Last name'), max_length=30, blank=True)
+    email = models.EmailField(_('Email address'), blank=True)
 
     representation = MultilingualCharField(_("Representation"), max_length=255, blank=True)
 
@@ -201,6 +208,11 @@ class ListItem(CreationModificationDateMixin, ObjectRelationMixin(limit_content_
 
     title = MultilingualCharField(_("Title"), max_length=255, blank=True)
     description = MultilingualTextField(_("Description"), blank=True)
+
+    first_name = models.CharField(_('First name'), max_length=30, blank=True)
+    last_name = models.CharField(_('Last name'), max_length=30, blank=True)
+    email = models.EmailField(_('Email address'), blank=True)
+    institution_title = models.CharField(_('Institution title'), max_length=255, blank=True)
 
     class Meta:
         verbose_name = _("List Item")

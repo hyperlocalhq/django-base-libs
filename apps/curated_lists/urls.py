@@ -10,7 +10,13 @@ urlpatterns = [
         app_views.register_curator,
         name="register_curator",
     ),
+    url(
+        r'^register-person-or-institution/(?P<encrypted_email>[a-zA-Z0-9+/_\-=]+)/$',
+        app_views.register_person_or_institution,
+        name="register_person_or_institution",
+    ),
     url(r'^(?P<token>[^/]+)/$', app_views.curated_list_detail, name='curated_list_detail'),
+    url(r'^(?P<token>[^/]+)/invite-person-or-institution/$', app_views.invite_person_or_institution_to_curated_list, name='invite_person_or_institution_to_curated_list'),
     url(r'^(?P<token>[^/]+)/change/$', app_views.change_curated_list, name='change_curated_list'),
     url(r'^(?P<token>[^/]+)/delete/$', app_views.delete_curated_list, name='delete_curated_list'),
     url(r'^(?P<token>[^/]+)/items/(?P<item_id>[^/]+)/change/$', app_views.change_curated_list_item, name='change_curated_list_item'),
