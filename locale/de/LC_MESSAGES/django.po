@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Django 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-30 17:39+0100\n"
+"POT-Creation-Date: 2018-10-30 18:32+0100\n"
 "PO-Revision-Date: 2018-08-13 17:44+0053\n"
 "Last-Translator: Super Admin <jetsonadmin@studio38.de>\n"
 "Language-Team: \n"
@@ -2923,8 +2923,10 @@ msgstr ""
 #: templates/ccb/curated_lists/curated_list_detail.html:13
 #: templates/ccb/curated_lists/curated_list_detail.html:15
 #: templates/ccb/curated_lists/curated_list_detail.html:47
-#: templates/ccb/curated_lists/includes/random_featured_curated_lists.html:17
-#: templates/ccb/curated_lists/includes/random_featured_curated_lists.html:21
+#: templates/ccb/curated_lists/includes/random_featured_curated_lists.html:19
+#: templates/ccb/curated_lists/includes/random_featured_curated_lists.html:23
+#: templates/ccb/curated_lists/includes/random_featured_curated_lists_dashboard.html:13
+#: templates/ccb/curated_lists/includes/random_featured_curated_lists_dashboard.html:17
 #: templates/ccb/curated_lists/lists/curated_list_item.html:10
 #: templates/ccb/curated_lists/lists/curated_list_item.html:12
 #: templates/ccb/events/details_base.html:40
@@ -7980,7 +7982,7 @@ msgstr "Abbrechen"
 msgid "invited, not yet visible to public"
 msgstr "Eingeladen, noch nicht veröffentlicht"
 
-#: templates/ccb/curated_lists/curated_list_detail.html:136
+#: templates/ccb/curated_lists/curated_list_detail.html:138
 #| msgid "Invite another owner of the curated list"
 msgid "Invite a person or institution to the curated list"
 msgstr "Eine Person oder Institution in die kuratierte Liste einladen"
@@ -10506,19 +10508,12 @@ msgstr "Atom-Feed von Veranstaltungen von %(person_title)s "
 
 #: templates/ccb/people/person_details.html:41
 #, fuzzy, python-format
-#| msgid ""
-#| "Created:\n"
-#| "                            %(created)s"
-msgid ""
-"On %(amount)s\n"
-"                            curated list"
-msgid_plural "On %(amount)s curated lists"
-msgstr[0] ""
-"Estellt:\n"
-"                            %(created)s"
-msgstr[1] ""
-"Estellt:\n"
-"                            %(created)s"
+#| msgid "On %(amount)s curated list"
+#| msgid_plural "On %(amount)s curated lists"
+msgid "On %(curated_list_count_formatted)s curated list"
+msgid_plural "On %(curated_list_count_formatted)s curated lists"
+msgstr[0] "Auf %(amount)s kuratierten Liste"
+msgstr[1] "Auf %(amount)s kuratierten Listen"
 
 #: templates/ccb/people/person_events.html:6
 #: templates/ccb/site_specific/kreativarbeiten_events.html:7

@@ -8,6 +8,8 @@
                 <a class="content tap-hover tap-hover-trigger" href="{{ curated_list.get_url_path }}">
                     {% if curated_list.image %}
                         <img src="{{ UPLOADS_URL }}{{ curated_list.image|modified_path:"event_row" }}" alt="{{ curated_list.title|escape }}"/>
+                    {% else %}
+                        <img src="{{ STATIC_URL }}site/img/placeholder/curated_list_square.png" alt="{{ curated_list.title|escape }}"/>
                     {% endif %}
                     <h2>{{ curated_list.title }}</h2>
                     {% parse curated_list.get_rendered_description as content %}

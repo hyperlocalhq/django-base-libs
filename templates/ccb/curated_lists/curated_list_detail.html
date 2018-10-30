@@ -31,7 +31,7 @@
         </div>
     {% endif %}
 
-    <div class="row profile-grid profile-list curatet-list">
+    <div class="row profile-grid profile-list curated-list">
         {% if visible_list_items.exists %}
             {% for item in visible_list_items %}
                 {% with object=item.content_object %}
@@ -127,7 +127,9 @@
                 {% endwith %}
             {% endfor %}
         {% else %}
-            {% comment %}TODO: add some message about empty list.{% endcomment %}
+            {% comment %}
+            TODO: add some message about empty list.
+            {% endcomment %}
         {% endif %}
     </div>
     {% if editable %}

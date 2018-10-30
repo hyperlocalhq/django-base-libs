@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-30 17:39+0100\n"
+"POT-Creation-Date: 2018-10-30 18:32+0100\n"
 "PO-Revision-Date: 2018-08-13 18:17+0053\n"
 "Last-Translator: Reinhard Knobelspies <knobelspies@mac.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2768,8 +2768,10 @@ msgstr ""
 #: templates/ccb/curated_lists/curated_list_detail.html:13
 #: templates/ccb/curated_lists/curated_list_detail.html:15
 #: templates/ccb/curated_lists/curated_list_detail.html:47
-#: templates/ccb/curated_lists/includes/random_featured_curated_lists.html:17
-#: templates/ccb/curated_lists/includes/random_featured_curated_lists.html:21
+#: templates/ccb/curated_lists/includes/random_featured_curated_lists.html:19
+#: templates/ccb/curated_lists/includes/random_featured_curated_lists.html:23
+#: templates/ccb/curated_lists/includes/random_featured_curated_lists_dashboard.html:13
+#: templates/ccb/curated_lists/includes/random_featured_curated_lists_dashboard.html:17
 #: templates/ccb/curated_lists/lists/curated_list_item.html:10
 #: templates/ccb/curated_lists/lists/curated_list_item.html:12
 #: templates/ccb/events/details_base.html:40
@@ -7642,7 +7644,7 @@ msgstr ""
 msgid "invited, not yet visible to public"
 msgstr ""
 
-#: templates/ccb/curated_lists/curated_list_detail.html:136
+#: templates/ccb/curated_lists/curated_list_detail.html:138
 msgid "Invite a person or institution to the curated list"
 msgstr ""
 
@@ -10097,10 +10099,8 @@ msgstr ""
 
 #: templates/ccb/people/person_details.html:41
 #, python-format
-msgid ""
-"On %(amount)s\n"
-"                            curated list"
-msgid_plural "On %(amount)s curated lists"
+msgid "On %(curated_list_count_formatted)s curated list"
+msgid_plural "On %(curated_list_count_formatted)s curated lists"
 msgstr[0] ""
 msgstr[1] ""
 
