@@ -146,9 +146,9 @@ The `<production>` node has the following elements:
 This is a list of all available locations and stages with location IDs and stage IDs to enter as values at `<location_id>` and `<stage_id>`:
 
 <!--
->>> from berlinbuehnen.apps.locations.models import Location
->>> ls = Location.objects.all()
->>> for l in ls:
+from berlinbuehnen.apps.locations.models import Location
+ls = Location.objects.filter(status='published')
+for l in ls:
     print u'- {0} (Location ID = {1})'.format(l.title, l.pk)
     for s in l.stage_set.all():
         print u'  - {0} (Stage ID = {1})'.format(s.title, s.pk)        
