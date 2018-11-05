@@ -6,8 +6,7 @@ from django.conf import settings
 from cms.plugin_pool import plugin_pool
 from cms.plugin_base import CMSPluginBase
 
-from ccb.apps.cms_extensions.plugins.gmap.models import GMap
-
+from jetson.apps.cms_extensions.plugins.gmap.models import GMap
 
 class GMapPlugin(CMSPluginBase):
     model = GMap
@@ -23,7 +22,7 @@ class GMapPlugin(CMSPluginBase):
     
     def get_plugin_media(self, request, context, plugin):
         return Media(
-            js=('//maps.google.com/maps/api/js?key={}'.format(getattr(settings, "GOOGLE_API_KEY", "")), )
+            js=('//maps.google.com/maps/api/js?key={}'.format(getattr(settings, "GOOGLE_API_KEY", "")),)
         )
  
 plugin_pool.register_plugin(GMapPlugin)

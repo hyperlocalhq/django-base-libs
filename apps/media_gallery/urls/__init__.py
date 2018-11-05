@@ -1,46 +1,14 @@
-# -*- coding: UTF-8 -*-
-from django.conf.urls import patterns, url
+# -*- coding: utf-8 -*-
+from django.conf.urls import *
 
-from ccb.apps.media_gallery.feeds import MediaGalleryRssFeed, MediaGalleryAtomFeed
-from ccb.apps.media_gallery.models import MediaGallery
+from base_libs.utils.misc import path_in_installed_app
 
-gallery_list_info = {
-    'queryset': MediaGallery.objects.all(),
-    'template_name': 'media_gallery/gallery_list.html',
-    'paginate_by': 24,
-    'allow_empty': True,
-}
-
-latest_media_galleries = {
-    'rss': MediaGalleryRssFeed(),
-    'atom': MediaGalleryAtomFeed(),
-    'queryset': MediaGallery.objects.order_by("-creation_date")[:50],
-}
-
-urlpatterns = (
-    url(
-        r'^$',
-        'ccb.apps.media_gallery.views.gallery_list',
-        gallery_list_info,
-    ),
-    url(
-        r'^(?P<show>favorites)/$',
-        'ccb.apps.media_gallery.views.gallery_list',
-        gallery_list_info,
-    ),
-    url(
-        r'^(?P<show>memos)/$',
-        'ccb.apps.media_gallery.views.gallery_list',
-        gallery_list_info,
-    ),
-    url(
-        r'^(?P<show>all)/$',
-        'ccb.apps.media_gallery.views.gallery_list',
-        gallery_list_info,
-    ),
-    url(
-        r'^feeds/(?P<feed_type>rss|atom)/$',
-        'jetson.apps.utils.views.feed',
-        latest_media_galleries,
-    ),
+urlpatterns = patterns(path_in_installed_app("media_gallery.views"),
+    url(r'^$', 'gallery_detail', ),
+    url(r'^add/((?P<media_file_type>[^/]+)/)?$', 'create_update_mediafile', ),
+    url(r'^file_(?P<token>[^/]+)/$', 'create_update_mediafile', ),
+    url(r'^file_(?P<token>[^/]+)/delete/$', 'delete_mediafile', ),
+    url(r'^file_(?P<token>[^/]+)/popup_delete/$', 'delete_mediafile_popup', ),
+    url(r'^file_(?P<token>[^/]+)/json/$', 'json_show_file',),
 )
+

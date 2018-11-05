@@ -63,22 +63,5 @@
             </div>
         </div>
     </div>
-    {% if form.photo_author %}
-        <div class="grp-row grp-cells-1{% if form.photo_author.errors %} grp-errors{% endif %}">
-            <div class="l-2c-fluid l-d-4">
-                <div class="c-1">
-                    <label{% if form.photo_author.field.required %} class="required"{% endif %}>{{ form.photo_author.label }}</label>
-                </div>
-                <div class="c-2">
-                    {{ form.photo_author }}
-                    {% if form.photo_author.errors %}
-                        <ul class="errorlist"><li>{{ form.photo_author.errors|join:", "}}</li></ul>
-                    {% endif %}
-    
-                    {% if form.photo_author.help_text %}<p class="grp-help">{{ form.photo_author.help_text }}</p>{% endif %}
-                </div>
-            </div>
-        </div>
-    {% endif %}
 </fieldset>
 

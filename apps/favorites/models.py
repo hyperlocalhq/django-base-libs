@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+from datetime import datetime
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -7,6 +8,8 @@ from django.contrib.auth.models import User
 from django.utils.encoding import force_unicode
 
 from base_libs.models.models import ObjectRelationMixin
+from base_libs.models.models import CreationModificationDateMixin
+
 from base_libs.utils.misc import get_translation
 
 verbose_name = _("Favorites")
@@ -20,24 +23,33 @@ class FavoriteManager(models.Manager):
             object_id=obj.id,
         ))
 
+    def update_favorites_counts(self):
+        from templatetags.favorites import get_favorites_count
+        for favorite in self.get_queryset():
+            instance = favorite.content_object
+            if hasattr(instance, "favorites_count"):
+                favorites_count = get_favorites_count(instance)
+                type(instance).objects.filter(pk=instance.pk).update(favorites_count=favorites_count)
 
-class Favorite(ObjectRelationMixin(is_required=True)):
+
+class Favorite(CreationModificationDateMixin, ObjectRelationMixin(is_required=True)):
     """
     Defines that a user likes an object
     """
     user = models.ForeignKey(User, verbose_name=_("Preferrer"))
-
+    
     objects = FavoriteManager()
-
+    
     class Meta:
         verbose_name = _("favorite")
         verbose_name_plural = _("favorites")
-
+        ordering = ("-creation_date",)
+        
     def __unicode__(self):
         try:
             content_object = self.content_object
             postfix = ""
-        except Exception:
+        except:
             content_object = None
             postfix = " (broken; id=%s)" % self.id
         return u"%s is favorite for %s%s" % (

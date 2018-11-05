@@ -25,53 +25,31 @@
     <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/document_change.js' %}"></script>
     <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/URLField.js' %}"></script>
     <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/change_form.js' %}"></script>
+    
     <script type="text/javascript" src="{% static 'admin/js/collapse.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'admin/js/inlines.min.js' %}"></script>
+    <!--
     <script type="text/javascript" charset="utf-8">
-    (function($) {
-        $(document).ready(function() {
-            var related_lookup_fields_fk = ["publisher"];
-            var related_lookup_fields_m2m = ["authors"];
-            var related_lookup_fields_generic = [];
-            var autocomplete_fields_fk = [];
-            var autocomplete_fields_m2m = [];
-            var autocomplete_fields_generic = [];
-            $.each(related_lookup_fields_fk, function() {
-                $("#id_" + this).grp_related_fk({lookup_url:"/de/grappelli/lookup/related/"});
-            });
-            $.each(related_lookup_fields_m2m, function() {
-                $("#id_" + this).grp_related_m2m({lookup_url:"/de/grappelli/lookup/m2m/"});
-            });
-            $.each(related_lookup_fields_generic, function() {
-                var content_type = "#id_" + this[0],
-                    object_id = "#id_" + this[1];
-                $(object_id).grp_related_generic({content_type:content_type, object_id:object_id, lookup_url:"/de/grappelli/lookup/related/"});
-            });
-            $.each(autocomplete_fields_fk, function() {
-                $("#id_" + this).grp_autocomplete_fk({
-                    lookup_url:"/de/grappelli/lookup/related/",
-                    autocomplete_lookup_url:"/de/grappelli/lookup/autocomplete/"
+        (function($) {
+            $(document).ready(function() {
+                grappelli.initDateAndTimePicker();
+                $("div.container-flexible div.group").grp_collapsible_group();
+                $("div#content .collapse").grp_collapsible({
+                    on_init: function(elem, options) {
+                        // open collapse (and all collapse parents) in case of errors
+                        if (elem.find("ul.errorlist").length > 0) {
+                            elem.removeClass("closed")
+                                .addClass("open");
+                            elem.parents(".collapse")
+                                .removeClass("closed")
+                                .addClass("open");
+                        }
+                    }
                 });
             });
-            $.each(autocomplete_fields_m2m, function() {
-                $("#id_" + this).grp_autocomplete_m2m({
-                    lookup_url:"/de/grappelli/lookup/m2m/",
-                    autocomplete_lookup_url:"/de/grappelli/lookup/autocomplete/"
-                });
-            });
-            $.each(autocomplete_fields_generic, function() {
-                var content_type = "#id_" + this[0],
-                    object_id = "#id_" + this[1];
-                $(object_id).grp_autocomplete_generic({
-                    content_type:content_type,
-                    object_id:object_id,
-                    lookup_url:"/de/grappelli/lookup/related/",
-                    autocomplete_lookup_url:"/de/grappelli/lookup/autocomplete/"
-                });
-            });
-        });
-    })(grp.jQuery);
+        })(django.jQuery);
     </script>
+    -->
 {% endblock %}
 
 <!-- COLTYPE/BODYCLASS -->
@@ -194,36 +172,6 @@
                             {% endif %}
     
                             {% if form.document_type.help_text %}<p class="grp-help">{{ form.document_type.help_text }}</p>{% endif %}
-                        </div>
-                    </div>
-                </div>
-                <div class="grp-row grp-cells-1{% if form.start.errors %} grp-errors{% endif %}">
-                    <div class="l-2c-fluid l-d-4">
-                        <div class="c-1">
-                            <label{% if form.start.field.required %} class="required"{% endif %}>{{ form.start.label }}</label>
-                        </div>
-                        <div class="c-2">
-                            <p>{{ form.start }}</p>
-                            {% if form.start.errors %}
-                                <ul class="errorlist"><li>{{ form.start.errors|join:", "}}</li></ul>
-                            {% endif %}
-    
-                            {% if form.start.help_text %}<p class="grp-help">{{ form.start.help_text }}</p>{% endif %}
-                        </div>
-                    </div>
-                </div>
-                <div class="grp-row grp-cells-1{% if form.end.errors %} grp-errors{% endif %}">
-                    <div class="l-2c-fluid l-d-4">
-                        <div class="c-1">
-                            <label{% if form.end.field.required %} class="required"{% endif %}>{{ form.end.label }}</label>
-                        </div>
-                        <div class="c-2">
-                            <p>{{ form.end }}</p>
-                            {% if form.end.errors %}
-                                <ul class="errorlist"><li>{{ form.end.errors|join:", "}}</li></ul>
-                            {% endif %}
-    
-                            {% if form.end.help_text %}<p class="grp-help">{{ form.end.help_text }}</p>{% endif %}
                         </div>
                     </div>
                 </div>

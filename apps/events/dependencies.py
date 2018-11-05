@@ -8,11 +8,9 @@ required_apps = [
     "filebrowser",
     "image_mods",
     "auth",
-    "notification",
-    "site_specific",
-]
-
+    ]
+    
 optional_apps = [
     "institutions",
     "people",
-]
+    ]
