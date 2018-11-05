@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load base_tags cms_tags menu_tags sekizai_tags i18n image_modifications %}
+
+{% block stylesheet %}
+    {{ block.super }}
+    <link href="{{ STATIC_URL }}site/css/style.min.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{{ STATIC_URL }}site/css/form.min.css" rel="stylesheet" media="screen" type="text/css" />
+{% endblock %}
+
+
+{% block script %}
+    {{ block.super }}
+
+    {% now "uuuu" as microseconds %}
+    <script nonce="{{ microseconds|to_base64 }}">
+      (function() {
+        var config = {
+          kitId: 'qru0sat',
+          scriptTimeout: 3000
+        };
+        var h=document.getElementsByTagName("html")[0];h.className+=" wf-loading";var t=setTimeout(function(){h.className=h.className.replace(/(\s|^)wf-loading(\s|$)/g," ");h.className+=" wf-inactive"},config.scriptTimeout);var tk=document.createElement("script"),d=false;tk.src='//use.typekit.net/'+config.kitId+'.js';tk.type="text/javascript";tk.async="true";tk.onload=tk.onreadystatechange=function(){var a=this.readyState;if(d||a&&a!="complete"&&a!="loaded")return;d=true;clearTimeout(t);try{Typekit.load(config)}catch(b){}};var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(tk,s)
+      })();
+    </script>
+    {% add_data "script_nonces" microseconds|to_base64 %}
+
+    <script src="/{{ LANGUAGE_CODE }}/jssettings/"></script>
+    <script src="https://code.jquery.com/jquery-1.8.3.min.js" integrity="sha384-lifoBlbdwizTl3Yoe612uhI3AcOam/QtWkozF7SuiACaf5UJl5reOYu4MigVxrCH" crossorigin="anonymous"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.ba-bbq.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.isotope.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.scrollstop.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.lazyload.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.viewport.js"></script>
+    <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap.js"></script>
+    {% comment %} <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-modal.js"></script>{% endcomment %}
+    <script src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
+
+    {% now "uuuu" as microseconds %}
+    <script nonce="{{ microseconds|to_base64 }}">
+        // forcing django CMS to use the already included version of jQuery
+        var django = {jQuery: jQuery};
+    </script>
+    {% add_data "script_nonces" microseconds|to_base64 %}
+
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} account{% endblock %}
+
+{% block body %}
+    <!--
+        {% if request.is_phone %}This is phone.{% endif %}
+        {% if request.is_tablet %}This is tablet.{% endif %}
+        {% if request.is_mobile %}This is a mobile device.{% endif %}
+        {% if not request.is_mobile %}This is a desktop.{% endif %}
+    -->
+
+    <div id="page">
+        {% block header %}
+            {% include 'utils/header.html' %}
+        {% endblock %}
+
+        <div id="body">
+            <div class="container">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+
+        <a href="#top" id="to-top">
+            <span class="sr-only">{% trans 'Back to top' %}</span>
+        </a>
+
+        {% block footer %}
+            {% include 'utils/footer.html' %}
+        {% endblock %}
+
+
+    </div>
+
+    <span class="width-sniffer visible-xs"></span><span class="width-sniffer visible-sm"></span><span class="width-sniffer visible-md"></span><span class="width-sniffer visible-lg"></span><span class="width-sniffer visible-xl"></span>
+
+    {% now "uuuu" as microseconds %}
+    <script nonce="{{ microseconds|to_base64 }}">
+    $(function() {
+        $("a[href^='http']").attr("target","_blank");
+
+        if ($('#cms_toolbar').length) { // cms toolbar fix
+            if ($('body').css('margin-top') == "-43px") {
+                $('body').css('margin-top', 0);
+            }
+        }
+    });
+    </script>
+    {% add_data "script_nonces" microseconds|to_base64 %}
+{% endblock %}

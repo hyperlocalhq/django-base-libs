@@ -1,0 +1,201 @@
+{% extends "base_main.html" %}
+{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites_tags production_tags cms_tags %}
+
+{% block title %}{% trans "Festival" %} – {{ object.title }} – {% endblock %}
+
+{% block bodyclass %}{{ block.super }} festival-detail{% endblock %}
+
+{% block meta_tags %}
+    <meta name="description" lang="{{ LANGUAGE_CODE }}" content="{{ object.title }} – {% page_attribute "title" as title %}{% page_attribute "page_title" as page_title %}{{ page_title|default:title|escape }} – Berlin Bühnen" />
+    {{ site_settings.get_meta_keywords|safe }}
+{% endblock %}
+
+{% block open_graph %}
+    <meta property="og:title" content="{{ object.title }}" />
+    <meta property="og:type" content="article" />
+    {% if object.image %}
+        <meta property="og:image" content="{{ current_website_url }}{{ MEDIA_URL }}{{ object.image|modified_path:"og" }}" />
+    {% else %}
+        <meta property="og:image" content="{{ current_website_url }}{{ STATIC_URL }}site/img/ruhrbuehnen_opengraph.png" />
+    {% endif %}
+    <meta property="og:description" content="{{ object.get_rendered_description|striptags|truncatewords:20|escape }}" />
+{% endblock %}
+
+{% block js %}
+    <script src="{{ STATIC_URL }}site/js/accordion.js"></script>
+    <script src="{{ STATIC_URL }}site/js/gallery.js"></script>
+    {# <script src="{{ STATIC_URL }}site/js/slider.js"></script> #}
+    <script src="{{ STATIC_URL }}site/js/list.js"></script>
+    <script src="{{ STATIC_URL }}site/js/add_to_calender_1.5_atc.min.js" defer="defer"></script>
+    {% include "utils/favorites_scripts.html" %}
+    <!--<script src="{{ STATIC_URL }}site/js/slider.js"></script>-->
+{% endblock %}
+
+{% block content %}
+    {% with object as festival %}
+        <div id="festival" class="content details">
+            <div class="container main-container">
+                <div class="row">
+                    <div class="col-xs-12 print-padding">
+                        <a class="fawesome back uc no-print" href="{% url 'festival_list' %}">{% trans "back to overview" %}</a>
+                        <article>
+
+                            <!-- headlines -->
+                            <header>
+                                <ul class="header-top icons-space">
+                                    {% if festival.start %}
+                                        <li>{% if festival.end and festival.start == festival.end %}<time>{{ festival.start|date:"j. F Y" }}</time>{% else %}<time>{% if not festival.end or festival.start|date:"Y" != festival.end|date:"Y" %}{{ festival.start|date:"j. F Y" }}{% else %}{% if festival.start|date:"F" != festival.end|date:"F" %}{{ festival.start|date:"j. F" }}{% else %}{{ festival.start|date:"j." }}{% endif %}{% endif %}</time>{% if festival.end %} &nbsp;–&nbsp; <time>{{ festival.end|date:"j. F Y" }}</time>{% endif %}{% endif %}</li>
+                                    {% endif %}
+                                    {% if festival.organizers.all %}
+                                            <li>
+                                                <dl class="comma">
+                                                    <dt>{% trans "Organizer" %}</dt>
+                                                    {% for location in festival.organizers.all %}
+                                                        <dd>
+                                                            {{ location.title }}
+                                                        </dd>
+                                                    {% endfor %}
+                                                </dl>
+                                            </li>
+                                    {% endif %}
+                                </ul>
+                                <div class="header-icons no-print">
+                                    {% if request.user.is_authenticated %}
+                                        {% adding2favorites for festival using "favorites/includes/favorite_detail.html" %}
+                                    {% else %}
+                                        {% login2favorites using "favorites/includes/favorite_detail_login.html" %}
+                                    {% endif %}
+                                </div>
+                                <h1>{{ festival.title }}
+                                    {% if object.is_editable and not request.is_mobile %}
+                                        <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
+                                    {% endif %}
+                                </h1>
+                                {% if festival.subtitle %}
+                                    <h2>{{ festival.subtitle }}</h2>
+                                {% endif %}
+                            </header>
+
+                            <!-- main  part (including sidebar) -->
+                            <div class="main">
+                                <div class="container">
+                                    <div class="row">
+
+                                        <!-- main content -->
+                                        <div class="col-xs-12 col-md-8 left">
+                                            {% if festival.first_image %}
+                                                {% with festival.first_image.path|file_description as file_desc %}
+                                                    <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"detail_image" }}" alt="{{ festival.title|escape }}"  />{% pin image=festival.first_image description=festival.title %}
+                                                    {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}</div>
+                                                {% endwith %}
+                                            {% endif %}
+                                            <div class="description">
+                                                {{ festival.get_rendered_description }}
+                                            </div>
+                                            {% comment %}
+                                            {% if festival.website %}
+                                                <dl class="listing">
+                                                    {% if festival.website %}
+                                                        <dt>{% trans "Web" %}</dt>
+                                                        <dd><a href="{{ festival.website }}" target="_blank" class="no-print">{{ festival.website|humanize_url:80 }}</a><a href="{{ festival.website }}" target="_blank" class="print">{{ festival.website }}</a></dd>
+                                                    {% endif %}
+                                                </dl>
+                                            {% endif %}
+                                            {% endcomment %}
+                                        </div>
+
+                                        <!-- main sidebar -->
+                                        <div class="col-xs-12 col-md-4 right">
+                                            {% include "festivals/includes/sidebar.html" %}
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- additional content (accordion) -->
+                            <div class="additional">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-xs-12 full">
+                                            <div class="accordion accordion-autoclose content-accordion">
+                                                {% if festival.get_pdfs %}
+                                                    <div class="accordion-item">
+                                                        <h4 class="accordion-item-head">{% trans "Publications" %}</h4>
+                                                        <div class="accordion-item-content">
+                                                            {% for pdf in festival.get_pdfs %}
+                                                                <div class="publication">
+                                                                    {% with pdf.path|file_description as file_desc %}
+                                                                        {% if file_desc.title %}
+                                                                            <a class="publication" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank"><strong>{{ file_desc.title }}</strong></a>
+                                                                        {% elif file_desc.filename %}
+                                                                            <a class="publication" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank"><strong>{{ file_desc.filename }}</strong></a>
+                                                                        {% else %}
+                                                                            <a class="publication" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank"><strong>{{ pdf.path }}</strong></a>
+                                                                        {% endif %}<br/>
+                                                                        {% if file_desc.description %}
+                                                                            {{ file_desc.description|urlize|linebreaks }}
+                                                                        {% endif %}
+                                                                        <a class="button" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank">{% trans "download" %}</a>
+                                                                    {% endwith %}
+                                                                </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+
+                                            <!-- Program -->
+                                            <div class="additional-list list row">
+                                                <h4 class="additional-list-head">{% trans "Festival Programme" %}</h4>
+                                                <a class="additional-list-more fawesome down after" href="javascript:void(0);">{% trans 'more' %}</a>
+                                            </div>
+
+                                            <!-- Gallery -->
+                                            {% if festival.image_set.exists %}
+                                                <div class="gallery row">
+                                                    <h4 class="gallery-head">{% trans "Gallery" %}</h4>
+                                                    {% for image in festival.image_set.all %}
+                                                        <div class="col-xs-12 col-sm-6 col-md-4 image gallery-item img chevron">
+                                                            {% with image.path|file_description as file_desc %}
+                                                                <img class="gallery-image" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"gallery_image" }}" alt="{% if file_desc.description %}{{ file_desc.description|escape }}{% endif %}" width="100%" data-image-big="{{ MEDIA_URL }}{{ image.path }}" />{% pin image=image description=festival.title %}
+                                                                {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                                                                <div class="gallery-image-text">
+                                                                    <div class="gallery-image-text-description">
+                                                                        {% if file_desc.title %}
+                                                                            <span class="gallery-image-text-description-title">{{ file_desc.title }}</span>
+                                                                        {% endif %}
+                                                                        {% if file_desc.description %}
+                                                                            <span class="gallery-image-text-description-copy">{{ file_desc.description }}</span>
+                                                                        {% endif %}
+                                                                        {% if file_desc.author %}
+                                                                            <span class="gallery-image-text-description-author">{% trans "Photo" %}: {{ file_desc.author }}</span>
+                                                                        {% endif %}
+                                                                    </div>
+                                                                    {% if file_desc.copyright_limitations %}
+                                                                        <div class="gallery-image-text-copyright">{% trans "Copyright" %}: {{ file_desc.copyright_limitations }}</div>
+                                                                    {% endif %}
+                                                                </div>
+                                                            {% endwith %}
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </article>
+
+                        <!-- event slider -->
+                        {#% festival_productions current_festival=festival amount=200 %#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endwith %}
+    {% include "utils/page_controls.html" %}
+{% endblock %}

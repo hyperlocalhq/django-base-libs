@@ -1,0 +1,52 @@
+{% load menu_tags cms_tags i18n base_tags sekizai_tags %}
+
+<div id="footer">
+    <div class="solcial-menu container">
+        {% trans 'social' %}
+        <div class="row">
+            <div class="hidden-xs hidden-sm hidden-md col-lg-1"></div>
+            <div class="col-xs-12 col-sm-6 col-lg-5 left">
+                <a href="https://www.facebook.com/ruhrkultur.jetzt/" target="_blank">{% include 'svg/footer/facebook.svg' %}</a>
+            </div>
+            <div class="col-xs-12 col-sm-6 right">
+                <a href="https://www.instagram.com/ruhrkultur.jetzt/" target="_blank">{% include 'svg/footer/instagram.svg' %}</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-menu">
+        <div class="container">
+            <div class="hidden-xs hidden-sm hidden-md col-lg-1"></div>
+            <div class="visible-xs col-xs-12 newsletter">
+                <div class="wrapper">
+                    &nbsp;<br/>&nbsp;<br/>&nbsp;
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-lg-5">
+                <div class="row footer-menu-wrapper">
+                    <ul class="col-xs-5 col-sm-7 left">
+                        {% show_menu_below_id "start_page" 0 2 2 2 "menu/footer_menu.html" %}
+                        {% show_menu_below_id "menu" 0 2 2 2 "menu/footer_menu.html" %}
+                    </ul>
+                    <ul class="col-xs-7 col-sm-5 right">
+                        {% show_menu_below_id "meta" 0 2 2 2 "menu/footer_menu.html" %}
+                    </ul>
+                </div>
+            </div>
+            <div class="hidden-xs col-sm-6 newsletter">
+                <div class="wrapper">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="logos container">
+        <ul>
+            <li class="first"><a href="https://www.ruhr-tourismus.de/" target="_blank">{% include 'svg/footer/ruhr_tourismus.svg' %}</a></li>
+            <li class="seperator first"><span></span></li>
+            <li><a href="https://www.metropoleruhr.de/regionalverband-ruhr.html" target="_blank">{% include 'svg/footer/rvr.svg' %}</a></li>
+            <li><a href="https://www.urbanekuensteruhr.de/" target="_blank">{% include 'svg/footer/ukr.svg' %}</a></li>
+            <li class="seperator"><span></span></li>
+            <li><a href="#" target="_blank">{% include 'svg/footer/efre.svg' %}</a></li>
+            <li><a href="https://www.nrw-tourismus.de/" target="_blank">{% include 'svg/footer/dein_nrw.svg' %}</a></li>
+        </ul>
+    </div>
+</div>

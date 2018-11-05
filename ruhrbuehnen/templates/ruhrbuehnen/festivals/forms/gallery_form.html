@@ -1,0 +1,42 @@
+{% extends "festivals/forms/base.html" %}
+{% load i18n crispy_forms_tags %}
+
+{% block csp_scripts %}'unsafe-eval'{% endblock %}
+
+{% block stylesheet %}
+    {{ block.super }}
+    <link href="{{ STATIC_URL }}site/css/fileuploader.css" media="screen" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block script %}
+    {{ block.super }}
+    <script src="https://code.jquery.com/ui/1.10.0/jquery-ui.js" integrity="sha384-glie7tU+lP1Wgz1lIwjutMZL7u96+FqNv4mlRaPfz1YgShmXKLgn1MEolAqasyVC" crossorigin="anonymous"></script>
+    <script src="{{ STATIC_URL }}ajaxuploader/js/fileuploader.js"></script>
+{% endblock %}
+
+{% block multistep_form %}
+    <form id="media_item_overviews" class="relative">
+        <fieldset class="fieldset-imagegallery">
+            <legend>{% trans "Image Gallery" %}</legend>
+            <div class="fieldset-meta">
+                <!-- <a class="btn btn-info" href="#" id="crop_list_image">{% trans "Crop List Image" %}</a> -->
+                <a class="btn btn-info" href="#" id="crop_cover_image">{% trans "Crop Cover Image" %}</a>
+                <a class="btn btn-primary add" id="add_photo" href="{{ festival.get_url_path }}gallery/add/">{% trans "Add image" %}</a>
+            </div>
+            <div id="photos" data-load-url="{{ festival.get_url_path }}gallery/"></div>
+        </fieldset>
+        <fieldset class="fieldset-pdf">
+            <legend>{% trans "PDF" %}</legend>
+            <div class="fieldset-meta">
+                <a class="btn btn-primary add" id="add_pdf" href="{% url "festival_add_pdf" slug=festival.slug %}">{% trans "Add PDF document" %}</a>
+            </div>
+            <div id="pdfs" data-load-url="{% url "festival_pdf_overview" slug=festival.slug %}"></div>
+        </fieldset>
+    </form>
+    <div id="edit_media_item"></div>
+
+    {% crispy form %}
+    <!-- Hidden Iframe -->
+    <iframe name="hidden_iframe" id="hidden_iframe" src="about:blank" style="display:none;"></iframe>
+    {% include "utils/gallery_upload_scripts.html" %}
+{% endblock %}

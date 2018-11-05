@@ -1,0 +1,205 @@
+// main:style.scss
+
+@charset "utf-8";
+
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('../fonts/fontawesome-webfont.eot?v=4.3.0');
+    src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.3.0') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff2?v=4.3.0') format('woff2'), url('../fonts/fontawesome-webfont.woff?v=4.3.0') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.3.0') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.3.0#fontawesomeregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.fawesome {
+
+    line-height: 1.375rem;
+
+    &:before, &:after {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        padding-right: 10px;
+        vertical-align: bottom;
+        font-weight: 400;
+        font-size: 1.375rem;
+    }
+    &:after {
+        padding-left: 10px;
+        padding-right: 0px;
+    }
+
+    .icon {
+        display: none;
+    }
+}
+
+
+.fawesome.back:before {
+    content: "\f104";
+}
+.fawesome.up:before {
+    content: "\f106";
+}
+.fawesome.down:before {
+    content: "\f107";
+}
+.fawesome.down.after {
+    &:after {
+        content: "\f107";
+    }
+    &:before {
+        content: none;
+    }
+}
+.fawesome.prev:after {
+    content: "\f100";
+}
+.fawesome.next:before {
+    content: "\f101";
+}
+.fawesome.tickets:before {
+    content: "\f02c";
+}
+.fawesome.calender:before {
+    content: "\f073";
+}
+.fawesome.favorite:before {
+    content: "\f005";
+    color: white;
+    background: black;
+    border-radius: 50%;
+    padding: 0 0 0 0.5px;
+    font-size: 16px;
+    margin-right: 10px;
+    margin-bottom: -1px;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    .is-xs & {
+        padding: 0;
+    }
+}
+.fawesome.more:after {
+    content: "\f105";
+}
+.fawesome.delete:before {
+    content: "\f00d";
+    color: white;
+    background: black;
+    padding-right: 0;
+    margin-right: 3px;
+    font-size: 1em;
+    width: 15px;
+    height: 15px;
+    line-height: 14px;
+    text-align: center;
+    margin-bottom: 2px;
+}
+.fawesome.delete.after::before {
+    content: none;
+}
+.fawesome.delete.after:after {
+    content: "\f00d";
+    color: white;
+    background: black;
+    padding-left: 0;
+    margin-left: 3px;
+    font-size: 1em;
+    width: 15px;
+    height: 15px;
+    line-height: 14px;
+    text-align: center;
+    margin-bottom: 2px;
+}
+.fawesome.twitter:before {
+    content: "\f099";
+}
+.fawesome.facebook:before {
+    content: "\f09a";
+}
+.fawesome.googleplus:before {
+    content: "\f0d5";
+}
+.fawesome.instagram:before {
+    content: "\f16d";
+}
+.fawesome.linkedin:before {
+    content: "\f0e1";
+}
+.fawesome.map:before {
+    content: "\f041";
+    font-size: 24px;
+    line-height: 0.88;
+}
+.fawesome.pinterest:before {
+    content: "\f231";
+}
+.fawesome.soundcloud:before {
+    content: "\f1be";
+}
+.fawesome.xing:before {
+    content: "\f168";
+}
+.fawesome.youtube:before {
+    content: "\f167";
+}
+.fawesome.vimeo:before {
+    content: "\f194";
+}
+.fawesome.vine:before {
+    content: "\f1ca";
+}
+.fawesome.issuu:before {
+    content: "\f192";
+}
+.fawesome.flickr:before {
+    content: "\f16e";
+}
+.fawesome.blog:before {
+    content: "\f039";
+}
+.fawesome.search:before {
+    content: "\f002";
+}
+.fawesome.newsletter:before {
+    content: "\f0e0";
+}
+.fawesome.email:before {
+    content: "\f003";
+}
+.fawesome.edit:before {
+    content: "\f040";
+}
+.fawesome.fa-files-o:before {
+    content: "\f0c5";
+    font-size: 1em;
+    padding-right: 0;
+}
+.fawesome.back-round:before {
+    content: "\f112";
+}
+.fawesome.menu:before {
+    content: "\f039";
+}
+.fawesome.crosshair:before {
+    content: "\f05b";
+}
+.fawesome.cancel:before {
+    content: "\f00d";
+}
+.fawesome.arrow-right:before {
+    content: "\f061";
+}
+.fawesome.arrow-left:before {
+    content: "\f060";
+}
+
+.subcategory:before {
+    content: "\2514";
+    padding-right: 6px;
+    opacity: 0.7;
+}

@@ -1,0 +1,394 @@
+{% extends "productions/events/base.html" %}
+{% load base_tags i18n crispy_forms_tags sekizai_tags %}
+
+{% block csp_scripts %}'unsafe-eval'{% endblock %}
+
+{% block stylesheet %}
+    {{ block.super }}
+    <link href="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.autocomplete.css" rel="stylesheet" />
+{% endblock %}
+
+{% block script %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.bgiframe.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.autocomplete.js"></script>
+    <script src="{{ STATIC_URL }}site/js/autocomplete.js"></script>
+    <script src="{{ STATIC_URL }}site/js/SortingByOrder.js"></script>
+    <script src="{{ STATIC_URL }}ajaxuploader/js/fileuploader.js"></script>
+{% endblock %}
+
+{% block event_tabs %}
+    {% if 'new_production=1' in request.get_full_path %}
+        <li><a class="txt" href="{% url "change_event_basic_info" slug=production.slug event_id=event.pk %}?new_production=1"> {% trans "Details" %} </a></li>
+        <li class="active"><a class="txt" href="{% url "change_event_description" slug=production.slug event_id=event.pk %}?new_production=1"> {% trans "Description" %} </a></li>
+        <li><a class="txt" href="{% url "change_event_gallery" slug=production.slug event_id=event.pk %}?new_production=1"> {% trans "Media" %} </a></li>
+    {% else %}
+        <li><a class="txt" href="{% url "change_event_basic_info" slug=production.slug event_id=event.pk %}"> {% trans "Details" %} </a></li>
+        <li class="active"><a class="txt" href="{% url "change_event_description" slug=production.slug event_id=event.pk %}"> {% trans "Description" %} </a></li>
+        <li><a class="txt" href="{% url "change_event_gallery" slug=production.slug event_id=event.pk %}"> {% trans "Media" %} </a></li>
+    {% endif %}
+{% endblock %}
+
+{% block multistep_form %}
+    {% crispy form %}
+    <script src="https://maps.google.com/maps/api/js?language={{ LANGUAGE_CODE }}&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
+    <script src="{{ STATIC_URL }}site/js/locating.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/checkbox-tree.js"></script>
+    {% now "uuuu" as microseconds %}
+    <script nonce="{{ microseconds|to_base64 }}">
+        var fields_from_production = [{% for f in fields_from_production %}
+            '{{ f|escapejs }}'{% if not forloop.last %}, {% endif %}{% endfor %}
+        ];
+        var translatable_file_uploader_options = {
+            template: '<div class="qq-uploader">' +
+                '<div class="qq-upload-drop-area"><span>{% trans "Drop image here" %}</span></div>' +
+                '<div class="qq-upload-button btn btn-primary">{% trans "Upload Image" %}</div>' +
+                '<ul class="qq-upload-list"></ul>' +
+            '</div>',
+            // template for one item in file list
+            fileTemplate: '<li>' +
+                '<span class="qq-upload-file"></span>' +
+                '<span class="qq-upload-spinner"></span>' +
+                '<span class="qq-upload-size"></span>' +
+                '<a class="qq-upload-cancel" href="#">{% trans "Cancel" %}</a>' +
+                '<span class="qq-upload-failed-text">{% trans "Failed" %}</span>' +
+            '</li>',
+            messages: {
+                typeError: '{% trans "{file} has invalid extension. Only {extensions} are allowed." %}',
+                sizeError: '{% trans "{file} is too large, maximum file size is {sizeLimit}." %}',
+                minSizeError: '{% trans "{file} is too small, minimum file size is {minSizeLimit}." %}',
+                emptyError: '{% trans "{file} is empty, please select files again without it." %}',
+                filesLimitError: '{% trans "No more than {filesLimit} files are allowed to be uploaded." %}',
+                onLeave: '{% trans "The files are being uploaded, if you leave now the upload will be cancelled." %}'
+            }
+        };
+        function reinit_widgets() {
+            $('[rel=tooltip]').tooltip();
+            $('[id^="id_social"][id$="channel_type"]').autocomplete(['Google+', 'Twitter', 'Facebook', 'LinkedIn', 'XING', 'Instagram', 'Soundcloud', 'Youtube', 'Pinterest']);
+            $('select:visible').not('[name*="__prefix__"]').selectbox();
+
+            $('#sponsors .image_uploader').each(function() {
+                if ($(this).find('.qq-uploader').length) {
+                    return;
+                }
+                var $formset_form = $(this).closest('.formset-form');
+                var options = $.extend(translatable_file_uploader_options, {
+                    allowedExtensions: ['gif', 'jpg', 'png', 'tif', 'bmp'],
+                    action: '/' + self.settings.lang + '/helper/ajax-upload/',
+                    element: $(this)[0],
+                    multiple: false,
+                    onComplete: function(id, fileName, responseJSON) {
+                        if(responseJSON.success) {
+                            $('.messages', $formset_form).html("");
+                            // set the original to media_file_path
+                            $('[name$="media_file_path"]', $formset_form).val(responseJSON.path);
+                            // load the modified version for the preview
+                            $.post('/' + self.settings.lang + '/helper/modified-path/', {
+                                file_path: responseJSON.path,
+                                mod_sysname: 'medium'
+                            }, function(data, textStatus, jqXHR) {
+                                $('.image_preview', $formset_form).html('<img class="img-responsive" alt="" src="/media/' + data + '" />');
+                                $('.image_uploader', $formset_form).hide();
+                                $('.image_help_text', $formset_form).hide();
+                            },
+                            'text'
+                            );
+                        }
+                    },
+                    onAllComplete: function(uploads) {
+                        // uploads is an array of maps
+                        // the maps look like this: {file: FileObject, response: JSONServerResponse}
+                        $('.qq-upload-success', $formset_form).fadeOut("slow", function() {
+                            $(this).remove();
+                        });
+                    },
+                    params: {
+                        'csrf_token': $('input[name="csrfmiddlewaretoken"]').val(),
+                        'csrf_name': 'csrfmiddlewaretoken',
+                        'csrf_xname': 'X-CSRFToken'
+                    },
+                    showMessage: function(message) {
+                        $('.messages', $formset_form).html('<div class="alert alert-danger">' + message + '</div>');
+                    }
+                });
+                var uploader = new qq.FileUploader(options);
+            });
+
+        }
+        function set_index_for_fields($formset_form, index) {
+            $formset_form.find(':input').each(function() {
+                var $field = $(this);
+                if ($field.attr("id")) {
+                    $field.attr(
+                        "id",
+                        $field.attr("id").replace(/-__prefix__-/, "-" + index + "-")
+                    );
+                }
+                if ($field.attr("name")) {
+                    $field.attr(
+                        "name",
+                        $field.attr("name").replace(/-__prefix__-/, "-" + index + "-")
+                    );
+                }
+            });
+            $formset_form.find('label').each(function() {
+                var $field = $(this);
+                if ($field.attr("for")) {
+                    $field.attr(
+                        "for",
+                        $field.attr("for").replace(/-__prefix__-/, "-" + index + "-")
+                    );
+                }
+            });
+            $formset_form.find('div').each(function() {
+                var $field = $(this);
+                if ($field.attr("id")) {
+                    $field.attr(
+                        "id",
+                        $field.attr("id").replace(/-__prefix__-/, "-" + index + "-")
+                    );
+                }
+            });
+        }
+
+        $(function() {
+            $(
+                '<a class="add btn btn-primary" id="add_leaderships" href="#">{% trans "Add staff" %}</a>'
+            ).insertAfter('#leaderships').click(function() {
+                var $total_forms = $('#id_leaderships-TOTAL_FORMS');
+                var $new_form = $('#leaderships_empty_form').clone(true).attr("id", null).show();
+                set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
+                $('#leaderships').append($new_form);
+                $total_forms.val(parseInt($total_forms.val(), 10) + 1);
+                reinit_widgets();
+                return false;
+            });
+
+            $('.formset-form').each(function() {
+                var $formset_form = $(this);
+                $formset_form.find('input:checkbox[id$=DELETE]').each(function() {
+                    var $checkbox = $(this);
+                    var $deleteLink = $(
+                        '<span class="input-group-btn"><button class="delete btn btn-lg btn-info btn-icon" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}"><span class="icon icon-remove"></span><span class="sr-only">{% trans "Remove" %}</span></button></span>'
+                    );
+                    $checkbox.closest('.formset-form').append($deleteLink);
+                    $checkbox.closest('.form-group').hide();
+                });
+            });
+            $('.delete').on('click', function() {
+                var $formset_form = $(this).closest('.formset-form');
+                var $checkbox = $formset_form.find('input:checkbox[id$=DELETE]');
+                $checkbox.attr("checked", "checked");
+                $formset_form.hide();
+                return false;
+            });
+
+            // Initial state
+            var $total_forms = $('#id_leaderships-TOTAL_FORMS');
+            if ($total_forms.val() == "0") {
+                $('#add_leaderships').click();
+            }
+
+            $(
+                '<a class="add btn btn-primary" id="add_authorships" href="#">{% trans "Add author" %}</a>'
+            ).insertAfter('#authorships').click(function() {
+                var $total_forms = $('#id_authorships-TOTAL_FORMS');
+                var $new_form = $('#authorships_empty_form').clone(true).attr("id", null).show();
+                set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
+                $('#authorships').append($new_form);
+                $total_forms.val(parseInt($total_forms.val(), 10) + 1);
+                reinit_widgets();
+                return false;
+            });
+
+            // Initial state
+            var $total_forms = $('#id_authorships-TOTAL_FORMS');
+            if ($total_forms.val() == "0") {
+                $('#add_authorships').click();
+            }
+
+            $(
+                '<a class="add btn btn-primary" id="add_involvements" href="#">{% trans "Add another involved person" %}</a>'
+            ).insertAfter('#involvements').click(function() {
+                var $total_forms = $('#id_involvements-TOTAL_FORMS');
+                var $new_form = $('#involvements_empty_form').clone(true).attr("id", null).show();
+                set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
+                $('#involvements').append($new_form);
+                $total_forms.val(parseInt($total_forms.val(), 10) + 1);
+                reinit_widgets();
+                $('select[name$="involvement_type"]', $new_form).selectbox();
+
+                return false;
+            });
+
+            // Initial state
+            var $total_forms = $('#id_involvements-TOTAL_FORMS');
+            if ($total_forms.val() == "0") {
+                $('#add_involvements').click();
+            }
+
+            $(
+                '<a class="add btn btn-primary" id="add_social" href="#">{% trans "Add social media channel" %}</a>'
+            ).insertAfter('#social').click(function() {
+                var $total_forms = $('#id_social-TOTAL_FORMS');
+                var $new_form = $('#social_empty_form').clone(true).attr("id", null).show();
+                set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
+                $('#social').append($new_form);
+                $total_forms.val(parseInt($total_forms.val(), 10) + 1);
+                reinit_widgets();
+                return false;
+            });
+
+            // Initial state
+            var $total_forms = $('#id_social-TOTAL_FORMS');
+            if ($total_forms.val() == "0") {
+                $('#add_social').click();
+            }
+
+            $(
+                '<a class="add btn btn-primary" id="add_sponsors" href="#">{% trans "Add sponsor" %}</a>'
+            ).insertAfter('#sponsors').click(function() {
+                var $total_forms = $('#id_sponsors-TOTAL_FORMS');
+                var $new_form = $('#sponsors_empty_form').clone(true).attr("id", null).show();
+                set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
+                $('#sponsors').append($new_form);
+                $total_forms.val(parseInt($total_forms.val(), 10) + 1);
+                reinit_widgets();
+                return false;
+            });
+
+            // Initial state
+            var $total_forms = $('#id_sponsors-TOTAL_FORMS');
+            if ($total_forms.val() == "0") {
+                $('#add_sponsors').click();
+            }
+
+            $('.enter_person').on('click', function(e) {
+                e.preventDefault();
+                var $formset_form = $(this).closest('.formset-form');
+                $formset_form.find('.choosing_person').addClass('hidden').find(".remove").click();
+                $formset_form.find('.entering_person').removeClass('hidden');
+            });
+            $('.choose_person').on('click', function(e) {
+                e.preventDefault();
+                var $formset_form = $(this).closest('.formset-form');
+                $formset_form.find('.entering_person').addClass('hidden').find(":input").val('');
+                $formset_form.find('.choosing_person').removeClass('hidden');
+            });
+            $('.entering_person').each(function() {
+                if ($(this).find('[name$="first_name"]').val() || $(this).find('[name$="last_name"]').val()) {
+                    $(this).closest('.formset-form').find('.enter_person').click();
+                }
+            });
+            reinit_widgets();
+
+            $(fields_from_production).each(function(index, el) {
+                $('#id_' + el).closest('.form-group').addClass('from-production');
+            });
+            $(document).on('change keyup', '.from-production .form-control', function() {
+                $(this).closest('.from-production').removeClass('from-production');
+            });
+
+            $(document).on('click', '[name^="involvements"][name$="selection"]', function() {
+                var $this = $(this);
+                var m = $this.attr('id').match(/-(\d+)-/);
+                if (!m) {
+                    return;
+                }
+                var index = m[1];
+                if ('type' === $this.val()) {
+                    $('#id_involvements-' + index + '-involvement_type').closest('.type_selection').removeClass('hidden');
+
+                    $('#id_involvements-' + index + '-involvement_role_de').closest('.row').addClass('hidden');
+                    $('#id_involvements-' + index + '-involvement_role_de').val('');
+                    $('#id_involvements-' + index + '-involvement_role_en').val('');
+
+                    $('#id_involvements-' + index + '-involvement_instrument_de').closest('.row').addClass('hidden');
+                    $('#id_involvements-' + index + '-involvement_instrument_de').val('');
+                    $('#id_involvements-' + index + '-involvement_instrument_en').val('');
+
+                } else if ('role' === $this.val()) {
+                    $('#id_involvements-' + index + '-involvement_type').closest('.type_selection').addClass('hidden');
+                    $.selectbox._changeSelectbox($('#id_involvements-' + index + '-involvement_type').get(0), '', '---------');
+                    $('#id_involvements-' + index + '-another_type_de').val('');
+                    $('#id_involvements-' + index + '-another_type_en').val('');
+
+                    $('#id_involvements-' + index + '-involvement_role_de').closest('.row').removeClass('hidden');
+
+                    $('#id_involvements-' + index + '-involvement_instrument_de').closest('.row').addClass('hidden');
+                    $('#id_involvements-' + index + '-involvement_instrument_de').val('');
+                    $('#id_involvements-' + index + '-involvement_instrument_en').val('');
+                } else if ('instrument' === $this.val()) {
+                    $('#id_involvements-' + index + '-involvement_type').closest('.type_selection').addClass('hidden');
+                    $.selectbox._changeSelectbox($('#id_involvements-' + index + '-involvement_type').get(0), '', '---------');
+                    $('#id_involvements-' + index + '-another_type_de').val('');
+                    $('#id_involvements-' + index + '-another_type_en').val('');
+
+                    $('#id_involvements-' + index + '-involvement_role_de').closest('.row').addClass('hidden');
+                    $('#id_involvements-' + index + '-involvement_role_de').val('');
+                    $('#id_involvements-' + index + '-involvement_role_en').val('');
+
+                    $('#id_involvements-' + index + '-involvement_instrument_de').closest('.row').removeClass('hidden');
+                }
+            });
+            $('[name^="involvements"][name$="involvement_type"],[name^="involvements"][name$="another_type_de"],[name^="involvements"][name$="another_type_en"]').each(function() {
+                var $this = $(this);
+                if ($this.val()) {
+                    var m = $this.attr('id').match(/-(\d+)-/);
+                    if (!m) {
+                        return;
+                    }
+                    var index = m[1];
+                    $('#id_involvements-' + index + '-selection_1').click();
+                }
+            });
+            $('[name^="involvements"][name$="involvement_role_de"]').each(function() {
+                var $this = $(this);
+                if ($this.val()) {
+                    var m = $this.attr('id').match(/-(\d+)-/);
+                    if (!m) {
+                        return;
+                    }
+                    var index = m[1];
+                    $('#id_involvements-' + index + '-selection_2').click();
+                }
+            });
+            $('[name^="involvements"][name$="involvement_instrument_de"]').each(function() {
+                var $this = $(this);
+                if ($this.val()) {
+                    var m = $this.attr('id').match(/-(\d+)-/);
+                    if (!m) {
+                        return;
+                    }
+                    var index = m[1];
+                    $('#id_involvements-' + index + '-selection_3').click();
+                }
+            });
+
+            $('.enter_type').on('click', function(e) {
+                e.preventDefault();
+                var $formset_form = $(this).closest('.formset-form');
+                var $select = $formset_form.find('.choosing_type').addClass('hidden').find("select");
+                $.selectbox._changeSelectbox($select.get(0), '', '---------');
+                $formset_form.find('.entering_type').removeClass('hidden');
+            });
+            $('.choose_type').on('click', function(e) {
+                e.preventDefault();
+                var $formset_form = $(this).closest('.formset-form');
+                $formset_form.find('.entering_type').addClass('hidden').find(":input").val('');
+                $formset_form.find('.choosing_type').removeClass('hidden');
+            });
+            $('.entering_type').each(function() {
+                if ($(this).find('[name$="another_type_de"]').val() || $(this).find('[name$="another_type_en"]').val()) {
+                    $(this).closest('.formset-form').find('.enter_type').click();
+                }
+            });
+
+        });
+
+        new SortingByOrder('leaderships', 'leadership', 'sort_order');
+        new SortingByOrder('authorships', 'authorship', 'sort_order');
+        new SortingByOrder('involvements', 'involvement', 'sort_order');
+    </script>
+    {% add_data "script_nonces" microseconds|to_base64 %}
+{% endblock %}

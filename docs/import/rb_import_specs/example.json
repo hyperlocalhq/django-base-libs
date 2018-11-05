@@ -1,0 +1,459 @@
+{
+  "meta": {
+    "next": "http://example.com/api/productions/?page=3",
+    "previous": "http://example.com/api/productions/?page=1",
+    "total_count": 200,
+    "items_per_page": 50
+  },
+  "productions": [
+    {
+      "id": "123",
+      "creation_date": "2016-04-14T16:27:38",
+      "modified_date": "2016-04-14T16:27:38",
+      "status": "published",
+      "prefix_de": "",
+      "prefix_en": "",
+      "title_de": "Rotkäppchen",
+      "title_en": "Little Red Riding Hood",
+      "subtitle_de": "",
+      "subtitle_en": "",
+      "original_de": "",
+      "original_en": "",
+      "website_de": "http://example.com/de/productions/123/",
+      "website_en": "http://example.com/en/productions/123/",
+      "description_de": "",
+      "description_en": "",
+      "teaser_de": "",
+      "teaser_en": "",
+      "work_info_de": "",
+      "work_info_en": "",
+      "contents_de": "",
+      "contents_en": "",
+      "press_text_de": "",
+      "press_text_en": "",
+      "credits_de": "",
+      "credits_en": "",
+      "concert_program_de": "",
+      "concert_program_en": "",
+      "supporting_program_de": "",
+      "supporting_program_en": "",
+      "remarks_de": "",
+      "remarks_en": "",
+      "duration_text_de": "",
+      "duration_text_en": "",
+      "subtitles_text_de": "",
+      "subtitles_text_en": "",
+      "age_text_de": "",
+      "age_text_en": "",
+      "ensembles": "",
+      "organizers": "",
+      "in_cooperation_with": "",
+      "free_entrance": "false",
+      "price_from": "8.00",
+      "price_till": "12.00",
+      "tickets_website": "",
+      "price_information_de": "",
+      "price_information_en": "",
+      "age_from": null,
+      "age_till": null,
+      "edu_offer_website": "",
+      "in_program_of": [225, 226],
+      "play_locations": [227, 228],
+      "play_stages": [250, 251],
+      "location_title": "",
+      "street_address": "",
+      "street_address2": "",
+      "postal_code": "",
+      "city": "",
+      "latitude": "52.5192",
+      "longitude": "13.4061",
+      "categories": [1, 2],
+      "characteristics": ["on-tour", "gastspiel"],
+      "leaders": [
+        {
+          "prefix_id": "ms-dr",
+          "first_name": "Erika E.",
+          "last_name": "M. Mustermann",
+          "function_de": "Direktorin",
+          "function_en": "Director",
+          "sort_order": 1
+        },
+        {
+          "last_name": "Mustermann",
+          "function_de": "Direktorin",
+          "function_en": "Director",
+          "sort_order": 2
+        }
+      ],
+      "authors": [
+        {
+          "prefix_id": "mr",
+          "first_name": "Max M.",
+          "last_name": "M. Mustermann",
+          "authorship_type_id": "komponist",
+          "sort_order": 1
+        },
+        {
+          "last_name": "Mustermann",
+          "authorship_type_id": "komponist",
+          "sort_order": 2
+        }
+      ],
+      "participants": [
+        {
+          "prefix_id": "mr",
+          "first_name": "Otto",
+          "last_name": "Normalverbraucher",
+          "involvement_type_id": "musik",
+          "role_de": "",
+          "role_en": "",
+          "instrument_de": "Klavier",
+          "instrument_en": "Piano",
+          "sort_order": 1
+        },
+        {
+          "last_name": "Müller",
+          "involvement_type_id": "schauspieler",
+          "sort_order": 2
+        }
+      ],
+      "videos": [
+        {
+          "creation_date": "2016-04-14T16:27:38",
+          "modified_date": "2016-04-14T16:27:38",
+          "title_de": "",
+          "title_en": "",
+          "embed": "",
+          "sort_order": 1
+        },
+        {
+          "creation_date": "2016-04-14T16:27:38",
+          "title_de": "",
+          "title_en": "",
+          "embed": "",
+          "sort_order": 2
+        }
+      ],
+      "live_streams": [
+        {
+          "creation_date": "2016-04-14T16:27:38",
+          "modified_date": "2016-04-14T16:27:38",
+          "title_de": "",
+          "title_en": "",
+          "embed": "",
+          "sort_order": 1
+        },
+        {
+          "creation_date": "2016-04-14T16:27:38",
+          "title_de": "",
+          "title_en": "",
+          "embed": "",
+          "sort_order": 2
+        }
+      ],
+      "images": [
+        {
+          "creation_date": "2016-04-14T16:27:38",
+          "modified_date": "2016-04-14T16:27:38",
+          "url": "http://example.com/media/589231.jpg",
+          "title_de": "",
+          "title_en": "",
+          "description_de": "",
+          "description_en": "",
+          "author": "",
+          "copyright_restrictions": "general_use",
+          "copyright": "© 2016 example.com",
+          "sort_order": 1
+        },
+        {
+          "creation_date": "2016-04-14T16:27:38",
+          "url": "http://example.com/media/589231.jpg",
+          "title_de": "",
+          "title_en": "",
+          "copyright_restrictions": "general_use",
+          "copyright": "© 2016 example.com",
+          "sort_order": 2
+        }
+      ],
+      "pdfs": [
+        {
+          "creation_date": "2016-04-14T16:27:38",
+          "modified_date": "2016-04-14T16:27:38",
+          "url": "http://example.com/media/564285.pdf",
+          "title_de": "",
+          "title_en": "",
+          "description_de": "",
+          "description_en": "",
+          "author": "",
+          "copyright_restrictions": "general_use",
+          "copyright": "© 2016 example.com",
+          "sort_order": 1
+        },
+        {
+          "creation_date": "2016-04-14T16:27:38",
+          "url": "http://example.com/media/564285.pdf",
+          "title_de": "",
+          "title_en": "",
+          "sort_order": 2
+        }
+      ],
+      "social_media": [
+        {
+          "channel_type": "Facebook",
+          "url": "https://www.facebook.com/ruhrbuehnen"
+        },
+        {
+          "channel_type": "Facebook",
+          "url": "https://www.facebook.com/ruhrbuehnen"
+        }
+      ],
+      "language_and_subtitles_id": "in-deutscher-sprache",
+      "sponsors": [
+        {
+          "creation_date": "2016-04-14T16:27:38",
+          "modified_date": "2016-04-14T16:27:38",
+          "website": "http://example.com/sponsor/",
+          "image_url": "http://example.com/media/sponsor-logo.png",
+          "title_de": "",
+          "title_en": ""
+        },
+        {
+          "creation_date": "2016-04-14T16:27:38",
+          "modified_date": "2016-04-14T16:27:38",
+          "website": "http://example.com/sponsor/",
+          "image_url": "http://example.com/media/sponsor-logo.png"
+        },
+        {
+          "creation_date": "2016-04-14T16:27:38",
+          "modified_date": "2016-04-14T16:27:38",
+          "website": "http://example.com/sponsor/",
+          "title_de": "",
+          "title_en": ""
+        }
+      ],
+      "events": [
+        {
+          "id": "123",
+          "creation_date": "2016-04-14T16:27:38",
+          "modified_date": "2016-04-14T16:27:38",
+          "start_date": "2016-04-14",
+          "end_date": "2016-04-14",
+          "start_time": "20:00",
+          "end_time": "23:00",
+          "duration": "3:00",
+          "pauses": 2,
+          "play_locations": [225, 226],
+          "play_stages": [250, 251],
+          "location_title": "",
+          "street_address": "",
+          "street_address2": "",
+          "postal_code": "",
+          "city": "",
+          "latitude": "52.5192",
+          "longitude": "13.4061",
+          "organizers": "",
+          "description_de": "",
+          "description_en": "",
+          "teaser_de": "",
+          "teaser_en": "",
+          "work_info_de": "",
+          "work_info_en": "",
+          "contents_de": "",
+          "contents_en": "",
+          "press_text_de": "",
+          "press_text_en": "",
+          "credits_de": "",
+          "credits_en": "",
+          "concert_program_de": "",
+          "concert_program_en": "",
+          "supporting_program_de": "",
+          "supporting_program_en": "",
+          "remarks_de": "",
+          "remarks_en": "",
+          "duration_text_de": "",
+          "duration_text_en": "",
+          "subtitles_text_de": "",
+          "subtitles_text_en": "",
+          "age_text_de": "",
+          "age_text_en": "",
+          "free_entrance": "false",
+          "price_from": "8.00",
+          "price_till": "12.00",
+          "tickets_website": "",
+          "price_information_de": "",
+          "price_information_en": "",
+          "event_status": "takes_place",
+          "ticket_status": "tickets_@_box_office",
+          "classiccard": "false",
+      "characteristics": ["on-tour", "gastspiel"],
+          "leaders": [
+            {
+              "prefix_id": "ms-dr",
+              "first_name": "Erika E.",
+              "last_name": "M. Mustermann",
+              "function_de": "Direktorin",
+              "function_en": "Director",
+              "sort_order": 1
+            },
+            {
+              "last_name": "Mustermann",
+              "function_de": "Direktorin",
+              "function_en": "Director",
+              "sort_order": 2
+            }
+          ],
+          "authors": [
+            {
+              "prefix_id": "mr",
+              "first_name": "Max M.",
+              "last_name": "M. Mustermann",
+              "authorship_type_id": "komponist",
+              "sort_order": 1
+            },
+            {
+              "last_name": "Mustermann",
+              "authorship_type_id": "komponist",
+              "sort_order": 2
+            }
+          ],
+          "participants": [
+            {
+              "prefix_id": "mr",
+              "first_name": "Otto",
+              "last_name": "Normalverbraucher",
+              "involvement_type_id": "musik",
+              "role_de": "",
+              "role_en": "",
+              "instrument_de": "Klavier",
+              "instrument_en": "Piano",
+              "sort_order": 1
+            },
+            {
+              "last_name": "Müller",
+              "involvement_type_id": "schauspieler",
+              "sort_order": 2
+            }
+          ],
+          "videos": [
+            {
+              "creation_date": "2016-04-14T16:27:38",
+              "modified_date": "2016-04-14T16:27:38",
+              "title_de": "",
+              "title_en": "",
+              "embed": "",
+              "sort_order": 1
+            },
+            {
+              "creation_date": "2016-04-14T16:27:38",
+              "title_de": "",
+              "title_en": "",
+              "embed": "",
+              "sort_order": 2
+            }
+          ],
+          "live_streams": [
+            {
+              "creation_date": "2016-04-14T16:27:38",
+              "modified_date": "2016-04-14T16:27:38",
+              "title_de": "",
+              "title_en": "",
+              "embed": "",
+              "sort_order": 1
+            },
+            {
+              "creation_date": "2016-04-14T16:27:38",
+              "title_de": "",
+              "title_en": "",
+              "embed": "",
+              "sort_order": 2
+            }
+          ],
+          "images": [
+            {
+              "creation_date": "2016-04-14T16:27:38",
+              "modified_date": "2016-04-14T16:27:38",
+              "url": "http://example.com/media/589231.jpg",
+              "title_de": "",
+              "title_en": "",
+              "description_de": "",
+              "description_en": "",
+              "author": "",
+              "copyright_restrictions": "general_use",
+              "copyright": "© 2016 example.com",
+              "sort_order": 1
+            },
+            {
+              "creation_date": "2016-04-14T16:27:38",
+              "url": "http://example.com/media/589231.jpg",
+              "title_de": "",
+              "title_en": "",
+              "copyright_restrictions": "general_use",
+              "copyright": "© 2016 example.com",
+              "sort_order": 2
+            }
+          ],
+          "pdfs": [
+            {
+              "creation_date": "2016-04-14T16:27:38",
+              "modified_date": "2016-04-14T16:27:38",
+              "url": "http://example.com/media/564285.pdf",
+              "title_de": "",
+              "title_en": "",
+              "description_de": "",
+              "description_en": "",
+              "author": "",
+              "copyright_restrictions": "general_use",
+              "copyright": "© 2016 example.com",
+              "sort_order": 1
+            },
+            {
+              "creation_date": "2016-04-14T16:27:38",
+              "url": "http://example.com/media/564285.pdf",
+              "title_de": "",
+              "title_en": "",
+              "sort_order": 2
+            }
+          ],
+          "language_and_subtitles": "in-deutscher-sprache",
+          "sponsors": [
+            {
+              "creation_date": "2016-04-14T16:27:38",
+              "modified_date": "2016-04-14T16:27:38",
+              "website": "http://example.com/sponsor/",
+              "image_url": "http://example.com/media/sponsor-logo.png",
+              "title_de": "",
+              "title_en": ""
+            },
+            {
+              "creation_date": "2016-04-14T16:27:38",
+              "modified_date": "2016-04-14T16:27:38",
+              "website": "http://example.com/sponsor/",
+              "image_url": "http://example.com/media/sponsor-logo.png"
+            },
+            {
+              "creation_date": "2016-04-14T16:27:38",
+              "modified_date": "2016-04-14T16:27:38",
+              "website": "http://example.com/sponsor/",
+              "title_de": "",
+              "title_en": ""
+            }
+          ]
+        },
+        {
+          "id": "123",
+          "creation_date": "2016-04-14T16:27:38",
+          "start_date": "2016-04-14",
+          "start_time": "20:00",
+          "event_status": "canceled"
+        }
+      ]
+    },
+    {
+      "id": "124",
+      "creation_date": "2016-04-14T16:27:38",
+      "status": "trashed",
+      "title_de": "Pinocchio",
+      "title_en": "Pinocchio"
+    }
+  ]
+}

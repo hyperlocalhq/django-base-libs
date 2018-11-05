@@ -1,0 +1,303 @@
+{% extends "base_main.html" %}
+{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites_tags production_tags festival_tags education_tags cms_tags %}
+
+{% block title %}{% trans "Location" %} – {{ object.title }} – {% endblock %}
+
+{% block js %}
+    {% include "utils/favorites_scripts.html" %}
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} remove-navigation-gap{% endblock bodyclass %}
+
+{% block open_graph %}
+    <meta property="og:title" content="{{ object.title }}" />
+    <meta property="og:type" content="article" />
+    {% if object.image %}
+        <meta property="og:image" content="{{ current_website_url }}{{ MEDIA_URL }}{{ object.image|modified_path:"og" }}" />
+    {% else %}
+        <meta property="og:image" content="{{ current_website_url }}{{ STATIC_URL }}site/img/ruhrbuehnen_opengraph.png" />
+    {% endif %}
+    <meta property="og:description" content="{{ object.get_rendered_description|striptags|truncatewords:20|escape }}" />
+{% endblock %}
+
+{% block meta_tags %}
+    {{ block.super }}
+    <link rel="canonical" href="https://www.ruhr-buehnen.de{{ request.path }}" />
+    <meta name="description" lang="{{ LANGUAGE_CODE }}" content="{{ object.title }} – {% page_attribute "title" as title %}{% page_attribute "page_title" as page_title %}{{ page_title|default:title|escape }} – Berlin Bühnen" />
+    {{ site_settings.get_meta_keywords|safe }}
+{% endblock %}
+
+{% block content %}
+    {% with object as location %}
+
+        <div class="header-image">
+            <div class="slider fullscreen">
+                <div class="slide">
+                    {% if location.first_image %}
+                        {% with location.first_image.path|file_description as file_desc %}
+                            <img class="responsive-xl" data-responsive-src="{{ UPLOADS_URL }}{{ location.first_image.path|modified_path:"fullscreen_xl" }}" src="about:blank" style="display:none;" alt="{{ location.title|escape }}" />
+                            <img class="responsive-lg" data-responsive-src="{{ UPLOADS_URL }}{{ location.first_image.path|modified_path:"fullscreen_lg" }}" src="about:blank" style="display:none;" alt="{{ location.title|escape }}" />
+                            <img class="responsive-md" data-responsive-src="{{ UPLOADS_URL }}{{ location.first_image.path|modified_path:"fullscreen_md" }}" src="about:blank" style="display:none;" alt="{{ location.title|escape }}" />
+                            <img class="responsive-sm" data-responsive-src="{{ UPLOADS_URL }}{{ location.first_image.path|modified_path:"fullscreen_sm" }}" src="about:blank" style="display:none;" alt="{{ location.title|escape }}" />
+                            <img class="responsive-xs-horizontal" data-responsive-src="{{ UPLOADS_URL }}{{ location.first_image.path|modified_path:"fullscreen_xs_h" }}" src="about:blank" style="display:none;" alt="{{ location.title|escape }}" />
+                            <img class="responsive-xs-vertical" data-responsive-src="{{ UPLOADS_URL }}{{ location.first_image.path|modified_path:"fullscreen_xs_v" }}" src="about:blank" style="display:none;" alt="{{ location.title|escape }}" />
+                            {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                        {% endwith %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="overlay visible-xs">
+                <div class="locations">
+                    <h2 class="visible-xs">{{ location.title }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="container visible-xs">
+            <div class="background height-offset">
+                <h2 class="center">{% trans 'Quick Info' %}</h2>
+            </div>
+        </div>
+
+        <div class="container hidden-xs height-offset body-header">
+            <div class="background">
+                <div class="row">
+                    <div class="hidden-xs col-sm-4 col-md-3 col-lg-4"></div>
+                    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-8">
+                        <h1>{{ location.title }}</h1>
+                        {% if location.subtitle %}<h5 class="alt-font">{{ location.subtitle }}</h5>{% endif %}
+
+                        {% if object.is_editable and not request.is_mobile %}
+                            <span class="cms_edit"><a class="pencil" title="{% trans "Edit" %}" href="{{ request.path }}change/"><span class="icon">{% include 'svg/icons/pencil.svg' %}</span><span class="sr-only">{% trans "Edit" %}</span></a></span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="button-bar-wrapper hidden-xs">
+                    <div class="button-bar">
+                        <a class="share" href="" title="{% trans 'Share' %}"><span class="icon">{% include 'svg/icons/share.svg' %}</span></a>
+                        <a class="map" href=""><span class="icon" title="{% trans 'Show on map' %}">{% include 'svg/icons/location.svg' %}</span></a>
+                        {% if request.user.is_authenticated %}
+                            {% adding2favorites for location using "favorites/includes/favorite_a.html" %}
+                        {% else %}
+                            {% login2favorites using "favorites/includes/favorite_a_login.html" %}
+                        {% endif %}
+                        {% if location.tickets_website %}<a class="tickets" href="{{ location.tickets_website }}" target="_blank" title="{% trans 'Get tickets' %}"><span class="icon">{% include 'svg/icons/tickets.svg' %}</span>{% trans "Tickets" %}</a>{% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="background">
+            <div class="container">
+                <div class="row">
+                    <div class="hidden-xs col-sm-4 col-md-3 col-lg-4">
+                        <h1 class="light">INFO BAR</h1>
+                    </div>
+                    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-8">
+
+                        <div class="space-small"></div>
+                        {{ location.get_rendered_description }}
+                        <div class="space"></div>
+
+                        {% other_productions current_location=location %}
+
+                        <h2 class="underline">{% trans "Locations & Stages" %}</h2>
+                        <div class="grid grid-locations">
+                            <div class="row">
+                                {% if location.stage_set.exists %}
+
+                                    {% for stage in location.stage_set.all %}
+                                        <div class="grid-item col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                            <ul class="h5 regular horizontal-listing">
+                                                <li>{{ location.title }}</li>
+                                                <li>{{ stage.title }}</li>
+                                            </ul>
+                                            <p>
+                                                {% if stage.street_address %}
+                                                    {{ stage.street_address }}<br />
+                                                    {% if stage.street_address2 %}{{ stage.street_address2 }}<br />{% endif %}
+                                                    {% if stage.city %}{{ stage.postal_code }} {{ stage.city }}<br />{% endif %}
+                                                {% else %}
+                                                    {% if location.street_address %}{{ location.street_address }}<br />{% endif %}
+                                                    {% if location.street_address2 %}{{ location.street_address2 }}<br />{% endif %}
+                                                    {% if location.city %}{{ location.postal_code }} {{ location.city }}<br />{% endif %}
+                                                {% endif %}
+                                            </p>
+                                            {% if stage.description %}
+                                                {{ stage.get_rendered_description }}
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+
+                                {% else %}
+
+                                    <div class="grid-item col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <h5 class="regular">{{ location.title }}</h5>
+                                        <p>
+                                            {% if location.street_address %}{{ location.street_address }}<br />{% endif %}
+                                            {% if location.street_address2 %}{{ location.street_address2 }}<br />{% endif %}
+                                            {% if location.city %}{{ location.postal_code }} {{ location.city }}<br />{% endif %}
+                                        </p>
+                                    </div>
+
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="space"></div>
+
+
+                        <!-- Gallery -->
+                        {% if location.image_set.exists %}
+                            <div class="gallery">
+                                <h2 class="underline">{% trans "Image Gallery" %}</h2>
+                                <div class="row">
+                                    <div class="gallery-col col-xs-12 col-sm-12 col-md-6 col-lg-6"></div>
+                                    <div class="gallery-col col-xs-12 col-sm-12 col-md-6 col-lg-6"></div>
+
+                                    {% for image in location.image_set.all %}
+                                        {% include "utils/gallery_image.html" %}
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                            <div class="space"></div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endwith %}
+{% endblock %}
+
+{% comment %}
+{% block js %}
+    <script src="{{ STATIC_URL }}site/js/accordion.js"></script>
+    <script src="{{ STATIC_URL }}site/js/gallery.js"></script>
+    <script src="{{ STATIC_URL }}site/js/slider.js"></script>
+    <script src="{{ STATIC_URL }}site/js/add_to_calender_1.5_atc.min.js" defer="defer"></script>
+    {% include "utils/favorites_scripts.html" %}
+{% endblock %}
+
+{% block content %}
+    {% with object as location %}
+        <div id="location" class="content details">
+            <div class="container main-container">
+                <div class="row">
+                    <div class="col-xs-12 print-padding">
+                        <a class="fawesome back uc no-print" href="{% url 'location_list' %}{% remove_from_query "page" %}">{% trans "back to overview" %}</a>
+                        <article>
+
+                            <!-- headlines -->
+                            <header>
+                                <div class="header-icons no-print">
+                                    {% if request.user.is_authenticated %}
+                                        {% adding2favorites for location using "favorites/includes/favorite_detail.html" %}
+                                    {% else %}
+                                        {% login2favorites using "favorites/includes/favorite_detail_login.html" %}
+                                    {% endif %}
+                                    <a href="{% url 'location_list_map' %}#object_id={{ location.id }}" class="fawesome map" data-toggle="tooltip" data-placement="top" title="{% trans "Show on map" %}" data-tooltip-left="-6"><span class="sr-only">{% trans "Show on map" %}</span></a>
+                                </div>
+                                <h1>{{ location.title }}
+                                    {% if object.is_editable and not request.is_mobile %}
+                                        <span class="cms_edit"><a class="icon icon-pencil" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Edit" %}" href="{{ request.path }}change/">&nbsp;<span class="sr-only">{% trans "Edit" %}</span></a></span>
+                                    {% endif %}
+                                </h1>
+                                {% if location.subtitle %}
+                                    <h2>{{ location.subtitle }}</h2>
+                                {% endif %}
+                            </header>
+
+                            <!-- main  part (including sidebar) -->
+                            <div class="main">
+                                <div class="container">
+                                    <div class="row">
+
+                                        <!-- main content -->
+                                        <div class="col-xs-12 col-md-8 left">
+                                            {% if location.first_image %}
+                                                {% with location.first_image.path|file_description as file_desc %}
+                                                    <div class="top-image img chevron"><img src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ location.first_image.path|modified_path:"detail_image" }}" alt="{{ location.title|escape }}"  />{% pin image=location.first_image description=location.title %}
+                                                    {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}</div>
+                                                {% endwith %}
+                                            {% endif %}
+                                            <div class="description">
+                                                {{ location.get_rendered_description }}
+                                            </div>
+                                        </div>
+
+                                        <!-- main sidebar -->
+                                        <div class="col-xs-12 col-md-4 right">
+                                            {% include "locations/includes/sidebar.html" %}
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- additional content (accordion) -->
+                            <div class="additional">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-xs-12 full">
+
+                                            {% schedule_of_location location=location %}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </article>
+
+
+                        <!-- event slider -->
+                        {% other_productions current_location=location %}
+
+                        {% festivals_slider location=location %}
+
+                        {% education_info location=location %}
+
+
+                        <!-- Gallery -->
+                        {% if location.image_set.exists %}
+                            <div class="gallery margin-top row">
+                                <h4 class="gallery-head">{% trans "Gallery" %}</h4>
+                                {% for image in location.image_set.all %}
+                                    <div class="col-xs-12 col-sm-6 col-md-4 image gallery-item img chevron">
+                                        {% with image.path|file_description as file_desc %}
+                                            <img class="gallery-image" src="{{ STATIC_URL }}site/img/placeholder_rectangle.gif" data-original="{{ MEDIA_URL }}{{ image.path|modified_path:"gallery_image" }}" alt="{% if file_desc.description %}{{ file_desc.description|escape }}{% endif %}" width="100%" data-image-big="{{ MEDIA_URL }}{{ image.path }}" />{% pin image=image description=location.title %}
+                                            {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                                            <div class="gallery-image-text">
+                                                <div class="gallery-image-text-description">
+                                                    {% if file_desc.title %}
+                                                        <span class="gallery-image-text-description-title">{{ file_desc.title }}</span>
+                                                    {% endif %}
+                                                    {% if file_desc.description %}
+                                                        <span class="gallery-image-text-description-copy">{{ file_desc.description }}</span>
+                                                    {% endif %}
+                                                    {% if file_desc.author %}
+                                                        <span class="gallery-image-text-description-author">{% trans "Photo" %}: {{ file_desc.author }}</span>
+                                                    {% endif %}
+                                                </div>
+                                                {% if file_desc.copyright_limitations %}
+                                                    <div class="gallery-image-text-copyright">{% trans "Copyright" %}: {{ file_desc.copyright_limitations }}</div>
+                                                {% endif %}
+                                            </div>
+                                        {% endwith %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endwith %}
+    {% include "utils/page_controls.html" %}
+{% endblock %}
+{% endcomment %}
