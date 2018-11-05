@@ -321,7 +321,7 @@ urlpatterns += i18n_patterns(
         ),
 
     # latest object feeds
-    url(r'^(?P<ot_url_part>%s|%s|%s|%s)/latest_published/feeds/(?P<feed_type>.*)/$' % (
+    url(r'^(?P<ot_url_part>%s|%s|%s|%s)/latest_published/feeds/(?P<feed_type>rss|atom)/$' % (
         URL_ID_EVENTS, URL_ID_PERSONGROUPS, URL_ID_INSTITUTIONS,
         URL_ID_PEOPLE),
         'jetson.apps.utils.views.feed', latest_published_objects_feeds),

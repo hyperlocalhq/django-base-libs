@@ -138,7 +138,7 @@ class Urls(object):
             '/de/gmap/',
             '/de/meta/impressum/',
             '/de/network/',
-            '/de/jobs/',
+            '/de/jobs/all/',
             '/de/jobs/create-berlin-jobboard/',
             '/de/jobs/talent-in-berlin/',
             '/de/jsi18n/',
@@ -647,4 +647,4 @@ if __name__ == "__main__":
     import django
     django.setup()
 
-    unittest.TextTestRunner(verbosity=1).run(suite())
+    unittest.TextTestRunner(verbosity=1, failfast=True).run(suite())

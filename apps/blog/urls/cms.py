@@ -62,7 +62,7 @@ urlpatterns = patterns(
     url(r'^tag/(?P<tag>[^/]+)/$', 'handle_request', all_dict, name="blog_posts_by_tag"),
 
     # syndication feeds
-    (r'^feeds/(?P<feed_type>.*)/$', 'blog_feed', feed_dict),
+    (r'^feeds/(?P<feed_type>rss|atom)/$', 'blog_feed', feed_dict),
 
     # new post
     (r'^(?P<action>%s)/$' % ID_ACTION_NEW, BlogPostFormPreviewHandler(BlogPostForm, use_ajax=False),

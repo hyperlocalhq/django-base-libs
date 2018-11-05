@@ -156,7 +156,7 @@ urlpatterns = [
         r'(?P<start_date>\d{8})'
         r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
         r')?'
-        r'feed/(?P<feed_type>[^/]+)/$' % URL_ID_EVENTS,
+        r'feed/(?P<feed_type>rss|atom)/$' % URL_ID_EVENTS,
         network_views.member_events_list_feed,
         event_list_info,
     ),
@@ -188,7 +188,7 @@ urlpatterns = [
         r'(?P<start_date>\d{8})'
         r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
         r')?'
-        r'feed/(?P<feed_type>[^/]+)/$',
+        r'feed/(?P<feed_type>rss|atom)/$',
         network_views.member_jobs_list_feed,
         job_list_info,
     ),
@@ -220,7 +220,7 @@ urlpatterns = [
         r'(?P<start_date>\d{8})'
         r'((?P<unlimited>...)|-(?P<end_date>\d{8}))?/'
         r')?'
-        r'feed/(?P<feed_type>[^/]+)/$',
+        r'feed/(?P<feed_type>rss|atom)/$',
         network_views.member_bulletins_list_feed,
         bulletin_list_info,
     ),
@@ -248,7 +248,7 @@ urlpatterns = [
     # ),
     # url(
     #     r'^member/(?P<slug>[^/]+)/%s/'
-    #     r'feed/(?P<feed_type>[^/]+)/$' % URL_ID_JOB_OFFERS,
+    #     r'feed/(?P<feed_type>rss|atom)/$' % URL_ID_JOB_OFFERS,
     #     'ccb.apps.institutions.views.institution_job_offer_list_feed',
     #     dict(
     #         job_offer_list_info,

@@ -23,7 +23,7 @@ def events_under_category_urlpatterns(category_slug):
             event_list_info,
         ),
         url(
-            r'^feeds/(?P<feed_type>[^/]+)/$',
+            r'^feeds/(?P<feed_type>rss|atom)/$',
             'ccb.apps.events.views.event_list_feed',
             event_list_info,
         ),

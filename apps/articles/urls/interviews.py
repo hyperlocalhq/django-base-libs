@@ -43,7 +43,7 @@ urlpatterns = [
 
     # articles aggregated syndication feeds
     url(
-        r'^category/(?P<type_sysname>[^/]+)/feeds/(?P<feed_type>.*)/$',
+        r'^category/(?P<type_sysname>[^/]+)/feeds/(?P<feed_type>rss|atom)/$',
         views.article_feed,
         dict(article_feeds, creative_sector_slug='all'),
         name="article_feed_for_news",
@@ -51,7 +51,7 @@ urlpatterns = [
 
     # articles aggregated syndication feeds
     url(
-        r'^feeds/(?P<feed_type>.*)/$',
+        r'^feeds/(?P<feed_type>rss|atom)/$',
         views.article_feed,
         dict(article_feeds, creative_sector_slug='all', type_sysname='interviews'),
         name="article_feed_for_interviews",

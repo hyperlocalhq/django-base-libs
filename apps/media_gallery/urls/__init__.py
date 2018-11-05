@@ -39,7 +39,7 @@ urlpatterns = (
         gallery_list_info,
     ),
     url(
-        r'^feeds/(?P<feed_type>.*)/$',
+        r'^feeds/(?P<feed_type>rss|atom)/$',
         'jetson.apps.utils.views.feed',
         latest_media_galleries,
     ),

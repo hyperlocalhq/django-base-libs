@@ -64,7 +64,7 @@ urlpatterns = (
         r'((?P<show>favorites|memos|own-events)/)?'
         + OPTIONAL_DATE_REGEX +
         r'feeds/'
-        r'(?P<feed_type>[^/]+)/'
+        r'(?P<feed_type>rss|atom)/'
         r'$',
         events_views.event_list_feed,
         event_list_info,

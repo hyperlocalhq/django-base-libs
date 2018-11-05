@@ -23,7 +23,7 @@ def news_under_category_urlpatterns(category_slug):
         ),
 
         # articles aggregated syndication feeds
-        url(r'^feeds/(?P<feed_type>.*)/$',
+        url(r'^feeds/(?P<feed_type>rss|atom)/$',
             'article_feed',
             dict(article_feeds, creative_sector_slug='all', type_sysname='news', category_slug=category_slug),
         ),

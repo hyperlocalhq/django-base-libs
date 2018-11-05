@@ -24,7 +24,7 @@ if ARTICLES_HAVE_TYPES:
         ),
         
         # articles aggregated syndication feeds
-        url(r'^feeds/(?P<feed_type>.*)/$', 
+        url(r'^feeds/(?P<feed_type>rss|atom)/$',
             'article_feed', 
             dict(article_feeds, type_sysname='all'),
             name="article_feed",
@@ -59,7 +59,7 @@ if ARTICLES_HAVE_TYPES:
             'article_object_detail', name='article_object_detail'
         ),
         
-        url(r'^(?P<type_sysname>[^/]+)/feeds/(?P<feed_type>.*)/$', 
+        url(r'^(?P<type_sysname>[^/]+)/feeds/(?P<feed_type>rss|atom)/$',
             'article_feed',
             article_feeds
         ), 
@@ -76,7 +76,7 @@ else:
         ),
         
         # articles aggregated syndication feeds
-        url(r'^feeds/(?P<feed_type>.*)/$', 
+        url(r'^feeds/(?P<feed_type>rss|atom)/$',
             'article_feed', 
             dict(article_feeds, type_sysname='all'),
             name="article_feed",
