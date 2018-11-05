@@ -1,7 +1,0 @@
-{% with object as pagetitle %}
-    <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <a href="/en/{% if pagetitle.path %}{{ pagetitle.path }}/{% endif %}">
-            <h3>{{ pagetitle.title }}</h3>
-        </a>
-    </div>
-{% endwith %}

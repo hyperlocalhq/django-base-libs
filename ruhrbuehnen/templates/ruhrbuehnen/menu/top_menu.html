@@ -1,6 +1,0 @@
-{% load menu_tags %}
-{% for child in children %}
-<li class="top-menu-entry menu-{{ child.get_menu_title|slugify }}{% if child.ancestor %} active{% endif %}{% if child.selected %} active{% endif %}{% if child.sibling %} sibling{% endif %}{% if child.descendant %} descendant{% endif %}">
-    <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{% include "svg/bracket_left.svg" %}{{ child.get_menu_title }}{% include "svg/bracket_right.svg" %}</a>
-</li>
-{% endfor %}
