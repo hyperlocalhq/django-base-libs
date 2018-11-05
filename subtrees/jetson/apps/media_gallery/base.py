@@ -380,10 +380,8 @@ class MediaFileBase(CreationModificationMixin):
             abs_path = os.path.join(UPLOADS_ROOT, self.splash_image_path.path)
             if os.path.exists(abs_path):
                 try:
-                    url = "".join((
-                        UPLOADS_URL,
-                        image_mods.FileManager.modified_path(self.splash_image_path.path, "gd"),
-                        ))
+                    modified_path, query = image_mods.FileManager.modified_path(self.splash_image_path.path, "gd")
+                    url = "".join((UPLOADS_URL, modified_path, query))
                 except:
                     pass
                 else:
