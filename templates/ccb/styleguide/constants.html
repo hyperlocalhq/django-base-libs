@@ -1,0 +1,126 @@
+{% extends "styleguide/base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Constants</h1>
+                <br/>
+                <p class="uppercase underline">SCSS Constants</p>
+                <p>
+                    <span style="font-family:MetronicSlabPro">$font-1: "MetronicSlabPro";</span><br/>
+                    $font-2: "Lato";<br/>
+                    <span style="font-family:sans-serif">$font-family-1: "sans-serif";</span><br/>
+                    <br/>
+                    <span style="font-weight:300;">$font-light: 300;</span><br/>
+                    $font-regular: 400;<br/>
+                    <span style="font-weight:600;">$font-semi: 600;</span><br/>
+                    <span style="font-weight:700;">$font-bold: 700;</span><br/>
+                    <span style="font-weight:900;">$font-black: 900;</span><br/>
+                    <br/>
+                    <span class="color-black">$black: #000;</span><br/>
+                    <span class="color-black-light">$black-light: #171616;</span><br/>
+                    <span class="color-black-bright">$black-bright: #1c1c1c;</span><br/>
+                    <span class="color-white" style="background:black;">$white: #fff;</span><br/>
+                    <span class="color-white-dirty" style="background:black;">$white-dirty: #efefef;</span><br/>
+                    <span class="color-grey-bright">$grey-bright: #d8d8d8;</span><br/>
+                    <span class="color-grey-light">$grey-light: #afaeae;</span><br/>
+                    <span class="color-grey">$grey: #979797;</span><br/>
+                    <span class="color-grey-darker">$grey-darker: #777777;</span><br/>
+                    <span class="color-grey-dark">$grey-dark: #444444;</span><br/>
+                    <span class="color-cyan-light">$cyan-light: #eafaff;</span><br/>
+                    <span class="color-cyan">$cyan: #00cdff;</span><br/>
+                    <span class="color-cyan-dark">$cyan-dark: #0c8ba9;</span><br/>
+                    <br/>
+                    <br/>
+                    <span style="color:#afaeae;">$button-default: #afaeae;</span><br/>
+                    <span style="color:#999999;">$button-default-border: #999999;</span><br/>
+                    <span style="color:#888888;">$button-default-active: #888888;</span><br/>
+                    <span style="color:#999999;">$button-default-border-actvie: #999999;</span><br/>
+                    <span class="button">default</span>
+                    <br/>
+                    <br/>
+                    <span style="color:#00cdff;">$button-primary: #00cdff;</span><br/>
+                    <span style="color:#d8d8d8;">$button-primary-border: #d8d8d8;</span><br/>
+                    <span style="color:#000000;">$button-primary-active: #000000;</span><br/>
+                    <span style="color:#999999;">$button-primary-active-border: #999999;</span><br/>
+                    <span class="button primary">primary</span>
+                    <br/>
+                    <br/>
+                    <span style="color:#03bf62;">$button-success: #03bf62;</span><br/>
+                    <span style="color:#009b4a;">$button-success-border: #009b4a;</span><br/>
+                    <span style="color:#009b4a;">$button-success-active: #009b4a;</span><br/>
+                    <span style="color:#009b4a;">$button-success-active-border: #009b4a;</span><br/>
+                    <span class="button success">success</span>
+                    <br/>
+                    <br/>
+                    <span style="color:#dba400;">$button-warning: #dba400;</span><br/>
+                    <span style="color:#b57500;">$button-warning-border: #b57500;</span><br/>
+                    <span style="color:#b57500;">$button-warning-active: #b57500;</span><br/>
+                    <span style="color:#b57500;">$button-warning-active-border: #b57500;</span><br/>
+                    <span class="button warning">warning</span>
+                    <br/>
+                    <br/>
+                    <span style="color:#ff0000;">$button-danger: #ff0000;</span><br/>
+                    <span style="color:#c70202;">$button-danger-border: #c70202;</span><br/>
+                    <span style="color:#c70202;">$button-danger-active: #c70202;</span><br/>
+                    <span style="color:#c70202;">$button-danger-active-border: #c70202;</span><br/>
+                    <span class="button danger">danger</span>
+                    <br/>
+                    <br/>
+                    <span style="color:#a2eebe;">$button-form-positive: #a2eebe;</span><br/>
+                    <span style="color:#a7d0a4;">$button-form-positive-border: #a7d0a4;</span><br/>
+                    <span style="color:#03bf62;">$button-form-positive-active: #03bf62;</span><br/>
+                    <span style="color:#009b4a;">$button-form-positive-active-border: #009b4a;</span><br/>
+                    <span class="fawesome fa-plus button form positive"></span>
+                    <br/>
+                    <br/>
+                    <span style="color:#e9b2b2;">$button-form-negative: #e9b2b2;</span><br/>
+                    <span style="color:#b47a7a;">$button-form-negative-border: #b47a7a;</span><br/>
+                    <span style="color:#ff0000;">$button-form-negative-active: #ff0000;</span><br/>
+                    <span style="color:#c70202;">$button-form-negative-active-border: #c70202;</span><br/>
+                    <span class="fawesome fa-minus button form negative"></span>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <span class="color-form-error">$form-error: #c70202;</span><br/>
+                    <span class="color-form-error-placeholder">$form-error-placeholder: #c70202;</span><br/>
+                    <span style="background:#e9b2b2;">$form-error-background: #e9b2b2; -> background: $form-error-background;</span><br/>
+                    <span style="padding: 3px; box-shadow: 0 0 6px 0 rgba(12, 138, 169, 0.7);">$form-glow: 0 0 6px 0 rgba(12, 138, 169, 0.7); -> box-shadow: $form-glow;</span><br/>
+                    <span style="padding: 3px; box-shadow: 0 0 6px 0 rgba(216, 216, 216, 1);">$form-glow-readonly: 0 0 6px 0 rgba(216, 216, 216, 1); -> box-shadow: $form-glow-readonly;</span><br/>
+                    <span style="padding: 3px; box-shadow: 0px 2px 13px 0px rgba(0, 0, 0, 0.4);">$form-box-shadow: 0px 2px 13px 0px rgba(0, 0, 0, 0.4); -> box-shadow: $form-box-shadow;</span>
+                    <br/>
+                    <br/>
+                    <br/>
+                    $grid-padding: 10px; // the space between the grid cells<br/>
+                    $window-margin-xs: 10px; // the margin on the left and right side of the window on very small screens<br/>
+                    $navi-height: 60px; // the height of the shrinked top navigation<br/>
+                    $navi-height-xs: 45px; // ... on very small screens<br/>
+                    $navi-space-width: 300px; // the amount of pixels the main top header slides to the right on opened main navigation<br/>
+                    $navi-slide-width: 380px; // the amount of pixels the content slides to the left on opened main navigation<br/>
+                    $navi-close-button: -260px; // the offset in pixels the open/close navigation button has on opened main navigation
+                </p>
+                <br/>
+                <br/>
+                <p class="uppercase underline">CSS Classes</p>
+                <p>
+                    <span class="color-black">color-black -> $black</span><br/>
+                    <span class="color-black-light">color-black-light -> $black-light</span><br/>
+                    <span class="color-black-bright">color-black-bright -> $black-bright</span><br/>
+                    <span class="color-white" style="background:black;">color-white -> $white</span><br/>
+                    <span class="color-white-dirty" style="background:black;">color-white-dirty -> $white-dirty</span><br/>
+                    <span class="color-grey-bright">color-grey-bright -> $grey-bright</span><br/>
+                    <span class="color-grey-light">color-grey-light -> $grey-light</span><br/>
+                    <span class="color-grey">color-grey -> $grey</span><br/>
+                    <span class="color-grey-darker">color-grey-darker -> $grey-darker</span><br/>
+                    <span class="color-grey-dark">color-grey-dark -> $grey-dark</span><br/>
+                    <span class="color-cyan-light">color-cyan-light -> $cyan-light</span><br/>
+                    <span class="color-cyan">color-cyan -> $cyan</span><br/>
+                    <span class="color-cyan-dark">color-cyan-dark -> $cyan-dark</span><br/>
+                    <span class="color-form-error">color-form-error -> $form-error</span><br/>
+                    <span class="color-form-error-placeholder">color-form-error-placeholder -> $form-error-placeholder</span><br/>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

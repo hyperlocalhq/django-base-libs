@@ -1,0 +1,31 @@
+{% extends base_template|default:"institutions/details_base.html" %}
+{% load i18n base_tags navigation_tags auth_extended babel %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <link rel="alternate" type="application/rss+xml"
+        title="{% blocktrans with object.get_title as institution_title %}RSS Feed of Jobs at {{ institution_title }}{% endblocktrans %}"
+        href="{{ website_url|slice:"0:-1" }}{{ request.path }}feed/rss/{{ LANGUAGE_CODE }}/
+                  {% filter force_escape %}{% append_to_get page=0,paginate_by=0,sort_by=0 no_path %}{% endfilter %}">
+    <link rel="alternate" type="application/atom+xml"
+        title="{% blocktrans with object.get_title as institution_title %}Atom Feed of Jobs at {{ institution_title }}{% endblocktrans %}"
+        href="{{ website_url|slice:"0:-1" }}{{ request.path }}feed/atom/{{ LANGUAGE_CODE }}/
+                  {% filter force_escape %}{% append_to_get page=0,paginate_by=0,sort_by=0 no_path %}{% endfilter %}">
+{% endblock %}
+
+{% block details %}
+    {% if not object_list %}
+        <p>{% trans "No objects found within the selected conditions." %}</p>
+    {% else %}
+        <div class="row curated-list">
+            {% for curated_list in object_list %}
+                {% include "curated_lists/lists/curated_list_item.html" %}
+            {% endfor %}
+        </div>
+        {% include "utils/includes/pagination.html" %}
+    {% endif %}
+{% endblock %}
+
+{% block extrabody %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/listing.js"></script>
+{% endblock %}

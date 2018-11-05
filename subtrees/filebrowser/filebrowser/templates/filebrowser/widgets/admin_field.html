@@ -1,0 +1,40 @@
+{% load crispy_forms_field %}
+
+{% if field.is_hidden %}
+	{{ field }}
+{% else %}
+	<div class="grp-row grp-cells-1 {% if form_show_errors%}{% if field.errors %} grp-errors{% endif %}{% endif %}{% if field.css_classes %} {{ field.css_classes }}{% endif %}">
+        <div class="l-2c-fluid l-d-4 {{ field.field.name }}{% if field.field.errors %} grp-errors{% endif %}">
+            {% if field.label and not field|is_checkbox %}
+            <div class="c-1">
+                <label for="{{ field.id_for_label }}" class="control-label {% if field.field.required %}requiredField{% endif %}">
+                    {{ field.label|safe }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}
+                </label>
+            </div>
+            {% endif %}
+        
+            <div class="c-2">
+                {% if field|css_class == "checkboxselectmultiple" %}
+                    {% include 'bootstrap/layout/checkboxselectmultiple.html' %}
+                {% endif %} 
+        
+                {% if field|css_class == "radioselect" %}
+                    {% include 'bootstrap/layout/radioselect.html' %}
+                {% endif %}
+        
+                {% if field|css_class != "checkboxselectmultiple" and field|css_class != "radioselect" %}
+                    {% if field|is_checkbox %}
+                        <label for="{{ field.id_for_label }}" class="checkbox {% if field.field.required %}requiredField{% endif %}">
+                            {% crispy_field field %}
+                            {{ field.label|safe }}
+                            {% include 'bootstrap/layout/help_text_and_errors.html' %}
+                        </label>
+                    {% else %}
+                        {% crispy_field field %}
+                        {% include 'bootstrap/layout/help_text_and_errors.html' %}
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+	</div>
+{% endif %}

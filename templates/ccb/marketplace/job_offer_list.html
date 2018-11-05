@@ -1,0 +1,53 @@
+{% extends "marketplace/job_offer_base.html" %}
+{% load i18n auth_extended uni_form_tags crispy_forms_tags cms_tags infoblocks %}
+
+
+{% block search_bar %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="header-search">
+                <div class="fawesome fa-search" data-type="job"><span class="text hidden-xs">{% trans 'Search' %}</span></div>
+
+                <div class="result">
+                    {% load babel %}{{ current_page.paginator.count|numberfmt }}
+                    <span class="text">{% trans 'Jobs' %}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    {% crispy form "ccb_form" %}
+    {% infoblock "jobs_infobox" using "blocks/infobox.html" %}
+{% endblock %}
+
+{% block details %}
+    {% if not object_list %}
+        <p>{% trans "No objects found within the selected conditions." %}</p>
+    {% else %}
+        <div class="row job-list">
+            {% for job_offer in object_list %}
+                {% if view_type == "listed" %}
+                    {% include "marketplace/lists/job_offer_listed.html" %}
+                {% endif %}
+                {% if view_type == "map" %}
+                    {% include "marketplace/lists/job_offer_mapped.html" %}
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% include "utils/includes/pagination.html" %}
+    {% endif %}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li>{% page_attribute "page_title" %}</li>
+{% endblock %}
+
+
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/job-list.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/pagination.js"></script>
+{% endblock %}

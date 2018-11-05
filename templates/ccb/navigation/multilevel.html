@@ -1,0 +1,60 @@
+{% load navigation_tags base_tags mptt_tags %}
+<ul class="nav_menu">
+    {% recursetree nav_link.get_descendants %}
+        {% if user.is_authenticated and node.is_shown_for_users %}
+            {% parse_link node as url %}
+            {% if url or node.is_group %}
+                {% activeness node as is_active %}
+                <li class="navi_{{ node.sysname }}_
+
+
+                    {{ LANGUAGE_CODE }}{% if node.is_promoted %} promoted{% endif %}{% if node.is_login_required %} login-required{% endif %}{% if is_active %} active{% endif %}">
+                    {% if node.is_group %}
+                        {% if url %}
+                            <a href="{{ url }}" title="{{ node.get_description|striptags }}">{% endif %}
+                    <strong>{{ node.get_title|escape }}</strong>
+                    {% if url %}</a>{% endif %}
+                    {% else %}
+                        <a href="{{ url }}"{% if is_active %} class="active"{% endif %}
+                            title="{{ node.get_description|striptags }}">
+                            <span>{{ node.get_title|escape }}</span>
+                        </a>
+                    {% endif %}
+                    {% if not node.is_leaf_node %}
+                        <ul class="nav_menu">
+                            {{ children }}
+                        </ul>
+                    {% endif %}
+                </li>
+            {% endif %}
+        {% else %}
+            {% if not user.is_authenticated and node.is_shown_for_visitors %}
+                {% parse_link node as url %}
+                {% if url or node.is_group %}
+                    {% activeness node as is_active %}
+                    <li class="navi_{{ node.sysname }}_
+
+
+                        {{ LANGUAGE_CODE }}{% if node.is_promoted %} promoted{% endif %}{% if node.is_login_required %} login-required{% endif %}{% if is_active %} active{% endif %}">
+                        {% if node.is_group %}
+                            {% if url %}
+                                <a href="{{ url }}" title="{{ node.get_description|striptags }}">{% endif %}
+                        <strong>{{ node.get_title|escape }}</strong>
+                        {% if url %}</a>{% endif %}
+                        {% else %}
+                            <a href="{{ url }}"{% if is_active %} class="active"{% endif %}
+                                title="{{ node.get_description|striptags }}">
+                                <span>{{ node.get_title|escape }}</span>
+                            </a>
+                        {% endif %}
+                        {% if not node.is_leaf_node %}
+                            <ul class="nav_menu">
+                                {{ children }}
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endrecursetree %}
+</ul>

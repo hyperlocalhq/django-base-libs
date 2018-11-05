@@ -1,0 +1,15 @@
+{% load i18n base_tags auth_extended image_mods_tags %}
+{% if object.image %}
+    <div class="image_container">
+        <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"ad" }}{% if_has_perm "people.change_person" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}"
+            alt="{{ object.get_title|escape }}"/>
+        {% if_has_perm "groups_networks.change_persongroup" object %}
+            <a href="{% cropping_url object.image.path "ad" request object.get_url_path %}" class="recrop_link">
+                <span><span>{% trans "Adjust image" %}</span></span>
+            </a>
+        {% end_if_has_perm %}
+    </div>
+{% else %}
+    <img src="{{ DEFAULT_LOGO_4_PERSONGROUP }}" alt="{{ object.get_title|escape }}"/>
+{% endif %}
+

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n base_tags %}
+
+{% block headline %}
+    <h1>{% trans "Invitation" %}</h1>
+{% endblock %}
+
+
+{% block content %}
+    <div class="field_layout no_padding_bottom">
+        <p>{% trans "Thank you! Your invitation has been sent." %}</p>
+
+        <p>
+            <a href="../">{% trans "Invite somebody else" %}</a>
+            <br/>
+            <a href="/">{% trans "Go to the start page" %}</a>
+        </p>
+    </div>
+{% endblock %}
+
+
+

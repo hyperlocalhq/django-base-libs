@@ -1,0 +1,13 @@
+{% extends "base_sidebar.html" %}
+{% load i18n infoblocks %}
+
+{% block title %}{% trans "Registration complete" %}{% endblock %}
+
+{% block headline %}
+    <h1>{% trans "Create Account" %}</h1>
+{% endblock %}
+
+{% block details %}
+    <h2>{% trans "Your registration is complete." %}</h2>
+    {% infoblock "register_all_done" %}
+{% endblock %}

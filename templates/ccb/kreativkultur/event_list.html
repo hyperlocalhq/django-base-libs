@@ -1,0 +1,78 @@
+{% load babel i18n image_mods_tags favorites %}
+
+<div class="col-xs-12">
+    {% for event in object_list %}
+        <div class="event">
+            <div class="row">
+                <div class="content">
+                    <a href="{{ event.get_url }}" target="_blank">
+                        <div class="col-sm-3 column">
+                            {% if event.image %}
+                                <img src="http://www.creative-city-berlin.de{{ UPLOADS_URL }}{{ event.image|modified_path:"list" }}" alt="{{ event.get_title|escape }}"/>
+                            {% else %}
+                                <img src="http://www.creative-city-berlin.de{{ STATIC_URL }}site/img/placeholder/event_list.png"/>
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-9 column">
+                            {% if event.get_nearest_occurrence %}
+                                <div class="event-date">
+                                    {% with event.get_nearest_occurrence as time %}
+                                        {{ time.start_dd|default:1|stringformat:"02d" }}.{{ time.start_mm|default:1|stringformat:"02d" }}. {{ time.start_yyyy|default:"0000" }}
+                                    {% endwith %}
+                                </div>
+                            {% endif %}
+                            {% if event.event_type %}
+                                <h3>{{ event.event_type }}</h3>
+                            {% endif %}
+                            <h2>{{ event.title|escape }}</h2>
+                            {% if event.organizing_institution %}
+                                <p>{{ event.organizing_institution.title }}</p>
+                            {% endif %}
+
+                            {% if event.venue %}
+                                <p>{{ event.venue.title }}</p>
+                            {% else %}
+                                <p>{{ event.venue_title }}</p>
+                            {% endif %}
+                            {% if event.postal_address %}
+                                {% with event.postal_address.get_dict as postal_address %}
+                                    {% if postal_address.street_address or postal_address.country_name %}
+                                        <p>
+                                            {% if postal_address.street_address %}
+                                                <span class="seperator">{{ postal_address.street_address|escape }}</span>
+                                            {% endif %}
+                                            {% if postal_address.street_address2 %}
+                                                <span class="seperator">{{ postal_address.street_address2|escape }}</span>
+                                            {% endif %}
+                                            {% if postal_address.street_address3 %}
+                                                <span class="seperator">{{ postal_address.street_address3|escape }}</span>
+                                            {% endif %}
+                                            {% if postal_address.postal_code %}
+                                                <span class="seperator">{{ postal_address.postal_code|escape }} {{ postal_address.city|escape }}</span>
+                                            {% endif %}
+                                            {% if postal_address.country_name %}
+                                                <span class="seperator">{{ postal_address.country_name }}</span>
+                                            {% endif %}
+                                        </p>
+                                    {% endif %}
+                                {% endwith %}
+                            {% endif %}
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+            {% comment %}
+            {% with event.get_urls|first as url %}
+                {% if url %}
+                    <a class="website" href="{{ url.link }}" target="_blank">{{ url.link|truncatechars:50 }}</a>
+                {% endif %}
+            {% endwith %}
+            {% endcomment %}
+
+
+    {% endfor %}
+</div>

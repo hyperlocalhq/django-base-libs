@@ -1,0 +1,45 @@
+{% extends "media_gallery/portfolio_base.html" %}
+
+{% load i18n image_mods_tags babel %}
+
+{% block object_controls %}
+    <a href="{{ object.get_url_path }}portfolio/manage/">{% trans "All projects" %}</a>
+{% endblock %}
+
+{% block additional_controls %}
+    <div class="media_nav">
+        <div class="right">
+            <a class="fb-sync active"
+                href="{{ object.get_url_path }}portfolio/fb-sync/">
+                <span><span>{% trans "Sync with Facebook" %}</span></span></a>
+            <a class="portfolio-manage"
+                href="{{ object.get_url_path }}portfolio/manage/"><span><span>{% trans "All projects" %}</span></span>
+            </a>
+            <a class="portfolio-add"
+                href="{{ object.get_url_path }}portfolio/album/add/"><span><span>{% trans "Add project" %}</span></span>
+            </a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block details %}
+    <div class="content-box">
+        <h3>
+            <span class="sync-ccb-title">Creative City Berlin</span>
+            <span class="sync-fb-title">Facebook</span>
+        </h3>
+    </div>
+    {% for gallery_opts in linked_galleries %}
+        {% include "facebook_app/gallery_linking.html" %}
+    {% endfor %}
+    {% for gallery_opts in ccb_only_galleries %}
+        {% include "facebook_app/gallery_linking.html" %}
+    {% endfor %}
+    {% for gallery_opts in fb_only_galleries %}
+        {% include "facebook_app/gallery_linking.html" %}
+    {% endfor %}
+{% endblock %}
+
+{% block extrabody %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/facebook_sync.js"></script>
+{% endblock %}

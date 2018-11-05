@@ -1,0 +1,61 @@
+{% extends base_template|default:"people/details_base.html" %}
+{% load events i18n base_tags navigation_tags auth_extended babel infoblocks cms_tags %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <link rel="alternate" type="application/rss+xml" title="{% blocktrans with object.get_title as person_title %}RSS Feed of Events by {{ person_title }}{% endblocktrans %}" href="{{ website_url|slice:"0:-1" }}{{ request.path }}feed/rss/{{ LANGUAGE_CODE }}/
+
+
+    {% filter force_escape %}{% append_to_get page=0,paginate_by=0,sort_by=0,view_type=0 no_path %}{% endfilter %}">
+    <link rel="alternate" type="application/atom+xml" title="{% blocktrans with object.get_title as person_title %}Atom Feed of Events by {{ person_title }}{% endblocktrans %}"  href="{{ website_url|slice:"0:-1" }}{{ request.path }}feed/atom/{{ LANGUAGE_CODE }}/
+
+
+    {% filter force_escape %}{% append_to_get page=0,paginate_by=0,sort_by=0,view_type=0 no_path %}{% endfilter %}">
+    {% if view_type == "map" %}
+        <script type="text/javascript" src="//maps.google.com/maps/api/js?language={{ LANGUAGE_CODE }}&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/styledinfowindow.js"></script>
+        <script type="text/javascript">
+            //<![CDATA[
+            var aGeopositions = [];
+            //]]>
+        </script>
+    {% endif %}
+{% endblock %}
+
+{% block details %}
+    {% if object_list %}
+        <div class="row event-list">
+            {% for event in object_list %}
+
+                {% with event.get_nearest_occurrence as date %}
+                    {% ifchanged date.start|date:'D, d. m. Y' %}<h2 class="date">{{ date.start|date:'D, d. m. Y' }}</h2>{% endifchanged %}
+                {% endwith %}
+
+                {% if view_type == "icons" %}
+                    {% include "events/lists/event_icons.html" %}
+                {% elif view_type == "listed" %}
+                    {% include "events/lists/event_listed.html" %}
+                {% elif view_type == "map" %}
+                    {% include "events/lists/event_mapped.html" %}
+                {% endif %}
+
+            {% endfor %}
+        </div>
+        {% include "utils/includes/pagination.html" %}
+    {% else %}
+        {% ifequal request.user object.user %}
+            {% navigation_links "menu_personal_activitie_event" using "navigation/includes/box.html" %}
+        {% else %}
+            <p>{% trans "No objects found within the selected conditions." %}</p>
+        {% endifequal %}
+    {% endif %}
+{% endblock %}
+
+
+{% block breadcrumbs_details %}
+    <li>{% page_attribute "page_title" %}</li>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/event-list.js"></script>
+{% endblock %}

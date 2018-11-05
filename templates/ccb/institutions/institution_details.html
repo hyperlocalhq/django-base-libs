@@ -1,0 +1,102 @@
+{% extends "institutions/details_base.html" %}
+{% load i18n base_tags auth_extended cms_tags image_mods_tags %}
+
+{% block open_graph %}
+    <meta property="og:title" content="{{ object.get_title }}"/>
+    {% if object.status.sysname == "published-commercial" %}
+        <meta property="og:type" content="company"/>
+    {% else %}
+        <meta property="og:type" content="non_profit"/>
+    {% endif %}
+    {% if object.image %}
+        <meta property="og:image" content="http://{{ request.get_host }}{{ MEDIA_URL }}{{ object.image|modified_path:"og" }}"/>
+    {% else %}
+        <meta property="og:image" content="http://{{ request.get_host }}{{ STATIC_URL }}site/img/default/ccb_opengraph.jpg" />
+    {% endif %}
+    <meta property="og:description" content="{{ object.description|striptags|truncatewords:20|escape }}"/>
+{% endblock %}
+
+{% block details %}
+    {% if object.is_editable %}
+        <div class="row profile-header">
+            <div class="col-xs-12">
+                <div class="statistics">
+                    <div class="statistic">
+                        <canvas class="fawesome fa-percentage big" data-value="{{ object.completeness }}" data-color-active="#00cdff" data-color-inactive="#c7e2ea">
+                            <div class="fawesome fa-circle big"></div>
+                        </canvas>
+                        {% parse "<b>{{ object.completeness }}%</b>" as completeness %}
+                        <div class="text">{% blocktrans with amount=completeness %}{{ amount }} completed{% endblocktrans %}</div>
+                    </div>
+                    <div class="statistic">
+                        {% load followers_tags %}
+                        {% with followers_count=object|followers_count %}
+                            {% parse "<b>{{ followers_count }}</b>" as followers_count_formated %}
+                            <div class="fawesome fa-man big"></div>
+                            <div class="text">{% blocktrans count followers_count as amount %}{{ followers_count_formated }} follower{% plural %}{{ followers_count_formated }} followers{% endblocktrans %}</div>
+                        {% endwith %}
+                    </div>
+                    {% comment %} TODO: uncomment and adapt when curated lists are implemented
+                    <div class="statistic">
+                        <div class="fawesome fa-list-short big"></div>
+                        <div class="text">{% blocktrans with amount='<b>3</b>' %}On {{ amount }} curated lists{% endblocktrans %}</div>
+                    </div>
+                    {% endcomment %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if object.is_editable %}
+        <div id="avatar-edit-frame" class="edit-iframe"></div>
+    {% endif %}
+
+    {% include "institutions/profile/identity.html" %}
+
+    {% include "institutions/profile/contact.html" %}
+
+    {% include "institutions/profile/description.html" %}
+
+    {% include "institutions/profile/details.html" %}
+
+    {% include "institutions/profile/payment.html" %}
+
+    {% include "institutions/profile/opening_hours.html" %}
+
+    {% include "institutions/profile/categories.html" %}
+
+    {% include "institutions/profile/map.html" %}
+
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'member_list_global' %}">{% page_attribute "page_title" %}</a></li>
+    <li>{{ object.get_title }}</li>
+{% endblock %}
+
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript" src="//maps.google.com/maps/api/js?language=de&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/locating.js"></script>
+
+    {% if object.is_editable %}
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/intro.min.js"></script>
+        {% if request.user.last_login.date == request.user.date_joined.date %}
+            <script type="text/javascript" src="{% url 'guided_tour' %}"></script>
+        {% else %}
+            <script type="text/javaScript">
+                var show_tip_no_profile_image = {% if object.image %}false{% else %}true{% endif %};
+                var show_tip_no_creative_sector = {% if object.get_categories %}false{% else %}true{% endif %};
+                var is_institution = true;
+            </script>
+            <script type="text/javascript" src="{% url 'missing_profile_data_tips' %}"></script>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+
+{% block stylesheet %}
+    {{ block.super }}
+    <link href="{{ STATIC_URL }}site/css/introjs.min.css" rel="stylesheet" media="screen, print" type="text/css" />
+{% endblock %}

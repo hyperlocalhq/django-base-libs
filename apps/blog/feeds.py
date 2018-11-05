@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import force_unicode
 from django.contrib.sites.models import Site
 
-from jetson.apps.blog.models import Post
+from ccb.apps.blog.models import Post
 
 class RssFeed(Feed):
     

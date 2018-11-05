@@ -1,0 +1,21 @@
+{% load i18n menu_tags cache %}
+
+{# TODO: remove the ugly hack with reverse_id, when attachable menus work stably #}
+{% for child in children %}
+    <li class="{% if child.children or child.attr.reverse_id == "news" or child.attr.reverse_id == "interviews" %}accordion-inside accordion-trigger{% endif %} {% if child.selected %}active{% endif %} {% if child.ancestor %}opened{% endif %} level-{{ child.menu_level }}">
+        {% if child.children or child.attr.reverse_id == "news" or child.attr.reverse_id == "interviews" %}
+            <span class="accordion-trigger {% if child.selected %}active{% endif %}">{{ child.get_menu_title }}</span>
+            <ul class="accordion">
+                {% if child.attr.reverse_id == "news" %}
+                    {% include "articles/includes/news_types_nav.html" %}
+                {% elif child.attr.reverse_id == "interviews" %}
+                    {% include "articles/includes/interviews_types_nav.html" %}
+                {% else %}
+                    {% show_menu from_level to_level extra_inactive extra_active template "" "" child %}
+                {% endif %}
+            </ul>
+        {% else %}
+            <a {% if child.selected %}class="active"{% endif %} href="{{ child.get_absolute_url }}">{{ child.get_menu_title }}</a>
+        {% endif %}
+    </li>
+{% endfor %}

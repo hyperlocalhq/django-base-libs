@@ -1,0 +1,227 @@
+{% extends "ccb/marketplace/add_job_offer_base.html" %}
+{% load base_tags i18n site_specific babel crispy_forms_tags %}
+
+{% block title %}{% trans "Registration" %} - {% trans "Job Offer" %}{% endblock %}
+
+{% block headline %}
+    <h1>{% trans "Registration" %}</h1>
+    <h2>{% trans "Job Offer" %} - {% trans "Confirm Entered Data" %}</h2>
+{% endblock %}
+
+{% block details %}
+    {% comment %}<!-- TODO: remove the comment to see all available data
+    <pre>{{ form_step_data|pprint|escape }}</pre>
+    -->{% endcomment %}
+    {% if form_step_data.step_main_data.offering_institution %}
+        {% load_obj institutions.institution form_step_data.step_main_data.offering_institution as institution %}
+    {% endif %}
+
+    <h2>{% trans "New Job Offer" %}</h2>
+    <form action="" method="post" class="uniForm">{% csrf_token %}
+
+        <div class="fieldset not-editable">
+            <fieldset>
+                <h2>{% trans "Main Data" %}</h2>
+                <dl class="input-fields">
+                    <dt>{% trans "Position" %}</dt>
+                    <dd>
+                        <div class="text-field">
+                            {{ form_step_data.step_main_data.position }}
+                        </div>
+                    </dd>
+                    <dd class="clearfix"></dd>
+
+                    <dt>{% trans "Job type" %}</dt>
+                    <dd>
+                        <div class="text-field">{{ form_step_data.step_main_data.job_type }}</div>
+                    </dd>
+                    <dd class="clearfix"></dd>
+
+                    {% if form_step_data.step_main_data.qualifications %}
+                        <dt>{% trans "Qualification" %}</dt>
+                        <dd>
+                            <div class="text-field">
+                                {% for q in form_step_data.step_main_data.qualifications %}
+                                    {% if not forloop.first and not forloop.last %}, {% endif %}
+                                    {% if forloop.last and not forloop.first %} {% trans "or" %} {% endif %}
+                                    {% if forloop.first %}{{ q.title|capfirst }}{% else %}{{ q.title|lower }}
+                                    {% endif %}{% endfor %}
+                            </div>
+                        </dd>
+                        <dd class="clearfix"></dd>
+                    {% endif %}
+
+                    <dt>{% trans "Description" %}</dt>
+                    <dd>
+                        <div class="text-field">{{ form_step_data.step_main_data.description|urlize|linebreaksbr }}</div>
+                    </dd>
+                    <dd class="clearfix"></dd>
+
+                    {% if institution or form_step_data.step_main_data.offering_institution_title %}
+                        <dt>{% trans "Institution / Company" %}</dt>
+                        <dd>
+                            <div class="text-field">
+                                {% if institution %}
+                                    <a href="{{ institution.get_url_path }}">{{ institution.get_title }}</a>
+                                {% else %}
+                                    {{ form_step_data.step_main_data.offering_institution_title }}
+                                {% endif %}
+                            </div>
+                        </dd>
+                        <dd class="clearfix"></dd>
+                    {% endif %}
+
+                    {% ifequal form_step_data.step_main_data.contact_person_ind "0" %}
+                        <dt>{% trans "Contact Person" %}</dt>
+                        <dd>
+                            <div class="text-field">
+                                <a href="{{ request.user.profile.get_url_path }}">{{ request.user.profile.get_title }}</a>
+                            </div>
+                        </dd>
+                        <dd class="clearfix"></dd>
+                    {% else %}
+                        {% if form_step_data.step_main_data.contact_person_name %}
+                            <dt>{% trans "Contact Person" %}</dt>
+                            <dd>
+                                <div class="text-field">
+                                    {{ form_step_data.step_main_data.contact_person_name }}
+                                </div>
+                            </dd>
+                            <dd class="clearfix"></dd>
+                        {% endif %}
+                    {% endifequal %}
+
+                    <dt>{% trans "Address" %}</dt>
+                    <dd>
+                        <div class="text-field">
+                            {% if institution or form_step_data.step_main_data.offering_institution_title %}
+                                {% if institution %}
+                                    {{ institution.get_title }}
+                                {% else %}
+                                    {{ form_step_data.step_main_data.offering_institution_title }}
+                                {% endif %}<br/>
+                            {% endif %}
+                            {{ form_step_data.step_main_data.street_address|escape }}<br/>
+                            {% if form_step_data.step_main_data.street_address2 %}
+                                {{ form_step_data.step_main_data.street_address2|escape }}<br/>
+                            {% endif %}
+                            {{ form_step_data.step_main_data.postal_code|escape }} {{ form_step_data.step_main_data.city|escape }}<br/>
+                            {{ form_step_data.step_main_data.get_country_display }}
+                        </div>
+                    </dd>
+                    <dd class="clearfix"></dd>
+
+                    {% if form_step_data.step_main_data.phone_number %}
+                        <dt>{% trans "Phone" %}:</dt>
+                        <dd>
+                            <div class="text-field">
+                                +{% if form_step_data.step_main_data.phone_country %}
+                                {{ form_step_data.step_main_data.phone_country }}{% else %}
+                                49{% endif %}-{{ form_step_data.step_main_data.phone_area }}-{{ form_step_data.step_main_data.phone_number }}
+                            </div>
+                        </dd>
+                        <dd class="clearfix"></dd>
+                    {% endif %}
+
+                    {% if form_step_data.step_main_data.fax_number %}
+                        <dt>{% trans "Fax" %}:</dt>
+                        <dd>
+                            <div class="text-field">
+                                +{% if form_step_data.step_main_data.fax_country %}
+                                {{ form_step_data.step_main_data.fax_country }}{% else %}
+                                49{% endif %}-{{ form_step_data.step_main_data.fax_area }}-{{ form_step_data.step_main_data.fax_number }}
+                            </div>
+                        </dd>
+                        <dd class="clearfix"></dd>
+                    {% endif %}
+
+                    {% if form_step_data.step_main_data.email0_address %}
+                        <dt>{% trans "Email" %}:</dt>
+                        <dd>
+                            <div class="text-field">
+                                {{ form_step_data.step_main_data.email0_address }}
+                            </div>
+                        </dd>
+                        <dd class="clearfix"></dd>
+                    {% endif %}
+
+                    {% if form_step_data.step_main_data.email0_address %}
+                        <dt>{% trans "Homepage" %}:</dt>
+                        <dd>
+                            <div class="text-field">
+                                <a href="{{ form_step_data.step_main_data.url0_link }}">{{ form_step_data.step_main_data.url0_link }}</a>
+                            </div>
+                        </dd>
+                        <dd class="clearfix"></dd>
+                    {% endif %}
+
+                    {% if form_step_data.step_main_data.end_date %}
+                        <dt>{% trans "Published till" %}</dt>
+                        <dd>
+                            <div class="text-field">
+                                {{ form_step_data.step_main_data.end_date|datefmt:"medium" }}
+                            </div>
+                        </dd>
+                        <dd class="clearfix"></dd>
+                    {% endif %}
+                </dl>
+            </fieldset>
+        </div>
+
+        {% with job_sectors=form_step_data.step_categories.job_sectors categories=form_step_data.step_categories.categories tags=form_step_data.step_categories.tags %}
+            {% if job_sectors or tags or categories %}
+                <div class="fieldset not-editable">
+                    <fieldset>
+                        <h2>{% trans "Categories" %}</h2>
+                        <dl class="input-fields">
+                            {% if job_sectors %}
+                                <dt>{% trans "Job Sector" %}:</dt>
+                                <dd>
+                                    <div class="text-field">
+                                        {% for job_sector in job_sectors %}
+                                            {{ job_sector.title }}{% if not forloop.last %}, {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </dd>
+                                <dd class="clearfix"></dd>
+                            {% endif %}
+
+                            {% if tags %}
+                                <dt>{% trans "Tags" %}:</dt>
+                                <dd>
+                                    <div class="text-field">
+                                        {% with tags|slice:"-2:" as trailing_coma %}
+                                            {% ifequal trailing_coma ", " %}
+                                                {{ tags|slice:"0:-2" }}
+                                            {% else %}
+                                                {{ tags }}
+                                            {% endifequal %}
+                                        {% endwith %}
+                                    </div>
+                                </dd>
+                                <dd class="clearfix"></dd>
+                            {% endif %}
+
+                            {% if categories %}
+                                <dt>{% trans "Categories" %}:</dt>
+                                <dd>
+                                    <div class="text-field">
+                                        {% for category in categories %}
+                                            {{ category.title }}{% if not forloop.last %}, {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </dd>
+                                <dd class="clearfix"></dd>
+                            {% endif %}
+                        </dl>
+                    </fieldset>
+                </div>
+
+            {% endif %}
+        {% endwith %}
+
+        {% crispy form "ccb_form" %}
+
+        {% include "utils/step_buttons_reg.html" %}
+    </form>
+{% endblock %}

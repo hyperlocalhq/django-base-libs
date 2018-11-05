@@ -1,0 +1,290 @@
+{% block doctype %}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">{% endblock %}
+{% load i18n base_tags navigation_tags account_specific bookmarks messaging infoblocks cache %}
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ LANGUAGE_CODE }}" lang="{{ LANGUAGE_CODE }}"
+    xmlns:og="http://ogp.me/ns#">
+    <head>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+        {% block meta_tags %}
+            {% block meta_keywords %}
+                {% include "utils/includes/meta_keywords.html" %}
+            {% endblock %}
+
+            {% block meta_description %}
+                {% include "utils/includes/meta_description.html" %}
+            {% endblock %}
+
+            {{ site_settings.get_meta_author|safe }}
+            {{ site_settings.get_meta_copyright|safe }}
+            <meta name="robots" content="index,follow"/>
+            <meta name="language" content="{{ LANGUAGE_CODE }}"/>
+
+            {% block open_graph %}
+                <meta property="og:title" content="Creative City Berlin"/>
+                <meta property="og:type" content="website"/>
+                <meta property="og:image" content="http://{{ request.get_host }}{{ STATIC_URL }}site/img/default/ccb_opengraph.jpg" />
+                <meta property="og:url" content="http://www.creative-city-berlin.de/"/>
+                <meta property="og:site_name" content="Creative City Berlin"/>
+                <meta property="og:description"
+                    content="{% trans "Portal for the cultural sector and the creative industries" %}"/>
+            {% endblock %}
+        {% endblock %}
+
+
+        <link rel="icon" href="{{ STATIC_URL }}site/img/website/favicon.ico" type="image/x-icon"/>
+        <link rel="shortcut icon" href="{{ STATIC_URL }}site/img/website/favicon.ico" type="image/x-icon"/>
+        <link rel="apple-touch-icon" href="{{ STATIC_URL }}site/img/website/apple-touch-icon.png"/>
+        <link rel="canonical" href="http://{{ site_settings.site.domain }}/{{ LANGUAGE_CODE }}{{ request.path }}"/>
+        <title>{{ site_settings.site.name }} - {% block title %}KREATIV ARBEITEN - MIT ERFOLG{% endblock %}</title>
+
+        {% block stylesheet %}
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/yaml/core/base.css" />
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/css/screen/basemod.css" />
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/css/screen/uni-form.css" />
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/css/screen/default.uni-form.css" />
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/css/screen/forms.css" />
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/css/screen/navigation.css" />
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/css/screen/layout.css" />
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/css/screen/content.css" />
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/css/screen/icons.css" />
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/css/screen/portfolio.css" />
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/css/exceptions/kreativarbeiten.css" />
+        {% endblock %}
+        {% if "MSIE"|in_list:request.META.HTTP_USER_AGENT %}
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/yaml/core/iehacks.css" />
+            <link rel="stylesheet" media="all" href="{{ STATIC_URL }}site/css/patches/patch_layout.css" />
+        {% endif %}
+        <link rel="stylesheet" media="print" href="{{ STATIC_URL }}site/css/print/print.css" />
+
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/jquery.ba-hashchange.min.js"></script>
+        <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/jquery.cookie.js"></script>
+        <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/jquery.popup.js"></script>
+        <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/uni-form.jquery.min.js"></script>
+        <script type="text/javascript" src="/{{ LANGUAGE_CODE }}/jssettings/"></script>
+        <script type="text/javascript" src="/{{ LANGUAGE_CODE }}/jsi18n/"></script>
+        <script type="text/javascript">
+            (function ($, undefined) {
+                {% if not request.user.is_authenticated %}
+                    $(document).ready(function () {
+                        $(".login-required a").click(function () {
+                            var sGotoNext = $(this).attr("href").replace(/.+goto_next=/, "");
+                            self.open_popup(
+                                gettext("Login"),
+                                584, 460,
+                                "{% url 'login' %}?goto_next=" + sGotoNext,
+                                false,
+                                false
+                            );
+                            return false;
+                        });
+                    });
+                {% endif %}
+            }(jQuery));
+        </script>
+        <script src="{{ STATIC_URL }}site/js/collapse.js"></script>
+        <script src="{{ STATIC_URL }}site/js/website/common.js"></script>
+
+        {{ site_settings.extra_head|safe }}
+        {% block extrahead %}{% endblock %}
+
+        <script type="text/javascript">
+            if (location.host == "www.creative-city-berlin.de") {
+                var _gaq = _gaq || [];
+                _gaq.push(['_setAccount', 'UA-348516-3']);
+                _gaq.push(['_trackPageview']);
+
+                (function () {
+                    var ga = document.createElement('script');
+                    ga.type = 'text/javascript';
+                    ga.async = true;
+                    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(ga, s);
+                })();
+            }
+        </script>
+
+    </head>
+    <body class="body {% block bodyclass %}{% endblock %}">
+
+        <div id="fb-root"></div>
+        <script>(function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/de_DE/all.js#xfbml=1&appId=19027877416";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+
+        {% spaceless %}
+
+            <ul id="skiplinks">
+                <li>
+                    <a href="#content_navigation">{% trans "Skip to content navigation (Press Enter)" %}</a>
+                </li>
+                <li>
+                    <a href="#user_navigation">{% trans "Skip to user navigation (Press Enter)" %}</a>
+                </li>
+                <li>
+                    <a href="#content">{% trans "Skip to main content (Press Enter)" %}</a>
+                </li>
+            </ul>
+
+            <div id="topnav" class="clearfix">
+                <div class="page_margins">
+                    <div class="page">
+                        <div id="top">
+                            <h1 class="hidden">{{ site_settings.site.name }}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="ie_clearing">&nbsp;</div>
+            </div>
+            <div id="header" class="clearfix">
+                <div class="page_margins">
+                    <div class="page">
+                        <div class="col1">
+                            <div class="col1_content clearfix">
+                                <script type="text/javascript">
+                                    if (self == top) {
+                                        document.write('<a href="/" id="logo" style="padding-top:1px;"><img title="{% trans "Welcome Page" %}" src="{{ STATIC_URL }}site/img/website/c_logo.png" alt="{{ site_settings.site.name }}"/></a>');
+                                    } else {
+                                        document.write('<a href="http://www.kreatives-brandenburg.de/" target="_top" id="logo" style="padding-top:1px;"><img title="{% trans "Welcome Page" %}" src="{{ STATIC_URL }}site/img/kreativarbeiten/kb_logo.png" alt="Kreatives Brandenburg"/></a>');
+                                    }
+                                </script>
+
+                            </div>
+                        </div>
+                        <div class="col2">
+                            <div class="col2_content clearfix">
+                                <a href="http://www.kultur-kreativ-wirtschaft.de/" class="banner">
+                                    <img alt="Initiative Kultur- &amp; Kreativwirtschaft der Bundesregierung"
+                                        src="{{ STATIC_URL }}site/img/kreativarbeiten/banner-ikkb.png"/>
+                                </a>
+                                <a href="http://kompetenzzentrum.u-institut.de/" class="banner">
+                                    <img alt="Kompetenzzentrum Kultur- und Kreativwirtschaft des Bundes"
+                                        src="{{ STATIC_URL }}site/img/kreativarbeiten/banner-kkb.png"/>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col3">
+                            <div class="col3_content clearfix">
+                                {% block tabs %}
+                                    <div id="tabs">
+                                        {% navigation_links "kreativarbeiten" using "navigation/includes/navigation_links_in_tabs.html" %}
+                                        <div></div>
+                                    </div>
+                                {% endblock %}
+                            </div>
+                            <div class="ie_clearing">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page_margins clearfix">
+                <div class="page">
+                    <div id="main">
+                        {% block site %}
+                            <div class="col1">
+                                <div class="col1_content clearfix">
+                                    <h4 class="hidden" id="content_navigation">{% trans "Content Navigaton" %}</h4>
+                                    {% infoblock "kreativarbeiten_about" using "blocks/collapsible_infoblock.html" %}
+                                    {% infoblock "kreativarbeiten_contact_info" using "blocks/collapsible_infoblock.html" %}
+                                    {% infoblock "kreativarbeiten_links" using "blocks/collapsible_infoblock.html" %}
+                                    <!--<div class="fb-like-box" data-href="http://www.facebook.com/kreativbb" data-width="184" data-height="425" data-show-faces="true" data-stream="false" data-header="true"></div>-->
+                                    <iframe
+                                        src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fkreativbb%3Fref%3Dts&amp;width=184&amp;colorscheme=light&amp;show_faces=true&amp;stream=false&amp;header=false&amp;height=362"
+                                        scrolling="no" frameborder="0"
+                                        style="border:none; overflow:hidden; width:184px; height:362px; margin-bottom: 16px;"
+                                        allowTransparency="true"></iframe>
+                                </div>
+                            </div>
+                            <div class="col2">
+                                <div class="col2_content clearfix">
+                                    <h4 class="hidden" id="user_navigation">{% trans "User Navigaton" %}</h4>
+                                    {% infoblock "kreativarbeiten_special_interest" using "blocks/collapsible_infoblock.html" %}
+                                    {% block sidebar-a %}
+                                    {% endblock %}
+                                    {% block sidebar-b %}
+                                    {% endblock %}
+                                    <div class="sidebar-box nav_expanded" id="cat_kreativarbeiten_news">
+                                        <h5>
+                                            <a href="#Collapse-Expand" class="open_but">
+                                                <strong>{% trans "NEWSFEED" %}</strong>
+                                                <span class="pic"></span>
+                                            </a>
+                                        </h5>
+
+                                        <div class="sector-select hidable">
+                                            <ul id="newsfeed">
+                                                <li>Weitere News auf <br/>
+                                                    <a href="http://www.kultur-kreativ-wirtschaft.de/"
+                                                        onclick="open_new_window(event)">kultur-kreativ-wirtschaft.de
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <script type="text/javascript"
+                                        src="{{ STATIC_URL }}site/js/website/kreativarbeiten_news.js"></script>
+                                </div>
+                            </div>
+                            <div class="col3">
+                                <div class="col3_content clearfix">
+                                    {% block content %}
+                                        <div id="details">
+                                            {% block details %}
+                                            {% endblock %}
+                                        </div>
+                                    {% endblock %}
+                                </div>
+                                <div class="ie_clearing">&nbsp;</div>
+                            </div>
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+
+            {% block extra_content %}
+            {% endblock %}
+
+            <div id="breadcrumbs" class="clearfix">
+                <div class="page_margins">
+                    <div class="page">
+                    </div>
+                </div>
+            </div>
+
+            <div id="footer" class="clearfix">
+                <div class="page_margins">
+                    <div class="page">
+                    </div>
+                </div>
+            </div>
+        {% endspaceless %}
+        {{ site_settings.extra_body|safe }}
+        {% block extrabody %}{% endblock %}
+        <script type="text/javascript">
+            (function ($, undefined) {
+                $(document).ready(function () {
+                    $('a[href^="http"]').each(function () {
+                        if ($(this).attr("href").indexOf(settings.website_url) == -1) {
+                            if (!$(this).attr('target')) {
+                                $(this).attr('target', '_blank');
+                            }
+                        }
+                    });
+                });
+            }(jQuery));
+        </script>
+        <!-- Last update: {% now "Y-m-d H:i:s" %} -->
+    </body>
+</html>

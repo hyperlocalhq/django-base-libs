@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load i18n base_tags navigation_tags babel favorites cms_tags %}
+
+{% block meta_tags %}
+    {% if LANGUAGE_CODE == "de" %}
+        <meta name="keywords" lang="de" content="Jobbörse, Stellenmarkt, Stellenangebote, Kultur, Kreativwirtschaft, Kunst, Medien, Design, Praktikum, Praktika, Berlin"/>
+        <meta name="description" lang="de" content="Jobbörse für die Kultur- und Kreativwirtschaft in Berlin"/>
+    {% else %}
+        <meta name="keywords" lang="en-us" content="job, jobs, jobboard, job exchange, Berlin, culture, art, creative industries, media, design, internships, internship"/>
+        <meta name="description" lang="en-us" content="Job exchange for the cultural sector and the creative industries in Berlin"/>
+    {% endif %}
+{% endblock %}
+
+{% block open_graph %}
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ object.position }} @ {% if object.offering_institution or object.offering_institution_title %}{% if object.offering_institution %}{{ object.offering_institution.get_title }}{% else %}{{ object.offering_institution_title }}{% endif %}{% endif %}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="http://{{ request.get_host }}{{ STATIC_URL }}site/img/default/ccb_opengraph.jpg" />
+    <meta property="og:description" content="{{ object.get_description|striptags|truncatewords:20|escape }}" />
+{% endblock %}
+
+{% block title %}
+    {{ object.position }}
+    {% if object.offering_institution or object.offering_institution_title %}
+        @
+        {% if object.offering_institution %}
+            {{ object.offering_institution.get_title }}
+        {% else %}
+            {{ object.offering_institution_title }}
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>
+                        <a href="{% page_url request.current_page %}">
+                            {% page_attribute "page_title" request.current_page %}
+                        </a>
+                    </h1>
+                    <h2>{{ object.position }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                <div class="button-group">
+                    {% if request.user.is_authenticated %}
+                        {% adding2favorites for object %}
+                    {% else %}
+                        <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}"
+                            class="fawesome fa-favorite button text">
+                            <span class="text">{% trans "Favorite" %}</span></a>
+                    {% endif %}
+                    <a rel="nofollow" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" class="fawesome fa-facebook button text social-sharing"><span class="text">{% trans "Share on Facebook" %}</span></a>
+                    <a rel="nofollow" target="_blank" href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri|urlencode }}&amp;text={{ object.position|urlencode }}" class="fawesome fa-twitter button text social-sharing"><span class="text">{% trans "Tweet" %}</span></a>
+                    <a rel="nofollow" target="_blank" href="https://plus.google.com/share?url={{ request.build_absolute_uri|urlencode }}" class="fawesome fa-googleplus button text social-sharing"><span class="text">{% trans "Share on Google+" %}</span></a>
+                    <a rel="nofollow" href="mailto:?subject={{ object.position|urlencode }}&amp;body={{ request.build_absolute_uri|urlencode }}" class="fawesome fa-email button text"><span class="text">{% trans "Email to a friend" %}</span></a>
+
+                    {% if request.user.is_authenticated %}
+                        {% if request.user.is_staff and perms.marketplace.change_joboffer %}
+                            <a href="/admin/marketplace/joboffer/{{ object.pk }}/" class="fawesome fa-edit button text" onclick="open_new_window(event)"><span class="text">{% trans "edit Job Offer" %}</span></a>
+                        {% endif %}
+                    {% endif %}
+
+                    {% navigation_links "menu_object_activities" %}
+
+                </div>
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                {% block details %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'job_offer_list_global' %}">{% page_attribute "page_title" %}</a></li>
+    <li><a href="{{ object.get_url_path }}">{{ object.position }}</a></li>
+    {% block breadcrumbs_details %}
+    {% endblock %}
+{% endblock %}

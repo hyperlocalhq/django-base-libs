@@ -1,0 +1,77 @@
+{% extends "media_gallery/portfolio_base.html" %}
+{% load i18n base_tags auth_extended infoblocks image_mods_tags favorites %}
+
+
+{% block details %}
+    {% if not gallery_list %}
+
+        {% if_has_perm "people.change_person" object %}
+            <div class="row projects-grid">
+                <div class="col-xs-12 col-sm-6">
+                    <div class="wrapper">
+                        <a class="content" href="{{ request.path }}album/add/">
+                            <div class="upload-project">
+                                <div class="fawesome fa-rocket"></div>
+                                <h3>{% trans 'Do you have something new?' %}<br/>{% trans 'Upload project' %}</h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p>{% trans "There haven't been any files uploaded yet." %}</p>
+        {% end_if_has_perm %}
+
+    {% else %}
+
+        <div class="row projects-grid">
+
+            {% for item in gallery_list %}
+                <div class="col-xs-12 col-sm-6">
+                    <div class="wrapper tap-hover">
+                        <a class="content tap-hover-trigger" href="{{ item.content_object.get_url_path }}portfolio/album/{{ item.get_token }}/">
+                            {% if item.cover_image %}{# show the cover image... #}
+                                <img src="{{ UPLOADS_URL }}{{ item.cover_image.path|modified_path:"project_grid" }}" alt="{{ item.title|escape }}" />
+                            {% elif item.mediafile_set.all.0.get_list_image_url %}{# ...or the first uploaded media file... #}
+                                <img src="{{ item.mediafile_set.all.0.get_list_image_url }}" alt="{{ item.title|escape }}" />
+                            {% else %}{# ...or if there are no media files uploaded, show the placeholder #}
+                                <img src="{{ STATIC_URL }}site/img/placeholder/gallery_square.png" alt="{{ item.title|escape }}" />
+                            {% endif %}
+                            <h2>{{ item.title|escape }} {% if item.is_draft %}({% trans "Draft" %}){% endif %}</h2>
+                            {% if item.photo_author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ item.photo_author }}</span>{% endif %}
+                        </a>
+                        <div class="button-group">
+                            {% if request.user.is_authenticated %}
+                                {% adding2favorites for item using "generic/favorite_icon.html" %}
+                            {% else %}
+                                <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}" class="fawesome fa-favorite button"><span class="sr-only">{% trans "Add to favorites" %}</span></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+            {% if_has_perm "people.change_person" object %}
+                <div class="col-xs-12 col-sm-6">
+                    <div class="wrapper">
+                        <a class="content" href="{{ request.path }}album/add/">
+                            <div class="upload-project">
+                                <div class="fawesome fa-rocket"></div>
+                                <h3>{% trans 'Do you have something new?' %}<br/>{% trans 'Upload project' %}</h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% end_if_has_perm %}
+
+        </div>
+
+    {% endif %}
+{% endblock %}
+
+
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/projects-grid.js"></script>
+{% endblock %}
