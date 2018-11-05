@@ -17,7 +17,7 @@ urlpatterns = [
     ),
     
     # articles aggregated syndication feeds
-    url(r'^feeds/(?P<feed_type>.*)/$', 
+    url(r'^feeds/(?P<feed_type>rss|atom)/$',
         views.theater_of_the_week_feed,
         dict(type_sysname='all', **theater_of_the_week_feeds),
         name="theater_of_the_week_feed",
