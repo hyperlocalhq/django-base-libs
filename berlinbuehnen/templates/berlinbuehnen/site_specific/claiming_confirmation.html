@@ -1,0 +1,83 @@
+{% extends "site_specific/base.html" %}
+{% load base_tags i18n crispy_forms_tags infoblocks sekizai_tags %}
+
+{% block title %}{% trans "Claiming confirmation" %}{% endblock %}
+
+{% block content %}
+    {% if confirm_form %}
+        <div id="claiming_confirm" class="inner">
+            <header>
+                <h2>{% blocktrans %}Confirm ownership{% endblocktrans %}:<br/>
+                <b><a href="{{ location.get_url_path }}">{{ location.title }}</a></b></h2>
+            </header>
+            {% crispy confirm_form %}
+        </div>
+    {% else %}
+        <div id="claiming_signup" class="inner">
+            <header>
+                <p>{% blocktrans with location_link=location.get_url_path location_title=location.title %}Please fill in this form to create and account at Berlin Bühnen and to confirm that you are the owner of <a href="{{ location_link }}">{{ location_title }}</a>.{% endblocktrans %}</p>
+            </header>
+            {% crispy register_form %}
+            <footer>
+                <p>{% trans "Already have an account?" %} <a href="#login" id="login_link">{% trans "Login" %}</a></p>
+            </footer>
+        </div>
+        <div id="claiming_login" class="inner" style="display: none">
+            <header>
+                <p>{% blocktrans with location_link=location.get_url_path location_title=location.title %}Please login to confirm that you are the owner of <a href="{{ location_link }}">{{ location_title }}</a>.{% endblocktrans %}</p>
+            </header>
+            {% crispy login_form %}
+            <footer>
+                <p>{% trans "Don't have an account?" %} <a href="#signup" id="signup_link">{% trans "Signup" %}</a></p>
+            </footer>
+        </div>
+        {% now "uuuu" as microseconds %}
+        <script nonce="{{ microseconds|to_base64 }}">
+        $(function() {
+            $('#login_link').click(function() {
+                $('#claiming_signup').hide();
+                $('#claiming_login').show();
+            });
+            $('#signup_link').click(function() {
+                $('#claiming_login').hide();
+                $('#claiming_signup').show();
+            });
+            if (location.hash.replace(/^#/, "") == "login") {
+                $('#claiming_signup').hide();
+                $('#claiming_login').show();
+            }
+        });
+        </script>
+        {% add_data "script_nonces" microseconds|to_base64 %}
+    {% endif %}
+    <!-- Modal -->
+    <div id="confirm_ownership" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+        <div class="modal-centered">
+            <div class="cell">
+                <div class="inner">
+                    <div class="modal-body">
+                        {% infoblock "confirm_ownership" %}
+                    </div>
+                    <div class="modal-footer">
+                        <button id="button-id-confirm-ownership" class="btn btn-primary">{% trans "I agree" %}</button>
+                        <button id="button-id-cancel-ownership" name="cancel" class="btn">{% trans "I disagree" %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% now "uuuu" as microseconds %}
+    <script nonce="{{ microseconds|to_base64 }}">
+    $(function() {
+        $('#confirm_ownership').modal('show');
+        $('#button-id-confirm-ownership').click(function() {
+            $('#confirm_ownership').modal('hide');
+        });
+        $('#button-id-cancel-ownership').click(function() {
+            location.href = "/de/kontakt/";
+        });
+    });
+    </script>
+    {% add_data "script_nonces" microseconds|to_base64 %}
+{% endblock %}
+

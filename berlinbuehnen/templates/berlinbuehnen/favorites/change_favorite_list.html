@@ -1,0 +1,16 @@
+{% extends "base_fullscreen.html" %}
+{% load base_tags crispy_forms_tags i18n sekizai_tags %}
+{% block bodyclass %}{{ block.super }} popup{% endblock %}
+
+{% block content %}
+    <div class="form">
+        {% crispy form %}
+    </div>
+
+    <script src="{{ STATIC_URL }}site/js/jquery.autosize.min.js"></script>
+    {% now "uuuu" as microseconds %}
+    <script nonce="{{ microseconds|to_base64 }}">
+        $('textarea').autosize();
+    </script>
+    {% add_data "script_nonces" microseconds|to_base64 %}
+{% endblock %}
