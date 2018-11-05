@@ -52,7 +52,14 @@ for n in dir(ImageFilter):
     klass = getattr(ImageFilter, n)
     if isclass(klass) and issubclass(klass, ImageFilter.BuiltinFilter) and hasattr(klass, 'name'):
         filter_names.append(klass.__name__)
-image_filters_help_text = _('Chain multiple filters using the following pattern "FILTER_ONE->FILTER_TWO->FILTER_THREE". Image filters will be applied in order. The following filter are available: %s') % ', '.join(filter_names)
+
+# The following string made non-translatable, because it messes up the migrations,
+# when the default language is not English in the project
+image_filters_help_text = (
+    'Chain multiple filters using the following pattern "FILTER_ONE->FILTER_TWO->FILTER_THREE". '
+    'Image filters will be applied in order. The following filter are available: %s'
+) % ', '.join(filter_names)
+# TODO: shouldn't we remove the filters functionality from this app as it is not used anywhere anyway?
 
 # Quality options for JPEG images
 JPEG_QUALITY_CHOICES = (
