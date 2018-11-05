@@ -159,7 +159,8 @@ class ProductionAdmin(ExtendedModelAdmin):
     date_hierarchy = "modified_date"
 
     fieldsets = get_admin_lang_section(_("Title"), ['title', 'prefix', 'subtitle', 'original', 'website'])
-    fieldsets += [(None, {'fields': ('slug', 'classiccard', )}),]
+    fieldsets += [(None, {'fields': ('slug', 'classiccard',)}),]
+    fieldsets += [(_("Upcoming event datetime"), {'fields': ['start_date', 'start_time', ]}),]
     fieldsets += [(_("Location"), {'fields': ['in_program_of', 'ensembles', 'play_locations', 'play_stages', 'organizers', 'in_cooperation_with']}),]
     fieldsets += [(_("Free Location"), {'fields': ['location_title', 'street_address', 'street_address2', 'postal_code', 'city', 'latitude', 'longitude']}),]
     fieldsets += [(_("Relations"), {'fields': ['categories', 'festivals', 'related_productions']}),]
@@ -172,7 +173,7 @@ class ProductionAdmin(ExtendedModelAdmin):
         'fields': ['get_owners_list', 'get_editors_list', 'get_external_id'],
         'description': _("Owners are users who have permissions to modify this production directly. Editors are owners of this production or of the related theaters.")
     }),]
-    readonly_fields = ['get_owners_list', 'get_editors_list', 'get_external_id']
+    readonly_fields = ['get_owners_list', 'get_editors_list', 'get_external_id', 'start_date', 'start_time', ]
 
     filter_horizontal = ['in_program_of', 'play_locations', 'play_stages', 'categories', 'characteristics']
     raw_id_fields = ["festivals", "related_productions"]
