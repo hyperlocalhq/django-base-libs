@@ -24,7 +24,7 @@ urlpatterns = patterns(path_in_installed_app('articles.views'),
     ),
     
     # articles aggregated syndication feeds
-    url(r'^feeds/(?P<feed_type>.*)/$', 
+    url(r'^feeds/(?P<feed_type>rss|atom)/$',
         'article_feed', 
         dict(article_feeds, type_sysname='all'),
         name="article_feed",
