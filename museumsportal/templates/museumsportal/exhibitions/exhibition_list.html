@@ -83,9 +83,12 @@
                               {% endwith %}
                             {% else %}
                               <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ exhibition.museum.cover_image|modified_path:"exhibition_list" }}{% if_has_perm "exhibitions.change_exhibition" exhibition %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
-                              {% with exhibition.museum.cover_image|file_description as file_desc %}
-                                  {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}
-                              {% endwith %}
+                                {% if exhibition.museum %}
+                                    {% with exhibition.museum.cover_image|file_description as file_desc %}
+                                        {% if file_desc.author %}
+                                            <span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}
+                                    {% endwith %}
+                                {% endif %}
                             {% endif %}
                         </div>
                     </span>
