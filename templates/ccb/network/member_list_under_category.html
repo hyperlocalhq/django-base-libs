@@ -94,7 +94,7 @@
 
                 <div class="col-xs-12 col-sm-6 col-md-4">
                     <div class="wrapper">
-                        <a class="content" href="{{ object.get_url_path }}">
+                        <a class="content fawesome after {% if object.is_institution %}fa-institution{% else %}fa-person{% endif %}" href="{{ object.get_url_path }}">
                             {% if object.content_object.image %}
                                 <img src="{{ UPLOADS_URL }}{{ object.content_object.image|modified_path:"profile" }}" alt="{{ object.get_title|escape }}"/>
                             {% else %}
@@ -128,7 +128,7 @@
                                 {% if object.is_contactable %}
                                     <a href="{{ object.get_url_path }}message/" class="fawesome fa-email button"><span class="sr-only">{% trans "Send Email" %}</span></a>
                                 {% endif %}
-                            {% else %}                      
+                            {% else %}
                                 {% if object.is_contactable %}
                                     <a rel="nofollow" href="{% url 'login' %}?goto_next={{ object.get_url_path }}message/" class="fawesome fa-email button text"><span class="text">{% trans "Send Email" %}</span></a>
                                 {% endif %}

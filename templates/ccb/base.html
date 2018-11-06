@@ -306,10 +306,12 @@
         {% block javascript %}
         {% endblock %}
 
+        {% comment %}
         {% block facebook_scripts %}
             <div id="fb-root"></div>
             <script type="text/javascript" src="//connect.facebook.net/{% if LANGUAGE_CODE == "en" %}en_US{% else %}de_DE{% endif %}/all.js"></script>
         {% endblock %}
+        {% endcomment %}
 
         {% render_block "js" %}
         <script type="text/javascript" src="{{ STATIC_URL }}site/js/generic.min.js"></script>
