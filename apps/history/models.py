@@ -91,12 +91,13 @@ class ExtendedLogEntryManager(models.Manager):
                 )
 
 class ExtendedLogEntry(ObjectRelationMixin()):
-    action_time = models.DateTimeField(_('action time'), auto_now=True)
+    # To make the migrations generic, we make the verbose_name not translatable here.
+    action_time = models.DateTimeField('Action time', auto_now=True)
     user = models.ForeignKey(User)
-    object_repr = models.CharField(_('object repr'), max_length=200)
-    action_flag = models.PositiveSmallIntegerField(_('action'), choices=ACTION_CHOICES, default=A_UNDEFINED)
-    change_message = MultilingualPlainTextField(_('change message'), blank=True)
-    scope = models.PositiveSmallIntegerField(_('scope'), choices=SCOPE_CHOICES, default=AS_SYSTEM)
+    object_repr = models.CharField('Object representation', max_length=200)
+    action_flag = models.PositiveSmallIntegerField('Action', choices=ACTION_CHOICES, default=A_UNDEFINED)
+    change_message = MultilingualPlainTextField('Changes', blank=True)
+    scope = models.PositiveSmallIntegerField('Scope', choices=SCOPE_CHOICES, default=AS_SYSTEM)
     objects = ExtendedLogEntryManager()
     
     class Meta:
