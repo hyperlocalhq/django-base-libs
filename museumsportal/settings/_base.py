@@ -266,7 +266,6 @@ INSTALLED_APPS = [
     "jetson.apps.i18n",
     "jetson.apps.image_mods",
     "jetson.apps.httpstate",
-    "jetson.apps.history",
     "jetson.apps.utils",
     "jetson.apps.extendedadmin",
     "jetson.apps.permissions",
@@ -275,6 +274,7 @@ INSTALLED_APPS = [
     "jetson.apps.blog",
 
     ### museumsportal apps ###
+    "museumsportal.apps.history",
     "museumsportal.apps.museums",
     "museumsportal.apps.exhibitions",
     "museumsportal.apps.exhibitions_plugins",

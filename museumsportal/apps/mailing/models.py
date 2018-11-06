@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+from django.apps import apps
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import linebreaks, urlize
@@ -18,8 +19,10 @@ from base_libs.models import ExtendedTextField
 from base_libs.models import CreationModificationMixin
 
 from museumsportal.apps.mailing.mail import send_mail
-from jetson.apps.history.models import custom_action_signal_1
-from jetson.apps.history.models import custom_action_signal_2
+
+history_models = apps.get_app('history')
+custom_action_signal_1 = history_models.custom_action_signal_1
+custom_action_signal_2 = history_models.custom_action_signal_2
 
 verbose_name = _("Mailing")
 
@@ -104,7 +107,7 @@ class EmailMessage(CreationModificationMixin):
     def get_log_message(self, language=None, action=None):
         """
         Gets a message for a specific action which will be logged for history """
-        history_models = models.get_app("history")
+        history_models = apps.get_app("history")
         message = ""
         if action == history_models.A_CUSTOM1:
             message = get_translation("%(sender)s sent a message to %(recipient)s", language=language) % {
