@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('cms', '0016_auto_20160608_1535'),
-        ('image_mods', '0006_auto_20180829_2035'),
+        ('image_mods', '0001_initial'),
     ]
 
     operations = [
