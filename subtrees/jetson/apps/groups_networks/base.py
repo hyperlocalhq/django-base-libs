@@ -731,9 +731,9 @@ class GroupMembershipBase(models.Model):
             self._add_proper_role()
     save.alters_data = True
 
-    def delete(self):
+    def delete(self, *args, **kwargs):
         self._remove_existing_roles()
-        super(GroupMembershipBase, self).delete()
+        super(GroupMembershipBase, self).delete(*args, **kwargs)
     delete.alters_data = True
 
     # helper methods

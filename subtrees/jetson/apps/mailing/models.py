@@ -77,7 +77,7 @@ class EmailMessage(CreationModificationMixin):
                 self.recipient_emails.split(","),
                 plain_message=self.body,
             )
-        except:
+        except Exception as e:
             return False
         else:
             if self.sender:
