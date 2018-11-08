@@ -4,7 +4,6 @@ from django.core.management.base import BaseCommand
 from django.utils.encoding import force_text
 
 
-
 class Command(BaseCommand):
     SILENT, NORMAL, VERBOSE = 0, 1, 2
     help = """Imports job offers from www.medianet-bb.de"""
@@ -48,12 +47,13 @@ class Command(BaseCommand):
             13841: JobSector.objects.get(pk=14),  # Games / Development / Gamedesign / Producer ➔ Games
             13842: JobSector.objects.get(pk=7),   # Softwareentwicklung / Data Analytics / Systemintegration ➔ Online & IT
             13843: JobSector.objects.get(pk=7),   # IT-Entwicklung / IT-Berater / IT Administration / Webdesign ➔ Online & IT
-            13847: JobSector.objects.get(pk=22),  # Human Resources / Personalentwicklung ➔ Community Management
+            13847: JobSector.objects.get(pk=24),  # Human Resources / Personalentwicklung ➔ Andere
             13937: JobSector.objects.get(pk=11),  # Marketing / Kommunikation / Event ➔ PR & Event
             13946: JobSector.objects.get(pk=13),  # Business Development / Entrepreneurship ➔ Corporate - CD / CI / CC
             13953: JobSector.objects.get(pk=24),  # Buchhaltung ➔ Andere
             13973: JobSector.objects.get(pk=21),  # Vertrieb / Sales / Accounting / Management ➔ Sales & Support
-            13983: JobSector.objects.get(pk=24),  # Medienrecht / Personalrecht ➔ Sales & Support
+            13983: JobSector.objects.get(pk=24),  # Medienrecht / Personalrecht ➔ Andere
+            '*': JobSector.objects.get(pk=24),  # Others ➔ Andere
         }
 
         self.JOB_TYPE_MAPPING = {
@@ -61,6 +61,7 @@ class Command(BaseCommand):
             13780: JobType.objects.get(pk=10),  # Trainee ➔ Volontariat/Trainee
             13781: JobType.objects.get(pk=3),   # Werkstudent ➔ Studentische Aushilfe
             13782: JobType.objects.get(pk=4),   # Festanstellung ➔ Vollzeit
+            '*': JobType.objects.get(pk=4),   # Others ➔ Vollzeit
         }
 
         self.JOB_QUALIFICATION_MAPPING = {
@@ -68,6 +69,7 @@ class Command(BaseCommand):
             13785: JobQualification.objects.get(pk=3), # Senior ➔ Senior
             13783: JobQualification.objects.get(pk=1), # Junior ➔ Junior
             13786: JobQualification.objects.get(pk=4), # Führungserfahrung ➔ N/A
+            '*': JobQualification.objects.get(pk=4), # Others ➔ N/A
         }
 
         self.index1 = 1
@@ -107,6 +109,7 @@ class Command(BaseCommand):
         from datetime import timedelta
         from django.apps import apps
         from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
+        from base_libs.utils.misc import html_to_plain_text
 
         ObjectMapper = apps.get_model("external_services", "ObjectMapper")
         JobOffer = apps.get_model("marketplace", "JobOffer")
@@ -126,8 +129,8 @@ class Command(BaseCommand):
                 content_type__model="joboffer",
             )
             job_offer = mapper.content_object
-            if job_offer.modified_date > change_date:
-                return
+            #if job_offer.modified_date > change_date:
+            #    return
         except ObjectMapper.MultipleObjectsReturned:
             # delete duplicates
             for mapper in self.service.objectmapper_set.filter(
@@ -149,8 +152,13 @@ class Command(BaseCommand):
 
         job_offer.offering_institution_title = offering_institution_title
         job_offer.position = position
-        job_offer.description = job_dict['content']['rendered']
-        job_offer.job_type = self.JOB_TYPE_MAPPING.get(job_dict['beschaeftigungsarten'][0])
+
+        job_offer.description = html_to_plain_text(job_dict['content']['rendered'])
+
+        if job_dict['beschaeftigungsarten']:
+            job_offer.job_type = self.JOB_TYPE_MAPPING.get(job_dict['beschaeftigungsarten'][0])
+        else:
+            job_offer.job_type = self.JOB_TYPE_MAPPING['*']
 
         job_offer.url0_link = job_dict['link']
         job_offer.is_commercial = False
@@ -176,12 +184,18 @@ class Command(BaseCommand):
         # add job sectors
 
         job_offer.job_sectors.clear()
-        job_offer.job_sectors.add([self.JOB_SECTOR_MAPPING[sector_id] for sector_id in job_dict['branche']])
+        job_offer.job_sectors.add(*[
+            self.JOB_SECTOR_MAPPING.get(sector_id, self.JOB_SECTOR_MAPPING['*'])
+            for sector_id in job_dict['branche']
+        ])
 
         # add job qualifications
 
         job_offer.qualifications.clear()
-        job_offer.qualifications.add([self.JOB_QUALIFICATION_MAPPING[qual_id] for qual_id in job_dict['berufserfahrungen']])
+        job_offer.qualifications.add(*[
+            self.JOB_QUALIFICATION_MAPPING.get(qual_id, self.JOB_QUALIFICATION_MAPPING['*'])
+            for qual_id in job_dict['berufserfahrungen']
+        ])
 
         if not mapper:
             mapper = ObjectMapper(
