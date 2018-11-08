@@ -874,7 +874,16 @@ def humanize_url(url, letter_count):
     return url
 
 
+@register.filter
+def linkify(text):
+    import bleach
+    text = bleach.linkify(text, parse_email=True)
+    return mark_safe(text)
+
+
 register.filter('get_user_title', get_user_title)
+
+
 
 
 @register.filter
