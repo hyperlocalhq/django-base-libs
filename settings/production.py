@@ -51,15 +51,12 @@ CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
 
 CACHES = {
-    "default_temp": {
+    "default": {
         "BACKEND": "django.core.cache.backends.memcached.PyLibMCCache",
         "LOCATION": "127.0.0.1:11212",
         "KEY_PREFIX": "ccb_production_",
         "TIMEOUT": 3000,
         "MAX_ENTRIES": 4000,
-    },
-    'default': {
-        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
     },
     'dummy': {
         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
