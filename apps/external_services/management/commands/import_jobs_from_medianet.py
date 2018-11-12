@@ -25,7 +25,7 @@ class Command(BaseCommand):
         URL = "https://www.medianet-bb.de/wp-json/wp/v2/job"
         SERVICE_TITLE = "medianet"
         self.service, created = Service.objects.get_or_create(
-            sysname="theaterjobs",
+            sysname="medianet",
             defaults={
                 'url': URL,
                 'title': SERVICE_TITLE,
