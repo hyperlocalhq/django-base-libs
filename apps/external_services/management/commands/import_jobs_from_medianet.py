@@ -23,7 +23,7 @@ class Command(BaseCommand):
         Service = apps.get_model("external_services", "Service")
 
         URL = "https://www.medianet-bb.de/wp-json/wp/v2/job"
-        SERVICE_TITLE = "medianet"
+        SERVICE_TITLE = "media:net berlinbrandenburg"
         self.service, created = Service.objects.get_or_create(
             sysname="medianet",
             defaults={
