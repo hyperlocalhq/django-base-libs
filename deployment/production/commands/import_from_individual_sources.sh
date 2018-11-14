@@ -3,7 +3,9 @@
 SECONDS=0
 DJANGO_SETTINGS_MODULE=berlinbuehnen.settings.production
 PROJECT_PATH=/usr/local/www/apache24/data/berlin-buehnen.de
+DJANGO_PATH="${PROJECT_PATH}/project/berlinbuehnen"
 #PROJECT_PATH="${HOME}/git/bitbucket/berlinbuehnen"
+#DJANGO_PATH="${PROJECT_PATH}"
 mkdir -p "${PROJECT_PATH}/logs"
 CRON_LOG_FILE="${PROJECT_PATH}/logs/import_from_individual_sources.log"
 
@@ -19,9 +21,9 @@ source venv/bin/activate
 function run_django_command {
     echo "$2"
     date
-    DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE} \
-    PROJECT_PATH=${PROJECT_PATH} \
-        python manage.py "$1" --traceback --verbosity=2
+    DJANGO_SETTINGS_MODULE="${DJANGO_SETTINGS_MODULE}" \
+    PROJECT_PATH="${PROJECT_PATH}" \
+        python "${DJANGO_PATH}/manage.py" "$1" --traceback --verbosity=2
     readonly django_exit_code=$?
     echo "------------"
     return $django_exit_code
