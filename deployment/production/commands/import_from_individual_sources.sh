@@ -2,16 +2,19 @@
 
 SECONDS=0
 DJANGO_SETTINGS_MODULE=berlinbuehnen.settings.production
-#PROJECT_PATH=/usr/local/www/apache24/data/berlin-buehnen.de
-PROJECT_PATH="${HOME}/git/bitbucket/berlinbuehnen"
+PROJECT_PATH=/usr/local/www/apache24/data/berlin-buehnen.de
+#PROJECT_PATH="${HOME}/git/bitbucket/berlinbuehnen"
 mkdir -p "${PROJECT_PATH}/logs"
 CRON_LOG_FILE="${PROJECT_PATH}/logs/import_from_individual_sources.log"
+
+script_errors=0
 
 # Use the null command (:) redirect (> filename) trick (:>), as this will truncate to zero or create the named file.
 :> "${CRON_LOG_FILE}"
 
 cd "${PROJECT_PATH}" || exit
-source ../../../venv/bin/activate
+# shellcheck source=../../../venv/bin/activate
+source venv/bin/activate
 
 function run_django_command {
     echo "$2"
@@ -24,10 +27,8 @@ function run_django_command {
     return $django_exit_code
 }
 
-script_exit_code=0
-
 COMMANDS=(
-    "import_from_NON_EXISTING_SOURCE:Importing from Non-existing Source (should trigger error)"
+#    "import_from_NON_EXISTING_SOURCE:Importing from Non-existing Source (should trigger error)"
     "import_from_berliner_ensemble:Importing from Berliner Ensemble (New)"
     "import_from_berliner_philharmonie:Importing from Berliner Philharmonie"
     "import_from_boulezsaal:Importing from Pierre Boulez Saal (New)"
@@ -49,15 +50,18 @@ COMMANDS=(
     "import_from_wuehlmaeuse:Importing from Wuehlmaeuse"
 )
 
+echo "============" >> "${CRON_LOG_FILE}" 2>&1
+
 for command_colon_title in "${COMMANDS[@]}"; do
     command="${command_colon_title%%:*}"
     title="${command_colon_title##*:}"
     run_django_command "${command}" "${title}" >> "${CRON_LOG_FILE}" 2>&1
     function_exit_code=$?
-    if [[ $function_exit_code -ne 0 ]]
-    then
-        echo "Function exit code is non-zero: $function_exit_code" >> "${CRON_LOG_FILE}" 2>&1
-        script_exit_code=$function_exit_code
+    if [[ $function_exit_code -ne 0 ]]; then
+        echo "!!!!!!!!!!!!" >> "${CRON_LOG_FILE}" 2>&1
+        echo "Function exit code is non-zero ($function_exit_code) for command $command" >> "${CRON_LOG_FILE}" 2>&1
+        script_errors=$((script_errors + 1))
+        echo "!!!!!!!!!!!!" >> "${CRON_LOG_FILE}" 2>&1
     else
         echo "No error running command $command" >> "${CRON_LOG_FILE}" 2>&1
     fi
@@ -70,4 +74,9 @@ echo "Finished." >> "${CRON_LOG_FILE}"
 duration=${SECONDS}
 echo "$((duration / 60)) minutes and $((duration % 60)) seconds elapsed." >> "${CRON_LOG_FILE}"
 
-exit $script_exit_code
+if [[ $script_errors -ne 0 ]]; then
+    echo "!!!!!!!!!!!!" >> "${CRON_LOG_FILE}" 2>&1
+    echo "Script encountered $script_errors errors during execution" >> "${CRON_LOG_FILE}" 2>&1
+fi
+
+exit $script_errors
