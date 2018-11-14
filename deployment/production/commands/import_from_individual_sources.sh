@@ -21,11 +21,7 @@ function run_django_command {
         python manage.py "$1" --traceback --verbosity=2
     readonly django_exit_code=$?
     echo "------------"
-    if [[ $django_exit_code -ne 0 ]]; then
-        return $django_exit_code
-    else
-        return 0
-    fi
+    return $django_exit_code
 }
 
 script_exit_code=0
