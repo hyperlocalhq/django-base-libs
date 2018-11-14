@@ -8,6 +8,7 @@ import csv
 from django.core.management.base import NoArgsCommand
 from django.utils.encoding import force_unicode
 from django.db import models
+from django.apps import apps
 
 from base_libs.utils.misc import get_unique_value
 from base_libs.utils.betterslugify import better_slugify
@@ -651,8 +652,8 @@ class ImportFromCulturebaseBase(NoArgsCommand, ImportCommandMixin):
             instance.press_text_en = u""
 
     def save_page(self, root_node):
-        ObjectMapper = models.get_model("external_services", "ObjectMapper")
-        image_mods = models.get_app("image_mods")
+        ObjectMapper = apps.get_model("external_services", "ObjectMapper")
+        image_mods = apps.get_app("image_mods")
 
         prod_nodes = root_node.findall('%(prefix)sProduction' % self.helper_dict)
         prods_count = len(prod_nodes)

@@ -1,13 +1,8 @@
 # -*- coding: UTF-8 -*-
-
-import os
-import shutil
-from optparse import make_option
-
 from django.conf import settings
 from django.utils.encoding import smart_str
 from django.core.management.base import NoArgsCommand
-from django.db import models
+from django.apps import apps
 
 SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
 
@@ -26,16 +21,16 @@ class Command(NoArgsCommand):
 
         self.verbosity = int(options.get("verbosity", NORMAL))
 
-        Location = models.get_model("locations", "Location")
-        Stage = models.get_model("locations", "Stage")
-        LocationImage = models.get_model("locations", "Image")
-        FileDescription = models.get_model("filebrowser", "FileDescription")
+        Location = apps.get_model("locations", "Location")
+        Stage = apps.get_model("locations", "Stage")
+        LocationImage = apps.get_model("locations", "Image")
+        FileDescription = apps.get_model("filebrowser", "FileDescription")
 
-        ProductionCategory = models.get_model("productions", "ProductionCategory")
-        Production = models.get_model("productions", "Production")
-        Event = models.get_model("productions", "Event")
-        ProductionImage = models.get_model("productions", "ProductionImage")
-        EventImage = models.get_model("productions", "EventImage")
+        ProductionCategory = apps.get_model("productions", "ProductionCategory")
+        Production = apps.get_model("productions", "Production")
+        Event = apps.get_model("productions", "Event")
+        ProductionImage = apps.get_model("productions", "ProductionImage")
+        EventImage = apps.get_model("productions", "EventImage")
 
         wb = openpyxl.Workbook()  # encoding='utf-8'
 

@@ -6,8 +6,8 @@ class Command(ImportToBerlinBuehnenBaseXML):
     help = "Imports productions and events from Schlosspark Theater"
 
     def prepare(self):
-        from django.db import models
-        Service = models.get_model("external_services", "Service")
+        from django.apps import apps
+        Service = apps.get_model("external_services", "Service")
 
         self.service, created = Service.objects.get_or_create(
             sysname="bb_schlosspark_theater_prods",

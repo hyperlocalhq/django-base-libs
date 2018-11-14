@@ -11,6 +11,7 @@ from django.core.management.base import NoArgsCommand
 from django.utils.encoding import smart_str, force_unicode
 from django.utils.text import slugify
 from django.db import models
+from django.apps import apps
 
 from base_libs.utils.misc import get_unique_value
 
@@ -170,7 +171,7 @@ class Command(NoArgsCommand):
 
         self.load_and_parse_locations()
 
-        Service = models.get_model("external_services", "Service")
+        Service = apps.get_model("external_services", "Service")
 
         self.service, created = Service.objects.get_or_create(
             sysname="culturebase_prods",
@@ -621,8 +622,8 @@ class Command(NoArgsCommand):
     def save_page(self, root_node):
         import time
         from filebrowser.models import FileDescription
-        ObjectMapper = models.get_model("external_services", "ObjectMapper")
-        image_mods = models.get_app("image_mods")
+        ObjectMapper = apps.get_model("external_services", "ObjectMapper")
+        image_mods = apps.get_app("image_mods")
 
         prod_nodes = root_node.findall('%(prefix)sProduction' % self.helper_dict)
         prods_count = len(prod_nodes)

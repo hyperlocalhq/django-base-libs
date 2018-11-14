@@ -9,19 +9,18 @@ class Command(ImportToBerlinBuehnenBaseJSON):
     AUTH = ('gorki', '2016')
 
     def prepare(self):
-        from django.db import models
-        Service = models.get_model("external_services", "Service")
+        from django.apps import apps
+        Service = apps.get_model("external_services", "Service")
 
-        #url = "http://staging.gorki.de/de/gorki/export?token=DSIFHSDFIEWJSDF9734adadsd342342sdf23432esd9uejdvnpaodhefghdsnhdffgasncvqw3dsf3fsdf"
-        url = "http://gorki.de/de/gorki/export?token=DSIFHSDFIEWJSDF9734adadsd342342sdf23432esd9uejdvnpaodhefghdsnhdffgasncvqw3dsf3fsdf"
+        URL = "http://gorki.de/de/gorki/export?token=DSIFHSDFIEWJSDF9734adadsd342342sdf23432esd9uejdvnpaodhefghdsnhdffgasncvqw3dsf3fsdf"
         self.service, created = Service.objects.get_or_create(
             sysname="bb_gorki_theater_prods",
             defaults={
-                'url': url,
+                'url': URL,
                 'title': u"BB Gorki Theater Productions",
             },
         )
         # update the URL
-        if self.service.url != url:
-            self.service.url = url
+        if self.service.url != URL:
+            self.service.url = URL
             self.service.save()

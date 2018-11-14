@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 from django.utils.encoding import smart_str
 from django.core.management.base import NoArgsCommand
-from django.db import models
+from django.apps import apps
 
 SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
 
@@ -14,7 +14,7 @@ class Command(NoArgsCommand):
         self.verbosity = int(options.get("verbosity", NORMAL))
         self.skip_images = options.get('skip_images')
 
-        Production = models.get_model("productions", "Production")
+        Production = apps.get_model("productions", "Production")
 
         if self.verbosity >= NORMAL:
             print u"=== Attaching root categories to productions ==="

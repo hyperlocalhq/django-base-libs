@@ -8,8 +8,8 @@ class Command(ImportToBerlinBuehnenBaseXML):
     DEFAULT_IN_PROGRAM_OF_LOCATION_ID = 9
 
     def prepare(self):
-        from django.db import models
-        Service = models.get_model("external_services", "Service")
+        from django.apps import apps
+        Service = apps.get_model("external_services", "Service")
 
         URL = "https://www.staatsoper-berlin.de/export/berlin-buehnen/feed.xml"
         self.service, created = Service.objects.get_or_create(

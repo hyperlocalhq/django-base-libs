@@ -9,9 +9,9 @@ class Command(ImportFromHeimatBase):
     DEFAULT_PUBLISHING_STATUS = "published"
 
     def prepare(self):
-        from django.db import models
+        from django.apps import apps
         from berlinbuehnen.apps.locations.models import Location
-        Service = models.get_model("external_services", "Service")
+        Service = apps.get_model("external_services", "Service")
 
         self.service, created = Service.objects.get_or_create(
             sysname="grips_theater_prods",

@@ -8,10 +8,10 @@ class Command(ImportFromHeimatBase):
     IMPORT_URL = "http://www.berliner-philharmoniker.de/api/kulturserver/"
 
     def prepare(self):
-        from django.db import models
+        from django.apps import apps
         from berlinbuehnen.apps.locations.models import Location
 
-        Service = models.get_model("external_services", "Service")
+        Service = apps.get_model("external_services", "Service")
 
         self.service, created = Service.objects.get_or_create(
             sysname="berliner_philharmonie_prods",

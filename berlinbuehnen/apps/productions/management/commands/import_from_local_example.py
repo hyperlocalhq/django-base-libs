@@ -6,9 +6,9 @@ class Command(ImportToBerlinBuehnenBaseXML):
     help = "Imports productions and events from a local example file"
 
     def prepare(self):
-        from django.db import models
+        from django.apps import apps
         from django.conf import settings
-        Service = models.get_model("external_services", "Service")
+        Service = apps.get_model("external_services", "Service")
 
         self.service, created = Service.objects.get_or_create(
             sysname="bb_example",

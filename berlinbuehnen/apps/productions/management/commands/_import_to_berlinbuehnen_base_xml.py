@@ -10,6 +10,7 @@ from django.core.management.base import NoArgsCommand
 from django.utils.encoding import force_unicode
 from django.utils.html import strip_tags
 from django.db import models
+from django.apps import apps
 
 from base_libs.utils.misc import get_unique_value
 from base_libs.utils.betterslugify import better_slugify
@@ -199,8 +200,8 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
         from berlinbuehnen.apps.productions.models import EventSponsor
         from berlinbuehnen.apps.productions.models import LanguageAndSubtitles
 
-        ObjectMapper = models.get_model("external_services", "ObjectMapper")
-        image_mods = models.get_app("image_mods")
+        ObjectMapper = apps.get_model("external_services", "ObjectMapper")
+        image_mods = apps.get_app("image_mods")
 
         prod_nodes = productions_node.findall('./production')
 

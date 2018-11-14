@@ -6,7 +6,7 @@ from optparse import make_option
 from django.conf import settings
 from django.utils.encoding import smart_str
 from django.core.management.base import NoArgsCommand
-from django.db import models
+from django.apps import apps
 
 SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
 
@@ -22,12 +22,12 @@ class Command(NoArgsCommand):
         self.verbosity = int(options.get("verbosity", NORMAL))
         self.skip_images = options.get('skip_images')
 
-        Person = models.get_model("people", "Person")
-        Production = models.get_model("productions", "Production")
-        Event = models.get_model("productions", "Event")
-        ObjectMapper = models.get_model("external_services", "ObjectMapper")
-        ContentType = models.get_model("contenttypes", "ContentType")
-        PerObjectGroup = models.get_model("permissions", "PerObjectGroup")
+        Person = apps.get_model("people", "Person")
+        Production = apps.get_model("productions", "Production")
+        Event = apps.get_model("productions", "Event")
+        ObjectMapper = apps.get_model("external_services", "ObjectMapper")
+        ContentType = apps.get_model("contenttypes", "ContentType")
+        PerObjectGroup = apps.get_model("permissions", "PerObjectGroup")
 
         if self.verbosity >= NORMAL:
             print u"=== Deleting Productions ==="

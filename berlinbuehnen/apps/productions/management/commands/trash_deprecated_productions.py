@@ -3,7 +3,7 @@ from optparse import make_option
 
 from django.utils.encoding import smart_str
 from django.core.management.base import NoArgsCommand
-from django.db import models
+from django.apps import apps
 
 SILENT, NORMAL, VERBOSE, VERY_VERBOSE = 0, 1, 2, 3
 
@@ -19,9 +19,7 @@ class Command(NoArgsCommand):
         self.verbosity = int(options.get("verbosity", NORMAL))
         self.skip_images = options.get('skip_images')
 
-        Production = models.get_model("productions", "Production")
-
-        Service = models.get_model("external_services", "Service")
+        Service = apps.get_model("external_services", "Service")
 
         self.culturebase_service = Service.objects.get(sysname="culturebase_prods")
 

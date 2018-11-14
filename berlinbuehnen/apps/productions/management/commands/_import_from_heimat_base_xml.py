@@ -7,6 +7,7 @@ from decimal import Decimal, InvalidOperation
 from optparse import make_option
 
 from django.db import models
+from django.apps import apps
 from django.conf import settings
 from django.utils.encoding import smart_str, force_unicode
 from django.core.management.base import NoArgsCommand
@@ -696,8 +697,8 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
                     instance.subtitles_text_en = self.get_child_text(xml_node, 'language_and_subtitles')
 
     def save_page(self, root_node):
-        ObjectMapper = models.get_model("external_services", "ObjectMapper")
-        image_mods = models.get_app("image_mods")
+        ObjectMapper = apps.get_model("external_services", "ObjectMapper")
+        image_mods = apps.get_app("image_mods")
 
         prod_nodes = root_node.findall('production')
         prods_count = len(prod_nodes)

@@ -6,7 +6,7 @@ class Command(ImportFromCulturebaseBase):
     help = "Imports productions and events from Culturebase / Sophiensaele"
 
     def prepare(self):
-        from django.db import models
+        from django.apps import apps
         from berlinbuehnen.apps.locations.models import Location
         from berlinbuehnen.apps.people.models import AuthorshipType
 
@@ -24,7 +24,7 @@ class Command(ImportFromCulturebaseBase):
         )
         self.owners = list(self.in_program_of.get_owners())
 
-        Service = models.get_model("external_services", "Service")
+        Service = apps.get_model("external_services", "Service")
 
         self.service, created = Service.objects.get_or_create(
             sysname="culturebase_sophiensaele_prods",
