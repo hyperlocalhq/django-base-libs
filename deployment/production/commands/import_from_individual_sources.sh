@@ -60,10 +60,10 @@ for command_colon_title in "${COMMANDS[@]}"; do
     run_django_command "${command}" "${title}" >> "${CRON_LOG_FILE}" 2>&1
     function_exit_code=$?
     if [[ $function_exit_code -ne 0 ]]; then
-        echo "!!!!!!!!!!!!" >> "${CRON_LOG_FILE}" 2>&1
+        echo "<<<<<<<<<<<<" >> "${CRON_LOG_FILE}" 2>&1
         echo "Function exit code is non-zero ($function_exit_code) for command $command" >> "${CRON_LOG_FILE}" 2>&1
         script_errors=$((script_errors + 1))
-        echo "!!!!!!!!!!!!" >> "${CRON_LOG_FILE}" 2>&1
+        echo ">>>>>>>>>>>>" >> "${CRON_LOG_FILE}" 2>&1
     else
         echo "No error running command $command" >> "${CRON_LOG_FILE}" 2>&1
     fi
@@ -77,8 +77,9 @@ duration=${SECONDS}
 echo "$((duration / 60)) minutes and $((duration % 60)) seconds elapsed." >> "${CRON_LOG_FILE}"
 
 if [[ $script_errors -ne 0 ]]; then
-    echo "!!!!!!!!!!!!" >> "${CRON_LOG_FILE}" 2>&1
+    echo "<<<<<<<<<<<<" >> "${CRON_LOG_FILE}" 2>&1
     echo "Script encountered $script_errors errors during execution" >> "${CRON_LOG_FILE}" 2>&1
+    echo ">>>>>>>>>>>>" >> "${CRON_LOG_FILE}" 2>&1
 fi
 
 exit $script_errors
