@@ -24,9 +24,9 @@ function run_django_command {
     DJANGO_SETTINGS_MODULE="${DJANGO_SETTINGS_MODULE}" \
     PROJECT_PATH="${PROJECT_PATH}" \
         python "${DJANGO_PATH}/manage.py" "$1" --traceback --verbosity=2
-    readonly django_exit_code=$?
+    django_command_exit_code=$?
     echo "------------"
-    return $django_exit_code
+    return $django_command_exit_code
 }
 
 COMMANDS=(
