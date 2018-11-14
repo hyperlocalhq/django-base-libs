@@ -5,7 +5,6 @@ domain_bits = document.location.hostname.split(".");
 if (!(domain_bits.length==4 && !isNaN(domain_bits[3]))) {
     document.domain = domain_bits.slice(-2).join(".");
 }
-//"{{ cookie_domain }}";
 {% endblock %}
 
 window.settings = {
@@ -20,21 +19,12 @@ window.settings = {
     FILEBROWSER_ROOT_DIR: "{{ FILEBROWSER_ROOT_DIR }}",
     website_url: "{{ website_url }}",
     website_ssl_url: "{{ website_ssl_url }}",
-    URL_ID_PERSON: "{{ URL_ID_PERSON|default:"person" }}",
-    URL_ID_PEOPLE: "{{ URL_ID_PEOPLE|default:"people" }}",
-    URL_ID_INSTITUTION: "{{ URL_ID_INSTITUTION|default:"institution" }}",
-    URL_ID_INSTITUTIONS: "{{ URL_ID_INSTITUTIONS|default:"institutions" }}",
-    URL_ID_EVENT: "{{ URL_ID_EVENT|default:"event" }}",
-    URL_ID_EVENTS: "{{ URL_ID_EVENTS|default:"events" }}",
-    URL_ID_DOCUMENT: "{{ URL_ID_DOCUMENT|default:"document" }}",
-    URL_ID_DOCUMENTS: "{{ URL_ID_DOCUMENTS|default:"documents" }}",
-    URL_ID_PERSONGROUP: "{{ URL_ID_PERSONGROUP|default:"group" }}",
-    URL_ID_PERSONGROUPS: "{{ URL_ID_PERSONGROUPS|default:"groups" }}",
-    URL_ID_PORTFOLIO: "{{ URL_ID_PORTFOLIO|default:"portfolio" }}",
     lang: "{{ LANGUAGE_CODE }}",
     languages: { {% for lang in languages %}'{{ lang.0|escapejs }}': '{{ lang.1|escapejs }}'{% if not forloop.last %},{% endif %}{% endfor %} }
 };
+
 {% block extra_window_settings %}{% endblock %}
+
 window.website = {
     path: window.location.pathname.replace(
         /^\/({% for lang in languages %}{{ lang.0|escapejs }}{% if not forloop.last %}|{% endif %}{% endfor %})\//,
@@ -43,11 +33,13 @@ window.website = {
 };
 
 
-{% comment %}/**
+{% comment %}
+/**
  *  Cancel the default event behaviour and event propagation
  *  Example:
  *      <a href="#" onclick="cancelEvent(event)">Inactive Link</a>
- */{% endcomment %}
+ */
+{% endcomment %}
 window.cancelEvent = function(e) {
     if (!e) var e = window.event;
     e.cancelBubble = true;
@@ -57,22 +49,26 @@ window.cancelEvent = function(e) {
 };
 
 
-{% comment %}/**
+{% comment %}
+/**
  *  Get the html node which caused the event
- */{% endcomment %}
+ */
+{% endcomment %}
 window.getCausingElement = function(e) {
     if (!e) var e = window.event;
     return e.target || e.srcElement;
 };
 
 
-{% comment %}/**
+{% comment %}
+/**
  *  Open current link in a new window
  *  Example:
  *      <a href="#" onclick="open_new_window(event)">Open</a>
  *  Use it instead of
  *      <a href="#" target="_blank">Open</a>
- */{% endcomment %}
+ */
+{% endcomment %}
 window.open_new_window = function(e) {
     oLink = window.getCausingElement(e);
     while(oLink && oLink.tagName!="A") {
@@ -82,41 +78,47 @@ window.open_new_window = function(e) {
     window.cancelEvent(e);
 };
 
-{% comment %}/**
+{% comment %}
+/**
  *  Open the specified url
  *  Example:
  *      <div onclick="redirect('#')">Open</div>
- */{% endcomment %}
+ */
+{% endcomment %}
 window.redirect = function(sURL) {
     document.location.href = sURL;
 };
 
-{% comment %}/**
+{% comment %}
+/**
  *  Open the specified url
  *  Example:
  *      <a href="javascript:submit_form('my_form')">Send</a>
- */{% endcomment %}
+ */
+{% endcomment %}
 window.submit_form = function(sFormId) {
     document.getElementById(sFormId).submit();
 };
 
-{% comment %}/**
+{% comment %}
+/**
  *  Add CSS rules dynamically
  *  Example:
  *      dyn_css_rule("#menu li:hover", "color: red")
- */{% endcomment %}
+ */
+{% endcomment %}
 window.dyn_css_rule = function(sSelector, sCssText) {
     try {
         var aSS = document.styleSheets;
         var i;
         for (i=aSS.length-1; i>=0; i--) {
             var oCss = document.styleSheets[i];
-            var sMedia = (typeof(oCss.media) == "string")?
+            var sMedia = (typeof(oCss.media) === "string")?
                 oCss.media:
                 oCss.media.mediaText;
             if (!sMedia
-                || sMedia.indexOf("screen") != -1
-                || sMedia.indexOf("all") != -1
+                || sMedia.indexOf("screen") !== -1
+                || sMedia.indexOf("all") !== -1
             ) {
                 break;
             }
@@ -128,7 +130,7 @@ window.dyn_css_rule = function(sSelector, sCssText) {
         }
     } catch(err) {
         var tag = document.createElement('style');
-        tag.type = 'text/css';
+        tag.setAttribute('type', 'text/css');
         try {
             tag.innerHTML = sSelector + " {" + sCssText + "}";
         } catch(err) {
@@ -139,7 +141,8 @@ window.dyn_css_rule = function(sSelector, sCssText) {
     return sSelector + "{" + sCssText + "}";
 };
 
-{% comment %}/**
+{% comment %}
+/**
  *  Adds or replaces GET parameters or hash parameters and redirects to that view.
  *  @sParams - string of params with leading "?" or "#"
  *  @oDict - a dictionary of parameters to add or replace.
@@ -152,7 +155,8 @@ window.dyn_css_rule = function(sSelector, sCssText) {
  *      "/#cat=3&page=5" to /#cat=3&paginate_by=2"
  *      append_to_hash({paginate_by: 2, page: null}, true) will return
  *      "cat=3&paginate_by=2" from "/#cat=3&page=5"
- */{% endcomment %}
+ */
+{% endcomment %}
 window.append_to_params = function(sParams, oDict, bReturn) {
     var oParams = {};
     var aPairs = sParams.slice(1).split("&");
@@ -182,13 +186,13 @@ window.append_to_params = function(sParams, oDict, bReturn) {
     } else {
         location.href = sPath;
     }
-}
+};
 window.append_to_get = function(oDict, bReturn) {
     return append_to_params(location.search || "?", oDict, bReturn);
-}
+};
 window.append_to_hash = function(oDict, bReturn) {
     return append_to_params(location.hash || "#", oDict, bReturn);
-}
+};
 
 
 {% endcache %}
