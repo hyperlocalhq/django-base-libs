@@ -52,7 +52,6 @@ COMMANDS=(
 #    "import_from_wuehlmaeuse:Importing from Wuehlmaeuse"
 )
 
-echo "============" >> "${CRON_LOG_FILE}" 2>&1
 
 for command_colon_title in "${COMMANDS[@]}"; do
     command="${command_colon_title%%:*}"
@@ -67,6 +66,7 @@ for command_colon_title in "${COMMANDS[@]}"; do
     else
         echo "No error running command $command" >> "${CRON_LOG_FILE}" 2>&1
     fi
+    echo "============" >> "${CRON_LOG_FILE}" 2>&1
 done
 
 deactivate
