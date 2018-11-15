@@ -816,7 +816,7 @@ def disarm_user_input(html):
         html = defaultfilters.linebreaks(html)
     html = bleach.clean(
         html,
-        tags=[u'a', u'abbr', u'acronym', u'b', u'blockquote', u'br', u'code', u'em', u'i', u'iframe', u'img', u'li', u'ol', u'p', u'strong', u'ul', u'h1', u'h2', u'h3', u'h4', u'h5', u'hr', u'h6', u'span'],
+        tags=[u'a', u'abbr', u'acronym', u'b', u'blockquote', u'br', u'code', u'em', u'i', u'iframe', u'img', u'li', u'ol', u'p', u'strong', u'ul', u'h1', u'h2', u'h3', u'h4', u'h5', u'h6', u'span'],
         attributes={
             u'*': [u'class'],
             u'a': [u'href', u'title', u'target'],
@@ -874,16 +874,7 @@ def humanize_url(url, letter_count):
     return url
 
 
-@register.filter
-def linkify(text):
-    import bleach
-    text = bleach.linkify(text, parse_email=True)
-    return mark_safe(text)
-
-
 register.filter('get_user_title', get_user_title)
-
-
 
 
 @register.filter
