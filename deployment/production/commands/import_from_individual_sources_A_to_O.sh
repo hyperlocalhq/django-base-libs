@@ -7,7 +7,7 @@ DJANGO_PATH="${PROJECT_PATH}/project/berlinbuehnen"
 #PROJECT_PATH="${HOME}/git/bitbucket/berlinbuehnen"
 #DJANGO_PATH="${PROJECT_PATH}"
 mkdir -p "${PROJECT_PATH}/logs"
-CRON_LOG_FILE="${PROJECT_PATH}/logs/import_from_individual_sources.log"
+CRON_LOG_FILE="${PROJECT_PATH}/logs/import_from_individual_sources_A_to_O.log"
 
 script_errors=0
 
