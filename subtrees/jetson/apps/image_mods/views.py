@@ -41,7 +41,7 @@ CROP_POSITIONS = {
 
 class CoordsConverter(object):
     """
-    Converts original coordinates to canvas coordinates and vice versa
+    Converts original coordinates to canvas coordinates and vice versa 
     where canvas includes the rescaled version of original image
     """
     def __init__(self, orig_size, rescaled_size, rescaled_pos):
@@ -63,12 +63,12 @@ class CoordsConverter(object):
         (orig_w, orig_h) = self.orig_size
         (rescaled_w, rescaled_h) = self.rescaled_size
         (dx, dy) = self.rescaled_pos
-
+        
         orig_x = int(round((canvas_x - dx) * orig_w / rescaled_w))
         orig_y = int(round((canvas_y - dy) * orig_h / rescaled_h))
-
+        
         return (orig_x, orig_y)
-
+        
     def orig_to_canvas(self, orig_coords):
         """
         Converts original coordinates to canvas coordinates
@@ -78,10 +78,10 @@ class CoordsConverter(object):
         (orig_w, orig_h) = self.orig_size
         (rescaled_w, rescaled_h) = self.rescaled_size
         (dx, dy) = self.rescaled_pos
-
+        
         canvas_x = max(0, int(round(orig_x * rescaled_w / orig_w + dx)))
         canvas_y = max(0, int(round(orig_y * rescaled_h / orig_h + dy)))
-
+        
         return (canvas_x, canvas_y)
 
 @never_cache
@@ -105,11 +105,11 @@ def get_or_create_modified_path(request):
 def cropping_preview(request, bgcolor=None):
     """
     Return an image for cropping
-
+    
     Required GET params:
     * orig_path - full path of the original image within filebrowser's MEDIA_ROOT
     * sysname - sysname of the modification to make
-
+    
     """
     bgcolor = bgcolor or "092E20"
     rel_orig_path = request.GET.get('orig_path', '')
@@ -118,7 +118,7 @@ def cropping_preview(request, bgcolor=None):
     mod = None
     if sysname:
         mod = image_mods.ImageModification.objects.get(sysname=sysname)
-
+    
     # ... create/load image here ...
     image = Image.new("RGB", (cp_mod.width, cp_mod.height), "#%s" % bgcolor)
 
@@ -129,12 +129,12 @@ def cropping_preview(request, bgcolor=None):
         )
         orig_path_server = os.path.join(settings.UPLOADS_ROOT, *modified_path.split("/"))
         im = Image.open(orig_path_server).convert('RGB')
-
+        
         if mod:
             cropping_pos = CROP_POSITIONS[mod.crop_from or 'center']
         else:
             cropping_pos = CROP_POSITIONS['center']
-
+        
         image.paste(im, cropping_pos((cp_mod.width, cp_mod.height), im.size))
 
     buffer = StringIO()
@@ -146,17 +146,17 @@ def cropping_preview(request, bgcolor=None):
     response['Content-Disposition'] = 'filename=cropping-preview.png'
     response.write(data)
     return response
-
+    
 def versions(request):
     """
     Show all image modifications for an Image according.
-
+    
     Required GET params:
     * dir - the path to the original image within filebrowser's MEDIA_ROOT
     * filename - the filename of the original image
-
+    
     """
-
+    
     # QUERY / PATH CHECK
     query = request.GET
     path = u'%s' % os.path.join(DIRECTORY, query.get('dir', ''))
@@ -168,7 +168,7 @@ def versions(request):
             msg = _('The requested File does not exist.')
         messages.error(request, msg)
         return HttpResponseRedirect(reverse("fb_browse"))
-
+    
     return render_to_response('filebrowser/versions.html', {
         'fileobject': fileobject,
         'query': query,
@@ -206,12 +206,12 @@ class CoordsForm(forms.Form):
 def adjust_version(request):
     """
     (Re)crop image version and related versions
-
+    
     Required GET params:
     * dir - the path to the original image within filebrowser's MEDIA_ROOT
     * filename - the filename of the original image
     * sysname - sysname of modification
-
+    
     """
     # QUERY / PATH CHECK
     query = request.GET
@@ -227,7 +227,7 @@ def adjust_version(request):
         messages.error(request, msg)
         return HttpResponseRedirect(reverse("filebrowser:fb_browse"))
     abs_orig_path = os.path.join(settings.UPLOADS_ROOT, *fileobject.path.split("/"))
-
+    
     try:
         cropping = image_mods.ImageCropping.objects.get(
             original=fileobject,
@@ -235,7 +235,7 @@ def adjust_version(request):
             )
     except image_mods.ImageCropping.DoesNotExist:
         cropping = None
-
+    
     # DEFAULT INITIAL SELECTION
     cropping_pos = None
     if mod:
@@ -247,14 +247,14 @@ def adjust_version(request):
     orig_im = Image.open(abs_orig_path)
     orig_size=orig_im.size
     del orig_im
-
+    
     abs_cp_mod_path = os.path.join(settings.UPLOADS_ROOT, *cp_mod_path.split("/"))
     cp_im = Image.open(abs_cp_mod_path)
     (w, h) = rescaled_size = cp_im.size
     del cp_im
-
+    
     rescaled_pos = cropping_pos((cp_mod.width, cp_mod.height), (w, h))
-
+    
     if mod.crop and mod.width and mod.height:
         if w < h:
             h = int(w * mod.height / mod.width)
@@ -306,7 +306,7 @@ def adjust_version(request):
                     cleaned['x2'] == default_initial['x2'] and
                     cleaned['y2'] == default_initial['y2'] and
                     cleaned['bgcolor'] == default_initial['bgcolor']
-                    ): # if is not default, CREATE
+                    ): # if is not default, CREATE 
                     cropping = image_mods.ImageCropping(
                         original=fileobject,
                         bgcolor=cleaned['bgcolor'],
@@ -346,12 +346,12 @@ def adjust_version(request):
         else:
             initial = default_initial
         form = CoordsForm(initial)
-
+    
     title = _(u'Adjust the version "%(mod_title)s" for "%(filename)s"') % {
         'mod_title': mod.title,
         'filename': fileobject.filename,
         }
-
+    
     return render_to_response('filebrowser/adjust_version.html', {
         'default_initial': default_initial,
         'form': form,
@@ -364,18 +364,18 @@ def adjust_version(request):
         'breadcrumbs': get_breadcrumbs(query, path),
         'breadcrumbs_title': title,
     }, context_instance=RequestContext(request))
-
+    
 adjust_version = staff_member_required(never_cache(adjust_version))
 
 def delete_version(request):
     """
     Delete image version
-
+    
     Required GET params:
     * dir - the path to the original image within filebrowser's MEDIA_ROOT
     * filename - the filename of the original image
     * sysname - sysname of modification
-
+    
     """
     # QUERY / PATH CHECK
     query = request.GET
@@ -402,12 +402,12 @@ def delete_version(request):
                     cropping.delete()
             image_mods.FileManager.delete_file(modified_path)
         return HttpResponseRedirect(reverse("fb_versions") + get_query_string(query.copy(), remove=["sysname"]))
-
+    
     title = _(u'Delete the version "%(mod_title)s" for "%(filename)s"') % {
         'mod_title': mod.title,
         'filename': fileobject.filename,
         }
-
+    
     return render_to_response('filebrowser/delete_version.html', {
         'mod': mod,
         'fileobject': fileobject,
@@ -417,34 +417,33 @@ def delete_version(request):
         'breadcrumbs': get_breadcrumbs(query, path),
         'breadcrumbs_title': title,
     }, context_instance=RequestContext(request))
-
+    
 delete_version = staff_member_required(never_cache(delete_version))
 
 
 def recrop(request):
     """
     (Re)crop image version and related versions
-
+    
     This view has no information about the object which has the image attached.
     But a per-user unique link to this view will be formed in a template of the
-    previous page only if the current user has a permission to edit the object.
-
+    previous page only if the current user has a permission to edit the object. 
+    
     Required GET params:
     * orig_path - full path of the original image within filebrowser's MEDIA_ROOT
     * sysname - sysname of modification
     * token - encrypted string ensuring that current user can modify this file
-
+    
     Optional GET params:
     * goto_next - path where to go after recropping
-
+    
     """
-
+    
     # QUERY / PATH CHECK
     orig_path = request.GET.get('orig_path', '')
     sysname = request.GET.get('sysname', '')
     token = request.GET.get('token', '')
     goto_next = request.GET.get('goto_next', '/')
-    post = request.GET.get('post', 'no')
 
     if not orig_path:
         return HttpResponseBadRequest(ugettext("Path is not defined"))
@@ -460,9 +459,9 @@ def recrop(request):
 
     if image_mods.FileManager.tokenize(request.user.username, orig_path) != token:
         return access_denied(request)
-
+        
     abs_orig_path = os.path.join(MEDIA_ROOT, *orig_path.split("/"))
-
+    
     try:
         cropping = image_mods.ImageCropping.objects.get(
             original=FileObject(orig_path),
@@ -470,30 +469,30 @@ def recrop(request):
             )
     except image_mods.ImageCropping.DoesNotExist:
         cropping = None
-
+    
     # DEFAULT INITIAL SELECTION
     cropping_pos = None
     if mod:
         cropping_pos = CROP_POSITIONS[mod.crop_from or 'center']
-
+        
     try:
         orig_im = Image.open(abs_orig_path)
     except:
         return HttpResponseBadRequest(ugettext("Image does not exist"))
     orig_size = orig_im.size
     del orig_im
-
+    
     cp_mod_path, query_params = image_mods.FileManager.modified_path(
         orig_path,
         "cropping_preview",
     )
     abs_cp_mod_path = os.path.join(MEDIA_ROOT, *cp_mod_path.split("/"))
-    cp_im = Image.open(abs_cp_mod_path)
+    cp_im = Image.open(abs_cp_mod_path) 
     (w, h) = rescaled_size = cp_im.size
     del cp_im
-
+    
     rescaled_pos = cropping_pos((cp_mod.width, cp_mod.height), (w, h))
-
+    
     if mod.crop and mod.width and mod.height:
         if w < h:
             h = int(w * mod.height / mod.width)
@@ -512,8 +511,7 @@ def recrop(request):
         rescaled_size=rescaled_size,
         rescaled_pos=rescaled_pos
         )
-
-    if request.method == "POST" or post == "yes":
+    if request.method == "POST":
         form = CoordsForm(request.POST)
         if form.is_valid():
             cleaned = form.cleaned_data
@@ -546,7 +544,7 @@ def recrop(request):
                     cleaned['x2'] == default_initial['x2'] and
                     cleaned['y2'] == default_initial['y2'] and
                     cleaned['bgcolor'] == default_initial['bgcolor']
-                    ): # if is not default, CREATE
+                    ): # if is not default, CREATE 
                     cropping = image_mods.ImageCropping(
                         original=FileObject(orig_path),
                         bgcolor=cleaned['bgcolor'],
@@ -580,7 +578,7 @@ def recrop(request):
         else:
             initial = default_initial
         form = CoordsForm(initial)
-
+    
     return render_to_response('image_mods/recrop.html', {
         'default_initial': default_initial,
         'form': form,
@@ -588,3 +586,4 @@ def recrop(request):
         'cp_mod': cp_mod,
         'orig_path': orig_path,
     }, context_instance=RequestContext(request))
+

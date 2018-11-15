@@ -40,7 +40,7 @@ class ImageCroppingOptions(admin.ModelAdmin):
     save_on_top = True
     search_fields = ("original",)
     list_filter = ("mods",)
-    list_display = ['path', 'coords', 'cropping_size', 'original_size', 'bgcolor', 'mods_list']
+    list_display = ['original', 'coords', 'cropping_size', 'original_size', 'bgcolor', 'mods_list']
     filter_horizontal = ["mods"]
     actions = ["update_versions"]
 
@@ -54,11 +54,7 @@ class ImageCroppingOptions(admin.ModelAdmin):
             'fields': ('bgcolor',)
             }),
         ]
-
-    def path(self, obj):
-        return obj.original.path
-    path.short_description = _("Original path")
-
+        
     def coords(self, obj):
         return "(%d, %d) - (%d, %d)" % (obj.x1, obj.y1, obj.x2, obj.y2)
     coords.short_description = _("Cropping coordinates")

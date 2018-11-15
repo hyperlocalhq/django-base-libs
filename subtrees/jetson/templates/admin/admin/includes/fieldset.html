@@ -1,10 +1,10 @@
 {% load base_tags %}
 <fieldset class="grp-module {{ fieldset.classes }}{% if fieldset.level %} nested nesting-level-{{ fieldset.level }}{% endif %}">
-    {% if fieldset.name %}<h2 class="grp-collapse-handler">{{ fieldset.name }}</h2>{% endif %}
-    {% if fieldset.description %}
-        <div class="grp-row"><p class="grp-description">{{ fieldset.description }}</p></div>
+	{% if fieldset.name %}<h2 class="grp-collapse-handler">{{ fieldset.name }}</h2>{% endif %}
+	{% if fieldset.description %}
+	    <div class="grp-row"><p class="grp-description">{{ fieldset.description }}</p></div>
     {% endif %}
-    {% for line in fieldset %}
+	{% for line in fieldset %}
         {% if line.is_fieldset %}
             {% include_parsed "admin/includes/fieldset.html" with line as fieldset %}
         {% else %}
@@ -56,5 +56,5 @@
                 </div>
             {% endif %}
         {% endif %}
-    {% endfor %}
+	{% endfor %}
 </fieldset>
