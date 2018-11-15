@@ -1,0 +1,44 @@
+{% load i18n %}
+<div id="page-controls" class="hidden-xs">
+    {% with prev_item=object.get_previous_item next_item=object.get_next_item %}
+    {# overwriting the prev_item and next_item with values not dependent on httpstate #}
+        {% if prev_item %}
+            <a href="{{ prev_item.get_url_path }}" class="prev">
+                <span>
+                    <span class="title">{{ prev_item.title }}</span>
+                </span>
+            </a>
+        {% endif %}
+        {% if next_item %}
+            <a href="{{ next_item.get_url_path }}" class="next">
+                <span>
+                    <span class="title">{{ next_item.title }}</span>
+                </span>
+            </a>
+        {% endif %}
+    {% endwith %}
+</div>
+
+<script>
+    $(document).keydown(function(e){
+        switch(e.which) {
+            case 37: // left
+                document.location.href="{{ prev_item.get_url_path }}";
+                break;
+
+            case 38: // up
+                break;
+
+            case 39: // right
+                document.location.href="{{ next_item.get_url_path }}";
+                break;
+
+            case 40: // down
+                break;
+
+            default:
+                return; // exit this handler for other keys
+        }
+        e.preventDefault();
+    });
+</script>

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+{% block bodyclass %}shop_overview{% endblock %}
+
+{% block content %}
+<div class="content">
+	<div class="container">
+		<div class="row"> 
+			<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10">
+				{% placeholder "intro" %}
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="content">
+	<div class="container">
+		{% with "cms/plugins/editorial_content/ec_shop_overview_item.html" as editorial_content_template %}
+			{% placeholder "main_content" %}
+		{% endwith %}
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% load i18n base_tags image_modifications babel fb_tags %}
+{% get_objects featured_published shop.ShopProduct 10 as featured_products %}
+{% if featured_products %}
+<div id="carousel-shop" class="hidden-xs">
+  <div id="carousel" class="carousel carousel-fade">
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+
+      {% for product in featured_products %}
+        {% if forloop.counter0|divisibleby:"2" %}<div class="item">{% endif %}
+          <a href="{{ product.get_url_path }}">
+            {% if product.image %}
+                {% with product.image|file_description as file_desc %}
+                  <span class="img"><span class="photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="{% if file_desc.description %}{{ file_desc.description|remove_newlines|escape }}{% else %}{{ product.title }}{% endif %}" />{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}</span></span>
+                {% endwith %}
+            {% endif %}
+            {% if product.price %}
+              <span class="price pull-right">{{ product.price|currencyfmt:"€" }}</span>
+            {% endif %}
+            <h3>
+              {{ product.title }}
+            </h3>
+            {% if product.subtitle %}
+              <h4>{{ product.subtitle }}</h4>
+            {% else %}
+              <h4>&nbsp;</h4>
+            {% endif %}
+          </a>
+        {% if forloop.last or forloop.counter|divisibleby:"2" %}</div>{% endif %}
+      {% endfor %}
+    </div>
+
+    <!-- Controls -->
+    <div class="carousel-controls-wrapper">
+      <a class="left carousel-control" href="#carousel-shop" data-slide="prev">
+        <span class="icon-prev"></span>
+      </a>
+      {% comment %}
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        {% for product in featured_products %}
+        <li data-target="#carousel-shop" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"><span>{{ forloop.counter }}</span></li>
+        {% endfor %}
+      </ol>
+      {% endcomment %}
+      <a class="right carousel-control" href="#carousel-shop" data-slide="next">
+        <span class="icon-next"></span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $(function() {
+        $('body').on('dragstart', function(e) {
+            e.preventDefault();
+        });
+        $('.carousel').each(function() {
+            var $carousel = $(this);
+            $('.active img', $carousel).lazyload({
+                load : function(element, el_left, settings){
+                    $(this).closest('.img').addClass('loaded');
+                }
+            });
+            $carousel.carousel({interval: 8000}).on('slid.bs.carousel', function () {
+                $('.active img', $carousel).lazyload({
+                    load : function(element, el_left, settings){
+                        $(this).closest('.img').addClass('loaded');
+                    }
+                });
+            });
+            $carousel.hammer().on('swipeleft', function() {
+                $carousel.carousel('next');
+                $('.active img', $carousel).lazyload({
+                    load : function(element, el_left, settings){
+                        $(this).closest('.img').addClass('loaded');
+                    }
+                });
+            });
+            $carousel.hammer().on('swiperight', function() {
+                $carousel.carousel('prev');
+                $('.active img', $carousel).lazyload({
+                    load : function(element, el_left, settings){
+                        $(this).closest('.img').addClass('loaded');
+                    }
+                });
+            });
+        });
+
+        $('.carousel.carousel-fade').hover(onFadeIn, onFadeOut);
+        function onFadeIn() {
+            $('.carousel .carousel-controls-wrapper').fadeIn(400);
+        }
+        function onFadeOut() {
+            $('.carousel .carousel-controls-wrapper').fadeOut(400);
+        }
+    });
+</script>
+{% endif %}

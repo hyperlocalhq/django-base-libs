@@ -1,0 +1,23 @@
+.shop_overview {
+	.shop_overview_entry {
+		margin-bottom:30px !important;
+	}
+}
+
+.shop-product-list {
+    .item {
+        h3 {
+            max-width: 75%;
+            width: auto;
+        }
+    }
+    .price {
+        font-weight: normal;
+        font-size: 13px;
+        line-height: 140%;
+        display: block;
+        white-space: nowrap;
+        height: 20px !important;
+        margin: 0px !important;
+    }
+}

@@ -1,0 +1,23 @@
+{% load sekizai_tags %}
+<div id="js_top_alert" class="alert infobanner alert-dark alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <div class="container">
+        {{ content }}
+    </div>
+</div>
+
+{% addtoblock "head_js" %}
+<script>
+if (document.cookie.indexOf('{{ cookie_variable }}') !== -1) {
+    dyn_css_rule('#js_top_alert', 'display: none;');
+}
+</script>
+{% endaddtoblock %}
+
+{% addtoblock "js" %}
+<script>
+$('#js_top_alert').on('closed.bs.alert', function () {
+    document.cookie = '{{ cookie_variable }}=1;path=/';
+});
+</script>
+{% endaddtoblock %}
