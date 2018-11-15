@@ -6,7 +6,8 @@ Utility functions for parsing XML content in combination with xml.dom.minidom
 """
 
 from xml.dom.minidom import Node
-from django.utils.encoding import force_text
+from django.utils.encoding import force_text, force_unicode
+
 
 def get_first(parent_node, descendant_tagname):
     """
@@ -22,6 +23,7 @@ def get_first(parent_node, descendant_tagname):
     if nodes:
         return nodes[0]
     return None
+
 
 def get_value(parent_node, descendant_tagname=None):
     """
@@ -55,7 +57,31 @@ def get_value(parent_node, descendant_tagname=None):
     val = val.replace("", "„")
     val = val.replace("", "“")
     return val
-    
+
+
+def get_child_text(node, tag, **attrs):
+    """
+    Returns the text from a child node with tag name and attributes
+
+    Example:
+    get_child_text(production_node, "Title", Language="de") == u"Nathan der  Weise"
+
+    :param node: XML node which children to scan
+    :param tag: the tag name of the children to get
+    :param attrs: attributes of the children to match
+    :return: text value of the selected child or empty string otherwise
+    """
+    for child_node in node.getElementsByTagName(tag):
+        all_attributes_match = True
+        for name, val in attrs.items():
+            if child_node.getAttribute(name) != val:
+                all_attributes_match = False
+                break
+        if all_attributes_match:
+            return force_unicode(u''.join([t for t in get_value(child_node)])).replace(r'\n', '\n')
+    return u''
+
+
 def date_de_to_en(date_string):
     """
     Replaces all German-specific date values to English specific ones so that
