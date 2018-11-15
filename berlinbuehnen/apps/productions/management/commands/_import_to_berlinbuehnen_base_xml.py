@@ -722,7 +722,7 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
                 end_time = self.get_child_text(event_node, 'end_time')
                 if end_time:
                     try:
-                        event.end_time = parse_datetime().time()
+                        event.end_time = parse_datetime(end_time).time()
                     except:
                         pass
 
