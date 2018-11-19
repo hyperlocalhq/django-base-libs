@@ -272,11 +272,12 @@
                                                                             {% if ev.ev_or_prod_tickets_website %}
                                                                                 <span class="tickets-wrapper"><a class="fawesome tickets" href="{{ ev.ev_or_prod_tickets_website }}" target="_blank" data-toggle="tooltip" data-placement="right" title="{% trans "Tickets" %}"><span class="sr-only">{% trans "Tickets" %}</span></a></span>
                                                                             {% endif %}
-                                                                            {% if ev.get_special_text and not ev.is_canceled %}
-                                                                                <span class="extra"><span>{{ ev.get_special_text }}</span></span>
-                                                                            {% endif %}
                                                                             {% if ev.is_canceled %}
                                                                                 <span class="extra canceled"><span>{% trans 'canceled' %}</span></span>
+                                                                            {% elif ev.ticket_status == "sold_out" %}
+                                                                                <span class="extra sold-out"><span>{% trans 'Sold out' %}</span></span>
+                                                                            {% elif ev.get_special_text %}
+                                                                                <span class="extra"><span>{{ ev.get_special_text }}</span></span>
                                                                             {% endif %}
                                                                         </li>
                                                                     {% endfor %}

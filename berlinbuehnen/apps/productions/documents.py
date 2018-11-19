@@ -39,6 +39,7 @@ class EventDocument(DocType):
     subtitle_en = fields.StringField()
     is_premiere = fields.BooleanField()
     is_canceled = fields.BooleanField()
+    is_sold_out = fields.BooleanField()
     is_published = fields.BooleanField()
     teaser_de = fields.TextField()
     teaser_en = fields.TextField()
@@ -196,6 +197,11 @@ class EventDocument(DocType):
 
     def prepare_is_canceled(self, instance):
         return instance.is_canceled()
+
+    # is_sold_out
+
+    def prepare_is_sold_out(self, instance):
+        return instance.ticket_status == 'sold_out'
 
     # is_published
 
