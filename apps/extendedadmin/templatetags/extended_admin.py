@@ -9,11 +9,15 @@ register = template.Library()
 
 ### TAGS ###
 
+
 def jetson_media_url():
     return getattr(settings, "JETSON_MEDIA_URL", "")
+
+
 register.simple_tag(jetson_media_url)
 
-### FILTERS ### 
+### FILTERS ###
+
 
 def is_installed(appname):
     """
@@ -27,7 +31,9 @@ def is_installed(appname):
         pass
     return success
 
+
 register.filter('is_installed', is_installed)
+
 
 def app_verbose_name(appname):
     """
@@ -48,7 +54,6 @@ def app_verbose_name(appname):
         if hasattr(app, "verbose_name"):
             verbose_name = app.verbose_name
     return verbose_name
-    
+
+
 register.filter('app_verbose_name', app_verbose_name)
-
-

@@ -13,34 +13,34 @@ verbose_name = _("Internationalization")
 CONTINENT = (
     ('af', _('Africa')),
     ('am', _('America')),
-    ('e',  _('Europe')),
+    ('e', _('Europe')),
     ('as', _('Asia')),
-    ('o',  _('Oceania')),
+    ('o', _('Oceania')),
 )
 
 REGION = (
-    ('af.e',  _('Eastern Africa')),
-    ('af.m',  _('Middle Africa')),
-    ('af.n',  _('Northern Africa')),
-    ('af.s',  _('Southern Africa')),
-    ('af.w',  _('Western Africa')),
+    ('af.e', _('Eastern Africa')),
+    ('af.m', _('Middle Africa')),
+    ('af.n', _('Northern Africa')),
+    ('af.s', _('Southern Africa')),
+    ('af.w', _('Western Africa')),
     ('am.ca', _('Caribbean')),
-    ('am.c',  _('Central America')),
-    ('am.s',  _('South America')),
-    ('am.n',  _('Northern America')),
-    ('as.c',  _('Central Asia')),
-    ('as.e',  _('Eastern Asia')),
-    ('as.s',  _('Southern Asia')),
+    ('am.c', _('Central America')),
+    ('am.s', _('South America')),
+    ('am.n', _('Northern America')),
+    ('as.c', _('Central Asia')),
+    ('as.e', _('Eastern Asia')),
+    ('as.s', _('Southern Asia')),
     ('as.se', _('South-Eastern Asia')),
-    ('as.w',  _('Western Asia')),
-    ('e.e',   _('Eastern Europe')),
-    ('e.n',   _('Northern Europe')),
-    ('e.s',   _('Southern Europe')),
-    ('e.w',   _('Western Europe')),
-    ('o.a',   _('Australia and New Zealand')),
-    ('o.me',  _('Melanesia')),
-    ('o.mi',  _('Micronesia')),
-    ('o.p',   _('Polynesia')),
+    ('as.w', _('Western Asia')),
+    ('e.e', _('Eastern Europe')),
+    ('e.n', _('Northern Europe')),
+    ('e.s', _('Southern Europe')),
+    ('e.w', _('Western Europe')),
+    ('o.a', _('Australia and New Zealand')),
+    ('o.me', _('Melanesia')),
+    ('o.mi', _('Micronesia')),
+    ('o.p', _('Polynesia')),
 )
 
 AREA = (
@@ -85,20 +85,28 @@ LANGUAGE_TYPES = (
     ('b', _('business')),
 )
 
+
 class Language(models.Model):
     """Languages more common.
     'synonym' field is used for some languages that are called with
     another name too.
     """
     iso3_code = models.CharField(_('Alpha-3 ISO Code'), max_length=3)
-    name = models.CharField(_('Language Name (English)'), max_length=40,
-        unique=True)
-    name_de = models.CharField(_('Language Name (German)'), max_length=40,
-        blank=True)
-    iso2_code = models.CharField(_('Alpha-2 ISO Code'), max_length=2, blank=True)
+    name = models.CharField(
+        _('Language Name (English)'), max_length=40, unique=True
+    )
+    name_de = models.CharField(
+        _('Language Name (German)'), max_length=40, blank=True
+    )
+    iso2_code = models.CharField(
+        _('Alpha-2 ISO Code'), max_length=2, blank=True
+    )
     synonym = models.CharField(_('Language Synonym'), max_length=40, blank=True)
-    display = models.BooleanField (_('Display'), default=False,
-        help_text=_('Designates whether the language is shown.'))
+    display = models.BooleanField(
+        _('Display'),
+        default=False,
+        help_text=_('Designates whether the language is shown.')
+    )
     sort_order = models.PositiveIntegerField(_('Sort order'), default=20)
 
     class Meta:
@@ -108,7 +116,7 @@ class Language(models.Model):
 
     def __unicode__(self):
         return self.get_name()
-        
+
     def get_name(self, language=None):
         language = language or get_current_language()
         return getattr(self, "name_%s" % language, "") or self.name
@@ -117,13 +125,19 @@ class Language(models.Model):
         language = language or get_current_language()
         return getattr(self, "name_%s" % language, "") or self.name
 
+
 class Nationality(models.Model):
-    name = models.CharField(_('Nationality Name (English)'), max_length=40,
-        unique=True)
-    name_de = models.CharField(_('Nationality Name (German)'), max_length=40,
-        blank=True)
-    display = models.BooleanField (_('Display'), default=False,
-        help_text=_('Designates whether the language is shown.'))
+    name = models.CharField(
+        _('Nationality Name (English)'), max_length=40, unique=True
+    )
+    name_de = models.CharField(
+        _('Nationality Name (German)'), max_length=40, blank=True
+    )
+    display = models.BooleanField(
+        _('Display'),
+        default=False,
+        help_text=_('Designates whether the language is shown.')
+    )
     sort_order = models.PositiveIntegerField(_('Sort order'), default=20)
 
     class Meta:
@@ -133,7 +147,7 @@ class Nationality(models.Model):
 
     def __unicode__(self):
         return self.get_name()
-        
+
     def get_name(self, language=None):
         language = language or get_current_language()
         return getattr(self, "name_%s" % language, "") or self.name
@@ -144,20 +158,28 @@ class Country(models.Model):
 
 iso2_code and iso3_code are ISO 3166-1 codes.
     """
-    name = models.CharField(_('Country Name (English)'), max_length=56,
-        unique=True)
-    name_de = models.CharField(_('Country Name (German)'), max_length=56,
-        blank=True)
+    name = models.CharField(
+        _('Country Name (English)'), max_length=56, unique=True
+    )
+    name_de = models.CharField(
+        _('Country Name (German)'), max_length=56, blank=True
+    )
     iso3_code = models.CharField(_('Alpha-3 ISO Code'), max_length=3)
-    iso2_code = models.CharField(_('Alpha-2 ISO Code'), max_length=2,
-        unique=True, primary_key=True)
-    region = models.CharField(_('Geographical Region'), max_length=5,
-        choices=REGION)
+    iso2_code = models.CharField(
+        _('Alpha-2 ISO Code'), max_length=2, unique=True, primary_key=True
+    )
+    region = models.CharField(
+        _('Geographical Region'), max_length=5, choices=REGION
+    )
     territory_of = models.CharField(_('Territory of'), max_length=3, blank=True)
-    adm_area = models.CharField(_('Administrative Area'), max_length=2,
-        choices=AREA, blank=True)
-    display = models.BooleanField(_('Display'), default=True,
-        help_text=_('Designates whether the country is shown.'))
+    adm_area = models.CharField(
+        _('Administrative Area'), max_length=2, choices=AREA, blank=True
+    )
+    display = models.BooleanField(
+        _('Display'),
+        default=True,
+        help_text=_('Designates whether the country is shown.')
+    )
     sort_order = models.PositiveIntegerField(_('Sort Order'), default=20)
 
     class Meta:
@@ -167,14 +189,18 @@ iso2_code and iso3_code are ISO 3166-1 codes.
 
     def __unicode__(self):
         return self.get_name()
+
     def get_name(self, language=None):
         language = language or get_current_language()
         return getattr(self, "name_%s" % language, "") or self.name
+
     def get_title(self, language=None):
         language = language or get_current_language()
         return getattr(self, "name_%s" % language, "") or self.name
+
     def _get_name(self):
         return "%s (%s)" % (self.name, self.iso3_code)
+
     country_id = property(_get_name)
 
 
@@ -183,10 +209,12 @@ class CountryLanguage(models.Model):
     """
     country = models.ForeignKey(Country)
     language = models.ForeignKey(Language)
-    lang_type = models.CharField(_('language type'), max_length=1,
-        choices=LANGUAGE_TYPES, blank=True)
-    identifier = models.CharField(_('identifier'), max_length=6,
-        primary_key=True)
+    lang_type = models.CharField(
+        _('language type'), max_length=1, choices=LANGUAGE_TYPES, blank=True
+    )
+    identifier = models.CharField(
+        _('identifier'), max_length=6, primary_key=True
+    )
 
     class Meta:
         verbose_name = _('country & language')
@@ -195,10 +223,12 @@ class CountryLanguage(models.Model):
 
     def __unicode__(self):
         try:
-            return " - ".join((
-                force_unicode(self.country),
-                force_unicode(self.language),
-                ))
+            return " - ".join(
+                (
+                    force_unicode(self.country),
+                    force_unicode(self.language),
+                )
+            )
         except:
             return "(broken; id=%s)" % self.identifier
 
@@ -212,18 +242,28 @@ In others it is omitted, and in others it is either optional,
 or needed in some cases but omitted in others.
     """
     country = models.ForeignKey(Country)
-    name_id = models.CharField(_('name identifier'), max_length=6, primary_key=True)
+    name_id = models.CharField(
+        _('name identifier'), max_length=6, primary_key=True
+    )
     name = models.CharField(_('area name'), max_length=50)
-    alt_name = models.CharField(_('area alternate name'), max_length=50, blank=True)
-    abbrev = models.CharField(_('postal abbreviation'), max_length=3, blank=True)
-    reg_area = models.CharField(_('regional administrative area'), max_length=1,
-        choices=AREA, blank=True)
+    alt_name = models.CharField(
+        _('area alternate name'), max_length=50, blank=True
+    )
+    abbrev = models.CharField(
+        _('postal abbreviation'), max_length=3, blank=True
+    )
+    reg_area = models.CharField(
+        _('regional administrative area'),
+        max_length=1,
+        choices=AREA,
+        blank=True
+    )
 
     class Meta:
         verbose_name = _('area')
         verbose_name_plural = _('areas')
         ordering = ['country']
-        unique_together = (('country', 'name'),)
+        unique_together = (('country', 'name'), )
 
     def __unicode__(self):
         if self.abbrev:
@@ -251,12 +291,24 @@ class Phone(models.Model):
     """Information related to phones as country code, lengths, and prefixes.
     """
     country = models.ForeignKey(Country)
-    code = models.PositiveSmallIntegerField(_('country code'), null=True, blank=True)
-    ln_area = models.CharField(_('length of area code'), max_length=10, blank=True)
-    ln_sn = models.CharField(_('length of subscriber number (SN)'), max_length=8, blank=True)
-    ln_area_sn = models.CharField(_('length of area code and SN'), max_length=8, blank=True)
-    nat_prefix = models.CharField(_('national prefix'), max_length=2, blank=True)
-    int_prefix = models.CharField(_('international prefix'), max_length=4, blank=True)
+    code = models.PositiveSmallIntegerField(
+        _('country code'), null=True, blank=True
+    )
+    ln_area = models.CharField(
+        _('length of area code'), max_length=10, blank=True
+    )
+    ln_sn = models.CharField(
+        _('length of subscriber number (SN)'), max_length=8, blank=True
+    )
+    ln_area_sn = models.CharField(
+        _('length of area code and SN'), max_length=8, blank=True
+    )
+    nat_prefix = models.CharField(
+        _('national prefix'), max_length=2, blank=True
+    )
+    int_prefix = models.CharField(
+        _('international prefix'), max_length=4, blank=True
+    )
 
     class Meta:
         verbose_name = _('phone')

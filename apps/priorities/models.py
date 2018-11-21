@@ -11,18 +11,19 @@ from settings import *
 
 verbose_name = _("Priorities")
 
+
 class Priority(ObjectRelationMixin(is_required=True)):
     """
     Lets a user define of which priority the chosen object is
     """
     user = models.ForeignKey(User, verbose_name=_("Priority Setter"))
-    
+
     priority = models.SmallIntegerField(_('Priority'), choices=PRIORITY_CHOICES)
-    
+
     class Meta:
         verbose_name = _("priority")
         verbose_name_plural = _("priorities")
-        
+
     def __unicode__(self):
         try:
             content_object = self.content_object
@@ -34,7 +35,7 @@ class Priority(ObjectRelationMixin(is_required=True)):
             force_unicode(content_object),
             force_unicode(self.user.username),
             postfix,
-            )
+        )
 
     def get_log_message(self, language=None, action=None):
         """
@@ -42,14 +43,18 @@ class Priority(ObjectRelationMixin(is_required=True)):
         history_models = models.get_app("history")
         message = ""
         if action in (history_models.A_ADDITION, history_models.A_CHANGE):
-            message = get_translation("%(user)s set priority for %(obj)s.", language=language) % {
+            message = get_translation(
+                "%(user)s set priority for %(obj)s.", language=language
+            ) % {
                 'user': force_unicode(self.user.username),
                 'obj': force_unicode(self.content_object),
-                }
-        elif action==history_models.A_DELETION:
-            message = get_translation("%(obj)s's priority by %(user)s was removed.", language=language) % {
+            }
+        elif action == history_models.A_DELETION:
+            message = get_translation(
+                "%(obj)s's priority by %(user)s was removed.",
+                language=language
+            ) % {
                 'user': force_unicode(self.user.username),
                 'obj': force_unicode(self.content_object),
-                }
+            }
         return message
-

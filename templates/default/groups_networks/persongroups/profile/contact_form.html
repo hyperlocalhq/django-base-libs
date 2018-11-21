@@ -1,42 +1,33 @@
 {% load i18n base_tags auth_extended %}
 <h5 class="edit_subline">{% trans "edit contact data" %}</h5>
 <div class="field_layout contact_edit">
-    <form action="/helper/edit-{{ URL_ID_PERSONGROUP }}-profile/{{ object.slug }}/contact/{{ index }}/" method="post" enctype="multipart/form-data" target="hidden_iframe">
-        {{ form.latitude }}
-        {{ form.longitude }}
-        {{ form.district }}
+    <form action="/helper/edit-{{ URL_ID_PERSONGROUP }}-profile/{{ object.slug }}/contact/{{ index }}/"
+          method="post"
+          enctype="multipart/form-data"
+          target="hidden_iframe">
+        {{ form.latitude }} {{ form.longitude }} {{ form.district }}
         <fieldset class="fieldset_begin">
             <legend>{% trans "Location" %}</legend>
             <ul>
                 <li>
-                    {{ form.location_type.label_tag }}
-                    {{ form.location_type }}
-                    {{ form.location_type.error_tag }}
+                    {{ form.location_type.label_tag }} {{ form.location_type }} {{ form.location_type.error_tag }}
                 </li>
                 <li>
-                    {{ form.location_title.label_tag }}
-                    {{ form.location_title }}
-                    {{ form.location_title.error_tag }}
+                    {{ form.location_title.label_tag }} {{ form.location_title }} {{ form.location_title.error_tag }}
                 </li>
             </ul>
         </fieldset>
         <div class="hidden" id="dyn_contact_institution">
-            {{ form.institution.label_tag }}
-            {{ form.institution }}
-            {{ form.institution.error_tag }}
+            {{ form.institution.label_tag }} {{ form.institution }} {{ form.institution.error_tag }}
         </div>
         <fieldset class="fieldset_gmap">
             <legend>{% trans "Address" %}</legend>
             <ul>
                 <li>
-                    {{ form.street_address.label_tag }}
-                    {{ form.street_address }}
-                    {{ form.street_address.error_tag }}                    
+                    {{ form.street_address.label_tag }} {{ form.street_address }} {{ form.street_address.error_tag }}
                 </li>
                 <li>
-                    {{ form.street_address2.label_tag }}
-                    {{ form.street_address2 }}
-                    {{ form.street_address2.error_tag }}
+                    {{ form.street_address2.label_tag }} {{ form.street_address2 }} {{ form.street_address2.error_tag }}
                 </li>
                 <li>
                     <label for="postal_code">
@@ -45,37 +36,43 @@
                     {{ form.postal_code }}{{ form.city }}
                 </li>
                 <li>
-                    {{ form.country.label_tag }}
-                    {{ form.country }}
-                    {{ form.country.error_tag }}
+                    {{ form.country.label_tag }} {{ form.country }} {{ form.country.error_tag }}
                 </li>
             </ul>
-         </fieldset>
-         <div id="dyn_set_map">
-         <div class="extra_margin">
-                <input id="dyn_locate_geo" type="button" class="button_good" value="{% filter upper %}{% trans "Locate on map" %}{% endfilter %}" />
-                <input id="dyn_remove_geo" type="button" class="button_bad" value="{% filter upper %}{% trans "Remove from map" %}{% endfilter %}" />
+        </fieldset>
+        <div id="dyn_set_map">
+            <div class="extra_margin">
+                <input id="dyn_locate_geo"
+                       type="button"
+                       class="button_good"
+                       value="{% filter upper %}{% trans "Locate on map" %}{% endfilter %}"/>
+                <input id="dyn_remove_geo"
+                       type="button"
+                       class="button_bad"
+                       value="{% filter upper %}{% trans "Remove from map" %}{% endfilter %}"/>
             </div>
             <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
-        </div>       
+        </div>
         <fieldset>
             <legend>{% trans "Phone" %}</legend>
             <ul>
                 <li>
-                    <label for="id_phone_number" class="label_with_labelspan">                  {% trans "Phone" %}</label>
-                    <span>{% trans "Country Code" %}<br />{% trans "without" %} "00"
+                    <label for="id_phone_number"
+                           class="label_with_labelspan">                  {% trans "Phone" %}</label>
+                    <span>{% trans "Country Code" %}
+                        <br/>{% trans "without" %} "00"
                         <span class="phone_label">
                             {{ form.phone_country }}
                             {{ form.phone_country.error_tag }}
                         </span>
-                    </span>
-                    <span>{% trans "Area Code" %}<br />{% trans "without" %} "0"
+                    </span> <span>{% trans "Area Code" %}
+                    <br/>{% trans "without" %} "0"
                         <span class="phone_label">
                             {{ form.phone_area }}
                             {{ form.phone_area.error_tag }}
                         </span>
-                    </span>
-                    <span>{% trans "Number" %}<br />{% trans "with direct dial" %}
+                    </span> <span>{% trans "Number" %}
+                    <br/>{% trans "with direct dial" %}
                         <span class="phone_label">
                             {{ form.phone_number }}
                             {{ form.phone_number.error_tag }}
@@ -84,20 +81,11 @@
                 </li>
                 <li>
                     <label for="id_fax_number">{% trans "Fax" %}</label>
-                        {{ form.fax_country }}
-                        {{ form.fax_area }}
-                        {{ form.fax_area.error_tag }}
-                        {{ form.fax_number }}
-                        {{ form.fax_number.error_tag }}
+                    {{ form.fax_country }} {{ form.fax_area }} {{ form.fax_area.error_tag }} {{ form.fax_number }} {{ form.fax_number.error_tag }}
                 </li>
                 <li>
                     <label for="id_mobile_number">{% trans "Mobile" %}</label>
-                        {{ form.mobile_country }}
-                        {{ form.mobile_country.error_tag }}
-                        {{ form.mobile_area }}
-                        {{ form.mobile_area.error_tag }}
-                        {{ form.mobile_number }}
-                        {{ form.mobile_number.error_tag }}
+                    {{ form.mobile_country }} {{ form.mobile_country.error_tag }} {{ form.mobile_area }} {{ form.mobile_area.error_tag }} {{ form.mobile_number }} {{ form.mobile_number.error_tag }}
                 </li>
             </ul>
         </fieldset>
@@ -105,48 +93,33 @@
             <legend>{% trans "Emails" %}</legend>
             <ul class="line_height">
                 <li>
-                    {{ form.email0.label_tag }}
-                    {{ form.email0 }}
-                    {{ form.email0.error_tag }}
+                    {{ form.email0.label_tag }} {{ form.email0 }} {{ form.email0.error_tag }}
                 </li>
                 <li>
-                    {{ form.email1.label_tag }}
-                    {{ form.email1 }}
-                    {{ form.email1.error_tag }}
+                    {{ form.email1.label_tag }} {{ form.email1 }} {{ form.email1.error_tag }}
                 </li>
                 <li>
-                    {{ form.email2.label_tag }}
-                    {{ form.email2 }}
-                    {{ form.email2.error_tag }}
+                    {{ form.email2.label_tag }} {{ form.email2 }} {{ form.email2.error_tag }}
                 </li>
             </ul>
-        
+
         </fieldset>
-        
+
         <fieldset>
             <legend>{% trans "Websites" %}</legend>
             <ul class="line_height">
                 <li>
-                    <label for="url0_type">{{ form.url0_type.label }} / {{ form.url0_link.label }}</label>                    
-                    {{ form.url0_type }}
-                    {{ form.url0_type.error_tag }}
-                    {{ form.url0_link }}
-                    {{ form.url0_link.error_tag }}
+                    <label for="url0_type">{{ form.url0_type.label }} / {{ form.url0_link.label }}</label>
+                    {{ form.url0_type }} {{ form.url0_type.error_tag }} {{ form.url0_link }} {{ form.url0_link.error_tag }}
                 </li>
                 <li>
                     <label for="url1_type">{{ form.url1_type.label }} / {{ form.url1_link.label }}</label>
-                    {{ form.url1_type }}
-                    {{ form.url1_type.error_tag }}
-                    {{ form.url1_link }}
-                    {{ form.url1_link.error_tag }}
+                    {{ form.url1_type }} {{ form.url1_type.error_tag }} {{ form.url1_link }} {{ form.url1_link.error_tag }}
                 </li>
                 <li>
                     <label for="url2_type">{{ form.url2_type.label }} / {{ form.url2_link.label }}</label>
-                    {{ form.url2_type }}
-                    {{ form.url2_type.error_tag }}
-                    {{ form.url2_link }}
-                    {{ form.url2_link.error_tag }}
-                </li>                
+                    {{ form.url2_type }} {{ form.url2_type.error_tag }} {{ form.url2_link }} {{ form.url2_link.error_tag }}
+                </li>
             </ul>
         </fieldset>
         <fieldset class="fieldset_end">
@@ -154,31 +127,28 @@
             <ul class="line_height">
                 <li>
                     <label for="im0_type">{{ form.im0_type.label }} / {{ form.im0_address.label }}</label>
-                    {{ form.im0_type }}
-                    {{ form.im0_type.error_tag }}
-                    {{ form.im0_address }}
-                    {{ form.im0_address.error_tag }}
+                    {{ form.im0_type }} {{ form.im0_type.error_tag }} {{ form.im0_address }} {{ form.im0_address.error_tag }}
                 </li>
                 <li>
                     <label for="im1_type">{{ form.im1_type.label }} / {{ form.im1_address.label }}</label>
-                    {{ form.im1_type }}
-                    {{ form.im1_type.error_tag }}
-                    {{ form.im1_address }}
-                    {{ form.im1_address.error_tag }}
+                    {{ form.im1_type }} {{ form.im1_type.error_tag }} {{ form.im1_address }} {{ form.im1_address.error_tag }}
                 </li>
                 <li>
                     <label for="im2_type">{{ form.im2_type.label }} / {{ form.im2_address.label }}</label>
-                    {{ form.im2_type }}
-                    {{ form.im2_type.error_tag }}
-                    {{ form.im2_address }}
-                    {{ form.im2_address.error_tag }}
+                    {{ form.im2_type }} {{ form.im2_type.error_tag }} {{ form.im2_address }} {{ form.im2_address.error_tag }}
                 </li>
             </ul>
         </fieldset>
         <div class="buttons">
-            <input type="button" class="button_bad" value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel" />
-            <input type="submit" class="button_good" name="save_as_primary" value="{% filter upper %}{% trans "Save as Primary" %}{% endfilter %}" />
-            <input type="submit" class="button_good" value="{% filter upper %}{% trans "Save" %}{% endfilter %}" />
+            <input type="button"
+                   class="button_bad"
+                   value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}"
+                   name="cancel"/>
+            <input type="submit"
+                   class="button_good"
+                   name="save_as_primary"
+                   value="{% filter upper %}{% trans "Save as Primary" %}{% endfilter %}"/>
+            <input type="submit" class="button_good" value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
         </div>
     </form>
 </div>

@@ -2,7 +2,7 @@
 {% load base_tags i18n %}
 
 {% block extrahead %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/add_event.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/add_event.js"></script>
 {% endblock %}
 
 
@@ -35,15 +35,13 @@
                                     {{ form.fee0_label_de }}
                                     {{ form.fee0_label_de.error_tag }}
                                 </span>
-                            </span>
-                            <span class="phone">
+                            </span> <span class="phone">
                                 {{ form.fee0_label_en.label }}
                                 <span class="phone_label">
                                     {{ form.fee0_label_en }}
                                     {{ form.fee0_label_en.error_tag }}
                                 </span>
-                            </span>
-                            <span class="phone">
+                            </span> <span class="phone">
                                 {{ form.fee0_amount.label }}
                                 <span class="phone_label">
                                     {{ form.fee0_amount }}
@@ -55,57 +53,32 @@
                             <label for="id_fee1_label_de">
                                 {% trans "Fee 2" %}
                             </label>
-                            {{ form.fee1_label_de }}
-                            {{ form.fee1_label_de.error_tag }}
-                            {{ form.fee1_label_en }}
-                            {{ form.fee1_label_en.error_tag }}
-                            {{ form.fee1_amount }}
-                            {{ form.fee1_amount.error_tag }}
+                            {{ form.fee1_label_de }} {{ form.fee1_label_de.error_tag }} {{ form.fee1_label_en }} {{ form.fee1_label_en.error_tag }} {{ form.fee1_amount }} {{ form.fee1_amount.error_tag }}
                         </li>
                         <li>
                             <label for="id_fee2_label_de">
                                 {% trans "Fee 3" %}
                             </label>
-                            {{ form.fee2_label_de }}
-                            {{ form.fee2_label_de.error_tag }}
-                            {{ form.fee2_label_en }}
-                            {{ form.fee2_label_en.error_tag }}
-                            {{ form.fee2_amount }}
-                            {{ form.fee2_amount.error_tag }}
+                            {{ form.fee2_label_de }} {{ form.fee2_label_de.error_tag }} {{ form.fee2_label_en }} {{ form.fee2_label_en.error_tag }} {{ form.fee2_amount }} {{ form.fee2_amount.error_tag }}
                         </li>
                         <li>
                             <label for="id_fee3_label_de">
                                 {% trans "Fee 4" %}
                             </label>
-                            {{ form.fee3_label_de }}
-                            {{ form.fee3_label_de.error_tag }}
-                            {{ form.fee3_label_en }}
-                            {{ form.fee3_label_en.error_tag }}
-                            {{ form.fee3_amount }}
-                            {{ form.fee3_amount.error_tag }}
+                            {{ form.fee3_label_de }} {{ form.fee3_label_de.error_tag }} {{ form.fee3_label_en }} {{ form.fee3_label_en.error_tag }} {{ form.fee3_amount }} {{ form.fee3_amount.error_tag }}
                         </li>
                         <li>
                             <label for="id_fee4_label_de">
                                 {% trans "Fee 5" %}
                             </label>
-                            {{ form.fee4_label_de }}
-                            {{ form.fee4_label_de.error_tag }}
-                            {{ form.fee4_label_en }}
-                            {{ form.fee4_label_en.error_tag }}
-                            {{ form.fee4_amount }}
-                            {{ form.fee4_amount.error_tag }}
-                       </li>
-                       <li>
+                            {{ form.fee4_label_de }} {{ form.fee4_label_de.error_tag }} {{ form.fee4_label_en }} {{ form.fee4_label_en.error_tag }} {{ form.fee4_amount }} {{ form.fee4_amount.error_tag }}
+                        </li>
+                        <li>
                             <label for="id_fee5_label_de">
                                 {% trans "Fee 6" %}
                             </label>
-                            {{ form.fee5_label_de }}
-                            {{ form.fee5_label_de.error_tag }}
-                            {{ form.fee5_label_en }}
-                            {{ form.fee5_label_en.error_tag }}
-                            {{ form.fee5_amount }}
-                            {{ form.fee5_amount.error_tag }}
-                       </li>    
+                            {{ form.fee5_label_de }} {{ form.fee5_label_de.error_tag }} {{ form.fee5_label_en }} {{ form.fee5_label_en.error_tag }} {{ form.fee5_amount }} {{ form.fee5_amount.error_tag }}
+                        </li>
                     </ul>
                 </fieldset>
                 <fieldset class="fieldset_end">
@@ -117,26 +90,21 @@
                             </label>
                             <span>
                                 {{ form.mon_open0 }}<strong> - </strong>{{ form.mon_close0 }}
-                            </span>
-                            <span class="close">
+                            </span> <span class="close">
                                 {{ form.mon_is_closed }}
                                 {{ form.mon_is_closed.label_tag }}
-                            </span>
-                            <span class="error">
+                            </span> <span class="error">
                                 {{ form.mon_open0.error_tag }}
                                 {{ form.mon_close0.error_tag }}
-                            </span>
-                            <span class="morning">
+                            </span> <span class="morning">
                                 {{ form.mon_open1 }}<strong> - </strong>{{ form.mon_close1 }}            
-                            </span>
-                            <span class="error">
+                            </span> <span class="error">
                                 {{ form.mon_open1.error_tag }}
                                 {{ form.mon_close1.error_tag }}
                             </span>
                         </li>
                         <li class="line_checkbox">
-                            {{ form.show_breaks }}
-                            {{ form.show_breaks.label_tag }}
+                            {{ form.show_breaks }} {{ form.show_breaks.label_tag }}
                         </li>
                         <li>
                             <p>
@@ -147,7 +115,7 @@
                             <label for="id_tue_open0">
                                 {% trans "Tuesday" %}
                             </label>
-                             <span>
+                            <span>
                                 <span>
                                     {{ form.tue_open0 }}<strong> - </strong>{{ form.tue_close0 }}
                                       
@@ -167,7 +135,7 @@
                                     {{ form.tue_open1.error_tag }}
                                     {{ form.tue_close1.error_tag }}
                                 </span>
-                            </span> 
+                            </span>
                         </li>
                         <li class="field_hours">
                             <label for="id_wed_open0">
@@ -192,7 +160,7 @@
                                     {{ form.wed_open1.error_tag }}
                                     {{ form.wed_close1.error_tag }}
                                 </span>
-                            </span>        
+                            </span>
                         </li>
                         <li class="field_hours">
                             <label for="id_thu_open0">
@@ -217,9 +185,9 @@
                                     {{ form.thu_open1.error_tag }}
                                     {{ form.thu_close1.error_tag }}  
                                 </span>
-                            </span>       
+                            </span>
                         </li>
-                       <li class="field_hours">
+                        <li class="field_hours">
                             <label for="id_fri_open0">
                                 {% trans "Friday" %}
                             </label>
@@ -242,7 +210,7 @@
                                     {{ form.fri_open1.error_tag }}
                                     {{ form.fri_close1.error_tag }}   
                                 </span>
-                            </span>       
+                            </span>
                         </li>
                         <li class="field_hours">
                             <label for="id_sat_open0">
@@ -292,24 +260,19 @@
                                     {{ form.sun_open1.error_tag }}
                                     {{ form.sun_close1.error_tag }}   
                                 </span>
-                            </span>      
+                            </span>
                         </li>
                         {% ifequal LANGUAGE_CODE "de" %}
                             <li>
-                                {{ form.exceptions_de.label_tag }}
-                                {{ form.exceptions_de }}
-                                {{ form.exceptions_de.error_tag }}
+                                {{ form.exceptions_de.label_tag }} {{ form.exceptions_de }} {{ form.exceptions_de.error_tag }}
                             </li>
                         {% else %}
                             <li>
-                                {{ form.exceptions_en.label_tag }}                                
-                                {{ form.exceptions_en }}
-                                {{ form.exceptions_en.error_tag }}
-                            </li> 
+                                {{ form.exceptions_en.label_tag }} {{ form.exceptions_en }} {{ form.exceptions_en.error_tag }}
+                            </li>
                         {% endifequal %}
                         <li class="line_checkbox">
-                            {{ form.is_appointment_based  }}
-                            {{ form.is_appointment_based.label_tag }}
+                            {{ form.is_appointment_based }} {{ form.is_appointment_based.label_tag }}
                         </li>
                     </ul>
                 </fieldset>

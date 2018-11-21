@@ -24,12 +24,14 @@ from jetson.apps.httpstate import settings as httpstate_settings
 # on case insensitive file systems.
 VALID_KEY_CHARS = string.ascii_lowercase + string.digits
 
+
 class CreateError(Exception):
     """
     Used internally as a consistent exception type to catch from save (see the
     docstring for HttpStateBase.save() for details).
     """
     pass
+
 
 class HttpStateBase(object):
     """
@@ -42,7 +44,9 @@ class HttpStateBase(object):
         self._httpstate_key = httpstate_key
         self.accessed = False
         self.modified = False
-        self.serializer = import_by_path(httpstate_settings.HTTPSTATE_SERIALIZER)
+        self.serializer = import_by_path(
+            httpstate_settings.HTTPSTATE_SERIALIZER
+        )
 
     def __contains__(self, key):
         return key in self._httpstate
@@ -90,7 +94,8 @@ class HttpStateBase(object):
         """Returns the given httpstate dictionary serialized and encoded as a string."""
         serialized = self.serializer().dumps(httpstate_dict)
         hash = self._hash(serialized)
-        return base64.b64encode(hash.encode() + b":" + serialized).decode('ascii')
+        return base64.b64encode(hash.encode() + b":" +
+                                serialized).decode('ascii')
 
     def decode(self, httpstate_data):
         encoded_data = base64.b64decode(force_bytes(httpstate_data))
@@ -195,7 +200,7 @@ class HttpStateBase(object):
         except KeyError:
             expiry = self.get('_httpstate_expiry')
 
-        if not expiry:   # Checks both None and 0 cases
+        if not expiry:  # Checks both None and 0 cases
             return httpstate_settings.HTTPSTATE_COOKIE_AGE
         if not isinstance(expiry, datetime):
             return expiry
@@ -220,7 +225,7 @@ class HttpStateBase(object):
 
         if isinstance(expiry, datetime):
             return expiry
-        if not expiry:   # Checks both None and 0 cases
+        if not expiry:  # Checks both None and 0 cases
             expiry = httpstate_settings.HTTPSTATE_COOKIE_AGE
         return modification + timedelta(seconds=expiry)
 

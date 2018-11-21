@@ -9,16 +9,17 @@ from base_libs.utils.misc import get_translation
 
 verbose_name = _("Recommendations")
 
+
 class Recommendation(ObjectRelationMixin(is_required=True)):
     """
     Defines that a user recommends an object to everybody
     """
     user = models.ForeignKey(User, verbose_name=_("Recommender"))
-    
+
     class Meta:
         verbose_name = _("recommendation")
         verbose_name_plural = _("recommendations")
-        
+
     def __unicode__(self):
         try:
             content_object = self.content_object
@@ -30,7 +31,7 @@ class Recommendation(ObjectRelationMixin(is_required=True)):
             force_unicode(self.user.username),
             force_unicode(content_object),
             postfix,
-            )
+        )
 
     def get_log_message(self, language=None, action=None):
         """
@@ -38,14 +39,18 @@ class Recommendation(ObjectRelationMixin(is_required=True)):
         history_models = models.get_app("history")
         message = ""
         if action in (history_models.A_ADDITION, history_models.A_CHANGE):
-            message = get_translation("%(user)s recommended %(obj)s.", language=language) % {
+            message = get_translation(
+                "%(user)s recommended %(obj)s.", language=language
+            ) % {
                 'user': force_unicode(self.user.username),
                 'obj': force_unicode(self.content_object),
-                }
-        elif action==history_models.A_DELETION:
-            message = get_translation("%(obj)s was removed from %(user)s's recommendations.", language=language) % {
+            }
+        elif action == history_models.A_DELETION:
+            message = get_translation(
+                "%(obj)s was removed from %(user)s's recommendations.",
+                language=language
+            ) % {
                 'user': force_unicode(self.user.username),
                 'obj': force_unicode(self.content_object),
-                }
+            }
         return message
-

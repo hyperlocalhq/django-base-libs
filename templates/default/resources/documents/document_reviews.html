@@ -1,1 +1,50 @@
-{% extends "resources/documents/details_base.html" %}{% load i18n base_tags %}{% block extrahead %}    {{ block.super }}    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/reviews.js" defer="defer"></script>{% endblock %}{% block details %}	<div class="content_facts">	    {% load comments %}		{% get_comment_list for resources.document object.id as reviews_list %}		{% if not object.closed or reviews_list %}			<div id="comments">				{% if not reviews_list %}					<div class="nothing">{% trans "No Reviews have been posted yet." %}</div>				{% endif %}					{% for review in reviews_list %}					<div class="comment">									<div class="comment-meta-blank" {% if review.approved %}id="owner"{% endif %}><span class="comment-pic"></span>							{% blocktrans with review.user.username as person_t and review.submit_date|date:_("DATETIME_FORMAT") as submitdate_t %}<b>{{ person_t }}</b><br /> {{ submitdate_t }}{% endblocktrans %}							{% if perms.resources.change_resource %}<br/>			   									<a href="{{ object.get_url_path }}deletereview/{{ review.id }}/?goto_next={{ request.get_full_path }}">{% trans "delete" %}</a>			   								{% endif %}							</div>							<div class="comment-text">							{% if review.headline %}<p class="review_headline">{{ review.headline }}</p>{% endif %}							{{ review.comment|escape|urlizetrunc:40|linebreaks }}							{% include "site_specific/review_rating.html" %}						</div>					</div>				{% endfor %}				{% if request.user.is_authenticated %}					<div id="post_review">						{% comment_form using "comments/form.html" for resources.document object.id %}					</div>				{% else %}                	<a href="/login/?goto_next={{ request.path }}#post_review" title="{% trans "Post a review (login required)" %}">{% trans "Post a review (login required)" %}</a>				{% endif %}			</div>		{% endif %}	</div>{% endblock %}
+{% extends "resources/documents/details_base.html" %}
+{% load i18n base_tags %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/reviews.js" defer="defer"></script>
+{% endblock %}
+
+{% block details %}
+    <div class="content_facts">
+        {% load comments %} {% get_comment_list for resources.document object.id as reviews_list %}
+        {% if not object.closed or reviews_list %}
+            <div id="comments">
+                {% if not reviews_list %}
+                    <div class="nothing">{% trans "No Reviews have been posted yet." %}</div>
+                {% endif %}
+                {% for review in reviews_list %}
+                    <div class="comment">
+
+                        <div class="comment-meta-blank" {% if review.approved %}id="owner"{% endif %}>
+                            <span class="comment-pic"></span>
+                            {% blocktrans with review.user.username as person_t and review.submit_date|date:_("DATETIME_FORMAT") as submitdate_t %}
+                                <b>{{ person_t }}</b>
+                                <br/> {{ submitdate_t }}{% endblocktrans %}
+                            {% if perms.resources.change_resource %}
+                                <br/>
+                                <a href="{{ object.get_url_path }}deletereview/{{ review.id }}/?goto_next={{ request.get_full_path }}">{% trans "delete" %}</a>
+                            {% endif %}
+                        </div>
+
+                        <div class="comment-text">
+                            {% if review.headline %}<p class="review_headline">{{ review.headline }}</p>{% endif %}
+                            {{ review.comment|escape|urlizetrunc:40|linebreaks }}
+
+                            {% include "site_specific/review_rating.html" %}
+                        </div>
+                    </div>
+                {% endfor %}
+                {% if request.user.is_authenticated %}
+                    <div id="post_review">
+                        {% comment_form using "comments/form.html" for resources.document object.id %}
+                    </div>
+                {% else %}
+                    <a href="/login/?goto_next={{ request.path }}#post_review"
+                       title="{% trans "Post a review (login required)" %}">{% trans "Post a review (login required)" %}</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,1 +1,55 @@
-{% load i18n base_tags %}<b>{% trans "This review was" %}</b><ul>	{% if user.is_authenticated %}		<li id="adding_to_review_1_{{ review.id }}" class="adding_to_review">			{% if review.can_rate.1 %}			   <a href="#" title="{% trans 'helpful' %}">			   {% trans "helpfull" %}</a>			{% else %}				<span>{% trans "helpfull" %}</span>			{% endif %}			(<span class="review_rating_count">{{ review.rating1|default:"0" }}</span>)		</li>	{% else %}			<li>			<a href="/login/?goto_next={{ request.path }}">{% trans "helpfull" %}</a>												(<span class="review_rating_count">{{ review.rating1|default:"0" }}</span>)		</li>	{% endif %}			{% if user.is_authenticated %}		<li id="adding_to_review_2_{{ review.id }}" class="adding_to_review">			{% if review.can_rate.2 %}			   <a href="#" title="{% trans 'interesting' %}">			   {% trans "interesting" %}</a>			{% else %}				<span>{% trans "interesting" %}</span>			{% endif %}			(<span class="review_rating_count">{{ review.rating2|default:"0" }}</span>)		</li>	{% else %}			<li>			<a href="/login/?goto_next={{ request.path }}" title="{% trans "interesting" %}">{% trans "interesting" %}</a>												(<span class="review_rating_count">{{ review.rating2|default:"0" }}</span>)		</li>	{% endif %}		{% if user.is_authenticated %}		<li id="adding_to_review_3_{{ review.id }}" class="adding_to_review">			{% if review.can_rate.3 %}			   <a href="#" title="{% trans 'inappropriate' %}">			   {% trans "inappropriate" %}</a>			{% else %}				<span>{% trans "inappropriate" %}</span>			{% endif %}			(<span class="review_rating_count">{{ review.rating3|default:"0" }}</span>)		</li>	{% else %}			<li>			<a href="/login/?goto_next={{ request.path }}" title="{% trans "inappropriate" %}">{% trans "inappropriate" %}</a>												(<span class="review_rating_count">{{ review.rating3|default:"0" }}</span>)		</li>	{% endif %}</ul>
+{% load i18n base_tags %}
+<b>{% trans "This review was" %}</b>
+<ul>
+    {% if user.is_authenticated %}
+        <li id="adding_to_review_1_{{ review.id }}" class="adding_to_review">
+            {% if review.can_rate.1 %}
+                <a href="#" title="{% trans 'helpful' %}">
+                    {% trans "helpfull" %}</a>
+            {% else %}
+                <span>{% trans "helpfull" %}</span>
+            {% endif %}
+            (<span class="review_rating_count">{{ review.rating1|default:"0" }}</span>)
+        </li>
+    {% else %}
+        <li>
+            <a href="/login/?goto_next={{ request.path }}">{% trans "helpfull" %}</a>
+            (<span class="review_rating_count">{{ review.rating1|default:"0" }}</span>)
+        </li>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <li id="adding_to_review_2_{{ review.id }}" class="adding_to_review">
+            {% if review.can_rate.2 %}
+                <a href="#" title="{% trans 'interesting' %}">
+                    {% trans "interesting" %}</a>
+            {% else %}
+                <span>{% trans "interesting" %}</span>
+            {% endif %}
+            (<span class="review_rating_count">{{ review.rating2|default:"0" }}</span>)
+        </li>
+    {% else %}
+        <li>
+            <a href="/login/?goto_next={{ request.path }}"
+               title="{% trans "interesting" %}">{% trans "interesting" %}</a>
+            (<span class="review_rating_count">{{ review.rating2|default:"0" }}</span>)
+        </li>
+    {% endif %}
+    {% if user.is_authenticated %}
+        <li id="adding_to_review_3_{{ review.id }}" class="adding_to_review">
+            {% if review.can_rate.3 %}
+                <a href="#" title="{% trans 'inappropriate' %}">
+                    {% trans "inappropriate" %}</a>
+            {% else %}
+                <span>{% trans "inappropriate" %}</span>
+            {% endif %}
+            (<span class="review_rating_count">{{ review.rating3|default:"0" }}</span>)
+        </li>
+    {% else %}
+        <li>
+            <a href="/login/?goto_next={{ request.path }}"
+               title="{% trans "inappropriate" %}">{% trans "inappropriate" %}</a>
+            (<span class="review_rating_count">{{ review.rating3|default:"0" }}</span>)
+        </li>
+    {% endif %}
+</ul>

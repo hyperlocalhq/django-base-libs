@@ -38,7 +38,7 @@ class SubscriptionForm(dynamicforms.Form):
         required=True,
     )
     prevent_spam = SecurityField()
-    
+
     def __init__(self, *args, **kwargs):
         super(SubscriptionForm, self).__init__(*args, **kwargs)
 
@@ -50,7 +50,7 @@ class SubscriptionForm(dynamicforms.Form):
         self.helper = FormHelper()
         self.helper.form_action = ""
         self.helper.form_method = "POST"
-        
+
         self.helper.layout = layout.Layout(
             layout.Fieldset(
                 "",
@@ -60,11 +60,9 @@ class SubscriptionForm(dynamicforms.Form):
                 layout.Field("email", css_class="input-block-level"),
                 "prevent_spam",
             ),
-            bootstrap.FormActions(
-                layout.Submit('submit', _('Send')),
-            ),
+            bootstrap.FormActions(layout.Submit('submit', _('Send')), ),
         )
-    
+
     def save(self, request):
         import hashlib
         cleaned = self.cleaned_data
@@ -84,9 +82,7 @@ class SubscriptionForm(dynamicforms.Form):
         m.update(user.email.lower())
         if ml.mailchimp_id:
             result = mailchimp_client.lists.members.create_or_update(
-                ml.mailchimp_id,
-                m.hexdigest(),
-                {
+                ml.mailchimp_id, m.hexdigest(), {
                     'email_address': email,
                     'status_if_new': status,
                     'merge_fields': {
@@ -134,9 +130,7 @@ class SimpleSubscriptionForm(dynamicforms.Form):
                 layout.Field("email", css_class="input-block-level"),
                 "prevent_spam",
             ),
-            bootstrap.FormActions(
-                layout.Submit('submit', _('Subscribe')),
-            ),
+            bootstrap.FormActions(layout.Submit('submit', _('Subscribe')), ),
         )
 
     def save(self, request):
@@ -157,10 +151,11 @@ class SimpleSubscriptionForm(dynamicforms.Form):
                     data={
                         'email_address': email,
                         'status': status,
-                        'merge_fields': {
-                            'FNAME': user.first_name if user else "",
-                            'LNAME': user.last_name if user else "",
-                        }
+                        'merge_fields':
+                            {
+                                'FNAME': user.first_name if user else "",
+                                'LNAME': user.last_name if user else "",
+                            }
                     }
                 )
             except HTTPError as err:

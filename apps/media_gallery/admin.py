@@ -17,10 +17,11 @@ from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin import ExtendedStackedInline
 
 import filebrowser.settings as filebrowser_settings
-URL_FILEBROWSER_MEDIA = getattr(filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/')
+URL_FILEBROWSER_MEDIA = getattr(
+    filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/'
+)
 MediaGallery = models.get_model("media_gallery", "MediaGallery")
 MediaFile = models.get_model("media_gallery", "MediaFile")
-
 
 ### GENERIC-MEDIA-FILE-INLINE FOR ANY MODEL ###
 
@@ -33,9 +34,16 @@ class MediaFileInlineFormSet(BaseModelFormSet):
     obj = None
     parent_model = None
 
-    def __init__(self, data=None, files=None, instance=None, prefix=None,
-            save_as_new=False,
-            queryset=None, **kwargs):
+    def __init__(
+        self,
+        data=None,
+        files=None,
+        instance=None,
+        prefix=None,
+        save_as_new=False,
+        queryset=None,
+        **kwargs
+    ):
         self.instance = instance
         self.save_as_new = save_as_new
         super(MediaFileInlineFormSet, self).__init__(
@@ -44,15 +52,16 @@ class MediaFileInlineFormSet(BaseModelFormSet):
             prefix=prefix,
             queryset=self.get_queryset(),
             **kwargs
-            )
-        
+        )
+
     #@classmethod
     def get_default_prefix(cls):
-        opts = cls.model._meta 
+        opts = cls.model._meta
         return '-'.join((
             opts.app_label,
-            opts.object_name.lower(), 
-            ))         
+            opts.object_name.lower(),
+        ))
+
     get_default_prefix = classmethod(get_default_prefix)
 
     def get_queryset(self):
@@ -63,15 +72,17 @@ class MediaFileInlineFormSet(BaseModelFormSet):
         return self.model._default_manager.filter(
             gallery__content_type=ct,
             gallery__object_id=pk,
-            ).order_by('sort_order', 'creation_date')
-        
+        ).order_by('sort_order', 'creation_date')
+
     def save_new_objects(self, commit=True):
         self.new_objects = []
         for form in self.extra_forms:
             if not form.has_changed():
                 continue
             # if only sort_order set for the new model, don't save the instance
-            if len(form.changed_data)==1 and "sort_order" in form.changed_data:
+            if len(
+                form.changed_data
+            ) == 1 and "sort_order" in form.changed_data:
                 continue
             # If someone has marked an add form for deletion, don't save the
             # object.
@@ -81,7 +92,7 @@ class MediaFileInlineFormSet(BaseModelFormSet):
             if not commit:
                 self.saved_forms.append(form)
         return self.new_objects
-        
+
     def save_new(self, form, commit=True):
         # Avoid a circular import.
         from django.contrib.contenttypes.models import ContentType
@@ -94,17 +105,25 @@ class MediaFileInlineFormSet(BaseModelFormSet):
             'gallery': gallery,
         }
         new_obj = self.model(**kwargs)
-        return save_instance(form, new_obj, exclude=[self._pk_field.name], commit=commit)
+        return save_instance(
+            form, new_obj, exclude=[self._pk_field.name], commit=commit
+        )
 
 
 def media_file_inlineformset_factory(
-        parent_model, model, obj=None, form=ModelForm,
-        formset=MediaFileInlineFormSet,
-        fields=None, exclude=None,
-        extra=3, can_order=False, can_delete=True,
-        max_num=None,
-        formfield_callback=lambda f: f.formfield(),
-        ):
+    parent_model,
+    model,
+    obj=None,
+    form=ModelForm,
+    formset=MediaFileInlineFormSet,
+    fields=None,
+    exclude=None,
+    extra=3,
+    can_order=False,
+    can_delete=True,
+    max_num=None,
+    formfield_callback=lambda f: f.formfield(),
+):
     """
     Returns an ``MediaFileInlineFormSet`` for the given kwargs.
     """
@@ -114,12 +133,17 @@ def media_file_inlineformset_factory(
     else:
         exclude = ["gallery"]
     FormSet = modelformset_factory(
-        model, form=form,
+        model,
+        form=form,
         formfield_callback=formfield_callback,
         formset=formset,
-        extra=extra, can_delete=can_delete, can_order=can_order,
-        fields=fields, exclude=exclude, max_num=max_num,
-        )
+        extra=extra,
+        can_delete=can_delete,
+        can_order=can_order,
+        fields=fields,
+        exclude=exclude,
+        max_num=max_num,
+    )
     FormSet.parent_model = parent_model
     FormSet.obj = obj
     return FormSet
@@ -132,12 +156,20 @@ class GenericMediaFileInline(ExtendedStackedInline):
     sortable_field_name = "sort_order"
     allow_add = True
     fieldsets = [
-        (None, {'fields': ("path", "external_url", "splash_image_path")}),
-        ]
-    fieldsets += get_admin_lang_section(_("Description"), ['title', 'description'], False)
-    fieldsets += [(None, {'fields': ("sort_order", )}),]
+        (None, {
+            'fields': ("path", "external_url", "splash_image_path")
+        }),
+    ]
+    fieldsets += get_admin_lang_section(
+        _("Description"), ['title', 'description'], False
+    )
+    fieldsets += [
+        (None, {
+            'fields': ("sort_order", )
+        }),
+    ]
     extra = 0
-    classes = ('grp-collapse grp-open',)
+    classes = ('grp-collapse grp-open', )
 
     def get_formset(self, request, obj=None):
         if self.declared_fieldsets:
@@ -154,9 +186,11 @@ class GenericMediaFileInline(ExtendedStackedInline):
             "can_order": False,
             "fields": fields,
         }
-        return media_file_inlineformset_factory(self.parent_model, self.model, **defaults)
-        
-        
+        return media_file_inlineformset_factory(
+            self.parent_model, self.model, **defaults
+        )
+
+
 ### NORMAL MEDIA GALLERY ADMIN SETTINGS ###
 
 
@@ -167,7 +201,9 @@ class MediaFile_FormSet(BaseInlineFormSet):
             if not form.has_changed():
                 continue
             # if only sort_order set for the new model, don't save the instance
-            if len(form.changed_data)==1 and "sort_order" in form.changed_data:
+            if len(
+                form.changed_data
+            ) == 1 and "sort_order" in form.changed_data:
                 continue
             # If someone has marked an add form for deletion, don't save the
             # object.
@@ -187,31 +223,61 @@ class MediaFile_Inline(ExtendedStackedInline):
     extra = 0
     sortable_field_name = "sort_order"
     fieldsets = [
-        (None, {'fields': ["path", "external_url", "splash_image_path"] + get_admin_lang_section(_("Description"), ['title', 'description'], False)}),
+        (
+            None, {
+                'fields':
+                    ["path", "external_url", "splash_image_path"] +
+                    get_admin_lang_section(
+                        _("Description"), ['title', 'description'], False
+                    )
+            }
+        ),
     ]
-    fieldsets += [(None, {'fields': ("sort_order", )}),]
+    fieldsets += [
+        (None, {
+            'fields': ("sort_order", )
+        }),
+    ]
 
 
-ObjectRelationAdminMixin = ObjectRelationMixinAdminOptions(admin_order_field="content_object_repr")
+ObjectRelationAdminMixin = ObjectRelationMixinAdminOptions(
+    admin_order_field="content_object_repr"
+)
 
 
 class MediaGalleryOptions(ObjectRelationAdminMixin):
     save_on_top = True
     inlines = [MediaFile_Inline]
-    list_display = ('id', '__unicode__', 'content_type', 'get_content_object_display', 'creation_date', 'file_count', 'views', 'is_featured')
-    list_editable = ('is_featured',)
-    list_display_links = ('id', '__unicode__',)
+    list_display = (
+        'id', '__unicode__', 'content_type', 'get_content_object_display',
+        'creation_date', 'file_count', 'views', 'is_featured'
+    )
+    list_editable = ('is_featured', )
+    list_display_links = (
+        'id',
+        '__unicode__',
+    )
     list_filter = ['creation_date', 'content_type', 'is_featured']
     search_fields = ["title", "content_object_repr"]
     date_hierarchy = 'creation_date'
     fieldsets = deepcopy(ObjectRelationAdminMixin.fieldsets)
     fieldsets += get_admin_lang_section(None, ['title', 'description'])
     fieldsets += [
-        (_("Cover"), {'fields': ("cover_image",), 'classes': ["grp-collapse grp-closed"]}),
+        (
+            _("Cover"), {
+                'fields': ("cover_image", ),
+                'classes': ["grp-collapse grp-closed"]
+            }
+        ),
     ]
     fieldsets += [
-        (_("Details"), {'fields': ("is_featured", "sort_order"), 'classes': ["grp-collapse grp-closed"]}),
+        (
+            _("Details"), {
+                'fields': ("is_featured", "sort_order"),
+                'classes': ["grp-collapse grp-closed"]
+            }
+        ),
     ]
 
-admin.site.register(MediaGallery, MediaGalleryOptions)
 
+admin.site.register(MediaGallery, MediaGalleryOptions)

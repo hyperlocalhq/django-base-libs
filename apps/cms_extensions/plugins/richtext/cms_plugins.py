@@ -17,8 +17,9 @@ class RichTextPlugin(MarkupTypeOptions, CMSPluginBase):
     def render(self, context, instance, placeholder):
         context.update({
             'object': instance,
-            'placeholder':placeholder,
+            'placeholder': placeholder,
         })
         return context
+
 
 plugin_pool.register_plugin(RichTextPlugin)

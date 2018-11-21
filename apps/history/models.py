@@ -34,13 +34,21 @@ ACTION_CHOICES = (
 )
 
 SCOPE_CHOICES = (
-    (AS_SYSTEM, _("System")),   # shown only to administrators
-    (AS_PRIVATE, _("Private")), # shown only to the related user
-    (AS_PUBLIC, _("Public")),   # shown to everyone
+    (AS_SYSTEM, _("System")),  # shown only to administrators
+    (AS_PRIVATE, _("Private")),  # shown only to the related user
+    (AS_PUBLIC, _("Public")),  # shown to everyone
 )
 
+
 class ExtendedLogEntryManager(models.Manager):
-    def log_action(self, user=None, content_object=None, action_flag=A_UNDEFINED, scope=AS_SYSTEM, **kwargs):
+    def log_action(
+        self,
+        user=None,
+        content_object=None,
+        action_flag=A_UNDEFINED,
+        scope=AS_SYSTEM,
+        **kwargs
+    ):
         if not user.pk:  # if the user has just been deleted, skip this logging
             return
         e = self.model(
@@ -50,7 +58,10 @@ class ExtendedLogEntryManager(models.Manager):
             scope=scope,
         )
         for lang_code, lang_name in settings.LANGUAGES:
-            setattr(e, "change_message_%s" % lang_code, kwargs['change_message_%s' % lang_code])
+            setattr(
+                e, "change_message_%s" % lang_code,
+                kwargs['change_message_%s' % lang_code]
+            )
         if content_object.pk:  # if the object hasn't just been deleted
             e.content_object = content_object
         e.save()
@@ -65,7 +76,7 @@ class ExtendedLogEntryManager(models.Manager):
                 object_id=item.object_id,
                 object_repr=item.object_repr,
                 action_flag=item.action_flag,
-                )
+            )
             for lang_code, lang_name in settings.LANGUAGES:
                 setattr(e, "change_message_%s" % lang_code, item.change_message)
             e.save()
@@ -73,6 +84,7 @@ class ExtendedLogEntryManager(models.Manager):
 
     def list_out(self):
         import re
+
         def format_message(message):
             result = message[:46]
             message = message[46:]
@@ -80,37 +92,46 @@ class ExtendedLogEntryManager(models.Manager):
                 r"(.{1,45})",
                 r"\n               |              | \1",
                 message,
-                )
+            )
             return (result + message).strip()
+
         entries = self.all().order_by("action_time")
         for el in entries:
             print "%s | %12s | %s" % (
                 smart_str(el.action_time)[5:],
                 smart_str(el.user.username).ljust(12)[:12],
                 format_message(smart_str(el.get_change_message())),
-                )
+            )
+
 
 class ExtendedLogEntry(ObjectRelationMixin()):
     # To make the migrations generic, we make the verbose_name not translatable here.
     action_time = models.DateTimeField('Action time', auto_now=True)
     user = models.ForeignKey(User)
     object_repr = models.CharField('Object representation', max_length=200)
-    action_flag = models.PositiveSmallIntegerField('Action', choices=ACTION_CHOICES, default=A_UNDEFINED)
+    action_flag = models.PositiveSmallIntegerField(
+        'Action', choices=ACTION_CHOICES, default=A_UNDEFINED
+    )
     change_message = MultilingualPlainTextField('Changes', blank=True)
-    scope = models.PositiveSmallIntegerField('Scope', choices=SCOPE_CHOICES, default=AS_SYSTEM)
+    scope = models.PositiveSmallIntegerField(
+        'Scope', choices=SCOPE_CHOICES, default=AS_SYSTEM
+    )
     objects = ExtendedLogEntryManager()
-    
+
     class Meta:
         verbose_name = _('log entry')
         verbose_name_plural = _('log entries')
-        ordering = ('-action_time',)
+        ordering = ('-action_time', )
 
     def __repr__(self):
         return smart_unicode(self.action_time)
 
     def get_change_message(self, language=None):
         language = language or get_current_language()
-        return force_unicode(getattr(self, "change_message_%s" % language, "") or self.change_message)
+        return force_unicode(
+            getattr(self, "change_message_%s" % language, "") or
+            self.change_message
+        )
 
     def is_addition(self):
         return self.action_flag == A_ADDITION
@@ -130,18 +151,23 @@ class ExtendedLogEntry(ObjectRelationMixin()):
         Returns the admin URL to edit the object represented by this log entry.
         This is relative to the Django admin index page.
         """
-        return u"%s/%s/%s/" % (self.content_type.app_label, self.content_type.model, self.object_id)
+        return u"%s/%s/%s/" % (
+            self.content_type.app_label, self.content_type.model, self.object_id
+        )
+
 
 def get_change_message(old_obj, updated_obj, language=None):
     current_lang = get_current_language()
     activate(language or "en")
     change_message = []
     added, changed, deleted = [], [], []
-    
+
     for f in old_obj._meta.fields:
         if f.primary_key or type(f).__name__.startswith("Multilingual"):
             continue
-        field_changed = (getattr(old_obj, f.name) != getattr(updated_obj, f.name))
+        field_changed = (
+            getattr(old_obj, f.name) != getattr(updated_obj, f.name)
+        )
         if field_changed:
             if getattr(old_obj, f.name) in (None, ""):
                 added.append(ugettext(f.verbose_name))
@@ -151,32 +177,32 @@ def get_change_message(old_obj, updated_obj, language=None):
                 changed.append(ugettext(f.verbose_name))
     if added:
         change_message.append(
-            ugettext("Added %s.") % get_text_list(
-                added,
-                ugettext("and")))
+            ugettext("Added %s.") % get_text_list(added, ugettext("and"))
+        )
     if changed:
         change_message.append(
-            ugettext("Changed %s.") % get_text_list(
-                changed,
-                ugettext("and")))
+            ugettext("Changed %s.") % get_text_list(changed, ugettext("and"))
+        )
     if deleted:
         change_message.append(
-            ugettext("Deleted %s.") % get_text_list(
-                deleted,
-                ugettext("and")))
+            ugettext("Deleted %s.") % get_text_list(deleted, ugettext("and"))
+        )
     change_message = " ".join(change_message)
     if not change_message:
-        change_message = ugettext("No fields or some multiple-choice field changed.")
-        
+        change_message = ugettext(
+            "No fields or some multiple-choice field changed."
+        )
+
     activate(current_lang)
     return change_message
+
 
 def pre_save_handler(sender, instance, signal, user=None, *args, **kwargs):
     str_model = "%s.%s" % (sender._meta.app_label, sender.__name__.lower())
     if str_model in TRACKED_MODELS:
         if not user:
             user = get_current_user()
-            if not(user and user.is_authenticated()):
+            if not (user and user.is_authenticated()):
                 user = None
             if not user and isinstance(instance, User):
                 user = instance
@@ -189,13 +215,16 @@ def pre_save_handler(sender, instance, signal, user=None, *args, **kwargs):
                         instance._is_new = True
                         return
                     # set default values for change_message and change_message_(*), where (*) is two letter language code for all installed languages other than English
-                    named = dict([
-                        (
-                            "change_message_" + lang[:2],
-                            get_change_message(old_record, instance, language=lang[:2])
-                        )
-                        for lang in dict(settings.LANGUAGES)
-                        ])
+                    named = dict(
+                        [
+                            (
+                                "change_message_" + lang[:2],
+                                get_change_message(
+                                    old_record, instance, language=lang[:2]
+                                )
+                            ) for lang in dict(settings.LANGUAGES)
+                        ]
+                    )
                     # update change_message and change_message_(*) if get_log_message exists
                     if hasattr(instance, "get_log_message"):
                         for lang in dict(settings.LANGUAGES):
@@ -203,7 +232,7 @@ def pre_save_handler(sender, instance, signal, user=None, *args, **kwargs):
                             message = instance.get_log_message(
                                 language=lang,
                                 action=A_CHANGE,
-                                )
+                            )
                             if message:
                                 named["change_message_" + lang] = message
                     ExtendedLogEntry.objects.log_action(
@@ -212,19 +241,21 @@ def pre_save_handler(sender, instance, signal, user=None, *args, **kwargs):
                         action_flag=A_CHANGE,
                         scope=TRACKED_MODELS[str_model][A_CHANGE],
                         **named
-                        )
+                    )
             else:
                 instance._is_new = True
+
 
 def post_save_handler(sender, instance, signal, user=None, *args, **kwargs):
     str_model = "%s.%s" % (sender._meta.app_label, sender.__name__.lower())
     if str_model in TRACKED_MODELS:
         if not user:
             user = get_current_user()
-            if not(user and user.is_authenticated()):
+            if not (user and user.is_authenticated()):
                 user = None
         if user:
-            if getattr(instance, "_is_new", False) and hasattr(instance, "__unicode__"):
+            if getattr(instance, "_is_new",
+                       False) and hasattr(instance, "__unicode__"):
                 if A_ADDITION in TRACKED_MODELS[str_model]:
                     # point system
                     points = 0
@@ -235,15 +266,18 @@ def post_save_handler(sender, instance, signal, user=None, *args, **kwargs):
                     elif sender.__name__ in ["FundedProject"]:
                         points = 3
                     # set default values for change_message and change_message_(*), where (*) is two letter language code for all installed languages other than English
-                    named = dict([
-                        (
-                            "change_message_" + lang[:2],
-                            get_translation("%(obj)s created.", language=lang[:2]) % {
-                                'obj': force_unicode(instance),
+                    named = dict(
+                        [
+                            (
+                                "change_message_" + lang[:2],
+                                get_translation(
+                                    "%(obj)s created.", language=lang[:2]
+                                ) % {
+                                    'obj': force_unicode(instance),
                                 }
-                        )
-                        for lang in dict(settings.LANGUAGES)
-                        ])
+                            ) for lang in dict(settings.LANGUAGES)
+                        ]
+                    )
                     # update change_message and change_message_(*) if get_log_message exists
                     if hasattr(instance, "get_log_message"):
                         for lang in dict(settings.LANGUAGES):
@@ -251,7 +285,7 @@ def post_save_handler(sender, instance, signal, user=None, *args, **kwargs):
                             message = instance.get_log_message(
                                 language=lang,
                                 action=A_ADDITION,
-                                )
+                            )
                             if message:
                                 named["change_message_" + lang] = message
                     ExtendedLogEntry.objects.log_action(
@@ -260,8 +294,9 @@ def post_save_handler(sender, instance, signal, user=None, *args, **kwargs):
                         action_flag=A_ADDITION,
                         scope=TRACKED_MODELS[str_model][A_ADDITION],
                         **named
-                        )
+                    )
                     del instance._is_new
+
 
 def pre_delete_handler(sender, instance, signal, user=None, *args, **kwargs):
     str_model = "%s.%s" % (sender._meta.app_label, sender.__name__.lower())
@@ -269,19 +304,22 @@ def pre_delete_handler(sender, instance, signal, user=None, *args, **kwargs):
         if A_DELETION in TRACKED_MODELS[str_model]:
             if not user:
                 user = get_current_user()
-                if not(user and user.is_authenticated()):
+                if not (user and user.is_authenticated()):
                     user = None
             if user:
                 # set default values for change_message and change_message_(*), where (*) is two letter language code for all installed languages other than English
-                named = dict([
-                    (
-                        "change_message_" + lang[:2],
-                        get_translation("%(obj)s removed.", language=lang[:2]) % {
-                            'obj': force_unicode(instance),
+                named = dict(
+                    [
+                        (
+                            "change_message_" + lang[:2],
+                            get_translation(
+                                "%(obj)s removed.", language=lang[:2]
+                            ) % {
+                                'obj': force_unicode(instance),
                             }
-                    )
-                    for lang in dict(settings.LANGUAGES)
-                    ])
+                        ) for lang in dict(settings.LANGUAGES)
+                    ]
+                )
                 # update change_message and change_message_(*) if get_log_message exists
                 if hasattr(instance, "get_log_message"):
                     for lang in dict(settings.LANGUAGES):
@@ -289,7 +327,7 @@ def pre_delete_handler(sender, instance, signal, user=None, *args, **kwargs):
                         message = instance.get_log_message(
                             language=lang,
                             action=A_DELETION,
-                            )
+                        )
                         if message:
                             named["change_message_" + lang] = message
                 ExtendedLogEntry.objects.log_action(
@@ -298,7 +336,8 @@ def pre_delete_handler(sender, instance, signal, user=None, *args, **kwargs):
                     action_flag=A_DELETION,
                     scope=TRACKED_MODELS[str_model][A_DELETION],
                     **named
-                    )
+                )
+
 
 def read_handler(sender, instance, signal, user=None, *args, **kwargs):
     str_model = "%s.%s" % (sender._meta.app_label, sender.__name__.lower())
@@ -306,19 +345,21 @@ def read_handler(sender, instance, signal, user=None, *args, **kwargs):
         if A_READ in TRACKED_MODELS[str_model]:
             if not user:
                 user = get_current_user()
-                if not(user and user.is_authenticated()):
+                if not (user and user.is_authenticated()):
                     user = None
             if user:
                 # set default values for change_message and change_message_(*), where (*) is two letter language code for all installed languages other than English
-                named = dict([
-                    (
-                        "change_message_" + lang[:2],
-                        get_translation("%(obj)s seen.", language=lang[:2]) % {
-                            'obj': force_unicode(instance),
+                named = dict(
+                    [
+                        (
+                            "change_message_" + lang[:2],
+                            get_translation("%(obj)s seen.", language=lang[:2])
+                            % {
+                                'obj': force_unicode(instance),
                             }
-                    )
-                    for lang in dict(settings.LANGUAGES)
-                    ])
+                        ) for lang in dict(settings.LANGUAGES)
+                    ]
+                )
                 # update change_message and change_message_(*) if get_log_message exists
                 if hasattr(instance, "get_log_message"):
                     for lang in dict(settings.LANGUAGES):
@@ -326,7 +367,7 @@ def read_handler(sender, instance, signal, user=None, *args, **kwargs):
                         message = instance.get_log_message(
                             language=lang,
                             action=A_READ,
-                            )
+                        )
                         if message:
                             named["change_message_" + lang] = message
                 ExtendedLogEntry.objects.log_action(
@@ -335,22 +376,27 @@ def read_handler(sender, instance, signal, user=None, *args, **kwargs):
                     action_flag=A_READ,
                     scope=TRACKED_MODELS[str_model][A_READ],
                     **named
-                    )
+                )
 
-def custom_action_handler_1(sender, instance, signal, user=None, *args, **kwargs):
+
+def custom_action_handler_1(
+    sender, instance, signal, user=None, *args, **kwargs
+):
     str_model = "%s.%s" % (sender._meta.app_label, sender.__name__.lower())
     if str_model in TRACKED_MODELS:
         if A_CUSTOM1 in TRACKED_MODELS[str_model]:
             if not user:
                 user = get_current_user()
-                if not(user and user.is_authenticated()):
+                if not (user and user.is_authenticated()):
                     user = None
             if user:
                 # set default values for change_message and change_message_(*), where (*) is two letter language code for all installed languages other than English
-                named = dict([
-                    ("change_message_" + lang[:2], "")
-                    for lang in dict(settings.LANGUAGES)
-                    ])
+                named = dict(
+                    [
+                        ("change_message_" + lang[:2], "")
+                        for lang in dict(settings.LANGUAGES)
+                    ]
+                )
                 # update change_message and change_message_(*) if get_log_message exists
                 if hasattr(instance, "get_log_message"):
                     for lang in dict(settings.LANGUAGES):
@@ -358,7 +404,7 @@ def custom_action_handler_1(sender, instance, signal, user=None, *args, **kwargs
                         message = instance.get_log_message(
                             language=lang,
                             action=A_CUSTOM1,
-                            )
+                        )
                         if message:
                             named["change_message_" + lang] = message
                 ExtendedLogEntry.objects.log_action(
@@ -367,22 +413,27 @@ def custom_action_handler_1(sender, instance, signal, user=None, *args, **kwargs
                     action_flag=A_CUSTOM1,
                     scope=TRACKED_MODELS[str_model][A_CUSTOM1],
                     **named
-                    )
+                )
 
-def custom_action_handler_2(sender, instance, signal, user=None, *args, **kwargs):
+
+def custom_action_handler_2(
+    sender, instance, signal, user=None, *args, **kwargs
+):
     str_model = "%s.%s" % (sender._meta.app_label, sender.__name__.lower())
     if str_model in TRACKED_MODELS:
         if A_CUSTOM2 in TRACKED_MODELS[str_model]:
             if not user:
                 user = get_current_user()
-                if not(user and user.is_authenticated()):
+                if not (user and user.is_authenticated()):
                     user = None
             if user:
                 # set default values for change_message and change_message_(*), where (*) is two letter language code for all installed languages other than English
-                named = dict([
-                    ("change_message_" + lang[:2], "")
-                    for lang in dict(settings.LANGUAGES)
-                    ])
+                named = dict(
+                    [
+                        ("change_message_" + lang[:2], "")
+                        for lang in dict(settings.LANGUAGES)
+                    ]
+                )
                 # update change_message and change_message_(*) if get_log_message exists
                 if hasattr(instance, "get_log_message"):
                     for lang in dict(settings.LANGUAGES):
@@ -390,7 +441,7 @@ def custom_action_handler_2(sender, instance, signal, user=None, *args, **kwargs
                         message = instance.get_log_message(
                             language=lang,
                             action=A_CUSTOM2,
-                            )
+                        )
                         if message:
                             named["change_message_" + lang] = message
                 ExtendedLogEntry.objects.log_action(
@@ -399,22 +450,27 @@ def custom_action_handler_2(sender, instance, signal, user=None, *args, **kwargs
                     action_flag=A_CUSTOM2,
                     scope=TRACKED_MODELS[str_model][A_CUSTOM2],
                     **named
-                    )
+                )
 
-def custom_action_handler_3(sender, instance, signal, user=None, *args, **kwargs):
+
+def custom_action_handler_3(
+    sender, instance, signal, user=None, *args, **kwargs
+):
     str_model = "%s.%s" % (sender._meta.app_label, sender.__name__.lower())
     if str_model in TRACKED_MODELS:
         if A_CUSTOM3 in TRACKED_MODELS[str_model]:
             if not user:
                 user = get_current_user()
-                if not(user and user.is_authenticated()):
+                if not (user and user.is_authenticated()):
                     user = None
             if user:
                 # set default values for change_message and change_message_(*), where (*) is two letter language code for all installed languages other than English
-                named = dict([
-                    ("change_message_" + lang[:2], "")
-                    for lang in dict(settings.LANGUAGES)
-                    ])
+                named = dict(
+                    [
+                        ("change_message_" + lang[:2], "")
+                        for lang in dict(settings.LANGUAGES)
+                    ]
+                )
                 # update change_message and change_message_(*) if get_log_message exists
                 if hasattr(instance, "get_log_message"):
                     for lang in dict(settings.LANGUAGES):
@@ -422,7 +478,7 @@ def custom_action_handler_3(sender, instance, signal, user=None, *args, **kwargs
                         message = instance.get_log_message(
                             language=lang,
                             action=A_CUSTOM3,
-                            )
+                        )
                         if message:
                             named["change_message_" + lang] = message
                 ExtendedLogEntry.objects.log_action(
@@ -431,7 +487,8 @@ def custom_action_handler_3(sender, instance, signal, user=None, *args, **kwargs
                     action_flag=A_CUSTOM3,
                     scope=TRACKED_MODELS[str_model][A_CUSTOM3],
                     **named
-                    )
+                )
+
 
 read_signal = Signal()
 custom_action_signal_1 = Signal()
@@ -446,4 +503,3 @@ read_signal.connect(read_handler)
 custom_action_signal_1.connect(custom_action_handler_1)
 custom_action_signal_2.connect(custom_action_handler_2)
 custom_action_signal_3.connect(custom_action_handler_3)
-

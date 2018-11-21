@@ -32,8 +32,12 @@ class NoticeSettingsForm(forms.Form):
 
         for notice_type in queryset:
             for medium_id, medium_display in NOTICE_MEDIA:
-                field_name = "%s_%s_frequency" % (notice_type.sysname, medium_id)
-                setting = get_notification_setting(self.user, notice_type, medium_id)
+                field_name = "%s_%s_frequency" % (
+                    notice_type.sysname, medium_id
+                )
+                setting = get_notification_setting(
+                    self.user, notice_type, medium_id
+                )
 
                 label = notice_type.get_display()
                 if not notice_type.is_public:
@@ -50,7 +54,8 @@ class NoticeSettingsForm(forms.Form):
                 if notice_type.category:
                     category_title = notice_type.category.title
 
-                fields_for_fieldsets.setdefault(category_title, []).append(field_name)
+                fields_for_fieldsets.setdefault(category_title,
+                                                []).append(field_name)
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -71,13 +76,21 @@ class NoticeSettingsForm(forms.Form):
     def save(self):
         cleaned_data = self.cleaned_data
         if self.user.is_staff:
-            queryset = NoticeType.objects.all().order_by("category__title_%s" % get_current_language(), "display")
+            queryset = NoticeType.objects.all().order_by(
+                "category__title_%s" % get_current_language(), "display"
+            )
         else:
-            queryset = NoticeType.objects.filter(is_public=True).order_by("category__title_%s" % get_current_language(), "display")
+            queryset = NoticeType.objects.filter(is_public=True).order_by(
+                "category__title_%s" % get_current_language(), "display"
+            )
 
         for notice_type in queryset:
             for medium_id, medium_display in NOTICE_MEDIA:
-                field_name = "%s_%s_frequency" % (notice_type.sysname, medium_id)
-                setting = get_notification_setting(self.user, notice_type, medium_id)
+                field_name = "%s_%s_frequency" % (
+                    notice_type.sysname, medium_id
+                )
+                setting = get_notification_setting(
+                    self.user, notice_type, medium_id
+                )
                 setting.frequency = cleaned_data[field_name]
                 setting.save()

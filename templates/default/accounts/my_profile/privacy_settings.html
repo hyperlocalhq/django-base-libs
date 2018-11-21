@@ -3,71 +3,59 @@
 
 
 {% block content %}
-<div class="suggest">
-<div class="breadcrumbs">
-    <a href="javascript:window.history.back()">{% trans "Go back" %}</a>
-</div>
-<p>
-    {% trans "Here you can specify personal data to be displayed in your profile to the public." %}
-</p>
-<div class="field_layout">
-<form action="." method="post">
-    <fieldset class="fieldset_end">
-        <legend>
-            {% trans "Privacy Settings" %}
-        </legend>
-        <ul class="protection">
-            <li class="line_checkbox">
-                {{ form.display_profile }}
-                {{ form.display_profile.label_tag }}
-                {{ form.display_profile.error_tag }}
-            </li>
-            <li class="line_checkbox">
-                {{ form.display_username }}
-                {{ form.display_username.label_tag }}
-                {{ form.display_username.error_tag }}
-            </li>
-            <li class="line_checkbox">
-                {{ form.allow_search_engine_indexing }}
-                {{ form.allow_search_engine_indexing.label_tag }}
-                {{ form.allow_search_engine_indexing.error_tag }}
-            </li>
-            <li class="line_checkbox">
-                {{ form.display_birthday }}
-                {{ form.display_birthday.label_tag }}
-                {{ form.display_birthday.error_tag }}
-            </li>
-            <li class="line_checkbox">
-                {{ form.display_address }}
-                {{ form.display_address.label_tag }}
-                {{ form.display_address.error_tag }}
-            </li>
-            <li class="line_checkbox">
-                {{ form.display_phone }}
-                {{ form.display_phone.label_tag }}
-                {{ form.display_phone.error_tag }}
-            </li>
-            <li class="line_checkbox">
-                {{ form.display_fax }}
-                {{ form.display_fax.label_tag }}
-                {{ form.display_fax.error_tag }}
-            </li>
-            <li class="line_checkbox">
-                {{ form.display_mobile }}
-                {{ form.display_mobile.label_tag }}
-                {{ form.display_mobile.error_tag }}
-            </li>
-            <li class="line_checkbox">
-                {{ form.display_im }}
-                {{ form.display_im.label_tag }}
-                {{ form.display_im.error_tag }}
-            </li>
-        </ul>
-    </fieldset>
-    <div class="buttons">
-    <input type="button" class="button_bad" onclick="history.go(-1)" value="{% filter upper %}{% trans "Back" %}{% endfilter %}"/>
-    <input class="button_good" type="submit" value="{% filter upper %}{% trans "Save" %}{% endfilter %}" /></div>
-</form>
-</div>
-</div>
+    <div class="suggest">
+        <div class="breadcrumbs">
+            <a href="javascript:window.history.back()">{% trans "Go back" %}</a>
+        </div>
+        <p>
+            {% trans "Here you can specify personal data to be displayed in your profile to the public." %}
+        </p>
+        <div class="field_layout">
+            <form action="." method="post">
+                <fieldset class="fieldset_end">
+                    <legend>
+                        {% trans "Privacy Settings" %}
+                    </legend>
+                    <ul class="protection">
+                        <li class="line_checkbox">
+                            {{ form.display_profile }} {{ form.display_profile.label_tag }} {{ form.display_profile.error_tag }}
+                        </li>
+                        <li class="line_checkbox">
+                            {{ form.display_username }} {{ form.display_username.label_tag }} {{ form.display_username.error_tag }}
+                        </li>
+                        <li class="line_checkbox">
+                            {{ form.allow_search_engine_indexing }} {{ form.allow_search_engine_indexing.label_tag }} {{ form.allow_search_engine_indexing.error_tag }}
+                        </li>
+                        <li class="line_checkbox">
+                            {{ form.display_birthday }} {{ form.display_birthday.label_tag }} {{ form.display_birthday.error_tag }}
+                        </li>
+                        <li class="line_checkbox">
+                            {{ form.display_address }} {{ form.display_address.label_tag }} {{ form.display_address.error_tag }}
+                        </li>
+                        <li class="line_checkbox">
+                            {{ form.display_phone }} {{ form.display_phone.label_tag }} {{ form.display_phone.error_tag }}
+                        </li>
+                        <li class="line_checkbox">
+                            {{ form.display_fax }} {{ form.display_fax.label_tag }} {{ form.display_fax.error_tag }}
+                        </li>
+                        <li class="line_checkbox">
+                            {{ form.display_mobile }} {{ form.display_mobile.label_tag }} {{ form.display_mobile.error_tag }}
+                        </li>
+                        <li class="line_checkbox">
+                            {{ form.display_im }} {{ form.display_im.label_tag }} {{ form.display_im.error_tag }}
+                        </li>
+                    </ul>
+                </fieldset>
+                <div class="buttons">
+                    <input type="button"
+                           class="button_bad"
+                           onclick="history.go(-1)"
+                           value="{% filter upper %}{% trans "Back" %}{% endfilter %}"/>
+                    <input class="button_good"
+                           type="submit"
+                           value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}

@@ -6,7 +6,9 @@
         <div class="grp-module grp-thead">
             <div class="grp-tr">
                 <div class="grp-th">
-                    <a href="../../../optionset/urltype/add/" id="add_{{ contact_form.url0_type.auto_id }}" onclick="return showAddAnotherPopup(this);">{% trans "Type not listed?" %}</a>
+                    <a href="../../../optionset/urltype/add/"
+                       id="add_{{ contact_form.url0_type.auto_id }}"
+                       onclick="return showAddAnotherPopup(this);">{% trans "Type not listed?" %}</a>
                 </div>
                 <div class="grp-th">
                     {% trans "Website" %}
@@ -22,56 +24,44 @@
         <div class="grp-module grp-tbody">
             <div class="grp-tr{% if contact_form.url0_type.errors or contact_form.url0_link.errors or contact_form.is_url0_default.errors or contact_form.is_url0_on_hold.errors %} grp-errors{% endif %}">
                 <div class="grp-td">
-                    {{ contact_form.url0_type }}
-                    {{ contact_form.url0_type.errors }}
+                    {{ contact_form.url0_type }} {{ contact_form.url0_type.errors }}
                 </div>
                 <div class="grp-td">
-                    {{ contact_form.url0_link }}
-                    {{ contact_form.url0_link.errors }}
+                    {{ contact_form.url0_link }} {{ contact_form.url0_link.errors }}
                 </div>
                 <div class="grp-td">
-                    {{ contact_form.is_url0_default }}
-                    {{ contact_form.is_url0_default.errors }}
+                    {{ contact_form.is_url0_default }} {{ contact_form.is_url0_default.errors }}
                 </div>
                 <div class="grp-td">
-                    {{ contact_form.is_url0_on_hold }}
-                    {{ contact_form.is_url0_on_hold.errors }}
+                    {{ contact_form.is_url0_on_hold }} {{ contact_form.is_url0_on_hold.errors }}
                 </div>
             </div>
             <div class="grp-tr{% if contact_form.url1_type.errors or contact_form.url1_link.errors or contact_form.is_url1_default.errors or contact_form.is_url1_on_hold.errors %} grp-errors{% endif %}">
                 <div class="grp-td">
-                    {{ contact_form.url1_type }}
-                    {{ contact_form.url1_type.errors }}
+                    {{ contact_form.url1_type }} {{ contact_form.url1_type.errors }}
                 </div>
                 <div class="grp-td">
-                    {{ contact_form.url1_link }}
-                    {{ contact_form.url1_link.errors }}
+                    {{ contact_form.url1_link }} {{ contact_form.url1_link.errors }}
                 </div>
                 <div class="grp-td">
-                    {{ contact_form.is_url1_default }}
-                    {{ contact_form.is_url1_default.errors }}
+                    {{ contact_form.is_url1_default }} {{ contact_form.is_url1_default.errors }}
                 </div>
                 <div class="grp-td">
-                    {{ contact_form.is_url1_on_hold }}
-                    {{ contact_form.is_url1_on_hold.errors }}
+                    {{ contact_form.is_url1_on_hold }} {{ contact_form.is_url1_on_hold.errors }}
                 </div>
             </div>
             <div class="grp-tr{% if contact_form.url2_type.errors or contact_form.url2_link.errors or contact_form.is_url2_default.errors or contact_form.is_url2_on_hold.errors %} grp-errors{% endif %}">
                 <div class="grp-td">
-                    {{ contact_form.url2_type }}
-                    {{ contact_form.url2_type.errors }}
+                    {{ contact_form.url2_type }} {{ contact_form.url2_type.errors }}
                 </div>
                 <div class="grp-td">
-                    {{ contact_form.url2_link }}
-                    {{ contact_form.url2_link.errors }}
+                    {{ contact_form.url2_link }} {{ contact_form.url2_link.errors }}
                 </div>
                 <div class="grp-td">
-                    {{ contact_form.is_url2_default }}
-                    {{ contact_form.is_url2_default.errors }}
+                    {{ contact_form.is_url2_default }} {{ contact_form.is_url2_default.errors }}
                 </div>
                 <div class="grp-td">
-                    {{ contact_form.is_url2_on_hold }}
-                    {{ contact_form.is_url2_on_hold.errors }}
+                    {{ contact_form.is_url2_on_hold }} {{ contact_form.is_url2_on_hold.errors }}
                 </div>
             </div>
         </div>

@@ -7,25 +7,24 @@
                 <dl>
                 <dd>{% trans "OPENING HOURS" %}</dd>
             {% endif %}
-            <dt class="day">{{ opening.weekday|slice:":2" }}
-                <span class="time">
+        <dt class="day">{{ opening.weekday|slice:":2" }} <span class="time">
                     {% if opening.open %}
-                         {{ opening.open|time:_("TIME_FORMAT") }}
-                         {% if opening.break_close %}
+                        {{ opening.open|time:_("TIME_FORMAT") }}
+                        {% if opening.break_close %}
                             - {{ opening.break_close|time:_("TIME_FORMAT") }}
-                              {{ opening.break_open|time:_("TIME_FORMAT") }} 
+                            {{ opening.break_open|time:_("TIME_FORMAT") }}
                             - {{ opening.close|time:_("TIME_FORMAT") }}
-                         {% else %}
+                        {% else %}
                             - {{ opening.close|time:_("TIME_FORMAT") }}
-                         {% endif %}
-                    {% else %}				 
+                        {% endif %}
+                    {% else %}
                         {% trans "closed" %}
                     {% endif %}
                 </span>
-            </dt>
-            {% if forloop.last %}
-                </dl>
-            {% endif %}
+        </dt>
+        {% if forloop.last %}
+            </dl>
+        {% endif %}
         {% endfor %}
     </div>
 {% endif %}

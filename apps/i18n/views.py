@@ -14,4 +14,3 @@ def json_country_name(request, country_code):
         json_str = country.get_name()
     json_str = json.dumps(json_str, ensure_ascii=False, cls=ExtendedJSONEncoder)
     return HttpResponse(json_str, content_type='text/javascript; charset=utf-8')
-

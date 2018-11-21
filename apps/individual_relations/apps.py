@@ -5,16 +5,26 @@ from django.apps import AppConfig, apps
 
 def create_notice_types(app, created_models, verbosity, **kwargs):
     from jetson.apps.notification import models as notification
-    notification.create_notice_type("individual_relation_requested", "Individual Relation Requested",
-                                    "someone has invited you to be his friend", default=1)
-    notification.create_notice_type("individual_relation_confirmed", "Individual Relation Confirmed",
-                                    "someone has confirmed you as his friend", default=1)
+    notification.create_notice_type(
+        "individual_relation_requested",
+        "Individual Relation Requested",
+        "someone has invited you to be his friend",
+        default=1
+    )
+    notification.create_notice_type(
+        "individual_relation_confirmed",
+        "Individual Relation Confirmed",
+        "someone has confirmed you as his friend",
+        default=1
+    )
 
 
 def add_methods_to_person():
     """Additional methods to Person model"""
     Person = apps.get_model("people", "Person")
-    IndividualRelation = apps.get_model("individual_relations", "IndividualRelation")
+    IndividualRelation = apps.get_model(
+        "individual_relations", "IndividualRelation"
+    )
     from base_libs.middleware import get_current_language, get_current_user
 
     def _get_individual_relation_status(self, user=None):
@@ -23,10 +33,13 @@ def add_methods_to_person():
             status = IndividualRelation.objects.get_status(user, self.user)
             self._get_individual_relation_status_cache = status
         return self._get_individual_relation_status_cache
+
     def is_contact_addable(self, user=None):
         if not hasattr(self, "_is_contact_addable_cache"):
             status = self._get_individual_relation_status(user)
-            self._is_contact_addable_cache = status in ("none", "denied", "denying")
+            self._is_contact_addable_cache = status in (
+                "none", "denied", "denying"
+            )
         return self._is_contact_addable_cache
 
     def is_contact_editable(self, user=None):
@@ -44,7 +57,9 @@ def add_methods_to_person():
     def is_contact_blockable(self, user=None):
         if not hasattr(self, "_is_contact_blockable_cache"):
             status = self._get_individual_relation_status(user)
-            self._is_contact_blockable_cache = status in ("invited", "none", "denied", "denying")
+            self._is_contact_blockable_cache = status in (
+                "invited", "none", "denied", "denying"
+            )
         return self._is_contact_blockable_cache
 
     def is_contact_unblockable(self, user=None):
@@ -76,10 +91,8 @@ def add_methods_to_person():
             user = get_current_user(user)
             status = self._get_individual_relation_status(user)
             self._is_contactable_cache = bool(
-                user
-                and user != self.user
-                and status != "blocked"
-                and user.email
+                user and user != self.user and status != "blocked" and
+                user.email
             )
         return self._is_contactable_cache
 
@@ -94,32 +107,30 @@ def add_methods_to_person():
         if not hasattr(self, "_is_addable_to_favorites_cache"):
             user = get_current_user(user)
             status = self._get_individual_relation_status(user)
-            self._is_addable_to_favorites_cache = user.is_authenticated() and user != self.user and status != "blocked"
+            self._is_addable_to_favorites_cache = user.is_authenticated(
+            ) and user != self.user and status != "blocked"
         return self._is_addable_to_favorites_cache
+
     def are_contacts_displayed(self, user=None):
         # TODO: eliminate ambiguousness of the name "contact"
         if not hasattr(self, "_are_contacts_displayed_cache"):
             user = get_current_user(user)
             status = self._get_individual_relation_status(user)
             self._are_contacts_displayed_cache = bool(
-                status != "blocked"
-                and self.get_contacts()
-                and (
-                    self.is_address_displayed(user)
-                    or self.is_phone_displayed(user)
-                    or self.is_fax_displayed(user)
-                    or self.is_mobile_displayed(user)
-                    or self.is_email_displayed(user)
-                    or self.is_im_displayed(user)
+                status != "blocked" and self.get_contacts() and (
+                    self.is_address_displayed(user) or
+                    self.is_phone_displayed(user) or
+                    self.is_fax_displayed(user) or
+                    self.is_mobile_displayed(user) or
+                    self.is_email_displayed(user) or self.is_im_displayed(user)
                 )
-            ) or bool(
-                user
-                and user.has_perm("people.change_person", self)
-            )
+            ) or bool(user and user.has_perm("people.change_person", self))
         return self._are_contacts_displayed_cache
+
     def get_individual_relations(self):
         if not hasattr(self, "_individual_relations_cache"):
-            self._individual_relations_cache = self.user.individualrelation_set.all()
+            self._individual_relations_cache = self.user.individualrelation_set.all(
+            )
         return self._individual_relations_cache
 
     def get_all_person_invitations(self):
@@ -128,14 +139,10 @@ def add_methods_to_person():
             user__individualrelation__to_user=self.user
         ).extra(
             select={
-                'individualrelation_id':
-                    '%s.id' % ir_db_table,
-                'individualrelation_timestamp':
-                    '%s.timestamp' % ir_db_table,
-                'individualrelation_message':
-                    '%s.message' % ir_db_table,
-                'individualrelation_status':
-                    '%s.status' % ir_db_table,
+                'individualrelation_id': '%s.id' % ir_db_table,
+                'individualrelation_timestamp': '%s.timestamp' % ir_db_table,
+                'individualrelation_message': '%s.message' % ir_db_table,
+                'individualrelation_status': '%s.status' % ir_db_table,
             },
         ).select_related().distinct().order_by('-individualrelation_timestamp')
         return qs
@@ -171,6 +178,7 @@ def add_methods_to_person():
             #user__to_user__status__in=status_filter,
         )
         return qs
+
     Person._get_individual_relation_status = _get_individual_relation_status
     Person.is_contact_addable = is_contact_addable
     Person.is_contact_editable = is_contact_editable

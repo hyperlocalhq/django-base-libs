@@ -5,8 +5,8 @@
 {% block title %}{{ flatpage.get_title|escape }}{% endblock %}
 {% block headline %}
     <h2 class="main">{{ flatpage.get_title|escape }}</h2>
-{% endblock %}			
+{% endblock %}
 
 {% block content %}
-<div class="flatpage">{{ flatpage.get_content }}</div>
+    <div class="flatpage">{{ flatpage.get_content }}</div>
 {% endblock %}

@@ -2,7 +2,7 @@
 {% load base_tags i18n %}
 
 {% block extrahead %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/add_group.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/add_group.js"></script>
 {% endblock %}
 
 {% block sidebar-b %}{% endblock %}
@@ -16,84 +16,75 @@
 
 {% block sidebar-a %}
     {% include "utils/step_list.html" %}
-<div class="navi_back_but">
-    <a href="javascript:window.history.back()">Go back</a>
-</div>
+    <div class="navi_back_but">
+        <a href="javascript:window.history.back()">Go back</a>
+    </div>
 {% endblock %}
 
 {% block content %}
     <form action="" method="post">
-	<div class="field_layout">
-        <fieldset>
-            <legend>{% trans "Identifier" %}</legend>
-            <ul>
-                <li>
-                    <label>
-                        {{ form.title.label }}*
-                    </label>
-                    {{ form.title }}
-                    {{ form.title.error_tag }}
-                </li>
-                <li>
-                    {{ form.title2.label_tag }}
-                    {{ form.title2 }}
-                    {{ form.title2.error_tag }}
-                </li>
-                <li>
-                    <label>
-                        {{ form.group_type.label }}*
-                    </label>
-                    {{ form.group_type }}
-                    {{ form.group_type.error_tag }}
-                </li>
-                <li>
-                    {{ form.institution.label_tag }}
-                    {{ form.institution }}
-                    {{ form.institution.error_tag }}
-                </li>
-            </ul>
-        </fieldset>
-	            
-        <fieldset>
-            <legend>{% trans "Settings" %}</legend>
-            <ul>
-                <li>
-                    <label>
-                        {{ form.access_type.label }}*
-                    </label>
-                    {{ form.access_type }}
-                    {{ form.access_type.error_tag }}
-                </li>
-                <li>
-                    {% for cat in form.access_types %}
-                        <dl id="access_type_desc_{{ cat.id }}" class="access_type_desc">
-                            <dt>{{ cat.get_title|escape }}</dt>
-                            <dd>{{ cat.get_body }}</dd>
-                        </dl>
-                    {% endfor %}
-                </li>
-                <li>
-                    <label>
-                        {{ form.membership_options.label }}*
-                    </label>
-                    {{ form.membership_options }}
-                    {{ form.membership_options.error_tag }}
-                </li>
-            </ul>
-        </fieldset>
-        <fieldset class="fieldset_end">
-            <legend>{% trans "Language" %}</legend>
-            <ul>
-                <li>
-                    <label>
-                        {{ form.main_language.label }}*
-                    </label>
-                    {{ form.main_language }}
-                    {{ form.main_language.error_tag }}
-                </li>
-            </ul>
-        </fieldset>
-        {% include "utils/step_buttons.html" %}
+        <div class="field_layout">
+            <fieldset>
+                <legend>{% trans "Identifier" %}</legend>
+                <ul>
+                    <li>
+                        <label>
+                            {{ form.title.label }}*
+                        </label>
+                        {{ form.title }} {{ form.title.error_tag }}
+                    </li>
+                    <li>
+                        {{ form.title2.label_tag }} {{ form.title2 }} {{ form.title2.error_tag }}
+                    </li>
+                    <li>
+                        <label>
+                            {{ form.group_type.label }}*
+                        </label>
+                        {{ form.group_type }} {{ form.group_type.error_tag }}
+                    </li>
+                    <li>
+                        {{ form.institution.label_tag }} {{ form.institution }} {{ form.institution.error_tag }}
+                    </li>
+                </ul>
+            </fieldset>
+
+            <fieldset>
+                <legend>{% trans "Settings" %}</legend>
+                <ul>
+                    <li>
+                        <label>
+                            {{ form.access_type.label }}*
+                        </label>
+                        {{ form.access_type }} {{ form.access_type.error_tag }}
+                    </li>
+                    <li>
+                        {% for cat in form.access_types %}
+                            <dl id="access_type_desc_{{ cat.id }}" class="access_type_desc">
+                                <dt>{{ cat.get_title|escape }}</dt>
+                                <dd>{{ cat.get_body }}</dd>
+                            </dl>
+                        {% endfor %}
+                    </li>
+                    <li>
+                        <label>
+                            {{ form.membership_options.label }}*
+                        </label>
+                        {{ form.membership_options }} {{ form.membership_options.error_tag }}
+                    </li>
+                </ul>
+            </fieldset>
+            <fieldset class="fieldset_end">
+                <legend>{% trans "Language" %}</legend>
+                <ul>
+                    <li>
+                        <label>
+                            {{ form.main_language.label }}*
+                        </label>
+                        {{ form.main_language }} {{ form.main_language.error_tag }}
+                    </li>
+                </ul>
+            </fieldset>
+            {% include "utils/step_buttons.html" %}
         </div>
     </form>
 {% endblock %}

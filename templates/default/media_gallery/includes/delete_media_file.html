@@ -1,16 +1,23 @@
 {% load i18n %}
 <div id="popup_content">
-    <form class="popup" action="{{ object.get_absolute_url }}{{ URL_ID_PORTFOLIO }}/file_{{ media_file.id }}/delete/" method="post">
+    <form class="popup"
+          action="{{ object.get_absolute_url }}{{ URL_ID_PORTFOLIO }}/file_{{ media_file.id }}/delete/"
+          method="post">
         <div>
             {% if media_file.title %}
-                <p>{% blocktrans with media_file.title as title %}Do you really want to delete the media file "{{ title }}"?{% endblocktrans %}</p>
+                <p>
+                    {% blocktrans with media_file.title as title %}Do you really want to delete the media file "{{ title }}"?{% endblocktrans %}</p>
             {% else %}
                 <p>{% blocktrans %}Do you really want to delete this media file?{% endblocktrans %}</p>
             {% endif %}
         </div>
         <div class="buttons">
-            <input class="button_good" name="cancel" type="button" value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" onclick="{% if object %}redirect('{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/#file_{{ media_file.id }}'){% endif %}" />
-            <input class="button_bad" type="submit" value="{% filter upper %}{% trans "Delete" %}{% endfilter %}" />
+            <input class="button_good"
+                   name="cancel"
+                   type="button"
+                   value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}"
+                   onclick="{% if object %}redirect('{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/#file_{{ media_file.id }}');{% endif %}"/>
+            <input class="button_bad" type="submit" value="{% filter upper %}{% trans "Delete" %}{% endfilter %}"/>
         </div>
     </form>
 </div>

@@ -16,7 +16,9 @@ from jetson.apps.notification.feeds import NoticeUserFeed
 from .forms import NoticeSettingsForm
 
 
-@basic_auth_required(realm='Notices Feed', callback_func=simple_basic_auth_callback)
+@basic_auth_required(
+    realm='Notices Feed', callback_func=simple_basic_auth_callback
+)
 def feed_for_user(request):
     url = "feed/%s" % request.user.username
     feed_instance = Feed()
@@ -36,20 +38,32 @@ def notices(request):
         settings_row = []
         for medium_id, medium_display in NOTICE_MEDIA:
             form_sysname = "%s_%s" % (notice_type.sysname, medium_id)
-            setting = get_notification_setting(request.user, notice_type, medium_id)
+            setting = get_notification_setting(
+                request.user, notice_type, medium_id
+            )
             settings_row.append((form_sysname, setting.frequency))
-        settings_table.append({"notice_type": notice_type, "cells": settings_row})
+        settings_table.append(
+            {
+                "notice_type": notice_type,
+                "cells": settings_row
+            }
+        )
 
     notice_settings = {
-        "column_headers": [medium_display for medium_id, medium_display in NOTICE_MEDIA],
-        "rows": settings_table,
+        "column_headers":
+            [medium_display for medium_id, medium_display in NOTICE_MEDIA],
+        "rows":
+            settings_table,
     }
 
-    return render_to_response("notification/notices.html", {
-        "notices": notices,
-        "notice_types": notice_types,
-        "notice_settings": notice_settings,
-    }, context_instance=RequestContext(request))
+    return render_to_response(
+        "notification/notices.html", {
+            "notices": notices,
+            "notice_types": notice_types,
+            "notice_settings": notice_settings,
+        },
+        context_instance=RequestContext(request)
+    )
 
 
 class NoticeSettingForm(forms.Form):
@@ -74,7 +88,9 @@ def notification_settings(request):
         settings_row = []
         for medium_id, medium_display in NOTICE_MEDIA:
             form_sysname = "%s_%s" % (notice_type.sysname, medium_id)
-            setting = get_notification_setting(request.user, notice_type, medium_id)
+            setting = get_notification_setting(
+                request.user, notice_type, medium_id
+            )
             if request.method == "POST":
                 form = NoticeSettingForm(
                     prefix=form_sysname,
@@ -89,15 +105,19 @@ def notification_settings(request):
                     initial={'frequency': setting.frequency},
                 )
             settings_row.append((form_sysname, form))
-        settings_table.append({
-            "category": notice_type.category,
-            "notice_type": notice_type,
-            "cells": settings_row,
-        })
+        settings_table.append(
+            {
+                "category": notice_type.category,
+                "notice_type": notice_type,
+                "cells": settings_row,
+            }
+        )
 
     notice_settings = {
-        "column_headers": [medium_display for medium_id, medium_display in NOTICE_MEDIA],
-        "rows": settings_table,
+        "column_headers":
+            [medium_display for medium_id, medium_display in NOTICE_MEDIA],
+        "rows":
+            settings_table,
     }
 
     if request.method == "POST":
@@ -108,21 +128,27 @@ def notification_settings(request):
     else:
         form = NoticeSettingsForm(request.user)
 
-    return render_to_response("notification/settings.html", {
-        "form": form,
-        "notices": notices,
-        "notice_types": notice_types,
-        "notice_settings": notice_settings,
-    }, context_instance=RequestContext(request))
+    return render_to_response(
+        "notification/settings.html", {
+            "form": form,
+            "notices": notices,
+            "notice_types": notice_types,
+            "notice_settings": notice_settings,
+        },
+        context_instance=RequestContext(request)
+    )
 
 
 @login_required
 def single(request, id):
     notice = get_object_or_404(Notice, id=id)
     if request.user == notice.user:
-        return render_to_response("notification/single.html", {
-            "notice": notice,
-        }, context_instance=RequestContext(request))
+        return render_to_response(
+            "notification/single.html", {
+                "notice": notice,
+            },
+            context_instance=RequestContext(request)
+        )
     raise Http404
 
 

@@ -2,7 +2,7 @@
 {% load i18n base_tags navigation_tags auth_extended %}
 
 {% block extrahead %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/groups_networks.js"></script>
 {% endblock %}
 
@@ -10,95 +10,106 @@
 {% block title %}{% trans "Groups" %}{% endblock %}
 
 {% block headline %}
-	<h2 class="main">{% trans "Groups" %}</h2>
-{% endblock %}			
+    <h2 class="main">{% trans "Groups" %}</h2>
+{% endblock %}
 
 
 
 {% block content %}
-	<div class="list">
-	    {% block tabs %}
-	        <div id="tabs">
-	            {% children_of "groups" using "navigation/children_in_tabs.html" %}
-	        </div>
-	    {% endblock %}
+    <div class="list">
+        {% block tabs %}
+            <div id="tabs">
+                {% children_of "groups" using "navigation/children_in_tabs.html" %}
+            </div>
+        {% endblock %}
 
-    	{% comment %}
+        {% comment %}
 	    	THE PAGINATION HEDER IS DIEFFERENT, SO WE CANNOT USE
 	    	{% include "utils/sorting_view_pagination_header.html" %}
 		{% endcomment %}
-		<div class="whole-page-browse">
-		    <div class="page-browse">
-		        {% if is_paginated %}
-		            <div class="paginated">
-		                <div class="previous">
-		                    {% if has_previous %}
-		                        <a  href="{% append_to_get page=previous %}">
+        <div class="whole-page-browse">
+            <div class="page-browse">
+                {% if is_paginated %}
+                    <div class="paginated">
+                        <div class="previous">
+                            {% if has_previous %}
+                                <a href="{% append_to_get page=previous %}">
 		                            <span class="enabled">
 		                                <span class="hidden">
 		                                    {% trans "previous" %}
 		                                </span>
 		                            </span>
-		                        </a>
-		                    {% else %}
-		                        <span class="disabled">
+                                </a>
+                            {% else %}
+                                <span class="disabled">
 		                            <span class="hidden">{% trans "previous" %}</span>
 		                        </span>
-		                    {% endif %}
-		                </div>
-		                <form action="">
-		                    <p><select class="page_skip" onchange="append_to_get({page: this.value});">
-		                        {% for pnumber in page_numbers %}
-		                        <option value="{{ pnumber }}"{% ifequal pnumber page %} selected="selected"{% endifequal %}>{% blocktrans %}Page {{ pnumber }} of {{ pages }}{% endblocktrans %}</option>
-		                        {% endfor %}
-		                   </select></p>
-		                </form>
-		                <div class="next">
-		                    {% if has_next %}
-		                        <a href="{% append_to_get page=next %}">
+                            {% endif %}
+                        </div>
+                        <form action="">
+                            <p>
+                                <label>
+                                    <select class="page_skip" onchange="append_to_get({page: this.value});">
+                                        {% for pnumber in page_numbers %}
+                                            <option value="{{ pnumber }}"{% ifequal pnumber page %}
+                                                    selected="selected"{% endifequal %}>
+                                                {% blocktrans %}Page {{ pnumber }} of {{ pages }}{% endblocktrans %}</option>
+                                        {% endfor %}
+                                    </select>
+                                </label>
+                            </p>
+                        </form>
+                        <div class="next">
+                            {% if has_next %}
+                                <a href="{% append_to_get page=next %}">
 		                            <span class="enabled">
 		                                <span class="hidden">
 		                                    {% trans "next" %}
 		                                </span>
 		                            </span>
-		                        </a>
-		                    {% else %}
-		                        <span class="disabled">
+                                </a>
+                            {% else %}
+                                <span class="disabled">
 		                            <span class="hidden">
 		                                {% trans "next" %}
 		                            </span>
 		                        </span>
-		                    {% endif %}
-		                </div>
-		            </div>
-		        {% endif %}
-		        <div class="skip">
-		        	{% comment %} SHOULD BE ADOPTED, CURRENTLY HARDCODED BELOW 
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="skip">
+                    {% comment %} SHOULD BE ADOPTED, CURRENTLY HARDCODED BELOW
 		        	{% children_of "own_groups" using "navigation/children_horizontally.html" %}
 		        	{% endcomment %}
-		            <p>
-		                <a href="/{{ URL_ID_PERSONGROUPS }}/invitations/my-{{ URL_ID_PERSONGROUPS }}/invitations/?by-status={{ active_status_filter }}" {% ifequal group_ind "my-groups" %}class="active"{% endifequal %}>{% trans "My Groups" %}</a>
-		                | <a href="/{{ URL_ID_PERSONGROUPS }}/invitations/other-{{ URL_ID_PERSONGROUPS }}/invitations/?by-status={{ active_status_filter }}" {% ifequal group_ind "other-groups" %}class="active"{% endifequal %}>{% trans "Other Groups" %}</a>
-		                
-		                {% comment %}<!-- 
+                    <p>
+                        <a href="/{{ URL_ID_PERSONGROUPS }}/invitations/my-{{ URL_ID_PERSONGROUPS }}/invitations/?by-status={{ active_status_filter }}"
+                           {% ifequal group_ind "my-groups" %}class="active"{% endifequal %}>{% trans "My Groups" %}</a>
+                        |
+                        <a href="/{{ URL_ID_PERSONGROUPS }}/invitations/other-{{ URL_ID_PERSONGROUPS }}/invitations/?by-status={{ active_status_filter }}"
+                           {% ifequal group_ind "other-groups" %}class="active"{% endifequal %}>{% trans "Other Groups" %}</a>
+
+                        {% comment %}<!--
 		                THAT IS NOT YET  IMPLEMENTED
    		                | <a href="/{{ URL_ID_PERSONGROUPS }}/invitations/invite_to_{{ URL_ID_PERSONGROUP }}/invitations/?by-status={{ active_status_filter }}" {% ifequal group_ind "other-groups" %}class="active"{% endifequal %}>{% trans "Invite To Group" %}</a>
    		                -->{% endcomment %}
-		            </p> 
-		        </div>
-		    </div>
-		</div>
-		
-	    <div class="breadcrumbs">
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="breadcrumbs">
         	<span>
-	            <a href="/{{ URL_ID_PERSONGROUPS }}/invitations/{{ group_ind }}/invitations/?by-status={{ active_status_filter }}" {% ifequal active_link "invitations" %}class="active"{% endifequal %}>{% trans "Sent invitations " %}</a>
-	            | <a href="/{{ URL_ID_PERSONGROUPS }}/invitations/{{ group_ind }}/requests/?by-status={{ active_status_filter }}" {% ifequal active_link "requests" %}class="active"{% endifequal %}>{% trans "Requests to confirm" %}</a>
-	        </span>   
-            <span>
+	            <a href="/{{ URL_ID_PERSONGROUPS }}/invitations/{{ group_ind }}/invitations/?by-status={{ active_status_filter }}"
+                   {% ifequal active_link "invitations" %}class="active"{% endifequal %}>{% trans "Sent invitations " %}</a>
+	            | <a href="/{{ URL_ID_PERSONGROUPS }}/invitations/{{ group_ind }}/requests/?by-status={{ active_status_filter }}"
+                     {% ifequal active_link "requests" %}class="active"{% endifequal %}>{% trans "Requests to confirm" %}</a>
+	        </span> <span>
                 {% comment %}
                     A LITTLE BIT HACKISH, BUT WORKS AS A QUICK SOLUTION
                 {% endcomment %}
-                <a href="{{ request.path}}?by-status=pending" {% ifequal active_status_filter "pending" %}class="active"{% endifequal %}>{% trans "Pending" %}</a>
+                <a href="{{ request.path }}?by-status=pending"
+                   {% ifequal active_status_filter "pending" %}class="active"{% endifequal %}>{% trans "Pending" %}</a>
 
                 {% comment %}
                 THE DENIED FILTER IS NOT YET IMPLEMENTED
@@ -107,99 +118,106 @@
                 |{% trans "Denied" %} 
             </span>
         </div>
-       
-	    {% if object_list %}
-	        {% ifequal group_ind "my-groups" %}
-	       		{% for person in object_list %}
-			        <div class="info {% cycle odd,even %} expanded" onclick="redirect('{{ person.get_url_path }}');">
-			            <div class="info_address">
-			                <h4>
-			                    <a href="{{ person.get_url_path }}">{{ person.get_title|escape }}</a>
-			                </h4>
-			                {% trans "for group" %} <b>{{ person.person_group_title }}</b>
-			                {% with person.get_primary_contact as contact %}
-			                    {% if contact %}
-			                        <p><a href="/vcard/{{ person|content_type_id }}/{{ person.id }}">vcard</a></p>
-									{% if contact.street_address or contact.country_name %}
-			                        <address class=" hidable">
-			                            {% if contact.street_address %}
-			                                {{ contact.street_address|escape }}<br />
-			                            {% endif %}								
-			                            {% if contact.street_address2 %}
-			                                {{ contact.street_address2|escape }}<br />
-			                            {% endif %}								
-			                            {% if contact.street_address3 %}
-			                                {{ contact.street_address3|escape }}<br />
-			                            {% endif %}								
-			                            {% if contact.postal_code %}	
-			                                {{ contact.postal_code|escape }} {{ contact.city|escape }}<br />
-			                            {% endif %}								
-			                            {% if contact.country_name %}
-			                                {{ contact.country_name }}<br />
-			                            {% endif %}
-			                        </address>
-									{% endif %}
-			                    {% endif %}
-			                {% endwith %}
-			            </div>
-			            <div class="info_facts">
-			                {% ifequal active_link "invitations" %}
-			                    <div class="type">{% trans "Invitation from" %} {{ person.membership_timestamp|date:_("DATETIME_FORMAT") }}</div>
-			                {% else %}    
-			                	{% ifequal active_link "requests" %}
-				                    <div class="type">{% trans "Request from" %} {{ person.membership_timestamp|date:_("DATETIME_FORMAT") }}</div>
-			                	{% endifequal %}
-							{% endifequal %}		                	
-			                
-			                {% comment %} STATUS = {{ person.individualrelation_status }} {% endcomment %}
-		                    <p class="description hidable">
-		                    	TODO!!! THE MESSAGE FOR THE INVITATION CANNOT BE FOUND VIA THE "GROUPMEMBERSHIP" LINKS. HOW CAN WE GET THE MESSAGE?
-		                    </p>
-			            </div>
-			            {% include "people/controls.html" %}    
-			            <div class="cleaner"></div>
-					</div><!-- end of info -->
-				{% endfor %}
-	        {% else %}
-	        
-		        {% for group in object_list %}
-		            <div class="info {% cycle odd,even %} expanded" onclick="redirect('{{ group.get_url_path }}');">
-		                <div class="info_address">
-		                    <h4>
-		                        <a class="group_hl" href="{{ group.get_url_path }}">{{ group.get_title|escape }}</a>
-		                   </h4>
-		                   <div>
-		                        {{ group.access_type.get_title }}
-		                   </div>
-		                   {% if group.group_type %}
-		                        <div>{{ group.group_type.get_title|escape }}</div>
-		                   {% endif %}
-		                </div>
-		                <div class="info_facts">
-		                    {% ifequal active_link "invitations" %}
-			                    <div class="type">{% trans "Invitation from" %} {{ group.membership_timestamp|date:_("DATETIME_FORMAT") }}</div>
-			                {% else %}    
-			                	{% ifequal active_link "requests" %}
-				                    <div class="type">{% trans "Request from" %} {{ group.membership_timestamp|date:_("DATETIME_FORMAT") }}</div>
-			                	{% endifequal %}
-							{% endifequal %}	
-							<p class="description hidable">
-		                    	TODO!!! THE MESSAGE FOR THE INVITATION CANNOT BE FOUND VIA THE "GROUPMEMBERSHIP" LINKS. HOW CAN WE GET THE MESSAGE?
-		                    </p>
-		                </div>
-		                {% include "groups_networks/persongroups/controls.html" %}
-		                <div class="cleaner"></div>
-		            </div><!-- end of info -->
-		        {% endfor %}
 
-			{% endifequal %}
-				        
-	        {% include "utils/pagination_footer.html" %}
-	     
-	    {% else %}
-	        <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
-	    {% endif %}
-    	<div class="cleaner"></div>
-	</div>
+        {% if object_list %}
+            {% ifequal group_ind "my-groups" %}
+                {% for person in object_list %}
+                    <div class="info {% cycle odd,even %} expanded" onclick="redirect('{{ person.get_url_path }}');">
+                        <div class="info_address">
+                            <h4>
+                                <a href="{{ person.get_url_path }}">{{ person.get_title|escape }}</a>
+                            </h4>
+                            {% trans "for group" %} <b>{{ person.person_group_title }}</b>
+                            {% with person.get_primary_contact as contact %}
+                                {% if contact %}
+                                    <p>
+                                        <a href="/vcard/{{ person|content_type_id }}/{{ person.id }}">vcard</a>
+                                    </p>
+                                    {% if contact.street_address or contact.country_name %}
+                                        <address class=" hidable">
+                                            {% if contact.street_address %}
+                                                {{ contact.street_address|escape }}
+                                                <br/>
+                                            {% endif %}
+                                            {% if contact.street_address2 %}
+                                                {{ contact.street_address2|escape }}
+                                                <br/>
+                                            {% endif %}
+                                            {% if contact.street_address3 %}
+                                                {{ contact.street_address3|escape }}
+                                                <br/>
+                                            {% endif %}
+                                            {% if contact.postal_code %}
+                                                {{ contact.postal_code|escape }} {{ contact.city|escape }}
+                                                <br/>
+                                            {% endif %}
+                                            {% if contact.country_name %}
+                                                {{ contact.country_name }}
+                                                <br/>
+                                            {% endif %}
+                                        </address>
+                                    {% endif %}
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+                        <div class="info_facts">
+                            {% ifequal active_link "invitations" %}
+                                <div class="type">{% trans "Invitation from" %} {{ person.membership_timestamp|date:_("DATETIME_FORMAT") }}</div>
+                            {% else %}
+                                {% ifequal active_link "requests" %}
+                                    <div class="type">{% trans "Request from" %} {{ person.membership_timestamp|date:_("DATETIME_FORMAT") }}</div>
+                                {% endifequal %}
+                            {% endifequal %}
+
+                            {% comment %} STATUS = {{ person.individualrelation_status }} {% endcomment %}
+                            <p class="description hidable">
+                                TODO!!! THE MESSAGE FOR THE INVITATION CANNOT BE FOUND VIA THE "GROUPMEMBERSHIP" LINKS. HOW CAN WE GET THE MESSAGE?
+                            </p>
+                        </div>
+                        {% include "people/controls.html" %}
+                        <div class="cleaner"></div>
+                    </div><!-- end of info -->
+                {% endfor %}
+            {% else %}
+
+                {% for group in object_list %}
+                    <div class="info {% cycle odd,even %} expanded" onclick="redirect('{{ group.get_url_path }}');">
+                        <div class="info_address">
+                            <h4>
+                                <a class="group_hl" href="{{ group.get_url_path }}">{{ group.get_title|escape }}</a>
+                            </h4>
+                            <div>
+                                {{ group.access_type.get_title }}
+                            </div>
+                            {% if group.group_type %}
+                                <div>{{ group.group_type.get_title|escape }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="info_facts">
+                            {% ifequal active_link "invitations" %}
+                                <div class="type">{% trans "Invitation from" %} {{ group.membership_timestamp|date:_("DATETIME_FORMAT") }}</div>
+                            {% else %}
+                                {% ifequal active_link "requests" %}
+                                    <div class="type">{% trans "Request from" %} {{ group.membership_timestamp|date:_("DATETIME_FORMAT") }}</div>
+                                {% endifequal %}
+                            {% endifequal %}
+                            <p class="description hidable">
+                                TODO!!! THE MESSAGE FOR THE INVITATION CANNOT BE FOUND VIA THE "GROUPMEMBERSHIP" LINKS. HOW CAN WE GET THE MESSAGE?
+                            </p>
+                        </div>
+                        {% include "groups_networks/persongroups/controls.html" %}
+                        <div class="cleaner"></div>
+                    </div><!-- end of info -->
+                {% endfor %}
+
+            {% endifequal %}
+
+            {% include "utils/pagination_footer.html" %}
+
+        {% else %}
+            <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
+        {% endif %}
+        <div class="cleaner"></div>
+    </div>
 {% endblock %}
 

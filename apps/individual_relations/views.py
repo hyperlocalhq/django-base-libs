@@ -24,6 +24,7 @@ from jetson.apps.mailing.views import send_email_using_template, Recipient
 
 Person = models.get_model("people", "Person")
 
+
 def json_manage_individual_relation(request, username):
     """Sets the object as a favorite for the current user"""
     json_str = "false"
@@ -35,16 +36,26 @@ def json_manage_individual_relation(request, username):
         relation, is_created = IndividualRelation.objects.get_or_create(
             user=request.user,
             to_user=to_user,
-            )
+        )
         if not is_created:
             relation.delete()
         result = relation.__dict__
-        result = dict([(item[0], unicode(item[1])) for item in result.items() if not item[0].startswith("_")])
+        result = dict(
+            [
+                (item[0], unicode(item[1]))
+                for item in result.items() if not item[0].startswith("_")
+            ]
+        )
         # ("waiting", "to_confirm", "active", "removed")
         result['status'] = is_created and "added" or "removed"
-        json_str = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
+        json_str = json.dumps(
+            result, ensure_ascii=False, cls=ExtendedJSONEncoder
+        )
     return HttpResponse(json_str, content_type='text/javascript; charset=utf-8')
+
+
 json_manage_individual_relation = never_cache(json_manage_individual_relation)
+
 
 def manage_individual_relationship(request, action="edit", username=None):
     """
@@ -55,19 +66,17 @@ def manage_individual_relationship(request, action="edit", username=None):
     3. "reload" for reloading the page
     """
     # edit | invite | accept | deny | cancel | block | unblock | remove
-    
+
     user_1 = request.user
     try:
-        user_2 = User.objects.get(
-            username=username,
-            )
+        user_2 = User.objects.get(username=username, )
     except:
         raise Http404()
 
     # check privileges
     if not user_1.is_authenticated():
         return access_denied(request)
-    
+
     #if not user_1.has_perm(
     #    "groups_networks.can_add_individualrelation",
     #    ):
@@ -77,18 +86,18 @@ def manage_individual_relationship(request, action="edit", username=None):
     #    "groups_networks.can_change_individualrelation",
     #    ):
     #    return access_denied(request)
-    
+
     person = user_2.profile
     if (
-        action=="edit" and not person.is_contact_editable()
-        or action=="invite" and not person.is_contact_addable()
-        or action=="accept" and not person.is_contact_acceptable()
-        or action=="deny" and not person.is_contact_denyable()
-        or action=="block" and not person.is_contact_blockable()
-        or action=="unblock" and not person.is_contact_unblockable()
-        or action=="cancel" and not person.is_contact_cancelable()
-        or action=="remove" and not person.is_contact_removable()
-        ):
+        action == "edit" and not person.is_contact_editable() or
+        action == "invite" and not person.is_contact_addable() or
+        action == "accept" and not person.is_contact_acceptable() or
+        action == "deny" and not person.is_contact_denyable() or
+        action == "block" and not person.is_contact_blockable() or
+        action == "unblock" and not person.is_contact_unblockable() or
+        action == "cancel" and not person.is_contact_cancelable() or
+        action == "remove" and not person.is_contact_removable()
+    ):
         return access_denied(request)
 
     if request.method == 'POST':
@@ -99,7 +108,7 @@ def manage_individual_relationship(request, action="edit", username=None):
             user_2=user_2,
             data=data,
             files=request.FILES,
-            )
+        )
         if form.is_valid():
             form.save()
             return HttpResponse("reload")
@@ -108,16 +117,18 @@ def manage_individual_relationship(request, action="edit", username=None):
             relation_action=action,
             user_1=user_1,
             user_2=user_2,
-            )
+        )
 
     return render_to_response(
         "individual_relations/individual_relation_%s.html" % action,
         {
-            'form' : form,
-            'user' : user_2,
-            },
+            'form': form,
+            'user': user_2,
+        },
         RequestContext(request),
-        )
+    )
+
+
 manage_individual_relationship = never_cache(manage_individual_relationship)
 
 
@@ -136,14 +147,14 @@ def confirm_invitation(request, slug, encrypted_email):
     inviter = obj
     if not user:
         return HttpResponseRedirect('/register/')
-    if request.method=="POST":
+    if request.method == "POST":
         if "deny_invitation" in request.POST:
             user.delete()
             return HttpResponseRedirect("/")
         d = {
             'login_email': user.email,
             'username': user.username,
-            }
+        }
         f = InvitationConfirmation(request.POST, initial=d)
         if f.is_valid():
             cleaned = f.cleaned_data
@@ -157,7 +168,7 @@ def confirm_invitation(request, slug, encrypted_email):
             person.status = get_related_queryset(
                 Person,
                 "status",
-                ).get(sysname="published")
+            ).get(sysname="published")
             person.prefix_id = cleaned['prefix']
             person.occupation = cleaned['occupation']
             person.birthday_yyyy = cleaned['birthday_yyyy']
@@ -175,15 +186,15 @@ def confirm_invitation(request, slug, encrypted_email):
             contact.phone2_area = cleaned['mobile_area']
             contact.phone2_number = cleaned['mobile_number']
             contact.save()
-            
+
             from django.contrib.auth import login
             login(request, user)
-            
+
             if cleaned['accept_inviter']:
-                owner = user.groupmembership_set.get(
-                    ).person_group.get_owners()[0]
+                owner = user.groupmembership_set.get().person_group.get_owners(
+                )[0]
                 IndividualRelation.objects.accept(user, owner)
-                
+
             if cleaned['accept_membership']:
                 membership = user.groupmembership_set.get()
                 membership.is_accepted = True
@@ -192,7 +203,7 @@ def confirm_invitation(request, slug, encrypted_email):
                 membership.save()
             else:
                 membership = user.groupmembership_set.delete()
-            
+
             current_site = Site.objects.get_current()
             sender_name = ''
             sender_email = settings.DEFAULT_FROM_EMAIL
@@ -201,12 +212,12 @@ def confirm_invitation(request, slug, encrypted_email):
                 "account_created",
                 obj_placeholders={
                     'site_name': current_site.name,
-                    },
+                },
                 delete_after_sending=True,
                 sender_name=sender_name,
                 sender_email=sender_email,
                 send_immediately=True,
-                )
+            )
             return HttpResponseRedirect('/register/alldone/')
     else:
         d = {
@@ -220,7 +231,7 @@ def confirm_invitation(request, slug, encrypted_email):
             'occupation': person.occupation,
             'accept_inviter': True,
             'accept_membership': True,
-            }
+        }
         contact = person.get_primary_contact()
         if contact.get("phone_number", False):
             d["phone_country"] = contact.get("phone_country", "")
@@ -234,14 +245,19 @@ def confirm_invitation(request, slug, encrypted_email):
             d["mobile_country"] = contact.get("mobile_country", "")
             d["mobile_area"] = contact.get("mobile_area", "")
             d["mobile_number"] = contact.get("mobile_number", "")
-            
-        f = InvitationConfirmation(initial=d)
-    t = loader.get_template("individual_relations/confirm_invitation_to_contacts.html")
-    c = RequestContext(request, {
-        'form': f,
-        'object': obj,
-        'inviter': inviter,
-    })
-    return HttpResponse(t.render(c))
-confirm_invitation = never_cache(confirm_invitation)
 
+        f = InvitationConfirmation(initial=d)
+    t = loader.get_template(
+        "individual_relations/confirm_invitation_to_contacts.html"
+    )
+    c = RequestContext(
+        request, {
+            'form': f,
+            'object': obj,
+            'inviter': inviter,
+        }
+    )
+    return HttpResponse(t.render(c))
+
+
+confirm_invitation = never_cache(confirm_invitation)

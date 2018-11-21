@@ -16,6 +16,7 @@ FlatPage = models.get_model("flatpages", "FlatPage")
 
 DEFAULT_TEMPLATE = 'flatpages/default.html'
 
+
 @cache_control(must_revalidate=True, max_age=3600)
 @vary_on_headers('Cookie', 'Accept-language', 'Content-Language')
 def flatpage(request, url):
@@ -32,18 +33,20 @@ def flatpage(request, url):
     if url.startswith("/"):  # ignore the first slash
         url = url[1:]
 
-    if url.startswith(request.LANGUAGE_CODE + '/'):  # ignore the language prefix
+    if url.startswith(
+        request.LANGUAGE_CODE + '/'
+    ):  # ignore the language prefix
         url = url[len(request.LANGUAGE_CODE) + 1:]
-        
+
     qs = FlatPage.site_published_objects.filter(
         url=url,
-        ).order_by("-published_from")
-        
+    ).order_by("-published_from")
+
     if not qs:
         raise Http404()
-        
+
     f = qs[0]
-    
+
     # If registration is required for accessing this page, and the user isn't
     # logged in, redirect to the login page.
     if f.registration_required and not request.user.is_authenticated():

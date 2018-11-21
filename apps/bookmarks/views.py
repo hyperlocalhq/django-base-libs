@@ -14,17 +14,21 @@ from base_libs.utils.misc import ExtendedJSONEncoder
 
 Bookmark = models.get_model("bookmarks", "Bookmark")
 
+
 def bookmarks(request, **kwargs):
     """
     Displays the list of memorized objects
     """
-    bookmarks = Bookmark.objects.filter(creator = get_current_user())
-        
-    return render_to_response(kwargs["template_name"], {
-        'object_list': bookmarks,
-    }, context_instance=RequestContext(request))
-    
-    
+    bookmarks = Bookmark.objects.filter(creator=get_current_user())
+
+    return render_to_response(
+        kwargs["template_name"], {
+            'object_list': bookmarks,
+        },
+        context_instance=RequestContext(request)
+    )
+
+
 def json_manage_bookmark(request):
     """
     Sets the given url_path as a bookmark for the current user
@@ -47,55 +51,70 @@ def json_manage_bookmark(request):
             if data['title']:
                 title = data['title']
             else:
-                result['error'] = force_unicode(_("Please enter a title for your bookmark"))
+                result['error'] = force_unicode(
+                    _("Please enter a title for your bookmark")
+                )
         if action == 'add' and not data['url_path']:
             return Http404, "Keep trying, hacker!"
         if action in ('rename', 'delete') and not data['id']:
             return Http404, "Keep trying, hacker!"
         if action == 'add':
             bookmark, is_created = Bookmark.objects.get_or_create(
-                url_path = data['url_path'],
-                creator = request.user,
-                defaults = {'title': data['title']},
-                )
+                url_path=data['url_path'],
+                creator=request.user,
+                defaults={'title': data['title']},
+            )
             if is_created:
                 # we only need title and url_path for all my bookmarks
                 #for bookmark in Bookmark.objects.filter(creator = request.user):
-                result.update({
-                    'id': bookmark.id,
-                    'title': bookmark.title,
-                    'url_path': bookmark.url_path,
-                    })
+                result.update(
+                    {
+                        'id': bookmark.id,
+                        'title': bookmark.title,
+                        'url_path': bookmark.url_path,
+                    }
+                )
             else:
-                result['error'] = force_unicode(_("This page is already bookmarked as \"%s\"" % unicode(bookmark.title)))
+                result['error'] = force_unicode(
+                    _(
+                        "This page is already bookmarked as \"%s\"" %
+                        unicode(bookmark.title)
+                    )
+                )
         elif action == 'rename':
             try:
                 bookmark = Bookmark.objects.get(
-                    creator = request.user,
-                    id = data["id"],
-                    )
+                    creator=request.user,
+                    id=data["id"],
+                )
             except:
                 result['error'] = force_unicode(_("The bookmark doesn't exist"))
             else:
                 bookmark.title = data['title']
                 bookmark.save()
-                result.update({
-                    'id': bookmark.id,
-                    'title': bookmark.title,
-                    'url_path': bookmark.url_path,
-                    })
+                result.update(
+                    {
+                        'id': bookmark.id,
+                        'title': bookmark.title,
+                        'url_path': bookmark.url_path,
+                    }
+                )
         if action == 'delete':
             try:
                 bookmark = Bookmark.objects.get(
-                    creator = request.user,
-                    id = data["id"],
-                    )
+                    creator=request.user,
+                    id=data["id"],
+                )
             except:
                 result['error'] = force_unicode(_("The bookmark doesn't exist"))
             else:
                 bookmark.delete()
     else:
-        result['error'] = force_unicode(_("You do not have the permission for this action."))
+        result['error'] = force_unicode(
+            _("You do not have the permission for this action.")
+        )
     json_str = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
     return HttpResponse(json_str, content_type='text/javascript; charset=utf-8')
+
+
 json_manage_bookmark = never_cache(json_manage_bookmark)

@@ -12,18 +12,19 @@ from base_libs.utils.misc import get_translation
 
 verbose_name = _("Reminders")
 
+
 class Reminder(ObjectRelationMixin(is_required=True)):
     """
     Reminds users about objects at the defined alarm time
     """
     user = models.ForeignKey(User, verbose_name=_("Reminder Setter"))
-    
+
     alarm_time = models.DateTimeField(_('Alarm Time'))
-    
+
     class Meta:
         verbose_name = _("reminder")
         verbose_name_plural = _("reminders")
-        
+
     def __unicode__(self):
         try:
             content_object = self.content_object
@@ -35,7 +36,7 @@ class Reminder(ObjectRelationMixin(is_required=True)):
             force_unicode(content_object),
             force_unicode(self.user.username),
             postfix,
-            )
+        )
 
     def get_log_message(self, language=None, action=None):
         """
@@ -43,14 +44,18 @@ class Reminder(ObjectRelationMixin(is_required=True)):
         history_models = models.get_app("history")
         message = ""
         if action in (history_models.A_ADDITION, history_models.A_CHANGE):
-            message = get_translation("%(user)s set reminder for %(obj)s.", language=language) % {
+            message = get_translation(
+                "%(user)s set reminder for %(obj)s.", language=language
+            ) % {
                 'user': force_unicode(self.user.username),
                 'obj': force_unicode(self.content_object),
-                }
-        elif action==history_models.A_DELETION:
-            message = get_translation("%(user)s's reminder for %(obj)s was removed.", language=language) % {
+            }
+        elif action == history_models.A_DELETION:
+            message = get_translation(
+                "%(user)s's reminder for %(obj)s was removed.",
+                language=language
+            ) % {
                 'user': force_unicode(self.user.username),
                 'obj': force_unicode(self.content_object),
-                }
+            }
         return message
-

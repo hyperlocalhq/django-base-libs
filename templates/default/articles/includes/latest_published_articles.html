@@ -17,15 +17,17 @@ Usage in any template:
         {% for article in newest_objects %}
             <a href="{{ article.get_url_path }}">
                 {% if article.image %}
-                    <img alt="{{ article.get_title|escape }}" src="{{ UPLOADS_URL }}{{ article.image|modified_path:"news_tn" }}" />
+                    <img alt="{{ article.get_title|escape }}"
+                         src="{{ UPLOADS_URL }}{{ article.image|modified_path:"news_tn" }}"/>
                 {% endif %}
             </a>
-            <h3><a href="{{ article.get_url_path }}">
-            {{ article.get_title }}
-            </a></h3>
+            <h3>
+                <a href="{{ article.get_url_path }}">
+                    {{ article.get_title }}
+                </a>
+            </h3>
             <div{% if article.image %} class="img_block"{% endif %}>
-            {{ article.get_rendered_description|default:article.get_rendered_content|safe }}
-             <span>... <a href="{{ article.get_url_path }}">weiter</a>
+                {{ article.get_rendered_description|default:article.get_rendered_content|safe }} <span>... <a href="{{ article.get_url_path }}">weiter</a> </span>
             </div>
         {% endfor %}
     {% endif %}

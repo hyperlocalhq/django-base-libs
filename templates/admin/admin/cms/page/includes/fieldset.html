@@ -1,39 +1,41 @@
 <fieldset class="grp-module aligned {{ fieldset.classes }}">
     {% if fieldset.name %}<h2>{{ fieldset.name }}</h2>{% endif %}
-    {% if fieldset.description %}<div class="grp-description">{{ fieldset.description|safe }}</div>{% endif %}
+    {% if fieldset.description %}
+        <div class="grp-description">{{ fieldset.description|safe }}</div>{% endif %}
 
     {% for line in fieldset %}
-    <div class="{% for field in line %}{% if not field.field.is_hidden %}grp-row {% endif %}{% endfor %}{% if line.errors %} errors{% endif %}{% for field in line %} {{ field.field.name }}{% endfor %}">
+        <div class="{% for field in line %}{% if not field.field.is_hidden %}grp-row {% endif %}{% endfor %}{% if line.errors %} errors{% endif %}{% for field in line %} {{ field.field.name }}{% endfor %}">
         {% for field in line %}
             {% if not field.field.is_hidden %}
                 {% if line.fields|length_is:"1" %}
                     <div class="l-2c-fluid l-d-4">
                 {% else %}
-                    <div class="grp-cell l-2c-fluid l-d-4 {{ field.field.name }}{% if field.field.errors %} grp-errors{% endif %}">
+                    <div class="grp-cell l-2c-fluid l-d-4
+                            {{ field.field.name }}{% if field.field.errors %} grp-errors{% endif %}">
                 {% endif %}
             {% endif %}
-                    {% if field.is_checkbox %}
-                        <div class="c-1">&nbsp;</div>
-                        <div class="c-2">
-                            {{ field.field }}{{ field.label_tag }}
-                            {{ line.errors }}
-                            {% if field.field.field.help_text %}<p class="grp-help">{{ field.field.field.help_text|safe }}</p>{% endif %}
-                        </div>
-                    {% else %}
-                        {% if field.field.is_hidden %}
-                            {{ field.field }}
-                        {% else %}
-                            <div class="c-1">{{ field.label_tag }}</div>
-                            <div class="c-2">
-                                {{ field.field }}
-                                {{ line.errors }}
-                                {% if field.field.field.help_text %}<p class="grp-help">{{ field.field.field.help_text|safe }}</p>{% endif %}
-                            </div>
-                        {% endif %}
-                    {% endif %}
-            {% if not field.field.is_hidden %}
+        {% if field.is_checkbox %}
+            <div class="c-1">&nbsp;</div>
+            <div class="c-2">
+                {{ field.field }}{{ field.label_tag }} {{ line.errors }}
+                {% if field.field.field.help_text %}
+                    <p class="grp-help">{{ field.field.field.help_text|safe }}</p>{% endif %}
+            </div>
+        {% else %}
+            {% if field.field.is_hidden %}
+                {{ field.field }}
+            {% else %}
+                <div class="c-1">{{ field.label_tag }}</div>
+                <div class="c-2">
+                    {{ field.field }} {{ line.errors }}
+                    {% if field.field.field.help_text %}
+                        <p class="grp-help">{{ field.field.field.help_text|safe }}</p>{% endif %}
                 </div>
             {% endif %}
+        {% endif %}
+        {% if not field.field.is_hidden %}
+            </div>
+        {% endif %}
         {% endfor %}
     </div>
     {% endfor %}

@@ -35,13 +35,16 @@ def get_global_placeholders(placeholders=None, language="en"):
     placeholders['website_url'] = get_website_url()
     placeholders['website_ssl_url'] = get_website_ssl_url()
     if settings.MEDIA_URL.startswith("/"):
-        placeholders['media_url'] = placeholders['website_url'] + settings.MEDIA_URL[1:]
+        placeholders['media_url'
+                    ] = placeholders['website_url'] + settings.MEDIA_URL[1:]
     else:
         placeholders['media_url'] = settings.MEDIA_URL
     return placeholders
 
 
-def get_sender_placeholders(placeholders=None, language="en", sender_name="", sender_email=""):
+def get_sender_placeholders(
+    placeholders=None, language="en", sender_name="", sender_email=""
+):
     """
     sets up the sender placeholders
     The keys used here are the "sysname" values from
@@ -64,14 +67,19 @@ def get_sender_placeholders(placeholders=None, language="en", sender_name="", se
         placeholders['sender_name'] = sender_name
         placeholders['sender_email'] = sender_email
     if placeholders['sender_url']:
-        placeholders['sender_link'] = u'<a href="%s">%s</a>' % (force_unicode(placeholders['sender_url']), force_unicode(placeholders['sender_name']))
+        placeholders['sender_link'] = u'<a href="%s">%s</a>' % (
+            force_unicode(placeholders['sender_url']),
+            force_unicode(placeholders['sender_name'])
+        )
     else:
         placeholders['sender_link'] = ""
 
     return placeholders
 
 
-def get_object_placeholders(placeholders=None, obj=None, obj_placeholders=None, language="en"):
+def get_object_placeholders(
+    placeholders=None, obj=None, obj_placeholders=None, language="en"
+):
     """
     sets up the object placeholders. 
     The keys used here are the "sysname" values from
@@ -106,45 +114,51 @@ def get_object_placeholders(placeholders=None, obj=None, obj_placeholders=None, 
         except:
             placeholders['object_title'] = ""
 
-    try:    
-        placeholders['object_description'] = obj.get_description(language=language)
-    except:        
+    try:
+        placeholders['object_description'] = obj.get_description(
+            language=language
+        )
+    except:
         placeholders['object_description'] = ""
-            
-    try:        
+
+    try:
         placeholders['object_slug'] = obj.slug
     except:
         placeholders['object_slug'] = ""
-    
+
     try:
         placeholders['object_url'] = obj.get_absolute_url()
     except:
         placeholders['object_url'] = ""
-        
+
     if placeholders['object_url']:
-        placeholders['object_link'] = '<a href="%s">%s</a>' % (placeholders['object_url'], placeholders['object_title'])
+        placeholders['object_link'] = '<a href="%s">%s</a>' % (
+            placeholders['object_url'], placeholders['object_title']
+        )
     else:
         placeholders['object_link'] = ""
     try:
-        placeholders['object_creation'] = obj.creation_date.strftime(_("LOCALE_DATETIME")),
+        placeholders['object_creation'] = obj.creation_date.strftime(
+            _("LOCALE_DATETIME")
+        ),
     except:
         placeholders['object_creation'] = ""
-            
+
     # overwrite all values with the additionally passed ones
     if obj_placeholders:
-        for key,value in obj_placeholders.items():
+        for key, value in obj_placeholders.items():
             placeholders[key] = value
-    
+
     return placeholders
 
 
 def create_message(
-    sender, 
-    recipient, 
-    sender_name, 
-    sender_email, 
-    recipient_email, 
-    subject, 
+    sender,
+    recipient,
+    sender_name,
+    sender_email,
+    recipient_email,
+    subject,
     subject_de,
     body,
     body_de,
@@ -264,61 +278,62 @@ def do_generic_mail(
     onaftersend               event handler for doing something with recipients
                               after sending emails
     """
-    
+
     if not redirect_to:
         redirect_to = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
-    
+
     # get the email Body template (if there is one given)
     try:
         email_template = EmailTemplate.objects.get(slug=email_template_slug)
     except:
         email_template = None
-    
+
     # set up the global, sender and object placeholders
-    
+
     user = get_current_user()
-    
+
     rec_list = []
     if recipients_list is not None:
         for item in recipients_list:
             rec_list.append((item.id, item.display_name))
-    
+
     if request.method == 'POST':
-        
+
         data = request.POST.copy()
         form = GenericMailForm(data, request.FILES)
-        
+
         #subject and body for de and en:
         form.fields["subject"].required = display_en
         form.fields["body"].required = display_en
         form.fields["subject_de"].required = display_de
         form.fields["body_de"].required = display_de
 
-            
         # sender is required, if user is not logged in
-        form.fields["sender_name"].required = not(
-            user and user.is_authenticated()
-            )
-        form.fields["sender_email"].required = not(
-            user and user.is_authenticated()
-            )
-        
+        form.fields["sender_name"
+                   ].required = not (user and user.is_authenticated())
+        form.fields["sender_email"
+                   ].required = not (user and user.is_authenticated())
+
         # for sending the message, these fields are required!!!
-        if data.has_key("send"):   
+        if data.has_key("send"):
             # if there is a recipient_email_list available, you have to choose something
             if display_recipients_list:
-                form.fields["recipients_email_list"].required = display_recipients_list and recipients_list and not display_recipients_input
+                form.fields[
+                    "recipients_email_list"
+                ].required = display_recipients_list and recipients_list and not display_recipients_input
             if display_recipients_input:
-                form.fields["recipients_email_input"].required = display_recipients_input and not display_recipients_list
+                form.fields[
+                    "recipients_email_input"
+                ].required = display_recipients_input and not display_recipients_list
 
         if data.has_key("save_as_draft"):
             if display_recipients_list:
                 form.fields["recipients_email_list"].required = False
             if display_recipients_input:
                 form.fields["recipients_email_input"].required = False
-            
-        form.fields['recipients_email_list'].choices = rec_list                    
-        
+
+        form.fields['recipients_email_list'].choices = rec_list
+
         if form.is_valid():
             # do character encoding
             cleaned = form.cleaned_data
@@ -328,7 +343,8 @@ def do_generic_mail(
 
             # sender specific stuff ....
             if user and user.is_authenticated():
-                sender_name = cleaned.get("sender_name", "") or get_user_language(user)
+                sender_name = cleaned.get("sender_name",
+                                          "") or get_user_language(user)
                 sender_email = cleaned.get("sender_email", "") or user.email
             else:
                 sender_name = cleaned["sender_name"]
@@ -336,7 +352,7 @@ def do_generic_mail(
 
             # recipients is a list of Recipient instances
             recipients = []
-            
+
             # testmail recipient is just the sender!
             if data.has_key('send_test_mail'):
                 tester_email = cleaned["tester_email"]
@@ -345,8 +361,8 @@ def do_generic_mail(
                         user=user.is_authenticated() and user or None,
                         name=sender_name,
                         email=tester_email,
-                        )
                     )
+                )
             else:
                 # recipient list is displayed, so get only selected items
                 if display_recipients_list:
@@ -358,18 +374,25 @@ def do_generic_mail(
                 else:
                     for item in recipients_list:
                         recipients.append(item)
-                            
-                        
+
                 if display_recipients_input:
                     recipients_email_input = cleaned["recipients_email_input"]
                     if recipients_email_input:
                         for rec_email, rec_name in recipients_email_input:
-                            recipients.append(Recipient(user=None, name=rec_name, email=rec_email))
-                    
-            # at last, send the message or save it as draft!!! 
+                            recipients.append(
+                                Recipient(
+                                    user=None, name=rec_name, email=rec_email
+                                )
+                            )
+
+            # at last, send the message or save it as draft!!!
             placeholders = get_global_placeholders()
-            placeholders = get_sender_placeholders(placeholders, sender_name=sender_name, sender_email=sender_email)
-            
+            placeholders = get_sender_placeholders(
+                placeholders,
+                sender_name=sender_name,
+                sender_email=sender_email
+            )
+
             if data.has_key("save_as_draft"):
                 if email_template:
                     subject = email_template.render_template(
@@ -408,7 +431,7 @@ def do_generic_mail(
                     delete_after_sending=delete_after_sending,
                     is_html=is_html,
                 )
-            else:       
+            else:
                 if len(recipients) > 0:
                     if callable(onbeforesend):
                         onbeforesend(recipients)
@@ -416,12 +439,14 @@ def do_generic_mail(
                         onsend(recipients)
                     else:
                         for recipient in recipients:
-                            
+
                             if recipient.name is not None:
-                                recipient_email = '%s <%s>' % (recipient.name, recipient.email)
+                                recipient_email = '%s <%s>' % (
+                                    recipient.name, recipient.email
+                                )
                             else:
                                 recipient_email = recipient.email
-                            
+
                             # get the recipient placeholders
                             if email_template:
                                 placeholders = recipient.get_placeholders(
@@ -468,7 +493,7 @@ def do_generic_mail(
                                 body = cleaned["body"]
                                 subject_de = cleaned["subject_de"]
                                 body_de = cleaned["body_de"]
-                            
+
                             message = create_message(
                                 sender=user,
                                 recipient=recipient.user,
@@ -482,21 +507,21 @@ def do_generic_mail(
                                 delete_after_sending=delete_after_sending,
                                 is_html=is_html,
                             )
-                            
+
                             # if reply_to, update the replied message
                             if reply_to:
                                 reply_to.save()
-                                
-                            if data.has_key('send_test_mail'):        
+
+                            if data.has_key('send_test_mail'):
                                 message.send()
-                            
+
                     if callable(onaftersend):
                         onaftersend(recipients)
                     messages.success(request, _("Your message has been sent."))
-            
-            # this is just for testing. must be done by a cron job! 
-            #EmailMessage.objects.send_mails()    
-            
+
+            # this is just for testing. must be done by a cron job!
+            #EmailMessage.objects.send_mails()
+
             if not data.has_key('send_test_mail'):
                 # mesage is finished ...
                 if success_template is not None:
@@ -517,28 +542,31 @@ def do_generic_mail(
         form.fields["body"].required = display_en
         form.fields["subject_de"].required = display_de
         form.fields["body_de"].required = display_de
-                
+
         # sender is required, if user is not logged in
-        form.fields["sender_name"].required = not(
-            user and user.is_authenticated()
-        )
-        form.fields["sender_email"].required = not(
-            user and user.is_authenticated()
-        )
-        
+        form.fields["sender_name"
+                   ].required = not (user and user.is_authenticated())
+        form.fields["sender_email"
+                   ].required = not (user and user.is_authenticated())
+
         # if there is a recipient_email_list available, you have to choose something
         if display_recipients_list:
-            form.fields["recipients_email_list"].required = display_recipients_list and recipients_list and not display_recipients_input
+            form.fields[
+                "recipients_email_list"
+            ].required = display_recipients_list and recipients_list and not display_recipients_input
 
         if display_recipients_input:
-            form.fields["recipients_email_input"].required = display_recipients_input and not display_recipients_list
-        
-        # fill the choices for the recipients_email_list MultSelectionField 
+            form.fields[
+                "recipients_email_input"
+            ].required = display_recipients_input and not display_recipients_list
+
+        # fill the choices for the recipients_email_list MultSelectionField
         form.fields['recipients_email_list'].choices = rec_list
         if preselect_recipients_list:
-            form.fields['recipients_email_list'].initial = [item[0] for item in rec_list]
-        
-                
+            form.fields['recipients_email_list'].initial = [
+                item[0] for item in rec_list
+            ]
+
         # fill the template
         if user and user.is_authenticated():
             form.fields['sender_name'].initial = get_user_title(user)
@@ -549,29 +577,41 @@ def do_generic_mail(
             form.fields['subject'].initial = email_template.subject
             form.fields['subject_de'].initial = email_template.subject_de
             if is_html:
-                form.fields['body'].initial = BeautifulSoup(email_template.body_html, "html.parser").prettify()
-                form.fields['body_de'].initial = BeautifulSoup(email_template.body_html_de, "html.parser").prettify()
+                form.fields['body'].initial = BeautifulSoup(
+                    email_template.body_html, "html.parser"
+                ).prettify()
+                form.fields['body_de'].initial = BeautifulSoup(
+                    email_template.body_html_de, "html.parser"
+                ).prettify()
             else:
                 form.fields['body'].initial = email_template.body
                 form.fields['body_de'].initial = email_template.body_de
-            
+
         if reply_to:
             form.fields['subject'].initial = "RE: %s" % reply_to.subject
             form.fields['subject_de'].initial = "AW: %s" % reply_to.subject
             if is_html:
-                form.fields['body'].initial = BeautifulSoup(reply_to.body_html, "html.parser").prettify()
-                form.fields['body_de'].initial = BeautifulSoup(reply_to.body_html, "html.parser").prettify()
+                form.fields['body'].initial = BeautifulSoup(
+                    reply_to.body_html, "html.parser"
+                ).prettify()
+                form.fields['body_de'].initial = BeautifulSoup(
+                    reply_to.body_html, "html.parser"
+                ).prettify()
             else:
                 form.fields['body'].initial = reply_to.body
                 form.fields['body_de'].initial = reply_to.body
-            
+
         if forward:
             #TODO We could add some forward info such as "from", "sent to" etc.
             form.fields['subject'].initial = "FW: %s" % forward.subject
             form.fields['subject_de'].initial = "WG: %s" % forward.subject
             if is_html:
-                form.fields['body'].initial = BeautifulSoup(forward.body_html,"html.parser").prettify()
-                form.fields['body_de'].initial = BeautifulSoup(forward.body_html, "html.parser").prettify()
+                form.fields['body'].initial = BeautifulSoup(
+                    forward.body_html, "html.parser"
+                ).prettify()
+                form.fields['body_de'].initial = BeautifulSoup(
+                    forward.body_html, "html.parser"
+                ).prettify()
             else:
                 form.fields['body'].initial = forward.body
                 form.fields['body_de'].initial = forward.body
@@ -580,25 +620,31 @@ def do_generic_mail(
             form.fields['subject'].initial = draft.subject
             form.fields['subject_de'].initial = draft.subject
             if is_html:
-                form.fields['body'].initial = BeautifulSoup(draft.body_html, "html.parser").prettify()
-                form.fields['body_de'].initial = BeautifulSoup(draft.body_html, "html.parser").prettify()
+                form.fields['body'].initial = BeautifulSoup(
+                    draft.body_html, "html.parser"
+                ).prettify()
+                form.fields['body_de'].initial = BeautifulSoup(
+                    draft.body_html, "html.parser"
+                ).prettify()
             else:
                 form.fields['body'].initial = draft.body
                 form.fields['body_de'].initial = draft.body
-                
+
     context = {
         'form': form,
         'object': obj,
         'display_recipients_list': display_recipients_list,
         'display_recipients_input': display_recipients_input,
-        'display_en' : display_en,
-        'display_de' : display_de,
+        'display_en': display_en,
+        'display_de': display_de,
         settings.REDIRECT_FIELD_NAME: redirect_to,
     }
-        
+
     if extra_context:
         context.update(extra_context)
-    return render_to_response(template_name, context, context_instance=RequestContext(request))
+    return render_to_response(
+        template_name, context, context_instance=RequestContext(request)
+    )
 
 
 def send_email_using_template(
@@ -636,7 +682,7 @@ def send_email_using_template(
         email_template = EmailTemplate.objects.get(slug=email_template_slug)
     except:
         raise Http404, "You must specify a valid email template, '%s' is not valid" % email_template_slug
-    
+
     # set up the global, sender and object placeholders
     if not (sender_name and sender_email or sender):
         sender = get_current_user()
@@ -650,13 +696,13 @@ def send_email_using_template(
             sender_email = sender.email
         else:
             sender_email = settings.MANAGERS[0][1]
-    
+
     # recipients is a list of Recipient instances
     recipients = []
     for item in recipients_list:
         recipients.append(item)
-                    
-    # at last, send the message!!!        
+
+    # at last, send the message!!!
     if len(recipients) == 0:
         raise Http404, "You must specify a recipients list"
     placeholders = get_global_placeholders()
@@ -666,12 +712,12 @@ def send_email_using_template(
         sender_email=sender_email,
     )
     for recipient in recipients:
-        
+
         if recipient.name is not None:
             recipient_email = '%s <%s>' % (recipient.name, recipient.email)
         else:
             recipient_email = recipient.email
-        
+
         # get the recipient placeholders
 
         placeholders = recipient.get_placeholders(
@@ -721,7 +767,7 @@ def send_email_using_template(
             placeholders,
             email_template.body_html_de,
         )
-        
+
         language = "de"
         if recipient.user:
             if get_user_language(recipient.user) == 'en':
@@ -747,6 +793,6 @@ def send_email_using_template(
             delete_after_sending=delete_after_sending
         )
         message.save()
-        
+
         if send_immediately:
             message.send()
