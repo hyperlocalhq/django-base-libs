@@ -7,13 +7,18 @@
                 <h5>{{ user.first_name }} {{ user.last_name }}</h5>
             </div>
             <div>
-                {{ form.role.label_tag }}
-                {{ form.role }}
-                {{ form.role.error_tag }}
+                {{ form.role.label_tag }} {{ form.role }} {{ form.role.error_tag }}
             </div>
             <div class="buttons">
-                <input class="button_bad" type="button" name="cancel" value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}" />
-                <input class="button_good" type="submit" id="post" name="post" value='{% filter upper %}{% trans "Save" %}{% endfilter %}'/>
+                <input class="button_bad"
+                       type="button"
+                       name="cancel"
+                       value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
+                <input class="button_good"
+                       type="submit"
+                       id="post"
+                       name="post"
+                       value='{% filter upper %}{% trans "Save" %}{% endfilter %}'/>
             </div>
         </div>
     </form>

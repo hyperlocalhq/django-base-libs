@@ -18,28 +18,57 @@ from jetson.apps.notification.models import DigestNotice
 class NoticeTypeCategoryAdmin(admin.ModelAdmin):
     save_on_top = True
     list_display = ('title', 'is_public')
-    list_filter = ('is_public',)
+    list_filter = ('is_public', )
     fieldsets = get_admin_lang_section(_("Title"), ['title'])
-    fieldsets += [(None, {'fields': ('is_public',)}),]
+    fieldsets += [
+        (None, {
+            'fields': ('is_public', )
+        }),
+    ]
 
 
 class NoticeTypeAdmin(admin.ModelAdmin):
     save_on_top = True
-    list_display = ('sysname', 'display', 'description', 'category', 'sort_order', 'default', 'is_public')
+    list_display = (
+        'sysname', 'display', 'description', 'category', 'sort_order',
+        'default', 'is_public'
+    )
     list_filter = ('category', 'is_public', 'default')
-    list_editable = ('sort_order',)
-    fieldsets = [(None, {'fields': ('category', 'sysname',)}),]
-    fieldsets += get_admin_lang_section(_("Contents"), ['display', 'description', 'message_template'])
+    list_editable = ('sort_order', )
+    fieldsets = [
+        (None, {
+            'fields': (
+                'category',
+                'sysname',
+            )
+        }),
+    ]
+    fieldsets += get_admin_lang_section(
+        _("Contents"), ['display', 'description', 'message_template']
+    )
     fieldsets += [
-        (_('Additional'), {'fields': ('default', 'is_public'), 'classes': ("grp-collapse grp-closed",),}),
+        (
+            _('Additional'), {
+                'fields': ('default', 'is_public'),
+                'classes': ("grp-collapse grp-closed", ),
+            }
+        ),
     ]
 
 
 class NoticeEmailTemplateAdmin(admin.ModelAdmin):
     list_display = ['name', 'owner', 'subject', 'get_site']
-    search_fields = ('name', 'subject', 'subject_de', 'body', 'body_de', 'body_html', 'body_html_de',)
+    search_fields = (
+        'name',
+        'subject',
+        'subject_de',
+        'body',
+        'body_de',
+        'body_html',
+        'body_html_de',
+    )
     save_on_top = True
-    filter_horizontal = ('allowed_placeholders',)
+    filter_horizontal = ('allowed_placeholders', )
 
 
 class NoticeSettingAdmin(admin.ModelAdmin):
@@ -50,7 +79,9 @@ class NoticeSettingAdmin(admin.ModelAdmin):
 
 class NoticeAdmin(admin.ModelAdmin):
     save_on_top = True
-    list_display = ('message', 'user', 'notice_type', 'added', 'unseen', 'archived')
+    list_display = (
+        'message', 'user', 'notice_type', 'added', 'unseen', 'archived'
+    )
 
 
 class DigestNotice_Inline(admin.StackedInline):
@@ -62,7 +93,7 @@ class DigestAdmin(admin.ModelAdmin):
     save_on_top = True
     list_display = ("user", "frequency", "creation_date", "is_sent")
     list_filter = ("frequency", "is_sent")
-    inlines = (DigestNotice_Inline,)
+    inlines = (DigestNotice_Inline, )
 
 
 class ObservedItemOptions(ObjectRelationMixinAdminOptions()):

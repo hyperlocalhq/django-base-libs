@@ -8,19 +8,19 @@
 
 {% block body %}
     <h1>{% trans "Notice" %}</h1>
-    
+
     {% if notice.is_unseen %}
         <div class="unseen_notice">
     {% else %}
         <div class="notice">
     {% endif %}
-        <span class="notice_type">[{% trans notice.notice_type.display %}]</span>
-        <span class="notice_message">{{ notice.message|safe }}</span>
-        {% if user.get_profile %}
-            <span class="notice_time">{{ notice.added|localtime:user.profile.timezone|time:"P" }}</span>
-        {% else %}
-            <span class="notice_time">{{ notice.added|time:"P" }}</span>
-        {% endif %}
-    </div>
-    
+<span class="notice_type">[{% trans notice.notice_type.display %}]</span>
+<span class="notice_message">{{ notice.message|safe }}</span>
+{% if user.get_profile %}
+    <span class="notice_time">{{ notice.added|localtime:user.profile.timezone|time:"P" }}</span>
+{% else %}
+    <span class="notice_time">{{ notice.added|time:"P" }}</span>
+{% endif %}
+</div>
+
 {% endblock %}

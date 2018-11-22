@@ -2,22 +2,22 @@
 {% load i18n base_tags navigation_tags memos %}
 
 {% block extrahead %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
 {% endblock %}
 
 
 {% block title %}{% trans "Lists" %}{% endblock %}
 
 {% block headline %}
-	<h2 class="main">{% trans "Lists" %}</h2>
-{% endblock %}			
+    <h2 class="main">{% trans "Lists" %}</h2>
+{% endblock %}
 
 {% block content %}
 
     {% if object_list %}
-    
-    	{% include "utils/sorting_view_pagination_header.html" %}
-        
+
+        {% include "utils/sorting_view_pagination_header.html" %}
+
         {% block breadcrumbs %}
             <div class="breadcrumbs">
                 <div>
@@ -29,13 +29,14 @@
                 </div>
             </div>
         {% endblock %}
-	
-        {% include "site_specific/context_item_list.html" %}
-	
-		{% include "utils/pagination_footer.html" %}
 
-     {% else %}
+        {% include "site_specific/context_item_list.html" %}
+
+        {% include "utils/pagination_footer.html" %}
+
+    {% else %}
         <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
-    {% endif %}<div class="cleaner"></div></div>
+    {% endif %}
+    <div class="cleaner"></div></div>
 {% endblock %}
 

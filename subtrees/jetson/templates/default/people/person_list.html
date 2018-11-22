@@ -2,7 +2,7 @@
 {% load i18n base_tags navigation_tags %}
 
 {% block extrahead %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/individual_relations.js"></script>
 {% endblock %}
 
@@ -10,7 +10,7 @@
 {% block title %}{% trans "People" %}{% endblock %}
 
 {% block headline %}
-	<h2 class="main">{% trans "People" %}</h2>
+    <h2 class="main">{% trans "People" %}</h2>
 {% endblock %}
 
 {% block content %}
@@ -21,7 +21,7 @@
     {% endblock %}
     {% if object_list %}
         {% include "utils/sorting_view_pagination_header.html" %}
-    
+
         {% block breadcrumbs %}
             <div class="breadcrumbs">
                 <div>
@@ -47,44 +47,49 @@
                                             <a href="/vcard/{{ person|content_type_id }}/{{ person.id }}">vcard</a>
                                             {% endcomment %}
                                             {% if postal_address.street_address or postal_address.country_name %}
-                                            <address class="adr">
-                                                {% if contact.institution %}
-                                                    <a class="org" href="{{ contact.institution.get_url_path }}">
-                                                     {{ contact.institution.get_title|escape }}</a>
-                                                     <br />
-                                                {% endif %}
-                                                {% if postal_address.street_address %}
-                                                     <span class="street-address">
+                                                <address class="adr">
+                                                    {% if contact.institution %}
+                                                        <a class="org" href="{{ contact.institution.get_url_path }}">
+                                                            {{ contact.institution.get_title|escape }}</a>
+                                                        <br/>
+                                                    {% endif %}
+                                                    {% if postal_address.street_address %}
+                                                        <span class="street-address">
                                                      {{ postal_address.street_address|escape }}
-                                                     </span><br />
-                                                {% endif %}								
-                                                {% if postal_address.street_address2 %}
-                                                     <span class="street-address">
-                                                     {{ postal_address.street_address2|escape }}</span><br />
-                                                {% endif %}								
-                                                {% if postal_address.street_address3 %}
-                                                     <span class="street-address">{{ postal_address.street_address3|escape }}
-                                                     </span><br />
-                                                {% endif %}								
-                                                {% if postal_address.postal_code %}	
-                                                     <span class="postal-code">
+                                                     </span>
+                                                        <br/>
+                                                    {% endif %}
+                                                    {% if postal_address.street_address2 %}
+                                                        <span class="street-address">
+                                                     {{ postal_address.street_address2|escape }}</span>
+                                                        <br/>
+                                                    {% endif %}
+                                                    {% if postal_address.street_address3 %}
+                                                        <span class="street-address">{{ postal_address.street_address3|escape }}
+                                                     </span>
+                                                        <br/>
+                                                    {% endif %}
+                                                    {% if postal_address.postal_code %}
+                                                        <span class="postal-code">
                                                      {{ postal_address.postal_code|escape }} 
                                                      {{ postal_address.city|escape }}
-                                                     </span><br />
-                                                {% endif %}								
-                                                {% if postal_address.country_name %}
-                                                    <span class="country-name">
+                                                     </span>
+                                                        <br/>
+                                                    {% endif %}
+                                                    {% if postal_address.country_name %}
+                                                        <span class="country-name">
                                                     {{ postal_address.country_name }}
-                                                    </span><br />
-                                                {% endif %}
-                                            </address>
+                                                    </span>
+                                                        <br/>
+                                                    {% endif %}
+                                                </address>
                                             {% endif %}
                                         {% endwith %}
                                     {% endif %}
                                 {% endif %}
                             {% endwith %}
                         {% endif %}
-                    {% include "people/controls.html" %}
+                        {% include "people/controls.html" %}
                     </div>
                     <div class="info-group-b">
                         {% if person.occupation %}
@@ -100,35 +105,36 @@
                                                 {{ phone.type }}
                                                 </abbr>:
                                             {% endif %}
-                                            <span class="value">+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</span><br />
+                                            <span class="value">+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</span><br/>
                                         </span>
                                     {% endfor %}
                                 {% endif %}
                                 {% for url in contact.get_urls %}
-                                <span class="url">
-                                    {% if url.type %}{{ url.type }}: {% endif %}<a  href="{{ url.link|escape }}" onclick="open_new_window(event)">
-                                    {% with url.link|slice:"0:27"|escape as sliced %}{{ sliced }}{% with url.link|escape as not_sliced %}{% ifnotequal sliced url.link|escape %}...{% endifnotequal %}{% endwith %}{% endwith %}</a><br />
+                                    <span class="url">
+                                    {% if url.type %}{{ url.type }}: {% endif %}<a href="{{ url.link|escape }}"
+                                                                                   onclick="open_new_window(event)">
+                                    {% with url.link|slice:"0:27"|escape as sliced %}{{ sliced }}{% with url.link|escape as not_sliced %}{% ifnotequal sliced url.link|escape %}...{% endifnotequal %}{% endwith %}{% endwith %}</a><br/>
                                 </span>
                                 {% endfor %}
                             {% endwith %}
                         {% endif %}
                         {% if person.get_description %}
                             {% with person.get_description|striptags|truncatewords:"60" as filtered_desc %}{% with filtered_desc|truncatewords:"40" as shortened_desc %}
-                            <span class="description hidable">
+                                <span class="description hidable">
                                 {{ shortened_desc }}
-                                {% ifnotequal shortened_desc filtered_desc %}
-                                    <a href="{{ person.get_url_path }}">{% trans "read more" %}</a>
-                                {% endifnotequal %}
+                                    {% ifnotequal shortened_desc filtered_desc %}
+                                        <a href="{{ person.get_url_path }}">{% trans "read more" %}</a>
+                                    {% endifnotequal %}
                             </span>
                             {% endwith %}{% endwith %}
-                        {% endif %}	
+                        {% endif %}
                     </div>
                 </div>
             </div>
             <div class="cleaner"></div>
         {% endfor %}
         {% include "utils/pagination_footer.html" %}
-	
+
     {% else %}
         <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
     {% endif %}

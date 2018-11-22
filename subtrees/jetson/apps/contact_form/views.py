@@ -13,11 +13,14 @@ from jetson.apps.contact_form.models import ContactFormCategory
 
 ContactForm = get_installed('contact_form.forms.ContactForm')
 
+
 @never_cache
-def process_contact_form(request, slug=None,
-    template_name='contact_form/contact_form.html', 
+def process_contact_form(
+    request,
+    slug=None,
+    template_name='contact_form/contact_form.html',
     **kwargs
-    ):
+):
     """
     Displays the contact form
     """
@@ -27,11 +30,11 @@ def process_contact_form(request, slug=None,
         cat = ContactFormCategory.site_objects.get(slug=slug)
     except:
         cat = None
-        
+
     if request.method == 'POST':
         data = request.POST.copy()
         form = ContactForm(data)
-        
+
         if form.is_valid():
             form.save(request.user)
             return HttpResponseRedirect('%salldone/' % request.path)
@@ -41,10 +44,13 @@ def process_contact_form(request, slug=None,
             form.fields['contact_form_category'].initial = cat.id
         if request.user.is_authenticated():
             form.fields['sender_name'].initial = get_user_title(request.user)
-            form.fields['sender_email'].initial = getattr(request.user, "email", "")
+            form.fields['sender_email'].initial = getattr(
+                request.user, "email", ""
+            )
     return render_to_response(
         template_name,
-        {'form': form,},
+        {
+            'form': form,
+        },
         context_instance=RequestContext(request),
-        )
-
+    )

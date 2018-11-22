@@ -4,6 +4,7 @@ from django.conf import settings
 
 register = template.Library()
 
+
 def if_has_perm(parser, token):
     """
     TODO: Update document
@@ -42,7 +43,7 @@ def if_has_perm(parser, token):
             permission = tokens[0]
             if len(tokens) > 1:
                 object_var = parser.compile_filter(tokens[1])
-    
+
         #if not (permission[0] == permission[-1] and permission[0] in ('"', "'")):
         #    raise template.TemplateSyntaxError, "%r tag's argument should be in quotes" % tokens[0]
 
@@ -70,18 +71,23 @@ def if_has_perm(parser, token):
 
             permtuples.append((False, permission[1:-1], parser.compile_filter(object_var)))
         '''
-    nodelist_true = parser.parse(('else', 'end_'+tag,))
+    nodelist_true = parser.parse((
+        'else',
+        'end_' + tag,
+    ))
     token = parser.next_token()
     if token.contents == 'else':
-        nodelist_false = parser.parse(('end_'+tag,))
+        nodelist_false = parser.parse(('end_' + tag, ))
         parser.delete_first_token()
     else:
         nodelist_false = template.NodeList()
 
     result = None
     for item in permtuples:
-        has_perm = HasPermNode(item[1], item[0], item[2], nodelist_true, nodelist_false)
-        
+        has_perm = HasPermNode(
+            item[1], item[0], item[2], nodelist_true, nodelist_false
+        )
+
         if result is None:
             result = has_perm
         else:
@@ -91,8 +97,11 @@ def if_has_perm(parser, token):
                 result = result or has_perm
     return result
 
+
 class HasPermNode(template.Node):
-    def __init__(self, permission, not_flag, object_var, nodelist_true, nodelist_false):
+    def __init__(
+        self, permission, not_flag, object_var, nodelist_true, nodelist_false
+    ):
         self.permission = permission
         self.not_flag = not_flag
         self.object_var = object_var
@@ -122,7 +131,7 @@ class HasPermNode(template.Node):
             except template.VariableDoesNotExist:
                 obj = None
         else:
-            obj=None
+            obj = None
         permission = template.resolve_variable(self.permission, context)
         try:
             user = template.resolve_variable("user", context)
@@ -130,10 +139,13 @@ class HasPermNode(template.Node):
             return settings.TEMPLATE_STRING_IF_INVALID
 
         bool_perm = user.has_perm(permission, obj=obj)
-        if (self.not_flag and not bool_perm) or (not self.not_flag and bool_perm):
+        if (self.not_flag and
+            not bool_perm) or (not self.not_flag and bool_perm):
             return self.nodelist_true.render(context)
-        if (self.not_flag and bool_perm) or (not self.not_flag and not bool_perm):
+        if (self.not_flag and
+            bool_perm) or (not self.not_flag and not bool_perm):
             return self.nodelist_false.render(context)
         return ''
+
 
 register.tag('if_has_perm', if_has_perm)

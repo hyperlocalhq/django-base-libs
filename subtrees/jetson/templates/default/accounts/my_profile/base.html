@@ -4,7 +4,8 @@
 {% block title %}{% trans "My Profile" %}{% endblock %}
 
 {% block headline %}
-    {% blocktrans with request.user.profile.get_title|escape as user %}<h2 class="main">Hello, </h2><h2 class="sub">{{ user }}</h2>{% endblocktrans %}
+    {% blocktrans with request.user.profile.get_title|escape as user %}
+        <h2 class="main">Hello, </h2><h2 class="sub">{{ user }}</h2>{% endblocktrans %}
 {% endblock %}
 
 {% block object-title %}
@@ -15,25 +16,24 @@
 {% block object-content %}{% endblock %}
 
 {% block content %}
-<div class="dashboard">
-    {{ block.super }}
-    <hr />
-    <div class="infoblock"><p>
-        {% filter truncatewords:"30" %}
-            {% filter striptags %}
-                {% infoblock "user_dashboard_msg" %}
-            {% endfilter %}
-        {% endfilter %}
-        <a href="/blog/2008/03/28/interactive_city_berlin_online/">{% trans "Read more" %}</a></p>
+    <div class="dashboard">
+        {{ block.super }}
+        <hr/>
+        <div class="infoblock">
+            <p>
+                {% filter truncatewords:"30" %}
+                    {% filter striptags %}
+                        {% infoblock "user_dashboard_msg" %}
+                    {% endfilter %}
+                {% endfilter %}
+                <a href="/blog/2008/03/28/interactive_city_berlin_online/">{% trans "Read more" %}</a>
+            </p>
+        </div>
+        <div class="dragging_target target_a">
+            {% include_parsed "people/includes/latest_published_people.html" %} {% include_parsed "events/includes/latest_published_events.html" with 5 as amount %}
+        </div>
+        <div class="dragging_target target_b">
+            {% include_parsed "institutions/includes/latest_published_institutions.html" %} {% include_parsed "resources/includes/latest_published_documents.html" %} {% include_parsed "groups_networks/includes/latest_published_persongroups.html" %}
+        </div>
     </div>
-    <div class="dragging_target target_a">
-        {% include_parsed "people/includes/latest_published_people.html" %}
-        {% include_parsed "events/includes/latest_published_events.html" with 5 as amount %}
-    </div>
-    <div class="dragging_target target_b">
-        {% include_parsed "institutions/includes/latest_published_institutions.html" %}
-        {% include_parsed "resources/includes/latest_published_documents.html" %}
-        {% include_parsed "groups_networks/includes/latest_published_persongroups.html" %}
-    </div>
-</div>
 {% endblock %}

@@ -2,79 +2,89 @@
 
 <div class="adr">
     <dl>
-    {% if contact.location_title %}
-        <dt><span class="type">{{ contact.location_title }}</span></dt>
-    {% else %}
-        <dt><span class="type">{{ contact.location_type }}</span></dt>        
-    {% endif %}
-    <dd>
-        {% if contact.institution %}
-            <a class="org" href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a><br />
+        {% if contact.location_title %}
+            <dt><span class="type">{{ contact.location_title }}</span></dt>
+        {% else %}
+            <dt><span class="type">{{ contact.location_type }}</span></dt>
         {% endif %}
-            <span class="fn hidden">{{ object.get_title|escape }}<br /> </span>
+        <dd>
+            {% if contact.institution %}
+                <a class="org"
+                   href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
+                <br/>
+            {% endif %}
+            <span class="fn hidden">{{ object.get_title|escape }}
+                <br/> </span>
 
-        {% with contact.postal_address as address %}
-            {% if address.street_address %}
-                  <span class="street-address">{{ address.street_address|escape }}, </span>
-            {% endif %}								
-            {% if address.street_address2 %}
-                <span class="street-address">{{ address.street_address2|escape }}, </span>
-            {% endif %}								
-            {% if address.street_address3 %}
-                <span class="street-address">{{ address.street_address3|escape }}, </span>
-            {% endif %}								
-            {% if address.postal_code %}	
-                  <span class="postal-code">{{ address.postal_code|escape }} </span> 
-                  <span class="locality">{{ address.city|escape }}, </span>
-            {% endif %}								
-            {% if address.country %}
-                  <span class="country-name">{{ address.country.get_name }}</span>
-            {% endif %}
-            {% if address.get_geoposition.latitude and address.get_geoposition.longitude %}
-                <div class="map-link"><a href="{{ object.get_url_path }}map/#contact_{{ index }}">({% trans "Show on the map" %})</a></div>
-            {% endif %}
-        {% endwith %}  
+            {% with contact.postal_address as address %}
+                {% if address.street_address %}
+                    <span class="street-address">{{ address.street_address|escape }}, </span>
+                {% endif %}
+                {% if address.street_address2 %}
+                    <span class="street-address">{{ address.street_address2|escape }}, </span>
+                {% endif %}
+                {% if address.street_address3 %}
+                    <span class="street-address">{{ address.street_address3|escape }}, </span>
+                {% endif %}
+                {% if address.postal_code %}
+                    <span class="postal-code">{{ address.postal_code|escape }} </span>
+                    <span class="locality">{{ address.city|escape }}, </span>
+                {% endif %}
+                {% if address.country %}
+                    <span class="country-name">{{ address.country.get_name }}</span>
+                {% endif %}
+                {% if address.get_geoposition.latitude and address.get_geoposition.longitude %}
+                    <div class="map-link">
+                        <a href="{{ object.get_url_path }}map/#contact_{{ index }}">({% trans "Show on the map" %})</a>
+                    </div>
+                {% endif %}
+            {% endwith %}
         </dd>
     </dl>
 
 
-{% if contact.get_phones %}
-    {% for phone in contact.get_phones %}
-        {% if forloop.first %}
-            <dl>
-        {% endif %}
-            <dd class="tel">
+    {% if contact.get_phones %}
+        {% for phone in contact.get_phones %}
+            {% if forloop.first %}
+                <dl>
+            {% endif %}
+        <dd class="tel">
             {% if phone.type %}
-            <abbr class="type" title="{% ifequal phone.type.slug "mobile" %}Cell{% else %}{% endifequal %}">{{ phone.type }}</abbr>: 
+                <abbr class="type"
+                      title="{% ifequal phone.type.slug "mobile" %}Cell{% else %}{% endifequal %}">{{ phone.type }}</abbr>:
             {% endif %}
             <span class="value">+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</span></dd>
         {% if forloop.last %}
             </dl>
         {% endif %}
 
-    {% endfor %}
-{% endif %}
-{% for url in contact.get_urls %}
+        {% endfor %}
+    {% endif %}
+    {% for url in contact.get_urls %}
         {% if forloop.first %}
             <dl>
         {% endif %}
 
-        {% if url.type %}<dd>{{ url.type }}: 
+    {% if url.type %}
+        <dd>{{ url.type }}:
             <a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">
-            {{ url.link }}</a></dd>
-        {% else %}
-            <dd><a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">{{ url.link}}</a></dd>
-        {% endif %}
+                {{ url.link }}</a>
+        </dd>
+    {% else %}
+        <dd>
+            <a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">{{ url.link }}</a>
+        </dd>
+    {% endif %}
     {% if forloop.last %}
         </dl>
     {% endif %}
 
-{% endfor %}
+    {% endfor %}
 </div>
-    {% if contact.get_ims %}
+{% if contact.get_ims %}
     <dl>
         {% for im in contact.get_ims %}
             <dd>{{ im.type }}: {{ im.address }}</dd>
         {% endfor %}
     </dl>
-    {% endif %}
+{% endif %}

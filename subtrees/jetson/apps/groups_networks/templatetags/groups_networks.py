@@ -8,14 +8,17 @@ from django.conf import settings
 
 app = models.get_app("groups_networks")
 GroupMembership, PersonGroup, PG_ROLE_PERMISSIONS = (
-    app.GroupMembership, app.PersonGroup, app.PG_ROLE_PERMISSIONS,
-    )
+    app.GroupMembership,
+    app.PersonGroup,
+    app.PG_ROLE_PERMISSIONS,
+)
 
 Institution = models.get_model("institutions", "Institution")
 
 register = template.Library()
 
 ### TEMPLATE TAGS ###
+
 
 def do_adding_group_membership(parser, token):
     """ Prints the widget for adding object to confirmed contacts
@@ -34,52 +37,61 @@ def do_adding_group_membership(parser, token):
         
     """
     try:
-        tag_name, str_at, obj_to_add, str_using, template_path = token.split_contents()
+        tag_name, str_at, obj_to_add, str_using, template_path = token.split_contents(
+        )
     except ValueError:
         template_path = ""
         try:
             # split_contents() knows not to split quoted strings.
             tag_name, str_at, obj_to_add = token.split_contents()
         except ValueError:
-            raise template.TemplateSyntaxError, "%r tag requires a following syntax: {%% %r at <object> [using <template_path>] %%}" % (token[0], token[0])
+            raise template.TemplateSyntaxError, "%r tag requires a following syntax: {%% %r at <object> [using <template_path>] %%}" % (
+                token[0], token[0]
+            )
     return ObjectAddingGroupMembership(obj_to_add, template_path)
+
 
 class ObjectAddingGroupMembership(template.Node):
     count = 0
+
     def __init__(self, obj_to_add, template_path):
         self.obj_to_add = obj_to_add
-        self.counter = self.__class__.count 
+        self.counter = self.__class__.count
         self.__class__.count += 1
         self.template_path = template_path
+
     def render(self, context):
         # get user by current object
         obj_to_add = template.resolve_variable(self.obj_to_add, context)
         if type(obj_to_add).__name__ == "ContextItem":
             obj_to_add = obj_to_add.content_object
-            
+
         ct = ContentType.objects.get_for_model(obj_to_add)
-        
+
         try:
-            template_path = template.resolve_variable(self.template_path, context)
+            template_path = template.resolve_variable(
+                self.template_path, context
+            )
         except:
             template_path = ""
-        
-        user=context['request'].user
-            
+
+        user = context['request'].user
+
         c = context
         c.push()
         c['group'] = obj_to_add
         output = loader.render_to_string(
             template_path or "groups_networks/group_membership.html",
             c,
-            )
+        )
         c.pop()
         return output
-        
+
 
 register.tag('adding_group_membership', do_adding_group_membership)
 
 ### TEMPLATE FILTERS ###
+
 
 def is_member_request_acceptable(group, obj):
     if type(obj).__name__ == "ContextItem":
@@ -87,7 +99,10 @@ def is_member_request_acceptable(group, obj):
     if type(obj).__name__ == "Person":
         obj = obj.user
     return group.is_member_request_acceptable(obj)
-is_member_request_acceptable = register.filter(is_member_request_acceptable)   
+
+
+is_member_request_acceptable = register.filter(is_member_request_acceptable)
+
 
 def is_member_request_denyable(group, obj):
     if type(obj).__name__ == "ContextItem":
@@ -95,7 +110,10 @@ def is_member_request_denyable(group, obj):
     if type(obj).__name__ == "Person":
         obj = obj.user
     return group.is_member_request_denyable(obj)
-is_member_request_denyable = register.filter(is_member_request_denyable)   
+
+
+is_member_request_denyable = register.filter(is_member_request_denyable)
+
 
 def is_member_removable(group, obj):
     if type(obj).__name__ == "ContextItem":
@@ -103,7 +121,10 @@ def is_member_removable(group, obj):
     if type(obj).__name__ == "Person":
         obj = obj.user
     return group.is_member_removable(obj)
-is_member_removable = register.filter(is_member_removable)   
+
+
+is_member_removable = register.filter(is_member_removable)
+
 
 def is_member_invitation_cancelable(group, obj):
     if type(obj).__name__ == "ContextItem":
@@ -111,6 +132,8 @@ def is_member_invitation_cancelable(group, obj):
     if type(obj).__name__ == "Person":
         obj = obj.user
     return group.is_member_invitation_cancelable(obj)
-is_member_invitation_cancelable = register.filter(is_member_invitation_cancelable)   
 
 
+is_member_invitation_cancelable = register.filter(
+    is_member_invitation_cancelable
+)

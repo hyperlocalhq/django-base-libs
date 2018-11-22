@@ -10,7 +10,9 @@ def page(request, page=None):
         page = "base"
 
     # if template for page doesn't exist, fallback to styleguide/base.html
-    return render(request, ["styleguide/{}.html".format(page), "styleguide/base.html"])
+    return render(
+        request, ["styleguide/{}.html".format(page), "styleguide/base.html"]
+    )
 
 
 def dummy_form(request):

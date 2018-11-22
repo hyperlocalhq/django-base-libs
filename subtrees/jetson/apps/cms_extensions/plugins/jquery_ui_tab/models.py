@@ -1,12 +1,18 @@
 # -*- coding: utf-8 -*-
+import sys
+
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
-from django.conf import settings
+
+if "makemigrations" in sys.argv:
+    from django.utils.translation import ugettext_noop as _
+else:
+    from django.utils.translation import ugettext_lazy as _
 
 from base_libs.models.models import SysnameMixin
 from base_libs.models.fields import ExtendedTextField
 
 from cms.models import CMSPlugin
+
 
 class JQueryUITab(CMSPlugin, SysnameMixin()):
     """
@@ -14,8 +20,8 @@ class JQueryUITab(CMSPlugin, SysnameMixin()):
     """
     title = models.CharField(_("Tab title"), max_length=40)
     content = ExtendedTextField(_("content"))
-    
-    search_fields = ('content',) # TODO: What is it?
-    
+
+    search_fields = ('content', )  # TODO: What is it?
+
     def __unicode__(self):
         return self.title

@@ -12,14 +12,28 @@
 {% block content %}
     <ul>
         {% if not request.user.is_authenticated %}
-            <li><a href='/login/'>{% trans "Login" %}</a></li>
-            <li><a href='/register/'>{% trans "Register" %}</a></li>
-            <li><a href='/password_reset/'>{% trans "Reset your password" %}</a></li>
+            <li>
+                <a href='/login/'>{% trans "Login" %}</a>
+            </li>
+            <li>
+                <a href='/register/'>{% trans "Register" %}</a>
+            </li>
+            <li>
+                <a href='/password_reset/'>{% trans "Reset your password" %}</a>
+            </li>
         {% else %}
-            <li><a href='/logout/'>{% trans "Logout" %}</a></li>
-            <li><a href='/changeuser/'>{% trans "Login as a different user" %}</a></li>
-            <li><a href='{{ request.user.profile.get_url_path }}'>{% trans "Edit your profile" %}</a></li>
-            <li><a href='/password_change/'>{% trans "Change your password" %}</a></li>
+            <li>
+                <a href='/logout/'>{% trans "Logout" %}</a>
+            </li>
+            <li>
+                <a href='/changeuser/'>{% trans "Login as a different user" %}</a>
+            </li>
+            <li>
+                <a href='{{ request.user.profile.get_url_path }}'>{% trans "Edit your profile" %}</a>
+            </li>
+            <li>
+                <a href='/password_change/'>{% trans "Change your password" %}</a>
+            </li>
         {% endif %}
     </ul>
 {% endblock %}

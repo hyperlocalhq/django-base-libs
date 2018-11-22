@@ -4,21 +4,24 @@
     {% if form_preview %}
         <div class="preview">
             <h3>{{ form.title.data }}</h3>
-                
+
             {{ form.body.data|disarm_user_input }}
-            
+
             {% if form.tags.data %}
                 <div class="post-meta">
-                    <span>{% trans "Tags" %}: </span> 
-                    {{ form.tags.data }}
+                    <span>{% trans "Tags" %}: </span> {{ form.tags.data }}
                 </div>
             {% endif %}
             <div class="form-actions">
-                <input id="post" class="btn btn-primary" type="submit" name="{{ post_stage_field }}" value="{% filter upper %}{% if form.status.data == "0" %}{% trans "Save as Draft" %}{% else %}{% trans "Publish" %}{% endif %}{% endfilter %}" />&zwnj;
-            </div>            
+                <input id="post"
+                       class="btn btn-primary"
+                       type="submit"
+                       name="{{ post_stage_field }}"
+                       value="{% filter upper %}{% if form.status.data == "0" %}{% trans "Save as Draft" %}{% else %}{% trans "Publish" %}{% endif %}{% endfilter %}"/>&zwnj;
+            </div>
         </div>
     {% endif %}
-    
+
     {% crispy form %}{# Blog post form #}
 
 </form>

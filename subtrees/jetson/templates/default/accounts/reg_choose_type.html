@@ -18,36 +18,50 @@
 {% endblock %}
 
 {% block content %}
-<div class="reg">
-    <div class="field_layout">
-        <h6>{% trans "Choose account type" %}</h6>
-        <p>{% trans "Please select a suitable account type. You can either register yourself just as a single person or you can also register as an owner of a group, organization or other institution. Your personal account can also be enhanced at a later point." %}</p>
-        <hr />    
-        <form action="" method="post">
-        <h3> {% trans "Individual Account" %}</h3>
-            <p>Registrieren Sie sich mit einem persönlichen Profil. Sie erhalten damit zugleich vielfältige Möglichkeiten, um dieses Informationsangebot individuell nutzen und eigene Beiträge veröffentlichen zu k&ouml;nnen.</p>
-            <div class="buttons_reg"><input id="login4" type="hidden" name="account_type" value="0" />
-            <input type="submit" class="button_bad" value="{% filter upper %}{% trans "Create Individual Account" %}{% endfilter %}" /></div>
-        </form>
-        <hr /> 
-        <form action="" method="post">
-        <h3>{% trans "Institutional Account" %}</h3>
-        <p>
-            Registrieren Sie sich hier mit Ihrem Unternehmen. Sie legen damit gleichzeitig ein persönliches Profil an, über das Sie Ihre Institution administrieren können. Stellen Sie also sicher, dass Sie dazu von Ihrer Institution autorisiert sind. Bitte überprüfen Sie ebenfalls vor Ihrer Registrierung, ob Ihr Unternehmen bereits in der <a onclick="open_new_window(event)" href="/institutions/"> Datenbank</a> eingetragen ist.
-        </p>
-        <div class="buttons_reg"><input type="hidden" name="account_type" value="1" />
-        <input type="submit" class="button_bad" value="{% filter upper %}{% trans "Create Institutional Account" %}{% endfilter %}" /></div>
-        </form>
-        <hr /> 
-        <p class="account_qu">
-            <strong>Frage: Das Unternehmen ist bereits in der Datenbank eingetragen, soll aber von mir administriert werden?</strong><br />
-            In diesem Fall registrieren Sie sich bitte zunächst mit einem Personenkonto. Gehen Sie dann als eingeloggtes Mitglied zu der Detailansicht der betreffenden Institution. Folgen Sie unter dem Menu "Aktivitäten" dem Link "Ist das Ihr Unternehmen?"  und senden das ausgefüllte Formular an uns. Nach positiver Überprüfung durch unsere Redaktion wird dann Ihr Administrationszugang zu dem Unternehmenseintrag freigeschaltet.
-        </p>
-        <p>
-            <strong>Frage: Das Unternehmen ist noch nicht eingetragen, aber ich bin auch nicht der Administrator. Wie verknüpfe ich mein Personenkonto mit dem Unternehmen?</strong><br />
-            Entweder bitten Sie zunächst eine autorisierte Person in Ihrem Unternehmen, das Firmenkonto anzulegen, dem Sie sich dann nach Veröffentlichung zuordnen können. Alternativ wählen Sie das entsprechende Kontaktformular "<a onclick="open_new_window(event)" href="/ticket/new-institution/">Neue Institution vorschlagen</a>" aus. Nach Veröffentlichung des Institutionseintrags können Sie diesen ebenfalls Ihrem Profil zuordnen.
-        </p>
+    <div class="reg">
+        <div class="field_layout">
+            <h6>{% trans "Choose account type" %}</h6>
+            <p>{% trans "Please select a suitable account type. You can either register yourself just as a single person or you can also register as an owner of a group, organization or other institution. Your personal account can also be enhanced at a later point." %}</p>
+            <hr/>
+            <form action="" method="post">
+                <h3> {% trans "Individual Account" %}</h3>
+                <p>Registrieren Sie sich mit einem persönlichen Profil. Sie erhalten damit zugleich vielfältige Möglichkeiten, um dieses Informationsangebot individuell nutzen und eigene Beiträge veröffentlichen zu k&ouml;nnen.</p>
+                <div class="buttons_reg">
+                    <input id="login4" type="hidden" name="account_type" value="0"/>
+                    <input type="submit"
+                           class="button_bad"
+                           value="{% filter upper %}{% trans "Create Individual Account" %}{% endfilter %}"/>
+                </div>
+            </form>
+            <hr/>
+            <form action="" method="post">
+                <h3>{% trans "Institutional Account" %}</h3>
+                <p>
+                    Registrieren Sie sich hier mit Ihrem Unternehmen. Sie legen damit gleichzeitig ein persönliches Profil an, über das Sie Ihre Institution administrieren können. Stellen Sie also sicher, dass Sie dazu von Ihrer Institution autorisiert sind. Bitte überprüfen Sie ebenfalls vor Ihrer Registrierung, ob Ihr Unternehmen bereits in der
+                    <a onclick="open_new_window(event)" href="/institutions/"> Datenbank</a>
+                    eingetragen ist.
+                </p>
+                <div class="buttons_reg">
+                    <input type="hidden" name="account_type" value="1"/>
+                    <input type="submit"
+                           class="button_bad"
+                           value="{% filter upper %}{% trans "Create Institutional Account" %}{% endfilter %}"/>
+                </div>
+            </form>
+            <hr/>
+            <p class="account_qu">
+                <strong>Frage: Das Unternehmen ist bereits in der Datenbank eingetragen, soll aber von mir administriert werden?</strong>
+                <br/>
+                In diesem Fall registrieren Sie sich bitte zunächst mit einem Personenkonto. Gehen Sie dann als eingeloggtes Mitglied zu der Detailansicht der betreffenden Institution. Folgen Sie unter dem Menu "Aktivitäten" dem Link "Ist das Ihr Unternehmen?" und senden das ausgefüllte Formular an uns. Nach positiver Überprüfung durch unsere Redaktion wird dann Ihr Administrationszugang zu dem Unternehmenseintrag freigeschaltet.
+            </p>
+            <p>
+                <strong>Frage: Das Unternehmen ist noch nicht eingetragen, aber ich bin auch nicht der Administrator. Wie verknüpfe ich mein Personenkonto mit dem Unternehmen?</strong>
+                <br/>
+                Entweder bitten Sie zunächst eine autorisierte Person in Ihrem Unternehmen, das Firmenkonto anzulegen, dem Sie sich dann nach Veröffentlichung zuordnen können. Alternativ wählen Sie das entsprechende Kontaktformular "
+                <a onclick="open_new_window(event)" href="/ticket/new-institution/">Neue Institution vorschlagen</a>
+                " aus. Nach Veröffentlichung des Institutionseintrags können Sie diesen ebenfalls Ihrem Profil zuordnen.
+            </p>
+        </div>
     </div>
-</div>
 {% endblock %}
 

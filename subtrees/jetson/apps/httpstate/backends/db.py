@@ -9,18 +9,19 @@ except:
 
 from jetson.apps.httpstate.backends.base import HttpStateBase, CreateError
 
+
 class HttpStateStore(HttpStateBase):
     """
     Implements database httpstate store.
     """
+
     def __init__(self, httpstate_key=None):
         super(HttpStateStore, self).__init__(httpstate_key)
 
     def load(self):
         try:
             s = HttpState.objects.get(
-                httpstate_key = self.httpstate_key,
-                expire_date__gt=tz_now()
+                httpstate_key=self.httpstate_key, expire_date__gt=tz_now()
             )
             return self.decode(s.httpstate_data)
         except (HttpState.DoesNotExist, SuspiciousOperation):
@@ -52,9 +53,11 @@ class HttpStateStore(HttpStateBase):
         entry).
         """
         obj = HttpState(
-            httpstate_key = self._get_or_create_httpstate_key(),
-            httpstate_data = self.encode(self._get_httpstate(no_load=must_create)),
-            expire_date = self.get_expiry_date()
+            httpstate_key=self._get_or_create_httpstate_key(),
+            httpstate_data=self.encode(
+                self._get_httpstate(no_load=must_create)
+            ),
+            expire_date=self.get_expiry_date()
         )
         using = router.db_for_write(HttpState, instance=obj)
         sid = transaction.savepoint(using=using)
@@ -81,5 +84,6 @@ class HttpStateStore(HttpStateBase):
         HttpState.objects.filter(expire_date__lt=tz_now()).delete()
         transaction.commit_unless_managed()
 
-# At bottom to avoid circular import        
+
+# At bottom to avoid circular import
 from jetson.apps.httpstate.models import HttpState

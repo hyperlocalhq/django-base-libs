@@ -1,8 +1,11 @@
 {% load base_tags i18n %}
 <div class="buttons">
-    <input type="submit" class="button_bad" value="{% filter upper %}{% trans "Reset" %}{% endfilter %}" name="reset" />
-	{% if not steps.0.current %}
-        <input type="button" class="button_bad" value="{% filter upper %}{% trans "Previous" %}{% endfilter %}" onclick="window.redirect(document.location.pathname + '?step=' + ({{ form_step_data.step_counter|default:"0" }} - 1))" />
-	{% endif %}
+    <input type="submit" class="button_bad" value="{% filter upper %}{% trans "Reset" %}{% endfilter %}" name="reset"/>
+    {% if not steps.0.current %}
+        <input type="button"
+               class="button_bad"
+               value="{% filter upper %}{% trans "Previous" %}{% endfilter %}"
+               onclick="window.redirect(document.location.pathname + '?step=' + ({{ form_step_data.step_counter|default:"0" }} - 1))"/>
+    {% endif %}
     <input type="submit" class="button_good" value="{% filter upper %}{% trans "Next" %}{% endfilter %}"/>
 </div>

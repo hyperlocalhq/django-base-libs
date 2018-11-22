@@ -2,15 +2,15 @@
 {% load i18n base_tags blog %}
 
 {% block extrahead %}
-	{{ block.super }}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/blog.js"></script>
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/blog.js"></script>
 {% endblock %}
 
 {% block details %}
     {% block breadcrumbs %}
-		<div class="breadcrumbs">
-		    <a href="javascript:window.history.back()">{% trans "Go back" %}</a>
-		</div>
-	{% endblock %}   
-	{% include_selected "post_embedded.html" for object under "blog/forms" %}
+        <div class="breadcrumbs">
+            <a href="javascript:window.history.back()">{% trans "Go back" %}</a>
+        </div>
+    {% endblock %}
+    {% include_selected "post_embedded.html" for object under "blog/forms" %}
 {% endblock %}

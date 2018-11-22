@@ -3,7 +3,8 @@
 
 {% for fileobject in page.object_list %}
 
-    <tr class="grp-row {% cycle 'grp-row-even' 'grp-row-odd' %}{% if fileobject.filetype == "Folder" %} fb_folder{% endif %}">
+    <tr class="grp-row
+            {% cycle 'grp-row-even' 'grp-row-odd' %}{% if fileobject.filetype == "Folder" %} fb_folder{% endif %}">
         {% with fileobject|file_description as f_description %}
             <!-- FILESELECT FOR FILEBROWSEFIELD -->
             {% if query.pop == "1" %}
@@ -11,7 +12,8 @@
                     {% selectable fileobject.filetype query.type %}
                     {% if selectable and fileobject.filetype != "Folder" %}
                         <!-- select original -->
-                        <button class="grp-button fb_selectlink" onclick="FileSubmit('{{ fileobject.path }}', '{{ fileobject.url }}', '{{ MEDIA_URL }}{{ fileobject|modified_path:"filebrowser_thumbnail" }}', '{{ fileobject.filetype }}');">
+                        <button class="grp-button fb_selectlink"
+                                onclick="FileSubmit('{{ fileobject.path }}', '{{ fileobject.url }}', '{{ MEDIA_URL }}{{ fileobject|modified_path:"filebrowser_thumbnail" }}', '{{ fileobject.filetype }}');">
                             {% trans "Select" %}
                         </button>
                     {% else %}
@@ -27,13 +29,17 @@
                     {% selectable fileobject.filetype query.type %}
                     {% if selectable and fileobject.filetype != "Folder" %}
                         <!-- select original -->
-                        <button class="grp-button fb_selectlink" onclick="FileBrowserDialogue.fileAndDescriptionSubmit({file_path: '{{ MEDIA_URL }}{{ fileobject.path|escapejs }}', title: '{{ f_description.title|escapejs }}', description: '{{ f_description.description|escapejs }}', author: '{{ f_description.author|escapejs }}'});">
+                        <button class="grp-button fb_selectlink"
+                                onclick="FileBrowserDialogue.fileAndDescriptionSubmit({file_path: '{{ MEDIA_URL }}{{ fileobject.path|escapejs }}', title: '{{ f_description.title|escapejs }}', description: '{{ f_description.description|escapejs }}', author: '{{ f_description.author|escapejs }}'});">
                             {% trans "Select" %}
                         </button>
                         <!-- select versions -->
                         {% if fileobject.filetype == "Image" %}
-                            <br/><br/>
-                            <a href="{% url 'fb_versions' %}{% query_string "" "p" %}&amp;filename={{ fileobject.filename }}" class="fb_showversionslink" title="{% trans 'Show Versions' %}">
+                            <br/>
+                            <br/>
+                            <a href="{% url 'fb_versions' %}{% query_string "" "p" %}&amp;filename={{ fileobject.filename }}"
+                               class="fb_showversionslink"
+                               title="{% trans 'Show Versions' %}">
                                 {% trans "Versions" %}
                             </a>
                         {% endif %}
@@ -49,13 +55,17 @@
                     {% selectable fileobject.filetype query.type %}
                     {% if selectable and fileobject.filetype != "Folder" %}
                         <!-- select original -->
-                        <button class="grp-button fb_selectlink" onclick="OpenFile(ProtectPath('{{ fileobject.url|escapejs }}'), '{{ f_description.author|escapejs }}', '{{ f_description.title|escapejs }}');return false;">
+                        <button class="grp-button fb_selectlink"
+                                onclick="OpenFile(ProtectPath('{{ fileobject.url|escapejs }}'), '{{ f_description.author|escapejs }}', '{{ f_description.title|escapejs }}');return false;">
                             {% trans "Select" %}
                         </button>
                         <!-- select versions -->
                         {% if fileobject.filetype == "Image" %}
-                            <br/><br/>
-                            <a href="{% url 'fb_versions' %}{% query_string "" "p" %}&amp;filename={{ fileobject.filename }}" class="fb_showversionslink" title="{% trans 'Show Versions' %}">
+                            <br/>
+                            <br/>
+                            <a href="{% url 'fb_versions' %}{% query_string "" "p" %}&amp;filename={{ fileobject.filename }}"
+                               class="fb_showversionslink"
+                               title="{% trans 'Show Versions' %}">
                                 {% trans "Versions" %}
                             </a>
                         {% endif %}
@@ -93,7 +103,10 @@
 
             <!-- FILENAME/DIMENSIONS -->
             {% if fileobject.filetype == "Folder" %}
-                <td><a href="{% url 'filebrowser:fb_browse' %}{% query_string "" "q,dir,p" %}&amp;dir={{ fileobject.directory|urlencode }}"><strong>{{ fileobject.filename }}</strong></a>
+                <td>
+                    <a href="{% url 'filebrowser:fb_browse' %}{% query_string "" "q,dir,p" %}&amp;dir={{ fileobject.directory|urlencode }}">
+                        <strong>{{ fileobject.filename }}</strong>
+                    </a>
                     {% if f_description.title %}
                         <br/>{{ f_description.title }}
                     {% endif %}
@@ -118,7 +131,10 @@
 
             <!-- FOLDER -->
             {% if query.q and settings_var.SEARCH_TRAVERSE %}
-                <td><a href="{% url 'filebrowser:fb_browse' %}{% query_string "" "dir,p" %}&amp;dir={{ fileobject.folder|urlencode }}"><strong>{{ fileobject.folder }}</strong></a>
+                <td>
+                    <a href="{% url 'filebrowser:fb_browse' %}{% query_string "" "dir,p" %}&amp;dir={{ fileobject.folder|urlencode }}">
+                        <strong>{{ fileobject.folder }}</strong>
+                    </a>
                 </td>
             {% endif %}
 

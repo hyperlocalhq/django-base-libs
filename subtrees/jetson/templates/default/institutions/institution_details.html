@@ -1,1 +1,77 @@
-{% extends "institutions/details_base.html" %}{% load i18n base_tags auth_extended %}{% block doctype %}    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">{% endblock %}{% block extrahead %}{{ block.super }}    {% if_has_perm "institutions.change_institution" object %}        <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/profile.js"></script>    {% end_if_has_perm %}    {% endblock %}{% block details %}        {% if_has_perm "institutions.change_institution" object %}        <div class="description_edit first-item">    {% else %}         <div class="description first-item">    {% end_if_has_perm %}        <div class="profil_container">            <div id="dyn_avatar" class="dyn_section">                {% include "institutions/profile/avatar.html" %}            </div>        </div>           <div id="dyn_description" class="dyn_section">            {% include "institutions/profile/description.html" %}        </div>    </div>        <div class="vcard">            <div id="address">                <div id="dyn_contacts">                    {% if object.get_contacts %}                        <div id="dyn_contact_header_{{ index }}" class="subline dyn_contact_header">                            <h6>{% trans "contact data" %}</h6>                        </div>                        {% for contact in object.get_contacts %}                        <div class="{% if not forloop.last %}address_field{% else %}address_field_last{% endif %}">                            {% with forloop.counter0 as index %}                                <div id="dyn_contact_{{ index }}" class="dyn_section">                                    {% include "institutions/profile/contact.html" %}                                </div>                            {% endwith %}                        </div>                        {% endfor %}                    {% else %}                        {% if_has_perm "institutions.change_institution" object %}                              <div id="dyn_contact_header_0" class="subline dyn_contact_header">                                    <h6>{% trans "Contact Data" %}</h6>                            </div>                        {% end_if_has_perm %}                    {% endif %}                </div>            </div>        </div>        {% if object.are_opening_hours_displayed %}            <div class="cats">                <h6 class="subline">                    {% trans "Opening hours" %}                </h6>                <div id="dyn_opening_hours" class="dyn_section">                    {% include "institutions/profile/opening_hours.html" %}                </div>            </div>        {% endif %}                <div class="cats">            <h6 class="subline">                {% trans "Categories" %}            </h6>            <div id="dyn_categories" class="dyn_section">                {% include "institutions/profile/categories.html" %}            </div>        </div>{% endblock %}
+{% extends "institutions/details_base.html" %}
+{% load i18n base_tags auth_extended %}
+
+{% block doctype %}
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+            "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    {% if_has_perm "institutions.change_institution" object %}
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/profile.js"></script>
+    {% end_if_has_perm %}
+{% endblock %}
+
+{% block details %}
+
+    {% if_has_perm "institutions.change_institution" object %}
+        <div class="description_edit first-item">
+    {% else %}
+        <div class="description first-item">
+    {% end_if_has_perm %}
+<div class="profil_container">
+    <div id="dyn_avatar" class="dyn_section">
+        {% include "institutions/profile/avatar.html" %}
+    </div>
+</div>
+<div id="dyn_description" class="dyn_section">
+    {% include "institutions/profile/description.html" %}
+</div>
+</div>
+<div class="vcard">
+    <div id="address">
+        <div id="dyn_contacts">
+            {% if object.get_contacts %}
+                <div id="dyn_contact_header_{{ index }}" class="subline dyn_contact_header">
+                    <h6>{% trans "contact data" %}</h6>
+                </div>
+                {% for contact in object.get_contacts %}
+                    <div class="{% if not forloop.last %}address_field{% else %}address_field_last{% endif %}">
+                        {% with forloop.counter0 as index %}
+                            <div id="dyn_contact_{{ index }}" class="dyn_section">
+                                {% include "institutions/profile/contact.html" %}
+                            </div>
+                        {% endwith %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                {% if_has_perm "institutions.change_institution" object %}
+                    <div id="dyn_contact_header_0" class="subline dyn_contact_header">
+                        <h6>{% trans "Contact Data" %}</h6>
+                    </div>
+                {% end_if_has_perm %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% if object.are_opening_hours_displayed %}
+    <div class="cats">
+        <h6 class="subline">
+            {% trans "Opening hours" %}
+        </h6>
+        <div id="dyn_opening_hours" class="dyn_section">
+            {% include "institutions/profile/opening_hours.html" %}
+        </div>
+    </div>
+{% endif %}
+
+<div class="cats">
+    <h6 class="subline">
+        {% trans "Categories" %}
+    </h6>
+    <div id="dyn_categories" class="dyn_section">
+        {% include "institutions/profile/categories.html" %}
+    </div>
+</div>
+{% endblock %}

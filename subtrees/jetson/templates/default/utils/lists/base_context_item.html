@@ -1,14 +1,14 @@
 {% comment %}<!--
 The base for context item in context item lists
 -->{% endcomment %}
-<div class="list-item {% if forloop.counter|divisibleby:"2" %}even{% else %}odd{% endif %} expanded {{ extra_css_classes|default:"" }}" onclick="redirect('{% block object_absolute_url %}{% endblock %}');">
+<div class="list-item {% if forloop.counter|divisibleby:"2" %}even{% else %}odd{% endif %} expanded {{ extra_css_classes|default:"" }}"
+     onclick="redirect('{% block object_absolute_url %}{% endblock %}');">
     <div class="info-group-a">
         <h5>
-        {{ forloop.counter }}.
-        {% block object_title %}TITLE{% endblock %}
+            {{ forloop.counter }}.
+            {% block object_title %}TITLE{% endblock %}
         </h5>
-        {% block object_col1 %}{% endblock %}
-        {% block object_controls %}{% endblock %}
+        {% block object_col1 %}{% endblock %} {% block object_controls %}{% endblock %}
     </div>
     <div class="info-group-b">
         {% block object_col2 %}{% endblock %}

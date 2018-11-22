@@ -2,21 +2,22 @@
 
 <h6 class="section-header">{% trans "Additional Info" %}</h6>
 <div class="section-details">
-    
+
     {% if object.get_additional_info %}
         <dl>
             <dt>{% trans "Additional Info" %}</dt>
             <dd><p>{{ object.get_additional_info|safe }}</p></dd>
         </dl>
     {% endif %}
-    
+
     {% if object.related_events.count %}
         <dl>
             <dt>{% trans "Related Events" %}</dt>
             <dd>
                 {% for ev in object.related_events.all %}
                     <a href="{{ ev.get_url_path }}">{{ ev.get_title }}</a>
-                    {% if not forloop.last %}<br />{% endif %}
+                    {% if not forloop.last %}
+                        <br/>{% endif %}
                 {% endfor %}
             </dd>
         </dl>

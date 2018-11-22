@@ -4,24 +4,26 @@ from django.conf import settings
 from base_libs.utils.crypt import cryptString
 from base_libs.utils.user import get_user_title
 
+
 class Recipient(object):
     _counter = 0
+
     def _generate_id(self):
         type(self)._counter += 1
         return "inc_%d" % type(self)._counter
-        
+
     def __init__(
         self,
         id=None,
         user=None,
-        name="", # name shown in the recipient address
-        email="", # email of the recipient
-        display_name="", # name shown in a list
+        name="",  # name shown in the recipient address
+        email="",  # email of the recipient
+        display_name="",  # name shown in a list
         slug="",
         first_name="",
         last_name="",
-        url="", # url of the recipient's page
-        ):
+        url="",  # url of the recipient's page
+    ):
         self.url = url
         self.link = ""
         self.user = user
@@ -36,7 +38,7 @@ class Recipient(object):
                 profile = getattr(user, "profile", None)
                 if profile:
                     self.url = profile.get_absolute_url()
-                
+
         else:
             self.id = id and unicode(id) or self._generate_id()
             self.name = name
@@ -47,19 +49,19 @@ class Recipient(object):
         if self.url:
             self.link = '<a href="%s">%s</a>' % (self.url, self.name)
         self.display_name = display_name or self.name
-    
+
     def __unicode__(self):
         if self.name is None:
             return "(%s)" % self.email
         else:
             return "%s (%s)" % (self.name, self.email)
-        
+
     def __str__(self):
         return unicode(self).decode("utf-8")
-        
+
     def __repr__(self):
         return '<%s "%s">' % (type(self).__name__, unicode(self))
-    
+
     def get_placeholders(self, placeholders=None, language="en"):
         """
         sets up the current recipients placeholders
@@ -72,8 +74,10 @@ class Recipient(object):
         """
         if not placeholders:
             placeholders = {}
-        placeholders['recipient_salutation'] = self.get_salutation(language=language)
-        
+        placeholders['recipient_salutation'] = self.get_salutation(
+            language=language
+        )
+
         placeholders['recipient_firstname'] = self.first_name
         placeholders['recipient_lastname'] = self.last_name
         placeholders['recipient_name'] = self.name
@@ -83,7 +87,7 @@ class Recipient(object):
         placeholders['recipient_url'] = self.url
         placeholders['recipient_link'] = self.link
         return placeholders
-    
+
     def get_salutation(self, language="en"):
         """
         returns salutation depending on the following properties:
@@ -97,9 +101,13 @@ class Recipient(object):
         if self.user and getattr(self.user, "profile", None):
             person = self.user.profile
             if language == 'de':
-                return person.get_salutation(language) or "Hallo %s %s!" %(self.user.first_name, self.user.last_name)
+                return person.get_salutation(language) or "Hallo %s %s!" % (
+                    self.user.first_name, self.user.last_name
+                )
             else:
-                return person.get_salutation(language) or "Hello %s %s!" %(self.user.first_name, self.user.last_name)
+                return person.get_salutation(language) or "Hello %s %s!" % (
+                    self.user.first_name, self.user.last_name
+                )
         else:
             if self.name:
                 if language == 'de':

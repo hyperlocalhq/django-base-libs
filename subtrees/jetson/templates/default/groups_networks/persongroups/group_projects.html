@@ -1,1 +1,192 @@
-{% extends "groups_networks/persongroups/details_base.html" %}{% load i18n base_tags %}{% block details %}<div id="info"></div>{% include "site_specific/count_of.html" %}                        <div class="vevent" id="hcalender-{{ object.get_title|slugify }}">	<div class="info-facts">  		<h2><span class="summary">{{ object.get_title|escape }}</span>            {% if perms.events.change_event %} 				<a href="/admin/events/event/{{ object.id }}/" class="edit_link" onclick="open_new_window(event)">({% trans "edit" %})</a>			{% endif %}        </h2>        {% if object.has_start_date or object.has_end_date or object.label %}			<p>			    <span class="dtstart" title="{{ object.get_start_date|date:"Ymd" }}">{{ object.get_start_date|date:"Y-m-d" }}</span>                <span class="dtend" title="{{ object.get_end_date|date:"Ymd" }}">{{ object.get_end_date|date:"Y-m-d" }}</span>								{% if object.label %}{{ object.label }}{% endif %}				{% get_date_period_formatted from object.start_yyyy object.start_mm object.start_dd to object.end_yyyy object.end_mm object.end_dd as event_period %}	          	{{ event_period }}							</p>		{% endif %}	</div>     <div class="content_facts">                {% if object.get_description %}            <div class="description">                {{ object.get_description }}            </div>	        {% endif %}                <div class="{% if object.has_opening_hours or object.has_fees %}address_field{% else %}address_field_large{% endif %}">            <h3>{% trans "details" %}</h3>                       <div id="address">            {% for contact in object.get_contacts %}                <h4 class="first">{{ contact.location_title }}</h4>                        {% with contact.postal_address as address %}                    {% if object.venue_title or address.street_address or address.postal_code or address.country %}                        <h4>{% trans "Address" %}</h4>                        {% if object.venue_title or object.venue or address.street_address or address.postal_code or address.country %}                            <address class="adr">                                {{ object.venue_title }}                                {% if object.venue %}                                    <a href="{{ object.venue.get_url_path }}">                                            {{ object.venue.title }}                                    </a><br />                                {% endif %}                                 <span class="location">                                {% if address.street_address %}                                    <span class="street-address">{{ address.street_address|escape }}</span>                                {% endif %}								                                {% if address.street_address2 %}                                    <span class="street-address">{{ address.street_address2|escape }}</span>                                {% endif %}								                                {% if address.street_address3 %}                                    <span class="street-address">{{ address.street_address3|escape }}</span>                                {% endif %}								                                {% if address.postal_code %}	                                    <span class="postal-code">{{ address.postal_code|escape }}</span> <span class="locality">{{ address.city|escape }}</span>                                {% endif %}								                                {% if address.country %}                                    <span class="country-name">{{ address.country.get_name }}</span>                                {% endif %}                                  </span>                            </address>                        {% endif %}                    {% endif %}                                        {% for phone in contact.get_phones %}                        {% if forloop.first %} <h4>{% trans "Contact" %}</h4><dl> {% endif %}                            {% if phone.type %}<dt>{{ phone.type }}:</dt>{% endif %}<dd>+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</dd>                        {% if forloop.last %} </dl> {% endif %}				                                            {% endfor %}                    {% for url in contact.get_urls %}                        {% if forloop.first %}<h4>{% trans "WEBSITE" %}</h4><dl>{% endif %}                            {% if url.type %}<dt>{{ url.type }}:</dt><dd><a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">{% with url.link|slice:"0:26"|escape as sliced %}{{ sliced }}                            {% with url.link|escape as not_sliced %}{% ifnotequal sliced not_sliced %}...{% endifnotequal %}{% endwith %}{% endwith %}</a></dd>                            {% else %}                            <dd><a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">{% with url.link|slice:"0:38"|escape as sliced %}{{ sliced }}                            {% with url.link|escape as not_sliced %}{% ifnotequal sliced not_sliced %}...{% endifnotequal %}{% endwith %}{% endwith %}</a></dd>                            {% endif %}                        {% if forloop.last %}</dl>{% endif %}	  	    	                    {% endfor %}                     {% for ims in contact.get_ims %}                        {% if forloop.first %}<h4>IM</h4>  {% endif %}                                                        <dl>{% if ims.type %}<dt>{{ ims.type }}:</dt>{% endif %}<dd>{{ ims.address }}</dd>                        {% if forloop.last %} </dl> {% endif %}	  	    	                    {% endfor %}                                                    {% endwith %}            {% endfor %}            </div>                         {% if object.organizing_institution or object.organizing_person or object.location_info %}                <h4 class="hl">{%trans "ADDITIONAL INFORMATION" %}</h4>                <div id="address2">	                                    {% if object.organizing_institution %}                        <div><h4>{% trans "organizer" %}</h4>	                        <dl><dd><span class="org"><a href="{{ object.organizing_institution.get_url_path }}">{{ object.organizing_institution.get_title|escape }}</a></span></dd></dl></div>                    {% endif %}                                        {% if object.organizing_person %}                        <div><h4>{% trans "organizing person" %}</h4>                        <dl><dd><a href="{{ object.organizing_person.get_url_path }}">{{ object.organizing_person.get_title|escape }}</a></dd></dl></div>                    {% endif %}                                        {% if object.get_additional_info %}                        <div class="additional_info">{{ object.get_additional_info }}</div>                    {% endif %}                </div>            {% endif %}		        </div>                 {% if object.has_fees %}            <div class="labelamount">            {% for fee in object.get_fees %}                {% if forloop.first %}<h3>{% trans "FEES" %}</h3>{% endif %}<div>                {{ fee.label }}                {{ fee.amount }}<br>                {% if forloop.last %}{% endif %}            </div>{% endfor %}            </div>        {% endif %}                    {% if object.has_opening_hours %}            <div class="timeboard">            {% for opening in object.get_opening_hours %}                {% if forloop.first %}<h3>{% trans "OPENING HOURS" %}</h3><dl>{% endif %}                <dt class="day">{{ opening.weekday|slice:":2" }}</dt>                <dd class="time">                    {% if opening.open %}                         {{ opening.open|time:_("TIME_FORMAT") }}                         {% if opening.break_close %}                            - {{ opening.break_close|time:_("TIME_FORMAT") }}                              {{ opening.break_open|time:_("TIME_FORMAT") }}                             - {{ opening.close|time:_("TIME_FORMAT") }}                         {% else %}                            - {{ opening.close|time:_("TIME_FORMAT") }}                         {% endif %}                    {% else %}				                         {% trans "closed" %}                    {% endif %}                </dd>                {% if forloop.last %}</dl>{% endif %}            {% endfor %}            </div>        {% endif %}     </div>		<div id="content_info"></div></div>{% endblock %}
+{% extends "groups_networks/persongroups/details_base.html" %}
+{% load i18n base_tags %}
+
+{% block details %}
+    <div id="info"></div>
+    {% include "site_specific/count_of.html" %}
+
+    <div class="vevent" id="hcalender-{{ object.get_title|slugify }}">
+        <div class="info-facts">
+            <h2><span class="summary">{{ object.get_title|escape }}</span>
+                {% if perms.events.change_event %}
+                    <a href="/admin/events/event/{{ object.id }}/"
+                       class="edit_link"
+                       onclick="open_new_window(event)">({% trans "edit" %})
+                    </a>
+                {% endif %}
+            </h2>
+            {% if object.has_start_date or object.has_end_date or object.label %}
+                <p>
+                    <span class="dtstart"
+                          title="{{ object.get_start_date|date:"Ymd" }}">{{ object.get_start_date|date:"Y-m-d" }}</span>
+                    <span class="dtend"
+                          title="{{ object.get_end_date|date:"Ymd" }}">{{ object.get_end_date|date:"Y-m-d" }}</span>
+
+                    {% if object.label %}{{ object.label }}{% endif %} {% get_date_period_formatted from object.start_yyyy object.start_mm object.start_dd to object.end_yyyy object.end_mm object.end_dd as event_period %} {{ event_period }}
+
+                </p>
+            {% endif %}
+        </div>
+
+        <div class="content_facts">
+
+            {% if object.get_description %}
+                <div class="description">
+                    {{ object.get_description }}
+                </div>
+            {% endif %}
+
+            <div class="{% if object.has_opening_hours or object.has_fees %}address_field{% else %}address_field_large{% endif %}">
+                <h3>{% trans "details" %}</h3>
+
+                <div id="address">
+                    {% for contact in object.get_contacts %}
+                        <h4 class="first">{{ contact.location_title }}</h4>
+
+                        {% with contact.postal_address as address %}
+                            {% if object.venue_title or address.street_address or address.postal_code or address.country %}
+                                <h4>{% trans "Address" %}</h4>
+                                {% if object.venue_title or object.venue or address.street_address or address.postal_code or address.country %}
+                                    <address class="adr">
+                                        {{ object.venue_title }}
+                                        {% if object.venue %}
+                                            <a href="{{ object.venue.get_url_path }}">
+                                                {{ object.venue.title }}
+                                            </a>
+                                            <br/>
+                                        {% endif %}
+                                        <span class="location">
+                                {% if address.street_address %}
+                                    <span class="street-address">{{ address.street_address|escape }}</span>
+                                {% endif %}
+                                            {% if address.street_address2 %}
+                                                <span class="street-address">{{ address.street_address2|escape }}</span>
+                                            {% endif %}
+                                            {% if address.street_address3 %}
+                                                <span class="street-address">{{ address.street_address3|escape }}</span>
+                                            {% endif %}
+                                            {% if address.postal_code %}
+                                                <span class="postal-code">{{ address.postal_code|escape }}</span>
+                                                <span class="locality">{{ address.city|escape }}</span>
+                                            {% endif %}
+                                            {% if address.country %}
+                                                <span class="country-name">{{ address.country.get_name }}</span>
+                                            {% endif %}
+                                </span>
+                                    </address>
+                                {% endif %}
+                            {% endif %}
+
+                            {% for phone in contact.get_phones %}
+                                {% if forloop.first %} <h4>{% trans "Contact" %}</h4>
+                                    <dl> {% endif %}
+                            {% if phone.type %}
+                                <dt>{{ phone.type }}:</dt>{% endif %}
+                            <dd>+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</dd>
+                            {% if forloop.last %} </dl> {% endif %}
+
+                            {% endfor %}
+                            {% for url in contact.get_urls %}
+                                {% if forloop.first %}<h4>{% trans "WEBSITE" %}</h4>
+                                    <dl>{% endif %}
+                            {% if url.type %}
+                                <dt>{{ url.type }}:</dt>
+                                <dd>
+                                    <a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">
+                                        {% with url.link|slice:"0:26"|escape as sliced %}{{ sliced }}
+                                            {% with url.link|escape as not_sliced %}{% ifnotequal sliced not_sliced %}...{% endifnotequal %}{% endwith %}{% endwith %}</a>
+                                </dd>
+                            {% else %}
+                                <dd>
+                                    <a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">
+                                        {% with url.link|slice:"0:38"|escape as sliced %}{{ sliced }}
+                                            {% with url.link|escape as not_sliced %}{% ifnotequal sliced not_sliced %}...{% endifnotequal %}{% endwith %}{% endwith %}</a>
+                                </dd>
+                            {% endif %}
+                            {% if forloop.last %}</dl>{% endif %}
+                            {% endfor %}
+                            {% for ims in contact.get_ims %}
+                                {% if forloop.first %}<h4>IM</h4>  {% endif %}
+
+                                <dl>{% if ims.type %}
+                                    <dt>{{ ims.type }}:</dt>{% endif %}
+                                    <dd>{{ ims.address }}</dd>
+                                    {% if forloop.last %} </dl> {% endif %}
+                            {% endfor %}
+
+
+                        {% endwith %}
+                    {% endfor %}
+                </div>
+
+                {% if object.organizing_institution or object.organizing_person or object.location_info %}
+                    <h4 class="hl">{% trans "ADDITIONAL INFORMATION" %}</h4>
+                    <div id="address2">
+
+                        {% if object.organizing_institution %}
+                            <div><h4>{% trans "organizer" %}</h4>
+                                <dl>
+                                    <dd><span class="org"><a href="{{ object.organizing_institution.get_url_path }}">{{ object.organizing_institution.get_title|escape }}</a></span>
+                                    </dd>
+                                </dl>
+                            </div>
+                        {% endif %}
+
+                        {% if object.organizing_person %}
+                            <div><h4>{% trans "organizing person" %}</h4>
+                                <dl>
+                                    <dd>
+                                        <a href="{{ object.organizing_person.get_url_path }}">{{ object.organizing_person.get_title|escape }}</a>
+                                    </dd>
+                                </dl>
+                            </div>
+                        {% endif %}
+
+                        {% if object.get_additional_info %}
+                            <div class="additional_info">{{ object.get_additional_info }}</div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+
+            {% if object.has_fees %}
+                <div class="labelamount">
+                    {% for fee in object.get_fees %}
+                        {% if forloop.first %}<h3>{% trans "FEES" %}</h3>{% endif %}
+                        <div>
+                            {{ fee.label }} {{ fee.amount }}
+                            <br>
+                            {% if forloop.last %}{% endif %}
+                        </div>{% endfor %}
+                </div>
+            {% endif %}
+
+            {% if object.has_opening_hours %}
+                <div class="timeboard">
+                    {% for opening in object.get_opening_hours %}
+                        {% if forloop.first %}<h3>{% trans "OPENING HOURS" %}</h3>
+                            <dl>{% endif %}
+                    <dt class="day">{{ opening.weekday|slice:":2" }}</dt>
+                    <dd class="time">
+                        {% if opening.open %}
+                            {{ opening.open|time:_("TIME_FORMAT") }}
+                            {% if opening.break_close %}
+                                - {{ opening.break_close|time:_("TIME_FORMAT") }}
+                                {{ opening.break_open|time:_("TIME_FORMAT") }}
+                                - {{ opening.close|time:_("TIME_FORMAT") }}
+                            {% else %}
+                                - {{ opening.close|time:_("TIME_FORMAT") }}
+                            {% endif %}
+                        {% else %}
+                            {% trans "closed" %}
+                        {% endif %}
+                    </dd>
+                    {% if forloop.last %}</dl>{% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div id="content_info"></div>
+    </div>
+{% endblock %}

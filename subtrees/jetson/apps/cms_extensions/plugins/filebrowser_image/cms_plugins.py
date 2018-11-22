@@ -9,17 +9,19 @@ from cms.plugin_base import CMSPluginBase
 
 from models import FilebrowserImage
 
+
 class FilebrowserImagePlugin(CMSPluginBase):
     model = FilebrowserImage
     name = _("Image")
-    
+
     render_template = "cms/plugins/filebrowser_image.html"
-    
+
     def render(self, context, instance, placeholder):
         context.update({
             'object': instance,
-            'placeholder':placeholder,
+            'placeholder': placeholder,
         })
         return context
-    
+
+
 plugin_pool.register_plugin(FilebrowserImagePlugin)

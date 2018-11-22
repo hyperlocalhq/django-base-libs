@@ -1,17 +1,27 @@
 {% load i18n base_tags auth_extended %}
 <div class="profile_infos">
-    <h5 class="edit_subline" >{% trans "edit categories data" %}</h5>
+    <h5 class="edit_subline">{% trans "edit categories data" %}</h5>
     <div class="search">
-        <form class="search_form" action="/helper/edit-{{ URL_ID_DOCUMENT }}-profile/{{ object.slug }}/categories/" method="post" enctype="multipart/form-data" target="hidden_iframe">
+        <form class="search_form"
+              action="/helper/edit-{{ URL_ID_DOCUMENT }}-profile/{{ object.slug }}/categories/"
+              method="post"
+              enctype="multipart/form-data"
+              target="hidden_iframe">
             <div class="field_layout">
                 {% include "site_specific/categories/categories.html" %}
                 <div id="message_suggest">
-                    <div class="message_suggest_category">{% blocktrans %}Is some      category missing? You can <a href="/ticket/new-category/">suggest it here</a>.{% endblocktrans %}
+                    <div class="message_suggest_category">{% blocktrans %}Is some      category missing? You can
+                        <a href="/ticket/new-category/">suggest it here</a>.{% endblocktrans %}
                     </div>
                 </div>
                 <div class="buttons space_correction_more">
-                    <input type="button" class="button_bad" value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel" />
-                    <input type="submit" class="button_good" value="{% filter upper %}{% trans "Save" %}{% endfilter %}" />
+                    <input type="button"
+                           class="button_bad"
+                           value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}"
+                           name="cancel"/>
+                    <input type="submit"
+                           class="button_good"
+                           value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
                 </div>
             </div>
         </form>

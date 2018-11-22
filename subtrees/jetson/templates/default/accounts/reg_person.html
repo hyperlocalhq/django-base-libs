@@ -30,30 +30,17 @@
                 </legend>
                 <ul>
                     <li>
-                    <label for="id_first_name">
-                        <strong>
-                            {{ form.prefix.label }} / 
-                            {{ form.first_name.label }}*
-                        </strong>
-                    </label>
-                    {{ form.prefix }}
-                    {{ form.first_name }}
-                    {{ form.prefix.error_tag }}
-                    {{ form.first_name.error_tag }}
+                        <label for="id_first_name">
+                            <strong>
+                                {{ form.prefix.label }} / {{ form.first_name.label }}* </strong>
+                        </label>
+                        {{ form.prefix }} {{ form.first_name }} {{ form.prefix.error_tag }} {{ form.first_name.error_tag }}
                     </li>
                     <li>
-                        {{ form.last_name.label_tag }}
-                        {{ form.last_name }}
-                        {{ form.last_name.error_tag }}
+                        {{ form.last_name.label_tag }} {{ form.last_name }} {{ form.last_name.error_tag }}
                     </li>
                     <li>
-                        {{ form.birthday_yyyy.label_tag }}
-                        {{ form.birthday_dd }}
-                        {{ form.birthday_mm }}
-                        {{ form.birthday_yyyy }}
-                        {{ form.birthday_dd.error_tag }}
-                        {{ form.birthday_mm.error_tag }}
-                        {{ form.birthday_yyyy.error_tag }}                            
+                        {{ form.birthday_yyyy.label_tag }} {{ form.birthday_dd }} {{ form.birthday_mm }} {{ form.birthday_yyyy }} {{ form.birthday_dd.error_tag }} {{ form.birthday_mm.error_tag }} {{ form.birthday_yyyy.error_tag }}
                     </li>
                 </ul>
             </fieldset>
@@ -63,34 +50,24 @@
                 </legend>
                 <ul>
                     <li>
-                        {{ form.login_email.label_tag }}
-                        {{ form.login_email }}
-                        {{ form.login_email.error_tag }}
+                        {{ form.login_email.label_tag }} {{ form.login_email }} {{ form.login_email.error_tag }}
                     </li>
                     <li>
-                        {{ form.login_email_confirm.label_tag }}
-                        {{ form.login_email_confirm }}
-                        <span class="helptext">{{ form.login_email_confirm.help_text }}</span>
-                        {{ form.login_email_confirm.error_tag }}
+                        {{ form.login_email_confirm.label_tag }} {{ form.login_email_confirm }}
+                        <span class="helptext">{{ form.login_email_confirm.help_text }}</span> {{ form.login_email_confirm.error_tag }}
                     </li>
                     <li>
-                        {{ form.password.label_tag }}
-                        {{ form.password }}
-                        {{ form.password.error_tag }}
+                        {{ form.password.label_tag }} {{ form.password }} {{ form.password.error_tag }}
                     </li>
                     <li>
-                        {{ form.password_confirm.label_tag }}
-                        {{ form.password_confirm }}
-                        {{ form.password_confirm.error_tag }}
+                        {{ form.password_confirm.label_tag }} {{ form.password_confirm }} {{ form.password_confirm.error_tag }}
                     </li>
                     <li>
-                        {{ form.username.label_tag }}
-                        {{ form.username }}
-                        {{ form.username.error_tag }}
+                        {{ form.username.label_tag }} {{ form.username }} {{ form.username.error_tag }}
                     </li>
                 </ul>
             </fieldset>
-            
+
             <fieldset>
                 <legend>
                     {% trans "Privacy Protection" %}
@@ -101,50 +78,32 @@
                             {% trans "Here you can specify personal data to be displayed in your profile to the public." %}
                         </span>
                     </li>
-		            <li class="line_checkbox">
-		                {{ form.display_profile }}
-		                {{ form.display_profile.label_tag }}
-		                {{ form.display_profile.error_tag }}
-		            </li>
                     <li class="line_checkbox">
-		                {{ form.display_username }}
-		                {{ form.display_username.label_tag }}
-		                {{ form.display_username.error_tag }}
-		            </li>
-		            <li class="line_checkbox">
-		                {{ form.allow_search_engine_indexing }}
-		                {{ form.allow_search_engine_indexing.label_tag }}
-		                {{ form.allow_search_engine_indexing.error_tag }}
-		            </li>
-                    <li class="line_checkbox">
-                        {{ form.display_birthday }}
-                        {{ form.display_birthday.label_tag }}
-                        {{ form.display_birthday.error_tag }}
+                        {{ form.display_profile }} {{ form.display_profile.label_tag }} {{ form.display_profile.error_tag }}
                     </li>
                     <li class="line_checkbox">
-                        {{ form.display_address }}
-                        {{ form.display_address.label_tag }}
-                        {{ form.display_address.error_tag }}
+                        {{ form.display_username }} {{ form.display_username.label_tag }} {{ form.display_username.error_tag }}
                     </li>
                     <li class="line_checkbox">
-                        {{ form.display_phone }}
-                        {{ form.display_phone.label_tag }}
-                        {{ form.display_phone.error_tag }}
+                        {{ form.allow_search_engine_indexing }} {{ form.allow_search_engine_indexing.label_tag }} {{ form.allow_search_engine_indexing.error_tag }}
                     </li>
                     <li class="line_checkbox">
-                        {{ form.display_fax }}
-                        {{ form.display_fax.label_tag }}
-                        {{ form.display_fax.error_tag }}
+                        {{ form.display_birthday }} {{ form.display_birthday.label_tag }} {{ form.display_birthday.error_tag }}
                     </li>
                     <li class="line_checkbox">
-                        {{ form.display_mobile }}
-                        {{ form.display_mobile.label_tag }}
-                        {{ form.display_mobile.error_tag }}
+                        {{ form.display_address }} {{ form.display_address.label_tag }} {{ form.display_address.error_tag }}
                     </li>
                     <li class="line_checkbox">
-                        {{ form.display_im }}
-                        {{ form.display_im.label_tag }}
-                        {{ form.display_im.error_tag }}
+                        {{ form.display_phone }} {{ form.display_phone.label_tag }} {{ form.display_phone.error_tag }}
+                    </li>
+                    <li class="line_checkbox">
+                        {{ form.display_fax }} {{ form.display_fax.label_tag }} {{ form.display_fax.error_tag }}
+                    </li>
+                    <li class="line_checkbox">
+                        {{ form.display_mobile }} {{ form.display_mobile.label_tag }} {{ form.display_mobile.error_tag }}
+                    </li>
+                    <li class="line_checkbox">
+                        {{ form.display_im }} {{ form.display_im.label_tag }} {{ form.display_im.error_tag }}
                     </li>
                 </ul>
             </fieldset>
@@ -157,20 +116,22 @@
                         {{ form.privacy_policy }}
                         <label for="id_privacy_policy">
                             {% if form.privacy_policy.required %}<strong>{% endif %}
-                            {% blocktrans %}I accept <a href="/privacy/">the privacy policy</a>.{% endblocktrans %}
+                            {% blocktrans %}I accept
+                                <a href="/privacy/">the privacy policy</a>.{% endblocktrans %}
                             {% if form.privacy_policy.required %}*</strong>{% endif %}
                         </label>
-                        {{ form.privacy_policy.error_tag }}                        
+                        {{ form.privacy_policy.error_tag }}
                     </li>
                     <li class="line_checkbox">
                         {{ form.terms_of_use }}
                         <label for="id_terms_of_use">
                             {% if form.terms_of_use.required %}<strong>{% endif %}
-                            {% blocktrans %}I accept <a href="/terms-of-use/">the terms of use</a>.{% endblocktrans %}
+                            {% blocktrans %}I accept
+                                <a href="/terms-of-use/">the terms of use</a>.{% endblocktrans %}
                             {% if form.terms_of_use.required %}*</strong>{% endif %}
                         </label>
-                       {{ form.terms_of_use.error_tag }}
-                    </li>                    
+                        {{ form.terms_of_use.error_tag }}
+                    </li>
                 </ul>
             </fieldset>
             {% include "utils/step_buttons_reg.html" %}

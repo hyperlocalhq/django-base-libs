@@ -3,6 +3,7 @@ from jetson.apps.httpstate.backends.base import HttpStateBase, CreateError
 
 KEY_PREFIX = "jetson.apps.httpstate.cache"
 
+
 class HttpStateStore(HttpStateBase):
     """
     A cache-based httpstate store.
@@ -44,8 +45,10 @@ class HttpStateStore(HttpStateBase):
             func = self._cache.add
         else:
             func = self._cache.set
-        result = func(KEY_PREFIX + self.httpstate_key, self._get_httpstate(no_load=must_create),
-                self.get_expiry_age())
+        result = func(
+            KEY_PREFIX + self.httpstate_key,
+            self._get_httpstate(no_load=must_create), self.get_expiry_age()
+        )
         if must_create and not result:
             raise CreateError
 
@@ -60,4 +63,3 @@ class HttpStateStore(HttpStateBase):
                 return
             httpstate_key = self._httpstate_key
         self._cache.delete(KEY_PREFIX + httpstate_key)
-

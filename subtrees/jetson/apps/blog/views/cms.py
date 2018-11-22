@@ -31,8 +31,8 @@ from jetson.apps.blog.models import Blog, Post
 from jetson.apps.comments.views.comments import post_comment, refuse_comment
 from jetson.apps.comments.views.comments import accept_comment, mark_as_spam_comment
 
-
 # PRIVATE FUNCTIONS
+
 
 def _get_archive(container, queryset, extra_context, allow_future, allow_empty):
     """
@@ -58,7 +58,9 @@ def _get_archive(container, queryset, extra_context, allow_future, allow_empty):
     return (queryset, extra_context)
 
 
-def _get_year_archive(year, container, queryset, extra_context, allow_future, allow_empty):
+def _get_year_archive(
+    year, container, queryset, extra_context, allow_future, allow_empty
+):
     """
     Updates the extra context on year-based views and
     returns the extra context and the queryset
@@ -72,7 +74,6 @@ def _get_year_archive(year, container, queryset, extra_context, allow_future, al
     now = tz_now()
 
     lookup_kwargs = {'%s__year' % date_field: year}
-
     """ Only bother to check current date if the year 
     isn't in the past and future objects aren't requested."""
     if int(year) >= now.year and not allow_future:
@@ -81,7 +82,9 @@ def _get_year_archive(year, container, queryset, extra_context, allow_future, al
 
     month_has_posts_list = []
     for month in date_list:
-        month_has_posts_list.append((datetime.datetime(int(year), month.month, 1), True))
+        month_has_posts_list.append(
+            (datetime.datetime(int(year), month.month, 1), True)
+        )
 
     if not date_list and not allow_empty:
         raise Http404
@@ -92,7 +95,9 @@ def _get_year_archive(year, container, queryset, extra_context, allow_future, al
     return (queryset, extra_context)
 
 
-def _get_month_archive(year, month, container, queryset, extra_context, allow_future, allow_empty):
+def _get_month_archive(
+    year, month, container, queryset, extra_context, allow_future, allow_empty
+):
     """
     Updates the extra context on month-based views and
     returns the extra context and the queryset
@@ -107,7 +112,9 @@ def _get_month_archive(year, month, container, queryset, extra_context, allow_fu
     month_format = '%m'
     date_field = 'published_from'
     try:
-        date = datetime.date(*time.strptime(year + month, '%Y' + month_format)[:3])
+        date = datetime.date(
+            *time.strptime(year + month, '%Y' + month_format)[:3]
+        )
     except ValueError:
         raise Http404
 
@@ -118,7 +125,6 @@ def _get_month_archive(year, month, container, queryset, extra_context, allow_fu
     else:
         last_day = first_day.replace(month=first_day.month + 1)
     lookup_kwargs = {'%s__range' % date_field: (first_day, last_day)}
-
     """ Only bother to check current date if the month isn't in
      the past and future objects are requested."""
     if last_day >= tz_now().date() and not allow_future:
@@ -142,7 +148,10 @@ def _get_month_archive(year, month, container, queryset, extra_context, allow_fu
     return (queryset, extra_context)
 
 
-def _get_day_archive(year, month, day, container, queryset, extra_context, allow_future, allow_empty):
+def _get_day_archive(
+    year, month, day, container, queryset, extra_context, allow_future,
+    allow_empty
+):
     """
     Updates the extra context on day-based views and
     returns the extra context and the queryset
@@ -164,8 +173,13 @@ def _get_day_archive(year, month, day, container, queryset, extra_context, allow
     now = tz_now()
 
     if isinstance(model._meta.get_field(date_field), DateTimeField):
-        lookup_kwargs = {'%s__range' % date_field: (
-        datetime.datetime.combine(date, datetime.time.min), datetime.datetime.combine(date, datetime.time.max))}
+        lookup_kwargs = {
+            '%s__range' % date_field:
+                (
+                    datetime.datetime.combine(date, datetime.time.min),
+                    datetime.datetime.combine(date, datetime.time.max)
+                )
+        }
     else:
         lookup_kwargs = {date_field: date}
 
@@ -190,7 +204,9 @@ def _get_day_archive(year, month, day, container, queryset, extra_context, allow
     return (queryset, extra_context)
 
 
-def _get_tag_archive(tag, container, queryset, extra_context, allow_future, allow_empty):
+def _get_tag_archive(
+    tag, container, queryset, extra_context, allow_future, allow_empty
+):
     """
     Updates the extra context on tag-based views and
     returns the extra context and the queryset
@@ -205,6 +221,7 @@ def _get_tag_archive(tag, container, queryset, extra_context, allow_future, allo
 
 
 # PUBLIC FUNCTIONS
+
 
 def get_blog_params(request, post_slug=None, **kwargs):
     """
@@ -241,7 +258,8 @@ def get_blog_params(request, post_slug=None, **kwargs):
     extra_context['current_post'] = current_post
     extra_context['base_template'] = base_template or "blog/base.html"
     extra_context['post_filter'] = 'all'
-    extra_context['nof_drafts'] = Post.draft_objects.filter(blog=container).count()
+    extra_context['nof_drafts'] = Post.draft_objects.filter(blog=container
+                                                           ).count()
 
     return extra_context
 
@@ -251,8 +269,20 @@ def get_archives(queryset):
     returns a list of tuples with years and lists of months for article archives
     e.g., (2009, ((2, "Feb"),(1, "Jan"),)),(2008, ((3, "Mar"),))
     """
-    months = [_('Jan'), _('Feb'), _('Mar'), _('Apr'), _('May'), _('Jun'),
-              _('Jul'), _('Aug'), _('Sep'), _('Oct'), _('Nov'), _('Dec')]
+    months = [
+        _('Jan'),
+        _('Feb'),
+        _('Mar'),
+        _('Apr'),
+        _('May'),
+        _('Jun'),
+        _('Jul'),
+        _('Aug'),
+        _('Sep'),
+        _('Oct'),
+        _('Nov'),
+        _('Dec')
+    ]
     archives = {}
     for i in queryset.dates('published_from', 'month', order="DESC"):
         year = i.year
@@ -267,9 +297,22 @@ def get_archives(queryset):
 
 
 @never_cache
-def handle_request(request, year=None, month=None, day=None, post_slug=None, tag=None, status=STATUS_CODE_PUBLISHED,
-                   paginate_by=None, page=None, allow_future=False, allow_empty=True, extra_context=None,
-                   context_processors=None, **kwargs):
+def handle_request(
+    request,
+    year=None,
+    month=None,
+    day=None,
+    post_slug=None,
+    tag=None,
+    status=STATUS_CODE_PUBLISHED,
+    paginate_by=None,
+    page=None,
+    allow_future=False,
+    allow_empty=True,
+    extra_context=None,
+    context_processors=None,
+    **kwargs
+):
     """
     handles a blog request 
     We do not provide separate view functions for 
@@ -289,20 +332,22 @@ def handle_request(request, year=None, month=None, day=None, post_slug=None, tag
 
     # first of all, get blog parameters from the url parts...
     extra_context = get_blog_params(request, post_slug, **kwargs)
-    extra_context[settings.REDIRECT_FIELD_NAME] = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
+    extra_context[settings.REDIRECT_FIELD_NAME
+                 ] = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
     container = extra_context['container']
 
     extra_context['archive_year'] = year
     extra_context['archive_month'] = month
     extra_context['archive_day'] = day
 
-
     # check some permissions
     if status == STATUS_CODE_DRAFT:
         if not request.user.has_perm("blog.change_blog_posts", container):
             return access_denied(request)
 
-    template_name_list = get_template_name_list_for_object("blog", extra_context['object'], "blog")
+    template_name_list = get_template_name_list_for_object(
+        "blog", extra_context['object'], "blog"
+    )
 
     if status == STATUS_CODE_PUBLISHED:
         queryset = Post.published_objects.filter(blog=container)
@@ -314,8 +359,9 @@ def handle_request(request, year=None, month=None, day=None, post_slug=None, tag
     archives = get_archives(queryset)
 
     archive = 'archive'
-    (queryset, extra_context) = _get_archive(container, queryset, extra_context,
-                                             allow_future, allow_empty)
+    (queryset, extra_context) = _get_archive(
+        container, queryset, extra_context, allow_future, allow_empty
+    )
 
     # the detail archive
     if post_slug:
@@ -324,7 +370,7 @@ def handle_request(request, year=None, month=None, day=None, post_slug=None, tag
         extra_context['archive'] = 'details'
         extra_context['post_filter'] = 'details'
 
-        # get post to incremnt views... 
+        # get post to incremnt views...
         # TODO find a generic mechanism for incrementing views.
         post = get_object_or_404(Post, slug=post_slug)
         post.increase_views()
@@ -335,32 +381,43 @@ def handle_request(request, year=None, month=None, day=None, post_slug=None, tag
     # the list archives
     if tag:
         archive = 'tag_archive'
-        (queryset, extra_context) = _get_tag_archive(tag, container, queryset,
-                                                     extra_context, allow_future, allow_empty)
+        (queryset, extra_context) = _get_tag_archive(
+            tag, container, queryset, extra_context, allow_future, allow_empty
+        )
     elif day:
         archive = 'day_archive'
-        (queryset, extra_context) = _get_day_archive(year, month, day, container,
-                                                     queryset, extra_context,
-                                                     allow_future, allow_empty)
+        (queryset, extra_context) = _get_day_archive(
+            year, month, day, container, queryset, extra_context, allow_future,
+            allow_empty
+        )
     elif month:
         archive = 'month_archive'
-        (queryset, extra_context) = _get_month_archive(year, month, container,
-                                                       queryset, extra_context,
-                                                       allow_future, allow_empty)
+        (queryset, extra_context) = _get_month_archive(
+            year, month, container, queryset, extra_context, allow_future,
+            allow_empty
+        )
     elif year:  # the year archive
         archive = 'year_archive'
-        (queryset, extra_context) = _get_year_archive(year, container,
-                                                      queryset, extra_context,
-                                                      allow_future, allow_empty)
+        (queryset, extra_context) = _get_year_archive(
+            year, container, queryset, extra_context, allow_future, allow_empty
+        )
 
     extra_context['archive'] = archive
     extra_context['archives'] = archives
 
-    return object_list(request, queryset,
-                       paginate_by=paginate_by, page=page, allow_empty=True,
-                       template_name=template_name_list, template_loader=loader,
-                       extra_context=extra_context, context_processors=context_processors,
-                       template_object_name=template_object_name, content_type=None)
+    return object_list(
+        request,
+        queryset,
+        paginate_by=paginate_by,
+        page=page,
+        allow_empty=True,
+        template_name=template_name_list,
+        template_loader=loader,
+        extra_context=extra_context,
+        context_processors=context_processors,
+        template_object_name=template_object_name,
+        content_type=None
+    )
 
 
 class BlogPostFormPreviewHandler(FormPreviewHandler):
@@ -371,7 +428,6 @@ class BlogPostFormPreviewHandler(FormPreviewHandler):
     @never_cache
     def __call__(self, request, *args, **kwargs):
         from base_libs.forms.formprocessing import ALLOWED_ACTIONS, ID_ACTION_DELETE
-
         """
         The call method acts as an action dispatcher. 
         """
@@ -381,7 +437,8 @@ class BlogPostFormPreviewHandler(FormPreviewHandler):
             """ Checks for allowed actions """
             if action not in ALLOWED_ACTIONS:
                 raise AttributeError, "You have defined an invalid action '%s' in your %s form call. Allowed actions are %s." % (
-                action, self.__class__.__name__, str(ALLOWED_ACTIONS))
+                    action, self.__class__.__name__, str(ALLOWED_ACTIONS)
+                )
             self.context['form_action'] = self._check_name(action)
             self.action = action
         else:
@@ -389,12 +446,14 @@ class BlogPostFormPreviewHandler(FormPreviewHandler):
 
         self.request = request
 
-        # get extra params and extra inits        
+        # get extra params and extra inits
         self.extra_context = self.parse_extra_params(request, *args, **kwargs)
 
         # check, if the whole action is allowed!
         check = self.check_allowed(request, action)
-        if isinstance(check, (HttpResponseRedirect, HttpResponse, HttpResponseForbidden)):
+        if isinstance(
+            check, (HttpResponseRedirect, HttpResponse, HttpResponseForbidden)
+        ):
             return check
 
         warnings = self.check_warnings(request, action)
@@ -421,7 +480,8 @@ class BlogPostFormPreviewHandler(FormPreviewHandler):
                 method = getattr(self, submit_action)
             except AttributeError:
                 raise AttributeError, "Tried to call non existent method '%s' in the %s form subclass. Please correct." % (
-                submit_action, self.__class__.__name__)
+                    submit_action, self.__class__.__name__
+                )
             return method(request, action)
 
     def parse_extra_params(self, *args, **kwargs):
@@ -432,26 +492,40 @@ class BlogPostFormPreviewHandler(FormPreviewHandler):
         return extra_context
 
     def get_form_template(self, use_ajax):
-        return get_template_name_list_for_object("post", self.container, "blog/forms", use_ajax)
+        return get_template_name_list_for_object(
+            "post", self.container, "blog/forms", use_ajax
+        )
 
     def get_confirm_delete_template(self, use_ajax):
-        return get_template_name_list_for_object("confirm_delete", self.container, "blog/forms", use_ajax)
+        return get_template_name_list_for_object(
+            "confirm_delete", self.container, "blog/forms", use_ajax
+        )
 
     def check_allowed(self, request, action):
         # check privileges
         if action == 'new':
-            if (not request.user.has_perm("blog.add_blog_posts", self.container) and (
-                        not self.container.content_object or
-                        not request.user.has_perm("%s.change_%s" % (
-                        self.container.content_type.app_label, self.container.content_type.model.lower()),
-                                                  self.container.content_object)
-            )):
+            if (
+                not request.user.
+                has_perm("blog.add_blog_posts", self.container) and (
+                    not self.container.content_object or
+                    not request.user.has_perm(
+                        "%s.change_%s" % (
+                            self.container.content_type.app_label,
+                            self.container.content_type.model.lower()
+                        ), self.container.content_object
+                    )
+                )
+            ):
                 return access_denied(request)
         elif action == 'edit':
-            if not request.user.has_perm("blog.change_blog_posts", self.container):
+            if not request.user.has_perm(
+                "blog.change_blog_posts", self.container
+            ):
                 return access_denied(request)
         elif action == 'delete':
-            if not request.user.has_perm("blog.delete_blog_posts", self.container):
+            if not request.user.has_perm(
+                "blog.delete_blog_posts", self.container
+            ):
                 return access_denied(request)
 
     def get_object(self):
@@ -523,8 +597,7 @@ class BlogPostFormPreviewHandler(FormPreviewHandler):
         return self.redirect(ID_ACTION_DELETE)
 
 
-def blog_feed(request,
-              feed_type, status=STATUS_CODE_PUBLISHED, **kwargs):
+def blog_feed(request, feed_type, status=STATUS_CODE_PUBLISHED, **kwargs):
     """
     wrapper for feeds
     """
@@ -542,14 +615,17 @@ def blog_feed(request,
 
 
 @never_cache
-def blog_post_comment(request,
-                      post_slug, extra_context=None, use_ajax=False, **kwargs):
+def blog_post_comment(
+    request, post_slug, extra_context=None, use_ajax=False, **kwargs
+):
     # first of all, get blog parameters from the url parts...
     extra_context = (get_blog_params(request, post_slug, **kwargs))
     container = extra_context['container']
     obj = extra_context['object']
     post = extra_context['current_post']
-    template_name_list = get_template_name_list_for_object("form", container, "blog/comments", use_ajax)
+    template_name_list = get_template_name_list_for_object(
+        "form", container, "blog/comments", use_ajax
+    )
     redirect_to = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
 
     if not post.enable_comment_form:
@@ -558,7 +634,9 @@ def blog_post_comment(request,
     if request.method == 'POST':
         if request.POST.has_key('post'):
 
-            post_comment(request, template_name=template_name_list, use_ajax=use_ajax)
+            post_comment(
+                request, template_name=template_name_list, use_ajax=use_ajax
+            )
             if not use_ajax:
                 redirect_to += "#comments"
                 return HttpResponseRedirect(redirect_to)
@@ -567,7 +645,12 @@ def blog_post_comment(request,
 
         # the normal preview is done ...
         elif request.POST.has_key('preview'):
-            return post_comment(request, template_name=template_name_list, use_ajax=use_ajax, extra_context=extra_context)
+            return post_comment(
+                request,
+                template_name=template_name_list,
+                use_ajax=use_ajax,
+                extra_context=extra_context
+            )
         # cancel
         else:
             if not use_ajax:
@@ -576,16 +659,25 @@ def blog_post_comment(request,
 
     from django.template import Template
     # we need to get the post from the post_slug ...
-    t = Template("""
+    t = Template(
+        """
         {% load comments %}
         {% comment_form using "blog/comments/form_embedded.html" for blog.post current_post.id %}
-        """)
+        """
+    )
     c = RequestContext(request, extra_context)
     return HttpResponse(t.render(c))
 
 
-def blog_modify_comment(request, comment_id,
-                        action, extra_context=None, use_ajax=False, use_popup=True, **kwargs):
+def blog_modify_comment(
+    request,
+    comment_id,
+    action,
+    extra_context=None,
+    use_ajax=False,
+    use_popup=True,
+    **kwargs
+):
     """
     Displays the refuse/accept/mark_as_spam comment form 
     and handles the associated action
@@ -595,7 +687,9 @@ def blog_modify_comment(request, comment_id,
     container = extra_context['container']
     obj = extra_context['object']
 
-    template_name_list = get_template_name_list_for_object(action, container, "blog/comments", use_popup or use_ajax)
+    template_name_list = get_template_name_list_for_object(
+        action, container, "blog/comments", use_popup or use_ajax
+    )
     redirect_to = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
 
     # check permissions
@@ -612,4 +706,7 @@ def blog_modify_comment(request, comment_id,
     else:
         return
 
-    return f(request, comment_id, template_name_list, redirect_to, extra_context, use_popup)
+    return f(
+        request, comment_id, template_name_list, redirect_to, extra_context,
+        use_popup
+    )

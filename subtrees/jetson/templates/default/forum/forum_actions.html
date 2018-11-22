@@ -1,17 +1,17 @@
 {% load base_tags i18n auth_extended base forum babel image_mods_tags %}
 
 {% block breadcrumbs %}
-	{{ block.super }}
+    {{ block.super }}
 
     {% comment %}<!--
     	In this section, the possible actions are displayed 
     -->{% endcomment %}
-    
+
     {% comment %}<!--
     	PERMISSIONS ARE CURRENTLY DISABLED!!! TODO: ADD AN APPROPRIATE MECHANISM TO CHECK FOR PERMISSIONS
     -->{% endcomment %}
-	<div class="breadcrumbs">	        	
- 
+    <div class="breadcrumbs">
+
         <ul>
             {% if current_forum %}
                 <li id="newForum_{{ current_forum.slug }}" class="new_link">
@@ -32,10 +32,10 @@
 
                 <li class="applyForumOptions option_link">
                     <a href="{{ container.get_url }}apply_forum_options/" title="{% trans "Options" %}">
-                      <span>{% trans "Options" %}</span>
+                        <span>{% trans "Options" %}</span>
                     </a>
                 </li>
-                                
+
             {% else %}
                 <li class="newForum new_link">
                     <a href="{{ container.get_url }}new/" title="{% trans "New" %}">
@@ -44,11 +44,11 @@
                 </li>
                 <li class="applyForumOptions option_link">
                     <a href="{{ container.get_url }}apply_forum_options/" title="{% trans "Options" %}">
-                      <span>{% trans "Options" %}</span>
+                        <span>{% trans "Options" %}</span>
                     </a>
                 </li>
-            {% endif %}    
+            {% endif %}
         </ul>
-	</div>        
-    
+    </div>
+
 {% endblock %}

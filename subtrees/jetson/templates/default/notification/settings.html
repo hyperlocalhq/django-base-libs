@@ -5,7 +5,10 @@
 {% block head_title %}{% trans "Notices" %}{% endblock %}
 
 {% block extra_head %}
-    <link rel="alternate" type="application/atom+xml" title="Notices Feed" href="{% url 'notification_feed_for_user' %}" />
+    <link rel="alternate"
+          type="application/atom+xml"
+          title="Notices Feed"
+          href="{% url 'notification_feed_for_user' %}"/>
 {% endblock %}
 
 {% block title %}{% trans "Notification Settings" %}{% endblock %}
@@ -20,16 +23,20 @@
             {% for group in notice_settings_rows %}
                 <fieldset class="fieldset_end">
                     <legend>
-                    {{ group.grouper|default:_("Unspecified") }}
+                        {{ group.grouper|default:_("Unspecified") }}
                     </legend>
                     <ul class="protection">
                         {% for row in group.list %}
                             <li class="line_checkbox">
                                 {% for cell in row.cells %}
-                                    <input type="checkbox" name="{{ cell.0 }}" id="{{ cell.0 }}" {% if cell.1 %}checked="yes"{% endif %}/>
-                                
+                                    <input type="checkbox"
+                                           name="{{ cell.0 }}"
+                                           id="{{ cell.0 }}"
+                                           {% if cell.1 %}checked="yes"{% endif %}/>
+
                                     <label for="{{ cell.0 }}">
-                                        {{ row.notice_type.get_display }}<br/>
+                                        {{ row.notice_type.get_display }}
+                                        <br/>
                                         {{ row.notice_type.get_description }}
                                     </label>
                                 {% endfor %}
@@ -38,8 +45,10 @@
                     </ul>
                 </fieldset>
             {% endfor %}
-            
-            <div class="buttons"><input type="submit" value="{% trans "Change" %}" class="button_good" /></div>
+
+            <div class="buttons">
+                <input type="submit" value="{% trans "Change" %}" class="button_good"/>
+            </div>
         </form>
     </div>
 

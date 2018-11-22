@@ -1,11 +1,18 @@
 # -*- coding: utf-8 -*-
+import sys
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+
+if "makemigrations" in sys.argv:
+    from django.utils.translation import ugettext_noop as _
+else:
+    from django.utils.translation import ugettext_lazy as _
 
 
 class Geolocation(models.Model):
-    id = models.BigIntegerField(db_column='ID', primary_key=True, editable=False)
+    id = models.BigIntegerField(
+        db_column='ID', primary_key=True, editable=False
+    )
     country = models.CharField(max_length=6, db_column='Country')
     language = models.CharField(max_length=6, db_column='Language')
     iso2 = models.CharField(max_length=18, db_column='ISO2')
@@ -22,11 +29,11 @@ class Geolocation(models.Model):
     tz = models.CharField(max_length=90, db_column='TZ')
     utc = models.CharField(max_length=30, db_column='UTC')
     dst = models.CharField(max_length=3, db_column='DST')
-    
+
     class Meta:
         verbose_name = _("geolocation")
         verbose_name_plural = _("geolocations")
         db_table = u'GeoPC'
-        
+
     def __unicode__(self):
         return self.region3

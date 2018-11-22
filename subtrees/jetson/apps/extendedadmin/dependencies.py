@@ -4,8 +4,8 @@ required_apps = [
     "contenttypes",
     "sites",
     "history",
-    ]
-    
+]
+
 optional_apps = [
     "people",
     "institutions",
@@ -16,4 +16,4 @@ optional_apps = [
     "mailing",
     "filebrowser",
     "permissions",
-    ]
+]

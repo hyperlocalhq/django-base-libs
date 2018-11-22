@@ -1,26 +1,28 @@
-import urllib  
-import re  
-  
+import urllib
+import re
 """ 
 Thanks to Evan Long for this nice generic Rest client
 http://www.infectmac.com/2008/08/restful-python.html
 """
 
-class WebApiOpener(urllib.FancyURLopener):  
+
+class WebApiOpener(urllib.FancyURLopener):
     """
     Provides a way for HTTP Basic authentication to take place without
     prompting the user for a username and password like FancyURLopener
     would.
     """
-    def __init__(self, username, password):  
-        urllib.FancyURLopener.__init__(self,{})  
-        self.username = username  
-        self.password = password  
-          
-    def prompt_user_passwd(self, host, realm):  
-        return (self.username,self.password)  
-  
-def webcall(**apiargs):  
+
+    def __init__(self, username, password):
+        urllib.FancyURLopener.__init__(self, {})
+        self.username = username
+        self.password = password
+
+    def prompt_user_passwd(self, host, realm):
+        return (self.username, self.password)
+
+
+def webcall(**apiargs):
     """
     Decorator that is used to create a python function that communicates with
     a RESTful web service. The function it generates will be able to to do HTTP
@@ -57,47 +59,55 @@ def webcall(**apiargs):
         #we will also get the RSS formatted response and limit it to two
         friends_timeline(auth_username='bob', auth_password='password', count=2, format='rss')
     """
-    method = apiargs.get('method','GET')  
-    patter_obj = re.compile("\{[^\}]+\}")  
-    def dec(fn):  
-        def convert_url(url, replace_dict):  
-            for match in patter_obj.finditer(url):  
-                #figure if the key is in the dict if not and there is  
-                #no default value then don't replace and continue on  
-                tmp = match.group()[1:-1]  
-                pair = tmp.split('=')  
-                #if there is a default value and key not in dict use default  
-                if len(pair) > 1 and not replace_dict.has_key(pair[0]):  
-                    url = url.replace(match.group(), pair[1])  
-                elif len(pair) > 0 and replace_dict.has_key(pair[0]):  
-                    url = url.replace(match.group(), replace_dict[pair[0]])  
-                    #this allow for a {key} to only be user once but this could  
-                    #be changed in the future  
-                    del(replace_dict[pair[0]])  
-            return url  
-          
-        def new(**kwargs):  
+    method = apiargs.get('method', 'GET')
+    patter_obj = re.compile("\{[^\}]+\}")
+
+    def dec(fn):
+        def convert_url(url, replace_dict):
+            for match in patter_obj.finditer(url):
+                #figure if the key is in the dict if not and there is
+                #no default value then don't replace and continue on
+                tmp = match.group()[1:-1]
+                pair = tmp.split('=')
+                #if there is a default value and key not in dict use default
+                if len(pair) > 1 and not replace_dict.has_key(pair[0]):
+                    url = url.replace(match.group(), pair[1])
+                elif len(pair) > 0 and replace_dict.has_key(pair[0]):
+                    url = url.replace(match.group(), replace_dict[pair[0]])
+                    #this allow for a {key} to only be user once but this could
+                    #be changed in the future
+                    del (replace_dict[pair[0]])
+            return url
+
+        def new(**kwargs):
             """
             auth_username and auth_password are reserved
             """
-            opener = WebApiOpener(kwargs.get('auth_username',''),  
-                kwargs.get('auth_password',''))  
-            if kwargs.has_key('auth_username'): del(kwargs['auth_username'])  
-            if kwargs.has_key('auth_password'): del(kwargs['auth_password'])  
-            url = convert_url(apiargs['url'], kwargs)  
-            params = urllib.urlencode(kwargs)  
-            if method == 'GET':  
-                stream = opener.open(url + "?" + params)  
-            else:  
-                stream = opener.open(url, params)  
-            response = stream.read()  
-            return response  
-        return new  
-    return dec  
-  
+            opener = WebApiOpener(
+                kwargs.get('auth_username', ''),
+                kwargs.get('auth_password', '')
+            )
+            if kwargs.has_key('auth_username'):
+                del (kwargs['auth_username'])
+            if kwargs.has_key('auth_password'):
+                del (kwargs['auth_password'])
+            url = convert_url(apiargs['url'], kwargs)
+            params = urllib.urlencode(kwargs)
+            if method == 'GET':
+                stream = opener.open(url + "?" + params)
+            else:
+                stream = opener.open(url, params)
+            response = stream.read()
+            return response
+
+        return new
+
+    return dec
+
+
 ''''' 
 A set of example functions from pownce and twitter 
-'''  
+'''
 """ 
 @webcall(url='http://twitter.com/statuses/public_timeline.{format=json}')  
 def public_timeline(): pass  

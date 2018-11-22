@@ -40,24 +40,35 @@ def object_history(request, app_label, model_name, object_id):
     # If no history was found, see whether this object even exists.
     obj = get_object_or_404(model, pk=object_id)
     extra_context = {
-        'title': _('Change history: %s') % obj,
-        'action_list': action_list,
-        'paginator': paginator,
-        'app_label': app_label,
-        'model_name': force_unicode(model._meta.verbose_name_plural).capitalize(),
-        'object': obj,
-        'opts': obj._meta,
+        'title':
+            _('Change history: %s') % obj,
+        'action_list':
+            action_list,
+        'paginator':
+            paginator,
+        'app_label':
+            app_label,
+        'model_name':
+            force_unicode(model._meta.verbose_name_plural).capitalize(),
+        'object':
+            obj,
+        'opts':
+            obj._meta,
     }
     return render_to_response(
         [
-            "admin/%s/%s/object_history.html" % (app_label, model._meta.object_name.lower()),
+            "admin/%s/%s/object_history.html" %
+            (app_label, model._meta.object_name.lower()),
             "admin/%s/object_history.html" % app_label,
             "admin/object_history.html",
         ],
         extra_context,
         context_instance=template.RequestContext(request),
     )
+
+
 object_history = staff_member_required(never_cache(object_history))
+
 
 def user_activity_history(request, object_id):
     action_list = ExtendedLogEntry.objects.filter(
@@ -79,17 +90,26 @@ def user_activity_history(request, object_id):
     # If no history was found, see whether this object even exists.
     obj = get_object_or_404(User, pk=object_id)
     extra_context = {
-        'title': _('Change history: %s') % obj,
-        'action_list': action_list,
-        'paginator': paginator,
-        'model_name': force_unicode(User._meta.verbose_name_plural).capitalize(),
-        'object': obj,
-        'opts': obj._meta,
+        'title':
+            _('Change history: %s') % obj,
+        'action_list':
+            action_list,
+        'paginator':
+            paginator,
+        'model_name':
+            force_unicode(User._meta.verbose_name_plural).capitalize(),
+        'object':
+            obj,
+        'opts':
+            obj._meta,
     }
     return render_to_response(
         "admin/user_activity_history.html",
         extra_context,
         context_instance=template.RequestContext(request),
-        )
-user_activity_history = staff_member_required(never_cache(user_activity_history))
+    )
 
+
+user_activity_history = staff_member_required(
+    never_cache(user_activity_history)
+)

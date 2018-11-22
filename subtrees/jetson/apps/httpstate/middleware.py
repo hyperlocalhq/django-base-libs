@@ -6,7 +6,6 @@ from django.utils.http import cookie_date
 from django.utils.importlib import import_module
 
 from jetson.apps.httpstate import settings as httpstate_settings
-
 '''
 LEAVE_AS_IS = (
     settings.MEDIA_URL,
@@ -35,12 +34,14 @@ LEAVE_AS_IS = (
     )
 '''
 
+
 class HttpStateMiddleware(object):
     def process_request(self, request):
         engine = import_module(httpstate_settings.HTTPSTATE_ENGINE)
-        httpstate_key = request.COOKIES.get(httpstate_settings.HTTPSTATE_COOKIE_NAME, None)
+        httpstate_key = request.COOKIES.get(
+            httpstate_settings.HTTPSTATE_COOKIE_NAME, None
+        )
         request.httpstate = engine.HttpStateStore(httpstate_key)
-        
         '''
         # TODO Maybe, we do not need those cleanups??????????????
         # do cleanups
@@ -78,7 +79,7 @@ class HttpStateMiddleware(object):
             pass
         else:
             if accessed:
-                patch_vary_headers(response, ('Cookie',))
+                patch_vary_headers(response, ('Cookie', ))
             if modified or httpstate_settings.HTTPSTATE_SAVE_EVERY_REQUEST:
                 if request.httpstate.get_expire_at_browser_close():
                     max_age = None
@@ -89,10 +90,15 @@ class HttpStateMiddleware(object):
                     expires = cookie_date(expires_time)
                 # Save the httpstate data and refresh the client cookie.
                 request.httpstate.save()
-                response.set_cookie(httpstate_settings.HTTPSTATE_COOKIE_NAME,
-                        request.httpstate.httpstate_key, max_age=max_age,
-                        expires=expires, domain=httpstate_settings.HTTPSTATE_COOKIE_DOMAIN,
-                        path=httpstate_settings.HTTPSTATE_COOKIE_PATH,
-                        secure=httpstate_settings.HTTPSTATE_COOKIE_SECURE or None,
-                        httponly=httpstate_settings.HTTPSTATE_COOKIE_HTTPONLY or None)
+                response.set_cookie(
+                    httpstate_settings.HTTPSTATE_COOKIE_NAME,
+                    request.httpstate.httpstate_key,
+                    max_age=max_age,
+                    expires=expires,
+                    domain=httpstate_settings.HTTPSTATE_COOKIE_DOMAIN,
+                    path=httpstate_settings.HTTPSTATE_COOKIE_PATH,
+                    secure=httpstate_settings.HTTPSTATE_COOKIE_SECURE or None,
+                    httponly=httpstate_settings.HTTPSTATE_COOKIE_HTTPONLY or
+                    None
+                )
         return response

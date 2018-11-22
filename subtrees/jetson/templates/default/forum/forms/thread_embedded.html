@@ -7,66 +7,66 @@
                 <h6>{{ form.subject.data|disarm_user_input }}</h6>
                 <p>{{ form.message.data|disarm_user_input }}</p>
                 <div>
-                    <input type="submit" class="button_good" id="post" name="{{ post_stage_field }}" value='{% filter upper %}{% trans "Save" %}{% endfilter %}'/>
+                    <input type="submit"
+                           class="button_good"
+                           id="post"
+                           name="{{ post_stage_field }}"
+                           value='{% filter upper %}{% trans "Save" %}{% endfilter %}'/>
                 </div>
             </div>
         {% endif %}
         <div class="field_layout">
             <fieldset class="fieldset_end">
-	            <legend>
-	                {% ifequal form_action "new" %}
-	                	{% blocktrans %}Start a new thread in forum "{{ current_forum }}"{% endblocktrans %}
-	                {% endifequal %}
-	                {% ifequal form_action "edit" %}
-	                    {% trans "Edit Thread" %}	          		  
-	                {% endifequal %}
-	            </legend>
-                <ul>
-		        	{% if hash_failed %}
-		        		<li>
-        					<p class="error">{{ hash_failed_message	}}</p>
-        				</li>
-    				{% endif %}
-                
-                    <li>
-                    	{{ form.subject.label_tag }}
-                        {{ form.subject }}
-                        {{ form.subject.help_text_tag }}
-                        {{ form.subject.error_tag }}
-                    </li>
-                
-                    <li>
-                    	{{ form.message.label_tag }}
-                        {{ form.message }}
-                        {{ form.message.help_text_tag }}
-                        {{ form.message.error_tag }}
-                    </li>
-                    
-                    {% ifequal form_action "edit" %}
-	                    <li>
-	                    	{{ form.forum.label_tag }}
-	                        {{ form.forum }}
-	                        {{ form.forum.help_text_tag }}
-	                        {{ form.forum.error_tag }}
-	                    </li>
+                <legend>
+                    {% ifequal form_action "new" %}
+                        {% blocktrans %}Start a new thread in forum "{{ current_forum }}"{% endblocktrans %}
                     {% endifequal %}
-                    
+                    {% ifequal form_action "edit" %}
+                        {% trans "Edit Thread" %}
+                    {% endifequal %}
+                </legend>
+                <ul>
+                    {% if hash_failed %}
+                        <li>
+                            <p class="error">{{ hash_failed_message }}</p>
+                        </li>
+                    {% endif %}
+
                     <li>
-                    	{{ form.is_sticky.label_tag }}
-                        {{ form.is_sticky }}
-                        {{ form.is_sticky.help_text_tag }}
-                        {{ form.is_sticky.error_tag }}
+                        {{ form.subject.label_tag }} {{ form.subject }} {{ form.subject.help_text_tag }} {{ form.subject.error_tag }}
+                    </li>
+
+                    <li>
+                        {{ form.message.label_tag }} {{ form.message }} {{ form.message.help_text_tag }} {{ form.message.error_tag }}
+                    </li>
+
+                    {% ifequal form_action "edit" %}
+                        <li>
+                            {{ form.forum.label_tag }} {{ form.forum }} {{ form.forum.help_text_tag }} {{ form.forum.error_tag }}
+                        </li>
+                    {% endifequal %}
+
+                    <li>
+                        {{ form.is_sticky.label_tag }} {{ form.is_sticky }} {{ form.is_sticky.help_text_tag }} {{ form.is_sticky.error_tag }}
                     </li>
                 </ul>
             </fieldset>
             <div class="buttons">
-                <input id="id_cancel" type="submit" class="button_bad" name="{{ cancel_stage_field }}" value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}" />
-                <input id="id_preview" class="button_good" type="submit" name="{{ preview_stage_field }}" value="{% filter upper %}{% trans 'Preview' %}{% endfilter %}" />
+                <input id="id_cancel"
+                       type="submit"
+                       class="button_bad"
+                       name="{{ cancel_stage_field }}"
+                       value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
+                <input id="id_preview"
+                       class="button_good"
+                       type="submit"
+                       name="{{ preview_stage_field }}"
+                       value="{% filter upper %}{% trans 'Preview' %}{% endfilter %}"/>
                 {% comment %}this one is used for security reasons -->{% endcomment %}
-                <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}" />
+                <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}"/>
             </div>
         </div>
-    </form>	
+    </form>
 </div>
 
 
