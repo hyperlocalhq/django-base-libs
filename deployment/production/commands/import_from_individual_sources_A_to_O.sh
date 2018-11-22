@@ -41,15 +41,6 @@ COMMANDS=(
     "import_from_komische_oper_berlin:Importing from Komische Oper Berlin"
     "import_from_konzerthaus_new:Importing from Konzerthaus (New)"
     "import_from_maxim_gorki_theater:Importing from Maxim Gorki Theater (New)"
-#    "import_from_parkaue:Importing from Theater an der Parkaue"
-#    "import_from_schaubuehne:Importing from Schaubuehne"
-#    "import_from_schlosspark_theater_new:Importing from Schlosspark Theater (New)"
-#    "import_from_sophiensaele:Importing from Sophiensaele"
-#    "import_from_staatsballet_berlin:Importing from Staatsballet Berlin"
-#    "import_from_staatsoper_berlin:Importing from Staatsoper Berlin (New)"
-#    "import_from_volksbuehne:Importing from Volksbuehne"
-#    "import_from_volksbuehne:Importing from Volksbühne (New)"
-#    "import_from_wuehlmaeuse:Importing from Wuehlmaeuse"
 )
 
 

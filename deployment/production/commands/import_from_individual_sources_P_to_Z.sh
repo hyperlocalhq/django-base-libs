@@ -31,16 +31,7 @@ function run_django_command {
 
 COMMANDS=(
 #    "import_from_NON_EXISTING_SOURCE:Importing from Non-existing Source (should trigger error)"
-#    "import_from_berliner_ensemble:Importing from Berliner Ensemble (New)"
-#    "import_from_berliner_philharmonie:Importing from Berliner Philharmonie"
-#    "import_from_boulezsaal:Importing from Pierre Boulez Saal (New)"
-#    "import_from_culturebase_dob:Importing from Deutsche Oper Berlin"
-#    "import_from_culturebase_radialsystem:Importing from RADIALSYSTEM V"
-#    "import_from_deutsches_theater:Importing from Deutsches Theater"
-#    "import_from_hau:Importing from HAU"
-#    "import_from_komische_oper_berlin:Importing from Komische Oper Berlin"
-#    "import_from_konzerthaus_new:Importing from Konzerthaus (New)"
-#    "import_from_maxim_gorki_theater:Importing from Maxim Gorki Theater (New)"
+
     "import_from_parkaue:Importing from Theater an der Parkaue"
     "import_from_schaubuehne:Importing from Schaubuehne"
     "import_from_schlosspark_theater_new:Importing from Schlosspark Theater (New)"
