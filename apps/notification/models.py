@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 import datetime
+import sys
 
 from django.db import models
 from django.conf import settings
@@ -13,7 +14,12 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
-from django.utils.translation import ugettext_lazy as _
+
+if "makemigrations" in sys.argv:
+    from django.utils.translation import ugettext_noop as _
+else:
+    from django.utils.translation import ugettext_lazy as _
+
 from django.utils.translation import ugettext, get_language, activate
 from django.db.models.query import QuerySet
 from django.utils.timezone import now as tz_now

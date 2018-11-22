@@ -1,7 +1,15 @@
 # -*- coding: UTF-8 -*-
+import sys
+
 from django.db.models.loading import load_app
 from django.db import models
-from django.utils.translation import ugettext_lazy as _, ugettext
+
+if "makemigrations" in sys.argv:
+    from django.utils.translation import ugettext_noop as _
+else:
+    from django.utils.translation import ugettext_lazy as _
+
+from django.utils.translation import ugettext
 from django.utils.encoding import force_unicode
 from django.conf import settings
 

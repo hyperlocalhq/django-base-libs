@@ -27,9 +27,10 @@
         <li>
             <a title="{{ lang.1 }}" class="lang_{{ lang.0 }}" href="/{{ lang.0 }}{{ request.path|slice:"3:" }}">
                 {% ifequal LANGUAGE_CODE lang.0 %}<span class="active">{% endifequal %}
-                <img src="{% url 'jetson_media_url' path='' %}img/icons/lang-
-                        {{ lang.0 }}{% ifnotequal LANGUAGE_CODE lang.0 %}-inactive{% endifnotequal %}.png"
-                     alt="{{ lang.0 }}"/>{% ifequal LANGUAGE_CODE lang.0 %}</span>{% endifequal %}</a>
+                <img
+                    src="{% url 'jetson_media_url' path='' %}img/icons/lang-{{ lang.0 }}{% ifnotequal LANGUAGE_CODE lang.0 %}-inactive{% endifnotequal %}.png"
+                    alt="{{ lang.0 }}"
+                />{% ifequal LANGUAGE_CODE lang.0 %}</span>{% endifequal %}</a>
         </li>
     {% endfor %}
     <!-- Username -->

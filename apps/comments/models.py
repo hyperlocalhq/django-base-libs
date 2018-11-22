@@ -1,9 +1,16 @@
 # -*- coding: UTF-8 -*-
+import sys
 from datetime import datetime
 
 from django.apps import apps
 from django.db import models
-from django.utils.translation import ugettext_lazy as _, ugettext
+
+if "makemigrations" in sys.argv:
+    from django.utils.translation import ugettext_noop as _
+else:
+    from django.utils.translation import ugettext_lazy as _
+
+from django.utils.translation import ugettext
 from django.utils.functional import lazy
 from django.utils.encoding import smart_str, force_unicode
 from django.conf import settings

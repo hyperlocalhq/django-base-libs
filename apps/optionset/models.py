@@ -1,6 +1,12 @@
 # -*- coding: UTF-8 -*-
+import sys
+
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+
+if "makemigrations" in sys.argv:
+    from django.utils.translation import ugettext_noop as _
+else:
+    from django.utils.translation import ugettext_lazy as _
 
 from base_libs.models.models import SlugMixin
 from base_libs.models.fields import MultilingualCharField

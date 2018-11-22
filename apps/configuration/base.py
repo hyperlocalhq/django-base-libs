@@ -1,8 +1,14 @@
 # -*- coding: UTF-8 -*-
+import sys
 import pickle
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+
+if "makemigrations" in sys.argv:
+    from django.utils.translation import ugettext_noop as _
+else:
+    from django.utils.translation import ugettext_lazy as _
+
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.utils.encoding import force_unicode

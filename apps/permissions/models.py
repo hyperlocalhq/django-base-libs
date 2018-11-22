@@ -1,10 +1,17 @@
 # -*- coding: UTF-8 -*-
+import sys
+
 from django.apps import apps
 from django.db import connection, models
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User, AnonymousUser, Group, Permission
-from django.utils.translation import ugettext_lazy as _
+
+if "makemigrations" in sys.argv:
+    from django.utils.translation import ugettext_noop as _
+else:
+    from django.utils.translation import ugettext_lazy as _
+
 from django.utils.encoding import force_unicode, smart_str
 from django.db.models import signals
 

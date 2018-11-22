@@ -1,11 +1,18 @@
 # -*- coding: UTF-8 -*-
 import re
 import os
+import sys
 from collections import OrderedDict
 from datetime import datetime
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _, ugettext
+
+if "makemigrations" in sys.argv:
+    from django.utils.translation import ugettext_noop as _
+else:
+    from django.utils.translation import ugettext_lazy as _
+
+from django.utils.translation import ugettext
 from django.utils.encoding import smart_unicode, force_unicode
 from django.template.loader import render_to_string
 from django.contrib.contenttypes.models import ContentType

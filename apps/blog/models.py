@@ -1,9 +1,16 @@
 # -*- coding: UTF-8 -*-
+import sys
+
 from django.db import models
 from django.db import connection
 from django.contrib.contenttypes.models import ContentType
 from django.utils.encoding import force_unicode
-from django.utils.translation import ugettext_lazy as _
+
+if "makemigrations" in sys.argv:
+    from django.utils.translation import ugettext_noop as _
+else:
+    from django.utils.translation import ugettext_lazy as _
+
 from django.apps import apps
 
 from tagging.fields import TagField

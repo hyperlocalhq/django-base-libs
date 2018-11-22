@@ -1,5 +1,11 @@
 # -*- coding: UTF-8 -*-
-from django.utils.translation import ugettext_lazy as _
+import sys
+
+if "makemigrations" in sys.argv:
+    from django.utils.translation import ugettext_noop as _
+else:
+    from django.utils.translation import ugettext_lazy as _
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings

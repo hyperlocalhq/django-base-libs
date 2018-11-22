@@ -2,6 +2,7 @@
 import os
 import re
 import calendar
+import sys
 from datetime import datetime
 from urlparse import urlparse
 
@@ -10,7 +11,13 @@ from django.db.models.base import ModelBase
 from django.db.models.fields import FieldDoesNotExist
 from django.conf import settings
 from django.utils import dateformat
-from django.utils.translation import ugettext_lazy as _, ugettext
+
+if "makemigrations" in sys.argv:
+    from django.utils.translation import ugettext_noop as _
+else:
+    from django.utils.translation import ugettext_lazy as _
+
+from django.utils.translation import ugettext
 from django.utils.safestring import mark_safe
 from django.utils.functional import lazy
 from django.utils.encoding import force_unicode

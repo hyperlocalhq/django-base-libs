@@ -2,15 +2,21 @@
 import os
 import stat
 import time
-from shutil import rmtree
+import sys
 import fnmatch
+from shutil import rmtree
 from datetime import datetime
 from inspect import isclass
 
 from django.db import models
 from django.core.files import base
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
+
+if "makemigrations" in sys.argv:
+    from django.utils.translation import ugettext_noop as _
+else:
+    from django.utils.translation import ugettext_lazy as _
+
 try:
     from django.utils.timezone import now as tz_now
 except:

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import sys
 
 from django.db import models
 from django.contrib.auth.models import User
@@ -7,7 +8,12 @@ from django.utils.encoding import force_unicode, smart_unicode, smart_str
 from django.conf import settings
 from django.dispatch import Signal
 from django.utils.translation import ugettext, get_language, activate
-from django.utils.translation import ugettext_lazy as _
+
+if "makemigrations" in sys.argv:
+    from django.utils.translation import ugettext_noop as _
+else:
+    from django.utils.translation import ugettext_lazy as _
+
 from django.utils.text import get_text_list
 
 from base_libs.models.models import ObjectRelationMixin

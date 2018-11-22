@@ -1,13 +1,18 @@
 # -*- coding: UTF-8 -*-
 
 import string
-
+import sys
 from datetime import datetime, timedelta
 
 from random import choice
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+
+if "makemigrations" in sys.argv:
+    from django.utils.translation import ugettext_noop as _
+else:
+    from django.utils.translation import ugettext_lazy as _
+
 from django.utils.encoding import force_unicode
 from django.conf import settings
 from django.utils.timezone import now as tz_now

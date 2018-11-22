@@ -1,7 +1,13 @@
 # -*- coding: UTF-8 -*-
+import sys
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+
+if "makemigrations" in sys.argv:
+    from django.utils.translation import ugettext_noop as _
+else:
+    from django.utils.translation import ugettext_lazy as _
+
 from django.utils.safestring import mark_safe
 from django.utils.encoding import force_unicode
 from django.core.urlresolvers import reverse
