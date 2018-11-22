@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n navigation_tags infoblocks %}
+
+{% block meta_tag_robots %}
+    <meta name="robots" content="noindex,nofollow"/>
+{% endblock %}
+
+{% block title %}
+    {% trans "Events in Berlin" %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                {% with icon_css_class="fa-calender-plus" %}
+                    {% infoblock "event_deleted" using "blocks/object_deleted.html" %}
+                {% endwith %}
+            </div>
+        </div>
+        <div class="row article-list padding-40">
+            {% include "bulletin_board/includes/latest_bulletins.html" %}
+        </div>
+        <div class="row">
+            <div class="col-xs-12 padding-20">
+                <a href="{% url "bulletin_list" %}" class="btn btn-large btn-primary">{% trans "Browse the market place now" %}</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

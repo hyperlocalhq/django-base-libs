@@ -1,0 +1,464 @@
+/* @override 
+	http://test.creative-city-berlin.de/media/5948/css/screen/portfolio.css
+	http://test.creative-city-berlin.de/media/5948/css/screen/portfolio.css
+	http://test.creative-city-berlin.de/media/5944/css/screen/portfolio.css
+	http://test.creative-city-berlin.de/media/5947/css/screen/portfolio.css
+*/
+
+.ui-dragging-handle {
+	cursor: move;
+}
+
+#gallery,
+.section {
+	float: left;
+	width: 584px;
+	border-bottom: 1px solid #cbdadf;
+	/*border-top: 1px solid #cbdadf;*/
+	position: relative;
+	background: #f6f8f9;
+	margin-bottom: 16px;
+}
+
+.ui-section-placeholder {
+	margin-bottom: 10px;
+	float: left;
+	width: 573px;
+	padding: 10px;
+	padding-right: 0px;
+	background: #f6f8f9;
+	border-bottom: 1px solid #cbdadf;
+	border-top: 1px solid #cbdadf;
+	height: 219px
+}
+
+#gallery h4,
+.section h4 {
+	color: #707F85;
+	display: block;
+	height: 30px;
+	line-height: 33px;
+	font-size: 1em;
+	text-transform: uppercase;
+	font-weight: bold;
+	background-color: #D1E0E8;
+	background-image: url("../../img/website/bg-sidebar-box-header.png");
+	padding-left: 10px;
+	margin: 0 0 16px;
+}
+
+#dyn_portfolio,
+.galleries {
+	float: left;
+	margin-right: -16px;
+}
+
+.ui-status-message {
+	position: fixed;
+	bottom: 0;
+	background: #fff;
+	border: 1px solid #555;
+	padding: 1em;
+}
+
+.ui-mediafile-placeholder,
+.ui-gallery-placeholder {
+	width: 184px;
+	height: 184px;
+	position: relative;
+	float: left;
+	margin-right: 16px;
+	margin-bottom: 16px;
+	background-image: url(../../img/website/placeholder/other_content_f.png);
+}
+
+.mediafile,
+.gallery {
+	width: 184px;
+	height: 184px;
+	position: relative;
+	float: left;
+	margin-right: 16px;
+	margin-bottom: 16px;
+}
+
+.gallery h5 {
+    margin-top: 190px;
+}
+
+.mediafile-presentation:hover .portfolio_tools,
+.gallery:hover .portfolio_tools {
+	display: block;
+}
+
+.mediafile-presentation .image_container {
+	margin: 0;
+}
+
+.portfolio_tools {
+	display: none;
+	position: absolute;
+	top: 149px;
+	right: 5px;
+}
+
+.gallery_tools,
+.section_tools {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	display: block;
+}
+
+.meta_tools {
+	position: absolute;
+	bottom: 16px;
+	right: 16px;
+}
+
+.meta_tools a {
+	margin-left: 8px;
+}
+
+.section_meta,
+.gallery_meta  {
+	border-bottom: 1px solid #cbdadf;
+	margin-top: -16px;
+	margin-bottom: 16px;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	position: relative;
+	float: left;
+	width: 100%;
+	background-color: #e8edf0;
+}
+
+.section_meta .meta_informations {
+	margin-left: 16px;
+}
+.gallery_teaser img {
+	margin-left: 16px;
+	margin-right: 16px;
+	float: left;
+}
+
+.mediafile img,
+.gallery img {
+	width: 184px;
+	height: 184px;
+	position: absolute;
+}
+
+/*
+.gallery.draft img,
+.gallery.entwurf img
+{
+    opacity: .5;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: alpha(opacity=50);
+    -moz-opacity: 0.5;
+    -khtml-opacity: 0.5;
+}
+*/
+
+.mediafile .image_container {
+	width: 184px;
+	height: 184px;
+	position: absolute;
+}
+
+
+.ui-status-message {
+	position: fixed;
+	bottom: 0;
+	background: #fff;
+	border: 1px solid #555;
+	padding: 1em;
+}
+
+#new_mediafile {
+	float: left;
+	width: 584px;
+}
+
+/* @group portfolio icons */
+
+.meta_tools a,
+.gallery_tools a,
+.portfolio_tools a,
+.section_tools a {
+	display: block;
+	width: 30px;
+	height: 30px;
+	float: left;
+	overflow: hidden !important;
+	position: relative;
+	z-index: 10000000;
+}
+
+.meta_tools a>span,
+.gallery_tools a>span,
+.ui-dragging-handle>span,
+.ui-sortable a>span {
+	position: absolute;
+	width: 200px;
+	text-align: left;
+	top: -2em;
+	left: -10px;
+	color: white;
+	height: 28px;
+	margin-top: -5px;
+	line-height: 21px;
+	background: transparent url("../../img/website/bg-tooltip.png") no-repeat 18px bottom;
+	opacity: 0;
+	-webkit-transition-property: opacity;
+	-webkit-transition-duration: 0.5s;
+	-webkit-transition-delay: 0s;
+}
+
+.meta_tools a span span,
+.gallery_tools a span span,
+.ui-dragging-handle span span,
+.ui-sortable a span span {
+	background-color: #496a78;
+	padding: 3px;
+	padding-left: 8px;
+	padding-right: 8px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+}
+
+.meta_tools a:hover,
+.gallery_tools a:hover,
+.ui-dragging-handle:hover,
+.ui-sortable a:hover {
+	text-decoration: none;
+	overflow: visible !important;
+}
+
+.meta_tools a:hover>span,
+.gallery_tools a:hover>span,
+.ui-dragging-handle:hover>span,
+.ui-sortable a:hover>span {
+	display: block;
+	-webkit-transition-duration: 0.25s;
+	-webkit-transition-delay: 0.25s;
+	opacity: 1;
+}
+
+a.edit_settings {
+	background: transparent url("../../img/website/icons.png") no-repeat 0 -480px;
+}
+
+a.edit_settings:hover {
+	background: transparent url("../../img/website/icons.png") no-repeat -30px -480px;
+}
+
+a.delete {
+	background: transparent url("../../img/website/icons.png") no-repeat 0 -1470px;
+}
+
+a.delete:hover {
+	background: transparent url("../../img/website/icons.png") no-repeat -30px -1470px;
+}
+
+a.edit_content {
+	background: transparent url("../../img/website/icons.png") no-repeat 0 -360px;
+}
+
+a.edit_content:hover {
+	background: transparent url("../../img/website/icons.png") no-repeat -30px -360px;
+}
+
+.ui-dragging-handle {
+	background: transparent url("../../img/website/icons.png") no-repeat 0 -1500px;
+	cursor: move;
+	width: 30px;
+	height: 30px;
+	display: block;
+	position: relative;
+	overflow: hidden;
+	float: left;
+}
+
+.ui-dragging-handle:hover {
+	background: transparent url("../../img/website/icons.png") no-repeat -30px -1500px;
+}
+
+/* @group media_icons */
+
+a.add_album {
+	background: transparent url("../../img/website/icons.png") no-repeat -90px -1560px;
+}
+
+a.add_album:hover {
+	background: transparent url("../../img/website/icons.png") no-repeat -30px -1560px;
+}
+
+a.add_image {
+	background: transparent url("../../img/website/icons.png") no-repeat -90px -1560px;
+}
+
+a.add_image:hover {
+	background: transparent url("../../img/website/icons.png") no-repeat -30px -1560px;
+}
+
+a.add_video {
+	background: transparent url("../../img/website/icons.png") no-repeat -90px -1590px;
+}
+
+a.add_video:hover {
+	background: transparent url("../../img/website/icons.png") no-repeat -30px -1590px;
+}
+
+a.add_audio {
+	background: transparent url("../../img/website/icons.png") no-repeat -90px -1530px;
+}
+
+a.add_audio:hover {
+	background: transparent url("../../img/website/icons.png") no-repeat -30px
+
+-1530px
+;
+
+}
+
+/* @end */
+
+/* @end */
+
+/* Facebook syncing */
+
+.sync-ccb-title {
+}
+
+.sync-fb-title {
+    float: right;
+    text-align: right;
+    margin-right: 1em;
+}
+
+.gallery-linking {
+    clear: both;
+    padding: 1em;
+    border-bottom: 1px solid #CBDADF;
+}
+.gallery-linking p {
+    margin: 0;
+}
+
+.ccb-gallery {
+    clear: left;
+    float: left;
+    width: 230px;
+    padding: 0px;
+}
+.ccb-gallery img,
+.ccb-gallery .img-placeholder {
+    float: left;
+    margin-right: 10px;
+}
+.sync-controls {
+    float: left;
+    width: 84px;
+    text-align: center;
+}
+.sync-controls ul.toolbar {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    margin-left: 27px;
+}
+.sync-controls li {
+    margin: 0;
+    padding: 0;
+}
+.fb-album {
+    width: 230px;
+    padding: 00;
+    float: right;
+}
+.fb-album img,
+.fb-album .img-placeholder {
+    float: right;
+    margin-left: 10px;
+}
+.img-placeholder {
+    width: 75px;
+    height: 75px;
+    border: 1px dashed #aaa;
+}
+
+
+.media_nav a.portfolio-manage {
+	background: transparent url("../../img/website/icons.png") no-repeat 0px -480px;
+}
+
+.media_nav a.portfolio-manage.active {
+	background: transparent url("../../img/website/icons.png") no-repeat -90px -480px;
+}
+
+.media_nav a.portfolio-manage span {
+    display: none;
+}
+
+.media_nav a.portfolio-add {
+	background: transparent url("../../img/website/icons.png") no-repeat 0px -360px;
+}
+
+.media_nav a.portfolio-add.active {
+	background: transparent url("../../img/website/icons.png") no-repeat -90px -360px;
+}
+
+.media_nav a.portfolio-add span {
+    display: none;
+}
+
+
+.media_nav a.fb-sync {
+	background: transparent url("../../img/website/icons.png") no-repeat 0px -1770px;
+}
+
+.media_nav a.fb-sync.active {
+	background: transparent url("../../img/website/icons.png") no-repeat -90px -1770px;
+}
+.media_nav a.fb-sync span {
+	display: none;
+}
+.portfolio-controls {
+    float: left;
+}
+.portfolio-controls .active {
+    color: #344C56;
+}
+
+/* Gallery editing */
+
+.uniForm li.preview_img {
+    float: left;
+    width: 200px;
+    display: block;
+}
+
+.preview_img a {
+    float: right;
+    display: block;
+}
+
+.uniForm li.insert_img {
+    margin-left: 200px;
+    width: 340px;
+    display: block;
+}
+.uniForm li.insert_img .buttonHolder {
+    clear: none;
+}
+
+#media_file_content img {
+    margin: 1em 0;
+}
+
+.media_file img {
+    margin: 1em 0;
+}

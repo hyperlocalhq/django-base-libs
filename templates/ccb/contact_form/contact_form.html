@@ -1,0 +1,13 @@
+{% extends "base_sidebar.html" %}
+{% load base_tags i18n infoblocks crispy_forms_tags %}
+
+{% block title %}{% trans "Contact us" %}{% endblock %}
+
+{% block headline %}
+    <h1>{% trans "Contact us" %}</h1>
+{% endblock %}
+
+{% block details %}
+    {% infoblock "contact_info" %}
+    {% crispy form  "ccb_form" %}
+{% endblock %}

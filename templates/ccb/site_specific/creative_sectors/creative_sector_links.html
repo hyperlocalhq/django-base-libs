@@ -1,0 +1,51 @@
+{% load i18n base_tags navigation_tags %}
+{% if not creative_sector %}
+    {% children_of "all_sectors" using "navigation/cs_links.html" %}
+{% endif %}
+{% ifequal creative_sector.sysname "advertising_and_pr" %}
+    {% children_of "advertising_and_pr" using "navigation/cs_links.html" %}
+{% endifequal %}
+
+{% ifequal creative_sector.sysname "architecture" %}
+    {% children_of "all_sectors" using "navigation/cs_links.html" %}
+{% endifequal %}
+
+{% ifequal creative_sector.sysname "art" %}
+    {% children_of "art" using "navigation/cs_links.html" %}
+{% endifequal %}
+
+{% ifequal creative_sector.sysname "design" %}
+    {% children_of "design" using "navigation/cs_links.html" %}
+{% endifequal %}
+
+{% ifequal creative_sector.sysname "fashion_and_textile" %}
+    {% children_of "fashion_and_textile" using "navigation/cs_links.html" %}
+{% endifequal %}
+
+{% ifequal creative_sector.sysname "film_and_broadcast" %}
+    {% children_of "film_and_broadcast" using "navigation/cs_links.html" %}
+{% endifequal %}
+
+{% ifequal creative_sector.sysname "games_and_interactive" %}
+    {% children_of "games_and_interactive" using "navigation/cs_links.html" %}
+{% endifequal %}
+
+{% ifequal creative_sector.sysname "literature_and_publishing" %}
+    {% children_of "literature_and_publishing" using "navigation/cs_links.html" %}
+{% endifequal %}
+
+{% ifequal creative_sector.sysname "music" %}
+    {% children_of "music" using "navigation/cs_links.html" %}
+{% endifequal %}
+
+{% ifequal creative_sector.sysname "photography" %}
+    {% children_of "photography" using "navigation/cs_links.html" %}
+{% endifequal %}
+
+{% ifequal creative_sector.sysname "theatre_and_dance" %}
+    {% children_of "theatre_and_dance" using "navigation/cs_links.html" %}
+{% endifequal %}
+
+{% ifequal creative_sector.sysname "events" %}
+    {% children_of "event-2" using "navigation/cs_links.html" %}
+{% endifequal %}

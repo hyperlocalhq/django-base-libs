@@ -1,0 +1,11 @@
+{% load i18n %}
+<div class="padding-40">
+    <div class="claim padding-40">
+        <div class="fawesome big {{ icon_css_class }}"></div>
+        <h2>{{ title|escape }}</h2>
+        {% if created_object_url %}
+            <p><a href="{{ created_object_url }}">{% trans "Look at it here and share with your community" %}</a></p>
+        {% endif %}
+    </div>
+    {{ content }}
+</div>

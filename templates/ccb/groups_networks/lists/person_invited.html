@@ -1,0 +1,32 @@
+{% extends "people/lists/person.html" %}
+{% load i18n base_tags babel %}
+
+{% block object_title %}
+    <a class="fn" href="{{ person.get_url_path }}">
+        {{ person.get_title|escape }}
+    </a>
+{% endblock %}
+
+{% block object_absolute_url %}{{ person.get_url_path }}{% endblock %}
+
+{% block object_col1 %}
+    {% if person.person_group_title %}
+        {% blocktrans with person.person_group_title as person_group_title %}
+            <b>invited into {{ person_group_title }}</b>{% endblocktrans %}
+    {% endif %}
+    {{ block.super }}
+{% endblock %}
+
+{% block object_col2 %}
+    {% ifequal active_link "invitations" %}
+        <div class="object-type">{% trans "Invitation from" %} {{ person.membership_timestamp|datetimefmt }}</div>
+    {% else %}
+        {% ifequal active_link "requests" %}
+            <div class="object-type">{% trans "Request from" %} {{ person.membership_timestamp|datetimefmt }}</div>
+        {% endifequal %}
+    {% endifequal %}
+    <p class="description hidable">
+        TODO!!! THE MESSAGE FOR THE INVITATION CANNOT BE FOUND VIA THE "GROUPMEMBERSHIP" LINKS. HOW CAN WE GET THE
+        MESSAGE?
+    </p>
+{% endblock %}

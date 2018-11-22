@@ -1,0 +1,82 @@
+{% extends "base_sidebar.html" %}
+{% load base_tags i18n crispy_forms_tags bootstrap_pagination %}
+
+{% block title %}
+    {% trans 'SEARCH' %}
+{% endblock %}
+
+{% block body_class %}search-page{% endblock %}
+
+{% block headline %}
+    <h1>{% trans "SEARCH" %}</h1>
+{% endblock %}
+
+{% block details %}
+    {% crispy form "ccb_form" %}
+    <script>
+        $('label').click(function (e) {
+            e.stopPropagation();
+        })
+    </script>
+
+    {% if query and result_groups %}
+        {% for result_group in result_groups %}
+            {% if result_group.page %}
+            {# Paginated type-specific search results #}
+                <h2>{{ result_group.verbose_name }} <span class="amount">{{ result_group.count }}</span></h2>
+                <div class="list">
+                    {% for result in result_group.page.object_list %}
+                        {% autoescape off %}
+                            {% if result.get_stored_fields.rendered_de %}
+                                {% if LANGUAGE_CODE == "de" %}
+                                    {{ result.get_stored_fields.rendered_de }}
+                                {% else %}
+                                    {{ result.get_stored_fields.rendered_en }}
+                                {% endif %}
+                            {% endif %}
+                        {% endautoescape %}
+                    {% endfor %}
+                </div>
+                {% if result_group.page.has_previous or result_group.page.has_next %}
+                    {% bootstrap_paginate result_group.page range=20 show_prev_next="true" show_first_last="true" %}
+                {% endif %}
+            {% else %}
+            {# Type-specific search-results overview with a "more" button #}
+                <h2>{{ result_group.verbose_name }} <span class="amount"><a href="{% url "haystack_full_search" %}?q={{ query }}&t={{ result_group.short_name|urlencode }}">{{ result_group.count }}</a></span></h2>
+                <div class="list">
+                    {% for result in result_group.results %}
+                        {% autoescape off %}
+                            {% if result.get_stored_fields.rendered_de %}
+                                {% if LANGUAGE_CODE == "de" %}
+                                    {{ result.get_stored_fields.rendered_de }}
+                                {% else %}
+                                    {{ result.get_stored_fields.rendered_en }}
+                                {% endif %}
+                            {% endif %}
+                        {% endautoescape %}
+                    {% endfor %}
+                </div>
+                {% with result_group.results|length as results_count %}
+                    {% if result_group.count > results_count %}
+                        <p><a class="button" href="full/?q={{ query }}&t={{ result_group.short_name|urlencode }}">{% trans "more" %}…</a></p>
+                    {% endif %}
+                {% endwith %}
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <h4 class="nothing">
+            {% if form.q.value %}
+                {% trans "No results found." %}
+            {% else %}
+                {% trans "Please enter a phrase to search for." %}
+            {% endif %}
+        </h4>
+    {% endif %}
+
+{% endblock %}
+
+
+
+{% block javascript %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/pagination.js"></script>
+{% endblock %}

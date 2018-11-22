@@ -1,0 +1,31 @@
+{% extends "base_sidebar.html" %}
+{% load i18n base_tags navigation_tags uni_form_tags %}
+
+{% block title %}{% trans "Newsletter" %}{% endblock %}
+
+{% block headline %}
+    <h1>{% trans "Newsletter" %}</h1>
+{% endblock %}
+
+{% block details %}
+    <div class="newsletter" id="newsletter">
+        <form action="{{ request.path }}"
+            method="post"
+            enctype="multipart/form-data"
+            class="uniForm">{% csrf_token %}
+            {{ form.prevent_spam }}
+            {{ form.prevent_spam.error_tag }}
+            <h3>{% trans "newsletter registration" %}</h3>
+
+            <p class="disclaimer">{% trans "Receive the latest and greatest news about CreativeCityBerlin with subscribing to our Newsletter." %}</p>
+            {{ form.mlist|as_uni_field }}
+            {{ form.first_name|as_uni_field }}
+            {{ form.last_name|as_uni_field }}
+            {{ form.email|as_uni_field }}
+            <div class="buttonHolder">
+                <input type="submit" class="btn btn-primary"
+                    value="{% filter upper %}{% trans "Send" %}{% endfilter %}" id="send_but"/>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% load base_tags i18n %}
+
+{% if display_form %}
+    <form action="../post/" method="post">{% csrf_token %}
+        <div class="field_layout">
+            <fieldset class="fieldset_end">
+                <legend>{% trans "Post a review" %}</legend>
+                <ul>
+                    <li>
+                        <label>*{% trans "Title" %}:</label>
+                        <input type="text" id="id_headline" name="headline"/>
+                    </li>
+                    <li>
+                        <label>*{% trans "Review" %}:</label>
+                        <textarea name="comment" id="id_comment" rows="10" cols="60"></textarea>
+                    </li>
+                </ul>
+            </fieldset>
+            <div class="buttons">
+                <input type="hidden" name="goto_next"
+                    value="{% if goto_next %}{{ goto_next }}{% else %}{{ request.get_full_path }}{% endif %}"/>
+                <input type="hidden" name="options" value="{{ options }}"/>
+                <input type="hidden" name="target" value="{{ target }}"/>
+                <input type="hidden" name="gonzo" value="{{ hash }}"/>
+                <input type="hidden" name="prevent_spam" value="{{ prevent_spam }}"/>
+                <input type="submit" class="button_good" name="preview"
+                    value="{% filter upper %}{% trans "Preview" %}{% endfilter %}"/>
+            </div>
+        </div>
+    </form>
+{% endif %}

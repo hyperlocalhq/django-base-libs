@@ -1,0 +1,8 @@
+{% load i18n image_mods_tags %}
+<dd class="preview-img no-label">
+    {% if media_file.splash_image_path %}
+        <img src="{{ UPLOADS_URL }}{{ media_file.splash_image_path|modified_path:"article" }}" alt="{{ object.get_title|escape }}"/>
+    {% else %}
+        <img src="{{ STATIC_URL }}site/img/website/placeholder/upload_image.png" alt="{{ object.get_title|escape }}"/>
+    {% endif %}
+</dd>

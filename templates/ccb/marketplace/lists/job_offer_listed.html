@@ -1,0 +1,50 @@
+{% load i18n babel favorites %}
+
+
+<div class="col-xs-12">
+    <div class="wrapper">
+        {% with url=job_offer.get_urls|first %}
+            <a class="content" href="{{ job_offer.get_url_path }}">
+                <div class="text">
+                    <h3>
+                        {{ job_offer.job_type.title }}
+                        {% if job_offer.get_content_provider %}<span class="content-provider">・ {{ job_offer.get_content_provider.title }}</span>{% endif %}
+                        {% if job_offer.is_commercial %}<span class="content-provider">・ <span class="commercial">€</span>{% endif %}
+                        <time datetime="{{ job_offer.published_from|date:"Y-m-d" }}">
+                            {{ job_offer.published_from|datefmt:"long" }}
+                        </time>
+                    </h3>
+                    <h2>{{ job_offer.position }}</h2>
+                    <p>
+                        {{ job_offer.get_description|striptags|truncatewords:20 }}
+                    </p>
+                    {% if job_offer.job_sectors.all %}
+                        <ul>
+                            {% for sector in job_offer.job_sectors.all %}
+                                <li>{{ sector.title }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    {% if job_offer.categories.all %}
+                        <ul>
+                            {% for category in job_offer.categories.all %}
+                                <li>{{ category.title }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </a>
+            {% if url and False %}{# FIXME: the website link is not styled correctly #}
+                <a class="website" href="{{ url.link }}" target="_blank">{{ url.link|truncatechars:50 }}</a>
+            {% endif %}
+        {% endwith %}
+        <div class="button-group">
+            {% if request.user.is_authenticated %}
+                {% adding2favorites for job_offer using "generic/favorite_icon.html" %}
+            {% else %}
+                <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}" class="fawesome fa-favorite button"><span class="sr-only">{% trans "Add to favorites" %}</span></a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+

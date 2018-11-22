@@ -1,0 +1,119 @@
+{% extends "messaging/details_base.html" %}
+{% load i18n base_tags babel image_mods_tags %}
+
+{% block details %}
+    {% comment %}<!--
+        HERE THE CONTENT BEGINS
+    -->{% endcomment %}
+    <div class="message">
+        <div class="message-head">
+            <div>
+                <div class="message_avatar">
+                    {% ifequal message.sender request.user %}
+                        <a href="{{ message.recipient.get_profile.get_url_path }}">
+                            {% if message.recipient.get_profile.image %}
+                                <img alt="{{ message.recipient.get_profile.get_title|escape }}"
+                                    src="{{ UPLOADS_URL }}{{ message.recipient.get_profile.image|modified_path:"at" }}"/>
+                            {% else %}
+                                <img alt="{{ person.get_title|escape }}" src="{{ DEFAULT_SMALL_LOGO_4_PERSON }}"/>
+                            {% endif %}
+                        </a>
+                    {% else %}
+                        <a href="{{ message.sender.get_profile.get_url_path }}">
+                            {% if message.sender.get_profile.image %}
+                                <img alt="{{ message.sender.get_profile.get_title|escape }}"
+                                    src="{{ UPLOADS_URL }}{{ message.sender.get_profile.image|modified_path:"at" }}"/>
+                            {% else %}
+                                <img alt="{{ message.sender.get_profile.get_title|escape }}"
+                                    src="{{ DEFAULT_SMALL_LOGO_4_PERSON }}"/>
+                            {% endif %}
+                        </a>
+                    {% endifequal %}
+                </div>
+                <div class="message-facts txt">
+                    <h5 class="type">{{ message.subject|escape }}</h5>
+                    {% ifequal message.sender request.user %}
+                        {% trans "to" %}
+                        <a href="{{ message.recipient.get_profile.get_url_path }}">
+                            {{ message.recipient.get_profile.get_title }}
+                        </a>
+                    {% else %}
+                        {% trans "from" %}
+                        <a href="{{ message.sender.get_profile.get_url_path }}">
+                            {{ message.sender.get_profile.get_title }}
+                        </a>
+                    {% endifequal %}
+                    <br/>
+                    {{ message.creation_date|date:_("DATETIME_FORMAT") }}
+                </div>
+            </div>
+        </div>
+
+        {% with message.body|safe as body %}
+            {% with body|striptags as striped_message %}
+                {% ifequal body striped_message %}
+                    <div>
+                        <p>{{ body }}</p>
+                    </div>
+                {% else %}
+                    {{ body }}
+                {% endifequal %}
+            {% endwith %}
+        {% endwith %}
+
+        <div>
+            <ul>
+                {% comment %}<!-- THESE ARE THE ACTIONS FOR MESSAGES FROM THE DRAFT BOX -->{% endcomment %}
+                {% if message.is_draft %}
+                    <li class="first_item">
+                        <a href="/my-messages/message/{{ message.id }}/send_draft/">{% trans "send" %}</a>
+                    </li>
+                {% else %}
+                    {% comment %}<!-- THESE ARE THE ACTIONS FOR MESSAGES FROM THE IN BOX -->{% endcomment %}
+                    {% ifequal message.recipient request.user %}
+                        <li class="first_item">
+                            <a href="/my-messages/message/{{ message.id }}/reply/">{% trans "reply" %}</a>
+                        </li>
+                        <li class="first_item">
+                            <a href="/my-messages/message/{{ message.id }}/forward/">{% trans "forward" %}</a>
+                        </li>
+                    {% else %}
+                        {% comment %}<!-- THESE ARE THE ACTIONS FOR MESSAGES FROM THE SENT BOX -->{% endcomment %}
+                        {% ifequal message.sender request.user %}
+                            <li class="first_item">
+                                <a href="/my-messages/message/{{ message.id }}/forward/">{% trans "forward" %}</a>
+                            </li>
+                        {% endifequal %}
+                    {% endifequal %}
+                {% endif %}
+
+                {% comment %}<!--
+                    DELETIMG MESSAGES IS NOT ALLOWED FOR SENT MESSAGES!
+                    (IF I AM NOT THE RECEIVER) OR IT IS A DRAFT 
+                -->{% endcomment %}
+                {% ifequal message.sender request.user %}
+                    {% ifequal message.recipient request.user %}
+                        <li>
+                            <a href="/my-messages/message/{{ message.id }}/delete/">{% trans "delete" %}</a>
+                        </li>
+                    {% else %}
+                        {% if message.is_draft %}
+                            <li>
+                                <a href="/my-messages/message/{{ message.id }}/delete/">{% trans "delete" %}</a>
+                            </li>
+                        {% endif %}
+                    {% endifequal %}
+                {% else %}
+                    <li>
+                        <a href="/my-messages/message/{{ message.id }}/delete/">{% trans "delete" %}</a>
+                    </li>
+                {% endifequal %}
+            </ul>
+        </div>
+    </div>
+    {% comment %}
+        HERE THE CONTENT ENDS
+    {% endcomment %}
+
+{% endblock %}
+    

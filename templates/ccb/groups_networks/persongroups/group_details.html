@@ -1,0 +1,59 @@
+{% extends "groups_networks/persongroups/details_base.html" %}
+{% load i18n base_tags auth_extended %}
+
+{% block doctype %}
+    <!DOCTYPE html SYSTEM "{{ website_url }}{{ jetson_media_url|slice:"1:" }}dtd/xhtml1-iframe.dtd">
+{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    {% if_has_perm "groups_networks.change_persongroup" object %}
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/profile.js"></script>
+    {% end_if_has_perm %}
+{% endblock %}
+
+{% block details %}
+
+    <div
+        class="first-item description{% if_has_perm "groups_networks.change_persongroup" object %}_edit{% else %} overflow{% end_if_has_perm %}">
+        <div class="profil_container">
+            <div id="dyn_avatar" class="dyn_section">
+                {% include "groups_networks/persongroups/profile/avatar.html" %}
+            </div>
+        </div>
+        <div id="dyn_description" class="dyn_section">
+            {% include "groups_networks/persongroups/profile/description.html" %}
+        </div>
+    </div>
+    <div class="cats">
+        <h6 class="subline">{% trans "Details" %}</h6>
+
+        <div id="dyn_details" class="dyn_section">
+            {% include "groups_networks/persongroups/profile/details.html" %}
+        </div>
+    </div>
+    <div class="cats">
+        <h6 class="subline">{% trans "Categories" %}</h6>
+
+        <div id="dyn_categories" class="dyn_section">
+            {% include "groups_networks/persongroups/profile/categories.html" %}
+        </div>
+    </div>
+    {% if object.are_members_shown %}
+        <div class="cats">
+            <h6 class="subline">{% trans "Members" %} ({{ object.get_all_members.count }})</h6>
+
+            <div>
+                {% for member in object.get_all_members %}
+                    <a href="{{ member.get_url_path }}">{{ member.get_title }}</a>
+                    {% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    {% if object.is_forum_shown %}
+        <div class="cats">
+            <h6 class="subline">{% trans "Last Forum Threads" %}</h6>
+        </div>
+    {% endif %}
+{% endblock %}

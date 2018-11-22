@@ -1,0 +1,27 @@
+{% load i18n navigation_tags %}
+<div class="sidebar-box nav_collapsed" id="m_info_{{ LANGUAGE_CODE }}">
+    <h5>
+        <a href="#" class="open_but">
+            <b>{% trans "More Info" %}</b>
+            <span class="pic"></span>
+        </a>
+    </h5>
+
+    <div class="hidable">
+        <ul>
+            <li>
+                <a href="/browse/feeds/rss/{{ LANGUAGE_CODE }}/?{{ query|escape }}">{% trans "News" %}</a>
+            </li>
+            <li>
+                <a href="/browse/feeds/atom/{{ LANGUAGE_CODE }}/?{{ query|escape }}">{% trans "Knowledge" %}</a>
+            </li>
+            <li>
+                <a href="#" onclick="window.print(); return false;">{% trans "Partner" %}</a>
+            </li>
+            <li>
+                <a href="#" onclick="window.print(); return false;">{% trans "FAQ" %}</a>
+            </li>
+        </ul>
+    </div>
+</div>
+

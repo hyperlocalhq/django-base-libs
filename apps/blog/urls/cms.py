@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 from django.conf.urls import patterns, url
+from django.views.generic import TemplateView
+
 from base_libs.forms.formprocessing import ID_ACTION_NEW
 from base_libs.forms.formprocessing import ID_ACTION_EDIT
 from base_libs.forms.formprocessing import ID_ACTION_DELETE
 from base_libs.models.base_libs_settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
 
-from jetson.apps.blog.forms import BlogPostForm
-from jetson.apps.blog.views.cms import BlogPostFormPreviewHandler
-from jetson.apps.blog.feeds import RssFeed, AtomFeed
+from ccb.apps.blog.forms import BlogPostForm
+from ccb.apps.blog.views.cms import BlogPostFormPreviewHandler
+from ccb.apps.blog.feeds import RssFeed, AtomFeed
 
 all_dict = dict(
     status=STATUS_CODE_PUBLISHED,
@@ -26,7 +28,7 @@ feed_dict = dict(
 )
 
 urlpatterns = patterns(
-    'jetson.apps.blog.views.cms',
+    'ccb.apps.blog.views.cms',
 
     # mind the order of the url-patterns!!!!!
 
@@ -38,6 +40,10 @@ urlpatterns = patterns(
 
     # public posts
     (r'^/?$', 'handle_request', all_dict),
+
+    # success pages
+    url(r'^created/$', TemplateView.as_view(template_name='blog/post_created.html')),
+    url(r'^deleted/$', TemplateView.as_view(template_name='blog/post_deleted.html')),
 
     # date-based by year
     (r'^(?P<year>\d{4})/$', 'handle_request', all_dict),

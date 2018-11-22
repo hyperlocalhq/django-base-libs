@@ -1,0 +1,61 @@
+// main:style.scss
+
+@charset "UTF-8";
+
+#breadcrumbs {
+    width: 100%;
+    height: 50px;
+    background: $white-dirty;
+    position: relative;
+    z-index: 80;
+    overflow: hidden;
+
+    ul {
+        list-style: none;
+        width: 10000px;
+        li {
+            font-family: $font-2, $font-family-1;
+            font-weight: $font-regular;
+            line-height: 50px;
+            color: $grey-darker;
+            display: inline-block;
+
+            &:before {
+                display: inline-block;
+                font: normal normal normal 14px/1 FontAwesome;
+                text-rendering: auto;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                padding: 0px;
+                margin: 0px;
+                vertical-align: bottom;
+                font-weight: 400;
+                font-size: 1.9em;
+                line-height: 50px;
+
+                content: "\f105";
+                padding: 0 20px;
+            }
+
+            a {
+                display: inline-block;
+                color: $grey-darker;
+                &:hover, &:focus {
+                    color: $grey-darker;
+                }
+            }
+
+            &:first-child {
+                &:before {
+                    content: none;
+                }
+                a {
+                    &:before {
+                        font-size: 1.6rem;
+                        line-height: 36px;
+                    }
+                }
+            }
+        }
+    }
+}

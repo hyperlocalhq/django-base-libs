@@ -1,0 +1,338 @@
+{% extends "base.html" %}
+{% load i18n base_tags navigation_tags image_mods_tags %}
+
+{% block extrahead %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/messages.js"></script>
+{% endblock %}
+
+{% block title %}{% trans "YOUR MESSAGES" %}{% endblock %}
+
+
+{% block headline %}
+    <h1>{% trans "Your Messages" %}</h1>
+{% endblock %}
+
+
+{% block content %}
+    <div class="message-list">
+        <div id="tabs">
+            {% children_of "messages" using "navigation/children_in_tabs.html" %}
+        </div>
+
+        {% if object_list %}
+            <div class="{% ifequal box "sent" %}{% if not is_paginated %}-spacer{% endif %}{% endifequal %}">
+                {% if is_paginated %}
+                    <div class="paginated">
+                        <div class="previous">
+                            {% if has_previous %}
+                                <a href="/my-messages/{{ box }}/?page={{ previous }}">
+                                <span class="enabled">
+                                    <span class="hidden">
+                                        {% trans "previous" %}
+                                    </span>
+                                </span>
+                                </a>
+                            {% else %}
+                                <span class="disabled">
+                                <span class="hidden">{% trans "previous" %}</span>
+                            </span>
+                            {% endif %}
+                        </div>
+                        <form action="" class="uniForm">
+                            <div>
+                                <select class="page_skip"
+                                    onchange="redirect('/my-messages/{{ box }}/?page=' + this.value);">
+                                    {% for pnumber in page_numbers %}
+                                        <option value="{{ pnumber }}"{% ifequal pnumber page %}
+                                            selected="selected"{% endifequal %}>{% blocktrans %}Page {{ pnumber }} of
+                                            {{ pages }}{% endblocktrans %}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </form>
+                        <div class="next">
+                            {% if has_next %}
+                                <a href="/my-messages/{{ box }}/?page={{ next }}">
+                                <span class="enabled">
+                                    <span class="hidden">
+                                        {% trans "next" %}
+                                    </span>
+                                </span>
+                                </a>
+                            {% else %}
+                                <span class="disabled">
+                                <span class="hidden">
+                                    {% trans "next" %}
+                                </span>
+                            </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <hr class="hidden"/>
+                {% endif %}
+
+                {% comment %}<!-- NO ACTIONS ALLOWED FOR "SENT" BOX -->{% endcomment %}
+                {% ifnotequal box "sent" %}
+                    <input id="id_choose_all" type="checkbox"/>
+                {% endifnotequal %}
+
+                {% ifequal box "deleted" %}
+                    <select id="id_action" name="sender" size="1">
+                        <option selected="selected" value="none">{% trans "Action..." %}</option>
+                        <option value="delete_forever">{% trans "delete forever" %}</option>
+                        <option value="restore">{% trans "restore" %}</option>
+                    </select>
+                {% else %}
+                    {% ifequal box "drafts" %}
+                        <select id="id_action" name="sender" size="1">
+                            <option selected="selected" value="none">{% trans "Action..." %}</option>
+                            <option value="delete">{% trans "delete" %}</option>
+                        </select>
+                    {% else %}
+                        {% ifequal box "sent" %}
+                            <input id="id_choose_all" type="checkbox"/>
+                            <select id="id_action" name="sender" size="1">
+                                <option selected="selected" value="none">{% trans "Action..." %}</option>
+                                <option value="delete">{% trans "delete" %}</option>
+                            </select>
+                        {% else %}
+                            <select id="id_action" name="sender" size="1">
+                                <option selected="selected" value="none">{% trans "Action..." %}</option>
+                                <option value="delete">{% trans "delete" %}</option>
+                                <option value="is_read">{% trans "mark as read" %}</option>
+                                <option value="is_unread">{% trans "mark as unread" %}</option>
+                                <option value="is_spam">{% trans "mark as spam" %}</option>
+                                <option value="is_nospam">{% trans "mark as no spam" %}</option>
+                            </select>
+                        {% endifequal %}
+
+                    {% endifequal %}
+                    <hr class="hidden"/>
+                {% endifequal %}
+            </div>
+            <div class="mails">
+                <div id="id_ask_sure" style="display:None">
+                    <div>
+                        <div class="ask_sure_txt">{% trans "Are you sure?" %}</div>
+                        <div class="buttons">
+                            <input id="id_ask_sure_no" type="button" class="button_bad"
+                                value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
+                            <input id="id_ask_sure_yes" type="button" class="button_good"
+                                value="{% filter upper %}{% trans "Yes" %}{% endfilter %}"/>
+                        </div>
+                    </div>
+                </div>
+                <hr class="hidden"/>
+            </div>
+
+            {% comment %}<!--
+            HERE THE CONTENT BEGINS
+        -->{% endcomment %}
+            <div id="checkboxes_div_id">
+                {% for message in object_list %}
+                    <div id="message_{{ message.id }}" class="list-item expanded">
+                        <div class="message-statusbox">
+                            <input id="action_{{ message.id }}"
+                                type="checkbox"/>
+                            {{ contact.institution.get_title|escape }}
+                            <div class="status-view">
+                                {% if message.is_replied %}
+                                    <div class="message-status replied"><span
+                                        class="hidden">{% trans "replied" %}</span></div>
+                                {% endif %}
+                            </div>
+                            {% if message.is_spam %}
+                                <div class="message-status spam">
+                                <span class="hidden">
+                                    {% trans "spam read" %}
+                                </span>
+                                </div>
+                            {% else %}
+                                {% if message.is_read %}
+                                    <div class="message-status read"><span class="hidden">{% trans "read" %}</span>
+                                    </div>
+                                {% else %}
+                                    <div class="message-status unread"><span class="hidden">{% trans "unread" %}</span>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="message_avatar">
+                            {% ifequal message.sender request.user %}
+                                <a href="{{ message.recipient.get_profile.get_url_path }}">
+                                    {% if message.recipient.get_profile.image %}
+                                        <img alt="{{ message.recipient.get_profile.get_title|escape }}"
+                                            src="{{ UPLOADS_URL }}{{ message.recipient.get_profile.image|modified_path:"at" }}"/>
+                                    {% else %}
+                                        <img alt="{{ person.get_title|escape }}"
+                                            src="{{ DEFAULT_SMALL_LOGO_4_PERSON }}"/>
+                                    {% endif %}
+                                </a>
+                            {% else %}
+                                <a href="{{ message.sender.get_profile.get_url_path }}">
+                                    {% if message.sender.get_profile.image %}
+                                        <img alt="{{ message.sender.get_profile.get_title|escape }}" src="
+
+
+                                            {{ UPLOADS_URL }}{{ message.sender.get_profile.image|modified_path:"at" }}"/>
+                                    {% else %}
+                                        <img alt="{{ message.sender.get_profile.get_title|escape }}"
+                                            src="{{ DEFAULT_SMALL_LOGO_4_PERSON }}"/>
+                                    {% endif %}
+                                </a>
+                            {% endifequal %}
+                        </div>
+
+                        {% if contact.institution %}
+                            {% ifequal contact.institution.status.sysname "draft" %}
+                                {{ contact.institution.get_title|escape }}
+                            {% else %}
+                                <a class="org"
+                                    href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
+                            {% endifequal %}
+                        {% endif %}
+
+                        {%  comment %}<!-- INBOX -->{% endcomment %}
+                        {% ifequal box "inbox" %}
+                            <div class="message-facts txt">
+                                {% trans "from" %}
+                                <a href="{{ message.sender.get_profile.get_url_path }}">
+                                    {{ message.sender.get_profile.get_title }}
+                                </a>
+                                <br/>
+                                {{ message.creation_date|date:_("DATETIME_FORMAT") }}
+                            </div>
+                        {% endifequal %}
+
+
+                        {%  comment %}<!-- SEND -->{% endcomment %}
+                        {% ifequal box "sent" %}
+                            <div class="message-facts txt">
+                                {% trans "to" %}
+                                <a href="{{ message.recipient.get_profile.get_url_path }}">
+                                    {{ message.recipient.get_profile.get_title }}
+                                </a>
+                                <br/>
+                                {{ message.creation_date|date:_("DATETIME_FORMAT") }}
+                            </div>
+                        {% endifequal %}
+
+
+                        {%  comment %}<!-- DELETED -->{% endcomment %}
+                        {% ifequal box "deleted" %}
+                            <div>
+                                {% ifequal message.sender request.user %}
+                                    {% trans "to" %}
+                                    <a href="{{ message.recipient.get_profile.get_url_path }}">
+                                        {{ message.recipient.get_profile.get_title }}
+                                    </a>
+                                {% else %}
+                                    {% trans "from" %}
+                                    <a href="{{ message.sender.get_profile.get_url_path }}">
+                                        {{ message.sender.get_profile.get_title }}
+                                    </a>
+                                {% endifequal %}
+                            </div>
+                        {% endifequal %}
+
+
+                        {%  comment %}<!-- DRAFTS -->{% endcomment %}
+                        {% ifequal box "drafts" %}
+                            <div class="message-facts txt">
+                                {% trans "to" %}
+                                <a href="{{ message.recipient.get_profile.get_url_path }}">
+                                    {{ message.recipient.get_profile.get_title }}
+                                </a>
+                                <br/>
+                                {{ message.creation_date|date:_("DATETIME_FORMAT") }}
+                            </div>
+                        {% endifequal %}
+                        <div class="{% if message.is_read %} read{% else %} unread{% endif %}">
+                            <h5>
+                                <a href="/my-messages/message/{{ message.id }}/">{{ message.subject }}</a>
+                            </h5>
+                        </div>
+                    </div>
+                    <hr class="hidden"/>
+                {% endfor %}
+            </div>
+            {% comment %}<!--
+            HERE THE CONTENT ENDS
+        -->{% endcomment %}
+
+            <div>
+                {% if is_paginated %}
+                    <div class="paginated">
+                        <div class="previous">
+                            {% if has_previous %}
+                                <a href="/my-messages/{{ box }}/?page={{ previous }}">
+                                <span class="enabled">
+                                    <span class="hidden">
+                                        {% trans "previous" %}
+                                    </span>
+                                </span>
+                                </a>
+                            {% else %}
+                                <span class="disabled">
+                                <span class="hidden">{% trans "previous" %}</span>
+                            </span>
+                            {% endif %}
+                        </div>
+                        <form action="" class="uniForm">
+                            <div>
+                                <select class="page_skip"
+                                    onchange="redirect('/my-messages/{{ box }}/?page=' + this.value);">
+                                    {% for pnumber in page_numbers %}
+                                        <option value="{{ pnumber }}"{% ifequal pnumber page %}
+                                            selected="selected"{% endifequal %}>{% blocktrans %}Page {{ pnumber }} of
+                                            {{ pages }}{% endblocktrans %}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </form>
+                        <div class="next">
+                            {% if has_next %}
+                                <a href="/my-messages/{{ box }}/?page={{ next }}">
+                                <span class="enabled">
+                                    <span class="hidden">
+                                        {% trans "next" %}
+                                    </span>
+                                </span>
+                                </a>
+                            {% else %}
+                                <span class="disabled">
+                                <span class="hidden">
+                                    {% trans "next" %}
+                                </span>
+                            </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+
+
+                <form action="" class="uniForm">
+                    <div>
+                        {% trans "show" %}
+                        <select id="id_list_pagination" class="page_count">
+                            <option value="5"{% ifequal results_per_page 5 %} selected="selected"{% endifequal %} >5
+                            </option>
+                            <option value="10"{% ifequal results_per_page 10 %} selected="selected"{% endifequal %} >10
+                            </option>
+                            <option value="20"{% ifequal results_per_page 20 %} selected="selected"{% endifequal %}>20
+                            </option>
+                            <option value="50"{% ifequal results_per_page 50 %} selected="selected"{% endifequal %}>50
+                            </option>
+                        </select>
+                        {% trans "items per page" %}
+                    </div>
+                </form>
+            </div>
+        {% else %}
+            <p class="nothing">{% trans "There are no messages." %}</p>
+        {% endif %}
+        <hr class="hidden"/>
+    </div>
+{% endblock %}
+

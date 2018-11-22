@@ -1,0 +1,20 @@
+{% extends "media_gallery/portfolio_base.html" %}
+{% load i18n %}
+
+{% block details %}
+    <form action="" method="post">{% csrf_token %}
+        <div class="fieldset editable">
+            <fieldset>
+                <h2>{% trans "Delete Landing Page Image?" %}</h2>
+                <h3>{% blocktrans trimmed %}Do you really want to delete the image of the landing
+            page?{% endblocktrans %}</h3>
+            </fieldset>
+        </div>
+
+        <div class="button-group form-buttons">
+            <a href="{{ request.META.HTTP_REFERER }}" class="button">{% filter upper %}{% trans 'Cancel' %}{% endfilter %}</a>
+            <input id="id_delete" class="button danger" type="submit"
+                   value="{% filter upper %}{% trans 'Delete' %}{% endfilter %}" />
+        </div>
+    </form>
+{% endblock %}

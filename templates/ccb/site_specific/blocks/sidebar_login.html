@@ -1,0 +1,50 @@
+{% load i18n navigation_tags base_tags %}
+<div class="sidebar-box sidebar-box-fixed nav_expanded">
+    <h5><b>{% trans "Login" %}</b></h5>
+
+    <div class="hidable">
+        <form method="post" action="{% url 'login' %}" class="uniForm">{% csrf_token %}
+            <!--{{ request.session.set_test_cookie }}-->
+            {% csrf_token %}
+            <div class="ctrlHolder">
+                <label for="id_sidebar_email">{% trans 'Email or Username' %}</label>
+                <input id="id_sidebar_email" type="text" class="form_text textInput" name="email_or_username"
+                    maxlength="75"/>
+            </div>
+            <div class="ctrlHolder">
+                <label for="id_sidebar_password">{% trans 'Password' %} (
+                    <a
+                        href="/password_reset/">{% trans "Forgot?" %}</a>
+                    )
+                </label>
+                <input id="id_sidebar_password" type="password" class="form_password textInput" name="password"/>
+            </div>
+            <div class="buttonHolder">
+                <input id="login1" type="hidden" name="this_is_the_login_form" value="1"/>
+                <input id="login2" type="hidden" name="post_data" value=""/>
+                <input id="login3" type="hidden" name="goto_next" value="/dashboard/"/>
+                <input class="primaryAction" type="submit"
+                    value="{% filter upper %}{% trans 'Log in' %}{% endfilter %}"/>
+            </div>
+        </form>
+        <form method="post" action="/{{ LANGUAGE_CODE }}/facebook/link/" class="uniForm">{% csrf_token %}
+            <div class="buttonHolder">
+                <input type="hidden" name="access_token" value=""/>
+                <input type="hidden" name="uid" value=""/>
+                <input type="hidden" name="goto_next" value="/dashboard/"/>
+            </div>
+        </form>
+        <form class="uniForm">
+            <p class="disclaimer">{% blocktrans %}No profile yet?
+                <a href="/register/">Register</a> for
+                free{% endblocktrans %}</p>
+
+            <div class="buttonHolder">
+                <div class="newregisterbutton">
+                    <a href="/register/">Register Here</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

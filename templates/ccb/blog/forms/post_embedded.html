@@ -1,0 +1,47 @@
+{% load base_tags i18n auth_extended blog uni_form_tags crispy_forms_tags image_modifications %}
+
+<form action="." method="post" enctype="multipart/form-data">{% csrf_token %}
+    {% if form_preview %}
+        <h2>{{ form.title.data }}</h2>
+        {% if form.tmp_image_filename.data %}
+            <div class="photo-credits-wrapper">
+                <img src="/{{ LANGUAGE_CODE }}/helper/tmpimage/{{ form.tmp_image_filename.data }}/850x0/" alt="" />
+                {% if form.image_author.data %}<div class="photo-credits-over">{% trans "Photo" %}: {{ form.image_author.data }}</div>{% endif %}
+            </div>
+        {% elif current_post.image %}
+            <div class="photo-credits-wrapper">
+                <img src="{{ UPLOADS_URL }}{{ current_post.image|modified_path:'article' }}" alt="" />
+                {% if form.image_author.data %}<div class="photo-credits-over">{% trans "Photo" %}: {{ form.image_author.data }}</div>{% endif %}
+            </div>
+        {% endif %}
+
+        <div class="tiny-mce">
+            {{ form.body.data|disarm_user_input }}
+        </div>
+
+        {% if form.tags.data %}
+            <div>
+                {% trans "Tags" %}: {{ form.tags.data }}
+            </div>
+            <br/><br/>
+        {% endif %}
+
+        <div class="button-group">
+            {% if form.status.data == "0" %}
+                <input
+                    type="submit" class="btn btn-primary" id="post" name="{{ post_stage_field }}"
+                    value='{% trans "Save as Draft" %}'
+                />
+            {% else %}
+                <input
+                    type="submit" class="btn btn-primary" id="post" name="{{ post_stage_field }}"
+                    value='{% trans "Save" %}'
+                />
+            {% endif %}
+        </div>
+
+        <br/><br/><br/>
+
+    {% endif %}
+    {% crispy form "ccb_form" %}
+</form>

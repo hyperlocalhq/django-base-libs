@@ -1,262 +1,127 @@
-# Javascript translations of general project
+# Javascript translations of ccb project
 # Copyright (C) 2006 Studio 38
 # This file is distributed under the same license as the PACKAGE package.
 # Aidas Bendoraitis <bendoraitis@studio38.de>, 2007.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Django JavaScript 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-24 20:13+0200\n"
-"PO-Revision-Date: 2011-04-17 02:50\n"
-"Last-Translator: Moderator   <ccb-contact@kulturprojekte-berlin.de>\n"
+"POT-Creation-Date: 2010-08-24 20:17+0200\n"
+"PO-Revision-Date: 2016-09-15 16:44+0053\n"
+"Last-Translator: Laura Casadevall <casadeluxe@web.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Translated-Using: django-rosetta 0.6.1\n"
+"X-Translated-Using: django-rosetta 0.7.6\n"
 
-#: externals/apps/cms/media/cms/js/change_form.js:31
-#: media/cms/js/change_form.js:31
-msgid ""
-"Are you sure you want to change the %(field_name)s without saving the "
-"page first?"
-msgstr ""
-"Sie sind sicher, dass Sie %(field_name)s ändern wollen, ohne die Seite"
-" vorher zu sichern?"
-
-#: externals/apps/cms/media/cms/js/change_form.js:69
-#: media/cms/js/change_form.js:69
-msgid ""
-"Not all plugins are saved. Are you sure you want to save the page?\n"
-"All unsaved plugin content will tried to save."
-msgstr ""
-
-#: externals/apps/cms/media/cms/js/change_form.js:127
-#: media/cms/js/change_form.js:127
-msgid "Are you sure you want to change tabs without saving the page first?"
-msgstr ""
-"Wollen Sie tatsächlich die Seite verlassen, ohne den Inhalt zu "
-"sichern?"
-
-#: externals/apps/cms/media/cms/js/plugin_editor.js:125
-#: media/cms/js/plugin_editor.js:125
-msgid "Are you sure you want to delete this plugin?"
-msgstr "Wollen Sie dieses Plugin tatsächlich löschen?"
-
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.js:291
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.min.js:25
-#: externals/apps/grappelli/media/jquery/grappelli/src/jquery.gTimeField.js:37
-#: media/js/admin/DateTimeShortcuts.js:88
-msgid "Choose a time"
-msgstr "Uhrzeit wählen"
-
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.js:292
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.js:393
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.min.js:25
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.min.js:26
-#: externals/apps/grappelli/media/jquery/grappelli/src/jquery.gDateField.js:18
-#: externals/apps/grappelli/media/jquery/grappelli/src/jquery.gTimeField.js:38
-#: media/js/admin/DateTimeShortcuts.js:98
-#: media/js/admin/DateTimeShortcuts.js:197
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.js:362
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.min.js:26
-#: externals/apps/grappelli/media/jquery/grappelli/src/jquery.gTimeField.js:15
-#: media/js/admin/DateTimeShortcuts.js:57
-#: media/js/admin/DateTimeShortcuts.js:91
-msgid "Now"
-msgstr "Jetzt"
-
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.js:365
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.min.js:26
-#: externals/apps/grappelli/media/jquery/grappelli/src/jquery.gTimeField.js:18
-#: media/js/admin/DateTimeShortcuts.js:92
-msgid "Midnight"
-msgstr "Mitternacht"
-
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.js:368
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.min.js:26
-#: externals/apps/grappelli/media/jquery/grappelli/src/jquery.gTimeField.js:21
-#: media/js/admin/DateTimeShortcuts.js:93
-msgid "6 a.m."
-msgstr "6 Uhr"
-
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.js:371
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.min.js:26
-#: externals/apps/grappelli/media/jquery/grappelli/src/jquery.gTimeField.js:24
-#: media/js/admin/DateTimeShortcuts.js:94
-msgid "Noon"
-msgstr "Mittag"
-
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.js:970
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.min.js:30
-#: externals/apps/grappelli/media/jquery/grappelli/src/jquery.gSelectFilter.js:37
-#: externals/apps/grappelli/media/js/SelectFilter2.js:37
-#: media/js/SelectFilter2.js:33 media/js/SelectFilter2.raw.js:33
+#: media/js/SelectFilter2.raw.js:33
 #, perl-format
 msgid "Available %s"
 msgstr "Verfügbare %s"
 
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.js:971
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.min.js:30
-#: externals/apps/grappelli/media/jquery/grappelli/src/jquery.gSelectFilter.js:38
-#: externals/apps/grappelli/media/js/SelectFilter2.js:57
-#: media/js/SelectFilter2.js:53 media/js/SelectFilter2.raw.js:53
+#: media/js/SelectFilter2.raw.js:41
+msgid "Choose all"
+msgstr "Alles auswählen"
+
+#: media/js/SelectFilter2.raw.js:46
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: media/js/SelectFilter2.raw.js:48
+msgid "Remove"
+msgstr "Entfernen"
+
+#: media/js/SelectFilter2.raw.js:53
 #, perl-format
 msgid "Chosen %s"
 msgstr "Ausgewählte %s"
 
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.js:972
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.min.js:30
-#: externals/apps/grappelli/media/jquery/grappelli/src/jquery.gSelectFilter.js:39
-#: externals/apps/grappelli/media/js/SelectFilter2.js:45
-#: media/js/SelectFilter2.js:41 media/js/SelectFilter2.raw.js:41
-msgid "Choose all"
-msgstr "Alles auswählen"
+#: media/js/SelectFilter2.raw.js:54
+msgid "Select your choice(s) and click "
+msgstr "Gewünschte Auswahl treffen und klicken"
 
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.js:973
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.min.js:30
-#: externals/apps/grappelli/media/jquery/grappelli/src/jquery.gSelectFilter.js:40
-#: externals/apps/grappelli/media/js/SelectFilter2.js:63
-#: media/js/SelectFilter2.js:59 media/js/SelectFilter2.raw.js:59
+#: media/js/SelectFilter2.raw.js:59
 msgid "Clear all"
 msgstr "Alles abwählen"
 
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.js:1003
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.min.js:30
-#: externals/apps/grappelli/media/jquery/grappelli/src/jquery.gSelectFilter.js:70
-#: externals/apps/grappelli/media/js/SelectFilter2.js:50
-#: media/js/SelectFilter2.js:46 media/js/SelectFilter2.raw.js:46
-msgid "Add"
-msgstr "Hinzufügen"
-
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.js:1010
-#: externals/apps/grappelli/media/jquery/grappelli/dist/jquery.grappelli.min.js:30
-#: externals/apps/grappelli/media/jquery/grappelli/src/jquery.gSelectFilter.js:77
-#: externals/apps/grappelli/media/js/SelectFilter2.js:52
-#: media/js/SelectFilter2.js:48 media/js/SelectFilter2.raw.js:48
-msgid "Remove"
-msgstr "Entfernen"
-
-#: externals/apps/grappelli/media/jquery/grappelli/src/jquery.gDateField.js:11
-msgid "DATET_FORMAT"
-msgstr ""
-
-#: externals/apps/grappelli/media/jquery/grappelli/src/jquery.gDateField.js:23
-#: externals/apps/grappelli/media/js/dateparse.js:32 media/js/calendar.js:24
-#: media/js/calendar2.js:24 media/js/dateparse.js:32
+#: media/js/calendar.js:24 media/js/calendar2.js:24 media/js/dateparse.js:32
 msgid ""
-"January February March April May June July August September October "
-"November December"
+"January February March April May June July August September October November"
+" December"
 msgstr ""
-"Januar Februar März April Mai Juni Juli August September Oktober "
-"November Dezember"
+"Januar Februar März April Mai Juni Juli August September Oktober November "
+"Dezember"
 
-#: externals/apps/grappelli/media/jquery/grappelli/src/jquery.gDateField.js:24
-#: externals/apps/grappelli/media/jquery/grappelli/src/jquery.gDateField.js:25
 #: media/js/calendar.js:25 media/js/calendar2.js:25
 msgid "S M T W T F S"
 msgstr "S M D M D F S"
 
-#: externals/apps/grappelli/media/jquery/grappelli/src/jquery.gDateField.js:26
-msgid "FIRST_DAY_OF_WEEK"
-msgstr ""
-
-#: externals/apps/grappelli/media/js/SelectFilter2.js:58
-#: media/js/SelectFilter2.js:54 media/js/SelectFilter2.raw.js:54
-msgid "Select your choice(s) and click "
-msgstr "Gewünschte Auswahl treffen und klicken"
-
-#: externals/apps/grappelli/media/js/dateparse.js:33 media/js/dateparse.js:33
-msgid "Sunday Monday Tuesday Wednesday Thursday Friday Saturday"
-msgstr "Sonntag Montag Dienstag Mittwoch Donnerstag Freitag Samstag"
-
-#: media/js/collapse.js:78
+#: media/js/collapse.js:78 media/js/website/common_compressed.js:32
 msgid "show details"
 msgstr "Details einblenden"
 
-#: media/js/collapse.js:84
+#: media/js/collapse.js:84 media/js/website/common_compressed.js:36
 msgid "hide details"
 msgstr "Details ausblenden"
 
-#: media/js/admin/CollapsedFieldsets2.js:35
-#: media/js/admin/CollapsedFieldsets2.js:79
-#: media/js/admin/CollapsedFieldsets2.js:111
-msgid "Show"
-msgstr "Zeigen"
+#: media/js/dateparse.js:33
+msgid "Sunday Monday Tuesday Wednesday Thursday Friday Saturday"
+msgstr "Sonntag Montag Dienstag Mittwoch Donnerstag Freitag Samstag"
 
-#: media/js/admin/CollapsedFieldsets2.js:70
-msgid "Hide"
-msgstr "Verbergen"
-
-#: media/js/admin/DateTimeShortcuts.js:61
-msgid "Clock"
-msgstr "Uhr"
-
-#: media/js/admin/DateTimeShortcuts.js:142
-#: media/js/admin/DateTimeShortcuts.js:191
-msgid "Today"
-msgstr "Heute"
-
-#: media/js/admin/DateTimeShortcuts.js:146
-msgid "Calendar"
-msgstr "Kalender"
-
-#: media/js/admin/DateTimeShortcuts.js:189
-msgid "Yesterday"
-msgstr "Gestern"
-
-#: media/js/admin/DateTimeShortcuts.js:193
-msgid "Tomorrow"
-msgstr "Morgen"
-
-#: media/js/admin/URLField.js:7
-msgid "Open Link"
-msgstr "Link öffen"
-
-#: media/js/jquery/jquery.popup.js:12 media/js/jquery/jquery.popup.js.py:13
-#: media/js/website/map.js:7 media/js/website/profile.js:194
-msgid "in progress..."
-msgstr "im Gange..."
-
-#: media/js/jquery/jquery.popup.js:12 media/js/website/map.js:7
+#: media/js/jquery/jquery.popup.js:13 media/js/website/map.js:11
 msgid "Loading. Please wait."
 msgstr "Seite lädt. Bitte warten."
 
-#: media/js/jquery/jquery.popup.js:13
+#: media/js/jquery/jquery.popup.js:14
 msgid "Reloading the page..."
 msgstr "Seite lädt neu..."
 
-#: media/js/website/add_event.js:343 media/js/website/profile.js:660
+#: media/js/website/add_event.js:19 media/js/website/profile.js:397
+msgid "Event has an end date"
+msgstr "Event hat ein Enddatum"
+
+#: media/js/website/add_event.js:360 media/js/website/profile.js:861
 msgid "Remove Fee"
 msgstr "Gebühr entfernen"
 
-#: media/js/website/add_event.js:349 media/js/website/profile.js:666
+#: media/js/website/add_event.js:366 media/js/website/profile.js:867
 msgid "Add Fee"
 msgstr "Gebühr hinzufügen"
 
-#: media/js/website/blog.js:41
-msgid "Edit Post"
-msgstr "Beitrag bearbeiten"
+#: media/js/website/add_event.js:492 media/js/website/add_event.js.py:494
+#: media/js/website/add_event.js:502 media/js/website/add_event.js.py:510
+#: media/js/website/add_event.js:528 media/js/website/add_event.js.py:529
+#: media/js/website/add_event.js:530 media/js/website/add_event.js.py:531
+#: media/js/website/profile.js:996 media/js/website/profile.js.py:998
+#: media/js/website/profile.js:1006 media/js/website/profile.js.py:1014
+#: media/js/website/profile.js:1032 media/js/website/profile.js.py:1033
+#: media/js/website/profile.js:1034 media/js/website/profile.js.py:1035
+msgid "HH:MM"
+msgstr "HH:MM"
 
-#: media/js/website/blog.js:57 media/js/website/forum.js:209
-msgid "Delete Post"
-msgstr "Beitrag löschen"
+#: media/js/website/common.js:60 media/js/website/common_compressed.js:108
+msgid "Choose profile"
+msgstr "Profil auswählen"
 
-#: media/js/website/blog.js:70
-msgid "Refuse Comment"
-msgstr "Kommentar löschen"
+#: media/js/website/common.js:122 media/js/website/common_compressed.js:132
+#: media/js/website/map.js:11 media/js/website/profile.js:233
+msgid "in progress..."
+msgstr "im Gange..."
 
-#: media/js/website/blog.js:83
-msgid "Accept Comment"
-msgstr "Kommentar freigeben"
+#: media/js/website/common.js:210 media/js/website/common_compressed.js:176
+msgid "Do you really want to delete this bookmark?"
+msgstr "Willst Du dieses Lesezeichen tatsächlich löschen?"
 
-#: media/js/website/blog.js:96
-msgid "Mark as Spam"
-msgstr "Markieren als Spam"
+#: media/js/website/formsets.js:7
+msgid "Add another entry"
+msgstr "Weiteren Eintrag hinzufügen"
+
+#: media/js/website/formsets.js:18 media/js/website/profile.js:375
+#: media/js/website/profile.js.py:460
+msgid "Delete"
+msgstr "Löschen"
 
 #: media/js/website/forum.js:40
 msgid "New Forum Category"
@@ -298,13 +163,17 @@ msgstr "Diskussion löschen"
 msgid "Edit Comment"
 msgstr "Kommentar bearbeiten"
 
+#: media/js/website/forum.js:209
+msgid "Delete Post"
+msgstr "Beitrag löschen"
+
 #: media/js/website/forum.js:228
 msgid "Refuse Post"
 msgstr "Beitrag ablehnen"
 
 #: media/js/website/forum.js:247
 msgid "Mark Post as Spam"
-msgstr "Nachricht als Spam markieren"
+msgstr "Beitrag als Spam markieren"
 
 #: media/js/website/generic.js:45 media/js/website/generic.js.py:46
 msgid "Add to favorites"
@@ -318,43 +187,31 @@ msgstr "Als Favorit hinzugefügt"
 msgid "Remove from favorites"
 msgstr "Favorit entfernen"
 
-#: media/js/website/generic.js:115 media/js/website/generic.js.py:116
+#: media/js/website/generic.js:118 media/js/website/generic.js.py:119
 #: media/js/website/individual_relations.js:10
 #: media/js/website/individual_relations.js:11
 msgid "Add to contacts"
 msgstr "Zu Kontakten hinzufügen"
 
-#: media/js/website/generic.js:117 media/js/website/individual_relations.js:14
+#: media/js/website/generic.js:120 media/js/website/individual_relations.js:14
 msgid "It's your contact"
 msgstr "Als Kontakt hinzugefügt"
 
-#: media/js/website/generic.js:118 media/js/website/individual_relations.js:15
+#: media/js/website/generic.js:121 media/js/website/individual_relations.js:15
 msgid "Remove from contacts"
 msgstr "Kontakt entfernen"
 
-#: media/js/website/generic.js:157 media/js/website/generic.js.py:158
-msgid "Add to recommendations"
-msgstr "Empfehlung hinzufügen"
-
-#: media/js/website/generic.js:159
-msgid "It's your recommendation"
-msgstr "Empfehlung hinzugefügt"
-
-#: media/js/website/generic.js:160
-msgid "Remove from recommendations"
-msgstr "Empfehlung entfernen"
-
-#: media/js/website/generic.js:199 media/js/website/generic.js.py:200
-msgid "Memo"
+#: media/js/website/generic.js:160 media/js/website/generic.js.py:161
+msgid "Add to Memo"
 msgstr "Zur Merkliste hinzufügen"
 
-#: media/js/website/generic.js:201
-msgid "Memorized"
-msgstr "Zu Merkliste hinzugefügt"
+#: media/js/website/generic.js:162 media/js/website/generic.js.py:163
+msgid "Remove Memo"
+msgstr "Von der Merkliste entfernen"
 
-#: media/js/website/generic.js:202
-msgid "Forget"
-msgstr "Löschen"
+#: media/js/website/generic.js:250
+msgid "Gallery view is not yet implemented!"
+msgstr "Galerieansicht ist noch in Bearbeitung!"
 
 #: media/js/website/group_members.js:27
 msgid "Edit Group Member"
@@ -369,7 +226,7 @@ msgstr "An Gruppe teilnehmen"
 #: media/js/website/groups_networks.js:12
 #: media/js/website/groups_networks.js:13
 msgid "Cancel Joining"
-msgstr "Anfrage zur Gruppenteilnahme zurückziehen"
+msgstr "Anfrage zur Gruppenteilnahme abbrechen"
 
 #: media/js/website/groups_networks.js:14
 #: media/js/website/groups_networks.js:15
@@ -417,11 +274,11 @@ msgstr "Beziehung widerrufen"
 #: media/js/website/individual_relations.js:12
 #: media/js/website/individual_relations.js:13
 msgid "Cancel relationship"
-msgstr "Beziehung widerrufen"
+msgstr "Beziehung beenden"
 
 #: media/js/website/individual_relations.js:16
 msgid "Requesting confirmation"
-msgstr "Bestätigung anfragen"
+msgstr "Bestätigung anfordern"
 
 #: media/js/website/individual_relations.js:17
 msgid "Confirm relationship"
@@ -451,55 +308,59 @@ msgstr "Kontakt blockieren"
 msgid "Invite"
 msgstr "Einladen"
 
-#: media/js/website/portfolio.js:101
-msgid "Media file is broken."
-msgstr "Mediendatei ist defekt"
+#: media/js/website/jovoto.js:37 media/js/website/mediaset_comments.js:42
+msgid "Refuse Comment"
+msgstr "Kommentar ablehnen"
 
-#: media/js/website/portfolio.js:140
+#: media/js/website/jovoto.js:53 media/js/website/mediaset_comments.js:58
+msgid "Accept Comment"
+msgstr "Kommentar akzeptieren"
+
+#: media/js/website/jovoto.js:69 media/js/website/mediaset_comments.js:74
+msgid "Mark as Spam"
+msgstr "Als Spam markieren"
+
+#: media/js/website/portfolio.js:193
 msgid "Delete Media File"
 msgstr "Datei löschen"
 
-#: media/js/website/profile.js:212
+#: media/js/website/profile.js:249
 msgid "edit"
 msgstr "bearbeiten"
 
-#: media/js/website/profile.js:222
+#: media/js/website/profile.js:259
 msgid "add contact"
 msgstr "Kontakt hinzufügen"
 
-#: media/js/website/profile.js:283
+#: media/js/website/profile.js:338
 msgid "Delete Contact"
 msgstr "Kontakt löschen"
 
-#: media/js/website/profile.js:318 media/js/website/profile.js.py:354
-msgid "Delete"
-msgstr "Löschen"
-
-#: media/js/website/profile.js:367
+#: media/js/website/profile.js:476
 msgid "Delete Avatar"
 msgstr "Profilbild löschen"
 
-#: media/js/website/profile.js:408 media/js/website/registration.js:57
+#: media/js/website/profile.js:533 media/js/website/registration.js:57
 msgid "Remove email"
 msgstr "Email entfernen"
 
-#: media/js/website/profile.js:414 media/js/website/registration.js:63
+#: media/js/website/profile.js:539 media/js/website/registration.js:63
 msgid "Add email"
 msgstr "Weitere Email"
 
-#: media/js/website/profile.js:422 media/js/website/registration.js:71
+#: media/js/website/profile.js:547 media/js/website/registration.js:71
 msgid "Remove URL"
 msgstr "Webseite löschen"
 
-#: media/js/website/profile.js:428 media/js/website/registration.js:77
+#: media/js/website/profile.js:553 media/js/website/registration.js:77
 msgid "Add URL"
 msgstr "Weitere Webseite"
 
-#: media/js/website/profile.js:436 media/js/website/registration.js:85
+#: media/js/website/profile.js:561 media/js/website/registration.js:85
 msgid "Remove IM"
 msgstr "Instant Messenger löschen"
 
-#: media/js/website/profile.js:442 media/js/website/registration.js:91
+#: media/js/website/profile.js:567 media/js/website/registration.js:91
 msgid "Add IM"
 msgstr "Weitere Instant Messenger"
 
@@ -511,6 +372,33 @@ msgstr "Kontakt entfernen"
 msgid "Add contact"
 msgstr "Kontakt hinzufügen"
 
+#~ msgid "Add to recommendations"
+#~ msgstr "Empfehlung hinzufügen"
+
+#~ msgid "It's your recommendation"
+#~ msgstr "Empfehlung hinzugefügt"
+
+#~ msgid "Remove from recommendations"
+#~ msgstr "Empfehlung entfernen"
+
+#~ msgid "Now"
+#~ msgstr "Jetzt"
+
+#~ msgid "Clock"
+#~ msgstr "Uhr"
+
+#~ msgid "Choose a time"
+#~ msgstr "Uhrzeit wählen"
+
+#~ msgid "Midnight"
+#~ msgstr "Mitternacht"
+
+#~ msgid "6 a.m."
+#~ msgstr "6 Uhr"
+
+#~ msgid "7 a.m."
+#~ msgstr "7 Uhr"
+
 #~ msgid "8 a.m."
 #~ msgstr "8 Uhr"
 
@@ -520,23 +408,32 @@ msgstr "Kontakt hinzufügen"
 #~ msgid "10 a.m."
 #~ msgstr "10 Uhr"
 
-#~ msgid "6 p.m."
-#~ msgstr "18 Uhr"
-
-#~ msgid "7 p.m"
-#~ msgstr "19 Uhr"
-
-#~ msgid "8 p.m."
-#~ msgstr "20 Uhr"
-
 #~ msgid "Just before midnight"
 #~ msgstr "kurz vor Mitternacht"
 
-#~ msgid "Choose profile"
-#~ msgstr "Profil auswählen"
+#~ msgid "Noon"
+#~ msgstr "Mittag"
 
-#~ msgid "Do you really want to delete this bookmark?"
-#~ msgstr "Wollen Sie dieses Lesezeichen tatsächlich löschen?"
+#~ msgid "Cancel"
+#~ msgstr "Abbrechen"
+
+#~ msgid "Today"
+#~ msgstr "Heute"
+
+#~ msgid "Calendar"
+#~ msgstr "Kalender"
+
+#~ msgid "Yesterday"
+#~ msgstr "Gestern"
+
+#~ msgid "Tomorrow"
+#~ msgstr "Morgen"
+
+#~ msgid "Hide"
+#~ msgstr "Verbergen"
+
+#~ msgid "Show"
+#~ msgstr "Zeigen"
 
 #~ msgid "Add to watchlist"
 #~ msgstr "Zur Merkliste hinzufügen"
@@ -547,11 +444,29 @@ msgstr "Kontakt hinzufügen"
 #~ msgid "Remove from watchlist"
 #~ msgstr "Aus Merkliste entfernen"
 
+#~ msgid "Open Link"
+#~ msgstr "Link öffen"
+
+#~ msgid "Memo"
+#~ msgstr "Zur Merkliste hinzufügen"
+
+#~ msgid "Forget"
+#~ msgstr "Löschen"
+
+#~ msgid "Memorized"
+#~ msgstr "Zu Merkliste hinzugefügt"
+
+#~ msgid "Edit Post"
+#~ msgstr "Beitrag bearbeiten"
+
 #~ msgid "delete contact"
 #~ msgstr "Kontakt löschen"
 
 #~ msgid "edit permissions"
 #~ msgstr "Rechte bearbeiten"
 
-#~ msgid "Gallery view is not yet implemented!"
-#~ msgstr "Galerieansicht ist noch in Bearbeitung!"
+#~ msgid "My new bookmark"
+#~ msgstr "Mein neues Lesezeichen"
+
+#~ msgid "Go back"
+#~ msgstr "zurück"

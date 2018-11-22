@@ -1,0 +1,372 @@
+{% extends "styleguide/base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Left Navigation</h1>
+                <br/>
+                <p class="uppercase underline">Navigation layout block</p>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                Place navgation here!
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                
+                Place elements here!
+                    
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <br/>
+                <br/>
+                <pre>&lt;div class="container">
+    &lt;div class="row">
+        &lt;div class="col-xs-12 col-sm-4 col-md-3">
+            
+            Place navgation here!
+            
+        &lt;/div>
+        &lt;div class="col-xs-12 col-sm-8 col-md-9">
+            
+            Place elements here!
+                
+        &lt;/div>
+    &lt;/div>
+&lt;/div></pre>
+                <br/>
+                <br/>
+                <br/>
+                <p class="uppercase underline">Profile image</p>
+                <p>Place the element inside the navigation section of a navigation layout block.</p>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                <div class="profile-image">
+                    <img src="http://placehold.it/270x281&text=image"/>
+                    <button class="fawesome fa-bookmark button text switch on"><span class="text">Bookmark</span></button>
+                    <button class="fawesome fa-favorite button text switch"><span class="text">Appreciate</span></button>
+                    <a class="fawesome fa-more button text" href="#"><span class="text">Share</span></a>
+                    <a class="fawesome fa-bullhorn button text" href="#"><span class="text">Blogpost</span></a>
+                </div>
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                
+                Elements
+                
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+<pre>&lt;div class="profile-image">
+    &lt;img src="&#123;{ UPLOADS_URL }}&#123;{ profile.image|modified_path:"profile" }}" alt="&#123;{ profile.name|escape }}/>
+    &lt;button class="fawesome fa-bookmark button text switch on">&lt;span class="text">Bookmark&lt;/span>&lt;/button>
+    &lt;button class="fawesome fa-favorite button text switch">&lt;span class="text">Appreciate&lt;/span>&lt;/button>
+    &lt;a class="fawesome fa-more button text" href="#">&lt;span class="text">Share&lt;/span>&lt;/a>
+    &lt;a class="fawesome fa-bullhorn button text" href="#">&lt;span class="text">Blogpost&lt;/span>&lt;/a>
+&lt;/div></pre>
+                <br/>
+                <br/>
+                <br/>
+                <p class="uppercase underline">Button Group</p>
+                <p>Place the element inside the navigation section of a navigation layout block.</p>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                <div class="button-group-left-navi">
+                    <button class="fawesome fa-bookmark button text switch on"><span class="text">Bookmark</span></button>
+                    <button class="fawesome fa-favorite button text switch"><span class="text">Appreciate</span></button>
+                    <a class="fawesome fa-more button text" href="#"><span class="text">Share</span></a>
+                    <a class="fawesome fa-bullhorn button text" href="#"><span class="text">Blogpost</span></a>
+                </div>
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                
+                Elements
+                
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+<pre>&lt;div class="button-group-left-navi">
+    &lt;button class="fawesome fa-bookmark button text switch on">&lt;span class="text">Bookmark&lt;/span>&lt;/button>
+    &lt;button class="fawesome fa-favorite button text switch">&lt;span class="text">Appreciate&lt;/span>&lt;/button>
+    &lt;a class="fawesome fa-more button text" href="#">&lt;span class="text">Share&lt;/span>&lt;/a>
+    &lt;a class="fawesome fa-bullhorn button text" href="#">&lt;span class="text">Blogpost&lt;/span>&lt;/a>
+&lt;/div></pre>
+                <br/>
+                <br/>
+                <br/>
+                <p class="uppercase underline">Navigation box</p>
+                <p>Place the element inside the navigation section of a navigation layout block.</p>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                <nav>
+                    <ul class="accordion navi-box">
+                        <li class="accordion-inside accordion-trigger opened">
+                            <div class="accordion-trigger head">Fotografie</div>
+                            <ul class="accordion navi-box">
+                                <li><a href="#">Überblick</a></li>
+                                <li><a href="#">Netzwerk</a></li>
+                                <li><a href="#">News</a></li>
+                                <li><a href="#">Events</a></li>
+                                <li><a href="#" class="active">Profile</a></li>
+                                <li><a href="#">FAQ</a></li>
+                            </ul>
+                        </li>
+                        <li></li>
+                    </ul>
+                </nav>
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                
+                Elements
+                
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+<pre>&lt;nav>
+    &lt;ul class="accordion navi-box">
+        &lt;li class="accordion-inside accordion-trigger opened">
+            &lt;div class="accordion-trigger head">Fotografie&lt;/div>
+            &lt;ul class="accordion navi-box">
+                &lt;li>&lt;a href="#">Überblick&lt;/a>&lt;/li>
+                &lt;li>&lt;a href="#">Netzwerk&lt;/a>&lt;/li>
+                &lt;li>&lt;a href="#">News&lt;/a>&lt;/li>
+                &lt;li>&lt;a href="#">Events&lt;/a>&lt;/li>
+                &lt;li>&lt;a href="#" class="active">Profile&lt;/a>&lt;/li>
+                &lt;li>&lt;a href="#">FAQ&lt;/a>&lt;/li>
+            &lt;/ul>
+        &lt;/li>
+        &lt;li>&lt;/li>
+    &lt;/ul>
+&lt;/nav></pre>
+                <p>Always put an empty list tag at the end of the outer most list!!!</p>
+                <br/>
+                <br/>
+                <br/>
+                <p class="uppercase underline">Filter box</p>
+                <p>Place the element inside the navigation section of a navigation layout block.<br/>
+                Add class="active" to an active link.</p>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                <ul class="accordion filter-box">
+                    <li><div class="head">Filter</div></li>
+                    <li class="accordion-inside accordion-trigger">
+                        <div class="child accordion-trigger">Business Category</div>
+                        <ul class="accordion">
+                            <li><a href="#">Filter</a></li>
+                            <li><a href="#">Filter</a></li>
+                        </ul>
+                    </li>
+                    <li class="accordion-inside accordion-trigger">
+                        <div class="child accordion-trigger">Standort</div>
+                        <ul class="accordion">
+                            <li><a href="#">Filter</a></li>
+                            <li><a href="#">Filter</a></li>
+                        </ul>
+                    </li>
+                    <li></li>
+                </ul>
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                
+                Elements
+                
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+<pre>&lt;ul class="accordion filter-box">
+    &lt;li>&lt;div class="head">Filter&lt;/div>&lt;/li>
+    &lt;li class="accordion-inside accordion-trigger">
+        &lt;div class="child accordion-trigger">Business Category&lt;/div>
+        &lt;ul class="accordion">
+            &lt;li>&lt;a href="#">Filter&lt;/a>&lt;/li>
+            &lt;li>&lt;a href="#">Filter&lt;/a>&lt;/li>
+        &lt;/ul>
+    &lt;/li>
+    &lt;li class="accordion-inside accordion-trigger">
+        &lt;div class="child accordion-trigger">Standort&lt;/div>
+        &lt;ul class="accordion">
+            &lt;li>&lt;a href="#">Filter&lt;/a>&lt;/li>
+            &lt;li>&lt;a href="#">Filter&lt;/a>&lt;/li>
+        &lt;/ul>
+    &lt;/li>
+    &lt;li>&lt;/li>
+&lt;/ul></pre>
+                <p>Always put an empty list tag at the end of the outer most list!!!</p>
+                <br/>
+                <br/>
+                <br/>
+                <p class="uppercase underline">Navi &amp; Filter box combined</p>
+                <p>Place the element inside the navigation section of a navigation layout block.<br/>
+                Add class="active" to an active link.</p>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                <ul class="accordion navi-box">
+                    <li class="accordion-inside accordion-trigger opened">
+                        <div class="accordion-trigger head">{% trans 'Filter' %}</div>
+                        <ul class="accordion filter-box">
+                            <li class="accordion-inside accordion-trigger">
+                                <div class="child accordion-trigger">Business Category</div>
+                                <ul class="accordion">
+                                    <li><a href="#">Filter</a></li>
+                                    <li><a href="#">Filter</a></li>
+                                </ul>
+                            </li>
+                            <li class="accordion-inside accordion-trigger">
+                                <div class="child accordion-trigger">Standort</div>
+                                <ul class="accordion">
+                                    <li><a href="#">Filter</a></li>
+                                    <li><a href="#">Filter</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li></li>
+                </ul>
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                
+                Elements
+                
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+<pre>&lt;ul class="accordion navi-box">
+    &lt;li class="accordion-inside accordion-trigger opened">
+        &lt;div class="accordion-trigger head">{% trans 'Filter' %}&lt;/div>
+        &lt;ul class="accordion filter-box">
+            &lt;li class="accordion-inside accordion-trigger">
+                &lt;div class="child accordion-trigger">Business Category&lt;/div>
+                &lt;ul class="accordion">
+                    &lt;li>&lt;a href="#">Filter&lt;/a>&lt;/li>
+                    &lt;li>&lt;a href="#">Filter&lt;/a>&lt;/li>
+                &lt;/ul>
+            &lt;/li>
+            &lt;li class="accordion-inside accordion-trigger">
+                &lt;div class="child accordion-trigger">Standort&lt;/div>
+                &lt;ul class="accordion">
+                    &lt;li>&lt;a href="#">Filter&lt;/a>&lt;/li>
+                    &lt;li>&lt;a href="#">Filter&lt;/a>&lt;/li>
+                &lt;/ul>
+            &lt;/li>
+        &lt;/ul>
+    &lt;/li>
+    &lt;li>&lt;/li>
+&lt;/ul></pre>
+                <p>Always put an empty list tag at the end of the outer most list!!!</p>
+                <br/>
+                <br/>
+                <br/>
+                <p c class="uppercase underline">Info box</p>
+                <p>Place the element inside the navigation section of a navigation layout block.</p>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                
+                <ul class="accordion info-box">
+                    <li class="accordion-inside accordion-trigger opened">
+                        <div class="accordion-trigger head">Info & Hilfe</div>
+                        <ul class="accordion content">
+                            <li>
+                                <h1>Headline</h1>
+                                <p><strong>Hier kannst du:</strong> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy <a href="#">ein Textlink</a> eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+                                <hr/>
+                                <p><a href="#">FAQ zum Thema</a></p>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                
+                Elements
+                
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+<pre>&lt;ul class="accordion info-box">
+    &lt;li class="accordion-inside accordion-trigger opened">
+        &lt;div class="accordion-trigger head">Info & Hilfe&lt;/div>
+        &lt;ul class="accordion content">
+            &lt;li>
+                &lt;h1>Headline&lt;/h1>
+                &lt;p>&lt;strong>Hier kannst du:&lt;/strong> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.&lt;/p>
+                &lt;p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy &lt;a href="#">ein Textlink&lt;/a> eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.&lt;/p>
+                &lt;hr/>
+                &lt;p>&lt;a href="#">FAQ zum Thema&lt;/a>&lt;/p>
+            &lt;/li>
+        &lt;/ul>
+    &lt;/li>
+&lt;/ul></pre>
+            </div>
+        </div>
+    </div>
+{% endblock %}
