@@ -31,8 +31,6 @@ function run_django_command {
 
 COMMANDS=(
 #    "import_from_NON_EXISTING_SOURCE:Importing from Non-existing Source (should trigger error)"
-
-#    "import_from_parkaue:Importing from Theater an der Parkaue"  # DEPRECATED
     "import_from_schaubuehne:Importing from Schaubuehne"
     "import_from_schlosspark_theater_new:Importing from Schlosspark Theater (New)"
     "import_from_sophiensaele:Importing from Sophiensaele"
