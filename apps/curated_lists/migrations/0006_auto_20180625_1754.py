@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('contenttypes', '0002_remove_content_type_name'),
-        ('structure', '0005_auto_20170529_1803'),
+        ('structure', '0001_initial'),
         ('curated_lists', '0005_auto_20160901_1619'),
     ]
 
