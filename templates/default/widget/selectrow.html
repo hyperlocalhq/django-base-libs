@@ -7,12 +7,10 @@ Template for a form ajaxified select field.
         <label class="{% if field.formfield.is_required %}required{% else %}optional{% endif %}"
                for="{{ field.get_id }}">{% trans label %}:
         </label>
-        <select dojoType="dijit.form.Select"
+        <select
                 id="{{ field.get_id }}"
                 name="{{ field.field_name }}"
-                dataUrl="{{ data_url }}"
-                mode="remote"
-                value="{{ value }}">
+        >
             {% for choice in field.formfield.choices %}
                 <option value="{{ choice.0 }}"{% ifequal choice.0 value %}
                         selected="selected"{% endifequal %}>{{ choice.1 }}</option>

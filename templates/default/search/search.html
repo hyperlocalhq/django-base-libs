@@ -21,7 +21,7 @@
                 {% include "site_specific/categories/categories.html" %}
             </div>
             <div class="field_layout{% if form.advanced_search_text.formfield.is_required %} required{% endif %}">
-                <h6 class="advanced_search" for="id_advanced_search_text">{% trans 'keyword' %}</h6>
+                <label class="advanced_search" for="id_advanced_search_text">{% trans 'keyword' %}</label>
                 {{ form.advanced_search_text }}
             </div>
             <div class="field_layout">
