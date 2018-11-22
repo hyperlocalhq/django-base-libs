@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n base_tags infoblocks %}
+
+{% block title %}{% trans "Page not found" %}{% endblock %}
+
+{% block headline %}
+    <h2 class="main">{% trans "Error 404" %}</h2>
+{% endblock %}
+
+{% block sidebar-a %}
+{% endblock %}
+
+{% block content %}
+    <div class="error">
+        <p>{% trans "Sorry, but the page you are looking for does not exist. We would appreciate it if you report this error using our suggest form. The second option is to simply click the back button to continue with what you were doing." %}</p>
+        <form action="">
+            <div class="buttons">
+                <input type="button"
+                       class="button_good"
+                       value="{% filter upper %}{% trans "back" %}{% endfilter %}"
+                       onclick="window.history.go(-1)"/>
+                <input type="button"
+                       class="button_good"
+                       value="{% filter upper %}{% trans "report" %}{% endfilter %}"
+                       onclick="redirect('/ticket/')"/>
+            </div>
+        </form>
+    </div>
+{% endblock %}

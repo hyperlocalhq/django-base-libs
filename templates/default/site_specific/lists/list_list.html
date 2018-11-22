@@ -1,0 +1,42 @@
+{% extends "site_specific/lists/details_base.html" %}
+{% load i18n base_tags navigation_tags memos %}
+
+{% block extrahead %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+{% endblock %}
+
+
+{% block title %}{% trans "Lists" %}{% endblock %}
+
+{% block headline %}
+    <h2 class="main">{% trans "Lists" %}</h2>
+{% endblock %}
+
+{% block content %}
+
+    {% if object_list %}
+
+        {% include "utils/sorting_view_pagination_header.html" %}
+
+        {% block breadcrumbs %}
+            <div class="breadcrumbs">
+                <div>
+                    {% trans "Filter" %}:
+                    {% for cat in selected_browsing_cats %}
+                        {% if not forloop.first %}::{% endif %}
+                        <a class="cross" href="/browse/by-{{ cat.criterion }}/all/">{{ cat.get_title|escape }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endblock %}
+
+        {% include "site_specific/context_item_list.html" %}
+
+        {% include "utils/pagination_footer.html" %}
+
+    {% else %}
+        <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
+    {% endif %}
+    <div class="cleaner"></div></div>
+{% endblock %}
+

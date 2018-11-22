@@ -1,0 +1,92 @@
+{% extends "admin/change_form.html" %}
+
+{% load i18n admin_modify base_tags %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <script type="text/javascript">
+        //<![CDATA[
+        var ParentTermManager = {
+            oVocabularyNode: null,
+            oParentNode: null,
+            sDefaultValue: "",
+            aTerms: {}, // option object lists for each vocabulary id
+            aMapper: {}, // option objects for each term id
+            init: function () {
+                var oSelf = ParentTermManager;
+                oSelf.oVocabularyNode = document.getElementById("id_vocabulary");
+                oSelf.oParentNode = document.getElementById("id_parent");
+                oSelf.sDefaultValue = ParentTermManager.oParentNode.value;
+                oSelf._respondToQueryVars();
+                oSelf._collectOptStyles();
+                oSelf.changeTerms();
+                addEvent(
+                    oSelf.oVocabularyNode,
+                    'change',
+                    oSelf.changeTerms
+                );
+            },
+            changeTerms: function () {
+                var oSelf = ParentTermManager;
+                oSelf._removeCurrentOpts();
+                oSelf._addAppropriateOpts();
+            },
+            _respondToQueryVars: function () {
+                var oSelf = ParentTermManager;
+                var aUrl = document.location.href.split("?");
+                if (aUrl[1]) {
+                    var aQueryVars = aUrl[1].split("&");
+                    for (var iPos = 0, iLen = aQueryVars.length; iPos < iLen; iPos++) {
+                        aNameValue = aQueryVars[iPos].split("=");
+                        if ("vocabulary__id__exact" === aNameValue[0]) {
+                            oSelf.oVocabularyNode.value = parseInt(aNameValue[1]);
+                        }
+                    }
+                }
+            },
+            _collectOptStyles: function () {
+                var oSelf = ParentTermManager;
+                var oSelectNode = oSelf.oParentNode;
+                var iLen = oSelectNode.options.length;
+                for (i = 0; i < iLen; i++) {
+                    var oOrig = oSelectNode.options[i];
+                    var oDyn = oSelf.aMapper[oOrig.value];
+                    if (oDyn) {
+                        oDyn.innerHTML = oOrig.innerHTML;
+                    }
+                }
+            },
+            _removeCurrentOpts: function () {
+                var oSelf = ParentTermManager;
+                var oSelectNode = oSelf.oParentNode;
+                while (oSelectNode.options.length) {
+                    oSelectNode.options[0] = null;
+                }
+            },
+            _addAppropriateOpts: function () {
+                var oSelf = ParentTermManager;
+                var oSelectNode = oSelf.oParentNode;
+                var aTerms = oSelf.aTerms;
+                var oVocabularyNode = document.getElementById("id_vocabulary");
+                if (oVocabularyNode.value) {
+                    for (var iPos = 0, iLen = aTerms[oVocabularyNode.value].length; iPos < iLen; iPos++) {
+                        oSelectNode.options[oSelectNode.options.length] = aTerms[oVocabularyNode.value][iPos];
+                    }
+                }
+                oSelectNode.value = oSelf.sDefaultValue;
+            }
+        };
+        {% get_all_objects structure.term as terms %}
+        {% regroup terms by vocabulary_id as groupedterms %}
+        {% for voc in groupedterms %}
+        if (!ParentTermManager.aTerms[{{ voc.grouper }}]) {
+            ParentTermManager.aTerms[{{ voc.grouper }}] = Array();
+            ParentTermManager.aTerms[{{ voc.grouper }}][0] = new Option("-------", "");
+        }
+        {% for term in voc.list %}ParentTermManager.aTerms[{{ voc.grouper }}][ParentTermManager.aTerms[{{ voc.grouper }}].length] = ParentTermManager.aMapper['{{ term.pk }}'] = new Option("{{ term.get_title|escapejs }}", "{{ term.pk }}");
+        {% endfor %}{% endfor %}
+        addEvent(window, 'load', ParentTermManager.init);
+        //]]>
+    </script>
+{% endblock %}
+

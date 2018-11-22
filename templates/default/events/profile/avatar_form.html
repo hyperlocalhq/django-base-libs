@@ -1,0 +1,36 @@
+{% load i18n base_tags auth_extended image_mods_tags %}
+<div class="form_avatar_position profile_infos">
+    <h5 class="edit_subline">{% trans "upload a photo" %}</h5>
+    <div class="field_layout">
+        <form action="/helper/edit-{{ URL_ID_EVENT }}-profile/{{ object.slug }}/avatar/"
+              method="post"
+              enctype="multipart/form-data"
+              target="hidden_iframe">
+            <fieldset class="fieldset_end">
+                <ul>
+                    <li class="preview_img">
+                        {% if object.image %}
+                            <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"ap" }}"
+                                 alt="{{ object.get_title|escape }}"/>
+                        {% else %}
+                            <img src="{{ DEFAULT_FORM_LOGO_4_EVENT }}" alt="{{ object.get_title|escape }}"/>
+                        {% endif %}
+                    </li>
+                    <li class="insert_img">
+                        {{ form.media_file }} {{ form.media_file.error_tag }}
+                        <label class="label_input_img">
+                            {{ form.media_file.help_text }}
+                        </label>
+                    </li>
+                </ul>
+            </fieldset>
+            <div class="buttons">
+                <input type="button"
+                       class="button_bad"
+                       value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}"
+                       name="cancel"/>
+                <input type="submit" class="button_good" value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
+            </div>
+        </form>
+    </div>
+</div>

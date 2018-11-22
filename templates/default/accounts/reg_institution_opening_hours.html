@@ -1,0 +1,271 @@
+{% extends "base.html" %}
+{% load base_tags i18n %}
+
+{% block extrahead %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/registration.js"></script>
+{% endblock %}
+
+
+{% block title %}{% trans "Registration" %} - {% trans "Institution Contact Data" %}{% endblock %}
+
+{% block headline %}
+    <h2 class="main">{% trans "Registration" %}</h2>
+    <h2 class="sub">{% trans "Institutional Account" %}</h2>
+{% endblock %}
+
+{% block sidebar-a %}
+    {% include "utils/registration_step_list.html" %}
+{% endblock %}
+
+{% block sidebar-b %}
+{% endblock %}
+
+{% block content %}
+    <div class="field_layout">
+        <form action="" method="post">
+            <fieldset>
+                <legend>
+                    {% trans "Opening Hours (Optional)" %}
+                </legend>
+                <ul>
+                    <li class="field_hours">
+                        <label for="id_mon_open0">
+                            {% trans "Monday" %}
+                        </label>
+                        <span>
+                            <span>
+                                {{ form.mon_open0 }}<strong> - </strong>{{ form.mon_close0 }}
+                            </span>
+                            <span class="close">
+                                {{ form.mon_is_closed }}
+                                {{ form.mon_is_closed.label_tag }}
+                            </span>
+                            <span class="error">
+                                {{ form.mon_open0.error_tag }}
+                                {{ form.mon_close0.error_tag }}
+                            </span>
+                            <span class="morning">
+                                {{ form.mon_open1 }}<strong> - </strong>{{ form.mon_close1 }}            
+                            </span>
+                            <span class="error">
+                                {{ form.mon_open1.error_tag }}
+                                {{ form.mon_close1.error_tag }}
+                            </span>
+                        </span>
+                    </li>
+                    <li class="line_checkbox">
+                        {{ form.show_breaks }} {{ form.show_breaks.label_tag }}
+                    </li>
+                    <li>
+                        <p>
+                            <a id="id_apply_all_days" href="#">{% trans "Apply to all days" %}</a>
+                        </p>
+                    </li>
+                    <li class="field_hours">
+                        <label for="id_tue_open0">
+                            {% trans "Tuesday" %}
+                        </label>
+                        <span>
+                            <span>
+                                {{ form.tue_open0 }}<strong> - </strong>{{ form.tue_close0 }}
+                                  
+                            </span>
+                            <span class="close">
+                                {{ form.tue_is_closed }}
+                                {{ form.tue_is_closed.label_tag }}
+                            </span>
+                            <span class="error">
+                                {{ form.tue_open0.error_tag }}
+                                {{ form.tue_close0.error_tag }} 
+                            </span>
+                            <span class="morning">
+                                {{ form.tue_open1 }}<strong> - </strong>{{ form.tue_close1 }}        
+                            </span>
+                            <span class="error">
+                                {{ form.tue_open1.error_tag }}
+                                {{ form.tue_close1.error_tag }}
+                            </span>
+                        </span>
+                    </li>
+                    <li class="field_hours">
+                        <label for="id_wed_open0">
+                            {% trans "Wednesday" %}
+                        </label>
+                        <span>
+                            <span>
+                                {{ form.wed_open0 }}<strong> - </strong>{{ form.wed_close0 }}
+                            </span>
+                            <span class="close">
+                                {{ form.wed_is_closed }}
+                                {{ form.wed_is_closed.label_tag }}
+                            </span>
+                            <span class="error">
+                                {{ form.wed_open0.error_tag }}
+                                {{ form.wed_close0.error_tag }} 
+                            </span>
+                            <span class="morning">
+                                {{ form.wed_open1 }}<strong> - </strong>{{ form.wed_close1 }}
+                            </span>
+                            <span class="error">
+                                {{ form.wed_open1.error_tag }}
+                                {{ form.wed_close1.error_tag }}
+                            </span>
+                        </span>
+                    </li>
+                    <li class="field_hours">
+                        <label for="id_thu_open0">
+                            {% trans "Thursday" %}
+                        </label>
+                        <span>
+                            <span>
+                                {{ form.thu_open0 }}<strong> - </strong>{{ form.thu_close0 }}    
+                            </span>
+                            <span class="close">
+                                {{ form.thu_is_closed }}
+                                {{ form.thu_is_closed.label_tag }}
+                            </span>
+                            <span class="error">
+                                {{ form.thu_open0.error_tag }}
+                                {{ form.thu_close0.error_tag }} 
+                            </span>
+                            <span class="morning">
+                                {{ form.thu_open1 }}<strong> - </strong>{{ form.thu_close1 }}
+                               </span>
+                            <span class="error">
+                                {{ form.thu_open1.error_tag }}
+                                {{ form.thu_close1.error_tag }}  
+                            </span>
+                        </span>
+                    </li>
+                    <li class="field_hours">
+                        <label for="id_fri_open0">
+                            {% trans "Friday" %}
+                        </label>
+                        <span>
+                            <span>
+                                {{ form.fri_open0 }}<strong> - </strong>{{ form.fri_close0 }}
+                                </span>
+                            <span class="close">
+                                {{ form.fri_is_closed }}
+                                {{ form.fri_is_closed.label_tag }}
+                            </span>
+                             <span class="error">
+                                {{ form.fri_open0.error_tag }}
+                                {{ form.fri_close0.error_tag }} 
+                            </span>
+                            <span class="morning">
+                                {{ form.fri_open1 }}<strong> - </strong>{{ form.fri_close1 }}
+                             </span>
+                             <span class="error">
+                                {{ form.fri_open1.error_tag }}
+                                {{ form.fri_close1.error_tag }}   
+                            </span>
+                        </span>
+                    </li>
+                    <li class="field_hours">
+                        <label for="id_sat_open0">
+                            {% trans "Saturday" %}
+                        </label>
+                        <span>
+                            <span>
+                                {{ form.sat_open0 }}<strong> - </strong>{{ form.sat_close0 }}     
+                            </span>
+                            <span class="close">
+                                {{ form.sat_is_closed }}
+                                {{ form.sat_is_closed.label_tag }}
+                            </span>
+                            <span class="error">
+                                {{ form.sat_open0.error_tag }}
+                                {{ form.sat_close0.error_tag }}   
+                            </span>
+                            <span class="morning">
+                                {{ form.sat_open1 }}<strong> - </strong>{{ form.sat_close1 }}         
+                            </span>
+                            <span class="error">
+                                {{ form.sat_open1.error_tag }}
+                                {{ form.sat_close1.error_tag }}   
+                            </span>
+                        </span>
+                    </li>
+                    <li class="field_hours">
+                        <label for="id_sun_open0">
+                            {% trans "Sunday" %}
+                        </label>
+                        <span class="end">
+                            <span>
+                                {{ form.sun_open0 }}<strong> - </strong>{{ form.sun_close0 }}
+                            </span>
+                            <span class="close">
+                                {{ form.sun_is_closed }}
+                                {{ form.sun_is_closed.label_tag }}
+                            </span>
+                            <span class="error">
+                                {{ form.sun_open1.error_tag }}
+                                {{ form.sun_close1.error_tag }}   
+                            </span>
+                             <span class="morning">
+                                {{ form.sun_open1 }}<strong> - </strong>{{ form.sun_close1 }}     
+                            </span>
+                            <span class="error">
+                                {{ form.sun_open1.error_tag }}
+                                {{ form.sun_close1.error_tag }}   
+                            </span>
+                        </span>
+                    </li>
+                    <li>
+                        {{ form.exceptions_de.label_tag }} {{ form.exceptions_de }} {{ form.exceptions_de.error_tag }}
+                    </li>
+                    <li>
+                        {{ form.exceptions_en.label_tag }} {{ form.exceptions_en }} {{ form.exceptions_en.error_tag }}
+                    </li>
+                    <li class="line_checkbox">
+                        {{ form.is_appointment_based }}{{ form.is_appointment_based.label_tag }}
+                    </li>
+                </ul>
+            </fieldset>
+            <div id="payment_form">
+                <fieldset class="fieldset_end">
+                    <legend>
+                        {% trans "Payment" %}
+                    </legend>
+                    <ul>
+                        <li class="line_checkbox">
+                            {{ form.is_cash_ok }} {{ form.is_cash_ok.label_tag }}
+                        </li>
+                        <li class="line_checkbox_right">
+                            {{ form.is_card_visa_ok }} {{ form.is_card_visa_ok.label_tag }}
+                        </li>
+                        <li class="line_checkbox">
+                            {{ form.is_invoice_ok }} {{ form.is_invoice_ok.label_tag }}
+                        </li>
+                        <li class="line_checkbox_right">
+                            {{ form.is_card_mastercard_ok }} {{ form.is_card_mastercard_ok.label_tag }}
+                        </li>
+                        <li class="line_checkbox">
+                            {{ form.is_on_delivery_ok }} {{ form.is_on_delivery_ok.label_tag }}
+                        </li>
+                        <li class="line_checkbox_right">
+                            {{ form.is_card_americanexpress_ok }} {{ form.is_card_americanexpress_ok.label_tag }}
+                        </li>
+                        <li class="line_checkbox">
+                            {{ form.is_ec_maestro_ok }} {{ form.is_ec_maestro_ok.label_tag }}
+                        </li>
+                        <li class="line_checkbox_right">
+                            {{ form.is_giropay_ok }} {{ form.is_giropay_ok.label_tag }}
+                        </li>
+                        <li class="line_checkbox">
+                            {{ form.is_prepayment_ok }} {{ form.is_prepayment_ok.label_tag }}
+                        </li>
+                        <li class="line_checkbox_right">
+                            {{ form.is_paypal_ok }} {{ form.is_paypal_ok.label_tag }}
+                        </li>
+                    </ul>
+                </fieldset>
+            </div>
+            <div class="space_correction_less">
+                {% include "utils/step_buttons_reg.html" %}
+            </div>
+        </form>
+    </div>
+{% endblock %}
+

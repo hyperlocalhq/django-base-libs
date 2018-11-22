@@ -1,0 +1,25 @@
+{% load i18n %}
+<div id="popup_content">
+    <form action="{{ person_group.get_url_path }}member/{{ user.id }}/edit/" method="post">
+        <div class="pop_edit">
+            <div>
+                <label>{% trans "User" %}</label>
+                <h5>{{ user.first_name }} {{ user.last_name }}</h5>
+            </div>
+            <div>
+                {{ form.role.label_tag }} {{ form.role }} {{ form.role.error_tag }}
+            </div>
+            <div class="buttons">
+                <input class="button_bad"
+                       type="button"
+                       name="cancel"
+                       value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
+                <input class="button_good"
+                       type="submit"
+                       id="post"
+                       name="post"
+                       value='{% filter upper %}{% trans "Save" %}{% endfilter %}'/>
+            </div>
+        </div>
+    </form>
+</div>

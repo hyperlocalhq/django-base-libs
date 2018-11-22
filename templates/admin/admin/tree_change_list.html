@@ -1,0 +1,157 @@
+{% extends "admin/change_list.html" %}
+
+<!-- LOADING -->
+{% load tree_admin_list admin_list i18n grp_tags cache %}
+
+<!-- OBJECT-TOOLS -->
+{% block object-tools %}
+    {% if has_add_permission %}
+        <ul class="grp-object-tools">
+            {% block object-tools-items %}
+                <li>
+                    <a href="add/{% if is_popup %}?_popup=1{% endif %}" class="grp-add-link grp-state-focus">
+                        {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}</a>
+                </li>
+            {% endblock %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+<!-- CONTENT -->
+{% block content %}
+    <!-- Message about Javascript -->
+    <noscript>
+        {% if dragdrop_allowed %}
+            <p class="errornote">
+                <b>{% trans 'Note' %}:</b> {% trans "You will have to activate JavaScript in your browser's settings to display the hierarchical structure correctly and to be able to reorder the items." %}
+            </p>
+        {% else %}
+            <p class="errornote">
+                <b>{% trans 'Note' %}:</b> {% trans "You will have to activate JavaScript in your browser's settings to be able to display the hierarchical structure correctly." %}
+            </p>
+        {% endif %}
+    </noscript>
+
+
+    <!-- Message about dragging and dropping -->
+    {% if dragdrop_allowed %}
+        <div><p class="small">
+            {% blocktrans with cl.opts.verbose_name|escape as name %}Here you can edit the order of a {{ name }}. Drag and drop a {{ name }} to change the order or hierarchy structure.{% endblocktrans %}</p>
+        </div>
+        <br clear="all"/>
+    {% endif %}
+
+
+    <!-- Sidebar -->
+    {% block filters %}
+        {% if cl.has_filters or cl.search_fields or cl.date_hierarchy %}
+            <div class="grp-module">
+                <div class="grp-row">
+                    <div class="l-2cr-fluid {% if cl.has_filters and cl.search_fields %}l-d-12
+                        {% else %}{% if cl.has_filters or cl.search_fields %}l-d-6{% endif %}{% endif %}">
+                        {% if cl.has_filters or cl.search_fields %}
+                            {% block aside %}
+                                <aside class="c-1">
+                                    <header style="display:none"><h1>
+                                        {% if cl.search_fields %}Search{% if cl.has_filters %} &amp; {% endif %}{% endif %}
+                                        {% if cl.has_filters %}Filters{% endif %}</h1></header>
+                                    <!-- SEARCH -->
+                                    {% if cl.search_fields %}
+                                        <div id="search" class="g-d-6 g-d-f">
+                                            {% block search %}{% search_form cl %}{% endblock %}
+                                        </div>
+                                    {% endif %}
+                                    <!-- FILTERS -->
+                                    <div id="grp-filters" class="g-d-6 g-d-l">
+                                        <div class="grp-pulldown-container">
+                                            <a href="javascript://"
+                                               class="grp-button grp-pulldown-handler">{% trans 'Filter' %}</a>
+                                            <div class="grp-pulldown-content" style="display: none;">
+                                                {% for spec in cl.filter_specs %}
+                                                    {% if spec.is_hierarchical %}
+                                                        {% tree_admin_list_filter cl spec %}
+                                                    {% else %}
+                                                        {% admin_list_filter cl spec %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </aside>
+                            {% endblock %}
+                        {% endif %}
+                        {% block pagination_top %}
+                            <div class="c-2">
+                                <!-- PAGINATION TOP -->{% pagination cl %}
+                            </div>
+                        {% endblock %}
+                    </div>
+                </div>
+                <!-- DATE HIERARCHY -->
+                {% if cl.date_hierarchy %}
+                    {% date_hierarchy cl %}
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endblock %}
+
+    <!-- Changelist -->
+    <form id="grp-changelist-form"
+          action=""
+          method="post"{% if cl.formset.is_multipart %}
+          enctype="multipart/form-data"{% endif %}>{% csrf_token %}
+        <section id="grp-changelist"
+                 class="container-full{% if cl.has_filters or cl.search_fields or cl.date_hierarchy %} filtered{% endif %}">
+            <header style="display:none"><h1>Results</h1></header>
+            <!-- POPUP -->
+            {% if is_popup %}
+                <input type="hidden" name="_popup" value="1"/>{% endif %}
+
+            <!-- ERRORS -->
+            {% if cl.formset.errors %}
+                <p class="errornote">
+                    {% blocktrans count cl.formset.errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+                </p>
+                <ul class="errorlist">{% for error in cl.formset.non_field_errors %}
+                    <li>{{ error }}</li>{% endfor %}</ul>
+            {% endif %}
+
+            <!-- MANAGEMENT FORM -->
+            {% if cl.formset %}
+                {{ cl.formset.management_form }}
+            {% endif %}
+
+            <!-- CHANGELIST-RESULTS -->
+            <div class="grp-result-list-container">
+                {% block result_list %}
+                    {% tree_result_list cl %}
+                {% endblock %}
+            </div>
+        </section>
+        {{ media }}
+
+        <!-- SUBMIT ROW -->
+        <div id="submit" class="grp-module grp-submit-row grp-fixed-footer">
+            <header style="display:none"><h1>Submit Options</h1></header>
+            <input id="tree_data"
+                   name="tree_data"
+                   type="hidden"
+                   {% if dragdrop_allowed %}class="dragdrop_allowed" {% endif %}/>
+            <ul>
+                {% if dragdrop_allowed %}
+                    <li class="submit-button-container">
+                        <input type="submit"
+                               value="{% trans 'Save all changes' %}"
+                               class="save_all grp-button grp-default"/>
+                    </li>
+                {% endif %}
+                <li>
+                    <input type="button" value="{% trans 'Expand all' %}" class="expand_all grp-button"/>
+                </li>
+                <li>
+                    <input type="button" value="{% trans 'Collapse all' %}" class="collapse_all grp-button"/>
+                </li>
+            </ul>
+        </div>
+    </form>
+{% endblock %}

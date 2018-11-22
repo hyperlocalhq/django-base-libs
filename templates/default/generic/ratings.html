@@ -1,0 +1,53 @@
+{% load base_tags i18n %}
+<div id="star_rating_{{ counter }}">
+    {% if perms.ratings.can_rate %}{% if is_not_rated_by_user %}
+        <ul class="star-rating">
+            <li>
+                <a href="#"
+                   title="{% trans "Rate this 1 star out of 5" %}"
+                   class="one-star"
+                   onclick="return RatingManager.rate({{ counter }}, {{ content_type_id }}, {{ object.id }}, 1)">1
+                </a>
+            </li>
+            <li>
+                <a href="#"
+                   title="{% trans "Rate this 2 stars out of 5" %}"
+                   class="two-stars"
+                   onclick="return RatingManager.rate({{ counter }}, {{ content_type_id }}, {{ object.id }}, 2)">2
+                </a>
+            </li>
+            <li>
+                <a href="#"
+                   title="{% trans "Rate this 3 stars out of 5" %}"
+                   class="three-stars"
+                   onclick="return RatingManager.rate({{ counter }}, {{ content_type_id }}, {{ object.id }}, 3)">3
+                </a>
+            </li>
+            <li>
+                <a href="#"
+                   title="{% trans "Rate this 4 stars out of 5" %}"
+                   class="four-stars"
+                   onclick="return RatingManager.rate({{ counter }}, {{ content_type_id }}, {{ object.id }}, 4)">4
+                </a>
+            </li>
+            <li>
+                <a href="#"
+                   title="{% trans "Rate this 5 stars out of 5" %}"
+                   class="five-stars"
+                   onclick="return RatingManager.rate({{ counter }}, {{ content_type_id }}, {{ object.id }}, 5)">5
+                </a>
+            </li>
+        </ul>
+    {% endif %}{% endif %}
+
+    {% if not perms.ratings.can_rate or not is_not_rated_by_user %}
+        <div class="star-rating-results-background">
+            <div class="star-rating-results-progress"
+                 style="width:{% widthratio average_points_rounded 5 100 %}px"></div>
+        </div>
+    {% endif %}
+</div>
+
+<div>{% trans "People who rated" %}: <span id="star_rating_count_{{ counter }}">{{ rating_count }}</span>.</div>
+<div>{% trans "Average rating" %}: <span id="star_rating_average_{{ counter }}">{{ average_points }}</span>.</div>
+
