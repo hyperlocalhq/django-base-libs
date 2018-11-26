@@ -1,0 +1,31 @@
+{% load base_tags sekizai_tags %}
+
+<div id="js_top_alert" class="alert infobanner alert-dark alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="container">
+        {{ content }}
+    </div>
+</div>
+
+{% now "uuuu" as microseconds %}
+{% addtoblock "head_js" %}
+    <script nonce="{{ microseconds|to_base64 }}">
+        if (document.cookie.indexOf('{{ cookie_variable }}') !== -1) {
+            dyn_css_rule('#js_top_alert', 'display: none;');
+        }
+    </script>
+{% endaddtoblock %}
+{% add_data "script_nonces" microseconds|to_base64 %}
+
+{% now "uuuu" as microseconds %}
+{% addtoblock "js" %}
+    <script nonce="{{ microseconds|to_base64 }}">
+        $('#js_top_alert').on('closed.bs.alert', function () {
+            document.cookie = '{{ cookie_variable }}=1;path=/';
+        });
+    </script>
+{% endaddtoblock %}
+
+{% add_data "script_nonces" microseconds|to_base64 %}

@@ -1,0 +1,95 @@
+{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites_tags production_tags %}
+<div class="accordion sidebar-accordion">
+    {% if job_offer.deadline or job_offer.start_contract_on or job_offer.job_type or job_offer.categories.all %}
+        <div class="accordion-item">
+            <h4 class="accordion-item-head open">{% trans "Job informations" %}</h4>
+            <div class="accordion-item-content">
+                {% if job_offer.job_type or job_offer.categories.all %}
+                    <dl>
+                        {% if job_offer.job_type %}
+                            <dt class="width_120">{% trans "Job Type" %}:</dt>
+                            <dd>{{ job_offer.job_type }}</dd>
+                        {% endif %}
+                        {% if job_offer.categories.all %}
+                            <dt class="width_120 block">{% trans "Categories" %}:</dt>
+                            <dd>
+                                <ul>
+                                    {% for cat in job_offer.categories.all %}
+                                        <li>{{ cat.title }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </dd>
+                        {% endif %}
+                    </dl>
+                {% endif %}
+                {% if job_offer.deadline or job_offer.start_contract_on %}
+                    <dl>
+                        {% if job_offer.deadline %}
+                            <dt class="width_120">{% trans "Deadline" %}:</dt>
+                            <dd>{{ job_offer.deadline|date:"d. b Y" }}</dd>
+                        {% endif %}
+                        {% if job_offer.start_contract_on %}
+                            <dt class="width_120">{% trans "Start of contract" %}:</dt>
+                            <dd>{{ job_offer.start_contract_on|date:"d. b Y" }}</dd>
+                        {% endif %}
+                    </dl>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+    <div class="accordion-item">
+        <h4 class="accordion-item-head open">{% trans "Venue" %}</h4>
+        <div class="accordion-item-content">
+            <p data-latitude="{{ job_offer.latitude|stringformat:"%f" }}"
+               data-longitude="{{ job_offer.longitude|stringformat:"%f" }}">
+                {% if job_offer.company %}<strong>{{ job_offer.company }}</strong><br/>{% endif %}
+                {% if job_offer.street_address %}{{ job_offer.street_address }}<br/>{% endif %}
+                {% if job_offer.street_address2 %}{{ job_offer.street_address2 }}<br/>{% endif %}
+                {% if job_offer.city %}{{ job_offer.postal_code }} {{ job_offer.city }}<br/>{% endif %}
+            </p>
+            {% if job_offer.phone_number or job_offer.fax_number or job_offer.email or job_offer.website or job_offer.name %}
+                <dl>
+                    <dd class="headline">{% trans "Contact" %}</dd>
+                    {% if job_offer.name %}
+                        <dd>{{ job_offer.name }}</dd>
+                    {% endif %}
+                    {% if job_offer.phone_number %}
+                        <dt class="width_50">{% trans "Phone" %}</dt>
+                        <dd>
+                            <a class="phone"
+                               href="tel:{% if job_offer.phone_country %}+{{ job_offer.phone_country }}{% endif %}{{ job_offer.phone_area }}{{ job_offer.phone_number }}">
+                                {% if job_offer.phone_country %}+{{ job_offer.phone_country }}
+                                    -{% endif %}{{ job_offer.phone_area }}-{{ job_offer.phone_number }}</a>
+                        </dd>
+                    {% endif %}
+                    {% if job_offer.fax_number %}
+                        <dt class="width_50">{% trans "Fax" %}</dt>
+                        <dd>{% if job_offer.fax_country %}+{{ job_offer.fax_country }}
+                            -{% endif %}{{ job_offer.fax_area }}-{{ job_offer.fax_number }}</dd>
+                    {% endif %}
+                    {% if job_offer.email %}
+                        <dt class="width_50">{% trans "Mail" %}</dt>
+                        <dd>
+                            <a href="mailto:{{ job_offer.email }}">{{ job_offer.email }}</a>
+                        </dd>
+                    {% endif %}
+                    {% if job_offer.website %}
+                        <dt class="width_50">{% trans "Web" %}</dt>
+                        <dd>
+                            <a href="{{ job_offer.website }}"
+                               target="_blank"
+                               class="no-print">{{ job_offer.website|humanize_url:30 }}</a>
+                            <a href="{{ job_offer.website }}" target="_blank" class="print">{{ job_offer.website }}</a>
+                        </dd>
+                    {% endif %}
+                </dl>
+            {% endif %}
+        </div>
+    </div>
+    <div class="accordion-item no-print">
+        <h4 class="accordion-item-head">{% trans "Public transport" %}</h4>
+        <div class="accordion-item-content">
+            {% bvg address=job_offer.street_address address_2=job_offer.street_address2 postal_code=job_offer.postal_code city=job_offer.city %}
+        </div>
+    </div>
+</div>

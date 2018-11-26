@@ -1,0 +1,493 @@
+{% extends "base_main.html" %}
+
+{% load url from future %}
+
+{% load base_tags i18n crispy_forms_tags tagging_tags image_modifications infoblocks auth_extended sekizai_tags %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block title %}{% trans "Input Mask" %}{% endblock %}
+
+{% block stylesheet %}
+    <link href="{{ STATIC_URL }}site/css/datepicker.css" rel="stylesheet" media="screen" type="text/css"/>
+    <link href="{{ STATIC_URL }}site/css/timepicker.css" rel="stylesheet" media="screen" type="text/css"/>
+    <link href="{{ STATIC_URL }}site/css/jquery.selectbox.css" rel="stylesheet" media="screen" type="text/css"/>
+    <link href="{{ STATIC_URL }}site/css/bootstrap/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css"/>
+    <link href="{{ STATIC_URL }}site/css/form.min.css" rel="stylesheet" media="screen" type="text/css"/>
+    {{ block.super }}
+{% endblock %}
+
+{% block script %}
+    {{ block.super }}
+
+    <script src="https://code.jquery.com/jquery-1.10.1.min.js"
+            integrity="sha384-M7ti4rBhW6K9vKaD69Y/xNT8YW/SFBQBKbSZtEdjveDyXUpsF3gmBWZRjtr0ZbCD"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"
+            integrity="sha384-9tt8DlZQhE63eBuKml9tnMclfDeo/8/wstzUrBQStZZkCCvwfw78IiV+r9o600g2"
+            crossorigin="anonymous"></script>
+    <script src="{{ JETSON_MEDIA_URL }}js/jquery/jquery.cookie.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.ba-bbq.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.isotope.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.scrollstop.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.lazyload.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.selectbox-0.2.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.sharrre-1.3.2.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.jscroll.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.mobile.custom.min.js"></script>
+    <!-- <script src="{{ STATIC_URL }}site/js/jquery.headroom.min.js"></script> -->
+    <script src="{{ STATIC_URL }}site/js/jquery.hammer-full.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.autosize.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-jetson-datepicker.js"></script>
+    <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-jetson-timepicker.js"></script>
+    {% include 'autocomplete_light/static.html' %}
+
+    {% now "uuuu" as microseconds %}
+    <script nonce="{{ microseconds|to_base64 }}">
+        // forcing django CMS to use the already included version of jQuery
+        django.jQuery = jQuery;
+
+        var csrftoken = $.cookie('csrftoken');
+
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        $.ajaxSetup({
+            crossDomain: false, // obviates need for sameOrigin test
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+        if ($.browser.msie) {
+            $('html').addClass('msie');
+        }
+    </script>
+    {% add_data "script_nonces" microseconds|to_base64 %}
+
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script nonce="{{ microseconds|to_base64 }}">
+        $(function () {
+            $('textarea').each(function () {
+                $(this).autosize();
+            });
+
+        });
+    </script>
+    {% add_data "script_nonces" microseconds|to_base64 %}
+{% endblock %}
+
+{% block content %}
+    <div id="dashboard">
+        {% include "utils/dashboard_navigation.html" %}
+
+        {% block form_steps %}
+            {% block dashboard_title %}{% endblock %}
+        {% endblock %}
+
+        {% block dashboard_content %}
+            <div class="container">
+                <div class="panel panel-info">
+                    <div class="panel-body">
+                        {% infoblock "dashboard" %}
+                    </div>
+                </div>
+            </div>
+
+            <div id="productions" class="content">
+                <div class="container">
+                    {% if_has_perm "productions.add_production" %}
+                        <a class="btn btn-primary pull-right"
+                           href="{% url "add_production" %}">{% trans "Add production" %}</a>
+                    {% end_if_has_perm %}
+                    <h4>
+                        <a href="{% url "dashboard_productions" %}">{% trans "Productions" %}</a>
+                    </h4>
+                    <table class="dashboard-table">
+                        <thead>
+                        <tr>
+                            <th>
+                                <small>{% trans "Title" %}</small>
+                            </th>
+                            <th>
+                                <small>{% trans "Last Change" %}</small>
+                            </th>
+                            <th>
+                                <small>{% trans "Status" %}</small>
+                            </th>
+                            <th>
+                                <small>{% trans "Actions" %}</small>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if owned_productions.exists %}
+                            {% for production in owned_productions %}
+                                {% tags_for_object production as tags %}
+                                <tr>
+                                    <td class="item">
+                                        <a href="{% url "change_production" slug=production.slug %}">
+                                            <b>{{ production.title }}</b></a>
+                                    </td>
+                                    <td class="date">{{ production.modified_date|default:production.creation_date|date:"d.m.Y H:i" }}
+                                    </td>
+                                    <td>
+                                        <div class="status">
+                                            <label>
+                                                <select class="status-switch"
+                                                        data-url="{% url "change_production_status" slug=production.slug %}">
+                                                    <option value="draft"{% if production.status == "draft" %}
+                                                            selected="selected"{% endif %}>{% trans "Draft" %}</option>
+                                                    <option value="published"{% if production.status == "published" %}
+                                                            selected="selected"{% endif %}>{% trans "Published" %}</option>
+                                                    <option value="import"{% if production.status == "import" %}
+                                                            selected="selected"{% endif %}>{% trans "Imported" %}</option>
+                                                    <option value="expired"{% if production.status == "expired" %}
+                                                            selected="selected"{% endif %}>{% trans "Expired" %}</option>
+                                                </select>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a href="{{ production.get_url_path }}?preview"
+                                           data-toggle="tooltip"
+                                           data-placement="top"
+                                           data-original-title="{% trans "Preview" %}"
+                                           class="btn btn-sm btn-icon btn-link"
+                                           target="_blank">
+                                            <span class="icon icon-eye-open"></span>
+                                            <span class="sr-only">{% trans "Preview" %}</span>
+                                        </a>
+                                        {% if production.is_deletable %}
+                                            <a href="{% url "delete_production" slug=production.slug %}"
+                                               data-toggle="tooltip"
+                                               data-placement="top"
+                                               data-original-title="{% trans "Delete" %}"
+                                               class="btn btn-sm btn-icon btn-link delete"
+                                               data-object-title="{{ production.title }}"
+                                               data-object-type="{% trans "Production" %}">
+                                                <span class="icon icon-remove"></span>
+                                                <span class="sr-only">{% trans "Remove" %}</span>
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="4">
+                                    <span class="pull-left">
+                                        {% trans "There are no items." %}
+                                    </span>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                    <a class="btn btn-info " href="{% url "dashboard_productions" %}">{% trans "more" %}</a>
+                </div>
+            </div>
+
+            <div id="multiparts" class="content">
+                <div class="container">
+                    {% if_has_perm "multiparts.add_parent" %}
+                        <a class="btn btn-primary pull-right"
+                           href="{% url "add_multipart" %}">{% trans "Add multipart production" %}</a>
+                    {% end_if_has_perm %}
+                    <h4>
+                        <a href="{% url "dashboard_multiparts" %}">{% trans "Multipart Productions" %}</a>
+                    </h4>
+                    <table class="dashboard-table">
+                        <thead>
+                        <tr>
+                            <th>
+                                <small>{% trans "Title" %}</small>
+                            </th>
+                            <th>
+                                <small>{% trans "Last Change" %}</small>
+                            </th>
+                            <th>
+                                <small>{% trans "Actions" %}</small>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if owned_multiparts %}
+                            {% for multipart in owned_multiparts %}
+                                <tr>
+                                    <td class="item">
+                                        <a href="{% url "change_multipart" slug=multipart.production.slug %}">
+                                            <b>{{ multipart.production.title }}</b></a>
+                                    </td>
+                                    <td class="date">{{ multipart.modified_date|default:multipart.creation_date|date:"d.m.Y H:i" }}
+                                    </td>
+                                    <td>
+                                        <a href="{{ multipart.production.get_url_path }}?preview"
+                                           data-toggle="tooltip"
+                                           data-placement="top"
+                                           data-original-title="{% trans "Preview" %}"
+                                           class="btn btn-sm btn-icon btn-link"
+                                           target="_blank">
+                                            <span class="icon icon-eye-open"></span>
+                                            <span class="sr-only">{% trans "Preview" %}</span>
+                                        </a>
+                                        {% if multipart.is_deletable %}
+                                            <a href="{% url "delete_multipart" slug=multipart.production.slug %}"
+                                               data-toggle="tooltip"
+                                               data-placement="top"
+                                               data-original-title="{% trans "Delete" %}"
+                                               class="btn btn-sm btn-icon btn-link delete"
+                                               data-object-title="{{ multipart.production.title }}"
+                                               data-object-type="{% trans "Multipart production" %}">
+                                                <span class="icon icon-remove"></span>
+                                                <span class="sr-only">{% trans "Remove" %}</span>
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="4">
+                                    <span class="pull-left">
+                                        {% trans "There are no items." %}
+                                    </span>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                    <a class="btn btn-info" href="{% url "dashboard_multiparts" %}">{% trans "more" %}</a>
+                </div>
+            </div>
+
+            <div id="locations" class="content">
+                <div class="container">
+                    {% if_has_perm "locations.add_location" %}
+                        <a class="btn btn-primary pull-right"
+                           href="{% url "add_location" %}">{% trans "Add theater" %}</a>
+                    {% end_if_has_perm %}
+                    <h4>
+                        <a href="{% url "dashboard_locations" %}">{% trans "Theaters" %}</a>
+                    </h4>
+                    <table class="dashboard-table">
+                        <thead>
+                        <tr>
+                            <th>
+                                <small>{% trans "Title" %}</small>
+                            </th>
+                            <th>
+                                <small>{% trans "Last Change" %}</small>
+                            </th>
+                            <th>
+                                <small>{% trans "Status" %}</small>
+                            </th>
+                            <th>
+                                <small>{% trans "Actions" %}</small>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if owned_locations %}
+                            {% for location in owned_locations %}
+                                {% tags_for_object location as tags %}
+                                <tr>
+                                    <td>
+                                        <a href="{{ location.get_url_path }}change/"><b>{{ location.title }}
+                                            {% if location.subtitle %}
+                                                <span>– {{ location.subtitle }}</span> {% endif %}
+                                        </b></a>
+                                    </td>
+                                    <td> {{ location.modified_date|default:location.creation_date|date:"d.m.Y H:i" }} </td>
+                                    <td>
+                                        <div class="status">
+                                            <select class="status-switch" data-url="{{ location.get_url_path }}status/">
+                                                <option value="draft"{% if location.status == "draft" %}
+                                                        selected="selected"{% endif %}>{% trans "Draft" %}</option>
+                                                <option value="published"{% if location.status == "published" %}
+                                                        selected="selected"{% endif %}>{% trans "Published" %}</option>
+                                                <option value="not_listed"{% if location.status == "not_listed" %}
+                                                        selected="selected"{% endif %}>{% trans "Not Listed" %}</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a href="{{ location.get_url_path }}?preview"
+                                           data-toggle="tooltip"
+                                           data-placement="top"
+                                           data-original-title="{% trans "Preview" %}"
+                                           class="btn btn-sm btn-icon btn-link"
+                                           target="_blank">
+                                            <span class="icon icon-eye-open"></span>
+                                            <span class="sr-only">{% trans "Preview" %}</span>
+                                        </a>
+                                        {% if location.is_deletable %}
+                                            <a href="{% url "delete_location" slug=location.slug %}"
+                                               data-toggle="tooltip"
+                                               data-placement="top"
+                                               data-original-title="{% trans "Delete" %}"
+                                               class="btn btn-sm btn-icon btn-link delete"
+                                               data-object-title="{{ location.title }}"
+                                               data-object-type="{% trans "Location" %}">
+                                                <span class="icon icon-remove"></span>
+                                                <span class="sr-only">{% trans "Remove" %}</span>
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="4">
+                                    <span class="pull-left">
+                                        {% trans "There are no items." %}
+                                    </span>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                    <a class="btn btn-info " href="{% url "dashboard_locations" %}">{% trans "more" %}</a>
+                </div>
+            </div>
+
+            <div id="festivals" class="content">
+                <div class="container">
+                    {% if_has_perm "festivals.add_festival" %}
+                        <a class="btn btn-primary pull-right"
+                           href="{% url "add_festival" %}">{% trans "Add festival" %}</a>
+                    {% end_if_has_perm %}
+                    <h4>
+                        <a href="{% url "dashboard_festivals" %}">{% trans "Festivals" %}</a>
+                    </h4>
+                    <table class="dashboard-table">
+                        <thead>
+                        <tr>
+                            <th>
+                                <small>{% trans "Title" %}</small>
+                            </th>
+                            <th>
+                                <small>{% trans "Last Change" %}</small>
+                            </th>
+                            <th>
+                                <small>{% trans "Status" %}</small>
+                            </th>
+                            <th>
+                                <small>{% trans "Actions" %}</small>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if owned_festivals %}
+                            {% for festival in owned_festivals %}
+                                {% tags_for_object festival as tags %}
+                                <tr>
+                                    <td>
+                                        <a href="{{ festival.get_url_path }}change/"><b>{{ festival.title }}
+                                            {% if festival.subtitle %}
+                                                <span>– {{ festival.subtitle }}</span> {% endif %}
+                                        </b></a>
+                                    </td>
+                                    <td> {{ festival.modified_date|default:festival.creation_date|date:"d.m.Y H:i" }} </td>
+                                    <td>
+                                        <div class="status">
+                                            <select class="status-switch" data-url="{{ festival.get_url_path }}status/">
+                                                <option value="draft"{% if festival.status == "draft" %}
+                                                        selected="selected"{% endif %}>{% trans "Draft" %}</option>
+                                                <option value="published"{% if festival.status == "published" %}
+                                                        selected="selected"{% endif %}>{% trans "Published" %}</option>
+                                                <option value="not_listed"{% if festival.status == "not_listed" %}
+                                                        selected="selected"{% endif %}>{% trans "Not Listed" %}</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a href="{{ festival.get_url_path }}?preview"
+                                           data-toggle="tooltip"
+                                           data-placement="top"
+                                           data-original-title="{% trans "Preview" %}"
+                                           class="btn btn-sm btn-icon btn-link"
+                                           target="_blank">
+                                            <span class="icon icon-eye-open"></span>
+                                            <span class="sr-only">{% trans "Preview" %}</span>
+                                        </a>
+                                        {% if festival.is_deletable %}
+                                            <a href="{% url "delete_festival" slug=festival.slug %}"
+                                               data-toggle="tooltip"
+                                               data-placement="top"
+                                               data-original-title="{% trans "Delete" %}"
+                                               class="btn btn-sm btn-icon btn-link delete"
+                                               data-object-title="{{ festival.title }}"
+                                               data-object-type="{% trans "Festival" %}">
+                                                <span class="icon icon-remove"></span>
+                                                <span class="sr-only">{% trans "Remove" %}</span>
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="4">
+                                    <span class="pull-left">
+                                        {% trans "There are no items." %}
+                                    </span>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                    <a class="btn btn-info " href="{% url "dashboard_festivals" %}">{% trans "more" %}</a>
+                </div>
+            </div>
+
+            {% include "utils/dashboard_delete.html" %}
+
+            {% now "uuuu" as microseconds %}
+            <script nonce="{{ microseconds|to_base64 }}">
+                $(function () {
+                    $('.status').hover(function () {
+                        $(this).addClass('hover');
+                    }, function () {
+                        $(this).removeClass('hover');
+                    }).mouseleave();
+                    $('.status-switch').change(function () {
+                        var $this = $(this);
+                        $.post($this.attr('data-url'), {'status': $this.val()}, function (data) {
+                        });
+                    });
+                });
+                $("select").selectbox();
+            </script>
+            {% add_data "script_nonces" microseconds|to_base64 %}
+
+        {% endblock %}
+
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+    <div id="footer">
+        <div class="container">
+            <p class="contact">
+                {% trans "Contact" %}:<br>
+                RuhrBühnen | Ruhr Tourismus GmbH<br>
+                Anne Milena Bögel<br>
+                Centroallee 261<br>
+                46047 Oberhausen<br>
+                <br>
+                <a href="www.ruhr-tourismus.de">www.ruhr-tourismus.de</a><br>
+                <a href="mailto:ruhrbuehnen@ruhr-tourismus.de">ruhrbuehnen@ruhr-tourismus.de</a>
+            </p>
+        </div>
+    </div>
+{% endblock %}

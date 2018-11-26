@@ -1,0 +1,92 @@
+{% load i18n image_modifications base_tags tagging_tags production_tags favorites_tags auth_extended fb_tags %}
+
+{% call event.get_title language=request.LANGUAGE_CODE as event_title %}
+
+{% call event.get_original language=request.LANGUAGE_CODE as event_original %}
+
+{% call event.get_in_program_of language=request.LANGUAGE_CODE as in_program_of %}
+
+{% call event.get_play_locations language=request.LANGUAGE_CODE as play_locations %}
+
+{% call event.get_play_stages language=request.LANGUAGE_CODE as play_stages %}
+
+{% call event.get_first_category_title language=request.LANGUAGE_CODE as event_first_category_title %}
+
+<div class="grid-item col-xs-12 col-sm-6 col-md-6 col-lg-4 with-schedule-bar">
+    <a href="{{ event.get_url_path }}{% remove_from_query "page" %}">
+        <span class="img">
+            {% if event.image_path %}
+                <img class="responsive-xl responsive-xs"
+                     data-responsive-src="{{ UPLOADS_URL }}{{ event.image_path|modified_path:"grid_xl_xs" }}{% if event.production.is_editable %}?now={% now "YmdHis" %}{% endif %}"
+                     src="about:blank"
+                     style="display:none;"
+                     alt="{{ event_title|escape }}"/>
+                <img class="responsive-lg responsive-md responsive-sm"
+                     data-responsive-src="{{ UPLOADS_URL }}{{ event.image_path|modified_path:"grid_events_lg_md_sm" }}{% if event.production.is_editable %}?now={% now "YmdHis" %}{% endif %}"
+                     src="about:blank"
+                     style="display:none;"
+                     alt="{{ event_title|escape }}"/>
+                {% if event.image_author %}
+                    <span class="photo-credits-over">{% trans "Photo" %}: {{ event.image_author }}</span>{% endif %}
+            {% else %}
+                <img src="{{ STATIC_URL }}site/img/placeholder.png"/>
+            {% endif %}
+
+            <div class="button-bar-wrapper visible-xs">
+                <div class="button-bar">
+                    {% if request.user.is_authenticated %}
+                        {% adding2favorites for event using "favorites/includes/favorite_button.html" %}
+                    {% else %}
+                        {% login2favorites using "favorites/includes/favorite_button_login.html" %}
+                    {% endif %}
+                    {% if event.tickets_website %}
+                        <button class="tickets"
+                                data-href="{{ event.tickets_website }}"
+                                data-target="_blank"
+                                title="{% trans 'Get tickets' %}">
+                            <span class="icon">{% include 'svg/icons/tickets.svg' %}</span></button>{% endif %}
+                </div>
+            </div>
+        </span>
+        <h6 class="demi hidden-xs">{{ event.start|time:"H:i" }}{% if event_first_category_title %} |
+            {{ event_first_category_title }}{% endif %}</h6>
+        <ul class="h4 light horizontal-listing">
+            <li class="visible-xs">{{ event.start|time:"H:i" }}</li>
+            {% for location in in_program_of %}
+                {% if location.title %}
+                    <li>{{ location.title }}</li>{% endif %}
+            {% endfor %}
+            {% if event.location_title %}
+                <li>{{ event.location_title }}</li>{% endif %}
+            {% for location in play_locations %}
+                {% if location.title %}
+                    <li>{{ location.title }}</li>{% endif %}
+            {% endfor %}
+            {% for stage in play_stages %}
+                {% if stage.title %}
+                    <li>{{ stage.title }}</li>{% endif %}
+            {% endfor %}
+        </ul>
+        {% if event_title %}<h4>{{ event_title }}</h4>{% elif event_original %}<h4>{{ event_original }}</h4>{% endif %}
+    </a>
+
+    <div class="button-bar-wrapper hidden-xs">
+        <div class="button-bar">
+            <a class="share" href="" title="{% trans 'Share' %}">
+                <span class="icon">{% include 'svg/icons/share.svg' %}</span></a>
+            <a class="map" href="">
+                <span class="icon" title="{% trans 'Show on map' %}">{% include 'svg/icons/location.svg' %}</span>
+            </a>
+            {% if request.user.is_authenticated %}
+                {% adding2favorites for event using "favorites/includes/favorite_a.html" %}
+            {% else %}
+                {% login2favorites using "favorites/includes/favorite_a_login.html" %}
+            {% endif %}
+            {% if event.tickets_website %}
+                <a class="tickets" href="{{ event.tickets_website }}" target="_blank" title="{% trans 'Get tickets' %}"><span
+                        class="icon">{% include 'svg/icons/tickets.svg' %}</span>{% trans "Tickets" %}</a>{% else %}
+                <div class="tickets"></div>{% endif %}
+        </div>
+    </div>
+</div>
+

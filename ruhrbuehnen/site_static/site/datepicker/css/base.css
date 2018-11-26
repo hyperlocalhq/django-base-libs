@@ -1,0 +1,179 @@
+div.datepicker_advanced {
+  position: relative;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  width: 196px;
+  height: 147px;
+  position: absolute;
+  cursor: default;
+  top: 0;
+  left: 0;
+  display: none;
+}
+div.datepicker_advanced .datepickerContainer {
+  position: absolute;
+}
+
+/* Hide border divs by default */
+div.datepicker_advanced .datepickerBorderT,
+div.datepicker_advanced .datepickerBorderB,
+div.datepicker_advanced .datepickerBorderL,
+div.datepicker_advanced .datepickerBorderR,
+div.datepicker_advanced .datepickerBorderTL,
+div.datepicker_advanced .datepickerBorderTR,
+div.datepicker_advanced .datepickerBorderBL,
+div.datepicker_advanced .datepickerBorderBR {
+  display:none;
+}
+
+div.datepicker_advanced .datepickerHidden {
+  display: none;
+}
+div.datepicker_advanced table {
+  border-collapse:collapse;
+}
+div.datepicker_advanced a {
+  color: black;
+  text-decoration: none;
+  cursor: default;
+  outline: none;
+}
+div.datepicker_advanced table td {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+div.datepicker_advanced th {
+  text-align: center;
+  color: #666666;
+  font-weight: normal;
+  padding:0;
+}
+div.datepicker_advanced tbody a {
+  display: block;
+}
+div.datepicker_advanced .datepickerDays a {
+  width: 20px;
+  line-height: 16px;
+  height: 16px;
+  padding-right: 2px;
+}
+div.datepicker_advanced .datepickerYears a,
+div.datepicker_advanced .datepickerMonths a{
+  width: 39px;
+  line-height: 36px;
+  height: 36px;
+  text-align: center;
+}
+div.datepicker_advanced .datepickerMonths td:first-child a,
+div.datepicker_advanced .datepickerMonths td:last-child a,
+div.datepicker_advanced .datepickerYears td:first-child a,
+div.datepicker_advanced .datepickerYears td:last-child a {
+  width:38px;
+}
+div.datepicker_advanced td.datepickerNotInMonth a {
+  color: #666666;
+}
+div.datepicker_advanced tbody.datepickerDays td.datepickerSelected{
+  background: #136A9F;
+}
+div.datepicker_advanced tbody.datepickerDays td.datepickerNotInMonth.datepickerSelected {
+  background: #17384d;
+}
+div.datepicker_advanced tbody.datepickerYears td.datepickerSelected,
+div.datepicker_advanced tbody.datepickerMonths td.datepickerSelected{
+  background: #17384d;
+}
+div.datepicker_advanced td.datepickerSelected a {
+  color:white !important;
+}
+div.datepicker_advanced a:hover,
+div.datepicker_advanced a:hover {
+  color: #88c5eb;
+}
+div.datepicker_advanced td.datepickerNotInMonth a:hover {
+  color: #999999;
+}
+div.datepicker_advanced .datepickerSpace div {
+  width: 20px;
+}
+div.datepicker_advanced .datepickerBlock {
+  vertical-align:top;
+}
+div.datepicker_advanced a.datepickerGoNext,
+div.datepicker_advanced a.datepickerGoPrev,
+div.datepicker_advanced a.datepickerMonth {
+  text-align: center;
+  height: 20px;
+  line-height: 20px;
+  float:left;
+}
+div.datepicker_advanced th a.datepickerGoNext,
+div.datepicker_advanced th a.datepickerGoPrev {
+  width: 20px;
+  color: #666666;
+  display:none;
+  cursor: pointer;
+}
+div.datepicker_advanced th a.datepickerMonth {
+  width:114px;
+  display:block;
+}
+/* Only display the previous/next arrows on the first/last calendars */
+div.datepicker_advanced .datepickerFirstView th a.datepickerGoPrev,
+div.datepicker_advanced .datepickerLastView th a.datepickerGoNext {
+  display:block;
+}
+/* Compensate for the space lost by not having a previous arrow */
+div.datepicker_advanced th a.datepickerMonth {
+  margin-left:20px;
+}
+div.datepicker_advanced .datepickerFirstView th a.datepickerMonth {
+  margin-left:0;
+}
+/* Day mode calendar body */
+div.datepicker_advanced table.datepickerViewDays tbody.datepickerMonths,
+div.datepicker_advanced table.datepickerViewDays tbody.datepickerYears {
+  display: none;
+}
+/* Month mode calendar body */
+div.datepicker_advanced table.datepickerViewMonths tbody.datepickerDays,
+div.datepicker_advanced table.datepickerViewMonths tbody.datepickerYears,
+div.datepicker_advanced table.datepickerViewMonths tr.datepickerDoW {
+  display: none;
+}
+/* Year mode calendar body */
+div.datepicker_advanced table.datepickerViewYears tbody.datepickerDays,
+div.datepicker_advanced table.datepickerViewYears tbody.datepickerMonths,
+div.datepicker_advanced table.datepickerViewYears tr.datepickerDoW {
+  display: none;
+}
+div.datepicker_advanced td.datepickerDisabled a,
+div.datepicker_advanced td.datepickerDisabled.datepickerNotInMonth a{
+  color: #555555;
+}
+div.datepicker_advanced td.datepickerDisabled a:hover {
+  color: #333333;
+}
+/* Not used by default, calendar cells can be marked as special if desired (doesn't seem to be totally working) */
+div.datepicker_advanced tbody.datepickerDays td.datepickerSpecial a {
+  background: #770000;
+  color:white;
+}
+div.datepicker_advanced tbody.datepickerDays td.datepickerSpecial.datepickerSelected a {
+  background: #aa0000;
+}
+
+/* style the 'not in month' day cell away */
+div.datepicker_advanced tbody.datepickerDays td.datepickerNotInMonth.datepickerSelected {
+  background-color:transparent;
+}
+div.datepicker_advanced td.datepickerNotInMonth a span {
+  display:none;
+}
+div.datepicker_advanced td.datepickerNotInMonth a:hover span {
+  display:none;
+}
+div.datepicker_advanced tbody.datepickerDays td.datepickerNotInMonth:hover {
+  background-color: transparent;
+}

@@ -1,0 +1,174 @@
+{% load base_tags i18n sekizai_tags %}<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+    <form action="#"
+          method="post"
+          id="mc-embedded-subscribe-form"
+          name="mc-embedded-subscribe-form"
+          class="validate"
+          target="_blank"
+          novalidate>
+        <div id="mc_embed_signup_scroll">
+            <div class="mc-field-group">
+                <h3>{% trans 'Newsletter' %}</h3>
+                <div id="mce-choose_newsletter-wrapper">
+                    <label for="mce-choose_newsletter"></label>
+                    <select id="mce-choose_newsletter">
+                        <option value="0">{% trans 'Please choose a newsletter' %}</option>
+                        <option value="1">{% trans 'Berlin Bühnen' %}</option>
+                        <option value="2">{% trans 'Kids &amp; Teenager' %}</option>
+                    </select>
+                </div>
+                <div class="response mce_inline_error"
+                     id="mce-error-response-choose"
+                     style="display:none;">{% trans 'Please choose a newsletter' %}</div>
+                <input type="email"
+                       value=""
+                       name="EMAIL"
+                       class="required email"
+                       id="mce-EMAIL"
+                       placeholder="{% trans 'Email address' %}">
+            </div>
+            <div id="mce-responses" class="clear">
+                <div class="response" id="mce-error-response" style="display:none"></div>
+                <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+            <div style="position: absolute; left: -5000px;">
+                <input id="mce-input_name" type="text" name="none" tabindex="-1" value="">
+            </div>
+            <div class="clear">
+                <a id="mc-embedded-subscribe-button" href="#">{% trans 'subscribe' %}</a>
+                <input id="mc-embedded-subscribe" type="submit" value="{% trans 'subscribe' %}" name="subscribe">
+            </div>
+            <div id="mc-embedded-ok"><span>{% trans 'OK' %}</span></div>
+        </div>
+    </form>
+</div>
+<script src='https://s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>{% now "uuuu" as microseconds %}
+<script nonce="{{ microseconds|to_base64 }}">
+    (function ($) {
+
+        var actions = [];
+        actions.push('//ruhr-buehnen.us2.list-manage.com/subscribe/post?u=d7c71420a69df471f30ab850e&id=3f2c5c590a');
+        actions.push('//ruhr-buehnen.us2.list-manage.com/subscribe/post?u=d7c71420a69df471f30ab850e&id=ab6d9e0cb6');
+
+        var input_names = [];
+        input_names.push('b_d7c71420a69df471f30ab850e_3f2c5c590a');
+        input_names.push('b_d7c71420a69df471f30ab850e_ab6d9e0cb6');
+
+        ////////////////////////////////////////////////
+        // start altering original behavior of mailchimp
+
+        $('#mc-embedded-subscribe-button').click(function () {
+
+            var $newsletter = $('#mce-choose_newsletter');
+            var value = $newsletter.val();
+            if (value === 0) {
+
+                $('#mce-error-response-choose').css('display', 'block');
+
+            } else {
+
+                $('#mce-error-response-choose').css('display', 'none');
+
+                value--;
+
+                $('#mc-embedded-subscribe-form').attr('action', actions[value]);
+                $('#mce-input_name').attr('name', input_names[value]);
+                window.mc.ajaxOptions.url = window.mc.getAjaxSubmitUrl();
+
+                var ok = true;
+                $('.mce_inline_error').each(function () {
+                    if ($(this).css('display') !== "none") ok = false;
+                });
+                if ($('#mce-EMAIL').val() === "") {
+                    $('#mc-embedded-subscribe').click();
+                    ok = false;
+                }
+
+                if (ok) $('#mc-embedded-subscribe-form').ajaxSubmit(window.mc.ajaxOptions);
+                //console.log(window.mc.ajaxOptions);
+            }
+
+            return false;
+
+        });
+
+        var mce_success_cb_original = window.mc.mce_success_cb;
+        window.mc.mce_success_cb = function (resp) {
+
+            if (resp.result === "success") {
+
+                var $select = jQuery("#mce-choose_newsletter");
+                $select.selectbox('change', "0", "{% trans 'Please choose a newsletter' %}");
+                jQuery('option', $select).removeAttr('selected');
+
+                $('#mc-embedded-subscribe-button').css('display', 'none');
+                $('#mce-choose_newsletter-wrapper').css('display', 'none');
+                $('#mce-EMAIL').css('display', 'none');
+                $('#mc-embedded-ok').css('display', 'block');
+                success = true;
+
+            } else {
+                success = false;
+            }
+
+            mce_success_cb_original(resp);
+        };
+        window.mc.ajaxOptions.success = window.mc.mce_success_cb;
+
+        $('#mc-embedded-ok').click(function () {
+            $('#mc-embedded-subscribe-button').css('display', 'block');
+            $('#mce-choose_newsletter-wrapper').css('display', 'block');
+            $('#mce-EMAIL').css('display', 'block');
+            $('#mce-success-response').css('display', 'none');
+            $('#mc-embedded-ok').css('display', 'none');
+        });
+
+        $('#mce-EMAIL').change(function () {
+            $('div.mce_inline_error').css('display', 'none');
+        });
+
+        $('#mce-EMAIL').focus(function () {
+            $('div.mce_inline_error').css('display', 'none');
+        });
+
+        $('#mce-choose_newsletter-wrapper').click(function () {
+            $('#mce-error-response-choose').css('display', 'none');
+        });
+
+        // end altering
+        //////////////////////////////////////////////////
+
+        window.fnames = [];
+        window.ftypes = [];
+        fnames[0] = 'EMAIL';
+        ftypes[0] = 'email';
+        /*
+        * Translated default messages for the $ validation plugin.
+        * Locale: DE
+        */
+        $.extend($.validator.messages, {
+            required: "{% trans 'This field is required.' %}", //Dieses Feld ist ein Pflichtfeld.
+            maxlength: $.validator.format("Geben Sie bitte maximal {0} Zeichen ein."),
+            minlength: $.validator.format("Geben Sie bitte mindestens {0} Zeichen ein."),
+            rangelength: $.validator.format("Geben Sie bitte mindestens {0} und maximal {1} Zeichen ein."),
+            email: "{% trans 'Please enter a valid email address.' %}", //Geben Sie bitte eine gültige E-Mail Adresse ein.
+            url: "Geben Sie bitte eine gültige URL ein.",
+            date: "Bitte geben Sie ein gültiges Datum ein.",
+            number: "Geben Sie bitte eine Nummer ein.",
+            digits: "Geben Sie bitte nur Ziffern ein.",
+            equalTo: "Bitte denselben Wert wiederholen.",
+            range: $.validator.format("Geben Sie bitten einen Wert zwischen {0} und {1}."),
+            max: $.validator.format("Geben Sie bitte einen Wert kleiner oder gleich {0} ein."),
+            min: $.validator.format("Geben Sie bitte einen Wert größer oder gleich {0} ein."),
+            creditcard: "Geben Sie bitte ein gültige Kreditkarten-Nummer ein."
+        });
+
+    }(jQuery));
+    var $mcj = jQuery.noConflict(true);
+</script>
+
+{% add_data "script_nonces" microseconds|to_base64 %}
+
+<!--End mc_embed_signup-->

@@ -1,0 +1,56 @@
+{% load base_tags i18n %}<span class="addtocalendar atc-style-blue"
+                               data-toggle="tooltip"
+                               data-placement="top"
+                               title="{% trans "Add to calendar" %}"
+                               data-tooltip-left="-3;-10,.is-xs;-4,.header-icons">
+    <var class="atc_event">
+        <var class="atc_date_start">{{ event.start_date|date:"Y-m-d" }} {{ event.start_time|time:"G:i:s" }}</var>
+        <var class="atc_date_end">{{ end_date|date:"Y-m-d" }} {{ end_time|time:"G:i:s" }}</var>
+        <var class="atc_timezone">Europe/Berlin</var>
+        {% if event.production.title %}
+            <var class="atc_title">{{ event.production.title }}</var>
+        {% else %}
+            <var class="atc_title">Berlin Bühnen</var>
+        {% endif %}
+        <var class="atc_description">{{ description|striptags }}</var>
+        {% with locations=event.ev_or_prod_play_locations stages=event.ev_or_prod_play_stages %}
+            {% if event.production.in_program_of.exists or event.location_title or event.production.location_title or locations|length > 0 or stages|length > 0 %}
+                {% if not stages or not stages.0.street_address %}
+                    {% with locations|first as location %}
+                        {% if event.location_title %}
+                            <var class="atc_location">{{ event.location_title }}, {{ event.street_address }},
+                                {% if event.street_address2 %}
+                                    {{ event.street_address2 }}
+                                    , {% endif %}{{ event.postal_code }} {{ event.city }}</var>
+                        {% elif event.production.location_title %}
+                            <var class="atc_location">{{ event.production.location_title }}, {{ event.production.street_address }},
+                                {% if event.production.street_address2 %}
+                                    {{ event.production.street_address2 }}
+                                    , {% endif %}{{ event.production.postal_code }} {{ event.production.city }}</var>
+                        {% elif location %}
+                            <var class="atc_location">{{ location.title }}, {{ location.street_address }},
+                                {% if location.street_address2 %}
+                                    {{ location.street_address2 }}
+                                    , {% endif %}{{ location.postal_code }} {{ location.city }}</var>
+                        {% elif event.production.in_program_of.exists %}
+                            {% with event.production.in_program_of.all|first as program %}
+                                <var class="atc_location">{{ program.title }}, {{ program.street_address }},
+                                    {% if program.street_address2 %}
+                                        {{ program.street_address2 }}
+                                        , {% endif %}{{ program.postal_code }} {{ program.city }}</var>
+                            {% endwith %}
+                        {% endif %}
+                    {% endwith %}
+                {% else %}
+                    {% with stages|first as stage %}
+                        <var class="atc_location">{{ stage.title }}, {{ stage.street_address }},
+                            {% if stage.street_address2 %}
+                                {{ stage.street_address2 }}, {% endif %}{{ stage.postal_code }} {{ stage.city }}</var>
+                    {% endwith %}
+                {% endif %}
+            {% else %}
+                <var class="atc_location">Berlin</var>
+            {% endif %}
+        {% endwith %}
+    </var>
+</span>

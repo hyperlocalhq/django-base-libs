@@ -1,0 +1,163 @@
+{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites_tags %}
+<div class="accordion sidebar-accordion">
+    {% if department.phone_number or department.fax_number or department.email or department.website or department.street_address or department.location.street_address %}
+        <div class="accordion-item">
+            <h4 class="accordion-item-head open">{% trans "Venue" %}</h4>
+            <div class="accordion-item-content">
+                {% if department.street_address %}
+                    <p data-latitude="{{ department.latitude|stringformat:"%f" }}"
+                       data-longitude="{{ department.longitude|stringformat:"%f" }}">
+                        <strong>{{ department.title }}</strong><br/>
+                        {% if department.street_address %}{{ department.street_address }}<br/>{% endif %}
+                        {% if department.street_address2 %}{{ department.street_address2 }}<br/>{% endif %}
+                        {% if department.city %}{{ department.postal_code }} {{ department.city }}<br/>{% endif %}
+                    </p>
+                {% elif  department.location.street_address %}
+                    <p data-latitude="{{ department.location.latitude|stringformat:"%f" }}"
+                       data-longitude="{{ department.location.longitude|stringformat:"%f" }}">
+                        <strong>{{ department.title }}</strong><br/>
+                        {% if department.location.street_address %}{{ department.location.street_address }}
+                            <br/>
+                        {% endif %}
+                        {% if department.location.street_address2 %}{{ department.location.street_address2 }}
+                            <br/>
+                        {% endif %}
+                        {% if department.location.city %}
+                            {{ department.location.postal_code }}
+                            {{ department.location.city }}<br/>
+                        {% endif %}
+                    </p>
+                {% endif %}
+                {% if department.phone_number or department.fax_number or department.email or department.website %}
+                    <dl class="break-word">
+                        <dd class="headline">{% trans "Contact" %} {% trans "Education" %}</dd>
+                        {% if department.contact_name %}
+                            <dd>{{ department.contact_name }}</dd>
+                        {% endif %}
+                        {% if department.phone_number %}
+                            <dt class="width_50">{% trans "Phone" %}</dt>
+                            <dd>
+                                <a class="phone"
+                                   href="tel:{% if department.phone_country %}+{{ department.phone_country }}{% endif %}{{ department.phone_area }}{{ department.phone_number }}">
+                                    {% if department.phone_country %}+{{ department.phone_country }}
+                                        -{% endif %}{{ department.phone_area }}-{{ department.phone_number }}</a>
+                            </dd>
+                        {% endif %}
+                        {% if department.fax_number %}
+                            <dt class="width_50">{% trans "Fax" %}</dt>
+                            <dd>{% if department.fax_country %}+{{ department.fax_country }}
+                                -{% endif %}{{ department.fax_area }}-{{ department.fax_number }}</dd>
+                        {% endif %}
+                        {% if department.email %}
+                            <dt class="width_50">{% trans "Mail" %}</dt>
+                            <dd>
+                                <a href="mailto:{{ department.email }}">{{ department.email }}</a>
+                            </dd>
+                        {% endif %}
+                        {% if department.website %}
+                            <dt class="width_50">{% trans "Web" %}</dt>
+                            <dd>
+                                <a href="{{ department.website }}"
+                                   target="_blank"
+                                   class="no-print">{{ department.website|humanize_url:28 }}</a>
+                                <a href="{{ department.website }}"
+                                   target="_blank"
+                                   class="print">{{ department.website }}</a>
+                            </dd>
+                        {% endif %}
+                    </dl>
+                {% endif %}
+                {% if department.get_social_media %}
+                    <ul class="social_link_list">
+                        {% for social in department.get_social_media %}
+                            <li>
+                                <a class="fawesome {{ social.get_class }}"
+                                   href="{{ social.url }}"
+                                   target="_blank"
+                                   data-toggle="tooltip"
+                                   data-placement="top"
+                                   title="{{ social.channel_type }}"
+                                   data-tooltip-top="-12">
+                                    <span class="sr-only">{{ social.channel_type }}</span></a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% elif department.location.get_social_media %}
+                    <ul class="social_link_list">
+                        {% for social in department.location.get_social_media %}
+                            <li>
+                                <a class="fawesome {{ social.get_class }}"
+                                   href="{{ social.url }}"
+                                   target="_blank"
+                                   data-toggle="tooltip"
+                                   data-placement="top"
+                                   title="{{ social.channel_type }}"
+                                   data-tooltip-top="-12">
+                                    <span class="sr-only">{{ social.channel_type }}</span></a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+    {% if department.departmentmember_set.all %}
+        <div class="accordion-item">
+            <h4 class="accordion-item-head">{% trans "Team" %}</h4>
+            <div class="accordion-item-content">
+                {% for member in department.departmentmember_set.all %}
+                    <dl>
+                        {% if member.get_function %}
+                            <dd>{{ member.get_function }}</dd>
+                        {% endif %}
+                        {% if member.person %}
+                            <dd>{% if member.person.first_name %}
+                                {{ member.person.first_name }} {% endif %}{{ member.person.last_name }}</dd>
+                        {% endif %}
+                        {% if member.phone_number %}
+                            <dt class="width_50">{% trans "Phone" %}</dt>
+                            <dd>
+                                <a class="phone"
+                                   href="tel:{% if member.phone_country %}+{{ member.phone_country }}{% endif %}{{ member.phone_area }}{{ member.phone_number }}">
+                                    {% if member.phone_country %}+{{ member.phone_country }}
+                                        -{% endif %}{{ member.phone_area }}-{{ member.phone_number }}</a>
+                            </dd>
+                        {% endif %}
+                        {% if member.email %}
+                            <dt class="width_50">{% trans "Mail" %}</dt>
+                            <dd>
+                                <a href="mailto:{{ member.email }}">{{ member.email }}</a>
+                            </dd>
+                        {% endif %}
+                    </dl>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    {% if department.pdf_set.all %}
+        <div class="accordion-item">
+            <h4 class="accordion-item-head">{% trans "Downloads" %}</h4>
+            <div class="accordion-item-content">
+                <p>
+                    {% for pdf in department.pdf_set.all %}
+                        {% with pdf.path|file_description as file_desc %}
+                            {% if file_desc.title %}
+                                <a class="pdf break-word"
+                                   href="{{ MEDIA_URL }}{{ pdf.path }}"
+                                   target="_blank">{{ file_desc.title }}</a>
+                            {% elif file_desc.filename %}
+                                <a class="pdf break-word"
+                                   href="{{ MEDIA_URL }}{{ pdf.path }}"
+                                   target="_blank">{{ file_desc.filename }}</a>
+                            {% else %}
+                                <a class="pdf break-word"
+                                   href="{{ MEDIA_URL }}{{ pdf.path }}"
+                                   target="_blank">{{ pdf.path }}</a>
+                            {% endif %}
+                        {% endwith %}
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
+    {% endif %}
+</div>

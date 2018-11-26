@@ -1,0 +1,38 @@
+{% extends "cms/default.html" %}
+
+{% load cms_tags i18n %}
+
+{# The plugin limitations of this template are defined in settings.CMS_PLACEHOLDER_CONF #}
+
+{% block bodyclass %}{{ block.super }} service-grid no-transition{% endblock %}
+
+{% block js %}
+    <script src="{{ STATIC_URL }}site/js/grid.js" defer="defer"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="content details">
+        <div class="container main-container">
+            <div class="row">
+                <div class="col-xs-12 print-padding">
+                    <!--<a class="fawesome back uc no-print" href="{% page_url 'services' %}">{% trans "back to overview" %}</a>-->
+                    <a class="fawesome back uc no-print js-back" href="#">{% trans "back to overview" %}</a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row header">
+                <h1 class="bottom-line">{% trans "Service" %}</h1>
+                {% placeholder "intro" %}
+                <hr class="big"/>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 print-padding">
+                    <div id="main_list" class="grid location-grid grid-autoload grid-three-columns row">
+                        {% placeholder "main_content" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

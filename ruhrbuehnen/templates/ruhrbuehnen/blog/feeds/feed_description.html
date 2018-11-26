@@ -1,0 +1,3 @@
+{% load blog %}
+
+{{ obj.body|safe|striptags|truncatewords:"60" }}

@@ -1,0 +1,63 @@
+{% load base_tags i18n %}
+
+{% if not post_list %}
+    <span class="nothing">{% trans "No blog entries have been posted yet" %}</span>
+{% else %}
+    {% for post in post_list %}
+        {% include_selected "post_brief.html" for object under "blog" %}
+    {% endfor %}
+
+    {% comment %} THE PAGINATION SECTION BEGIN {% endcomment %}
+    <div class="breadcrumbs-paginated">
+        <div class="page-browse">
+            {% if is_paginated %}
+                <div class="paginated">
+                    <div class="previous">
+                        {% if has_previous %}
+                            <a href="{% append_to_get page=previous %}/">
+                                <span class="enabled">
+                                    <span class="hidden">
+                                        {% trans "previous" %}
+                                    </span>
+                                </span>
+                            </a>
+                        {% else %}
+                            <span class="disabled">
+                                <span class="hidden">{% trans "previous" %}</span>
+                            </span>
+                        {% endif %}
+                    </div>
+                    <form action="">
+                        <label>
+                            <select class="page_skip" onchange="append_to_get({page: this.value});">
+                                {% for pnumber in page_numbers %}
+                                    <option value="{{ pnumber }}"{% ifequal pnumber page %}
+                                            selected="selected"{% endifequal %}>{% blocktrans %}Page {{ pnumber }} of
+                                        {{ pages }}{% endblocktrans %}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </form>
+                    <div class="next">
+                        {% if has_next %}
+                            <a href="{% append_to_get page=next %}">
+                                <span class="enabled">
+                                    <span class="hidden">
+                                        {% trans "next" %}
+                                    </span>
+                                </span>
+                            </a>
+                        {% else %}
+                            <span class="disabled">
+                                <span class="hidden">
+                                    {% trans "next" %}
+                                </span>
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+

@@ -1,0 +1,33 @@
+{% extends "cms/default.html" %}
+
+{% load i18n base_tags %}
+
+{% block extrahead %}
+    <link rel="alternate"
+          type="application/rss+xml"
+          title="{% trans "Subscribe to the news" %}"
+          href="{% url "article_feed" feed_type="rss" %}"/>
+{% endblock %}
+
+{% block title %}
+    {% if type %}
+        {{ type.title|escape }}
+    {% else %}
+        {% trans "Welcome" %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="content default article">
+        <div class="container main-container">
+            <div class="row">
+                <div class="col-xs-12 print-padding">
+                    {% block headline %}
+                    {% endblock %}
+                    {% block details %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

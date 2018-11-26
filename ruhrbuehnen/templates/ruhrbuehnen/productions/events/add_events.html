@@ -1,0 +1,76 @@
+{% extends "productions/events/base.html" %}
+
+{% load base_tags crispy_forms_tags i18n sekizai_tags %}
+
+{% block csp_scripts %}'unsafe-eval'{% endblock %}
+
+{% block stylesheet %}
+    {{ block.super }}
+    <link href="{{ STATIC_URL }}site/datepicker/css/base.css" rel="stylesheet"/>
+    <link href="{{ STATIC_URL }}site/datepicker/css/clean.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block script %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}site/datepicker/js/datepicker.js"></script>
+{% endblock %}
+
+{% block multistep_form %}
+    {% crispy form %}
+    {% now "uuuu" as microseconds %}
+    <script nonce="{{ microseconds|to_base64 }}">
+        $(function () {
+            var CALENDAR_LOCALE = {
+                daysMin: ('{% trans "S|M|T|W|T|F|S" %}').split('|'),
+                months: ['{% trans "January" %}', '{% trans "February" %}', '{% trans "March" %}', '{% trans "April" %}', '{% trans "May" %}', '{% trans "June" %}', '{% trans "July" %}', '{% trans "August" %}', '{% trans "September" %}', '{% trans "October" %}', '{% trans "November" %}', '{% trans "December" %}'],
+                monthsShort: ['{% trans "Jan" %}', '{% trans "Feb" %}', '{% trans "Mar" %}', '{% trans "Apr" %}', '{% trans "May" %}', '{% trans "Jun" %}', '{% trans "Jul" %}', '{% trans "Aug" %}', '{% trans "Sep" %}', '{% trans "Oct" %}', '{% trans "Nov" %}', '{% trans "Dec" %}']
+            };
+
+            function show_calendar() {
+                var now = new Date();
+                var options = {
+                    mode: $('[name="events_type"]:checked').val(),
+                    inline: true,
+                    calendars: 3,
+                    starts: 1,
+                    extraHeight: 20,
+                    extraWidth: 20,
+                    current: new Date(now.getFullYear(), now.getMonth() + 1, 1),
+                    locale: CALENDAR_LOCALE,
+                    onBeforeShow: function (el) {
+                        //var $dates = $('#id_dates');
+                        //if ($dates.val()) {
+                        //    $('#calendar').DatePickerSetDate($dates.val().split(','), true);
+                        //}
+                    },
+                    onChange: function (dates, el) {
+                        if (!(dates instanceof Array)) {
+                            dates = [dates];
+                        }
+                        var all_dates = [];
+                        for (var i = 0, len = dates.length; i < len; i++) {
+                            all_dates.push(dates[i].getFullYear() + '-' + (dates[i].getMonth() + 1) + '-' + dates[i].getDate());
+                        }
+                        $('#id_dates').val(all_dates.join(','));
+                    }
+                };
+                var $dates = $('#id_dates');
+                if ($dates.val()) {
+                    options['dates'] = $dates.val().split(',');
+                }
+                $('#calendar').html('').DatePicker(options);
+            }
+
+            show_calendar();
+            $('[name="events_type"]').on('change', show_calendar);
+
+            $('.timeinput').timepicker({
+                str_hours: '{% trans "Hours" %}',
+                str_minutes: '{% trans "Minutes" %}',
+                str_confirm: '{% trans "Confirm" %}',
+                str_close: '{% trans "Close" %}'
+            });
+        });
+    </script>
+    {% add_data "script_nonces" microseconds|to_base64 %}
+{% endblock %}

@@ -1,0 +1,5 @@
+{% load base_tags i18n %}
+<a class="favorite" href="/{{ LANGUAGE_CODE }}/login/" title="{% trans "Add to My Favorites" %}">
+    <span class="icon">{% include 'svg/icons/heart.svg' %}</span>
+    <span class="sr-only">{% trans "Add to My Favorites" %}</span>
+</a>

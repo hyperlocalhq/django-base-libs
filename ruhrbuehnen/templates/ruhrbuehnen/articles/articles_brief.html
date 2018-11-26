@@ -1,0 +1,27 @@
+{% load i18n base_tags babel articles_tags image_modifications %}
+<div class="item clickable">
+
+    <a href="{{ article.get_url_path }}" class="image">
+        <time datetime="{{ article.published_from|date:"Y-m-d" }}">
+            <span>{{ article.published_from|date:"M" }}</span> {{ article.published_from|date:"j" }}
+        </time>
+        <!-- {{ article.published_from|date:"Y" }} -->
+        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"nt" }}" alt="{{ article.get_title|escape }}"/>
+    </a>
+    <div class="body">
+        <!-- <div class="date">{{ article.published_from|datefmt:"long" }}</div> -->
+        <h6>{{ article.title }}
+        </h6>
+
+        {% if article.image %}
+        {% endif %}
+        <p>
+            {% if article.description %}
+                {{ article.get_rendered_description|wordwrap:30|striptags|truncatewords:"25" }}
+            {% else %}
+                {{ article.get_rendered_content|striptags|wordwrap:30|truncatewords:"25" }}
+            {% endif %}
+        </p>
+        <a class="btn btn-mini" href="{{ article.get_url_path }}">Mehr…</a>
+    </div>
+</div>

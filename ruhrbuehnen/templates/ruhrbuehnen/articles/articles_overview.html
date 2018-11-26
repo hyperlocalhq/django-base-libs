@@ -1,0 +1,49 @@
+{% extends "cms/default.html" %}
+
+{% load base_tags babel i18n auth_extended articles_tags infoblocks image_modifications crispy_forms_tags fb_tags %}
+
+{% block content %}
+    <div class="content default article">
+        <div class="container main-container">
+            <div class="row">
+                <div class="col-xs-12 print-padding">
+                    <h1>{% trans "I want more!" %}</h1>
+                    <div class="article-more-list">
+                        {% if article_list %}
+                            {% for article in article_list %}
+                                <a href="{{ article.get_url_path }}">
+                                    {% if article.image %}
+                                        <div class="photo-credits-wrapper">
+                                            <img src="{{ MEDIA_URL }}{{ article.image|modified_path:"list_image" }}"
+                                                 class="hidden-xs"/>
+                                            <img src="{{ MEDIA_URL }}{{ article.image|modified_path:"news_image" }}"
+                                                 class="visible-xs"/>
+                                            {% with article.image|file_description as file_desc %}
+                                                {% if file_desc.author %}
+                                                    <span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>
+                                                {% endif %}
+                                            {% endwith %}
+                                        </div>
+                                    {% endif %}
+                                    {% if article.category.title %}
+                                        <span class="article-more-list-date">{{ article.category.title }}</span>
+                                    {% endif %}
+                                    <h6>{{ article.get_title }}</h6>
+                                    <p>
+                                        {% if article.description %}
+                                            {{ article.get_rendered_description|wordwrap:30|striptags|truncatewords:"50" }}
+                                        {% else %}
+                                            {{ article.get_rendered_content|striptags|wordwrap:30|truncatewords:"50" }}
+                                        {% endif %}
+                                    </p>
+                                    <span class="article-more-list-more fawesome more">{% trans "read on" %}</span>
+                                </a>
+                            {% endfor %}
+                            {% include "utils/pagination.html" %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

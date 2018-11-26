@@ -1,0 +1,76 @@
+{% load base_tags i18n sekizai_tags %}
+
+<div id="duplicateConfirmation"
+     class="modal"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="duplicateConfirmationLabel"
+     aria-hidden="true">
+    <div class="modal-centered">
+        <div class="cell">
+            <div class="inner">
+                <div class="modal-header">
+                    {% trans "Do you really want to duplicate this item?" %}
+                </div>
+                <div class="modal-body">
+                    <div class="modal-form"></div>
+                </div>
+                <div class="modal-footer">
+                    <button id="button-id-confirm-duplication"
+                            class="btn btn-lg btn-primary">{% trans "Duplicate" %}</button>
+                    <button name="cancel"
+                            class="btn btn-lg btn-default"
+                            data-dismiss="modal"
+                            aria-hidden="true">{% trans "Cancel" %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% now "uuuu" as microseconds %}
+<script nonce="{{ microseconds|to_base64 }}">
+    $(function () {
+        $('.duplicate').click(function () {
+            var $item = $(this).closest('tr');
+
+            var $modal = $("#duplicateConfirmation");
+            var object_title = $(this).data("object-title");
+            var object_type = $(this).data("object-type");
+
+            var duplicate_url = $(this).attr('href');
+            $('.modal-form', $modal).load(duplicate_url, function () {
+                $modal.modal('show');
+                $('.modal-form form', $modal).submit(function (e) {
+                    e.preventDefault();
+                })
+            });
+            $('#button-id-confirm-duplication').click(function (e) {
+                var $button = $(this);
+                $button.attr('disabled', true);
+                e.preventDefault();
+                $.post(duplicate_url, {
+                    title_de: $('.modal-form [name="title_de"]', $modal).val(),
+                    title_en: $('.modal-form [name="title_en"]', $modal).val(),
+                    csrfmiddlewaretoken: $('.form [name="csrfmiddlewaretoken"]', $modal).val()
+                }).done(function (data) {
+                    if (data.indexOf('<') === -1) {
+                        if (data) {
+                            $modal.modal('hide');
+                            location.href = data;
+                        }
+                    } else {
+                        var $form = $(data);
+                        if ($form.is('form')) { // validation error, so update form
+                            $('.modal-form', $modal).html('').append($form);
+                            $button.attr('disabled', null);
+                        }
+                    }
+                });
+            });
+            return false;
+        });
+    });
+</script>
+
+{% add_data "script_nonces" microseconds|to_base64 %}

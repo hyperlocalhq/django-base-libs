@@ -1,0 +1,147 @@
+// main:style.scss
+
+@charset "utf-8";
+
+.date-slider {
+    display: table;
+    width: 100%;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+    font-family: $font-family-1, $font-local-1;
+    font-size: 1.846rem;
+
+    .sticky & {
+        padding-bottom: 0px;
+    }
+
+    > * {
+        display: table-cell;
+    }
+
+    > .icon {
+        display: none;
+    }
+
+    .date-slider-left, .date-slider-right {
+        width: 50px;
+        font-weight: $bold;
+        cursor: pointer;
+
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none;
+
+        .is-lg & {
+            width: 42px;
+        }
+        .is-md & {
+            width: 40px;
+        }
+        .is-sm & {
+            width: 37px;
+        }
+
+        &.deactive {
+            opacity: 0.2;
+            cursor: default;
+        }
+
+        .icon {
+            > * {
+                width: 30px;
+                height: 25px;
+                position: relative;
+                top: -2px;
+
+                .is-lg & {
+                    width: 27px;
+                    height: 23px;
+                    top: 0px;
+                }
+
+                .is-md & {
+                    width: 25px;
+                    height: 21px;
+                    top: 0px;
+                }
+
+                .is-sm & {
+                    width: 24px;
+                    height: 20px;
+                    top: 0px;
+                }
+            }
+        }
+    }
+
+    .date-slider-right {
+        width: 35px;
+        text-align: right;
+    }
+
+    .date-slider-year-month {
+        width: 7.5rem;
+        overflow: hidden;
+    }
+
+    .date-slider-year {
+        display: inline-block;
+        width: 4rem;
+        cursor: default;
+        font-weight: $light;
+    }
+
+    .date-slider-month {
+        display: inline-block;
+        width: 3.5rem;
+        cursor: default;
+        font-weight: $light;
+    }
+
+    .date-slider-dates {
+
+        > * {
+            display: inline-block;
+            cursor: default;
+        }
+
+        .date-slider-date {
+            font-weight: $bold;
+            padding: 0 0.35rem;
+            cursor: pointer;
+            color: $black;
+
+            &:first-child {
+                padding-left: 0;
+            }
+            &:last-child {
+                padding-right: 0;
+            }
+
+            &.date-slider-active {
+                text-decoration: underline;
+            }
+        }
+
+        .date-slider-seperator {
+            width: 4px;
+            height: 1.8rem;
+            margin: 0 0.875rem;
+            background: #000;
+            position: relative;
+            top: 0.2rem;
+        }
+
+        .date-slider-month {
+            padding: 0 0.35rem;
+        }
+
+        .date-slider-year {
+            padding: 0 0.35rem;
+        }
+    }
+}

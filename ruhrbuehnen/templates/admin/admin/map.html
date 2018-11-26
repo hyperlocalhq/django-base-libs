@@ -1,0 +1,19 @@
+{% load i18n %}
+
+<div class="map_canvas" style="width: 746px; height: 300px;">
+    <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+</div>
+<div class="map_locations"></div>
+<div class="grp-submit-row">
+    <ul>
+        <li>
+            <input type="button" class="grp-button locate_address" value="{% trans "Relocate on map" %}"/>
+        </li>
+        <li>
+            <input type="button" class="grp-button remove_geo" value="{% trans "Remove from map" %}"/>
+        </li>
+    </ul>
+</div>
+<script type="text/javascript"
+        src="//maps.google.com/maps/api/js?language=de&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}site/js/locating.js"></script>

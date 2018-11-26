@@ -1,0 +1,10 @@
+{% load url from future %}
+
+{% load i18n image_modifications base_tags tagging_tags production_tags favorites_tags auth_extended %}
+
+{% if object_list %}
+    {% include "events/includes/list.html" %}
+    {% include "utils/pagination.html" %}
+{% else %}
+    {% include "utils/container_empty.html" %}
+{% endif %}

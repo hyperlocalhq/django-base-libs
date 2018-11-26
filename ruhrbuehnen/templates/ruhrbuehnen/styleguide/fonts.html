@@ -1,0 +1,61 @@
+{% extends "styleguide/base.html" %}
+
+{% block styleguide %}
+    <div class="container">
+
+        <h1>&lt;h1&gt;Headline 1 <span class="light">.light</span> <span class="book">.book</span>
+            <span class="regular">.regular</span> <span class="demi">.demi</span>&lt;/h1&gt;</h1>
+        <h2>&lt;h2&gt;Headline 2 <span class="light">.light</span> <span class="book">.book</span>
+            <span class="regular">.regular</span> <span class="demi">.demi</span>&lt;/h2&gt;</h2>
+        <h3>&lt;h3&gt;Headline 3 <span class="light">.light</span> <span class="book">.book</span>
+            <span class="regular">.regular</span> <span class="demi">.demi</span>&lt;/h3&gt;</h3>
+        <h4>&lt;h4&gt;Headline 4 <span class="light">.light</span> <span class="book">.book</span>
+            <span class="regular">.regular</span> <span class="demi">.demi</span>&lt;/h4&gt;</h4>
+        <h5>&lt;h5&gt;Headline 5 <span class="light">.light</span> <span class="book">.book</span>
+            <span class="regular">.regular</span> <span class="demi">.demi</span>&lt;/h5&gt;</h5>
+        <h6>&lt;h6&gt;Headline 6 <span class="light">.light</span> <span class="book">.book</span>
+            <span class="regular">.regular</span> <span class="demi">.demi</span>&lt;/h6&gt;</h6>
+
+        <h1 class="alt-font">&lt;h1 class="alt-font"&gt;Headline 1 <span class="light">.light</span> <span class="book">.book</span>
+            <span class="regular">.regular</span> <span class="demi">.demi</span>&lt;/h1&gt;</h1>
+        <h2 class="alt-font">&lt;h2 class="alt-font"&gt;Headline 2 <span class="light">.light</span> <span class="book">.book</span>
+            <span class="regular">.regular</span> <span class="demi">.demi</span>&lt;/h2&gt;</h2>
+        <h3 class="alt-font">&lt;h3 class="alt-font"&gt;Headline 3 <span class="light">.light</span> <span class="book">.book</span>
+            <span class="regular">.regular</span> <span class="demi">.demi</span>&lt;/h3&gt;</h3>
+        <h4 class="alt-font">&lt;h4 class="alt-font"&gt;Headline 4 <span class="light">.light</span> <span class="book">.book</span>
+            <span class="regular">.regular</span> <span class="demi">.demi</span>&lt;/h4&gt;</h4>
+        <h5 class="alt-font">&lt;h5 class="alt-font"&gt;Headline 5 <span class="light">.light</span> <span class="book">.book</span>
+            <span class="regular">.regular</span> <span class="demi">.demi</span>&lt;/h5&gt;</h5>
+        <h6 class="alt-font">&lt;h6 class="alt-font"&gt;Headline 6 <span class="light">.light</span> <span class="book">.book</span>
+            <span class="regular">.regular</span> <span class="demi">.demi</span>&lt;/h6&gt;</h6>
+
+        <p>The normal font of the headlines and the website in general is ND Ruhr 7.<br/>
+            Adding the class .alt-font to any element switches the font to ND Ruhr 6.<br/>
+            The font for the paragraphs is Open Sans.</p>
+
+        <br/>
+
+        <p>&lt;p&gt;Paragraph Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+            invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
+            dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+            Paragraph&lt;/p&gt;</p>
+        <p>&lt;p&gt;Paragraph <i>&lt;i&gt;Lorem ipsum dolor sit amet&lt;/i&gt;</i>, consetetur sadipscing <b>&lt;b&gt;elitr&lt;/b&gt;</b>,
+            <strong>&lt;strong&gt;sed diam&lt;/strong&gt;</strong> nonumy <span class="b">&lt;span class="b"&gt;eirmod&lt;/span&gt;</span>
+            tempor <span class="strong">&lt;span class="strong"&gt;invidunt&lt;/span&gt;</span> ut <span class="bold">&lt;span class="bold"&gt;labore&lt;/span&gt;</span>
+            et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+            Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Paragraph&lt;/p&gt;</p>
+
+        <br/>
+
+        <p>You can use the classes .h1, .h2, .h3, .h4, .h5, .h6 or .p to achieve the style of the particular
+            element.</p>
+
+        <br/>
+
+        <p>
+            <b>.break-word:</b> {word-wrap: break-word; word-break: break-word;}<br/>
+            <b>.center:</b> {text-align: center; margin-left: auto; margin-right: auto;}
+        </p>
+
+    </div>
+{% endblock %}
