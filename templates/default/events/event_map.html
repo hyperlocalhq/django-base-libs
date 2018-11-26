@@ -1,1 +1,68 @@
-{% extends "events/details_base.html" %}{% load i18n base_tags events infoblocks %}{% block doctype %}    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">{% endblock %}{% block extrahead %}    {{ block.super }}    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/map.js"></script>    <script type="text/javascript">    $j = jQuery;    {% with object.get_primary_contact as geopos %}        {% if geopos %}            $j(document).ready(function() {                GMapManager.markGeoposition({{ geopos.latitude }}, {{ geopos.longitude }});            });        {% endif %}    {% endwith %}    {% for contact in object.get_contacts %}        {% with contact.postal_address.get_geoposition as geopos %}            {% if geopos %}            GMapManager.aGeopositions[{{ forloop.counter0 }}] = [{{ geopos.latitude }}, {{ geopos.longitude }}];            {% endif %}        {% endwith %}    {% endfor %}    </script>{% endblock %}{% block content %}<div class="map">{{ block.super }}</div>{% endblock %}{% block details %}<div class="map">    <noscript>{% infoblock "js_warning" %}</noscript>        <div class="breadcrumbs"><a href="{{ object.get_url_path }}">{% trans "Back to profile view" %}</a></div>        <div id="dyn_map" class="to_show">        <iframe src="http://{{ site_settings.site.domain }}{% if request.META.SERVER_PORT %}{% ifnotequal request.META.SERVER_PORT 80 %}:{{ request.META.SERVER_PORT }}{% endifnotequal %}{% endif %}/gmap/" id="gmap"></iframe>                <div class="breadcrumbs" id="maping_links">            <a href="#contacts" id="dyn_but_contacts">{% trans "show all" %}</a>            {% for contact in object.get_contacts %}                {% with contact.postal_address.get_geoposition as geopos %}                    {% if geopos %}                    | <a id="dyn_but_contact_{{ forloop.counter0 }}" class="dyn_but_contact" href="#contact_{{ forloop.counter0 }}">{% if contact.location_title %}{{ contact.location_title }}{% else %}{% trans "location" %} #{{ forloop.counter }}{% endif %}</a>                    {% endif %}                {% endwith %}            {% endfor %}        </div>                <div id="dyn_contact"><div class="section_in_progress"><img src="{{ STATIC_URL }}site/js/jquery/indicator.gif" /><span>Loading. Please wait</span></div>        </div>    </div></div>{% endblock %}
+{% extends "events/details_base.html" %}
+{% load i18n base_tags events infoblocks %}
+
+{% block doctype %}
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+            "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% endblock %}
+
+
+{% block extrahead %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/map.js"></script>
+    <script type="text/javascript">
+        $j = jQuery;
+        {% with object.get_primary_contact as geopos %}
+            {% if geopos %}
+                $j(document).ready(function () {
+                    GMapManager.markGeoposition({{ geopos.latitude }}, {{ geopos.longitude }});
+                });
+            {% endif %}
+        {% endwith %}
+        {% for contact in object.get_contacts %}
+            {% with contact.postal_address.get_geoposition as geopos %}
+                {% if geopos %}
+                    GMapManager.aGeopositions[{{ forloop.counter0 }}] = [{{ geopos.latitude }}, {{ geopos.longitude }}];
+                {% endif %}
+            {% endwith %}
+        {% endfor %}
+    </script>
+{% endblock %}
+{% block content %}
+    <div class="map">{{ block.super }}</div>{% endblock %}
+{% block details %}
+    <div class="map">
+        <noscript>{% infoblock "js_warning" %}</noscript>
+
+        <div class="breadcrumbs">
+            <a href="{{ object.get_url_path }}">{% trans "Back to profile view" %}</a>
+        </div>
+
+        <div id="dyn_map" class="to_show">
+            <iframe src="http://
+                    {{ site_settings.site.domain }}{% if request.META.SERVER_PORT %}{% ifnotequal request.META.SERVER_PORT 80 %}:{{ request.META.SERVER_PORT }}{% endifnotequal %}{% endif %}/gmap/"
+                    id="gmap"></iframe>
+
+            <div class="breadcrumbs" id="maping_links">
+                <a href="#contacts" id="dyn_but_contacts">{% trans "show all" %}</a>
+                {% for contact in object.get_contacts %}
+                    {% with contact.postal_address.get_geoposition as geopos %}
+                        {% if geopos %}
+                            |
+                            <a id="dyn_but_contact_{{ forloop.counter0 }}"
+                               class="dyn_but_contact"
+                               href="#contact_{{ forloop.counter0 }}">
+                                {% if contact.location_title %}{{ contact.location_title }}{% else %}{% trans "location" %} #{{ forloop.counter }}{% endif %}</a>
+                        {% endif %}
+                    {% endwith %}
+                {% endfor %}
+            </div>
+
+            <div id="dyn_contact">
+                <div class="section_in_progress">
+                    <img src="{{ STATIC_URL }}site/js/jquery/indicator.gif"/>
+                    <span>Loading. Please wait</span></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

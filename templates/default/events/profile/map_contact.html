@@ -4,33 +4,37 @@
         <dt>
             {% if object.venue %}
                 <a href="{{ object.venue.get_url_path }}">
-                    {{ object.venue.title }}<br />
+                    {{ object.venue.title }}
+                    <br/>
                 </a>
             {% else %}
-                {{ object.venue_title }}<br />
+                {{ object.venue_title }}
+                <br/>
             {% endif %}
         </dt>
         <dd>
             {% if contact.institution %}
-                <a href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a><br />
+                <a href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
+                <br/>
             {% endif %}
             {% with contact.postal_address as address %}
                 {% if address.street_address %}
-                      <span class="street-address">{{ address.street_address|escape }}, </span>
-                {% endif %}								
+                    <span class="street-address">{{ address.street_address|escape }}, </span>
+                {% endif %}
                 {% if address.street_address2 %}
                     <span class="street-address">{{ address.street_address2|escape }}, </span>
-                {% endif %}								
+                {% endif %}
                 {% if address.street_address3 %}
                     <span class="street-address">{{ address.street_address3|escape }}, </span>
-                {% endif %}								
-                {% if address.postal_code %}	
-                      <span class="postal-code">{{ address.postal_code|escape }}</span> <span class="locality">{{ address.city|escape }}, </span>
-                {% endif %}								
-                {% if address.country %}
-                      <span class="country-name">{{ address.country.get_name }}</span>
                 {% endif %}
-            {% endwith %}  
+                {% if address.postal_code %}
+                    <span class="postal-code">{{ address.postal_code|escape }}</span>
+                    <span class="locality">{{ address.city|escape }}, </span>
+                {% endif %}
+                {% if address.country %}
+                    <span class="country-name">{{ address.country.get_name }}</span>
+                {% endif %}
+            {% endwith %}
         </dd>
     </dl>
 </div>

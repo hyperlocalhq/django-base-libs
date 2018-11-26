@@ -8,12 +8,16 @@ from django.conf import settings
 
 from jetson.apps.tracker.forms import TicketForm
 
+
 @never_cache
 def create_ticket(
-    request, concern=None, content_type_id=None, object_id=None, 
-    template_name='tracker/createticket.html', 
+    request,
+    concern=None,
+    content_type_id=None,
+    object_id=None,
+    template_name='tracker/createticket.html',
     template_done_name='tracker/postticket.html',
-    ):
+):
     """
     Displays the trouble ticket form and handles the associated action
     """
@@ -24,27 +28,33 @@ def create_ticket(
         data = request.POST.copy()
         data.update(request.FILES)
         form = TicketForm(
-             concern = concern,
-             content_type_id=content_type_id,
-             object_id=object_id,
-             url=redirect_to,
-             data=data
-         )
+            concern=concern,
+            content_type_id=content_type_id,
+            object_id=object_id,
+            url=redirect_to,
+            data=data
+        )
 
         if form.is_valid():
             form.save()
-            return render_to_response(template_done_name ,{
-               settings.REDIRECT_FIELD_NAME: redirect_to,
-            }, context_instance=RequestContext(request))
+            return render_to_response(
+                template_done_name, {
+                    settings.REDIRECT_FIELD_NAME: redirect_to,
+                },
+                context_instance=RequestContext(request)
+            )
     else:
         form = TicketForm(
-             concern=concern,
-             content_type_id=content_type_id,
-             object_id=object_id,
-             url=redirect_to,
-         )
+            concern=concern,
+            content_type_id=content_type_id,
+            object_id=object_id,
+            url=redirect_to,
+        )
 
-    return render_to_response(template_name ,{
-        'form': form,
-        settings.REDIRECT_FIELD_NAME: redirect_to,
-    }, context_instance=RequestContext(request))
+    return render_to_response(
+        template_name, {
+            'form': form,
+            settings.REDIRECT_FIELD_NAME: redirect_to,
+        },
+        context_instance=RequestContext(request)
+    )

@@ -10,38 +10,42 @@ from base_libs.utils.misc import ExtendedJSONEncoder, get_related_queryset
 
 app = models.get_app("institutions")
 Institution, InstitutionalContact = (
-    app.Institution, app.InstitutionalContact,
-    )
+    app.Institution,
+    app.InstitutionalContact,
+)
+
 
 def get_published_institutions(search):
-    
+
     if not get_current_user():
         return []
-    
+
     if not search or len(search) < 1:
         return []
-    
+
     queryset = Institution.objects.filter(
         status__in=("published", "published_commercial"),
-        )
+    )
     if search != "all":
         queryset = queryset.filter(title__istartswith=search)
-        
+
     return queryset
 
+
 def get_all_institutions(search):
-    
+
     if not get_current_user():
         return []
-    
+
     if not search or len(search) < 1:
         return []
-    
+
     queryset = Institution.objects.all()
     if search != "all":
         queryset = queryset.filter(title__istartswith=search)
-        
+
     return queryset
+
 
 def json_get_institution_attrs(request, institution_id):
     """
@@ -53,9 +57,10 @@ def json_get_institution_attrs(request, institution_id):
     contact['location_type'] = get_related_queryset(
         InstitutionalContact,
         "location_type",
-        ).get(slug="main")
+    ).get(slug="main")
     json_str = json.dumps(contact, ensure_ascii=False, cls=ExtendedJSONEncoder)
-    
+
     return HttpResponse(json_str, content_type='text/javascript; charset=utf-8')
+
 
 json_get_institution_attrs = never_cache(json_get_institution_attrs)

@@ -24,29 +24,44 @@ image_mods = models.get_app("image_mods")
 
 app = models.get_app("people")
 Person, IndividualContact, URL_ID_PERSON, URL_ID_PEOPLE = (
-    app.Person, app.IndividualContact, app.URL_ID_PERSON, app.URL_ID_PEOPLE,
+    app.Person,
+    app.IndividualContact,
+    app.URL_ID_PERSON,
+    app.URL_ID_PEOPLE,
 )
 
 app = models.get_app("institutions")
 Institution, InstitutionalContact, URL_ID_INSTITUTION, URL_ID_INSTITUTIONS = (
-    app.Institution, app.InstitutionalContact,
-    app.URL_ID_INSTITUTION, app.URL_ID_INSTITUTIONS
+    app.Institution, app.InstitutionalContact, app.URL_ID_INSTITUTION,
+    app.URL_ID_INSTITUTIONS
 )
 LegalForm = app.LegalForm
 
 WEEK_DAYS = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
 
-LEGAL_FORM_CHOICES = XChoiceList(get_related_queryset(Institution, 'legal_form'))
+LEGAL_FORM_CHOICES = XChoiceList(
+    get_related_queryset(Institution, 'legal_form')
+)
 
-ESTABLISHMENT_YYYY_CHOICES = Institution._meta.get_field('establishment_yyyy').get_choices()
+ESTABLISHMENT_YYYY_CHOICES = Institution._meta.get_field('establishment_yyyy'
+                                                        ).get_choices()
 ESTABLISHMENT_YYYY_CHOICES[0] = ("", _("Year"))
-ESTABLISHMENT_MM_CHOICES = Institution._meta.get_field('establishment_mm').get_choices()
+ESTABLISHMENT_MM_CHOICES = Institution._meta.get_field('establishment_mm'
+                                                      ).get_choices()
 ESTABLISHMENT_MM_CHOICES[0] = ("", _("Month"))
 
-URL_TYPE_CHOICES = XChoiceList(get_related_queryset(IndividualContact, 'url0_type'))
-IM_TYPE_CHOICES = XChoiceList(get_related_queryset(IndividualContact, 'im0_type'))
-LOCATION_TYPE_CHOICES = XChoiceList(get_related_queryset(IndividualContact, 'location_type'))
-INSTITUTION_LOCATION_TYPE_CHOICES = XChoiceList(get_related_queryset(InstitutionalContact, 'location_type'))
+URL_TYPE_CHOICES = XChoiceList(
+    get_related_queryset(IndividualContact, 'url0_type')
+)
+IM_TYPE_CHOICES = XChoiceList(
+    get_related_queryset(IndividualContact, 'im0_type')
+)
+LOCATION_TYPE_CHOICES = XChoiceList(
+    get_related_queryset(IndividualContact, 'location_type')
+)
+INSTITUTION_LOCATION_TYPE_CHOICES = XChoiceList(
+    get_related_queryset(InstitutionalContact, 'location_type')
+)
 
 # prexixes of fields to guarantee uniqueness
 PREFIX_CI = 'CI_'  # Creative Sector aka Creative Industry
@@ -60,8 +75,8 @@ STR_LOGO_SIZE = "%sx%s" % LOGO_SIZE
 # Collect translatable strings
 _("Apply to all days")
 
-
 ### ADD INSTITUTION ###
+
 
 class MainDataForm(dynamicforms.Form):
     institution_name = forms.CharField(
@@ -114,11 +129,9 @@ class MainDataForm(dynamicforms.Form):
     )
     district = forms.CharField(
         required=False,
-        widget=forms.HiddenInput(
-            attrs={
-                "class": "form_hidden",
-            }
-        ),
+        widget=forms.HiddenInput(attrs={
+            "class": "form_hidden",
+        }),
     )
     country = forms.ChoiceField(
         required=True,
@@ -127,19 +140,15 @@ class MainDataForm(dynamicforms.Form):
     )
     longitude = forms.CharField(
         required=False,
-        widget=forms.HiddenInput(
-            attrs={
-                "class": "form_hidden",
-            }
-        ),
+        widget=forms.HiddenInput(attrs={
+            "class": "form_hidden",
+        }),
     )
     latitude = forms.CharField(
         required=False,
-        widget=forms.HiddenInput(
-            attrs={
-                "class": "form_hidden",
-            }
-        ),
+        widget=forms.HiddenInput(attrs={
+            "class": "form_hidden",
+        }),
     )
     phone_country = forms.CharField(
         required=False,
@@ -292,7 +301,9 @@ class MainDataForm(dynamicforms.Form):
                     ),
                 ),
                 "country",
-                layout.HTML("""{% include "bootstrap3/custom_widgets/editable_map.html" %}"""),
+                layout.HTML(
+                    """{% include "bootstrap3/custom_widgets/editable_map.html" %}"""
+                ),
                 css_id="fieldset_institution_select",
             ),
             layout.Fieldset(
@@ -424,9 +435,7 @@ class MainDataForm(dynamicforms.Form):
                     ),
                 ),
             ),
-            bootstrap.FormActions(
-                layout.Submit('submit', _('Next')),
-            )
+            bootstrap.FormActions(layout.Submit('submit', _('Next')), )
         )
 
 
@@ -444,7 +453,8 @@ class ProfileForm(dynamicforms.Form):
     avatar = ImageField(
         label=_("Profile photo"),
         help_text=_(
-            "You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px.") % STR_LOGO_SIZE,
+            "You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px."
+        ) % STR_LOGO_SIZE,
         required=False,
         min_dimensions=LOGO_SIZE,
     )
@@ -466,18 +476,22 @@ class ProfileForm(dynamicforms.Form):
             ),
             layout.Fieldset(
                 _("Photo"),
-                layout.HTML("""{% load image_modifications %}
+                layout.HTML(
+                    """{% load image_modifications %}
                     {% if form_step_data.1.avatar %}
                         <img src="/helper/tmpimage/{{ form_step_data.1.avatar.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/" alt="{{ object.get_title|escape }}"/>
                     {% else %}
                         <img src="{{ DEFAULT_FORM_LOGO_4_INSTITUTION }}" alt="{{ object.get_title|escape }}"/>
                     {% endif %}
-                """),
+                """
+                ),
                 "avatar",
             ),
             bootstrap.FormActions(
                 layout.Submit('reset', _('Reset')),
-                layout.HTML("""{% include "bootstrap3/custom_widgets/previous_button.html" %}"""),
+                layout.HTML(
+                    """{% include "bootstrap3/custom_widgets/previous_button.html" %}"""
+                ),
                 layout.Submit('submit', _('Next')),
             )
         )
@@ -743,7 +757,7 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
         }
         self.helper.layout = layout.Layout(
             layout.Fieldset(
-                string_concat(_("Opening Time"), " - ",  _("Closing Time")),
+                string_concat(_("Opening Time"), " - ", _("Closing Time")),
                 layout.Row(
                     layout.Div(
                         layout.HTML(_("Monday")),
@@ -760,11 +774,13 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
                     layout.Div(
                         "mon_is_closed",
                         "show_breaks",
-                        layout.HTML("""{% load i18n %}
+                        layout.HTML(
+                            """{% load i18n %}
                             <p>
                                 <a id="id_apply_all_days" href="#">{% trans "Apply to all days" %}</a>
                             </p>
-                        """),
+                        """
+                        ),
                         css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
                     ),
                 ),
@@ -786,7 +802,6 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
                         css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
                     ),
                 ),
-
                 layout.Row(
                     layout.Div(
                         layout.HTML(_("Tuesday")),
@@ -823,7 +838,6 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
                         css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
                     ),
                 ),
-
                 layout.Row(
                     layout.Div(
                         layout.HTML(_("Wednesday")),
@@ -860,7 +874,6 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
                         css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
                     ),
                 ),
-
                 layout.Row(
                     layout.Div(
                         layout.HTML(_("Thursday")),
@@ -897,7 +910,6 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
                         css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
                     ),
                 ),
-
                 layout.Row(
                     layout.Div(
                         layout.HTML(_("Friday")),
@@ -934,7 +946,6 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
                         css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
                     ),
                 ),
-
                 layout.Row(
                     layout.Div(
                         layout.HTML(_("Saturday")),
@@ -971,7 +982,6 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
                         css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
                     ),
                 ),
-
                 layout.Row(
                     layout.Div(
                         layout.HTML(_("Sunday")),
@@ -1008,7 +1018,6 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
                         css_class="col-xs-3 col-sm-3 col-md-3 col-lg-3",
                     ),
                 ),
-
                 "exceptions_de",
                 "exceptions_en",
                 "is_appointment_based",
@@ -1068,11 +1077,13 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
             ),
             bootstrap.FormActions(
                 layout.Submit('reset', _('Reset')),
-                layout.HTML("""{% load i18n %}
+                layout.HTML(
+                    """{% load i18n %}
                     <button class="btn" onclick="window.redirect(document.location.pathname + '?step=' + ({{ form_step_data.step_counter|default:"0" }} - 1))">
                         {% trans "Previous" %}
                     </button>
-                """),
+                """
+                ),
                 layout.Submit('submit', _('Next')),
             )
         )
@@ -1092,31 +1103,53 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
             if not is_closed:
                 if open0:
                     if not close0:
-                        self._errors[week_day + '_open0'] = [_("Please enter a closing time.")]
+                        self._errors[week_day + '_open0'] = [
+                            _("Please enter a closing time.")
+                        ]
                     elif close0 < open0:
-                        self._errors[week_day + '_open0'] = [_("A closing time must not be before an opening time.")]
+                        self._errors[week_day + '_open0'] = [
+                            _(
+                                "A closing time must not be before an opening time."
+                            )
+                        ]
                 if close0:
                     if not open0:
-                        self._errors[week_day + '_open0'] = [_("Please enter an opening time.")]
+                        self._errors[week_day + '_open0'] = [
+                            _("Please enter an opening time.")
+                        ]
 
                 if show_breaks:
                     if open1:
                         if not close1:
-                            self._errors[week_day + '_open1'] = [_("Please enter a closing time.")]
+                            self._errors[week_day + '_open1'] = [
+                                _("Please enter a closing time.")
+                            ]
                         elif close1 < open1:
                             self._errors[week_day + '_open1'] = [
-                                _("A closing time must not be before an opening time.")]
+                                _(
+                                    "A closing time must not be before an opening time."
+                                )
+                            ]
                     if close1:
                         if not open1:
-                            self._errors[week_day + '_open1'] = [_("Please enter an opening time.")]
+                            self._errors[week_day + '_open1'] = [
+                                _("Please enter an opening time.")
+                            ]
 
                     if open1 or close1:
                         if not open0 or not close0:
-                            self._errors[week_day + '_open1'] = [_("When specifying breaks, you must enter all data.")]
+                            self._errors[week_day + '_open1'] = [
+                                _(
+                                    "When specifying breaks, you must enter all data."
+                                )
+                            ]
                         else:
                             if open1 < close0:
                                 self._errors[week_day + '_open1'] = [
-                                    _("An opening time after break must not be before the closing time to break.")]
+                                    _(
+                                        "An opening time after break must not be before the closing time to break."
+                                    )
+                                ]
 
                     if open0 and open1 and close0 and close1:
                         self.cleaned_data[week_day + '_open'] = open0
@@ -1137,11 +1170,9 @@ class CategoriesForm(dynamicforms.Form):
     # TODO: rework categories form
     choose_creative_sectors = forms.BooleanField(
         initial=True,
-        widget=forms.HiddenInput(
-            attrs={
-                "class": "form_hidden",
-            }
-        ),
+        widget=forms.HiddenInput(attrs={
+            "class": "form_hidden",
+        }),
         required=False,
     )
 
@@ -1152,16 +1183,16 @@ class CategoriesForm(dynamicforms.Form):
             if el['field_name'] in data:
                 el_count += 1
         if not el_count:
-            raise forms.ValidationError(_("Please choose at least one creative sector."))
+            raise forms.ValidationError(
+                _("Please choose at least one creative sector.")
+            )
         return True
 
     choose_context_categories = forms.BooleanField(
         initial=True,
-        widget=forms.HiddenInput(
-            attrs={
-                "class": "form_hidden",
-            }
-        ),
+        widget=forms.HiddenInput(attrs={
+            "class": "form_hidden",
+        }),
         required=False,
     )
 
@@ -1172,16 +1203,16 @@ class CategoriesForm(dynamicforms.Form):
             if el['field_name'] in data:
                 el_count += 1
         if not el_count:
-            raise forms.ValidationError(_("Please choose at least one context category."))
+            raise forms.ValidationError(
+                _("Please choose at least one context category.")
+            )
         return True
 
     choose_object_types = forms.BooleanField(
         initial=True,
-        widget=forms.HiddenInput(
-            attrs={
-                "class": "form_hidden",
-            }
-        ),
+        widget=forms.HiddenInput(attrs={
+            "class": "form_hidden",
+        }),
         required=False,
     )
 
@@ -1192,7 +1223,9 @@ class CategoriesForm(dynamicforms.Form):
             if el['field_name'] in data:
                 el_count += 1
         if not el_count:
-            raise forms.ValidationError(_("Please choose at least one object type."))
+            raise forms.ValidationError(
+                _("Please choose at least one object type.")
+            )
         return True
 
     def __init__(self, *args, **kwargs):
@@ -1220,19 +1253,13 @@ class CategoriesForm(dynamicforms.Form):
             }
 
         for s in self.creative_sectors.values():
-            self.fields[s['field_name']] = forms.BooleanField(
-                required=False
-            )
+            self.fields[s['field_name']] = forms.BooleanField(required=False)
 
         for c in self.context_categories.values():
-            self.fields[c['field_name']] = forms.BooleanField(
-                required=False
-            )
+            self.fields[c['field_name']] = forms.BooleanField(required=False)
 
         for t in self.object_types.values():
-            self.fields[t['field_name']] = forms.BooleanField(
-                required=False
-            )
+            self.fields[t['field_name']] = forms.BooleanField(required=False)
 
         self.helper = FormHelper()
         self.helper.form_action = ""
@@ -1249,14 +1276,17 @@ class CategoriesForm(dynamicforms.Form):
             ),
             bootstrap.FormActions(
                 layout.Submit('reset', _('Reset')),
-                layout.HTML("""{% load i18n %}
+                layout.HTML(
+                    """{% load i18n %}
                     <button class="btn" onclick="window.redirect(document.location.pathname + '?step=' + ({{ form_step_data.step_counter|default:"0" }} - 1))">
                         {% trans "Previous" %}
                     </button>
-                """),
+                """
+                ),
                 layout.Submit('submit', _('Next')),
             )
         )
+
 
 def submit_step(current_step, form_steps, form_step_data):
     return form_step_data
@@ -1279,8 +1309,12 @@ def save_data(form_steps, form_step_data):
     institution = Institution(
         title=form_step_data[0].get('institution_name', ''),
         title2=form_step_data[0].get('institution_name2', ''),
-        slug=get_unique_value(Institution, better_slugify(form_step_data[0].get('institution_name', '')).replace("-", "_"),
-                              separator="_"),
+        slug=get_unique_value(
+            Institution,
+            better_slugify(form_step_data[0].get('institution_name',
+                                                 '')).replace("-", "_"),
+            separator="_"
+        ),
         status="published",
     )
     institution.legal_form = LegalForm.objects.get(
@@ -1294,26 +1328,39 @@ def save_data(form_steps, form_step_data):
     for f in ("open", "break_close", "break_open", "close"):
         for d in ("mon", "tue", "wed", "thu", "fri", "sat", "sun"):
             setattr(
-                institution,
-                "%s_%s" % (d, f),
+                institution, "%s_%s" % (d, f),
                 form_step_data[2].get('%s_%s' % (d, f), None)
             )
 
     institution.exceptions_en = form_step_data[2].get('exceptions_en', '')
     institution.exceptions_de = form_step_data[2].get('exceptions_de', '')
-    institution.is_appointment_based = form_step_data[2].get('is_appointment_based', False)
+    institution.is_appointment_based = form_step_data[2].get(
+        'is_appointment_based', False
+    )
 
     # payment
     institution.is_card_visa_ok = form_step_data[2].get('is_card_visa_ok', None)
-    institution.is_card_mastercard_ok = form_step_data[2].get('is_card_mastercard_ok', None)
-    institution.is_card_americanexpress_ok = form_step_data[2].get('is_card_americanexpress_ok', None)
+    institution.is_card_mastercard_ok = form_step_data[2].get(
+        'is_card_mastercard_ok', None
+    )
+    institution.is_card_americanexpress_ok = form_step_data[2].get(
+        'is_card_americanexpress_ok', None
+    )
     institution.is_paypal_ok = form_step_data[2].get('is_paypal_ok', None)
     institution.is_cash_ok = form_step_data[2].get('is_cash_ok', None)
-    institution.is_transaction_ok = form_step_data[2].get('is_transaction_ok', None)
-    institution.is_prepayment_ok = form_step_data[2].get('is_prepayment_ok', None)
-    institution.is_on_delivery_ok = form_step_data[2].get('is_on_delivery_ok', None)
+    institution.is_transaction_ok = form_step_data[2].get(
+        'is_transaction_ok', None
+    )
+    institution.is_prepayment_ok = form_step_data[2].get(
+        'is_prepayment_ok', None
+    )
+    institution.is_on_delivery_ok = form_step_data[2].get(
+        'is_on_delivery_ok', None
+    )
     institution.is_invoice_ok = form_step_data[2].get('is_invoice_ok', None)
-    institution.is_ec_maestro_ok = form_step_data[2].get('is_ec_maestro_ok', None)
+    institution.is_ec_maestro_ok = form_step_data[2].get(
+        'is_ec_maestro_ok', None
+    )
     institution.is_giropay_ok = form_step_data[2].get('is_giropay_ok', None)
 
     # save the institution to get its id for database relations used further
@@ -1414,10 +1461,7 @@ def save_data(form_steps, form_step_data):
         f = open(tmp_path, 'r')
         filename = tmp_path.rsplit("/", 1)[1]
         image_mods.FileManager.save_file_for_object(
-            institution,
-            filename,
-            f.read(),
-            subpath="avatar/"
+            institution, filename, f.read(), subpath="avatar/"
         )
         f.close()
 
@@ -1432,38 +1476,42 @@ def save_data(form_steps, form_step_data):
 
 
 ADD_INSTITUTION_FORM_STEPS = {
-    0: {
-        'title': _("main data"),
-        'template': "institutions/add_institution_main_data.html",
-        'form': MainDataForm,
-        'initial_data': {
-            'url0_link': 'http://',
-            'url1_link': 'http://',
-            'url2_link': 'http://',
+    0:
+        {
+            'title': _("main data"),
+            'template': "institutions/add_institution_main_data.html",
+            'form': MainDataForm,
+            'initial_data':
+                {
+                    'url0_link': 'http://',
+                    'url1_link': 'http://',
+                    'url2_link': 'http://',
+                },
         },
-    },
-    1: {
-        'title': _("profile data"),
-        'template': "institutions/add_institution_profile.html",
-        'form': ProfileForm,
-    },
-    2: {
-        'title': _("opening hours and payment"),
-        'template': "institutions/add_institution_opening_hours.html",
-        'form': OpeningHoursPaymentForm,
-    },
-    3: {
-        'title': _("categories"),
-        'template': "institutions/add_institution_categories.html",
-        'form': CategoriesForm,
-    },
-
-    4: {
-        'title': _("confirm data"),
-        'template': "institutions/add_institution_confirm.html",
-        'form': forms.Form,  # dummy form
-    },
-
+    1:
+        {
+            'title': _("profile data"),
+            'template': "institutions/add_institution_profile.html",
+            'form': ProfileForm,
+        },
+    2:
+        {
+            'title': _("opening hours and payment"),
+            'template': "institutions/add_institution_opening_hours.html",
+            'form': OpeningHoursPaymentForm,
+        },
+    3:
+        {
+            'title': _("categories"),
+            'template': "institutions/add_institution_categories.html",
+            'form': CategoriesForm,
+        },
+    4:
+        {
+            'title': _("confirm data"),
+            'template': "institutions/add_institution_confirm.html",
+            'form': forms.Form,  # dummy form
+        },
     'onsubmit': submit_step,
     'onsave': save_data,
     'name': 'add_institution',

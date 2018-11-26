@@ -11,6 +11,5 @@ PRIORITY_CHOICES = getattr(
         (3, _("normal")),
         (4, _("low")),
         (5, _("very low")),
-        ],
-    )
-
+    ],
+)

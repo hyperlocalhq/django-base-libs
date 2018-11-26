@@ -8,12 +8,14 @@ register = template.Library()
 
 ### FILTERS ###
 
+
 def get_new_message_count(request):
     return InternalMessage.objects.filter(
         recipient=request.user,
         is_read=False,
         is_draft=False,
         is_spam=False,
-        ).count()
-    
+    ).count()
+
+
 register.filter('get_new_message_count', get_new_message_count)

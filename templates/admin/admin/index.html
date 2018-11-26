@@ -32,10 +32,14 @@
             {% if app_list %}
                 {% for app in app_list %}
                     {% if app.group %}
-                        {% ifchanged app.group %}{% if not forloop.first %}</div>{% endif %}<div class="app-group" id="app-group-{{ app.group|slugify }}"><h4>{% trans app.group %}</h4>{% endifchanged %}
+                        {% ifchanged app.group %}{% if not forloop.first %}</div>{% endif %}
+                            <div class="app-group" id="app-group-{{ app.group|slugify }}">
+                            <h4>{% trans app.group %}</h4>{% endifchanged %}
                     {% endif %}
                     <div class="grp-module" id="app_{{ app.name|lower }}">
-                        <h2><a href="{{ app.app_url }}" class="section">{% trans app.name %}</a></h2>
+                        <h2>
+                            <a href="{{ app.app_url }}" class="section">{% trans app.name %}</a>
+                        </h2>
                         {% for model in app.models %}
                             <div class="grp-row">
                                 {% if model.admin_url %}
@@ -61,42 +65,42 @@
                         {% endfor %}
                     </div>
                 {% endfor %}
-                {% if app_list.0.group %}
-                    </div>
-                {% endif %}
+            {% if app_list.0.group %}
+                </div>
+            {% endif %}
             {% else %}
                 <p>{% trans "You don´t have permission to edit anything." %}</p>
             {% endif %}
-        </div>
-        <div class="g-d-6 g-d-l">
-            {% include "admin/includes/navigation.html" %}
-            <div class="grp-module" id="grp-recent-actions-module">
-                <h2>{% trans 'Recent Actions' %}</h2>
-                <div class="grp-module">
-                    <h3>{% trans 'My Actions' %}</h3>
-                    {% get_admin_log 10 as admin_log for_user user %}
-                    {% if not admin_log %}
-                        <div class="grp-row"><p>{% trans 'None available' %}</p></div>
-                    {% else %}
-                        <ul class="grp-listing-small">
-                            {% for entry in admin_log %}
-                                <li class="grp-row{% if entry.is_addition %} grp-add-link{% endif %}{% if entry.is_change %} grp-change-link{% endif %}{% if entry.is_deletion %} grp-delete-link{% endif %}">
-                                    {% if entry.is_deletion %}
-                                        <span>{{ entry.object_repr }}</span>
-                                    {% else %}
-                                        <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
-                                    {% endif %}
-                                    {% if entry.content_type.name %}
-                                        <span class="grp-font-color-quiet">{% filter capfirst %}{% trans entry.content_type.name %}{% endfilter %}</span>
-                                    {% elif entry.content_type.model %}
-                                        <span class="grp-font-color-quiet">{% filter capfirst %}{% trans entry.content_type.model %}{% endfilter %}</span>
-                                    {% endif %}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                </div>
+    </div>
+    <div class="g-d-6 g-d-l">
+        {% include "admin/includes/navigation.html" %}
+        <div class="grp-module" id="grp-recent-actions-module">
+            <h2>{% trans 'Recent Actions' %}</h2>
+            <div class="grp-module">
+                <h3>{% trans 'My Actions' %}</h3>
+                {% get_admin_log 10 as admin_log for_user user %}
+                {% if not admin_log %}
+                    <div class="grp-row"><p>{% trans 'None available' %}</p></div>
+                {% else %}
+                    <ul class="grp-listing-small">
+                        {% for entry in admin_log %}
+                            <li class="grp-row{% if entry.is_addition %} grp-add-link{% endif %}{% if entry.is_change %} grp-change-link{% endif %}{% if entry.is_deletion %} grp-delete-link{% endif %}">
+                                {% if entry.is_deletion %}
+                                    <span>{{ entry.object_repr }}</span>
+                                {% else %}
+                                    <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
+                                {% endif %}
+                                {% if entry.content_type.name %}
+                                    <span class="grp-font-color-quiet">{% filter capfirst %}{% trans entry.content_type.name %}{% endfilter %}</span>
+                                {% elif entry.content_type.model %}
+                                    <span class="grp-font-color-quiet">{% filter capfirst %}{% trans entry.content_type.model %}{% endfilter %}</span>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </div>
         </div>
+    </div>
     </div>
 {% endblock %}

@@ -12,4 +12,5 @@ class ReminderOptions(ObjectRelationMixinAdminOptions()):
     list_display = ('__unicode__', 'get_content_object_display')
     fieldsets = []
 
+
 admin.site.register(Reminder, ReminderOptions)

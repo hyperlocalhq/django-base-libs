@@ -31,22 +31,27 @@ def json_set_favorite(request, content_type_id, object_id):
         if not is_created:
             favorite.delete()
         result = favorite.__dict__
-        result = dict([
-            (item[0], item[1])
-            for item in result.items()
-            if not item[0].startswith("_")
-        ])
+        result = dict(
+            [
+                (item[0], item[1])
+                for item in result.items() if not item[0].startswith("_")
+            ]
+        )
         result['action'] = is_created and "added" or "removed"
         result['count'] = get_favorites_count(instance)
         # update favorites_count field if it exists in the model
         if hasattr(instance, "favorites_count"):
-            type(instance).objects.filter(pk=instance.pk).update(favorites_count=result['count'])
+            type(instance).objects.filter(pk=instance.pk).update(
+                favorites_count=result['count']
+            )
         json_str = json.dumps(
             result,
             ensure_ascii=False,
             cls=ExtendedJSONEncoder,
         )
     return HttpResponse(json_str, content_type='text/javascript; charset=utf-8')
+
+
 json_set_favorite = never_cache(json_set_favorite)
 
 
@@ -54,10 +59,10 @@ def favorites(request, **kwargs):
     """ 
     Displays the list of favorite objects
     """
-    favorites = Favorite.objects.filter(
-        user=get_current_user(),
+    favorites = Favorite.objects.filter(user=get_current_user(), )
+    return render_to_response(
+        kwargs["template_name"], {
+            'object_list': favorites,
+        },
+        context_instance=RequestContext(request)
     )
-    return render_to_response(kwargs["template_name"], {
-        'object_list': favorites,
-    }, context_instance=RequestContext(request))    
-

@@ -2,7 +2,7 @@
 {% load i18n base_tags navigation_tags %}
 
 {% block extrahead %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/individual_relations.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/groups_networks.js"></script>
 {% endblock %}
@@ -11,15 +11,15 @@
 
 
 {% block headline %}
-	<h2 class="main">{% trans "Browse" %}</h2>
-{% endblock %}			
+    <h2 class="main">{% trans "Browse" %}</h2>
+{% endblock %}
 
 
 {% block content %}
     <div class="search-browse">
         {% if object_list %}
-        	<div class="border-top">
-        	   {% include "utils/sorting_view_pagination_header.html" %}
+            <div class="border-top">
+                {% include "utils/sorting_view_pagination_header.html" %}
             </div>
             {% block breadcrumbs %}
                 <div class="breadcrumbs">
@@ -32,11 +32,11 @@
                     </div>
                 </div>
             {% endblock %}
-        
+
             {% include "site_specific/context_item_list.html" %}
-            
+
             {% include "utils/pagination_footer.html" %}
-        
+
         {% else %}
             <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
         {% endif %}

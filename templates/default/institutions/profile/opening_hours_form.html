@@ -2,47 +2,45 @@
 <div class="profile_infos">
     <h5 class="edit_subline">{% trans "Opening Hours Edit" %}</h5>
     <div class="field_layout">
-        <form action="/helper/edit-{{ URL_ID_INSTITUTION }}-profile/{{ object.slug }}/opening_hours/" method="post" enctype="multipart/form-data" target="hidden_iframe">
-           <fieldset class="fieldset_end">
-                 <legend>{% trans "Opening Time" %} - {% trans "Closing Time" %}</legend>
-                    <ul>
-                        <li class="field_hours">
-                            <label for="id_mon_open0">
-                                {% trans "Monday" %}
-                            </label>
-                            <span>
+        <form action="/helper/edit-{{ URL_ID_INSTITUTION }}-profile/{{ object.slug }}/opening_hours/"
+              method="post"
+              enctype="multipart/form-data"
+              target="hidden_iframe">
+            <fieldset class="fieldset_end">
+                <legend>{% trans "Opening Time" %} - {% trans "Closing Time" %}</legend>
+                <ul>
+                    <li class="field_hours">
+                        <label for="id_mon_open0">
+                            {% trans "Monday" %}
+                        </label>
+                        <span>
                                 {{ form.mon_open0 }}<strong> - </strong>{{ form.mon_close0 }}
-                            </span>
-                            <span class="close">
+                            </span> <span class="close">
                                 {{ form.mon_is_closed }}
                                 {{ form.mon_is_closed.label_tag }}
-                            </span>
-                            <span class="error">
+                            </span> <span class="error">
                                 {{ form.mon_open0.error_tag }}
                                 {{ form.mon_close0.error_tag }}
-                            </span>
-                            <span class="morning">
+                            </span> <span class="morning">
                                 {{ form.mon_open1 }}<strong> - </strong>{{ form.mon_close1 }}            
-                            </span>
-                            <span class="error">
+                            </span> <span class="error">
                                 {{ form.mon_open1.error_tag }}
                                 {{ form.mon_close1.error_tag }}
                             </span>
-                        </li>
-                        <li class="line_checkbox">
-                            {{ form.show_breaks }}
-                            {{ form.show_breaks.label_tag }}
-                        </li>
-                        <li>
-                            <p>
-                                <a id="id_apply_all_days" href="#">{% trans "Apply to all days" %}</a>
-                            </p>
-                        </li>
-                        <li class="field_hours">
-                            <label for="id_tue_open0">
-                                {% trans "Tuesday" %}
-                            </label>
-                             <span>
+                    </li>
+                    <li class="line_checkbox">
+                        {{ form.show_breaks }} {{ form.show_breaks.label_tag }}
+                    </li>
+                    <li>
+                        <p>
+                            <a id="id_apply_all_days" href="#">{% trans "Apply to all days" %}</a>
+                        </p>
+                    </li>
+                    <li class="field_hours">
+                        <label for="id_tue_open0">
+                            {% trans "Tuesday" %}
+                        </label>
+                        <span>
                                 <span>
                                     {{ form.tue_open0 }}<strong> - </strong>{{ form.tue_close0 }}
                                       
@@ -62,13 +60,13 @@
                                     {{ form.tue_open1.error_tag }}
                                     {{ form.tue_close1.error_tag }}
                                 </span>
-                            </span> 
-                        </li>
-                        <li class="field_hours">
-                            <label for="id_wed_open0">
-                                {% trans "Wednesday" %}
-                            </label>
-                            <span>
+                            </span>
+                    </li>
+                    <li class="field_hours">
+                        <label for="id_wed_open0">
+                            {% trans "Wednesday" %}
+                        </label>
+                        <span>
                                 <span>
                                     {{ form.wed_open0 }}<strong> - </strong>{{ form.wed_close0 }}
                                 </span>
@@ -87,13 +85,13 @@
                                     {{ form.wed_open1.error_tag }}
                                     {{ form.wed_close1.error_tag }}
                                 </span>
-                            </span>        
-                        </li>
-                        <li class="field_hours">
-                            <label for="id_thu_open0">
-                                {% trans "Thursday" %}
-                            </label>
-                            <span>
+                            </span>
+                    </li>
+                    <li class="field_hours">
+                        <label for="id_thu_open0">
+                            {% trans "Thursday" %}
+                        </label>
+                        <span>
                                 <span>
                                     {{ form.thu_open0 }}<strong> - </strong>{{ form.thu_close0 }}    
                                 </span>
@@ -112,13 +110,13 @@
                                     {{ form.thu_open1.error_tag }}
                                     {{ form.thu_close1.error_tag }}  
                                 </span>
-                            </span>       
-                        </li>
-                       <li class="field_hours">
-                            <label for="id_fri_open0">
-                                {% trans "Friday" %}
-                            </label>
-                            <span>
+                            </span>
+                    </li>
+                    <li class="field_hours">
+                        <label for="id_fri_open0">
+                            {% trans "Friday" %}
+                        </label>
+                        <span>
                                 <span>
                                     {{ form.fri_open0 }}<strong> - </strong>{{ form.fri_close0 }}
                                     </span>
@@ -137,13 +135,13 @@
                                     {{ form.fri_open1.error_tag }}
                                     {{ form.fri_close1.error_tag }}   
                                 </span>
-                            </span>       
-                        </li>
-                        <li class="field_hours">
-                            <label for="id_sat_open0">
-                                {% trans "Saturday" %}
-                            </label>
-                            <span>
+                            </span>
+                    </li>
+                    <li class="field_hours">
+                        <label for="id_sat_open0">
+                            {% trans "Saturday" %}
+                        </label>
+                        <span>
                                 <span>
                                     {{ form.sat_open0 }}<strong> - </strong>{{ form.sat_close0 }}     
                                 </span>
@@ -163,12 +161,12 @@
                                     {{ form.sat_close1.error_tag }}   
                                 </span>
                             </span>
-                        </li>
-                        <li class="field_hours">
-                            <label for="id_sun_open0">
-                                {% trans "Sunday" %}
-                            </label>
-                            <span class="end">
+                    </li>
+                    <li class="field_hours">
+                        <label for="id_sun_open0">
+                            {% trans "Sunday" %}
+                        </label>
+                        <span class="end">
                                 <span>
                                     {{ form.sun_open0 }}<strong> - </strong>{{ form.sun_close0 }}
                                 </span>
@@ -187,23 +185,22 @@
                                     {{ form.sun_open1.error_tag }}
                                     {{ form.sun_close1.error_tag }}   
                                 </span>
-                            </span>      
-                        </li>
-                        <li>
-                            {{ form.exceptions_de.label_tag }}
-                            {{ form.exceptions_de }}
-                            {{ form.exceptions_de.error_tag }}
-                        </li>
-                        <li>
-                            {{ form.exceptions_en.label_tag }}                                
-                            {{ form.exceptions_en }}
-                            {{ form.exceptions_en.error_tag }}
-                        </li> 
-                    </ul>  
-               </fieldset>
+                            </span>
+                    </li>
+                    <li>
+                        {{ form.exceptions_de.label_tag }} {{ form.exceptions_de }} {{ form.exceptions_de.error_tag }}
+                    </li>
+                    <li>
+                        {{ form.exceptions_en.label_tag }} {{ form.exceptions_en }} {{ form.exceptions_en.error_tag }}
+                    </li>
+                </ul>
+            </fieldset>
             <div class="buttons">
-                <input type="button" class="button_bad" value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel" />
-                <input type="submit" class="button_good" value="{% filter upper %}{% trans "Save" %}{% endfilter %}" />
+                <input type="button"
+                       class="button_bad"
+                       value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}"
+                       name="cancel"/>
+                <input type="submit" class="button_good" value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
             </div>
         </form>
     </div>

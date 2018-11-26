@@ -8,6 +8,7 @@ from django.core.exceptions import SuspiciousOperation, ImproperlyConfigured
 from jetson.apps.httpstate.backends.base import HttpStateBase, CreateError
 from jetson.apps.httpstate import settings as httpstate_settings
 
+
 class HttpStateStore(HttpStateBase):
     """
     Implements a file based httpstate store.
@@ -27,7 +28,8 @@ class HttpStateStore(HttpStateBase):
             raise ImproperlyConfigured(
                 "The httpstate storage path %r doesn't exist. Please set your"
                 " HTTPSTATE_FILE_PATH setting to an existing directory in which"
-                " Django can store httpstate data." % self.storage_path)
+                " Django can store httpstate data." % self.storage_path
+            )
 
         self.file_prefix = httpstate_settings.HTTPSTATE_COOKIE_NAME
         super(HttpStateStore, self).__init__(httpstate_key)
@@ -45,8 +47,7 @@ class HttpStateStore(HttpStateBase):
         # should always be md5s, so they should never contain directory
         # components.
         if not set(httpstate_key).issubset(self.VALID_KEY_CHARS):
-            raise SuspiciousOperation(
-                "Invalid characters in session key")        
+            raise SuspiciousOperation("Invalid characters in session key")
 
         return os.path.join(self.storage_path, self.file_prefix + httpstate_key)
 
@@ -119,8 +120,9 @@ class HttpStateStore(HttpStateBase):
         dir, prefix = os.path.split(httpstate_file_name)
 
         try:
-            output_file_fd, output_file_name = tempfile.mkstemp(dir=dir,
-                prefix=prefix + '_out_')
+            output_file_fd, output_file_name = tempfile.mkstemp(
+                dir=dir, prefix=prefix + '_out_'
+            )
             renamed = False
             try:
                 try:

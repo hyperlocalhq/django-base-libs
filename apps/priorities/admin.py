@@ -11,6 +11,6 @@ class PriorityOptions(ObjectRelationMixinAdminOptions()):
     save_on_top = True
     list_display = ('__unicode__', 'get_content_object_display')
     fieldsets = []
-    
-admin.site.register(Priority, PriorityOptions)
 
+
+admin.site.register(Priority, PriorityOptions)

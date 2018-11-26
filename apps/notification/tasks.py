@@ -15,8 +15,11 @@ from base_libs.utils.misc import get_installed
 
 from huey.contrib.djhuey import db_task
 
-send_email_using_template = get_installed("mailing.views.send_email_using_template")
+send_email_using_template = get_installed(
+    "mailing.views.send_email_using_template"
+)
 Recipient = get_installed("mailing.recipient.Recipient")
+
 
 def get_notification_setting(user, notice_type, medium):
     """
@@ -25,13 +28,20 @@ def get_notification_setting(user, notice_type, medium):
     notification = models.get_app("notification")
     NoticeSetting = notification.NoticeSetting
     NOTICE_MEDIA_DEFAULTS = notification.NOTICE_MEDIA_DEFAULTS
-    settings = NoticeSetting.objects.filter(user=user, notice_type=notice_type, medium=medium)
+    settings = NoticeSetting.objects.filter(
+        user=user, notice_type=notice_type, medium=medium
+    )
     if len(settings) == 0:
         if NOTICE_MEDIA_DEFAULTS[medium] <= notice_type.default:
             frequency = "immediately"
         else:
             frequency = "never"
-        setting = NoticeSetting(user=user, notice_type=notice_type, medium=medium, frequency=frequency)
+        setting = NoticeSetting(
+            user=user,
+            notice_type=notice_type,
+            medium=medium,
+            frequency=frequency
+        )
         setting.save()
     else:
         setting = settings[0]
@@ -40,9 +50,19 @@ def get_notification_setting(user, notice_type, medium):
                 repeated_setting.delete()
     return setting
 
+
 @db_task()
-def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct=None, instance_id=None, sender_id=None,
-                 sender_name="", sender_email=""):
+def send_to_user(
+    user_id,
+    sysname,
+    extra_context=None,
+    on_site=True,
+    instance_ct=None,
+    instance_id=None,
+    sender_id=None,
+    sender_name="",
+    sender_email=""
+):
     """
     Creates a new notice and/or
     sends notification by email or saves notification to a digest.
@@ -69,7 +89,7 @@ def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct
     NoticeType = models.get_model("notification", "NoticeType")
     Notice = models.get_model("notification", "Notice")
     Digest = models.get_model("notification", "Digest")
-    
+
     instance = None
     if instance_ct and instance_id:
         try:
@@ -78,11 +98,11 @@ def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct
             ).get_object_for_this_type(pk=instance_id)
         except ObjectDoesNotExist:
             return  # Object does not exist anymore. Skip the notification
-        
+
     sender = None
     if sender_id:
         sender = User.objects.get(pk=sender_id)
-        
+
     user = User.objects.get(pk=user_id)
 
     notice_type = NoticeType.objects.get(sysname=sysname)
@@ -97,7 +117,7 @@ def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct
         sender_name = ''
     if not sender and not sender_email:
         sender_email = settings.DEFAULT_FROM_EMAIL
-        
+
     current_language = get_language()
 
     # activate language of user to send message translated
@@ -105,14 +125,16 @@ def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct
     activate(language)
 
     # update context with user specific translations
-    context = Context({
-        "notice": ugettext(notice_type.display),
-        "notices_url": notices_url,
-        "current_site": current_site,
-        "notice_type": notice_type,
-        "notified_user": user,
-        "object": instance,
-    })
+    context = Context(
+        {
+            "notice": ugettext(notice_type.display),
+            "notices_url": notices_url,
+            "current_site": current_site,
+            "notice_type": notice_type,
+            "notified_user": user,
+            "object": instance,
+        }
+    )
     context.update(extra_context)
 
     # get prerendered format messages
@@ -122,9 +144,9 @@ def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct
             user=user,
             message=force_unicode(message),
             notice_type=notice_type,
-            )
-        
-    if user.email: # Email
+        )
+
+    if user.email:  # Email
         notification_setting = get_notification_setting(user, notice_type, "1")
         if notification_setting.frequency == "immediately":
             send_email_using_template(
@@ -143,12 +165,11 @@ def send_to_user(user_id, sysname, extra_context=None, on_site=True, instance_ct
                 user=user,
                 frequency=notification_setting.frequency,
                 is_sent=False,
-                )
+            )
             digest.digestnotice_set.create(
                 message=message,
                 notice_type=notice_type,
-                )
+            )
 
     # reset environment to original language
     activate(current_language)
-

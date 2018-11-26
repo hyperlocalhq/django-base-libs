@@ -15,6 +15,7 @@ register = template.Library()
 
 ### TAGS ###
 
+
 @register.simple_tag
 def cropping_url(path_or_file_object, sysname, request, goto_next):
     """ 
@@ -44,15 +45,18 @@ def cropping_url(path_or_file_object, sysname, request, goto_next):
         path = path_or_file_object.path
     else:
         path = path_or_file_object
-    return reverse("image_mods_recrop") + "?orig_path=%(orig_path)s&sysname=%(sysname)s&token=%(token)s&goto_next=%(goto_next)s" % {
+    return reverse(
+        "image_mods_recrop"
+    ) + "?orig_path=%(orig_path)s&sysname=%(sysname)s&token=%(token)s&goto_next=%(goto_next)s" % {
         'orig_path': path,
         'sysname': sysname,
         'token': image_mods.FileManager.tokenize(request.user.username, path),
         'goto_next': goto_next,
-        }
+    }
 
 
-### FILTERS ### 
+### FILTERS ###
+
 
 def modified_path(path_or_file_object, sysname):
     """ 
@@ -76,7 +80,9 @@ def modified_path(path_or_file_object, sysname):
     path, query_params = image_mods.FileManager.modified_path(path, sysname)
     return path + query_params
 
+
 register.filter('modified_path', modified_path)
+
 
 def mod_exists(path_or_file_object, sysname):
     """ 
@@ -99,7 +105,9 @@ def mod_exists(path_or_file_object, sysname):
         path = path_or_file_object
     return image_mods.FileManager.mod_exists(path, sysname)
 
+
 register.filter('mod_exists', mod_exists)
+
 
 def modified_image(path_or_file_object, sysname):
     """ 
@@ -135,5 +143,6 @@ def modified_image(path_or_file_object, sysname):
     if path.startswith("/"):
         path = path[1:]
     return FileObject(path)
-    
+
+
 register.filter('modified_image', modified_image)

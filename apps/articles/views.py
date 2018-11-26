@@ -18,6 +18,7 @@ from jetson.apps.utils.views import object_list
 Article = models.get_model("articles", "Article")
 ArticleType = models.get_model("articles", "ArticleType")
 
+
 def get_articles(
     type_sysname=None,
     status=STATUS_CODE_PUBLISHED,
@@ -36,13 +37,17 @@ def get_articles(
 
     if type_sysname and type_sysname != 'all':
         queryset = queryset.filter(article_type__slug=type_sysname)
-        
+
     if only_features:
         queryset = queryset.filter(is_featured=True)
-        
-    queryset = queryset.filter(models.Q(language=get_current_language()) | models.Q(language="") | models.Q(language=None))
-    
+
+    queryset = queryset.filter(
+        models.Q(language=get_current_language()) | models.Q(language="") |
+        models.Q(language=None)
+    )
+
     return queryset
+
 
 def get_most_read_articles(
     type_sysname=None,
@@ -58,13 +63,14 @@ def get_most_read_articles(
     queryset = queryset.exclude(views=0)
     if not allow_future:
         queryset = queryset.filter(**{'%s__lte' % date_field: tz_now()})
-  
+
     if num_latest:
         queryset = queryset.order_by('-views')[:num_latest]
     else:
         queryset = queryset.order_by('-views')
     return queryset
-    
+
+
 def article_archive_index(
     request,
     type_sysname=None,
@@ -96,36 +102,38 @@ def article_archive_index(
                 
     """
     queryset = get_articles(type_sysname, status, only_features=only_features)
-    
+
     # TODO!!!! check some permissions
     #if extra_context.has_key('article_filter'):
-        #if extra_context['article_filter'] == 'drafts':
-            #if not request.user.has_perm("blog.change_blog_posts", blog):
-            #    return access_denied(request)
-        
+    #if extra_context['article_filter'] == 'drafts':
+    #if not request.user.has_perm("blog.change_blog_posts", blog):
+    #    return access_denied(request)
+
     if not extra_context:
         extra_context = {}
     extra_context['article_filter'] = 'latest'
     try:
-        extra_context['rel_root_dir'] = reverse("%s:article_archive" % request.LANGUAGE_CODE)
+        extra_context['rel_root_dir'] = reverse(
+            "%s:article_archive" % request.LANGUAGE_CODE
+        )
     except:
         extra_context['rel_root_dir'] = reverse("article_archive")
-    
+
     try:
         extra_context['type'] = ArticleType.objects.get(slug=type_sysname)
     except:
         pass
-    
+
     extra_context['most_read_articles'] = get_most_read_articles(
         type_sysname,
         status,
-        )
-    
+    )
+
     if template_name is None:
-        template_name = 'articles/articles_archive.html' 
-    
-    # this part is taken from django/views/generic/date_based.py, 
-    # function "archive_index" 
+        template_name = 'articles/articles_archive.html'
+
+    # this part is taken from django/views/generic/date_based.py,
+    # function "archive_index"
     if not allow_future:
         queryset = queryset.filter(**{'%s__lte' % date_field: tz_now()})
 
@@ -135,25 +143,34 @@ def article_archive_index(
 
     if date_list:
         if num_latest:
-            queryset = queryset.order_by('-'+date_field)[:num_latest]
+            queryset = queryset.order_by('-' + date_field)[:num_latest]
         else:
-            queryset = queryset.order_by('-'+date_field)
+            queryset = queryset.order_by('-' + date_field)
     else:
         queryset = Article.objects.none()
-        
+
     extra_context['date_list'] = date_list
-    
-    return object_list(request, queryset, 
-       paginate_by=paginate_by, page=page, allow_empty=allow_empty, 
-       template_name=template_name, template_loader=template_loader,
-       extra_context=extra_context, context_processors=context_processors,
-       template_object_name=template_object_name, content_type=content_type)
+
+    return object_list(
+        request,
+        queryset,
+        paginate_by=paginate_by,
+        page=page,
+        allow_empty=allow_empty,
+        template_name=template_name,
+        template_loader=template_loader,
+        extra_context=extra_context,
+        context_processors=context_processors,
+        template_object_name=template_object_name,
+        content_type=content_type
+    )
+
 
 def article_archive_year(
     request,
     year,
     type_sysname=None,
-    status = STATUS_CODE_PUBLISHED,
+    status=STATUS_CODE_PUBLISHED,
     date_field='published_from',
     paginate_by=None,
     page=None,
@@ -168,7 +185,6 @@ def article_archive_year(
     make_object_list=True,
     **kwargs
 ):
-
     """
     Context:
         date_list
@@ -188,20 +204,22 @@ def article_archive_year(
         extra_context = {}
     extra_context['article_filter'] = year
     try:
-        extra_context['rel_root_dir'] = reverse("%s:article_archive" % request.LANGUAGE_CODE)
+        extra_context['rel_root_dir'] = reverse(
+            "%s:article_archive" % request.LANGUAGE_CODE
+        )
     except:
         extra_context['rel_root_dir'] = reverse("article_archive")
-        
+
     try:
         extra_context['type'] = ArticleType.objects.get(slug=type_sysname)
     except:
         pass
-    
+
     if template_name is None:
         template_name = 'articles/articles_archive_year.html'
-    
-    # this part is taken from django/views/generic/date_based.py, 
-    # function "archive_year" 
+
+    # this part is taken from django/views/generic/date_based.py,
+    # function "archive_year"
     now = tz_now()
     lookup_kwargs = {'%s__year' % date_field: year}
 
@@ -209,12 +227,14 @@ def article_archive_year(
     if int(year) >= now.year and not allow_future:
         lookup_kwargs['%s__lte' % date_field] = now
     date_list = queryset.filter(**lookup_kwargs).datetimes(date_field, 'month')
-    
+
     # build up month list for posts
     month_has_posts_list = []
     for month in date_list:
-        month_has_posts_list.append((datetime.datetime(int(year), month.month, 1), True))
-    
+        month_has_posts_list.append(
+            (datetime.datetime(int(year), month.month, 1), True)
+        )
+
     if not date_list and not allow_empty:
         raise Http404
     if make_object_list:
@@ -222,24 +242,32 @@ def article_archive_year(
     else:
         queryset = Article.objects.none()
 
-    queryset = queryset.order_by('-'+date_field)        
-    
+    queryset = queryset.order_by('-' + date_field)
+
     extra_context['date_list'] = month_has_posts_list
     extra_context['year'] = year
 
-    return object_list(request, queryset, 
-        paginate_by=paginate_by, page=page, allow_empty=allow_empty,
-        template_name=template_name, template_loader=template_loader,
-        extra_context=extra_context, context_processors=context_processors,
-        template_object_name=template_object_name, content_type=content_type,
+    return object_list(
+        request,
+        queryset,
+        paginate_by=paginate_by,
+        page=page,
+        allow_empty=allow_empty,
+        template_name=template_name,
+        template_loader=template_loader,
+        extra_context=extra_context,
+        context_processors=context_processors,
+        template_object_name=template_object_name,
+        content_type=content_type,
     )
+
 
 def article_archive_month(
     request,
     year,
     month,
     type_sysname=None,
-    status = STATUS_CODE_PUBLISHED,
+    status=STATUS_CODE_PUBLISHED,
     date_field='published_from',
     paginate_by=None,
     page=None,
@@ -254,7 +282,6 @@ def article_archive_month(
     allow_future=False,
     **kwargs
 ):
-    
     """
     Context:
         month:            (date) this month
@@ -266,27 +293,31 @@ def article_archive_month(
     queryset = get_articles(type_sysname, status)
     if not extra_context:
         extra_context = {}
-    extra_context['article_filter'] = str(year)+str(month)
+    extra_context['article_filter'] = str(year) + str(month)
     try:
-        extra_context['rel_root_dir'] = reverse("%s:article_archive" % request.LANGUAGE_CODE)
+        extra_context['rel_root_dir'] = reverse(
+            "%s:article_archive" % request.LANGUAGE_CODE
+        )
     except:
         extra_context['rel_root_dir'] = reverse("article_archive")
-             
+
     try:
         extra_context['type'] = ArticleType.objects.get(slug=type_sysname)
     except:
         pass
-    
+
     if template_name is None:
         template_name = 'articles/articles_archive_month.html'
-    
-    # this part is taken from django/views/generic/date_based.py, 
-    # function "archive_month" 
+
+    # this part is taken from django/views/generic/date_based.py,
+    # function "archive_month"
     try:
-        date = datetime.date(*time.strptime(year+month, '%Y'+month_format)[:3])
+        date = datetime.date(
+            *time.strptime(year + month, '%Y' + month_format)[:3]
+        )
     except ValueError:
         raise Http404
-    
+
     now = tz_now()
 
     # Calculate first and last day of month, for use in a date-range lookup.
@@ -311,20 +342,29 @@ def article_archive_month(
         next_month = last_day + datetime.timedelta(days=1)
     else:
         next_month = None
-        
+
     day_list = queryset.filter(**lookup_kwargs).datetimes(date_field, 'day')
-    queryset = queryset.order_by('-'+date_field)      
+    queryset = queryset.order_by('-' + date_field)
 
     extra_context['month'] = date
     extra_context['next_month'] = next_month
     extra_context['previous_month'] = first_day - datetime.timedelta(days=1),
     extra_context['day_list'] = day_list
 
-    return object_list(request, queryset, 
-       paginate_by=paginate_by, page=page, allow_empty=allow_empty, 
-       template_name=template_name, template_loader=template_loader,
-       extra_context=extra_context, context_processors=context_processors,
-       template_object_name=template_object_name, content_type=content_type)
+    return object_list(
+        request,
+        queryset,
+        paginate_by=paginate_by,
+        page=page,
+        allow_empty=allow_empty,
+        template_name=template_name,
+        template_loader=template_loader,
+        extra_context=extra_context,
+        context_processors=context_processors,
+        template_object_name=template_object_name,
+        content_type=content_type
+    )
+
 
 def article_archive_day(
     request,
@@ -332,7 +372,7 @@ def article_archive_day(
     month,
     day,
     type_sysname=None,
-    status = STATUS_CODE_PUBLISHED,
+    status=STATUS_CODE_PUBLISHED,
     date_field='published_from',
     paginate_by=None,
     page=None,
@@ -348,7 +388,6 @@ def article_archive_day(
     allow_future=False,
     **kwargs
 ):
-    
     """
     Article daily archive view.
     
@@ -361,10 +400,12 @@ def article_archive_day(
     queryset = get_articles(type_sysname, status)
     if not extra_context:
         extra_context = {}
-    extra_context['article_filter'] = str(year)+str(month)        
+    extra_context['article_filter'] = str(year) + str(month)
 
     try:
-        extra_context['rel_root_dir'] = reverse("%s:article_archive" % request.LANGUAGE_CODE)
+        extra_context['rel_root_dir'] = reverse(
+            "%s:article_archive" % request.LANGUAGE_CODE
+        )
     except:
         extra_context['rel_root_dir'] = reverse("article_archive")
 
@@ -372,10 +413,10 @@ def article_archive_day(
         extra_context['type'] = ArticleType.objects.get(slug=type_sysname)
     except:
         pass
-    
+
     if template_name is None:
-        template_name = 'articles/articles_archive_day.html' 
-    
+        template_name = 'articles/articles_archive_day.html'
+
     try:
         date = datetime.date(int(year), int(month), int(day))
     except ValueError:
@@ -385,7 +426,13 @@ def article_archive_day(
     now = tz_now()
 
     if isinstance(model._meta.get_field(date_field), DateTimeField):
-        lookup_kwargs = {'%s__range' % date_field: (datetime.datetime.combine(date, datetime.time.min), datetime.datetime.combine(date, datetime.time.max))}
+        lookup_kwargs = {
+            '%s__range' % date_field:
+                (
+                    datetime.datetime.combine(date, datetime.time.min),
+                    datetime.datetime.combine(date, datetime.time.max)
+                )
+        }
     else:
         lookup_kwargs = {date_field: date}
 
@@ -403,25 +450,49 @@ def article_archive_day(
         next_day = date + datetime.timedelta(days=1)
     else:
         next_day = None
-        
-    queryset = queryset.order_by('-'+date_field)        
+
+    queryset = queryset.order_by('-' + date_field)
 
     extra_context['day'] = date
     extra_context['next_day'] = next_day
     extra_context['previous_day'] = date - datetime.timedelta(days=1)
 
-    return object_list(request, queryset, 
-        paginate_by=paginate_by, page=page, allow_empty=allow_empty,
-        template_name=template_name, template_loader=template_loader,
-        extra_context=extra_context, context_processors=context_processors,
-        template_object_name=template_object_name, content_type=content_type)
+    return object_list(
+        request,
+        queryset,
+        paginate_by=paginate_by,
+        page=page,
+        allow_empty=allow_empty,
+        template_name=template_name,
+        template_loader=template_loader,
+        extra_context=extra_context,
+        context_processors=context_processors,
+        template_object_name=template_object_name,
+        content_type=content_type
+    )
 
 
-def article_object_detail(request, year, month, day, article_slug, type_sysname=None, status=STATUS_CODE_PUBLISHED,
-                          date_field='published_from', month_format='%m', day_format='%d', template_name=None,
-                          template_loader=loader, template_name_field=None, extra_context=None, context_processors=None,
-                          template_object_name='article', content_type=None, allow_future=False, **kwargs):
-    
+def article_object_detail(
+    request,
+    year,
+    month,
+    day,
+    article_slug,
+    type_sysname=None,
+    status=STATUS_CODE_PUBLISHED,
+    date_field='published_from',
+    month_format='%m',
+    day_format='%d',
+    template_name=None,
+    template_loader=loader,
+    template_name_field=None,
+    extra_context=None,
+    context_processors=None,
+    template_object_name='article',
+    content_type=None,
+    allow_future=False,
+    **kwargs
+):
     """
     Detail view from year/month/day/slug 
 
@@ -431,7 +502,7 @@ def article_object_detail(request, year, month, day, article_slug, type_sysname=
     if not extra_context:
         extra_context = {}
     queryset = get_articles(type_sysname=type_sysname, status=None)
-    
+
     # get the requested article
     try:
         article = queryset.get(slug=article_slug)
@@ -441,35 +512,46 @@ def article_object_detail(request, year, month, day, article_slug, type_sysname=
         #update the "views field"
         article.increase_views()
 
-    if not article.is_published() and not request.user.has_perm("articles.change_article"):
+    if not article.is_published(
+    ) and not request.user.has_perm("articles.change_article"):
         return access_denied(request)
 
     context_dict = extra_context
 
     try:
-        context_dict['rel_root_dir'] = reverse("%s:article_archive" % request.LANGUAGE_CODE)
+        context_dict['rel_root_dir'] = reverse(
+            "%s:article_archive" % request.LANGUAGE_CODE
+        )
     except:
         context_dict['rel_root_dir'] = reverse("article_archive")
-    
+
     context_dict['links_to_articles'] = queryset.exclude(
         slug=article_slug
-        ).order_by("-published_from")[0:5]
-        
+    ).order_by("-published_from")[0:5]
+
     try:
         context_dict['type'] = ArticleType.objects.get(slug=type_sysname)
     except:
         pass
-    
+
     if template_name is None:
-        template_name = 'articles/articles_detail.html' 
+        template_name = 'articles/articles_detail.html'
 
     context_dict[template_object_name] = article
 
     return render(request, template_name, context_dict)
 
 
-def article_feed(request, feed_type, article_feeds=None, type_sysname=None, status=STATUS_CODE_PUBLISHED, num_latest=5,
-                 date_field='published_from', **kwargs):
+def article_feed(
+    request,
+    feed_type,
+    article_feeds=None,
+    type_sysname=None,
+    status=STATUS_CODE_PUBLISHED,
+    num_latest=5,
+    date_field='published_from',
+    **kwargs
+):
     """
     wrapper for feeds
     """
@@ -480,7 +562,7 @@ def article_feed(request, feed_type, article_feeds=None, type_sysname=None, stat
 
     if not kwargs:
         kwargs = {}
-        
+
     feed = kwargs[feed_type]
 
     kwargs['queryset'] = queryset
@@ -488,5 +570,5 @@ def article_feed(request, feed_type, article_feeds=None, type_sysname=None, stat
         kwargs['type'] = ArticleType.objects.get(slug=type_sysname)
     except:
         pass
-    
+
     return feed(**kwargs)(request)

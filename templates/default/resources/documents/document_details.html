@@ -1,1 +1,49 @@
-{% extends "resources/documents/details_base.html" %}{% load i18n base_tags auth_extended %}{% block doctype %}    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">{% endblock %}{% block extrahead %}{{ block.super }}    {% if_has_perm "resources.change_document" object %}        <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/profile.js"></script>    {% end_if_has_perm %}    {% endblock %}{% block details %}    {% if_has_perm "people.change_person" object %}        <div class="description_edit first-item">    {% else %}         <div class="description first-item">    {% end_if_has_perm %}        <div class="profil_container">            <div id="dyn_avatar" class="dyn_section">                {% include "resources/documents/profile/avatar.html" %}            </div>        </div>            <div id="dyn_description" class="dyn_section">            {% include "resources/documents/profile/description.html" %}        </div>    {% if_has_perm "resources.change_document" object %}        </div>    {% end_if_has_perm %}                <div class="cats">            <h6 class="subline">{% trans "Details" %}</h6>               <div id="dyn_details" class="dyn_section">                {% include "resources/documents/profile/details.html" %}            </div>        </div>        <div class="cats">            <h6 class="subline">                {% trans "Categories" %}            </h6>            <div id="dyn_categories" class="dyn_section">                {% include "resources/documents/profile/categories.html" %}            </div>        </div>{% endblock %}
+{% extends "resources/documents/details_base.html" %}
+{% load i18n base_tags auth_extended %}
+
+{% block doctype %}
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+            "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    {% if_has_perm "resources.change_document" object %}
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/profile.js"></script>
+    {% end_if_has_perm %}
+{% endblock %}
+
+{% block details %}
+    {% if_has_perm "people.change_person" object %}
+        <div class="description_edit first-item">
+    {% else %}
+        <div class="description first-item">
+    {% end_if_has_perm %}
+<div class="profil_container">
+    <div id="dyn_avatar" class="dyn_section">
+        {% include "resources/documents/profile/avatar.html" %}
+    </div>
+</div>
+
+<div id="dyn_description" class="dyn_section">
+    {% include "resources/documents/profile/description.html" %}
+</div>
+{% if_has_perm "resources.change_document" object %}
+    </div>
+{% end_if_has_perm %}
+
+    <div class="cats">
+        <h6 class="subline">{% trans "Details" %}</h6>
+        <div id="dyn_details" class="dyn_section">
+            {% include "resources/documents/profile/details.html" %}
+        </div>
+    </div>
+    <div class="cats">
+        <h6 class="subline">
+            {% trans "Categories" %}
+        </h6>
+        <div id="dyn_categories" class="dyn_section">
+            {% include "resources/documents/profile/categories.html" %}
+        </div>
+    </div>
+{% endblock %}

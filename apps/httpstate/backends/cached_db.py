@@ -9,6 +9,7 @@ from jetson.apps.httpstate import settings as httpstate_settings
 
 KEY_PREFIX = "jetson.apps.httpstate.cached_db"
 
+
 class HttpStateStore(DBStore):
     """
     Implements cached, database backed httpstates.
@@ -21,7 +22,10 @@ class HttpStateStore(DBStore):
         data = cache.get(KEY_PREFIX + self.httpstate_key, None)
         if data is None:
             data = super(HttpStateStore, self).load()
-            cache.set(KEY_PREFIX + self.httpstate_key, data, httpstate_settings.HTTPSTATE_COOKIE_AGE)
+            cache.set(
+                KEY_PREFIX + self.httpstate_key, data,
+                httpstate_settings.HTTPSTATE_COOKIE_AGE
+            )
         return data
 
     def exists(self, httpstate_key):
@@ -29,7 +33,10 @@ class HttpStateStore(DBStore):
 
     def save(self, must_create=False):
         super(HttpStateStore, self).save(must_create)
-        cache.set(KEY_PREFIX + self.httpstate_key, self._httpstate, httpstate_settings.HTTPSTATE_COOKIE_AGE)
+        cache.set(
+            KEY_PREFIX + self.httpstate_key, self._httpstate,
+            httpstate_settings.HTTPSTATE_COOKIE_AGE
+        )
 
     def delete(self, httpstate_key=None):
         super(HttpStateStore, self).delete(httpstate_key)

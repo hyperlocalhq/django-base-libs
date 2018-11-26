@@ -15,8 +15,10 @@ from base_libs.models.base_libs_settings import JQUERY_UI_URL
 
 from jetson.apps.httpstate import settings as httpstate_settings
 
+
 def general(request=None):
-    cookie_domain = getattr(httpstate_settings, "HTTPSTATE_COOKIE_DOMAIN", "") or Site.objects.get_current().domain
+    cookie_domain = getattr(httpstate_settings, "HTTPSTATE_COOKIE_DOMAIN",
+                            "") or Site.objects.get_current().domain
     if cookie_domain.startswith("."):
         cookie_domain = cookie_domain[1:]
     d = {
@@ -28,20 +30,19 @@ def general(request=None):
         'css_url': getattr(settings, "CSS_URL", ""),
         'img_url': getattr(settings, "IMG_URL", ""),
         'https': getattr(settings, "HTTPS_PROTOCOL", "https"),
-        'website_url' : get_website_url(),
-        'website_ssl_url' : get_website_ssl_url(),
+        'website_url': get_website_url(),
+        'website_ssl_url': get_website_ssl_url(),
         'UPLOADS_URL': UPLOADS_URL,
         'JQUERY_URL': JQUERY_URL,
         'JQUERY_UI_URL': JQUERY_UI_URL,
         'languages': settings.LANGUAGES,
         'GOOGLE_API_KEY': getattr(settings, "GOOGLE_API_KEY", ""),
     }
-    settings_to_add = (
-        "LOGO_PREVIEW_SIZE",
-        )
+    settings_to_add = ("LOGO_PREVIEW_SIZE", )
     for s in settings_to_add:
         d[s] = getattr(settings, s, "")
     return d
+
 
 def prev_next_processor(request):
     """
@@ -53,7 +54,9 @@ def prev_next_processor(request):
         queryset_model = models.get_model(*queryset_model.split("."))
 
     queryset_pk_list = request.httpstate.get('current_queryset_pk_list', None)
-    queryset_index_dict = request.httpstate.get('current_queryset_index_dict', {})
+    queryset_index_dict = request.httpstate.get(
+        'current_queryset_index_dict', {}
+    )
     source_list = request.httpstate.get('source_list', "")
     paginate_by = request.httpstate.get('paginate_by', None)
     last_query_string = request.httpstate.get('last_query_string', None)
@@ -70,17 +73,17 @@ def prev_next_processor(request):
         index = queryset_index_dict.get('%s_%s' % (ct.id, object_id), 0)
 
         if index > 0:
-            try: # try in case if the previous item is deleted in the meantime
+            try:  # try in case if the previous item is deleted in the meantime
                 prev = queryset_model._default_manager.get(
-                    pk=queryset_pk_list[index-1],
-                    )
+                    pk=queryset_pk_list[index - 1],
+                )
             except:
                 pass
-        if index < count-1:
-            try: # try in case if the next item is deleted in the meantime
+        if index < count - 1:
+            try:  # try in case if the next item is deleted in the meantime
                 next = queryset_model._default_manager.get(
-                    pk=queryset_pk_list[index+1],
-                    )
+                    pk=queryset_pk_list[index + 1],
+                )
             except:
                 pass
 
@@ -95,10 +98,11 @@ def prev_next_processor(request):
             else:
                 current_list += "?page=%d" % page
 
-    return {'current_count' : count,
-            'current_index' : index + 1,   # we pass the index 1-based to the template
-            'prev_item': prev,
-            'next_item': next,
-            'current_list': current_list,
-            'queryset_pk_list': queryset_pk_list,
-            }
+    return {
+        'current_count': count,
+        'current_index': index + 1,  # we pass the index 1-based to the template
+        'prev_item': prev,
+        'next_item': next,
+        'current_list': current_list,
+        'queryset_pk_list': queryset_pk_list,
+    }

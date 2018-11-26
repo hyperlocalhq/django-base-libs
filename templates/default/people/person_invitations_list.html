@@ -2,7 +2,7 @@
 {% load i18n base_tags babel navigation_tags individual_relations groups_networks %}
 
 {% block extrahead %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/individual_relations.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/groups_networks.js"></script>
 {% endblock %}
@@ -11,21 +11,21 @@
 {% block title %}{% trans "People" %}{% endblock %}
 
 {% block headline %}
-	<h2 class="main">{% trans "People" %}</h2>
+    <h2 class="main">{% trans "People" %}</h2>
 {% endblock %}
 
 {% block content %}
-	<div class="invitation list">
-	    {% block tabs %}
-	        <div id="tabs">
-	            {% children_of "people" using "navigation/children_in_tabs.html" %}
-	        </div>
-	    {% endblock %}
-		{% comment %}<!--
+    <div class="invitation list">
+        {% block tabs %}
+            <div id="tabs">
+                {% children_of "people" using "navigation/children_in_tabs.html" %}
+            </div>
+        {% endblock %}
+        {% comment %}<!--
 	    	THE PAGINATION HEADER IS DIFFERENT, SO WE CANNOT USE
 	    	{% include "utils/sorting_view_pagination_header.html" %}
 		-->{% endcomment %}
-		<div class="breadcrumbs-paginated">
+        <div class="breadcrumbs-paginated">
             {% if is_paginated %}
                 <div class="paginated">
                     <div class="previous">
@@ -44,11 +44,15 @@
                         {% endif %}
                     </div>
                     <form action="">
-                        <select class="page_skip" onchange="append_to_get({page: this.value});">
-                            {% for pnumber in page_numbers %}
-                            <option value="{{ pnumber }}"{% ifequal pnumber page %} selected="selected"{% endifequal %}>{% blocktrans %}Page {{ pnumber }} of {{ pages }}{% endblocktrans %}</option>
-                            {% endfor %}
-                       </select>
+                        <label>
+                            <select class="page_skip" onchange="append_to_get({page: this.value});">
+                                {% for pnumber in page_numbers %}
+                                    <option value="{{ pnumber }}"{% ifequal pnumber page %}
+                                            selected="selected"{% endifequal %}>
+                                        {% blocktrans %}Page {{ pnumber }} of {{ pages }}{% endblocktrans %}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
                     </form>
                     <div class="next">
                         {% if has_next %}
@@ -70,75 +74,85 @@
                 </div>
             {% endif %}
             <div class="invitation-status">
-                    <a href="/{{ URL_ID_PEOPLE }}/requests/?by-status={{ active_status_filter }}" {% ifequal active_link "requests" %}class="active"{% endifequal %}>{% trans "Sent invitations " %}</a>
-                    | <a href="/{{ URL_ID_PEOPLE }}/requested/?by-status={{ active_status_filter }}" {% ifequal active_link "requested" %}class="active"{% endifequal %}>{% trans "Requests to confirm" %}</a>
+                <a href="/{{ URL_ID_PEOPLE }}/requests/?by-status={{ active_status_filter }}"
+                   {% ifequal active_link "requests" %}class="active"{% endifequal %}>{% trans "Sent invitations " %}</a>
+                |
+                <a href="/{{ URL_ID_PEOPLE }}/requested/?by-status={{ active_status_filter }}"
+                   {% ifequal active_link "requested" %}class="active"{% endifequal %}>{% trans "Requests to confirm" %}</a>
             </div>
         </div>
-	
+
         <div class="breadcrumbs">
-        	<div>{% include "utils/abc_filters.html" %}</div>
+            <div>{% include "utils/abc_filters.html" %}</div>
             <div>
                 <span>
                 {% comment %}
                     A LITTLE BIT HACKISH, BUT WORKS AS A QUICK SOLUTION
                 {% endcomment %}
-                <a href="{{ request.path }}?by-status=pending" {% ifequal active_status_filter "pending" %}class="active"{% endifequal %}>{% trans "Pending" %}</a> 
-                | <a href="{{ request.path }}?by-status=denied" {% ifequal active_status_filter "denied" %}class="active"{% endifequal %}>{% trans "Denied" %}</a>
+                <a href="{{ request.path }}?by-status=pending"
+                   {% ifequal active_status_filter "pending" %}class="active"{% endifequal %}>{% trans "Pending" %}</a>
+                | <a href="{{ request.path }}?by-status=denied"
+                     {% ifequal active_status_filter "denied" %}class="active"{% endifequal %}>{% trans "Denied" %}</a>
                 </span>
             </div>
         </div>
-	    
-	    {% if object_list %}
-			{% for person in object_list %}
-		        <div class="list-item {% cycle odd,even %} expanded" onclick="redirect('{{ person.get_url_path }}');">
-		            <div class="info-group-a">
-		                <h5>
-		                    <a href="{{ person.get_url_path }}">{{ person.get_title|escape }}</a>
-		               </h5>
-		                {% with person.get_primary_contact as contact %}
-		                    {% if contact %}
+
+        {% if object_list %}
+            {% for person in object_list %}
+                <div class="list-item {% cycle odd,even %} expanded" onclick="redirect('{{ person.get_url_path }}');">
+                    <div class="info-group-a">
+                        <h5>
+                            <a href="{{ person.get_url_path }}">{{ person.get_title|escape }}</a>
+                        </h5>
+                        {% with person.get_primary_contact as contact %}
+                            {% if contact %}
                                 {% if person.is_address_displayed %}
                                     <a href="/vcard/{{ person|content_type_id }}/{{ person.id }}">vcard</a>
                                     {% if contact.street_address or contact.country_name %}
-                                    <address class=" hidable">
-                                        {% if contact.street_address %}
-                                            {{ contact.street_address|escape }}<br />
-                                        {% endif %}								
-                                        {% if contact.street_address2 %}
-                                            {{ contact.street_address2|escape }}<br />
-                                        {% endif %}								
-                                        {% if contact.street_address3 %}
-                                            {{ contact.street_address3|escape }}<br />
-                                        {% endif %}								
-                                        {% if contact.postal_code %}	
-                                            {{ contact.postal_code|escape }} {{ contact.city|escape }}<br />
-                                        {% endif %}								
-                                        {% if contact.country_name %}
-                                            {{ contact.country_name }}<br />
-                                        {% endif %}
-                                    </address>
+                                        <address class=" hidable">
+                                            {% if contact.street_address %}
+                                                {{ contact.street_address|escape }}
+                                                <br/>
+                                            {% endif %}
+                                            {% if contact.street_address2 %}
+                                                {{ contact.street_address2|escape }}
+                                                <br/>
+                                            {% endif %}
+                                            {% if contact.street_address3 %}
+                                                {{ contact.street_address3|escape }}
+                                                <br/>
+                                            {% endif %}
+                                            {% if contact.postal_code %}
+                                                {{ contact.postal_code|escape }} {{ contact.city|escape }}
+                                                <br/>
+                                            {% endif %}
+                                            {% if contact.country_name %}
+                                                {{ contact.country_name }}
+                                                <br/>
+                                            {% endif %}
+                                        </address>
                                     {% endif %}
                                 {% endif %}
-		                    {% endif %}
-		                {% endwith %}
-		            </div>
-		            <div class="item-eventual info-group-b">
-		                {% ifequal active_link "requests" %}
-		                    <div class="type">{% trans "Invitation from" %} {{ person.individualrelation_timestamp|date:_("DATETIME_FORMAT") }}</div>
-		                {% else %}    
-		                	{% ifequal active_link "requested" %}
-			                    <div class="type">{% trans "Request from" %} {{ person.individualrelation_timestamp|date:_("DATETIME_FORMAT") }}</div>
-		                	{% endifequal %}
-						{% endifequal %}		                	
-		                
-		                {% comment %} STATUS = {{ person.individualrelation_status }} {% endcomment %}
-		                {% if person.individualrelation_message %}
-		                {% endif %}	
-		                    <span class="description hidable">
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                    <div class="item-eventual info-group-b">
+                        {% ifequal active_link "requests" %}
+                            <div class="type">{% trans "Invitation from" %} {{ person.individualrelation_timestamp|date:_("DATETIME_FORMAT") }}</div>
+                        {% else %}
+                            {% ifequal active_link "requested" %}
+                                <div class="type">{% trans "Request from" %} {{ person.individualrelation_timestamp|date:_("DATETIME_FORMAT") }}</div>
+                            {% endifequal %}
+                        {% endifequal %}
+
+                        {% comment %} STATUS = {{ person.individualrelation_status }} {% endcomment %}
+                        {% if person.individualrelation_message %}
+                        {% endif %}
+                        <span class="description hidable">
 		                    	{{ person.individualrelation_message|striptags|truncatewords:"60" }}
 		                    </span>
-		            </div>
-		            {% with forloop.counter|default:0 as counter %}
+                    </div>
+                    {% with forloop.counter|default:0 as counter %}
                         {% with person|get_context_item as context_item %}
                             <div>
                                 <ul class="toolbar">
@@ -148,37 +162,45 @@
                                         -->{% endcomment %}
                                         {% adding_individual_relation with person %}
                                         {% if person.is_contactable %}
-                                            <li class="mail"><a href="{{ person.get_url_path }}message/" title="{% trans "Send a mail" %}"><span>{% trans "Send a mail" %}</span></a></li>
+                                            <li class="mail">
+                                                <a href="{{ person.get_url_path }}message/"
+                                                   title="{% trans "Send a mail" %}">
+                                                    <span>{% trans "Send a mail" %}</span></a>
+                                            </li>
                                         {% endif %}
                                     {% endif %}
                                     {% if perms.people.change_person %}
                                         <li class="admin_edit">
-                                            <a href="/admin/people/person/{{ person.id }}/" class="edit_link" onclick="open_new_window(event)" title="{% trans "Edit Person" %}">
-                                            <span>{% trans "Edit Person" %}</span>
+                                            <a href="/admin/people/person/{{ person.id }}/"
+                                               class="edit_link"
+                                               onclick="open_new_window(event)"
+                                               title="{% trans "Edit Person" %}">
+                                                <span>{% trans "Edit Person" %}</span>
                                             </a>
                                         </li>
                                     {% endif %}
-                    
+
                                 </ul>
                             </div>
                         {% endwith %}
-                    {% endwith %}		
-		            {% comment %}<!--
+                    {% endwith %}
+                    {% comment %}<!--
 		            THIS HAS BEEN REPLACED BY THE "with"..."endwith" above (TOBI, 20032008)
 		            {% include "people/controls.html" %}    
 		            <div class="cleaner"></div>
-					-->{% endcomment %}		            
-				</div>
+					-->{% endcomment %}
+                </div>
                 <!-- end of info -->
-			{% endfor %}
-			
-			{% include "utils/pagination_footer.html" %}
-		
-		{% else %}
-	    
-	        <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
-	    
-	    {% endif %}<div class="cleaner"></div>
-	</div>
+            {% endfor %}
+
+            {% include "utils/pagination_footer.html" %}
+
+        {% else %}
+
+            <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
+
+        {% endif %}
+        <div class="cleaner"></div>
+    </div>
 {% endblock %}
 

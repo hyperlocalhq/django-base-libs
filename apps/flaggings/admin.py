@@ -12,5 +12,5 @@ class FlaggingOptions(ObjectRelationMixinAdminOptions()):
     list_display = ('__unicode__', 'get_content_object_display')
     fieldsets = []
 
-admin.site.register(Flagging, FlaggingOptions)
 
+admin.site.register(Flagging, FlaggingOptions)

@@ -17,7 +17,7 @@ import django.core.management, django.core
 from os.path import isdir, isfile, join, dirname
 import datetime
 
-try: 
+try:
     from dev_environment import *
 except:
     is_dev_environment = False
@@ -34,12 +34,14 @@ from django.conf import settings
 def test(l):
     print l
 
+
 def create_institution(l):
     from django.db import models
     app = models.get_app("institutions")
     Institution, InstitutionalContact = (
-        app.Institution, app.InstitutionalContact,
-        )
+        app.Institution,
+        app.InstitutionalContact,
+    )
     from jetson.apps.optionset.models import PhoneType
     from jetson.apps.structure.models import Term
     from jetson.apps.location.models import Address
@@ -67,9 +69,9 @@ def create_institution(l):
     try:
         phone0_area, phone0_number = phone.split("-", 1)
     except:
-        phone0_area="030"
-        phone0_number=""
-    if phone0_area=="030":
+        phone0_area = "030"
+        phone0_number = ""
+    if phone0_area == "030":
         phone0_type = PhoneType.objects.get(slug="phone")
     else:
         phone0_type = PhoneType.objects.get(slug="mobile")
@@ -77,29 +79,33 @@ def create_institution(l):
         website = "http://" + website
     contact = i.institutionalcontact_set.create(
         is_temporary=False,
-        phone0_type = phone0_type,
-        phone0_country = "49",
-        phone0_area = phone0_area,
-        phone0_number = phone0_number,
-        url0_link = website,
+        phone0_type=phone0_type,
+        phone0_country="49",
+        phone0_area=phone0_area,
+        phone0_number=phone0_number,
+        url0_link=website,
     )
     Address.objects.set_for(
-        contact, "postal_address",
-        street_address = street,
-        postal_code = postal_code,
-        city = "Berlin",
-        country = "DE",
+        contact,
+        "postal_address",
+        street_address=street,
+        postal_code=postal_code,
+        city="Berlin",
+        country="DE",
     )
+
 
 def latin1_to_utf8(text):
     return unicode(text, "iso-8859-2").encode("utf-8")
+
 
 def create_institution2(l):
     from django.db import models
     app = models.get_app("institutions")
     Institution, InstitutionalContact = (
-        app.Institution, app.InstitutionalContact,
-        )
+        app.Institution,
+        app.InstitutionalContact,
+    )
     from jetson.apps.optionset.models import PhoneType
     from jetson.apps.structure.models import Term
     from jetson.apps.location.models import Address
@@ -124,29 +130,31 @@ def create_institution2(l):
     i = Institution(
         title=title,
         status=status,
-        )
+    )
     i.save()
-        
+
     contact = i.institutionalcontact_set.create(
         is_primary=True,
         is_temporary=False,
-        phone0_country = "49",
-        phone0_area = phone_area,
-        phone0_number = phone_number,
-        phone1_country = "49",
-        phone1_area = fax_area,
-        phone1_number = fax_number,
-        url0_link = website,
-        email0_address = email,
-        )
+        phone0_country="49",
+        phone0_area=phone_area,
+        phone0_number=phone_number,
+        phone1_country="49",
+        phone1_area=fax_area,
+        phone1_number=fax_number,
+        url0_link=website,
+        email0_address=email,
+    )
     Address.objects.set_for(
-        contact, "postal_address",
-        street_address = street,
-        postal_code = postal_code,
-        city = city,
-        country = "DE",
-        )
-    
+        contact,
+        "postal_address",
+        street_address=street,
+        postal_code=postal_code,
+        city=city,
+        country="DE",
+    )
+
+
 def read_excel_csv(filepath, function):
     f = open(filepath, "rb")
     line_list = "".join(f.readlines()).split("\r")
@@ -154,12 +162,14 @@ def read_excel_csv(filepath, function):
     for value_list in reader:
         function(value_list)
 
+
 def main():
     #read_excel_csv(filepath="data/BerlinYellowPages2007.csv", function=create_institution)
     read_excel_csv(
         filepath="data/ICB_Dataimport.csv",
         function=create_institution2,
-        )
-    
+    )
+
+
 if __name__ == '__main__':
     main()

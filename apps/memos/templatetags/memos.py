@@ -12,6 +12,7 @@ register = template.Library()
 
 ### TAGS ###
 
+
 def do_adding2memos(parser, token):
     """ Prints the widget for adding object to notelist
     using the default "memos/memo.html" template or a custom one
@@ -29,23 +30,29 @@ def do_adding2memos(parser, token):
         
     """
     try:
-        tag_name, for_str, obj_to_add, str_using, template_path = token.split_contents()
+        tag_name, for_str, obj_to_add, str_using, template_path = token.split_contents(
+        )
     except ValueError:
         template_path = ""
         try:
             # split_contents() knows not to split quoted strings.
             tag_name, for_str, obj_to_add = token.split_contents()
         except ValueError:
-            raise template.TemplateSyntaxError, "%r tag requires a following syntax: {%% %r for <object> %%}" % (token.contents[0], token.contents[0])
+            raise template.TemplateSyntaxError, "%r tag requires a following syntax: {%% %r for <object> %%}" % (
+                token.contents[0], token.contents[0]
+            )
     return ObjectAdding2Memos(obj_to_add, template_path)
+
 
 class ObjectAdding2Memos(template.Node):
     count = 0
+
     def __init__(self, obj_to_add, template_path):
         self.obj_to_add = obj_to_add
-        self.counter = self.__class__.count 
+        self.counter = self.__class__.count
         self.__class__.count += 1
         self.template_path = template_path
+
     def render(self, context):
         request = context['request']
         obj_to_add = template.resolve_variable(self.obj_to_add, context)
@@ -57,22 +64,24 @@ class ObjectAdding2Memos(template.Node):
                 try:
                     collection = MemoCollection.objects.get(
                         token=request.COOKIES[MEMO_TOKEN_NAME],
-                        )
+                    )
                 except MemoCollection.DoesNotExist:
                     collection = None
                 self.__class__.memo_collection = collection
         is_not_memoed_by_user = True
-        collection = getattr(self, "memo_collection", None)  
+        collection = getattr(self, "memo_collection", None)
         if collection and collection.memo_set.filter(
             content_type=ct,
             object_id=obj_to_add._get_pk_val(),
-            ):
+        ):
             is_not_memoed_by_user = False
         try:
-            template_path = template.resolve_variable(self.template_path, context)
+            template_path = template.resolve_variable(
+                self.template_path, context
+            )
         except:
             template_path = ""
-            
+
         c = context
         c.push()
         c['object'] = obj_to_add
@@ -82,14 +91,16 @@ class ObjectAdding2Memos(template.Node):
         c.pop()
         return output
 
+
 register.tag('adding2memos', do_adding2memos)
 
 ### FILTERS ###
 
+
 def get_memo_count(request):
     return Memo.objects.filter(
         collection__token=request.COOKIES.get(MEMO_TOKEN_NAME, None),
-        ).count()
-    
-register.filter('get_memo_count', get_memo_count)
+    ).count()
 
+
+register.filter('get_memo_count', get_memo_count)

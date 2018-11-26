@@ -12,6 +12,7 @@ class PickleSerializer(object):
     Simple wrapper around pickle to be used in signing.dumps and
     signing.loads.
     """
+
     def dumps(self, obj):
         val = pickle.dumps(obj, pickle.HIGHEST_PROTOCOL)
         return val

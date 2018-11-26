@@ -1,1 +1,30 @@
-{% extends "blog/base.html" %}{% load base_tags i18n blog %}{% block headline %}<h2 class="main">{% trans 'Delete Review' %}</h2>{% endblock %}{% block sidebar-a %}{% endblock %}{% block sidebar-b %}{% endblock %}{% block title %}{% trans "Delete Review"%}{% endblock %}{% block content %}	<form action="" method="post">		<p class="delete">Are you sure to delete the review?</p>	    <p class="entry">	        <input type="hidden" name="goto_next" value="{% if goto_next %}{{ goto_next }}{% else %}/{% endif %}" />   	        <input id="id_delete" class="button_bad" type="submit" name="delete" value="{% filter upper %}{% trans 'Delete' %}{% endfilter %}" />   	        <input id="id_cancel" class="button_good" type="submit" name="cancel" value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}" />	    </p>	</form>{% endblock %}
+{% extends "blog/base.html" %}
+{% load base_tags i18n blog %}
+{% block headline %}<h2 class="main">{% trans 'Delete Review' %}</h2>{% endblock %}
+
+
+{% block sidebar-a %}
+{% endblock %}
+{% block sidebar-b %}{% endblock %}
+
+{% block title %}{% trans "Delete Review" %}{% endblock %}
+
+{% block content %}
+    <form action="" method="post">
+        <p class="delete">Are you sure to delete the review?</p>
+        <p class="entry">
+            <input type="hidden" name="goto_next" value="{% if goto_next %}{{ goto_next }}{% else %}/{% endif %}"/>
+            <input id="id_delete"
+                   class="button_bad"
+                   type="submit"
+                   name="delete"
+                   value="{% filter upper %}{% trans 'Delete' %}{% endfilter %}"/>
+            <input id="id_cancel"
+                   class="button_good"
+                   type="submit"
+                   name="cancel"
+                   value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
+        </p>
+    </form>
+{% endblock %}
+

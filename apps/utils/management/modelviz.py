@@ -30,13 +30,13 @@ __svnid__ = "$Id$"
 __license__ = "Python"
 __author__ = "Antonio Cavedoni <http://cavedoni.com/>"
 __contributors__ = [
-   "Stefano J. Attardi <http://attardi.org/>",
-   "limodou <http://www.donews.net/limodou/>",
-   "Carlo C8E Miron",
-   "Andre Campos <cahenan@gmail.com>",
-   "Justin Findlay <jfindlay@gmail.com>",
-   "Alexander Houben <alexander@houben.ch>",
-   "Bas van Oostveen <v.oostveen@gmail.com>",
+    "Stefano J. Attardi <http://attardi.org/>",
+    "limodou <http://www.donews.net/limodou/>",
+    "Carlo C8E Miron",
+    "Andre Campos <cahenan@gmail.com>",
+    "Justin Findlay <jfindlay@gmail.com>",
+    "Alexander Houben <alexander@houben.ch>",
+    "Bas van Oostveen <v.oostveen@gmail.com>",
 ]
 
 import getopt, sys
@@ -141,6 +141,7 @@ tail_template = """
 }
 """
 
+
 def generate_dot(app_labels, **kwargs):
     disable_fields = kwargs.get('disable_fields', False)
     include_models = kwargs.get('include_models', [])
@@ -160,14 +161,21 @@ def generate_dot(app_labels, **kwargs):
 
     graphs = []
     for app in apps:
-        graph = Context({
-            'name': '"%s"' % app.__name__,
-            'app_name': "%s" % '.'.join(app.__name__.split('.')[:-1]),
-            'cluster_app_name': "cluster_%s" % app.__name__.replace(".", "_"),
-            'disable_fields': disable_fields,
-            'use_subgraph': use_subgraph,
-            'models': []
-        })
+        graph = Context(
+            {
+                'name':
+                    '"%s"' % app.__name__,
+                'app_name':
+                    "%s" % '.'.join(app.__name__.split('.')[:-1]),
+                'cluster_app_name':
+                    "cluster_%s" % app.__name__.replace(".", "_"),
+                'disable_fields':
+                    disable_fields,
+                'use_subgraph':
+                    use_subgraph,
+                'models': []
+            }
+        )
 
         for appmodel in get_models(app):
             model = {
@@ -186,11 +194,13 @@ def generate_dot(app_labels, **kwargs):
 
             # model attributes
             def add_attributes():
-                model['fields'].append({
-                    'name': field.name,
-                    'type': type(field).__name__,
-                    'blank': field.blank
-                })
+                model['fields'].append(
+                    {
+                        'name': field.name,
+                        'type': type(field).__name__,
+                        'blank': field.blank
+                    }
+                )
 
             for field in appmodel._meta.fields:
                 add_attributes()
@@ -202,7 +212,7 @@ def generate_dot(app_labels, **kwargs):
             # relations
             def add_relation(extras=""):
                 _rel = {
-                    'target_app': field.rel.to.__module__.replace('.','_'),
+                    'target_app': field.rel.to.__module__.replace('.', '_'),
                     'target': field.rel.to.__name__,
                     'type': type(field).__name__,
                     'name': field.name,
@@ -223,7 +233,11 @@ def generate_dot(app_labels, **kwargs):
                     if isinstance(field, ManyToManyField):
                         add_relation('[arrowhead=normal arrowtail=normal]')
                     elif isinstance(field, GenericRelation):
-                        add_relation(mark_safe('[style="dotted"] [arrowhead=normal arrowtail=normal]'))
+                        add_relation(
+                            mark_safe(
+                                '[style="dotted"] [arrowhead=normal arrowtail=normal]'
+                            )
+                        )
             graph['models'].append(model)
         graphs.append(graph)
 
@@ -249,14 +263,19 @@ def generate_dot(app_labels, **kwargs):
 
     return dot
 
+
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hadgi:",
-                    ["help", "all_applications", "disable_fields", "group_models", "include_models="])
+        opts, args = getopt.getopt(
+            sys.argv[1:], "hadgi:", [
+                "help", "all_applications", "disable_fields", "group_models",
+                "include_models="
+            ]
+        )
     except getopt.GetoptError, error:
         print __doc__
         sys.exit(error)
-    
+
     kwargs = {}
     for opt, arg in opts:
         if opt in ("-h", "--help"):
@@ -276,6 +295,7 @@ def main():
         sys.exit()
 
     print generate_dot(args, **kwargs)
+
 
 if __name__ == "__main__":
     main()

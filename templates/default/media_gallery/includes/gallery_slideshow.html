@@ -7,14 +7,14 @@
         <div id="media_file">
             <div class="hidable" id="media_file_content"></div>
             <div id="in_progress">
-                <img src="{{ STATIC_URL }}site/js/jquery/indicator.gif" alt="{% trans "in progress..." %}" />
+                <img src="{{ STATIC_URL }}site/js/jquery/indicator.gif" alt="{% trans "in progress..." %}"/>
                 <span>{% trans "Loading. Please wait." %}</span>
             </div>
         </div>
         <div>
-            {% if not list_of_files|length_is:"1"  %}
+            {% if not list_of_files|length_is:"1" %}
                 <div class="media_nav paginated">
-                   <a id="media_previous" href="" class="previous">
+                    <a id="media_previous" href="" class="previous">
                         <span class="disabled">
                             <span class="hidden">{% trans "Previous media file" %}</span>
                         </span>
@@ -27,15 +27,19 @@
                 </div>
             {% endif %}
             <div id="media_desc">
-                
+
                 <div class="hidable" id="media_desc_content"></div>
                 {% if permission_name %}
                     {% if_has_perm permission_name object %}
                         <div class="media_management hidable">
-                            <a id="media_change" href="">{% trans "Change" %}</a> | 
-                            <a id="media_delete" href="">{% trans "Delete" %}</a><br />
-                            <a id="media_add" href="add/image/">{% trans "Add new image or photo" %}</a><br />
-                            <a id="media_add" href="add/video/">{% trans "Add new video" %}</a><br />
+                            <a id="media_change" href="">{% trans "Change" %}</a>
+                            |
+                            <a id="media_delete" href="">{% trans "Delete" %}</a>
+                            <br/>
+                            <a id="media_add" href="add/image/">{% trans "Add new image or photo" %}</a>
+                            <br/>
+                            <a id="media_add" href="add/video/">{% trans "Add new video" %}</a>
+                            <br/>
                             <a id="media_add" href="add/audio/">{% trans "Add new audio" %}</a>
                         </div>
                     {% end_if_has_perm %}
@@ -47,31 +51,38 @@
                 <h6 class="subline">{% trans "Thumbnails" %}</h6>
                 <ul id="media_thumbs">
             {% endif %}
-                    <li class="image_container">
-                        <a href="#file_{{ f.id }}"><img src="{{ f.get_thumbnail_url }}{% if permission_name %}{% if_has_perm permission_name object %}?now={% now "YmdHis" %}{% end_if_has_perm %}{% endif %}" alt="{{ f.title|escape }}" title="{{ f.get_file_type_display }}. {{ f.title|escape }}" /></a>
-                        {% if permission_name %}
-                            {% if_has_perm permission_name object %}
-                                {% if f.get_recroppable_thumbnail_path %}
-                                    <a href="{% cropping_url f.get_recroppable_thumbnail_path "gt" request request.path %}" class="recrop_link">
-                                        <img src="{{ jetson_media_url }}Jcrop/img/crop.png" alt="{% trans "Adjust image" %}" />
-                                    </a>
-                                {% endif %}
-                            {% end_if_has_perm %}
-                        {% endif %}
-                    </li>
-            {% if forloop.last %}
-                </ul>
+        <li class="image_container">
+            <a href="#file_{{ f.id }}">
+                <img src="{{ f.get_thumbnail_url }}{% if permission_name %}{% if_has_perm permission_name object %}?now={% now "YmdHis" %}{% end_if_has_perm %}{% endif %}"
+                     alt="{{ f.title|escape }}"
+                     title="{{ f.get_file_type_display }}. {{ f.title|escape }}"/>
+            </a>
+            {% if permission_name %}
+                {% if_has_perm permission_name object %}
+                    {% if f.get_recroppable_thumbnail_path %}
+                        <a href="{% cropping_url f.get_recroppable_thumbnail_path "gt" request request.path %}"
+                           class="recrop_link">
+                            <img src="{{ jetson_media_url }}Jcrop/img/crop.png" alt="{% trans "Adjust image" %}"/>
+                        </a>
+                    {% endif %}
+                {% end_if_has_perm %}
             {% endif %}
+        </li>
+        {% if forloop.last %}
+            </ul>
+        {% endif %}
         {% endfor %}
     </div>
 {% else %}
     <span class="nothing">{% trans "There are no media files uploaded." %}</span>
     {% if permission_name %}
         {% if_has_perm permission_name object %}
-        <hr />
-        <a id="media_add" href="add/image/">{% trans "Add new image or photo" %}</a><br />
-        <a id="media_add" href="add/video/">{% trans "Add new video" %}</a><br />
-        <a id="media_add" href="add/audio/">{% trans "Add new audio" %}</a>
+            <hr/>
+            <a id="media_add" href="add/image/">{% trans "Add new image or photo" %}</a>
+            <br/>
+            <a id="media_add" href="add/video/">{% trans "Add new video" %}</a>
+            <br/>
+            <a id="media_add" href="add/audio/">{% trans "Add new audio" %}</a>
         {% end_if_has_perm %}
     {% endif %}
 {% endif %}

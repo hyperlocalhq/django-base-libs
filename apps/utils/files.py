@@ -1,11 +1,13 @@
 # -*- coding: UTF-8 -*-
 import os, fnmatch
 
+
 def path_exists(*args):
     path = os.path.join(*args)
     if not os.path.isdir(path):
         os.makedirs(path)
     return path
+
 
 def locate(pattern, root=os.curdir):
     """Locate all files matching supplied filename pattern in and below

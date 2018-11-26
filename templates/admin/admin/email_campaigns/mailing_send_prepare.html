@@ -2,54 +2,64 @@
 {% load i18n %}
 
 {% block breadcrumbs %}
-<div class="breadcrumbs">
-    <a href="../../../../">{% trans 'Home' %}</a> &rsaquo; 
-    <a href="../../../">{{ app_label|capfirst }}</a> &rsaquo; 
-    <a href="../../">{{ model_name }}</a> &rsaquo;
-    <a href="../">{{ object|truncatewords:"18" }}</a> &rsaquo; 
-    {% trans 'Sending' %}
-</div>
+    <div class="breadcrumbs">
+        <a href="../../../../">{% trans 'Home' %}</a> &rsaquo;
+        <a href="../../../">{{ app_label|capfirst }}</a> &rsaquo;
+        <a href="../../">{{ model_name }}</a> &rsaquo;
+        <a href="../">{{ object|truncatewords:"18" }}</a> &rsaquo;
+        {% trans 'Sending' %}
+    </div>
 {% endblock %}
 
 {% block content %}
-<div id="content-main">
+    <div id="content-main">
 
-    <h3>{% trans "Test transmission" %}</h3>
-    <form method="post">
-        <p>{% trans "Send this mailing to the following address(es) for testing purposes (separated by commas):" %}</p>
-        <textarea name="recipients">{{ user.email }}</textarea><br/>
-        <input type="hidden" name="mailing_action" value="test" />
-        <input type="submit" value="{% trans "Send test mail" %}" /><br/>
+        <h3>{% trans "Test transmission" %}</h3>
+        <form method="post">
+            <p>{% trans "Send this mailing to the following address(es) for testing purposes (separated by commas):" %}</p>
+            <label>
+                <textarea name="recipients">{{ user.email }}</textarea>
+            </label>
+            <br/>
+            <input type="hidden" name="mailing_action" value="test"/>
+            <input type="submit" value="{% trans "Send test mail" %}"/>
+            <br/>
+            &nbsp;
+        </form>
+
+        <h3>{% trans "Real transmission" %}</h3>
+        {% if object.is_sent %}<p class="errornote">{% trans "This mailing has already been sent!" %}</p>{% endif %}
+        <p>{% trans "This mailing will be sent to the following mailing lists:" %}</p>
+        <ul>
+            {% for mailinglist in object.mailinglists.all %}
+                <li>
+                    <a href="{{ mailinglist.get_admin_change_url }}">{{ mailinglist.campaign }}: {{ mailinglist.title }}</a>
+                    –
+                    {% blocktrans with mailinglist.infosubscription_set.count as recipients_count %}{{ recipients_count }} recipients{% endblocktrans %}
+                </li>
+            {% endfor %}
+        </ul>
+        <form method="post" id="mailing_form_real">
+            <input type="hidden" name="mailing_action" value="real"/>
+            <input type="submit" value="{% trans "Send mailing to all recipients" %}"/>
+        </form>
         &nbsp;
-    </form>
-    
-    <h3>{% trans "Real transmission" %}</h3>
-    {% if object.is_sent %}<p class="errornote">{% trans "This mailing has already been sent!" %}</p>{% endif %}
-    <p>{% trans "This mailing will be sent to the following mailing lists:" %}</p>
-    <ul>
-    {% for mailinglist in object.mailinglists.all %}
-        <li><a href="{{ mailinglist.get_admin_change_url }}">{{ mailinglist.campaign }}: {{ mailinglist.title }}</a> – {% blocktrans with mailinglist.infosubscription_set.count as recipients_count %}{{ recipients_count }} recipients{% endblocktrans %}</li>
-    {% endfor %}
-    </ul>
-    <form method="post" id="mailing_form_real">
-        <input type="hidden" name="mailing_action" value="real" />
-        <input type="submit" value="{% trans "Send mailing to all recipients" %}" />
-    </form>
-    &nbsp;
-    
-    <h3>{% trans "Preview" %}</h3>
-    <iframe id="preview_iframe" src="{{ object.get_admin_preview_url }}" style="width: 100%; height: 500px; border: 1px inset #999;"></iframe>
 
-</div>
+        <h3>{% trans "Preview" %}</h3>
+        <iframe id="preview_iframe"
+                src="{{ object.get_admin_preview_url }}"
+                style="width: 100%; height: 500px; border: 1px inset #999;"></iframe>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#mailing_form_real').submit(function() {
-            if (!window.confirm('{% trans "Do you really want to send out the mailing to all recipients?" %}')) return false;
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#mailing_form_real').submit(function () {
+                if (!window.confirm('{% trans "Do you really want to send out the mailing to all recipients?" %}')) return false;
+            });
         });
-    });
-    $(window).load(function() {
-        $('#preview_iframe').css('height', $('#preview_iframe').get(0).contentWindow.document.body.scrollHeight + 'px');
-    });
-</script>
+        $(window).load(function () {
+            $('#preview_iframe').css('height', $('#preview_iframe').get(0).contentWindow.document.body.scrollHeight + 'px');
+        });
+    </script>
 {% endblock %}

@@ -8,6 +8,7 @@ Replace these with more appropriate tests for your application.
 from django.test import TestCase
 from jetson.apps.profanity_filter.models import SwearWord
 
+
 class SwearWordTest(TestCase):
     def test_filtering(self):
         """
@@ -23,4 +24,3 @@ class SwearWordTest(TestCase):
         self.failUnless("fuCkiNg" in matches)
         self.failUnless("SHiT" in matches)
         self.failUnless("fuck" not in matches)
-        

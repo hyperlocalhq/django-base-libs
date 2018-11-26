@@ -1,7 +1,16 @@
 {% load base_tags i18n %}
 {% if is_not_favorite_for_user %}
-<a href="#Favorite" rel="nofollow" title="{% trans "Add to favorites" %}" onclick="FavoriteManager.toggle({{ counter|default:0 }}, {{ content_type_id }}, {{ object.id }}); window.cancelEvent(event);" id="adding_to_favorites_{{ counter|default:0 }}"><span class="pic"></span>{% trans "Add to favorites" %}</a>
-{% else %}                                                                
-<a href="#Favorite" rel="nofollow" class="active" title="{% trans "Remove from favorites" %}" onclick="FavoriteManager.toggle({{ counter|default:0 }}, {{ content_type_id }}, {{ object.id }}); window.cancelEvent(event);" id="adding_to_favorites_{{ counter|default:0 }}"><span class="pic"></span>{% trans "It's your favorite" %}</a>
+    <a href="#Favorite"
+       rel="nofollow"
+       title="{% trans "Add to favorites" %}"
+       onclick="FavoriteManager.toggle({{ counter|default:0 }}, {{ content_type_id }}, {{ object.id }}); window.cancelEvent(event);"
+       id="adding_to_favorites_{{ counter|default:0 }}"><span class="pic"></span>{% trans "Add to favorites" %}</a>
+{% else %}
+    <a href="#Favorite"
+       rel="nofollow"
+       class="active"
+       title="{% trans "Remove from favorites" %}"
+       onclick="FavoriteManager.toggle({{ counter|default:0 }}, {{ content_type_id }}, {{ object.id }}); window.cancelEvent(event);"
+       id="adding_to_favorites_{{ counter|default:0 }}"><span class="pic"></span>{% trans "It's your favorite" %}</a>
 {% endif %}
 

@@ -9,4 +9,3 @@ class MessagingConfig(AppConfig):
         if apps.is_installed("actstream"):
             from actstream import registry
             registry.register(self.get_model('InternalMessage'))
-

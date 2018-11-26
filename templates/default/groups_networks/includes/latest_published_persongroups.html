@@ -18,28 +18,32 @@ Usage in any template:
         {% get_latest_published_objects groups_networks.PersonGroup amount as newest_objects %}
         {% if newest_objects %}
             <ul>
-            {% for persongroup in newest_objects %}
-                <li>
-                    <a href="{{ persongroup.get_url_path }}">
-                        {% if persongroup.image %}
-                            <img alt="{{ persongroup.get_title|escape }}" src="{{ UPLOADS_URL }}{{ persongroup.image|modified_path:"at" }}" />
-                        {% else %}
-                            <img alt="{{ persongroup.get_title|escape }}" src="{{ DEFAULT_SMALL_LOGO_4_PERSONGROUP }}" />
-                        {% endif %}
-                    </a>
-                    <h5>
+                {% for persongroup in newest_objects %}
+                    <li>
                         <a href="{{ persongroup.get_url_path }}">
-                            {{ persongroup.get_title|escape }}
+                            {% if persongroup.image %}
+                                <img alt="{{ persongroup.get_title|escape }}"
+                                     src="{{ UPLOADS_URL }}{{ persongroup.image|modified_path:"at" }}"/>
+                            {% else %}
+                                <img alt="{{ persongroup.get_title|escape }}"
+                                     src="{{ DEFAULT_SMALL_LOGO_4_PERSONGROUP }}"/>
+                            {% endif %}
                         </a>
-                    </h5>
-                    <p>{% for cat in persongroup.get_object_types %}
-                        {{ cat.get_title|escape }}{% if not forloop.last %}, {% endif %}
+                        <h5>
+                            <a href="{{ persongroup.get_url_path }}">
+                                {{ persongroup.get_title|escape }}
+                            </a>
+                        </h5>
+                        <p>{% for cat in persongroup.get_object_types %}
+                            {{ cat.get_title|escape }}{% if not forloop.last %}, {% endif %}
                         {% endfor %}
-                    </p>
-                </li>
-            {% endfor %}
+                        </p>
+                    </li>
+                {% endfor %}
             </ul>
-            <p class="more"><a href="/{{ URL_ID_PERSONGROUPS }}/?order_by=creation_date_desc">{% trans "more..." %}</a></p>
+            <p class="more">
+                <a href="/{{ URL_ID_PERSONGROUPS }}/?order_by=creation_date_desc">{% trans "more..." %}</a>
+            </p>
         {% else %}
             <p>{% trans "There are no public groups." %}</p>
         {% endif %}

@@ -5,9 +5,11 @@
             <li class="memo">{% adding2memos for document %}</li>
             <li class="favorites">{% adding2favorites for document %}</li>
             {% if request.user.is_staff %}
-                {% if perms.resources.change_document %} 
+                {% if perms.resources.change_document %}
                     <li class="admin_edit">
-                        <a href="/admin/resources/document/{{ document.id }}/" onclick="open_new_window(event)" title="{% trans "Edit Document" %}">
+                        <a href="/admin/resources/document/{{ document.id }}/"
+                           onclick="open_new_window(event)"
+                           title="{% trans "Edit Document" %}">
                             <span>{% trans "Edit Document" %}</span>
                         </a>
                     </li>
@@ -15,7 +17,10 @@
             {% endif %}
         {% else %}
             <li class="memo">{% adding2memos for document %}</li>
-            <li class="favorites"><a href="/login/?goto_next={{ request.path }}" title="{% trans "Add to favorites" %}"><span>{% trans "Add to favorites" %} ({% trans "login request" %})</span></a></li>
+            <li class="favorites">
+                <a href="/login/?goto_next={{ request.path }}" title="{% trans "Add to favorites" %}">
+                    <span>{% trans "Add to favorites" %} ({% trans "login request" %})</span></a>
+            </li>
         {% endif %}
     </ul>
 {% endwith %}
