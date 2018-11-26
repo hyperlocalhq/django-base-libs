@@ -152,7 +152,7 @@ class MailingContentBlockInline(ExtendedStackedInline):
 
 class CampaignAdmin(ExtendedModelAdmin):
     list_display = (
-        'subject', 'get_mailinglist_with_link', 'get_preview_link', 'get_status'
+        'subject', 'get_mailinglist_with_link', 'get_preview_link', 'get_status', 'get_sent_date'
     )
     list_filter = ('mailinglist', )
     fieldsets = [
