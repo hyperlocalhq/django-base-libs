@@ -88,7 +88,7 @@ class EventManager(models.Manager):
         return self.get_queryset().filter(featured=True, status="published").order_by("closest_event_date", "closest_event_time")
 
     def owned_by(self, user):
-        from jetson.apps.permissions.models import PerObjectGroup
+        from museumsportal.apps.permissions.models import PerObjectGroup
         if not user.is_authenticated():
             return self.get_queryset().none()
         if user.has_perm("events.change_event"):

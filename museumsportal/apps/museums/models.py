@@ -88,7 +88,7 @@ class AccessibilityOption(CreationModificationDateMixin, SlugMixin()):
 
 class MuseumManager(models.Manager):
     def owned_by(self, user):
-        from jetson.apps.permissions.models import PerObjectGroup
+        from museumsportal.apps.permissions.models import PerObjectGroup
         if not user.is_authenticated():
             return self.get_queryset().none()
         if user.has_perm("museums.change_museum"):

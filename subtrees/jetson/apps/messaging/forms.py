@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+from django.apps import apps
 from django import forms
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.conf import settings
@@ -10,9 +11,9 @@ from base_libs.forms import dynamicforms
 from base_libs.forms.fields import SingleEmailTextField
 from base_libs.forms.fields import SecurityField
 
-from jetson.apps.mailing.models import EmailMessage
 from jetson.apps.messaging.models import InternalMessage
 
+EmailMessage = apps.get_model("mailing", "EmailMessage")
 
 class MessageFormBase(dynamicforms.Form):
 

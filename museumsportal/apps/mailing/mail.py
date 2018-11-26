@@ -32,14 +32,25 @@ def prepare_email_address(email):
     return re.sub(r'^([^<]+)<([^>]+)>$', encode_name, email)
 
 
-def send_mail(subject, message, from_email, recipient_list, fail_silently=False, auth_user=settings.EMAIL_HOST_USER, auth_password=settings.EMAIL_HOST_PASSWORD, plain_message=""):
+def send_mail(
+    subject,
+    message,
+    from_email,
+    recipient_list,
+    fail_silently=False,
+    auth_user=settings.EMAIL_HOST_USER,
+    auth_password=settings.EMAIL_HOST_PASSWORD,
+    plain_message=""
+):
     DNS_NAME = Site.objects.get_current().domain
     from_email = prepare_email_address(from_email)
     recipient_list = map(prepare_email_address, recipient_list)
     random_bits = ''.join([random.choice('1234567890') for i in range(19)])
 
     msg = createhtmlmail(
-        subject=str(Header(check_if_valid(subject), settings.DEFAULT_CHARSET.lower())),
+        subject=str(
+            Header(check_if_valid(subject), settings.DEFAULT_CHARSET.lower())
+        ),
         html=message,
         text=plain_message,
         headers=(
@@ -77,7 +88,16 @@ def send_mail(subject, message, from_email, recipient_list, fail_silently=False,
     return num_sent
 
 
-def send_mass_mail(subject, message, from_email, recipient_list, fail_silently=False, auth_user=settings.EMAIL_HOST_USER, auth_password=settings.EMAIL_HOST_PASSWORD, plain_message=""):
+def send_mass_mail(
+    subject,
+    message,
+    from_email,
+    recipient_list,
+    fail_silently=False,
+    auth_user=settings.EMAIL_HOST_USER,
+    auth_password=settings.EMAIL_HOST_PASSWORD,
+    plain_message=""
+):
     DNS_NAME = Site.objects.get_current().domain
     from_email = prepare_email_address(from_email)
     try:
@@ -91,20 +111,27 @@ def send_mass_mail(subject, message, from_email, recipient_list, fail_silently=F
         if fail_silently:
             return
         raise
-    
+
     num_sent = 0
     for recipient in recipient_list:
         recipient = prepare_email_address(recipient)
         random_bits = ''.join([random.choice('1234567890') for i in range(19)])
         msg = createhtmlmail(
-            subject=str(Header(check_if_valid(subject), settings.DEFAULT_CHARSET.lower())),
+            subject=str(
+                Header(
+                    check_if_valid(subject), settings.DEFAULT_CHARSET.lower()
+                )
+            ),
             html=message,
             text=plain_message,
             headers=(
                 ("From", from_email),
                 ("To", check_if_valid(recipient)),
                 ("Date", rfc822.formatdate()),
-                ("Message-ID", "<%d.%s@%s>" % (time.time(), random_bits, DNS_NAME)),
+                (
+                    "Message-ID",
+                    "<%d.%s@%s>" % (time.time(), random_bits, DNS_NAME)
+                ),
             ),
         )
         try:
@@ -113,7 +140,7 @@ def send_mass_mail(subject, message, from_email, recipient_list, fail_silently=F
         except:
             if not fail_silently:
                 raise
-                
+
     try:
         server.quit()
     except:
@@ -127,7 +154,10 @@ def createhtmlmail(subject, html, text="", headers=()):
     from email.mime.multipart import MIMEMultipart
     from email.mime.text import MIMEText
 
-    Charset.add_charset(settings.DEFAULT_CHARSET, Charset.QP, Charset.QP, settings.DEFAULT_CHARSET)
+    Charset.add_charset(
+        settings.DEFAULT_CHARSET, Charset.QP, Charset.QP,
+        settings.DEFAULT_CHARSET
+    )
 
     # Create message container - the correct MIME type is multipart/alternative.
     msg = MIMEMultipart('alternative')

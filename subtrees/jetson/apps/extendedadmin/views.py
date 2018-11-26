@@ -25,11 +25,12 @@ from django.contrib.admin.views.main import PAGE_VAR, ALL_VAR, IS_POPUP_VAR, SEA
 from django.contrib import messages
 
 from jetson.apps.location.models import Address
-from jetson.apps.mailing.recipient import Recipient
-from jetson.apps.mailing.views import do_generic_mail
 
 from base_libs.utils.misc import get_installed
 from base_libs.utils.misc import ExtendedJSONEncoder
+
+Recipient = get_installed("mailing.recipient.Recipient")
+do_generic_mail = get_installed("mailing.views.do_generic_mail")
 
 
 def person_add(request):

@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 import sys
 
+from django.apps import apps
 from django.db import models
 
 if "makemigrations" in sys.argv:
@@ -24,8 +25,10 @@ from base_libs.models import ExtendedTextField
 from base_libs.models import CreationModificationMixin
 
 from jetson.apps.mailing.mail import send_mail
-from jetson.apps.history.models import custom_action_signal_1
-from jetson.apps.history.models import custom_action_signal_2
+
+history_models = apps.get_app("history")
+custom_action_signal_1 = history_models.custom_action_signal_1
+custom_action_signal_2 = history_models.custom_action_signal_2
 
 verbose_name = _("Mailing")
 

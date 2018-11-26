@@ -1,21 +1,19 @@
 # -*- coding: UTF-8 -*-
-from django.db import backend, connection, models
+from django.apps import apps
+from django.db import connection, models
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User, AnonymousUser, Group, Permission
 from django.utils.translation import ugettext_lazy as _
-from django.utils.encoding import force_unicode, smart_str
-from django.utils.functional import lazy
+from django.utils.encoding import force_unicode
 from django.db.models import signals
-from django.conf import settings
 
 from base_libs.models.models import SysnameMixin
 from base_libs.models.models import ObjectRelationMixin
 from base_libs.models.fields import MultilingualCharField
 
-from base_libs.middleware import get_current_language
-
 verbose_name = _("Permissions")
+
 
 class RowLevelPermissionManager(models.Manager):
     def create_row_level_permission(self, model_instance, owner, permission, negative=False):
@@ -29,7 +27,7 @@ class RowLevelPermissionManager(models.Manager):
             except Permission.DoesNotExist:
                 from django.contrib.auth.management import create_permissions
                 create_permissions(
-                    models.get_app(model_instance._meta.app_label),
+                    apps.get_app(model_instance._meta.app_label),
                     created_models=None,
                     verbosity=0,
                     )
@@ -195,9 +193,8 @@ def add_functionality_to_models(sender, **kwargs):
 ### Additional methods to the User model
 def add_methods_to_user():
     def get_group_permissions(self):
-        "Returns a list of permission strings that this user has through his/her groups."
+        """Returns a list of permission strings that this user has through his/her groups."""
         if not hasattr(self, '_group_perm_cache'):
-            import sets
             cursor = connection.cursor()
             # The SQL below works out to the following, after DB quoting:
             # cursor.execute("""
@@ -215,24 +212,37 @@ def add_methods_to_user():
                     AND gp.%s = ug.%s
                     AND ct.%s = p.%s
                     AND ug.%s = %%s""" % (
-                quote_name('app_label'), quote_name('codename'),
-                quote_name('auth_permission'), quote_name('auth_group_permissions'),
-                quote_name('auth_user_groups'), quote_name('django_content_type'),
-                quote_name('id'), quote_name('permission_id'),
-                quote_name('group_id'), quote_name('group_id'),
-                quote_name('id'), quote_name('content_type_id'),
-                quote_name('user_id'),)
+                quote_name('app_label'),
+                quote_name('codename'),
+                quote_name('auth_permission'),
+                quote_name('auth_group_permissions'),
+                quote_name('auth_user_groups'),
+                quote_name('django_content_type'),
+                quote_name('id'),
+                quote_name('permission_id'),
+                quote_name('group_id'),
+                quote_name('group_id'),
+                quote_name('id'),
+                quote_name('content_type_id'),
+                quote_name('user_id'),
+            )
             cursor.execute(sql, [self.id])
-            self._group_perm_cache = sets.Set(["%s.%s" % (row[0], row[1]) for row in cursor.fetchall()])
+            self._group_perm_cache = set(
+                ["%s.%s" % (row[0], row[1]) for row in cursor.fetchall()]
+            )
         return self._group_perm_cache
-    
+
     def get_all_permissions(self):
         if not hasattr(self, '_perm_cache'):
-            import sets
-            self._perm_cache = sets.Set(["%s.%s" % (p.content_type.app_label, p.codename) for p in self.user_permissions.select_related()])
+            self._perm_cache = set(
+                [
+                    "%s.%s" % (p.content_type.app_label, p.codename)
+                    for p in self.user_permissions.select_related()
+                ]
+            )
             self._perm_cache.update(self.get_group_permissions())
         return self._perm_cache
-    
+
     def check_row_level_permission(self, permission, obj):
         object_ct = ContentType.objects.get_for_model(obj)
         if type(permission).__name__ in ("str", "unicode"):
@@ -240,7 +250,7 @@ def add_methods_to_user():
                 permission = Permission.objects.get(
                     codename=permission,
                     content_type=object_ct.id,
-                    )
+                )
             except Permission.DoesNotExist:
                 return False
         try:
@@ -249,15 +259,15 @@ def add_methods_to_user():
                 object_id=object_id,
                 content_type=object_ct.id,
                 permission=permission.id,
-                )
+            )
         except RowLevelPermission.DoesNotExist:
             perms = self.check_per_object_group_permissions(permission, obj)
-            if perms!=None:
+            if perms is not None:
                 return perms
             else:
                 return self.check_group_row_level_permissions(permission, obj)
         return not row_level_perm.negative
-    
+
     def check_group_row_level_permissions(self, permission, obj):
         object_id = obj._get_pk_val()
         cursor = connection.cursor()
@@ -273,22 +283,26 @@ def add_methods_to_user():
                 AND rlp.%s=%%s
                 ORDER BY rlp.%s""" % (
             quote_name('negative'), quote_name('auth_user_groups'),
-            quote_name('auth_rowlevelpermission'), quote_name('owner_object_id'),
-            quote_name('group_id'), quote_name('user_id'),
-            quote_name('owner_content_type_id'), quote_name('object_id'),
-            quote_name('content_type_id'), quote_name('permission_id'),
-            quote_name('negative'))
-        cursor.execute(sql, [
-            self.id,
-            ContentType.objects.get_for_model(Group).id,
-            object_id,
-            ContentType.objects.get_for_model(obj).id,
-            permission.id,])
+            quote_name('auth_rowlevelpermission'),
+            quote_name('owner_object_id'), quote_name('group_id'),
+            quote_name('user_id'), quote_name('owner_content_type_id'),
+            quote_name('object_id'), quote_name('content_type_id'),
+            quote_name('permission_id'), quote_name('negative')
+        )
+        cursor.execute(
+            sql, [
+                self.id,
+                ContentType.objects.get_for_model(Group).id,
+                object_id,
+                ContentType.objects.get_for_model(obj).id,
+                permission.id,
+            ]
+        )
         row = cursor.fetchone()
         if row is None:
             return None
         return not row[0]
-    
+
     def check_per_object_group_permissions(self, permission, obj):
         object_id = obj._get_pk_val()
         cursor = connection.cursor()
@@ -303,31 +317,36 @@ def add_methods_to_user():
                 AND rlp.content_type_id=%s
                 AND rlp.permission_id=%s
                 ORDER BY rlp.negative"""
-        cursor.execute(sql, [
-            self.id,
-            ContentType.objects.get_for_model(PerObjectGroup).id,
-            object_id,
-            ContentType.objects.get_for_model(obj).id,
-            permission.id,])
+        cursor.execute(
+            sql, [
+                self.id,
+                ContentType.objects.get_for_model(PerObjectGroup).id,
+                object_id,
+                ContentType.objects.get_for_model(obj).id,
+                permission.id,
+            ]
+        )
         row = cursor.fetchone()
         if row is None:
             return None
         return not row[0]
-    
+
     def has_perm(self, perm, obj=None):
-        "Returns True if the user has the specified permission."
+        """Returns True if the user has the specified permission."""
         if not self.is_active:
             return False
         if self.is_superuser:
             return True
         if obj and getattr(obj, "row_level_permissions", False):
             # Since we use the content type for row level perms, we don't need the application name.
-            permission_str = perm[perm.index('.')+1:]
-            row_level_permission = self.check_row_level_permission(permission_str, obj)
+            permission_str = perm[perm.index('.') + 1:]
+            row_level_permission = self.check_row_level_permission(
+                permission_str, obj
+            )
             if row_level_permission is not None:
                 return row_level_permission
         return perm in self.get_all_permissions()
-    
+
     def contains_permission(self, perm, model=None):
         """
         This checks if the user has the given permission for any instance
@@ -336,27 +355,27 @@ def add_methods_to_user():
         if self.has_perm(perm):
             return True
         if model and model._meta.row_level_permissions:
-            perm = perm[perm.index('.')+1:]
+            perm = perm[perm.index('.') + 1:]
             return self.contains_row_level_perm(perm, model)
         return False
-    
+
     def contains_row_level_perm(self, perm, model):
         content_type = ContentType.objects.get_for_model(model)
         if isinstance(perm, basestring):
             permission = Permission.objects.get(
                 codename__exact=perm,
                 content_type=content_type,
-                )
+            )
         else:
             permission = perm
         count = self.row_level_permissions_owned.filter(
             content_type=content_type.id,
             permission=permission.id,
-            ).count()
+        ).count()
         if count > 0:
             return True
         return self.contains_group_row_level_perms(permission, content_type)
-    
+
     def contains_group_row_level_perms(self, perm, ct):
         cursor = connection.cursor()
         quote_name = connection.ops.quote_name
@@ -369,25 +388,35 @@ def add_methods_to_user():
                 AND rlp.%s = %%s
                 AND rlp.%s = %%s
                 AND rlp.%s = %%s""" % (
-            quote_name('auth_user_groups'), quote_name('auth_rowlevelpermission'),
+            quote_name('auth_user_groups'),
+            quote_name('auth_rowlevelpermission'),
             quote_name('django_content_type'), quote_name('owner_object_id'),
             quote_name('group_id'), quote_name('user_id'),
-            quote_name('negative'),  quote_name('owner_content_type_id'),
-            quote_name('content_type_id'), quote_name('permission_id'))
-        cursor.execute(sql, [self.id, False, ContentType.objects.get_for_model(Group).id, ct.id, perm.id])
+            quote_name('negative'), quote_name('owner_content_type_id'),
+            quote_name('content_type_id'), quote_name('permission_id')
+        )
+        cursor.execute(
+            sql, [
+                self.id, False,
+                ContentType.objects.get_for_model(Group).id, ct.id, perm.id
+            ]
+        )
         count = int(cursor.fetchone()[0])
         return count > 0
-    
+
     def has_module_perms(self, app_label):
-        "Returns True if the user has any permissions in the given app label."
+        """Returns True if the user has any permissions in the given app label."""
         if not self.is_active:
             return False
         if self.is_superuser:
             return True
-        if [p for p in self.get_all_permissions() if p[:p.index('.')] == app_label]:
+        if [
+            p
+            for p in self.get_all_permissions() if p[:p.index('.')] == app_label
+        ]:
             return True
         return self.has_module_row_level_perms(app_label)
-    
+
     def has_module_row_level_perms(self, app_label):
         cursor = connection.cursor()
         quote_name = connection.ops.quote_name
@@ -400,17 +429,26 @@ def add_methods_to_user():
                 AND rlp.%s = %%s
                 AND rlp.%s = %%s
                 """ % (
-            quote_name('django_content_type'), quote_name('auth_rowlevelpermission'),
-            quote_name('content_type_id'), quote_name('id'),
+            quote_name('django_content_type'),
+            quote_name('auth_rowlevelpermission'),
+            quote_name('content_type_id'),
+            quote_name('id'),
             quote_name('app_label'),
             quote_name('owner_content_type_id'),
-            quote_name('owner_object_id'),quote_name('negative'), )
-        cursor.execute(sql, [app_label, ContentType.objects.get_for_model(User).id, self.id, False])
+            quote_name('owner_object_id'),
+            quote_name('negative'),
+        )
+        cursor.execute(
+            sql, [
+                app_label,
+                ContentType.objects.get_for_model(User).id, self.id, False
+            ]
+        )
         count = int(cursor.fetchone()[0])
         if count > 0:
             return True
         return self.has_module_group_row_level_perms(app_label)
-    
+
     def has_module_group_row_level_perms(self, app_label):
         cursor = connection.cursor()
         quote_name = connection.ops.quote_name
@@ -423,16 +461,23 @@ def add_methods_to_user():
                 AND ct.%s=%%s
                 AND rlp.%s = %%s
                 AND rlp.%s = %%s""" % (
-            quote_name('auth_user_groups'), quote_name('auth_rowlevelpermission'),
+            quote_name('auth_user_groups'),
+            quote_name('auth_rowlevelpermission'),
             quote_name('django_content_type'), quote_name('owner_object_id'),
             quote_name('group_id'), quote_name('user_id'),
             quote_name('content_type_id'), quote_name('id'),
             quote_name('app_label'), quote_name('negative'),
-            quote_name('owner_content_type_id'))
-        cursor.execute(sql, [self.id, app_label, False, ContentType.objects.get_for_model(Group).id])
+            quote_name('owner_content_type_id')
+        )
+        cursor.execute(
+            sql, [
+                self.id, app_label, False,
+                ContentType.objects.get_for_model(Group).id
+            ]
+        )
         count = int(cursor.fetchone()[0])
-        return (count>0)
-        
+        return count > 0
+
     User.contains_permission = contains_permission
     User.contains_row_level_perm = contains_row_level_perm
     User.contains_group_row_level_perms = contains_group_row_level_perms
@@ -445,11 +490,11 @@ def add_methods_to_user():
         RowLevelPermission,
         object_id_field="owner_object_id",
         content_type_field="owner_content_type",
-        related_name="owner_permissions",
-        )
+        #related_name="owner"
+    )
     User.add_to_class("row_level_permissions_owned", gen_rel)
+
 
 add_methods_to_user()
 
 signals.class_prepared.connect(add_functionality_to_models)
-

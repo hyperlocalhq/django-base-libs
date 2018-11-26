@@ -73,7 +73,7 @@ TAGGING_AUTOCOMPLETE_JS_BASE_URL = "%sjs/jquery/autocomplete_1.0" % JETSON_MEDIA
 ### MAIN ###
 
 AUTHENTICATION_BACKENDS = (
-    "jetson.apps.permissions.backends.RowLevelPermissionsBackend",
+    "museumsportal.apps.permissions.backends.RowLevelPermissionsBackend",
     "jetson.apps.utils.backends.EmailBackend",
 )
 
@@ -268,12 +268,12 @@ INSTALLED_APPS = [
     "jetson.apps.httpstate",
     "jetson.apps.utils",
     "jetson.apps.extendedadmin",
-    "jetson.apps.permissions",
     #"jetson.apps.external_services",
     "jetson.apps.favorites",
     "jetson.apps.blog",
 
     ### museumsportal apps ###
+    "museumsportal.apps.permissions",
     "museumsportal.apps.history",
     "museumsportal.apps.museums",
     "museumsportal.apps.exhibitions",

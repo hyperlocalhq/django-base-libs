@@ -18,17 +18,21 @@ from django.shortcuts import get_object_or_404
 
 from base_libs.utils.misc import ExtendedJSONEncoder, get_related_queryset
 from base_libs.utils.crypt import decryptString
+from base_libs.utils.misc import get_installed
 from base_libs.views import access_denied
 
 from jetson.apps.utils.decorators import login_required
 from jetson.apps.groups_networks.forms import EditMemberForm, GroupMembershipForm, ADD_GROUP_FORM_STEPS, INVITATION_FORM_STEPS
 
 from jetson.apps.utils.views import object_list, show_form_step, get_abc_list, filter_abc
-from jetson.apps.mailing.views import do_generic_mail, send_email_using_template, Recipient
 from jetson.apps.memos.models import Memo, MEMO_TOKEN_NAME
 
 Person = models.get_model("people", "Person")
 Institution = models.get_model("institutions", "Institution")
+
+Recipient = get_installed("mailing.recipient.Recipient")
+send_email_using_template = get_installed("mailing.views.send_email_using_template")
+do_generic_mail = get_installed("mailing.views.do_generic_mail")
 
 app = models.get_app("groups_networks")
 PersonGroup, GroupMembership, URL_ID_PERSONGROUP, URL_ID_PERSONGROUPS = (
