@@ -653,6 +653,7 @@ TWITTER_ACCESS_TOKEN = "21031007-meNXTMlI5yPA7KGU3eiYUsfaVOYWAo0FiJB0alpxX"
 TWITTER_ACCESS_TOKEN_SECRET = "mOg8VE4SdCseexvdqjOKdWc0dJe6ALbWA89nLsdIMLk"
 
 MAILING_CONTENT_TYPE_CHOICES = (
+    ('authorship', _("Image authorship")),
     ("image_and_text", _("Image and text")),
     ("text", _("Text only")),
     ("news", _("News")),
