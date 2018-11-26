@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations, models
 import base_libs.models.fields
 
 
@@ -16,12 +16,20 @@ class Migration(migrations.Migration):
             model_name='flatpage',
             name='content_de',
             field=base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Content', blank=True),
-            preserve_default=True,
         ),
         migrations.AlterField(
             model_name='flatpage',
             name='content_en',
             field=base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='Content', blank=True),
-            preserve_default=True,
+        ),
+        migrations.AlterField(
+            model_name='flatpage',
+            name='image_description_de',
+            field=base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='image description', blank=True),
+        ),
+        migrations.AlterField(
+            model_name='flatpage',
+            name='image_description_en',
+            field=base_libs.models.fields.ExtendedTextField(default=b'', null=True, verbose_name='image description', blank=True),
         ),
     ]

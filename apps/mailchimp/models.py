@@ -3,6 +3,7 @@ import os
 import sys
 from mailchimp3 import MailChimp
 from requests import HTTPError
+from datetime import date
 
 from django.db import models
 from django.apps import apps
@@ -155,6 +156,7 @@ class Campaign(CreationModificationMixin):
         _("Template"), path='mailchimp/campaign/', match=r'.+\.html$'
     )
     sent = models.BooleanField(_("Sent"), default=False, editable=False)
+    sent_date = models.DateField(_("Sent date"), blank=True, null=True, editable=False)
 
     class Meta:
         verbose_name = _("Campaign")
@@ -188,6 +190,35 @@ class Campaign(CreationModificationMixin):
         if sent:
             Campaign.objects.filter(pk=self.pk).update(sent=True)
         return sent
+
+
+    def get_sent_date(self):
+        """
+        :return: The date the campaign has been sent by mailchimp or None if not has been sent yet.
+        """
+
+        if not self.is_sent():
+            return None
+
+        if self.sent_date:
+            return self.sent_date
+
+        try:
+            st = Settings.objects.get()
+        except:
+            return None
+        mailchimp_client = MailChimp(st.username, st.api_key)
+        try:
+            data = mailchimp_client.campaigns.get(campaign_id=self.mailchimp_id)
+        except HTTPError:
+            return None
+
+        sent_date = date(int(data['send_time'][0:4]), int(data['send_time'][5:7]), int(data['send_time'][8:10]))
+        Campaign.objects.filter(pk=self.pk).update(sent_date=sent_date)
+
+        return sent_date
+    get_sent_date.short_description = _("Sent Date")
+
 
     def get_mailinglist(self):
         return self.mailinglist.title
