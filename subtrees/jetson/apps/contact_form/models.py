@@ -8,6 +8,7 @@ if "makemigrations" in sys.argv:
 else:
     from django.utils.translation import ugettext_lazy as _
 
+from django.apps import apps
 from django.contrib.auth.models import User
 from django.utils.functional import lazy
 from django.conf import settings
@@ -18,7 +19,8 @@ from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import PlainTextModelField
 from base_libs.middleware import get_current_language
 
-from jetson.apps.mailing.models import EmailTemplate
+
+EmailTemplate = apps.get_model("mailing", "EmailTemplate")
 
 verbose_name = _("Contact Form")
 
