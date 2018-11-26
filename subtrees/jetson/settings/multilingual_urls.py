@@ -6,5 +6,5 @@ PATHS_NO_REDIRECTION = (
     "/admin/",
     ADMIN_MEDIA_PREFIX,
     "/recrop/cropping-preview/",
-     "/helper/",
-    )
+    "/helper/",
+)

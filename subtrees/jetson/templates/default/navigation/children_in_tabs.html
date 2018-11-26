@@ -1,1 +1,15 @@
-{% load navigation_tags %}<ul>{% for link in nav_link.get_children_for_current_user %}    {% if not link.is_group %}        {% parse_link link as url %}        {% if url %}            {% activeness link as is_active %}            <li class="navi_{{ link.sysname }}_{{ LANGUAGE_CODE }}{% if link.is_promoted %} promoted{% endif %}{% if link.is_login_required %} login-required{% endif %}{% if forloop.last %} last_item{% endif %}{% if is_active %} active{% endif %}"><a href="{{ url }}"{% if is_active %} class="active"{% endif %}>{{ link.get_title|escape }}</a></li>        {% endif %}    {% endif %}{% endfor %}</ul>
+{% load navigation_tags %}
+<ul>
+    {% for link in nav_link.get_children_for_current_user %}
+        {% if not link.is_group %}
+            {% parse_link link as url %}
+            {% if url %}
+                {% activeness link as is_active %}
+                <li class="navi_{{ link.sysname }}_
+                        {{ LANGUAGE_CODE }}{% if link.is_promoted %} promoted{% endif %}{% if link.is_login_required %} login-required{% endif %}{% if forloop.last %} last_item{% endif %}{% if is_active %} active{% endif %}">
+                    <a href="{{ url }}"{% if is_active %} class="active"{% endif %}>{{ link.get_title|escape }}</a>
+                </li>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+</ul>

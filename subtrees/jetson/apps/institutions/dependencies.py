@@ -7,6 +7,6 @@ required_apps = [
     "location",
     "optionset",
     "utils",
-    "groups_networks", # TODO: remove requirement
-    ]
+    "groups_networks",  # TODO: remove requirement
+]
 optional_apps = []

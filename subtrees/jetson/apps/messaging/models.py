@@ -1,6 +1,12 @@
 # -*- coding: UTF-8 -*-
+import sys
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+
+if "makemigrations" in sys.argv:
+    from django.utils.translation import ugettext_noop as _
+else:
+    from django.utils.translation import ugettext_lazy as _
+
 from django.contrib.auth.models import User
 from django.utils.encoding import force_unicode
 from django.conf import settings
@@ -11,9 +17,22 @@ from base_libs.models import ExtendedTextField
 
 verbose_name = _("Messaging")
 
+
 class InternalMessage(CreationModificationMixin):
-    sender = models.ForeignKey(User, verbose_name=_("Sender"), null=True, blank=True, related_name="sent_message_set")
-    recipient = models.ForeignKey(User, verbose_name=_("Recipient"), null=True, blank=True, related_name="received_message_set")
+    sender = models.ForeignKey(
+        User,
+        verbose_name=_("Sender"),
+        null=True,
+        blank=True,
+        related_name="sent_message_set"
+    )
+    recipient = models.ForeignKey(
+        User,
+        verbose_name=_("Recipient"),
+        null=True,
+        blank=True,
+        related_name="received_message_set"
+    )
     subject = models.CharField(_("Subject"), max_length=255, blank=True)
     body = ExtendedTextField(_("Message"), blank=True)
     is_read = models.BooleanField(_("Read"), default=False)
@@ -25,24 +44,48 @@ class InternalMessage(CreationModificationMixin):
     class Meta:
         verbose_name = _("internal message")
         verbose_name_plural = _("internal messages")
-        ordering = ('-creation_date', 'subject',)
-        
+        ordering = (
+            '-creation_date',
+            'subject',
+        )
+
     def __unicode__(self):
         return "%s %s" % (self.creation_date, force_unicode(self.subject))
-        
+
     def get_log_message(self, language=None, action=None):
         """
         Gets a message for a specific action which will be logged for history """
         history_models = models.get_app("history")
         message = ""
-        if action==history_models.A_CUSTOM1:
-            message = get_translation("%(sender)s sent a message to %(recipient)s", language=language) % {
-                'sender': (self.sender and [force_unicode(self.sender)] or [self.sender_name])[0],
-                'recipient': (self.recipient and [force_unicode(self.recipient)] or [self.recipient_emails])[0],
-                }
-        elif action==history_models.A_CUSTOM2:
-            message = get_translation("%(recipient)s received a message from %(sender)s", language=language) % {
-                'sender': (self.sender and [force_unicode(self.sender)] or [self.sender_name])[0],
-                'recipient': (self.recipient and [force_unicode(self.recipient)] or [self.recipient_emails])[0],
-                }
+        if action == history_models.A_CUSTOM1:
+            message = get_translation(
+                "%(sender)s sent a message to %(recipient)s", language=language
+            ) % {
+                'sender':
+                    (
+                        self.sender and [force_unicode(self.sender)] or
+                        [self.sender_name]
+                    )[0],
+                'recipient':
+                    (
+                        self.recipient and [force_unicode(self.recipient)] or
+                        [self.recipient_emails]
+                    )[0],
+            }
+        elif action == history_models.A_CUSTOM2:
+            message = get_translation(
+                "%(recipient)s received a message from %(sender)s",
+                language=language
+            ) % {
+                'sender':
+                    (
+                        self.sender and [force_unicode(self.sender)] or
+                        [self.sender_name]
+                    )[0],
+                'recipient':
+                    (
+                        self.recipient and [force_unicode(self.recipient)] or
+                        [self.recipient_emails]
+                    )[0],
+            }
         return message

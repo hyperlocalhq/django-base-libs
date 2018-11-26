@@ -1,7 +1,13 @@
+import sys
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+
+if "makemigrations" in sys.argv:
+    from django.utils.translation import ugettext_noop as _
+else:
+    from django.utils.translation import ugettext_lazy as _
 
 verbose_name = _("HTTP State")
+
 
 class HttpStateManager(models.Manager):
     def encode(self, httpstate_dict):
@@ -15,7 +21,7 @@ class HttpStateManager(models.Manager):
         if httpstate_dict:
             s.save()
         else:
-            s.delete() # Clear httpstates with no data.
+            s.delete()  # Clear httpstates with no data.
         return s
 
 
@@ -36,8 +42,9 @@ class HttpState(models.Model):
     the httpstates documentation that is shipped with Django (also available
     on the Django website).
     """
-    httpstate_key = models.CharField(_('httpstate key'), max_length=40,
-                                   primary_key=True)
+    httpstate_key = models.CharField(
+        _('httpstate key'), max_length=40, primary_key=True
+    )
     httpstate_data = models.TextField(_('httpstate data'))
     expire_date = models.DateTimeField(_('expire date'))
     objects = HttpStateManager()
@@ -48,6 +55,7 @@ class HttpState(models.Model):
 
     def get_decoded(self):
         return HttpStateStore().decode(self.httpstate_data)
-            
+
+
 # At bottom to avoid circular import
 from jetson.apps.httpstate.backends.db import HttpStateStore

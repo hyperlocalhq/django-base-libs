@@ -7,7 +7,7 @@
 <!-- STYLESHEETS -->
 {% block stylesheets %}
     {{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{{ settings_var.URL_FILEBROWSER_MEDIA }}css/filebrowser.css" />
+    <link rel="stylesheet" type="text/css" href="{{ settings_var.URL_FILEBROWSER_MEDIA }}css/filebrowser.css"/>
     <style type="text/css">
         .image-version img {
             border: 1px solid #D4D4D4;
@@ -23,10 +23,11 @@
 {% block content %}
     <div class="container-grid delete-confirmation">
         <div class="grp-module">
-            <h2>{% blocktrans with query.filename as filename and mod.title as mod_title %}Are you sure you want to delete the version "{{ mod_title }}" for "{{ filename }}"?{% endblocktrans %}</h2>
+            <h2>
+                {% blocktrans with query.filename as filename and mod.title as mod_title %}Are you sure you want to delete the version "{{ mod_title }}" for "{{ filename }}"?{% endblocktrans %}</h2>
             <div class="grp-row">
                 <div class="image-version">
-                    <img src="{{ UPLOADS_URL }}{{ fileobject|modified_path:mod.sysname }}" alt="" />
+                    <img src="{{ UPLOADS_URL }}{{ fileobject|modified_path:mod.sysname }}" alt=""/>
                 </div>
             </div>
         </div>
@@ -34,8 +35,13 @@
             <footer class="grp-module grp-submit-row grp-fixed-footer">
                 <header style="display:none"><h1>Submit Options</h1></header>
                 <ul>
-                    <li class="grp-float-left cancel-button-container"><a href="{% url 'fb_versions' %}{% query_string "" "p,sysname" %}" class="grp-button grp-cancel-link">{% trans "Cancel" %}</a></li>
-                    <li><input type="submit" value="{% trans "Yes, I'm sure" %}" class="grp-button grp-default" /></li>
+                    <li class="grp-float-left cancel-button-container">
+                        <a href="{% url 'fb_versions' %}{% query_string "" "p,sysname" %}"
+                           class="grp-button grp-cancel-link">{% trans "Cancel" %}</a>
+                    </li>
+                    <li>
+                        <input type="submit" value="{% trans "Yes, I'm sure" %}" class="grp-button grp-default"/>
+                    </li>
                 </ul>
             </footer>
         </form>

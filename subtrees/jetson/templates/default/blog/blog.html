@@ -14,101 +14,132 @@
 -->{% endcomment %}
 
 {% block extrahead %}
-	{{ block.super }}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/comment.js"></script>
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/blog.js"></script>
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/comment.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/blog.js"></script>
 {% endblock %}
 
 {% block details %}
-	{{ block.super }}
+    {{ block.super }}
     {% block breadcrumbs %}
-		<div class="breadcrumbs">
+        <div class="breadcrumbs">
             <div class="width">
-                <a {% ifequal post_filter "all" %}class="active_toplevel"{% endifequal %} href="{{ container.get_url }}">{% trans "All Posts" %}</a>
-                
+                <a {% ifequal post_filter "all" %}class="active_toplevel"{% endifequal %}
+                   href="{{ container.get_url }}">{% trans "All Posts" %}</a>
+
                 {% ifequal archive "details" %}
-                    | <a href="{{ container.get_url }}{{ post.published_from|date:"Y" }}/">{{ post.published_from|date:"Y" }}</a>
-	                :: <a href="{{ container.get_url }}{{ post.published_from|date:"Y" }}/{{ post.published_from|date:"m" }}/">{{ post.published_from|datefmt:"MMM" }} </a>
-	                :: <a href="{{ container.get_url }}{{ post.published_from|date:"Y" }}/{{ post.published_from|date:"m" }}/{{ post.published_from|date:"d"}}/">{{ post.published_from|date:"d" }}</a>
-	                :: <a class="active" href="{{ post.get_url }}">{{ post.title|truncatewords:"5" }}</a>
+                    |
+                    <a href="{{ container.get_url }}{{ post.published_from|date:"Y" }}/">
+                        {{ post.published_from|date:"Y" }}
+                    </a>
+                    ::
+                    <a href="{{ container.get_url }}{{ post.published_from|date:"Y" }}/{{ post.published_from|date:"m" }}/">
+                        {{ post.published_from|datefmt:"MMM" }}
+                    </a>
+                    ::
+                    <a href="{{ container.get_url }}{{ post.published_from|date:"Y" }}/{{ post.published_from|date:"m" }}/{{ post.published_from|date:"d" }}/">
+                        {{ post.published_from|date:"d" }}
+                    </a>
+                    ::
+                    <a class="active" href="{{ post.get_url }}">{{ post.title|truncatewords:"5" }}</a>
                 {% endifequal %}
 
-				{% ifequal archive "tag_archive" %}
-               		| <a class="active" href="{{ container.get_url }}tag/{{ tag }}/">{{ tag }}</a>
-                {% endifequal %}                
-                
+                {% ifequal archive "tag_archive" %}
+                    |
+                    <a class="active" href="{{ container.get_url }}tag/{{ tag }}/">{{ tag }}</a>
+                {% endifequal %}
+
                 {% ifequal archive "day_archive" %}
-                    | <a href="{{ container.get_url }}{{ day|date:"Y" }}/">{{ day|date:"Y" }}</a>
-                	:: <a href="{{ container.get_url }}{{ day|date:"Y" }}/{{ day|date:"m" }}/">{{ day|datefmt:"MMM" }} </a>
-                	:: <a class="active" href="{{ container.get_url }}{{ day|date:"Y" }}/{{ day|date:"m" }}/{{ day|date:"d" }}/">{{ day|date:"d" }}</a>
+                    |
+                    <a href="{{ container.get_url }}{{ day|date:"Y" }}/">{{ day|date:"Y" }}</a>
+                    ::
+                    <a href="{{ container.get_url }}{{ day|date:"Y" }}/{{ day|date:"m" }}/">{{ day|datefmt:"MMM" }} </a>
+                    ::
+                    <a class="active"
+                       href="{{ container.get_url }}{{ day|date:"Y" }}/{{ day|date:"m" }}/{{ day|date:"d" }}/">
+                        {{ day|date:"d" }}
+                    </a>
                 {% endifequal %}
-                
+
                 {% ifequal archive "month_archive" %}
-                 	| <a href="{{ container.get_url }}{{ month|date:"Y" }}/">{{ month|date:"Y" }}</a>
-                 	:: <a class="active" href="{{ container.get_url }}{{ month|date:"Y" }}/{{ month|date:"m" }}/">{{ month|datefmt:"MMM" }} </a>
-                	{% for month_day in day_list %}
-                    	{% if forloop.first %} &raquo; {% else %}| {% endif %}
-                		<a href="{{ container.get_url }}{{ month_day|date:"Y" }}/{{ month_day|date:"m" }}/{{ month_day|date:"d" }}/">{{ month_day.day }}</a>
-            		{% endfor %}
+                    |
+                    <a href="{{ container.get_url }}{{ month|date:"Y" }}/">{{ month|date:"Y" }}</a>
+                    ::
+                    <a class="active"
+                       href="{{ container.get_url }}{{ month|date:"Y" }}/{{ month|date:"m" }}/">
+                        {{ month|datefmt:"MMM" }}
+                    </a>
+                    {% for month_day in day_list %}
+                        {% if forloop.first %} &raquo; {% else %}| {% endif %}
+                        <a href="{{ container.get_url }}{{ month_day|date:"Y" }}/{{ month_day|date:"m" }}/{{ month_day|date:"d" }}/">
+                            {{ month_day.day }}
+                        </a>
+                    {% endfor %}
                 {% endifequal %}
-                
+
                 {% ifequal archive "year_archive" %}
-	                | <a class="active" href="{{ container.get_url }}{{ year }}/">{{ year }}</a>
-	                {% for year_month in date_list %}
-	                    {% if forloop.first %} &raquo; {% else %} | {% endif %}
-	                    {% if year_month.1 %}
-	                        <a href="{{ container.get_url }}{{ year_month.0|date:"Y" }}/{{ year_month.0|date:"m" }}/">{{ year_month.0|datefmt:"MMM" }}</a>
-	                    {% else %}
-	                        <span>{{ year_month.0|datefmt:"MMM" }}</span>
-	                    {% endif %}           				
-	                {% endfor %}
+                    |
+                    <a class="active" href="{{ container.get_url }}{{ year }}/">{{ year }}</a>
+                    {% for year_month in date_list %}
+                        {% if forloop.first %} &raquo; {% else %} | {% endif %}
+                        {% if year_month.1 %}
+                            <a href="{{ container.get_url }}{{ year_month.0|date:"Y" }}/{{ year_month.0|date:"m" }}/">
+                                {{ year_month.0|datefmt:"MMM" }}
+                            </a>
+                        {% else %}
+                            <span>{{ year_month.0|datefmt:"MMM" }}</span>
+                        {% endif %}
+                    {% endfor %}
                 {% endifequal %}
-                
+
                 {% ifequal archive "archive" %}
-	                {% for year in date_list %}
-	                    | <a href="{{ container.get_url }}{{ year|date:"Y" }}/">{{ year|date:"Y" }}</a>
-	                {% endfor %}
-	            {% endifequal %}
+                    {% for year in date_list %}
+                        |
+                        <a href="{{ container.get_url }}{{ year|date:"Y" }}/">{{ year|date:"Y" }}</a>
+                    {% endfor %}
+                {% endifequal %}
             </div>
-            <a class="rss" href="{{ container.get_url }}{% if type %}{{ type.sysname }}/{% endif %}feeds/rss/"><span>{% trans "RSS feed" %}</span></a>
+            <a class="rss" href="{{ container.get_url }}{% if type %}{{ type.sysname }}/{% endif %}feeds/rss/">
+                <span>{% trans "RSS feed" %}</span></a>
         </div>
         {% if_has_perm "blog.change_blog_posts" blog %}
             <div class="breadcrumbs_edit">
                 <a href="{{ container.get_url }}new/">{% trans "Add a new blog entry" %}</a>
-                <span> | </span><a href="{{ container.get_url }}drafts/">{% trans "Drafts" %}({{ nof_drafts }})</a>
+                <span> | </span>
+                <a href="{{ container.get_url }}drafts/">{% trans "Drafts" %}({{ nof_drafts }})</a>
             </div>
         {% end_if_has_perm %}
         {% if not object %}
-	        <div class="blog-info">
+            <div class="blog-info">
                 {% infoblock "blog_intro" %}
-	            <hr />
-	        </div>
-		 {% endif %}
+                <hr/>
+            </div>
+        {% endif %}
     {% endblock %}
 
-	{% ifequal archive "details" %} 
-		{% include_selected "post_detail.html" for object under "blog" %}
-	{% endifequal %}
+    {% ifequal archive "details" %}
+        {% include_selected "post_detail.html" for object under "blog" %}
+    {% endifequal %}
 
-	{% ifequal archive "tag_archive" %} 
-		{% include_selected "post_archive.html" for object under "blog" %}
-	{% endifequal %}
+    {% ifequal archive "tag_archive" %}
+        {% include_selected "post_archive.html" for object under "blog" %}
+    {% endifequal %}
 
-	{% ifequal archive "day_archive" %} 
-		{% include_selected "post_archive_day.html" for object under "blog" %}
-	{% endifequal %}
+    {% ifequal archive "day_archive" %}
+        {% include_selected "post_archive_day.html" for object under "blog" %}
+    {% endifequal %}
 
-	{% ifequal archive "month_archive" %} 
-		{% include_selected "post_archive_month.html" for object under "blog" %}
-	{% endifequal %}
-	
-	{% ifequal archive "year_archive" %} 
-		{% include_selected "post_archive_year.html" for object under "blog" %}
-	{% endifequal %}
-	
-	{% ifequal archive "archive" %}
-		{% include_selected "post_archive.html" for object under "blog" %}
-	{% endifequal %}
-	    
+    {% ifequal archive "month_archive" %}
+        {% include_selected "post_archive_month.html" for object under "blog" %}
+    {% endifequal %}
+
+    {% ifequal archive "year_archive" %}
+        {% include_selected "post_archive_year.html" for object under "blog" %}
+    {% endifequal %}
+
+    {% ifequal archive "archive" %}
+        {% include_selected "post_archive.html" for object under "blog" %}
+    {% endifequal %}
+
 {% endblock %}
 

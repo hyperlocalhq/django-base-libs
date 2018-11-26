@@ -51,11 +51,10 @@
                                 {{ form.mon_open1.error_tag }}
                                 {{ form.mon_close1.error_tag }}
                             </span>
-                        </span>    
+                        </span>
                     </li>
                     <li class="line_checkbox">
-                        {{ form.show_breaks }}
-                        {{ form.show_breaks.label_tag }}
+                        {{ form.show_breaks }} {{ form.show_breaks.label_tag }}
                     </li>
                     <li>
                         <p>
@@ -66,7 +65,7 @@
                         <label for="id_tue_open0">
                             {% trans "Tuesday" %}
                         </label>
-                         <span>
+                        <span>
                             <span>
                                 {{ form.tue_open0 }}<strong> - </strong>{{ form.tue_close0 }}
                                   
@@ -86,7 +85,7 @@
                                 {{ form.tue_open1.error_tag }}
                                 {{ form.tue_close1.error_tag }}
                             </span>
-                        </span> 
+                        </span>
                     </li>
                     <li class="field_hours">
                         <label for="id_wed_open0">
@@ -111,7 +110,7 @@
                                 {{ form.wed_open1.error_tag }}
                                 {{ form.wed_close1.error_tag }}
                             </span>
-                        </span>        
+                        </span>
                     </li>
                     <li class="field_hours">
                         <label for="id_thu_open0">
@@ -136,9 +135,9 @@
                                 {{ form.thu_open1.error_tag }}
                                 {{ form.thu_close1.error_tag }}  
                             </span>
-                        </span>       
+                        </span>
                     </li>
-                   <li class="field_hours">
+                    <li class="field_hours">
                         <label for="id_fri_open0">
                             {% trans "Friday" %}
                         </label>
@@ -161,7 +160,7 @@
                                 {{ form.fri_open1.error_tag }}
                                 {{ form.fri_close1.error_tag }}   
                             </span>
-                        </span>       
+                        </span>
                     </li>
                     <li class="field_hours">
                         <label for="id_sat_open0">
@@ -211,22 +210,18 @@
                                 {{ form.sun_open1.error_tag }}
                                 {{ form.sun_close1.error_tag }}   
                             </span>
-                        </span>      
+                        </span>
                     </li>
                     <li>
-                        {{ form.exceptions_de.label_tag }}
-                        {{ form.exceptions_de }}
-                        {{ form.exceptions_de.error_tag }}
+                        {{ form.exceptions_de.label_tag }} {{ form.exceptions_de }} {{ form.exceptions_de.error_tag }}
                     </li>
                     <li>
-                        {{ form.exceptions_en.label_tag }}                                
-                        {{ form.exceptions_en }}
-                        {{ form.exceptions_en.error_tag }}
+                        {{ form.exceptions_en.label_tag }} {{ form.exceptions_en }} {{ form.exceptions_en.error_tag }}
                     </li>
-                    <li  class="line_checkbox">
-                        {{ form.is_appointment_based  }}{{ form.is_appointment_based.label_tag }}
-                    </li>   
-                 </ul>    
+                    <li class="line_checkbox">
+                        {{ form.is_appointment_based }}{{ form.is_appointment_based.label_tag }}
+                    </li>
+                </ul>
             </fieldset>
             <div id="payment_form">
                 <fieldset class="fieldset_end">
@@ -235,44 +230,34 @@
                     </legend>
                     <ul>
                         <li class="line_checkbox">
-                            {{ form.is_cash_ok }}
-                            {{ form.is_cash_ok.label_tag }}
+                            {{ form.is_cash_ok }} {{ form.is_cash_ok.label_tag }}
                         </li>
                         <li class="line_checkbox_right">
-                            {{ form.is_card_visa_ok }}
-                            {{ form.is_card_visa_ok.label_tag }}
+                            {{ form.is_card_visa_ok }} {{ form.is_card_visa_ok.label_tag }}
                         </li>
                         <li class="line_checkbox">
-                            {{ form.is_invoice_ok }}
-                            {{ form.is_invoice_ok.label_tag }}
+                            {{ form.is_invoice_ok }} {{ form.is_invoice_ok.label_tag }}
                         </li>
                         <li class="line_checkbox_right">
-                            {{ form.is_card_mastercard_ok }}
-                            {{ form.is_card_mastercard_ok.label_tag }}
+                            {{ form.is_card_mastercard_ok }} {{ form.is_card_mastercard_ok.label_tag }}
                         </li>
                         <li class="line_checkbox">
-                            {{ form.is_on_delivery_ok }}
-                            {{ form.is_on_delivery_ok.label_tag }}
+                            {{ form.is_on_delivery_ok }} {{ form.is_on_delivery_ok.label_tag }}
                         </li>
                         <li class="line_checkbox_right">
-                            {{ form.is_card_americanexpress_ok }}
-                            {{ form.is_card_americanexpress_ok.label_tag }}
+                            {{ form.is_card_americanexpress_ok }} {{ form.is_card_americanexpress_ok.label_tag }}
                         </li>
                         <li class="line_checkbox">
-                            {{ form.is_ec_maestro_ok }}
-                            {{ form.is_ec_maestro_ok.label_tag }}
+                            {{ form.is_ec_maestro_ok }} {{ form.is_ec_maestro_ok.label_tag }}
                         </li>
                         <li class="line_checkbox_right">
-                            {{ form.is_giropay_ok }}
-                            {{ form.is_giropay_ok.label_tag }}
+                            {{ form.is_giropay_ok }} {{ form.is_giropay_ok.label_tag }}
                         </li>
                         <li class="line_checkbox">
-                            {{ form.is_prepayment_ok }}
-                            {{ form.is_prepayment_ok.label_tag }}
+                            {{ form.is_prepayment_ok }} {{ form.is_prepayment_ok.label_tag }}
                         </li>
                         <li class="line_checkbox_right">
-                            {{ form.is_paypal_ok }}
-                            {{ form.is_paypal_ok.label_tag }}
+                            {{ form.is_paypal_ok }} {{ form.is_paypal_ok.label_tag }}
                         </li>
                     </ul>
                 </fieldset>

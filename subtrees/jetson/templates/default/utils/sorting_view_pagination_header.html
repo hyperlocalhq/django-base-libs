@@ -5,7 +5,7 @@
         <div class="paginated">
             <div class="previous">
                 {% if has_previous %}
-                    <a  href="{% append_to_get page=previous %}">
+                    <a href="{% append_to_get page=previous %}">
                         <span class="enabled">
                             <span class="hidden">
                                 {% trans "previous" %}
@@ -19,11 +19,16 @@
                 {% endif %}
             </div>
             <form action="">
-                <div><select class="page_skip" onchange="append_to_get({page: this.value});">
-                    {% for pnumber in page_numbers %}
-                    <option value="{{ pnumber }}"{% ifequal pnumber page %} selected="selected"{% endifequal %}>{% blocktrans %}Page {{ pnumber }} of {{ pages }}{% endblocktrans %}</option>
-                    {% endfor %}
-               </select></div>
+                <div>
+                    <label>
+                        <select class="page_skip" onchange="append_to_get({page: this.value});">
+                            {% for pnumber in page_numbers %}
+                                <option value="{{ pnumber }}"{% ifequal pnumber page %} selected="selected"{% endifequal %}>
+                                    {% blocktrans %}Page {{ pnumber }} of {{ pages }}{% endblocktrans %}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                </div>
             </form>
             <div class="next">
                 {% if has_next %}
@@ -47,15 +52,18 @@
     <form action="">
         <div class="skip">
             {% if sort_order_map %}
-                {% trans "Sorting" %} 
-                <select  id="id_list_sorting" class="sorting">
-                    {% for item in sort_order_map %}                        
-                        <option value="{{ item.0 }}"{% ifequal order_by item.0 %} selected="selected"{% endifequal %}>{{ item.1 }}</option>
-                    {% endfor %}	
+                {% trans "Sorting" %}
+                <label for="id_list_sorting"></label>
+                <select id="id_list_sorting" class="sorting">
+                    {% for item in sort_order_map %}
+                        <option value="{{ item.0 }}"{% ifequal order_by item.0 %}
+                                selected="selected"{% endifequal %}>{{ item.1 }}</option>
+                    {% endfor %}
                 </select>
             {% endif %}
             {% trans "View" %}
-            <select  id="id_list_view" class="view">
+            <label for="id_list_view"></label>
+            <select id="id_list_view" class="view">
                 <option value="list" selected="selected">{% trans "List" %}</option>
                 <option value="gallery">{% trans "Gallery" %}</option>
             </select>

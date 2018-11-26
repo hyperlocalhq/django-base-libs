@@ -21,4 +21,4 @@ optional_apps = [
     "configuration",
     "groups_networks",
     "structure",
-    ]
+]

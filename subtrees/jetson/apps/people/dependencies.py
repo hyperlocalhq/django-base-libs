@@ -10,7 +10,7 @@ required_apps = [
     "i18n",
     "utils",
     "image_mods",
-    ]
+]
 optional_apps = [
     "institutions",
-    ]
+]

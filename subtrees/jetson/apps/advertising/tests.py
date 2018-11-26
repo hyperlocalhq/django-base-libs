@@ -9,7 +9,6 @@ from jetson.apps.advertising.models import AdImpression, AdClick
 from jetson.apps.advertising.managers import AdManager
 from jetson.apps.advertising.templatetags.advertising_tags import random_zone_ad, random_category_ad
 
-
 # Helper functions to help setting up the tests
 user = lambda: User.objects.create_user('test', 'test@example.com', 'secret')
 
@@ -22,17 +21,21 @@ def create_objects():
     """ Simple helper to create advertiser, category and zone """
     advertiser = Advertiser.objects.create(
         company_name='Advertiser Name 1',
-        website='http://example.com/', user=user())
+        website='http://example.com/',
+        user=user()
+    )
 
     category = AdCategory.objects.create(
         title='Internet Services',
         sysname='internet-services',
-        description='All internet based services')
+        description='All internet based services'
+    )
 
     adzone = AdZone.objects.create(
         title='Sidebar',
         sysname='sidebar',
-        description='Sidebar Zone Description')
+        description='Sidebar Zone Description'
+    )
 
     return advertiser, category, adzone
 
@@ -52,40 +55,39 @@ def create_advert():
 
 # Now follows the actual tests
 class AdvertiserTestCase(TestCase):
-
     def test_model(self):
         Advertiser(
             company_name='Advertiser Name 1',
             website='http://example.com/',
-            user=user())
+            user=user()
+        )
 
     def test_get_website_url(self):
         advertiser = Advertiser(
             company_name='Advertiser Name 1',
             website='http://example.com/',
-            user=user())
+            user=user()
+        )
 
-        self.assertEqual(
-            'http://example.com/',
-            advertiser.get_website_url())
+        self.assertEqual('http://example.com/', advertiser.get_website_url())
 
 
 class AdCategoryTestCase(TestCase):
-
     def test_model(self):
         AdCategory(
             title='Internet Services',
             sysname='internet-services',
-            description='All internet based services')
+            description='All internet based services'
+        )
 
 
 class AdZoneTestCase(TestCase):
-
     def test_model(self):
         AdZone(
             title='Ad Zone Title',
             sysname='advertising',
-            description='Ad Zone Description')
+            description='Ad Zone Description'
+        )
 
 
 class AdBaseTestCase(TestCase):
@@ -112,7 +114,6 @@ class AdBaseTestCase(TestCase):
 
 
 class AdManagerTestCase(TestCase):
-
     def setUp(self):
         # Create two categories and two adverts
         advertiser, category, zone = create_objects()
@@ -137,20 +138,20 @@ class AdManagerTestCase(TestCase):
         )
 
     def test_manager_exists(self):
-        pass # TODO implement test
+        pass  # TODO implement test
 
     def test_get_random_ad(self):
         advert = AdBase.objects.get_random_ad('sidebar')
         self.assertIn(advert.id, [1, 2])
 
     def test_get_random_ad_by_category(self):
-        advert = AdBase.objects.get_random_ad('sidebar',
-                                              ad_category='category-2')
+        advert = AdBase.objects.get_random_ad(
+            'sidebar', ad_category='category-2'
+        )
         self.assertIn(advert.id, [2])
 
 
 class AdImpressionTestCase(TestCase):
-
     def test_model(self):
         advert = create_advert()
         AdImpression(
@@ -161,7 +162,6 @@ class AdImpressionTestCase(TestCase):
 
 
 class AdClickTestCase(TestCase):
-
     def test_model(self):
         advert = create_advert()
         AdClick(
@@ -172,14 +172,15 @@ class AdClickTestCase(TestCase):
 
 
 class TemplateTagsTestCase(TestCase):
-
     def test_random_zone_ad_creates_impression(self):
         create_advert()
         random_zone_ad({'from_ip': '127.0.0.1'}, 'sidebar')
         self.assertEqual(AdImpression.objects.all().count(), 1)
 
     def test_random_zone_ad_renders(self):
-        template = Template("{% load adzone_tags %}{% random_zone_ad 'sidebar' %}")
+        template = Template(
+            "{% load adzone_tags %}{% random_zone_ad 'sidebar' %}"
+        )
         response = SimpleTemplateResponse(template)
         response.render()
         self.assertTrue(response.is_rendered)
@@ -187,11 +188,16 @@ class TemplateTagsTestCase(TestCase):
     def test_random_category_ad_creates_impression(self):
         create_advert()
         random_category_ad(
-            {'from_ip': '127.0.0.1'}, 'sidebar', 'internet-services')
+            {
+                'from_ip': '127.0.0.1'
+            }, 'sidebar', 'internet-services'
+        )
         self.assertEqual(AdImpression.objects.all().count(), 1)
 
     def test_random_category_ad_renders(self):
-        template = Template("{% load adzone_tags %}{% random_category_ad 'sidebar' 'internet-services' %}")
+        template = Template(
+            "{% load adzone_tags %}{% random_category_ad 'sidebar' 'internet-services' %}"
+        )
         response = SimpleTemplateResponse(template)
         response.render()
         self.assertTrue(response.is_rendered)
@@ -209,7 +215,9 @@ class AdViewTestCase(TestCase):
     def test_request_redirect_chain(self):
         create_advert()
         response = self.client.get('/view/1/', follow=True)
-        chain = [('http://www.example.com', 302), ]
+        chain = [
+            ('http://www.example.com', 302),
+        ]
         self.assertEqual(response.redirect_chain, chain)
 
     def test_request_creates_click(self):

@@ -3,14 +3,11 @@ import platform
 import sys
 import os
 
-_ = lambda s:s
+_ = lambda s: s
 
 ### MODE ###
 
-INTERNAL_IPS = (
-    "127.0.0.1",
-    "217.92.175.81"
-)
+INTERNAL_IPS = ("127.0.0.1", "217.92.175.81")
 
 HTTPS_PROTOCOL = 'http' if DEBUG else "https"
 
@@ -57,7 +54,7 @@ LOGIN_REDIRECT_URL = "/"
 
 LOCALE_PATHS = [
     os.path.join(JETSON_PATH, "jetson", "locale"),
-    ]
+]
 
 TAGGING_AUTOCOMPLETE_JS_BASE_URL = "%sjs/jquery/autocomplete_1.0" % JETSON_MEDIA_URL
 
@@ -103,13 +100,13 @@ FILE_UPLOAD_PERMISSIONS = 0664
 ### CACHING ###
 
 # CACHE_BACKEND = "locmem://?timeout=30&max_entries=400" # passes cache-session test only
-CACHE_BACKEND = "dummy://" # doesn't pass cache-session test
+CACHE_BACKEND = "dummy://"  # doesn't pass cache-session test
 
 ### SESSION ###
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
-SESSION_COOKIE_AGE = 14 * 24 * 60 * 60 # 2 weeks
-HTTPSTATE_COOKIE_AGE = 24 * 60 * 60 # 1 day
+SESSION_COOKIE_AGE = 14 * 24 * 60 * 60  # 2 weeks
+HTTPSTATE_COOKIE_AGE = 24 * 60 * 60  # 1 day
 
 ### LOGGING ###
 
@@ -118,26 +115,32 @@ HTTPSTATE_COOKIE_AGE = 24 * 60 * 60 # 1 day
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse',
+    'filters':
+        {
+            'require_debug_false':
+                {
+                    '()': 'django.utils.log.RequireDebugFalse',
+                },
         },
-    },
-    'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler',
-            'include_html': True,
+    'handlers':
+        {
+            'mail_admins':
+                {
+                    'level': 'ERROR',
+                    'filters': ['require_debug_false'],
+                    'class': 'django.utils.log.AdminEmailHandler',
+                    'include_html': True,
+                },
         },
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-    }
+    'loggers':
+        {
+            'django.request':
+                {
+                    'handlers': ['mail_admins'],
+                    'level': 'ERROR',
+                    'propagate': True,
+                },
+        }
 }
 
 ### STORAGE ###

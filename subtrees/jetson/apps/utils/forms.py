@@ -26,10 +26,24 @@ class SecondaryButton(layout.Button):
 
 class InlineFormSet(BaseInlineFormSet):
     """ Inline formset which accepts initial values for unsaved models """
-    def __init__(self, data=None, files=None, instance=None, save_as_new=False, prefix=None, queryset=None, initial=[]):
+
+    def __init__(
+        self,
+        data=None,
+        files=None,
+        instance=None,
+        save_as_new=False,
+        prefix=None,
+        queryset=None,
+        initial=None
+    ):
+        if initial is None:
+            initial = []
         self._initial = initial
-        super(InlineFormSet, self).__init__(data, files, instance, save_as_new, prefix, queryset)
-        
+        super(InlineFormSet, self).__init__(
+            data, files, instance, save_as_new, prefix, queryset
+        )
+
     def _construct_form(self, i, **kwargs):
         """
         Instantiates and returns the i-th form instance in a formset.

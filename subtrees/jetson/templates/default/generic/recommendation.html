@@ -1,7 +1,16 @@
 {% load base_tags i18n %}
 {% if is_not_recommendation_for_user %}
-<a href="#Recommendation" rel="nofollow" title="{% trans "Add to recommendations" %}" onclick="RecommendationManager.toggle({{ counter|default:0 }}, {{ content_type_id }}, {{ object.id }}); window.cancelEvent(event);" id="adding_to_recommendations_{{ counter|default:0 }}"><span>{% trans "Add to recommendations" %}</span></a>
+    <a href="#Recommendation"
+       rel="nofollow"
+       title="{% trans "Add to recommendations" %}"
+       onclick="RecommendationManager.toggle({{ counter|default:0 }}, {{ content_type_id }}, {{ object.id }}); window.cancelEvent(event);"
+       id="adding_to_recommendations_{{ counter|default:0 }}"><span>{% trans "Add to recommendations" %}</span></a>
 {% else %}
-<a href="#Recommendation" rel="nofollow" class="active" title="{% trans "Remove from recommendations" %}" onclick="RecommendationManager.toggle({{ counter|default:0 }}, {{ content_type_id }}, {{ object.id }}); window.cancelEvent(event);" id="adding_to_recommendations_{{ counter|default:0 }}"><span>{% trans "It's your recommendation" %}</span></a>
+    <a href="#Recommendation"
+       rel="nofollow"
+       class="active"
+       title="{% trans "Remove from recommendations" %}"
+       onclick="RecommendationManager.toggle({{ counter|default:0 }}, {{ content_type_id }}, {{ object.id }}); window.cancelEvent(event);"
+       id="adding_to_recommendations_{{ counter|default:0 }}"><span>{% trans "It's your recommendation" %}</span></a>
 {% endif %}
 

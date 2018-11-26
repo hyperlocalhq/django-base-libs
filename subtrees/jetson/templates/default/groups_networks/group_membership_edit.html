@@ -5,20 +5,23 @@
             <legend>{% trans "Title within the group" %}</legend>
             <ul>
                 <li>
-                    {{ form.title_en.label_tag }}
-                    {{ form.title_en }}
-                    {{ form.title_en.error_tag }}
+                    {{ form.title_en.label_tag }} {{ form.title_en }} {{ form.title_en.error_tag }}
                 </li>
                 <li>
-                    {{ form.title_de.label_tag }}
-                    {{ form.title_de }}
-                    {{ form.title_de.error_tag }}
+                    {{ form.title_de.label_tag }} {{ form.title_de }} {{ form.title_de.error_tag }}
                 </li>
             </ul>
         </fieldset>
         <div class="buttons">
-            <input class="button_bad" type="button" name="cancel" value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}" />
-            <input class="button_good" type="submit" id="post" name="post" value='{% filter upper %}{% trans "Join" %}{% endfilter %}'/>       	
+            <input class="button_bad"
+                   type="button"
+                   name="cancel"
+                   value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
+            <input class="button_good"
+                   type="submit"
+                   id="post"
+                   name="post"
+                   value='{% filter upper %}{% trans "Join" %}{% endfilter %}'/>
         </div>
     </form>
 </div>

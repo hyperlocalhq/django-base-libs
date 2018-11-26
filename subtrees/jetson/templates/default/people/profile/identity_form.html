@@ -2,7 +2,10 @@
 <div class="edit">
     <div class="field_layout synonym">
         <h3>{% trans "Name" %}</h3>
-        <form action="/helper/edit-{{ URL_ID_PERSON }}-profile/{{ object.slug }}/identity/" method="post" enctype="multipart/form-data" target="hidden_iframe">
+        <form action="/helper/edit-{{ URL_ID_PERSON }}-profile/{{ object.slug }}/identity/"
+              method="post"
+              enctype="multipart/form-data"
+              target="hidden_iframe">
             <div>
                 <div>{{ form.first_name.label_tag }}</div>
                 {{ form.first_name }}
@@ -18,8 +21,11 @@
                 {% endif %}
             </div>
             <div class="buttons">
-                <input type="submit" class="button_good" value="{% filter upper %}{% trans "Save" %}{% endfilter %}" />
-                <input type="button" class="button_bad" value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel" />
+                <input type="submit" class="button_good" value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
+                <input type="button"
+                       class="button_bad"
+                       value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}"
+                       name="cancel"/>
             </div>
         </form>
     </div>

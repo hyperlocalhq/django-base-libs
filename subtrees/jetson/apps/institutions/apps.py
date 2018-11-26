@@ -47,6 +47,7 @@ def extend_people_app():
             "institution",
             institution,
         )
+
         # modify get_additional_search_data() to recieve institution as well
         def wrapped(func):
             def get_additional_search_data(self):
@@ -57,8 +58,12 @@ def extend_people_app():
                         if contact.institution:
                             search_data.append(contact.institution.get_title())
                 return search_data
+
             return get_additional_search_data
-        Person.get_additional_search_data = wrapped(Person.get_additional_search_data)
+
+        Person.get_additional_search_data = wrapped(
+            Person.get_additional_search_data
+        )
 
         # modification should be done just once, so disconnecting
         models.signals.class_prepared.disconnect(extend_people_app)

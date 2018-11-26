@@ -10,4 +10,5 @@ class NewsletterSubscriptionAppHook(CMSApp):
     name = _("Newsletter Subscription")
     urls = ["jetson.apps.mailchimp.urls"]
 
+
 apphook_pool.register(NewsletterSubscriptionAppHook)

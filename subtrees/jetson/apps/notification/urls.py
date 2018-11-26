@@ -5,7 +5,8 @@ from django.conf.urls import *
 
 from jetson.apps.notification.views import notices, mark_all_seen, feed_for_user, single, notification_settings
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     url(r'^$', notices, name="notification_notices"),
     url(r'^settings/$', notification_settings, name="notification_settings"),
     url(r'^(\d+)/$', single, name="notification_notice"),

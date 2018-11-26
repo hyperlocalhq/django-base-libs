@@ -15,10 +15,11 @@
                 {% else %}
                     {% for time in object.eventtime_set.all %}
                         {% include "events/includes/event_time.html" %}
-                        {% if not forloop.last %}<br />{% endif %}
+                        {% if not forloop.last %}
+                            <br/>{% endif %}
                     {% endfor %}
                 {% endif %}
             </dd>
         </dl>
-    {% endif %}	
+    {% endif %}
 </div>
