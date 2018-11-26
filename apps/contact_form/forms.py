@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 
+from django.apps import apps
 from django import forms
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
@@ -12,10 +13,13 @@ from base_libs.forms import dynamicforms
 from base_libs.forms.fields import SecurityField, SingleEmailTextField, MultiEmailTextField
 from base_libs.utils.misc import XChoiceList
 from base_libs.utils.user import get_user_title
+from base_libs.utils.misc import get_installed
 
-from jetson.apps.mailing.models import EmailMessage
-from jetson.apps.mailing.recipient import Recipient
 from jetson.apps.contact_form.models import ContactFormCategory
+
+EmailMessage = apps.get_model("mailing", "EmailMessage")
+Recipient = get_installed("mailing.recipient.Recipient")
+
 
 CONTACT_FORM_CATEGORIES = ContactFormCategory.site_objects.all()
 

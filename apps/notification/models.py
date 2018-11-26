@@ -36,7 +36,8 @@ from base_libs.models.fields import MultilingualPlainTextField
 from base_libs.models.fields import PlainTextModelField  # for south to work
 
 from jetson.apps.people.functions import get_user_language
-from jetson.apps.mailing.models import EmailTemplate
+
+EmailTemplate = apps.get_model("mailing", "EmailTemplate")
 
 verbose_name = _("Notification")
 
@@ -190,8 +191,9 @@ class Digest(CreationDateMixin):
         return _(u"Notification digest to %s") % self.user
 
     def send(self):
-        from jetson.apps.mailing.recipient import Recipient
-        from jetson.apps.mailing.views import send_email_using_template
+        from base_libs.utils.misc import get_installed
+        Recipient = get_installed("mailing.recipient.Recipient")
+        send_email_using_template = get_installed("mailing.views.send_email_using_template")
         # setting default values
         sender_name = ''
         sender_email = settings.DEFAULT_FROM_EMAIL

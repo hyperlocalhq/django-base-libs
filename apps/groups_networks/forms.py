@@ -21,7 +21,8 @@ from base_libs.middleware import get_current_user
 from base_libs.utils.misc import get_related_queryset, get_unique_value, XChoiceList
 from base_libs.utils.crypt import cryptString
 from base_libs.utils.betterslugify import better_slugify
-from jetson.apps.mailing.views import Recipient, send_email_using_template
+from base_libs.utils.misc import get_installed
+
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import IndividualLocationType, InstitutionalLocationType, PhoneType
 
@@ -33,6 +34,9 @@ URL_ID_PERSONGROUPS = groups_networks_models.URL_ID_PERSONGROUPS
 
 Person = models.get_model("people", "Person")
 Institution = models.get_model("institutions", "Institution")
+
+Recipient = get_installed("mailing.recipient.Recipient")
+send_email_using_template = get_installed("mailing.views.send_email_using_template")
 
 NULL_PREFIX_CHOICES = XChoiceList(get_related_queryset(Person, 'prefix'))
 

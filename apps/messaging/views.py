@@ -11,16 +11,18 @@ from django.db import models
 from django.core.urlresolvers import reverse
 
 from base_libs.utils.misc import ExtendedJSONEncoder
+from base_libs.utils.misc import get_installed
 
 from jetson.apps.messaging.models import InternalMessage
 from jetson.apps.messaging.forms import InternalMessageForm
 from jetson.apps.messaging.forms import ContactForm
-from jetson.apps.mailing.views import do_generic_mail, Recipient
 from jetson.apps.utils.decorators import login_required
 from jetson.apps.utils.views import object_list
 from jetson.apps.utils.views import object_detail
 
 Person = models.get_model("people", "Person")
+Recipient = get_installed("mailing.recipient.Recipient")
+do_generic_mail = get_installed("mailing.views.do_generic_mail")
 
 
 def json_change_message(request):

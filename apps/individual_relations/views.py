@@ -16,13 +16,15 @@ from django.conf import settings
 
 from base_libs.utils.misc import ExtendedJSONEncoder, get_related_queryset
 from base_libs.utils.crypt import decryptString
+from base_libs.utils.misc import get_installed
 from base_libs.views import access_denied
 
 from jetson.apps.individual_relations.forms import IndividualRelationForm, InvitationConfirmation
 from jetson.apps.individual_relations.models import IndividualRelation
-from jetson.apps.mailing.views import send_email_using_template, Recipient
 
 Person = models.get_model("people", "Person")
+Recipient = get_installed("mailing.recipient.Recipient")
+send_email_using_template = get_installed("mailing.views.send_email_using_template")
 
 
 def json_manage_individual_relation(request, username):
