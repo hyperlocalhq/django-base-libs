@@ -1,0 +1,41 @@
+// main:style.scss
+
+.museumssommer {
+
+    .museumssommer-logo {
+        @media (max-width: 991px) {
+            top: 50px;
+            position: relative;
+        }
+    }
+
+    .museumssommer-button {
+        display: block;
+        width: 100%;
+        overflow: hidden;
+
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-width: 320px;
+            margin: 0px auto;
+
+            &:last-child {
+                display: none;
+            }
+        }
+
+        &:hover, &:active, &:focus {
+            img {
+                display: none;
+                opacity: 1;
+
+                &:last-child {
+                    display: block;
+                }
+            }
+        }
+    }
+
+}

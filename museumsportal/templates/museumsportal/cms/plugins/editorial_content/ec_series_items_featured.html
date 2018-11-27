@@ -1,0 +1,14 @@
+{% load i18n image_modifications %}
+<div class="item col-xs-{{ object.col_xs_width|default:"12" }} col-sm-{{ object.col_sm_width|default:"6" }} col-md-{{ object.col_md_width|default:"4" }} col-lg-{{ object.col_lg_width|default:"4" }}{% if object.css_class %} {{ object.css_class }}{% endif %}">
+  <!-- editorial content for series_items_featured placeholder -->
+{{ test }}
+  <a href="{{ object.website }}" class="img">
+    <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" alt="" />
+  </a >
+  {% if object.image_caption %}<p class="sr-only"><small>{{ object.image_caption }}</small></p>{% endif %}
+
+  <h4>{{ object.title }}</h4>
+  <h5>{{ object.subtitle }}</h5>
+  <p>{{ object.get_rendered_description|removetags:"p"|truncatewords:38 }}</p>
+  <a class="btn btn-default btn-sm" href="{{ object.website }}">{% trans "more" %}</a>
+</div>

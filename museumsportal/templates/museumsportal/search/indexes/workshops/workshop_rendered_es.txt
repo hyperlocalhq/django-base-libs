@@ -1,0 +1,15 @@
+{% load base_tags image_modifications %}
+{% with object as workshop %}
+    <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+        <a href="/es/visitas-guiadas/{{ workshop.slug }}/">
+            <h4>
+                <span>{% with workshop.get_closest_workshop_time as workshop_time %}{{ workshop_time.get_humanized_date_es }} {{ workshop_time.start|time:"H:i" }}{% endwith %}</span>
+            </h4>
+            <h3>{{ workshop.title_es|default:workshop.title_de }}</h3>
+            <h4>{{ workshop.subtitle_es|default:workshop.subtitle_de }}</h4>
+            {% if workshop.museum %}
+                <h5>{{ workshop.museum.title_es|default:workshop.museum.title_de }}</h5>
+            {% endif %}
+        </a>
+    </div>
+{% endwith %}
