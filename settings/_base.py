@@ -166,9 +166,9 @@ INSTALLED_APPS = [
     "jetson.apps.extendedadmin",
     "jetson.apps.history",
     "jetson.apps.memos",
-    "jetson.apps.notification",
     "jetson.apps.mailing",
-    "jetson.apps.contact_form",
+    "jetson.apps.notification",  # must go after the mailing app
+    "jetson.apps.contact_form",  # must go after the mailing app
     "jetson.apps.configuration",
     "jetson.apps.bookmarks",
     "jetson.apps.profanity_filter",

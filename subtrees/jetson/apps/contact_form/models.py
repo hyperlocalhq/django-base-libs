@@ -20,8 +20,6 @@ from base_libs.models.fields import PlainTextModelField
 from base_libs.middleware import get_current_language
 
 
-EmailTemplate = apps.get_model("mailing", "EmailTemplate")
-
 verbose_name = _("Contact Form")
 
 
@@ -34,7 +32,7 @@ class ContactFormCategory(SingleSiteMixin, SlugMixin()):
         _("Recipient email(s)"), null=True, blank=True
     )
     auto_answer_template = models.ForeignKey(
-        EmailTemplate,
+        "mailing.EmailTemplate",
         verbose_name=_("Email template for the automatic answer"),
         help_text=_(
             "Nothing is sent back to the sender if the template is not selected"
