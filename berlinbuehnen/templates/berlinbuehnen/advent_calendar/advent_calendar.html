@@ -41,7 +41,7 @@
                                                         {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
                                                     {% endwith %}
                                                 {% endif %}
-                                                <img src="{{ STATIC_URL }}site/img/placeholder_advent_calendar.png" data-original="{{ MEDIA_URL }}{{ day.preview_image.path|modified_path:"advent_calendar_image" }}" alt="{{ day.day|date:"l, j. F Y" }}" />
+                                                <img src="{{ STATIC_URL }}site/img/placeholder_advent_calendar.png" data-original="{{ MEDIA_URL }}{{ day.preview_image.path }}" alt="{{ day.day|date:"l, j. F Y" }}" />
                                             {% else %}
                                                 <img src="{{ STATIC_URL }}site/img/placeholder_advent_calendar.png" />
                                             {% endif %}
