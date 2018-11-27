@@ -432,7 +432,7 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 1024 * 1024 * 2  # 2 MB
 ### MAILING ###
 
 MAILING_DEFAULT_FROM_NAME = "Berlin Bühnen"
-MAILING_DEFAULT_FROM_EMAIL = "berlin-buehnen@kulturprojekte-berlin.de"
+MAILING_DEFAULT_FROM_EMAIL = "berlin-buehnen@kulturprojekte.berlin"
 
 MAILING_CONTENT_TYPE_CHOICES = (
     ('authorship', _("Image authorship")),
