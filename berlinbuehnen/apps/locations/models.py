@@ -219,7 +219,7 @@ class Location(CreationModificationMixin, UrlMixin, SlugMixin(), OpeningHoursMix
                 object_id=self.pk,
                 content_type=ContentType.objects.get_for_model(Location),
             )
-        except:
+        except PerObjectGroup.DoesNotExist:
             role = PerObjectGroup(
                 sysname="owners",
             )

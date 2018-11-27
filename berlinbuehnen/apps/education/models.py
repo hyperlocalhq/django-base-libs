@@ -129,7 +129,7 @@ class Department(CreationModificationMixin, UrlMixin, SlugMixin()):
                 object_id=self.pk,
                 content_type=ContentType.objects.get_for_model(Department),
             )
-        except:
+        except PerObjectGroup.DoesNotExist:
             role = PerObjectGroup(
                 sysname="owners",
             )
@@ -478,7 +478,7 @@ class Project(CreationModificationMixin, UrlMixin, SlugMixin()):
                 object_id=self.pk,
                 content_type=ContentType.objects.get_for_model(Project),
             )
-        except:
+        except PerObjectGroup.DoesNotExist:
             role = PerObjectGroup(
                 sysname="owners",
             )

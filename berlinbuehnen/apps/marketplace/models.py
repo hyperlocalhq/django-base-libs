@@ -148,7 +148,7 @@ class JobOffer(CreationModificationMixin, UrlMixin):
                 object_id=self.pk,
                 content_type=ContentType.objects.get_for_model(JobOffer),
             )
-        except:
+        except PerObjectGroup.DoesNotExist:
             role = PerObjectGroup(
                 sysname="owners",
             )
