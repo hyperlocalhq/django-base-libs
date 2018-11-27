@@ -1,8 +1,0 @@
-{% load base_tags image_modifications %}
-{% with object as festival %}
-    <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <a href="/de/festivals/{{ festival.slug }}/">
-            <h3>{{ festival.title_de|safe }}</h3>
-        </a>
-    </div>
-{% endwith %}

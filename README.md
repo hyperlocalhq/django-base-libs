@@ -1,7 +1,13 @@
-# Ruhr Bühnen project
+# Jetson
+Jetson is a generic Django project for a large range of different purposes. It shouldn't be used alone, but rather in combination with other projects.
 
-To install project requirements run this in your virtual environment:
+Jetson 3.x is based on python2.7 and Django 1.8.x
 
-```bash
-(venv)$ pip install -r requirements.txt
-```
+## Requirements
+
+Some parts of jetson depend on the following modules that you should install to your project's virtual environment:
+
+- Pillow
+- billiard (for celery)
+- lxml (for tastypie)
+- pytz (for babel)
