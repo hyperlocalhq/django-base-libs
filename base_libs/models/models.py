@@ -207,6 +207,8 @@ class PublishingMixin(BaseModel):
     """
     Abstract base class with publishing start and end dates.
     """
+    STATUS_CODE_DRAFT = STATUS_CODE_DRAFT
+    STATUS_CODE_PUBLISHED = STATUS_CODE_PUBLISHED
     STATUS_CHOICES = getattr(settings, "PUBLISHING_STATUS_CHOICES", (
         (STATUS_CODE_DRAFT, _("Draft")),
         (STATUS_CODE_PUBLISHED, _("Published")),
