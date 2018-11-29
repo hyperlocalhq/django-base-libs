@@ -2007,12 +2007,11 @@ strong {
       float: left;
       margin-right: 20px; }
       .meta-wrapper #meta li.meta-item .dropdown-toggle {
-        margin-top: -3px;
         margin-right: -10px;
         margin-left: -10px;
         height: 20px;
         min-height: inherit;
-        line-height: 20px;
+        line-height: 200%;
         background-image: none !important;
         background-color: white; }
         .meta-wrapper #meta li.meta-item .dropdown-toggle span {
@@ -2020,6 +2019,8 @@ strong {
       .meta-wrapper #meta li.meta-item .dropdown-menu {
         box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.1);
         margin: 3px -9px 0 0; }
+    .meta-wrapper #meta #user-menu a {
+      line-height: 200%; }
     .meta-wrapper #meta #language-menu {
       margin-right: 0; }
       .meta-wrapper #meta #language-menu .languages {
@@ -2034,13 +2035,14 @@ strong {
             cursor: default;
             margin-left: 3px; }
           .meta-wrapper #meta #language-menu .languages li.active {
-            font-weight: 700;
-            margin-top: -1px; }
+            font-weight: 700; }
           .meta-wrapper #meta #language-menu .languages li:last-child {
             margin-right: 0; }
             .meta-wrapper #meta #language-menu .languages li:last-child:after {
               content: none;
               margin-left: 0px; }
+      .meta-wrapper #meta #language-menu a {
+        line-height: 200%; }
     .meta-wrapper #meta #nav-toggle-button {
       position: relative;
       right: -30px;
@@ -4246,6 +4248,11 @@ select {
   font-size: 1.8rem;
   text-transform: none;
   margin-top: -10px; }
+  .theater-of-the-week .theater-of-the-week-productions h5.ensembles {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 120%;
+    margin-top: 0; }
 
 .top-widgets-wrapper .theater-of-the-week-widget-wrapper {
   margin-top: -68px; }
@@ -5720,6 +5727,21 @@ body.is-xs.safari .list-item-head-date {
     top: 12px !important; }
   body.is-xs.safari .list-item-head-date .list-item-head-date-icons {
     top: 21px !important; }
+
+.advertising-list {
+  margin: 20px -5px 0; }
+  .is-xs .advertising-list {
+    margin: 20px -25px 0; }
+  .advertising-list > div {
+    padding-left: 5px;
+    padding-right: 5px; }
+  .advertising-list img {
+    margin: 0 0 10px;
+    padding: 0;
+    width: 100%;
+    height: auto; }
+  .advertising-list h6 {
+    margin-bottom: 4px; }
 
 .grid {
   margin: 0 -8px; }

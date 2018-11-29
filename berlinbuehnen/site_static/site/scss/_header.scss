@@ -188,12 +188,11 @@
             float: left;
             margin-right: 20px;
             .dropdown-toggle {
-                margin-top: -3px;
                 margin-right: -10px;
                 margin-left: -10px;
                 height: 20px;
                 min-height: inherit;
-                line-height: 20px;
+                line-height: 200%;
                 background-image: none !important;
                 background-color: white;
                 span {
@@ -205,7 +204,11 @@
                 margin: 3px -9px 0 0;
             }
         }
-
+        #user-menu {
+            a {
+                line-height: 200%;
+            }
+        }
         #language-menu {
             margin-right: 0;
 
@@ -224,7 +227,6 @@
                     }
                     &.active {
                         font-weight: $bold;
-                        margin-top: -1px;
                     }
                     &:last-child {
                         margin-right: 0;
@@ -235,6 +237,9 @@
                     }
 
                 }
+            }
+            a {
+                line-height: 200%;
             }
         }
 
