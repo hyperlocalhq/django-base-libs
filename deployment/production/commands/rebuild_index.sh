@@ -13,7 +13,6 @@ cd project/berlinbuehnen || exit 1
 python manage.py rebuild_index --settings=berlinbuehnen.settings.production --noinput --traceback >> ${CRON_LOG_FILE} 2>&1
 
 cd ${PROJECT_PATH}/commands/ || exit 1
-./fix_permissions_for_tmp.sh
 
 echo "Finished." >> ${CRON_LOG_FILE}
 duration=$SECONDS

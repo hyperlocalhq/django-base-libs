@@ -13,7 +13,6 @@ date >> ${CRON_LOG_FILE}
 python manage.py import_from_grips_theater --settings=berlinbuehnen.settings.production --traceback >> ${CRON_LOG_FILE}  2>&1
 
 cd ${PROJECT_PATH}/commands/ || exit 1
-./fix_permissions_for_media.sh
 
 echo "Finished." >> ${CRON_LOG_FILE}
 duration=$SECONDS
