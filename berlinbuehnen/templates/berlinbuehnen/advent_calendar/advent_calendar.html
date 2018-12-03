@@ -27,7 +27,7 @@
                                         {% if day.is_past %}
                                             {% if day.get_active_image %}
                                                 {% with day.get_active_image|file_description as file_desc %}
-                                                    <img src="{{ STATIC_URL }}site/img/placeholder_advent_calendar.png" data-original="{{ MEDIA_URL }}{{ day.get_active_image.path }}" alt="{{ day.day|date:"l, j. F Y" }}"/>
+                                                    <img src="{{ MEDIA_URL }}{{ day.get_active_image.path|modified_path:"advent_calendar_image" }}" data-original="{{ MEDIA_URL }}{{ day.get_active_image.path }}" alt="{{ day.day|date:"l, j. F Y" }}"/>
                                                     {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
                                                 {% endwith %}
                                             {% else %}
@@ -37,11 +37,11 @@
                                             {% if day.preview_image %}
                                                 {% if day.is_present and day.get_active_image %}
                                                     {% with day.get_active_image|file_description as file_desc %}
-                                                        <img src="{{ STATIC_URL }}site/img/placeholder_advent_calendar.png" data-original="{{ MEDIA_URL }}{{ day.get_active_image.path }}" alt="{{ day.day|date:"l, j. F Y" }}" class="gift-image" />
+                                                        <img src="{{ MEDIA_URL }}{{ day.get_active_image.path|modified_path:"advent_calendar_image" }}" data-original="{{ MEDIA_URL }}{{ day.get_active_image.path }}" alt="{{ day.day|date:"l, j. F Y" }}" class="gift-image" />
                                                         {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
                                                     {% endwith %}
                                                 {% endif %}
-                                                <img src="{{ STATIC_URL }}site/img/placeholder_advent_calendar.png" data-original="{{ MEDIA_URL }}{{ day.preview_image.path }}" alt="{{ day.day|date:"l, j. F Y" }}" />
+                                                <img src="{{ MEDIA_URL }}{{ day.preview_image.path|modified_path:"advent_calendar_image" }}" data-original="{{ MEDIA_URL }}{{ day.preview_image.path }}" alt="{{ day.day|date:"l, j. F Y" }}" />
                                             {% else %}
                                                 <img src="{{ STATIC_URL }}site/img/placeholder_advent_calendar.png" />
                                             {% endif %}
