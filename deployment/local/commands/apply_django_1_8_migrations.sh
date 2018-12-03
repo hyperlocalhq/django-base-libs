@@ -2,9 +2,10 @@
 SECONDS=0
 PROJECT_PATH=../../../../../
 
-cd ${PROJECT_PATH}
+cd ${PROJECT_PATH} || exit 1
+# shellcheck source=../../../venv/bin/activate
 source venv/bin/activate
-cd project/berlinbuehnen
+cd project/berlinbuehnen || exit 1
 
 echo "------------"
 echo "=== Running migrations ==="
@@ -16,7 +17,7 @@ ALTER TABLE django_content_type DROP COLUMN name;
 ALTER TABLE comments_moderatordeletionreason DROP COLUMN reason_markup_type;
 EOM
 )
-echo $SQL | python manage.py dbshell --settings=berlinbuehnen.settings.local --traceback
+echo "$SQL" | python manage.py dbshell --settings=berlinbuehnen.settings.local --traceback
 
 echo "- Create migration history table and missing content types"
 python manage.py migrate --fake --settings=berlinbuehnen.settings.local
@@ -26,7 +27,7 @@ SQL=$(cat << EOM
 TRUNCATE TABLE django_migrations;
 EOM
 )
-echo $SQL | python manage.py dbshell --settings=berlinbuehnen.settings.local --traceback
+echo "$SQL" | python manage.py dbshell --settings=berlinbuehnen.settings.local --traceback
 
 echo "- Fake migrations of admin apps"
 python manage.py migrate content_types --fake --settings=berlinbuehnen.settings.local
@@ -117,4 +118,4 @@ python manage.py migrate theater_of_the_week --settings=berlinbuehnen.settings.l
 
 echo "Finished."
 duration=$SECONDS
-echo "$(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed."
+echo "$((duration / 60)) minutes and $((duration % 60)) seconds elapsed."
