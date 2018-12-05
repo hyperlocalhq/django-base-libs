@@ -1,0 +1,128 @@
+{% extends "base_main.html" %}
+
+{% load base_tags cms_tags i18n image_modifications slideshows_tags production_tags favorites_tags auth_extended infoblocks mailchimp_tags festival_tags advertising_tags fb_tags %}
+
+{% block js %}
+    {% include "utils/favorites_scripts.html" %}
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} remove-navigation-gap home{% endblock bodyclass %}
+
+{% block content %}
+
+    {% top_slideshow "header_home" using "slideshows/top_slideshow_home.html" %}
+
+    <div class="container visible-xs">
+        <div class="background height-offset visible-xs" data-add-class="body" data-add-class-target="#header">
+            <h2 class="center">Ruhrbühnen</h2>
+        </div>
+    </div>
+
+    <div class="container hidden-xs height-offset body-header" data-add-class="body" data-add-class-target="#header">
+
+        <!-- body header -->
+
+        <div class="background">
+            <h1 class="margin-start">{% trans 'Elf Theater, eine Bühne.' %}</h1>
+        </div>
+
+        <!-- body header end -->
+
+    </div>
+
+    <div class="background">
+
+        <!-- body content -->
+
+        <div class="container">
+
+            <div class="margin-start info-start">{% infoblock "home_page" %}</div>
+            <div class="space"></div>
+
+        </div>
+
+        <div class="stages-map-bg">
+            <div class="container">
+                <div class="margin-start">
+                    <h1>{% trans 'The Network' %}</h1>
+                    <div class="stages-map">
+                        {% include 'svg/map.svg' %}
+                        {% if LANGUAGE_CODE == "en" %}
+                            <a class="stage-1" href="/en/theatres/deutsche-oper-am-rhein-im-theater-duisburg/">
+                                <span class="icon">{% include 'svg/logo.svg' %}</span><span class="text h5 demi">Deutsche Oper am Rhein im Theater Duisburg</span>
+                            </a>
+                            <a class="stage-2" href="/en/theatres/musiktheater-im-revier-gelsenkirchen/">
+                                <span class="icon">{% include 'svg/logo.svg' %}</span><span class="text h5 demi">Musiktheater im Revier Gelsenkirchen</span>
+                            </a>
+                            <a class="stage-3" href="/en/theatres/pact-zollverein/">
+                                <span class="icon">{% include 'svg/logo.svg' %}</span><span class="text h5 demi">PACT Zollverein</span>
+                            </a>
+                            <a class="stage-4" href="/en/theatres/ringlokschuppen-ruhr/">
+                                <span class="icon">{% include 'svg/logo.svg' %}</span><span class="text h5 demi">Ringlokschuppen Ruhr</span>
+                            </a>
+                            <a class="stage-5" href="/en/theatres/schauspielhaus-bochum-2/">
+                                <span class="icon">{% include 'svg/logo.svg' %}</span><span class="text h5 demi">Schauspielhaus Bochum</span>
+                            </a>
+                            <a class="stage-6" href="/en/theatres/schlosstheater-moers/">
+                                <span class="icon">{% include 'svg/logo.svg' %}</span><span class="text h5 demi">Schlosstheater Moers</span>
+                            </a>
+                            <a class="stage-7" href="/en/theatres/theater-an-der-ruhr/">
+                                <span class="icon">{% include 'svg/logo.svg' %}</span><span class="text h5 demi">Theater an der Ruhr</span>
+                            </a>
+                            <a class="stage-8" href="/en/theatres/theater-dortmund/">
+                                <span class="icon">{% include 'svg/logo.svg' %}</span><span class="text h5 demi">Theater Dortmund</span>
+                            </a>
+                            <a class="stage-9" href="/en/theatres/theater-hagen/">
+                                <span class="icon">{% include 'svg/logo.svg' %}</span><span class="text h5 demi">Theater Hagen</span>
+                            </a>
+                            <a class="stage-10" href="/en/theatres/theater-oberhausen/">
+                                <span class="icon">{% include 'svg/logo.svg' %}</span><span class="text h5 demi">Theater Oberhausen</span>
+                            </a>
+                            <a class="stage-11" href="/en/theatres/theater-und-philharmonie-essen/">
+                                <span class="icon">{% include 'svg/logo.svg' %}</span><span class="text h5 demi">Theater und Philharmonie Essen</span>
+                            </a>
+                        {% else %}
+                            <a class="stage-1" href="/de/buehnen/deutsche-oper-am-rhein-im-theater-duisburg/">
+                                <span class="icon">{% include 'svg/logo.svg' %}</span><span class="text h5 demi">Deutsche Oper am Rhein im Theater Duisburg</span>
+                            </a>
+                            <a class="stage-2" href="/de/buehnen/musiktheater-im-revier-gelsenkirchen/">
+                                <span class="icon">{% include 'svg/logo.svg' %}</span><span class="text h5 demi">Musiktheater im Revier Gelsenkirchen</span>
+                            </a>
+                            <a class="stage-3" href="/de/buehnen/pact-zollverein/">
+                                <span class="icon">{% include 'svg/logo.svg' %}</span><span class="text h5 demi">PACT Zollverein</span>
+                            </a>
+                            <a class="stage-4" href="/de/buehnen/ringlokschuppen-ruhr/">
+                                <span class="icon">{% include 'svg/logo.svg' %}</span><span class="text h5 demi">Ringlokschuppen Ruhr</span>
+                            </a>
+                            <a class="stage-5" href="/de/buehnen/schauspielhaus-bochum-2/">
+                                <span class="icon">{% include 'svg/logo.svg' %}</span><span class="text h5 demi">Schauspielhaus Bochum</span>
+                            </a>
+                            <a class="stage-6" href="/de/buehnen/schlosstheater-moers/">
+                                <span class="icon">{% include 'svg/logo.svg' %}</span><span class="text h5 demi">Schlosstheater Moers</span>
+                            </a>
+                            <a class="stage-7" href="/de/buehnen/theater-an-der-ruhr/">
+                                <span class="icon">{% include 'svg/logo.svg' %}</span><span class="text h5 demi">Theater an der Ruhr</span>
+                            </a>
+                            <a class="stage-8" href="/de/buehnen/theater-dortmund/">
+                                <span class="icon">{% include 'svg/logo.svg' %}</span><span class="text h5 demi">Theater Dortmund</span>
+                            </a>
+                            <a class="stage-9" href="/de/buehnen/theater-hagen/">
+                                <span class="icon">{% include 'svg/logo.svg' %}</span><span class="text h5 demi">Theater Hagen</span>
+                            </a>
+                            <a class="stage-10" href="/de/buehnen/theater-oberhausen/">
+                                <span class="icon">{% include 'svg/logo.svg' %}</span><span class="text h5 demi">Theater Oberhausen</span>
+                            </a>
+                            <a class="stage-11" href="/de/buehnen/theater-und-philharmonie-essen/">
+                                <span class="icon">{% include 'svg/logo.svg' %}</span><span class="text h5 demi">Theater und Philharmonie Essen</span>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- body content end -->
+
+    </div>
+
+{% endblock %}

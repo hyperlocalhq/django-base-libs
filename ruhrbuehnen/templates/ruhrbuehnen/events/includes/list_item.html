@@ -1,0 +1,64 @@
+{% load i18n image_modifications base_tags tagging_tags production_tags favorites_tags auth_extended fb_tags %}
+
+<a class="grid-item col-xs-12 col-sm-12 col-md-6 col-lg-6" href="{{ event.get_url_path }}">
+
+    <span class="img">
+        {% if event.first_image %}
+            <img class="responsive-xl responsive-sm responsive-xs"
+                 data-responsive-src="{{ MEDIA_URL }}{{ event.first_image.path|modified_path:"grid_xl_xs" }}{% if event.production.is_editable %}?now={% now "YmdHis" %}{% endif %}"
+                 src="about:blank"
+                 style="display:none;"
+                 alt="{{ event.production.title|escape }}"/>
+            <img class="responsive-lg responsive-md"
+                 data-responsive-src="{{ MEDIA_URL }}{{ event.first_image.path|modified_path:"grid_locations_lg_md_sm" }}{% if event.production.is_editable %}?now={% now "YmdHis" %}{% endif %}"
+                 src="about:blank"
+                 style="display:none;"
+                 alt="{{ event.production.title|escape }}"/>
+            {% with event.first_image.path|file_description as file_desc %}
+                {% if file_desc.author %}
+                    <span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+            {% endwith %}
+        {% elif event.ev_or_prod_images %}
+            {% with event.ev_or_prod_images|first as image %}
+                <img class="responsive-xl responsive-sm responsive-xs"
+                     data-responsive-src="{{ MEDIA_URL }}{{ image.path|modified_path:"grid_xl_xs" }}{% if event.production.is_editable %}?now={% now "YmdHis" %}{% endif %}"
+                     src="about:blank"
+                     style="display:none;"
+                     alt="{{ event.production.title|escape }}"/>
+                <img class="responsive-lg responsive-md"
+                     data-responsive-src="{{ MEDIA_URL }}{{ image.path|modified_path:"grid_locations_lg_md_sm" }}{% if event.production.is_editable %}?now={% now "YmdHis" %}{% endif %}"
+                     src="about:blank"
+                     style="display:none;"
+                     alt="{{ event.production.title|escape }}"/>
+                {% with image.path|file_description as file_desc %}
+                    {% if file_desc.author %}
+                        <span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                {% endwith %}
+            {% endwith %}
+        {% else %}
+            <img src="{{ STATIC_URL }}site/img/placeholder.png"/>
+        {% endif %}
+
+        <div class="button-bar-wrapper visible-xs">
+            <div class="button-bar">
+                {% if request.user.is_authenticated %}
+                    {% adding2favorites for event using "favorites/includes/favorite_button.html" %}
+                {% else %}
+                    {% login2favorites using "favorites/includes/favorite_button_login.html" %}
+                {% endif %}
+                {% if event.tickets_website %}
+                    <button class="tickets"
+                            data-href="{{ event.tickets_website }}"
+                            data-target="_blank"
+                            title="{% trans 'Get tickets' %}">
+                        <span class="icon">{% include 'svg/icons/tickets.svg' %}</span></button>{% endif %}
+            </div>
+        </div>
+    </span>
+
+    <h4 class="alt-font light">{{ event.start_date|date:"d.m." }} | {{ event.start_time|time:"H:i" }}</h4>
+    {% if event.production.title %}
+        <h4 class="alt-font">{{ event.production.title }}</h4>{% elif event.production.original %}
+        <h4 class="alt-font">{{ event.production.original }}</h4>{% endif %}
+</a>
+

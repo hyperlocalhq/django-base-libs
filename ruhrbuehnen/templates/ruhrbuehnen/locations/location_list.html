@@ -1,0 +1,88 @@
+{% extends "base_main.html" %}
+
+{% load url from future %}
+
+{% load i18n image_modifications base_tags tagging_tags favorites_tags auth_extended slideshows_tags fb_tags %}
+
+{% block title %}{% trans "Locations" %} – {% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    {% include "utils/favorites_scripts.html" %}
+    <script src="https://maps.googleapis.com/maps/api/js?language={{ LANGUAGE_CODE }}&region=DE&key={{ GOOGLE_API_KEY }}&callback=initGoogleMaps" async defer></script>
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} remove-navigation-gap{% endblock bodyclass %}
+
+{% block content %}
+
+    {% top_slideshow "header_locations" using "slideshows/top_slideshow_locations.html" %}
+
+    <div class="container visible-xs">
+        <div class="background height-offset">
+            <h2 class="center">{% trans 'The Locations' %}</h2>
+        </div>
+    </div>
+
+    <div class="background hidden-xs">
+        <div class="space"></div>
+        <div class="container">
+            <h2>#wirsindelf</h2>
+        </div>
+    </div>
+
+    <div class="background">
+        <div class="container grid">
+            <div class="row">
+                {% for location in object_list %}
+                    <a class="grid-item col-xs-12 col-sm-6 col-md-6 col-lg-4" href="{{ location.get_url_path }}">
+
+                        <span class="img">
+                            {% if location.first_image %}
+                                <img class="responsive-xl responsive-xs"
+                                     data-responsive-src="{{ UPLOADS_URL }}{{ location.first_image.path|modified_path:"grid_xl_xs" }}"
+                                     src="about:blank"
+                                     style="display:none;"
+                                     alt="{{ location.title|escape }}"/>
+                                <img class="responsive-lg responsive-md responsive-sm"
+                                     data-responsive-src="{{ UPLOADS_URL }}{{ location.first_image.path|modified_path:"grid_locations_lg_md_sm" }}"
+                                     src="about:blank"
+                                     style="display:none;"
+                                     alt="{{ location.title|escape }}"/>
+                                {% with location.first_image.path|file_description as file_desc %}
+                                    {% if file_desc.author %}
+                                        <span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>
+                                    {% endif %}
+                                {% endwith %}
+                            {% else %}
+                                <img src="{{ STATIC_URL }}site/img/placeholder.png"/>
+                            {% endif %}
+                        </span>
+
+                        {% if location.city %}<h4 class="alt-font light">{{ location.city }}</h4>{% endif %}
+                        {% if location.title %}<h4 class="alt-font">{{ location.title }}</h4>{% endif %}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="space"></div>
+
+
+        <!-- Google Maps -->
+        <div class="container">
+            <h2>{% trans 'Location Overview' %}</h2>
+            <div class="space-small"></div>
+        </div>
+        <div class="google-maps">
+            {% for location in object_list %}
+                <div class="google-maps-location" data-latitude="{{ location.latitude|stringformat:"f" }}" data-longitude="{{ location.longitude|stringformat:"f" }}" data-href="{{ location.get_url_path }}">
+                    <div class="google-maps-icon" data-src="{{ STATIC_URL }}site/img/location.svg" data-width="47" data-height="67" data-width-xs="31" data-height-xs="45"></div>
+                    <div class="google-maps-over">{{ location.title }}</div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="space"></div>
+
+    </div>
+
+{% endblock %}

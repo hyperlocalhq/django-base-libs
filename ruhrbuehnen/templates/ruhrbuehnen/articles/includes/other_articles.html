@@ -1,0 +1,31 @@
+{% load image_modifications babel i18n fb_tags %}
+
+{% if other_articles %}
+    {% for article in other_articles %}
+        <a href="{{ article.get_url_path }}">
+            {% if article.image %}
+                <div class="photo-credits-wrapper">
+                    <img src="{{ MEDIA_URL }}{{ article.image|modified_path:"list_image" }}" class="hidden-xs"/>
+                    <img src="{{ MEDIA_URL }}{{ article.image|modified_path:"news_image" }}" class="visible-xs"/>
+                    {% with article.image|file_description as file_desc %}
+                        {% if file_desc.author %}
+                            <span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>
+                        {% endif %}
+                    {% endwith %}
+                </div>
+            {% endif %}
+            {% if article.category.title %}
+                <span class="article-more-list-date">{{ article.category.title }}</span>
+            {% endif %}
+            <h6>{{ article.get_title }}</h6>
+            <p>
+                {% if article.description %}
+                    {{ article.get_rendered_description|wordwrap:30|striptags|truncatewords:"30" }}
+                {% else %}
+                    {{ article.get_rendered_content|striptags|wordwrap:30|truncatewords:"30" }}
+                {% endif %}
+            </p>
+            <span class="article-more-list-more fawesome more">{% trans "read on" %}</span>
+        </a>
+    {% endfor %}
+{% endif %}

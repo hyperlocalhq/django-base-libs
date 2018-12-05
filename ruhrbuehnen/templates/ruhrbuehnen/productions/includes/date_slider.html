@@ -1,0 +1,11 @@
+{% load base_tags i18n %}
+<div {% if id %}id='{{ id }}'{% endif %}
+     class="date-slider"
+     data-date="{{ active|date:"U" }}"
+     data-today="{{ today|date:"U" }}"
+     data-days="{% for day in days %}{{ day|date:"D" }},{% endfor %}"
+     data-months="{% for month in months %}{{ month|date:"M" }},{% endfor %}"
+     data-path="{% url 'page' as page_url %}{{ page_url }}">
+    <span class="icon arrow-left">{% include "svg/icons/arrow_left.svg" %}</span>
+    <span class="icon arrow-right">{% include "svg/icons/arrow_right.svg" %}</span>
+</div>

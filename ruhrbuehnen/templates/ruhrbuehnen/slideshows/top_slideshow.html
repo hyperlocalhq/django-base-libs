@@ -1,0 +1,49 @@
+{% load base_tags i18n image_modifications fb_tags sekizai_tags %}
+
+<div class="header-image">
+    <div class="slider fullscreen" data-rotate="true" data-interval="5000">
+        {% for slide in slides %}
+            <div class="slide" data-illumination="{% if slide.highlight %}light{% else %}dark{% endif %}">
+                {% if slide.link %}
+                    <a href="{{ slide.link }}" class="photo-credits-wrapper">{% else %}
+                    <div class="photo-credits-wrapper">{% endif %}
+                <img class="responsive-xl"
+                     data-responsive-src="{{ UPLOADS_URL }}{{ slide.path|modified_path:"fullscreen_xl" }}"
+                     src="about:blank"
+                     style="display:none;"
+                     alt="{{ slide.alt|escape }}"/>
+                <img class="responsive-lg"
+                     data-responsive-src="{{ UPLOADS_URL }}{{ slide.path|modified_path:"fullscreen_lg" }}"
+                     src="about:blank"
+                     style="display:none;"
+                     alt="{{ slide.alt|escape }}"/>
+                <img class="responsive-md"
+                     data-responsive-src="{{ UPLOADS_URL }}{{ slide.path|modified_path:"fullscreen_md" }}"
+                     src="about:blank"
+                     style="display:none;"
+                     alt="{{ slide.alt|escape }}"/>
+                <img class="responsive-sm"
+                     data-responsive-src="{{ UPLOADS_URL }}{{ slide.path|modified_path:"fullscreen_sm" }}"
+                     src="about:blank"
+                     style="display:none;"
+                     alt="{{ slide.alt|escape }}"/>
+                <img class="responsive-xs-horizontal"
+                     data-responsive-src="{{ UPLOADS_URL }}{{ slide.path|modified_path:"fullscreen_xs_h" }}"
+                     src="about:blank"
+                     style="display:none;"
+                     alt="{{ slide.alt|escape }}"/>
+                <img class="responsive-xs-vertical"
+                     data-responsive-src="{{ UPLOADS_URL }}{{ slide.path|modified_path:"fullscreen_xs_v" }}"
+                     src="about:blank"
+                     style="display:none;"
+                     alt="{{ slide.alt|escape }}"/>
+                {% with slide.path|file_description as file_desc %}
+                    {% if slide.credits or file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}:
+                        {% if slide.credits %}{{ slide.credits }}{% else %}{{ file_desc.author }}{% endif %}</span>
+                    {% endif %}
+                {% endwith %}
+                {% if slide.link %}</a>{% else %}</div>{% endif %}
+            </div>
+        {% endfor %}
+</div>
+</div>

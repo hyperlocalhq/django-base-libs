@@ -1,0 +1,12 @@
+{% load base_tags i18n %}
+
+{% if not protected %}
+
+    <span class="pin"
+          data-toggle="tooltip"
+          data-placement="left"
+          title="{% trans "Pinterest" %}"
+          data-tooltip-top-abs="1"
+          data-tooltip-right-abs="25;35,.gallery">
+    <a href="{{ href }}" data-pin-do="buttonPin" data-pin-shape="round" data-pin-config="none" target="_blank">
+        <span class="sr-only">{% trans "Pinterest" %}</span></a></span>{% endif %}

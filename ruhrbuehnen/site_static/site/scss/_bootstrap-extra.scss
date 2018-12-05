@@ -1,0 +1,106 @@
+// main:style.scss
+
+// @Author: Daniel Lehmann
+// @Date:   2018/10/08
+// @Email:  code@dreammedia.info
+// @Last modified by:   Daniel Lehmann
+// @Last modified time: 2018/11/21
+// @copyright Daniel Lehmann (code@dreammedia.info)
+
+
+@media (min-width: 1200px) {
+    .visible-lg {
+        display: none !important;
+    }
+    table.visible-lg {
+        display: none !important;
+    }
+    tr.visible-lg {
+        display: none !important;
+    }
+    th.visible-lg,
+    td.visible-lg {
+        display: none !important;
+    }
+    .visible-lg-block {
+        display: none !important;
+    }
+    .visible-lg-inline {
+        display: none !important;
+    }
+    .visible-lg-inline-block {
+        display: none !important;
+    }
+    .hidden-lg {
+        display: initial !important;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1629px) {
+    .visible-lg {
+        display: block !important;
+    }
+    table.visible-lg {
+        display: table !important;
+    }
+    tr.visible-lg {
+        display: table-row !important;
+    }
+    th.visible-lg,
+    td.visible-lg {
+        display: table-cell !important;
+    }
+    .visible-lg-block {
+        display: block !important;
+    }
+    .visible-lg-inline {
+        display: inline !important;
+    }
+    .visible-lg-inline-block {
+        display: inline-block !important;
+    }
+    .hidden-lg {
+        display: none !important;
+    }
+}
+
+
+.container {
+    max-width: none;
+}
+@media (max-width: 1629px) {
+    .visible-xl, .visible-xl-block, .visible-xl-inline, .visible-xl-inline-block {
+        //display: none !important;
+    }
+}
+
+@media (min-width: 1630px) {
+    .container {
+        width: 1590px;
+    }
+
+    .visible-xl {
+      display: block !important;
+    }
+    table.visible-xl {
+      display: table !important;
+    }
+    tr.visible-xl {
+      display: table-row !important;
+    }
+    th.visible-xl, td.visible-xl {
+      display: table-cell !important;
+    }
+    .visible-xl-block {
+        display: block !important;
+    }
+    .visible-xl-inline {
+        display: inline !important;
+    }
+    .visible-xl-inline-block {
+        display: inline-block !important;
+    }
+    .hidden-xl {
+        display: none !important;
+    }
+}

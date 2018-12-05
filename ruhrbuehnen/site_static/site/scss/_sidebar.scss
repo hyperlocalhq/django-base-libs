@@ -1,0 +1,92 @@
+// main:style.scss
+
+.sidebar {
+
+    .accordion-body {
+        font-family: $font-family-3, $font-local-1;
+        font-size: 1rem;
+        font-weight: $regular;
+
+        .is-lg &, .is-md &, .is-sm &, .is-xs & {
+            line-height: 1.4;
+        }
+    }
+
+    .accordion-item.open .accordion-body {
+        padding-bottom: 1rem;
+    }
+
+    a {
+        position: relative;
+        color: $black;
+
+        .icon {
+            svg {
+                fill: $black;
+            }
+        }
+
+        &:hover {
+            color: $link;
+            fill: $link;
+
+            .icon {
+                svg {
+                    fill: $link;
+                }
+            }
+        }
+    }
+
+    dl {
+        &.series {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+    }
+
+
+    .list-dates {
+
+        li {
+            position: relative;
+
+            &.canceled {
+                color: $red;
+
+                a {
+                    color: $red;
+                    fill: $red;
+                }
+
+                .underline {
+                    border-color: $red;
+                }
+            }
+        }
+
+        .date {
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+        }
+
+        .date-tickets {
+            width: 22px;
+            height: 20px;
+            position: absolute;
+            right: 5px;
+            top: 0px;
+
+            .svg-icons-tickets {
+                width: 22px;
+                height: 20px;
+            }
+        }
+
+        .date-extra {
+            display: block;
+            font-size: 0.8rem;
+        }
+    }
+}

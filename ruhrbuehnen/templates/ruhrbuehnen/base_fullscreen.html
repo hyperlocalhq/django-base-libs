@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% load base_tags cms_tags menu_tags sekizai_tags i18n image_modifications staticfiles %}
+
+{% block meta_tags %}
+    {{ block.super }}
+
+    {% block open_graph %}
+    {% endblock %}
+{% endblock %}
+
+{% block stylesheet %}
+    {{ block.super }}
+
+    <link href='//fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'/>
+    <link href='//fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="{{ STATIC_URL }}site/css/bootstrap/bootstrap.css"
+          rel="stylesheet"
+          media="screen, print"
+          type="text/css"/>
+    <link href="{{ STATIC_URL }}site/css/style.css" rel="stylesheet" media="screen, print" type="text/css"/>
+{% endblock %}
+
+{% block script %}
+    {{ block.super }}
+
+    {% now "uuuu" as microseconds %}
+    <script nonce="{{ microseconds|to_base64 }}">
+        var images = [];
+
+        function preload() {
+            for (i = 0; i < preload.arguments.length; i++) {
+                images[i] = new Image();
+                images[i].src = preload.arguments[i]
+            }
+        }
+
+        //preload(
+        //  "{{ STATIC_URL }}site/img/none_placeholder.gif"
+        //)
+    </script>
+    {% add_data "script_nonces" microseconds|to_base64 %}
+
+    <script src="{% url 'jssettings' %}"></script>
+    <script src="{{ JETSON_MEDIA_URL }}js/legacy.js"></script>
+    <script src="/{{ LANGUAGE_CODE }}/jsi18n/"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery-1.8.3.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.ba-bbq.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.isotope.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.scrollstop.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.lazyload.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.viewport.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
+    <script src="{{ JETSON_MEDIA_URL }}js/jquery/jquery.cookie.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.selectbox-0.2.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.sharrre-1.3.2.js"></script>
+    <script src="{{ STATIC_URL }}site/js/base.js"></script>
+    {% now "uuuu" as microseconds %}
+    <script nonce="{{ microseconds|to_base64 }}">
+        var csrftoken = $.cookie('csrftoken');
+
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        $.ajaxSetup({
+            crossDomain: false, // obviates need for sameOrigin test
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+        if ($.browser.msie) {
+            $('html').addClass('msie');
+        }
+    </script>
+    {% add_data "script_nonces" microseconds|to_base64 %}
+
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} fullscreen{% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="body" class="container-fluid">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

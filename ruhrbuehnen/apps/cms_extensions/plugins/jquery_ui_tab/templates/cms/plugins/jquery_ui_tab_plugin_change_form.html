@@ -1,0 +1,22 @@
+{% extends "admin/cms/page/plugin/change_form.html" %}
+
+<!-- LOADING -->
+
+{% load i18n adminmedia %}
+
+{% block javascripts %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% admin_media_prefix %}tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+
+    <script type="text/javascript" src="{{ JETSON_MEDIA_URL }}tinymce_setup/tinymce_setup_base.js"></script>
+    {% block tinymce_setup %}
+        <script type="text/javascript" src="{{ STATIC_URL }}site/tinymce_setup/tinymce_setup.js"></script>
+    {% endblock %}
+    <script type="text/javascript" src="{{ JETSON_MEDIA_URL }}js/admin/MarkupHelper.js"></script>
+{% endblock %}
+
+{% block fieldsets %}
+    {% for fieldset in adminform %}
+        {% include "admin/includes/fieldset.html" %}
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,74 @@
+// main:style.scss
+
+@charset "utf-8";
+
+@font-face {
+    font-family: $font-family-1;
+    src: url('../fonts/web/ndruhr-light6-webfont.woff');
+    src: local('☺'), url('../fonts/web/ndruhr-light6-webfont.woff2?#') format('woff2'), url('../fonts/web/ndruhr-light6-webfont.woff') format('woff');
+    font-weight: $light;
+}
+@font-face {
+    font-family: $font-family-1;
+    src: url('../fonts/web/ndruhr-book6-webfont.woff');
+    src: local('☺'), url('../fonts/web/ndruhr-book6-webfont.woff2?#') format('woff2'), url('../fonts/web/ndruhr-book6-webfont.woff') format('woff');
+    font-weight: $book;
+}
+@font-face {
+    font-family: $font-family-1;
+    src: url('../fonts/web/ndruhr-regular6-webfont.woff');
+    src: local('☺'), url('../fonts/web/ndruhr-regular6-webfont.woff2?#') format('woff2'), url('../fonts/web/ndruhr-regular6-webfont.woff') format('woff');
+    font-weight: $regular;
+}
+@font-face {
+    font-family: $font-family-1;
+    src: url('../fonts/web/ndruhr-demi6-webfont.woff');
+    src: local('☺'), url('../fonts/web/ndruhr-demi6-webfont.woff2?#') format('woff2'), url('../fonts/web/ndruhr-demi6-webfont.woff') format('woff');
+    font-weight: $demi;
+}
+@font-face {
+    font-family: $font-family-1;
+    src: url('../fonts/web/ndruhr-bold6-webfont.woff');
+    src: local('☺'), url('../fonts/web/ndruhr-bold6-webfont.woff2?#') format('woff2'), url('../fonts/web/ndruhr-bold6-webfont.woff') format('woff');
+    font-weight: $bold;
+}
+
+
+@font-face {
+    font-family: $font-family-2;
+    src: url('../fonts/web/ndruhr-light7-webfont.woff');
+    src: local('☺'), url('../fonts/web/ndruhr-light7-webfont.woff2?#') format('woff2'), url('../fonts/web/ndruhr-light7-webfont.woff') format('woff');
+    font-weight: $light;
+}
+@font-face {
+    font-family: $font-family-2;
+    src: url('../fonts/web/ndruhr-book7-webfont.woff');
+    src: local('☺'), url('../fonts/web/ndruhr-book7-webfont.woff2?#') format('woff2'), url('../fonts/web/ndruhr-book7-webfont.woff') format('woff');
+    font-weight: $book;
+}
+@font-face {
+    font-family: $font-family-2;
+    src: url('../fonts/web/ndruhr-regular7-webfont.woff');
+    src: local('☺'), url('../fonts/web/ndruhr-regular7-webfont.woff2?#') format('woff2'), url('../fonts/web/ndruhr-regular7-webfont.woff') format('woff');
+    font-weight: $regular;
+}
+@font-face {
+    font-family: $font-family-2;
+    src: url('../fonts/web/ndruhr-demi7-webfont.woff');
+    src: local('☺'), url('../fonts/web/ndruhr-demi7-webfont.woff2?#') format('woff2'), url('../fonts/web/ndruhr-demi7-webfont.woff') format('woff');
+    font-weight: $demi;
+}
+@font-face {
+    font-family: $font-family-2;
+    src: url('../fonts/web/ndruhr-bold7-webfont.woff');
+    src: local('☺'), url('../fonts/web/ndruhr-bold7-webfont.woff2?#') format('woff2'), url('../fonts/web/ndruhr-bold7-webfont.woff') format('woff');
+    font-weight: $bold;
+}
+
+
+@font-face {
+    font-family: $font-family-logo;
+    src: url('../fonts/web/ndruhr-logo1-webfont.woff');
+    src: local('☺'), url('../fonts/web/ndruhr-logo1-webfont.woff2?#') format('woff2'), url('../fonts/web/ndruhr-logo1-webfont.woff') format('woff');
+    font-weight: $regular;
+}

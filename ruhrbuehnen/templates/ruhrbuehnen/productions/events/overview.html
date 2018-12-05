@@ -1,0 +1,90 @@
+{% extends "productions/events/base.html" %}
+
+{% load crispy_forms_tags i18n auth_extended %}
+
+{% block stylesheet %}
+    {{ block.super }}
+    <link href="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.autocomplete.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block script %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.bgiframe.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.autocomplete.js"></script>
+    <script src="{{ STATIC_URL }}site/js/autocomplete.js"></script>
+{% endblock %}
+
+{% block multistep_form %}
+    <div id="events" class="content">
+        <div class="container">
+            <a class="btn btn-primary pull-right"
+               href="{% url "add_events" slug=production.slug %}">{% trans "Add events" %}</a>
+            <h4>{% trans "Events" %}</h4>
+            <table class="dashboard-table">
+                <thead>
+                <tr>
+                    <th>
+                        <small>{% trans "Title" %}</small>
+                    </th>
+                    <th>
+                        <small>{% trans "Actions" %}</small>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if events.count %}
+                    {% for event in events %}
+                        <tr>
+                            <td class="item">
+                                <a href="{% url "change_event_basic_info" slug=production.slug event_id=event.pk %}">
+                                    <b>{{ event.start_date|date:"j. F Y" }}, {{ event.start_time|time:"H:i" }}</b></a>
+                            </td>
+                            <td>
+                                <a href="{% url "change_event_basic_info" slug=production.slug event_id=event.pk %}"
+                                   class="btn"> {% trans "Details" %} </a>
+                                <a href="{% url "change_event_description" slug=production.slug event_id=event.pk %}"
+                                   class="btn"> {% trans "Description" %} </a>
+                                <a href="{% url "change_event_gallery" slug=production.slug event_id=event.pk %}"
+                                   class="btn"> {% trans "Media" %} </a>
+
+                                <a href="{{ event.get_url_path }}?preview"
+                                   data-toggle="tooltip"
+                                   data-placement="top"
+                                   data-original-title="{% trans "Preview" %}"
+                                   class="btn btn-sm btn-icon btn-link"
+                                   target="_blank">
+                                    <span class="icon icon-eye-open"></span>
+                                    <span class="sr-only">{% trans "Preview" %}</span>
+                                </a>
+                                {% if production.is_deletable %}
+                                    <a href="{{ production.get_url_path }}delete/"
+                                       data-toggle="tooltip"
+                                       data-placement="top"
+                                       data-original-title="{% trans "Delete" %}"
+                                       class="btn btn-sm btn-icon btn-link delete"
+                                       data-object-title="{{ production.title }}"
+                                       data-object-type="{% trans "Event" %}">
+                                        <span class="icon icon-remove"></span>
+                                        <span class="sr-only">{% trans "Remove" %}</span>
+                                    </a>
+                                {% endif %}
+                                {% if production.status == "published" %} {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4">
+                <span class="pull-left">
+                  {% if status == "published" %} {% trans "There are no published items." %} {% endif %}
+                    {% if status == "draft" %} {% trans "There are no draft items." %} {% endif %}
+                    {% if status == "expired" %} {% trans "There are no expired items." %} {% endif %}
+                </span>
+                        </td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% load image_modifications %}
+<div class="grid-item col-xs-12 col-sm-6 col-md-4 {% if instance.width == "double" and not request.toolbar.edit_mode %} featured {% endif %}">
+    <div class="row">
+        <a href="{% if instance.internal_link %}{{ instance.internal_link.get_absolute_url }}{% else %}{{ instance.external_link }}" target="_blank{% endif %}">
+            <div class="banner" style="background: {{ instance.banner.header_bg_color }};">
+                <div class="image">
+                    <span class="fawesome arrow-right"></span>
+                    <img src="{{ MEDIA_URL }}{{ instance.banner.header_icon|modified_path:'some_modification' }}"
+                         alt="{{ instance.banner.title|escape }}"/>
+                    <span class="fawesome arrow-left"></span></div>
+                <h2>{{ instance.banner.title }}</h2>
+                <h3>{{ instance.banner.subtitle }}</h3>
+            </div>
+            {{ instance.banner.get_rendered_short_description }}
+        </a>
+    </div>
+</div>

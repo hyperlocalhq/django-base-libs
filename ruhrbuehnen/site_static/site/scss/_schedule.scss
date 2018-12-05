@@ -1,0 +1,71 @@
+// main:style.scss
+
+@charset "utf-8";
+
+.schedule-headline {
+
+    .is-xs & {
+        text-align: center;
+    }
+}
+
+.schedule-dates-filter {
+    background: $white;
+    z-index: 2;
+
+    &.sticky {
+        width: 100%;
+    }
+}
+
+.schedule-filter {
+    position: relative;
+    background: $white;
+    z-index: 3;
+
+    h1 {
+        padding: 2rem 0 1rem;
+        margin: 0;
+    }
+
+    &.sticky {
+        .is-xs & {
+            width: 100%;
+        }
+    }
+}
+
+.schedule-date {
+    position: relative;
+    width: 100%;
+    z-index: 1;
+    border-bottom: 1px solid $grey;
+
+    &.sticky {
+        background: $white;
+    }
+
+    .is-xs & {
+        width: auto;
+        margin-left: -$page-margin-xs;
+        margin-right: -$page-margin-xs;
+
+        &.sticky {
+            width: 100% !important;
+        }
+    }
+
+    > div {
+        padding: 1.35rem 0 0;
+    }
+
+    h3 {
+        margin: 0;
+        padding: 0 0 0.5rem;
+        background: $white;
+
+        .is-xs & {
+            padding-left: $page-margin-xs;
+        }
+    }
+}

@@ -1,0 +1,40 @@
+{% extends base_template %}
+
+{% load i18n crispy_forms_tags %}
+
+{% block content %}
+    <div id="edit_media_item">
+        {% crispy form %}
+    </div>
+    <div id="deleteConfirmation"
+         class="modal"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="deleteConfirmationLabel"
+         aria-hidden="true">
+        <div class="modal-centered">
+            <div class="cell">
+                <div class="inner">
+                    <div class="modal-header">
+                        {% trans "Do you really want to delete this image?" %}
+                    </div>
+                    <div class="modal-body">
+                        <p class="lead">
+                            <small class="object-type"></small>
+                            <br/>
+                            <b class="object-title"></b>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="button-id-confirm-deletion"
+                                class="btn btn-lg btn-primary">{% trans "Yes, Please" %}</button>
+                        <button name="cancel"
+                                class="btn btn-lg btn-default"
+                                data-dismiss="modal"
+                                aria-hidden="true">{% trans "No, Thanks" %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "articles/articles_base.html" %}
+
+{% load base_tags babel i18n auth_extended sekizai_tags %}
+
+{% block headline %}
+    <h2 class="main">
+        {{ article_list.0.article_type.title|escape }}
+    </h2>
+{% endblock %}
+
+{% block stylesheet %}
+    {{ block.super }}
+    <link href="{{ STATIC_URL }}site/css/jquery.selectbox.css" rel="stylesheet" media="screen" type="text/css"/>
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.selectbox-0.2.min.js"></script>
+{% endblock %}
+
+{% block details %}
+
+    {% block breadcrumbs %}
+        <div class="breadcrumbs">
+            <div class="width">
+                {% comment %}
+                <!--
+                TODO: CHECK PRIVILEGES TO DISPLAY DRAFTS
+                {% if_has_perm "blog.change_blog_posts" blog %}
+                    {% ifequal post_filter "drafts" %}
+                        <a class="active" href="{{ rel_root_dir }}">{% trans "Drafts" %}({{ nof_drafts }})</a> |
+                    {% else %}
+                        <a href="{{ rel_root_dir }}drafts/">{% trans "Drafts" %}({{ nof_drafts }})</a> |
+                    {% endifequal %}
+                {% end_if_has_perm %}
+                -->
+                {% endcomment %}
+
+                <a href="{{ rel_root_dir }}">{% trans "Overview" %}</a>
+                |
+                <a class="active"
+                   href="{{ rel_root_dir }}{% if type %}{{ type.slug }}/{% endif %}">{{ type.title|escape }}</a>
+                {% for year in date_list %}
+                    {% if forloop.first %} &raquo; {% else %}| {% endif %}
+                    <a href="{{ rel_root_dir }}{% if type %}{{ type.slug }}/{% endif %}{{ year|date:"Y" }}/">{{ year|date:"Y" }}</a>
+                {% endfor %}
+            </div>
+            <a class="rss" href="{% url "article_feed" feed_type="rss" %}"><span>{% trans "RSS feed" %}</span></a>
+        </div>
+    {% endblock %}
+    <div class="row">
+        {% if not article_list %}
+            <span class="nothing">{% trans "No articles are available" %}</span>
+        {% else %}
+            {% for article in article_list %}
+                <div class="span4">
+                    {% include "articles/articles_brief.html" %}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    {% now "uuuu" as microseconds %}
+    <script nonce="{{ microseconds|to_base64 }}">
+        $(document).ready(function () {
+            $("select").selectbox();
+        });
+    </script>
+    {% add_data "script_nonces" microseconds|to_base64 %}
+
+{% endblock %}

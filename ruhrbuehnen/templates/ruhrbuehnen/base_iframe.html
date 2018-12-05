@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% load base_tags staticfiles sekizai_tags %}
+
+{% block script %}
+    {{ block.super }}
+
+    {% now "uuuu" as microseconds %}
+    <script nonce="{{ microseconds|to_base64 }}">
+        window.onload = function () {
+            if (top.hidden_iframe_loaded) {
+                top.hidden_iframe_loaded(document.body.innerHTML);
+            }
+        };
+    </script>
+    {% add_data "script_nonces" microseconds|to_base64 %}
+
+{% endblock %}
+
+{% block body %}
+    {% block content %}
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,34 @@
+{% load base_tags i18n %}<span class="addtocalendar atc-style-blue"
+                               data-toggle="tooltip"
+                               data-placement="top"
+                               title="{% trans "Add to calendar" %}"
+                               data-tooltip-left="-3;-10,.is-xs;-4,.header-icons">
+    <var class="atc_event">
+        <var class="atc_date_start">{{ event.start|date:"Y-m-d" }} {{ event.start|time:"G:i:s" }}</var>
+        <var class="atc_date_end">{{ end_datetime|date:"Y-m-d" }} {{ end_datetime|time:"G:i:s" }}</var>
+        <var class="atc_timezone">Europe/Berlin</var>
+        {% if project.title %}
+            <var class="atc_title">{{ project.title }}</var>
+        {% else %}
+            <var class="atc_title">Berlin Bühnen</var>
+        {% endif %}
+        <var class="atc_description">{{ description|striptags }}</var>
+        {% if project.street_address %}
+            <var class="atc_location">{% if project.location_title %}{{ project.location_title }}{% else %}
+                {{ department.title }}{% endif %}, {{ project.street_address }}, {% if project.street_address2 %}
+                {{ project.street_address2 }}, {% endif %}{{ project.postal_code }} {{ project.city }}</var>
+        {% elif department.street_address %}
+            <var class="atc_location">{{ department.title }}, {{ department.street_address }},
+                {% if department.street_address2 %}
+                    {{ department.street_address2 }}
+                    , {% endif %}{{ department.postal_code }} {{ department.city }}</var>
+        {% elif department.location.street_address %}
+            <var class="atc_location">{{ department.title }}, {{ department.location.street_address }},
+                {% if department.location.street_address2 %}
+                    {{ department.location.street_address2 }}
+                    , {% endif %}{{ department.location.postal_code }} {{ department.location.city }}</var>
+        {% else %}
+            <var class="atc_location">Berlin</var>
+        {% endif %}
+    </var>
+</span>

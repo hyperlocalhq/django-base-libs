@@ -1,0 +1,20 @@
+{% load i18n base_tags auth_extended %}
+<div class="categories nav_collapsed" id="add_box">
+    <h3>
+        <a href="#" class="open_but"><b>{% trans "Tools" %}</b></a>
+    </h3>
+    <div class="hidable">
+        <ul>
+            <li class="rss">
+                <a href="{% url "article_feed" feed_type="rss" %}"><span class="pic"></span>{% trans "RSS feed" %}</a>
+            </li>
+            <li class="rss">
+                <a href="{% url "article_feed" feed_type="atom" %}"><span class="pic"></span>{% trans "ATOM feed" %}</a>
+            </li>
+            <li class="print">
+                <a href="#" onclick="window.print(); return false;"><span class="pic"></span>{% trans "print" %}</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
