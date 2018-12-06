@@ -520,7 +520,7 @@ SEARCH_ENGINE = "MySqlFulltext"  # one of these: "MySqlFulltext", "Proprietary",
 ### MAILING ###
 
 MAILING_DEFAULT_FROM_NAME = "Creative City Berlin"
-MAILING_DEFAULT_FROM_EMAIL = "ccb-contact@kulturprojekte-berlin.de"
+MAILING_DEFAULT_FROM_EMAIL = "ccb-contact@kulturprojekte.berlin"
 
 
 ### GRAPPELLI ###
