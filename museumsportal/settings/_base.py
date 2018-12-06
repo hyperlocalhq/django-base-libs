@@ -563,7 +563,7 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 1024 * 1024 * 2  # 2 MB
 ### MAILING ###
 
 MAILING_DEFAULT_FROM_NAME = "Museumsportal Berlin"
-MAILING_DEFAULT_FROM_EMAIL = "museumsportal@kulturprojekte-berlin.de"
+MAILING_DEFAULT_FROM_EMAIL = "museumsportal@kulturprojekte.berlin"
 
 MAILING_CONTENT_TYPE_CHOICES = (
     ('exhibitions', _("Exhibitions")),
