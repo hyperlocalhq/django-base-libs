@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load base_tags i18n infoblocks crispy_forms_tags %}
+
+{% block title %}{% trans "Contact us" %}{% endblock %}
+
+{% block content %}
+    {% infoblock "contact_info" %}
+
+    {% crispy form %}{# Contact form #}
+{% endblock %}

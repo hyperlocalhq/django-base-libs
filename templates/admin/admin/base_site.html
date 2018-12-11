@@ -1,0 +1,75 @@
+{% extends "admin/base.html" %}
+{% load i18n grp_tags static %}
+
+{% block title %}{{ title }} | {% trans 'Django site admin' %}{% endblock %}
+
+{% block branding %}
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+<!-- STYLES & SCRIPTS -->
+{% block stylesheets %}
+    {{ block.super }}
+    <link rel="stylesheet"
+          href="{% url 'jetson_media_url' path='css/admin/additional.css' %}"
+          type="text/css"
+          media="screen"/>
+{% endblock %}
+
+{% block javascripts %}
+    {{ block.super }}
+    <script src="{% url 'jssettings' %}"></script>
+    <script src="{{ JETSON_MEDIA_URL }}js/legacy.js"></script>
+{% endblock %}
+
+{% block userlinks %}
+    {% for lang in LANGUAGES %}
+        <li>
+            <a title="{{ lang.1 }}" class="lang_{{ lang.0 }}" href="/{{ lang.0 }}{{ request.path|slice:"3:" }}">
+                {% ifequal LANGUAGE_CODE lang.0 %}<span class="active">{% endifequal %}
+                <img
+                    src="{% url 'jetson_media_url' path='' %}img/icons/lang-{{ lang.0 }}{% ifnotequal LANGUAGE_CODE lang.0 %}-inactive{% endifnotequal %}.png"
+                    alt="{{ lang.0 }}"
+                />{% ifequal LANGUAGE_CODE lang.0 %}</span>{% endifequal %}</a>
+        </li>
+    {% endfor %}
+    <!-- Username -->
+    <li class="grp-user-options-container grp-collapse grp-closed {% if request.session.original_user %}grp-switch-user-is-target{% endif %}">
+        <a href="javascript://"
+           class="user-options-handler grp-collapse-handler {% if request.session.original_user %}grp-switch-user-is-target{% else %}grp-switch-user-is-original{% endif %}">{% firstof user.get_short_name user.get_username %}</a>
+        <ul class="grp-user-options">
+            <!-- Change Password -->
+            {% if user.has_usable_password %}
+                <li>
+                    <a href="{% url 'admin:password_change' %}"
+                       class="grp-change-password">{% trans 'Change password' %}</a>
+                </li>
+            {% endif %}
+            <!-- Logout -->
+            <li>
+                <a href="{% url 'admin:logout' %}" class="grp-logout">{% trans 'Log out' %}</a>
+            </li>
+            <!-- Switch -->{% switch_user_dropdown %}
+        </ul>
+    </li>
+    <!-- Documentation -->
+    {% url 'django-admindocs-docroot' as docsroot %}
+    {% if docsroot %}
+        <li>
+            <a href="{{ docsroot }}">{% trans 'Documentation' %}</a>
+        </li>
+    {% endif %}
+{% endblock %}
+
+<!-- MESSAGES -->
+{% block messages %}
+    {% if messages %}
+        <ul class="grp-messagelist messagelist">
+            <!-- NOTE: no message|capfirst by purpose, because it does not work in some languages -->
+            {% for message in messages %}
+                <li{% if message.tags %} class="grp-{{ message.tags }} {{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,39 @@
+{% load i18n base_tags auth_extended %}
+
+<h6 class="section-header">{% trans "Organizer" %}</h6>
+<div class="section-details">
+
+    {% if object.organizing_institution or object.organizer_title %}
+        <dl>
+            <dt>{% trans "Organizer" %}</dt>
+            <dd>
+                <span class="org">
+                    {% if object.organizing_institution %}
+                        <a href="{{ object.organizing_institution.get_url_path }}">
+                        {{ object.organizing_institution.get_title|escape }}
+                        </a>
+                    {% else %}
+                        {% if object.organizer_url_link %}
+                            <a href="{{ object.organizer_url_link|escape }}">
+                                {{ object.organizer_title|escape }}
+                            </a>
+                        {% else %}
+                            {{ object.organizer_title|escape }}
+                        {% endif %}
+                    {% endif %}
+                </span>
+            </dd>
+        </dl>
+    {% endif %}
+
+    {% if object.organizing_person %}
+        <dl>
+            <dt>{% trans "Organizing Person" %}</dt>
+            <dd>
+                <a href="{{ object.organizing_person.get_url_path }}">
+                    {{ object.organizing_person.get_title|escape }}
+                </a>
+            </dd>
+        </dl>
+    {% endif %}
+</div>

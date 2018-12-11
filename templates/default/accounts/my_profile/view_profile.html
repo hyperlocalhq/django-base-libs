@@ -1,0 +1,102 @@
+{% extends "accounts/my_profile/base.html" %}
+{% load i18n base_tags %}
+
+x
+{% block object-title %}<h2>{{ object.title }}</h2>{% endblock %}
+
+{% block sidebar-c %}
+    {% if object.content_object.image %}
+        <span class="avatar">
+	<span class="corners">
+		<img alt="{{ object.title }}" src="{{ object.content_object.image }}"/>
+		<span class="frame"></span>
+	</span>		
+</span>
+    {% else %}
+        {% if object.is_person %}
+            <span class="avatar">
+                <span class="corners">
+                    <img alt="{{ object.title }}" src="{{ STATIC_URL }}site/img/website/person_logo_placeholder.png"/>
+                    <span class="frame"></span>
+                </span>		
+            </span>
+        {% else %}
+            <span class="avatar">
+                <span class="corners">
+                    <img alt="{{ object.title }}" src="{{ STATIC_URL }}site/img/website/group_logo_placeholder.png"/>
+                    <span class="frame"></span>
+                </span>		
+            </span>
+        {% endif %}
+    {% endif %}
+    <ul class="add">
+        <li>
+            <a href="/profile/{{ object.slug }}/projects/">
+                <span class="txt_red">{{ object.get_funded_project_count }}</span> {% trans "Own projects" %}</a>
+        </li>
+        <li>
+            <a href="/profile/{{ object.slug }}/donations/">
+                <span class="txt_red">{{ object.get_contribution_count }}</span> {% trans "Donated projects" %}</a>
+        </li>
+        <li>
+            <a href="/profile/{{ object.slug }}/contacts/">
+                <span class="txt_red">{{ object.get_individual_relation_count }}</span> {% trans "Contacts" %}</a>
+        </li>
+        <li>
+            <a href="/profile/{{ object.slug }}/{{ URL_ID_PERSONGROUPS }}/">
+                <span class="txt_red">{{ object.content_object.get_institutions|length }}</span> {% trans "Groups" %}
+            </a>
+        </li>
+        <li>
+            <a href="/profile/{{ object.slug }}/reviews/"><span class="txt_red">0</span> {% trans "Reviews" %}</a>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block object-content %}
+    {% if object.is_person %}
+        <h3>{% trans "Person" %}</h3>
+        <dl>
+            <dt>{% trans "First and last name" %} </dt>
+            <dd><span class="output">{{ object.title }}</span></dd>
+            {% if object.content_object.birthday_dd %}{% if object.content_object.birthday_mm %}
+                <dt>{% trans "Date of birth" %} </dt>
+                <dd>
+                    <span class="output">{{ object.content_object.birthday_dd }}.{{ object.content_object.get_birthday_mm_display }}
+                            {% if object.content_object.birthday_yyyy %}.{{ object.content_object.birthday_yyyy }}{% endif %}</span>
+                </dd>
+            {% endif %}{% endif %}
+            {% if object.content_object.occupation %}
+                <dt>{% trans "Occupation" %} </dt>
+                <dd><span class="output">{{ object.content_object.occupation }}</span></dd>
+            {% endif %}
+            {% if object.get_neighborhoods %}
+                <dt>{% trans "Neighborhood" %} </dt>
+                <dd><span class="output">{{ object.get_neighborhoods|join:", " }}</span></dd>
+            {% endif %}
+        </dl>
+        <h3>{% trans "About me" %}</h3>
+        {% if object.content_object.description %}
+            <div class="description">
+                {{ object.content_object.description }}
+            </div>
+        {% endif %}
+        <h3>{% trans "Links" %}</h3>
+        <dl>
+            {% for contact in object.content_object.get_contacts %}
+                {% for url in contact.get_urls %}
+                    {% if not url.is_on_hold %}
+                        <dt>{{ url.type }} </dt>
+                        <dd><span class="output"><a href="{{ url.link }}">{{ url.link }}</a></span></dd>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </dl>
+
+    {% else %}
+        <h3>{% trans "Group" %}</h3>
+        <h3>{% trans "About us" %}</h3>
+        <h3>{% trans "Links" %}</h3>
+    {% endif %}
+{% endblock %}
+
