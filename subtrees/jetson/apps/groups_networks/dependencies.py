@@ -13,6 +13,6 @@ required_apps = [
     "memos",
     "image_mods",
     "site_specific",
-    ]
-    
+]
+
 optional_apps = []

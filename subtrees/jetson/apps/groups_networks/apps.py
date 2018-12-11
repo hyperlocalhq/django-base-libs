@@ -2,12 +2,14 @@
 from __future__ import unicode_literals
 from django.apps import AppConfig, apps
 
+
 class GroupsNetworksConfig(AppConfig):
     name = 'jetson.apps.groups_networks'
 
     def ready(self):
         add_methods_to_person()
         add_methods_to_institution()
+
 
 def add_methods_to_person():
     """Additional methods to Person model"""
@@ -25,6 +27,7 @@ def add_methods_to_person():
                 groupmembership__user=self.user,
             )
         return self._groups_cache
+
     def get_my_groups(self):
         """
         PersonGroups where the person is "owner"
@@ -36,6 +39,7 @@ def add_methods_to_person():
                 groupmembership__role="owners",
             )
         return self._my_groups_cache
+
     def get_institutions(self, clear_cache=False):
         """
         Institutions for which a PersonGroup is created and
@@ -44,14 +48,14 @@ def add_methods_to_person():
         if not hasattr(self, "_institutions_cache") or clear_cache:
             institution_ids = map(
                 (lambda el: el['object_id']),
-                self.get_groups().filter(
-                    group_type__slug="institutional",
-                ).values("object_id")
+                self.get_groups().filter(group_type__slug="institutional", ).
+                values("object_id")
             )
             self._institutions_cache = Institution.objects.filter(
                 pk__in=institution_ids,
             )
         return self._institutions_cache
+
     def get_all_group_invitations(self):
         qs = Person.objects.filter(
             user__groupmembership__activation__isnull=True,
@@ -84,6 +88,7 @@ def add_methods_to_person():
             },
         ).select_related().distinct().order_by('-membership_timestamp')
         return qs
+
     def get_my_groups_invitations(self):
         my_groups_id_list = [item.id for item in self.get_my_groups()]
         qs = self.get_all_group_invitations()
@@ -182,6 +187,7 @@ def add_methods_to_institution():
         group.content_object = self
         group.save()
         return group
+
     create_default_group.alters_data = True
 
     def get_groups(self):
@@ -189,11 +195,14 @@ def add_methods_to_institution():
         ContentType = apps.get_model("contenttypes", "ContentType")
         if not hasattr(self, "_groups_cache"):
             ct = ContentType.objects.get_for_model(self)
-            self._groups_cache = list(PersonGroup.objects.filter(
-                content_type__pk=ct.id,
-                object_id=self.id,
-            ))
+            self._groups_cache = list(
+                PersonGroup.objects.filter(
+                    content_type__pk=ct.id,
+                    object_id=self.id,
+                )
+            )
         return self._groups_cache
+
     def get_object_permission_roles(self):
         """
         Returns the default owners of this object for permission manipulation
@@ -204,12 +213,17 @@ def add_methods_to_institution():
         allowed_groups = []
         for person_group in groups:
             allowed_groups.append(
-                person_group.perobjectgroup_set.get(sysname__startswith="owners")
+                person_group.perobjectgroup_set.get(
+                    sysname__startswith="owners"
+                )
             )
             allowed_groups.append(
-                person_group.perobjectgroup_set.get(sysname__startswith="moderators")
+                person_group.perobjectgroup_set.get(
+                    sysname__startswith="moderators"
+                )
             )
         return allowed_groups
+
     def _get_related_group(self):
         groups = self.get_groups()
         if groups:
@@ -222,11 +236,11 @@ def add_methods_to_institution():
             user = get_current_user(user)
             group = self._get_related_group()
             contact_dict = self.get_primary_contact()
-            self._is_contactable_cache = not(
-                group
-                and group.get_owners().filter(user=user)
+            self._is_contactable_cache = not (
+                group and group.get_owners().filter(user=user)
             ) and contact_dict.get("email0_address", False)
         return self._is_contactable_cache
+
     def is_email_displayed(self, user=None):
         if not hasattr(self, "_is_email_displayed_cache"):
             user = get_current_user(user)

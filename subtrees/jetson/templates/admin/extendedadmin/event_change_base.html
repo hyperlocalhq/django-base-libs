@@ -9,10 +9,13 @@
     {{ block.super }}
     <script type="text/javascript" src="{% static 'admin/js/SelectBox.js' %}"></script>
     <script type="text/javascript" src="{% static 'admin/js/SelectFilter2.js' %}"></script>
-    
-    <script type="text/javascript" src="{% url 'jetson_media_url' path='js/jquery/autocomplete_1.0/jquery.dimensions.js' %}"></script>
-    <script type="text/javascript" src="{% url 'jetson_media_url' path='js/jquery/autocomplete_1.0/jquery.bgiframe.min.js' %}"></script>
-    <script type="text/javascript" src="{% url 'jetson_media_url' path='js/jquery/autocomplete_1.0/jquery.autocomplete.js' %}"></script>
+
+    <script type="text/javascript"
+            src="{% url 'jetson_media_url' path='js/jquery/autocomplete_1.0/jquery.dimensions.js' %}"></script>
+    <script type="text/javascript"
+            src="{% url 'jetson_media_url' path='js/jquery/autocomplete_1.0/jquery.bgiframe.min.js' %}"></script>
+    <script type="text/javascript"
+            src="{% url 'jetson_media_url' path='js/jquery/autocomplete_1.0/jquery.autocomplete.js' %}"></script>
     <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/autocomplete.js' %}"></script>
     <script type="text/javascript" src="{% static 'admin/js/urlify.js' %}"></script>
     <script type="text/javascript" src="{% static 'filebrowser/js/AddFileBrowser.js' %}"></script>
@@ -52,10 +55,17 @@
 {% block breadcrumbs %}
     {% if not is_popup %}
         <ul id="breadcrumbs">
-            <li><a href="../../../">{% trans "Home" %}</a></li>
-            <li><a href="../../">{{ "Events"|app_verbose_name }}</a></li>
-            <li><a href="../">{% trans "Events" %}</a></li>
-            <li>{% if original %}{{ original|truncatewords:"18" }}{% else %}{% trans "Add" %} {% trans "Event" %}{% endif %}</li>
+            <li>
+                <a href="../../../">{% trans "Home" %}</a>
+            </li>
+            <li>
+                <a href="../../">{{ "Events"|app_verbose_name }}</a>
+            </li>
+            <li>
+                <a href="../">{% trans "Events" %}</a>
+            </li>
+            <li>
+                {% if original %}{{ original|truncatewords:"18" }}{% else %}{% trans "Add" %} {% trans "Event" %}{% endif %}</li>
         </ul>
     {% endif %}
 {% endblock %}
@@ -64,15 +74,21 @@
 {% block object-tools %}
     {% if change and not is_popup %}
         <ul class="grp-object-tools">
-            <li><a href="history/" class="historylink">{% trans "History" %}</a></li>
+            <li>
+                <a href="history/" class="historylink">{% trans "History" %}</a>
+            </li>
             {% if original.row_level_permissions %}
                 {% if_has_perm "auth.change_rowlevelpermission" original %}
-                    <li><a href="permissions/" class="rowlevelpermissions">{% trans "Permissions" %}</a></li>
+                    <li>
+                        <a href="permissions/" class="rowlevelpermissions">{% trans "Permissions" %}</a>
+                    </li>
                 {% end_if_has_perm %}
             {% endif %}
             {% if original.get_url_path %}
-                <li><a href="{{ original.get_url_path }}" class="viewsitelink">{% trans "View on site" %}</a></li>
-            {% endif%}
+                <li>
+                    <a href="{{ original.get_url_path }}" class="viewsitelink">{% trans "View on site" %}</a>
+                </li>
+            {% endif %}
         </ul>
     {% endif %}
 {% endblock %}
@@ -82,12 +98,13 @@
     <form action="" method="post" id="event_form">{% csrf_token %}
         <div>
             <!-- Popup Hidden Field -->
-            {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
+            {% if is_popup %}
+                <input type="hidden" name="_popup" value="1"/>{% endif %}
 
             <!-- Errors -->
             {% if form.errors %}
                 <p class="errornote">
-                {% blocktrans count form.errors.items|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+                    {% blocktrans count form.errors.items|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
                 </p>
                 {{ form.non_field_errors }}
             {% endif %}
@@ -100,15 +117,19 @@
                         <div class="grp-row grp-cells-1{% if form.title_en.errors %} grp-errors{% endif %}">
                             <div class="l-2c-fluid l-d-4">
                                 <div class="c-1">
-                                    <label{% if form.title_en.field.required %} class="required"{% endif %}>{{ form.title_en.label }}</label>
+                                    <label
+                                            {% if form.title_en.field.required %} class="required"{% endif %}>{{ form.title_en.label }}</label>
                                 </div>
                                 <div class="c-2">
                                     <p>{{ form.title_en }}</p>
                                     {% if form.title_en.errors %}
-                                        <ul class="errorlist"><li>{{ form.title_en.errors|join:", "}}</li></ul>
+                                        <ul class="errorlist">
+                                            <li>{{ form.title_en.errors|join:", " }}</li>
+                                        </ul>
                                     {% endif %}
-            
-                                    {% if form.title_en.help_text %}<p class="grp-help">{{ form.title_en.help_text }}</p>{% endif %}
+
+                                    {% if form.title_en.help_text %}
+                                        <p class="grp-help">{{ form.title_en.help_text }}</p>{% endif %}
                                 </div>
                             </div>
                         </div>
@@ -120,15 +141,19 @@
                         <div class="grp-row grp-cells-1{% if form.title_de.errors %} grp-errors{% endif %}">
                             <div class="l-2c-fluid l-d-4">
                                 <div class="c-1">
-                                    <label{% if form.title_de.field.required %} class="required"{% endif %}>{{ form.title_de.label }}</label>
+                                    <label
+                                            {% if form.title_de.field.required %} class="required"{% endif %}>{{ form.title_de.label }}</label>
                                 </div>
                                 <div class="c-2">
                                     <p>{{ form.title_de }}</p>
                                     {% if form.title_de.errors %}
-                                        <ul class="errorlist"><li>{{ form.title_de.errors|join:", "}}</li></ul>
+                                        <ul class="errorlist">
+                                            <li>{{ form.title_de.errors|join:", " }}</li>
+                                        </ul>
                                     {% endif %}
-            
-                                    {% if form.title_de.help_text %}<p class="grp-help">{{ form.title_de.help_text }}</p>{% endif %}
+
+                                    {% if form.title_de.help_text %}
+                                        <p class="grp-help">{{ form.title_de.help_text }}</p>{% endif %}
                                 </div>
                             </div>
                         </div>
@@ -140,14 +165,17 @@
                     <div class="grp-row grp-cells-1{% if form.slug.errors %} grp-errors{% endif %}">
                         <div class="l-2c-fluid l-d-4">
                             <div class="c-1">
-                                <label{% if form.slug.field.required %} class="required"{% endif %}>{{ form.slug.label }}</label>
+                                <label
+                                        {% if form.slug.field.required %} class="required"{% endif %}>{{ form.slug.label }}</label>
                             </div>
                             <div class="c-2">
                                 <p>{{ form.slug }}</p>
                                 {% if form.slug.errors %}
-                                    <ul class="errorlist"><li>{{ form.slug.errors|join:", "}}</li></ul>
+                                    <ul class="errorlist">
+                                        <li>{{ form.slug.errors|join:", " }}</li>
+                                    </ul>
                                 {% endif %}
-        
+
                                 {% if form.slug.help_text %}<p class="grp-help">{{ form.slug.help_text }}</p>{% endif %}
                             </div>
                         </div>
@@ -155,15 +183,19 @@
                     <div class="grp-row grp-cells-1{% if form.event_type.errors %} grp-errors{% endif %}">
                         <div class="l-2c-fluid l-d-4">
                             <div class="c-1">
-                                <label{% if form.event_type.field.required %} class="required"{% endif %}>{{ form.event_type.label }}</label>
+                                <label
+                                        {% if form.event_type.field.required %} class="required"{% endif %}>{{ form.event_type.label }}</label>
                             </div>
                             <div class="c-2">
                                 <p>{{ form.event_type }}</p>
                                 {% if form.event_type.errors %}
-                                    <ul class="errorlist"><li>{{ form.event_type.errors|join:", "}}</li></ul>
+                                    <ul class="errorlist">
+                                        <li>{{ form.event_type.errors|join:", " }}</li>
+                                    </ul>
                                 {% endif %}
-        
-                                {% if form.event_type.help_text %}<p class="grp-help">{{ form.event_type.help_text }}</p>{% endif %}
+
+                                {% if form.event_type.help_text %}
+                                    <p class="grp-help">{{ form.event_type.help_text }}</p>{% endif %}
                             </div>
                         </div>
                     </div>
@@ -175,12 +207,23 @@
                     <div id="{{ inline_admin_formset.formset.prefix }}-group" class="grp-group grp-collapse grp-open">
                         <h2>{{ inline_admin_formset.opts.verbose_name_plural|title }}</h2>
                         <ul class="grp-tools">
-                            <li class="grp-open-handler-container"><a href="javascript://" class="grp-icon grp-open-handler" title="{% trans 'Open All Items' %}"></a></li>
-                            <li class="grp-close-handler-container"><a href="javascript://" class="grp-icon grp-close-handler" title="{% trans 'Close All Items' %}"></a></li>
-                            <li class="grp-add-handler-container"><a href="javascript://" class="grp-icon grp-add-handler" title="{% trans 'Add Item' %}"> </a></li>
+                            <li class="grp-open-handler-container">
+                                <a href="javascript://"
+                                   class="grp-icon grp-open-handler"
+                                   title="{% trans 'Open All Items' %}"></a>
+                            </li>
+                            <li class="grp-close-handler-container">
+                                <a href="javascript://"
+                                   class="grp-icon grp-close-handler"
+                                   title="{% trans 'Close All Items' %}"></a>
+                            </li>
+                            <li class="grp-add-handler-container">
+                                <a href="javascript://"
+                                   class="grp-icon grp-add-handler"
+                                   title="{% trans 'Add Item' %}"></a>
+                            </li>
                         </ul>
-                        {{ inline_admin_formset.formset.management_form }}
-                        {{ inline_admin_formset.formset.non_form_errors }}
+                        {{ inline_admin_formset.formset.management_form }} {{ inline_admin_formset.formset.non_form_errors }}
                         <!-- container -->
                         <div class="grp-items">
                             {% for inline_admin_form in inline_admin_formset %}
@@ -199,75 +242,79 @@
                             <div class="grp-row">
                                 <a class="grp-add-handler" href="javascript://">{% trans "Add Event Time" %}</a>
                                 <ul class="grp-tools">
-                                    <li><a title="{% trans "Add Event Time" %}" class="grp-icon grp-add-handler" href="javascript://"> </a></li>
+                                    <li>
+                                        <a title="{% trans "Add Event Time" %}"
+                                           class="grp-icon grp-add-handler"
+                                           href="javascript://"></a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <script type="text/javascript">
-                    (function($) {
-                        $(document).ready(function() {
-                            var updateInlineLabel = function(row) {
-                                $("#{{ inline_admin_formset.formset.prefix }}-group div.items div.grp-module").find("h3:first").each(function(i) {
-                                    $(this).html($(this).html().replace(/(#\d+)/g, "#" + ++i));
-                                });
-                            }
-                            var reinitDateTimeFields = function(row) {
-                                row.find(".vDateField").datepicker({
-                                    //appendText: '(mm/dd/yyyy)',
-                                    showOn: 'button',
-                                    buttonImageOnly: false,
-                                    buttonText: '',
-                                    dateFormat: grappelli.getFormat('date')
-                                });
-                                $(".vTimeField").grp_timepicker();
-                            }
-                            var updateSelectFilter = function(row) {
-                                // If any SelectFilter widgets were added, instantiate a new instance.
-                                if (typeof SelectFilter != "undefined"){
-                                    row.find(".selectfilter").each(function(index, value){
-                                      var namearr = value.name.split('-');
-                                      SelectFilter.init(value.id, namearr[namearr.length-1], false, "{% static 'admin/' %}");
+                        (function ($) {
+                            $(document).ready(function () {
+                                var updateInlineLabel = function (row) {
+                                    $("#{{ inline_admin_formset.formset.prefix }}-group div.items div.grp-module").find("h3:first").each(function (i) {
+                                        $(this).html($(this).html().replace(/(#\d+)/g, "#" + ++i));
                                     });
-                                    row.find(".selectfilterstacked").each(function(index, value){
-                                      var namearr = value.name.split('-');
-                                      SelectFilter.init(value.id, namearr[namearr.length-1], true, "{% static 'admin/' %}");
+                                };
+                                var reinitDateTimeFields = function (row) {
+                                    row.find(".vDateField").datepicker({
+                                        //appendText: '(mm/dd/yyyy)',
+                                        showOn: 'button',
+                                        buttonImageOnly: false,
+                                        buttonText: '',
+                                        dateFormat: grappelli.getFormat('date')
                                     });
-                                }
-                            }
-                            var reinitTinyMCE = function(row) {
-                                row.find("textarea.vLargeTextField").each(function() {
-                                    tinyMCE.execCommand('mceAddControl', false, this.id);
-                                });
-                            };
-                            var deleteTinyMCE = function(row) {
-                                row.find("textarea.vLargeTextField").each(function() {
-                                    if (tinyMCE.getInstanceById(this.id)) {
-                                        tinyMCE.execCommand('mceRemoveControl', false, this.id);
+                                    $(".vTimeField").grp_timepicker();
+                                };
+                                var updateSelectFilter = function (row) {
+                                    // If any SelectFilter widgets were added, instantiate a new instance.
+                                    if (typeof SelectFilter !== "undefined") {
+                                        row.find(".selectfilter").each(function (index, value) {
+                                            var namearr = value.name.split('-');
+                                            SelectFilter.init(value.id, namearr[namearr.length - 1], false, "{% static 'admin/' %}");
+                                        });
+                                        row.find(".selectfilterstacked").each(function (index, value) {
+                                            var namearr = value.name.split('-');
+                                            SelectFilter.init(value.id, namearr[namearr.length - 1], true, "{% static 'admin/' %}");
+                                        });
                                     }
+                                };
+                                var reinitTinyMCE = function (row) {
+                                    row.find("textarea.vLargeTextField").each(function () {
+                                        tinyMCE.execCommand('mceAddControl', false, this.id);
+                                    });
+                                };
+                                var deleteTinyMCE = function (row) {
+                                    row.find("textarea.vLargeTextField").each(function () {
+                                        if (tinyMCE.getInstanceById(this.id)) {
+                                            tinyMCE.execCommand('mceRemoveControl', false, this.id);
+                                        }
+                                    });
+                                };
+                                // TODO. re-init ui-calendar
+                                $("#{{ inline_admin_formset.formset.prefix }}-group").grp_inline({
+                                    prefix: "{{ inline_admin_formset.formset.prefix }}",
+                                    deleteCssClass: "grp-delete-handler",
+                                    emptyCssClass: "grp-empty-form",
+                                    onAfterRemoved: (function (row) {
+                                        updateInlineLabel(row);
+                                        deleteTinyMCE(row);
+                                    }),
+                                    onAfterAdded: (function (row) {
+                                        row.grp_collapsible();
+                                        row.find("fieldset.grp-collapse").grp_collapsible();
+                                        reinitTinyMCE(row);
+                                        reinitDateTimeFields(row);
+                                        updateSelectFilter(row);
+                                        updateInlineLabel(row);
+                                        self.TimeRangeManager.reinit(row);
+                                    })
                                 });
-                            };
-                            // TODO. re-init ui-calendar
-                            $("#{{ inline_admin_formset.formset.prefix }}-group").grp_inline({
-                                prefix: "{{ inline_admin_formset.formset.prefix }}",
-                                deleteCssClass: "grp-delete-handler",
-                                emptyCssClass: "grp-empty-form",
-                                onAfterRemoved: (function (row) {
-                                    updateInlineLabel(row);
-                                    deleteTinyMCE(row);
-                                }),
-                                onAfterAdded: (function(row) {
-                                    row.grp_collapsible();
-                                    row.find("fieldset.grp-collapse").grp_collapsible();
-                                    reinitTinyMCE(row);
-                                    reinitDateTimeFields(row);
-                                    updateSelectFilter(row);
-                                    updateInlineLabel(row);
-                                    self.TimeRangeManager.reinit(row);
-                                })
                             });
-                        });
-                    })(django.jQuery);
+                        })(django.jQuery);
                     </script>
                 {% endfor %}
             {% endblock %}
@@ -283,30 +330,38 @@
                         <div class="grp-row grp-cells-1{% if form.venue.errors %} grp-errors{% endif %}">
                             <div class="l-2c-fluid l-d-4">
                                 <div class="c-1">
-                                    <label{% if form.venue.field.required %} class="required"{% endif %}>{{ form.venue.label }}</label>
+                                    <label
+                                            {% if form.venue.field.required %} class="required"{% endif %}>{{ form.venue.label }}</label>
                                 </div>
                                 <div class="c-2">
                                     <p>{{ form.venue }}</p>
                                     {% if form.venue.errors %}
-                                        <ul class="errorlist"><li>{{ form.venue.errors|join:", "}}</li></ul>
+                                        <ul class="errorlist">
+                                            <li>{{ form.venue.errors|join:", " }}</li>
+                                        </ul>
                                     {% endif %}
-            
-                                    {% if form.venue.help_text %}<p class="grp-help">{{ form.venue.help_text }}</p>{% endif %}
+
+                                    {% if form.venue.help_text %}
+                                        <p class="grp-help">{{ form.venue.help_text }}</p>{% endif %}
                                 </div>
                             </div>
                         </div>
                         <div class="grp-row grp-cells-1{% if form.venue_title.errors %} grp-errors{% endif %}">
                             <div class="l-2c-fluid l-d-4">
                                 <div class="c-1">
-                                    <label{% if form.venue_title.field.required %} class="required"{% endif %}>{{ form.venue_title.label }}</label>
+                                    <label
+                                            {% if form.venue_title.field.required %} class="required"{% endif %}>{{ form.venue_title.label }}</label>
                                 </div>
                                 <div class="c-2">
                                     <p>{{ form.venue_title }}</p>
                                     {% if form.venue_title.errors %}
-                                        <ul class="errorlist"><li>{{ form.venue_title.errors|join:", "}}</li></ul>
+                                        <ul class="errorlist">
+                                            <li>{{ form.venue_title.errors|join:", " }}</li>
+                                        </ul>
                                     {% endif %}
-            
-                                    {% if form.venue_title.help_text %}<p class="grp-help">{{ form.venue_title.help_text }}</p>{% endif %}
+
+                                    {% if form.venue_title.help_text %}
+                                        <p class="grp-help">{{ form.venue_title.help_text }}</p>{% endif %}
                                 </div>
                             </div>
                         </div>
@@ -314,15 +369,19 @@
                         <div class="grp-row grp-cells-1{% if form.slug.errors %} grp-errors{% endif %}">
                             <div class="l-2c-fluid l-d-4">
                                 <div class="c-1">
-                                    <label{% if form.slug.field.required %} class="required"{% endif %}>{{ form.slug.label }}</label>
+                                    <label
+                                            {% if form.slug.field.required %} class="required"{% endif %}>{{ form.slug.label }}</label>
                                 </div>
                                 <div class="c-2">
                                     <p>{{ form.slug }}</p>
                                     {% if form.slug.errors %}
-                                        <ul class="errorlist"><li>{{ form.slug.errors|join:", "}}</li></ul>
+                                        <ul class="errorlist">
+                                            <li>{{ form.slug.errors|join:", " }}</li>
+                                        </ul>
                                     {% endif %}
 
-                                    {% if form.slug.help_text %}<p class="grp-help">{{ form.slug.help_text }}</p>{% endif %}
+                                    {% if form.slug.help_text %}
+                                        <p class="grp-help">{{ form.slug.help_text }}</p>{% endif %}
                                 </div>
                             </div>
                         </div>
@@ -349,15 +408,19 @@
                         <div class="grp-row grp-cells-1{% if form.organizing_institution.errors %} grp-errors{% endif %}">
                             <div class="l-2c-fluid l-d-4">
                                 <div class="c-1">
-                                    <label{% if form.organizing_institution.field.required %} class="required"{% endif %}>{{ form.organizing_institution.label }}</label>
+                                    <label
+                                            {% if form.organizing_institution.field.required %} class="required"{% endif %}>{{ form.organizing_institution.label }}</label>
                                 </div>
                                 <div class="c-2">
                                     <p>{{ form.organizing_institution }}</p>
                                     {% if form.organizing_institution.errors %}
-                                        <ul class="errorlist"><li>{{ form.organizing_institution.errors|join:", "}}</li></ul>
+                                        <ul class="errorlist">
+                                            <li>{{ form.organizing_institution.errors|join:", " }}</li>
+                                        </ul>
                                     {% endif %}
-            
-                                    {% if form.organizing_institution.help_text %}<p class="grp-help">{{ form.organizing_institution.help_text }}</p>{% endif %}
+
+                                    {% if form.organizing_institution.help_text %}
+                                        <p class="grp-help">{{ form.organizing_institution.help_text }}</p>{% endif %}
                                 </div>
                             </div>
                         </div>
@@ -365,30 +428,38 @@
                     <div class="grp-row grp-cells-1{% if form.organizer_title.errors %} grp-errors{% endif %}">
                         <div class="l-2c-fluid l-d-4">
                             <div class="c-1">
-                                <label{% if form.organizer_title.field.required %} class="required"{% endif %}>{{ form.organizer_title.label }}</label>
+                                <label
+                                        {% if form.organizer_title.field.required %} class="required"{% endif %}>{{ form.organizer_title.label }}</label>
                             </div>
                             <div class="c-2">
                                 <p>{{ form.organizer_title }}</p>
                                 {% if form.organizer_title.errors %}
-                                    <ul class="errorlist"><li>{{ form.organizer_title.errors|join:", "}}</li></ul>
+                                    <ul class="errorlist">
+                                        <li>{{ form.organizer_title.errors|join:", " }}</li>
+                                    </ul>
                                 {% endif %}
-        
-                                {% if form.organizer_title.help_text %}<p class="grp-help">{{ form.organizer_title.help_text }}</p>{% endif %}
+
+                                {% if form.organizer_title.help_text %}
+                                    <p class="grp-help">{{ form.organizer_title.help_text }}</p>{% endif %}
                             </div>
                         </div>
                     </div>
                     <div class="grp-row grp-cells-1{% if form.organizer_url_link.errors %} grp-errors{% endif %}">
                         <div class="l-2c-fluid l-d-4">
                             <div class="c-1">
-                                <label{% if form.organizer_url_link.field.required %} class="required"{% endif %}>{{ form.organizer_url_link.label }}</label>
+                                <label
+                                        {% if form.organizer_url_link.field.required %} class="required"{% endif %}>{{ form.organizer_url_link.label }}</label>
                             </div>
                             <div class="c-2">
                                 <p>{{ form.organizer_url_link }}</p>
                                 {% if form.organizer_url_link.errors %}
-                                    <ul class="errorlist"><li>{{ form.organizer_url_link.errors|join:", "}}</li></ul>
+                                    <ul class="errorlist">
+                                        <li>{{ form.organizer_url_link.errors|join:", " }}</li>
+                                    </ul>
                                 {% endif %}
-        
-                                {% if form.organizer_url_link.help_text %}<p class="grp-help">{{ form.organizer_url_link.help_text }}</p>{% endif %}
+
+                                {% if form.organizer_url_link.help_text %}
+                                    <p class="grp-help">{{ form.organizer_url_link.help_text }}</p>{% endif %}
                             </div>
                         </div>
                     </div>
@@ -396,15 +467,19 @@
                         <div class="grp-row grp-cells-1{% if form.organizing_person.errors %} grp-errors{% endif %}">
                             <div class="l-2c-fluid l-d-4">
                                 <div class="c-1">
-                                    <label{% if form.organizing_person.field.required %} class="required"{% endif %}>{{ form.organizing_person.label }}</label>
+                                    <label
+                                            {% if form.organizing_person.field.required %} class="required"{% endif %}>{{ form.organizing_person.label }}</label>
                                 </div>
                                 <div class="c-2">
                                     <p>{{ form.organizing_person }}</p>
                                     {% if form.organizing_person.errors %}
-                                        <ul class="errorlist"><li>{{ form.organizing_person.errors|join:", "}}</li></ul>
+                                        <ul class="errorlist">
+                                            <li>{{ form.organizing_person.errors|join:", " }}</li>
+                                        </ul>
                                     {% endif %}
-            
-                                    {% if form.organizing_person.help_text %}<p class="grp-help">{{ form.organizing_person.help_text }}</p>{% endif %}
+
+                                    {% if form.organizing_person.help_text %}
+                                        <p class="grp-help">{{ form.organizing_person.help_text }}</p>{% endif %}
                                 </div>
                             </div>
                         </div>
@@ -421,17 +496,21 @@
                             <div class="grp-row grp-cells-1{% if form.additional_info_en.errors %} grp-errors{% endif %}">
                                 <div class="l-2c-fluid l-d-4">
                                     <div class="c-1">
-                                        <label{% if form.additional_info_en.field.required %} class="required"{% endif %}>{{ form.additional_info_en.label }}</label>
+                                        <label
+                                                {% if form.additional_info_en.field.required %} class="required"{% endif %}>{{ form.additional_info_en.label }}</label>
                                     </div>
                                     <div class="c-2">
                                         {{ form.additional_info_en_markup_type }}
                                         <p class="grp-help markup-type-help">{% trans "You can select an appropriate markup type here." %}</p>
                                         <p>{{ form.additional_info_en }}</p>
                                         {% if form.additional_info_en.errors %}
-                                            <ul class="errorlist"><li>{{ form.additional_info_en.errors|join:", "}}</li></ul>
+                                            <ul class="errorlist">
+                                                <li>{{ form.additional_info_en.errors|join:", " }}</li>
+                                            </ul>
                                         {% endif %}
-                
-                                        {% if form.additional_info_en.help_text %}<p class="grp-help">{{ form.additional_info_en.help_text }}</p>{% endif %}
+
+                                        {% if form.additional_info_en.help_text %}
+                                            <p class="grp-help">{{ form.additional_info_en.help_text }}</p>{% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -443,17 +522,21 @@
                             <div class="grp-row grp-cells-1{% if form.additional_info_de.errors %} grp-errors{% endif %}">
                                 <div class="l-2c-fluid l-d-4">
                                     <div class="c-1">
-                                        <label{% if form.additional_info_de.field.required %} class="required"{% endif %}>{{ form.additional_info_de.label }}</label>
+                                        <label
+                                                {% if form.additional_info_de.field.required %} class="required"{% endif %}>{{ form.additional_info_de.label }}</label>
                                     </div>
                                     <div class="c-2">
                                         {{ form.additional_info_de_markup_type }}
                                         <p class="grp-help markup-type-help">{% trans "You can select an appropriate markup type here." %}</p>
                                         <p>{{ form.additional_info_de }}</p>
                                         {% if form.additional_info_de.errors %}
-                                            <ul class="errorlist"><li>{{ form.additional_info_de.errors|join:", "}}</li></ul>
+                                            <ul class="errorlist">
+                                                <li>{{ form.additional_info_de.errors|join:", " }}</li>
+                                            </ul>
                                         {% endif %}
-                
-                                        {% if form.additional_info_de.help_text %}<p class="grp-help">{{ form.additional_info_de.help_text }}</p>{% endif %}
+
+                                        {% if form.additional_info_de.help_text %}
+                                            <p class="grp-help">{{ form.additional_info_de.help_text }}</p>{% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -462,15 +545,19 @@
                     <div class="grp-row grp-cells-1{% if form.related_events.errors %} grp-errors{% endif %}">
                         <div class="l-2c-fluid l-d-4">
                             <div class="c-1">
-                                <label{% if form.related_events.field.required %} class="required"{% endif %}>{{ form.related_events.label }}</label>
+                                <label
+                                        {% if form.related_events.field.required %} class="required"{% endif %}>{{ form.related_events.label }}</label>
                             </div>
                             <div class="c-2">
                                 {{ form.related_events }}
                                 {% if form.related_events.errors %}
-                                    <ul class="errorlist"><li>{{ form.related_events.errors|join:", "}}</li></ul>
+                                    <ul class="errorlist">
+                                        <li>{{ form.related_events.errors|join:", " }}</li>
+                                    </ul>
                                 {% endif %}
-                
-                                {% if form.related_events.help_text %}<p class="grp-help">{{ form.related_events.help_text }}</p>{% endif %}
+
+                                {% if form.related_events.help_text %}
+                                    <p class="grp-help">{{ form.related_events.help_text }}</p>{% endif %}
                             </div>
                         </div>
                     </div>
@@ -487,40 +574,55 @@
                     <h1>Submit options</h1>
                 </header>
                 <ul>
-                    <li class="grp-float-left"><a class="grp-button grp-delete-link" href="delete/">Delete</a></li>
-                    <li><input type="submit" value="{% trans 'Save' %}" class="grp-button grp-default" name="_save" /></li>
-                    <li><input type="submit" value="{% trans 'Save and add another' %}" class="grp-button" name="_addanother" /></li>
-                    <li><input type="submit" value="{% trans 'Save and continue editing' %}" class="grp-button" name="_continue" /></li>
+                    <li class="grp-float-left">
+                        <a class="grp-button grp-delete-link" href="delete/">Delete</a>
+                    </li>
+                    <li>
+                        <input type="submit" value="{% trans 'Save' %}" class="grp-button grp-default" name="_save"/>
+                    </li>
+                    <li>
+                        <input type="submit"
+                               value="{% trans 'Save and add another' %}"
+                               class="grp-button"
+                               name="_addanother"/>
+                    </li>
+                    <li>
+                        <input type="submit"
+                               value="{% trans 'Save and continue editing' %}"
+                               class="grp-button"
+                               name="_continue"/>
+                    </li>
                 </ul>
             </footer>
         </div>
     </form>
     <script type="text/javascript">
-    //<![CDATA[
-    {% if form.title_en %}
-    document.getElementById("id_title_en").focus();
-    document.getElementById("id_title_en").onkeyup = function() {
-        var e = document.getElementById("id_slug");
-        if(!e._changed) {
-            e.value = URLify(document.getElementById("id_title_en").value, 255);
-        }
-    };
-    {% else %}
-    document.getElementById("id_title_de").focus();
-    document.getElementById("id_title_de").onkeyup = function() {
-        var e = document.getElementById("id_slug");
-        if(!e._changed) {
-            e.value = URLify(document.getElementById("id_title_de").value, 255);
-        }
-    };
-    {% endif %}
-    document.getElementById("id_slug").onchange = function() {
-        this._changed = true;
-    };
-    //]]>
+        //<![CDATA[
+        {% if form.title_en %}
+            document.getElementById("id_title_en").focus();
+            document.getElementById("id_title_en").onkeyup = function () {
+                var e = document.getElementById("id_slug");
+                if (!e._changed) {
+                    e.value = URLify(document.getElementById("id_title_en").value, 255);
+                }
+            };
+        {% else %}
+            document.getElementById("id_title_de").focus();
+            document.getElementById("id_title_de").onkeyup = function () {
+                var e = document.getElementById("id_slug");
+                if (!e._changed) {
+                    e.value = URLify(document.getElementById("id_title_de").value, 255);
+                }
+            };
+        {% endif %}
+        document.getElementById("id_slug").onchange = function () {
+            this._changed = true;
+        };
+        //]]>
     </script>
 
-    <script type="text/javascript" src="//maps.google.com/maps/api/js?language=de&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
+    <script type="text/javascript"
+            src="//maps.google.com/maps/api/js?language=de&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
     <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/gmaps_for_address.js' %}"></script>
 
 {% endblock %}

@@ -1,19 +1,23 @@
 {% load i18n base_tags auth_extended crispy_forms_tags %}
 <div class="profile_infos">
     <h5 class="edit_subline">{% trans "Edit Fees data" %}</h5>
-    <form action="/helper/edit-{{ URL_ID_EVENT }}-profile/{{ object.slug }}/fees_opening_hours/" method="post" enctype="multipart/form-data" target="hidden_iframe" class="uniForm">
+    <form action="/helper/edit-{{ URL_ID_EVENT }}-profile/{{ object.slug }}/fees_opening_hours/"
+          method="post"
+          enctype="multipart/form-data"
+          target="hidden_iframe"
+          class="uniForm">
         <fieldset class="inlineLabels">
             <h3>{% trans "Fees" %}</h3>
-            {{ form.fees_de|as_crispy_field }}
-            {{ form.fees_en|as_crispy_field }}
-            
+            {{ form.fees_de|as_crispy_field }} {{ form.fees_en|as_crispy_field }}
+
             <h3>{% trans "Opening Time" %} - {% trans "Closing Time" %}</h3>
-            {% include "uni_form/includes/opening_hours.html" %}
-            {{ form.exceptions_de|as_crispy_field }}
-            {{ form.exceptions_en|as_crispy_field }}
+            {% include "uni_form/includes/opening_hours.html" %} {{ form.exceptions_de|as_crispy_field }} {{ form.exceptions_en|as_crispy_field }}
             <div class="buttonHolder">
-                <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Save" %}{% endfilter %}" />
-                <input type="button" class="secondaryAction" value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel" />
+                <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
+                <input type="button"
+                       class="secondaryAction"
+                       value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}"
+                       name="cancel"/>
             </div>
         </fieldset>
     </form>

@@ -24,7 +24,10 @@ class Geoposition_Inline(admin.StackedInline):
 
 class AddressAdmin(ExtendedModelAdmin):
     inlines = [Locality_Inline, Geoposition_Inline]
-    search_fields = ['city', 'street_address', 'street_address2', 'street_address3', 'postal_code']
+    search_fields = [
+        'city', 'street_address', 'street_address2', 'street_address3',
+        'postal_code'
+    ]
     save_on_top = True
 
 
@@ -32,11 +35,21 @@ class LocalityTypeAdmin(TreeEditor):
     save_on_top = True
     list_display = ['actions_column', 'indented_short_title', 'slug']
 
-    fieldsets = [(None, {'fields': ('parent',)}), ]
+    fieldsets = [
+        (None, {
+            'fields': ('parent', )
+        }),
+    ]
     fieldsets += get_admin_lang_section(_("Title"), ['title'])
-    fieldsets += [(None, {'fields': ('slug',)}), ]
+    fieldsets += [
+        (None, {
+            'fields': ('slug', )
+        }),
+    ]
 
-    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,), }
+    prepopulated_fields = {
+        "slug": ("title_%s" % settings.LANGUAGE_CODE, ),
+    }
 
 
 admin.site.register(Address, AddressAdmin)

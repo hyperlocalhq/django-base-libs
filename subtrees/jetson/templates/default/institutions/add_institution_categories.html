@@ -20,19 +20,19 @@
 {% endblock %}
 
 {% block content %}
-<div class="reg">
-    <div class="details">
-        <div class="search">
-            <form action="" class="search_form" method="post">{% csrf_token %}
-                <div class="field_layout">
-                    {% include "site_specific/categories/categories.html" %}
-                    <div  class="space_correction_more">
-                        {% include "utils/step_buttons_reg.html" %}
+    <div class="reg">
+        <div class="details">
+            <div class="search">
+                <form action="" class="search_form" method="post">{% csrf_token %}
+                    <div class="field_layout">
+                        {% include "site_specific/categories/categories.html" %}
+                        <div class="space_correction_more">
+                            {% include "utils/step_buttons_reg.html" %}
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}
 

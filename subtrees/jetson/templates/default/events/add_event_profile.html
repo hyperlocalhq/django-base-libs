@@ -2,7 +2,7 @@
 {% load base_tags i18n %}
 
 {% block extrahead %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/add_event.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/add_event.js"></script>
 {% endblock %}
 
 
@@ -26,14 +26,10 @@
                     <legend>{% trans "Event Profile" %}</legend>
                     <ul>
                         <li>
-                            {{ form.description_de.label_tag }}
-                            {{ form.description_de }}
-                            {{ form.description_de.error_tag }}
+                            {{ form.description_de.label_tag }} {{ form.description_de }} {{ form.description_de.error_tag }}
                         </li>
                         <li>
-                            {{ form.description_en.label_tag }}
-                            {{ form.description_en }}
-                            {{ form.description_en.error_tag }}
+                            {{ form.description_en.label_tag }} {{ form.description_en }} {{ form.description_en.error_tag }}
                         </li>
                     </ul>
                 </fieldset>
@@ -41,11 +37,11 @@
                     <legend>{% trans "Profile Photo" %}</legend>
                     <ul>
                         <li class="preview_img">
-                            <img src="{% if form_step_data.3.image %}/helper/tmpimage/{{ form_step_data.3.image.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/{% else %}{{ DEFAULT_FORM_LOGO_4_EVENT }}{% endif %}" alt="{% trans "Image" %}" />
+                            <img src="{% if form_step_data.3.image %}/helper/tmpimage/{{ form_step_data.3.image.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/{% else %}{{ DEFAULT_FORM_LOGO_4_EVENT }}{% endif %}"
+                                 alt="{% trans "Image" %}"/>
                         </li>
                         <li class="insert_img">
-                            {{ form.image }}
-                            {{ form.image.error_tag }}
+                            {{ form.image }} {{ form.image.error_tag }}
                             <label class="label_input_img">
                                 {{ form.image.help_text }}
                             </label>

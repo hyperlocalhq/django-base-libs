@@ -42,11 +42,14 @@ def patch_tagging():
 
         from tagging_autocomplete.widgets import TagAutocomplete
 
-        _js_base_url = getattr(settings, 'TAGGING_AUTOCOMPLETE_JS_BASE_URL','%s/jquery-autocomplete' % settings.MEDIA_URL)
+        _js_base_url = getattr(
+            settings, 'TAGGING_AUTOCOMPLETE_JS_BASE_URL',
+            '%s/jquery-autocomplete' % settings.MEDIA_URL
+        )
         TagAutocomplete.Media.js = (
             '%s/jquery.bgiframe.min.js' % _js_base_url,
             '%s/jquery.autocomplete.js' % _js_base_url,
-            )
+        )
 
 
 patch_tagging()

@@ -3,18 +3,34 @@ Template for a form ajaxified select field.
 {% endcomment %}{% load i18n base_tags extended_admin %}
 <div class="form-row {% if field.errors %}error{% endif %}">
     <div class="combo">
-    {% if field.errors %}{{ field.html_error_list }}{% endif %}
-    <label class="{% if field.formfield.is_required %}required{% else %}optional{% endif %}" for="{{ field.get_id }}">{% trans label %}:</label>
-    <select dojoType="dijit.form.Select" id="{{ field.get_id }}" name="{{ field.field_name }}" dataUrl="{{ data_url }}" mode="remote" value="{{ value }}">
-    {% for choice in field.formfield.choices %}<option value="{{ choice.0 }}"{% ifequal choice.0 value %} selected="selected"{% endifequal %}>{{ choice.1 }}</option>
-    {% endfor %}
-    </select>
+        {% if field.errors %}{{ field.html_error_list }}{% endif %}
+        <label class="{% if field.formfield.is_required %}required{% else %}optional{% endif %}"
+               for="{{ field.get_id }}">{% trans label %}:
+        </label>
+        <select
+                id="{{ field.get_id }}"
+                name="{{ field.field_name }}"
+        >
+            {% for choice in field.formfield.choices %}
+                <option value="{{ choice.0 }}"{% ifequal choice.0 value %}
+                        selected="selected"{% endifequal %}>{{ choice.1 }}</option>
+            {% endfor %}
+        </select>
     </div>
     {% if addlink %}
-    <a href="{{ addlink }}" class="combo-add-another" id="add_{{ field.get_id }}" onclick="return showAddAnotherPopup(this);"><img src="{% jetson_media_url %}img/admin/icon_addlink.gif" alt="{% trans "Add Another" %}" height="10" width="10"></a>
+        <a href="{{ addlink }}"
+           class="combo-add-another"
+           id="add_{{ field.get_id }}"
+           onclick="return showAddAnotherPopup(this);">
+            <img src="{% jetson_media_url %}img/admin/icon_addlink.gif"
+                 alt="{% trans "Add Another" %}"
+                 height="10"
+                 width="10">
+        </a>
     {% endif %}
     {% if help_text %}
-    <p class="help">{{ help_text }}</p>
+        <p class="help">{{ help_text }}</p>
     {% endif %}
-    <p class="combo-help">{% blocktrans %}Type the first few letters of the {{ lookup_field }} to have a list of matches shown.{% endblocktrans %}</p>
+    <p class="combo-help">
+        {% blocktrans %}Type the first few letters of the {{ lookup_field }} to have a list of matches shown.{% endblocktrans %}</p>
 </div>

@@ -1,6 +1,5 @@
 # -*- coding: UTF-8 -*-
 from __future__ import unicode_literals
-
 """
 Utility functions for parsing XML content in combination with xml.dom.minidom
 """
@@ -43,14 +42,15 @@ def get_value(parent_node, descendant_tagname=None):
         node = parent_node
     val = ""
     try:
-        val = "".join([
-            force_text(n.data.strip())
-            for n in node.childNodes
-            if n.nodeType in (
-                Node.TEXT_NODE,
-                Node.CDATA_SECTION_NODE,
-            )
-        ])
+        val = "".join(
+            [
+                force_text(n.data.strip())
+                for n in node.childNodes if n.nodeType in (
+                    Node.TEXT_NODE,
+                    Node.CDATA_SECTION_NODE,
+                )
+            ]
+        )
     except:
         pass
     # convert quotes to more usual format
@@ -78,7 +78,8 @@ def get_child_text(node, tag, **attrs):
                 all_attributes_match = False
                 break
         if all_attributes_match:
-            return force_unicode(u''.join([t for t in get_value(child_node)])).replace(r'\n', '\n')
+            return force_unicode(u''.join([t for t in get_value(child_node)])
+                                ).replace(r'\n', '\n')
     return u''
 
 
@@ -100,4 +101,3 @@ def date_de_to_en(date_string):
     date_string = date_string.replace("Okt", "Oct")
     date_string = date_string.replace("Dez", "Dec")
     return date_string
-

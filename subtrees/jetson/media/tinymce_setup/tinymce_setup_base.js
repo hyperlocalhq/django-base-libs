@@ -143,7 +143,7 @@ oTinyMCEConfig = {
 // custom changes by studio 38
 
 oTinyMCEConfig.mode = 'none';
-oTinyMCEConfig.language = window.settings.lang;
+oTinyMCEConfig.language = window.settings.LANGUAGE_CODE;
 oTinyMCEConfig.object_resizing = true;
 oTinyMCEConfig.cleanup_on_startup = true;
 oTinyMCEConfig.forced_root_block = "p";
@@ -161,5 +161,5 @@ oTinyMCEConfig.style_formats = [
     {title: '[img] Image Block', selector: 'img', classes: 'img_block'}
 ];
 
-tinymce.PluginManager.load('paste', window.settings.jetson_media_url + 'tinymce_setup/plugins/paste/editor_plugin.js');
-tinymce.PluginManager.load('fbimage', window.settings.jetson_media_url + 'tinymce_setup/plugins/fbimage/editor_plugin.js');
+tinymce.PluginManager.load('paste', window.settings.JETSON_MEDIA_URL + 'tinymce_setup/plugins/paste/editor_plugin.js');
+tinymce.PluginManager.load('fbimage', window.settings.JETSON_MEDIA_URL + 'tinymce_setup/plugins/fbimage/editor_plugin.js');

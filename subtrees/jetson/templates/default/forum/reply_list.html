@@ -1,17 +1,17 @@
 {% load base_tags i18n auth_extended forum base image_mods_tags babel %}
 
 {% block breadcrumbs %}
-	{{ block.super }}
+    {{ block.super }}
 
     {% comment %}<!--.
     	In this section, the possible actions are displayed 
     -->{% endcomment %}
-    
+
     {% comment %}<!--.
     	PERMISSIONS ARE CURRENTLY DISABLED!!! TODO: ADD AN APPROPRIATE MECHANISM TO CHECK FOR PERMISSIONS
     -->{% endcomment %}
-	<div class="breadcrumbs">	   
-		<ul>
+    <div class="breadcrumbs">
+        <ul>
             <li id="editThread_{{ current_thread.id }}" class="editThread">
                 <a class="edit" href="{{ current_thread.get_url }}edit/">
                     <span>{% trans "edit" %}</span>
@@ -23,10 +23,10 @@
                 </a>
             </li>
         </ul>
-	</div>        
-{% endblock %}	
+    </div>
+{% endblock %}
 
-<div class="forum-block">    
+<div class="forum-block">
     <h3>
         {{ current_thread.subject }}
     </h3>
@@ -46,48 +46,51 @@
                 </a>
             </li>
         </ul>
-    {% endif %}		        
+    {% endif %}
 </div>
 
 {% if not current_thread.is_sticky %}
-	<div class="subline">
-	    <h6>
-	    {% if current_thread.has_replies %}
-	        {% trans "Replies" %}
-	    {% else %}
-	        {% trans "no Replies" %}
-	    {% endif %}
-	    </h6>
-	</div>
-{% endif %}	
+    <div class="subline">
+        <h6>
+            {% if current_thread.has_replies %}
+                {% trans "Replies" %}
+            {% else %}
+                {% trans "no Replies" %}
+            {% endif %}
+        </h6>
+    </div>
+{% endif %}
 
 {% if reply_list %}
-	{% include "utils/pagination_footer.html" %}
-	{% for reply in reply_list %}
+    {% include "utils/pagination_footer.html" %}
+    {% for reply in reply_list %}
         <div class="forum-block  {% cycle even,odd %}">
-    		{% comment %}<!--
+            {% comment %}<!--
 				Permission checking TODO!!!!
 			-->{% endcomment %}
-	    
-			{% comment %}<!--
+
+            {% comment %}<!--
 				Display some statistics and description of the current reply
 			-->{% endcomment %}
-			<div class="reply-author txt">
-				{% with reply.creator.get_profile.image as image %}
-	        		{% if image %}
-	            		<img src="{{ UPLOADS_URL }}{{ image|modified_path:"at" }}" alt="{{ image.get_title|escape }}" />
-	        		{% else %}
-	            		<img src="{{ STATIC_URL }}site/img/website/placeholder/person_s.png" alt="{{ comment.name|escape }}" />
-	        		{% endif %}
-	    		{% endwith %}
-	    		<div class="reply-info">
-	        		{% blocktrans with reply.creation_date|datetimefmt as creation_date and reply.creator as creator and reply.creator.get_profile.get_url as url %}
-	        			Created on {{ creation_date }}<br/> by <a href="{{ url }}">{{ creator }}</a>
-	        		{% endblocktrans %}
-	    		</div>
-			</div>
-		
-		    <div class="reply-message">
+            <div class="reply-author txt">
+                {% with reply.creator.get_profile.image as image %}
+                    {% if image %}
+                        <img src="{{ UPLOADS_URL }}{{ image|modified_path:"at" }}" alt="{{ image.get_title|escape }}"/>
+                    {% else %}
+                        <img src="{{ STATIC_URL }}site/img/website/placeholder/person_s.png"
+                             alt="{{ comment.name|escape }}"/>
+                    {% endif %}
+                {% endwith %}
+                <div class="reply-info">
+                    {% blocktrans with reply.creation_date|datetimefmt as creation_date and reply.creator as creator and reply.creator.get_profile.get_url as url %}
+                        Created on {{ creation_date }}
+                        <br/> by
+                        <a href="{{ url }}">{{ creator }}</a>
+                    {% endblocktrans %}
+                </div>
+            </div>
+
+            <div class="reply-message">
                 <p>{{ reply.message|safe }}</p>
                 <ul>
                     <li id="newReply_{{ reply.slug }}" class="reply_link">
@@ -103,7 +106,7 @@
                     </li>
                 </ul>
             </div>
-		</div>
-	{% endfor %}
+        </div>
+    {% endfor %}
 {% endif %}
 

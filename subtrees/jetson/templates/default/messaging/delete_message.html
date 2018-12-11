@@ -7,14 +7,15 @@
     	HERE THE CONTENT BEGINS
     {% endcomment %}
     <div class="first-item-txt">
-        <p class="delete">{% blocktrans with message.subject as message_subject %}Are you sure you want to delete the message "{{ message_subject }}"?{% endblocktrans %}</p>
+        <p class="delete">
+            {% blocktrans with message.subject as message_subject %}Are you sure you want to delete the message "{{ message_subject }}"?{% endblocktrans %}</p>
         <hr/>
         <form action="" method="post">
             <div class="buttons">
-                <input id="id_cancel" class="button_bad" type="submit" name="cancel" value="{% trans 'Cancel' %}" />
-                <input id="id_delete" class="button_good" type="submit" name="delete" value="{% trans 'Delete' %}" />
+                <input id="id_cancel" class="button_bad" type="submit" name="cancel" value="{% trans 'Cancel' %}"/>
+                <input id="id_delete" class="button_good" type="submit" name="delete" value="{% trans 'Delete' %}"/>
             </div>
-        </form>   
+        </form>
     </div>
     {% comment %}
         HERE THE CONTENT ENDS

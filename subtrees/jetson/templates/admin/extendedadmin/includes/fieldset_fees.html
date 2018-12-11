@@ -68,9 +68,9 @@
         </tr>
     </table>
     <div class="form-row{% if form.is_registration_required.errors %} grp-errors{% endif %}">
-        {{ form.is_registration_required.errors }}
-        {{ form.is_registration_required }}
-        <label for="id_is_registration_required" class="vCheckboxLabel{% if form.is_registration_required.field.required %} required{% endif %}">{% trans "Registration required" %}</label>
+        {{ form.is_registration_required.errors }} {{ form.is_registration_required }}
+        <label for="id_is_registration_required"
+               class="vCheckboxLabel{% if form.is_registration_required.field.required %} required{% endif %}">{% trans "Registration required" %}</label>
     </div>
 </fieldset>
 

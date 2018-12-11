@@ -1,6 +1,7 @@
 from struct import unpack
 from datetime import datetime
 
+
 class FLVReader(dict):
     """
     Reads metadata from FLV files
@@ -50,20 +51,20 @@ class FLVReader(dict):
             print "Can't handle undefined tags yet"
 
     def readint(self):
-      data = self.file.read(4)
-      return unpack('>I', data)[0]
+        data = self.file.read(4)
+        return unpack('>I', data)[0]
 
     def readshort(self):
-      data = self.file.read(2)
-      return unpack('>H', data)[0]
+        data = self.file.read(2)
+        return unpack('>H', data)[0]
 
     def readbyte(self):
-      data = self.file.read(1)
-      return unpack('B', data)[0]
+        data = self.file.read(1)
+        return unpack('B', data)[0]
 
     def read24bit(self):
-      b1, b2, b3 = unpack('3B', self.file.read(3))
-      return (b1 << 16) + (b2 << 8) + b3
+        b1, b2, b3 = unpack('3B', self.file.read(3))
+        return (b1 << 16) + (b2 << 8) + b3
 
     def readAMFData(self, dataType=None):
         if dataType is None:
@@ -74,8 +75,8 @@ class FLVReader(dict):
             2: self.readAMFString,
             3: self.readAMFObject,
             8: self.readAMFMixedArray,
-           10: self.readAMFArray,
-           11: self.readAMFDate
+            10: self.readAMFArray,
+            11: self.readAMFDate
         }
         func = funcs[dataType]
         if callable(func):
@@ -117,7 +118,7 @@ class FLVReader(dict):
 
     def readAMFDate(self):
         return datetime.fromtimestamp(self.readAMFDouble())
-        
+
 
 if __name__ == '__main__':
     import sys

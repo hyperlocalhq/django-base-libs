@@ -2,83 +2,83 @@
 {% load i18n base_tags auth_extended navigation_tags groups_networks %}
 
 {% block extrahead %}
-{{ block.super }}
-<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/group_members.js"></script>
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/group_members.js"></script>
 {% endblock %}
 
 {% block content %}
-<div class="details">
-    {% include "groups_networks/persongroups/profile/identity.html" %}
-    {% block tabs %}
-        <div id="tabs">
-            {% children_of "group" using "navigation/children_in_tabs.html" %}
-        </div>
-    {% endblock %}
-    
-    {% if not request.POST and no_contacts_to_invite %}
-        <p>{% trans "You have no more contacts to invite." %}</p>
-    {% else %}
-        {% if form %}
-            <div class="field_layout">
-                <form method="post" action="">
-                    <fieldset class="fieldset_end">
-                        <legend>
-                            {% trans "Choose people to invite" %}
-                        </legend>
-                        <ul>
-                            {% if display_recipients_list %}
-                            <li>
-                                {{ form.recipients_email_list.label_tag }}
-                                {{ form.recipients_email_list }}
-                                {% if form.recipients_email_list.errors %}
-                                    <p class="error">*** {{ form.recipients_email_list.errors|join:", "}}</p>
-                                {% endif %}    
-                            </li>
-                            {% endif %}
-                            {% if display_en %}
-                            <li>
-                                {{ form.subject.label_tag }}
-                                {{ form.subject }}
-                                {% if form.subject.errors %}
-                                    <p class="error">*** {{ form.subject.errors|join:", "}}</p>
-                                {% endif %}
-                            </li>
-                            <li>
-                                {{ form.body.label_tag }}
-                                {{ form.body }}
-                                {% if form.body.errors %}
-                                    <p class="error">*** {{ form.body.errors|join:", "}}</p>
-                                {% endif %}
-                            </li>
-                            {% endif %}
-                            {% if display_de %}
-                            <li>
-                                {{ form.subject_de.label_tag }}
-                                {{ form.subject_de }}
-                                {% if form.subject_de.errors %}
-                                    <p class="error">*** {{ form.subject_de.errors|join:", "}}</p>
-                                {% endif %}
-                            </li>
-                            <li>
-                                {{ form.body_de.label_tag }}
-                                {{ form.body_de }}
-                                {% if form.body_de.errors %}
-                                    <p class="error">*** {{ form.body_de.errors|join:", "}}</p>
-                                {% endif %}
-                            </li>
-                            {% endif %}     
-                        </ul>
-                    </fieldset>
-                    <div class="buttons">
-                         <input type="submit" value="{% filter upper %}{% trans "Invite" %}{% endfilter %}" class="but button_good" id="send_but" />
-                         <input type="hidden" name="goto_next" value="{% if goto_next %}{{ goto_next }}{% else %}{{ request.get_full_path }}{% endif %}" />
-                    </div>
-                </form>
+    <div class="details">
+        {% include "groups_networks/persongroups/profile/identity.html" %}
+        {% block tabs %}
+            <div id="tabs">
+                {% children_of "group" using "navigation/children_in_tabs.html" %}
             </div>
+        {% endblock %}
+
+        {% if not request.POST and no_contacts_to_invite %}
+            <p>{% trans "You have no more contacts to invite." %}</p>
         {% else %}
-            <span class="nothing">{% trans "Your message has been sent." %}</span>
+            {% if form %}
+                <div class="field_layout">
+                    <form method="post" action="">
+                        <fieldset class="fieldset_end">
+                            <legend>
+                                {% trans "Choose people to invite" %}
+                            </legend>
+                            <ul>
+                                {% if display_recipients_list %}
+                                    <li>
+                                        {{ form.recipients_email_list.label_tag }} {{ form.recipients_email_list }}
+                                        {% if form.recipients_email_list.errors %}
+                                            <p class="error">*** {{ form.recipients_email_list.errors|join:", " }}</p>
+                                        {% endif %}
+                                    </li>
+                                {% endif %}
+                                {% if display_en %}
+                                    <li>
+                                        {{ form.subject.label_tag }} {{ form.subject }}
+                                        {% if form.subject.errors %}
+                                            <p class="error">*** {{ form.subject.errors|join:", " }}</p>
+                                        {% endif %}
+                                    </li>
+                                    <li>
+                                        {{ form.body.label_tag }} {{ form.body }}
+                                        {% if form.body.errors %}
+                                            <p class="error">*** {{ form.body.errors|join:", " }}</p>
+                                        {% endif %}
+                                    </li>
+                                {% endif %}
+                                {% if display_de %}
+                                    <li>
+                                        {{ form.subject_de.label_tag }} {{ form.subject_de }}
+                                        {% if form.subject_de.errors %}
+                                            <p class="error">*** {{ form.subject_de.errors|join:", " }}</p>
+                                        {% endif %}
+                                    </li>
+                                    <li>
+                                        {{ form.body_de.label_tag }} {{ form.body_de }}
+                                        {% if form.body_de.errors %}
+                                            <p class="error">*** {{ form.body_de.errors|join:", " }}</p>
+                                        {% endif %}
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </fieldset>
+                        <div class="buttons">
+                            <input type="submit"
+                                   value="{% filter upper %}{% trans "Invite" %}{% endfilter %}"
+                                   class="but button_good"
+                                   id="send_but"/>
+                            <input type="hidden"
+                                   name="goto_next"
+                                   value="{% if goto_next %}{{ goto_next }}{% else %}{{ request.get_full_path }}{% endif %}"/>
+                        </div>
+                    </form>
+                </div>
+            {% else %}
+                <span class="nothing">{% trans "Your message has been sent." %}</span>
+            {% endif %}
         {% endif %}
-    {% endif %}
-</div>
-    
+    </div>
+
 {% endblock %}

@@ -254,7 +254,7 @@ var ContactPrepopulationManager = {
     get_contact_details: function(sValue) {
         if (sValue) {
             $j.get(
-                '/' + settings.lang + '/admin/institutions/institution/' + sValue + '/json/',
+                '/' + settings.LANGUAGE_CODE + '/admin/institutions/institution/' + sValue + '/json/',
                 ContactPrepopulationManager.prepopulate,
                 'json'
             );

@@ -17,7 +17,9 @@ def iframely_wrapper(request):
     )
     result_response = HttpResponse(
         target_response.text,
-        content_type="text/javascript; encoding={}".format(target_response.encoding),
+        content_type="text/javascript; encoding={}".format(
+            target_response.encoding
+        ),
         status=target_response.status_code,
     )
     return result_response

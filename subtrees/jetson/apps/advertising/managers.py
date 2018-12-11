@@ -27,7 +27,8 @@ class AdManager(models.Manager):
             start_showing__lte=time_now,
             stop_showing__gte=time_now,
             zone__sysname=ad_zone,
-        ).filter(models.Q(language=language) | models.Q(language="")).select_related('textad', 'bannerad')
+        ).filter(models.Q(language=language) |
+                 models.Q(language="")).select_related('textad', 'bannerad')
 
         if ad_category:
             qs = qs.filter(category__sysname=ad_category)

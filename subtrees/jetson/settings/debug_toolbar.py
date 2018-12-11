@@ -22,4 +22,6 @@ DEBUG_TOOLBAR_PANELS = [
 ]
 
 if "memcache_toolbar" in INSTALLED_APPS:
-    DEBUG_TOOLBAR_PANELS.append('memcache_toolbar.panels.memcache.MemcachePanel')
+    DEBUG_TOOLBAR_PANELS.append(
+        'memcache_toolbar.panels.memcache.MemcachePanel'
+    )

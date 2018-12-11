@@ -42,7 +42,10 @@ class JsonResponse(HttpResponse):
         self["Content-Type"] = "text/javascript; charset=UTF-8"
 
     def serialize(self):
-        return json.dumps(self.original_obj, ensure_ascii=False, cls=ExtendedJSONEncoder)
+        return json.dumps(
+            self.original_obj, ensure_ascii=False, cls=ExtendedJSONEncoder
+        )
+
 
 def json_lookup(request, queryset, field=False, limit=10, login_required=False):
     """
@@ -67,13 +70,18 @@ def json_lookup(request, queryset, field=False, limit=10, login_required=False):
                 if obj[1].lower().startswith(search):
                     obj_list.append([obj[1], obj[0]])
             obj_list = obj_list[:limit]
-            t = Template('[{% for el in obj_list %}{% ifnotequal forloop.counter0 0 %}, {% endifnotequal %}["{{ el.0 }}", "{{ el.1 }}"]{% endfor %}]')
+            t = Template(
+                '[{% for el in obj_list %}{% ifnotequal forloop.counter0 0 %}, {% endifnotequal %}["{{ el.0 }}", "{{ el.1 }}"]{% endfor %}]'
+            )
             c = Context({'obj_list': obj_list})
             r = HttpResponse(t.render(c))
             r['Content-Type'] = 'text/javascript; charset=UTF-8'
             return r
 
-def jquery_autocomplete_lookup(request, queryset, field=False, limit=10, login_required=False):
+
+def jquery_autocomplete_lookup(
+    request, queryset, field=False, limit=10, login_required=False
+):
     """
     Method to lookup a model field and return an array. Intended for use 
     in AJAX widgets.
@@ -101,6 +109,7 @@ def jquery_autocomplete_lookup(request, queryset, field=False, limit=10, login_r
     r['Content-Type'] = 'text/plain; charset=UTF-8'
     return r
 
+
 def direct_to_js_template(request, cache=True, *args, **kwargs):
     response = render(request, *args, **kwargs)
     response['Content-Type'] = "application/x-javascript"
@@ -113,10 +122,12 @@ def direct_to_js_template(request, cache=True, *args, **kwargs):
     else:
         response['Pragma'] = "No-Cache"
     return response
-direct_to_js_template = cache_control( )(direct_to_js_template)
+
+
+direct_to_js_template = cache_control()(direct_to_js_template)
+
 
 def feed(request, feed_type, language="de", **kwargs):
-    
     """ generates a feed.
         Needs the following arguments in the kwargs dict:
         
@@ -127,7 +138,7 @@ def feed(request, feed_type, language="de", **kwargs):
     """
     if not kwargs:
         raise Http404("No feeds are registered.")
-    
+
     try:
         feed_slug, param = feed_type.split('/', 1)
     except ValueError:
@@ -135,10 +146,10 @@ def feed(request, feed_type, language="de", **kwargs):
 
     try:
         translation.deactivate()
-        translation.activate(language) 
+        translation.activate(language)
     except:
         raise Http404("Invalid language parameter '%s' set." % language)
-        
+
     try:
         f = kwargs[feed_slug]
     except KeyError:
@@ -147,10 +158,14 @@ def feed(request, feed_type, language="de", **kwargs):
     try:
         feedgen = f(request, **kwargs)
     except FeedDoesNotExist:
-        raise Http404("Invalid feed parameters. Slug %r is valid, but other parameters, or lack thereof, are not." % feed_slug)
+        raise Http404(
+            "Invalid feed parameters. Slug %r is valid, but other parameters, or lack thereof, are not."
+            % feed_slug
+        )
 
     feedgen.content_type = 'application/rss+xml'
     return feedgen
+
 
 feed = never_cache(feed)
 
@@ -176,11 +191,28 @@ class CustomPaginator(Paginator):
         return Page(self.object_list[bottom_limit:top_limit], number, self)
 
 
-def object_list(request, queryset,
-    paginate_by=None, order_by=None, view_type="icons", page=None,
-    allow_empty=False, template=None, template_name=None, template_loader=loader,
-    extra_context=None, context_processors=None, template_object_name="object",
-    content_type=None, pages_to_display=10, query="", httpstate_prefix="", paginate=True, first_page_delta=0, **kwargs):
+def object_list(
+    request,
+    queryset,
+    paginate_by=None,
+    order_by=None,
+    view_type="icons",
+    page=None,
+    allow_empty=False,
+    template=None,
+    template_name=None,
+    template_loader=loader,
+    extra_context=None,
+    context_processors=None,
+    template_object_name="object",
+    content_type=None,
+    pages_to_display=10,
+    query="",
+    httpstate_prefix="",
+    paginate=True,
+    first_page_delta=0,
+    **kwargs
+):
     """
     Generic list of objects.
 
@@ -219,11 +251,14 @@ def object_list(request, queryset,
         response['Content-Disposition'] = "attachment; filename=CCB-events.ics"
         return response
 
-    if extra_context is None: extra_context = {}
-    
+    if extra_context is None:
+        extra_context = {}
+
     sort_order_map = getattr(queryset, "get_sort_order_map", lambda: None)()
-    sort_order_mapper = getattr(queryset, "get_sort_order_mapper", lambda: None)()
-    
+    sort_order_mapper = getattr(
+        queryset, "get_sort_order_mapper", lambda: None
+    )()
+
     queryset = queryset._clone()
     queryset.sort_order_map = sort_order_map
     queryset.sort_order_mapper = sort_order_mapper
@@ -231,35 +266,34 @@ def object_list(request, queryset,
     filter_field = request.REQUEST.get("filter_field", None)
     filter_value = request.REQUEST.get("filter_value", None)
     group_by = request.REQUEST.get("group_by", None)
-    
+
     if httpstate_prefix and not httpstate_prefix.endswith("_"):
         httpstate_prefix += "_"
-    
+
     paginate_by = request.REQUEST.get(
         "paginate_by",
         request.httpstate.get(
-            "%spaginate_by" % httpstate_prefix,
-            paginate_by or 10
-            )
+            "%spaginate_by" % httpstate_prefix, paginate_by or 10
         )
+    )
     paginate_by = int(paginate_by)
-    
+
     order_by = request.REQUEST.get(
         "order_by",
         request.httpstate.get(
             "%sorder_by" % httpstate_prefix,
             order_by,
-            )
         )
-    
+    )
+
     view_type = request.REQUEST.get(
         "view_type",
         request.httpstate.get(
             "%sview_type" % httpstate_prefix,
             view_type,
-            )
         )
-       
+    )
+
     url_query = []
     if filter_field:
         url_query.append("filter_field=" + filter_field)
@@ -271,19 +305,18 @@ def object_list(request, queryset,
         url_query.append("group_by=" + group_by)
     if view_type:
         url_query.append("view_type=" + view_type)
-   
+
     if filter_field and filter_value:
-        queryset = queryset.filter(**{filter_field:filter_value})
-    
+        queryset = queryset.filter(**{filter_field: filter_value})
+
     try:
         queryset = queryset.sort_by(order_by)
     except:
         pass
-    
+
     request.httpstate["%spaginate_by" % httpstate_prefix] = paginate_by
     request.httpstate["%sorder_by" % httpstate_prefix] = order_by
     request.httpstate["%sview_type" % httpstate_prefix] = view_type
-    
     """
     precalculate context processors
       
@@ -300,11 +333,15 @@ def object_list(request, queryset,
     the queryset directly to the httpstate. So we take a list (current_queryset_list)
     """
 
-    if context_processors and not getattr(settings, "DISABLE_CONTEXT_PROCESSORS", False):
+    if context_processors and not getattr(
+        settings, "DISABLE_CONTEXT_PROCESSORS", False
+    ):
         queryset_index_dict = {}
         index = 0
-        prev_next_use_content_object = extra_context.get('prev_next_use_content_object', False)
-        
+        prev_next_use_content_object = extra_context.get(
+            'prev_next_use_content_object', False
+        )
+
         if prev_next_use_content_object:
             for obj in queryset.only("content_type", "object_id"):
                 #key = '%s_%s_%s' % (obj.content_type_id, obj.object_id, request.LANGUAGE_CODE)
@@ -313,7 +350,9 @@ def object_list(request, queryset,
                 index += 1
         else:
             ct = ContentType.objects.get_for_model(queryset.model)
-            fields_to_select = [queryset.model._meta.pk.name] + queryset.query.extra_select.keys() + queryset.query.aggregate_select.keys()
+            fields_to_select = [queryset.model._meta.pk.name
+                               ] + queryset.query.extra_select.keys(
+                               ) + queryset.query.aggregate_select.keys()
             for d in queryset.values(*fields_to_select):
                 #key = '%s_%s_%s' % (ct.pk, pk, request.LANGUAGE_CODE)
                 key = '%s_%s' % (ct.pk, d[queryset.model._meta.pk.name])
@@ -321,17 +360,26 @@ def object_list(request, queryset,
                 index += 1
 
         if extra_context.get('source_list', None):
-           request.httpstate['source_list'] = extra_context['source_list']
+            request.httpstate['source_list'] = extra_context['source_list']
 
         request.httpstate['current_queryset_index_dict'] = queryset_index_dict
         request.httpstate['last_query_string'] = request.META['QUERY_STRING']
 
-        fields_to_select = [queryset.model._meta.pk.name] + queryset.query.extra_select.keys() + queryset.query.aggregate_select.keys()
-        request.httpstate['current_queryset_pk_list'] = [d[queryset.model._meta.pk.name] for d in queryset.values(*fields_to_select)]
-        request.httpstate['current_queryset_model'] = u"%s.%s" % (queryset.model._meta.app_label, queryset.model.__name__)
+        fields_to_select = [queryset.model._meta.pk.name
+                           ] + queryset.query.extra_select.keys(
+                           ) + queryset.query.aggregate_select.keys()
+        request.httpstate['current_queryset_pk_list'] = [
+            d[queryset.model._meta.pk.name]
+            for d in queryset.values(*fields_to_select)
+        ]
+        request.httpstate['current_queryset_model'] = u"%s.%s" % (
+            queryset.model._meta.app_label, queryset.model.__name__
+        )
 
     if paginate and paginate_by:
-        paginator = CustomPaginator(queryset, paginate_by, first_page_delta=first_page_delta)
+        paginator = CustomPaginator(
+            queryset, paginate_by, first_page_delta=first_page_delta
+        )
         if not page:
             page = request.GET.get('page', 1)
         try:
@@ -340,42 +388,46 @@ def object_list(request, queryset,
             object_list = current_page.object_list
         except (InvalidPage, ValueError):
             raise Http404
-        
-        page_min = max(page - pages_to_display/2, 1)
+
+        page_min = max(page - pages_to_display / 2, 1)
         page_max = min(paginator.num_pages + 1, page_min + pages_to_display)
         if page_max == paginator.num_pages + 1:
             page_min = max(page_max - pages_to_display, 1)
-        
+
         next_page_number = None
         if current_page.has_next():
             next_page_number = current_page.next_page_number()
-        
+
         previous_page_number = None
         if current_page.has_previous():
             previous_page_number = current_page.previous_page_number()
-        
-        c = RequestContext(request, {
-            '%s_list' % template_object_name: object_list,
-            'is_paginated': current_page.has_other_pages(),
-            'results_per_page': paginate_by,
-            'has_next': current_page.has_next(),
-            'has_previous': current_page.has_previous(),
-            'current_page': current_page,
-            'page': page,
-            'next': next_page_number,
-            'previous': previous_page_number,
-            'pages': paginator.num_pages,
-            'pagelist': [i for i in range(page_min, page_max)],
-            'page_numbers': paginator.page_range,
-            'hits' : queryset.count(),
-            'page_hits_min': (page-1) * paginate_by + 1,
-            'page_hits_max': min(page * paginate_by, queryset.count()),
-        })
+
+        c = RequestContext(
+            request, {
+                '%s_list' % template_object_name: object_list,
+                'is_paginated': current_page.has_other_pages(),
+                'results_per_page': paginate_by,
+                'has_next': current_page.has_next(),
+                'has_previous': current_page.has_previous(),
+                'current_page': current_page,
+                'page': page,
+                'next': next_page_number,
+                'previous': previous_page_number,
+                'pages': paginator.num_pages,
+                'pagelist': [i for i in range(page_min, page_max)],
+                'page_numbers': paginator.page_range,
+                'hits': queryset.count(),
+                'page_hits_min': (page - 1) * paginate_by + 1,
+                'page_hits_max': min(page * paginate_by, queryset.count()),
+            }
+        )
     else:
-        c = RequestContext(request, {
-            '%s_list' % template_object_name: queryset,
-            'is_paginated': False
-        }, context_processors)
+        c = RequestContext(
+            request, {
+                '%s_list' % template_object_name: queryset,
+                'is_paginated': False
+            }, context_processors
+        )
         if not allow_empty and len(queryset) == 0:
             raise Http404
     for key, value in extra_context.items():
@@ -390,10 +442,10 @@ def object_list(request, queryset,
     c['view_type'] = view_type
     c['url_query'] = '&amp;'.join(url_query)
     c['sort_order_map'] = sort_order_map
-    
+
     the_query = request.GET.copy()
     c['query'] = query or urlencode(the_query)
-    
+
     c['path_without_page'] = re.sub('/page[0-9]+', '', request.path)
 
     if template:
@@ -401,18 +453,35 @@ def object_list(request, queryset,
     else:
         if not template_name:
             model = queryset.model
-            template_name = "%s/%s_list.html" % (model._meta.app_label, model._meta.object_name.lower())
+            template_name = "%s/%s_list.html" % (
+                model._meta.app_label, model._meta.object_name.lower()
+            )
         if isinstance(template_name, (tuple, list)):
             t = template_loader.select_template(template_name)
         else:
             t = template_loader.get_template(template_name)
     return HttpResponse(t.render(c), content_type=content_type)
 
-def object_detail(request, queryset, year=0, month=0, day=0, object_id=None, slug=None,
-        slug_field=None, template=None, template_name=None, template_name_field=None,
-        template_loader=loader, extra_context=None,
-        context_processors=None, template_object_name='object',
-        content_type=None, **kwargs):
+
+def object_detail(
+    request,
+    queryset,
+    year=0,
+    month=0,
+    day=0,
+    object_id=None,
+    slug=None,
+    slug_field=None,
+    template=None,
+    template_name=None,
+    template_name_field=None,
+    template_loader=loader,
+    extra_context=None,
+    context_processors=None,
+    template_object_name='object',
+    content_type=None,
+    **kwargs
+):
     """
     Generic detail of an object.
 
@@ -436,13 +505,17 @@ def object_detail(request, queryset, year=0, month=0, day=0, object_id=None, slu
     try:
         obj = queryset.get()
     except ObjectDoesNotExist:
-        raise Http404, "%s does not exist." % force_unicode(model._meta.verbose_name).capitalize()
+        raise Http404, "%s does not exist." % force_unicode(
+            model._meta.verbose_name
+        ).capitalize()
 
     if template:
         t = template
     else:
         if not template_name:
-            template_name = "%s/%s_detail.html" % (model._meta.app_label, model._meta.object_name.lower())
+            template_name = "%s/%s_detail.html" % (
+                model._meta.app_label, model._meta.object_name.lower()
+            )
         if template_name_field:
             template_name = [getattr(obj, template_name_field), template_name]
 
@@ -451,14 +524,18 @@ def object_detail(request, queryset, year=0, month=0, day=0, object_id=None, slu
         else:
             t = template_loader.get_template(template_name)
 
-    if request.httpstate.get('current_queryset_model', None) == u"%s.%s" % (queryset.model._meta.app_label, queryset.model.__name__):
+    if request.httpstate.get(
+        'current_queryset_model', None
+    ) == u"%s.%s" % (queryset.model._meta.app_label, queryset.model.__name__):
         request.httpstate['current_object_id'] = obj.pk
     elif 'current_object_id' in request.httpstate:
         del request.httpstate['current_object_id']
-        
-    c = RequestContext(request, {
-        template_object_name: obj,
-    }, context_processors)
+
+    c = RequestContext(
+        request, {
+            template_object_name: obj,
+        }, context_processors
+    )
     for key, value in extra_context.items():
         if callable(value):
             c[key] = value()
@@ -473,16 +550,21 @@ def _get_step_list(current_step, form_steps, form_step_data):
     steps = []
     for i in form_step_data['path']:
         try:
-            active = form_step_data.get(form_step_data['path'][form_step_data['path'].index(i)-1], {}).get('_filled', False)
+            active = form_step_data.get(
+                form_step_data['path'][form_step_data['path'].index(i) - 1], {}
+            ).get('_filled', False)
         except KeyError:
             active = False
-        steps.append({
-            'title': form_steps[i].get('title', " "),
-            'filled': form_step_data.get(i, {}).get('_filled', False),
-            'current': current_step == i,
-            'active': active,
-        })
+        steps.append(
+            {
+                'title': form_steps[i].get('title', " "),
+                'filled': form_step_data.get(i, {}).get('_filled', False),
+                'current': current_step == i,
+                'active': active,
+            }
+        )
     return steps
+
 
 '''
 ### Multistep-form configuration structure ###
@@ -573,7 +655,10 @@ form_step_data = {
 
 '''
 
-GENERAL_ERROR_MESSAGE = _("There are errors in this form. Please correct them and try to save again.")
+GENERAL_ERROR_MESSAGE = _(
+    "There are errors in this form. Please correct them and try to save again."
+)
+
 
 @never_cache
 def show_form_step(request, form_steps=None, extra_context=None, instance=None):
@@ -589,12 +674,14 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
         multistep_forms_name = "%s_%s" % (form_steps['name'], instance.pk)
     else:
         multistep_forms_name = form_steps['name']
-    
+
     form_step_data = request.httpstate.get(multistep_forms_name, {})
 
     if not form_step_data and 'oninit' in form_steps:
         if instance:
-            form_step_data = form_steps['oninit'](instance=instance, request=request)
+            form_step_data = form_steps['oninit'](
+                instance=instance, request=request
+            )
         else:
             form_step_data = form_steps['oninit'](request=request)
 
@@ -606,15 +693,22 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
 
                     if isinstance(step_field_dict[field_name], models.Model):
                         # if ModelChoiceField is used, save primary key
-                        step_field_dict[field_name] = step_field_dict[field_name].pk
+                        step_field_dict[field_name] = step_field_dict[field_name
+                                                                     ].pk
 
                     elif isinstance(step_field_dict[field_name], QuerySet):
                         # if ModelMultipleChoiceField is used, save list of primary keys
-                        step_field_dict[field_name] = [obj.pk for obj in step_field_dict[field_name]]
+                        step_field_dict[field_name] = [
+                            obj.pk for obj in step_field_dict[field_name]
+                        ]
 
                     elif isinstance(step_field_dict[field_name], (list, tuple)):
-                        if step_field_dict[field_name] and isinstance(step_field_dict[field_name][0], models.Model):
-                            step_field_dict[field_name] = [obj.pk for obj in step_field_dict[field_name]]
+                        if step_field_dict[field_name] and isinstance(
+                            step_field_dict[field_name][0], models.Model
+                        ):
+                            step_field_dict[field_name] = [
+                                obj.pk for obj in step_field_dict[field_name]
+                            ]
 
                     # elif isinstance(step_field_dict[field_name], (datetime.datetime, datetime.date, datetime.time, Decimal)):
                     #     # convert dates, times, and decimals to string
@@ -622,33 +716,55 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
 
                     if field_name == "sets":
                         for formset_name in step_field_dict['sets']:
-                            for formset_field_dict in step_field_dict['sets'][formset_name]:
+                            for formset_field_dict in step_field_dict['sets'][
+                                formset_name]:
                                 for ffield_name in formset_field_dict:
                                     # for every formset form field
 
-                                    if isinstance(formset_field_dict[ffield_name], models.Model):
+                                    if isinstance(
+                                        formset_field_dict[ffield_name],
+                                        models.Model
+                                    ):
                                         # if ModelChoiceField is used, save primary key
-                                        formset_field_dict[ffield_name] = formset_field_dict[ffield_name].pk
+                                        formset_field_dict[
+                                            ffield_name] = formset_field_dict[
+                                                ffield_name].pk
 
-                                    elif isinstance(formset_field_dict[ffield_name], QuerySet):
+                                    elif isinstance(
+                                        formset_field_dict[ffield_name],
+                                        QuerySet
+                                    ):
                                         # if ModelMultipleChoiceField is used, save list of primary keys
-                                        formset_field_dict[ffield_name] = [obj.pk for obj in formset_field_dict[ffield_name]]
+                                        formset_field_dict[ffield_name] = [
+                                            obj.pk for obj in
+                                            formset_field_dict[ffield_name]
+                                        ]
 
-                                    elif isinstance(formset_field_dict[ffield_name], (list, tuple)):
-                                        if formset_field_dict[ffield_name] and isinstance(formset_field_dict[field_name][0], models.Model):
-                                            formset_field_dict[ffield_name] = [obj.pk for obj in formset_field_dict[ffield_name]]
+                                    elif isinstance(
+                                        formset_field_dict[ffield_name],
+                                        (list, tuple)
+                                    ):
+                                        if formset_field_dict[
+                                            ffield_name] and isinstance(
+                                                formset_field_dict[field_name]
+                                                [0], models.Model
+                                            ):
+                                            formset_field_dict[ffield_name] = [
+                                                obj.pk for obj in
+                                                formset_field_dict[ffield_name]
+                                            ]
 
                                     # elif isinstance(formset_field_dict[ffield_name], (datetime.datetime, datetime.date, datetime.time, Decimal)):
                                     #     # convert dates, times, and decimals to string
                                     #     formset_field_dict[ffield_name] = unicode(formset_field_dict[ffield_name])
 
         request.httpstate[multistep_forms_name] = form_step_data
-    
+
     form_step_data['path'] = form_step_data.get(
         'path',
         form_steps['default_path'],
     )
-    
+
     # TODO: write inline documentation for the retrieval of current step
     current_step = form_step_data.get(
         'current_step',
@@ -660,7 +776,8 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
     # step_counter0:    0,        1,        2,     ...
 
     try:
-        step_counter = int(request.GET.get("step", 1))  # requested one-based step counter
+        step_counter = int(request.GET.get("step", 1)
+                          )  # requested one-based step counter
     except ValueError:
         step_counter = 1
 
@@ -675,27 +792,30 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
             prev_step_counter0 -= 1
         if prev_step_counter0 != step_counter0 - 1:
             # if previous step was not filled in, redirect to the next after the last filled-in step
-            return redirect(u'%s?step=%s' % (request.path, prev_step_counter0 + 2))
+            return redirect(
+                u'%s?step=%s' % (request.path, prev_step_counter0 + 2)
+            )
 
-        current_step = form_step_data['current_step'] = form_step_data['path'][step_counter0]
+        current_step = form_step_data['current_step'] = form_step_data['path'][
+            step_counter0]
     else:
         return redirect(u'%s?step=1' % request.path)
 
     initial_data = form_steps[current_step].get('initial_data', {})
     if callable(initial_data):
         initial_data = initial_data(request=request)
-    
+
     form_class = form_steps[current_step].get('form', None)
     formset_classes = form_steps[current_step].setdefault("formsets", {})
     formsets = {}
-    
+
     next = ""
-    
+
     if request.method == "POST":
         data = request.POST.copy()
         if data.get('reset', False):
             if multistep_forms_name in request.httpstate:
-                del(request.httpstate[multistep_forms_name])
+                del (request.httpstate[multistep_forms_name])
             if 'onreset' in form_steps:
                 if instance:
                     return form_steps['onreset'](request, instance)
@@ -720,7 +840,7 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
         else:
             form_class = forms.Form
             f = form_class(data, request.FILES)
-        
+
         formsets_are_valid = True
         data = request.POST.copy()
         for formset_name, formset_class in formset_classes.items():
@@ -741,16 +861,16 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
                 except KeyError:
                     field_value = None
                 # create get_XXX_display for all selection fields except model-choice fields and alike
-                if hasattr(field.field, 'choices') and not hasattr(field.field, 'queryset') and field.field.choices:
-                    d = dict([
-                        (str(k), unicode(v))
-                        for k, v in field.field.choices
-                    ])
+                if hasattr(field.field, 'choices') and not hasattr(
+                    field.field, 'queryset'
+                ) and field.field.choices:
+                    d = dict(
+                        [(str(k), unicode(v)) for k, v in field.field.choices]
+                    )
                     k = f.cleaned_data.get(field.name, '')
                     if not isinstance(k, (list, models.Model)):
-                        form_step_data[current_step][
-                            'get_%s_display' % field.name
-                        ] = d.get(k, "")
+                        form_step_data[current_step]['get_%s_display' %
+                                                     field.name] = d.get(k, "")
                         if k == "":
                             field_value = None
                 if isinstance(field_value, models.Model):
@@ -769,35 +889,43 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
                 form_step_data[current_step]['sets'][formset_name] = []
                 for form in formset.forms:
                     if (
-                        form.has_changed()
-                        and hasattr(form, "cleaned_data")
-                        and not form.cleaned_data.get('DELETE', False)
+                        form.has_changed() and hasattr(form, "cleaned_data") and
+                        not form.cleaned_data.get('DELETE', False)
                     ):
                         cleaned_data = dict(form.cleaned_data)
                         for field in form:
                             # create get_XXX_display for all selection fields except model-choice fields and alike
-                            if hasattr(field.field, 'choices') and not hasattr(field.field, 'queryset') and field.field.choices:
+                            if hasattr(field.field, 'choices') and not hasattr(
+                                field.field, 'queryset'
+                            ) and field.field.choices:
                                 k = cleaned_data.get(field.name, '') or ''
                                 if not isinstance(k, (list, models.Model)):
-                                    d = dict([
-                                        (str(k1), unicode(v1))
-                                        for k1, v1 in field.field.choices
-                                    ])
-                                    cleaned_data['get_%s_display' % field.name] = d[str(k)]
+                                    d = dict(
+                                        [
+                                            (str(k1), unicode(v1))
+                                            for k1, v1 in field.field.choices
+                                        ]
+                                    )
+                                    cleaned_data['get_%s_display' % field.name
+                                                ] = d[str(k)]
                                     if k == "":
                                         cleaned_data[field.name] = None
-                            if isinstance(cleaned_data[field.name], models.Model):
+                            if isinstance(
+                                cleaned_data[field.name], models.Model
+                            ):
                                 # if ModelChoiceField is used, save primary key
-                                cleaned_data[field.name] = cleaned_data[field.name].pk
+                                cleaned_data[field.name
+                                            ] = cleaned_data[field.name].pk
                             elif isinstance(cleaned_data[field.name], QuerySet):
                                 # if ModelMultipleChoiceField is used, save list of primary keys
-                                cleaned_data[field.name] = [obj.pk for obj in cleaned_data[field.name]]
+                                cleaned_data[field.name] = [
+                                    obj.pk for obj in cleaned_data[field.name]
+                                ]
                             # elif isinstance(cleaned_data[field.name], (datetime.datetime, datetime.date, datetime.time, Decimal)):
                             #     # convert dates, times, and decimals to string
                             #     cleaned_data[field.name] = unicode(cleaned_data[field.name])
-                        form_step_data[current_step]['sets'][formset_name].append(
-                            cleaned_data,
-                        )
+                        form_step_data[current_step]['sets'][
+                            formset_name].append(cleaned_data, )
 
             # save uploaded files in a temporary directory
             for file_field_name in request.FILES:
@@ -807,7 +935,8 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
                 except:
                     filename = ""
                     ext = ""
-                tmp_filename = tz_now().strftime("%d%H%I%S_") + better_slugify(filename) + "." + ext
+                tmp_filename = tz_now(
+                ).strftime("%d%H%I%S_") + better_slugify(filename) + "." + ext
                 tmp_path = os.path.join(settings.PATH_TMP, tmp_filename)
                 fd = open(tmp_path, 'wb')
                 for chunk in file_data.chunks():
@@ -820,33 +949,43 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
                 }
             form_step_data[current_step]['_filled'] = True
             if instance:
-                form_step_data = form_steps['onsubmit'](current_step, form_steps, form_step_data, instance)
+                form_step_data = form_steps['onsubmit'](
+                    current_step, form_steps, form_step_data, instance
+                )
             else:
-                form_step_data = form_steps['onsubmit'](current_step, form_steps, form_step_data)
+                form_step_data = form_steps['onsubmit'](
+                    current_step, form_steps, form_step_data
+                )
             path = form_step_data['path']
             new_step_counter = path.index(current_step) + 1
             should_save = False
             try:
-                #form_step_data['current_step'] = 
+                #form_step_data['current_step'] =
                 path[new_step_counter]
             except IndexError:
                 should_save = True
             if data.get('save_and_close', False):
                 should_save = True
-                
+
             if should_save:
                 if 'onsave' in form_steps:
                     if instance:
-                        form_step_data = form_steps['onsave'](form_steps, form_step_data, instance)
+                        form_step_data = form_steps['onsave'](
+                            form_steps, form_step_data, instance
+                        )
                     else:
-                        form_step_data = form_steps['onsave'](form_steps, form_step_data)
+                        form_step_data = form_steps['onsave'](
+                            form_steps, form_step_data
+                        )
                 if multistep_forms_name in request.httpstate:
-                    del(request.httpstate[multistep_forms_name])
+                    del (request.httpstate[multistep_forms_name])
 
                 # return the user to onsuccess response, success_url or render a success_template
                 if 'onsuccess' in form_steps:
                     if instance:
-                        return form_steps['onsuccess'](request, form_step_data, instance)
+                        return form_steps['onsuccess'](
+                            request, form_step_data, instance
+                        )
                     else:
                         return form_steps['onsuccess'](request, form_step_data)
                 elif form_steps.get('success_url', False):
@@ -857,20 +996,29 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
                     return render_to_response(
                         form_steps['success_template'],
                         {
-                            'form_step_data': form_step_data,
-                            'steps': _get_step_list(current_step, form_steps, form_step_data),
+                            'form_step_data':
+                                form_step_data,
+                            'steps':
+                                _get_step_list(
+                                    current_step, form_steps, form_step_data
+                                ),
                         },
                         context_instance=RequestContext(request),
                     )
             else:
                 request.httpstate[multistep_forms_name] = form_step_data
-            return HttpResponseRedirect("%s?step=%s" % (request.path, new_step_counter + 1))
+            return HttpResponseRedirect(
+                "%s?step=%s" % (request.path, new_step_counter + 1)
+            )
         else:
-            messages.error(request, form_steps.get('general_error_message', GENERAL_ERROR_MESSAGE))
+            messages.error(
+                request,
+                form_steps.get('general_error_message', GENERAL_ERROR_MESSAGE)
+            )
         for field_name in f.fields:
             if not f.data.get(field_name, False):
                 f.data[field_name] = f.fields[field_name].initial
-        
+
     else:
         data = deepcopy(form_step_data.get(
             current_step,
@@ -881,7 +1029,12 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
             if isinstance(v, models.Model):
                 data[k] = v.pk
             elif hasattr(v, "__iter__"):
-                new_v = [(not isinstance(item, models.Model) and [item] or [item.pk])[0] for item in v]
+                new_v = [
+                    (
+                        not isinstance(item, models.Model) and [item] or
+                        [item.pk]
+                    )[0] for item in v
+                ]
                 data[k] = new_v
 
         if form_class:
@@ -892,7 +1045,7 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
         else:
             form_class = forms.Form
             f = form_class(initial=data)
-        
+
         for formset_name, formset_class in formset_classes.items():
             data = form_step_data.get(
                 current_step,
@@ -912,12 +1065,15 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
             if isinstance(formsets[formset_name].form(), forms.ModelForm):
                 for formset_form in formsets[formset_name].forms:
                     if formset_form.initial.get('id', None):
-                        formset_form.instance = formsets[formset_name].form._meta.model.objects.get(
-                            pk=formset_form.initial['id'],
-                        )
-        
+                        formset_form.instance = formsets[
+                            formset_name].form._meta.model.objects.get(
+                                pk=formset_form.initial['id'],
+                            )
+
     try:
-        form_step_data['step_counter'] = form_step_data['path'].index(form_step_data['current_step']) + 1
+        form_step_data['step_counter'] = form_step_data['path'].index(
+            form_step_data['current_step']
+        ) + 1
     except:
         pass
     else:
@@ -949,45 +1105,52 @@ def show_form_step(request, form_steps=None, extra_context=None, instance=None):
                 request=request,
             )
         context.update(extra_context)
-    
-    template_file = [form_steps[current_step].setdefault("template", "utils/newform_step.html")]
-    return render_to_response(template_file, context,  context_instance=RequestContext(request))
+
+    template_file = [
+        form_steps[current_step].setdefault(
+            "template", "utils/newform_step.html"
+        )
+    ]
+    return render_to_response(
+        template_file, context, context_instance=RequestContext(request)
+    )
 
 
-def get_abc_list(queryset, filter_field, selected = None):
+def get_abc_list(queryset, filter_field, selected=None):
     """
     help function:
     returns an alphabet list used for filtering
     """
     abc_list = [("", _("All"), queryset.count(), selected is None)]
-    # we need a "key" as first column, because we have to check 
+    # we need a "key" as first column, because we have to check
     # for "All" in the tamplates
     abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     the_09_filter = models.Q()
-    
+
     for letter in abc:
         the_filter = models.Q(**{filter_field + "__istartswith": letter})
         if letter == 'A':
             the_filter |= models.Q(**{filter_field + "__istartswith": "Ä"})
         elif letter == 'O':
-            the_filter |= models.Q(**{filter_field + "__istartswith": "Ö"})            
+            the_filter |= models.Q(**{filter_field + "__istartswith": "Ö"})
         elif letter == 'U':
-            the_filter |= models.Q(**{filter_field + "__istartswith": "Ü"})                        
-        
+            the_filter |= models.Q(**{filter_field + "__istartswith": "Ü"})
+
         count = queryset.filter(the_filter).count()
         abc_list.append((letter, letter, count, selected == letter))
 
         # we prepare th 0-9 filter in the loop ...
         the_09_filter |= models.Q(**{filter_field + "__istartswith": letter})
-    
+
     # at last, add the "0-9" filter
-    the_09_filter |= models.Q(**{filter_field + "__istartswith": "Ä"}) 
-    the_09_filter |= models.Q(**{filter_field + "__istartswith": "Ö"}) 
-    the_09_filter |= models.Q(**{filter_field + "__istartswith": "Ü"}) 
-    count = queryset.exclude(the_09_filter).count()        
+    the_09_filter |= models.Q(**{filter_field + "__istartswith": "Ä"})
+    the_09_filter |= models.Q(**{filter_field + "__istartswith": "Ö"})
+    the_09_filter |= models.Q(**{filter_field + "__istartswith": "Ü"})
+    count = queryset.exclude(the_09_filter).count()
     abc_list.append(("0-9", _("0-9"), count, selected == "0-9"))
-                
+
     return abc_list
+
 
 def filter_abc(queryset, filter_field, filter_value):
     """
@@ -1000,38 +1163,42 @@ def filter_abc(queryset, filter_field, filter_value):
         the_filter = models.Q()
         for letter in abc:
             the_filter |= models.Q(**{filter_field + "__istartswith": letter})
-        the_filter |= models.Q(**{filter_field + "__istartswith": "Ä"}) 
-        the_filter |= models.Q(**{filter_field + "__istartswith": "Ö"}) 
-        the_filter |= models.Q(**{filter_field + "__istartswith": "Ü"}) 
+        the_filter |= models.Q(**{filter_field + "__istartswith": "Ä"})
+        the_filter |= models.Q(**{filter_field + "__istartswith": "Ö"})
+        the_filter |= models.Q(**{filter_field + "__istartswith": "Ü"})
         return queryset.exclude(the_filter)
     else:
         the_filter = models.Q(**{filter_field + "__istartswith": filter_value})
         if filter_value == 'A':
             the_filter |= models.Q(**{filter_field + "__istartswith": "Ä"})
         elif filter_value == 'O':
-            the_filter |= models.Q(**{filter_field + "__istartswith": "Ö"})            
+            the_filter |= models.Q(**{filter_field + "__istartswith": "Ö"})
         elif filter_value == 'U':
-            the_filter |= models.Q(**{filter_field + "__istartswith": "Ü"})                        
+            the_filter |= models.Q(**{filter_field + "__istartswith": "Ü"})
         return queryset.filter(the_filter)
 
-def get_year_list(queryset, filter_field, selected = None):
+
+def get_year_list(queryset, filter_field, selected=None):
     """
     help function:
     returns a list of years contained in a queryset
     """
-    year_list = [("all", _("All"), len(queryset), selected is None),
-                 ("latest", _("Topical"), len(queryset), selected == "latest")]
+    year_list = [
+        ("all", _("All"), len(queryset), selected is None),
+        ("latest", _("Topical"), len(queryset), selected == "latest")
+    ]
 
     # first, we determine the smallest and largest year
     qs = queryset.order_by(filter_field)
     if len(qs) > 0:
         smallest_year = getattr(qs[0], filter_field).year
-        largest_year = getattr(qs[len(qs)-1], filter_field).year
-        for i in range(smallest_year, largest_year+1):
-            count = queryset.filter(**{filter_field + "__year":i}).count()
+        largest_year = getattr(qs[len(qs) - 1], filter_field).year
+        for i in range(smallest_year, largest_year + 1):
+            count = queryset.filter(**{filter_field + "__year": i}).count()
             year_list.append((str(i), str(i), count, selected == str(i)))
 
     return year_list
+
 
 def filter_year(queryset, filter_field, filter_value):
     """
@@ -1039,14 +1206,15 @@ def filter_year(queryset, filter_field, filter_value):
     filters a queryset for a specific year
     """
     if filter_value == "latest":
-        # we cannot use the "latest function here, it's a pity! 
+        # we cannot use the "latest function here, it's a pity!
         # return ....latest(filter_field)
-        qs = queryset.order_by("-%s" %filter_field)
+        qs = queryset.order_by("-%s" % filter_field)
         # TODO currently, latest is set to 5,
         # Maybe, we should not hardcode this
         return qs[:5]
     else:
-        return queryset.filter(**{filter_field + "__year":filter_value})
+        return queryset.filter(**{filter_field + "__year": filter_value})
+
 
 def set_language(request):
     """
@@ -1072,4 +1240,4 @@ def set_language(request):
                 request.session['django_language'] = lang_code
             # save the language in a cookie in any case for correct caching
             response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
-    return response    
+    return response

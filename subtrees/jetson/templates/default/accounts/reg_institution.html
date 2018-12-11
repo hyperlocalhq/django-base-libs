@@ -1,1 +1,132 @@
-{% extends "base.html" %}{% load base_tags i18n %}{% block extrahead %}    <script type="text/javascript" src="{{ STATIC_URL }}site/js/urlify.js"></script>    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/registration.js"></script>{% endblock %}{% block title %}{% trans "Registration" %} - {% trans "Institution" %}{% endblock %}{% block headline %}    <h2 class="main">{% trans "Registration" %}</h2>    <h2 class="sub">{% trans "Institutional Account" %}</h2>{% endblock %}{% block sidebar-a %}    {% include "utils/registration_step_list.html" %}{% endblock %}{% block sidebar-b %}{% endblock %}{% block content %}    <div class="field_layout">        <form action="" method="post">            <fieldset>                <legend>                    {% trans "Institution" %}                </legend>                <ul>                    <li>                        {{ form.institution_name.label_tag }}                        {{ form.institution_name }}                        {{ form.institution_name.error_tag }}                    </li>                    <li>                        <label for="id_institution_name2">                            {{ form.institution_name2.label }}                        </label>                        {{ form.institution_name2 }}                        {{ form.institution_name2.error_tag }}                    </li>                    <li>                        {{ form.legal_form.label_tag }}                        {{ form.legal_form }}                        {{ form.legal_form.error_tag }}                                 </li>                </ul>            </fieldset>            <fieldset>                <legend>                    {% trans "Contact Person" %} - {% trans "Administrator " %}                </legend>                <ul>                    <li>                        <label for="id_prefix">                            <strong>{{ form.prefix.label }} / {{ form.first_name.label }}*</strong>                        </label>                        {{ form.prefix }}                        {{ form.first_name }}                        {{ form.prefix.error_tag }}                    </li>                    <li>                        {{ form.last_name.label_tag }}                        {{ form.last_name }}                        {{ form.last_name.error_tag }}                    </li>                    <li>                        {{ form.birthday_yyyy.label_tag }}                        {{ form.birthday_dd }}                        {{ form.birthday_mm }}                        {{ form.birthday_yyyy }}                        {{ form.birthday_dd.error_tag }}                        {{ form.birthday_mm.error_tag }}                        {{ form.birthday_yyyy.error_tag }}                    </li>                    <li>                        {{ form.individual_type.label_tag }}                        {{ form.individual_type }}                        {{ form.individual_type.error_tag }}                    </li>                    <li>                        {{ form.occupation.label_tag }}                        {{ form.occupation }}                        {{ form.occupation.error_tag }}                    </li>                                <li>                        {{ form.nationality.label_tag }}                        {{ form.nationality }}                        {{ form.nationality.error_tag }}                    </li>                            </ul>            </fieldset>            <fieldset>                <legend>                    Login - {% trans "Administrator " %}                </legend>                <ul>                    <li>                        <label for="id_login_email">                            <strong>                                    {{ form.login_email.label }} ({% trans "Administrator" %})*                            </strong>                        </label>                        {{ form.login_email }}                        {{ form.login_email.error_tag }}                    </li>                    <li>                        {{ form.login_email_confirm.label_tag }}                        {{ form.login_email_confirm }}                        <span class="helptext">{{ form.login_email_confirm.help_text }}</span>                        {{ form.login_email_confirm.error_tag }}                    </li>                    <li>                        {{ form.password.label_tag }}                        {{ form.password }}                        {{ form.password.error_tag }}                    </li>                    <li>                        {{ form.password_confirm.label_tag }}                        {{ form.password_confirm }}                        {{ form.password_confirm.error_tag }}                    </li>                    <li>                        {{ form.username.label_tag }}                        {{ form.username }}                        {{ form.username.error_tag }}                    </li>                </ul>            </fieldset>                        <fieldset class="fieldset_end">                <legend>                    {% trans "Confirmation" %}                </legend>                <ul>                    <li class="line_checkbox">                        {{ form.privacy_policy }}                        <label for="id_privacy_policy">                            {% if form.privacy_policy.required %}<strong>{% endif %}                            {% blocktrans %}I accept <a href="/privacy/">the privacy policy</a>.{% endblocktrans %}                            {% if form.privacy_policy.required %}*</strong>{% endif %}                        </label>                        {{ form.privacy_policy.error_tag }}                    </li>                    <li class="line_checkbox">                        {{ form.terms_of_use }}                        <label for="id_terms_of_use">                            {% if form.terms_of_use.required %}<strong>{% endif %}                            {% blocktrans %}I accept <a href="/terms-of-use/">the terms of use</a>.{% endblocktrans %}                            {% if form.terms_of_use.required %}*</strong>{% endif %}                        </label>                        {{ form.terms_of_use.error_tag }}                    </li>                </ul>            </fieldset>            {% include "utils/step_buttons_reg.html" %}        </form>    </div>{% endblock %}
+{% extends "base.html" %}
+{% load base_tags i18n %}
+
+{% block extrahead %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/urlify.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/registration.js"></script>
+{% endblock %}
+
+{% block title %}{% trans "Registration" %} - {% trans "Institution" %}{% endblock %}
+
+{% block headline %}
+    <h2 class="main">{% trans "Registration" %}</h2>
+    <h2 class="sub">{% trans "Institutional Account" %}</h2>
+{% endblock %}
+
+{% block sidebar-a %}
+    {% include "utils/registration_step_list.html" %}
+{% endblock %}
+
+{% block sidebar-b %}
+{% endblock %}
+
+{% block content %}
+    <div class="field_layout">
+        <form action="" method="post">
+            <fieldset>
+                <legend>
+                    {% trans "Institution" %}
+                </legend>
+                <ul>
+                    <li>
+                        {{ form.institution_name.label_tag }} {{ form.institution_name }} {{ form.institution_name.error_tag }}
+                    </li>
+                    <li>
+                        <label for="id_institution_name2">
+                            {{ form.institution_name2.label }}
+                        </label>
+                        {{ form.institution_name2 }} {{ form.institution_name2.error_tag }}
+                    </li>
+                    <li>
+                        {{ form.legal_form.label_tag }} {{ form.legal_form }} {{ form.legal_form.error_tag }}
+                    </li>
+                </ul>
+            </fieldset>
+            <fieldset>
+                <legend>
+                    {% trans "Contact Person" %} - {% trans "Administrator " %}
+                </legend>
+                <ul>
+                    <li>
+                        <label for="id_prefix">
+                            <strong>{{ form.prefix.label }} / {{ form.first_name.label }}*</strong>
+                        </label>
+                        {{ form.prefix }} {{ form.first_name }} {{ form.prefix.error_tag }}
+                    </li>
+                    <li>
+                        {{ form.last_name.label_tag }} {{ form.last_name }} {{ form.last_name.error_tag }}
+                    </li>
+                    <li>
+                        {{ form.birthday_yyyy.label_tag }} {{ form.birthday_dd }} {{ form.birthday_mm }} {{ form.birthday_yyyy }} {{ form.birthday_dd.error_tag }} {{ form.birthday_mm.error_tag }} {{ form.birthday_yyyy.error_tag }}
+                    </li>
+                    <li>
+                        {{ form.individual_type.label_tag }} {{ form.individual_type }} {{ form.individual_type.error_tag }}
+                    </li>
+                    <li>
+                        {{ form.occupation.label_tag }} {{ form.occupation }} {{ form.occupation.error_tag }}
+                    </li>
+                    <li>
+                        {{ form.nationality.label_tag }} {{ form.nationality }} {{ form.nationality.error_tag }}
+                    </li>
+                </ul>
+            </fieldset>
+            <fieldset>
+                <legend>
+                    Login - {% trans "Administrator " %}
+                </legend>
+                <ul>
+                    <li>
+                        <label for="id_login_email">
+                            <strong>
+                                {{ form.login_email.label }} ({% trans "Administrator" %})* </strong>
+                        </label>
+                        {{ form.login_email }} {{ form.login_email.error_tag }}
+                    </li>
+                    <li>
+                        {{ form.login_email_confirm.label_tag }} {{ form.login_email_confirm }}
+                        <span class="helptext">{{ form.login_email_confirm.help_text }}</span> {{ form.login_email_confirm.error_tag }}
+                    </li>
+                    <li>
+                        {{ form.password.label_tag }} {{ form.password }} {{ form.password.error_tag }}
+                    </li>
+                    <li>
+                        {{ form.password_confirm.label_tag }} {{ form.password_confirm }} {{ form.password_confirm.error_tag }}
+                    </li>
+                    <li>
+                        {{ form.username.label_tag }} {{ form.username }} {{ form.username.error_tag }}
+                    </li>
+                </ul>
+            </fieldset>
+
+            <fieldset class="fieldset_end">
+                <legend>
+                    {% trans "Confirmation" %}
+                </legend>
+                <ul>
+                    <li class="line_checkbox">
+                        {{ form.privacy_policy }}
+                        <label for="id_privacy_policy">
+                            {% if form.privacy_policy.required %}<strong>{% endif %}
+                            {% blocktrans %}I accept
+                                <a href="/privacy/">the privacy policy</a>.{% endblocktrans %}
+                            {% if form.privacy_policy.required %}*</strong>{% endif %}
+                        </label>
+                        {{ form.privacy_policy.error_tag }}
+                    </li>
+                    <li class="line_checkbox">
+                        {{ form.terms_of_use }}
+                        <label for="id_terms_of_use">
+                            {% if form.terms_of_use.required %}<strong>{% endif %}
+                            {% blocktrans %}I accept
+                                <a href="/terms-of-use/">the terms of use</a>.{% endblocktrans %}
+                            {% if form.terms_of_use.required %}*</strong>{% endif %}
+                        </label>
+                        {{ form.terms_of_use.error_tag }}
+                    </li>
+                </ul>
+            </fieldset>
+            {% include "utils/step_buttons_reg.html" %}
+        </form>
+    </div>
+{% endblock %}
+

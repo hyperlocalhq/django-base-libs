@@ -13,6 +13,5 @@ FLAG_COLOR_CHOICES = getattr(
         (5, _("blue")),
         (6, _("magenta")),
         (7, _("gray")),
-        ],
-    )
-
+    ],
+)

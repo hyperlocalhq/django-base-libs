@@ -2,15 +2,15 @@
 {% load i18n base_tags auth_extended navigation_tags babel %}
 
 {% block extrahead %}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
 {% endblock %}
 
 
 {% block title %}{% trans "Events" %}{% endblock %}
 
 {% block headline %}
-	<h2 class="main">{% trans "Events" %}</h2>
-{% endblock %}			
+    <h2 class="main">{% trans "Events" %}</h2>
+{% endblock %}
 
 {% block content %}
     {% block tabs %}
@@ -20,7 +20,7 @@
     {% endblock %}
     {% if object_list %}
         {% include "utils/sorting_view_pagination_header.html" %}
-            
+
         {% block breadcrumbs %}
             <div class="breadcrumbs">
                 <div>
@@ -31,10 +31,10 @@
         {% for event in object_list %}
             {% include_parsed "events/lists/event.html" with "vevent" as extra_css_classes %}
         {% endfor %}
-	
-    	{% include "utils/pagination_footer.html" %}
-    	
-     {% else %}
+
+        {% include "utils/pagination_footer.html" %}
+
+    {% else %}
         <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
     {% endif %}
 {% endblock %}

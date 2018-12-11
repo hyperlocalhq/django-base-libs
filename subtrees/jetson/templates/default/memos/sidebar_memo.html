@@ -1,7 +1,16 @@
 {% load base_tags i18n %}
 {% if is_not_memoed_by_user %}
-<a href="#Memo" rel="nofollow" title="{% trans "Memo" %}" onclick="MemoManager.toggle({{ counter|default:0 }}, {{ content_type_id }}, {{ object.id }}); window.cancelEvent(event);" id="adding_to_memos_{{ counter|default:0 }}"><span class="pic"></span>{% trans "Memo" %}</a>
+    <a href="#Memo"
+       rel="nofollow"
+       title="{% trans "Memo" %}"
+       onclick="MemoManager.toggle({{ counter|default:0 }}, {{ content_type_id }}, {{ object.id }}); window.cancelEvent(event);"
+       id="adding_to_memos_{{ counter|default:0 }}"><span class="pic"></span>{% trans "Memo" %}</a>
 {% else %}
-<a href="#Memo" rel="nofollow" class="active" title="{% trans "Remove Memo" %}" onclick="MemoManager.toggle({{ counter|default:0 }}, {{ content_type_id }}, {{ object.id }}); window.cancelEvent(event);" id="adding_to_memos_{{ counter|default:0 }}"><span class="pic"></span>{% trans "Memorized" %}</a>
+    <a href="#Memo"
+       rel="nofollow"
+       class="active"
+       title="{% trans "Remove Memo" %}"
+       onclick="MemoManager.toggle({{ counter|default:0 }}, {{ content_type_id }}, {{ object.id }}); window.cancelEvent(event);"
+       id="adding_to_memos_{{ counter|default:0 }}"><span class="pic"></span>{% trans "Memorized" %}</a>
 {% endif %}
 

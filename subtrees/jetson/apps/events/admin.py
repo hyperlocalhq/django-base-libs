@@ -22,7 +22,9 @@ from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin.tree_editor import TreeEditor
 
 import filebrowser.settings as filebrowser_settings
-URL_FILEBROWSER_MEDIA = getattr(filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/')
+URL_FILEBROWSER_MEDIA = getattr(
+    filebrowser_settings, "FILEBROWSER_DIRECTORY", 'filebrowser/'
+)
 from jetson.apps.location.models import Address
 from jetson.apps.location.models import Locality
 from jetson.apps.location.models import Geoposition
@@ -32,16 +34,27 @@ EventType = models.get_model("events", "EventType")
 EventTimeLabel = models.get_model("events", "EventTimeLabel")
 EventTime = models.get_model("events", "EventTime")
 
+
 class EventTypeOptions(TreeEditor):
-        
+
     save_on_top = True
     list_display = ['actions_column', 'indented_short_title']
-    
-    fieldsets = [(None, {'fields': ('parent',)}),]
+
+    fieldsets = [
+        (None, {
+            'fields': ('parent', )
+        }),
+    ]
     fieldsets += get_admin_lang_section(_("Title"), ['title'])
-    fieldsets += [(None, {'fields': ('slug',)}),]
-    
-    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
+    fieldsets += [
+        (None, {
+            'fields': ('slug', )
+        }),
+    ]
+
+    prepopulated_fields = {
+        "slug": ("title_%s" % settings.LANGUAGE_CODE, ),
+    }
 
 
 def add_form_fields(form, modelform):
@@ -49,35 +62,43 @@ def add_form_fields(form, modelform):
         setattr(form, field_name, field)
         form.fields[field_name] = field
 
+
 AddressForm = modelform_factory(
     Address,
     exclude=["id"],
     #formfield_callback=formfield_for_dbfield,
-    )
+)
 LocalityForm = modelform_factory(
     Locality,
     exclude=["id", "address"],
     #formfield_callback=formfield_for_dbfield,
-    )
+)
 GeopositionForm = modelform_factory(
     Geoposition,
     exclude=["id", "address"],
     #formfield_callback=formfield_for_dbfield,
-    )
+)
+
 
 class EventTimeLabelOptions(ExtendedModelAdmin):
     save_on_top = True
     fieldsets = get_admin_lang_section(_("Title"), ['title'])
-    fieldsets += [(None, {'fields': ('slug', 'sort_order')}),]
-    prepopulated_fields = {"slug": ("title_%s" % settings.LANGUAGE_CODE,),}
-        
+    fieldsets += [
+        (None, {
+            'fields': ('slug', 'sort_order')
+        }),
+    ]
+    prepopulated_fields = {
+        "slug": ("title_%s" % settings.LANGUAGE_CODE, ),
+    }
+
 
 class EventForm(forms.ModelForm):
     """
     Event form for administration combines
     * all fields from Event model
     """
-    
+
     try:
         Event._meta.get_field("venue")
     except models.FieldDoesNotExist:
@@ -86,18 +107,20 @@ class EventForm(forms.ModelForm):
         venue = AutocompleteModelChoiceField(
             required=False,
             label=_("Venue"),
-            help_text=_("Please enter a letter to display a list of available venues"),
-            app="events", 
-            qs_function="get_venues",   
-            display_attr="title", 
+            help_text=_(
+                "Please enter a letter to display a list of available venues"
+            ),
+            app="events",
+            qs_function="get_venues",
+            display_attr="title",
             add_display_attr="get_address_string",
             options={
                 "minChars": 1,
                 "max": 20,
                 "mustMatch": 1,
-                "highlight" : False,
-                },
-            )
+                "highlight": False,
+            },
+        )
 
     try:
         Event._meta.get_field("organizing_institution")
@@ -107,18 +130,20 @@ class EventForm(forms.ModelForm):
         organizing_institution = AutocompleteModelChoiceField(
             required=False,
             label=_("Organizing institution"),
-            help_text=_("Please enter a letter to display a list of available institutions"),
-            app="events", 
-            qs_function="get_organizing_institutions",   
-            display_attr="title", 
+            help_text=_(
+                "Please enter a letter to display a list of available institutions"
+            ),
+            app="events",
+            qs_function="get_organizing_institutions",
+            display_attr="title",
             add_display_attr="get_address_string",
             options={
                 "minChars": 1,
                 "max": 20,
                 "mustMatch": 1,
-                "highlight" : False,
-                },
-            )
+                "highlight": False,
+            },
+        )
 
     try:
         Event._meta.get_field("organizing_person")
@@ -128,8 +153,10 @@ class EventForm(forms.ModelForm):
         organizing_person = AutocompleteModelChoiceField(
             required=False,
             label=_("Organizing person"),
-            help_text=_("Please enter a letter to display a list of available people"),
-            app="events", 
+            help_text=_(
+                "Please enter a letter to display a list of available people"
+            ),
+            app="events",
             qs_function="get_organizing_people",
             display_attr="get_username",
             add_display_attr="get_name_and_email",
@@ -137,10 +164,10 @@ class EventForm(forms.ModelForm):
                 "minChars": 1,
                 "max": 20,
                 "mustMatch": 1,
-                "highlight" : False,
+                "highlight": False,
             }
         )
-            
+
     try:
         Event._meta.get_field("related_events")
     except:
@@ -149,63 +176,64 @@ class EventForm(forms.ModelForm):
         related_events = AutocompleteModelMultipleChoiceField(
             required=False,
             label=_("Related events"),
-            help_text=_("Please enter a letter to display a list of available events"),
-            app="events", 
+            help_text=_(
+                "Please enter a letter to display a list of available events"
+            ),
+            app="events",
             qs_function="get_all_events",
             display_attr="get_title",
             options={
                 "minChars": 1,
                 "max": 20,
                 "mustMatch": 1,
-                "highlight" : False,
+                "highlight": False,
             }
         )
 
     class Meta:
         model = Event
-    
+
     def __init__(self, *args, **kwargs):
         super(EventForm, self).__init__(*args, **kwargs)
         add_form_fields(self, AddressForm)
         add_form_fields(self, LocalityForm)
         add_form_fields(self, GeopositionForm)
-        
+
         self.country = self.fields['country'] = AutocompleteModelChoiceField(
             required=False,
             label=_("Country"),
-            help_text=_("Please enter a letter to display a list of available countries"),
-            app="i18n", 
+            help_text=_(
+                "Please enter a letter to display a list of available countries"
+            ),
+            app="i18n",
             qs_function="get_countries",
             display_attr="get_name",
             options={
                 "minChars": 1,
                 "max": 20,
                 "mustMatch": 1,
-                "highlight" : False,
+                "highlight": False,
             }
         )
-        
+
         # initial fields from the Address, Locality, and Geoposition models
         # should also be added (only those which are necessary)
         if self.instance.id and self.instance.postal_address:
-            address_form = AddressForm(
-                instance=self.instance.postal_address,
-                )
+            address_form = AddressForm(instance=self.instance.postal_address, )
             locality_form = LocalityForm(
                 instance=self.instance.postal_address.get_locality(),
-                )
+            )
             geoposition_form = GeopositionForm(
                 instance=self.instance.postal_address.get_geoposition(),
-                )
+            )
         else:
             address_form = AddressForm()
             locality_form = LocalityForm()
             geoposition_form = GeopositionForm()
-            
+
         self.initial.update(address_form.initial)
         self.initial.update(locality_form.initial)
         self.initial.update(geoposition_form.initial)
-        
         '''
         self.fields['venue'].widget.attrs.setdefault("class", "")
         self.fields['venue'].widget.attrs['class'] = (
@@ -218,30 +246,36 @@ class EventForm(forms.ModelForm):
             + " autocomplete"
             ).strip()
         '''
-        
+
+
 class EventTime_Inline(ExtendedStackedInline):
     model = EventTime
     extra = 0
     verbose_name = _("Time")
     verbose_name_plural = _("Times")
 
+
 class EventOptions(ExtendedModelAdmin):
     form = EventForm
     inlines = [EventTime_Inline]
     change_form_template = "extendedadmin/event_change.html"
     save_on_top = True
-    list_display = ['title', 'get_venue_display', 'get_start_date_string', 'get_end_date_string', 'event_type', 'status', 'creation_date']
+    list_display = [
+        'title', 'get_venue_display', 'get_start_date_string',
+        'get_end_date_string', 'event_type', 'status', 'creation_date'
+    ]
     list_filter = ('creation_date', 'event_type', 'status')
     search_fields = ['title', 'venue__title', 'venue_title']
-    ordering = ('-creation_date',)
+    ordering = ('-creation_date', )
     actions = ["publish"]
 
     def publish(self, request, queryset):
         for ev in queryset:
             ev.status = "published"
             ev.save()
+
     publish.short_description = _("Publish selected events")
-        
+
     def get_venue_display(self, obj):
         """this method is just used for display in the admin"""
         user = get_current_user()
@@ -250,14 +284,14 @@ class EventOptions(ExtendedModelAdmin):
                 return u"""<a href="/admin/institutions/institution/%s/" class="content_object">%s</a>""" % (
                     obj.venue._get_pk_val(),
                     obj.venue,
-                    )
+                )
             else:
                 return unicode(obj.venue)
         else:
             return obj.venue_title
+
     get_venue_display.allow_tags = True
     get_venue_display.short_description = _("Venue")
-
 
     #@never_cache # doesn't work for class methods with django r11611
     @transaction.atomic
@@ -286,10 +320,13 @@ class EventOptions(ExtendedModelAdmin):
                 prefixes[prefix] = prefixes.get(prefix, 0) + 1
                 if prefixes[prefix] != 1:
                     prefix = "%s-%s" % (prefix, prefixes[prefix])
-                formset = FormSet(data=request.POST, files=request.FILES,
-                                  instance=new_object,
-                                  save_as_new=request.POST.has_key("_saveasnew"),
-                                  prefix=prefix)
+                formset = FormSet(
+                    data=request.POST,
+                    files=request.FILES,
+                    instance=new_object,
+                    save_as_new=request.POST.has_key("_saveasnew"),
+                    prefix=prefix
+                )
                 formsets.append(formset)
             if all_valid(formsets) and form_validated:
                 self.save_model(request, new_object, form, change=False)
@@ -320,20 +357,24 @@ class EventOptions(ExtendedModelAdmin):
                 formset = FormSet(instance=self.model(), prefix=prefix)
                 formsets.append(formset)
 
-        adminForm = helpers.AdminForm(form, list(self.get_fieldsets(request)), self.prepopulated_fields)
+        adminForm = helpers.AdminForm(
+            form, list(self.get_fieldsets(request)), self.prepopulated_fields
+        )
         media = self.media + adminForm.media
 
         inline_admin_formsets = []
         for inline, formset in zip(inline_instances, formsets):
             fieldsets = list(inline.get_fieldsets(request))
-            inline_admin_formset = helpers.InlineAdminFormSet(inline, formset, fieldsets)
+            inline_admin_formset = helpers.InlineAdminFormSet(
+                inline, formset, fieldsets
+            )
             inline_admin_formsets.append(inline_admin_formset)
             media = media + inline_admin_formset.media
 
         context = {
             'title': _('Add %s') % force_text(opts.verbose_name),
             'adminform': adminForm,
-            'form': form, # form added
+            'form': form,  # form added
             'is_popup': request.REQUEST.has_key('_popup'),
             'show_delete': False,
             'media': mark_safe(media),
@@ -343,7 +384,9 @@ class EventOptions(ExtendedModelAdmin):
             'app_label': opts.app_label,
         }
         context.update(extra_context or {})
-        return self.render_change_form(request, context, form_url=form_url, add=True)
+        return self.render_change_form(
+            request, context, form_url=form_url, add=True
+        )
 
     #@never_cache # doesn't work for class methods with django r11611
     @transaction.atomic
@@ -365,7 +408,13 @@ class EventOptions(ExtendedModelAdmin):
             raise PermissionDenied
 
         if obj is None:
-            raise Http404(_('%(name)s object with primary key %(key)r does not exist.') % {'name': force_text(opts.verbose_name), 'key': escape(object_id)})
+            raise Http404(
+                _('%(name)s object with primary key %(key)r does not exist.') %
+                {
+                    'name': force_text(opts.verbose_name),
+                    'key': escape(object_id)
+                }
+            )
 
         if request.method == 'POST' and request.POST.has_key("_saveasnew"):
             return self.add_view(request, form_url='../add/')
@@ -387,8 +436,12 @@ class EventOptions(ExtendedModelAdmin):
                 prefixes[prefix] = prefixes.get(prefix, 0) + 1
                 if prefixes[prefix] != 1:
                     prefix = "%s-%s" % (prefix, prefixes[prefix])
-                formset = FormSet(request.POST, request.FILES,
-                                  instance=new_object, prefix=prefix)
+                formset = FormSet(
+                    request.POST,
+                    request.FILES,
+                    instance=new_object,
+                    prefix=prefix
+                )
                 formsets.append(formset)
 
             if all_valid(formsets) and form_validated:
@@ -397,7 +450,9 @@ class EventOptions(ExtendedModelAdmin):
                 for formset in formsets:
                     self.save_formset(request, form, formset, change=True)
 
-                change_message = self.construct_change_message(request, form, formsets)
+                change_message = self.construct_change_message(
+                    request, form, formsets
+                )
                 self.log_change(request, new_object, change_message)
                 return self.response_change(request, new_object)
 
@@ -412,20 +467,24 @@ class EventOptions(ExtendedModelAdmin):
                 formset = FormSet(instance=obj, prefix=prefix)
                 formsets.append(formset)
 
-        adminForm = helpers.AdminForm(form, self.get_fieldsets(request, obj), self.prepopulated_fields)
+        adminForm = helpers.AdminForm(
+            form, self.get_fieldsets(request, obj), self.prepopulated_fields
+        )
         media = self.media + adminForm.media
 
         inline_admin_formsets = []
         for inline, formset in zip(inline_instances, formsets):
             fieldsets = list(inline.get_fieldsets(request, obj))
-            inline_admin_formset = helpers.InlineAdminFormSet(inline, formset, fieldsets)
+            inline_admin_formset = helpers.InlineAdminFormSet(
+                inline, formset, fieldsets
+            )
             inline_admin_formsets.append(inline_admin_formset)
             media = media + inline_admin_formset.media
 
         context = {
             'title': _('Change %s') % force_text(opts.verbose_name),
             'adminform': adminForm,
-            'form': form, # form added
+            'form': form,  # form added
             'object_id': object_id,
             'original': obj,
             'is_popup': request.REQUEST.has_key('_popup'),
@@ -444,7 +503,7 @@ class EventOptions(ExtendedModelAdmin):
         the object is being changed, and False if it's being added.
         """
         event = super(EventOptions, self).save_form(request, form, change)
-        event.save() # to ensure that creation date is saved
+        event.save()  # to ensure that creation date is saved
         Address.objects.set_for(
             event,
             "postal_address",
@@ -460,10 +519,10 @@ class EventOptions(ExtendedModelAdmin):
             latitude=form.cleaned_data["latitude"],
             longitude=form.cleaned_data["longitude"],
             altitude=form.cleaned_data["altitude"],
-            )
+        )
         return event
+
 
 admin.site.register(EventType, EventTypeOptions)
 admin.site.register(EventTimeLabel, EventTimeLabelOptions)
 admin.site.register(Event, EventOptions)
-

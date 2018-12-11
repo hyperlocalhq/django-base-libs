@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.models import User, check_password
 
+
 class EmailBackend:
     """
     Authenticate against email and password or email only (from hash)
@@ -12,7 +13,7 @@ class EmailBackend:
     supports_object_permissions = False
     supports_anonymous_user = False
     supports_inactive_user = False
-    
+
     def authenticate(self, email=None, password=None):
         user = None
         try:
@@ -30,4 +31,3 @@ class EmailBackend:
             return User.objects.get(pk=user_id)
         except User.DoesNotExist:
             return None
-

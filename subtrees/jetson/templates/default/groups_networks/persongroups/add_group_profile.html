@@ -11,7 +11,7 @@
 {% block headline %}
     <h2 class="main">{% trans "Registration" %}</h2>
     <h2 class="sub">{% trans "Group" %}</h2>
-    
+
 {% endblock %}
 
 {% block sidebar-a %}
@@ -22,38 +22,35 @@
 {% endblock %}
 
 {% block content %}
-	<div class="reg">
-	    <form action="" method="post" enctype="multipart/form-data">
-        <div class="field_layout">
-            <fieldset>
-                <legend>{% trans "Profile Data" %}</legend>
-                <ul>
-                    <li>
-                        {{ form.description_de.label_tag }}
-                        {{ form.description_de }}
-                        {{ form.description_de.error_tag }}
-                    </li>
-                    <li>
-                        {{ form.description_en.label_tag }}
-                        {{ form.description_en }}
-                        {{ form.description_en.error_tag }}
-                    </li>
-                </ul>
-            </fieldset>
-            <fieldset class="fieldset_end">
-                <legend>{% trans "Profile Photo" %}</legend>
-                <ul>
-                    <li>
-                        <img src="{% if form_step_data.2.avatar %}/helper/tmpimage/{{ form_step_data.2.avatar.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/{% else %}{{ DEFAULT_FORM_LOGO_4_PERSONGROUP }}{% endif %}" alt="{% trans "Image" %}" />
-                        {{ form.avatar }}
-                        <p>{{ form.avatar.help_text }}</p>
-                        {{ form.avatar.error_tag }}
-                    </li>
-                </ul>
-            </fieldset>
-            {% include "utils/step_buttons.html" %}
-        </div>
-	    </form>
-	</div>                                                               
+    <div class="reg">
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="field_layout">
+                <fieldset>
+                    <legend>{% trans "Profile Data" %}</legend>
+                    <ul>
+                        <li>
+                            {{ form.description_de.label_tag }} {{ form.description_de }} {{ form.description_de.error_tag }}
+                        </li>
+                        <li>
+                            {{ form.description_en.label_tag }} {{ form.description_en }} {{ form.description_en.error_tag }}
+                        </li>
+                    </ul>
+                </fieldset>
+                <fieldset class="fieldset_end">
+                    <legend>{% trans "Profile Photo" %}</legend>
+                    <ul>
+                        <li>
+                            <img src="{% if form_step_data.2.avatar %}/helper/tmpimage/{{ form_step_data.2.avatar.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/{% else %}{{ DEFAULT_FORM_LOGO_4_PERSONGROUP }}{% endif %}"
+                                 alt="{% trans "Image" %}"/>
+                            {{ form.avatar }}
+                            <p>{{ form.avatar.help_text }}</p>
+                            {{ form.avatar.error_tag }}
+                        </li>
+                    </ul>
+                </fieldset>
+                {% include "utils/step_buttons.html" %}
+            </div>
+        </form>
+    </div>
 {% endblock %}
 

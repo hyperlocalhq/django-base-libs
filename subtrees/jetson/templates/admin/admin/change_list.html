@@ -16,12 +16,12 @@
     {{ media.js }}
     {% if cl.formset or action_form %}
         {% url 'admin:jsi18n' as jsi18nurl %}
-        <script type="text/javascript" src="{{ jsi18nurl|default:'../../jsi18n/'}}"></script>
+        <script type="text/javascript" src="{{ jsi18nurl|default:'../../jsi18n/' }}"></script>
     {% endif %}
     {% if action_form %}
         <script type="text/javascript" charset="utf-8">
-            (function($) {
-                $(document).ready(function() {
+            (function ($) {
+                $(document).ready(function () {
                     $("tr input.action-select").actions({actionSelect: "doesntexist"});
                 });
             })(grp.jQuery);
@@ -29,8 +29,8 @@
     {% endif %}
     {% if cl.formset %}
         <script type="text/javascript" charset="utf-8">
-            (function($) {
-                $(document).ready(function() {
+            (function ($) {
+                $(document).ready(function () {
                     grappelli.initDateAndTimePicker();
                     var prefix = "form";
                     var related_lookup_fields_fk = {% get_related_lookup_fields_fk cl.model_admin %};
@@ -39,70 +39,74 @@
                     var autocomplete_fields_fk = {% get_autocomplete_lookup_fields_fk cl.model_admin %};
                     var autocomplete_fields_m2m = {% get_autocomplete_lookup_fields_m2m cl.model_admin %};
                     var autocomplete_fields_generic = {% get_autocomplete_lookup_fields_generic cl.model_admin %};
-                    $.each(related_lookup_fields_fk, function() {
+                    $.each(related_lookup_fields_fk, function () {
                         $("div.grp-changelist-results")
-                        .find("input[name^='" + prefix + "'][name$='" + this + "']")
-                        .grp_related_fk({lookup_url:"{% url 'grp_related_lookup' %}"});
+                            .find("input[name^='" + prefix + "'][name$='" + this + "']")
+                            .grp_related_fk({lookup_url: "{% url 'grp_related_lookup' %}"});
                     });
-                    $.each(related_lookup_fields_m2m, function() {
+                    $.each(related_lookup_fields_m2m, function () {
                         $("div.grp-changelist-results")
-                        .find("input[name^='" + prefix + "'][name$='" + this + "']")
-                        .grp_related_m2m({lookup_url:"{% url 'grp_m2m_lookup' %}"});
+                            .find("input[name^='" + prefix + "'][name$='" + this + "']")
+                            .grp_related_m2m({lookup_url: "{% url 'grp_m2m_lookup' %}"});
                     });
-                    $.each(related_lookup_fields_generic, function() {
+                    $.each(related_lookup_fields_generic, function () {
                         var content_type = this[0],
                             object_id = this[1];
                         $("div.grp-changelist-results")
-                        .find("input[name^='" + prefix + "'][name$='" + this[1] + "']")
-                        .each(function() {
-                            var ct_id = "#id_" + prefix + "-" + $(this).attr("id").split("-")[1] + "-" + content_type,
-                                obj_id = "#id_" + prefix + "-" + $(this).attr("id").split("-")[1] + "-" + object_id;
-                            $(this).grp_related_generic({content_type:ct_id, object_id:obj_id, lookup_url:"{% url 'grp_related_lookup' %}"});
-                        });
-                    });
-                    $.each(autocomplete_fields_fk, function() {
-                        $("div.grp-changelist-results")
-                        .find("input[name^='" + prefix + "'][name$='" + this + "']")
-                        .each(function() {
-                            $(this).grp_autocomplete_fk({
-                                lookup_url:"{% url 'grp_related_lookup' %}",
-                                autocomplete_lookup_url:"{% url 'grp_autocomplete_lookup' %}"
-                            });
-                        });
-                    });
-                    $.each(autocomplete_fields_m2m, function() {
-                        $("div.grp-changelist-results")
-                        .find("input[name^='" + prefix + "'][name$='" + this + "']")
-                        .each(function() {
-                            $(this).grp_autocomplete_m2m({
-                                lookup_url:"{% url 'grp_m2m_lookup' %}",
-                                autocomplete_lookup_url:"{% url 'grp_autocomplete_lookup' %}"
-                            });
-                        });
-                    });
-                    $.each(autocomplete_fields_generic, function() {
-                        var content_type = this[0],
-                            object_id = this[1];
-                        $("div.grp-changelist-results")
-                        .find("input[name^='" + prefix + "'][name$='" + this[1] + "']")
-                        .each(function() {
-                            var i = $(this).attr("id").match(/-\d+-/);
-                            if (i) {
-                                var ct_id = "#id_" + prefix + i[0] + content_type,
-                                    obj_id = "#id_" + prefix + i[0] + object_id;
-                                $(this).grp_autocomplete_generic({
-                                    content_type:ct_id,
-                                    object_id:obj_id,
-                                    lookup_url:"{% url 'grp_related_lookup' %}",
-                                    autocomplete_lookup_url:"{% url 'grp_autocomplete_lookup' %}"
+                            .find("input[name^='" + prefix + "'][name$='" + this[1] + "']")
+                            .each(function () {
+                                var ct_id = "#id_" + prefix + "-" + $(this).attr("id").split("-")[1] + "-" + content_type,
+                                    obj_id = "#id_" + prefix + "-" + $(this).attr("id").split("-")[1] + "-" + object_id;
+                                $(this).grp_related_generic({
+                                    content_type: ct_id,
+                                    object_id: obj_id,
+                                    lookup_url: "{% url 'grp_related_lookup' %}"
                                 });
-                            }
-                        });
+                            });
+                    });
+                    $.each(autocomplete_fields_fk, function () {
+                        $("div.grp-changelist-results")
+                            .find("input[name^='" + prefix + "'][name$='" + this + "']")
+                            .each(function () {
+                                $(this).grp_autocomplete_fk({
+                                    lookup_url: "{% url 'grp_related_lookup' %}",
+                                    autocomplete_lookup_url: "{% url 'grp_autocomplete_lookup' %}"
+                                });
+                            });
+                    });
+                    $.each(autocomplete_fields_m2m, function () {
+                        $("div.grp-changelist-results")
+                            .find("input[name^='" + prefix + "'][name$='" + this + "']")
+                            .each(function () {
+                                $(this).grp_autocomplete_m2m({
+                                    lookup_url: "{% url 'grp_m2m_lookup' %}",
+                                    autocomplete_lookup_url: "{% url 'grp_autocomplete_lookup' %}"
+                                });
+                            });
+                    });
+                    $.each(autocomplete_fields_generic, function () {
+                        var content_type = this[0],
+                            object_id = this[1];
+                        $("div.grp-changelist-results")
+                            .find("input[name^='" + prefix + "'][name$='" + this[1] + "']")
+                            .each(function () {
+                                var i = $(this).attr("id").match(/-\d+-/);
+                                if (i) {
+                                    var ct_id = "#id_" + prefix + i[0] + content_type,
+                                        obj_id = "#id_" + prefix + i[0] + object_id;
+                                    $(this).grp_autocomplete_generic({
+                                        content_type: ct_id,
+                                        object_id: obj_id,
+                                        lookup_url: "{% url 'grp_related_lookup' %}",
+                                        autocomplete_lookup_url: "{% url 'grp_autocomplete_lookup' %}"
+                                    });
+                                }
+                            });
                     });
                     // reset actions select box
                     $('.grp-changelist-actions select').val(-1);
                     // find errors and move (because errors should be below form elements)
-                    $("ul.errorlist").each(function() {
+                    $("ul.errorlist").each(function () {
                         $(this).parents("td").append($(this));
                     });
                 });
@@ -110,8 +114,8 @@
         </script>
     {% endif %}
     <script type="text/javascript" charset="utf-8">
-        (function($) {
-            $(document).ready(function() {
+        (function ($) {
+            $(document).ready(function () {
                 grappelli.initSearchbar();
                 grappelli.initFilter();
             });
@@ -144,7 +148,10 @@
     {% if has_add_permission %}
         <ul class="grp-object-tools">
             {% block object-tools-items %}
-                <li><a href="add/{% if is_popup %}?_popup=1{% endif %}" class="grp-add-link grp-state-focus">{% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}</a></li>
+                <li>
+                    <a href="add/{% if is_popup %}?_popup=1{% endif %}" class="grp-add-link grp-state-focus">
+                        {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}</a>
+                </li>
             {% endblock %}
         </ul>
     {% endif %}
@@ -155,11 +162,14 @@
     {% if cl.search_fields or cl.has_filters or cl.date_hierarchy %}
         <div class="grp-module">
             <div class="grp-row">
-                <div class="l-2cr-fluid {% if cl.has_filters and cl.search_fields %}l-d-12{% else %}{% if cl.has_filters or cl.search_fields %}l-d-6{% endif %}{% endif %}">
+                <div class="l-2cr-fluid {% if cl.has_filters and cl.search_fields %}l-d-12
+                    {% else %}{% if cl.has_filters or cl.search_fields %}l-d-6{% endif %}{% endif %}">
                     {% if cl.has_filters or cl.search_fields %}
                         {% block aside %}
                             <aside class="c-1">
-                                <header style="display:none"><h1>{% if cl.search_fields %}Search{% if cl.has_filters %} &amp; {% endif %}{% endif %}{% if cl.has_filters %}Filters{% endif %}</h1></header>
+                                <header style="display:none"><h1>
+                                    {% if cl.search_fields %}Search{% if cl.has_filters %} &amp; {% endif %}{% endif %}
+                                    {% if cl.has_filters %}Filters{% endif %}</h1></header>
                                 <!-- SEARCH -->
                                 {% if cl.search_fields %}
                                     {% block search %}
@@ -174,7 +184,8 @@
                                         <div id="grp-filters" class="g-d-6 g-d-l">
                                             <div class="grp-filter">
                                                 <div class="grp-pulldown-container">
-                                                    <a href="javascript://" class="grp-button grp-pulldown-handler">{% trans 'Filter' %}</a>
+                                                    <a href="javascript://"
+                                                       class="grp-button grp-pulldown-handler">{% trans 'Filter' %}</a>
                                                     <div class="grp-pulldown-content" style="display: none;">
                                                         {% for spec in cl.filter_specs %}
                                                             {% if spec.is_hierarchical %}
@@ -194,8 +205,7 @@
                     {% endif %}
                     {% block pagination_top %}
                         <div class="c-2">
-                            <!-- PAGINATION TOP -->
-                            {% pagination cl %}
+                            <!-- PAGINATION TOP -->{% pagination cl %}
                         </div>
                     {% endblock %}
 
@@ -207,11 +217,15 @@
             {% endblock %}
         </div>
     {% endif %}
-    <form id="grp-changelist-form" action="" method="post"{% if cl.formset.is_multipart %} enctype="multipart/form-data"{% endif %}>{% csrf_token %}
+    <form id="grp-changelist-form"
+          action=""
+          method="post"{% if cl.formset.is_multipart %}
+          enctype="multipart/form-data"{% endif %}>{% csrf_token %}
         <section id="grp-changelist" class="{% if cl.list_editable %} grp-editable{% endif %}">
             <header style="display:none"><h1>Results</h1></header>
             <!-- POPUP -->
-            {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
+            {% if is_popup %}
+                <input type="hidden" name="_popup" value="1"/>{% endif %}
             <!-- ERRORS -->
             {% if cl.formset.errors %}
                 <p class="errornote">
@@ -241,8 +255,15 @@
             <footer id="submit" class="grp-module grp-submit-row grp-fixed-footer">
                 <header style="display:none"><h1>Submit Options</h1></header>
                 <ul>
-                    {% if action_form %}<li class="grp-float-left grp-changelist-actions">{% admin_actions %}</li>{% endif %}
-                    {% if cl.formset %}<li><input type="submit" class="grp-button grp-default" name="_save" value="{% trans "Save" %}"/></li>{% endif %}
+                    {% if action_form %}
+                        <li class="grp-float-left grp-changelist-actions">{% admin_actions %}</li>{% endif %}
+                    {% if cl.formset %}
+                        <li>
+                            <input type="submit"
+                                   class="grp-button grp-default"
+                                   name="_save"
+                                   value="{% trans "Save" %}"/>
+                        </li>{% endif %}
                 </ul>
             </footer>
         {% endif %}

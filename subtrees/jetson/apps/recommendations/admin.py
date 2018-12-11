@@ -12,5 +12,5 @@ class RecommendationOptions(ObjectRelationMixinAdminOptions()):
     list_display = ('__unicode__', 'get_content_object_display')
     fieldsets = []
 
-admin.site.register(Recommendation, RecommendationOptions)
 
+admin.site.register(Recommendation, RecommendationOptions)

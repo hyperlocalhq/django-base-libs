@@ -4,13 +4,15 @@ from optparse import make_option
 
 SILENT, NORMAL, VERBOSE = 0, 1, 2
 
+
 class Command(NoArgsCommand):
     help = "Changes the superuser to admin/admin"
+
     def handle_noargs(self, **options):
         verbosity = int(options.get('verbosity', NORMAL))
-        
+
         from django.contrib.auth.models import User
-        
+
         superusers = User.objects.filter(
             username="admin",
             is_superuser=True,

@@ -21,16 +21,20 @@ Blocks to override:
 -->{% endcomment %}
 {% load base_tags %}
 {% if player_id %}
-<div id="{{ player_id }}">
+    <div id="{{ player_id }}">
 {% endif %}
-<object type="application/x-shockwave-flash" width="{% block flowplayer_width%}500{% endblock %}" height="{% block flowplayer_height %}400{% endblock %}" data="{% block flowplayer_path %}{{ jetson_media_url }}flowplayer/flowplayer-3.1.5.swf{% endblock %}">
-    <param name="movie" value="{% block flowplayer_path_again %}{{ jetson_media_url }}flowplayer/flowplayer-3.1.5.swf{% endblock %}" />
-    <param name="allowscriptaccess" value="always" />
-    <param name="allowfullscreen" value="true" />
-    <param name="quality" value="high" />
-    <param name="cachebusting" value="false" />
-    <param name="wmode" value="transparent" />
-    <param name="bgcolor" value="{% block flowplayer_bgcolor %}#FFFFFF{% endblock %}" />
+<object type="application/x-shockwave-flash"
+        width="{% block flowplayer_width %}500{% endblock %}"
+        height="{% block flowplayer_height %}400{% endblock %}"
+        data="{% block flowplayer_path %}{{ JETSON_MEDIA_URL }}flowplayer/flowplayer-3.1.5.swf{% endblock %}">
+    <param name="movie"
+           value="{% block flowplayer_path_again %}{{ JETSON_MEDIA_URL }}flowplayer/flowplayer-3.1.5.swf{% endblock %}"/>
+    <param name="allowscriptaccess" value="always"/>
+    <param name="allowfullscreen" value="true"/>
+    <param name="quality" value="high"/>
+    <param name="cachebusting" value="false"/>
+    <param name="wmode" value="transparent"/>
+    <param name="bgcolor" value="{% block flowplayer_bgcolor %}#FFFFFF{% endblock %}"/>
     <param name="flashvars" value='config={{% filter linebreaksbr|removetags:"br"|cut:"    " %}
         {% block flowplayer_clip %}
         "clip": {
@@ -59,11 +63,13 @@ Blocks to override:
         {% if player_id %}
         ,"playerId": "{{ player_id }}"
         {% endif %}
-    {% endfilter %}}' />
+    {% endfilter %}}'/>
     {% block flowplayer_fallback %}
-    <a href="{% parse media_file_path %}"><img src="{% parse splash_image_path %}" alt="" /></a>
+        <a href="{% parse media_file_path %}">
+            <img src="{% parse splash_image_path %}" alt=""/>
+        </a>
     {% endblock %}
 </object>
 {% if player_id %}
-</div>
+    </div>
 {% endif %}

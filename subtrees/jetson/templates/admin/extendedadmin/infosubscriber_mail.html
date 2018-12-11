@@ -2,179 +2,213 @@
 {% load base_tags i18n static %}
 
 {% block extrahead %}
-<style type="text/css">
-/*<![CDATA[*/
-    #break_start_row, #break_end_row {
-        display: none;
-    }
-/*]]>*/
-</style>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-<script type="text/javascript" src="/jsi18n/"></script>
-<script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>
-<script type="text/javascript" src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>
-<script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/CollapsedFieldsets2.js' %}"></script>
-<script type="text/javascript" src="{% static 'admin/js/SelectBox.js' %}"></script>
-<script type="text/javascript" src="{% static 'admin/js/SelectFilter2.js' %}"></script>
+    <style type="text/css">
+        /*<![CDATA[*/
+        #break_start_row, #break_end_row {
+            display: none;
+        }
+
+        /*]]>*/
+    </style>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script type="text/javascript" src="/jsi18n/"></script>
+    <script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/CollapsedFieldsets2.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/SelectBox.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/SelectFilter2.js' %}"></script>
 {% endblock %}
 
 {% block coltype %}colMS{% endblock %}
 
 {% block bodyclass %}change-form{% endblock %}
 
-{% block breadcrumbs %}<div class="breadcrumbs">{% if not is_popup %}<a href="/admin/">{% trans "Home" %}</a> &rsaquo; {% endif %}
-<a href="/admin/mailing/infosubscription/">{% trans "Infosubscription" %}</a> &rsaquo; {% trans "Send an Email" %}</div>{% endblock %}
+{% block breadcrumbs %}
+    <div class="breadcrumbs">{% if not is_popup %}
+        <a href="/admin/">{% trans "Home" %}</a> &rsaquo; {% endif %}
+        <a href="/admin/mailing/infosubscription/">{% trans "Infosubscription" %}</a> &rsaquo; {% trans "Send an Email" %}
+    </div>{% endblock %}
 
 {% block title %}{% trans "Send an Email" %} | {% trans 'Django site admin' %}{% endblock %}
 
 {% block content_title %}<h1>{% trans "Send an Email" %}</h1>{% endblock %}
-	
+
 {% block content %}
-<div id="content-main">
-    {% if form.errors %} 
-	     <p class="errornote"> 
-	         {% blocktrans count form.errors.items|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
-	     </p> 
-    {% endif %} 
-	<form method="post" action="">
-        <div class="submit-row">
-            <input type="hidden" name="goto_next" value="{% if goto_next %}{{ goto_next }}{% else %}{{ request.get_full_path }}{% endif %}" />
-            <input type="submit" value="{% trans "Send test email" %}" name="send_test_mail" />
-            <input type="submit" value="{% trans "Send email" %}" name="send_mail" />
-        </div>		       
-		<fieldset class="module aligned">	    
-		    {% if form %}
-                 <div class="form-row{% if form.sender_name.errors %} grp-errors{% endif %}">
-                 
-                    {% if form.sender_name.errors %}
-                        <ul class="errorlist"><li>{{ form.sender_name.errors|join:", "}}</li></ul>
-                    {% endif %} 
-                    
-                    <span{% if form.sender_name.field.required %} class="required"{% endif %}>{{ form.sender_name.label_tag }}</span> 
-                    {{ form.sender_name }}
-                    
-                    {% if form.sender_name.help_text %}<p class="help">{{ form.sender_name.help_text }}</p>{% endif %}					    
-                    
-                </div>
-                <div class="form-row{% if form.sender_email.errors %} grp-errors{% endif %}">
-                
-                    {% if form.sender_email.errors %}
-                        <ul class="errorlist"><li>{{ form.sender_email.errors|join:", "}}</li></ul>
-                    {% endif %} 	
-                    
-                    <span{% if form.sender_email.field.required %} class="required"{% endif %}>{{ form.sender_email.label_tag }}</span> 
-                    {{ form.sender_email }}
-                    
-                    {% if form.sender_email.help_text %}<p class="help">{{ form.sender_email.help_text }}</p>{% endif %}					    
-                </div>
-                <div class="form-row{% if form.tester_email.errors %} grp-errors{% endif %}">
-                
-                    {% if form.tester_email.errors %}
-                        <ul class="errorlist"><li>{{ form.tester_email.errors|join:", "}}</li></ul>
-                    {% endif %} 	
-                    
-                    <span{% if form.tester_email.field.required %} class="required"{% endif %}>{{ form.tester_email.label_tag }}</span> 
-                    {{ form.tester_email }}
-                    
-                    {% if form.tester_email.help_text %}<p class="help">{{ form.tester_email.help_text }}</p>{% endif %}					    
-                </div>
-		    	
-		    	{% if display_recipients_list %}
-			    	<div class="form-row{% if form.recipients_email_list.errors %} grp-errors{% endif %}">
-			    	
-			    		{% if form.recipients_email_list.errors %}
-	            			<ul class="errorlist"><li>{{ form.recipients_email_list.errors|join:", "}}</li></ul>
-					    {% endif %}
+    <div id="content-main">
+        {% if form.errors %}
+            <p class="errornote">
+                {% blocktrans count form.errors.items|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+            </p>
+        {% endif %}
+        <form method="post" action="">
+            <div class="submit-row">
+                <input type="hidden"
+                       name="goto_next"
+                       value="{% if goto_next %}{{ goto_next }}{% else %}{{ request.get_full_path }}{% endif %}"/>
+                <input type="submit" value="{% trans "Send test email" %}" name="send_test_mail"/>
+                <input type="submit" value="{% trans "Send email" %}" name="send_mail"/>
+            </div>
+            <fieldset class="module aligned">
+                {% if form %}
+                    <div class="form-row{% if form.sender_name.errors %} grp-errors{% endif %}">
 
-						<label for="id_{{ form.recipients_email_list.name }}"{% if form.recipients_email_list.field.required %} class="required"{% endif %}>{{ form.recipients_email_list.label }}</label> 
-						<div class="many-to-many">{{ form.recipients_email_list }}</div>
-						
-                        {% if form.recipients_email_list.help_text %}<p class="help">{{ form.recipients_email_list.help_text }}</p>{% endif %}					    
+                        {% if form.sender_name.errors %}
+                            <ul class="errorlist">
+                                <li>{{ form.sender_name.errors|join:", " }}</li>
+                            </ul>
+                        {% endif %}
 
-                        <script type="text/javascript">
-                            addEvent(window, "load", function(e) {
-                                SelectFilter.init("id_{{ form.recipients_email_list.name }}", "{{ form.recipients_email_list.label }}", 1, "{{ jetson_media_url }}");
-                            });
-                        </script>
-			        </div>
-			    {% endif %}
-			    
-			    {% if display_recipients_input %}
-			    	<div class="form-row{% if form.recipients_email_input.errors %} grp-errors{% endif %}">
-			    	
-				    	{% if form.recipients_email_input.errors %}
-	            			<ul class="errorlist"><li>{{ form.recipients_email_input.errors|join:", "}}</li></ul>
-					    {% endif %} 	
-	
-		    	        <span{% if form.recipients_email_input.field.required %} class="required"{% endif %}>{{ form.recipients_email_input.label_tag }}</span>
-  	    	            {{ form.recipients_email_input }}
-  	    	            
-   			            {% if form.recipients_email_input.help_text %}<p class="help">{{ form.recipients_email_input.help_text }}</p>{% endif %}					    
-			        </div>
-			    {% endif %} 
-			    
-			    {% if display_en %}
-				    <div class="form-row{% if form.subject.errors %} grp-errors{% endif %}">
-				    
-				    	{% if form.subject.errors %}
-	            			<ul class="errorlist"><li>{{ form.subject.errors|join:", "}}</li></ul>
-					    {% endif %} 		    
-	
-		    	        <span{% if form.subject.field.required %} class="required"{% endif %}>{{ form.subject.label_tag }}</span>
-		    	        {{ form.subject }}
-		    	        
-		    	        {% if form.subject.help_text %}<p class="help">{{ form.subject.help_text }}</p>{% endif %}					    
-			        </div>
-	
-				    <div class="form-row{% if form.body.errors %} grp-errors{% endif %}">
-				    
-					    {% if form.body.errors %}
-	            			<ul class="errorlist"><li>{{ form.body.errors|join:", "}}</li></ul>
-					    {% endif %} 
-	
-			            <span{% if form.body.field.required %} class="required"{% endif %}>{{ form.body.label_tag }}</span>
-			            {{ form.body }}
-			            
-  		    	        {% if form.body.help_text %}<p class="help">{{ form.body.help_text }}</p>{% endif %}					    
-			        </div>
-			        
-			    {% endif %} 		       
-			    
-			    {% if display_de %}
-			    
-			       <div class="form-row{% if form.subject_de.errors %} grp-errors{% endif %}">
-			       
-				        {% if form.subject_de.errors %}
-	            			<ul class="errorlist"><li>{{ form.subject_de.errors|join:", "}}</li></ul>
-					    {% endif %}
-	
-			            <span{% if form.subject_de.field.required %} class="required"{% endif %}>{{ form.subject_de.label_tag }}</span>
-			            {{ form.subject_de }}
-			            
-   		    	        {% if form.subject_de.help_text %}<p class="help">{{ form.subject_de.help_text }}</p>{% endif %}					    
-   		    	        
-			        </div>
-	
-				    <div class="form-row{% if form.body_de.errors %} grp-errors{% endif %}">
-				    
-				        {% if form.body_de.errors %}
-	            			<ul class="errorlist"><li>{{ form.body_de.errors|join:", "}}</li></ul>
-					    {% endif %}
-				    
-			            <span{% if form.body_de.field.required %} class="required"{% endif %}>{{ form.body_de.label_tag }}</span>
-			            {{ form.body_de }}
-			            
-   		    	        {% if form.body_de.help_text %}<p class="help">{{ form.body_de.help_text }}</p>{% endif %}					    
-			        </div>
-			        
-			    {% endif %} 
-		    {% endif %}
-		</fieldset>
-        <div class="submit-row">
-            <input type="hidden" name="goto_next" value="{% if goto_next %}{{ goto_next }}{% else %}{{ request.get_full_path }}{% endif %}" />
-            <input type="submit" value="{% trans "Send test email" %}" name="send_test_mail" />
-            <input type="submit" value="{% trans "Send email" %}" name="send_mail" />
-        </div>		       
-	</form>
-</div>
+                        <span
+                                {% if form.sender_name.field.required %} class="required"{% endif %}>{{ form.sender_name.label_tag }}</span> {{ form.sender_name }}
+
+                        {% if form.sender_name.help_text %}
+                            <p class="help">{{ form.sender_name.help_text }}</p>{% endif %}
+
+                    </div>
+                    <div class="form-row{% if form.sender_email.errors %} grp-errors{% endif %}">
+
+                        {% if form.sender_email.errors %}
+                            <ul class="errorlist">
+                                <li>{{ form.sender_email.errors|join:", " }}</li>
+                            </ul>
+                        {% endif %}
+
+                        <span
+                                {% if form.sender_email.field.required %} class="required"{% endif %}>{{ form.sender_email.label_tag }}</span> {{ form.sender_email }}
+
+                        {% if form.sender_email.help_text %}
+                            <p class="help">{{ form.sender_email.help_text }}</p>{% endif %}
+                    </div>
+                    <div class="form-row{% if form.tester_email.errors %} grp-errors{% endif %}">
+
+                        {% if form.tester_email.errors %}
+                            <ul class="errorlist">
+                                <li>{{ form.tester_email.errors|join:", " }}</li>
+                            </ul>
+                        {% endif %}
+
+                        <span
+                                {% if form.tester_email.field.required %} class="required"{% endif %}>{{ form.tester_email.label_tag }}</span> {{ form.tester_email }}
+
+                        {% if form.tester_email.help_text %}
+                            <p class="help">{{ form.tester_email.help_text }}</p>{% endif %}
+                    </div>
+
+                    {% if display_recipients_list %}
+                        <div class="form-row{% if form.recipients_email_list.errors %} grp-errors{% endif %}">
+
+                            {% if form.recipients_email_list.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.recipients_email_list.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            <label for="id_{{ form.recipients_email_list.name }}"
+                                    {% if form.recipients_email_list.field.required %}
+                                   class="required"{% endif %}>{{ form.recipients_email_list.label }}</label>
+                            <div class="many-to-many">{{ form.recipients_email_list }}</div>
+
+                            {% if form.recipients_email_list.help_text %}
+                                <p class="help">{{ form.recipients_email_list.help_text }}</p>{% endif %}
+
+                            <script type="text/javascript">
+                                addEvent(window, "load", function (e) {
+                                    SelectFilter.init("id_{{ form.recipients_email_list.name }}", "{{ form.recipients_email_list.label }}", 1, "{{ JETSON_MEDIA_URL }}");
+                                });
+                            </script>
+                        </div>
+                    {% endif %}
+
+                    {% if display_recipients_input %}
+                        <div class="form-row{% if form.recipients_email_input.errors %} grp-errors{% endif %}">
+
+                            {% if form.recipients_email_input.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.recipients_email_input.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            <span
+                                    {% if form.recipients_email_input.field.required %} class="required"{% endif %}>{{ form.recipients_email_input.label_tag }}</span> {{ form.recipients_email_input }}
+
+                            {% if form.recipients_email_input.help_text %}
+                                <p class="help">{{ form.recipients_email_input.help_text }}</p>{% endif %}
+                        </div>
+                    {% endif %}
+
+                    {% if display_en %}
+                        <div class="form-row{% if form.subject.errors %} grp-errors{% endif %}">
+
+                            {% if form.subject.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.subject.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            <span
+                                    {% if form.subject.field.required %} class="required"{% endif %}>{{ form.subject.label_tag }}</span> {{ form.subject }}
+
+                            {% if form.subject.help_text %}<p class="help">{{ form.subject.help_text }}</p>{% endif %}
+                        </div>
+
+                        <div class="form-row{% if form.body.errors %} grp-errors{% endif %}">
+
+                            {% if form.body.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.body.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            <span
+                                    {% if form.body.field.required %} class="required"{% endif %}>{{ form.body.label_tag }}</span> {{ form.body }}
+
+                            {% if form.body.help_text %}<p class="help">{{ form.body.help_text }}</p>{% endif %}
+                        </div>
+
+                    {% endif %}
+
+                    {% if display_de %}
+
+                        <div class="form-row{% if form.subject_de.errors %} grp-errors{% endif %}">
+
+                            {% if form.subject_de.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.subject_de.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            <span
+                                    {% if form.subject_de.field.required %} class="required"{% endif %}>{{ form.subject_de.label_tag }}</span> {{ form.subject_de }}
+
+                            {% if form.subject_de.help_text %}
+                                <p class="help">{{ form.subject_de.help_text }}</p>{% endif %}
+
+                        </div>
+
+                        <div class="form-row{% if form.body_de.errors %} grp-errors{% endif %}">
+
+                            {% if form.body_de.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.body_de.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            <span
+                                    {% if form.body_de.field.required %} class="required"{% endif %}>{{ form.body_de.label_tag }}</span> {{ form.body_de }}
+
+                            {% if form.body_de.help_text %}<p class="help">{{ form.body_de.help_text }}</p>{% endif %}
+                        </div>
+
+                    {% endif %}
+                {% endif %}
+            </fieldset>
+            <div class="submit-row">
+                <input type="hidden"
+                       name="goto_next"
+                       value="{% if goto_next %}{{ goto_next }}{% else %}{{ request.get_full_path }}{% endif %}"/>
+                <input type="submit" value="{% trans "Send test email" %}" name="send_test_mail"/>
+                <input type="submit" value="{% trans "Send email" %}" name="send_mail"/>
+            </div>
+        </form>
+    </div>
 {% endblock %}

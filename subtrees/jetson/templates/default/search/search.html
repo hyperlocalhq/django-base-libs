@@ -1,1 +1,41 @@
-{% extends "base.html" %}{% load base_tags i18n %}{% block title %}{% trans 'SEARCH' %}{% endblock %}{% block breadcrumbs %}{% trans 'search' %}&gt;{% endblock %}{% block headline %}	<h2 class="main">{% trans "ADVANCED SEARCH" %}</h2>{% endblock %}			{% block extrahead %}	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/search.js"></script>{% endblock %}			{% block content %}<div class="search">    <form action="/search/" method="get" class="search_form">    <div class="field_layout">        {% include "site_specific/categories/categories.html" %}    </div>    <div class="field_layout{% if form.advanced_search_text.formfield.is_required %} required{% endif %}">		<h6 class="advanced_search" for="id_advanced_search_text">{% trans 'keyword' %}</h6>		{{ form.advanced_search_text }}    </div>	<div class="field_layout">		<input id="id_submit_advanced" class="button_good" name="advanced" type="submit" value="{% filter upper %}{% trans 'search' %}{% endfilter %}"/>		<input id="id_clear" class="button_bad" name="clear" type="reset" value="{% filter upper %}{% trans 'clear all fields' %}{% endfilter %}"/>	</div>	 </form></div>{% endblock %}
+{% extends "base.html" %}
+{% load base_tags i18n %}
+
+{% block title %}{% trans 'SEARCH' %}{% endblock %}
+
+
+{% block breadcrumbs %}{% trans 'search' %}&gt;{% endblock %}
+
+{% block headline %}
+    <h2 class="main">{% trans "ADVANCED SEARCH" %}</h2>
+{% endblock %}
+
+{% block extrahead %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/search.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="search">
+        <form action="/search/" method="get" class="search_form">
+            <div class="field_layout">
+                {% include "site_specific/categories/categories.html" %}
+            </div>
+            <div class="field_layout{% if form.advanced_search_text.formfield.is_required %} required{% endif %}">
+                <label class="advanced_search" for="id_advanced_search_text">{% trans 'keyword' %}</label>
+                {{ form.advanced_search_text }}
+            </div>
+            <div class="field_layout">
+                <input id="id_submit_advanced"
+                       class="button_good"
+                       name="advanced"
+                       type="submit"
+                       value="{% filter upper %}{% trans 'search' %}{% endfilter %}"/>
+                <input id="id_clear"
+                       class="button_bad"
+                       name="clear"
+                       type="reset"
+                       value="{% filter upper %}{% trans 'clear all fields' %}{% endfilter %}"/>
+            </div>
+        </form>
+    </div>
+{% endblock %}

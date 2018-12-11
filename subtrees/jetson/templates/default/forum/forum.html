@@ -23,42 +23,46 @@
 -->{% endcomment %}
 
 {% block extrahead %}
-	{{ block.super }}
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/forum.js"></script>
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/forum.js"></script>
 {% endblock %}
 
 {% block details %}
     {% block breadcrumbs %}
-	    <div class="breadcrumbs">
-	    	<a href="/">{% trans "Overview" %}</a> |
-	        <a {% if not current_forum %}class="active_toplevel"{% endif %} href="{{ container.get_url }}">{% trans "Forums" %}</a>
-	        {% for forum in forum_path %}
-	             :: <a {% ifequal current_forum forum %} class="active"{% endifequal %} href="{{ forum.get_url }}">{{ forum.short_title }}</a>
-	        {% endfor %}
-	    </div>
-	{% endblock %}    
-    
-	
-	{% comment %}<!--
+        <div class="breadcrumbs">
+            <a href="/">{% trans "Overview" %}</a>
+            |
+            <a {% if not current_forum %}class="active_toplevel"{% endif %}
+               href="{{ container.get_url }}">{% trans "Forums" %}</a>
+            {% for forum in forum_path %}
+                ::
+                <a {% ifequal current_forum forum %} class="active"{% endifequal %}
+                                                     href="{{ forum.get_url }}">{{ forum.short_title }}</a>
+            {% endfor %}
+        </div>
+    {% endblock %}
+
+
+    {% comment %}<!--
         if only one forum is allowed (container.maxlevels==0), directly go to the forum
 	-->{% endcomment %}
-	{% ifequal container.max_levels 0 %} 
-		{% include_selected "thread_list.html" for object under "forum" %}
-	{% else %}
-		{% if not current_forum %}
-			{% include_selected "forum_list_level_0.html" for object under "forum" %}
-		{% else %}
-			{% if current_thread %}
-				{% include_selected "reply_list.html" for object under "forum" %}
-			{% else %}
-				{% if current_forum.is_leaf %}
-					{% include_selected "thread_list.html" for object under "forum" %}
-				{% else %}
-					{% include_selected "forum_list_level_1.html" for object under "forum" %}
-				{% endif %}
-			{% endif %}
-		{% endif %}
-	{% endifequal %}
-	    
+    {% ifequal container.max_levels 0 %}
+        {% include_selected "thread_list.html" for object under "forum" %}
+    {% else %}
+        {% if not current_forum %}
+            {% include_selected "forum_list_level_0.html" for object under "forum" %}
+        {% else %}
+            {% if current_thread %}
+                {% include_selected "reply_list.html" for object under "forum" %}
+            {% else %}
+                {% if current_forum.is_leaf %}
+                    {% include_selected "thread_list.html" for object under "forum" %}
+                {% else %}
+                    {% include_selected "forum_list_level_1.html" for object under "forum" %}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endifequal %}
+
 {% endblock %}
 
