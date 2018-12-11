@@ -18,7 +18,7 @@
                 cursor: 'wait'
             });
             $.get(
-                '/' + window.settings.lang + '/helper/favorite/' + iCTId + '/' + oObjId + '/',
+                '/' + window.settings.LANGUAGE_CODE + '/helper/favorite/' + iCTId + '/' + oObjId + '/',
                 function(oData) {
                     self.FavoriteManager.showResults(oData, oElement);
                 },

@@ -59,7 +59,7 @@
                 var $formset_form = $(this).closest('.formset-form');
                 var options = $.extend(translatable_file_uploader_options, {
                     allowedExtensions: ['gif', 'jpg', 'png', 'tif', 'bmp'],
-                    action: '/' + self.settings.lang + '/helper/ajax-upload/',
+                    action: '/' + self.settings.LANGUAGE_CODE + '/helper/ajax-upload/',
                     element: $(this)[0],
                     multiple: false,
                     onComplete: function(id, fileName, responseJSON) {
@@ -68,8 +68,8 @@
                             // set the original to media_file_path
                             $('[name$="media_file_path"]', $formset_form).val(responseJSON.path);
                             // load the modified version for the preview
-                            $.post('/' + self.settings.lang + '/helper/modified-path/', {
-                                file_path: self.settings.media_url + responseJSON.path,
+                            $.post('/' + self.settings.LANGUAGE_CODE + '/helper/modified-path/', {
+                                file_path: self.settings.MEDIA_URL + responseJSON.path,
                                 mod_sysname: 'medium'
                             }, function(data, textStatus, jqXHR) {
                                 $('.image_preview', $formset_form).html('<img class="img-responsive" alt="" src="' + data + '" />');

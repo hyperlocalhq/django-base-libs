@@ -307,7 +307,7 @@
         if ($('#image_uploader').length) {
             var options = $.extend(translatable_file_uploader_options, {
                 allowedExtensions: ['gif', 'jpg', 'png'],
-                action: '/' + self.settings.lang + '/helper/ajax-upload/',
+                action: '/' + self.settings.LANGUAGE_CODE + '/helper/ajax-upload/',
                 element: $('#image_uploader')[0],
                 multiple: false,
                 onComplete: function(id, fileName, responseJSON) {
@@ -316,8 +316,8 @@
                         // set the original to media_file_path
                         $('#id_media_file_path').val(responseJSON.path);
                         // load the modified version for the preview
-                        $.post('/' + self.settings.lang + '/helper/modified-path/', {
-                            file_path: self.settings.media_url + responseJSON.path,
+                        $.post('/' + self.settings.LANGUAGE_CODE + '/helper/modified-path/', {
+                            file_path: self.settings.MEDIA_URL + responseJSON.path,
                             mod_sysname: 'gallery_image'
                         }, function(data, textStatus, jqXHR) {
                             $('#image_preview').html('<img class="img-responsive" alt="" src="' + data + '" />');
@@ -445,7 +445,7 @@
         if ($('#pdf_uploader').length) {
             var options = $.extend(translatable_file_uploader_options, {
                 allowedExtensions: ['pdf'],
-                action: '/' + self.settings.lang + '/helper/ajax-upload/',
+                action: '/' + self.settings.LANGUAGE_CODE + '/helper/ajax-upload/',
                 element: $('#pdf_uploader')[0],
                 multiple: false,
                 onComplete: function(id, fileName, responseJSON) {
@@ -454,7 +454,7 @@
                         // set the original to media_file_path
                         $('#id_media_file_path').val(responseJSON.path);
                         // load the modified version for the preview
-                        $.post('/' + self.settings.lang + '/helper/modified-path/', {
+                        $.post('/' + self.settings.LANGUAGE_CODE + '/helper/modified-path/', {
                             file_path: responseJSON.path,
                             mod_sysname: 'medium'
                         }, function(data, textStatus, jqXHR) {

@@ -2,11 +2,11 @@
 {% load i18n %}
 
 {% block document_domain %}
-//"{{ cookie_domain }}";
+//"{{ COOKIE_DOMAIN }}";
 {% endblock %}
 
 {% block extra_window_settings %}
-window.settings.frontend_languages = { {% for lang in FRONTEND_LANGUAGES %}'{{ lang.0|escapejs }}': '{{ lang.1|escapejs }}'{% if not forloop.last %},{% endif %}{% endfor %} };
+window.settings.FRONTEND_LANGUAGES = JSON.parse('{{ FRONTEND_LANGUAGES_JSON }}');
 window.settings.ENVIRONMENT = '{{ ENVIRONMENT }}';
 
 window.WEEKDAYS = ['{% trans "Sunday" %}', '{% trans "Monday" %}', '{% trans "Tuesday" %}', '{% trans "Wednesday" %}', '{% trans "Thursday" %}', '{% trans "Friday" %}', '{% trans "Saturday" %}'];
