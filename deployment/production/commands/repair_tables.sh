@@ -7,7 +7,7 @@ echo "Repairing tables" > ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
 
 cd ${PROJECT_PATH}
-. bin/activate
+source venv/bin/activate
 cd project/museumsportal
 echo "REPAIR TABLE httpstate_httpstate;" | python manage.py dbshell --settings=settings.production --traceback >> ${CRON_LOG_FILE} 2>&1
 echo "REPAIR TABLE django_session;" | python manage.py dbshell --settings=settings.production --traceback >> ${CRON_LOG_FILE} 2>&1
