@@ -1,0 +1,62 @@
+{% extends "productions/forms/base.html" %}
+{% load i18n crispy_forms_tags auth_extended %}
+
+{% block content %}
+    <div class="container">
+        <div class="dashboard-content">
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                    <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %}">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div id="events" class="content">
+                <a class="btn btn-primary pull-right" href="{% url "add_events" slug=production.slug %}{% if '/add/' in request.get_full_path %}?new_production=1{% endif %}">{% trans "Add events" %}</a>
+                <h4>{% trans "Events" %}</h4>
+                <table class="dashboard-table">
+                    <thead>
+                        <tr>
+                            <th> <small>{% trans "Title" %}</small> </th>
+                            <th> <small>{% trans "Actions" %}</small> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if events.count %}
+                            {% for event in events %}
+                                <tr>
+                                    <td class="item">
+                                        <a href="{% url "change_event_basic_info" slug=production.slug event_id=event.pk %}{% if '/add/' in request.get_full_path %}?new_production=1{% endif %}"> <b>{{ event.start_date|date:"j. F Y" }}, {{ event.start_time|time:"H:i" }}</b> </a>
+                                    </td>
+                                    <td>
+                                        <a href="{% url "change_event_basic_info" slug=production.slug event_id=event.pk %}{% if '/add/' in request.get_full_path %}?new_production=1{% endif %}" class="btn"> {% trans "Details" %} </a>
+                                        <a href="{% url "change_event_description" slug=production.slug event_id=event.pk %}{% if '/add/' in request.get_full_path %}?new_production=1{% endif %}" class="btn"> {% trans "Description" %} </a>
+                                        <a href="{% url "change_event_gallery" slug=production.slug event_id=event.pk %}{% if '/add/' in request.get_full_path %}?new_production=1{% endif %}" class="btn"> {% trans "Media" %} </a>
+
+                                        <a href="{{ event.get_url_path }}?preview" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Preview" %}" class="btn btn-sm btn-icon btn-link" target="_blank">
+                                            <span class="icon icon-eye-open"></span>
+                                            <span class="sr-only">{% trans "Preview" %}</span>
+                                        </a>
+                                        {% if production.is_deletable %}
+                                            <a href="{{ event.get_url_path }}delete/{% if '/add/' in request.get_full_path %}?new_production=1{% endif %}" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}" class="btn btn-sm btn-icon btn-link delete" data-object-title="{{ production.title }} {{ event.start_date|date:"j. F Y" }}, {{ event.start_time|time:"H:i" }}" data-object-type="{% trans "Event" %}">
+                                                <span class="icon icon-remove"></span>
+                                                <span class="sr-only">{% trans "Remove" %}</span>
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            {% crispy form %}
+        </div>
+    </div>
+
+    {% include "utils/dashboard_delete.html" %}
+{% endblock %}
+

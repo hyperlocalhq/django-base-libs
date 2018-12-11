@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load base_tags cms_tags menu_tags sekizai_tags i18n image_modifications %}
+
+{% block stylesheet %}
+    {{ block.super }}
+    <link href="{{ STATIC_URL }}site/css/bootstrap/bootstrap.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{{ STATIC_URL }}site/css/style.css" rel="stylesheet" media="screen" type="text/css" />
+    <!--<link href="{{ STATIC_URL }}site/css/media.css" rel="stylesheet" media="screen" type="text/css" />-->
+{% endblock %}
+
+{% block script %}
+    {{ block.super }}
+
+    {% now "uuuu" as microseconds %}
+    <script nonce="{{ microseconds|to_base64 }}">
+      (function() {
+        var config = {
+          kitId: 'qru0sat',
+          scriptTimeout: 3000
+        };
+        var h=document.getElementsByTagName("html")[0];h.className+=" wf-loading";var t=setTimeout(function(){h.className=h.className.replace(/(\s|^)wf-loading(\s|$)/g," ");h.className+=" wf-inactive"},config.scriptTimeout);var tk=document.createElement("script"),d=false;tk.src='//use.typekit.net/'+config.kitId+'.js';tk.type="text/javascript";tk.async="true";tk.onload=tk.onreadystatechange=function(){var a=this.readyState;if(d||a&&a!="complete"&&a!="loaded")return;d=true;clearTimeout(t);try{Typekit.load(config)}catch(b){}};var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(tk,s)
+      })();
+    </script>
+    {% add_data "script_nonces" microseconds|to_base64 %}
+    <script src="/{{ LANGUAGE_CODE }}/jssettings/"></script>
+    <script src="https://code.jquery.com/jquery-1.8.3.min.js" intergrity="sha384-lifoBlbdwizTl3Yoe612uhI3AcOam/QtWkozF7SuiACaf5UJl5reOYu4MigVxrCH" crossorigin="anonymous"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.ba-bbq.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.isotope.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.scrollstop.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.lazyload.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.viewport.js"></script>
+    <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.selectbox-0.2.min.js"></script>
+    {% comment %}<script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-modal.js"></script>{% endcomment %}
+    <script src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
+
+{% endblock %}
+
+{% block body %}
+    <div class="modal-centered">
+        <div class="cell">
+            <div class="inner">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

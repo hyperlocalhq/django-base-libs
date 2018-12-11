@@ -1,0 +1,93 @@
+/* Datepicker border styling */
+div.datepicker_advanced {
+  background-color: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  /*border-radius: 5px 5px 5px 5px;*/
+  padding: 10px;
+}
+
+/* Tighten up the spacing between multiple calendars */
+div.datepicker_advanced .datepickerSpace div {
+  width:10px;
+}
+
+/* Grey background behind Month Name row, and blue text */
+div.datepicker_advanced th {
+  background-color:#DDDDDD;
+}
+div.datepicker_advanced th a.datepickerMonth {
+  color:#008ED6;
+  font-weight:normal;
+}
+
+/* style the day of week header cells */
+div.datepicker_advanced th {
+  color: black;
+  font-weight: bold;
+}
+/* grey underline beneath day of week row */
+div.datepicker_advanced table thead tr.datepickerDoW th {
+  border-bottom: 1px solid #CCCCCC;
+}
+
+/* Black text, white background, and grey borders around day cells */
+div.datepicker_advanced a,
+div.datepicker_advanced a:hover {
+  color: black;
+}
+div.datepicker_advanced table.datepickerViewDays,
+div.datepicker_advanced table.datepickerViewMonths,
+div.datepicker_advanced table.datepickerViewYears {
+  background-color:white;
+}
+div.datepicker_advanced table tbody.datepickerDays td {
+  border: 1px solid #eeeeee;
+}
+
+/* blue cell color for selected days */
+div.datepicker_advanced tbody.datepickerDays td.datepickerSelected {
+  background-color:#0077CC;
+}
+
+/* Grey out dates in the future */
+div.datepicker_advanced td.datepickerFuture a {
+  color:#999999;
+}
+
+/* yellow cell background on hover */
+div.datepicker_advanced tbody.datepickerDays td:hover {
+  background-color: #FFCC33;
+}
+
+/* Bold today's date */
+div.datepicker_advanced td.datepickerToday a {
+  font-weight:bold;
+}
+
+/* cells are wider in the clean style */
+div.datepicker_advanced .datepickerYears a, div.datepicker_advanced .datepickerMonths a {
+  width: 42px;
+}
+div.datepicker_advanced .datepickerMonths td:first-child a,
+div.datepicker_advanced .datepickerYears td:first-child a {
+  width:39px;
+}
+div.datepicker_advanced th a.datepickerMonth {
+  width:121px;
+}
+
+
+div.datepicker_advanced *, div.datepicker_advanced *:before, div.datepicker_advanced *:after {
+  box-sizing: unset;
+}
+div.datepicker_advanced table {
+  width: unset !important;
+}
+div.datepicker_advanced table th, div.datepicker_advanced table td {
+    border-right: medium none;
+    border-left: medium none;
+    border-top: medium none;
+    border-bottom: medium none;
+    width: unset !important;
+    font-size: inherit;
+}

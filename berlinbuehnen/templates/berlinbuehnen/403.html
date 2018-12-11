@@ -1,0 +1,23 @@
+{% block doctype %}<!DOCTYPE html>{% endblock %}
+{% load cms_tags menu_tags sekizai_tags i18n image_modifications %}
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="refresh" content="5;URL=/" />
+    <title>Berlin Bühnen / {% block title %}Access denied{% endblock %}</title>
+    <link rel="icon" href="{{ STATIC_URL }}site/img/favicon.ico" type="image/png">
+  
+    {% block stylesheet %}
+    <link href="{{ STATIC_URL }}site/css/bootstrap/bootstrap.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{{ STATIC_URL }}site/css/style.css" rel="stylesheet" media="screen" type="text/css" />
+    {% endblock %}
+</head>
+
+<body>
+    <div class="modal-centered">
+        <div class="cell">
+            <p>Access denied / <a href="javascript:history.go(-1)">{% trans "Back" %}</a></p>
+        </div>
+    </div>
+</body>
+</html>

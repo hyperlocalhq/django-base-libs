@@ -1,0 +1,273 @@
+// main:style.scss
+
+.grid {
+    margin: 0 -8px;
+
+    .grid {
+        margin: 0 !important;
+    }
+
+    .grid-item {
+        display: block;
+        padding: 0 8px 56px;
+        color: black;
+        &:hover {
+            color: black;
+        }
+        .grid-item-image {
+            display: block;
+            width: 100%;
+            margin-bottom: 16px;
+            position: relative;
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        &.grid-item-favorite {
+            .grid-item-image {
+                background-color: $blue;
+                .favorite {
+                    visibility: hidden;
+                    &.active {
+                        &:before {
+                            color: $blue;
+                        }
+                    }
+                }
+                &:hover {
+                    img {
+                        opacity: 0.4;
+                    }
+                    .favorite {
+                        visibility: visible;
+                    }
+                }
+            }
+        }
+
+        button.favorite {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 6px 8px;
+            margin: 0;
+            border: none;
+            background: transparent;
+            color: white;
+            &.active {
+                color: $blue;
+            }
+            &:before {
+                margin: 0;
+            }
+            &:active, &:hover, &:focus {
+                border: none;
+                outline: none;
+            }
+        }
+        h2 {
+            text-transform: uppercase;
+            font-size: 1.25em;
+            margin-bottom: 16px;
+        }
+        h3 {
+            font-size: 1em;
+            margin-top: -10px;
+            margin-bottom: 16px;
+        }
+    }
+
+    .ad_banner {
+        position: relative;
+        top: -20px;
+
+        h6.block-label {
+            margin-bottom: 4px;
+        }
+    }
+
+    &.mazery-grid {
+
+        margin: 0 -10px;
+
+        .grid-item {
+            padding: 0 10px;
+            position: relative;
+            .row {
+                margin: 0;
+            }
+            /*button.favorite {
+                right: 16px;
+            }
+
+            &.no-image {
+                button.favorite {
+                    top: 0px;
+                }
+                h2 {
+                    padding-right: 32px;
+                }
+            }*/
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            margin-bottom: 16px;
+        }
+
+        a {
+            color: black;
+            border-bottom: 4px solid black;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            display: inline-block;
+            width: 100%;
+
+            &:hover {
+                color: black;
+            }
+        }
+
+        .cms_placeholder-bar a {
+            border-bottom: 1px;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        h3 {
+            margin-bottom: 10px;
+        }
+
+        h4 {
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+
+        dl {
+            font-size: 1em;
+            font-weight: $bold;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            dt {
+                display: inline;
+                float: none;
+                &:after {
+                    content: ":";
+                    padding-right: 2px;
+                }
+            }
+            dd {
+                display: inline;
+                float: none;
+                &:after {
+                    content: ", ";
+                }
+                &:last-child:after {
+                    content: none;
+                }
+            }
+        }
+
+        .banner {
+            color: white;
+            overflow: hidden;
+            padding: 0 0 20px;
+            margin-bottom: 10px;
+
+            .image {
+                margin: 30px 0 10px;
+                text-align: center;
+
+                .fawesome:before {
+                    vertical-align: middle;
+                    padding: 0;
+                    font-size: 3.7rem;
+                }
+
+                .arrow-right:before {
+                    padding-right: 30px;
+                }
+                .arrow-left:before {
+                    padding-left: 30px;
+                }
+            }
+
+            img {
+                width: auto;
+                max-width: 100%;
+                height: auto;
+                max-height: 100px;
+                margin: 0;
+                padding: 0;
+                display: inline;
+            }
+
+            h2 {
+                font-size: 1.375em;
+                margin: 0;
+                padding: 0 20px;
+            }
+
+            h3 {
+                margin: 0;
+                padding: 0 20px;
+            }
+        }
+    }
+
+    &.job_offer-grid {
+        h3 {
+            margin-top: 0px;
+            margin-bottom: 6px;
+        }
+        h2 {
+            margin-bottom: 6px;
+        }
+        h5 {
+            margin-top: -6px;
+            margin-bottom: 6px;
+        }
+    }
+
+    &.favorites-grid {
+        h3 {
+            margin-top: -15px;
+        }
+        h4 {
+            font-size: 1em;
+            margin-bottom: 5px;
+        }
+        h5 {
+            margin-top: -6px;
+            margin-bottom: 16px;
+        }
+        h4 {
+            span {
+                &:after {
+                    content: ", ";
+                }
+                &:last-child {
+                    &:after {
+                        content: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+body.is-xs {
+    .grid {
+        margin: 0 -28px;
+        .grid-item {
+            button.favorite:before {
+                padding-left: 0;
+            }
+        }
+    }
+}

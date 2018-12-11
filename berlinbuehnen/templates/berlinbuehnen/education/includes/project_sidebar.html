@@ -1,0 +1,278 @@
+{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites_tags %}
+    <div class="accordion sidebar-accordion">
+        {% if not project.has_events or project.get_next_events %}
+            <div class="accordion-item">
+                <h4 class="accordion-item-head open">{% trans "Dates" %}</h4>
+                <div class="accordion-item-content">
+                    <ul class="dates">
+                        {% if not project.has_events %}
+                            <li>
+                                {% trans "continuous project" %}
+                                {% if project.tickets_website %}
+                                    <span class="tickets-wrapper"><a class="fawesome tickets" href="{{ project.tickets_website }}" target="_blank" data-toggle="tooltip" data-placement="right" title="{% trans "Tickets" %}"><span class="sr-only">{% trans "Tickets" %}</span></a></span>
+                                {% endif %}
+                            </li>
+                        {% else %}
+                            {% for ev in project.get_next_events %}
+                                <li>
+                                    {% if ev == event %}
+                                        <span class="date-wrapper varying-width"><span class="date">
+                                            {{ ev.start|date:"j. M Y" }}
+                                            {% if ev.end %} - {{ ev.end|date:"j. M Y" }}{% endif %}
+                                        </span></span>
+                                        <span class="time-wrapper">
+                                            <span class="time">{{ ev.start|time:"H:i" }}</span>
+                                        </span>
+                                    {% else %}
+                                        <a class="black" href="{% url "project_event_detail" slug=project.slug event_id=ev.id %}">
+                                            <span class="date-wrapper varying-width"><span class="date">
+                                                {{ ev.start|date:"j. M Y" }}
+                                                {% if ev.end %} - {{ ev.end|date:"j. M Y" }}{% endif %}
+                                            </span></span>
+                                            <span class="time-wrapper">
+                                                <span class="time">{{ ev.start|time:"H:i" }}</span>
+                                            </span>
+                                        </a>
+                                    {% endif %}
+
+                                    {% if project.tickets_website %}
+                                        <span class="tickets-wrapper"><a class="fawesome tickets" href="{{ project.tickets_website }}" target="_blank" data-toggle="tooltip" data-placement="left" title="{% trans "Tickets" %}"><span class="sr-only">{% trans "Tickets" %}</span></a></span>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+        {% if project.street_address %}
+            <div class="accordion-item">
+                <h4 class="accordion-item-head open">{% trans "Venue" %}</h4>
+                <div class="accordion-item-content">
+                    <p data-latitude="{{ project.latitude|stringformat:"%f" }}" data-longitude="{{ project.longitude|stringformat:"%f" }}">
+                        <strong>{{ project.location_title }}</strong><br />
+                        {% if project.street_address %}{{ project.street_address }}<br />{% endif %}
+                        {% if project.street_address2 %}{{ project.street_address2 }}<br />{% endif %}
+                        {% if project.city %}{{ project.postal_code }} {{ project.city }}<br />{% endif %}
+                    </p>
+                </div>
+            </div>
+        {% elif department %}
+            <div class="accordion-item">
+                <h4 class="accordion-item-head open">{% trans "Venue" %}</h4>
+                <div class="accordion-item-content">
+                    {% for d in project.get_published_departments %}
+                        {% if d.street_address %}
+                            <p data-latitude="{{ d.latitude|stringformat:"%f" }}" data-longitude="{{ d.longitude|stringformat:"%f" }}">
+                                {% if not project.location_title %}<a href="{{ d.get_url_path }}" class="black">{% endif %}
+                                    <strong>{% if project.location_title %}{{ project.location_title }}{% else %}{{ d.title }}{% endif %}</strong><br />
+                                    {% if d.street_address %}{{ d.street_address }}<br />{% endif %}
+                                    {% if d.street_address2 %}{{ d.street_address2 }}<br />{% endif %}
+                                    {% if d.city %}{{ d.postal_code }} {{ d.city }}<br />{% endif %}
+                                {% if not project.location_title %}</a>{% endif %}
+                            </p>
+                        {% elif d.location.street_address %}
+                            <p data-latitude="{{ d.location.latitude|stringformat:"%f" }}" data-longitude="{{ d.location.longitude|stringformat:"%f" }}">
+                                {% if not project.location_title %}<a href="{{ d.get_url_path }}" class="black">{% endif %}
+                                    <strong>{% if project.location_title %}{{ project.location_title }}{% else %}{{ d.title }}{% endif %}</strong><br />
+                                    {% if d.location.street_address %}{{ d.location.street_address }}<br />{% endif %}
+                                    {% if d.location.street_address2 %}{{ d.location.street_address2 }}<br />{% endif %}
+                                    {% if d.location.city %}{{ d.location.postal_code }} {{ d.location.city }}<br />{% endif %}
+                                {% if not project.location_title %}</a>{% endif %}
+                            </p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+        {% if project.phone_number or project.fax_number or project.email or project.website %}
+            <div class="accordion-item">
+                <h4 class="accordion-item-head open">{% trans "Contact" %} – {% trans "Education" %}</h4>
+                <div class="accordion-item-content">
+                    <dl class="break-word">
+                        {% if project.contact_department %}
+                            <dd>{{ project.contact_department }}</dd>
+                        {% endif %}
+                        {% if project.contact_name %}
+                            <dd>{{ project.contact_name }}</dd>
+                        {% endif %}
+                        {% if project.phone_number %}
+                            <dt class="width_50">{% trans "Phone" %}</dt>
+                            <dd><a class="phone" href="tel:{% if project.phone_country %}+{{ project.phone_country }}{% endif %}{{ project.phone_area }}{{ project.phone_number }}">{% if project.phone_country %}+{{ project.phone_country }}-{% endif %}{{ project.phone_area }}-{{ project.phone_number }}</a></dd>
+                        {% endif %}
+                        {% if project.fax_number %}
+                            <dt class="width_50">{% trans "Fax" %}</dt>
+                            <dd>{% if project.fax_country %}+{{ project.fax_country }}-{% endif %}{{ project.fax_area }}-{{ project.fax_number }}</dd>
+                        {% endif %}
+                        {% if project.email %}
+                            <dt class="width_50">{% trans "Mail" %}</dt>
+                            <dd><a href="mailto:{{ project.email }}">{{ project.email }}</a></dd>
+                        {% endif %}
+                        {% if project.website %}
+                            <dt class="width_50">{% trans "Web" %}</dt>
+                            <dd><a href="{{ project.website }}" target="_blank" class="no-print">{{ project.website|humanize_url:28 }}</a><a href="{{ project.website }}" target="_blank" class="print">{{ project.website }}</a></dd>
+                        {% endif %}
+                    </dl>
+                    {% if project.get_social_media %}
+                        <ul class="social_link_list">
+                            {% for social in project.get_social_media %}
+                                <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{ social.channel_type }}" data-tooltip-top="-12"><span class="sr-only">{{ social.channel_type }}</span></a></li>
+                            {% endfor %}
+                        </ul>
+                    {% elif department %}
+                        {% if department.get_social_media %}
+                            <ul class="social_link_list">
+                                {% for social in department.get_social_media %}
+                                    <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{ social.channel_type }}" data-tooltip-top="-12"><span class="sr-only">{{ social.channel_type }}</span></a></li>
+                                {% endfor %}
+                            </ul>
+                        {% elif department.location.get_social_media %}
+                            <ul class="social_link_list">
+                                {% for social in department.location.get_social_media %}
+                                    <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{ social.channel_type }}" data-tooltip-top="-12"><span class="sr-only">{{ social.channel_type }}</span></a></li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        {% elif department %}
+            {% if department.phone_number or department.fax_number or department.email or department.website %}
+                <div class="accordion-item">
+                    <h4 class="accordion-item-head open">{% trans "Contact" %} – {% trans "Education" %}</h4>
+                    <div class="accordion-item-content">
+                        <dl class="break-word">
+                            {% if project.contact_department %}
+                                <dd>{{ project.contact_department }}</dd>
+                            {% endif %}
+                            {% if project.contact_name %}
+                                <dd>{{ project.contact_name }}</dd>
+                            {% endif %}
+                            {% if department.phone_number %}
+                                <dt class="width_50">{% trans "Phone" %}</dt>
+                                <dd><a class="phone" href="tel:{% if department.phone_country %}+{{ department.phone_country }}{% endif %}{{ department.phone_area }}{{ department.phone_number }}">{% if department.phone_country %}+{{ department.phone_country }}-{% endif %}{{ department.phone_area }}-{{ department.phone_number }}</a></dd>
+                            {% endif %}
+                            {% if department.fax_number %}
+                                <dt class="width_50">{% trans "Fax" %}</dt>
+                                <dd>{% if department.fax_country %}+{{ department.fax_country }}-{% endif %}{{ department.fax_area }}-{{ department.fax_number }}</dd>
+                            {% endif %}
+                            {% if department.email %}
+                                <dt class="width_50">{% trans "Mail" %}</dt>
+                                <dd><a href="mailto:{{ department.email }}">{{ department.email }}</a></dd>
+                            {% endif %}
+                            {% if department.website %}
+                                <dt class="width_50">{% trans "Web" %}</dt>
+                                <dd><a href="{{ department.website }}" target="_blank" class="no-print">{{ department.website|humanize_url:28 }}</a><a href="{{ department.website }}" target="_blank" class="print">{{ department.website }}</a></dd>
+                            {% endif %}
+                        </dl>
+                        {% if project.get_social_media %}
+                            <ul class="social_link_list">
+                                {% for social in project.get_social_media %}
+                                    <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{ social.channel_type }}" data-tooltip-top="-12"><span class="sr-only">{{ social.channel_type }}</span></a></li>
+                                {% endfor %}
+                            </ul>
+                        {% elif department.get_social_media %}
+                            <ul class="social_link_list">
+                                {% for social in department.get_social_media %}
+                                    <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{ social.channel_type }}" data-tooltip-top="-12"><span class="sr-only">{{ social.channel_type }}</span></a></li>
+                                {% endfor %}
+                            </ul>
+                        {% elif department.location.get_social_media %}
+                            <ul class="social_link_list">
+                                {% for social in department.location.get_social_media %}
+                                    <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{ social.channel_type }}" data-tooltip-top="-12"><span class="sr-only">{{ social.channel_type }}</span></a></li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+        {% if project.target_groups.all or project.age_from or project.age_till %}
+            <div class="accordion-item">
+                <h4 class="accordion-item-head">{% trans "Target group" %}</h4>
+                <div class="accordion-item-content">
+                    {% if project.target_groups.all %}
+                        <p>
+                            {% for target in project.target_groups.all %}
+                                {{ target.title }}<br/>
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                    {% if project.age_from or project.age_till %}
+                        <p>
+                            {% if project.age_from and project.age_till %}
+                                {% blocktrans with age_from=project.age_from age_till=project.age_till %}Age from {{ age_from }} till {{ age_till }} years{% endblocktrans %}
+                            {% elif project.age_from %}
+                                {% blocktrans with age_from=project.age_from %}Age from {{ age_from }} years{% endblocktrans %}
+                            {% endif %}
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+        {% if project.formats.all or project.participant_count or project.needs_teachers %}
+            <div class="accordion-item">
+                <h4 class="accordion-item-head">{% trans "Project format" %}</h4>
+                <div class="accordion-item-content">
+                    {% if project.formats.all %}
+                        <p>
+                            {% for format in project.formats.all %}
+                                {{ format.title }}<br/>
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                    {% if project.participant_count %}
+                        {% with participant_count=project.get_rendered_participant_count|striptags %}
+                            {% if participant_count.strip.isnumeric %}
+                                {# if the participant count is a number, prefix it with "Number of participants" #}
+                                <p>{% trans "Number of participants" %}: {{ participant_count.strip }}</p>
+                            {% else %}
+                                {# if the participant count is a longer description, show it rendered #}
+                                {{ project.get_rendered_participant_count }}
+                            {% endif %}
+                        {% endwith %}
+                    {% endif %}
+                    {% if project.needs_teachers %}
+                        <p>{% trans "Workshop needs teachers" %}</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+        {% if project.prices or project.free_entrance %}
+            <div class="accordion-item">
+                <h4 class="accordion-item-head">{% trans "Cost" %}</h4>
+                <div class="accordion-item-content">
+                    {% if project.free_entrance %}
+                        <p>{% trans "Free entrance" %}</p>
+                    {% endif %}
+                    {% if project.prices %}
+                        <p>{{ project.get_rendered_prices }}</p>
+                    {% endif %}
+                    {% if project.tickets_website %}
+                        <p><a class="fawesome tickets tickets-link" href="{{ project.tickets_website }}" target="_blank">{% trans "Buy tickets" %}</a></p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+        {% if project.projectpdf_set.all %}
+            <div class="accordion-item">
+                <h4 class="accordion-item-head">{% trans "Downloads" %}</h4>
+                <div class="accordion-item-content">
+                    <p>
+                        {% for pdf in project.projectpdf_set.all %}
+                            {% with pdf.path|file_description as file_desc %}
+                                {% if file_desc.title %}
+                                    <a class="pdf break-word" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank">{{ file_desc.title }}</a>
+                                {% elif file_desc.filename %}
+                                    <a class="pdf break-word" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank">{{ file_desc.filename }}</a>
+                                {% else %}
+                                    <a class="pdf break-word" href="{{ MEDIA_URL }}{{ pdf.path }}" target="_blank">{{ pdf.path }}</a>
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+                    </p>
+                </div>
+            </div>
+        {% endif %}
+    </div>

@@ -1,0 +1,2 @@
+{% load base_tags i18n %}
+<div {% if id %}id='{{ id }}'{% endif %} class="month-slider col-xs-12 no-print" data-today="{{ today|date:"U" }}" data-months="{% for month in months %}{{ month|date:"M" }},{% endfor %}" ></div>
