@@ -1,0 +1,107 @@
+{% extends "accounts/dashboard.html" %}
+{% block bodyclass %}dashboard{% endblock %}
+{% load i18n %}
+
+{% block title %}
+    {% if event %}
+        {{ event.title }}
+    {% else %}
+        {% trans "New event" %}
+    {% endif %}
+{% endblock %}
+
+{% block stylesheet %}
+    {{ block.super }}
+    <link href="{{ STATIC_URL }}site/css/datepicker.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{{ STATIC_URL }}site/css/timepicker.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{{ STATIC_URL }}site/css/jquery.selectbox.css" rel="stylesheet" media="screen" type="text/css" />
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}site/tinymce/jscripts/tiny_mce/jquery.tinymce.js"></script>
+    <script src="{{ STATIC_URL }}site/tinymce_setup/frontend_setup.js"></script>
+    <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-jetson-datepicker.js"></script>
+    <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-jetson-timepicker.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.selectbox-0.2.min.js"></script>
+{% endblock %}
+
+{% block edit_item %}
+    <li><a class="preview icon icon-white icon-view" data-toggle="tooltip" data-placement="bottom" data-original-title="{% trans "Preview" %}" href="{{ event.get_url_path }}?preview">&nbsp;<span>{% trans "Preview" %}</span></a></li>
+{% endblock %}
+
+{% block form_steps %}
+    <div class="dashboard-header container relative">
+        {% block dashboard_title %}
+            {% if event %}
+                <!-- <span>{% trans "Events" %}</span>  -->
+                <h4>{{ event.title }}</h4>
+            {% else %}
+                <h4>{% trans "Add new event" %}</h4>
+            {% endif %}
+        {% endblock %}
+
+        <div id="form-meta">
+            {% if event %}
+                <div id="pub-status" class="status">
+                    <select class="status-switch" data-url="{{ event.get_url_path }}status/">
+                        <option value="draft"{% if event.status == "draft" %} selected="selected"{% endif %}>{% trans "Draft" %}</option>
+                        <option value="published"{% if event.status == "published" %} selected="selected"{% endif %}>{% trans "Published" %}</option>
+                        <option value="expired"{% if event.status == "expired" %} selected="selected"{% endif %}>{% trans "Expired" %}</option>
+                    </select>
+                </div>
+                <script>
+                    $(function() {
+                        $('.status').hover(function() {
+                            $(this).addClass('hover');
+                        }, function() {
+                            $(this).removeClass('hover');
+                        }).mouseleave();
+                        $('.status-switch').change(function() {
+                            var $this = $(this);
+                            $.post($this.attr('data-url'), {'status': $this.val()}, function(data) {});
+                        });
+                    });
+                </script>
+            {% endif %}
+            
+            <a class="btn btn-primary" id="preview_page" href="{{ event.get_url_path }}?preview" ><span>{% trans "Preview" %}</span></a>
+        </div>
+        {% include "utils/step_list.html" %}
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="dashboard-content">
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %}">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="messages">
+                <div class="alert alert-warning">
+                    {% trans "Fields with * are required." %}
+                </div>
+            </div>
+        {% endif %}
+        {% block multistep_form %}
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+    {{ block.super }}
+    <script>
+        $(function() {
+            $("select").not('[name*="__prefix__"]').selectbox();
+        });
+    </script>
+{% endblock %}
+

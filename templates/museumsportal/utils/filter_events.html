@@ -1,0 +1,104 @@
+{% load i18n base_tags sekizai_tags %}
+<div id="filters">
+  <h4>{% trans "Filters" %}</h4>
+
+  <div class="btn-group" id="filter-toggle" data-toggle="buttons">
+    <label type="button" class="btn btn-info btn-sm active" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-categories">
+      <input type="radio" name="options" id="filter-toggle-categories">
+      {% trans "Categories" %}
+    </label>
+
+    <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-alphabetic">
+      <input type="radio" name="options" id="filter-toggle-alphabetic">
+      {% trans "A - Z" %}
+    </label>
+
+    <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-smartlists">
+      <input type="radio" name="options" id="filter-toggle-smartlists">
+      {% trans "Smart lists" %}
+    </label>
+
+    <label type="button" class="btn btn-info btn-sm" data-parent="#filter-options" data-toggle="collapse" data-target="#filter-calendar">
+      <input type="radio" name="options" id="filter-toggle-calendar">
+      {% trans "Calendar" %}
+    </label>
+  </div>
+
+  <div class="panel-group" id="filter-options">
+    <div class="panel panel-default">
+      <div id="filter-categories" class="panel-collapse collapse in">
+        <div class="panel-body">
+          <h4>{% trans "Categories" %}</h4>
+          <ul class="filter option-set clearfix" id="categories" data-filter-group="categories" data-single-selection="1">
+            {% for cat in facets.categories.categories %}
+            <li{% if facets.selected.category == cat %} class="active"{% endif %} data-param="category" data-value="{{ cat.slug }}">
+              <a data-filter-value=".cat_{{ cat.title|slugify }}" href="{% append_to_get category=cat.slug page="" %}" >{{ cat.title }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div id="filter-alphabetic" class="panel-collapse collapse">
+        <div class="panel-body">
+          <h4>{% trans "Alphabet" %}</h4>
+          <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical" data-single-selection="1">
+            {% for item in abc_list %}
+              {% if not forloop.first %}
+                <li{% if item.3 %} class="active"{% endif %} data-param="abc" data-value="{{ item.0 }}">
+                  <a data-filter-value="{% if item.0 %}.initial_{{ item.0|slugify }}{% endif %}" class="{% if forloop.first %} first_item{% endif %}" href="">{{ item.1 }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div id="filter-smartlists" class="panel-collapse collapse">
+        <div class="panel-body">
+          <h4>{% trans "Smart lists" %}</h4>
+
+          <ul class="filter option-set clearfix" id="smartlists" data-filter-group="smartlists">
+            <li{% if facets.selected.suitable_for_children %} class="active"{% endif %} data-param="suitable_for_children" data-value="1">
+              <a href="{% append_to_get suitable_for_children=1 page="" %}" data-filter-value=".is_for_children">{% trans "Also suitable for children" %}</a>
+            </li>
+            <li{% if facets.selected.free_admission %} class="active"{% endif %} data-param="free_admission" data-value="1">
+              <a href="{% append_to_get free_admission=1 page="" %}" data-filter-value=".is_free_admission">{% trans "Free admission" %}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div id="filter-calendar" class="panel-collapse collapse">
+        <div class="panel-body">
+          <h4>{% trans "Calendar" %}</h4>
+          <ul class="filter option-set clearfix" id="calendar" data-filter-group="calendar" data-single-selection="1">
+            {% for cat in facets.categories.calendar %}
+              <li{% if cat.0 == facets.selected.calendar.0 %} class="active"{% endif %} data-param="calendar" data-value="{{ cat.0 }}">
+                <a href="{% append_to_get calendar=cat.0 page="" %}" data-filter-value=".is_{{ cat.0 }}">{{ cat.1 }}</a>
+              </li>
+            {% endfor %}
+            {% if facets.selected.selected_date %}
+              <li class="active hide" data-param="selected_date" data-value="{{ facets.selected.selected_date|date:"Y-m-d" }}">
+                <a href="{% append_to_get selected_date="" page="" %}" data-filter-value=".is_{{ cat.0 }}">{{ facets.selected.selected_date }}</a>
+              </li>
+            {% endif %}
+            <li id="filter-calendar-day-loader" class="hide" data-param="selected_date" data-value="">
+              <a href="{% append_to_get selected_date="" page="" %}" data-filter-value=".is_"></a>
+            </li>
+            <li id="filter-calendar-day-active" class="hide" data-param="selected_date" data-value="">
+              <a href="{% append_to_get selected_date="" page="" %}" data-filter-value=".is_"></a>
+            </li>
+          </ul>
+          <div class="calendar" data-url="{% url "event_list" %}"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% addtoblock "js" %}
+<script type="text/javascript" src="{{ STATIC_URL }}site/js/filter.min.js"></script>
+{% endaddtoblock %}

@@ -1,0 +1,9 @@
+{% extends "accounts/dashboard.html" %}
+{% load cms_tags %}
+{% block bodyclass %}dashboard{% endblock %}
+
+{% block content %}
+	<div class="container">
+		{% placeholder "main_content" %}
+	</div>
+{% endblock %}

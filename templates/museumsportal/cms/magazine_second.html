@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load cms_tags menu_tags %}
+{% block bodyclass %}magazine-secondlevel{% endblock %}
+
+{% block content %}
+	<div class="content">
+		<div class="container">
+			<div class="row"> 
+				<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10">
+					{% placeholder "intro" %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="content">
+		<div class="container">
+			<div class="row row-md{% if not request.toolbar.edit_mode %} isotope{% endif %} featured">
+				{% with "cms/plugins/editorial_content/ec_magazine_secondlevel_featured_item.html" as editorial_content_template %}
+				{% placeholder "series_items_featured" %}
+				{% endwith %}
+			</div>
+		</div>
+	</div>
+	
+	<div class="content">
+		<div class="container">
+			<div class="row row-md{% if not request.toolbar.edit_mode %} isotope{% endif %} nonfeatured">
+				{% with "cms/plugins/editorial_content/ec_magazine_secondlevel_item.html" as editorial_content_template %}
+				{% placeholder "series_items" %}
+				{% endwith %}
+			</div>
+		</div>
+	</div>
+
+<!-- {% show_menu_below_id "series" 0 100 100 100 "menu/side_menu.html" %} -->
+
+{% endblock %}

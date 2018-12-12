@@ -1,0 +1,23 @@
+{% block doctype %}<!DOCTYPE html>{% endblock %}
+{% load cms_tags menu_tags compressed sekizai_tags i18n image_modifications %}
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Museumsportal Berlin / {% block title %}Page not found{% endblock %}</title>
+  <link rel="icon" href="{{ STATIC_URL }}site/img/favicon.ico" type="image/png">
+  
+    {% block stylesheet %}
+    <link href="{{ STATIC_URL }}site/css/bootstrap/bootstrap.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{{ STATIC_URL }}site/css/style.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{{ STATIC_URL }}site/css/media.css" rel="stylesheet" media="screen" type="text/css" />
+    {% endblock %}
+</head>
+
+<body>
+  <div class="modal-centered">
+    <div class="cell">
+      <p>Page not found / <a href="javascript:history.go(-1)">{% trans "Back" %}</a></p>
+    </div>
+  </div>
+</body>
+</html>

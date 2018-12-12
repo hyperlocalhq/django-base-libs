@@ -1,0 +1,30 @@
+{% load i18n image_modifications %}
+<!-- editorial content for start_page_right placeholder -->
+{% if object.position == 0 %}
+    <div class="item col-xs-12 col-sm-5 col-md-12 col-lg-12">
+      <div class="inner">
+        <span class="img">
+          <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" alt="" />
+        </span>
+        <a class="txt" href="{{ object.website }}">
+          <h3>{{ object.title }}</h3>
+          <h4>{{ object.subtitle }}</h4>
+          <h5>{{ object.image_caption }}</h5>
+          <p>{{ object.get_rendered_description|removetags:"p"|truncatewords:38 }}</p>
+        </a>
+      </div>
+    </div>
+  {% else %}
+    <div class="item col-xs-12 col-sm-7 col-md-12 col-lg-12">
+      <div class="inner">
+        <span class="img">
+          <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"ed_small" }}" alt="" />
+        </span>
+        <a class="txt" href="{{ object.website }}">
+          <h3>{{ object.title }}</h3>
+          <h4>{{ object.subtitle }}</h4>
+          <h5>{{ object.image_caption }}</h5>
+        </a>
+      </div>
+    </div>
+  {% endif %}

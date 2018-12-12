@@ -7,12 +7,13 @@
 
 from datetime import datetime
 from django import template
-from jetson.apps.advertising.models import AdBase, AdImpression
+from django.template.loader import render_to_string
+from museumsportal.apps.advertising.models import AdBase, AdImpression
 
 register = template.Library()
 
-### FILTERS ###
 
+### FILTERS ###
 
 @register.filter
 def not_empty_ad_zone(ad_zone):
@@ -20,7 +21,6 @@ def not_empty_ad_zone(ad_zone):
 
 
 ### TAGS ###
-
 
 @register.inclusion_tag('advertising/ad_tag.html', takes_context=True)
 def random_zone_ad(context, ad_zone):
@@ -31,11 +31,14 @@ def random_zone_ad(context, ad_zone):
     In order for the impression to be saved add the following
     to the TEMPLATE_CONTEXT_PROCESSORS:
 
-    'jetson.apps.advertising.context_processors.get_source_features'
+    'museumsportal.apps.advertising.context_processors.get_source_features'
 
     Tag usage:
     {% load advertising_tags %}
     {% random_zone_ad 'zone_sysname' %}
+    or
+    {% random_zone_ad 'zone_sysname' as zone_sysname_ad %}
+    {{ zone_sysname_ad }}
 
     """
     to_return = {}
@@ -45,17 +48,40 @@ def random_zone_ad(context, ad_zone):
     to_return['ad'] = ad
 
     # Record a impression for the ad
-    if context.has_key('from_ip'
-                      ) and not context.get('is_crawler', False) and ad:
+    if context.has_key('from_ip') and not context.get('is_crawler', False) and ad:
         from_ip = context.get('from_ip')
         try:
             impression = AdImpression(
-                ad=ad, impression_date=datetime.now(), source_ip=from_ip
-            )
+                ad=ad, impression_date=datetime.now(), source_ip=from_ip)
             impression.save()
         except:
             pass
     return to_return
+
+
+@register.assignment_tag(takes_context=True)
+def get_random_zone_ad(context, ad_zone):
+    """
+    Tag usage:
+    {% get_random_zone_ad 'zone_sysname' as zone_ad_html %}
+    {{ zone_ad_html }}
+    """
+    to_return = {}
+
+    # Retrieve a random ad for the zone
+    ad = AdBase.objects.get_random_ad(ad_zone)
+    to_return['ad'] = ad
+
+    # Record a impression for the ad
+    if context.has_key('from_ip') and not context.get('is_crawler', False) and ad:
+        from_ip = context.get('from_ip')
+        try:
+            impression = AdImpression(
+                ad=ad, impression_date=datetime.now(), source_ip=from_ip)
+            impression.save()
+        except:
+            pass
+    return render_to_string('advertising/ad_tag.html', to_return)
 
 
 @register.inclusion_tag('advertising/ad_tag.html', takes_context=True)
@@ -75,13 +101,11 @@ def random_category_ad(context, ad_zone, ad_category):
     to_return['ad'] = ad
 
     # Record a impression for the ad
-    if context.has_key('from_ip'
-                      ) and not context.get('is_crawler', False) and ad:
+    if context.has_key('from_ip') and not context.get('is_crawler', False) and ad:
         from_ip = context.get('from_ip')
         try:
             impression = AdImpression(
-                ad=ad, impression_date=datetime.now(), source_ip=from_ip
-            )
+                ad=ad, impression_date=datetime.now(), source_ip=from_ip)
             impression.save()
         except:
             pass

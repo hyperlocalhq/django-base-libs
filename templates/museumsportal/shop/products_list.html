@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n image_modifications base_tags tagging_tags favorites auth_extended %}
+{% block title %}{% trans "Shop" %} – {% endblock %}
+{% block bodyclass %}shop-products-list no-transition{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="container">
+        <header class="list-header clearfix">
+            <h4 class="visible-xs">{% trans "Shop" %}</h4>
+        </header>
+    </div>
+    <div id="list">
+        <div class="container">
+            <div id="container">
+                <div class="row row-md grid">
+                    {% if object_list %}
+                        {% for product in object_list %}
+                            <div class="item col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                                <a href="{{ product.get_url_path }}">
+                                    {% if product.image %}
+                                        <span class="img"><img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ product.image|modified_path:"editorial" }}" alt="product.title" /></span>
+                                    {% endif %}
+                                    <h3>{{ product.title }}</h3>
+                                    <h4>{{ product.subtitle }}</h4>
+                                </a>
+                            </div>
+                        {% endfor %}
+                        {% include "utils/pagination.html" %}
+                    {% else %}
+                        {% include "utils/container_empty.html" %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

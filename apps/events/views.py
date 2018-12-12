@@ -1,275 +1,660 @@
-# -*- coding: UTF-8 -*-
-import re
-from datetime import datetime, timedelta
-from time import strptime
+# -*- coding: utf-8 -*-
+import os
+import shutil
+from datetime import datetime, date, timedelta
 
-from django import forms
 from django.db import models
+from django.http import HttpResponse
+from django import forms
+from django.utils import simplejson
 from django.utils.translation import ugettext_lazy as _
-from django.shortcuts import render_to_response, get_object_or_404
-from django.template import RequestContext, loader, Context
-from django.http import Http404, HttpResponse, HttpResponseRedirect
-from django.contrib.contenttypes.models import ContentType
-from django.conf import settings
-from django.utils.encoding import smart_unicode, force_unicode
-from django.contrib.syndication.views import Feed
-from django.utils import translation
+from django.shortcuts import redirect
 from django.views.decorators.cache import never_cache
-from django.utils.timezone import now as tz_now
+from django.shortcuts import get_object_or_404, render, redirect
+from django.conf import settings
+from django.http import Http404
 
-from base_libs.utils.misc import get_related_queryset
-from base_libs.utils.misc import get_website_url
+from base_libs.templatetags.base_tags import decode_entities
 from base_libs.forms import dynamicforms
-from base_libs.views import access_denied
+from base_libs.utils.misc import ExtendedJSONEncoder
+from base_libs.utils.misc import get_related_queryset
+from base_libs.views.views import access_denied
 
 from jetson.apps.utils.decorators import login_required
-from jetson.apps.utils.views import object_list, object_detail, get_abc_list, filter_abc, get_year_list, filter_year, show_form_step
-from jetson.apps.events.utils import create_ics
+from jetson.apps.utils.views import object_list, object_detail
+from jetson.apps.utils.views import get_abc_list
+from jetson.apps.utils.views import filter_abc
+from jetson.apps.utils.views import show_form_step
+from jetson.apps.utils.context_processors import prev_next_processor
 
-from jetson.apps.events.models import URL_ID_EVENT, URL_ID_EVENTS, SECURITY_SUMMAND
-from jetson.apps.events.forms import ADD_EVENT_FORM_STEPS, EventSearchForm
+EventCategory = models.get_model("events", "EventCategory")
 Event = models.get_model("events", "Event")
-EventTime = models.get_model("events", "EventTime")
+MediaFile = models.get_model("events", "MediaFile")
+
+FRONTEND_LANGUAGES = getattr(settings, "FRONTEND_LANGUAGES", settings.LANGUAGES) 
+
+from forms.event import EVENT_FORM_STEPS, BatchEventTimeForm
+from forms.gallery import ImageFileForm, ImageDeletionForm
+
+from jetson.apps.image_mods.models import FileManager
+from filebrowser.models import FileDescription
+
+CALENDAR_CHOICES = (
+    ('today', _("Today")),
+    ('tomorrow', _("Tomorrow")),
+    ('within_7_days', _("7 Days")),
+    ('within_30_days', _("30 Days")),
+)
 
 
-class EventFeed(Feed):
-    title = ""
-    link = ""
-    description = ""
-    title_template = "events/feeds/feed_title.html"
-    description_template = "events/feeds/feed_description.html"
-
-    def __init__(
-        self,
-        request,
-        queryset=Event.objects.none,
-        title="",
-        description="",
-        link=""
-    ):
-        super(EventFeed, self).__init__("", request)
-        if callable(queryset):
-            queryset = queryset()
-        self.queryset = queryset
-        if title:
-            self.title = title
-        if description:
-            self.description = description
-        if link:
-            self.link = link
-
-    def items(self):
-        return self.queryset.order_by('-creation_date')[:20]
-
-
-@never_cache
-def event_list(
-    request,
-    criterion="",
-    slug="",
-    show="",
-    start_date=None,
-    end_date=None,
-    unlimited=False,
-    title="",
-    **kwargs
-):
-    """Displays the list of events"""
-
-    abc_list = None
-    abc_filter = request.GET.get('by-abc', None)
-
-    if show == "own-%s" % URL_ID_EVENTS:
-        if not request.user.is_authenticated():
-            return access_denied(request)
-        PersonGroup = models.get_model("groups_networks", "PersonGroup")
-        ct = ContentType.objects.get_for_model(kwargs['queryset'].model)
-        owned_inst_ids = [
-            el['object_id'] for el in PersonGroup.objects.filter(
-                groupmembership__user=request.user,
-                content_type=ct,
-            ).distinct().values("object_id")
-        ]
-        kwargs['queryset'] = kwargs['queryset'].filter(
-            models.Q(organizing_person=request.user.profile) |
-            models.Q(organizing_institution__pk__in=owned_inst_ids)
-        )
-    elif show != "related":
-        kwargs['queryset'] = kwargs['queryset'].filter(status="published", )
-
-    form = EventSearchForm(data=request.REQUEST)
-    if form.is_valid():
-        et = form.cleaned_data['event_type']
-        if et:
-            kwargs['queryset'] = kwargs['queryset'].filter(event_type=et, )
-        is_featured = form.cleaned_data['is_featured']
-        if is_featured:
-            kwargs['queryset'] = kwargs['queryset'].filter(is_featured=True, )
-
-        kw = form.cleaned_data['keywords']
-    queryset = kwargs['queryset']
-    date_filter = None
-    if start_date:
-        try:  # convert a string of a format "YYYYMMDD" to date
-            start_date = datetime(*strptime(start_date, "%Y%m%d")[:3])
-        except ValueError:
-            raise Http404, _("Naughty hacker!")
-
-        if end_date:
-            try:  # convert a string of a format "YYYYMMDD" to date
-                end_date = datetime(*strptime(end_date, "%Y%m%d")[:3])
-            except ValueError:
-                raise Http404, _("Naughty hacker!")
-
-        if not (end_date or unlimited):
-            end_date = start_date + timedelta(days=1)
-
-        if start_date and end_date:
-            """
-            Get events which start date is within the selected range
-            -----[--selected range--]----- time ->
-                       [-event-]
-                              [-event-]
-            """
-            date_filter = models.Q(
-                start__gte=start_date,
-                start__lte=end_date,
-            )
-            """
-            .. which started before and will end after the selected range
-            -----[-selected range-]------- time ->
-               [------event---------]
-            """
-            date_filter |= models.Q(
-                start__lte=start_date,
-                end__gte=end_date,
-            )
-            """
-            .. or which end date is within the selected range
-            -----[--selected range--]----- time ->
-                     [-event-]
-              [-event-]
-            """
-            date_filter |= models.Q(
-                end__gte=start_date,
-                end__lte=end_date,
-            )
-        else:
-            """
-            Get events which start date is after the selected start
-            -----[--selected start-------- time ->
-                    [-event-]
-            """
-            date_filter = models.Q(start__gte=start_date, )
-            """
-            .. or which end date is after the selected start
-            -----[--selected start-------- time ->
-               [-event-]
-            """
-            date_filter |= models.Q(end__gte=start_date, )
-
-    if date_filter:
-        event_time_pks = list(
-            EventTime.objects.filter(date_filter).values_list(
-                "event_id",
-                flat=True,
-            )
-        )
-        queryset = queryset.filter(pk__in=event_time_pks)
-
-    abc_list = get_abc_list(queryset, "title", abc_filter)
-    if abc_filter:
-        queryset = filter_abc(queryset, "title", abc_filter)
-
-    view_type = request.REQUEST.get(
-        'view_type',
-        request.httpstate.get(
-            "%s_view_type" % URL_ID_EVENTS,
-            "icons",
-        )
+class EventFilterForm(dynamicforms.Form):
+    category = forms.ModelChoiceField(
+        required=False,
+        queryset=get_related_queryset(Event, "categories"),
+        to_field_name="slug",
     )
-    if view_type == "map":
-        queryset = queryset.filter(
-            postal_address__geoposition__latitude__gte=-90,
-        ).distinct()
+    suitable_for_children = forms.BooleanField(
+        required=False,
+    )
+    free_admission = forms.BooleanField(
+        required=False,
+    )
+    calendar = forms.ChoiceField(
+        choices=CALENDAR_CHOICES,
+        required=False,
+    )
+    selected_date = forms.DateField(
+        required=False,
+    )
 
-    extra_context = kwargs.setdefault("extra_context", {})
-    extra_context['abc_list'] = abc_list
-    extra_context['show'] = ("", "/%s" % show)[bool(show and show != "related")]
-    extra_context['source_list'] = URL_ID_EVENTS
-    extra_context['today'] = tz_now()
+
+def event_list(request):
+    # qs = Event.objects.filter(status="published").extra(
+    #     select={'no_closest_event_date': 'closest_event_date IS NULL'},
+    #     order_by=["no_closest_event_date", "closest_event_date", "closest_event_time", "title_%s" % request.LANGUAGE_CODE],
+    # )
+    qs = Event.objects.filter(status="published").annotate(
+        null_date=models.Count("closest_event_date")
+    ).order_by("-null_date", "closest_event_date", "closest_event_time", "title_%s" % request.LANGUAGE_CODE)
+
+    #if not request.REQUEST.keys():
+    #    return redirect("/%s%s?status=newly_opened" % (request.LANGUAGE_CODE, request.path))
+    
+    form = EventFilterForm(data=request.REQUEST)
+    
+    facets = {
+        'selected': {},
+        'categories': {
+            'categories': get_related_queryset(Event, "categories"),
+            'suitable_for_children': _("Also suitable for children"),
+            'free_admission': _("Free admission"),
+            'calendar': CALENDAR_CHOICES,
+        },
+    }
+
+    # status = None
+    if form.is_valid():
+        cat = form.cleaned_data['category']
+        if cat:
+            facets['selected']['category'] = cat
+            qs = qs.filter(
+                categories=cat,
+            ).distinct()
+        suitable_for_children = form.cleaned_data['suitable_for_children']
+        if suitable_for_children:
+            facets['selected']['suitable_for_children'] = True
+            qs = qs.filter(
+                suitable_for_children=True,
+            )
+        free_admission = form.cleaned_data['free_admission']
+        if free_admission:
+            facets['selected']['free_admission'] = True
+            qs = qs.filter(
+                free_admission=True,
+            )
+        cat = form.cleaned_data['calendar']
+        if cat:
+            facets['selected']['calendar'] = (cat, dict(CALENDAR_CHOICES)[cat])
+            today = date.today()
+            if cat == "today":
+                qs = qs.filter(
+                    eventtime__event_date=today,
+                )
+            if cat == "tomorrow":
+                tomorrow = today + timedelta(days=1)
+                qs = qs.filter(
+                    eventtime__event_date=tomorrow,
+                )
+            if cat == "within_7_days":
+                selected_start = today
+                selected_end = selected_start + timedelta(days=7)
+                qs = qs.filter(
+                    eventtime__event_date__gte=selected_start,
+                    eventtime__event_date__lte=selected_end,
+                )
+            if cat == "within_30_days":
+                selected_start = today
+                selected_end = selected_start + timedelta(days=30)
+                qs = qs.filter(
+                    eventtime__event_date__gte=selected_start,
+                    eventtime__event_date__lte=selected_end,
+                )
+        selected_start = None
+        selected_date = form.cleaned_data['selected_date']
+        if selected_date:
+            facets['selected']['selected_date'] = selected_date
+            selected_start = selected_date
+
+        if selected_start:
+            qs = qs.filter(
+                eventtime__event_date=selected_start,
+            )
+
+    qs = qs.distinct()
+
+    abc_filter = request.GET.get('abc', None)
+    if abc_filter:
+        facets['selected']['abc'] = abc_filter
+    abc_list = get_abc_list(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
+    if abc_filter:
+        qs = filter_abc(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
+        
+    extra_context = {}
     extra_context['form'] = form
-    if request.is_ajax():
-        extra_context['base_template'] = "base_ajax.html"
-    kwargs['extra_context'] = extra_context
-    kwargs['httpstate_prefix'] = URL_ID_EVENTS
-    kwargs['queryset'] = queryset
+    extra_context['abc_list'] = abc_list
+    extra_context['facets'] = facets
 
-    if kwargs.has_key('ical') and kwargs['ical'] == True:
-        icalstream = create_ics(kwargs['queryset'])
-        response = HttpResponse(icalstream, content_type="text/calendar")
-        response['Filename'] = "CCB-events.ics"  # IE needs this
-        response['Content-Disposition'] = "attachment; filename=CCB-events.ics"
-        return response
-    elif kwargs.has_key('feed') and kwargs['feed'] == True:
-        translation.activate(kwargs['language'])
-        feed_part = re.compile("/feed/[^/]+/[^/]+/$")
-        url = get_website_url()
-        feedgen = EventFeed(
-            request,
-            queryset=queryset,
-            title=title or _("CCB Events"),
-            link=kwargs.get(
-                "link",
-                url[:-1] + feed_part.sub("/", request.path) + "?" +
-                (request.META.get("QUERY_STRING", "") or ""),
-            ),
-        ).get_feed(kwargs['feed_type'])
+    return object_list(
+        request,
+        queryset=qs,
+        template_name="events/event_list.html",
+        paginate_by=24,
+        extra_context=extra_context,
+        httpstate_prefix="event_list_map",
+        context_processors=(prev_next_processor,),
+    )
 
-        response = HttpResponse(content_type=feedgen.mime_type)
-        feedgen.write(response, 'utf-8')
-        return response
+
+def event_list_map(request):
+    qs = Event.objects.filter(status="published").annotate(
+        null_date=models.Count("closest_event_date")
+    ).order_by("-null_date", "closest_event_date", "closest_event_time", "title_%s" % request.LANGUAGE_CODE)
+
+    #if not request.REQUEST.keys():
+    #    return redirect("/%s%s?status=newly_opened" % (request.LANGUAGE_CODE, request.path))
+
+    form = EventFilterForm(data=request.REQUEST)
+
+    facets = {
+        'selected': {},
+        'categories': {
+            'categories': get_related_queryset(Event, "categories"),
+            'suitable_for_children': _("Also suitable for children"),
+            'free_admission': _("Free admission"),
+            'calendar': CALENDAR_CHOICES,
+        },
+    }
+
+    # status = None
+    if form.is_valid():
+        cat = form.cleaned_data['category']
+        if cat:
+            facets['selected']['category'] = cat
+            qs = qs.filter(
+                categories=cat,
+            ).distinct()
+        suitable_for_children = form.cleaned_data['suitable_for_children']
+        if suitable_for_children:
+            facets['selected']['suitable_for_children'] = True
+            qs = qs.filter(
+                suitable_for_children=True,
+            )
+        free_admission = form.cleaned_data['free_admission']
+        if free_admission:
+            facets['selected']['free_admission'] = True
+            qs = qs.filter(
+                free_admission=True,
+            )
+        cat = form.cleaned_data['calendar']
+        if cat:
+            facets['selected']['calendar'] = (cat, dict(CALENDAR_CHOICES)[cat])
+            today = date.today()
+            if cat == "today":
+                qs = qs.filter(
+                    eventtime__event_date=today,
+                )
+            if cat == "tomorrow":
+                tomorrow = today + timedelta(days=1)
+                qs = qs.filter(
+                    eventtime__event_date=tomorrow,
+                )
+            if cat == "within_7_days":
+                selected_start = today
+                selected_end = selected_start + timedelta(days=7)
+                qs = qs.filter(
+                    eventtime__event_date__gte=selected_start,
+                    eventtime__event_date__lte=selected_end,
+                )
+            if cat == "within_30_days":
+                selected_start = today
+                selected_end = selected_start + timedelta(days=30)
+                qs = qs.filter(
+                    eventtime__event_date__gte=selected_start,
+                    eventtime__event_date__lte=selected_end,
+                )
+
+    qs = qs.distinct()
+
+    abc_filter = request.GET.get('abc', None)
+    if abc_filter:
+        facets['selected']['abc'] = abc_filter
+    abc_list = get_abc_list(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
+    if abc_filter:
+        qs = filter_abc(qs, "title_%s" % request.LANGUAGE_CODE, abc_filter)
+
+    extra_context = {}
+    extra_context['form'] = form
+    extra_context['abc_list'] = abc_list
+    extra_context['facets'] = facets
+
+    return object_list(
+        request,
+        queryset=qs,
+        template_name="events/event_list_map.html",
+        paginate_by=200,
+        extra_context=extra_context,
+        httpstate_prefix="event_list",
+        context_processors=(prev_next_processor,),
+    )
+
+
+def event_detail(request, slug):
+    if "preview" in request.REQUEST:
+        qs = Event.objects.all()
+        obj = get_object_or_404(qs, slug=slug)
+        if not request.user.has_perm("events.change_event", obj):
+            return access_denied(request)
     else:
-        return object_list(request, **kwargs)
+        qs = Event.objects.filter(status="published")
+        
+    form = EventFilterForm(data=request.REQUEST)
+    
+    if form.is_valid():
+        selected_date = form.cleaned_data['selected_date']
+
+    extra_context = {}
+    extra_context['selected_date'] = selected_date
+    
+    return object_detail(
+        request,
+        queryset=qs,
+        slug=slug,
+        slug_field="slug",
+        template_name="events/event_detail.html",
+        extra_context=extra_context,
+        context_processors=(prev_next_processor,),
+    )
+
+
+def event_detail_ajax(request, slug, template_name="events/event_detail_ajax.html"):
+    if "preview" in request.REQUEST:
+        qs = Event.objects.all()
+        obj = get_object_or_404(qs, slug=slug)
+        if not request.user.has_perm("events.change_event", obj):
+            return access_denied(request)
+    else:
+        qs = Event.objects.filter(status="published")
+    return object_detail(
+        request,
+        queryset=qs,
+        slug=slug,
+        slug_field="slug",
+        template_name=template_name,
+        context_processors=(prev_next_processor,),
+    )
+
+
+def event_detail_slideshow(request, slug):
+    if "preview" in request.REQUEST:
+        qs = Event.objects.all()
+        obj = get_object_or_404(qs, slug=slug)
+        if not request.user.has_perm("events.change_event", obj):
+            return access_denied(request)
+    else:
+        qs = Event.objects.filter(status="published")
+    return object_detail(
+        request,
+        queryset=qs,
+        slug=slug,
+        slug_field="slug",
+        template_name="events/event_detail_slideshow.html",
+        context_processors=(prev_next_processor,),
+    )
 
 
 @never_cache
-def event_list_ical(request, **kwargs):
-    return event_list(request, ical=True, **kwargs)
-
-
-@never_cache
-def event_list_feed(request, **kwargs):
-    return event_list(request, feed=True, **kwargs)
-
-
-@never_cache
+@login_required
 def add_event(request):
-    return show_form_step(request, ADD_EVENT_FORM_STEPS, extra_context={})
+    if not request.user.has_perm("events.add_event"):
+        return access_denied(request)
+    return show_form_step(request, EVENT_FORM_STEPS, extra_context={});
 
 
-add_event = login_required(add_event)
+@never_cache
+@login_required
+def change_event(request, slug):
+    instance = get_object_or_404(Event, slug=slug)
+    if not request.user.has_perm("events.change_event", instance):
+        return access_denied(request)
+    return show_form_step(request, EVENT_FORM_STEPS, extra_context={'event': instance}, instance=instance);
 
 
-def event_detail(request, event_time=None, ical=False, *args, **kwargs):
-    event = get_object_or_404(Event, slug=kwargs['slug'])
-    if event_time:
-        kwargs.setdefault("extra_context", {})
-        event_time = kwargs['extra_context']['event_time'] = get_object_or_404(
-            EventTime,
-            pk=int(event_time) - SECURITY_SUMMAND,
+@never_cache
+@login_required
+def delete_event(request, slug):
+    instance = get_object_or_404(Event, slug=slug)
+    if not request.user.has_perm("events.delete_event", instance):
+        return access_denied(request)
+    if request.method == "POST" and request.is_ajax():
+        instance.status = "trashed"
+        instance.save()
+        return HttpResponse("OK")
+    return redirect(instance.get_url_path())
+
+
+@never_cache
+@login_required
+def batch_event_times(request, slug):
+    weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+    instance = get_object_or_404(Event, slug=slug)
+    if request.method == "POST" and request.is_ajax():
+        form = BatchEventTimeForm(request.POST)
+        if form.is_valid():
+            cleaned = form.cleaned_data
+            d1 = cleaned['range_start']
+            ## start with the first Monday after this date
+            #while d1.weekday() != 0:
+            #    d1 = d1 + timedelta(days=1)
+            d2 = cleaned['range_end']
+            delta = d2 - d1
+            event_times = []
+            week_count = 0
+            for i in range(delta.days + 1):
+                d = d1 + timedelta(days=i)
+                wd = d.weekday()
+                
+                is_closing_day = False
+                if instance.museum:
+                    is_closing_day = bool(instance.museum.specialopeningtime_set.filter(
+                        models.Q(yyyy__isnull=True) | models.Q(yyyy=d.year), mm=d.month, dd=d.day, is_closed=True
+                    ))
+                    try:
+                        is_closing_day = is_closing_day or not getattr(instance.museum.season_set.filter(
+                            start__lte=d, end__gte=d
+                        )[0], '%s_open' % weekdays[wd])
+                    except:
+                        pass
+                
+                if (cleaned['repeat'] == "1" or week_count % 2 == 0) and not is_closing_day:
+                    start_time = cleaned['%s_start' % weekdays[wd]]
+                    if start_time:
+                        start_time = start_time.strftime("%H:%M")
+                    
+                    end_time = cleaned['%s_end' % weekdays[wd]]
+                    if end_time:
+                        end_time = end_time.strftime("%H:%M")
+                    
+                    if start_time:
+                        event_times.append({
+                            'event_date': d.strftime("%d.%m.%Y"),
+                            'start': start_time,
+                            'end': end_time,
+                            })
+                if wd == 6:
+                    week_count += 1
+            return HttpResponse(simplejson.dumps(event_times))
+        return HttpResponse(simplejson.dumps([]))
+    return redirect(instance.get_url_path())
+
+
+@never_cache
+@login_required
+def change_event_status(request, slug):
+    instance = get_object_or_404(Event, slug=slug)
+    if not request.user.has_perm("events.change_event", instance):
+        return access_denied(request)
+    if request.method == "POST" and request.is_ajax():
+        instance.status = request.POST['status']
+        instance.save()
+        return HttpResponse("OK")
+    return redirect(instance.get_url_path())
+    
+
+### MEDIA FILE MANAGEMENT ###
+
+
+def update_mediafile_ordering(tokens, event):
+    # tokens is in this format:
+    # "<mediafile1_token>,<mediafile2_token>,<mediafile3_token>"
+    mediafiles = []
+    for mediafile_token in tokens.split(u","):
+        mediafile = get_object_or_404(
+            MediaFile,
+            event=event,
+            pk=MediaFile.token_to_pk(mediafile_token)
         )
+        mediafiles.append(mediafile)
+    sort_order = 0
+    for mediafile in mediafiles:
+        mediafile.sort_order = sort_order
+        mediafile.save()
+        sort_order += 1
 
-    if ical:
-        icalstream = create_ics(event_time or event)
-        response = HttpResponse(icalstream, content_type="text/calendar")
-        response['Filename'] = "event-%s.ics" % event.slug  # IE needs this
-        response['Content-Disposition'
-                ] = "attachment; filename=event-%s.ics" % event.slug
-        return response
+
+@never_cache
+@login_required
+def gallery_overview(request, slug):
+    instance = get_object_or_404(Event, slug=slug)
+    if not request.user.has_perm("events.change_event", instance):
+        return access_denied(request)
+
+    if "ordering" in request.POST and request.is_ajax():
+        tokens = request.POST['ordering']
+        update_mediafile_ordering(tokens, instance)
+        return HttpResponse("OK")
+
+    return render(request, "events/gallery/overview.html", {'event': instance})
+
+
+@never_cache
+@login_required
+def create_update_mediafile(request, slug, mediafile_token="", media_file_type="", **kwargs):
+    instance = get_object_or_404(Event, slug=slug)
+    if not request.user.has_perm("events.change_event", instance):
+        return access_denied(request)
+    
+    media_file_type = media_file_type or "image"
+    if media_file_type not in ("image",):
+        raise Http404
+    
+    if not "extra_context" in kwargs:
+        kwargs["extra_context"] = {}
+
+    rel_dir = "events/%s/" % instance.slug
+    
+    filters = {}
+    if mediafile_token:
+        media_file_obj = get_object_or_404(
+            MediaFile,
+            event=instance,
+            pk=MediaFile.token_to_pk(mediafile_token),
+        )
     else:
-        return object_detail(request, *args, **kwargs)
+        media_file_obj = None
+    
+    form_class = ImageFileForm
+
+    if request.method=="POST":
+        # just after submitting data
+        form = form_class(media_file_obj, request.POST, request.FILES)
+        # Passing request.FILES to the form always breaks the form validation
+        # WHY!?? As a workaround, let's validate just the POST and then 
+        # manage FILES separately. 
+        if form.is_valid():
+            cleaned = form.cleaned_data
+            path = ""
+            if media_file_obj and media_file_obj.path:
+                path = media_file_obj.path.path
+            if cleaned.get("media_file_path", None):
+                if path:
+                    # delete the old file
+                    try:
+                        FileManager.delete_file(path)
+                    except OSError:
+                        pass
+                    path = ""
+                    
+            if not media_file_obj:
+                media_file_obj = MediaFile(
+                    event=instance
+                )
+                    
+            media_file_path = ""
+            if cleaned.get("media_file_path", None):
+                tmp_path = cleaned['media_file_path']
+                abs_tmp_path = os.path.join(settings.MEDIA_ROOT, tmp_path)
+                
+                fname, fext = os.path.splitext(tmp_path)
+                filename = datetime.now().strftime("%Y%m%d%H%M%S") + fext
+                dest_path = "".join((rel_dir, filename))
+                FileManager.path_exists(os.path.join(settings.MEDIA_ROOT, rel_dir))
+                abs_dest_path = os.path.join(settings.MEDIA_ROOT, dest_path)
+                
+                shutil.copy2(abs_tmp_path, abs_dest_path)
+                
+                os.remove(abs_tmp_path);
+                media_file_obj.path = media_file_path = dest_path
+                media_file_obj.save()
+            
+            from filebrowser.base import FileObject
+            
+            try:
+                file_description = FileDescription.objects.filter(
+                    file_path=FileObject(media_file_path or path),
+                    ).order_by("pk")[0]
+            except:
+                file_description = FileDescription(file_path=media_file_path or path)
+            
+            for lang_code, lang_name in FRONTEND_LANGUAGES:
+                setattr(file_description, 'title_%s' % lang_code, cleaned['title_%s' % lang_code])
+                setattr(file_description, 'description_%s' % lang_code, cleaned['description_%s' % lang_code])
+            setattr(file_description, 'author', cleaned['author'])
+            setattr(file_description, 'copyright_limitations', cleaned['copyright_limitations'])
+
+            file_description.save()
+            
+            if not media_file_obj.pk:
+                media_file_obj.sort_order = MediaFile.objects.filter(
+                    event=instance,
+                    ).count()
+            else:
+                # trick not to reorder media files on save
+                media_file_obj.sort_order = media_file_obj.sort_order
+            media_file_obj.save()
+            
+            if "hidden_iframe" in request.REQUEST:
+                return render(
+                    request,
+                    "events/gallery/success.html",
+                    {},
+                )
+            else:
+                if cleaned['goto_next']:
+                    return redirect(cleaned['goto_next'])
+                else:
+                    return redirect("event_gallery_overview", slug=instance.slug)
+    else:
+        if media_file_obj:
+            # existing media file
+            try:
+                file_description = FileDescription.objects.filter(
+                    file_path=media_file_obj.path,
+                ).order_by("pk")[0]
+            except:
+                file_description = FileDescription(file_path=media_file_obj.path)
+            initial = {}
+            initial.update(media_file_obj.__dict__)
+            initial.update(file_description.__dict__)
+            form = form_class(media_file_obj, initial=initial)
+        else:
+            # new media file
+            form = form_class(media_file_obj)
+
+    form.helper.form_action = request.path + "?hidden_iframe=1"
+
+    base_template = "base.html"
+    if "hidden_iframe" in request.REQUEST:
+        base_template = "base_iframe.html"
+
+    context_dict = {
+        'base_template': base_template,
+        'media_file': media_file_obj,
+        'media_file_type': media_file_type,
+        'form': form,
+        'event': instance,
+    }
+    
+    return render(
+        request,
+        "events/gallery/create_update_mediafile.html",
+        context_dict,
+    )
 
 
-def event_ical(request, *args, **kwargs):
-    return event_detail(request, ical=True, *args, **kwargs)
+@never_cache
+@login_required
+def delete_mediafile(request, slug, mediafile_token="", **kwargs):
+    instance = get_object_or_404(Event, slug=slug)
+    if not request.user.has_perm("events.change_event", instance):
+        return access_denied(request)
+    
+    filters = {
+        'id': MediaFile.token_to_pk(mediafile_token),
+    }
+    if instance:
+        filters['event'] = instance
+    try:
+        media_file_obj = MediaFile.objects.get(**filters)
+    except:
+        raise Http404
+        
+    if "POST" == request.method:
+        form = ImageDeletionForm(request.POST)
+        if media_file_obj:
+            if media_file_obj.path:
+                try:
+                    FileManager.delete_file(media_file_obj.path.path)
+                except OSError:
+                    pass
+                FileDescription.objects.filter(
+                    file_path=media_file_obj.path,
+                ).delete()
+            media_file_obj.delete()
+            return HttpResponse("OK")
+    else:
+        form = ImageDeletionForm()
+
+    form.helper.form_action = request.path
+    
+    context_dict = {
+        'media_file': media_file_obj,
+        'form': form,
+        'event': instance,
+    }
+    
+    return render(
+        request,
+        "events/gallery/delete_mediafile.html",
+        context_dict,
+    )
+

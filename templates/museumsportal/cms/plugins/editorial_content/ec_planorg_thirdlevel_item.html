@@ -1,0 +1,17 @@
+{% load i18n image_modifications %}
+
+	<div class="editorial item col-xs-{{ object.col_xs_width|default:"12" }} col-sm-{{ object.col_sm_width|default:"12" }} col-md-{{ object.col_md_width|default:"12" }} col-lg-{{ object.col_lg_width|default:"12" }}{% if object.css_class %} {{ object.css_class }}{% endif %}">
+			{% if object.image %}
+				<a class="img_left" href="{{ object.website }}"><span class="img" style="margin-top: 8px;"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{{ object.get_rendered_image_caption|striptags }}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" alt="" /></span></a>
+			{% endif %}
+			{% if object.image_caption %}<p class="sr-only caption">{{ object.get_rendered_image_caption|safe|removetags:"p" }}</p>{% endif %}
+			<a href="{{ object.website }}">
+				<h3>
+					<b>{{ object.title }}</b>
+					{% if object.subtitle %}<br/>{{ object.subtitle }}{% endif %}
+				</h3>
+			</a>
+			<p class="lead">{{ object.get_rendered_description|removetags:"p"|safe }}</p>
+			<a class="btn btn-default btn-sm" href="{{ object.website }}">{% trans "more" %}</a>
+	</div>
+	<div class="clearfix"></div>

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+{% block bodyclass %}default{% endblock %}
+
+{% block content %}
+	<div class="content intro">
+		<div class="container">
+		  	{% placeholder "intro" %}
+		</div>
+	</div>
+
+	<div class="content">
+		<div class="container">
+			<div class="row row-md grid">
+			  {% placeholder "main_content" %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

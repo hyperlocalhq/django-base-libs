@@ -1,0 +1,61 @@
+{% load base_tags image_modifications fb_tags %}
+
+<div id="gallery" {% if object.mediafile_set.count == 1 %}class="only_one"{% endif %}>
+    <div id="slider" class="swipe">
+        <ul>
+            {% for mf in object.mediafile_set.all %}
+            <li style="display:{% if forloop.first %}block{% else %}none{% endif %}">
+                &nbsp;
+                {% with mf.path|file_description as file_desc %}
+                    <div class="gallery-img" style="background-image: url({{ MEDIA_URL }}{{ mf.path|modified_path:"max" }})" title="{{ file_desc.description|remove_newlines|escape }}"> </div>
+                    <div class="info">
+                        {% if file_desc.title %}
+                            <span class="title">{{ file_desc.title }}</span>
+                        {% endif %}
+                        {% comment %}<!--
+                        {% if file_desc.description %}
+                            <span class="description">{{ file_desc.description }}</span>
+                        {% endif %}
+                        -->{% endcomment %}
+                        {% if file_desc.author %}
+                            <span class="author">{{ file_desc.author }}</span>
+                        {% endif %}
+                    </div>
+                {% endwith %}
+            </li>
+            {% endfor %}
+            {% if object.mediafile_set.count == 1 %}<li></li>{% endif %}
+        </ul>
+    </div>
+    
+    <span class="prev" onclick="slider.prev();return false;"></span>
+    <span class="next" onclick="slider.next();return false;"></span>
+    <nav><button class="cancel icon icon-white icon-cancel" data-href="{{ object.get_url_path }}"></button></nav>
+</div>
+
+<script src="{{ STATIC_URL }}site/js/swipe.js"></script>
+<script>
+    $(window).load(function() {
+        var $gallery = $('#gallery');
+        var slider = new Swipe(document.getElementById('slider'));
+
+        $('.prev', $gallery).click(function() {
+            slider.prev();
+            return false;
+        });
+        $('.next', $gallery).click(function() {
+            slider.next();
+            return false;
+        });
+        $('.cancel', $gallery).click(function() {
+            location.href = $(this).data('href');
+            return false;
+        });
+
+        $('body').addClass('gallery');
+        if (location.hash) {
+            var slide_index = parseInt(location.hash.replace(/#/, ''));
+            slider.slide(slide_index, 0);
+        }
+    });
+</script>

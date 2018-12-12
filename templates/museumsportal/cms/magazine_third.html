@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load cms_tags menu_tags i18n %}
+{% block bodyclass %}magazine-thirdlevel{% endblock %}
+
+{% block content %}
+  <div class="content">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          {% placeholder "intro" %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="container">
+        <div class="row"> {% placeholder "main_content" %} </div>
+          
+        <a class="btn btn-info btn-lg" href='..'>{% trans "To the Series" %}</a>
+        <a class="btn btn-info btn-lg" href='../..'>{% trans "To the Magazin" %}</a>
+      </div>
+    </div>
+  </div>
+          
+  {% comment %}
+  {% placeholder "marginal_content" %}
+  <ul id="side_nav">{% show_menu_below_id "magazin" 0 100 0 100 "menu/side_menu.html" %}</ul>
+  {% endcomment %}
+
+  {% with "cms/plugins/editorial_content/ec_magazine_thirdlevel_item.html" as editorial_content_template %}
+    <div class="content">
+      <div class="container">
+        <h2>{% trans "Additional Contents" %}</h2>
+
+        <div class="row row-sm{% if not request.toolbar.edit_mode %} isotope{% endif %}">
+          {% placeholder "series_items_featured" inherit %}
+          {% placeholder "series_items" inherit %} 
+        </div>
+      </div>
+    </div>
+  {% endwith %}
+
+{% endblock %}

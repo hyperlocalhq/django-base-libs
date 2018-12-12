@@ -1,0 +1,54 @@
+{% extends "cms/default.html" %}
+{% load base_tags cms_tags i18n image_modifications slideshows %}
+
+{% block stylesheet %}
+  {{ block.super }}
+  <style>
+  .carousel * {
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -o-user-select: none;
+      user-select: none;
+  }
+  </style>
+{% endblock %}
+
+{% block js %}
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/twitter.js"></script>
+{% endblock %}
+
+{% block museums_login %}
+  <li><a href="/{{ LANGUAGE_CODE }}/login/">{% trans "Login for Museums" %}</a></li>
+{% endblock %}
+
+{% block content %}
+  {% comment %}
+    {# dynamical inclusion below doesn't work with cms and placeholders #}
+    {% with "cms/includes/start_"|add:LANGUAGE_CODE|add:".html" as start_page_template_name %}
+      {% include start_page_template_name %}
+    {% endwith %}
+  {% endcomment %}
+  {% if LANGUAGE_CODE == "de" %}
+    {% include "cms/includes/start_de.html" %}
+  {% endif %}
+  {% if LANGUAGE_CODE == "en" %}
+    {% include "cms/includes/start_en.html" %}
+  {% endif %}
+  {% if LANGUAGE_CODE == "fr" %}
+    {% include "cms/includes/start_fr.html" %}
+  {% endif %}
+  {% if LANGUAGE_CODE == "pl" %}
+    {% include "cms/includes/start_pl.html" %}
+  {% endif %}
+  {% if LANGUAGE_CODE == "tr" %}
+    {% include "cms/includes/start_tr.html" %}
+  {% endif %}
+  {% if LANGUAGE_CODE == "es" %}
+    {% include "cms/includes/start_es.html" %}
+  {% endif %}
+  {% if LANGUAGE_CODE == "it" %}
+    {% include "cms/includes/start_it.html" %}
+  {% endif %}
+{% endblock %}
