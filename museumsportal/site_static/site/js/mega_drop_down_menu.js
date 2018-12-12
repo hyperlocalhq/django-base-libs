@@ -437,7 +437,7 @@ $(window).load(function() {
     var loaded = false;
     var $top_nav = $('#top_nav');
     var $mega = $('#mega_drop_down_menu');
-    var key = 'mega-drop-down-menu:' + window.settings.lang;
+    var key = 'mega-drop-down-menu:' + window.settings.LANGUAGE_CODE;
 
     function processHTML(html) {
         $mega.html(html);
@@ -485,7 +485,7 @@ $(window).load(function() {
     }
 
     function fetchHTML() {
-        $.get('/' + window.settings.lang + '/helper/menu/', function(html) {
+        $.get('/' + window.settings.LANGUAGE_CODE + '/helper/menu/', function(html) {
             processHTML(html);
             lscache.set(key, html, 10);
         }, "html");

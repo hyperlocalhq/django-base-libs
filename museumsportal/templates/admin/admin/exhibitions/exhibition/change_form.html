@@ -8,7 +8,7 @@
 <!-- STYLESHEETS -->
 {% block stylesheets %}
     {{ block.super }}
-    <!--<link href="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.autocomplete.css" rel="stylesheet" />-->
+    <!--<link href="{{ JETSON_MEDIA_URL }}js/jquery/autocomplete_1.0/jquery.autocomplete.css" rel="stylesheet" />-->
     <style type="text/css">
     #gmap {
         width:916px;
@@ -22,9 +22,9 @@
     {{ block.super }}
     <script type="text/javascript" src="//maps.google.com/maps/api/js?language=de&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/gmaps_for_address.js"></script>
-    <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.bgiframe.min.js"></script>
-    <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
-    <script type="text/javascript" src="{{ jetson_media_url }}js/admin/autocomplete.js"></script>
+    <script type="text/javascript" src="{{ JETSON_MEDIA_URL }}js/jquery/autocomplete_1.0/jquery.bgiframe.min.js"></script>
+    <script type="text/javascript" src="{{ JETSON_MEDIA_URL }}js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="{{ JETSON_MEDIA_URL }}js/admin/autocomplete.js"></script>
 
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.charCount.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.autosize.min.js"></script>

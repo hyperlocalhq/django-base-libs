@@ -17,7 +17,7 @@
     {% endblock %}
 	
     {% render_block "css" %}
-    <script type="text/javascript">
+    <script>
       (function() {
         var config = {
           kitId: 'qru0sat',
@@ -27,16 +27,17 @@
       })();
     </script>
 
-    <script type="text/javascript" src="/jssettings/"></script>
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.8.3.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.ba-bbq.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.isotope.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.scrollstop.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.lazyload.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.viewport.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/bootstrap/bootstrap.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-modal.js"></script>
-	<script type="text/javascript" src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
+    <script src="{% url 'jssettings' %}"></script>
+    <script src="{{ JETSON_MEDIA_URL }}js/legacy.js"></script>
+    <script src="https://code.jquery.com/jquery-1.8.3.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.ba-bbq.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.isotope.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.scrollstop.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.lazyload.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.viewport.js"></script>
+    <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap.js"></script>
+    <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap-modal.js"></script>
+	<script src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
     {{ site_settings.extra_head|safe }}
     {% block js %}{% endblock %}
 </head>

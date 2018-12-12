@@ -49,7 +49,7 @@
 {% endblock %}
 
 {% render_block "css" %}
-<script type="text/javascript">
+<script>
   <!--//--><![CDATA[//><!--
     var images = [];
     function preload() {
@@ -64,7 +64,7 @@
     );
   //--><!]]>
 </script>
-<script type="text/javascript">
+<script>
   (function() {
     var config = {
         kitId: 'qru0sat',
@@ -74,11 +74,12 @@
   })();
 </script>
 
-<script type="text/javascript" src="/{{ LANGUAGE_CODE }}/jssettings/"></script>
+<script src="{% url 'jssettings' %}"></script>
+<script src="{{ JETSON_MEDIA_URL }}js/legacy.js"></script>
 <script type="text/javascript" src="/{{ LANGUAGE_CODE }}/jsi18n/"></script>
 <!--<script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<script type="text/javascript" src="{{ jetson_media_url }}js/jquery/jquery.cookie.js"></script>
+<script type="text/javascript" src="{{ JETSON_MEDIA_URL }}js/jquery/jquery.cookie.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.ba-bbq.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.isotope.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.scrollstop.min.js"></script>

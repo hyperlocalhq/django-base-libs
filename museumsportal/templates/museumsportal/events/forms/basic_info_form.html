@@ -78,11 +78,11 @@
             var pdf_document_de_path = $('#id_pdf_document_de_path').val();
             if (pdf_document_de_path) {
                 var fileName = pdf_document_de_path.split("/")[1];
-                $('.pdf_link', $pdf_document_de_upload).html('<p class="lead"><a class="btn btn-primary" href="' +  settings.media_url + pdf_document_de_path + '" target="_blank">' + fileName + ' ({% trans "Preview" %})</a></p>');
+                $('.pdf_link', $pdf_document_de_upload).html('<p class="lead"><a class="btn btn-primary" href="' +  settings.MEDIA_URL + pdf_document_de_path + '" target="_blank">' + fileName + ' ({% trans "Preview" %})</a></p>');
             }
             var options_de = $.extend(translatable_file_uploader_options_de, {
                 allowedExtensions: ['pdf'],
-                action: '/' + settings.lang + '/helper/ajax-upload/',
+                action: '/' + settings.LANGUAGE_CODE + '/helper/ajax-upload/',
                 element: $('.pdf_uploader', $pdf_document_de_upload)[0],
                 multiple: false,
                 onComplete: function(id, fileName, responseJSON) {
@@ -91,7 +91,7 @@
                         // set the original to media_file_path
                         $('#id_pdf_document_de_path').val(responseJSON.path);
                         // show preview link
-                        $('.pdf_link', $pdf_document_de_upload).html('<p class="lead"><a class="btn btn-primary" href="' +  settings.media_url + responseJSON.path  + '" target="_blank">' + responseJSON.filename + ' ({% trans "Preview" %})</a></p>');
+                        $('.pdf_link', $pdf_document_de_upload).html('<p class="lead"><a class="btn btn-primary" href="' +  settings.MEDIA_URL + responseJSON.path  + '" target="_blank">' + responseJSON.filename + ' ({% trans "Preview" %})</a></p>');
                     }
                 },
                 onAllComplete: function(uploads) {
@@ -121,11 +121,11 @@
             var pdf_document_en_path = $('#id_pdf_document_en_path').val();
             if (pdf_document_en_path) {
                 var fileName = pdf_document_en_path.split("/")[1];
-                $('.pdf_link', $pdf_document_en_upload).html('<p class="lead"><a class="btn btn-primary" href="' +  settings.media_url + pdf_document_en_path + '" target="_blank">' + fileName + ' ({% trans "Preview" %})</a></p>');
+                $('.pdf_link', $pdf_document_en_upload).html('<p class="lead"><a class="btn btn-primary" href="' +  settings.MEDIA_URL + pdf_document_en_path + '" target="_blank">' + fileName + ' ({% trans "Preview" %})</a></p>');
             }
             var options_en = $.extend(translatable_file_uploader_options_en, {
                 allowedExtensions: ['pdf'],
-                action: '/' + settings.lang + '/helper/ajax-upload/',
+                action: '/' + settings.LANGUAGE_CODE + '/helper/ajax-upload/',
                 element: $('.pdf_uploader', $pdf_document_en_upload)[0],
                 multiple: false,
                 onComplete: function(id, fileName, responseJSON) {
@@ -134,7 +134,7 @@
                         // set the original to media_file_path
                         $('#id_pdf_document_en_path').val(responseJSON.path);
                         // show preview link
-                        $('.pdf_link', $pdf_document_en_upload).html('<p class="lead"><a class="btn btn-primary" href="' +  settings.media_url + responseJSON.path  + '" target="_blank">' + responseJSON.filename + ' ({% trans "Preview" %})</a></p>');
+                        $('.pdf_link', $pdf_document_en_upload).html('<p class="lead"><a class="btn btn-primary" href="' +  settings.MEDIA_URL + responseJSON.path  + '" target="_blank">' + responseJSON.filename + ' ({% trans "Preview" %})</a></p>');
                     }
                 },
                 onAllComplete: function(uploads) {

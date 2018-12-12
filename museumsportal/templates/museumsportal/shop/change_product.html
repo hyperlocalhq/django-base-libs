@@ -48,7 +48,7 @@
         var $profile_image_upload = $('#profile_image_upload');
         var options = $.extend(translatable_file_uploader_options, {
             allowedExtensions: ['gif', 'jpg', 'jpeg', 'png'],
-            action: '/' + settings.lang + '/helper/ajax-upload/',
+            action: '/' + settings.LANGUAGE_CODE + '/helper/ajax-upload/',
             element: $('#image_uploader')[0],
             multiple: false,
             onComplete: function(id, fileName, responseJSON) {
@@ -57,8 +57,8 @@
                     // set the original to media_file_path
                     $('#id_image_path').val(responseJSON.path);
                     // load the modified version for the preview
-                    $.post('/' + settings.lang + '/helper/modified-path/', {
-                        file_path: settings.media_url + responseJSON.path,
+                    $.post('/' + settings.LANGUAGE_CODE + '/helper/modified-path/', {
+                        file_path: settings.MEDIA_URL + responseJSON.path,
                         mod_sysname: 'shop_small'
                     }, function(data, textStatus, jqXHR) {
                         $('#image_preview').html('<img alt="" src="' + data + '" />');
