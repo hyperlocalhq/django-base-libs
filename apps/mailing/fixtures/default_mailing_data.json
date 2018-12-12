@@ -1,0 +1,465 @@
+[
+    {
+        "pk": 22, 
+        "model": "mailing.emailtemplateplaceholder", 
+        "fields": {
+            "sysname": "recipient_email", 
+            "name": "recipient_email", 
+            "name_en": "recipient_email", 
+            "timestamp": "2007-09-26 15:17:55", 
+            "name_de": "empfaenger_email", 
+            "relates_to": 1, 
+            "help_text": ""
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "mailing.emailtemplateplaceholder", 
+        "fields": {
+            "sysname": "recipient_firstname", 
+            "name": "recipient_firstname", 
+            "name_en": "recipient_firstname", 
+            "timestamp": "2007-09-05 14:18:03", 
+            "name_de": "empfaenger_vorname", 
+            "relates_to": 1, 
+            "help_text": ""
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "mailing.emailtemplateplaceholder", 
+        "fields": {
+            "sysname": "recipient_lastname", 
+            "name": "recipient_lastname", 
+            "name_en": "recipient_lastname", 
+            "timestamp": "2007-09-05 14:18:28", 
+            "name_de": "empfaenger_nachname", 
+            "relates_to": 1, 
+            "help_text": ""
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "mailing.emailtemplateplaceholder", 
+        "fields": {
+            "sysname": "recipient_link", 
+            "name": "recipient_link", 
+            "name_en": "recipient_link", 
+            "timestamp": "2007-09-26 13:12:55", 
+            "name_de": "empfaenger_link", 
+            "relates_to": 1, 
+            "help_text": ""
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "mailing.emailtemplateplaceholder", 
+        "fields": {
+            "sysname": "recipient_name", 
+            "name": "recipient_name", 
+            "name_en": "recipient_name", 
+            "timestamp": "2007-09-05 14:13:05", 
+            "name_de": "empfaenger_name", 
+            "relates_to": 1, 
+            "help_text": ""
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "mailing.emailtemplateplaceholder", 
+        "fields": {
+            "sysname": "recipient_salutation", 
+            "name": "recipient_salutation", 
+            "name_en": "recipient_salutation", 
+            "timestamp": "2007-09-05 14:13:32", 
+            "name_de": "empfaenger_anrede", 
+            "relates_to": 1, 
+            "help_text": ""
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "mailing.emailtemplateplaceholder", 
+        "fields": {
+            "sysname": "recipient_slug", 
+            "name": "recipient_slug", 
+            "name_en": "recipient_slug", 
+            "timestamp": "2007-09-25 19:17:00", 
+            "name_de": "empfaenger_slug", 
+            "relates_to": 1, 
+            "help_text": ""
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "mailing.emailtemplateplaceholder", 
+        "fields": {
+            "sysname": "recipient_url", 
+            "name": "recipient_url", 
+            "name_en": "recipient_url", 
+            "timestamp": "2007-09-26 13:12:32", 
+            "name_de": "empfaenger_url", 
+            "relates_to": 1, 
+            "help_text": ""
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "mailing.emailtemplateplaceholder", 
+        "fields": {
+            "sysname": "sender_email", 
+            "name": "sender_email", 
+            "name_en": "sender_email", 
+            "timestamp": "2007-09-05 14:17:44", 
+            "name_de": "sender_email", 
+            "relates_to": 2, 
+            "help_text": ""
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "mailing.emailtemplateplaceholder", 
+        "fields": {
+            "sysname": "sender_link", 
+            "name": "sender_link", 
+            "name_en": "sender_link", 
+            "timestamp": "2007-09-26 13:13:22", 
+            "name_de": "sender_link", 
+            "relates_to": 2, 
+            "help_text": ""
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "mailing.emailtemplateplaceholder", 
+        "fields": {
+            "sysname": "sender_name", 
+            "name": "sender_name", 
+            "name_en": "sender_name", 
+            "timestamp": "2007-09-05 14:14:05", 
+            "name_de": "sender_name", 
+            "relates_to": 2, 
+            "help_text": ""
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "mailing.emailtemplateplaceholder", 
+        "fields": {
+            "sysname": "sender_slug", 
+            "name": "sender_slug", 
+            "name_en": "sender_slug", 
+            "timestamp": "2007-09-25 19:17:25", 
+            "name_de": "sender_slug", 
+            "relates_to": 2, 
+            "help_text": ""
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "mailing.emailtemplateplaceholder", 
+        "fields": {
+            "sysname": "sender_url", 
+            "name": "sender_url", 
+            "name_en": "sender_url", 
+            "timestamp": "2007-09-26 13:13:09", 
+            "name_de": "sender_url", 
+            "relates_to": 2, 
+            "help_text": ""
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "mailing.emailtemplateplaceholder", 
+        "fields": {
+            "sysname": "object_description", 
+            "name": "object_description", 
+            "name_en": "object_description", 
+            "timestamp": "2007-09-05 14:15:32", 
+            "name_de": "objekt_beschreibung", 
+            "relates_to": 3, 
+            "help_text": ""
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "mailing.emailtemplateplaceholder", 
+        "fields": {
+            "sysname": "object_link", 
+            "name": "object_link", 
+            "name_en": "object_link", 
+            "timestamp": "2007-09-26 13:13:49", 
+            "name_de": "objekt_link", 
+            "relates_to": 3, 
+            "help_text": ""
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "mailing.emailtemplateplaceholder", 
+        "fields": {
+            "sysname": "object_slug", 
+            "name": "object_slug", 
+            "name_en": "object_slug", 
+            "timestamp": "2007-09-05 14:15:53", 
+            "name_de": "objekt_slug", 
+            "relates_to": 3, 
+            "help_text": ""
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "mailing.emailtemplateplaceholder", 
+        "fields": {
+            "sysname": "object_title", 
+            "name": "object_title", 
+            "name_en": "object_title", 
+            "timestamp": "2007-09-05 14:15:01", 
+            "name_de": "objekt_titel", 
+            "relates_to": 3, 
+            "help_text": ""
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "mailing.emailtemplateplaceholder", 
+        "fields": {
+            "sysname": "object_url", 
+            "name": "object_url", 
+            "name_en": "object_url", 
+            "timestamp": "2007-09-26 13:13:34", 
+            "name_de": "objekt_url", 
+            "relates_to": 3, 
+            "help_text": ""
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "mailing.emailtemplateplaceholder", 
+        "fields": {
+            "sysname": "encrypted_email", 
+            "name": "encrypted_email", 
+            "name_en": "encrypted_email", 
+            "timestamp": "2008-06-04 16:45:18", 
+            "name_de": "encrypted_email", 
+            "relates_to": 4, 
+            "help_text": ""
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "mailing.emailtemplateplaceholder", 
+        "fields": {
+            "sysname": "media_url", 
+            "name": "media_url", 
+            "name_en": "media_url", 
+            "timestamp": "2007-09-05 14:14:20", 
+            "name_de": "media_url", 
+            "relates_to": 4, 
+            "help_text": ""
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "mailing.emailtemplateplaceholder", 
+        "fields": {
+            "sysname": "site_name", 
+            "name": "site_name", 
+            "name_en": "site_name", 
+            "timestamp": "2008-06-04 16:45:00", 
+            "name_de": "site_name", 
+            "relates_to": 4, 
+            "help_text": ""
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "mailing.emailtemplateplaceholder", 
+        "fields": {
+            "sysname": "website_ssl_url", 
+            "name": "website_ssl_url", 
+            "name_en": "website_ssl_url", 
+            "timestamp": "2007-09-06 15:20:02", 
+            "name_de": "website_ssl_url", 
+            "relates_to": 4, 
+            "help_text": ""
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "mailing.emailtemplateplaceholder", 
+        "fields": {
+            "sysname": "website_url", 
+            "name": "website_url", 
+            "name_en": "website_url", 
+            "timestamp": "2007-09-06 15:19:45", 
+            "name_de": "website_url", 
+            "relates_to": 4, 
+            "help_text": ""
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "mailing.emailtemplate", 
+        "fields": {
+            "body": "Welcome to [site_name]!.\r\n\r\nYour username is: [recipient_slug]\r\nYou can log in at: [website_url]login/\r\n\r\nEnjoy the site, and do let us know if you have comments, concerns, suggestions, or other feedback!\r\n\r\nThe [site_name] team", 
+            "name": "Account Created", 
+            "allowed_placeholders": [
+                22, 
+                10, 
+                11, 
+                17, 
+                1, 
+                2, 
+                14, 
+                16, 
+                9, 
+                19, 
+                3, 
+                15, 
+                18, 
+                7, 
+                21, 
+                8, 
+                6, 
+                20, 
+                24, 
+                4, 
+                23, 
+                13, 
+                12
+            ], 
+            "timestamp": "2008-04-15 20:04:04", 
+            "subject_de": "[site_name]: Willkommen!", 
+            "body_html": "<p>Welcome to [site_name]!</p>\r\n\r\n<p>Your username is: [recipient_slug]</p>\r\n<p>You can <a href=\"[website_url]login/\">login here</a></p>\r\n\r\n<p> Enjoy the site, and do let us know if you have comments, concerns, suggestions, or other feedback!</p>\r\n\r\n<p> The [site_name] team</p>", 
+            "body_de": "Willkommen bei [site_name]!.\r\n\r\nIhr Benutzername ist: [recipient_slug]\r\nSie k\u00f6nnen sich nun anmelden unter: [website_url]login/\r\n\r\nWir freuen uns \u00fcber Ihren Besuch und auf ihre Kommentare, Beitr\u00e4ge und Vorschl\u00e4ge!\r\n\r\nDas Team von [site_name]", 
+            "owner": 1, 
+            "slug": "account_created", 
+            "body_html_de": "<p>Willkommen bei [site_name]!</p>\r\n\r\n<p>Ihr Benutzername ist: [recipient_slug]</p>\r\n<p>Sie k\u00f6nnen <a href=\"[website_url]login/\">hier sich nun anmelden</a></p>\r\n\r\n<p> Wir freuen uns &uuml;ber Ihren Besuch und auf ihre Kommentare, Beitr\u00e4ge und Vorschl\u00e4ge!</p>\r\n\r\n<p>Das Team von [site_name]</p>", 
+            "subject": "[site_name]: Welcome!"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "mailing.emailtemplate", 
+        "fields": {
+            "body": "You are invited to be a member of [object_title] at [site_name].\r\n\r\nClick the following link and accept or deny the invitation:\r\n[website_url]groups/invitations/other-groups/invitations/?by-status=pending\r\nThanks,\r\nThe [site_name] team.", 
+            "name": "Invite Internal People To Group", 
+            "allowed_placeholders": [
+                22, 
+                10, 
+                11, 
+                17, 
+                1, 
+                2, 
+                14, 
+                16, 
+                9, 
+                19, 
+                3, 
+                15, 
+                18, 
+                7, 
+                21, 
+                8, 
+                6, 
+                20, 
+                24, 
+                4, 
+                23, 
+                13, 
+                12
+            ], 
+            "timestamp": "2008-04-15 19:54:55", 
+            "subject_de": "[site_name]: Einladung", 
+            "body_html": "<p>You are invited to be a member of [object_title] at [site_name].</p>\r\n<p>Please <a href=\"%5Bwebsite_url%5Dgroups/invitations/other-groups/invitations/?by-status=pending\">login and accept or deny the invitation</a> at the profile page of [object_title].</p>\r\n<p>Thanks,<br /> The [site_name] team.</p>", 
+            "body_de": "You are invited to be a member of [objekt_titel] at [site_name].\r\n\r\nClick the following link and accept or deny the invitation:\r\n[website_url]groups/invitations/other-groups/invitations/?by-status=pending\r\n\r\nThanks,\r\nThe [site_name] team.", 
+            "owner": 1, 
+            "slug": "invite_internal_people_to_group", 
+            "body_html_de": "<p>You are invited to be a member of [object_title] at [site_name].</p>\r\n<p>Please <a href=\"%5Bwebsite_url%5Dgroups/invitations/other-groups/invitations/?by-status=pending\">login and accept or deny the invitation</a> at the profile page of [object_title].</p>\r\n<p>Thanks,<br /> The [site_name] team.</p>", 
+            "subject": "[site_name]: Invitation"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "mailing.emailtemplate", 
+        "fields": {
+            "body": "You are invited to be a member of [object_title] at [site_name].\r\n\r\nClick the following link to register and accept or deny the invitation:\r\n[object_url]invited/[encrypted_email]/\r\n\r\nThanks,\r\nThe [site_name] team.", 
+            "name": "Invite External People To Group", 
+            "allowed_placeholders": [
+                22, 
+                10, 
+                11, 
+                17, 
+                1, 
+                2, 
+                14, 
+                16, 
+                9, 
+                19, 
+                3, 
+                15, 
+                18, 
+                7, 
+                21, 
+                8, 
+                6, 
+                20, 
+                24, 
+                4, 
+                23, 
+                13, 
+                12
+            ], 
+            "timestamp": "2008-04-15 19:48:06", 
+            "subject_de": "[site_name]: Einladung", 
+            "body_html": "<p>You are invited to be a member of [object_title] at [site_name].</p>\r\n\r\n<p>Please <a href=\"[object_url]invited/[encrypted_email]/\">accept or deny the invitation</a>.</p>\r\n\r\n<p>Thanks,<br /> The [site_name] team.</p>", 
+            "body_de": "You are invited to be a member of [object_title] at [site_name].\r\n\r\nClick the following link to register and accept or deny the invitation:\r\n[object_url]invited/[encrypted_email]/\r\n\r\nThanks,\r\nThe [site_name] team.", 
+            "owner": 1, 
+            "slug": "invite_external_people_to_group", 
+            "body_html_de": "<p>You are invited to be a member of [object_title] at [site_name].</p>\r\n\r\n<p>Please <a href=\"[object_url]invited/[encrypted_email]/\">accept or deny the invitation</a>.</p>\r\n\r\n<p>Thanks,<br /> The [site_name] team.</p>", 
+            "subject": "[site_name]: Invitation"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "mailing.emailtemplate", 
+        "fields": {
+            "body": "You're receiving this e-mail because you (or someone using your email address) is attempting to create an account at [site_name].\r\n\r\nTo verify your e-mail address and continue the registration process, please click the link below:\r\n\r\n[website_url]register/[encrypted_email]/\r\n\r\nIf you have no idea what this e-mail is referring to, simply ignore it and no account will be created with your e-mail address.\r\n\r\nThanks,\r\nThe [site_name] team", 
+            "name": "Account Verification", 
+            "allowed_placeholders": [
+                22, 
+                10, 
+                11, 
+                17, 
+                1, 
+                2, 
+                14, 
+                16, 
+                9, 
+                19, 
+                3, 
+                15, 
+                18, 
+                7, 
+                21, 
+                8, 
+                6, 
+                20, 
+                24, 
+                4, 
+                23, 
+                13, 
+                12
+            ], 
+            "timestamp": "2008-04-15 19:39:06", 
+            "subject_de": "[site_name]: Benutzerkonto Anmeldung erforderlich", 
+            "body_html": "<p>You're receiving this e-mail because you (or someone using your email address) is attempting to create an account at [site_name].</p>\r\n\r\n<p>Please <a href=\"[website_url]register/[encrypted_email]/\">verify your registration process</a>.</p> \r\n\r\n<p>If you have no idea what this e-mail is referring to, simply ignore it and no account will be created with your e-mail address.</p>\r\n\r\n<p>Thanks,<br />\r\nThe [site_name] team</p>", 
+            "body_de": "Sie erhalten diese Mail, weil Sie f\u00fcr folgende Website ein neues Konto erstellt haben (oder jemand hat Ihre E-Mail Adresse benutzt): [site_name].\r\n\r\nUm Ihre E-Mail Adresse zu best\u00e4tigen und Ihre Registrierung abschliessen zu k\u00f6nnen, klicken Sie bitte auf den folgenden Link:\r\n\r\n[website_url]register/[encrypted_email]/\r\n\r\nWenn Sie nicht wissen, worauf sich diese E-mail bezieht, ignorieren Sie sie einfach und es wird kein Benutzerkonto mit Ihrer E-Mail Adresse erstellt.\r\n\r\nDanke,\r\nDas [site_name] Team", 
+            "owner": 1, 
+            "slug": "account_verification", 
+            "body_html_de": "<p>Sie erhalten diese Mail, weil Sie f\u00fcr folgende Website ein neues Konto erstellt haben (oder jemand hat Ihre E-Mail Adresse benutzt): [site_name].</p>\r\n\r\n<p>Um Ihre E-Mail Adresse zu best\u00e4tigen und Ihre Registrierung abschliessen zu k\u00f6nnen, klicken Sie bitte auf den folgenden Link:</p>\r\n\r\n<p><a href=\"[website_url]register/[encrypted_email]/\">[website_url]register/[encrypted_email]/</a></p>\r\n\r\n<p>Wenn Sie nicht wissen, worauf sich diese E-mail bezieht, ignorieren Sie sie einfach und es wird kein Benutzerkonto mit Ihrer E-Mail Adresse erstellt.</p> \r\n\r\n<p>Danke,<br />\r\nDas [site_name] Team</p>", 
+            "subject": "[site_name]: Account Verification Required"
+        }
+    }
+]

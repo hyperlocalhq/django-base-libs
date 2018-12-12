@@ -1,0 +1,530 @@
+{% extends "admin/change_form.html" %}
+
+<!-- LOADING -->
+{% load base_tags i18n auth_extended extended_admin static %}
+
+<!-- STYLES -->
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet"
+          type="text/css"
+          href="{% url 'jetson_media_url' path='js/jquery/autocomplete_1.0/jquery.autocomplete.css' %}"/>
+{% endblock %}
+
+<!-- JAVASCRIPTS -->
+{% block javascripts %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/SelectBox.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/SelectFilter2.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/admin/DateTimeShortcuts.js' %}"></script>
+
+
+    <script type="text/javascript"
+            src="{% url 'jetson_media_url' path='js/jquery/autocomplete_1.0/jquery.autocomplete.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/urlify.js' %}"></script>
+    <script type="text/javascript" src="{% static 'filebrowser/js/AddFileBrowser.js' %}"></script>
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/document_change.js' %}"></script>
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/URLField.js' %}"></script>
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/change_form.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'admin/js/collapse.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/inlines.min.js' %}"></script>
+    <!--
+    <script type="text/javascript" charset="utf-8">
+        (function($) {
+            $(document).ready(function() {
+                grappelli.initDateAndTimePicker();
+                $("div.container-flexible div.group").grp_collapsible_group();
+                $("div#content .collapse").grp_collapsible({
+                    on_init: function(elem, options) {
+                        // open collapse (and all collapse parents) in case of errors
+                        if (elem.find("ul.errorlist").length > 0) {
+                            elem.removeClass("closed")
+                                .addClass("open");
+                            elem.parents(".collapse")
+                                .removeClass("closed")
+                                .addClass("open");
+                        }
+                    }
+                });
+            });
+        })(django.jQuery);
+    </script>
+    -->
+{% endblock %}
+
+<!-- COLTYPE/BODYCLASS -->
+{% block bodyclass %}grp-change-form document{% endblock %}
+{% block content-class %}grp-content-flexible{% endblock %}
+
+<!-- BREADCRUMBS -->
+{% block breadcrumbs %}
+    {% if not is_popup %}
+        <ul id="breadcrumbs">
+            <li>
+                <a href="../../../">{% trans "Home" %}</a>
+            </li>
+            <li>
+                <a href="../../">{{ "Resources"|app_verbose_name }}</a>
+            </li>
+            <li>
+                <a href="../">{% trans "Documents" %}</a>
+            </li>
+            <li>
+                {% if original %}{{ original|truncatewords:"18" }}{% else %}{% trans "Add" %} {% trans "Document" %}{% endif %}</li>
+        </ul>
+    {% endif %}
+{% endblock %}
+
+<!-- OBJECT TOOLS -->
+{% block object-tools %}
+    {% if change and not is_popup %}
+        <ul class="grp-object-tools">
+            <li>
+                <a href="history/" class="historylink">{% trans "History" %}</a>
+            </li>
+            {% if original.row_level_permissions %}
+                {% if_has_perm "auth.change_rowlevelpermission" original %}
+                    <li>
+                        <a href="permissions/" class="rowlevelpermissions">{% trans "Permissions" %}</a>
+                    </li>
+                {% end_if_has_perm %}
+            {% endif %}
+            {% if original.get_url_path %}
+                <li>
+                    <a href="{{ original.get_url_path }}" class="viewsitelink">{% trans "View on site" %}</a>
+                </li>
+            {% endif %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+<!-- CONTENT -->
+{% block content %}
+    <form action="" method="post" id="document_form">{% csrf_token %}
+        <div>
+            <!-- Popup Hidden Field -->
+            {% if is_popup %}
+                <input type="hidden" name="_popup" value="1"/>{% endif %}
+
+            <!-- Errors -->
+            {% if form.errors %}
+                <p class="errornote">
+                    {% blocktrans count form.errors.items|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+                </p>
+                {{ form.non_field_errors }}
+            {% endif %}
+
+            <!-- Fieldsets -->
+            {% if form.title_en %}
+                <fieldset class="grp-module grp-aligned grp-collapse grp-open multilingual multilingual-set-15 multilingual-language-en">
+                    <h2 class="grp-collapse-handler">{% trans "Document" %} (English)</h2>
+                    <div class="grp-row grp-cells-1{% if form.title_en.errors %} grp-errors{% endif %}">
+                        <div class="l-2c-fluid l-d-4">
+                            <div class="c-1">
+                                <label
+                                        {% if form.title_en.field.required %} class="required"{% endif %}>{{ form.title_en.label }}</label>
+                            </div>
+                            <div class="c-2">
+                                <p>{{ form.title_en }}</p>
+                                {% if form.title_en.errors %}
+                                    <ul class="errorlist">
+                                        <li>{{ form.title_en.errors|join:", " }}</li>
+                                    </ul>
+                                {% endif %}
+
+                                {% if form.title_en.help_text %}
+                                    <p class="grp-help">{{ form.title_en.help_text }}</p>{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            {% endif %}
+            {% if form.title_de %}
+                <fieldset class="grp-module grp-aligned grp-collapse grp-open multilingual multilingual-set-15 multilingual-language-de">
+                    <h2 class="grp-collapse-handler">{% trans "Document" %} (Deutsch)</h2>
+                    <div class="grp-row grp-cells-1{% if form.title_de.errors %} grp-errors{% endif %}">
+                        <div class="l-2c-fluid l-d-4">
+                            <div class="c-1">
+                                <label
+                                        {% if form.title_de.field.required %} class="required"{% endif %}>{{ form.title_de.label }}</label>
+                            </div>
+                            <div class="c-2">
+                                <p>{{ form.title_de }}</p>
+                                {% if form.title_de.errors %}
+                                    <ul class="errorlist">
+                                        <li>{{ form.title_de.errors|join:", " }}</li>
+                                    </ul>
+                                {% endif %}
+
+                                {% if form.title_de.help_text %}
+                                    <p class="grp-help">{{ form.title_de.help_text }}</p>{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            {% endif %}
+
+
+            <fieldset class="grp-module grp-aligned">
+                {{ form.user_id }}
+                <div class="grp-row grp-cells-1{% if form.slug.errors %} grp-errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label
+                                    {% if form.slug.field.required %} class="required"{% endif %}>{{ form.slug.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            <p>{{ form.slug }}</p>
+                            {% if form.slug.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.slug.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            {% if form.slug.help_text %}<p class="grp-help">{{ form.slug.help_text }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="grp-row grp-cells-1{% if form.document_type.errors %} grp-errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label
+                                    {% if form.document_type.field.required %} class="required"{% endif %}>{{ form.document_type.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            <p>{{ form.document_type }}</p>
+                            {% if form.document_type.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.document_type.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            {% if form.document_type.help_text %}
+                                <p class="grp-help">{{ form.document_type.help_text }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="grp-row grp-cells-1{% if form.url_link.errors %} grp-errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label
+                                    {% if form.url_link.field.required %} class="required"{% endif %}>{{ form.url_link.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            <p>{{ form.url_link }}</p>
+                            {% if form.url_link.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.url_link.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            {% if form.url_link.help_text %}
+                                <p class="grp-help">{{ form.url_link.help_text }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="grp-row grp-cells-1{% if form.document_file.errors %} grp-errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label
+                                    {% if form.document_file.field.required %} class="required"{% endif %}>{{ form.document_file.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            <p>{{ form.document_file }}</p>
+                            {% if form.document_file.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.document_file.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            {% if form.document_file.help_text %}
+                                <p class="grp-help">{{ form.document_file.help_text }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="grp-row grp-cells-1{% if form.medium.errors %} grp-errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label
+                                    {% if form.medium.field.required %} class="required"{% endif %}>{{ form.medium.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            <p>{{ form.medium }}</p>
+                            {% if form.medium.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.medium.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            {% if form.medium.help_text %}<p class="grp-help">{{ form.medium.help_text }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            {% include "extendedadmin/includes/fieldset_details.html" %}
+
+            <fieldset class="grp-module grp-aligned grp-collapse grp-closed">
+                <h2 class="grp-collapse-handler">{% trans "Additional Info" %}</h2>
+                <div class="grp-row grp-cells-1{% if form.authors.errors %} grp-errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label
+                                    {% if form.authors.field.required %} class="required"{% endif %}>{{ form.authors.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            {{ form.authors }}
+                            <a href="../../../people/person/add/"
+                               class="add-another"
+                               id="add_id_authors"
+                               onclick="return showAddAnotherPopup(this);">
+                                <img src="{% url 'jetson_media_url' path='img/admin/icon_addlink.gif' %}"
+                                     width="10"
+                                     height="10"
+                                     alt="{% trans "Add Another" %}"/>
+                            </a>
+                            {% if form.authors.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.authors.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            {% if form.authors.help_text %}
+                                <p class="grp-help">{{ form.authors.help_text }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="grp-row grp-cells-1{% if form.authors_plain.errors %} grp-errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label
+                                    {% if form.authors_plain.field.required %} class="required"{% endif %}>{{ form.authors_plain.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            <p>{{ form.authors_plain }}</p>
+                            {% if form.authors_plain.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.authors_plain.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            {% if form.authors_plain.help_text %}
+                                <p class="grp-help">{{ form.authors_plain.help_text }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="grp-row grp-cells-1{% if form.publisher.errors %} grp-errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label
+                                    {% if form.publisher.field.required %} class="required"{% endif %}>{{ form.publisher.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            <p>{{ form.publisher }}</p>
+                            {% if form.publisher.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.publisher.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            {% if form.publisher.help_text %}
+                                <p class="grp-help">{{ form.publisher.help_text }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="grp-row grp-cells-1{% if form.published_mm.errors or form.published_dd.errors or form.published_yyyy.errors %} grp-errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label
+                                    {% if form.published_yyyy.field.required %} class="required"{% endif %}>{% trans "Published" %}</label>
+                        </div>
+                        <div class="c-2">
+                            <p>
+                                <span class="inline-fields">{{ form.published_dd }}</span>
+                                <span class="inline-fields">{{ form.published_mm }}</span>
+                                <span class="inline-fields">{{ form.published_yyyy }}</span>
+                            </p>
+                            {% if form.published_dd.errors or form.published_mm.errors or form.published_yyyy.errors %}
+                                <ul class="errorlist">
+                                    <li>
+                                        {{ form.published_dd.errors|join:", " }} {{ form.published_mm.errors|join:", " }} {{ form.published_yyyy.errors|join:", " }}
+                                    </li>
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="grp-row grp-cells-1{% if form.isbn10.errors %} grp-errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label
+                                    {% if form.isbn10.field.required %} class="required"{% endif %}>{{ form.isbn10.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            <p>{{ form.isbn10 }}</p>
+                            {% if form.isbn10.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.isbn10.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            {% if form.isbn10.help_text %}<p class="grp-help">{{ form.isbn10.help_text }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="grp-row grp-cells-1{% if form.isbn13.errors %} grp-errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label
+                                    {% if form.isbn13.field.required %} class="required"{% endif %}>{{ form.isbn13.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            <p>{{ form.isbn13 }}</p>
+                            {% if form.isbn13.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.isbn13.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            {% if form.isbn13.help_text %}<p class="grp-help">{{ form.isbn13.help_text }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="grp-row grp-cells-1{% if form.pages.errors %} grp-errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label
+                                    {% if form.pages.field.required %} class="required"{% endif %}>{{ form.pages.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            <p>{{ form.pages }}</p>
+                            {% if form.pages.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.pages.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            {% if form.pages.help_text %}<p class="grp-help">{{ form.pages.help_text }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="grp-row grp-cells-1{% if form.file_size.errors %} grp-errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label
+                                    {% if form.file_size.field.required %} class="required"{% endif %}>{{ form.file_size.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            <p>{{ form.file_size }}</p>
+                            {% if form.file_size.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.file_size.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            {% if form.file_size.help_text %}
+                                <p class="grp-help">{{ form.file_size.help_text }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="grp-row grp-cells-1{% if form.playing_time.errors %} grp-errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label
+                                    {% if form.playing_time.field.required %} class="required"{% endif %}>{{ form.playing_time.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            <p>{{ form.playing_time }}</p>
+                            {% if form.playing_time.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.playing_time.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            {% if form.playing_time.help_text %}
+                                <p class="grp-help">{{ form.playing_time.help_text }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="grp-row grp-cells-1{% if form.languages.errors %} grp-errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label
+                                    {% if form.languages.field.required %} class="required"{% endif %}>{{ form.languages.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            {{ form.languages }}
+                            {% if form.languages.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.languages.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            {% if form.languages.help_text %}
+                                <p class="grp-help">{{ form.languages.help_text }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    addEvent(window, "load", function (e) {
+                        SelectFilter.init("id_languages", "{% trans "Authors" %}", 0, "{% static 'admin/' %}");
+                    });
+                </script>
+            </fieldset>
+            {% include "extendedadmin/includes/fieldset_categories.html" %} {% include "extendedadmin/includes/fieldset_status.html" %}
+            <!-- Submit-Row -->
+            <footer class="grp-module grp-submit-row grp-fixed-footer">
+                <header style="display: none">
+                    <h1>Submit options</h1>
+                </header>
+                <ul>
+                    <li class="grp-float-left">
+                        <a class="grp-button grp-delete-link" href="delete/">Delete</a>
+                    </li>
+                    <li>
+                        <input type="submit" value="{% trans 'Save' %}" class="grp-button grp-default" name="_save"/>
+                    </li>
+                    <li>
+                        <input type="submit"
+                               value="{% trans 'Save and add another' %}"
+                               class="grp-button"
+                               name="_addanother"/>
+                    </li>
+                    <li>
+                        <input type="submit"
+                               value="{% trans 'Save and continue editing' %}"
+                               class="grp-button"
+                               name="_continue"/>
+                    </li>
+                </ul>
+            </footer>
+        </div>
+    </form>
+    <script type="text/javascript">
+        //<![CDATA[
+        {% if form.title_en %}
+            document.getElementById("id_title_en").focus();
+            document.getElementById("id_title_en").onkeyup = function () {
+                var e = document.getElementById("id_slug");
+                if (!e._changed) {
+                    e.value = URLify(document.getElementById("id_title_en").value, 255);
+                }
+            };
+        {% else %}
+            document.getElementById("id_title_de").focus();
+            document.getElementById("id_title_de").onkeyup = function () {
+                var e = document.getElementById("id_slug");
+                if (!e._changed) {
+                    e.value = URLify(document.getElementById("id_title_de").value, 255);
+                }
+            };
+        {% endif %}
+        document.getElementById("id_slug").onchange = function () {
+            this._changed = true;
+        };
+        //]]>
+    </script>
+{% endblock %}

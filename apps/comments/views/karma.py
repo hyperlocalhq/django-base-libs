@@ -2,7 +2,8 @@ from django.http import Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from museumsportal.apps.comments.models import Comment, KarmaScore
+from jetson.apps.comments.models import Comment, KarmaScore
+
 
 def vote(request, comment_id, vote):
     """
@@ -27,4 +28,7 @@ def vote(request, comment_id, vote):
     KarmaScore.objects.vote(request.user.id, comment_id, rating)
     # Reload comment to ensure we have up to date karma count
     comment = Comment.objects.get(pk=comment_id)
-    return render_to_response('comments/karma_vote_accepted.html', {'comment': comment}, context_instance=RequestContext(request))
+    return render_to_response(
+        'comments/karma_vote_accepted.html', {'comment': comment},
+        context_instance=RequestContext(request)
+    )

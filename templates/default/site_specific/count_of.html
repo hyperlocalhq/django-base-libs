@@ -1,0 +1,44 @@
+{% load i18n %}
+{% if prev_item or next_item %}
+    <ul id="skip_buttons">
+        {% ifnotequal current_count 0 %}
+            <li id="count_of">
+                <a href="/{{ current_list }}">{{ current_index }}/{{ current_count }}</a>
+            </li>
+        {% endifnotequal %}
+        <li class="previous">
+            {% if prev_item %}
+                <a href="{{ prev_item.get_url_path }}">
+	                <span class="enabled">
+	                    <span class="hidden">
+	                        {% trans "previous" %}
+	                    </span>
+	                </span>
+                </a>
+            {% else %}
+                <span class="disabled">
+	                <span class="hidden">
+                        {% trans "previous" %}
+                    </span>
+	            </span>
+            {% endif %}
+        </li>
+        <li class="next">
+            {% if next_item %}
+                <a href="{{ next_item.get_url_path }}">
+	                <span class="enabled">
+	                    <span class="hidden">
+	                        {% trans "next" %}
+	                    </span>
+	                </span>
+                </a>
+            {% else %}
+                <span class="disabled">
+	                <span class="hidden">
+	                    {% trans "next" %}
+	                </span>
+	            </span>
+            {% endif %}
+        </li>
+    </ul>
+{% endif %}

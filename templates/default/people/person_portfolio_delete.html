@@ -1,0 +1,11 @@
+{% extends "people/details_base.html" %}
+{% load i18n base_tags auth_extended %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/portfolio.js"></script>
+{% endblock %}
+
+{% block details %}
+    {% include_parsed "media_gallery/includes/media_file_delete.html" %}
+{% endblock %}

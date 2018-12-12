@@ -8,7 +8,12 @@ from cms.models import CMSPlugin
 
 class CMSAdZone(CMSPlugin):
     zone = models.ForeignKey("advertising.AdZone", verbose_name=_("Zone"))
-    category = models.ForeignKey("advertising.AdCategory", verbose_name=_("Category"), blank=True, null=True)
+    category = models.ForeignKey(
+        "advertising.AdCategory",
+        verbose_name=_("Category"),
+        blank=True,
+        null=True
+    )
 
     def __unicode__(self):
         if self.category:

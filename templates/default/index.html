@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load i18n base_tags %}
+
+{% block extrahead %}
+{% endblock %}
+
+{% block title %}{% trans "Welcome" %}{% endblock %}
+
+{% block headline %}{% trans "Welcome" %}{% endblock %}
+
+{% block content %}
+    <p>
+        <a href="/login/">Login</a>
+        |
+        <a href="/register/">Register</a>
+    </p>
+    <p>
+        <a href="/articles/">News</a>
+        |
+        <a href="/blog/">Blog</a>
+        |
+        <a href="/contact/">Contact Form</a>
+        |
+        <a href="/feedback/">Feedback</a>
+    </p>
+    <p>
+        <a href="/people/">People</a>
+        |
+        <a href="/institutions/">Institutions</a>
+        |
+        <a href="/events/">Events</a>
+        |
+        <a href="/documents/">Documents</a>
+        |
+        <a href="/groups/">Groups</a>
+    </p>
+{% endblock %}

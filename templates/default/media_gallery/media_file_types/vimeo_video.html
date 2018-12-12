@@ -1,0 +1,8 @@
+{% load image_mods_tags %}
+<a class="image"
+   href="{{ media_file.external_url }}"
+   rel="prettyPhoto[gallery]"
+   title="{{ media_file.description|truncatewords:"50"|linebreaks|striptags|escape }}">
+    <img src="{{ media_file.get_thumbnail_url }}" alt="{{ media_file.title|escape }}"/>
+    {% if media_file.splash_image_path %}<span class="marker video"></span>{% endif %}
+</a>

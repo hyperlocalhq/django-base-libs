@@ -1,7 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-from museumsportal.apps.media_gallery.base import *
-
+from jetson.apps.media_gallery.base import *
 
 ### GENERAL MEDIA GALLERY ###
 

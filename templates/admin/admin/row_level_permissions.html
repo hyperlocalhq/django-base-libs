@@ -1,0 +1,186 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_modify auth_extended row_level_permission %}
+
+{% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} change-form{% endblock %}
+
+{% block javascripts %}
+    {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ul>
+        <li>
+            <a href="../../../../">{% trans "Home" %}</a>
+        </li>
+        <li>
+            <a href="../../">{{ opts.verbose_name_plural|capfirst|escape }}</a>
+        </li>
+        <li>
+            <a href="../">{{ original|truncatewords:"18"|escape }}</a>
+        </li>
+        <li>{{ title|escape }}</li>
+    </ul>
+{% endblock %}
+
+{% block content_title %}<h1>{% blocktrans %}Change Access to {{ original }}{% endblocktrans %}</h1>{% endblock %}
+
+{% block content %}
+    <div id="grp-content-container">
+        <form action="" method="post">{% csrf_token %}
+            <div>
+                <div class="grp-group grp-tabular" id="{{ permissions_formset.prefix }}-group">
+                    <h2>{% trans "Permissions" %}</h2>
+                    <ul class="grp-tools">
+                        <li>
+                            <a href="javascript://"
+                               class="grp-icon grp-add-handler"
+                               title="{% trans 'Add Another' %}"></a>
+                        </li>
+                    </ul>
+                    {{ permissions_formset.management_form }} {{ permissions_formset.non_form_errors }}
+                    <!-- container -->
+                    <div class="grp-module grp-table">
+                        <div class="grp-module grp-thead">
+                            <div class="grp-tr">
+                                {% for field in permissions_formset.empty_form %}
+                                    {% if field.name != "DELETE" %}
+                                        {% if not field.widget.is_hidden %}
+                                            <div class="grp-th {% if field.required %} required{% endif %}">{{ field.label|capfirst }}</div>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if permissions_formset.can_delete %}
+                                    <div class="grp-th">&nbsp;</div>{% endif %}
+                            </div>
+                        </div>
+                        {% for inline_form in permissions_formset.forms %}
+                            <!-- element -->
+                            <div class="grp-module grp-tbody{% if inline_form.original %} has_original{% endif %}"
+                                 id="{{ inline_form.prefix }}">
+                                {% if inline_form.non_field_errors %}
+                                    <div>{{ inline_form.non_field_errors }}</div>
+                                {% endif %}
+                                <h3 style="display: none;"><b>{% trans "Permission Set" %} #{{ forloop.counter }}</b>&nbsp;&nbsp;
+                                    {% if inline_form.original %} {{ inline_form.original }}{% endif %}</h3>
+                                {% spaceless %}
+                                    {% for field in inline_form %}
+                                        {% if field.is_hidden %} {{ field.field }} {% endif %}
+                                    {% endfor %}
+                                {% endspaceless %}
+                                <div class="grp-tr">
+                                    {% for field in inline_form %}
+                                        {% if field.name != "DELETE" %}
+                                            <div class="grp-td {% if field.errors %} error{% endif %}">
+                                                {% if field.field.is_readonly %}
+                                                    <p>{{ field.field.contents }}</p>
+                                                {% else %}
+                                                    {{ field }}
+                                                    {{ field.errors.as_ul }}
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <div class="grp-td grp-tools-container">
+                                        {% if permissions_formset.can_delete %}
+                                            {% spaceless %}
+                                                <ul class="grp-tools">
+                                                    <li class="grp-delete-handler-container">{{ inline_form.DELETE }}
+                                                        <a href="javascript://"
+                                                           class="grp-icon {% if inline_form.original %}grp-delete-handler{% else %}grp-remove-handler{% endif %}"
+                                                           title="{% trans 'Remove' %}"></a>
+                                                    </li>
+                                                </ul>
+                                            {% endspaceless %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {% with permissions_formset.empty_form as inline_form %}
+                            <!-- element -->
+                            <div class="grp-module grp-tbody grp-empty-form" id="form-empty">
+                                {% if inline_form.non_field_errors %}
+                                    <div>{{ inline_form.non_field_errors }}</div>
+                                {% endif %}
+                                <h3 style="display: none;"><b>{% trans "Permission Set" %} #{{ forloop.counter }}</b>&nbsp;&nbsp;
+                                    {% if inline_form.original %} {{ inline_form.original }}{% endif %}</h3>
+                                {% spaceless %}
+                                    {% for field in inline_form %}
+                                        {% if field.is_hidden %} {{ field.field }} {% endif %}
+                                    {% endfor %}
+                                {% endspaceless %}
+                                <div class="grp-tr">
+                                    {% for field in inline_form %}
+                                        {% if field.name != "DELETE" %}
+                                            <div class="grp-td {% if field.errors %} error{% endif %}">
+                                                {% if field.field.is_readonly %}
+                                                    <p>{{ field.field.contents }}</p>
+                                                {% else %}
+                                                    {{ field }}
+                                                    {{ field.errors.as_ul }}
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <div class="grp-td grp-tools-container">
+                                        {% if permissions_formset.can_delete %}
+                                            {% spaceless %}
+                                                <ul class="grp-tools">
+                                                    <li class="grp-delete-handler-container">{{ inline_form.DELETE }}
+                                                        <a href="javascript://"
+                                                           class="grp-icon {% if inline_form.original %}grp-delete-handler{% else %}grp-remove-handler{% endif %}"
+                                                           title="{% trans 'Remove' %}"></a>
+                                                    </li>
+                                                </ul>
+                                            {% endspaceless %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endwith %}
+                    </div>
+                    <div class="grp-module grp-add-item">
+                        <a href="javascript://" class="grp-add-handler">{% trans "Add permission owner" %}</a>
+                        <ul class="grp-tools">
+                            <li class="grp-add-handler-container">
+                                <a href="javascript://"
+                                   class="grp-icon grp-add-handler"
+                                   title="{% trans 'Add Item' %}"></a>
+                            </li>
+                        </ul>
+                        <br clear="all"/>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    (function ($, undefined) {
+                        $(document).ready(function ($) {
+                            var rows = "#{{ permissions_formset.prefix }}-group div.grp-table div.grp-tbody";
+                            $("#{{ permissions_formset.prefix }}-group").grp_inline({
+                                prefix: "{{ permissions_formset.prefix }}",
+                                deleteCssClass: "grp-delete-handler",
+                                emptyCssClass: "grp-empty-form",
+                                onAdded: (function (row) {
+                                })
+                            });
+                        });
+                    })(django.jQuery);
+                </script>
+                <!-- Submit-Row -->
+                <footer class="grp-module grp-submit-row grp-fixed-footer">
+                    <header style="display: none">
+                        <h1>Submit options</h1>
+                    </header>
+                    <ul>
+                        <li class="grp-submit-button-container">
+                            <input type="submit"
+                                   value="{% trans 'Save' %}"
+                                   class="grp-button grp-default"
+                                   name="_save"/>
+                        </li>
+                    </ul>
+                </footer>
+            </div>
+        </form>
+    </div>
+{% endblock %}

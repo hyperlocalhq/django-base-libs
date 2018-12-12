@@ -1,0 +1,112 @@
+{% extends "utils/lists/base_context_item.html" %}
+{% load i18n base_tags babel %}
+
+{% block object_title %}
+    <a class="summary" href="{{ event.get_url_path }}">{{ event.title|escape }} </a>
+{% endblock %}
+
+{% block object_absolute_url %}{{ event.get_url_path }}{% endblock %}
+
+{% block object_col1 %}
+    {% if event.postal_address %}
+        {% with event.postal_address.get_dict as postal_address %}
+            {% if postal_address.street_address or postal_address.country_name %}
+                <address class="hidable location">
+                    {% if event.venue %}
+                        <a href="{{ object.venue.get_url_path }}">
+                            {{ event.venue.title }}
+                            <br/>
+                        </a>
+                    {% else %}
+                        {{ event.venue_title }}
+                        <br/>
+                    {% endif %}
+                    {% if postal_address.street_address %}
+                        {{ postal_address.street_address|escape }}
+                        <br/>
+                    {% endif %}
+                    {% if postal_address.street_address2 %}
+                        {{ postal_address.street_address2|escape }}
+                        <br/>
+                    {% endif %}
+                    {% if postal_address.street_address3 %}
+                        {{ postal_address.street_address3|escape }}
+                        <br/>
+                    {% endif %}
+                    {% if postal_address.postal_code %}
+                        {{ postal_address.postal_code|escape }} {{ postal_address.city|escape }}
+                        <br/>
+                    {% endif %}
+                    {% if postal_address.country_name %}
+                        {{ postal_address.country_name }}
+                        <br/>
+                    {% endif %}
+                </address>
+            {% endif %}
+        {% endwith %}
+    {% endif %}
+{% endblock %}
+
+{% block object_col2 %}
+    {% if event.event_type %}
+        <div class="object-type">{{ event.event_type.get_title|escape }}</div>
+    {% endif %}
+    {% if event.has_start_date or event.has_end_date %}
+
+        <span>{% if event.label %}{{ event.label }}: {% else %}{% trans "Date" %}:{% endif %}</span>
+
+        {% if event.has_start_date %}
+            {% if event.get_start_date %}
+                <abbr class="dtstart" title="{{ event.get_start_date|date:"Y-m-d" }}">
+                    {{ event.get_start_date|datefmt:"long" }}
+                </abbr>
+            {% else %}
+                <abbr class="dtstart" title="{{ event.start_yyyy }}-{{ event.start_mm|default:"01" }}-01">
+                    {% if event.start_mm %}
+                        {{ event.get_start_mm_display }}
+                    {% endif %}
+                    {{ event.start_yyyy }}
+                </abbr>
+            {% endif %}
+        {% endif %}
+        {% if event.has_end_date %}{% ifnotequal event.get_start_date event.get_end_date %}
+            -
+            {% if event.get_end_date %}
+                <abbr class="dtend" title="{{ event.get_end_date|date:"Y-m-d" }}">
+                    {{ event.get_end_date|datefmt:"long" }}
+                </abbr>
+            {% else %}
+                <abbr class="dtend" title="{{ event.end_yyyy }}-{{ event.end_mm|default:"01" }}-01">
+                    {% if event.end_mm %}{{ event.get_end_mm_display }}{% endif %} {{ event.end_yyyy }}
+                </abbr>
+            {% endif %}
+        {% endifnotequal %}{% endif %}
+        <br/>
+    {% endif %}
+
+    {% if event.get_contacts %}
+        {% for url in event.get_contacts.0.get_urls %}
+            <span>
+                {% if url.type %}{{ url.type }}: {% endif %}<a class="url"
+                                                               href="{{ url.link|escape }}"
+                                                               onclick="open_new_window(event)">
+                {% with url.link|slice:"0:27"|escape as sliced %}{{ sliced }}{% with url.link|escape as not_sliced %}{% ifnotequal sliced url.link|escape %}...{% endifnotequal %}{% endwith %}{% endwith %}</a><br/>
+            </span>
+        {% endfor %}
+    {% endif %}
+
+    {% if event.get_description %}
+        {% with event.get_description|striptags|truncatewords:"60" as filtered_desc %}{% with filtered_desc|truncatewords:"40" as shortened_desc %}
+            <span class="description hidable">{{ shortened_desc }}
+                {% ifnotequal shortened_desc filtered_desc %}
+                    <a href="{{ event.get_url_path }}">{% trans "read more" %}</a>
+                {% endifnotequal %}
+        </span>
+        {% endwith %}{% endwith %}
+    {% endif %}
+{% endblock %}
+
+{% block object_controls %}
+    {% include "events/controls.html" %}
+{% endblock %}
+

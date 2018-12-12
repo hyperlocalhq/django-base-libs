@@ -1,0 +1,91 @@
+{% extends "articles/articles_base.html" %}
+{% load base_tags babel i18n auth_extended image_mods_tags %}
+
+{% block details %}
+    {% block breadcrumbs %}
+        <div class="breadcrumbs">
+            <div class="width">
+                <a href="{{ rel_root_dir }}">{% trans "Overview" %}</a>
+                |
+                <a href="{{ rel_root_dir }}{% if type %}{{ type.slug }}/{% endif %}">
+                    {{ type.title|escape }}
+                </a>
+                ::
+                <a href="{{ rel_root_dir }}{% if type %}{{ type.slug }}/{% endif %}{{ article.published_from|date:"Y" }}/">
+                    {{ article.published_from|date:"Y" }}
+                </a>
+                ::
+                <a href="{{ rel_root_dir }}{% if type %}{{ type.slug }}/{% endif %}{{ article.published_from|date:"Y" }}/{{ article.published_from|date:"m" }}/">
+                    {{ article.published_from|datefmt:"MMM" }}
+                </a>
+                ::
+                <a href="{{ rel_root_dir }}{% if type %}{{ type.slug }}/{% endif %}{{ article.published_from|date:"Y" }}/{{ article.published_from|date:"m" }}/{{ article.published_from|date:"d" }}/">
+                    {{ article.published_from|date:"d" }}
+                </a>
+                ::
+                <a class="active"
+                   href="{{ rel_root_dir }}{% if type %}{{ type.slug }}/{% endif %}{{ article.published_from|date:"Y" }}/{{ article.published_from|date:"m" }}/{{ article.published_from|date:"d" }}/{{ article.slug }}/">
+                    {{ article.title|truncatewords:"3"|escape }}
+                </a>
+            </div>
+            <a class="rss" href="{{ rel_root_dir }}{% if type %}{{ type.slug }}/{% endif %}feeds/rss/">
+                <span>{% trans "RSS feed" %}</span></a>
+        </div>
+    {% endblock %}
+
+    <div class="article-details">
+        <p class="date">{{ article.published_from|datefmt:"long" }}</p>
+        <h3>
+            {{ article.title|escape }}
+        </h3>
+        {% if article.subtitle %}
+            <h4 class="type">{{ article.subtitle }}</h4>
+        {% endif %}
+        {% if article.description %}
+            <div class="inter_description">
+                <p>{{ article.get_rendered_description }}</p>
+            </div>
+        {% endif %}
+
+        {% if article.image %}
+            <img class="small_inter"
+                 src="{{ UPLOADS_URL }}{{ article.image|modified_path:"nd" }}"
+                 alt="{{ article.get_title|escape }}"/>
+        {% endif %}
+        {{ article.get_rendered_content }}
+    </div>
+    <hr/>
+    <div class="shortinfo">
+        {% if links_to_articles %}
+            <div class="add_info">
+                {% if article.is_interview %}
+                    <h5>{% trans "Additional Interviews" %}</h5>
+                {% endif %}
+                {% if article.is_news %}
+                    <h5>{% trans "Additional News" %}</h5>
+                {% endif %}
+
+                <ul>
+                    {% for link_article in links_to_articles %}
+                        <li>
+                            <p class="date">
+                                {{ link_article.published_from|datefmt:"long" }}
+                            </p>
+                            <h5>
+                                <a href="{{ link_article.get_url_path }}">
+                                    {{ link_article.title|striptags|escape }}
+                                </a>
+                            </h5>
+                            <p>
+                                <a href="{{ link_article.get_url_path }}">
+                                    {{ link_article.get_rendered_content|striptags|truncatewords:"10" }}
+                                </a>
+                                <a class="more" href="{{ link_article.get_url_path }}">{% trans "more" %}</a>
+                            </p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}                           

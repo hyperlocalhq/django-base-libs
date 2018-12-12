@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load i18n base_tags %}
+
+{% block title %}{{ flatpage.get_title|escape }}{% endblock %}
+
+{% block headline %}{{ flatpage.get_title|escape }}{% endblock %}
+
+{% block content %}
+    {{ flatpage.get_content }}
+{% endblock %} 
