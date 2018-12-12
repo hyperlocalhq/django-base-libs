@@ -1,0 +1,155 @@
+// ================= SLIDESHOW =================
+
+#carousel-startpage {
+  #carousel {
+    float:left;
+    width:100%;
+  }
+}
+
+/*
+#pager {
+  width: 100%;
+  text-align: center;
+  a {
+     display: inline-block;
+     background-color: black;
+     border-radius: 10px;
+     width: 8px;
+     height: 8px;
+     margin-left: 3px;
+     margin-right: 3px;
+     overflow: hidden;
+     font-size: 0px;
+     opacity: 0.1;
+
+    -webkit-transition-property: all;
+    -webkit-transition-duration: 1.75s;
+    -webkit-transition-timing: ease-in-out;
+
+    -moz-transition-property: all;
+    -moz-transition-duration: 1.75s;
+    -moz-transition-timing: ease-in-out;
+
+    -o-transition-property: all;
+    -o-transition-duration: 1.75s;
+    -o-transition-timing: ease-in-out;
+
+    &.activeSlide {
+      opacity: 0.5;
+
+      -webkit-transition-property: all;
+      -webkit-transition-duration: 0.125s;
+      -webkit-transition-timing: ease-in-out;
+
+      -moz-transition-property: all;
+      -moz-transition-duration: 0.125s;
+      -moz-transition-timing: ease-in-out;
+
+      -o-transition-property: all;
+      -o-transition-duration: 0.125s;
+      -o-transition-timing: ease-in-out;
+    }
+  }
+}
+
+.carousel-control {
+  position: absolute;
+  top:125px;
+  height: 100px;
+  width: 33px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 33px;
+  z-index: 1000;
+  font-size: 0px;
+
+  -webkit-transition-property: all;
+  -webkit-transition-duration: 0.75s;
+  -webkit-transition-timing: ease-in-out;
+
+  -moz-transition-property: all;
+  -moz-transition-duration: 0.75s;
+  -moz-transition-timing: ease-in-out;
+
+  -o-transition-property: all;
+  -o-transition-duration: 0.75s;
+  -o-transition-timing: ease-in-out;
+
+  &:hover {
+    width: 66px;
+    background-color: black;
+
+    -webkit-transition-property: all;
+    -webkit-transition-duration: 0.125s;
+    -webkit-transition-timing: ease-in-out;
+
+    -moz-transition-property: all;
+    -moz-transition-duration: 0.125s;
+    -moz-transition-timing: ease-in-out;
+
+    -o-transition-property: all;
+    -o-transition-duration: 0.125s;
+    -o-transition-timing: ease-in-out;
+  }
+}
+
+.carousel-control.left { 
+  left: 0px;  
+  &:hover {left: -33px; }
+  text-align: right;
+  background-image: url("../img/icons/inv/left.png");
+}
+
+.carousel-control.right { 
+  &:hover {right: -33px; }
+  right: 0px; 
+  text-align: left;
+  background-image: url("../img/icons/inv/right.png");
+}
+
+
+.carousel .item {
+  background-color: black;
+  img {
+    opacity: 0.8;
+    -webkit-filter: grayscale(100%); // New WebKit
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%); 
+    -o-filter: grayscale(100%); // Not yet supported in Gecko, Opera or IE
+    filter: url("data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'><filter%20id='grayscale'><feColorMatrix%20type='matrix'%20values='0.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200%200%200%201%200'/></filter></svg>#grayscale"); // Firefox 3.5+ 
+    filter: gray; // IE 
+    filter: grayscale(100%); // Current draft standard
+  }
+  .overlay {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    z-index: 1000;
+    padding: 40px;
+    padding-bottom: 35px;
+
+    h2 { 
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 48px;
+      margin-bottom: 25px;
+      display: block;
+      color: white;
+      &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
+    }
+    
+    h3 { 
+      font-size: 40px;
+      line-height: 48px;
+      margin-bottom: 25px;
+      margin-top: -25px;
+      display: block;
+      color: white;
+      &:last-child { margin-bottom: 0px; padding-bottom: 0px;}
+    }
+  }
+}*/

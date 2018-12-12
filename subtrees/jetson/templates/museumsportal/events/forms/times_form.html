@@ -1,0 +1,195 @@
+{% extends "events/forms/base.html" %}
+{% load crispy_forms_tags i18n %}
+
+{% block multistep_form %}
+<form action="" method="post" id="event_times_form">
+{{ formsets.event_times.management_form }}
+
+<fieldset id="event_times_fieldset">
+    <legend>{% trans "Date and Time" %}</legend>
+    <div id="event_times">
+        <!-- <div class="row flex">
+            <div><label>{% trans "Date" %}</label></div>
+            <div><label>{% trans "Start" %}</label></div>
+            <div><label>{% trans "End" %}</label></div>
+            <div class="min"><label></label></div>
+        </div> -->
+        {% for form in formsets.event_times.forms %}
+            <div class="event_time formset-form tabular-inline">
+                {% crispy form %}
+            </div>
+        {% endfor %}
+    </div>
+</fieldset>
+<!-- used by javascript -->
+<div id="event_times_empty_form" class="event_time formset-form tabular-inline" style="display: none">
+    {% with formsets.event_times.empty_form as form %}
+        {% crispy form %}
+    {% endwith %}
+</div>
+
+{% crispy form %}
+</form>
+
+{% crispy batch_event_time_form %}
+
+<script type="text/javascript">
+(function($, undefined) {
+    function reinit_widgets() {
+        $('#event_times .dateinput').datepicker({
+            format: 'dd.mm.yyyy',
+            weekStart: 1
+        })
+        $('#event_times .timeinput').timepicker({
+            str_hours: '{% trans "Hours" %}',
+            str_minutes: '{% trans "Minutes" %}',
+            str_confirm: '{% trans "Confirm" %}',
+            str_close: '{% trans "Close" %}',
+        });
+        $("[rel=tooltip]").tooltip();
+    }
+    
+    function set_index_for_fields($formset_form, index) {
+        $formset_form.find(':input').each(function() {
+            var $field = $(this);
+            if ($field.attr("id")) {
+                $field.attr(
+                    "id",
+                    $field.attr("id").replace(/-__prefix__-/, "-" + index + "-")
+                );
+            }
+            if ($field.attr("name")) {
+                $field.attr(
+                    "name",
+                    $field.attr("name").replace(/-__prefix__-/, "-" + index + "-")
+                );
+            }
+        });
+        $formset_form.find('label').each(function() {
+            var $field = $(this);
+            if ($field.attr("for")) {
+                $field.attr(
+                    "for",
+                    $field.attr("for").replace(/-__prefix__-/, "-" + index + "-")
+                );
+            }
+        });
+        $formset_form.find('div').each(function() {
+            var $field = $(this);
+            if ($field.attr("id")) {
+                $field.attr(
+                    "id",
+                    $field.attr("id").replace(/-__prefix__-/, "-" + index + "-")
+                );
+            }
+        });
+    }
+        
+    $(function() {
+        $(
+            '<a class="add btn btn-primary" id="add_event_time" href="#">{% trans "Add event time" %}</a>'
+        ).insertAfter('#event_times').click(function() {
+            var $total_forms = $('#id_event_times-TOTAL_FORMS');
+            var $new_form = $('#event_times_empty_form').clone(true).attr("id", null).show();
+            set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
+            $('#event_times').append($new_form);
+            $total_forms.val(parseInt($total_forms.val(), 10) + 1);
+            reinit_widgets();
+            return false;
+        });
+        $(
+            '<div class="form-actions"><a class="add btn btn-primary" id="add_batch_event_times" href="#">{% trans "Add batch event times" %}</a></div>'
+        ).insertAfter('#event_times_fieldset');
+        
+        $('#add_batch_event_times').click(function() {
+            // cleanup previous inputs if any
+            $('#id_range_start').val('');
+            $('#id_range_end').val('');
+            $('#id_mon_start').val('');
+            $('#id_mon_end').val('');
+            $('#id_tue_start').val('');
+            $('#id_tue_end').val('');
+            $('#id_wed_start').val('');
+            $('#id_wed_end').val('');
+            $('#id_thu_start').val('');
+            $('#id_thu_end').val('');
+            $('#id_fri_start').val('');
+            $('#id_fri_end').val('');
+            $('#id_sat_start').val('');
+            $('#id_sat_end').val('');
+            $('#id_sun_start').val('');
+            $('#id_sun_end').val('');
+            
+            $('#batch_event_time_form').show();
+            $('#event_times_form').hide();
+            return false;
+        });
+
+        
+        $('.formset-form').each(function() {
+            var $season = $(this);
+            $season.find('input:checkbox[id$=DELETE]').each(function() {
+                var $checkbox = $(this);
+                var $deleteLink = $(
+                    '<span class="input-group-btn"><button class="delete btn btn-lg btn-info btn-icon" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}"><span class="icon icon-remove"></span><span class="sr-only">{% trans "Remove" %}</span></button></span>'
+                );
+                $checkbox.closest('.formset-form').find(".input-group:last").append($deleteLink);
+                $checkbox.closest('.form-group').hide();
+            });
+        });
+        $('.delete').live("click", function() {
+            var $season = $(this).parents('.formset-form:first');
+            var $checkbox = $season.find('input:checkbox[id$=DELETE]');
+            $checkbox.attr("checked", "checked");
+            $season.hide();
+            return false;
+        });
+        
+        // Initial state
+        var $total_forms = $('#id_event_times-TOTAL_FORMS');
+        if ($total_forms.val() == "0") {
+            $('#add_event_time').click();
+        }
+        reinit_widgets();
+
+        $('#batch_event_time_form .dateinput').datepicker({
+            format: 'dd.mm.yyyy',
+            weekStart: 1
+        })
+        $('#batch_event_time_form .timeinput').timepicker({
+            str_hours: '{% trans "Hours" %}',
+            str_minutes: '{% trans "Minutes" %}',
+            str_confirm: '{% trans "Confirm" %}',
+            str_close: '{% trans "Close" %}',
+        });
+        $('#batch_event_time_form').submit(function() {
+            $.post('{{ event.get_url_path }}batch-event-times/',
+                $(this).serialize(),
+                function(data) {
+                    $(data).each(function() {
+                        date_obj = this;
+                        $('#add_event_time').click();
+                        var $event_time = $('#event_times .event_time:last');
+                        $event_time.find('[name$="-event_date"]').val(date_obj['event_date']);
+                        $event_time.find('[name$="-start"]').val(date_obj['start']);
+                        if (date_obj['end']) {
+                            $event_time.find('[name$="-end"]').val(date_obj['end']);
+                        }
+                    });
+                    $('#batch_event_time_form').hide();
+                    $('#event_times_form').show();
+                },
+                "json"
+            );
+            return false;
+        }).hide();
+        
+        $('#button-id-go_back').click(function() {
+            $('#batch_event_time_form').hide();
+            $('#event_times_form').show();
+        });
+    });
+})(jQuery);
+</script>
+
+{% endblock %}

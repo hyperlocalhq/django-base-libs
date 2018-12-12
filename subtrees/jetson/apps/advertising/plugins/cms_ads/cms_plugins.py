@@ -12,10 +12,12 @@ class AdZonePlugin(CMSPluginBase):
     model = CMSAdZone
     name = _("Ad Zone")
     render_template = "cms/plugins/adzone.html"
-
+    
     def render(self, context, instance, placeholder):
-        context.update({'object': instance, 'placeholder': placeholder})
+        context.update({
+            'object': instance,
+            'placeholder': placeholder
+        })
         return context
-
 
 plugin_pool.register_plugin(AdZonePlugin)

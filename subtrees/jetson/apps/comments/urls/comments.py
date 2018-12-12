@@ -1,7 +1,6 @@
 from django.conf.urls import *
 
-urlpatterns = patterns(
-    'jetson.apps.comments.views',
+urlpatterns = patterns('museumsportal.apps.comments.views',
     (r'^post/$', 'comments.post_comment'),
     (r'^posted/$', 'comments.comment_was_posted'),
     (r'^karma/vote/(?P<comment_id>\d+)/(?P<vote>up|down)/$', 'karma.vote'),

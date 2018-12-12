@@ -1,0 +1,113 @@
+
+// ================= MUSEUM EXHIBITION EVENT WORKSHOP DETAIL PAGES  =================
+
+#slideshow {
+  #carousel {
+    margin: -35px 0px;
+    .carousel-inner {
+      background-color: black;
+    }
+  }
+}
+
+.tools {
+  margin-bottom: 30px;
+}
+
+.museum-detail article,
+.exhibition-detail article,
+.event-detail article,
+.workshop-detail article {
+
+  iframe {width: 620px; margin-top: 30px;}
+
+  position: relative;
+
+  .tools {
+    // position: absolute;
+    // top: 0px;
+    // right: 0px;
+  }
+
+  #cover_img {
+    padding:0px;
+    margin-bottom: 30px;
+    position: relative;
+    .img {margin: 0px; }
+    .crop {
+      width: auto;
+      display: none!important;
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
+    &:hover {
+      .crop {
+        display: block!important;
+      }
+    }
+  }
+
+  header {
+    margin-top: -10px;
+    margin-bottom: 30px;
+    position: relative;
+
+    h1,
+    h2  {
+      font-size: 24px;
+      line-height: 140%;
+      display: block;
+      margin: 0px;
+    }
+
+    h1 {font-weight: 700; }
+    h2 {font-weight: 300; }
+
+    h3 {
+      text-transform: uppercase;
+      font-size: 12px;
+      line-height: 160%;
+      font-weight: 600;
+      margin-top: 15px !important;
+    }
+
+    h4 {
+      font-size: 12px;
+      line-height: 140%;
+      margin: 0px;
+      padding: 0px;
+      font-weight: 300;
+    }
+    .extras {
+      margin-top: 25px;
+      dd, dt {
+        font-size: 20px;
+        line-height: 32px;
+      }
+
+    }
+  }
+
+  blockquote {
+    border: none;
+    font-size: 40px;
+    line-height: 52px;
+
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+    border-bottom: 1px solid #f2f2f2 !important;
+    border-top: 1px solid #f2f2f2 !important;
+
+    color: rgba(0,0,0,0.5);
+    &:before {content: "Â«";}
+    &:after  {content: "Â»";}
+    &:last-child{
+      padding: 0px !important;
+    }
+  }
+}

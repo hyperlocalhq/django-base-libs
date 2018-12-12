@@ -1,0 +1,13 @@
+@media (min-width: 768px) {
+  #search {
+    display: none; }
+}
+
+@media (min-width: 992px) {
+
+}
+
+@media (min-width: 1200px) {
+  .navbar-form .input-group {width: 200px !important; }
+  #search {display: inline-block; }
+}
