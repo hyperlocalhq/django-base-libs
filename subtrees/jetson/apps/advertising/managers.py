@@ -23,11 +23,12 @@ class AdManager(models.Manager):
         """
         language = get_current_language()
         time_now = now()
-        qs = self.get_query_set().filter(
+        qs = self.get_queryset().filter(
             start_showing__lte=time_now,
             stop_showing__gte=time_now,
             zone__sysname=ad_zone,
-        ).filter(models.Q(language=language) | models.Q(language="")).select_related('textad', 'bannerad')
+        ).filter(models.Q(language=language) |
+                 models.Q(language="")).select_related('textad', 'bannerad')
 
         if ad_category:
             qs = qs.filter(category__sysname=ad_category)

@@ -1,97 +1,71 @@
-# encoding: utf-8
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
-from base_libs.utils.misc import south_clean_multilingual_fields
-from base_libs.utils.misc import south_cleaned_fields
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-class Migration(SchemaMigration):
-    
-    def forwards(self, orm):
-        
-        # Adding model 'Service'
-        db.create_table('external_services_service', south_cleaned_fields((
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('sysname', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=255, db_index=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('url', self.gf('django.db.models.fields.URLField')(max_length=200)),
-            ('api_key', self.gf('django.db.models.fields.CharField')(default='', max_length=200, blank=True)),
-            ('user', self.gf('django.db.models.fields.CharField')(default='', max_length=200, blank=True)),
-            ('password', self.gf('django.db.models.fields.CharField')(default='', max_length=200, blank=True)),
-        )))
-        db.send_create_signal('external_services', ['Service'])
+from django.db import migrations, models
+import base_libs.models.fields
 
-        # Adding model 'ObjectMapper'
-        db.create_table('external_services_objectmapper', south_cleaned_fields((
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('content_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['contenttypes.ContentType'])),
-            ('object_id', self.gf('django.db.models.fields.CharField')(default='', max_length=255)),
-            ('service', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['external_services.Service'])),
-            ('external_id', self.gf('django.db.models.fields.CharField')(max_length=512)),
-        )))
-        db.send_create_signal('external_services', ['ObjectMapper'])
 
-        # Adding model 'ServiceActionLog'
-        db.create_table('external_services_serviceactionlog', south_cleaned_fields((
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('creation_date', self.gf('django.db.models.fields.DateTimeField')()),
-            ('service', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['external_services.Service'])),
-            ('request', self.gf('base_libs.models.fields.PlainTextModelField')(blank=True)),
-            ('response', self.gf('base_libs.models.fields.PlainTextModelField')(blank=True)),
-            ('response_code', self.gf('django.db.models.fields.IntegerField')(blank=True)),
-        )))
-        db.send_create_signal('external_services', ['ServiceActionLog'])
-    
-    
-    def backwards(self, orm):
-        
-        # Deleting model 'Service'
-        db.delete_table('external_services_service')
+class Migration(migrations.Migration):
 
-        # Deleting model 'ObjectMapper'
-        db.delete_table('external_services_objectmapper')
+    dependencies = [
+        ('contenttypes', '0002_remove_content_type_name'),
+    ]
 
-        # Deleting model 'ServiceActionLog'
-        db.delete_table('external_services_serviceactionlog')
-    
-    
-    models = {
-        'contenttypes.contenttype': {
-            'Meta': {'ordering': "('app_label', 'name')", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        'external_services.objectmapper': {
-            'Meta': {'ordering': "('external_id',)", 'object_name': 'ObjectMapper'},
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
-            'external_id': ('django.db.models.fields.CharField', [], {'max_length': '512'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'object_id': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '255'}),
-            'service': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['external_services.Service']"})
-        },
-        'external_services.service': {
-            'Meta': {'ordering': "('title',)", 'object_name': 'Service'},
-            'api_key': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'password': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200', 'blank': 'True'}),
-            'sysname': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '255', 'db_index': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'url': ('django.db.models.fields.URLField', [], {'max_length': '200'}),
-            'user': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200', 'blank': 'True'})
-        },
-        'external_services.serviceactionlog': {
-            'Meta': {'ordering': "('-creation_date',)", 'object_name': 'ServiceActionLog'},
-            'creation_date': ('django.db.models.fields.DateTimeField', [], {}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'request': ('base_libs.models.fields.PlainTextModelField', [], {'blank': 'True'}),
-            'response': ('base_libs.models.fields.PlainTextModelField', [], {'blank': 'True'}),
-            'response_code': ('django.db.models.fields.IntegerField', [], {'blank': 'True'}),
-            'service': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['external_services.Service']"})
-        }
-    }
-    south_clean_multilingual_fields(models)
-    
-    complete_apps = ['external_services']
+    operations = [
+        migrations.CreateModel(
+            name='ObjectMapper',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('object_id', models.CharField(default=b'', help_text='Please select the related object.', max_length=255, verbose_name='Related object')),
+                ('external_id', models.CharField(max_length=512, verbose_name='External ID')),
+                ('content_type', models.ForeignKey(verbose_name="Related object's type (model)", to='contenttypes.ContentType', help_text='Please select the type (model) for the relation, you want to build.')),
+            ],
+            options={
+                'ordering': ('external_id',),
+                'verbose_name': 'object mapper',
+                'verbose_name_plural': 'object mappers',
+            },
+        ),
+        migrations.CreateModel(
+            name='Service',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('sysname', models.SlugField(help_text='Do not change this value!', unique=True, max_length=255, verbose_name='Sysname')),
+                ('title', models.CharField(max_length=50, verbose_name='Title')),
+                ('url', models.URLField(verbose_name='Feed URL')),
+                ('api_key', models.CharField(default=b'', max_length=200, verbose_name='API Key', blank=True)),
+                ('user', models.CharField(default=b'', max_length=200, verbose_name='User', blank=True)),
+                ('password', models.CharField(default=b'', max_length=200, verbose_name='Password', blank=True)),
+            ],
+            options={
+                'ordering': ('title',),
+                'verbose_name': 'service',
+                'verbose_name_plural': 'services',
+            },
+        ),
+        migrations.CreateModel(
+            name='ServiceActionLog',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creation_date', models.DateTimeField(verbose_name='creation date', editable=False)),
+                ('request', base_libs.models.fields.PlainTextModelField(verbose_name='Request', blank=True)),
+                ('response', base_libs.models.fields.PlainTextModelField(verbose_name='Response', blank=True)),
+                ('response_code', models.IntegerField(verbose_name='Response Code', blank=True)),
+                ('service', models.ForeignKey(verbose_name='Service', to='external_services.Service')),
+            ],
+            options={
+                'ordering': ('-creation_date',),
+                'verbose_name': 'service-action log',
+                'verbose_name_plural': 'service-action logs',
+            },
+        ),
+        migrations.AddField(
+            model_name='objectmapper',
+            name='service',
+            field=models.ForeignKey(verbose_name='Service', to='external_services.Service'),
+        ),
+        migrations.AlterUniqueTogether(
+            name='objectmapper',
+            unique_together=set([('object_id', 'content_type', 'service')]),
+        ),
+    ]

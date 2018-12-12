@@ -26,93 +26,112 @@ from base_libs.utils.misc import get_related_queryset, XChoiceList
 from base_libs.forms.fields import SecurityField, SingleEmailTextField
 from base_libs.middleware import get_current_user
 
-from museumsportal.apps.comments.models import Comment, ModeratorDeletionReason, ModeratorDeletion
-from museumsportal.apps.comments.models import RATINGS_REQUIRED, RATINGS_OPTIONAL, IS_PUBLIC
+from jetson.apps.comments.models import Comment, ModeratorDeletionReason, ModeratorDeletion
+from jetson.apps.comments.models import RATINGS_REQUIRED, RATINGS_OPTIONAL, IS_PUBLIC
 
 COMMENTS_PER_PAGE = getattr(settings, "COMMENTS_PER_PAGE", 20)
+COMMENT_DELETION_REASON_CHOICES = XChoiceList(
+    get_related_queryset(ModeratorDeletion, 'deletion_reason')
+)
+COMMENTS_FIRST_FEW = getattr(settings, "COMMENTS_FIRST_FEW", 0)
+COMMENTS_SKETCHY_USERS_GROUP = getattr(
+    settings, "COMMENTS_SKETCHY_USERS_GROUP", ""
+)
+COMMENTS_BANNED_USERS_GROUP = getattr(
+    settings, "COMMENTS_BANNED_USERS_GROUP", ""
+)
 
-COMMENT_DELETION_REASON_CHOICES = XChoiceList(get_related_queryset(ModeratorDeletion, 'deletion_reason'))
 
 class PublicCommentForm(dynamicforms.Form):
     """
     Form that handles public registered comments
     """
-    
+
     name = forms.CharField(
         label=_("Your Name"),
-        required=True, 
+        required=True,
         max_length=50,
-        widget=forms.TextInput(attrs={'class':'vTextField'}),
+        widget=forms.TextInput(attrs={'class': 'vTextField'}),
     )
-    
+
     email = SingleEmailTextField(
         label=_("Your Email Address"),
         required=True,
         max_length=255,
-        widget=forms.TextInput(attrs={'class':'vTextField'}),
-    )   
-    
+        widget=forms.TextInput(attrs={'class': 'vTextField'}),
+    )
+
     url_link = forms.URLField(
         label=_(u"Your URL"),
         required=False,
         max_length=255,
-        widget=forms.TextInput(attrs={'class':'vTextField'}),
-    ) 
-    
+        widget=forms.TextInput(attrs={'class': 'vTextField'}),
+    )
+
     headline = forms.CharField(
         label=_(u"Title"),
-        required=False, 
+        required=False,
         max_length=255,
-        widget=forms.TextInput(attrs={'class':'vTextField'}),
+        widget=forms.TextInput(attrs={'class': 'vTextField'}),
     )
-    
+
     comment = forms.CharField(
-        label= _("Comment"),
+        label=_("Comment"),
         required=True,
         max_length=3000,
-        widget=forms.Textarea(attrs={'class':'vSystemTextField'}),
+        widget=forms.Textarea(attrs={'class': 'vSystemTextField'}),
     )
-    
+
     # prevent from spam
     prevent_spam = SecurityField()
-    
-    rating1 = forms.ChoiceField(label=_("Rating1"),)
-    rating2 = forms.ChoiceField(label=_("Rating2"),)
-    rating3 = forms.ChoiceField(label=_("Rating3"),)
-    rating4 = forms.ChoiceField(label=_("Rating4"),)
-    rating5 = forms.ChoiceField(label=_("Rating5"),)
-    rating6 = forms.ChoiceField(label=_("Rating6"),)
-    rating7 = forms.ChoiceField(label=_("Rating7"),)
-    rating8 = forms.ChoiceField(label=_("Rating8"),)
-        
-    def __init__(self, user=None, 
-                 headline_required=False, ratings_required=False,
-                 ratings_range=[], num_rating_choices=None,
-                 additional_data=None, *args, **kwargs):
-        
+
+    rating1 = forms.ChoiceField(label=_("Rating1"), )
+    rating2 = forms.ChoiceField(label=_("Rating2"), )
+    rating3 = forms.ChoiceField(label=_("Rating3"), )
+    rating4 = forms.ChoiceField(label=_("Rating4"), )
+    rating5 = forms.ChoiceField(label=_("Rating5"), )
+    rating6 = forms.ChoiceField(label=_("Rating6"), )
+    rating7 = forms.ChoiceField(label=_("Rating7"), )
+    rating8 = forms.ChoiceField(label=_("Rating8"), )
+
+    def __init__(
+        self,
+        user=None,
+        headline_required=False,
+        ratings_required=False,
+        ratings_range=None,
+        num_rating_choices=None,
+        additional_data=None,
+        *args,
+        **kwargs
+    ):
+
+        if not ratings_range:
+            ratings_range = []
         super(PublicCommentForm, self).__init__(*args, **kwargs)
-        
+
         self.additional_data = additional_data
         self.user = user
-        
+
         self.ratings_range, self.num_rating_choices = ratings_range, num_rating_choices
         choices = [(c, c) for c in ratings_range]
-        
+
         for i in range(1, 9):
-            self.fields["rating%d" % i].required = ratings_required and num_rating_choices > 0
+            self.fields["rating%d" % i
+                       ].required = ratings_required and num_rating_choices > 0
             self.fields["rating%d" % i].choices = choices
             if len(choices) > 0:
                 self.fields["rating%d" % i].initial = choices[0]
             else:
                 self.fields["rating%d" % i].initial = None
-        
+
         if user and user.is_authenticated():
             self.fields["name"].required = False
             self.fields["email"].required = False
             self.user_cache = user
         if headline_required:
             self.fields["headline"].required = True
-            
+
         self.helper = FormHelper()
         self.helper.form_tag = False
         if user is None or not user.is_authenticated():
@@ -126,8 +145,9 @@ class PublicCommentForm(dynamicforms.Form):
                     "comment",
                     "prevent_spam",
                     layout.HTML("{{ form.prevent_spam.error_tag }}"),
-                    ),
-                layout.HTML("""
+                ),
+                layout.HTML(
+                    """
                     {% load base_tags babel i18n %}
                     {% if comment_form.is_valid %}
                     <fieldset>
@@ -151,9 +171,11 @@ class PublicCommentForm(dynamicforms.Form):
                         </div>
                     </fieldset>
                     {% endif %}
-                """),
+                """
+                ),
                 bootstrap.FormActions(
-                    layout.HTML("""
+                    layout.HTML(
+                        """
                         {% load i18n %}
                         <input type="hidden" class="form_hidden" name="goto_next" value="{% if goto_next %}{{ goto_next }}{% else %}{{ request.get_full_path }}{% endif %}" />
                         <input type="hidden" class="form_hidden" name="options" value="{{ options }}" />
@@ -166,9 +188,10 @@ class PublicCommentForm(dynamicforms.Form):
                         {% if comment_form.is_valid %}
                             <input type="submit" id="but_post" class="button_good" name="post" value='{% filter upper %}{% trans "Post comment" %}{% endfilter %}' />&zwnj;
                         {% endif %}
-                        """),
-                    )
+                        """
+                    ),
                 )
+            )
         else:
             self.helper.layout = layout.Layout(
                 layout.Fieldset(
@@ -178,7 +201,8 @@ class PublicCommentForm(dynamicforms.Form):
                     "prevent_spam",
                     layout.HTML("{{ form.prevent_spam.error_tag }}"),
                 ),
-                layout.HTML("""
+                layout.HTML(
+                    """
                     {% load base_tags babel i18n %}
                     {% if comment_form.is_valid %}
                     <fieldset>
@@ -202,9 +226,11 @@ class PublicCommentForm(dynamicforms.Form):
                         </div>
                     </fieldset>
                     {% endif %}
-                """),
+                """
+                ),
                 bootstrap.FormActions(
-                    layout.HTML("""
+                    layout.HTML(
+                        """
                         {% load i18n %}
                         <input type="hidden" class="form_hidden" name="goto_next" value="{% if goto_next %}{{ goto_next }}{% else %}{{ request.get_full_path }}{% endif %}" />
                         <input type="hidden" class="form_hidden" name="options" value="{{ options }}" />
@@ -217,12 +243,13 @@ class PublicCommentForm(dynamicforms.Form):
                         {% if comment_form.is_valid %}
                             <input type="submit" id="but_post" class="btn btn-primary" name="post" value='{% filter upper %}{% trans "Post comment" %}{% endfilter %}' />&zwnj;
                         {% endif %}
-                        """),
-                    )
+                        """
+                    ),
                 )
-            
+            )
+
     def get_comment(self):
-        "Helper function"
+        """Helper function"""
         # do character encoding
         cleaned = self.cleaned_data
         #for key, value in cleaned.items():
@@ -230,46 +257,50 @@ class PublicCommentForm(dynamicforms.Form):
         #        cleaned[key] = value.encode(settings.DEFAULT_CHARSET)
 
         if self.user and self.user.is_authenticated():
-            self.name = self.user.username;
+            self.name = self.user.username
         else:
             self.name = cleaned.get("name", None)
-            
+
         for i in range(1, 9):
             rating = cleaned.get("rating%d" % i, '')
             if rating is not None and len(str(rating)) == 0:
                 cleaned["rating%d" % i] = 0
 
-        return Comment(user=self.user,
-                       name=self.name,
-                       email=cleaned.get("email", None),
-                       url_link=cleaned.get("url_link", None),
-                       content_type=ContentType.objects.get(
-                           pk=self.additional_data["content_type_id"],
-                           ),
-                       object_id=self.additional_data["object_id"], 
-                       headline=cleaned.get("headline", ""),
-                       comment=cleaned["comment"].strip(), 
-                       rating1=cleaned.get("rating1", 0),
-                       rating2=cleaned.get("rating2", 0),
-                       rating3=cleaned.get("rating3", 0),
-                       rating4=cleaned.get("rating4", 0),
-                       rating5=cleaned.get("rating5", 0),
-                       rating6=cleaned.get("rating6", 0),
-                       rating7=cleaned.get("rating7", 0),
-                       rating8=cleaned.get("rating8", 0),
-                       valid_rating=cleaned.get("rating1", None) is not None,
-                       submit_date=tz_now(),
-                       is_public=self.additional_data["is_public"], 
-                       ip_address=self.additional_data["ip_address"],
-                       is_removed=False,
-                       site=Site.objects.get(id=settings.SITE_ID)
-                       )
+        return Comment(
+            user=self.user,
+            name=self.name,
+            email=cleaned.get("email", None),
+            url_link=cleaned.get("url_link", None),
+            content_type=ContentType.objects.get(
+                pk=self.additional_data["content_type_id"],
+            ),
+            object_id=self.additional_data["object_id"],
+            headline=cleaned.get("headline", ""),
+            comment=cleaned["comment"].strip(),
+            rating1=cleaned.get("rating1", 0),
+            rating2=cleaned.get("rating2", 0),
+            rating3=cleaned.get("rating3", 0),
+            rating4=cleaned.get("rating4", 0),
+            rating5=cleaned.get("rating5", 0),
+            rating6=cleaned.get("rating6", 0),
+            rating7=cleaned.get("rating7", 0),
+            rating8=cleaned.get("rating8", 0),
+            valid_rating=cleaned.get("rating1", None) is not None,
+            submit_date=tz_now(),
+            is_public=self.additional_data["is_public"],
+            ip_address=self.additional_data["ip_address"],
+            is_removed=False,
+            site=Site.objects.get(id=settings.SITE_ID)
+        )
 
     def save(self):
         today = datetime.date.today()
         c = self.get_comment()
-        for old in Comment.objects.filter(content_type__id__exact=self.additional_data["content_type_id"],
-            object_id__exact=self.additional_data["object_id"], name__exact=self.name):
+        for old in Comment.objects.filter(
+            content_type__id__exact=self.additional_data["content_type_id"],
+            object_id__exact=self.additional_data["object_id"],
+            name__exact=self.name
+        ):
             # Check that this comment isn't duplicate. (Sometimes people post
             # comments twice by mistake.) If it is, fail silently by pretending
             # the comment was posted successfully.
@@ -288,16 +319,26 @@ class PublicCommentForm(dynamicforms.Form):
         # If the commentor has posted fewer than COMMENTS_FIRST_FEW comments,
         # send the comment to the managers.
         if self.user and self.user.is_authenticated():
-            if self.user_cache.comment_set.count() <= settings.COMMENTS_FIRST_FEW:
+            if self.user_cache.comment_set.count() <= COMMENTS_FIRST_FEW:
                 message = ngettext('This comment was posted by a user who has posted fewer than %(count)s comment:\n\n%(text)s',
-                    'This comment was posted by a user who has posted fewer than %(count)s comments:\n\n%(text)s', settings.COMMENTS_FIRST_FEW) % \
-                    {'count': settings.COMMENTS_FIRST_FEW, 'text': c.get_as_text()}
+                    'This comment was posted by a user who has posted fewer than %(count)s comments:\n\n%(text)s', COMMENTS_FIRST_FEW) % \
+                    {'count': COMMENTS_FIRST_FEW, 'text': c.get_as_text()}
                 mail_managers("Comment posted by rookie user", message)
-        if settings.COMMENTS_SKETCHY_USERS_GROUP and settings.COMMENTS_SKETCHY_USERS_GROUP in [g.id for g in self.user_cache.get_group_list()]:
-            message = _('This comment was posted by a sketchy user:\n\n%(text)s') % {'text': c.get_as_text()}
-            mail_managers("Comment posted by sketchy user (%s)" % self.user_cache.username, c.get_as_text())
+        if COMMENTS_SKETCHY_USERS_GROUP and COMMENTS_SKETCHY_USERS_GROUP in [
+            g.id for g in self.user_cache.get_group_list()
+        ]:
+            message = _(
+                'This comment was posted by a sketchy user:\n\n%(text)s'
+            ) % {
+                'text': c.get_as_text()
+            }
+            mail_managers(
+                "Comment posted by sketchy user (%s)" %
+                self.user_cache.username, c.get_as_text()
+            )
         return c
-    
+
+
 class PublicCommentRefuseForm(dynamicforms.Form):
     """
     Form that handles the deletion of public registered comments
@@ -309,19 +350,19 @@ class PublicCommentRefuseForm(dynamicforms.Form):
     )
 
     def __init__(self, comment_id, user=None, *args, **kwargs):
-        
+
         super(PublicCommentRefuseForm, self).__init__(*args, **kwargs)
-        
+
         self.comment_id = comment_id
         self.user = user
-        
+
     def save(self):
-        
+
         cleaned = self.cleaned_data
         #for key, value in cleaned.items():
         #    if type(value).__name__ == "unicode":
         #        cleaned[key] = value.encode(settings.DEFAULT_CHARSET)
-        
+
         today = datetime.date.today()
 
         comment = Comment.objects.get(id=self.comment_id)
@@ -329,28 +370,34 @@ class PublicCommentRefuseForm(dynamicforms.Form):
         comment.save()
         # if this comment has been refused for any reason before, just overwrite...
         try:
-            m = ModeratorDeletion.objects.get(comment__id = self.comment_id)
-            m.user=self.user
-            m.deletion_date=today
-            m.deletion_reason=ModeratorDeletionReason.objects.get(id=cleaned['reason'])
+            m = ModeratorDeletion.objects.get(comment__id=self.comment_id)
+            m.user = self.user
+            m.deletion_date = today
+            m.deletion_reason = ModeratorDeletionReason.objects.get(
+                id=cleaned['reason']
+            )
         except:
             m = ModeratorDeletion(
-                  user=self.user, 
-                  comment=Comment.objects.get(id=self.comment_id),
-                  deletion_date=today,
-                  deletion_reason=ModeratorDeletionReason.objects.get(id=cleaned['reason']),
+                user=self.user,
+                comment=Comment.objects.get(id=self.comment_id),
+                deletion_date=today,
+                deletion_reason=ModeratorDeletionReason.objects.get(
+                    id=cleaned['reason']
+                ),
             )
         m.save()
-        
-        return comment    
+
+        return comment
+
 
 @never_cache
 def post_comment(
-        request, 
-        headline_required=False, 
-        template_name='comments/preview.html',
-        use_ajax=False, 
-        extra_context=None):
+    request,
+    headline_required=False,
+    template_name='comments/preview.html',
+    use_ajax=False,
+    extra_context=None
+):
     """
     Post a comment
 
@@ -388,63 +435,80 @@ def post_comment(
     if not request.POST:
         raise Http404, "Only POSTs are allowed"
     try:
-        options, target, security_hash = request.POST['options'], request.POST['target'], request.POST['gonzo']
+        options, target, security_hash = request.POST['options'], request.POST[
+            'target'], request.POST['gonzo']
         redirect_to = request.POST.get(settings.REDIRECT_FIELD_NAME, '')
     except KeyError:
         raise Http404, "One or more of the required fields wasn't submitted"
-    
+
     photo_options = request.POST.get('photo_options', '')
     rating_options = normalize_newlines(request.POST.get('rating_options', ''))
-    
-    if Comment.objects.get_security_hash(options, photo_options, rating_options, target) != security_hash:
+
+    if Comment.objects.get_security_hash(
+        options, photo_options, rating_options, target
+    ) != security_hash:
         raise Http404, "Somebody tampered with the comment form (security violation)"
-    
+
     # Now we can be assured the data is valid.
     if rating_options:
-        rating_range, rating_choices = Comment.objects.get_rating_options(base64.decodestring(rating_options))
+        rating_range, rating_choices = Comment.objects.get_rating_options(
+            base64.decodestring(rating_options)
+        )
     else:
         rating_range, rating_choices = [], []
-        
-    content_type_id, object_id = target.split(':') # target is something like '52:5157'
+
+    content_type_id, object_id = target.split(
+        ':'
+    )  # target is something like '52:5157'
     try:
         obj = ContentType.objects.get(
             pk=content_type_id,
-            ).get_object_for_this_type(pk=object_id)
+        ).get_object_for_this_type(pk=object_id)
     except ObjectDoesNotExist:
         raise Http404, "The comment form had an invalid 'target' parameter -- the object ID was invalid"
-    option_list = options.split(',') # options is something like 'pa,ra'
-    
+    option_list = options.split(',')  # options is something like 'pa,ra'
+
     data = request.POST.copy()
     data.update(request.FILES)
-    
+
     # additional data passed to the form ...
-    additional_data = {}
-    additional_data['content_type_id'] = content_type_id
-    additional_data['object_id'] = object_id
-    additional_data['ip_address'] = request.META.get('REMOTE_ADDR')
-    additional_data['is_public'] = IS_PUBLIC in option_list
-    
-    form = PublicCommentForm(get_current_user(),
+    additional_data = {
+        'content_type_id': content_type_id,
+        'object_id': object_id,
+        'ip_address': request.META.get('REMOTE_ADDR'),
+        'is_public': IS_PUBLIC in option_list
+    }
+
+    form = PublicCommentForm(
+        get_current_user(),
         headline_required=headline_required,
         ratings_required=RATINGS_REQUIRED in option_list,
         ratings_range=rating_range,
         num_rating_choices=len(rating_choices),
         additional_data=additional_data,
-        data=data)
-    
+        data=data
+    )
+
     comment = None
-    
+
     if form.is_valid():
         if 'post' in request.POST:
             # If the IP is banned, mail the admins, do NOT save the comment, and
             # serve up the "Thanks for posting" page as if the comment WAS posted.
-            if request.META['REMOTE_ADDR'] in settings.BANNED_IPS:
-                mail_admins("Banned IP attempted to post comment", unicode(request.POST) + "\n\n" + unicode(request.META))
+            if request.META['REMOTE_ADDR'] in getattr(
+                settings, "BANNED_IPS", []
+            ):
+                mail_admins(
+                    "Banned IP attempted to post comment",
+                    unicode(request.POST) + "\n\n" + unicode(request.META)
+                )
             else:
                 comment = form.save()
                 pass
             if not use_ajax:
-                return HttpResponseRedirect("../posted/?c=%s:%s" % (content_type_id, object_id))
+                return HttpResponseRedirect(
+                    "../posted/?c=%s:%s" % (content_type_id, object_id)
+                )
 
             # in the ajax case, page should be reloaded!!!
             else:
@@ -453,7 +517,9 @@ def post_comment(
         elif 'preview' in request.POST:
             comment = form.get_comment()
         else:
-            raise Http404, _("The comment form didn't provide either 'preview' or 'post'")
+            raise Http404, _(
+                "The comment form didn't provide either 'preview' or 'post'"
+            )
 
     context = {
         'comment': comment,
@@ -468,10 +534,13 @@ def post_comment(
         'rating_choices': rating_choices,
         settings.REDIRECT_FIELD_NAME: redirect_to,
     }
-        
+
     if extra_context:
         context.update(extra_context)
-    return render_to_response(template_name, context, context_instance=RequestContext(request))
+    return render_to_response(
+        template_name, context, context_instance=RequestContext(request)
+    )
+
 
 def comment_was_posted(request, template_name='comments/posted.html'):
     """
@@ -490,9 +559,13 @@ def comment_was_posted(request, template_name='comments/posted.html'):
             obj = content_type.get_object_for_this_type(pk=object_id)
         except ObjectDoesNotExist:
             pass
-    return render_to_response(template_name, {'object': obj}, context_instance=RequestContext(request))
+    return render_to_response(
+        template_name, {'object': obj},
+        context_instance=RequestContext(request)
+    )
 
-def get_comments(content_type_id, object_id, sort_order = "", extra_kwargs=None):
+
+def get_comments(content_type_id, object_id, sort_order="", extra_kwargs=None):
     get_list_function = Comment.objects.get_list_with_karma
     kwargs = {
         'object_id__exact': object_id,
@@ -501,12 +574,18 @@ def get_comments(content_type_id, object_id, sort_order = "", extra_kwargs=None)
     }
     if extra_kwargs:
         kwargs.update(extra_kwargs)
-    if settings.COMMENTS_BANNED_USERS_GROUP:
-        kwargs['select'] = {'is_hidden': 'user_id IN (SELECT user_id FROM auth_user_groups WHERE group_id = %s)' % settings.COMMENTS_BANNED_USERS_GROUP}
-        
-    return get_list_function(**kwargs).order_by(sort_order + 'submit_date').select_related()
+    if getattr(settings, 'COMMENTS_BANNED_USERS_GROUP', ''):
+        kwargs['select'] = {
+            'is_hidden':
+                'user_id IN (SELECT user_id FROM auth_user_groups WHERE group_id = %s)'
+                % COMMENTS_BANNED_USERS_GROUP
+        }
 
-def get_rating_list(queryset, rating_map, selected = None):
+    return get_list_function(**kwargs).order_by(sort_order +
+                                                'submit_date').select_related()
+
+
+def get_rating_list(queryset, rating_map, selected=None):
     """
     help function:
     returns a list of ratings contained in a comment queryset
@@ -517,13 +596,20 @@ def get_rating_list(queryset, rating_map, selected = None):
                   (2, "interesting", _("interesting")),
                  ]
     """
-    rating_list = []
-    rating_list.append(("all", _("All"), len(queryset) > 0, selected is None))
+    rating_list = [("all", _("All"), len(queryset) > 0, selected is None)]
 
     for rating in rating_map:
-        count = queryset.filter(**{"rating" + str(rating[0]) + "__gt" : 0}).count()
-        rating_list.append((str(rating[1]), str(rating[2]), count > 0, selected == str(rating[1])))
+        count = queryset.filter(**{
+            "rating" + str(rating[0]) + "__gt": 0
+        }).count()
+        rating_list.append(
+            (
+                str(rating[1]), str(rating[2]), count > 0,
+                selected == str(rating[1])
+            )
+        )
     return rating_list
+
 
 def filter_rating(queryset, rating_map, filter_value):
     """
@@ -534,29 +620,32 @@ def filter_rating(queryset, rating_map, filter_value):
     for rating in rating_map:
         if rating[1] == filter_value:
             rating_index = rating[0]
-            break;
-            
+            break
+
     if rating_index:
-        return queryset.filter(**{"rating" + str(rating_index) + "__gt" : 0}).order_by("-rating" + str(rating_index))
+        return queryset.filter(**{
+            "rating" + str(rating_index) + "__gt": 0
+        }).order_by("-rating" + str(rating_index))
     return queryset
+
 
 @never_cache
 def refuse_comment(
-       request, 
-       comment_id, 
-       template_name,
-       redirect_to,
-       extra_context=None, 
-       use_popup=False,
-       **kwargs):
-
+    request,
+    comment_id,
+    template_name,
+    redirect_to,
+    extra_context=None,
+    use_popup=False,
+    **kwargs
+):
     """
     Displays a refuse comment form and handles the associated action
     Privileges must be handled by a wrapper view!!!!
     """
     comment = Comment.objects.get(id=comment_id)
     user = request.user
-    
+
     if request.method == 'POST':
 
         # cancel the whole action
@@ -571,31 +660,34 @@ def refuse_comment(
         if form.is_valid():
             form.save()
             if use_popup:
-                return HttpResponse("reload")    
+                return HttpResponse("reload")
             else:
-                return HttpResponseRedirect(redirect_to)        
+                return HttpResponseRedirect(redirect_to)
 
     else:
         form = PublicCommentRefuseForm(comment_id, user)
-                
+
     context = {
         'form': form,
     }
-        
+
     if extra_context:
         context.update(extra_context)
-    return render_to_response(template_name, context, context_instance=RequestContext(request))
+    return render_to_response(
+        template_name, context, context_instance=RequestContext(request)
+    )
+
 
 @never_cache
 def accept_comment(
-       request, 
-       comment_id, 
-       template_name,
-       redirect_to,
-       extra_context=None, 
-       use_popup=False,
-       **kwargs):
-
+    request,
+    comment_id,
+    template_name,
+    redirect_to,
+    extra_context=None,
+    use_popup=False,
+    **kwargs
+):
     """
     Displays an accept comment form and handles the associated action.
     Privileges must be handled by a wrapper view!!!!
@@ -605,7 +697,7 @@ def accept_comment(
     if not comment.is_removed:
         if not use_popup:
             return HttpResponseRedirect(redirect_to)
-    
+
     if request.method == 'POST':
 
         # cancel the whole action
@@ -617,30 +709,33 @@ def accept_comment(
         comment.is_removed = False
         comment.save()
         try:
-            m = ModeratorDeletion.objects.get(comment__id = self.comment_id)
+            m = ModeratorDeletion.objects.get(comment__id=self.comment_id)
             m.delete()
         except:
             pass
         if use_popup:
-            return HttpResponse("reload")    
+            return HttpResponse("reload")
         else:
-            return HttpResponseRedirect(redirect_to)        
+            return HttpResponseRedirect(redirect_to)
 
     context = {}
     if extra_context:
         context.update(extra_context)
-    return render_to_response(template_name, context, context_instance=RequestContext(request))
+    return render_to_response(
+        template_name, context, context_instance=RequestContext(request)
+    )
+
 
 @never_cache
 def mark_as_spam_comment(
-       request, 
-       comment_id, 
-       template_name,
-       redirect_to,
-       extra_context=None, 
-       use_popup=False,
-       **kwargs):
-
+    request,
+    comment_id,
+    template_name,
+    redirect_to,
+    extra_context=None,
+    use_popup=False,
+    **kwargs
+):
     """
     Displays an "mark as spam" comment form and handles the associated action.
     Privileges must be handled by a wrapper view!!!!
@@ -650,7 +745,7 @@ def mark_as_spam_comment(
     if comment.is_spam:
         if not use_popup:
             return HttpResponseRedirect(redirect_to)
-    
+
     if request.method == 'POST':
 
         # cancel the whole action
@@ -662,11 +757,13 @@ def mark_as_spam_comment(
         comment.is_spam = True
         comment.save()
         if use_popup:
-            return HttpResponse("reload")    
+            return HttpResponse("reload")
         else:
-            return HttpResponseRedirect(redirect_to)        
+            return HttpResponseRedirect(redirect_to)
 
     context = {}
     if extra_context:
         context.update(extra_context)
-    return render_to_response(template_name, context, context_instance=RequestContext(request))
+    return render_to_response(
+        template_name, context, context_instance=RequestContext(request)
+    )

@@ -1,0 +1,115 @@
+{% load i18n %}
+
+<div class="grp-module grp-collapse{% if forloop.first %} grp-open{% else %} grp-closed{% endif %}{% if inline_admin_form.original or inline_admin_form.show_url %} has_original{% endif %}{% if prefix == "__prefix__" %} grp-empty-form{% endif %}"
+     id="eventtime_set{% if prefix == "__prefix__" %}-empty{% else %}{{ prefix }}{% endif %}">
+    <h3 class="grp-collapse-handler">{% trans "Event Time" %}{% if prefix != "__prefix__" %} #{{ counter }}{% endif %}&nbsp;&nbsp;{% if inline_admin_form.original %}{{ inline_admin_form.original }}{% endif %}</h3>
+    <ul class="grp-tools">
+        {% if event_time_formset.formset.can_delete %}
+            {% if inline_admin_form.original %}
+                <li class="grp-delete-handler-container">{{ inline_admin_form.deletion_field.field }}
+                    <a href="javascript://" class="grp-icon grp-delete-handler" title="{% trans 'Delete Item' %}"></a>
+                </li>
+            {% else %}
+                <li class="grp-remove-handler-container">{{ inline_admin_form.deletion_field.field }}
+                    <a href="javascript://" class="grp-icon grp-remove-handler" title="{% trans 'Delete Item' %}"></a>
+                </li>
+            {% endif %}
+        {% endif %}
+    </ul>
+    {% if inline_admin_form.non_field_errors %}{{ inline_admin_form.non_field_errors }}{% endif %}
+
+    <fieldset class="grp-module grp-aligned">
+        <div class="grp-row grp-cells-1{% if event_time_form.label.errors %} grp-errors{% endif %}">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    <label{% if event_time_form.label.field.required %} class="required"{% endif %}
+                                                                        for="{{ event_time_form.label.auto_id }}">{{ event_time_form.label.label }}</label>
+                </div>
+                <div class="c-2">
+                    {{ event_time_form.label }}
+                    {% if event_time_form.label.errors %}
+                        <ul class="errorlist">
+                            <li>{{ event_time_form.label.errors|join:", " }}</li>
+                        </ul>
+                    {% endif %}
+
+                    {% if event_time_form.label.help_text %}
+                        <p class="grp-help">{{ event_time_form.label.help_text }}</p>{% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="is_all_day grp-row grp-cells-1{% if event_time_form.is_all_day.errors %} grp-errors{% endif %}">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    &nbsp;
+                </div>
+                <div class="c-2">
+                    {{ event_time_form.is_all_day }}
+                    <label class="vCheckboxLabel"
+                           for="{{ event_time_form.is_all_day.auto_id }}">{{ event_time_form.is_all_day.label }}</label>
+                    {% if event_time_form.is_all_day.errors %}
+                        <ul class="errorlist">
+                            <li>{{ event_time_form.is_all_day.errors|join:", " }}</li>
+                        </ul>
+                    {% endif %}
+                    {% if event_time_form.is_all_day.help_text %}
+                        <p class="grp-help">{{ event_time_form.is_all_day.help_text }}</p>{% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="availability grp-row grp-cells-1{% if event_time_form.start_mm.errors or event_time_form.start_dd.errors or event_time_form.start_yyyy.errors %} grp-errors{% endif %}">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    <label{% if event_time_form.label.field.required %} class="required"{% endif %}
+                                                                        for="{{ event_time_form.start_yyyy.auto_id }}">{% trans "Start" %}</label>
+                </div>
+                <div class="c-2">
+                    <span class="inline-fields">
+                        <span class="low">{{ event_time_form.start_dd }}</span>
+                        {{ event_time_form.start_mm }}
+                        <span class="mid">{{ event_time_form.start_yyyy }}</span>
+                    </span> <span id="id_eventtime_set-{{ prefix }}-start_time" class="inline-fields low start_time">
+                        {{ event_time_form.start_hh }}
+                        {{ event_time_form.start_ii }}
+                    </span>
+                    {% if event_time_form.start_dd.errors or event_time_form.start_mm.errors or event_time_form.start_yyyy.errors or event_time_form.start_hh.errors or event_time_form.start_ii.errors %}
+                        <ul class="errorlist">
+                            <li>
+                                {{ event_time_form.start_dd.errors|join:", " }} {{ event_time_form.start_mm.errors|join:", " }} {{ event_time_form.start_yyyy.errors|join:", " }} {{ event_time_form.start_hh.errors|join:", " }} {{ event_time_form.start_ii.errors|join:", " }}
+                            </li>
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="availability grp-row grp-cells-1{% if event_time_form.end_mm.errors or event_time_form.end_dd.errors or event_time_form.end_yyyy.errors %} grp-errors{% endif %}">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    <label{% if event_time_form.label.field.required %} class="required"{% endif %}
+                                                                        for="{{ event_time_form.end_yyyy.auto_id }}">{% trans "End" %}</label>
+                </div>
+                <div class="c-2">
+                    <span class="inline-fields">
+                        <span class="low">{{ event_time_form.end_dd }}</span>
+                        {{ event_time_form.end_mm }}
+                        <span class="mid">{{ event_time_form.end_yyyy }}</span>
+                    </span> <span id="id_eventtime_set-{{ prefix }}-end_time" class="inline-fields low end_time">
+                        {{ event_time_form.end_hh }}
+                        {{ event_time_form.end_ii }}
+                    </span>
+                    {% if event_time_form.end_dd.errors or event_time_form.end_mm.errors or event_time_form.end_yyyy.errors or event_time_form.end_hh.errors or event_time_form.end_ii.errors %}
+                        <ul class="errorlist">
+                            <li>
+                                {{ event_time_form.end_dd.errors|join:", " }} {{ event_time_form.end_mm.errors|join:", " }} {{ event_time_form.end_yyyy.errors|join:", " }} {{ event_time_form.end_hh.errors|join:", " }} {{ event_time_form.end_ii.errors|join:", " }}
+                            </li>
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {{ inline_admin_form.pk_field.field }} {{ inline_admin_form.fk_field.field }}
+    </fieldset>
+
+</div>

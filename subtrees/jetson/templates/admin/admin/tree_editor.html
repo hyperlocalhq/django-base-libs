@@ -1,0 +1,21 @@
+{% extends "admin/change_list.html" %}
+{% load admin_list i18n %}
+
+{% block stylesheets %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% url 'jetson_media_url' path='css/admin/mptt_tree.css' %}"/>
+{% endblock %}
+
+{% block javascripts %}
+    {{ block.super }}
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        var mptt = {
+            "jQuery": jQuery,
+            "tree_structure": {{ tree_structure|default:"null" }}
+        };
+    </script>
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='js/jquery/jquery.cookie.js' %}"></script>
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/mptt_tree.js' %}"></script>
+{% endblock %}

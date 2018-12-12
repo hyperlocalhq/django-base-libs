@@ -1,0 +1,8 @@
+{% load base_tags babel i18n image_mods_tags crispy_forms_tags %}
+
+<form action="{{ current_post.get_url }}comments/add/" method="post">{% csrf_token %}
+
+    {% crispy comment_form %}
+
+</form>
+

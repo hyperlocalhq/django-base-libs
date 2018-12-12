@@ -7,18 +7,20 @@ from django.utils.translation import string_concat
 
 from base_libs.forms import dynamicforms
 from base_libs.forms.fields import ImageField, VideoField, AudioField
-      
+
 from crispy_forms.helper import FormHelper
 from crispy_forms import layout, bootstrap
 
-IMAGE_MIN_DIMENSIONS = getattr(settings, "GALLERY_IMAGE_MIN_DIMENSIONS", (100,100))
+IMAGE_MIN_DIMENSIONS = getattr(
+    settings, "GALLERY_IMAGE_MIN_DIMENSIONS", (100, 100)
+)
 STR_IMAGE_MIN_DIMENSIONS = "%s x %s" % IMAGE_MIN_DIMENSIONS
 
 
 class PortfolioFileForm(dynamicforms.Form):
     def __init__(self, *args, **kwargs):
         super(PortfolioFileForm, self).__init__(*args, **kwargs)
-        for lang_code, lang_name in settings.FRONTEND_LANGUAGES:
+        for lang_code, lang_name in settings.LANGUAGES:
             self.fields['title_%s' % lang_code] = forms.CharField(
                 label=_("Title in %s") % lang_name,
                 required=False,
@@ -42,7 +44,7 @@ class ImageFileForm(PortfolioFileForm):
         max_length=255,
         widget=forms.HiddenInput(),
         required=False,
-        )
+    )
     external_url = forms.URLField(
         label=_("Image File"),
         help_text=_("You can link to a GIF, JPG, or PNG image."),
@@ -59,18 +61,22 @@ class ImageFileForm(PortfolioFileForm):
 
         layout_bits = [
             layout.Div(
-                layout.HTML("""
+                layout.HTML(
+                    """
                     {% load i18n %}
                     <ul class="nav nav-tabs">
                         <li class="active"><a id="upload_tab" href="#upload" data-toggle="tab">{% trans "Upload" %}</a></li>
                         <li><a id="link_tab" href="#link" data-toggle="tab">{% trans "Link" %}</a></li>
                     </ul>
-                """),
+                """
+                ),
                 layout.Div(
                     layout.Div(
                         layout.Fieldset(
                             _("Upload Image"),
-                            layout.HTML(string_concat("""
+                            layout.HTML(
+                                string_concat(
+                                    """
                                 {% load i18n image_modifications %}
                                 <div id="media_file_preview">
                                 {% if not media_file.external_url and media_file.get_preview_representation %}
@@ -83,49 +89,68 @@ class ImageFileForm(PortfolioFileForm):
                                     </noscript>
                                 </div>
                                 <p id="image_help_text" class="help-block">""",
-                                (_("You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px.") % STR_IMAGE_MIN_DIMENSIONS),
-                                """</p>"""
-                            )),
+                                    (
+                                        _(
+                                            "You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px."
+                                        ) % STR_IMAGE_MIN_DIMENSIONS
+                                    ), """</p>"""
+                                )
+                            ),
                             layout.Field("media_file_path"),
                         ),
-                        css_id="upload", css_class="tab-pane active",
+                        css_id="upload",
+                        css_class="tab-pane active",
                     ),
                     layout.Div(
                         layout.Fieldset(
                             _("Link to External Image"),
-                            layout.HTML("""
+                            layout.HTML(
+                                """
                                 <div id="external_media_file_preview">
                                 {% if media_file.external_url and media_file.get_preview_representation %}
                                     {{ media_file.get_preview_representation }}
                                 {% endif %}
                                 </div>
-                            """),
-                            layout.Field("external_url", css_class="input-block-level"),
+                            """
+                            ),
+                            layout.Field(
+                                "external_url", css_class="input-block-level"
+                            ),
                         ),
-                        css_id="link", css_class="tab-pane",
+                        css_id="link",
+                        css_class="tab-pane",
                     ),
                     css_class="tab-content"
                 ),
                 css_class="tabbable",
             )
         ]
-        for lang_code, lang_name in settings.FRONTEND_LANGUAGES:
-            layout_bits += [layout.Fieldset(
-                _("Description"),
-                layout.Field('title_%s' % lang_code, css_class="input-block-level"),
-                layout.Field('description_%s' % lang_code, css_class="input-block-level"),
-            )]
+        for lang_code, lang_name in settings.LANGUAGES:
+            layout_bits += [
+                layout.Fieldset(
+                    _("Description"),
+                    layout.Field(
+                        'title_%s' % lang_code, css_class="input-block-level"
+                    ),
+                    layout.Field(
+                        'description_%s' % lang_code,
+                        css_class="input-block-level"
+                    ),
+                )
+            ]
         layout_bits += [
             bootstrap.FormActions(
                 layout.Submit('submit', _('Save')),
                 layout.Submit('save_add', _('Save and add another')),
-                layout.HTML("""
+                layout.HTML(
+                    """
                     {% load i18n %}
                     {% if media_file.pk %}
                         <button id="delete_media_file" class="btn btn-danger">{% trans "Delete" %}</button>&zwnj;
                     {% endif %}
                     <a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/" class="btn">{% trans "Cancel" %}</a>&zwnj;
-                """),
+                """
+                ),
             ),
         ]
         self.helper.layout = layout.Layout(*layout_bits)
@@ -133,8 +158,13 @@ class ImageFileForm(PortfolioFileForm):
     def clean_external_url(self):
         external_url = self.cleaned_data['external_url']
         if external_url:
-            if external_url.split(".")[-1].lower() not in ("gif", "jpg", "jpeg", "png"):
-                raise forms.ValidationError(_("You can only link to GIF, JPG, and PNG files. This image format is not supported."))
+            if external_url.split(".")[-1].lower(
+            ) not in ("gif", "jpg", "jpeg", "png"):
+                raise forms.ValidationError(
+                    _(
+                        "You can only link to GIF, JPG, and PNG files. This image format is not supported."
+                    )
+                )
         return external_url
 
 
@@ -149,10 +179,12 @@ class VideoFileForm(PortfolioFileForm):
         max_length=255,
         widget=forms.HiddenInput(),
         required=False,
-        )
+    )
     external_url = forms.URLField(
         label=_("Video File"),
-        help_text=_("You can link to a FLV file, Youtube video (e.g. http://www.youtube.com/watch?v=rd2izv5JBcE or http://youtu.be/rd2izv5JBcE) or Vimeo video (e.g. http://vimeo.com/17853047)."),
+        help_text=_(
+            "You can link to a FLV file, Youtube video (e.g. http://www.youtube.com/watch?v=rd2izv5JBcE or http://youtu.be/rd2izv5JBcE) or Vimeo video (e.g. http://vimeo.com/17853047)."
+        ),
         required=False,
     )
     # splash_image_file = ImageField(
@@ -165,7 +197,7 @@ class VideoFileForm(PortfolioFileForm):
         max_length=255,
         widget=forms.HiddenInput(),
         required=False,
-        )
+    )
 
     def __init__(self, *args, **kwargs):
         super(VideoFileForm, self).__init__(*args, **kwargs)
@@ -177,18 +209,22 @@ class VideoFileForm(PortfolioFileForm):
 
         layout_bits = [
             layout.Div(
-                layout.HTML("""
+                layout.HTML(
+                    """
                     {% load i18n %}
                     <ul class="nav nav-tabs">
                         <li class="active"><a id="upload_tab" href="#upload" data-toggle="tab">{% trans "Upload" %}</a></li>
                         <li><a id="link_tab" href="#link" data-toggle="tab">{% trans "Link" %}</a></li>
                     </ul>
-                """),
+                """
+                ),
                 layout.Div(
                     layout.Div(
                         layout.Fieldset(
                             _("Upload Video"),
-                            layout.HTML(string_concat("""
+                            layout.HTML(
+                                string_concat(
+                                    """
                                 {% load i18n image_modifications %}
                                 <div id="media_file_preview">
                                 {% if not media_file.external_url and media_file.get_preview_representation %}
@@ -201,26 +237,33 @@ class VideoFileForm(PortfolioFileForm):
                                     </noscript>
                                 </div>
                                 <p id="image_help_text" class="help-block">""",
-                                _("You can upload only FLV files."),
-                                """</p>"""
-                            )),
+                                    _("You can upload only FLV files."),
+                                    """</p>"""
+                                )
+                            ),
                             layout.Field("media_file_path"),
                         ),
-                        css_id="upload", css_class="tab-pane active",
+                        css_id="upload",
+                        css_class="tab-pane active",
                     ),
                     layout.Div(
                         layout.Fieldset(
                             _("Link to External Video"),
-                            layout.HTML("""
+                            layout.HTML(
+                                """
                                 <div id="external_media_file_preview">
                                 {% if media_file.external_url and media_file.get_preview_representation %}
                                     {{ media_file.get_preview_representation }}
                                 {% endif %}
                                 </div>
-                            """),
-                            layout.Field("external_url", css_class="input-block-level"),
+                            """
+                            ),
+                            layout.Field(
+                                "external_url", css_class="input-block-level"
+                            ),
                         ),
-                        css_id="link", css_class="tab-pane",
+                        css_id="link",
+                        css_class="tab-pane",
                     ),
                     css_class="tab-content"
                 ),
@@ -230,7 +273,9 @@ class VideoFileForm(PortfolioFileForm):
         layout_bits += [
             layout.Fieldset(
                 _("Upload Splash Image"),
-                layout.HTML(string_concat("""
+                layout.HTML(
+                    string_concat(
+                        """
                     {% load i18n image_modifications %}
                     <div id="splash_image_preview">
                         {% if media_file.splash_image_path %}
@@ -242,30 +287,42 @@ class VideoFileForm(PortfolioFileForm):
                             <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
                         </noscript>
                     </div>
-                    <p id="splash_image_help_text" class="help-block">""",
-                    (_("You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px.") % STR_IMAGE_MIN_DIMENSIONS),
-                    """</p>"""
-                )),
+                    <p id="splash_image_help_text" class="help-block">""", (
+                            _(
+                                "You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px."
+                            ) % STR_IMAGE_MIN_DIMENSIONS
+                        ), """</p>"""
+                    )
+                ),
                 layout.Field("splash_image_file_path"),
             ),
         ]
-        for lang_code, lang_name in settings.FRONTEND_LANGUAGES:
-            layout_bits += [layout.Fieldset(
-                _("Description"),
-                layout.Field('title_%s' % lang_code, css_class="input-block-level"),
-                layout.Field('description_%s' % lang_code, css_class="input-block-level"),
-            )]
+        for lang_code, lang_name in settings.LANGUAGES:
+            layout_bits += [
+                layout.Fieldset(
+                    _("Description"),
+                    layout.Field(
+                        'title_%s' % lang_code, css_class="input-block-level"
+                    ),
+                    layout.Field(
+                        'description_%s' % lang_code,
+                        css_class="input-block-level"
+                    ),
+                )
+            ]
         layout_bits += [
             bootstrap.FormActions(
                 layout.Submit('submit', _('Save')),
                 layout.Submit('save_add', _('Save and add another')),
-                layout.HTML("""
+                layout.HTML(
+                    """
                     {% load i18n %}
                     {% if media_file.pk %}
                         <button id="delete_media_file" class="btn btn-danger">{% trans "Delete" %}</button>&zwnj;
                     {% endif %}
                     <a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/" class="btn">{% trans "Cancel" %}</a>&zwnj;
-                """),
+                """
+                ),
             ),
         ]
         self.helper.layout = layout.Layout(*layout_bits)
@@ -273,8 +330,14 @@ class VideoFileForm(PortfolioFileForm):
     def clean_external_url(self):
         external_url = self.cleaned_data['external_url']
         if external_url:
-            if external_url.split(".")[-1].lower() != "flv" and ("youtu" not in external_url.lower()) and ("vimeo" not in external_url.lower()):
-                raise forms.ValidationError(_("You can only link to FLV files, Youtube video pages or Vimeo video pages."))
+            if external_url.split(".")[-1].lower() != "flv" and (
+                "youtu" not in external_url.lower()
+            ) and ("vimeo" not in external_url.lower()):
+                raise forms.ValidationError(
+                    _(
+                        "You can only link to FLV files, Youtube video pages or Vimeo video pages."
+                    )
+                )
         return external_url
 
 
@@ -283,7 +346,7 @@ class AudioFileForm(PortfolioFileForm):
         max_length=255,
         widget=forms.HiddenInput(),
         required=False,
-        )
+    )
     # media_file = AudioField(
     #     label=_("Audio File"),
     #     help_text=_("You can upload only MP3 files."),
@@ -305,7 +368,7 @@ class AudioFileForm(PortfolioFileForm):
         max_length=255,
         widget=forms.HiddenInput(),
         required=False,
-        )
+    )
 
     def __init__(self, *args, **kwargs):
         super(AudioFileForm, self).__init__(*args, **kwargs)
@@ -317,18 +380,22 @@ class AudioFileForm(PortfolioFileForm):
 
         layout_bits = [
             layout.Div(
-                layout.HTML("""
+                layout.HTML(
+                    """
                     {% load i18n %}
                     <ul class="nav nav-tabs">
                         <li class="active"><a id="upload_tab" href="#upload" data-toggle="tab">{% trans "Upload" %}</a></li>
                         <li><a id="link_tab" href="#link" data-toggle="tab">{% trans "Link" %}</a></li>
                     </ul>
-                """),
+                """
+                ),
                 layout.Div(
                     layout.Div(
                         layout.Fieldset(
                             _("Upload Audio"),
-                            layout.HTML(string_concat("""
+                            layout.HTML(
+                                string_concat(
+                                    """
                                 {% load i18n image_modifications %}
                                 <div id="media_file_preview">
                                 {% if not media_file.external_url and media_file.get_preview_representation %}
@@ -341,26 +408,33 @@ class AudioFileForm(PortfolioFileForm):
                                     </noscript>
                                 </div>
                                 <p id="image_help_text" class="help-block">""",
-                                _("You can upload only MP3 files."),
-                                """</p>"""
-                            )),
+                                    _("You can upload only MP3 files."),
+                                    """</p>"""
+                                )
+                            ),
                             layout.Field("media_file_path"),
                         ),
-                        css_id="upload", css_class="tab-pane active",
+                        css_id="upload",
+                        css_class="tab-pane active",
                     ),
                     layout.Div(
                         layout.Fieldset(
                             _("Link to External Audio"),
-                            layout.HTML("""
+                            layout.HTML(
+                                """
                                 <div id="external_media_file_preview">
                                 {% if media_file.external_url and media_file.get_preview_representation %}
                                     {{ media_file.get_preview_representation }}
                                 {% endif %}
                                 </div>
-                            """),
-                            layout.Field("external_url", css_class="input-block-level"),
+                            """
+                            ),
+                            layout.Field(
+                                "external_url", css_class="input-block-level"
+                            ),
                         ),
-                        css_id="link", css_class="tab-pane",
+                        css_id="link",
+                        css_class="tab-pane",
                     ),
                     css_class="tab-content"
                 ),
@@ -370,7 +444,9 @@ class AudioFileForm(PortfolioFileForm):
         layout_bits += [
             layout.Fieldset(
                 _("Upload Splash Image"),
-                layout.HTML(string_concat("""
+                layout.HTML(
+                    string_concat(
+                        """
                     {% load i18n image_modifications %}
                     <div id="splash_image_preview">
                         {% if media_file.splash_image_path %}
@@ -382,30 +458,42 @@ class AudioFileForm(PortfolioFileForm):
                             <p>{% trans "Please enable JavaScript to use file uploader." %}</p>
                         </noscript>
                     </div>
-                    <p id="splash_image_help_text" class="help-block">""",
-                    (_("You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px.") % STR_IMAGE_MIN_DIMENSIONS),
-                    """</p>"""
-                )),
+                    <p id="splash_image_help_text" class="help-block">""", (
+                            _(
+                                "You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px."
+                            ) % STR_IMAGE_MIN_DIMENSIONS
+                        ), """</p>"""
+                    )
+                ),
                 layout.Field("splash_image_file_path"),
             ),
         ]
-        for lang_code, lang_name in settings.FRONTEND_LANGUAGES:
-            layout_bits += [layout.Fieldset(
-                _("Description"),
-                layout.Field('title_%s' % lang_code, css_class="input-block-level"),
-                layout.Field('description_%s' % lang_code, css_class="input-block-level"),
-            )]
+        for lang_code, lang_name in settings.LANGUAGES:
+            layout_bits += [
+                layout.Fieldset(
+                    _("Description"),
+                    layout.Field(
+                        'title_%s' % lang_code, css_class="input-block-level"
+                    ),
+                    layout.Field(
+                        'description_%s' % lang_code,
+                        css_class="input-block-level"
+                    ),
+                )
+            ]
         layout_bits += [
             bootstrap.FormActions(
                 layout.Submit('submit', _('Save')),
                 layout.Submit('save_add', _('Save and add another')),
-                layout.HTML("""
+                layout.HTML(
+                    """
                     {% load i18n %}
                     {% if media_file.pk %}
                         <button id="delete_media_file" class="btn btn-danger">{% trans "Delete" %}</button>&zwnj;
                     {% endif %}
                     <a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/" class="btn">{% trans "Cancel" %}</a>&zwnj;
-                """),
+                """
+                ),
             ),
         ]
         self.helper.layout = layout.Layout(*layout_bits)
@@ -414,5 +502,7 @@ class AudioFileForm(PortfolioFileForm):
         external_url = self.cleaned_data['external_url']
         if external_url:
             if external_url.split(".")[-1].lower() != "mp3":
-                raise forms.ValidationError(_("You can only link to MP3 files. This is not MP3."))
+                raise forms.ValidationError(
+                    _("You can only link to MP3 files. This is not MP3.")
+                )
         return external_url

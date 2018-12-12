@@ -1,1 +1,0 @@
-{% extends "accounts/base.html" %}{% load base_tags i18n crispy_forms_tags %}{% block title %}{% trans "Signup" %}{% endblock %}{% block content %}<header><h2>{% trans "Sign Up" %}</h2></header>{% crispy form %}{# registration form #}<footer>  <p>{% trans "Already have an account?" %} <a href="/login/">{% trans "Login" %}</a></p></footer>{% endblock %}

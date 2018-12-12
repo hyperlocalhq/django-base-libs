@@ -15,7 +15,7 @@ from django.template.defaultfilters import date as date_filter
 from base_libs.admin import ExtendedModelAdmin
 from base_libs.models.admin import get_admin_lang_section
 
-from museumsportal.apps.advertising.models import *
+from jetson.apps.advertising.models import *
 
 
 class AdvertiserAdmin(admin.ModelAdmin):
@@ -25,62 +25,96 @@ class AdvertiserAdmin(admin.ModelAdmin):
 
 class AdCategoryAdmin(ExtendedModelAdmin):
     list_display = ['title', 'sysname']
-    fieldsets = [(None, {'fields': ('sysname',)}),]
+    fieldsets = [
+        (None, {
+            'fields': ('sysname', )
+        }),
+    ]
     fieldsets += get_admin_lang_section(_("Contents"), ['title', 'description'])
 
 
 class AdZoneAdmin(ExtendedModelAdmin):
     list_display = ['title', 'sysname', 'description']
-    fieldsets = [(None, {'fields': ('sysname',)}),]
+    fieldsets = [
+        (None, {
+            'fields': ('sysname', )
+        }),
+    ]
     fieldsets += get_admin_lang_section(_("Contents"), ['title', 'description'])
 
 
 class AdBaseAdmin(ExtendedModelAdmin):
-    list_display = ['title', 'url', 'advertiser', 'zone', 'category', 'start_showing', 'stop_showing', 'get_impressions', 'get_clicks']
-    list_filter = ['start_showing', 'advertiser', 'category', 'zone', 'language']
+    list_display = [
+        'title', 'url', 'advertiser', 'zone', 'category', 'start_showing',
+        'stop_showing', 'get_impressions', 'get_clicks'
+    ]
+    list_filter = [
+        'start_showing', 'advertiser', 'category', 'zone', 'language'
+    ]
     search_fields = ['title', 'url']
 
     def get_impressions(self, obj):
         current_month = date.today().replace(day=1)
         current_month_minus_1 = current_month - timedelta(days=1)
-        current_month_minus_2 = current_month_minus_1.replace(day=1) - timedelta(days=1)
-        impressions_by_month = []
-        impressions_by_month.append(date_filter(current_month_minus_2, "F") + (": <strong>%d</strong>" % obj.adimpression_set.filter(
-            impression_date__year=current_month_minus_2.year,
-            impression_date__month=current_month_minus_2.month,
-        ).count()))
-        impressions_by_month.append(date_filter(current_month_minus_1, "F") + (": <strong>%d</strong>" % obj.adimpression_set.filter(
-            impression_date__year=current_month_minus_1.year,
-            impression_date__month=current_month_minus_1.month,
-        ).count()))
-        impressions_by_month.append(date_filter(current_month, "F") + (": <strong>%d</strong>" % obj.adimpression_set.filter(
-            impression_date__year=current_month.year,
-            impression_date__month=current_month.month,
-        ).count()))
+        current_month_minus_2 = current_month_minus_1.replace(
+            day=1
+        ) - timedelta(days=1)
+        impressions_by_month = [
+            date_filter(current_month_minus_2, "F") + (
+                ": <strong>%d</strong>" % obj.adimpression_set.filter(
+                    impression_date__year=current_month_minus_2.year,
+                    impression_date__month=current_month_minus_2.month,
+                ).count()
+            ),
+            date_filter(current_month_minus_1, "F") + (
+                ": <strong>%d</strong>" % obj.adimpression_set.filter(
+                    impression_date__year=current_month_minus_1.year,
+                    impression_date__month=current_month_minus_1.month,
+                ).count()
+            ),
+            date_filter(current_month, "F") + (
+                ": <strong>%d</strong>" % obj.adimpression_set.filter(
+                    impression_date__year=current_month.year,
+                    impression_date__month=current_month.month,
+                ).count()
+            )
+        ]
         return "<br />".join(impressions_by_month)
+
     get_impressions.short_description = _('Impressions')
     get_impressions.allow_tags = True
 
     def get_clicks(self, obj):
         current_month = date.today().replace(day=1)
         current_month_minus_1 = current_month - timedelta(days=1)
-        current_month_minus_2 = current_month_minus_1.replace(day=1) - timedelta(days=1)
-        clicks_by_month = []
-        clicks_by_month.append(date_filter(current_month_minus_2, "F") + (": <strong>%d</strong>" % obj.adclick_set.filter(
-            click_date__year=current_month_minus_2.year,
-            click_date__month=current_month_minus_2.month,
-        ).count()))
-        clicks_by_month.append(date_filter(current_month_minus_1, "F") + (": <strong>%d</strong>" % obj.adclick_set.filter(
-            click_date__year=current_month_minus_1.year,
-            click_date__month=current_month_minus_1.month,
-        ).count()))
-        clicks_by_month.append(date_filter(current_month, "F") + (": <strong>%d</strong>" % obj.adclick_set.filter(
-            click_date__year=current_month.year,
-            click_date__month=current_month.month,
-        ).count()))
+        current_month_minus_2 = current_month_minus_1.replace(
+            day=1
+        ) - timedelta(days=1)
+        clicks_by_month = [
+            date_filter(current_month_minus_2, "F") + (
+                ": <strong>%d</strong>" % obj.adclick_set.filter(
+                    click_date__year=current_month_minus_2.year,
+                    click_date__month=current_month_minus_2.month,
+                ).count()
+            ),
+            date_filter(current_month_minus_1, "F") + (
+                ": <strong>%d</strong>" % obj.adclick_set.filter(
+                    click_date__year=current_month_minus_1.year,
+                    click_date__month=current_month_minus_1.month,
+                ).count()
+            ),
+            date_filter(current_month, "F") + (
+                ": <strong>%d</strong>" % obj.adclick_set.filter(
+                    click_date__year=current_month.year,
+                    click_date__month=current_month.month,
+                ).count()
+            )
+        ]
         return "<br />".join(clicks_by_month)
+
     get_clicks.short_description = _('Clicks')
     get_clicks.allow_tags = True
+
 
 #class AdZoneListFilter(SimpleListFilter):
 #    title = _('zone')
@@ -110,17 +144,33 @@ class AdImpressionAdmin(ExtendedModelAdmin):
 class TextAdAdmin(AdBaseAdmin):
     search_fields = ['title', 'url', 'content']
     fieldsets = [
-        (_(u'Main data'), {'fields': ('title', 'url', 'content')}),
-        (_(u'Categories'), {'fields': ('language', 'advertiser', 'zone', 'category')}),
-        (_(u'Publishing'), {'fields': ('start_showing', 'stop_showing')}),
+        (_(u'Main data'), {
+            'fields': ('title', 'url', 'content')
+        }),
+        (
+            _(u'Categories'), {
+                'fields': ('language', 'advertiser', 'zone', 'category')
+            }
+        ),
+        (_(u'Publishing'), {
+            'fields': ('start_showing', 'stop_showing')
+        }),
     ]
 
 
 class BannerAdAdmin(AdBaseAdmin):
     fieldsets = [
-        (_(u'Main data'), {'fields': ('title', 'url', 'content')}),
-        (_(u'Categories'), {'fields': ('language', 'advertiser', 'zone', 'category')}),
-        (_(u'Publishing'), {'fields': ('start_showing', 'stop_showing')}),
+        (_(u'Main data'), {
+            'fields': ('title', 'url', 'content')
+        }),
+        (
+            _(u'Categories'), {
+                'fields': ('language', 'advertiser', 'zone', 'category')
+            }
+        ),
+        (_(u'Publishing'), {
+            'fields': ('start_showing', 'stop_showing')
+        }),
     ]
 
 

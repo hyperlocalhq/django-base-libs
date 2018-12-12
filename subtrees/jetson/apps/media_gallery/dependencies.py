@@ -5,8 +5,8 @@ required_apps = [
     "image_mods",
     "auth",
     "utils",
-    ]
+]
 optional_apps = [
     "comments",
     "favorites",
-    ]
+]

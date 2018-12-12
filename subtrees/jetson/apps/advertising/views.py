@@ -11,7 +11,7 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 
-from museumsportal.apps.advertising.models import AdBase, AdClick
+from jetson.apps.advertising.models import AdBase, AdClick
 
 
 def ad_view(request, id):

@@ -4,12 +4,17 @@
 # This script is licensed under the BSD Open Source Licence
 # Please see the text file LICENCE for more information
 # If this script is distributed, it must be accompanied by the Licence
-
+import sys
 import datetime
 
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils.translation import ugettext_lazy as _
+
+if "makemigrations" in sys.argv:
+    from django.utils.translation import ugettext_noop as _
+else:
+    from django.utils.translation import ugettext_lazy as _
+
 from django.conf import settings
 
 from base_libs.models.models import MultilingualCharField, MultilingualTextField
@@ -17,10 +22,9 @@ from base_libs.models.models import SysnameMixin
 from base_libs.models.models import UrlMixin
 from base_libs.models.models import CreationModificationMixin
 
-from museumsportal.apps.advertising.managers import AdManager
+from jetson.apps.advertising.managers import AdManager
 
 from filebrowser.fields import FileBrowseField
-
 
 # Use a datetime a few days before the max to that timezone changes don't
 # cause an OverflowError.
@@ -36,14 +40,15 @@ else:
 class Advertiser(models.Model):
     """ A Model for our Advertiser.  """
     company_name = models.CharField(
-        verbose_name=_(u'Company Name'), max_length=255)
+        verbose_name=_(u'Company Name'), max_length=255
+    )
     website = models.URLField(verbose_name=_(u'Company Site'), blank=True)
     user = models.ForeignKey(User, blank=True, null=True)
 
     class Meta:
         verbose_name = _(u'Ad Provider')
         verbose_name_plural = _(u'Advertisers')
-        ordering = ('company_name',)
+        ordering = ('company_name', )
 
     def __unicode__(self):
         return self.company_name
@@ -55,12 +60,14 @@ class Advertiser(models.Model):
 class AdCategory(SysnameMixin()):
     """ a Model to hold the different Categories for adverts """
     title = MultilingualCharField(verbose_name=_(u'Title'), max_length=255)
-    description = MultilingualTextField(verbose_name=_(u'Description'), blank=True)
+    description = MultilingualTextField(
+        verbose_name=_(u'Description'), blank=True
+    )
 
     class Meta:
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
-        ordering = ('title',)
+        ordering = ('title', )
 
     def __unicode__(self):
         return self.title
@@ -69,12 +76,14 @@ class AdCategory(SysnameMixin()):
 class AdZone(SysnameMixin()):
     """ a Model that describes the attributes and behaviours of ad zones """
     title = MultilingualCharField(verbose_name=_(u'Title'), max_length=255)
-    description = MultilingualTextField(verbose_name=_(u'Description'), blank=True)
+    description = MultilingualTextField(
+        verbose_name=_(u'Description'), blank=True
+    )
 
     class Meta:
         verbose_name = 'Zone'
         verbose_name_plural = 'Zones'
-        ordering = ('title',)
+        ordering = ('title', )
 
     def __unicode__(self):
         return self.title
@@ -88,16 +97,26 @@ class AdBase(CreationModificationMixin, UrlMixin):
     """
     title = models.CharField(verbose_name=_(u'Title'), max_length=255)
     url = models.URLField(verbose_name=_(u'Advertised URL'))
-    language = models.CharField(_("Language"), choices=settings.LANGUAGES, blank=True, default="", max_length=5)
+    language = models.CharField(
+        _("Language"),
+        choices=settings.LANGUAGES,
+        blank=True,
+        default="",
+        max_length=5
+    )
 
-    start_showing = models.DateTimeField(verbose_name=_(u'Start showing'),
-                                         default=now)
-    stop_showing = models.DateTimeField(verbose_name=_(u'Stop showing'),
-                                        default=MAX_DATETIME)
+    start_showing = models.DateTimeField(
+        verbose_name=_(u'Start showing'), default=now
+    )
+    stop_showing = models.DateTimeField(
+        verbose_name=_(u'Stop showing'), default=MAX_DATETIME
+    )
 
     # Relations
     advertiser = models.ForeignKey(Advertiser, verbose_name=_("Ad Provider"))
-    category = models.ForeignKey(AdCategory, verbose_name=_("Category"), blank=True, null=True)
+    category = models.ForeignKey(
+        AdCategory, verbose_name=_("Category"), blank=True, null=True
+    )
     zone = models.ForeignKey(AdZone, verbose_name=_("Zone"))
 
     # Our Custom Manager
@@ -120,9 +139,11 @@ class AdImpression(models.Model):
     The AdImpression Model will record every time the ad is loaded on a page
     """
     impression_date = models.DateTimeField(
-        verbose_name=_(u'When'), auto_now_add=True)
+        verbose_name=_(u'When'), auto_now_add=True
+    )
     source_ip = models.IPAddressField(
-        verbose_name=_(u'Who'), null=True, blank=True)
+        verbose_name=_(u'Who'), null=True, blank=True
+    )
     ad = models.ForeignKey(AdBase)
 
     class Meta:
@@ -135,9 +156,11 @@ class AdClick(models.Model):
     The AdClick model will record every click that a add gets
     """
     click_date = models.DateTimeField(
-        verbose_name=_(u'When'), auto_now_add=True)
+        verbose_name=_(u'When'), auto_now_add=True
+    )
     source_ip = models.IPAddressField(
-        verbose_name=_(u'Who'), null=True, blank=True)
+        verbose_name=_(u'Who'), null=True, blank=True
+    )
     ad = models.ForeignKey(AdBase)
 
     class Meta:
@@ -153,4 +176,9 @@ class TextAd(AdBase):
 
 class BannerAd(AdBase):
     """ A standard banner Ad """
-    content = FileBrowseField(_(u'Banner'), max_length=255, directory="advertising/", extensions=['.jpg', '.jpeg', '.gif', '.png'])
+    content = FileBrowseField(
+        _(u'Banner'),
+        max_length=255,
+        directory="advertising/",
+        extensions=['.jpg', '.jpeg', '.gif', '.png']
+    )
