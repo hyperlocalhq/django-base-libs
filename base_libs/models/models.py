@@ -847,7 +847,7 @@ def SlugMixin(
             _proposal = proposal
             if callable(_proposal):
                 _proposal = _proposal(self)
-            slug_proposal = getattr(self, name, _proposal)
+            slug_proposal = getattr(self, name, None) or _proposal
             if not slug_field.blank or slug_proposal:
                 if not slug_proposal or slug_field.default == slug_proposal:
                     slug_proposal = separator.join([
