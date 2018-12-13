@@ -19,6 +19,7 @@ SHELL=/usr/local/bin/bash
 50      02      *       *       *       /usr/local/www/apache24/data/creative-city-berlin.de/commands/import_jobs_from_gruenderszene.sh         && curl -fsS --retry 3 https://hc-ping.com/fe8f426d-53d3-4e91-bffe-c2a0a64d74a0 > /dev/null
 10      03      *       *       *       /usr/local/www/apache24/data/creative-city-berlin.de/commands/import_jobs_from_dasauge.sh               && curl -fsS --retry 3 https://hc-ping.com/d883a096-d0ae-446d-b899-503168945027 > /dev/null
 30      03      *       *       *       /usr/local/www/apache24/data/creative-city-berlin.de/commands/import_jobs_from_jobwrk.sh                && curl -fsS --retry 3 https://hc-ping.com/4270b34c-a6c1-432d-ace9-985ce547d92e > /dev/null
+50      03      *       *       *       /usr/local/www/apache24/data/creative-city-berlin.de/commands/import_jobs_from_games_career.sh
 00      05      *       *       *       /usr/local/www/apache24/data/creative-city-berlin.de/commands/rebuild_index.sh                          && curl -fsS --retry 3 https://hc-ping.com/3982e561-e8ec-41e1-8a87-6cd0216f8009 > /dev/null
 15      06      *       *       *       /usr/local/www/apache24/data/creative-city-berlin.de/commands/backup_postgres_db.sh                     && curl -fsS --retry 3 https://hc-ping.com/d137f0d5-1a8c-40ab-b69f-ea87a1cbc548 > /dev/null
 # weekly
