@@ -194,8 +194,9 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
         })
         if r.status_code != 200:
             self.all_feeds_alright = False
-            self.stderr.write(u"Error status: %s" % r.status_code)
-            return
+            error_message = u"Error status: %s" % r.status_code
+            self.stderr.write(error_message)
+            raise Exception(error_message)
 
         if self.verbosity >= self.NORMAL:
             self.stdout.write(u"=== Importing Productions ===\n")
@@ -204,8 +205,9 @@ class ImportFromHeimatBase(NoArgsCommand, ImportCommandMixin):
             root_node = ElementTree.fromstring(r.content)
         except ElementTree.ParseError as err:
             self.all_feeds_alright = False
-            self.stderr.write(u"Parsing error: %s" % unicode(err))
-            return
+            error_message = u"Parsing error: %s" % unicode(err)
+            self.stderr.write(error_message)
+            raise Exception(error_message)
 
         self.save_page(root_node)
 
