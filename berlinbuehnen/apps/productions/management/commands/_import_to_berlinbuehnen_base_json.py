@@ -21,14 +21,18 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
         r = requests_session.get(self.service.url, auth=self.AUTH)
         if r.status_code != requests.codes.ok:
             self.all_feeds_alright = False
-            self.stderr.write(u"Error status {} when trying to access {}\n".format(r.status_code, self.service.url))
-            return
+            error_message = u"Error status {} when trying to access {}\n".format(r.status_code, self.service.url)
+            self.stderr.write(error_message)
+            raise Exception(error_message)
+
         try:
             root_dict = r.json()
         except ValueError as err:
             self.all_feeds_alright = False
-            self.stderr.write(u"Parsing error: %s" % unicode(err))
-            return
+            error_message = u"Parsing error: %s" % unicode(err)
+            self.stderr.write(error_message)
+            raise Exception(error_message)
+
         next_page = root_dict.get('meta', {}).get('next', "")
         self._production_counter = 0
         self._total_production_count = root_dict.get('meta', {}).get('total_count', "")
@@ -41,14 +45,16 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
             r = requests_session.get(next_page, auth=self.AUTH)
             if r.status_code != requests.codes.ok:
                 self.all_feeds_alright = False
-                self.stderr.write(u"Error status {} when trying to access {}\n".format(r.status_code, next_page))
-                break  # we want to show summary even if at some point the import breaks
+                error_message = u"Error status {} when trying to access {}\n".format(r.status_code, next_page)
+                self.stderr.write(error_message)
+                raise Exception(error_message)
             try:
                 root_dict = r.json()
             except ValueError as err:
                 self.all_feeds_alright = False
-                self.stderr.write(u"Parsing error: %s" % unicode(err))
-                return
+                error_message = u"Parsing error: %s" % unicode(err)
+                self.stderr.write(error_message)
+                raise Exception(error_message)
             next_page = root_dict.get('meta', {}).get('next', "")
             productions = root_dict.get('productions', [])
             self.save_page(productions)

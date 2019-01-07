@@ -12,7 +12,7 @@ class Command(ImportToBerlinBuehnenBaseJSON):
         from django.apps import apps
         Service = apps.get_model("external_services", "Service")
 
-        URL = "http://gorki.de/de/gorki/export?token=DSIFHSDFIEWJSDF9734adadsd342342sdf23432esd9uejdvnpaodhefghdsnhdffgasncvqw3dsf3fsdf"
+        URL = "https://gorki.de/de/gorki/export?token=DSIFHSDFIEWJSDF9734adadsd342342sdf23432esd9uejdvnpaodhefghdsnhdffgasncvqw3dsf3fsdf"
         self.service, created = Service.objects.get_or_create(
             sysname="bb_gorki_theater_prods",
             defaults={

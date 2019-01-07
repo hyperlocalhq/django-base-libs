@@ -59,15 +59,17 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
         r = requests_session.get(self.service.url)
         if r.status_code != requests.codes.ok:
             self.all_feeds_alright = False
-            self.stderr.write(u"Error status {} when trying to access {}".format(r.status_code, self.service.url))
-            return
+            error_message = u"Error status {} when trying to access {}".format(r.status_code, self.service.url)
+            self.stderr.write(error_message)
+            raise Exception(error_message)
 
         try:
             root_node = ElementTree.fromstring(r.content)
         except ElementTree.ParseError as err:
             self.all_feeds_alright = False
-            self.stderr.write(u"Parsing error: %s" % unicode(err))
-            return
+            error_message = u"Parsing error: %s" % unicode(err)
+            self.stderr.write(error_message)
+            raise Exception(error_message)
 
         next_page = self.get_child_text(root_node.find("./meta"), "next")
         self._production_counter = 0
@@ -81,15 +83,17 @@ class ImportToBerlinBuehnenBaseXML(NoArgsCommand, ImportCommandMixin):
             r = requests_session.get(next_page)
             if r.status_code != requests.codes.ok:
                 self.all_feeds_alright = False
-                self.stderr.write(u"Error status {} when trying to access {}".format(r.status_code, next_page))
-                break # we want to show summary even if at some point the import breaks
+                error_message = u"Error status {} when trying to access {}".format(r.status_code, next_page)
+                self.stderr.write(error_message)
+                raise Exception(error_message)
 
             try:
                 root_node = ElementTree.fromstring(r.content)
             except ElementTree.ParseError as err:
                 self.all_feeds_alright = False
-                self.stderr.write(u"Parsing error: %s" % unicode(err))
-                return
+                error_message = u"Parsing error: %s" % unicode(err)
+                self.stderr.write(error_message)
+                raise Exception(error_message)
 
             next_page = self.get_child_text(root_node.find('./meta'), "next")
             productions_node = root_node.find('./productions')
