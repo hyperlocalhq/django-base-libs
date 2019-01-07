@@ -20,7 +20,7 @@
 {% block javascripts %}
     {{ block.super }}
     <script src="{% url 'jssettings' %}"></script>
-    <script src="{{ JETSON_MEDIA_URL }}js/legacy.js"></script>
+    <script src="{% url 'jetson_media_url' path='js/legacy.js' %}"></script>
 {% endblock %}
 
 {% block userlinks %}
