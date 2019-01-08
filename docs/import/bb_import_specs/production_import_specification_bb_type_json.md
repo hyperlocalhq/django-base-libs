@@ -728,7 +728,7 @@ The `"images"` object contains a list of `image` objects with such content:
 |------|------|----------|-------------|---------|
 | `"creation_date"`| string | yes | Creation timestamp in ISO 8601 format | "2016-04-14T16:27:38" |
 | `"modified_date"` | string | no | Modification timestamp in ISO 8601 format | "2016-04-14T16:27:38" |
-| `"url"` | URL | yes | URL of the original (large-scale) image | |
+| `"url"` | URL | yes | URL of the original (large-scale) image. Must end with the file extension ".jpg" or ".png" | |
 | `"title_de"` | string | yes | Title in German | |
 | `"title_en"` | string | yes | Title in English | |
 | `"description_de"` | string | no | Plain-text description in German | |
@@ -744,7 +744,7 @@ The `"pdfs"` object contains a list of `pdf` objects with such content:
 |------|------|----------|-------------|---------|
 | `"creation_date"`| string | yes | Creation timestamp in ISO 8601 format | "2016-04-14T16:27:38" |
 | `"modified_date"` | string | no | Modification timestamp in ISO 8601 format | "2016-04-14T16:27:38" |
-| `"url"` | URL | yes | URL of the PDF document | |
+| `"url"` | URL | yes | URL of the PDF document. Must end with the file extension ".pdf" | |
 | `"title_de"` | string | yes | Title in German | |
 | `"title_en"` | string | yes | Title in English | |
 | `"description_de"` | string | no | Plain-text description in German | |
@@ -864,7 +864,7 @@ The `"sponsors"` object contains a list of `sponsor` objects with such content:
 | `"creation_date"`| string | yes | Creation timestamp in ISO 8601 format | "2016-04-14T16:27:38" |
 | `"modified_date"` | string | no | Modification timestamp in ISO 8601 format | "2016-04-14T16:27:38" |
 | `"website"` | URL | no | URL of the sponsor website | "http://example.com/sponsor/" |
-| `"image_url"` | URL | no | URL of the sponsor logo in JPG or PNG format | "http://example.com/media/sponsor-logo.png" |
+| `"image_url"` | URL | no | URL of the sponsor logo in JPG or PNG format. Must end with the file extension ".jpg" or ".png" | "http://example.com/media/sponsor-logo.png" |
 | `"title_de"` | string | no | Title in German | &nbsp; |
 | `"title_en"` | string | no | Title in English | &nbsp; |
 

@@ -732,7 +732,7 @@ The `<images>` node contains a list of `<image>` nodes with such content:
 |------|------|----------|-------------|---------|
 | `<creation_date>`| xs:string | yes | Creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
 | `<modified_date>` | xs:string | no | Modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
-| `<url>` | xs:anyURI | yes | URL of the original (large-scale) image | |
+| `<url>` | xs:anyURI | yes | URL of the original (large-scale) image. Must end with the file extension ".jpg" or ".png" | |
 | `<title_de>` | xs:string | yes | Title in German | |
 | `<title_en>` | xs:string | yes | Title in English | |
 | `<description_de>` | xs:string | no | Plain-text description in German | |
@@ -748,7 +748,7 @@ The `<pdfs>` node contains a list of `<pdf>` nodes with such content:
 |------|------|----------|-------------|---------|
 | `<creation_date>`| xs:string | yes | Creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
 | `<modified_date>` | xs:string | no | Modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
-| `<url>` | xs:anyURI | yes | URL of the PDF document | |
+| `<url>` | xs:anyURI | yes | URL of the PDF document. Must end with the file extension ".png" | |
 | `<title_de>` | xs:string | yes | Title in German | |
 | `<title_en>` | xs:string | yes | Title in English | |
 | `<description_de>` | xs:string | no | Plain-text description in German | |
@@ -870,7 +870,7 @@ The `<sponsors>` node contains a list of `<sponsor>` nodes with such content:
 | `<creation_date>`| xs:string | yes | Creation timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
 | `<modified_date>` | xs:string | no | Modification timestamp in ISO 8601 format | 2016-04-14T16:27:38 |
 | `<website>` | xs:anyURI | no | URL of the sponsor website | http://example.com/sponsor/ |
-| `<image_url>` | xs:anyURI | no | URL of the sponsor logo in JPG or PNG format | http://example.com/media/sponsor-logo.png |
+| `<image_url>` | xs:anyURI | no | URL of the sponsor logo in JPG or PNG format. Must end with the file extension ".jpg" or ".png" | http://example.com/media/sponsor-logo.png |
 | `<title_de>` | xs:string | no | Title in German | &nbsp; |
 | `<title_en>` | xs:string | no | Title in English | &nbsp; |
 
