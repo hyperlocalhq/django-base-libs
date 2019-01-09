@@ -82,7 +82,7 @@ class BlogPostForm(dynamicforms.Form):
     #     )
 
     def __init__(self, *args, **kwargs):
-        self.fields['image'].help_text = _(
+        self.declared_fields['image'].help_text = _(
             "You can upload GIF, JPG, and PNG images. The minimal dimensions are %s px.") % STR_MIN_LOGO_SIZE
         self.helper = FormHelper()
         self.helper.form_tag = False
