@@ -18,7 +18,7 @@ from base_libs.forms.fields import AutocompleteModelChoiceField
 
 import filebrowser.settings as filebrowser_settings
 URL_FILEBROWSER_MEDIA = getattr(
-    filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/'
+    filebrowser_settings, "FILEBROWSER_DIRECTORY", 'filebrowser/'
 )
 Address = models.get_model("location", "Address")
 Locality = models.get_model("location", "Locality")

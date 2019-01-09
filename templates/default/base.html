@@ -1,5 +1,5 @@
 {% block doctype %}<!DOCTYPE html>{% endblock %}
-{% load i18n base_tags navigation_tags %}
+{% load i18n base_tags navigation_tags staticfiles %}
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ LANGUAGE_CODE }}" lang="{{ LANGUAGE_CODE }}">
 <head>
     {% block head %}
@@ -11,7 +11,7 @@
 
             {% block stylesheet %}
                 <link href="{{ JETSON_MEDIA_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-                <link rel="stylesheet" type="text/css" media="screen" href="{{ css_url }}base.css"/>
+                <link rel="stylesheet" type="text/css" media="screen" href="{% static 'site/css/base.css' %}"/>
             {% endblock %}
             {% if "Safari"|in_list:request.META.HTTP_USER_AGENT %}
                 <link rel="stylesheet"
@@ -23,7 +23,8 @@
             <link rel="stylesheet" type="text/css" media="print" href="{{ STATIC_URL }}site/css/website/print.css"/>
 
             <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-            <script type="text/javascript" src="/jssettings/"></script>
+            <script type="text/javascript" src="{% url 'jssettings' %}"></script>
+            <script src="{{ JETSON_MEDIA_URL }}js/legacy.js"></script>
             <script type="text/javascript" src="/jsi18n/"></script>
         {% endblock %}
 

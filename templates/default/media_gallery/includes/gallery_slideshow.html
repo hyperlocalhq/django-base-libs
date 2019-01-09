@@ -62,7 +62,7 @@
                     {% if f.get_recroppable_thumbnail_path %}
                         <a href="{% cropping_url f.get_recroppable_thumbnail_path "gt" request request.path %}"
                            class="recrop_link">
-                            <img src="{{ jetson_media_url }}Jcrop/img/crop.png" alt="{% trans "Adjust image" %}"/>
+                            <img src="{{ JETSON_MEDIA_URL }}Jcrop/img/crop.png" alt="{% trans "Adjust image" %}"/>
                         </a>
                     {% endif %}
                 {% end_if_has_perm %}

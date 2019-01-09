@@ -11,7 +11,7 @@
         }
         return meta;
     }
-    var active_language = window.settings.lang;
+    var active_language = window.settings.LANGUAGE_CODE;
     var all_languages = [];
 
     $(document).ready(function() {
@@ -29,7 +29,7 @@
             
             var $langLinks = $('<ul class="multilingual-langs"></ul>');
             for (var i in langs) {
-                 var $link = $('<a href="#" class="switch-lang lang-' + langs[i] + '" title="' + window.settings.languages[langs[i]] + '"><span>' + langs[i] + '</span></a> ');
+                 var $link = $('<a href="#" class="switch-lang lang-' + langs[i] + '" title="' + window.settings.LANGUAGES[langs[i]] + '"><span>' + langs[i] + '</span></a> ');
                  $link.data('lang',langs[i]);
                  $link.data('set_hash',set_hash);
                  $link.data('fieldset', this);
@@ -44,7 +44,7 @@
             if ($(this).siblings('fieldset.multilingual-set-' + $(this).data('set_hash')).length == 0) return;
             if (!$(this).is('.closed')) {
                 $('a.switch-lang.lang-' + $(this).meta('multilingual-language')[0] + ':first', this).trigger('click');
-            } else if (!$(this).parent().find('fieldset.multilingual-set-' + $(this).data('set_hash')).not('.closed').length && $(this).meta('multilingual-language')[0] != window.settings.lang) {
+            } else if (!$(this).parent().find('fieldset.multilingual-set-' + $(this).data('set_hash')).not('.closed').length && $(this).meta('multilingual-language')[0] != window.settings.LANGUAGE_CODE) {
                 $(this).hide();
             }
         });
@@ -78,7 +78,7 @@
             }
             var $lang_tabs = $('<div id="page_form_lang_tabs"></div>');
             $(all_languages).each(function() {
-                $('<input type="button" class="language_button' + (active_language == this? " selected": "")  + '" name="' + this + '" value="' + window.settings.languages[this] + '" />').appendTo($lang_tabs).click(activate_language);
+                $('<input type="button" class="language_button' + (active_language == this? " selected": "")  + '" name="' + this + '" value="' + window.settings.LANGUAGES[this] + '" />').appendTo($lang_tabs).click(activate_language);
             });
             $('#grp-content-container').before($lang_tabs).before('<div id="lang_tab_content"><h2 class="header"></h2></div>');
             

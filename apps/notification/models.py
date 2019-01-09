@@ -27,6 +27,7 @@ from django.apps import apps
 
 from base_libs.middleware import get_current_language
 from base_libs.utils.misc import html_to_plain_text
+from base_libs.utils.misc import get_installed
 from base_libs.models.models import UrlMixin
 from base_libs.models.models import SysnameMixin
 from base_libs.models.models import CreationDateMixin
@@ -37,7 +38,10 @@ from base_libs.models.fields import PlainTextModelField  # for south to work
 
 from jetson.apps.people.functions import get_user_language
 
-EmailTemplate = apps.get_model("mailing", "EmailTemplate")
+# The following won't work, because apps are not yet loaded to the registry at this point:
+# EmailTemplate = apps.get_model("mailing", "EmailTemplate")
+# so we are retrieving the EmailTemplate by the get_installed() function.
+EmailTemplate = get_installed("mailing.models.EmailTemplate")
 
 verbose_name = _("Notification")
 

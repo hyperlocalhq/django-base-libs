@@ -13,7 +13,7 @@ from django.contrib import messages
 
 import filebrowser.settings as filebrowser_settings
 URL_FILEBROWSER_MEDIA = getattr(
-    filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/'
+    filebrowser_settings, "FILEBROWSER_DIRECTORY", 'filebrowser/'
 )
 from base_libs.models.admin import get_admin_lang_section
 from base_libs.admin import ExtendedModelAdmin

@@ -18,7 +18,7 @@ from base_libs.admin import ExtendedStackedInline
 
 import filebrowser.settings as filebrowser_settings
 URL_FILEBROWSER_MEDIA = getattr(
-    filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/'
+    filebrowser_settings, "FILEBROWSER_DIRECTORY", 'filebrowser/'
 )
 MediaGallery = models.get_model("media_gallery", "MediaGallery")
 MediaFile = models.get_model("media_gallery", "MediaFile")

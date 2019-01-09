@@ -10,7 +10,7 @@ from base_libs.admin.tree_editor import TreeEditor
 import filebrowser.settings as filebrowser_settings
 
 URL_FILEBROWSER_MEDIA = getattr(
-    filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/'
+    filebrowser_settings, "FILEBROWSER_DIRECTORY", 'filebrowser/'
 )
 from jetson.apps.structure.models import Vocabulary
 from jetson.apps.structure.models import Term
