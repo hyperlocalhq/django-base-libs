@@ -33,7 +33,7 @@ COMMANDS=(
 #    "import_from_NON_EXISTING_SOURCE:Importing from Non-existing Source (should trigger error)"
     "import_from_schaubuehne:Importing from Schaubuehne"
     "import_from_schlosspark_theater_new:Importing from Schlosspark Theater (New)"
-    "import_from_sophiensaele:Importing from Sophiensaele"
+    "import_from_sophiensaele_new:Importing from Sophiensaele"
     "import_from_staatsballet_berlin:Importing from Staatsballet Berlin"
     "import_from_staatsoper_berlin:Importing from Staatsoper Berlin (New)"
     "import_from_volksbuehne:Importing from Volksbühne (New)"
