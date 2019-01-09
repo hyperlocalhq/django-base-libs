@@ -60,11 +60,12 @@
 
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/jquery.ba-hashchange.min.js"></script>
-        <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/jquery.cookie.js"></script>
-        <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/jquery.popup.js"></script>
-        <script type="text/javascript" src="{{ jetson_media_url }}js/jquery/uni-form.jquery.min.js"></script>
-        <script type="text/javascript" src="/{{ LANGUAGE_CODE }}/jssettings/"></script>
+        <script type="text/javascript" src="{{ JETSON_MEDIA_URL }}js/jquery/jquery.ba-hashchange.min.js"></script>
+        <script type="text/javascript" src="{{ JETSON_MEDIA_URL }}js/jquery/jquery.cookie.js"></script>
+        <script type="text/javascript" src="{{ JETSON_MEDIA_URL }}js/jquery/jquery.popup.js"></script>
+        <script type="text/javascript" src="{{ JETSON_MEDIA_URL }}js/jquery/uni-form.jquery.min.js"></script>
+        <script type="text/javascript" src="{% url 'jssettings' %}"></script>
+        <script type="text/javascript" src="{% url 'jetson_media_url' path='js/legacy.js' %}"></script>
         <script type="text/javascript" src="/{{ LANGUAGE_CODE }}/jsi18n/"></script>
         <script type="text/javascript">
             (function ($, undefined) {
@@ -276,7 +277,7 @@
             (function ($, undefined) {
                 $(document).ready(function () {
                     $('a[href^="http"]').each(function () {
-                        if ($(this).attr("href").indexOf(settings.website_url) == -1) {
+                        if ($(this).attr("href").indexOf(settings.WEBSITE_URL) == -1) {
                             if (!$(this).attr('target')) {
                                 $(this).attr('target', '_blank');
                             }

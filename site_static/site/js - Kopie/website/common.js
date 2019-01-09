@@ -46,16 +46,16 @@
             var oSelf = self.ActivityManager;
             if ($("#dyn_profiles").children("li").length > 2) {
                 var aSelectors = [
-                    ".navi_add_portfolio_image_" + window.settings.lang + " a",
-                    ".navi_add_new_project_" + window.settings.lang + " a",
-                    ".navi_add_profile_image_" + window.settings.lang + " a",
-                    ".navi_add_blog_entry_" + window.settings.lang + " a"
+                    ".navi_add_portfolio_image_" + window.settings.LANGUAGE_CODE + " a",
+                    ".navi_add_new_project_" + window.settings.LANGUAGE_CODE + " a",
+                    ".navi_add_profile_image_" + window.settings.LANGUAGE_CODE + " a",
+                    ".navi_add_blog_entry_" + window.settings.LANGUAGE_CODE + " a"
                 ];
                 $(aSelectors.join(",")).click(oSelf.choose_profile);
             }
             var aSelectors = [
-                "li.navi_delete_event_" + window.settings.lang + " a",
-                "li.navi_delete_job_offer_" + window.settings.lang + " a"
+                "li.navi_delete_event_" + window.settings.LANGUAGE_CODE + " a",
+                "li.navi_delete_job_offer_" + window.settings.LANGUAGE_CODE + " a"
             ];
             $(aSelectors.join(",")).click(oSelf.delete_object);
         },
@@ -118,7 +118,7 @@
     self.AboutManager = {
         init: function() {
             var oSelf = self.AboutManager;
-            $("li.navi_about_" + window.settings.lang + " a").click(oSelf.show_info);
+            $("li.navi_about_" + window.settings.LANGUAGE_CODE + " a").click(oSelf.show_info);
         },
         show_info: function() {
             var oSelf = self.AboutManager;
@@ -350,7 +350,7 @@
                 "#dyn_rotating_banner .hidable p:has(a)"
             ).addClass("rotating_unit");
             $("#dyn_rotating_banner .hidable a").click(function(e) {
-                location.href = "/" + window.settings.lang + "/partner/";
+                location.href = "/" + window.settings.LANGUAGE_CODE + "/partner/";
                 return false;
                 /*
                 if (self.open_new_window) {

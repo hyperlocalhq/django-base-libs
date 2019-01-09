@@ -114,6 +114,7 @@
         <script type="text/javascript" src="{{ STATIC_URL }}site/js/form.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}site/js/base.js"></script>
         <script type="text/javascript" src="{% url 'jssettings' %}"></script>
+        <script type="text/javascript" src="{% url 'jetson_media_url' path='js/legacy.js' %}"></script>
 
         {{ site_settings.extra_head|safe }}
         {% block extrahead %}

@@ -35,7 +35,7 @@ $(function() {
         var $oldWidget = $(this);
         var content_type_id = $oldWidget.data('content_type_id');
         var object_id = $oldWidget.data('object_id');
-        var url = '/' + settings.lang + '/helper/user-curated-lists/?content_type_id=' + content_type_id + '&object_id=' + object_id;
+        var url = '/' + settings.LANGUAGE_CODE + '/helper/user-curated-lists/?content_type_id=' + content_type_id + '&object_id=' + object_id;
 
         $.get(url, function(data) {
             /*
@@ -123,7 +123,7 @@ $(function() {
                 if (deletedChoice.toString()) {
                     curated_list_token = deletedChoice.toString();
                     $.post(
-                        '/' + settings.lang + '/helper/user-curated-lists/remove-item/',
+                        '/' + settings.LANGUAGE_CODE + '/helper/user-curated-lists/remove-item/',
                         {
                             curated_list_token: curated_list_token,
                             item_content_type_id: content_type_id,
@@ -146,7 +146,7 @@ $(function() {
 
                             if (curated_list_title) {
                                 $.post(
-                                    '/' + settings.lang + '/helper/user-curated-lists/add-item-to-new/',
+                                    '/' + settings.LANGUAGE_CODE + '/helper/user-curated-lists/add-item-to-new/',
                                     {
                                         owner_app_model: owner_app_model_pk[0] + '.' + owner_app_model_pk[1],
                                         owner_pk: owner_app_model_pk[2],
@@ -170,7 +170,7 @@ $(function() {
 
                     } else {
                         $.post(
-                            '/' + settings.lang + '/helper/user-curated-lists/add-item-to-existing/',
+                            '/' + settings.LANGUAGE_CODE + '/helper/user-curated-lists/add-item-to-existing/',
                             {
                                 curated_list_token: curated_list_token,
                                 item_content_type_id: content_type_id,

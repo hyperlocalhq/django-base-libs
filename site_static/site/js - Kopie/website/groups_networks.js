@@ -20,7 +20,7 @@ self.GroupMembershipManager = {
         oSelf.sContextItemType = aUrlBits[0];
         if ("group" == oSelf.sContextItemType) {
             oSelf.sSlug = aUrlBits[1];
-            var sLang = window.settings.lang;
+            var sLang = window.settings.LANGUAGE_CODE;
             $j(
                 "#featured_join_group,#activity_" + sLang + " .navi_join-this-group_" + sLang
             ).click(function(){
@@ -175,7 +175,7 @@ self.GroupMembershipManager = {
     },
     updatePage: function() {
         var oSelf = self.GroupMembershipManager;
-        var sLang = window.settings.lang;
+        var sLang = window.settings.LANGUAGE_CODE;
         $j("#activity_" + sLang).load(
             document.location.pathname + " #activity_" + sLang,
             oSelf.init

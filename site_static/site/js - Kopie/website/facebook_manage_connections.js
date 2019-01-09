@@ -89,7 +89,7 @@
     $('.facebook_connect_page').live("click", function() {
         var $oForm = $(this).parents('form');
         var $oFormContainer = $oForm.parent();
-        $oFormContainer.load("/" + settings.lang + "/facebook/pages/ #" + $oFormContainer.attr("id") + ">*", {
+        $oFormContainer.load("/" + settings.LANGUAGE_CODE + "/facebook/pages/ #" + $oFormContainer.attr("id") + ">*", {
             institution: $oForm.find('[name=institution]').val(),
             page: $oForm.find('[name=page]').val(),
             a: "connect"
@@ -112,7 +112,7 @@
             gettext("Yes").toUpperCase()
         ).click(function() {
             close_popup();
-            $oFormContainer.load("/" + settings.lang + "/facebook/pages/ #" + $oFormContainer.attr("id") + ">*", {
+            $oFormContainer.load("/" + settings.LANGUAGE_CODE + "/facebook/pages/ #" + $oFormContainer.attr("id") + ">*", {
                 institution: $oForm.find('[name=institution]').val(),
                 a: "disconnect"
             });
@@ -140,7 +140,7 @@
         if ($("#dyn_profiles").children("li").length > 2) {
             $('#manage_pages').html(
                 '<div style="text-align:center"><img alt="" src="' + settings.STATIC_URL + 'site/img/website/indicator.gif" /></div>'
-            ).load("/" + settings.lang + "/facebook/pages/ #content>*");
+            ).load("/" + settings.LANGUAGE_CODE + "/facebook/pages/ #content>*");
         }
     }
     

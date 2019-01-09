@@ -24,7 +24,7 @@
     $('.facebook_connect_page').live("click", function() {
         var $oForm = $(this).parents('form');
         var $oFormContainer = $oForm.parent();
-        $oFormContainer.load("/" + settings.lang + "/facebook/pages/ #" + $oFormContainer.attr("id") + ">*", {
+        $oFormContainer.load("/" + settings.LANGUAGE_CODE + "/facebook/pages/ #" + $oFormContainer.attr("id") + ">*", {
             institution: $oForm.find('[name=institution]').val(),
             page: $oForm.find('[name=page]').val(),
             action: "connect"
@@ -47,7 +47,7 @@
             gettext("Yes").toUpperCase()
         ).click(function() {
             close_popup();
-            $oFormContainer.load("/" + settings.lang + "/facebook/pages/ #" + $oFormContainer.attr("id") + ">*", {
+            $oFormContainer.load("/" + settings.LANGUAGE_CODE + "/facebook/pages/ #" + $oFormContainer.attr("id") + ">*", {
                 institution: $oForm.find('[name=institution]').val(),
                 action: "disconnect"
             });

@@ -5,13 +5,13 @@
     {{ block.super }}
     <link rel="alternate" type="application/rss+xml"
         title="{% blocktrans with object.get_title as person_title %}RSS Feed of Events by {{ person_title }}{% endblocktrans %}"
-        href="{{ website_url|slice:"0:-1" }}{{ request.path }}feed/rss/{{ LANGUAGE_CODE }}/
+        href="{{ WEBSITE_URL|slice:"0:-1" }}{{ request.path }}feed/rss/{{ LANGUAGE_CODE }}/
 
 
             {% filter force_escape %}{% append_to_get page=0,paginate_by=0,sort_by=0,view_type=0 no_path %}{% endfilter %}">
     <link rel="alternate" type="application/atom+xml"
         title="{% blocktrans with object.get_title as person_title %}Atom Feed of Events by {{ person_title }}{% endblocktrans %}"
-        href="{{ website_url|slice:"0:-1" }}{{ request.path }}feed/atom/{{ LANGUAGE_CODE }}/
+        href="{{ WEBSITE_URL|slice:"0:-1" }}{{ request.path }}feed/atom/{{ LANGUAGE_CODE }}/
 
 
             {% filter force_escape %}{% append_to_get page=0,paginate_by=0,sort_by=0,view_type=0 no_path %}{% endfilter %}">

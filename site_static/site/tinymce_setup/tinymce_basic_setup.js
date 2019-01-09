@@ -61,7 +61,7 @@ oTinyMCEConfig = {
 
 oTinyMCEConfig.mode = 'none';
 oTinyMCEConfig.theme_advanced_styles = "[all] clearfix=clearfix;[img] Image left-aligned=img_left;[img] Image left-aligned (no top space)=img_left_nospacetop;[img] Image right-aligned=img_right;[img] Image right-aligned (no top space)=img_right_nospacetop;[img] Image Block=img_block";
-oTinyMCEConfig.language = window.settings.lang;
+oTinyMCEConfig.language = window.settings.LANGUAGE_CODE;
 oTinyMCEConfig.object_resizing = true;
 oTinyMCEConfig.cleanup_on_startup = true;
 oTinyMCEConfig.forced_root_block = "p";

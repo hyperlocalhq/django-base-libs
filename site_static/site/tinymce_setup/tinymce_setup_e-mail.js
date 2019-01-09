@@ -8,7 +8,7 @@ oTinyMCEConfig.content_css = window.settings.STATIC_URL + "site/css/screen/tinym
 oTinyMCEConfig.remove_script_host = false;
 oTinyMCEConfig.convert_urls = true;
 oTinyMCEConfig.relative_urls = false;
-oTinyMCEConfig.document_base_url = settings.website_url;
+oTinyMCEConfig.document_base_url = settings.WEBSITE_URL;
 
 oTinyMCEConfig.template_templates = [
     {

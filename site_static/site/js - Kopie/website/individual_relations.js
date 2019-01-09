@@ -22,7 +22,7 @@ self.IndividualRelationManager = {
         oSelf.sContextItemType = aUrlBits[0];
         if ("person" == oSelf.sContextItemType) {
             oSelf.sUsername = aUrlBits[1];
-            var sLang = window.settings.lang;
+            var sLang = window.settings.LANGUAGE_CODE;
             $j(
                 "#activity_" + sLang + " .navi_add-to-contacts_" + sLang
             ).click(function(){
@@ -179,7 +179,7 @@ self.IndividualRelationManager = {
     },
     updatePage: function() {
         var oSelf = self.IndividualRelationManager;
-        var sLang = window.settings.lang;
+        var sLang = window.settings.LANGUAGE_CODE;
         $j("#activity_" + sLang).load(
             document.location.pathname + " #activity_" + sLang,
             oSelf.init

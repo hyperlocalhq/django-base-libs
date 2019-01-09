@@ -2,7 +2,7 @@
 {% load i18n base_tags cms_tags auth_extended navigation_tags uni_form_tags infoblocks site_specific bulletin_board_tags %}
 
 {% block extrahead %}
-    <link rel="alternate" type="application/rss+xml" title="Projektboerse RSS" href="{{ website_url|slice:":-1" }}{% url "bulletin_rss" %}{% filter force_escape %}{% append_to_get sort_by="" no_path %}{% endfilter %}" />
+    <link rel="alternate" type="application/rss+xml" title="Projektboerse RSS" href="{{ WEBSITE_URL|slice:":-1" }}{% url "bulletin_rss" %}{% filter force_escape %}{% append_to_get sort_by="" no_path %}{% endfilter %}" />
 {% endblock %}
 
 {% block title %}Meine Inserate{% endblock %}

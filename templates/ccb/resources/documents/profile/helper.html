@@ -10,7 +10,7 @@
             //if (!(domain_bits.length==4 && !isNaN(domain_bits[3]))) {
             //    document.domain = domain_bits.slice(-2).join(".");
             //}
-            //"{{ cookie_domain }}";
+            //"{{ COOKIE_DOMAIN }}";
             window.onload = function () {
                 if (window != parent) {
                     parent.ProfileManager.section_loaded(document.body.innerHTML{% if not form %}, true{% endif %});

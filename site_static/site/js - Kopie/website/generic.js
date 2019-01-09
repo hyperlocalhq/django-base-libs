@@ -12,7 +12,7 @@
             var aUrlBits = window.website.path.substr(1).split("/");
             // person|institution|event|document|group
             oSelf.sContextItemType = aUrlBits[0];
-            var sLang = window.settings.lang;
+            var sLang = window.settings.LANGUAGE_CODE;
             if (settings.URL_ID_INSTITUTION == oSelf.sContextItemType) {
                 oSelf.sSlug = aUrlBits[1];
                 $(
@@ -23,7 +23,7 @@
                 });
             } else if (settings.URL_ID_DOCUMENT == oSelf.sContextItemType) {
                 oSelf.sSlug = aUrlBits[1];
-                var sLang = window.settings.lang;
+                var sLang = window.settings.LANGUAGE_CODE;
                 $(
                     "#activity_" + sLang + " .navi_add-document-to-favorites_" + sLang + ",#activity_" + sLang + " .navi_remove-document-from-favorites_" + sLang
                 ).click(function() {
@@ -69,7 +69,7 @@
                 }
             }
             $oEl.removeClass("progress").css({cursor: "pointer"});
-            var sLang = window.settings.lang;
+            var sLang = window.settings.LANGUAGE_CODE;
             $("#activity_" + sLang).load(
                 location.pathname + " #activity_" + sLang,
                 oSelf.init
