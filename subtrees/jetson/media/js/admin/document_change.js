@@ -17,7 +17,7 @@ var InstitutionLookupManager = {
                 id: sHiddenId,
                 name: oOld.attr("name")
             }).val(sVal).change(oOld[0].onchange)
-        ).autocomplete("/" + window.settings.lang + "/helper/institution_lookup/", {
+        ).autocomplete("/" + window.settings.LANGUAGE_CODE + "/helper/institution_lookup/", {
             onItemSelect: new Function(
                 "oEl",
                 "InstitutionLookupManager.onItemSelect('"+sHiddenId+"', oEl)"

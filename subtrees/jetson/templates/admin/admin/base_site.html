@@ -19,7 +19,8 @@
 
 {% block javascripts %}
     {{ block.super }}
-    <script type="text/javascript" src="{% url 'jssettings' %}"></script>
+    <script src="{% url 'jssettings' %}"></script>
+    <script src="{% url 'jetson_media_url' path='js/legacy.js' %}"></script>
 {% endblock %}
 
 {% block userlinks %}

@@ -38,6 +38,26 @@ class Service(SysnameMixin()):
     def __unicode__(self):
         return force_unicode(self.title)
 
+    def delete_all_related_objects(self, verbose=False):
+        total = self.objectmapper_set.count()
+
+        for mapper in self.objectmapper_set.all():
+            if verbose:
+                print("- Deleting {} with external ID {}...".format(mapper.content_type, mapper.external_id))
+            if mapper.content_object:
+                if verbose:
+                    print("  Related object: {}\n".format(mapper.content_object))
+                mapper.content_object.delete()
+            else:
+                if verbose:
+                    print("  Related object doesn't exist anymore\n")
+
+            mapper.delete()
+
+        if verbose:
+            print("------------------------------------------------")
+            print("{} mappers with their mapping objects deleted".format(total))
+
 
 class ObjectMapper(ObjectRelationMixin(is_required=True)):
     service = models.ForeignKey(Service, verbose_name=_("Service"))

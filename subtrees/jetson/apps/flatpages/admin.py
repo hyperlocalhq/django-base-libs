@@ -10,7 +10,7 @@ from base_libs.models.admin import PublishingMixinAdminOptions
 
 import filebrowser.settings as filebrowser_settings
 URL_FILEBROWSER_MEDIA = getattr(
-    filebrowser_settings, "FILEBROWSER_DIRECTORY", 'uploads/'
+    filebrowser_settings, "FILEBROWSER_DIRECTORY", 'filebrowser/'
 )
 
 FlatPage = models.get_model("flatpages", "FlatPage")

@@ -1,46 +1,61 @@
 # -*- coding: UTF-8 -*-
-import re
-
 from django.contrib.sites.models import Site
 from django.contrib.contenttypes.models import ContentType
 from django.conf import settings
-from django.db import models
+from django.utils.safestring import mark_safe
+from django.apps import apps
+from django.utils.six import string_types
 
 from filebrowser.settings import MEDIA_URL as UPLOADS_URL
 
 from base_libs.utils.misc import get_website_url
 from base_libs.utils.misc import get_website_ssl_url
-from base_libs.models.base_libs_settings import JQUERY_URL
-from base_libs.models.base_libs_settings import JQUERY_UI_URL
 
 from jetson.apps.httpstate import settings as httpstate_settings
 
 
 def general(request=None):
-    cookie_domain = getattr(httpstate_settings, "HTTPSTATE_COOKIE_DOMAIN",
-                            "") or Site.objects.get_current().domain
+    import json
+
+    cookie_domain = getattr(
+        httpstate_settings,
+        "HTTPSTATE_COOKIE_DOMAIN",
+        "",
+    ) or Site.objects.get_current().domain
+
     if cookie_domain.startswith("."):
         cookie_domain = cookie_domain[1:]
+
     d = {
+        # SOLID
+        'UPLOADS_URL': UPLOADS_URL,
+        'JETSON_MEDIA_URL': settings.JETSON_MEDIA_URL,
+        'GOOGLE_API_KEY': getattr(settings, "GOOGLE_API_KEY", ""),
+
+        # NEW
+        'MEDIA_URL': settings.MEDIA_URL,
+        'MEDIA_HOST': getattr(settings, "MEDIA_HOST", ""),
+        'COOKIE_DOMAIN': cookie_domain,
+        'HTTPS': getattr(settings, "HTTPS_PROTOCOL", "https"),
+        'WEBSITE_URL': get_website_url(),
+        'WEBSITE_SSL_URL': get_website_ssl_url(),
+        'LANGUAGES': settings.LANGUAGES,
+        'LANGUAGES_JSON': mark_safe(json.dumps(dict(settings.LANGUAGES))),
+
+        # DEPRECATED
+        'LOGO_PREVIEW_SIZE': getattr(settings, "LOGO_PREVIEW_SIZE", None),
+        # TODO: the LOGO_PREVIEW_SIZE setting requires more thorough refactoring of CCB-related jetson code
         'media_url': settings.MEDIA_URL,
         'media_host': getattr(settings, "MEDIA_HOST", ""),
         'jetson_media_url': settings.JETSON_MEDIA_URL,
-        'JETSON_MEDIA_URL': settings.JETSON_MEDIA_URL,
         'cookie_domain': cookie_domain,
         'css_url': getattr(settings, "CSS_URL", ""),
         'img_url': getattr(settings, "IMG_URL", ""),
         'https': getattr(settings, "HTTPS_PROTOCOL", "https"),
         'website_url': get_website_url(),
         'website_ssl_url': get_website_ssl_url(),
-        'UPLOADS_URL': UPLOADS_URL,
-        'JQUERY_URL': JQUERY_URL,
-        'JQUERY_UI_URL': JQUERY_UI_URL,
-        'languages': settings.LANGUAGES,
-        'GOOGLE_API_KEY': getattr(settings, "GOOGLE_API_KEY", ""),
+        'languages': mark_safe(json.dumps(dict(settings.LANGUAGES))),
     }
-    settings_to_add = ("LOGO_PREVIEW_SIZE", )
-    for s in settings_to_add:
-        d[s] = getattr(settings, s, "")
     return d
 
 
@@ -50,8 +65,8 @@ def prev_next_processor(request):
     """
     object_id = request.httpstate.get('current_object_id', None)
     queryset_model = request.httpstate.get('current_queryset_model', None)
-    if isinstance(queryset_model, basestring):
-        queryset_model = models.get_model(*queryset_model.split("."))
+    if isinstance(queryset_model, string_types):
+        queryset_model = apps.get_model(*queryset_model.split("."))
 
     queryset_pk_list = request.httpstate.get('current_queryset_pk_list', None)
     queryset_index_dict = request.httpstate.get(

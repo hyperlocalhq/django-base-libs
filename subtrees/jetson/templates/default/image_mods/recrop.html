@@ -5,8 +5,8 @@
 {% block extrahead %}
     {{ block.super }}
     {{ media }}
-    <link rel="stylesheet" href="{{ jetson_media_url }}Jcrop/css/jquery.Jcrop.css" type="text/css"/>
-    <link rel="stylesheet" media="screen" type="text/css" href="{{ jetson_media_url }}colorpicker/css/colorpicker.css"/>
+    <link rel="stylesheet" href="{{ JETSON_MEDIA_URL }}Jcrop/css/jquery.Jcrop.css" type="text/css"/>
+    <link rel="stylesheet" media="screen" type="text/css" href="{{ JETSON_MEDIA_URL }}colorpicker/css/colorpicker.css"/>
 
     <style type="text/css">
         .image-version {
@@ -38,7 +38,7 @@
             left: 4px;
             width: 28px;
             height: 28px;
-            background: url({{ jetson_media_url }}colorpicker/images/select2.png) no-repeat center center;
+            background: url({{ JETSON_MEDIA_URL }}colorpicker/images/select2.png) no-repeat center center;
         }
 
         .colorpicker {
@@ -47,8 +47,8 @@
 
     </style>
 
-    <script type="text/javascript" src="{{ jetson_media_url }}Jcrop/js/jquery.Jcrop.min.js"></script>
-    <script type="text/javascript" src="{{ jetson_media_url }}colorpicker/js/colorpicker.js"></script>
+    <script type="text/javascript" src="{{ JETSON_MEDIA_URL }}Jcrop/js/jquery.Jcrop.min.js"></script>
+    <script type="text/javascript" src="{{ JETSON_MEDIA_URL }}colorpicker/js/colorpicker.js"></script>
     <script type="text/javascript">
         //<![CDATA[
         if (!window.nothing) {
