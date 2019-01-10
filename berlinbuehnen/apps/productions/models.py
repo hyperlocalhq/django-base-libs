@@ -1193,25 +1193,41 @@ class Event(CreationModificationMixin, UrlMixin):
         if self.location_title:
             schema['location']['name'] = self.location_title
             schema['location']['address']['streetAddress'] = ", ".join(
-                (self.street_address, self.street_address2)
+                [
+                    street_address
+                    for street_address in (self.street_address, self.street_address2)
+                    if street_address
+                ]
             ).strip()
             schema['location']['address']['postalCode'] = self.postal_code
         elif play_location:
             schema['location']['name'] = play_location.title
             schema['location']['address']['streetAddress'] = ", ".join(
-                (play_location.street_address, play_location.street_address2)
+                [
+                    street_address
+                    for street_address in (play_location.street_address, play_location.street_address2)
+                    if street_address
+                ]
             ).strip()
             schema['location']['address']['postalCode'] = play_location.postal_code
         elif self.production.location_title:
             schema['location']['name'] = self.production.location_title
             schema['location']['address']['streetAddress'] = ", ".join(
-                (self.production.street_address, self.production.street_address2)
+                [
+                    street_address
+                    for street_address in (self.production.street_address, self.production.street_address2)
+                    if street_address
+                ]
             ).strip()
             schema['location']['address']['postalCode'] = self.production.postal_code
         elif in_program_of:
             schema['location']['name'] = in_program_of.title
             schema['location']['address']['streetAddress'] = ", ".join(
-                (in_program_of.street_address, in_program_of.street_address2)
+                [
+                    street_address
+                    for street_address in (in_program_of.street_address, in_program_of.street_address2)
+                    if street_address
+                ]
             ).strip()
             schema['location']['address']['postalCode'] = in_program_of.postal_code
 
