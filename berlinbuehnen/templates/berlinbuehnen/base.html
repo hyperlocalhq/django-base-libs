@@ -45,6 +45,9 @@
     {{ site_settings.get_extra_head_with_nonces }}
     {% render_block "head_js" %}
 
+    {% block json_ld %}{# Schema for search engines #}
+    {% endblock %}
+
     {% block js %}
     {% endblock %}
 </head>

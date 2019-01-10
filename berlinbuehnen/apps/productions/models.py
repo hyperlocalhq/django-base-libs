@@ -1134,6 +1134,106 @@ class Event(CreationModificationMixin, UrlMixin):
     def get_next_item(self):
         return self.production.get_next_item()
 
+    def get_schema_json(self):
+        import json
+        from pytz.reference import LocalTimezone
+        from django.utils.safestring import mark_safe
+        from django.utils.html import strip_tags
+        from base_libs.utils.misc import get_website_url
+
+        # Defining main structure of the schema
+        schema = {
+            "@context": "https://schema.org",
+            "@type": "Event",
+            "name": "",
+            "startDate": "",
+            "endDate": "",
+            "location": {
+                "@type": "Place",
+                "name": "",
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "",
+                    "addressLocality": "Berlin",
+                    "postalCode": "",
+                    "addressRegion": "",
+                    "addressCountry": "DE"
+                }
+            },
+            "image": [
+                "",
+             ],
+            "description": "",
+        }
+
+        # Adding real values to the structure
+        schema['name'] = " ".join((self.production.prefix, self.production.title)).strip()
+
+        local_timezone = LocalTimezone()
+        # find out if the offset is 01:00 or 02:00 for the given date
+        local_timezone_offset = '0' + str(local_timezone.utcoffset(datetime.combine(self.start_date, self.start_time)))[:4]
+        schema['startDate'] = "{}T{}+{}".format(
+            self.start_date.strftime("%Y-%m-%d"),
+            self.start_time.strftime("%H:%M:00"),
+            local_timezone_offset,
+        )
+        # e.g. 2019-01-05T20:30:00+01:00
+
+        schema['endDate'] = "{}{}".format(
+            self.end_date.strftime("%Y-%m-%d") if self.end_date else self.start_date.strftime("%Y-%m-%d"),
+            "T{}+{}".format(
+                self.end_time.strftime("%H:%M:00"),
+                local_timezone_offset,
+            ) if self.end_time is not None else "",
+        )
+        # e.g. 2019-01-05T21:30:00+01:00 or 2019-01-05
+
+        in_program_of = self.production.in_program_of.first()
+        play_location = self.ev_or_prod_play_locations().first()
+        if self.location_title:
+            schema['location']['name'] = self.location_title
+            schema['location']['address']['streetAddress'] = ", ".join(
+                (self.street_address, self.street_address2)
+            ).strip()
+            schema['location']['address']['postalCode'] = self.postal_code
+        elif play_location:
+            schema['location']['name'] = play_location.title
+            schema['location']['address']['streetAddress'] = ", ".join(
+                (play_location.street_address, play_location.street_address2)
+            ).strip()
+            schema['location']['address']['postalCode'] = play_location.postal_code
+        elif self.production.location_title:
+            schema['location']['name'] = self.production.location_title
+            schema['location']['address']['streetAddress'] = ", ".join(
+                (self.production.street_address, self.production.street_address2)
+            ).strip()
+            schema['location']['address']['postalCode'] = self.production.postal_code
+        elif in_program_of:
+            schema['location']['name'] = in_program_of.title
+            schema['location']['address']['streetAddress'] = ", ".join(
+                (in_program_of.street_address, in_program_of.street_address2)
+            ).strip()
+            schema['location']['address']['postalCode'] = in_program_of.postal_code
+
+        schema['description'] = strip_tags(self.ev_or_prod_description())
+
+        image = self.ev_or_prod_images().first()
+        if image:
+            schema['image'] = [get_website_url() + image.path.path]
+
+        performers = []
+        for involved in self.ev_or_prod_involvements():
+            performers.append({
+                '@type': 'Person',
+                'name': u"{} {}".format(involved.person.first_name, involved.person.last_name).strip(),
+            })
+        if performers:
+            schema['performer'] = performers
+
+        # Returning JSON
+        # it can be validated at: https://search.google.com/structured-data/testing-tool/
+        return mark_safe(json.dumps(schema))
+
 
 class EventSocialMediaChannel(models.Model):
     event = models.ForeignKey(Event)

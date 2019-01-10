@@ -27,6 +27,14 @@
     <meta property="og:description" content="{{ object.get_rendered_description|striptags|truncatewords:20|escape }}" />
 {% endblock %}
 
+{% block json_ld %}{# Schema for search engines #}
+    {% now "uuuu" as microseconds %}
+    <script type="application/ld+json" nonce="{{ microseconds|to_base64 }}">
+    {{ object.get_schema_json }}
+    </script>
+    {% add_data "script_nonces" microseconds|to_base64 %}
+{% endblock %}
+
 {% block js %}
     <script src="{{ STATIC_URL }}site/js/accordion.js"></script>
     <script src="{{ STATIC_URL }}site/js/gallery.js"></script>
@@ -71,7 +79,6 @@
         }(document));*/
     </script>
     {% add_data "script_nonces" microseconds|to_base64 %}
-
 {% endblock %}
 
 {% block content %}
