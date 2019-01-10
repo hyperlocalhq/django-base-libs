@@ -969,6 +969,11 @@
                                         {% if workshop.subtitle %}
                                             <h4>{{ workshop.subtitle }}</h4>
                                         {% endif %}
+                                        {% if workshop.location_name %}
+                                            <h5>{{ workshop.location_name }}</h5>
+                                        {% elif workshop.museum %}
+                                            <h5>{{ workshop.museum.title }}</h5>
+                                        {% endif %}
                                     </a>
                                 </div>
                             {% endfor %}
