@@ -791,10 +791,8 @@
                                         <h3>{{ workshop.title }}</h3>
                                         <h4>{{ workshop.subtitle }}</h4>
                                         {% if workshop.location_name %}
-                                            <!-- location_name -->
                                             <h5>{{ workshop.location_name }}</h5>
                                         {% elif workshop.museum %}
-                                            <!-- museum.title -->
                                             <h5>{{ workshop.museum.title|default:workshop.museum.title_de }}</h5>
                                         {% endif %}
                                     </a>
