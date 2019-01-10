@@ -1219,7 +1219,7 @@ class Event(CreationModificationMixin, UrlMixin):
 
         image = self.ev_or_prod_images().first()
         if image:
-            schema['image'] = [get_website_url() + image.path.path]
+            schema['image'] = [get_website_url() + image.path.url]
 
         performers = []
         for involved in self.ev_or_prod_involvements():
