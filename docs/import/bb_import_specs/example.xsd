@@ -11,7 +11,7 @@
     <xs:element name="meta">
         <xs:complexType>
             <xs:sequence>
-                <xs:choice maxOccurs="unbounded" minOccurs="1"><!-- The order of elements doesn't matter -->
+                <xs:choice maxOccurs="unbounded"><!-- The order of elements doesn't matter -->
                     <xs:element ref="next"/>
                     <xs:element ref="previous"/>
                     <xs:element ref="total_count"/>
@@ -34,7 +34,7 @@
     <xs:element name="production">
         <xs:complexType>
             <xs:sequence>
-                <xs:choice maxOccurs="unbounded" minOccurs="1"><!-- The order of elements doesn't matter -->
+                <xs:choice maxOccurs="unbounded"><!-- The order of elements doesn't matter -->
                     <xs:element ref="id"/>
                     <xs:element ref="creation_date"/>
                     <xs:element ref="modified_date" minOccurs="0"/>
@@ -85,7 +85,7 @@
                     <xs:element ref="age_from" minOccurs="0"/>
                     <xs:element ref="age_till" minOccurs="0"/>
                     <xs:element ref="edu_offer_website" minOccurs="0"/>
-                    <xs:element ref="in_program_of" minOccurs="0" maxOccurs="1"/>
+                    <xs:element ref="in_program_of" minOccurs="0"/>
                     <xs:element ref="play_locations" minOccurs="0"/>
                     <xs:element ref="play_stages" minOccurs="0"/>
                     <xs:element ref="location_title" minOccurs="0"/>
@@ -96,7 +96,7 @@
                     <xs:element ref="latitude" minOccurs="0"/>
                     <xs:element ref="longitude" minOccurs="0"/>
                     <xs:element ref="categories" minOccurs="0"/>
-                    <xs:element ref="characteristics" minOccurs="0" maxOccurs="1"/>
+                    <xs:element ref="characteristics" minOccurs="0"/>
                     <xs:element ref="leaders" minOccurs="0"/>
                     <xs:element ref="authors" minOccurs="0"/>
                     <xs:element ref="participants" minOccurs="0"/>
@@ -296,7 +296,7 @@
     <xs:element name="event">
         <xs:complexType>
             <xs:sequence>
-                <xs:choice maxOccurs="unbounded" minOccurs="1"><!-- The order of elements doesn't matter -->
+                <xs:choice maxOccurs="unbounded"><!-- The order of elements doesn't matter -->
                     <xs:element ref="id"/>
                     <xs:element ref="creation_date"/>
                     <xs:element ref="modified_date" minOccurs="0"/>
@@ -348,7 +348,7 @@
                     <xs:element ref="price_information_en" minOccurs="0"/>
                     <xs:element ref="event_status"/>
                     <xs:element ref="ticket_status" minOccurs="0"/>
-                    <xs:element ref="characteristics" minOccurs="0" maxOccurs="1"/>
+                    <xs:element ref="characteristics" minOccurs="0"/>
                     <xs:element ref="leaders" minOccurs="0"/>
                     <xs:element ref="authors" minOccurs="0"/>
                     <xs:element ref="participants" minOccurs="0"/>
