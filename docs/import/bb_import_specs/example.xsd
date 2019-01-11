@@ -281,7 +281,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element ref="channel_type"/>
-                <xs:element ref="url"/>
+                <xs:element name="url" type="xs:anyURI"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -873,7 +873,7 @@
             <xs:sequence>
                 <xs:element ref="creation_date"/>
                 <xs:element ref="modified_date" minOccurs="0"/>
-                <xs:element ref="url"/>
+                <xs:element name="url" type="image_url"/>
                 <xs:element ref="title_de"/>
                 <xs:element ref="title_en"/>
                 <xs:element ref="description_de" minOccurs="0"/>
@@ -885,6 +885,11 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <xs:simpleType name="image_url">
+        <xs:restriction base="xs:anyURI">
+            <xs:pattern value=".+\.(png|jpg|jpeg|PNG|JPG|JPEG)"/>
+        </xs:restriction>
+    </xs:simpleType>
     <xs:element name="copyright_restrictions">
         <xs:simpleType>
             <xs:restriction base="xs:NMTOKEN">
@@ -905,7 +910,7 @@
             <xs:sequence>
                 <xs:element ref="creation_date"/>
                 <xs:element ref="modified_date" minOccurs="0"/>
-                <xs:element ref="url"/>
+                <xs:element name="url" type="pdf_url"/>
                 <xs:element ref="title_de"/>
                 <xs:element ref="title_en"/>
                 <xs:element ref="description_de" minOccurs="0"/>
@@ -916,7 +921,11 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="url" type="xs:anyURI"/>
+    <xs:simpleType name="pdf_url">
+        <xs:restriction base="xs:anyURI">
+            <xs:pattern value=".+\.(pdf|PDF)"/>
+        </xs:restriction>
+    </xs:simpleType>
     <xs:element name="language_and_subtitles_id">
         <xs:simpleType>
             <xs:restriction base="xs:NMTOKEN">
@@ -942,14 +951,13 @@
                 <xs:element ref="creation_date"/>
                 <xs:element ref="modified_date" minOccurs="0"/>
                 <xs:element ref="website" minOccurs="0"/>
-                <xs:element ref="image_url" minOccurs="0"/>
+                <xs:element name="image_url" type="image_url" minOccurs="0"/>
                 <xs:element ref="title_de" minOccurs="0"/>
                 <xs:element ref="title_en" minOccurs="0"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="website" type="xs:anyURI"/>
-    <xs:element name="image_url" type="xs:anyURI"/>
     <xs:element name="prefix_id">
         <xs:simpleType>
             <xs:restriction base="xs:NMTOKEN">
