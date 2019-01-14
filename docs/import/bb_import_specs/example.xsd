@@ -94,7 +94,7 @@
                 <xs:element name="latitude" type="xs:decimal" minOccurs="0"/>
                 <xs:element name="longitude" type="xs:decimal" minOccurs="0"/>
                 <xs:element name="categories" type="categories" minOccurs="0"/>
-                <xs:element name="characteristics" type="characteristics" minOccurs="0"/>
+                <xs:element name="characteristics" type="production_characteristics" minOccurs="0"/>
                 <xs:element name="leaders" type="leaders" minOccurs="0"/>
                 <xs:element name="authors" type="authors" minOccurs="0"/>
                 <xs:element name="participants" type="participants" minOccurs="0"/>
@@ -324,7 +324,7 @@
                 <xs:element name="price_information_en" type="xs:string" minOccurs="0"/>
                 <xs:element name="event_status" type="event_status"/>
                 <xs:element name="ticket_status" type="ticket_status" minOccurs="0"/>
-                <xs:element name="characteristics" type="characteristics" minOccurs="0"/>
+                <xs:element name="characteristics" type="event_characteristics" minOccurs="0"/>
                 <xs:element name="leaders" type="leaders" minOccurs="0"/>
                 <xs:element name="authors" type="authors" minOccurs="0"/>
                 <xs:element name="participants" type="participants" minOccurs="0"/>
@@ -655,13 +655,13 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:complexType name="characteristics">
+    <xs:complexType name="event_characteristics">
         <xs:sequence>
-            <xs:element maxOccurs="unbounded" name="characteristic_id" type="characteristic_id"/>
+            <xs:element maxOccurs="unbounded" name="characteristic_id" type="event_characteristic_id"/>
         </xs:sequence>
     </xs:complexType>
 
-    <xs:simpleType name="characteristic_id">
+    <xs:simpleType name="event_characteristic_id">
         <xs:restriction base="xs:NMTOKEN">
             <xs:enumeration value="premiere"/>
             <xs:enumeration value="deutsche-erstauffuehrung"/>
@@ -672,6 +672,22 @@
             <xs:enumeration value="zum-letzten-mal"/>
             <xs:enumeration value="einfuehrung"/>
             <xs:enumeration value="familienpreise"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="production_characteristics">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="characteristic_id" type="production_characteristic_id"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="production_characteristic_id">
+        <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="on-tour"/>
+            <xs:enumeration value="gastspiel"/>
+            <xs:enumeration value="repertoire"/>
+            <xs:enumeration value="wiederaufnahme"/>
+            <xs:enumeration value="urauffuehrung"/>
         </xs:restriction>
     </xs:simpleType>
 
