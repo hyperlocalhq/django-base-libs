@@ -20,7 +20,7 @@ class ImageModificationOptions(admin.ModelAdmin):
     save_on_top = True
     list_filter = ['crop', 'group', 'output_format']
     list_display = [
-        'sysname', 'title', 'width', 'height', 'crop', 'group', 'notes',
+        'sysname', 'title', 'width', 'height', 'aspect_ratio', 'crop', 'group', 'notes',
         'output_format'
     ]
 
@@ -54,6 +54,14 @@ class ImageModificationOptions(admin.ModelAdmin):
             }
         ),
     ]
+
+    def aspect_ratio(self, obj):
+        x = obj.width
+        y = obj.height
+        if x and y and x != 0 and y != 0:
+            return str(x/float(y))
+        else:
+            return ''
 
 
 class ImageCroppingOptions(admin.ModelAdmin):
