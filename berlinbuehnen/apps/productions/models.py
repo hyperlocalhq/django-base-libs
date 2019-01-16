@@ -1457,6 +1457,12 @@ class EventInvolvement(CreationModificationDateMixin):
 class ProductionSponsor(SponsorBase):
     production = models.ForeignKey(Production, verbose_name=_("Production"), on_delete=models.CASCADE)
 
+    def __unicode__(self):
+        return self.title
+
 
 class EventSponsor(SponsorBase):
     event = models.ForeignKey(Event, verbose_name=_("Event"), on_delete=models.CASCADE)
+
+    def __unicode__(self):
+        return self.title
