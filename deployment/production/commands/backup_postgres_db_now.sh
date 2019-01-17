@@ -4,7 +4,7 @@ PROJECT_PATH=/usr/local/www/apache24/data/creative-city-berlin.de
 CRON_LOG_FILE=${PROJECT_PATH}/logs/backup_postgres_db_now.log
 DATE_TIMESTAMP=$(LC_ALL=en_US.UTF-8 date +"%Y%m%d-%H%M")
 BACKUP_PATH=${PROJECT_PATH}/db_backups/${DATE_TIMESTAMP}.backup
-BACKUP_PATH_ALT=${PROJECT_PATH}/db_backups/latest.backup
+LATEST_PATH=${PROJECT_PATH}/db_backups/latest.backup
 USER=creativeberlin
 DATABASE=creativeberlin
 
@@ -17,7 +17,11 @@ date >> ${CRON_LOG_FILE}
 
 echo "Dump database" >> ${CRON_LOG_FILE}
 pg_dump --format=c --compress=9 --file="${BACKUP_PATH}" ${DATABASE}
-cp "${BACKUP_PATH}"  ${BACKUP_PATH_ALT}
+
+if [ -e ${LATEST_PATH} ]; then
+    rm ${LATEST_PATH}
+fi
+ln -s "${BACKUP_PATH}" ${LATEST_PATH}
 
 echo "Finished." >> ${CRON_LOG_FILE}
 duration=$SECONDS
