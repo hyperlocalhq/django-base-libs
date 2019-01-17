@@ -8,7 +8,7 @@ BACKUP_PATH_ALT=${PROJECT_PATH}/db_backups/latest.backup
 USER=creativeberlin
 DATABASE=creativeberlin
 
-cd ${PROJECT_PATH}
+cd ${PROJECT_PATH} || exit
 mkdir -p logs
 mkdir -p db_backups
 
@@ -16,9 +16,9 @@ echo "Creating DB Backup" > ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
 
 echo "Dump database" >> ${CRON_LOG_FILE}
-pg_dump --format=c --compress=9 --file=${BACKUP_PATH} ${DATABASE}
-cp ${BACKUP_PATH}  ${BACKUP_PATH_ALT}
+pg_dump --format=c --compress=9 --file="${BACKUP_PATH}" ${DATABASE}
+cp "${BACKUP_PATH}"  ${BACKUP_PATH_ALT}
 
 echo "Finished." >> ${CRON_LOG_FILE}
 duration=$SECONDS
-echo "$(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed." >> ${CRON_LOG_FILE}
+echo "$((duration / 60)) minutes and $((duration % 60)) seconds elapsed." >> ${CRON_LOG_FILE}
