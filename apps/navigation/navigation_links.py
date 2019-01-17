@@ -469,7 +469,7 @@ navigation_links = {
         {
             'url_de': '/de/events/add/',
             'url_en': '/en/events/add/',
-            'text_de': 'Neuen Event eintragen',
+            'text_de': 'Neues Event eintragen',
             'text_en': 'Add a new Event',
             'should_be_shown': for_all,
             'highlight_pattern': r'^/(de|en)/events/add/$',
