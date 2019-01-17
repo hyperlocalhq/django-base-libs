@@ -3,6 +3,7 @@ SECONDS=0
 PROJECT_PATH=/usr/local/www/apache24/data/museumsportal-berlin.de
 CRON_LOG_FILE=${PROJECT_PATH}/logs/backup_db.log
 BACKUP_PATH=${PROJECT_PATH}/db_backups/$(date +%w-%A).sql
+LATEST_PATH=${PROJECT_PATH}/db_backups/latest.backup
 USER=museumsportal
 DATABASE=museumsportal
 PASS=yg@VkV
@@ -28,6 +29,11 @@ mysqldump -u ${USER} -p${PASS} --single-transaction --no-data ${DATABASE} > "${B
 
 echo "Dump content" >> ${CRON_LOG_FILE}
 mysqldump -u ${USER} -p${PASS} ${DATABASE} "${IGNORED_TABLES_STRING}" >> "${BACKUP_PATH}" 2>> ${CRON_LOG_FILE}
+
+if [ -e ${LATEST_PATH} ]; then
+    rm ${LATEST_PATH}
+fi
+ln -s "${BACKUP_PATH}" ${LATEST_PATH}
 
 echo "Finished." >> ${CRON_LOG_FILE}
 duration=$SECONDS
