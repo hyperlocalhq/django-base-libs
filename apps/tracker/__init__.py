@@ -1,1 +1,2 @@
-default_app_config = 'jetson.apps.tracker.apps.TrackerConfig'
+default_app_config = 'ccb.apps.tracker.apps.TrackerConfig'
+

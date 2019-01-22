@@ -1,0 +1,186 @@
+// main:style.scss
+
+@charset "UTF-8";
+
+#body {
+    .container {
+        .row.blog-grid {
+            margin-left: -15px;
+            margin-right: -15px;
+            > div {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+        }
+    }
+}
+
+.row.blog-grid {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    padding: 0;
+    margin: 0;
+    position: relative;
+
+    > div {
+
+        /*&:first-child {
+            a.content {
+
+                .subline {
+                    position: relative;
+
+                    .is-xs & {
+                        position: static;
+                    }
+                }
+                .statistics {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+
+                    .is-xs & {
+                        position: static;
+                    }
+                }
+            }
+        }*/
+
+        padding: 0;
+        margin: 0;
+        position: absolute;
+
+        a.content {
+            display: block;
+            border-bottom: 3px solid $black;
+            margin-bottom: 30px;
+
+            &:hover, &:focus, &:active {
+                background: $white-dirty;
+                box-shadow: 0px 0px 0px 5px $white-dirty;
+                .is-xs & {
+                    background: transparent;
+                    box-shadow: none;
+                }
+            }
+
+            img {
+                width: 100% !important;
+                height: auto !important;
+                margin: 0 0 35px 0 !important;
+                border: none !important;
+                display: block !important;
+
+                &.logo {
+                    width: auto !important;
+                    max-width: 100%;
+                    max-height: 50px;
+                    margin: -5px 0 25px 0 !important;
+                }
+            }
+
+            .image-wrapper {
+                position: relative;
+            }
+
+            .subline {
+                border-bottom: 1px solid $grey-bright;
+                margin: 0 0 20px;
+
+                position: relative;
+            }
+
+            h3 {
+                margin: 0 0 20px;
+
+                time {
+                    padding: 0;
+                }
+            }
+
+            .statistics {
+                /*margin: 0 0 20px;
+
+                > * {
+                    display: inline-block;
+                    color: $grey;
+                    margin-left: 20px;
+
+                    .is-sm & {
+                        margin-left: 15px;
+                    }
+
+                    &:first-child {
+                        margin-left: 0;
+                        .is-sm & {
+                            margin-left: 0;
+                        }
+                    }
+                }*/
+
+                position: absolute;
+                top: 0;
+                right: 0;
+
+                .is-xs & {
+                    top: -5px;
+                }
+            }
+
+            h2 {
+                font-family: $font-1, $font-family-1;
+                font-weight: $font-black;
+                font-size: 1.87em;
+                line-height: 127%;
+                color: $black;
+                padding: 0;
+                margin: 0 0 30px;
+                text-transform: none;
+
+                .is-sm & {
+                    font-size: 1.5em;
+                    margin-bottom: 25px;
+                }
+
+                .is-xs & {
+                    font-size: 1.4em;
+                    margin-bottom: 20px;
+                }
+            }
+
+            p {
+                margin: 0 0 20px;
+            }
+        }
+    }
+
+}
+
+.partner {
+    background: $white-dirty;
+    padding-bottom: 50px;
+    margin-bottom: 80px;
+
+    .fawesome {
+        color: $black;
+        margin: 50px 0 0;
+    }
+
+    h2 {
+        font-family: $font-2, $font-family-1;
+        font-weight: $font-bold;
+        font-size: 1.6em;
+        line-height: 133%;
+        margin: 10px 0 60px;
+        color: $black;
+        .is-xs & {
+            font-size: 1.07em;
+            line-height: 125%;
+        }
+    }
+}

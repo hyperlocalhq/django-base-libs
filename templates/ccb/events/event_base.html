@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load i18n base_tags navigation_tags infoblocks uni_form_tags %}
+
+{% block extrahead %}
+    <link rel="alternate"
+        type="application/rss+xml"
+        title="{% trans "RSS Feed of CCB Events" %}"
+        href="{{ WEBSITE_URL }}{{ LANGUAGE_CODE }}{{ request.path }}feeds/rss/{% filter force_escape %}{% append_to_get page=0,paginate_by=0,sort_by=0,view_type=0 no_path %}{% endfilter %}"
+    />
+    <link rel="alternate"
+        type="application/atom+xml"
+        title="{% trans "Atom Feed of CCB Events" %}"
+        href="{{ WEBSITE_URL }}{{ LANGUAGE_CODE }}{{ request.path }}feeds/atom/{% filter force_escape %}{% append_to_get page=0,paginate_by=0,sort_by=0,view_type=0 no_path %}{% endfilter %}"
+    />
+    {% if view_type == "map" %}
+        <script type="text/javascript">
+            //<![CDATA[
+            var aGeopositions = [];
+            //]]>
+        </script>
+    {% endif %}
+{% endblock %}
+
+{% block title %}
+    {% trans "Events in Berlin" %}
+{% endblock %}
+
+{% block content %}
+    <div class="header">
+        {% load slideshows_tags %}
+        {% slideshow "event_list" using "slideshows/header.html" %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% trans "Events" %}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="menu">
+            <div class="container">
+                <div class="row">
+                    <div class="hidden-xs col-sm-4 col-md-3 headline">
+                        <h2>{% trans "Events" %}</h2>
+                    </div>
+                    <div class="navi">
+                        <nav>
+                            <ul>
+                                {% navigation_links "events" using "navigation/includes/navigation_links_in_tabs.html" %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        
+        {% block search_bar %}
+        {% endblock %}
+        
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                {% block sidebar %}
+                {% endblock %}
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                {% block details %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

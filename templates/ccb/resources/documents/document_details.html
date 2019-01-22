@@ -1,0 +1,17 @@
+{% extends "resources/documents/details_base.html" %}
+{% load i18n base_tags auth_extended cms_tags %}
+
+{% block details %}
+
+    {% include "resources/documents/profile/description.html" %}
+    
+    {% include "resources/documents/profile/details.html" %}
+    
+    {% include "resources/documents/profile/categories.html" %}
+
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'document_list_global' %}">{% page_attribute "page_title" %}</a></li>
+    <li>{{ object.get_title|truncatewords:5 }}</li>
+{% endblock %}

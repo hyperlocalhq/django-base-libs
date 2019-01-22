@@ -1,0 +1,9 @@
+{% load crispy_forms_field %}
+
+
+<dt class="multifield {{ multifield.css_class }}">{{ multifield.label_html }}</dt>
+<dd class="{{ multifield.css_class }}">
+    <div class="multifield row {{ multifield.css_class }}">
+        {{ fields_output|safe }}
+    </div>
+</dd>

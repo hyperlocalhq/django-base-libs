@@ -1,0 +1,12 @@
+{% load i18n base_tags navigation_tags %}
+<div class="cat">
+    <select name="creative_sector" id="id_chosen_creative_sector">
+        <option value="">{% trans "All" %}</option>
+        {% for cat in categories %}
+            {% if cat.sysname != "kulturgeschichte" %}
+                <option value="{{ cat.slug }}"{% ifequal creative_sector.sysname cat.sysname %}
+                    selected="selected"{% endifequal %}>{{ cat.get_title|escape }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+</div>

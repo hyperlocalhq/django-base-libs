@@ -1,0 +1,32 @@
+{% load i18n base_tags image_mods_tags fb_tags %}
+{% with amount|default:4 as amount %}
+    {% get_objects random_featured curated_lists.CuratedList amount as curated_lists %}
+
+    <div class="row event-grid magazine">
+        {% for curated_list in curated_lists %}
+            <div class="col-xs-12 col-sm-4 col-md-3 {% if forloop.counter == 4 %}hidden-sm{% endif %}">
+                <a class="content tap-hover tap-hover-trigger" href="{{ curated_list.get_url_path }}">
+                    {% if curated_list.image %}
+                        <img src="{{ UPLOADS_URL }}{{ curated_list.image|modified_path:"event_row" }}" alt="{{ curated_list.title|escape }}"/>
+                    {% else %}
+                        <img src="{{ STATIC_URL }}site/img/placeholder/curated_list_square.png" alt="{{ curated_list.title|escape }}"/>
+                    {% endif %}
+                    <h2>{{ curated_list.title }}</h2>
+                    {% parse curated_list.get_rendered_description as content %}
+                    <p>{{ content|striptags|truncatewords:"10" }}</p>
+                    {% if curated_list.image %}
+                        {% if curated_list.image_author %}
+                            <span class="photo-credits-over">{% trans "Photo" %}: {{ curated_list.image_author }}</span>
+                        {% else %}
+                            {% with curated_list.image|file_description as file_desc %}
+                                {% if file_desc.author %}
+                                    <span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>
+                                {% endif %}
+                            {% endwith %}
+                        {% endif %}
+                    {% endif %}
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endwith %}

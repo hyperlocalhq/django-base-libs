@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: $font-1;
+    src: url('../fonts/raleway/Raleway-ExtraBold.eot');
+    src: local('☺'), url('../fonts/raleway/Raleway-ExtraBold.eot?#') format('embedded-opentype'), url('../fonts/raleway/Raleway-ExtraBold.woff2') format('woff2'), url('../fonts/raleway/Raleway-ExtraBold.woff') format('woff'), url('../fonts/raleway/Raleway-ExtraBold.ttf') format('truetype');
+    font-weight: $font-black;
+}
+
+@font-face {
+    font-family: $font-1;
+    src: url('../fonts/raleway/Raleway-Bold.eot');
+    src: local('☺'), url('../fonts/raleway/Raleway-Bold.eot?#') format('embedded-opentype'), url('../fonts/raleway/Raleway-Bold.woff2') format('woff2'), url('../fonts/raleway/Raleway-Bold.woff') format('woff'), url('../fonts/raleway/Raleway-Bold.ttf') format('truetype');
+    font-weight: $font-bold;
+}
+
+@font-face {
+    font-family: $font-1;
+    src: url('../fonts/raleway/Raleway-SemiBold.eot');
+    src: local('☺'), url('../fonts/raleway/Raleway-SemiBold.eot?#') format('embedded-opentype'), url('../fonts/raleway/Raleway-SemiBold.woff2') format('woff2'), url('../fonts/raleway/Raleway-SemiBold.woff') format('woff'), url('../fonts/raleway/Raleway-SemiBold.ttf') format('truetype');
+    font-weight: $font-semi;
+}
+
+@font-face {
+    font-family: $font-1;
+    src: url('../fonts/raleway/Raleway-Regular.eot');
+    src: local('☺'), url('../fonts/raleway/Raleway-Regular.eot?#') format('embedded-opentype'), url('../fonts/raleway/Raleway-Regular.woff2') format('woff2'), url('../fonts/raleway/Raleway-Regular.woff') format('woff'), url('../fonts/raleway/Raleway-Regular.ttf') format('truetype');
+    font-weight: $font-regular;
+}
+

@@ -1,0 +1,100 @@
+{% extends base_template|default:"base.html" %}
+{% load i18n base_tags auth_extended navigation_tags crispy_forms_tags infoblocks %}
+
+{% block extrahead %}
+    <link rel="alternate"
+        type="application/rss+xml"
+        title="{% trans "Creative City Berlin Portfolios" %}"
+        href="/{{ LANGUAGE_CODE }}/portfolios/feeds/rss/"/>
+    <!--<script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ JETSON_MEDIA_URL }}js/jquery/starrating/jquery.MetaData.js"></script>
+    <script type="text/javascript" src="{{ JETSON_MEDIA_URL }}js/jquery/starrating/jquery.rating.js"></script>-->
+{% endblock %}
+
+{% block title %}{% trans "Portfolios" %}{% endblock %}
+
+{% block content %}
+    <div class="header">
+        {% load slideshows_tags %}
+        {% slideshow "gallery_list" using "slideshows/header.html" %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    {% block headline %}
+                        <h1>{% trans "Portfolios" %}</h1>
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+        {% block tabs %}
+        {% endblock %}
+        <div class="menu">
+            <div class="container">
+                <div class="row">
+                    <div class="hidden-xs col-sm-4 col-md-3 headline">
+                        <h2>{% trans "Portfolios" %}</h2>
+                    </div>
+                    <div class="navi">
+                        <nav>
+                            <ul>
+                                {% navigation_links "portfolios" using "navigation/includes/navigation_links_in_tabs.html" %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        {% block search_bar %}
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="header-search">
+                        <div class="fawesome fa-search" data-type="gallery">
+                            <span class="text hidden-xs">
+                                {% trans 'Search' %}
+                            </span>
+                        </div>
+                        <div class="result">
+                            {% load babel %}
+                            {{ current_page.paginator.count|numberfmt }}
+                            <span class="text">
+                                {% trans 'Portfolios' %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                {% block sidebar %}
+                    {% crispy form "ccb_form" %}
+                    {% infoblock "portfolios_infobox" using "blocks/infobox.html" %}
+                {% endblock %}
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                {% block details %}
+                    {% if object_list %}
+                        {% include "utils/includes/sorting.html" %}
+                        <div class="row projects-grid">
+                            {% for object in object_list %}
+                                {% include_parsed "media_gallery/lists/gallery_item.html" %}
+                            {% endfor %}
+                        </div>
+                        {% include "utils/includes/pagination.html" %}
+                    {% else %}
+                        <p>{% trans "No objects found within the selected conditions." %}</p>
+                    {% endif %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/projects-grid.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/pagination.js"></script>
+{% endblock %}

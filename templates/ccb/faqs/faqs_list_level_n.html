@@ -1,0 +1,33 @@
+{% load i18n base_tags faqs %}
+
+{% for cat in categories %}
+
+    {% if forloop.first %}
+        <ul>
+    {% endif %}
+
+<li class="child">
+    {% if cat.has_link %}
+        <a href="{{ rel_obj_root_dir }}{{ cat.get_relative_url }}">{{ cat.title }}</a>
+    {% else %}
+        <a>{{ cat.title }}</a>
+    {% endif %}
+
+    {% comment %}<!-- DISPLAY FAQS -->{% endcomment %}
+    {% if THIS_IS_USED_AS_A_COMMENT_root_category %}
+        {% if cat.has_faqs %}
+            {% get_faqs for cat.id as faqs %}
+            {% include_selected "questions_answers_list.html" for object under "faqs" %}
+        {% endif %}
+    {% endif %}
+
+    {% comment %}<!-- RECURSE THE CATEGORIES -->{% endcomment %}
+    {% get_faq_category_children in container.id for cat.id using "faqs/faqs_list_level_n.html" %}
+
+</li>
+
+{% if forloop.last %}
+    </ul>
+{% endif %}
+
+{% endfor %}

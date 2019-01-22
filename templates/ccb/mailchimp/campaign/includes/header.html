@@ -1,0 +1,10 @@
+{% load image_mods_tags %}
+{% with slide=slides.0 %}
+    {% if slide %}
+        <table width="600" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" style="mso-table-lspace:0pt;mso-table-rspace:0pt;padding:0px;margin:0px;">
+          <tr>
+            <td><img style="border: 0;" width="600" height="220" src="{{ WEBSITE_URL|slice:"0:-1" }}{{ UPLOADS_URL }}{{ slide.path|modified_path:"newsletter_header" }}" alt="CCB Newsletter"/></td>
+          </tr>
+        </table>
+    {% endif %}
+{% endwith %}

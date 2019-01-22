@@ -1,0 +1,22 @@
+{% load i18n base_tags auth_extended uni_form_tags uni_form_field %}
+{% comment %}<!-- UNUSED -->{% endcomment %}
+<div class="profile_infos">
+    <h5 class="edit_subline">{% trans "edit details data" %}</h5>
+
+    <div class="field_layout">
+        <form action="/{{ LANGUAGE_CODE }}/helper/edit-{{ URL_ID_DOCUMENT }}-profile/{{ object.slug }}/details/" method="post"
+            enctype="multipart/form-data" target="hidden_iframe" class="uniForm">{% csrf_token %}
+            <fieldset class="inlineLabels">
+                <h3>{% trans "Details" %}</h3>
+                {{ form.document_type|as_uni_field }}
+                {{ form.url_link|as_uni_field }}
+                {{ form.medium|as_uni_field }}
+            </fieldset>
+            <div class="buttonHolder">
+                <input type="submit" class="primaryAction" value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
+                <input type="button" class="secondaryAction"
+                    value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel"/>
+            </div>
+        </form>
+    </div>
+</div>
