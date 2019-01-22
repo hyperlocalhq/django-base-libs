@@ -1,0 +1,208 @@
+{% load i18n base_tags %}
+
+<div class="filter-wrapper top-widget-wrapper">
+    <div class="top-widget-button-up-wrapper">
+        <div class="container">
+            <button class="top-widget-button fawesome down pull-right" data-toggle="collapse" data-target="#main_filter">
+                <span class="sr-only">{% trans "open filter" %}</span>
+            </button>
+        </div>
+    </div>
+    <div class="filter-space top-widget-space">
+        <div id="main_filter" class="filter container relative collapse in">
+            <button class="top-widget-button fawesome up pull-right" data-toggle="collapse" data-target="#main_filter">
+                <span class="sr-only">{% trans "close filter" %}</span>
+            </button>
+            <div class="row">
+
+
+<!-- filters -->
+<div class="filter-options-wrapper col-xs-12 col-md-9 col-lg-10">
+    <h4>{%trans "Filter" %}:</h4>
+    <div class="row">
+
+        <div id="main-filter-options" class="filter-options btn-group clearfix" data-toggle="buttons">
+            <label type="button" class="filter-option col-xs-6 col-sm-4 col-md-3" data-parent="#main-filter-suboptions" data-toggle="collapse" data-target="#filter-alphabetic">
+                <input type="radio" name="options" id="filter-toggle-alphabetic">
+                <span>{% trans "A - Z" %}</span>
+            </label>
+
+            <label type="button" class="filter-option col-xs-6 col-sm-4 col-md-3" data-parent="#main-filter-suboptions" data-toggle="collapse" data-target="#filter-categories">
+                <input type="radio" name="options" id="filter-toggle-categories">
+                <span>{% trans "Genres" %}</span>
+            </label>
+
+            <label type="button" class="filter-option col-xs-6 col-sm-4 col-md-3" data-parent="#main-filter-suboptions" data-toggle="collapse" data-target="#filter-districts">
+                <input type="radio" name="options" id="filter-toggle-districts">
+                <span>{% trans "Districts" %}</span>
+            </label>
+
+            <a href="{% url 'location_list_map' %}" class="filter-option col-xs-6 col-sm-4 col-md-3">
+                <span>{% trans "City Map" %}</span>
+            </a>
+
+            {% comment %}
+                <label type="button" class="filter-option col-xs-6 col-sm-4 col-md-3" data-parent="#main-filter-suboptions" data-toggle="collapse" data-target="#filter-smartlists">
+                    <input type="radio" name="options" id="filter-toggle-services">
+                    <span>{% trans "Service" %}</span>
+                </label>
+
+                <label type="button" class="filter-option col-xs-6 col-sm-4 col-md-3" data-parent="#main-filter-suboptions" data-toggle="collapse" data-target="#filter-accessibility">
+                    <input type="radio" name="options" id="filter-toggle-accessibility">
+                    <span>{% trans "Accessibility" %}</span>
+                </label>
+            {% endcomment %}
+        </div>
+
+        
+        <div id="main-filter-suboptions" class="panel-group" >
+            <div class="panel">
+                <div id="filter-alphabetic" class="filter-suboptions panel-collapse collapse col-xs-12">
+                    <h5>{% trans "filter by" %}:</h5>
+                    <ul class="option-set">
+                        {% for item in abc_list %}
+                                {% if not forloop.first %}
+                                    {% if item.2 %}
+                                        {% if item.1 in facets.selected.abc %}
+                                            <li class="active" data-value="abc={{ item.0 }}">
+                                                <a href="{% remove_from_query "page" abc=item.0 %}">{{ item.1 }}</a>
+                                            </li>
+                                        {% else %}
+                                            <li>
+                                                <a href="{% add_to_query "page" "abc" abc=item.0 %}">{{ item.1 }}</a>
+                                            </li>
+                                        {% endif %}
+                                    {% else %}
+                                        <li class="inactive">{{ item.1 }}</li>
+                                    {% endif %}
+                                {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="panel">
+                <div id="filter-categories" class="filter-suboptions panel-collapse collapse col-xs-12">
+                    <h5>{% trans "filter by" %}:</h5>
+                    <ul class="option-set">
+                        {% for cat in facets.categories.categories %}
+                            {% if cat in facets.selected.categories %}
+                                <li class="active" data-value="categories={{ cat.pk }}">
+                                    <a href="{% remove_from_query "page" categories=cat.pk %}">{{ cat.title }}</a>
+                                </li>
+                            {% else %}
+                                <li>
+                                    <a href="{% add_to_query "page" categories=cat.pk %}">{{ cat.title }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="panel">
+                <div id="filter-districts" class="filter-suboptions panel-collapse collapse col-xs-12">
+                    <h5>{% trans "filter by" %}:</h5>
+                    <ul class="option-set">
+                        {% for cat in facets.categories.districts %}
+                            {% if cat in facets.selected.districts %}
+                                <li class="active" data-value="districts={{ cat.pk }}">
+                                    <a href="{% remove_from_query "page" districts=cat.pk %}">{{ cat.title }}</a>
+                                </li>
+                            {% else %}
+                                <li>
+                                    <a href="{% add_to_query "page" districts=cat.pk %}">{{ cat.title }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% comment %}
+                <div class="panel">
+                    <div id="filter-smartlists" class="filter-suboptions panel-collapse collapse col-xs-12">
+                        <h5>{% trans "filter by" %}:</h5>
+                        <ul class="option-set">
+                            {% for cat in facets.categories.services %}
+                                {% if cat in facets.selected.services %}
+                                    <li class="active" data-value="services={{ cat.pk }}">
+                                        <a href="{% remove_from_query "page" services=cat.pk %}">{{ cat.title }}</a>
+                                    </li>
+                                {% else %}
+                                    <li>
+                                        <a href="{% add_to_query "page" services=cat.pk %}">{{ cat.title }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div id="filter-accessibility" class="filter-suboptions panel-collapse collapse col-xs-12">
+                        <h5>{% trans "filter by" %}:</h5>
+                        <ul class="option-set">
+                            {% for cat in facets.categories.accessibility %}
+                                {% if cat in facets.selected.accessibility %}
+                                    <li class="active" data-value="accessibility={{ cat.pk }}">
+                                        <a href="{% remove_from_query "page" accessibility=cat.pk %}">{{ cat.title }}</a>
+                                    </li>
+                                {% else %}
+                                    <li>
+                                        <a href="{% add_to_query "page" accessibility=cat.pk %}">{{ cat.title }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endcomment %}
+        </div>
+    </div>
+</div>
+
+
+<!-- search -->
+<div class="filter-search-wrapper col-xs-12 col-md-3 col-lg-2"></div>
+
+<div class="clearfix"></div>
+
+<!-- filter sets -->
+{% if facets.selected.abc or facets.selected.services or facets.selected.accessibility or facets.selected.categories or facets.selected.districts %}
+    <div class="filter-set-wrapper col-xs-12">
+        <ul class="filter-set">
+            <li>{% trans "Current selection" %}:</li>
+            {% if facets.selected.abc %}
+                {% for cat in facets.selected.abc %}
+                    <li><a class="fawesome delete" href="{% remove_from_query "page" abc=cat %}">{{ cat }}</a></li>
+                {% endfor %}
+            {% endif %}
+            {% if facets.selected.categories %}
+                {% for cat in facets.selected.categories %}
+                    <li><a class="fawesome delete" href="{% remove_from_query "page" categories=cat.pk %}">{{ cat.title }}</a></li>
+                {% endfor %}
+            {% endif %}
+            {% if facets.selected.districts %}
+                {% for cat in facets.selected.districts %}
+                    <li><a class="fawesome delete" href="{% remove_from_query "page" districts=cat.pk %}">{{ cat.title }}</a></li>
+                {% endfor %}
+            {% endif %}
+            {% comment %}
+                {% if facets.selected.services %}
+                    {% for cat in facets.selected.services %}
+                        <li><a class="fawesome delete" href="{% remove_from_query "page" services=cat.pk %}">{{ cat.title }}</a></li>
+                    {% endfor %}
+                {% endif %}
+                {% if facets.selected.accessibility %}
+                    {% for cat in facets.selected.accessibility %}
+                        <li><a class="fawesome delete" href="{% remove_from_query "page" accessibility=cat.pk %}">{{ cat.title }}</a></li>
+                    {% endfor %}
+                {% endif %}
+            {% endcomment %}
+        </ul>
+        <a class="filter-reset-button fawesome more" href="{% add_to_query "page" reset=1 %}">{% trans "Reset filter" %}</a>
+    </div>
+{% endif %}
+
+
+            </div>
+        </div>
+    </div>
+</div>
