@@ -56,7 +56,7 @@
             <xs:element type="leader" name="leader" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
-    <xs:complexType name="productionAuthor">
+    <xs:complexType name="production_author">
         <xs:sequence minOccurs="0">
             <xs:element type="prefix_id" name="prefix_id" minOccurs="0"/>
             <xs:element type="xs:string" name="first_name" minOccurs="0"/>
@@ -67,7 +67,7 @@
     </xs:complexType>
     <xs:complexType name="authors">
         <xs:sequence>
-            <xs:element type="productionAuthor" name="author" maxOccurs="unbounded"/>
+            <xs:element type="production_author" name="author" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="participant">
@@ -127,7 +127,7 @@
             <xs:element type="xs:string" name="title_en"/>
             <xs:element type="xs:string" name="description_de" minOccurs="0"/>
             <xs:element type="xs:string" name="description_en" minOccurs="0"/>
-            <xs:element type="mediaFileAuthor" name="author" minOccurs="0"/>
+            <xs:element type="file_author" name="author" minOccurs="0"/>
             <xs:element type="copyright_restrictions" name="copyright_restrictions"/>
             <xs:element type="xs:string" name="copyright" minOccurs="0"/>
             <xs:element type="xs:integer" name="sort_order"/>
@@ -147,7 +147,7 @@
             <xs:element type="xs:string" name="title_en"/>
             <xs:element type="xs:string" name="description_de" minOccurs="0"/>
             <xs:element type="xs:string" name="description_en" minOccurs="0"/>
-            <xs:element type="mediaFileAuthor" name="author" minOccurs="0"/>
+            <xs:element type="file_author" name="author" minOccurs="0"/>
             <xs:element type="xs:string" name="copyright" minOccurs="0"/>
             <xs:element type="xs:integer" name="sort_order"/>
         </xs:sequence>
@@ -643,7 +643,7 @@
             <xs:enumeration value="urauffuehrung"/>
         </xs:restriction>
     </xs:simpleType>
-    <xs:simpleType name="mediaFileAuthor">
+    <xs:simpleType name="file_author">
         <xs:restriction base="xs:string"/>
     </xs:simpleType>
     <xs:simpleType name="image_url">
