@@ -121,11 +121,24 @@ Here are some examples of the same time:
 
 ### `<bulletin:type>`
 
-It defines the type of the bulletin. It can have one of these values: "search" or "offer". It's a required field.
+It defines the type of the bulletin. It can have one of these values: 
+
+- "search"
+- "offer".
+ 
+It's a required field.
 
 ### `<bulletin:category>`
 
-It defines the category of the bulletin. It can have one of these values: "partner", "know how", "material resources", "facilities", "other". It's a required field.
+It defines the category of the bulletin. It can have one of these values: 
+
+- "partner"
+- "know how"
+- "material resources"
+- "facilities"
+- "other".
+ 
+It's a required field.
 
 ### `<bulletin:contact_person>`
 
