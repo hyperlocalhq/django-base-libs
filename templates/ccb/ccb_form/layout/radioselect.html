@@ -1,8 +1,0 @@
-{% load crispy_forms_filters %}
-{% load l10n %}
-
-{% include 'ccb_form/layout/field_errors.html' %}
-{% for choice in field.field.choices %}
-    <div class="input-field box"><input id="id_{{ field.html_name }}_{{ forloop.counter }}" name="{{ field.html_name }}" type="radio" {% if choice.0|stringformat:"s" == field.value|stringformat:"s" %} checked="checked"{% endif %} value="{{ choice.0|unlocalize }}" {{ field.field.widget.attrs|flatatt }}/><label for="id_{{ field.html_name }}_{{ forloop.counter }}">{{ choice.1|unlocalize }}</label></div>
-{% endfor %}
-{% include 'ccb_form/layout/help_text.html' %}
