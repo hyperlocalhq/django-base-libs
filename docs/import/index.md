@@ -6,7 +6,11 @@ _Last update: January 21, 2019_
 
 ## What imports do exist at Creative City Berlin?
 
-There are 3 imports depending on the data type. Creative City Berlin imports [news articles](articles/), [marketplace bulletins](bulletins), and [job offers](jobs/).
+There are 3 imports depending on the data type:
+
+- [news articles](articles/)
+- [marketplace bulletins](bulletins)
+- [job offers](jobs/).
 
 ## When are the imports executed?
 
