@@ -1,9 +1,0 @@
-{% load base_tags i18n %}
-{% with forloop.counter|default:0 as counter %}
-    {% if is_not_favorite_for_user %}
-        <a href="#Contacts" rel="nofollow" class="fawesome fa-contact button text switch" onclick="FavoriteContactManager.toggle({{ counter|default:0 }}, {{ content_type_id }}, {{ object.id }}); this.blur(); window.cancelEvent(event);" id="adding_to_favorites_{{ counter|default:0 }}"><span class="text">{% trans "Contact" %}</span></a>
-    {% else %}
-        <a href="#Contacts" rel="nofollow" class="fawesome fa-contact button text switch on" onclick="FavoriteContactManager.toggle({{ counter|default:0 }}, {{ content_type_id }}, {{ object.id }}); this.blur(); window.cancelEvent(event);" id="adding_to_favorites_{{ counter|default:0 }}"><span class="text">{% trans "Contact" %}</span></a>
-    {% endif %}
-{% endwith %}
-

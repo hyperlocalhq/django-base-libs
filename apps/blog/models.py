@@ -1,12 +1,19 @@
 # -*- coding: UTF-8 -*-
-import os
+import sys
+
 from django.db import models
 from django.db import connection
 from django.contrib.contenttypes.models import ContentType
 from django.utils.encoding import force_unicode
-from django.utils.translation import ugettext_lazy as _
+
+if "makemigrations" in sys.argv:
+    from django.utils.translation import ugettext_noop as _
+else:
+    from django.utils.translation import ugettext_lazy as _
+
 from django.apps import apps
 
+from tagging.fields import TagField
 from tagging.models import Tag
 from tagging_autocomplete.models import TagAutocompleteField
 
@@ -16,13 +23,11 @@ from base_libs.models.models import ViewsMixin
 from base_libs.models.models import CreationModificationDateMixin
 from base_libs.models.models import CreationModificationMixin
 from base_libs.models.models import MultiSiteContainerMixin
-from base_libs.models.models import PublishingMixin, PublishingMixinPublishedManager
+from base_libs.models.models import PublishingMixin
 from base_libs.models import ExtendedTextField
 
-from filebrowser.fields import FileBrowseField
-
-
 verbose_name = _("Blog")
+
 
 class Blog(MultiSiteContainerMixin, CreationModificationDateMixin):
     """
@@ -44,7 +49,9 @@ class Blog(MultiSiteContainerMixin, CreationModificationDateMixin):
         # get the title from content object (if there is one)
         if not self.title:
             if content_object:
-                self.title = force_unicode(_("Blog for %s") % force_unicode(content_object))
+                self.title = force_unicode(
+                    _("Blog for %s") % force_unicode(content_object)
+                )
             else:
                 self.title = force_unicode(_("Blog"))
 
@@ -53,16 +60,25 @@ class Blog(MultiSiteContainerMixin, CreationModificationDateMixin):
             if hasattr(content_object, "get_object_permission_roles"):
                 owners = content_object.get_object_permission_roles()
                 for owner in owners:
-                    RowLevelPermission.objects.create_row_level_permission(self, owner, "add_blog_posts")
-                    RowLevelPermission.objects.create_row_level_permission(self, owner, "change_blog_posts")
-                    RowLevelPermission.objects.create_row_level_permission(self, owner, "delete_blog_posts")
-                    RowLevelPermission.objects.create_row_level_permission(self, owner, "moderate_blog_comments")
+                    RowLevelPermission.objects.create_row_level_permission(
+                        self, owner, "add_blog_posts"
+                    )
+                    RowLevelPermission.objects.create_row_level_permission(
+                        self, owner, "change_blog_posts"
+                    )
+                    RowLevelPermission.objects.create_row_level_permission(
+                        self, owner, "delete_blog_posts"
+                    )
+                    RowLevelPermission.objects.create_row_level_permission(
+                        self, owner, "moderate_blog_comments"
+                    )
+
     save.alters_data = True
 
     class Meta(MultiSiteContainerMixin.Meta):
         verbose_name = _("blog")
         verbose_name_plural = _("blogs")
-        ordering = ('title',)
+        ordering = ('title', )
         permissions = (
             ("add_blog_posts", "Can add posts"),
             ("change_blog_posts", "Can change posts"),
@@ -79,29 +95,19 @@ class Blog(MultiSiteContainerMixin, CreationModificationDateMixin):
 Blog.objects.model = Blog
 
 
-class PublishedPostManager(PublishingMixinPublishedManager):
-    def featured_in_magazine(self):
-        return self.filter(
-            featured_in_magazine=True,
-        ).order_by("-importance_in_magazine")
-
-
-class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, SlugMixin()):
+class Post(
+    CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin,
+    SlugMixin()
+):
     title = models.CharField(_("title"), max_length=255)
     tags = TagAutocompleteField(verbose_name=_("tags"))
     body = ExtendedTextField(_("body"))
-    blog = models.ForeignKey(Blog, verbose_name=_("blog"))
-
-    image = FileBrowseField(_('Main Image'), max_length=200, directory="blogs/", extensions=['.jpg', '.jpeg', '.gif', '.png'], blank=True)
-    image_author = models.CharField(_("Image Credits"), max_length=100, blank=True)
-
-    enable_comment_form = models.BooleanField(_('enable comment form'), default=True)
-
-    featured_in_magazine = models.BooleanField(_("Featured in magazine"), default=False)
-    importance_in_magazine = models.PositiveIntegerField(_("Importance in magazine"), default=0, help_text=_("The bigger the number, the more up-front it will be shown in the magazine overview"))
-
-    objects = models.Manager()
-    published_objects = PublishedPostManager()
+    blog = models.ForeignKey(
+        Blog, related_name="blog"
+    )  # TODO: change or remove the related_name. It should be something like "posts" or "post_set", not "blog"
+    enable_comment_form = models.BooleanField(
+        _('enable comment form'), default=True
+    )
 
     def __unicode__(self):
         return force_unicode(self.title)
@@ -129,18 +135,23 @@ class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, Slu
             prefix,
             blog.sysname,
             self.get_relative_url(),
-            )
+        )
 
     def get_relative_url(self):
-        return "%s/%s/" % (self.published_from.strftime("%Y/%m/%d").lower(), self.slug)
+        return "%s/%s/" % (
+            self.published_from.strftime("%Y/%m/%d").lower(), self.slug
+        )
 
     def delete_comments(self):
         Comment = apps.get_model("comments", "Comment")
         table = Comment._meta.db_table
         ctype = ContentType.objects.get_for_model(Post)
-        query = """DELETE FROM %s WHERE object_id = %s AND content_type_id = %%s""" % (table, self.id)
+        query = """DELETE FROM %s WHERE object_id = %s AND content_type_id = %%s""" % (
+            table, self.id
+        )
         cursor = connection.cursor()
         cursor.execute(query, [ctype.id])
+
     delete_comments.alters_data = True
 
     def delete_comment(self, id):
@@ -149,13 +160,14 @@ class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, Slu
         query = """DELETE FROM %s WHERE id = %s""" % (table, id)
         cursor = connection.cursor()
         cursor.execute(query)
+
     delete_comment.alters_data = True
 
     class Meta:
         verbose_name = _("blog post")
         verbose_name_plural = _("blog posts")
         get_latest_by = 'published_from'
-        ordering = ('-published_from',)
+        ordering = ('-published_from', )
 
     def get_newer_published(self):
         try:
@@ -163,7 +175,7 @@ class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, Slu
                 published_from__gt=self.published_from,
                 pk__gt=self.pk,
                 blog=self.blog,
-                ).order_by("published_from")[0]
+            ).order_by("published_from")[0]
         except:
             return None
 
@@ -173,10 +185,6 @@ class Post(CreationModificationMixin, PublishingMixin, ViewsMixin, UrlMixin, Slu
                 published_from__lt=self.published_from,
                 pk__lt=self.pk,
                 blog=self.blog,
-                ).order_by("-published_from")[0]
+            ).order_by("-published_from")[0]
         except:
             return None
-
-    @staticmethod
-    def autocomplete_search_fields():
-        return ("id__iexact", "title__icontains",)
