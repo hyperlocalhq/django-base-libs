@@ -143,3 +143,7 @@ These are the categories that can be used:
 - Theatre & Dance | Tanz & Theater (ID="tanz-theater")
 - Advertising & PR | Werbung & PR (ID="werbung-pr")
 - Miscellaneous | Sonstiges (ID="sonstiges")
+
+## Publishing
+
+All the jobs of the feed will be published to [Creative City Berlin Jobs](https://www.creative-city-berlin.de/de/jobs/) immediately when importing.
