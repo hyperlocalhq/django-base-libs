@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load i18n base_tags menu_tags navigation_tags cache infoblocks cms_tags crispy_forms_tags %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <link rel="alternate" type="application/rss+xml" title="{% trans "Creative City Berlin News" %}" href="/{{ LANGUAGE_CODE }}/news/feeds/rss/"/>
+{% endblock %}
+
+
+{% block title %}
+    {% page_attribute "page_title" %}
+{% endblock %}
+
+
+{% block content %}
+    <div class="header">
+        {% load slideshows_tags %}
+        {% if root_article_type.slug == "interviews" %}
+            {% slideshow "article_list_interviews" using "slideshows/header.html" %}
+        {% else %}
+            {% slideshow "article_list_news" using "slideshows/header.html" %}
+        {% endif %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    {% if root_article_type.slug == "interviews" %}
+                        <h1><a href="{% url 'magazine_overview' %}">{% page_attribute "page_title" %}</a></h1>
+                    {% else %}
+                        <h1><a href="{% url 'article_archive_for_news' %}">{% page_attribute "page_title" %}</a></h1>
+                    {% endif %}
+                    {% if article_type and not article_type.is_root_node and not root_article_type.slug == "interviews" %}
+                        <h2>{{ article_type.title }}</h2>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% block tabs %}
+            <div class="menu {% if root_article_type.slug == "interviews" %}magazine-menu{% endif %}">
+                <div class="container">
+                    <div class="row">
+                        <div class="hidden-xs col-sm-4 col-md-3 headline">
+                            <h2>{% page_attribute "page_title" %}</h2>
+                        </div>
+                        <div class="navi">
+                            <nav>
+                                <ul>
+                                    {% if root_article_type.slug == "interviews" %}
+                                        {% include "articles/includes/interviews_types_in_tabs.html" %}
+                                    {% else %}
+                                        {% navigation_links "news" using "navigation/includes/navigation_links_in_tabs.html" %}
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+
+    <div class="container">
+
+        {% block search_bar %}
+        {% endblock %}
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <nav>
+                    <ul class="accordion navi-box">
+                        <li class="accordion-inside accordion-trigger opened">
+                            <div class="accordion-trigger head">{% page_attribute "page_title" %}</div>
+                            <ul class="accordion navi-box">
+                                {% if root_article_type.slug == "interviews" %}
+                                    {% include "articles/includes/interviews_types.html" %}
+                                    <li{% if blog_post_list %} class="active"{% endif %}>
+                                        <a{% if blog_post_list %} class="active"{% endif %} href="{% url "magazine_blog_posts" %}"><span>{% trans "From the Blogs" %}</span></a>
+                                    </li>
+                                {% else %}
+                                    {% include "articles/includes/news_types.html" %}
+                                {% endif %}
+                            </ul>
+                        </li>
+                        <li></li>
+                    </ul>
+                </nav>
+
+                {% block sidebar %}
+                    {% crispy form "ccb_form" %}
+                {% endblock %}
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+
+                {% block details %}
+                {% endblock %}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

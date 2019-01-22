@@ -1,0 +1,47 @@
+{% extends "utils/includes/base_latest_objects_index.html" %}
+{% load i18n base_tags site_specific image_mods_tags %}
+{% comment %}<!--
+Usage in any template:
+    {% load base_tags %}
+    
+    Simple:
+    {% include_parsed "institutions/includes/latest_published_institutions_index.html" %}
+    
+    Customized:
+    {% include_parsed "institutions/includes/latest_published_institutions_index.html" with 5 as amount %}
+    
+-->{% endcomment %}
+
+{% block block_title %}
+    <a href="/{{ URL_ID_INSTITUTIONS }}/?order_by=creation_date_desc">{% trans "New Institutions" %}</a>{% endblock %}
+
+{% block link_to_more %}/{{ URL_ID_INSTITUTIONS }}/?order_by=creation_date_desc{% endblock %}
+
+{% block more_class %}newinstitution{% endblock %}
+
+{% block block_content %}
+    {% with amount|default:12 as amount %}
+        {% get_objects latest_published_with_avatars institutions.Institution amount as newest_objects %}
+        {% if newest_objects %}
+            <ul>
+                {% for institution in newest_objects %}
+                    <li>
+                        <a href="{{ institution.get_url_path }}">
+                            {% if institution.image %}
+                                <img alt="{{ institution.get_title|escape }}" title="{{ institution.get_title|escape }}"
+                                    src="{{ UPLOADS_URL }}{{ institution.image|modified_path:"at" }}"/>
+                            {% else %}
+                                <img alt="{{ institution.get_title|escape }}" title="{{ institution.get_title|escape }}"
+                                    src="{{ DEFAULT_SMALL_LOGO_4_INSTITUTION }}"/>
+                            {% endif %}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <hr class="hidden"/>
+        {% else %}
+            <p>{% trans "There are no public institutions." %}</p>
+            <hr class="hidden"/>
+        {% endif %}
+    {% endwith %}
+{% endblock %}

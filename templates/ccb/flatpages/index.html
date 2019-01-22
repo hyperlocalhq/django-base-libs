@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load i18n base_tags infoblocks %}
+
+{% block title %}{{ flatpage.get_title|escape }}{% endblock %}
+
+{% block header-id %}header_index{% endblock %}
+
+{% block content %}
+
+    <h2>{{ flatpage.get_title|escape }}</h2>
+    <div class="content_txt">
+        {{ flatpage.get_content }}
+    </div>
+    <div id="boxes">
+
+        <div class="box_up_left">
+            <div class="box_up_right">
+                <div class="box_down_left">
+                    <div class="box_down_right">
+
+                        <div class="box">{% infoblock "links_start" %}</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box_up_left">
+            <div class="box_up_right">
+                <div class="box_down_left">
+                    <div class="box_down_right">
+
+                        <div class="box">{% infoblock "links_about" %}</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box_up_left_last">
+            <div class="box_up_right">
+                <div class="box_down_left">
+                    <div class="box_down_right">
+
+                        <div class="box">{% infoblock "links_blog" %}</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

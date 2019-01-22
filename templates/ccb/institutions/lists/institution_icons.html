@@ -1,0 +1,90 @@
+{% extends "utils/lists/base_context_item.html" %}
+{% load i18n base_tags image_mods_tags %}
+
+{% block object_image %}
+    <a href="{{ institution.get_url_path }}">
+        {% if institution.image %}
+            <img alt="{{ institution.get_title|escape }}" width="97" height="97"
+                src="{{ UPLOADS_URL }}{{ institution.image|modified_path:"al" }}"/>
+        {% else %}
+            <img alt="{{ institution.get_title|escape }}" width="97" height="97"
+                src="{{ STATIC_URL }}site/img/website/placeholder/institution_m.png"/>
+        {% endif %}
+    </a>
+{% endblock %}
+
+{% block object_title %}
+    <a class="org fn" href="{{ institution.get_url_path }}">
+        {{ institution.title|escape }}
+    </a><br/>
+    {% if institution.title2|escape %}
+        <span class="sub_titel">
+            {{ institution.title2|escape }}
+        </span>
+    {% endif %}
+{% endblock %}
+
+{% block object_absolute_url %}{{ institution.get_url_path }}{% endblock %}
+
+{% block object_col1 %}
+    {% if institution.get_institution_types %}
+        <p class="object-type">
+            {% for institution_type in institution.get_institution_types %}{% if not forloop.first %}, {% endif %}
+                {{ institution_type.get_title|escape }}{% endfor %}</p>
+    {% endif %}
+
+    {% with institution.get_primary_contact as contact %}
+        {% if contact %}
+            {% if contact.street_address or contact.country_name %}
+                <span class="type">{% trans "Address" %}: </span>
+                <address class="adr">
+                    {% if contact.street_address %}
+                        <span class="street-address">
+                    {{ contact.street_address|escape }}</span>,
+                    {% endif %}
+                    {% if contact.street_address2 %}
+                        <span class="street-address">
+                    {{ contact.street_address2|escape }}</span>,
+                    {% endif %}
+                    {% if contact.street_address3 %}
+                        <span class="street-address">
+                    {{ contact.street_address3|escape }}</span>,
+                    {% endif %}
+                    {% if contact.postal_code %}
+                        <span class="postal-code">
+                     {{ contact.postal_code|escape }} {{ contact.city|escape }}
+                     </span>{% endif %}{% if contact.country_name %}, <span class="country-name">
+                    {{ contact.country_name }}
+                    </span>
+                {% endif %}
+                </address>
+            {% endif %}
+        {% endif %}
+    {% endwith %}
+{% endblock %}
+
+{% block object_col2 %}
+    {% if institution.get_contacts %}
+        <p>
+            {% for phone in institution.get_contacts.0.get_phones %}
+                <span class="tel">
+                {% if phone.type %}
+                    <abbr title="{{ phone.type.vcard_name }}" class="type">
+                        {{ phone.type }}: </abbr>{% endif %}
+                    <span class="value">+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</span><br/>
+            </span>
+            {% endfor %}
+            {% for url in institution.get_contacts.0.get_urls %}
+                <span class="url">
+                {% if url.type %}<span class="type">{{ url.type }}: </span>{% endif %}
+                    <a href="{{ url.link|escape }}" onclick="open_new_window(event)">{{ url.link }}</a><br/>
+            </span>
+            {% endfor %}
+        </p>
+    {% endif %}
+{% endblock %}
+
+{% block object_controls %}
+    {% include "institutions/controls.html" %}
+{% endblock %}
+

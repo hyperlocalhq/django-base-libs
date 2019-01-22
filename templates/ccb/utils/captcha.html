@@ -1,0 +1,39 @@
+{% load base_tags i18n %}
+
+<div id="pic">
+    <img src="http://captchator.com/captcha/image/{{ request.session.session_id }}"
+        alt="A code that you have to enter to the field below"/>
+</div>
+
+
+<p id="label">
+    <label id="captcha" for="id_captcha">
+        {% if form.captcha.formfield.is_required %}{% endif %}
+        {% trans "Enter the security code from the image above" %}{% if form.captcha.formfield.is_required %}{% endif %}
+    </label>
+</p>
+
+<div id="start">
+    <p class="code">
+        {{ form.captcha.formfield }}
+        <script type="text/javascript">
+            //<![CDATA[
+            var oCaptcha = document.getElementById("id_captcha");
+            oCaptcha.value = "code";
+            oCaptcha.onclick = oCaptcha.onkeydown = function () {
+                if (oCaptcha.value == "code") {
+                    oCaptcha.value = "";
+                }
+            };
+            oCaptcha.onblur = function () {
+                if (oCaptcha.value == "") {
+                    oCaptcha.value = "code";
+                }
+            };
+            //]]>
+        </script>
+
+        {% if form.captcha.errors %}
+            <span class="error">*** {{ form.captcha.errors|join:", " }}</span>{% endif %}
+    </p>
+</div>

@@ -5,11 +5,11 @@ from django.contrib.contenttypes.models import ContentType
 from django.template import loader
 
 Favorite = models.get_model("favorites", "Favorite")
+ContextItem = models.get_model("site_specific", "ContextItem")
 
 register = template.Library()
 
 ### TAGS ###
-
 
 def do_adding2favorites(parser, token):
     """ Prints the widget for adding object to favorites
@@ -28,8 +28,7 @@ def do_adding2favorites(parser, token):
         
     """
     try:
-        tag_name, for_str, obj_to_add, str_using, template_path = token.split_contents(
-        )
+        tag_name, for_str, obj_to_add, str_using, template_path = token.split_contents()
     except ValueError:
         template_path = ""
         try:
@@ -37,8 +36,7 @@ def do_adding2favorites(parser, token):
             tag_name, for_str, obj_to_add = token.split_contents()
         except ValueError:
             raise template.TemplateSyntaxError, "%r tag requires a following syntax: {%% %r for <object> %%}" % (
-                token.contents[0], token.contents[0]
-            )
+                token.contents[0], token.contents[0])
     return ObjectAdding2Favorites(obj_to_add, template_path)
 
 
@@ -53,6 +51,15 @@ class ObjectAdding2Favorites(template.Node):
 
     def render(self, context):
         obj_to_add = template.resolve_variable(self.obj_to_add, context)
+        if type(obj_to_add).__name__ != "ContextItem":
+            content_type = ContentType.objects.get_for_model(obj_to_add)
+            try:
+                obj_to_add = ContextItem.objects.get(
+                    content_type=content_type,
+                    object_id=obj_to_add.pk,
+                )
+            except ContextItem.DoesNotExist:
+                pass
         ct = ContentType.objects.get_for_model(obj_to_add)
 
         is_not_favorite_for_user = not Favorite.objects.filter(
@@ -62,10 +69,8 @@ class ObjectAdding2Favorites(template.Node):
         )
 
         try:
-            template_path = template.resolve_variable(
-                self.template_path, context
-            )
-        except:
+            template_path = template.resolve_variable(self.template_path, context)
+        except Exception:
             template_path = ""
 
         c = context
@@ -73,9 +78,7 @@ class ObjectAdding2Favorites(template.Node):
         c['object'] = obj_to_add
         c['content_type_id'] = ct.pk
         c['is_not_favorite_for_user'] = is_not_favorite_for_user
-        output = loader.render_to_string(
-            template_path or "favorites/includes/favorite.html", c
-        )
+        output = loader.render_to_string(template_path or "generic/favorite.html", c)
         c.pop()
         return output
 
@@ -84,8 +87,16 @@ register.tag('adding2favorites', do_adding2favorites)
 
 ### FILTERS ###
 
-
 def get_favorites_count(obj):
+    if type(obj).__name__ != "ContextItem":
+        content_type = ContentType.objects.get_for_model(obj)
+        try:
+            obj = ContextItem.objects.get(
+                content_type=content_type,
+                object_id=obj.pk,
+            )
+        except ContextItem.DoesNotExist:
+            pass
     ct = ContentType.objects.get_for_model(obj)
     count = Favorite.objects.filter(
         content_type=ct,

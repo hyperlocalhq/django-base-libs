@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import json
 
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.views.decorators.cache import never_cache
 from django.db import models
 
@@ -22,12 +22,29 @@ def get_all_events(search):
 
     queryset = Event.objects.filter()
     if search != "all":
-        queryset = queryset.filter(
-            **{
-                'title_%s__istartswith' % language: search,
-            }
-        )
+        queryset = queryset.filter(**{
+            'title_%s__istartswith' % language: search,
+        })
 
+    return queryset
+    
+
+def get_related_events(search):
+    language = get_current_language()
+    
+    if not search or len(search) < 1:
+        return Event.objects.none()
+        
+    model = Event
+    field_name = "related_events"
+    f = model._meta.get_field(field_name)
+    queryset = f.rel.to._default_manager.complex_filter(f.rel.limit_choices_to)
+    
+    if search != "all":
+        queryset = queryset.filter(**{
+            'title_%s__istartswith' % language: search,
+            })
+        
     return queryset
 
 
@@ -54,22 +71,18 @@ if Institution:
         """
         Gets attributes from a given institution, such as address, phone numbers, etc...
         """
+        json_data = "false"
+
         institution = Institution.objects.get(id=institution_id)
         contacts = institution.get_primary_contact()
         for day in ("mon", "tue", "wed", "thu", "fri", "sat", "sun"):
             for field in ("open", "break_close", "break_open", "close"):
                 if getattr(institution, "%s_%s" % (day, field)):
-                    contacts["%s_%s" % (day, field)
-                            ] = getattr(institution, "%s_%s" %
-                                        (day, field)).strftime("%H:%M")
+                    contacts["%s_%s" % (day, field)] = getattr(institution, "%s_%s" % (day, field)).strftime("%H:%M")
         contacts['title'] = institution.get_title()
-        json_str = json.dumps(
-            contacts, ensure_ascii=False, cls=ExtendedJSONEncoder
-        )
+        json_data = json.dumps(contacts, ensure_ascii=False, cls=ExtendedJSONEncoder)
 
-        return HttpResponse(
-            json_str, content_type='text/javascript; charset=utf-8'
-        )
+        return HttpResponse(json_data, content_type='text/javascript; charset=utf-8')
 
     json_get_institution_attrs = never_cache(json_get_institution_attrs)
 

@@ -1,0 +1,63 @@
+{% extends "people/details_base.html" %}
+{% load base_tags image_mods_tags %}
+
+{#% not used -> media_gallery/portfolio_overview instead %#}
+
+{% block open_graph %}
+    <meta property="og:title" content="{{ gallery.get_title }}" />
+    <meta property="og:type" content="album" />
+    {% if gallery.cover_image %}
+        <meta property="og:image" content="http://{{ request.get_host }}{{ MEDIA_URL }}{{ gallery.cover_image|modified_path:"og" }}" />
+    {% elif gallery.mediafile_set.all.0.get_list_image_url %}
+        <meta property="og:image" content="{{ gallery.mediafile_set.all.0.get_list_image_url }}" />
+    {% else %}
+        <meta property="og:image" content="http://{{ request.get_host }}{{ STATIC_URL }}site/img/default/ccb_opengraph.jpg" />
+    {% endif %}
+{% endblock %}
+
+
+{% block details %}
+    {% if published_gallery_list %}
+    
+        <div class="row projects-grid">
+            
+            {% for f in list_of_files %}
+                <div class="col-xs-12 col-sm-6">
+                    <div class="wrapper tap-hover">
+                        <a class="content tap-hover-trigger" href="#">
+                            <img src="{{ UPLOADS_URL }}{{ f.image|modified_path:"project_grid" }}" alt="{{ f.title|escape }}/>
+                            <h2>Hier steht mehr zum Projekt.</h2>
+                        </a>
+                        <div class="button-group">
+                            <a href="#" class="fawesome fa-favorite button"></a>
+                            <a href="#" class="fawesome fa-more button"></a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            
+            {% if_has_perm "people.change_person" object %}
+                <div class="col-xs-12 col-sm-6">
+                    <div class="wrapper">
+                        <a class="content" href="#">
+                            <div class="upload-project">
+                                <div class="fawesome fa-rocket"></div>
+                                <h3>{% trans 'Do you have something new?' %}<br/>{% trans 'Upload project' %}</h3>
+                            </div>    
+                        </a>
+                    </div>
+                </div>
+            {% end_if_has_perm %}
+                 
+        </div>    
+    
+    {% else %}
+        <p>{% trans "There are no media files uploaded." %}</p>
+    {% endif %}
+{% endblock %}
+
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/projects-grid.js"></script>
+{% endblock %}

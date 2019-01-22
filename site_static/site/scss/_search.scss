@@ -1,0 +1,236 @@
+// main:style.scss
+
+@charset "UTF-8";
+
+.header-search {
+    border-bottom: 2px solid $black;
+    overflow: hidden;
+    padding-top: 1px;
+    padding-bottom: 10px;
+    margin-bottom: 40px;
+
+    .is-xs & {
+        padding-top: 0;
+        padding-bottom: 10px;
+    }
+
+    > div {
+        display: inline-block;
+
+        &.fawesome {
+            line-height: 1.73rem;
+            cursor: pointer;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+
+            .is-xs & {
+                line-height: 1.33rem;
+            }
+
+            &:before {
+                font-size: 1.73rem;
+                .is-xs & {
+                    font-size: 1.33rem;
+                }
+            }
+            .text {
+                font-size: 1.07em;
+                color: $grey;
+            }
+        }
+
+        &.result {
+            float: right;
+            font-size: 1.73rem;
+            line-height: 100%;
+            vertical-align: middle;
+            font-weight: $font-black;
+            position:relative;
+            top: -3px;
+
+            .is-xs & {
+                font-size: 1.33rem;
+                top: 3px;
+            }
+            .text {
+                font-size: 0.62em;
+                color: $grey;
+                font-weight: $font-regular;
+                margin-left: 15px;
+            }
+        }
+
+        &.button-group {
+            float: right;
+            margin-left: 50px;
+
+            .is-xs & {
+                margin-left: 25px;
+            }
+
+            .button {
+                font-size: inherit;
+                font-weight: inherit;
+                padding: 0;
+                background: none;
+                border-radius: 0;
+                color: $grey;
+                margin: 0 0 0 15px;
+                width: auto;
+                line-height: 1.73em;
+
+                .is-xs & {
+                    line-height: 1.33rem;
+                    margin: 0 0 0 15px;
+                }
+
+                &:hover, &.active {
+                    color: $black !important;
+                }
+
+                &:before {
+                    font-size: 1.73rem;
+                    line-height: 100%;
+                    .is-xs & {
+                        font-size: 1.33rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+#search-layer {
+    .wrapper {
+        position: relative;
+        top: 40%;
+        width: 710px;
+        margin: 0 auto;
+        .is-xs & {
+            width: auto;
+            margin: 0 15px;
+            top: 20%;
+        }
+    }
+    input {
+        display: inline-block;
+        float: left;
+        background: $white;
+        color: $grey-light;
+        font-size: 2em;
+        line-height: 240%;
+        width: 580px;
+        height: 5rem;
+        padding: 0 15px;
+        text-align: center;
+        border: 0;
+        margin-right: 20px;
+        .is-xs & {
+            display: block;
+            float: none;
+            width: 100%;
+            font-size: 1.27em;
+            margin-right: 0;
+            height: 3rem;
+        }
+        &:focus {
+            outline: 0;
+        }
+
+        &::-webkit-input-placeholder {
+            color: $grey-bright;
+            opacity: 1;
+        }
+        &:-moz-placeholder {
+            color: $grey-bright;
+            opacity: 1;
+        }
+        &::-moz-placeholder {
+            color: $grey-bright;
+            opacity: 1;
+        }
+        &:-ms-input-placeholder {
+            color: $grey-bright;
+            opacity: 1;
+        }
+    }
+    .button-group {
+        display: inline-block;
+        float: left;
+        .is-xs & {
+            display: block;
+            float: right;
+        }
+
+        .button {
+            font-size: inherit;
+            font-weight: inherit;
+            padding: 0;
+            background: none;
+            border-radius: 0;
+            color: $white;
+            margin: 0 0 0 30px;
+            width: auto;
+            &:before {
+                line-height: 200%;
+            }
+            .is-xs & {
+                margin: 0 0 0 20px;
+            }
+        }
+    }
+}
+
+
+.search-page {
+
+    h2 {
+        margin: 30px 0 10px;
+
+        .amount {
+            font-size: 0.5em;
+        }
+    }
+
+    .search-result {
+
+        a {
+            &:hover, &:active, &:focus {
+                color: $cyan-dark;
+
+                h5, p {
+                    color: $cyan-dark;
+                }
+            }
+        }
+
+        h5 {
+            margin: 10px 0;
+        }
+
+        p {
+            margin-bottom: 10px;
+            margin-top: -10px;
+            font-size: 1.2em;
+        }
+    }
+
+    p {
+        margin-bottom: 30px;
+        margin-top: 20px;
+        font-size: 1em;
+        overflow: hidden;
+
+        a.button {
+            float: right;
+            color: $white;
+            &:hover, &:active, &:focus {
+                color: $white;
+            }
+        }
+    }
+}

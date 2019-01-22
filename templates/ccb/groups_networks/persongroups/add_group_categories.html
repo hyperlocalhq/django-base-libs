@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load base_tags i18n %}
+
+{% comment %}<!-- UNUSED -->{% endcomment %}
+
+{% block extrahead %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/categories.js"></script>
+{% endblock %}
+
+
+{% block title %}{% trans "Registration" %} - {% trans "Group" %}{% endblock %}
+
+{% block headline %}
+    <h1>{% trans "Registration" %}</h1>
+    <h2 class="sub">{% trans "Group" %}</h2>
+
+{% endblock %}
+
+{% block sidebar-a %}
+    {% include "utils/step_list.html" %}
+{% endblock %}
+
+{% block sidebar-b %}
+{% endblock %}
+
+{% block content %}
+    <div class="reg">
+        <div class="details">
+            <div class="search">
+                <form action="" class="search_form left" method="post">{% csrf_token %}
+                    <div class="field_layout">
+                        {% include "site_specific/categories/categories.html" %}
+                        {% include "utils/step_buttons.html" %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

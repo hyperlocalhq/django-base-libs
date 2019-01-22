@@ -1,0 +1,112 @@
+{% extends "bulletin_board/details_base.html" %}
+{% load image_mods_tags bulletin_board_tags i18n favorites navigation_tags fb_tags %}
+
+{% block open_graph %}
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ object.get_title }}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="http://{{ request.get_host }}{{ STATIC_URL }}site/img/default/ccb_opengraph.jpg" />
+    <meta property="og:description" content="{{ object.get_description|striptags|truncatewords:20|escape }}" />
+{% endblock %}
+
+{% block sidebar %}
+
+    {{ block.super }}
+
+    <div class="button-group">
+
+        {% if request.user.is_authenticated %}
+            {% adding2favorites for object %}
+        {% else %}
+            <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}" class="fawesome fa-favorite button text"><span class="text">{% trans "Favorite" %}</span></a>
+        {% endif %}
+        <a rel="nofollow" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" class="fawesome fa-facebook button text social-sharing"><span class="text">{% trans "Share on Facebook" %}</span></a>
+        <a rel="nofollow" target="_blank" href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri|urlencode }}&amp;text={{ object.title|urlencode }}" class="fawesome fa-twitter button text social-sharing"><span class="text">{% trans "Tweet" %}</span></a>
+        <a rel="nofollow" target="_blank" href="https://plus.google.com/share?url={{ request.build_absolute_uri|urlencode }}" class="fawesome fa-googleplus button text social-sharing"><span class="text">{% trans "Share on Google+" %}</span></a>
+        <a rel="nofollow" href="mailto:?subject={{ object.title|urlencode }}&amp;body={{ request.build_absolute_uri|urlencode }}" class="fawesome fa-email button text"><span class="text">{% trans "Email to a friend" %}</span></a>
+
+        {% if request.user.is_authenticated and object|can_be_changed:request.user %}
+            <a class="fawesome fa-edit button text" href="{% url "change_bulletin" token=object.get_token %}" >
+                <span class="text">{% trans "Edit Bulletin" %}</span>
+            </a>
+        {% endif %}
+        {% navigation_links "menu_object_activities" %}
+
+        <br/><br/>
+    </div>
+{% endblock %}
+
+
+{% block details %}
+
+    <h3>
+        {{ object.get_bulletin_type_display }}
+        {% if object.bulletin_category %}<span class="color-grey-dark">・</span> {{ object.bulletin_category.title }}{% endif %}
+        {% if object.published_from %}<time>{{ object.published_from|date:"d. m. Y" }}</time>{% endif %}
+    </h3>
+
+    <h2>{{ object.get_title }}</h2>
+
+    {% if object.image %}
+        <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"article" }}" alt="{{ object.get_title|escape }}" />
+        {% with object.image|file_description as file_desc %}
+            {% if file_desc.author %}<div class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</div>{% endif %}
+            {% if object.image_description %}
+                <h5 class="caption">{{ object.image_description }}</h5>
+            {% endif %}
+        {% endwith %}
+    {% endif %}
+
+
+    {% if object.description %}
+        <h5>{% trans 'Description' %}</h5>
+        <div class="line"></div>
+        <p>{{ object.get_description|urlize|linebreaks }}</p>
+    {% endif %}
+
+    {% if object.institution or object.contact_person or object.phone or object.email %}
+        <h5>{% trans 'Contact' %}</h5>
+        <div class="line"></div>
+        <p>
+            {% if object.institution %}
+                {% if object.institution.status == "published" %}
+                    <a href="{{ object.institution.get_url_path }}">{{ object.institution.title }}</a>
+                {% else %}
+                    {{ object.institution.title }}
+                {% endif %}
+                <br/>
+            {% endif %}
+            {% if object.contact_person %}
+                {{ object.contact_person }}<br/>
+            {% endif %}
+            {% if object.locality_type %}
+                {{ object.locality_type }}<br/>
+            {% endif %}
+            {% if object.phone %}
+                <br/>
+                {% trans "Phone" %}: {{ object.phone }}<br/>
+            {% endif %}
+            {% if object.email %}
+                {% if not object.phone %}<br/>{% endif %}
+                {% trans "Email" %}: <a href="mailto:{{ object.email }}">{{ object.email }}</a>
+            {% endif %}
+        </p>
+    {% endif %}
+
+    {% if object.categories.all %}
+        <h5>{% trans 'Categories' %}</h5>
+        <div class="line"></div>
+        <p>
+            {% for item in object.categories.all %}
+                {{ item }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </p>
+    {% endif %}
+
+    {% if object.external_url and object.content_provider %}
+        <p><a href="{{ object.external_url }}" target="_blank">{% blocktrans with content_provider_title=object.content_provider.title %}More info at {{ content_provider_title }}{% endblocktrans %}</a></p>
+    {% elif object.external_url %}
+        <p><a href="{{ object.external_url }}" target="_blank">{% trans "More info" %}</a></p>
+    {% endif %}
+
+{% endblock %}

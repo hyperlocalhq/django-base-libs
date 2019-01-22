@@ -1,0 +1,85 @@
+{% extends base_template|default:"base.html" %}
+
+{% load base_tags i18n %}
+
+{% block title %}{% trans "Facebook Connect" %}{% endblock %}
+
+{% block headline %}
+    <h1>{% trans "Facebook Connect" %}</h1>
+{% endblock %}
+
+{% block content %}
+    <div id="content">
+        {% for fb_page in fb_pages %}
+            <div id="fb_connect_form_{{ fb_page.institution.pk }}">
+                <form action="{{ app_path }}" method="post" class="uniForm">{% csrf_token %}
+                    <fieldset class="inlineLabels">
+                        <h3>{% trans "Linked Institution" %}</h3>
+
+                        <div id="fb_page_{{ fb_page.fb_id }}">
+                            <p>
+                                {% blocktrans with institution_title=fb_page.institution.get_title institution_url=fb_page.institution.get_url_path fb_page_name=fb_page.name fb_page_url=fb_page.profile_url %}
+                                    Institution
+                                    <a href="{{ institution_url }}">"{{ institution_title }}"</a> is linked
+                                    to facebook page
+                                    <a href="{{ fb_page_url }}">"{{ fb_page_name }}"</a>
+                                    .{% endblocktrans %}</p>
+
+                            <div class="ctrlHolder noLabel">
+                                <ul>
+                                    <li>{% blocktrans with institution_url=fb_page.institution.get_url_path %}
+                                        <a href="{{ institution_url }}portfolio/fb-sync/">Synchronize institution's
+                                            portfolio
+                                        </a>.{% endblocktrans %}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="buttonHolder">
+                            <input type="hidden" name="institution" value="{{ fb_page.institution.pk }}"/>
+                            <input class="secondaryAction facebook_disconnect_page" type="button"
+                                value="{% filter upper %}{% trans 'Disconnect' %}{% endfilter %}"/>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        {% endfor %}
+        {% for institution in unlinked_institutions %}
+            <div id="fb_connect_form_{{ institution.pk }}">
+                <form action="" method="post" class="uniForm">{% csrf_token %}
+                    <fieldset class="inlineLabels">
+                        <h3>{% trans "Unlinked Institution" %}</h3>
+
+                        <p class="disclaimer">{% trans "Connect your institution to Facebook page." %}</p>
+
+                        <div id="inst_{{ institution.pk }}" class="ctrlHolder">
+                            <label>{% trans "Institution" %}
+                                <a
+                                    href="{{ institution.get_url_path }}">"{{ institution.get_title }}"
+                                </a>
+                            </label>
+                            <input type="hidden" name="institution" value="{{ institution.pk }}"/>
+                            <select name="page">
+                                <option value="">------</option>
+                                {% for fb_page in unlinked_pages %}
+                                    <option value="{{ fb_page.id }}">{{ fb_page.name|escape }} {% if fb_page.link %}(
+                                        {{ fb_page.link }}){% endif %} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="buttonHolder">
+                            <input class="primaryAction facebook_connect_page" type="button"
+                                value="{% filter upper %}{% trans 'Connect' %}{% endfilter %}"/>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+    <div id="fb-root"></div>
+{% endblock %}
+
+{% block facebook_scripts %}
+    <script type="text/javascript"
+        src="//connect.facebook.net/{% if LANGUAGE_CODE == "en" %}en_US{% else %}de_DE{% endif %}/all.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/facebook_manage_pages.js"></script>
+{% endblock %}

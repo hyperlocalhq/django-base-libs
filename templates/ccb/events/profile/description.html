@@ -1,0 +1,12 @@
+{% load i18n base_tags auth_extended %}
+
+{% if object.get_rendered_description or object.is_editable %}
+    <div
+        class="fieldset {% if object.is_editable %}editable switch{% else %}not-editable{% endif %}"
+        data-edit-url="{% url 'edit_profile' object_type='event' slug=object.slug %}description/">
+        <fieldset disabled>
+            <h2>{% trans "Description" %}</h2>
+            {{ object.get_rendered_description }}
+        </fieldset>
+    </div>
+{% endif %}

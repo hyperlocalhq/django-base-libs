@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load base_tags i18n infoblocks %}
+
+{% block title %}{% trans 'Live Stream' %}{% endblock %}
+
+{% block headline %}
+    <h1>{% trans "Live Stream" %}</h1>
+{% endblock %}
+
+{% block sidebar-a %}&nbsp;{% endblock %}
+
+{% block sidebar-b %}&nbsp;{% endblock %}
+
+{% block content %}
+    <div id="content">
+        {% infoblock "livestream" %}
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% load i18n base_tags auth_extended %}
+<form action="" method="post">{% csrf_token %}
+    <div class="fieldset not-editable">
+        <fieldset>
+            <h2>{% trans "Delete Job Offer" %}</h2>
+            <p>
+                {% if object.offering_institution %}
+                    {% blocktrans with position=object.position institution_title=object.offering_institution.get_title %}Are you sure you want to delete job offer for {{ position }} at "{{ institution_title }}"?{% endblocktrans %}
+                {% else %}
+                    {% blocktrans with position=object.position %}Are you sure you want to delete job offer for {{ position }}?{% endblocktrans %}
+                {% endif %}
+            </p>
+
+            <div class="button-group form-buttons">
+                <input name="cancel" type="button" class="button cancel"
+                    {% if not request.is_ajax %} onclick="history.go(-1)"{% endif %}
+                    value="{% trans "Cancel" %}" />
+                <input class="button danger" type="submit"
+                    value="{% trans "Delete" %}" />
+            </div>
+        </fieldset>
+    </div>
+</form>

@@ -1,0 +1,30 @@
+{% load i18n uni_form_field %}
+<div class="ctrlHolder">
+    {{ form.end_dd.error_tag }}
+    {{ form.end_mm.error_tag }}
+    {{ form.end_yyyy.error_tag }}
+    <p class="label">
+        <em>*</em>
+        {% trans "Publish until" %}
+    </p>
+    <ul class="alternate">
+        <li>
+            <label for="id_end_dd">
+                {% trans "Day" %}
+                {{ form.end_dd|with_class }}
+            </label>
+        </li>
+        <li>
+            <label for="id_end_mm">
+                {% trans "Month" %}
+                {{ form.end_mm|with_class }}
+            </label>
+        </li>
+        <li>
+            <label for="id_end_yyyy">
+                {% trans "Year" %}
+                {{ form.end_yyyy|with_class }}
+            </label>
+        </li>
+    </ul>
+</div>

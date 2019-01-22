@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load base_tags babel i18n image_mods_tags %}
+
+{% block content %}
+
+    <div class="first-item-txt">
+        <form action="" method="post" class="uniForm">{% csrf_token %}
+            <fieldset class="inlineLabels">
+                <h3>
+                    {% blocktrans %}Do you really want to delete "{{ delete_object }}"?{% endblocktrans %}
+                </h3>
+
+                <div class="buttons">
+                    <input id="id_delete" class="primaryAction" type="submit" name="{{ delete_stage_field }}"
+                        value="{% filter upper %}{% trans 'Delete' %}{% endfilter %}"/>
+                    <input id="id_cancel" type="submit" class="secondaryAction" name="{{ cancel_stage_field }}"
+                        value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
+                    {% comment %}this one is used for security reasons -->{% endcomment %}
+                    <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}"/>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+{% endblock %}
+
+
+
+

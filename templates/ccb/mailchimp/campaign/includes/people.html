@@ -1,0 +1,43 @@
+{% load base_tags image_mods_tags i18n %}
+             
+ <!-- Chapter -->
+
+<table width="600" height="80" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" style="mso-table-lspace:0pt;mso-table-rspace:0pt;padding:0px;margin:0px; border-collapse:collapse;">
+  <tr>
+    <td height="20"><span style="font-size:2px;">&nbsp;</span></td>
+  </tr>
+  <tr>
+    <td height="40" align="center" style="border-collapse:collapse;border-bottom:1px solid #AAAAAA; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#000000; text-transform:uppercase;">{% trans 'New <b>Profiles</b>' %}</td>
+  </tr>
+  <tr>
+    <td height="20"><span style="font-size:2px;">&nbsp;</span></td>
+  </tr>
+</table>
+            
+            
+<!-- New Profiles -->
+<table width="600" height="100" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" style="mso-table-lspace:0pt;mso-table-rspace:0pt;padding:0px;margin:0px; border-collapse:collapse;">
+    {% get_objects latest_published_with_avatars people.Person 12 as newest_objects %}
+    {% for person in newest_objects %}
+    
+        {% if forloop.counter0|divisibleby:6 %}
+            <tr>
+        {% endif %}
+                
+                <td width="100" height="100"><a href="{{ person.get_url }}" target="_blank"><img width="100" height="100" style="border: 0;" src="{% if person.image %}http://www.creative-city-berlin.de/media/{{ person.image|modified_path:"newsletter_profile" }}{% else %}http://www.creative-city-berlin.de/media/newsletter-static/profile.png{% endif %}" alt=""/></a></td>
+    
+        {% if forloop.counter|divisibleby:6 or forloop.last %}
+            </tr>
+        {% endif %}
+        
+    {% endfor %}
+</table>
+
+ <!-- Link more -->
+<table width="600" height="30" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" style="mso-table-lspace:0pt;mso-table-rspace:0pt;padding:0px;margin:0px; border-collapse:collapse;">
+  <tr>
+    <td style="font-family:Arial, Helvetica, sans-serif;font-size:12px; line-height:20px; text-align:right;"><a href="http://www.creative-city-berlin.de/{{ LANGUAGE_CODE }}/network/" style="color:#00bcee; text-decoration:none" target="_blank">{% trans 'all profiles' %}...</a>
+    </td>
+  </tr>
+</table>
+    

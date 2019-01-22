@@ -1,0 +1,15 @@
+{% extends "site_specific/kreativarbeiten_base.html" %}
+{% load base_tags i18n %}
+
+{% block title %}{% trans 'Contact' %}{% endblock %}
+
+{% block headline %}
+    <h1>KREATIV ARBEITEN - MIT ERFOLG</h1>
+    <h2 class="sub">
+        {% trans "Thank you for your message" %}
+    </h2>
+{% endblock %}
+
+{% block content %}
+    <p class="suggest">{% blocktrans %}Thank you for your message - we will contact you soon!{% endblocktrans %}</p>
+{% endblock %}

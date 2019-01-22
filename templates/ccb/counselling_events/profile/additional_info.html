@@ -1,0 +1,37 @@
+{% load i18n base_tags auth_extended babel %}
+
+{% if object.get_additional_info or object.related_events.count %}
+        <div class="fieldset not-editable" >
+            <fieldset disabled>
+                <h2>{% trans "Additional Info" %}</h2>
+
+                {% if object.get_additional_info %}
+                    <dl class="input-fields">
+                        <dt>{% trans "Additional Info" %}</dt>
+                        <dd>
+                            <div class="text-field">{{ object.get_additional_info|safe }}</div>
+                        </dd>
+                        <dd class="clearfix"></dd>
+                    </dl>
+                {% endif %}
+
+                {% if object.related_events.count %}
+                    <dl class="input-fields">
+                        <dt>{% trans "Related Events" %}</dt>
+                        <dd>
+                            <div class="text-field">
+                                {% for ev in object.related_events.all %}
+                                    <div>
+                                        <a href="{{ ev.get_url_path }}">{{ ev.get_title }}</a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </dd>
+                        <dd class="clearfix"></dd>
+                    </dl>
+                {% endif %}
+
+            </fieldset>
+        </div>
+{% endif %}
+
