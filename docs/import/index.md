@@ -14,9 +14,16 @@ Imports of __news articles__ and __marketplace bulletins__ happen once in an hou
 
 ## Will the elements be updated with the next import?
 
+As of today, this is the behaviour of all imports:
+
+- For the news, if article has been modified or published at Creative City Berlin, it won't be updated by the next import execution. Otherwise it will.
+- For the market place, if the bulletin has been modified or published at Creative City Berlin, it won't be updated by the next import execution. Otherwise it will.
+- For the jobs, all of the job offers from the job feed will be updated if they have been changed at the import source (`modified_date` at the source is newer than `modified_date` at Creative City Berlin)
 
 ## What fields will be updated with the next import?
 
+All fields that are previously used for creating an article, bulletin, or job will be updated.
 
 ## If an object is deleted at Creative City Berlin, will it be reimported again?
 
+No, if an object was imported and later deleted by Creative City Berlin moderators, it won't be imported again.
