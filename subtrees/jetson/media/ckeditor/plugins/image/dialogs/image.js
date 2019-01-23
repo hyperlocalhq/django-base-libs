@@ -393,6 +393,9 @@
 							// Restore the original element before all commits.
 							this.imageElement = this.cleanImageElement;
 							delete this.cleanImageElement;
+                            
+							this.imageElement.setAttribute( 'data-fb-author', (window.fb_fileAuthor) ? window.fb_fileAuthor : '' );
+							this.imageElement.setAttribute( 'data-fb-description', (window.fb_fileDescription) ? window.fb_fileDescription : '' );
 						}
 					}
 					// Create a new image.

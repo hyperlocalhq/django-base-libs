@@ -129,9 +129,9 @@ input[type="text"], input[type="password"], input[type="submit"], input[type="re
 
 .map-settings
 {
-    float: left; 
-    width: 300px; 
-    border: none; 
+    float: left;
+    width: 300px;
+    border: none;
     border-right: 1px solid #FFFFFF;
 }
 
@@ -142,7 +142,7 @@ input[type="text"], input[type="password"], input[type="submit"], input[type="re
 .map-settings .row input,
 .map-settings .row select
 {
-    width: 280px !important; 
+    width: 280px !important;
 }
 
 /*** INLINES ***/
@@ -393,13 +393,13 @@ form .aligned .privacy-settings ul li
 /*** MAILING ***/
 
 #content .is_read input[type="checkbox"],
-#content .is_draft input[type="checkbox"] 
+#content .is_draft input[type="checkbox"]
 {
     margin-left: 0 !important;
 }
 
 #content .is_read,
-#content .is_draft 
+#content .is_draft
 {
     padding-left: 130px !important;
 }
@@ -413,8 +413,8 @@ form .aligned .privacy-settings ul li
 
 .tree_table tr.filtered_out
 {
-    filter:alpha(opacity=60); 
-    -moz-opacity: 0.6; 
+    filter:alpha(opacity=60);
+    -moz-opacity: 0.6;
     opacity: 0.6;
 }
 
@@ -461,7 +461,7 @@ form .aligned .privacy-settings ul li
 .showDragHandleBefore {
     background-image: url(../../img/admin/arrow-up.gif);
     background-repeat: no-repeat;
-    background-position: left top;    
+    background-position: left top;
 }
 
 /* this class marks a drop row that the target should be inserted after the row */
@@ -620,7 +620,7 @@ fieldset.grp-module h2 + fieldset.grp-module.nested {
 }
 
 /* Prefix cross-links to content objects with a "»" and show the link in italics for better distinction */
-a.content_object, a.cross_link { 
+a.content_object, a.cross_link {
     font-style: italic;
 }
 a.content_object:before, a.cross_link:before {
@@ -765,7 +765,7 @@ a.open-link:hover, a.open-link:active {
     background: url("/admin-media/img/icons/icon-tools-delete-handler.png") no-repeat center center;
     width: 25px;
     height: 23px;
-    
+
 }
 
 .ac_value_list li a:hover {
@@ -832,11 +832,11 @@ a.open-link:hover, a.open-link:active {
     background: white;
     -moz-border-radius-topleft: 5px;
     -moz-border-radius-topright: 5px;
-    -webkit-border-top-left-radius: 5px;    
+    -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
     -moz-border-radius-bottomleft: 0;
     -moz-border-radius-bottomright: 0;
-    -webkit-border-bottom-left-radius: 0;    
+    -webkit-border-bottom-left-radius: 0;
     -webkit-border-bottom-right-radius: 0;
     width: 90px;
 }
@@ -953,4 +953,13 @@ body#tinymce {
 }
 .grp-change-form .cke_combopanel {
     width: 350px;
+}
+.cke_combopanel {
+    min-width: 400px;
+}
+.cke_combo_text {
+    width: auto !important;
+}
+..cke_dialog_body {
+    min-width: 400px;
 }
