@@ -19,7 +19,6 @@ from base_libs.widgets import TreeSelectWidget
 from base_libs.middleware import get_current_user
 from base_libs.admin.options import ExtendedModelAdmin
 from base_libs.models import ContentBaseMixin
-from base_libs.models.base_libs_settings import JQUERY_URL
 from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 
 # "save" buttons for ContentBaseMixin extending models
@@ -451,7 +450,8 @@ class HierarchyMixinAdminOptions(ExtendedModelAdmin):
         # additional JS
         media = self.media
         media.add_js((
-            JQUERY_URL,
+            # TODO: can we get rid of the following dependency?
+            "https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js",
             "%sjs/json/json2.js" % ADMIN_MEDIA_URL,
             "%sjs/admin/Trees.js" % ADMIN_MEDIA_URL,
         ))
