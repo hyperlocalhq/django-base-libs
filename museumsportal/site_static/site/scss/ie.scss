@@ -1,0 +1,20 @@
+.msie {
+  div.tagsinput input {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  #images { 
+    ul {
+      li {
+        &:hover { 
+          .info {
+            opacity: 0 !important;
+          }
+          img { opacity: 1 !important;}
+          .actions { opacity: 0 !important;}
+        }
+      }
+    }
+  }
+}

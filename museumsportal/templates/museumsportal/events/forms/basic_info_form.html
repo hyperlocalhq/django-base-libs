@@ -1,0 +1,338 @@
+{% extends "events/forms/base.html" %}
+{% load crispy_forms_tags i18n %}
+
+{% block stylesheet %}
+    {{ block.super }}
+    <link href="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.autocomplete.css" rel="stylesheet" />
+    <link href="{{ STATIC_URL }}site/css/jquery.tagsinput.css" rel="stylesheet" />
+    <link href="{{ STATIC_URL }}site/css/fileuploader.css" media="screen" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.bgiframe.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.autocomplete.js"></script>
+    <script src="{{ STATIC_URL }}site/js/autocomplete.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.tagsinput.js"></script>
+    <script src="{{ STATIC_URL }}ajaxuploader/js/fileuploader.js"></script>
+{% endblock %}
+
+{% block multistep_form %}
+    {% crispy form %}
+    <script src="//maps.google.com/maps/api/js?language={{ LANGUAGE_CODE }}&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
+    <script src="{{ STATIC_URL }}site/js/gmaps_for_address.js"></script>
+    <script>
+        $(function() {
+            var translatable_file_uploader_options_de = {
+                template: '<div class="qq-uploader">' +
+                    '<div class="qq-upload-drop-area"><span>{% trans "Drop file here" %}</span></div>' +
+                    '<div class="qq-upload-button btn btn-primary">{% trans "Upload German PDF" %}</div>' +
+                    '&nbsp;<button class="btn btn-danger qq-delete-button">{% trans "Delete" %}</button>' +
+                    '<ul class="qq-upload-list"></ul>' +
+                '</div>',
+                // template for one item in file list
+                fileTemplate: '<li>' +
+                    '<span class="qq-upload-file"></span>' +
+                    '<span class="qq-upload-spinner"></span>' +
+                    '<span class="qq-upload-size"></span>' +
+                    '<a class="qq-upload-cancel" href="#">{% trans "Cancel" %}</a>' +
+                    '<span class="qq-upload-failed-text">{% trans "Failed" %}</span>' +
+                '</li>',
+                messages: {
+                    typeError: '{% trans "{file} has invalid extension. Only {extensions} are allowed." %}',
+                    sizeError: '{% trans "{file} is too large, maximum file size is {sizeLimit}." %}',
+                    minSizeError: '{% trans "{file} is too small, minimum file size is {minSizeLimit}." %}',
+                    emptyError: '{% trans "{file} is empty, please select files again without it." %}',
+                    filesLimitError: '{% trans "No more than {filesLimit} files are allowed to be uploaded." %}',
+                    onLeave: '{% trans "The files are being uploaded, if you leave now the upload will be cancelled." %}'
+                }
+            };
+
+            var translatable_file_uploader_options_en = {
+                template: '<div class="qq-uploader">' +
+                    '<div class="qq-upload-drop-area"><span>{% trans "Drop file here" %}</span></div>' +
+                    '<div class="qq-upload-button btn btn-primary">{% trans "Upload English PDF" %}</div>' +
+                    '&nbsp;<button class="btn btn-danger qq-delete-button">{% trans "Delete" %}</button>' +
+                    '<ul class="qq-upload-list"></ul>' +
+                '</div>',
+                // template for one item in file list
+                fileTemplate: '<li>' +
+                    '<span class="qq-upload-file"></span>' +
+                    '<span class="qq-upload-spinner"></span>' +
+                    '<span class="qq-upload-size"></span>' +
+                    '<a class="qq-upload-cancel" href="#">{% trans "Cancel" %}</a>' +
+                    '<span class="qq-upload-failed-text">{% trans "Failed" %}</span>' +
+                '</li>',
+                messages: {
+                    typeError: '{% trans "{file} has invalid extension. Only {extensions} are allowed." %}',
+                    sizeError: '{% trans "{file} is too large, maximum file size is {sizeLimit}." %}',
+                    minSizeError: '{% trans "{file} is too small, minimum file size is {minSizeLimit}." %}',
+                    emptyError: '{% trans "{file} is empty, please select files again without it." %}',
+                    filesLimitError: '{% trans "No more than {filesLimit} files are allowed to be uploaded." %}',
+                    onLeave: '{% trans "The files are being uploaded, if you leave now the upload will be cancelled." %}'
+                }
+            };
+
+            var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val();
+            var $pdf_document_de_upload = $('#pdf_document_de_upload');
+            var pdf_document_de_path = $('#id_pdf_document_de_path').val();
+            if (pdf_document_de_path) {
+                var fileName = pdf_document_de_path.split("/")[1];
+                $('.pdf_link', $pdf_document_de_upload).html('<p class="lead"><a class="btn btn-primary" href="' +  settings.MEDIA_URL + pdf_document_de_path + '" target="_blank">' + fileName + ' ({% trans "Preview" %})</a></p>');
+            }
+            var options_de = $.extend(translatable_file_uploader_options_de, {
+                allowedExtensions: ['pdf'],
+                action: '/' + settings.LANGUAGE_CODE + '/helper/ajax-upload/',
+                element: $('.pdf_uploader', $pdf_document_de_upload)[0],
+                multiple: false,
+                onComplete: function(id, fileName, responseJSON) {
+                    if(responseJSON.success) {
+                        $('.messages', $pdf_document_de_upload).html("");
+                        // set the original to media_file_path
+                        $('#id_pdf_document_de_path').val(responseJSON.path);
+                        // show preview link
+                        $('.pdf_link', $pdf_document_de_upload).html('<p class="lead"><a class="btn btn-primary" href="' +  settings.MEDIA_URL + responseJSON.path  + '" target="_blank">' + responseJSON.filename + ' ({% trans "Preview" %})</a></p>');
+                    }
+                },
+                onAllComplete: function(uploads) {
+                    // uploads is an array of maps
+                    // the maps look like this: {file: FileObject, response: JSONServerResponse}
+                    $('.qq-upload-success').fadeOut("slow", function() {
+                        $(this).remove();
+                    });
+                },
+                params: {
+                    'csrf_token': csrfmiddlewaretoken,
+                    'csrf_name': 'csrfmiddlewaretoken',
+                    'csrf_xname': 'X-CSRFToken'
+                },
+                showMessage: function(message) {
+                    $('.messages', $pdf_document_de_upload).html('<div class="alert alert-danger">' + message + '</div>');
+                }
+            });
+            var pdf_uploader_de = new qq.FileUploader(options_de);
+            $('.qq-delete-button', $pdf_document_de_upload).click(function() {
+                $('.pdf_link', $pdf_document_de_upload).html("");
+                $('#id_delete_pdf_document_de').val(1);
+                return false;
+            });
+
+            var $pdf_document_en_upload = $('#pdf_document_en_upload');
+            var pdf_document_en_path = $('#id_pdf_document_en_path').val();
+            if (pdf_document_en_path) {
+                var fileName = pdf_document_en_path.split("/")[1];
+                $('.pdf_link', $pdf_document_en_upload).html('<p class="lead"><a class="btn btn-primary" href="' +  settings.MEDIA_URL + pdf_document_en_path + '" target="_blank">' + fileName + ' ({% trans "Preview" %})</a></p>');
+            }
+            var options_en = $.extend(translatable_file_uploader_options_en, {
+                allowedExtensions: ['pdf'],
+                action: '/' + settings.LANGUAGE_CODE + '/helper/ajax-upload/',
+                element: $('.pdf_uploader', $pdf_document_en_upload)[0],
+                multiple: false,
+                onComplete: function(id, fileName, responseJSON) {
+                    if(responseJSON.success) {
+                        $('.messages', $pdf_document_en_upload).html("");
+                        // set the original to media_file_path
+                        $('#id_pdf_document_en_path').val(responseJSON.path);
+                        // show preview link
+                        $('.pdf_link', $pdf_document_en_upload).html('<p class="lead"><a class="btn btn-primary" href="' +  settings.MEDIA_URL + responseJSON.path  + '" target="_blank">' + responseJSON.filename + ' ({% trans "Preview" %})</a></p>');
+                    }
+                },
+                onAllComplete: function(uploads) {
+                    // uploads is an array of maps
+                    // the maps look like this: {file: FileObject, response: JSONServerResponse}
+                    $('.qq-upload-success').fadeOut("slow", function() {
+                        $(this).remove();
+                    });
+                },
+                params: {
+                    'csrf_token': csrfmiddlewaretoken,
+                    'csrf_name': 'csrfmiddlewaretoken',
+                    'csrf_xname': 'X-CSRFToken'
+                },
+                showMessage: function(message) {
+                    $('.messages', $pdf_document_en_upload).html('<div class="alert alert-danger">' + message + '</div>');
+                }
+            });
+            var pdf_uploader_en = new qq.FileUploader(options_en);
+            $('.qq-delete-button', $pdf_document_en_upload).click(function() {
+                $('.pdf_link', $pdf_document_en_upload).html("");
+                $('#id_delete_pdf_document_en').val(1);
+                return false;
+            });
+        });
+    </script>
+    <script>
+        $(function() {
+            $('.dateinput').datepicker({
+                format: 'dd.mm.yyyy',
+                weekStart: 1
+            });
+            $('.timeinput').timepicker({
+                str_hours: '{% trans "Hours" %}',
+                str_minutes: '{% trans "Minutes" %}',
+                str_confirm: '{% trans "Confirm" %}',
+                str_close: '{% trans "Close" %}'
+            });
+            $('#id_tags').tagsInput({defaultText: '{% trans "add a tag" %}'});
+            $('#id_museum').change(function() {
+                if ($(this).val()) {
+                    $.get('/helper/museum_attrs/' + $(this).val() + '/', function(data) {
+                        $('#id_location_name').val(data['title']).addClass("noneditable");
+                        $('#id_street_address').val(data['street_address']).addClass("noneditable");
+                        $('#id_street_address2').val(data['street_address2']).addClass("noneditable");
+                        $('#id_postal_code').val(data['postal_code']).addClass("noneditable");
+                        $('#id_city').val(data['city']).addClass("noneditable");
+                        $('#id_latitude').val(data['latitude']).addClass("noneditable");
+                        $('#id_longitude').val(data['longitude']).addClass("noneditable");
+                        $('#dyn_locate_geo').click();
+                    }, 'json');
+                }
+            });
+        });
+        function reinit_widgets() {
+            $('[rel=tooltip]').tooltip();
+            $('.dateinput').datepicker({
+                format: 'dd.mm.yyyy',
+                weekStart: 1
+            });
+            $('.timeinput').timepicker({
+                str_hours: '{% trans "Hours" %}',
+                str_minutes: '{% trans "Minutes" %}',
+                str_confirm: '{% trans "Confirm" %}',
+                str_close: '{% trans "Close" %}'
+            });
+        }
+        function set_index_for_fields($formset_form, index) {
+            $formset_form.find(':input').each(function() {
+                var $field = $(this);
+                if ($field.attr("id")) {
+                    $field.attr(
+                        "id",
+                        $field.attr("id").replace(/-__prefix__-/, "-" + index + "-")
+                    );
+                }
+                if ($field.attr("name")) {
+                    $field.attr(
+                        "name",
+                        $field.attr("name").replace(/-__prefix__-/, "-" + index + "-")
+                    );
+                }
+            });
+            $formset_form.find('label').each(function() {
+                var $field = $(this);
+                if ($field.attr("for")) {
+                    $field.attr(
+                        "for",
+                        $field.attr("for").replace(/-__prefix__-/, "-" + index + "-")
+                    );
+                }
+            });
+            $formset_form.find('div').each(function() {
+                var $field = $(this);
+                if ($field.attr("id")) {
+                    $field.attr(
+                        "id",
+                        $field.attr("id").replace(/-__prefix__-/, "-" + index + "-")
+                    );
+                }
+            });
+        }
+            
+        $(function() {
+            $(
+                '<a class="add btn btn-primary" id="add_organizer" href="#">{% trans "Add organizer" %}</a>'
+            ).insertAfter('#organizers').click(function() {
+                var $total_forms = $('#id_organizers-TOTAL_FORMS');
+                var $new_form = $('#organizers_empty_form').clone(true).attr("id", null).show();
+                set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
+                $('#organizers').append($new_form);
+                $total_forms.val(parseInt($total_forms.val(), 10) + 1);
+                AutocompleteManager.reinit($new_form);
+                reinit_widgets();
+                return false;
+            });
+            
+            $('.formset-form').each(function() {
+                var $season = $(this);
+                $season.find('input:checkbox[id$=DELETE]').each(function() {
+                    var $checkbox = $(this);
+                    var $deleteLink = $(
+                        '<span class="input-group-btn"><button class="delete btn btn-lg btn-info btn-icon" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}"><span class="icon icon-remove"></span><span class="sr-only">{% trans "Remove" %}</span></button></span>'
+                    );
+                    $checkbox.closest('.formset-form').find(".input-group").append($deleteLink);
+                    $checkbox.closest('.form-group').hide();
+                });
+            });
+            $('.delete').live("click", function() {
+                var $season = $(this).parents('.formset-form:first');
+                var $checkbox = $season.find('input:checkbox[id$=DELETE]');
+                $checkbox.attr("checked", "checked");
+                $season.hide();
+                return false;
+            });
+            
+            // Initial state
+            var $total_forms = $('#id_organizers-TOTAL_FORMS');
+            if ($total_forms.val() == "0") {
+                $('#add_organizer').click();
+            }
+            reinit_widgets();
+            
+            $('#div_id_museum>label>a,#div_id_museum .help-block>a').click(function() {
+                $('#div_id_museum').hide();
+                $('#div_id_location_name').show();
+                $('#id_museum').val("");
+                $('#id_museum_text').val("");
+                
+                $('#id_location_name').val("").removeClass("noneditable");
+                $('#id_street_address').val("").removeClass("noneditable");
+                $('#id_street_address2').val("").removeClass("noneditable");
+                $('#id_postal_code').val("").removeClass("noneditable");
+                $('#id_city').val("").removeClass("noneditable");
+                GMapManager.removeGeoPos();
+                
+                return false;
+            });
+            $('#div_id_location_name>label>a,#div_id_location_name .help-block>a').click(function() {
+                $('#div_id_location_name').hide();
+                $('#div_id_museum').show();
+                return false;
+            });
+            if ($('#id_museum').val() || !$('#id_location_name').val()) {
+                $('#div_id_location_name').hide();
+                $('#div_id_museum').show();
+            } else {
+                $('#div_id_museum').hide();
+                $('#div_id_location_name').show();
+            }
+            
+            $('div[id$="organizing_museum"]>label>a,div[id$="organizing_museum"] .help-block>a').live("click", function() {
+                var $organizer = $(this).parents('.div_organizer:first');
+                $organizer.find('div[id$="organizing_museum"]').closest('.toggle-option').hide();
+                $organizer.find(':input[id$="organizing_museum"]').val("");
+                $organizer.find(':input[id$="organizing_museum_text"]').val("");
+                $organizer.find('div[id$="organizer_title"]').closest('.toggle-option').show();
+                return false;
+            });
+            $('div[id$="organizer_title"]>label>a,div[id$="organizer_title"] .help-block>a').live("click", function() {
+                var $organizer = $(this).parents('.div_organizer:first');
+                $organizer.find('div[id$="organizer_title"]').closest('.toggle-option').hide();
+                $organizer.find(':input[id$="organizer_title"]').val("");
+                $organizer.find(':input[id$="organizer_url_link"]').val("");
+                $organizer.find('div[id$="organizing_museum"]').closest('.toggle-option').show();
+                return false;
+            });
+            $(':input[id$="organizer_title"]').each(function() {
+                var $organizer = $(this).parents('.div_organizer:first');
+                if (!$(this).val()) {
+                    $organizer.find('div[id$="organizer_title"]').closest('.toggle-option').hide();
+                    $organizer.find('div[id$="organizing_museum"]').closest('.toggle-option').show();
+                } else {
+                    $organizer.find('div[id$="organizing_museum"]').closest('.toggle-option').hide();
+                    $organizer.find('div[id$="organizer_title"]').closest('.toggle-option').show();
+                }
+            })
+            
+        });
+    </script>
+{% endblock %}

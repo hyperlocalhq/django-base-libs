@@ -1,0 +1,40 @@
+#favorites {
+  #filters {
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  .list {
+    margin-bottom: 50px;
+    .item {
+      position: relative;
+      a.item-img {
+        padding: 0;
+        img {
+          width: 100%;
+        }
+      }
+      a.item-content {
+        padding-top: 50px;
+        word-wrap: break-word;
+        h3, h4, h5 {
+          text-overflow: inherit;
+          white-space: normal !important;
+        }
+        h3 {
+          font-size: 20px;
+          line-height: 120%;
+          margin-bottom: 15px !important;
+        }
+        h5 {
+          margin-top: 10px !important;
+        }
+      }
+      a.item-hidden {
+        background-image: none !important;
+        background-color: #efefef;
+        position: relative;
+        border-bottom: 10px solid white;
+      }
+    }
+  }
+}

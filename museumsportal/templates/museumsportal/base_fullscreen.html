@@ -1,0 +1,99 @@
+{% block doctype %}<!DOCTYPE html>{% endblock %}
+{% load cms_tags menu_tags sekizai_tags i18n image_modifications base_tags %}
+<html lang="{{ LANGUAGE_CODE }}">
+  <head>
+  	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}{% endblock %} Museumsportal Berlin</title>
+    <link rel="icon" href="{{ STATIC_URL }}site/img/favicon.ico" type="image/png">
+
+    {% block meta_tags %}
+      {{ site_settings.get_meta_tags|safe }}
+    {% endblock %}
+
+    {% block open_graph %}
+    {% endblock %}
+
+    {% block stylesheet %}
+      <link href="{{ STATIC_URL }}site/css/bootstrap/bootstrap.css" rel="stylesheet" media="screen, print" type="text/css" />
+      <link href="{{ STATIC_URL }}site/css/style.css" rel="stylesheet" media="screen, print" type="text/css" />
+    {% endblock %}
+
+    {% render_block "css" %}
+    <script>
+      <!--//--><![CDATA[//><!--
+        var images = new Array()
+        function preload() {
+          for (i = 0; i < preload.arguments.length; i++) {
+            images[i] = new Image()
+            images[i].src = preload.arguments[i]
+          }
+        }
+        preload(
+          "{{ STATIC_URL }}site/img/none_placeholder.gif"
+        )
+      //--><!]]>
+    </script>
+    <script>
+      (function() {
+        var config = {
+            kitId: 'qru0sat',
+            scriptTimeout: 3000
+        };
+        var h=document.getElementsByTagName("html")[0];h.className+=" wf-loading";var t=setTimeout(function(){h.className=h.className.replace(/(\s|^)wf-loading(\s|$)/g," ");h.className+=" wf-inactive"},config.scriptTimeout);var tk=document.createElement("script"),d=false;tk.src='//use.typekit.net/'+config.kitId+'.js';tk.type="text/javascript";tk.async="true";tk.onload=tk.onreadystatechange=function(){var a=this.readyState;if(d||a&&a!="complete"&&a!="loaded")return;d=true;clearTimeout(t);try{Typekit.load(config)}catch(b){}};var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(tk,s)
+      })();
+    </script>
+
+    <script src="{% url 'jssettings' %}"></script>
+    <script src="{{ JETSON_MEDIA_URL }}js/legacy.js"></script>
+    <script src="/{{ LANGUAGE_CODE }}/jsi18n/"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery-1.8.3.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.ba-bbq.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.isotope.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.scrollstop.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.lazyload.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.viewport.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/bootstrap/bootstrap.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/modernizr.custom.52849.js"></script>
+    <script src="{{ JETSON_MEDIA_URL }}js/jquery/jquery.cookie.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.selectbox-0.2.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.sharrre.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/base.js"></script>
+    <script>
+      var csrftoken = $.cookie('csrftoken');
+      function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+      }
+      $.ajaxSetup({
+        crossDomain: false, // obviates need for sameOrigin test
+        beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type)) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          }
+        }
+      });
+      if ($.browser.msie) {
+        $('html').addClass('msie');
+      }
+    </script>
+    {{ site_settings.extra_head|safe }}
+    {% block js %}{% endblock %}
+  </head>
+
+
+  <body class="{% block bodyclass %}{% endblock %} lang_{{ LANGUAGE_CODE }}">
+    <div id="body">
+    {% cms_toolbar %}
+
+    <!-- Content ================================================== -->
+
+    {% block content %}
+    {% endblock %}
+
+    {% render_block "js" %}
+    {{ site_settings.extra_body|safe }}
+    </div>
+  </body>
+</html>

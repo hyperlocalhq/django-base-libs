@@ -1,0 +1,6 @@
+LOAD DATABASE
+    FROM mysql://mysqlusername:mysqlpassword@localhost/museumsportal_dj_1_8
+    INTO postgresql:///museumsportal
+    WITH truncate, data only, disable triggers, preserve index names, include no drop, reset sequences
+    ALTER SCHEMA 'museumsportal_dj_1_8' RENAME TO 'public'
+;

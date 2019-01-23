@@ -1,0 +1,89 @@
+{% load base_tags i18n image_modifications tagging_tags babel auth_extended favorites fb_tags %}
+{% with object as workshop %}
+  {% tags_for_object workshop as tags %}
+  <button id="cancel-description" class="cancel btn btn-info btn-lg">
+    <span class="icon icon-remove"></span>
+    <span class="sr-only">{% trans "close" %}</span>
+  </button>
+
+  <div class="map-ajax-detail">
+    <article>
+      <header>
+        <h2>
+          <time>
+            {% if workshop.has_group_offer or not workshop.workshoptime_set.count %}
+              {% for t in workshop.types.all %}{{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}{% endfor %}
+              {% trans "Bookable Offer" %}
+            {% else %}
+              {% for t in workshop.types.all %}{{ t.title }}{% if not forloop.last %}, {% else %}:{% endif %}{% endfor %}
+              {% with workshop.get_closest_workshop_time as workshop_time %}
+                <span class="nobr">{{ workshop_time.workshop_date|date:"j. F Y" }}</span>
+                <span class="nobr">{{ workshop_time.start|time:"H:i" }}{% if workshop_time.end %} {% trans "till" %} {{ workshop_time.end|time:"H:i" }}{% endif %}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</span>
+              {% endwith %}
+            {% endif %}
+          </time>
+        </h2>
+
+        <h1>{{ workshop.title }}</h1>
+
+        {% if workshop.subtitle %}
+          <h2>{{ workshop.subtitle }}</h2>
+        {% endif %}
+
+        {% if workshop.location_name %}
+          <h3>{{ workshop.location_name }}</h3>
+        {% else %}
+          {% if workshop.museum %}
+              <a href="{{ workshop.museum.get_url_path }}"><h3>{{ workshop.museum.title }}</h3></a>
+          {% endif %}
+        {% endif %}
+
+
+          <p>
+            <small>
+            {{ workshop.street_address }},
+            {% if workshop.street_address2 %}{{ workshop.street_address2 }},{% endif %}
+            {{ workshop.postal_code }} {{ workshop.city }}
+            </small>
+          </p>
+
+
+      </header>
+
+      <div class="tools">
+        {% if request.user.is_authenticated %}
+          {% adding2favorites for workshop %}
+        {% endif %}
+        {% if_has_perm "workshops.change_workshop" workshop %}
+          {% if workshop.cover_image %}
+            <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop btn btn-default btn-round" onclick="location.href='{% cropping_url workshop.cover_image "workshop_list" request request.path %}';">
+              <span class="icon icon-tool-crop"></span>
+              <span class="sr-only">{% trans "Crop Image" %}</span>
+            </button>
+          {% else %}{% if workshop.museum.cover_image %}
+            <button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}" class="crop btn btn-default btn-round" onclick="location.href='{% cropping_url workshop.museum.cover_image "workshop_list" request request.path %}';">
+              <span class="icon icon-tool-crop"></span>
+              <span class="sr-only">{% trans "Crop Image" %}</span>
+            </button>
+          {% endif %}{% endif %}
+        {% end_if_has_perm %}
+      </div>
+
+      {% if workshop.cover_image %}
+        <div id="cover_img">
+          <a class="img" href="{{ workshop.get_url_path }}">
+              <div class="photo-credits-wrapper">
+                <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ workshop.cover_image|modified_path:"workshop_list" }}{% if_has_perm "workshops.change_workshop" workshop %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+                {% with workshop.cover_image|file_description as file_desc %}
+                    {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}
+                {% endwith %}
+            </div>
+          </a>
+        </div>
+      {% endif %}
+
+      <p>{{ workshop.get_rendered_description|striptags|truncatewords:"45"|urlize }}</p>
+      <a class="btn btn-default" href="{{ workshop.get_url_path }}">{% trans "more" %}</a>
+    </article>
+  </div>
+{% endwith %}
