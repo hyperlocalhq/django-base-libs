@@ -5,6 +5,7 @@ from itertools import chain
 from copy import deepcopy
 
 from django import forms
+from django.core.urlresolvers import reverse
 from django.utils.html import escape, conditional_escape
 from django.utils.encoding import force_unicode
 from django.utils.safestring import mark_safe
@@ -90,7 +91,7 @@ class AutocompleteWidget(Widget):
     options = None
     js_template = """
         if (self.AutocompleteManager) {
-            self.AutocompleteManager.register("#%s", %s, %s);
+            self.AutocompleteManager.register('#%s', '%s', %s);
         }"""
 
     def __init__(self, app, qs_function, display_attr, add_display_attr=None, options=None, attrs=None):
@@ -109,13 +110,13 @@ class AutocompleteWidget(Widget):
         self.attrs = attrs
     
     def render_js(self, hidden_field_id, field_id, text_field_value):
-        source = "'/helper/autocomplete/%s/%s/%s/%s/'" % (
-            self.app,
-            self.qs_function,
-            self.display_attr,
-            self.add_display_attr,
-            )
-        
+        url = reverse('base_libs.views.ajax_autocomplete', kwargs={
+            'app': self.app,
+            'qs_function': self.qs_function,
+            'display_attr': self.display_attr,
+            'add_display_attr': self.add_display_attr,
+        })
+
         if self.options:
             options = JSONEncoder().encode(self.options)
     
@@ -137,7 +138,7 @@ class AutocompleteWidget(Widget):
         #$j("#%s").autocomplete(%s,%s).result(AutocompleteManager.result).next().click(function(){$j(this).prev().search();});""" % (   
         js = self.js_template % (
             field_id,
-            source,
+            url,
             options
             )
         

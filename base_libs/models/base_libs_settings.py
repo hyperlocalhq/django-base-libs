@@ -20,3 +20,15 @@ DEFAULT_MARKUP_TYPE = getattr(settings, "DEFAULT_MARKUP_TYPE", MARKUP_PLAIN_TEXT
 
 STATUS_CODE_DRAFT = 0
 STATUS_CODE_PUBLISHED = 1
+
+JQUERY_URL = getattr(
+    settings,
+    "JQUERY_URL",
+    "//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js",
+)
+
+JQUERY_UI_URL = getattr(
+    settings,
+    "JQUERY_UI_URL",
+    "//ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js",
+)
