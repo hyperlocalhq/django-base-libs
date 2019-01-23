@@ -830,7 +830,7 @@ def disarm_user_input(html):
         strip=True,
         strip_comments=True,
     )
-    html = bleach.linkify(html, parse_email=True)
+    html = bleach.linkify(html)
     html = mark_safe(html)
     return html
 
@@ -858,7 +858,7 @@ def disarm_admin_input(html):
         strip=True,
         strip_comments=True,
     )
-    html = bleach.linkify(html, parse_email=True)
+    html = bleach.linkify(html)
     html = mark_safe(html)
     return html
 
@@ -882,6 +882,8 @@ def linkify(text):
 
 
 register.filter('get_user_title', get_user_title)
+
+
 
 
 @register.filter
