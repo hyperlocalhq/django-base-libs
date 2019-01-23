@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load i18n base_tags navigation_tags %}
+
+{% block title %}{{ object.get_title|escape }}{% endblock %}
+
+{% block extrahead %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/groups_networks.js"></script>
+{% endblock %}
+
+
+{% block headline %}
+    {% include "site_specific/count_of.html" %}
+    <h2 class="main">
+        <a href="/{{ URL_ID_INSTITUTIONS }}/">{% trans "Institutions" %}</a>
+    </h2>
+    <div class="detail-navi">
+        {% children_of "Institutions" using "navigation/children_horizontally.html" %}
+    </div>
+{% endblock %}
+
+{% block formstart %}
+{% endblock %}
+
+{% block formclose %}
+{% endblock %}
+
+{% block sidebar-a %}{{ block.super }}{% endblock %}
+
+
+{% block content %}
+    {% include "institutions/profile/identity.html" %}
+    {% block tabs %}
+        <div id="tabs">
+            {% children_of "institution" using "navigation/children_in_tabs.html" %}
+        </div>
+    {% endblock %}
+
+    {% block details %}
+    {% endblock %}
+{% endblock %}      

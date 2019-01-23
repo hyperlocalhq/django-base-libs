@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block meta_keywords %}
+    <meta name="keywords"
+          lang="de"
+          content="Berlin, Information, Kreativwirtschaft, Kulturwirtschaft, Kontakte, Netzwerke , Fördergelder, Kulturförderung, Wirtschaftsförderung, Stipendien, Ateliers, Arbeitsräume, Probenräume, Steuern, Berlin"/>
+    <meta name="keywords"
+          lang="en-us"
+          content="information, creative industries, cultural industries, contacts, networking, subsidies, promotion of the arts, financial support, scholarship, studio, workspace, rehearsal rooms, tax"/>
+{% endblock %}
+
+{% block meta_description %}
+    <meta name="description"
+          lang="de"
+          content="Der Bereich „Fragen & Antworten“ der Webseite Creative City Berlin bietet Informationen für Kulturschaffende und Kreative rund um Existenzgründung, Ansiedlung von Unternehmen, Kulturförderprogramme, Netzwerke, Ansprechpartner und mehr."/>
+    <meta name="description"
+          lang="en-us"
+          content="The section “Questions & Answers” of the website Creative City Berlin provides advice for people involved in the creative industry on founding and establishing businesses, cultural sponsoring programmes, networks, contacts and more"/>
+{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+{% endblock %}
+
+{% block title %}
+    {% if not root_category %}
+        {{ container.title|escape }}
+    {% else %}
+        {{ root_category.short_title|escape }}
+    {% endif %}
+{% endblock %}
+{% block bodyclass %}faqs{% endblock %}
+
+{% block headline %}
+    <h2 class="main">
+        {{ container.title|escape }}
+    </h2>
+{% endblock %}
+{% block content %}
+    {% block details %}
+    {% endblock %}
+{% endblock %}

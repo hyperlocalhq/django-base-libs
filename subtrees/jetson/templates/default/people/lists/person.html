@@ -1,0 +1,121 @@
+{% extends "utils/lists/base_context_item.html" %}
+{% load i18n base_tags image_mods_tags %}
+{% block object_image %}
+    <a href="{{ person.get_url_path }}">
+        {% if person.image %}
+            <img alt="{{ person.get_title|escape }}" src="{{ UPLOADS_URL }}{{ person.image|modified_path:"al" }}"/>
+        {% else %}
+            <img alt="{{ person.get_title|escape }}" src="{{ STATIC_URL }}site/img/website/placeholder/person_m.png"/>
+        {% endif %}
+    </a>
+{% endblock %}
+
+
+{% block object_title %}
+    <a class="fn" href="{{ person.get_url_path }}">
+        {{ person.get_title|escape }}
+    </a>
+{% endblock %}
+
+{% block object_absolute_url %}{{ person.get_url_path }}{% endblock %}
+
+{% block object_col1 %}
+
+    {% if person.get_contacts %}
+        {% with person.get_contacts.0 as contact %}
+            {% if contact %}
+                {% if person.is_address_displayed %}
+                    {% with contact.postal_address as postal_address %}
+                        {% if postal_address.street_address or postal_address.country_name %}
+                            <address class="adr">
+                                {% if contact.institution %}
+                                    {% ifequal contact.institution.status.sysname "draft" %}
+                                        {{ contact.institution.get_title|escape }}
+                                    {% else %}
+                                        <a class="org"
+                                           href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
+                                    {% endifequal %}
+                                    <br/>
+                                {% endif %}
+                                {% if postal_address.street_address %}
+                                    <span class="street-address">
+                                 {{ postal_address.street_address|escape }}
+                                 </span>
+                                    <br/>
+                                {% endif %}
+                                {% if postal_address.street_address2 %}
+                                    <span class="street-address">
+                                 {{ postal_address.street_address2|escape }}</span>
+                                    <br/>
+                                {% endif %}
+                                {% if postal_address.street_address3 %}
+                                    <span class="street-address">{{ postal_address.street_address3|escape }}
+                                 </span>
+                                    <br/>
+                                {% endif %}
+                                {% if postal_address.postal_code %}
+                                    <span class="postal-code">
+                                 {{ postal_address.postal_code|escape }} 
+                                 {{ postal_address.city|escape }}
+                                 </span>
+                                    <br/>
+                                {% endif %}
+                                {% if postal_address.country_name %}
+                                    <span class="country-name">
+                                {{ postal_address.country_name }}
+                                </span>
+                                    <br/>
+                                {% endif %}
+                            </address>
+                        {% endif %}
+                    {% endwith %}
+                {% endif %}
+            {% endif %}
+        {% endwith %}
+    {% endif %}
+{% endblock %}
+
+{% block object_col2 %}
+    {% if person.occupation %}
+        <div class="object-type">{{ person.occupation }}</div>
+    {% endif %}
+    {% if person.get_contacts %}
+        {% with person.get_contacts.0 as contact %}
+            {% if contact.get_phones %}
+                {% for phone in contact.get_phones %}
+                    <span class="tel">
+                        {% if phone.type %}
+                            <abbr title="{{ phone.type.vcard_name }}" class="type">
+                            {{ phone.type }}
+                            </abbr>:
+                        {% endif %}
+                        <span class="value">+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</span><br/>
+                    </span>
+                {% endfor %}
+            {% endif %}
+            {% for url in contact.get_urls %}
+                <span>
+                {% if url.type %}{{ url.type }}: {% endif %}<a href="{{ url.link|escape }}"
+                                                               onclick="open_new_window(event)"
+                                                               class="url">
+                {% with url.link|slice:"0:27"|escape as sliced %}{{ sliced }}{% with url.link|escape as not_sliced %}{% ifnotequal sliced url.link|escape %}...{% endifnotequal %}{% endwith %}{% endwith %}</a><br/>
+            </span>
+            {% endfor %}
+        {% endwith %}
+    {% endif %}
+    {% if person.get_description %}
+        {% with person.get_description|striptags|truncatewords:"60" as filtered_desc %}{% with filtered_desc|truncatewords:"40" as shortened_desc %}
+            <span class="description hidable">
+            {{ shortened_desc }}
+                {% ifnotequal shortened_desc filtered_desc %}
+                    <a href="{{ person.get_url_path }}">{% trans "read more" %}</a>
+                {% endifnotequal %}
+        </span>
+        {% endwith %}{% endwith %}
+    {% endif %}
+{% endblock %}
+
+{% block object_controls %}
+    {% include "people/controls.html" %}
+{% endblock %}
+

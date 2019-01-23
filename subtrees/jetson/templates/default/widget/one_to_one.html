@@ -1,0 +1,13 @@
+{% load admin_modify base_tags extended_admin %}
+{% if add %}{% include "widget/relation.html" %}{% endif %}
+{% if change %}{% if bound_field.existing_display %}&nbsp;
+    <strong>{{ bound_field.existing_display|truncatewords:"14"|escape }}</strong>{% endif %}
+    <input name="{{ bound_field.field.name }}" type="hidden" value="{{ bound_field.original_value }}"/>
+    <a href="{{ bound_field.related_url }}{{ bound_field.original_value }}"
+       class="change-current"
+       id="change_{{ bound_field.element_id }}"
+       onclick="return showChangeCurrentPopup(this);">
+        <img src="{% jetson_media_url %}img/admin/icon_changelink.gif" width="10" height="10" alt="Edit Current"/>
+    </a>
+{% endif %}
+

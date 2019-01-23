@@ -1,0 +1,111 @@
+{% extends "base_main.html" %}
+{% load base_tags i18n crispy_forms_tags sekizai_tags %}
+{% block bodyclass %}{{ block.super }} search{% endblock %}
+{% block title %}{% trans "Search" %}{% endblock %}
+
+{% block stylesheet %}
+    {{ block.super }}
+    <link href="{{ STATIC_URL }}site/css/search.css" rel="stylesheet" media="screen, print" type="text/css" />
+{% endblock %}
+
+{% block content %}
+    <div class="content overview">
+        <div class="search-form-container">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        {% crispy form %}
+                        {% now "uuuu" as microseconds %}
+                        <script nonce="{{ microseconds|to_base64 }}">
+                            $('label').click(function(e) {
+                                e.stopPropagation();
+                            });
+                            if (!location.search) {
+                                $('[name="t"]').click();
+                                $('#id_q').focus();
+                            }
+                        </script>
+                        {% add_data "script_nonces" microseconds|to_base64 %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if query and result_groups %}
+        {% for result_group in result_groups %}
+            <div class="content overview">
+                <div class="container">
+                    <div class="row">
+                        {% if result_group.page %}
+                            <h1 class="bottom-line">{{ result_group.verbose_name }} <span class="amount">{{ result_group.count }}</span></h1>
+                            <div class="list">
+                                {% for result in result_group.page.object_list %}
+                                    {% autoescape off %}
+                                        {% if result.get_stored_fields.rendered_de %}
+                                            {% if LANGUAGE_CODE == "de" %}
+                                                {{ result.get_stored_fields.rendered_de }}
+                                            {% else %}
+                                                {{ result.get_stored_fields.rendered_en }}
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endautoescape %}
+                                {% endfor %}
+                            </div>
+                            {% if result_group.page.has_previous or result_group.page.has_next %}
+                                <ul class="pagination">
+                                    {% if result_group.page.has_previous %}
+                                        <li><a class="button fawesome back" href="{% url "haystack_full_search" %}?q={{ query }}&amp;t={{ result_group.short_name|urlencode }}&amp;page={{ result_group.page.previous_page_number }}"></a></li>
+                                    {% else %}
+                                        <li class="disabled"><span class="button fawesome back"></span></li>
+                                    {% endif %}
+
+                                    {% for pnumber in result_group.paginator.page_range %}
+                                        <li{% if pnumber == result_group.page.number %} class="active"{% endif %}><a class="button" href="{% append_to_get page=pnumber %}">{{ pnumber }}</a></li>
+                                    {% endfor %}
+
+                                    {% if result_group.page.has_next %}
+                                        <li><a class="button fawesome more" href="{% url "haystack_full_search" %}?q={{ query }}&amp;t={{ result_group.short_name|urlencode }}&amp;page={{ result_group.page.next_page_number }}"></a></li>
+                                    {% else %}
+                                        <li class="disabled"><span class="button fawesome more"></span></li>
+                                    {% endif %}
+                                </ul>
+                            {% endif %}
+                        {% else %}
+                            <h1 class="bottom-line">{{ result_group.verbose_name }} <span class="amount"><a href="{% url "haystack_full_search" %}?q={{ query }}&t={{ result_group.short_name|urlencode }}">{{ result_group.count }}</a></span></h1>
+                            <div class="list">
+                                {% for result in result_group.results %}
+                                    {% autoescape off %}
+                                        {% if result.get_stored_fields.rendered_de %}
+                                            {% if LANGUAGE_CODE == "de" %}
+                                                {{ result.get_stored_fields.rendered_de }}
+                                            {% else %}
+                                                {{ result.get_stored_fields.rendered_en }}
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endautoescape %}
+                                {% endfor %}
+                            </div>
+                            {% with result_group.results|length as results_count %}
+                                {% if result_group.count > results_count %}
+                                    <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12"><a class="button" href="full/?q={{ query }}&t={{ result_group.short_name|urlencode }}">{% trans "more" %}…</a></div>
+                                {% endif %}
+                            {% endwith %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="content overview">
+            <div class="container">
+                <h4 class="nothing">
+                    {% if form.q.value %}
+                        {% trans "No results found." %}
+                    {% else %}
+                        {% trans "Please enter a phrase to search for." %}
+                    {% endif %}
+                </h4>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

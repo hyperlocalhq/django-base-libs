@@ -1,35 +1,17 @@
-*.py[cod]
-
-# C extensions
-*.so
-
-# Packages
-*.egg
-*.egg-info
-dist
-build
-eggs
-parts
-bin
-var
-sdist
-develop-eggs
-.installed.cfg
-lib
-lib64
-
-# Installer logs
-pip-log.txt
-
-# Unit test / coverage reports
-.coverage
-.tox
-nosetests.xml
-
-# Translations
-*.mo
-
-# Mr Developer
-.mr.developer.cfg
-.project
-.pydevproject
+.DS_Store
+*.pyc
+berlinbuehnen/media
+berlinbuehnen/static
+berlinbuehnen/tmp
+berlinbuehnen/local_settings.py
+berlinbuehnen/settings/secrets.json
+.sass-cache
+.codekit-cache
+config.codekit
+koala-config.json
+sql_dumps/
+prepros.cfg
+misc/
+sql/
+/deployment/local/commands/*.json
+/deployment/local/commands/*.backup

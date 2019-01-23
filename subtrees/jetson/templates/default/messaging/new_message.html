@@ -1,0 +1,83 @@
+{% extends "messaging/details_base.html" %}
+{% load i18n base_tags %}
+
+{% block headline %}
+    <h2 class="main">{% trans "New Messages" %}</h2>
+{% endblock %}
+
+
+{% block details %}
+    <div class="new-messages first-item">
+        <form method="post" action="">
+            {% if form %}
+                <div class="field_layout recipients_max recipients_{{ form.recipients_email_list.field.choices|length }}">
+                    <fieldset>
+                        <legend>
+                            {% trans "Recipients" %}
+                        </legend>
+                        <ul>
+                            {% if form.recipients_email_list %}
+                                <li>
+                                    {{ form.recipients_email_list.label_tag }} {{ form.recipients_email_list }} {{ form.recipients_email_list.error_tag }}
+                                    <p class="help_text">{{ form.recipients_email_list.help_text }}</p>
+                                </li>
+                            {% else %}
+                                <li>
+                                    <label>{% trans "Recipient" %}</label>
+                                    <p>{{ form.instance.recipient.get_profile.get_title }}</p></li>
+                            {% endif %}
+                        </ul>
+                    </fieldset>
+                </div>
+
+                <div class="field_layout">
+                    <fieldset class="fieldset_end">
+                        <legend>
+                            {% trans "Message" %}
+                        </legend>
+                        <ul>
+                            <li>
+                                {{ form.subject.label_tag }} {{ form.subject }} {{ form.subject.error_tag }}
+                            </li>
+                            <li>
+                                {{ form.body.label_tag }} {{ form.body }} {{ form.body.error_tag }} {{ form.prevent_spam }}
+                            </li>
+                            {% if form.prevent_spam.errors %}
+                                <li>
+                                    <p class="error">
+                                        {{ form.prevent_spam.errors|join:", " }}
+                                    </p>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </fieldset>
+
+                    <div id="button_box">
+                        <input type="hidden"
+                               name="goto_next"
+                               value="{% if goto_next %}{{ goto_next }}{% else %}{{ request.get_full_path }}{% endif %}"/>
+                        <div class="buttons">
+                            <input type="button"
+                                   class="button_bad"
+                                   onclick="document.location='/my-messages/'"
+                                   value="{% filter upper %}{% trans "Back" %}{% endfilter %}"/>
+                            <input type="submit"
+                                   value="{% filter upper %}{% trans "Send Message" %}{% endfilter %}"
+                                   class="button_good"
+                                   name="send"
+                                   id="send_but"/>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <p>{% trans "Your message has been sent." %}</p>
+            {% endif %}
+        </form>
+        {% comment %}
+    	HERE THE CONTENT ENDS
+    {% endcomment %}
+    </div>
+{% endblock %}
+
+
+

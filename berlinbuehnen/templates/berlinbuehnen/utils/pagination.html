@@ -1,0 +1,33 @@
+{% load bootstrap_pagination %}
+{% if current_page.has_other_pages %}
+    {% bootstrap_paginate current_page range=10 show_prev_next="true" show_first_last="true" %}
+{% endif %}
+
+{% comment %}
+{% load base_tags %}
+{% if has_previous or has_next %}
+    <ul class="pagination item">
+        {% if has_previous %}
+            <li><a href="{% add_to_query "page" page=previous %}">&laquo;</a></li>
+        {% else %}
+            <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for page_number in pagelist %}
+            {% if page_number == page %}
+                <li class="active">
+                    <span>{{ page_number }} <span class="sr-only">(current)</span></span>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{% add_to_query "page" page=page_number %}">{{ page_number }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+        {% if has_next %}
+            <li><a class="next_page" href="{% add_to_query "page" page=next %}">&raquo;</a></li>
+        {% else %}
+            <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+    </ul>
+{% endif %}
+{% endcomment %}

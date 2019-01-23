@@ -1,0 +1,89 @@
+{% load base_tags babel i18n image_mods_tags %}
+
+<div class="first-item-txt">
+    <form action="" method="post">
+        {% if form_preview %}
+            <div class="preview">
+                <h6>{{ form.title.data|disarm_user_input }}</h6>
+                <p>{{ form.short_title.data|disarm_user_input }}</p>
+                <p>{{ form.description.data|disarm_user_input }}</p>
+                <div>
+                    <input type="submit"
+                           class="button_good"
+                           id="post"
+                           name="{{ post_stage_field }}"
+                           value='{% filter upper %}{% trans "Save" %}{% endfilter %}'/>
+                </div>
+            </div>
+        {% endif %}
+        <div class="field_layout">
+            <fieldset class="fieldset_end">
+                <legend>
+                    {% ifequal form_action "new" %}
+                        {% if current_forum %}
+                            {% blocktrans %}Create a new forum in forum "{{ current_forum }}"{% endblocktrans %}
+                        {% else %}
+                            {% trans "Create a new forum" %}
+                        {% endif %}
+                    {% endifequal %}
+                    {% ifequal form_action "edit" %}
+                        {% trans "Edit Forum" %}
+                    {% endifequal %}
+                </legend>
+                <ul>
+                    {% if warnings %}
+                        <li>
+                            <p class="error">{{ warnings }}</p>
+                        </li>
+                    {% endif %}
+
+                    {% if hash_failed %}
+                        <li>
+                            <p class="error">{{ hash_failed_message }}</p>
+                        </li>
+                    {% endif %}
+
+                    <li>
+                        {{ form.title.label_tag }} {{ form.title }} {{ form.title.help_text_tag }} {{ form.title.error_tag }}
+                    </li>
+
+                    <li>
+                        {{ form.short_title.label_tag }} {{ form.short_title }} {{ form.short_title.help_text_tag }} {{ form.short_title.error_tag }}
+                    </li>
+
+                    <li>
+                        {{ form.description.label_tag }} {{ form.description }} {{ form.description.help_text_tag }} {{ form.description.error_tag }}
+                    </li>
+
+                    {% ifequal form_action "edit" %}
+                        <li>
+                            {{ form.parent.label_tag }} {{ form.parent }} {{ form.parent.help_text_tag }} {{ form.parent.error_tag }}
+                        </li>
+                    {% endifequal %}
+
+                    <li>
+                        {{ form.status.label_tag }} {{ form.status }} {{ form.status.help_text_tag }} {{ form.status.error_tag }}
+                    </li>
+                </ul>
+            </fieldset>
+            <div class="buttons">
+                <input id="id_cancel"
+                       type="submit"
+                       class="button_bad"
+                       name="{{ cancel_stage_field }}"
+                       value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
+                <input id="id_preview"
+                       class="button_good"
+                       type="submit"
+                       name="{{ preview_stage_field }}"
+                       value="{% filter upper %}{% trans 'Preview' %}{% endfilter %}"/>
+                {% comment %}this one is used for security reasons -->{% endcomment %}
+                <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
