@@ -1,8 +1,0 @@
-{% load base_tags i18n %}
-<a href="javascript:void(0);" class="fawesome favorite {% if not is_not_favorite_for_user %} active{% endif %}" onclick="FavoriteManager.toggle(this, {{ content_type_id }}, {{ object.id }}, '/');" data-toggle="tooltip" data-placement="top" title="{% if is_not_favorite_for_user %}{% trans "Add to My Favorites" %}{% else %}{% trans "Remove from My Favorites" %}{% endif %}" data-tooltip-left="0;-18,.is-xs;-6,.list-item-head;-6,#festival .header-icons;-6,#location .header-icons;-12,.header-icons" data-viewport=".main">
-  {% if is_not_favorite_for_user %}
-    <span class="sr-only">{% trans "Add to My Favorites" %}</span>
-  {% else %}
-    <span class="sr-only">{% trans "Remove from My Favorites" %}</span>
-   {% endif %}
-</a>
