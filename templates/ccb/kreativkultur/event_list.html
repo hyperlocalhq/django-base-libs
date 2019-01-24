@@ -5,12 +5,12 @@
         <div class="event">
             <div class="row">
                 <div class="content">
-                    <a href="{{ event.get_url }}" target="_blank">
+                    <a href="https://www.creative-city-berlin.de{{ event.get_url_path }}" target="_blank">
                         <div class="col-sm-3 column">
                             {% if event.image %}
-                                <img src="http://www.creative-city-berlin.de{{ UPLOADS_URL }}{{ event.image|modified_path:"list" }}" alt="{{ event.get_title|escape }}"/>
+                                <img src="https://www.creative-city-berlin.de{{ UPLOADS_URL }}{{ event.image|modified_path:"list" }}" alt="{{ event.get_title|escape }}"/>
                             {% else %}
-                                <img src="http://www.creative-city-berlin.de{{ STATIC_URL }}site/img/placeholder/event_list.png"/>
+                                <img src="https://www.creative-city-berlin.de{{ STATIC_URL }}site/img/placeholder/event_list.png"/>
                             {% endif %}
                         </div>
                         <div class="col-sm-9 column">
