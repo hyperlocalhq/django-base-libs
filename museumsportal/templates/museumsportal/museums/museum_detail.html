@@ -477,7 +477,7 @@
                                                         {% endif %}
                                                     </dl>
                                                     {% if museum.admission_price_info %}
-                                                        <p>{{ museum.get_rendered_admission_price_info|removetags:"p" }}</p>
+                                                        {{ museum.get_rendered_admission_price_info }}
                                                     {% endif %}
                                                 {% endif %}
 
@@ -489,7 +489,7 @@
                                                         {% endif %}
                                                     </dl>
                                                     {% if museum.reduced_price_info %}
-                                                        <p>{{ museum.get_rendered_reduced_price_info|removetags:"p" }} </p>
+                                                        {{ museum.get_rendered_reduced_price_info }}
                                                     {% endif %}
                                                 {% endif %}
 

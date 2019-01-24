@@ -757,7 +757,7 @@
                                                 {% if "<br" in museum.get_rendered_admission_price_info %}
                                                     {{ museum.get_rendered_admission_price_info|urlize }}
                                                 {% else %}
-                                                    <p>{{ museum.get_rendered_admission_price_info|striptags|urlize }}</p>
+                                                    {{ museum.get_rendered_admission_price_info|urlize }}
                                                 {% endif %}
                                                 {% endif %}
                                             {% endif %}
@@ -768,7 +768,7 @@
                                                 <dd> {{ museum.reduced_price|currencyfmt:"EUR" }}</dd>
                                                 </dl>
                                                 {% if museum.reduced_price_info %}
-                                                <p>{{ museum.get_rendered_reduced_price_info|striptags|urlize }} </p>
+                                                    {{ museum.get_rendered_reduced_price_info|urlize }}
                                                 {% endif %}
                                             {% endif %}
 
@@ -869,7 +869,7 @@
                                                             <dd> {{ exhibition.admission_price|currencyfmt:"EUR" }}</dd>
                                                         </dl>
                                                         {% if exhibition.admission_price_info %}
-                                                            <p>{{ exhibition.get_rendered_admission_price_info|striptags|urlize }}</p>
+                                                            {{ exhibition.get_rendered_admission_price_info|urlize }}
                                                         {% endif %}
                                                     {% endif %}
 
