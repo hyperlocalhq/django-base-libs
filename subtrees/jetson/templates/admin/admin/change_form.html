@@ -121,6 +121,27 @@
     {% endblock %}
 {% endblock %}
 
+{% block extrahead %}
+    {{ block.super }}
+    <script type="text/javascript">
+        (function ($) {
+            $(document).ready(function() {
+                $('.add-another').click(function(e) {
+                    e.preventDefault();
+                    showAddAnotherPopup(this);
+                });
+                $('.related-lookup').click(function(e) {
+                    e.preventDefault();
+                    showRelatedObjectLookupPopup(this);
+                });
+            {% if adminform and add %}
+                $('form#{{ opts.model_name }}_form :input:visible:enabled:first').focus()
+            {% endif %}
+            });
+        }(grp.jQuery));
+    </script>
+{% endblock %}
+
 <!-- COLTYPE/BODYCLASS -->
 {% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} grp-change-form{% endblock %}
 {% block content-class %}{% endblock %}
@@ -228,27 +249,8 @@
 
             <!-- Submit-Row -->{% block submit_buttons_bottom %}{% submit_row %}{% endblock %}
 
-            {% if adminform and add %}
-                {% block extrahead %}
-                    {{ block.super }}
-                    <script type="text/javascript">
-                        (function ($) {
-                            $(function () {
-                                try {
-                                    // focus on first form-field
-                                    $("#{{ adminform.first_field.auto_id }}, #{{ adminform.first_field.auto_id }}_0")
-                                        .eq(0).focus();
-                                } catch (e) {
-                                }
-                            });
-                        }(grp.jQuery));
-                    </script>
-                {% endblock %}
-            {% endif %}
-
             <!-- JS for prepopulated fields -->{% prepopulated_fields_js %}
 
         </div>
     </form>
 {% endblock %}
-
