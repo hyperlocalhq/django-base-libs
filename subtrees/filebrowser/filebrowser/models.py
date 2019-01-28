@@ -16,8 +16,11 @@ class FileDescriptionQuerySet(models.QuerySet):
             # if file_path is FileObject, get the path string of it
             if hasattr(file_path, 'path'):
                 file_path = file_path.path
-            hash_object = hashlib.sha256(file_path.encode('utf-8'))
-            kwargs['file_path_hash'] = hash_object.hexdigest()
+            if isinstance(file_path, basestring):
+                hash_object = hashlib.sha256(file_path.encode('utf-8'))
+                kwargs['file_path_hash'] = hash_object.hexdigest()
+            else:
+                kwargs['file_path_hash'] = ''
 
     def filter(self, *args, **kwargs):
         self._modify_kwargs(kwargs)
