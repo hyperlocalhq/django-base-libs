@@ -879,7 +879,7 @@
                                                             <dd> {{ exhibition.reduced_price|currencyfmt:"EUR" }}</dd>
                                                         </dl>
                                                         {% if exhibition.reduced_price_info %}
-                                                            <p>{{ exhibition.get_rendered_reduced_price_info|striptags|urlize }}</p>
+                                                            {{ exhibition.get_rendered_reduced_price_info|urlize }}
                                                         {% endif %}
                                                     {% endif %}
                                                     {% if exhibition.shop_link %}
