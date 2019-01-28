@@ -158,7 +158,10 @@ def file_description(fileobject):
     try:
         file_description = FileDescription.objects.get(file_path=file_path)
     except (FileDescription.DoesNotExist, FileDescription.MultipleObjectsReturned):
-        file_description = FileDescription(file_path=file_path)
+        try:
+            file_description = FileDescription(file_path=file_path)
+        except AttributeError as e:
+            file_description = None
 
     return file_description
 
