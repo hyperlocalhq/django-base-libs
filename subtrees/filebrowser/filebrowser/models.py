@@ -7,20 +7,19 @@ from fields import FileBrowseField
 
 from base_libs.models.fields import MultilingualCharField, MultilingualPlainTextField
 
+from filebrowser.base import FileObject
+
 
 class FileDescriptionQuerySet(models.QuerySet):
     def _modify_kwargs(self, kwargs):
         import hashlib
         if 'file_path' in kwargs:
-            file_path = kwargs.pop('file_path')
+            file_path = kwargs.pop('file_path') or ''
             # if file_path is FileObject, get the path string of it
-            if hasattr(file_path, 'path'):
+            if isinstance(file_path, FileObject):
                 file_path = file_path.path
-            try:
-                hash_object = hashlib.sha256(file_path.encode('utf-8'))
-                kwargs['file_path_hash'] = hash_object.hexdigest()
-            except AttributeError as e:
-                pass
+            hash_object = hashlib.sha256(file_path.encode('utf-8'))
+            kwargs['file_path_hash'] = hash_object.hexdigest()
 
     def filter(self, *args, **kwargs):
         self._modify_kwargs(kwargs)
