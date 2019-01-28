@@ -3,7 +3,8 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from fields import FileBrowseField
+from .base import FileObject
+from .fields import FileBrowseField
 
 from base_libs.models.fields import MultilingualCharField, MultilingualPlainTextField
 
@@ -12,9 +13,9 @@ class FileDescriptionQuerySet(models.QuerySet):
     def _modify_kwargs(self, kwargs):
         import hashlib
         if 'file_path' in kwargs:
-            file_path = kwargs.pop('file_path')
+            file_path = kwargs.pop('file_path') or ''
             # if file_path is FileObject, get the path string of it
-            if hasattr(file_path, 'path'):
+            if isinstance(file_path, FileObject):
                 file_path = file_path.path
             hash_object = hashlib.sha256(file_path.encode('utf-8'))
             kwargs['file_path_hash'] = hash_object.hexdigest()
