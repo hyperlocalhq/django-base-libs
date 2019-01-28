@@ -1,0 +1,115 @@
+@charset "utf-8";
+
+.month-slider {
+    width: 100%;
+    position: relative;
+    margin-bottom: 30px;
+    
+    * {
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+    }
+    
+    .month-slider-prev, .month-slider-next {
+        position: absolute;
+        top: -7px;
+        cursor: pointer;
+        display: none;
+        color: black;
+        opacity: 0.7;
+        &:hover {
+            color: black;
+            opacity: 1;
+        }
+    }
+    .month-slider-prev {
+        left: -20px;
+        &:after {
+            font-size: 2.2em;
+        }
+    }
+    .month-slider-next {
+        right: -20px;
+        &:before {
+            font-size: 2.2em;
+        }
+    }
+    
+    .month-slider-dates {
+       display: inline-block;
+       
+        .month-slider-month {
+            font-weight: $bold;
+            font-size: 1.1em;
+            text-transform: uppercase;
+            color: $lightgrey;
+            cursor: default;
+            display: inline-block;
+            margin-right: 20px;
+            position: relative;
+            top: -2px;
+            &:last-child {
+                margin-right: 0px;
+            }
+        }
+        a.month-slider-month {
+            font-weight: $bold;
+            cursor: pointer;
+            color: black;
+            &.active {
+                color: $blue;
+            }
+            &:hover {
+                color: $blue;
+            }
+        }
+        
+        .month-slider-year {
+            font-weight: $light;
+            color: black;
+            font-size: 1.5em;
+            margin-right: 20px;
+            cursor: default;
+            &:last-child {
+                margin-right: 0px;
+            }
+        }
+        a.month-slider-year {
+            cursor: pointer;
+            &:hover {
+                color: $blue;
+            }
+            &.active {
+                color: $blue;
+            }
+        }
+    }
+    
+    &.medium {
+        .month-slider-prev {
+            left: -10px;
+        }
+        .month-slider-next {
+            right: -10px;
+        }
+    }
+    &.small {
+        .month-slider-prev {
+            top: -2px;
+            left: 0px;
+            &:after {
+                font-size: 1.5em;
+            }
+        }
+        .month-slider-next {
+            top: -2px;
+            right: 0px;
+            &:before {
+                font-size: 1.5em;
+            }
+        }
+    }
+}

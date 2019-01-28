@@ -1,0 +1,17 @@
+{% load image_modifications i18n fb_tags %}
+<a class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-4 grid-item-favorite" href="{% if instance.internal_link %}{{ instance.internal_link.get_absolute_url }}{% else %}{{ instance.external_link }}" target="_blank{% endif %}">
+    <span class="grid-item-image img">
+        <img src="{{ STATIC_URL }}site/img/placeholder_location_grid.png" data-original="{{ MEDIA_URL }}{{ instance.image|modified_path:'detail_image' }}" alt="{{ instance.title|escape }}" />
+        {% if instance.image %}
+            {% with instance.image|file_description as file_desc %}
+                {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+            {% endwith %}
+        {% endif %}
+    </span>
+    <h2>{{ instance.title }}</h2>
+    {% if instance.subtitle %}<h3>{{ instance.subtitle }}</h3>{% endif %}
+    <div class="text">
+        {{ instance.get_rendered_short_description }}
+    </div>
+    <div class="button">{% trans "more" %}</div>
+</a>

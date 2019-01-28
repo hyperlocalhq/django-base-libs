@@ -1,0 +1,145 @@
+/* overriding grappelli's style back, because it doesn't work with email layouts */
+body {
+    background-color: white;
+    font-family: Helvetica, Arial;
+    font-size: 12px;
+    line-height: 20px;
+    padding: 1em 1.5em;
+}
+
+table{
+    font-family: Helvetica, Arial;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+#templateContainer {
+    padding-bottom: 0;
+    overflow: hidden;
+}
+
+.background-blue { background-color: #ff0358; }
+.background-red  { background-color: #ff0358; }
+div a:link,
+div a:visited,
+/* Yahoo! Mail Override */
+div a .yshortcuts
+/* Yahoo! Mail Override */ {
+    color: #0095d7;
+    font-weight: normal;
+    text-decoration: none;
+}
+a:link,
+a:visited,
+/* Yahoo! Mail Override */
+a .yshortcuts
+/* Yahoo! Mail Override */ {
+    color: #0088cc;
+    font-weight: normal;
+    text-decoration: none;
+}
+.event {
+    display: block;
+    margin-bottom: 10px;
+}
+.event div {
+    margin: 15px 20px;
+}
+.exhibition {
+    margin-bottom: 35px;
+}
+.block {
+    display: block;
+    margin-bottom: 35px;
+}
+#logo,
+#logos {
+    margin-bottom: 40px;
+}
+.module {
+    border-bottom: 1px solid #f2f2f2;
+    margin-bottom: 30px;
+}
+.footer {
+    margin-bottom: 30px;
+}
+.intro {
+    margin-bottom: 25px;
+}
+.link-block {
+    display: block;
+    margin-bottom: 30px;
+}
+#article .text {
+    font-size: 12px;
+    line-height: 18px;
+    margin-bottom: 10px;
+}
+#article .image img {
+    height: auto;
+    line-height: 100%;
+    outline: none;
+}
+#article td div.image {
+    margin-bottom: 15px;
+}
+#preHeader,
+#social,
+#author,
+#utility {
+    color: #707070;
+    font-family: Helvetica, Arial;
+    font-size: 10px;
+    line-height: 13px;
+    text-align: left;
+}
+.description {
+    margin: 15px 0px;
+    padding: 0px;
+    font-family: Helvetica, Arial;
+    font-size: 12px;
+    line-height: 20px;
+}
+.btn {
+    background-color: black;
+    background-color: #f2f2f2;
+}
+.btn a:link,
+.btn a:visited,
+/* Yahoo! Mail Override */
+.btn a .yshortcuts
+/* Yahoo! Mail Override */ {
+    margin-left: 5px;
+    margin-right: 5px;
+    color: white;
+    color: black;
+    font-weight: bold;
+    font-weight: normal;
+    font-size: 10px;
+}
+.btn-big {
+    background-color: black;
+    font-size: 14px;
+}
+.btn-big a:link,
+.btn-big a:visited,
+/* Yahoo! Mail Override */
+.btn-big a .yshortcuts
+/* Yahoo! Mail Override */ {
+    margin-left: 3px;
+    margin-right: 3px;
+    color: white;
+    font-weight: normal;
+}
+
+
+table, td {border-collapse:collapse; border:none; outline:none;}
+img {vertical-align:top; border-style:none;}
+h1 {font-size:16px;}
+h2 {font-size:14px;}
+h3 {font-size:12px;}
+h4 {font-size:10px;}
+h1, h2, h3, h4 {padding:0; margin:0; color:#000; font-family:Arial, sans-serif; font-weight:600;}
+p {padding:0; margin:0; font-family:Arial, sans-serif; color:#000;}
+a, a .yshortcuts, a span {color:#304ffe; text-decoration:none; font-family:Arial, sans-serif;}
+td {font-family:Arial, sans-serif;}
