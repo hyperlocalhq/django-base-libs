@@ -182,6 +182,13 @@ class Workshop(CreationModificationMixin, UrlMixin, SlugMixin()):
     def __unicode__(self):
         return self.title
 
+    @staticmethod
+    def autocomplete_search_fields():
+        return ["id__iexact"] + [
+            "title_{}__icontains".format(lang_code)
+            for lang_code, lang_name in settings.LANGUAGES
+        ]
+
     def is_workshop(self):
         return True
 

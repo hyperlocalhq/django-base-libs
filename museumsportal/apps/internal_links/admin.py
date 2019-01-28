@@ -24,6 +24,9 @@ class LinkGroupAdmin(ExtendedModelAdmin):
     )
 
     raw_id_fields = ['museums', 'exhibitions', 'events', 'workshops']
+    autocomplete_lookup_fields = {
+        'm2m': ['museums', 'exhibitions', 'events', 'workshops'],
+    }
 
     def get_links_str(self, obj):
         return u"<br />".join(['<a href="%(url)s" target="_blank">%(text)s</a>' % link for link in obj.get_links()])

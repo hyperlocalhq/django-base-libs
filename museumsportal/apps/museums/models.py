@@ -211,6 +211,13 @@ class Museum(CreationModificationDateMixin, SlugMixin(), UrlMixin):
         else:
             return path
 
+    @staticmethod
+    def autocomplete_search_fields():
+        return ["id__iexact"] + [
+            "title_{}__icontains".format(lang_code)
+            for lang_code, lang_name in settings.LANGUAGES
+        ]
+
     def get_services(self):
         services = []
         if self.service_shop:
