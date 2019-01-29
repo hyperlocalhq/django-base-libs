@@ -150,6 +150,9 @@
             }
         });
         var uploader = new qq.FileUploader(options);
+        $(function() {
+            $("select").not('[name*="__prefix__"]').selectbox();
+        });
     }
     $(function() {
         reinit();

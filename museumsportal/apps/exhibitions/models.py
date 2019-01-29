@@ -52,6 +52,12 @@ DAY_CHOICES = [(i, i) for i in range(1, 32)]
 
 TOKENIZATION_SUMMAND = 56436 # used to hide the ids of media files
 
+COPYRIGHT_RESTRICTION_CHOICES = (
+    ('general_use', _("Released for general use")),
+    ('protected', _("Released for this and own site only")),
+    ('promotional', _("Released for promotional reasons")),
+)
+
 
 class ExhibitionCategory(MPTTModel, CreationModificationDateMixin, SlugMixin()):
     parent = TreeForeignKey('self', blank=True, null=True)
@@ -599,6 +605,7 @@ class NewlyOpenedExhibition(CMSPlugin):
 class MediaFile(CreationModificationDateMixin):
     exhibition = models.ForeignKey(Exhibition, verbose_name=_("Exhibition"))
     path = FileBrowseField(_('File path'), max_length=500, directory="exhibitions/", help_text=_("A path to a locally stored image, video, or audio file."))
+    copyright_restrictions = models.CharField(_('Copyright restrictions'), max_length=20, blank=True, choices=COPYRIGHT_RESTRICTION_CHOICES)
     sort_order = PositionField(_("Sort order"), collection="exhibition")
 
     class Meta:

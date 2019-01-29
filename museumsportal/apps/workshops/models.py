@@ -53,6 +53,12 @@ MINUTE_CHOICES = [(i,"%02d" % i) for i in range(0, 60)]
 
 TOKENIZATION_SUMMAND = 56436 # used to hide the ids of media files
 
+COPYRIGHT_RESTRICTION_CHOICES = (
+    ('general_use', _("Released for general use")),
+    ('protected', _("Released for this and own site only")),
+    ('promotional', _("Released for promotional reasons")),
+)
+
 
 class WorkshopType(CreationModificationDateMixin, SlugMixin()):
     title = MultilingualCharField(_('Title'), max_length=200)
@@ -472,6 +478,7 @@ class Organizer(models.Model):
 class MediaFile(CreationModificationDateMixin):
     workshop = models.ForeignKey(Workshop, verbose_name=_("Workshop"))
     path = FileBrowseField(_('File path'), max_length=500, directory="workshops/", help_text=_("A path to a locally stored image, video, or audio file."))
+    copyright_restrictions = models.CharField(_('Copyright restrictions'), max_length=20, blank=True, choices=COPYRIGHT_RESTRICTION_CHOICES)
     sort_order = PositionField(_("Sort order"), collection="workshop")
 
     class Meta:

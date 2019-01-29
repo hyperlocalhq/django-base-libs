@@ -540,7 +540,9 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
                 media_file_obj = MediaFile(
                     event=instance
                 )
-                    
+
+            media_file_obj.copyright_restrictions = cleaned['copyright_restrictions']
+
             media_file_path = ""
             if cleaned.get("media_file_path", None):
                 tmp_path = cleaned['media_file_path']
@@ -554,7 +556,7 @@ def create_update_mediafile(request, slug, mediafile_token="", media_file_type="
                 
                 shutil.copy2(abs_tmp_path, abs_dest_path)
                 
-                os.remove(abs_tmp_path);
+                os.remove(abs_tmp_path)
                 media_file_obj.path = media_file_path = dest_path
                 media_file_obj.save()
             
