@@ -670,9 +670,13 @@ TIME_INPUT_FORMATS = ("%H:%M:%S", "%H:%M", "%H.%M")
 DISABLE_CONTEXT_PROCESSORS = True
 
 RECOMMENDATIONS_WIDGET_TEMPLATE_CHOICES = (
-    ('people/includes/latest_published_people_start.html', _("Latest Profiles")),
-    ('bulletin_board/includes/latest_bulletins.html', _("Latest Bulletins")),
-    ('articles/includes/latest_news_of_the_category.html', _("Latest News of the Category")),
+    ('bulletin_board/includes/latest_bulletins.html', _("New Entries in the Market Place")),
+    ('people/includes/latest_published_people_from_own_creative_sectors.html', _("New Profiles from your Creative Sectors")),
+    ('articles/includes/latest_articles_in_the_magazine.html', _("New Articles in the Magazine")),
+    ('curated_lists/includes/random_featured_curated_lists.html', _("New Curated Lists")),
+    ('events/includes/latest_published_events_from_own_creative_sectors.html', _("New Events from your Creative Sectors")),
+    ('media_gallery/includes/latest_published_galleries_from_own_creative_sectors.html', _("New Portfolios from your Creative Sectors")),
+    ('articles/includes/latest_news.html', _("Latest News")),
 )
 
 
@@ -710,6 +714,7 @@ CMS_TEMPLATES = (
     ("cms/page_sidebar_under_music.html", "Page with Sidebar - Music"),
     ("cms/page_sidebar_under_theatre_dance.html", "Page with Sidebar - Theatre & Dance"),
     ("cms/page_sidebar_under_advertising_pr.html", "Page with Sidebar - Advertising & PR"),
+    ("cms/page_apprenticeship_training.html", "Page - Apprenticeship & Training"),
 
     ("cms/start_counselling.html", "Start Page Counselling"),
     ("cms/page_counselling.html", "Page Counselling"),

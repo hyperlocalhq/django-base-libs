@@ -32,7 +32,7 @@ def event_list(request, criterion="", slug="", show="", start_date=None, end_dat
     queryset = kwargs['queryset']
 
     extra_context = kwargs.setdefault("extra_context", {})
-    extra_context['show'] = ("", "/%s" % show)[bool(show and show != "related")]
+    extra_context['show'] = "/{}".format(show) if show and show != "related" else ""
     extra_context['today'] = datetime.now()
     if request.is_ajax():
         extra_context['base_template'] = "base_ajax.html"

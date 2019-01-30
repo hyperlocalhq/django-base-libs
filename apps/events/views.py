@@ -288,7 +288,7 @@ def event_list(request, criterion="", slug="", show="", start_date=None, end_dat
 
     extra_context = kwargs.setdefault("extra_context", {})
     # extra_context['abc_list'] = abc_list
-    extra_context['show'] = ("", "/%s" % show)[bool(show and show != "related")]
+    extra_context['show'] = "/{}".format(show) if show and show != "related" else ""
     extra_context['source_list'] = URL_ID_EVENTS
     extra_context['today'] = datetime.now()
     extra_context['form'] = form

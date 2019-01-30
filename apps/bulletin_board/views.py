@@ -106,6 +106,7 @@ def bulletin_list(request, category_slug=None, template_name="bulletin_board/bul
             ).distinct()
 
     extra_context = kwargs.setdefault("extra_context", {})
+    extra_context['show'] = "/{}".format(show)
     extra_context['facets'] = facets
     extra_context['form'] = form
     extra_context['source_list'] = reverse("bulletin_list")

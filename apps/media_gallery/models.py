@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from mptt.fields import TreeManyToManyField
 
+from base_libs.middleware import get_current_user
 from jetson.apps.media_gallery.base import *
 from jetson.apps.media_gallery.base import MediaGalleryManager as MediaGalleryManagerBase
 from base_libs.models import PublishingMixin
@@ -141,6 +142,16 @@ class MediaGalleryManager(MediaGalleryManagerBase):
 
     def random_featured(self):
         return self.featured().order_by("?")
+
+    def newest_from_own_creative_sectors(self):
+        queryset = self.order_by("-creation_date")
+        user = get_current_user()
+        if user:
+            person = user.profile
+            queryset = queryset.filter(
+                categories__in=person.categories.all(),
+            )
+        return queryset
 
 
 class MediaGallery(MediaGalleryBase, PublishingMixin):

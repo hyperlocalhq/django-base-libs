@@ -29,3 +29,6 @@ class Recommendation(CreationModificationDateMixin, SysnameMixin()):
 
     def __str__(self):
         return self.sysname
+
+    def get_widget_template_display(self):
+        return dict(self.WIDGET_TEMPLATE_CHOICES).get(self.widget_template, "")

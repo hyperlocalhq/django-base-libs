@@ -5,6 +5,7 @@ from ..models import Recommendation
 
 register = template.Library()
 
+
 @register.inclusion_tag('recommendations/includes/recommended_items.html', takes_context=True)
 def show_recommended_items(context, sysname):
     if Recommendation.WIDGET_TEMPLATE_CHOICES:

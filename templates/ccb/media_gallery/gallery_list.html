@@ -87,6 +87,10 @@
                     {% else %}
                         <p>{% trans "No objects found within the selected conditions." %}</p>
                     {% endif %}
+                    {% if show == "/favorites" %}
+                        {% load recommendations_tags %}
+                        {% show_recommended_items "portfolios_favorites" %}
+                    {% endif %}
                 {% endblock %}
             </div>
         </div>

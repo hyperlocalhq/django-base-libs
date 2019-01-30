@@ -1,7 +1,18 @@
 {% extends "base.html" %}
-{% load cms_tags crispy_forms_tags %}
+{% load cms_tags %}
 
 {% block title %}{% page_attribute "page_title" %}{% endblock title %}
+
+{% block css %}{# TODO: remove this when "Zahlen & Fakten" is reworked with Document plugin #}
+    .facts td {
+        vertical-align: top;
+        padding-bottom: 20px;
+    }
+    .facts img {
+        margin-right: 20px;
+        border: 1px solid #aeaeae;
+    }
+{% endblock %}
 
 {% block content %}
     <div class="header">
@@ -17,10 +28,9 @@
         <div class="row">
             <div class="col-xs-12">
                 {% placeholder "content" %}
-                {% crispy form "ccb_form" %}
 
                 {% load recommendations_tags %}
-                {% show_recommended_items "newsletter_subscription" %}
+                {% show_recommended_items "apprenticeship_training" %}
             </div>
         </div>
     </div>

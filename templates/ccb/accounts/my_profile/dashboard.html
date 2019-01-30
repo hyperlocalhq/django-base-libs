@@ -266,6 +266,9 @@
 
         {% include "utils/includes/pagination.html" %}
 
+        {% load recommendations_tags %}
+        {% show_recommended_items "dashboard" %}
+
     {% else %}
 
         {# No activities. Show something else. #}

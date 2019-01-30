@@ -234,6 +234,7 @@ def gallery_list(request, queryset, show="featured", paginate_by=None, order_by=
             c[key] = value()
         else:
             c[key] = value
+    c['show'] = "/{}".format(show)
     c['form'] = form
     c['filter_field'] = filter_field
     c['filter_value'] = filter_value

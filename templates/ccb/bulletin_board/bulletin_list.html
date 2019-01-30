@@ -68,4 +68,8 @@
     {% else %}
         <p class="intro">{% trans "No objects found within the selected conditions." %}</p>
     {% endif %}
+    {% if show == "/favorites" %}
+        {% load recommendations_tags %}
+        {% show_recommended_items "marketplace_favorites" %}
+    {% endif %}
 {% endblock %}

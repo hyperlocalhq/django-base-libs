@@ -30,6 +30,16 @@ class PersonManagerExtended(PersonManager):
     def latest_published_with_avatars(self):
         return self.latest_published().exclude(image="")
 
+    def latest_published_with_avatars_from_own_creative_sectors(self):
+        queryset = self.latest_published_with_avatars()
+        user = get_current_user()
+        if user:
+            person = user.profile
+            queryset = queryset.filter(
+                categories__in=person.categories.all(),
+            ).exclude(pk=person.pk).distinct()
+        return queryset
+
 
 class Person(PersonBase):
     creative_sectors = TreeManyToManyField(

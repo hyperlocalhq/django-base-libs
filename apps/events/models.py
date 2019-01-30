@@ -21,6 +21,18 @@ class ExtendedEventManager(EventManager):
             is_featured=True,
         ).order_by("-importance", "start").distinct()
 
+    def latest_published_from_own_creative_sectors(self):
+        queryset = self.nearest().filter(
+            status="published",
+        ).order_by("start").distinct()
+        user = get_current_user()
+        if user:
+            person = user.profile
+            queryset = queryset.filter(
+                categories__in=person.categories.all(),
+            )
+        return queryset
+
 
 class Event(ComplexEventBase):
     fees = MultilingualTextField(_("Fees"), blank=True)

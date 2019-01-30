@@ -271,7 +271,7 @@ def person_invitation_list(request, show="", **kwargs):
         queryset = filter_abc(queryset, "user__last_name", abc_filter)
 
     extra_context['abc_list'] = abc_list
-    extra_context['show'] = "/%s" % show
+    extra_context['show'] = "/{}".format(show)
     # Ruper20032008 that show stuff gives anb error in the produced pagination url ...
     # extra_context["show"] = ("", "/%s" % show)[bool(show)]
     extra_context['source_list'] = URL_ID_PEOPLE

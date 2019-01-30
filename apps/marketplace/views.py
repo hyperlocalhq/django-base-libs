@@ -181,7 +181,7 @@ def job_offer_list(request, criterion="", slug="", show="", title="", job_sector
 
     extra_context = kwargs.setdefault("extra_context", {})
     # extra_context['abc_list'] = abc_list
-    extra_context['show'] = ("", "/%s" % show)[bool(show and show != "related")]
+    extra_context['show'] = "/{}".format(show) if show and show != "related" else ""
     extra_context['source_list'] = URL_ID_JOB_OFFERS
     extra_context['form'] = form
     extra_context['job_sector'] = job_sector
