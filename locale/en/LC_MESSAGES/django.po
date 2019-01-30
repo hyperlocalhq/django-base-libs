@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-30 18:32+0100\n"
+"POT-Creation-Date: 2019-01-30 23:04+0100\n"
 "PO-Revision-Date: 2018-08-13 18:17+0053\n"
 "Last-Translator: Reinhard Knobelspies <knobelspies@mac.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -82,7 +82,7 @@ msgstr ""
 #: apps/marketplace/forms.py:424 apps/marketplace/forms.py:431
 #: apps/marketplace/models.py:24 apps/media_gallery/admin.py:29
 #: apps/media_gallery/forms.py:355 apps/media_gallery/forms.py:398
-#: apps/media_gallery/models.py:149 apps/site_specific/admin.py:40
+#: apps/media_gallery/models.py:160 apps/site_specific/admin.py:40
 #: apps/site_specific/forms/events.py:1989
 #: apps/site_specific/forms/events.py:2017
 #: apps/site_specific/forms/institutions.py:1667
@@ -133,7 +133,7 @@ msgid "I want to subscribe to %s."
 msgstr ""
 
 #: apps/accounts/forms.py:127 apps/accounts/forms.py:427
-#: apps/curated_lists/forms.py:441 templates/ccb/base.html:157
+#: apps/curated_lists/forms.py:441 templates/ccb/base.html:158
 #: templates/ccb/facebook_app/register.html:18
 #: templates/ccb/site_specific/popups/choose_profile.html:7
 #: templates/ccb/styleguide/layout.html:302
@@ -593,7 +593,7 @@ msgstr ""
 #: apps/faqs/admin.py:29 apps/groups_networks/admin.py:21
 #: apps/institutions/admin.py:41 apps/institutions/admin.py:266
 #: apps/logins/models.py:59 apps/media_gallery/admin.py:65
-#: apps/media_gallery/models.py:86 apps/metro/models.py:17
+#: apps/media_gallery/models.py:87 apps/metro/models.py:17
 #: apps/navigation/admin.py:24 apps/partners/admin.py:25
 #: apps/partners/admin.py:39 apps/partners/admin.py:62
 #: apps/partners/models.py:25 apps/partners/models.py:43
@@ -704,15 +704,15 @@ msgid ""
 "overview"
 msgstr ""
 
-#: apps/articles/models.py:140 apps/events/models.py:28
+#: apps/articles/models.py:140 apps/events/models.py:40
 msgid "Featured in newsletter"
 msgstr ""
 
-#: apps/articles/models.py:141 apps/events/models.py:29
+#: apps/articles/models.py:141 apps/events/models.py:41
 msgid "Importance in newsletter"
 msgstr ""
 
-#: apps/articles/models.py:141 apps/events/models.py:29
+#: apps/articles/models.py:141 apps/events/models.py:41
 msgid ""
 "The bigger the number, the more up-front it will be shown in the newsletter"
 msgstr ""
@@ -781,7 +781,7 @@ msgstr ""
 msgid "Posts"
 msgstr ""
 
-#: apps/blog/admin.py:62 settings/_base.py:662
+#: apps/blog/admin.py:62 settings/_base.py:663
 msgid "Magazine"
 msgstr ""
 
@@ -808,9 +808,9 @@ msgid "Main Photo"
 msgstr ""
 
 #: apps/blog/forms.py:39 apps/curated_lists/forms.py:53
-#: apps/events/forms.py:899 apps/events/models.py:44
+#: apps/events/forms.py:899 apps/events/models.py:56
 #: apps/media_gallery/forms.py:54 apps/media_gallery/forms.py:360
-#: apps/people/models.py:49 apps/site_specific/forms/events.py:229
+#: apps/people/models.py:59 apps/site_specific/forms/events.py:229
 #: apps/site_specific/forms/institutions.py:170
 #: apps/site_specific/forms/people.py:190
 #: templates/ccb/events/add_event_confirm.html:229
@@ -1407,7 +1407,7 @@ msgstr ""
 msgid "Offering"
 msgstr ""
 
-#: apps/bulletin_board/models.py:39 apps/bulletin_board/views.py:354
+#: apps/bulletin_board/models.py:39 apps/bulletin_board/views.py:355
 #: apps/events/base.py:55 apps/external_services/models.py:13
 #: apps/external_services/models.py:69 apps/partners/models.py:13
 #: apps/partners/models.py:19 apps/recommendations/models.py:17
@@ -1418,7 +1418,7 @@ msgstr ""
 msgid "Draft"
 msgstr ""
 
-#: apps/bulletin_board/models.py:40 apps/bulletin_board/views.py:353
+#: apps/bulletin_board/models.py:40 apps/bulletin_board/views.py:354
 #: apps/events/base.py:56 apps/external_services/models.py:14
 #: apps/external_services/models.py:70 apps/media_gallery/forms.py:344
 #: apps/partners/models.py:14 apps/partners/models.py:20
@@ -1450,7 +1450,7 @@ msgid "bulletin-content providers"
 msgstr ""
 
 #: apps/bulletin_board/models.py:63 apps/curated_lists/models.py:61
-#: apps/curated_lists/models.py:207 apps/media_gallery/models.py:93
+#: apps/curated_lists/models.py:207 apps/media_gallery/models.py:94
 #: apps/partners/models.py:26 apps/partners/models.py:46
 #: apps/slideshows/models.py:33
 msgid "Sort order"
@@ -1803,7 +1803,7 @@ msgstr ""
 #: apps/site_specific/forms/people.py:748
 #: apps/site_specific/forms/people.py:1008
 #: apps/site_specific/forms/people.py:1060
-#: subtrees/base_libs/base_libs/models/admin.py:27
+#: subtrees/base_libs/base_libs/models/admin.py:26
 #: templates/admin/extendedadmin/document_change.html:451
 #: templates/ccb/blog/forms/post_embedded.html:38
 #: templates/ccb/counselling_blog/forms/post_embedded.html:19
@@ -1914,9 +1914,9 @@ msgid "Public"
 msgstr ""
 
 #: apps/curated_lists/models.py:64 apps/events/forms.py:1844
-#: apps/events/models.py:40 apps/groups_networks/models.py:19
+#: apps/events/models.py:52 apps/groups_networks/models.py:19
 #: apps/institutions/forms.py:1427 apps/institutions/models.py:33
-#: apps/marketplace/forms.py:670 apps/people/models.py:44
+#: apps/marketplace/forms.py:670 apps/people/models.py:54
 #: apps/resources/models.py:26 templates/ccb/events/add_event_confirm.html:426
 msgid "categories"
 msgstr ""
@@ -2082,7 +2082,7 @@ msgstr ""
 
 #: apps/events/base.py:50 apps/events/cms_apps.py:8
 #: apps/search/search_indexes.py:112 apps/site_specific/feeds.py:86
-#: settings/_base.py:660 templates/ccb/counselling_events/event_list.html:27
+#: settings/_base.py:661 templates/ccb/counselling_events/event_list.html:27
 #: templates/ccb/events/add_event_base.html:7
 #: templates/ccb/events/event_base.html:35
 #: templates/ccb/events/event_base.html:43
@@ -2726,8 +2726,8 @@ msgid ""
 msgstr ""
 
 #: apps/events/forms.py:920 apps/institutions/forms.py:508
-#: apps/institutions/models.py:38 apps/media_gallery/models.py:156
-#: apps/media_gallery/models.py:192 apps/site_specific/forms/events.py:222
+#: apps/institutions/models.py:38 apps/media_gallery/models.py:167
+#: apps/media_gallery/models.py:203 apps/site_specific/forms/events.py:222
 #: apps/site_specific/forms/groups_networks.py:90
 #: apps/site_specific/forms/institutions.py:163
 #: apps/site_specific/forms/people.py:183
@@ -2768,6 +2768,8 @@ msgstr ""
 #: templates/ccb/curated_lists/curated_list_detail.html:13
 #: templates/ccb/curated_lists/curated_list_detail.html:15
 #: templates/ccb/curated_lists/curated_list_detail.html:47
+#: templates/ccb/curated_lists/includes/new_curated_lists.html:19
+#: templates/ccb/curated_lists/includes/new_curated_lists.html:23
 #: templates/ccb/curated_lists/includes/random_featured_curated_lists.html:19
 #: templates/ccb/curated_lists/includes/random_featured_curated_lists.html:23
 #: templates/ccb/curated_lists/includes/random_featured_curated_lists_dashboard.html:13
@@ -2777,6 +2779,7 @@ msgstr ""
 #: templates/ccb/events/details_base.html:40
 #: templates/ccb/events/details_base.html:90
 #: templates/ccb/events/includes/latest_published_events.html:29
+#: templates/ccb/events/includes/latest_published_events_from_own_creative_sectors.html:29
 #: templates/ccb/events/lists/event_icons.html:10
 #: templates/ccb/institutions/details_base.html:42
 #: templates/ccb/institutions/details_base.html:120
@@ -2785,6 +2788,7 @@ msgstr ""
 #: templates/ccb/media_gallery/gallery_detail/gallery_base.html:57
 #: templates/ccb/media_gallery/gallery_detail/gallery_listed.html:11
 #: templates/ccb/media_gallery/includes/latest_published_galleries.html:28
+#: templates/ccb/media_gallery/includes/latest_published_galleries_from_own_creative_sectors.html:27
 #: templates/ccb/media_gallery/manage_gallery.html:62
 #: templates/ccb/media_gallery/manage_gallery.html:81
 #: templates/ccb/media_gallery/portfolio_overview.html:41
@@ -2792,6 +2796,7 @@ msgstr ""
 #: templates/ccb/people/details_base.html:42
 #: templates/ccb/people/details_base.html:122
 #: templates/ccb/people/includes/latest_published_people.html:29
+#: templates/ccb/people/includes/latest_published_people_from_own_creative_sectors.html:29
 #: templates/ccb/people/includes/latest_published_people_start.html:29
 #: templates/ccb/people/person_list.html:83
 #: templates/ccb/slideshows/header.html:6
@@ -2986,7 +2991,7 @@ msgstr ""
 msgid "Exceptions for working hours (German)"
 msgstr ""
 
-#: apps/events/forms.py:1170 apps/events/models.py:26
+#: apps/events/forms.py:1170 apps/events/models.py:38
 #: templates/ccb/counselling_events/profile/fees_opening_hours.html:10
 #: templates/ccb/events/profile/fees_opening_hours.html:12
 msgid "Fees"
@@ -3140,8 +3145,8 @@ msgstr ""
 msgid "Featured events only"
 msgstr ""
 
-#: apps/events/models.py:33 apps/groups_networks/models.py:12
-#: apps/institutions/models.py:26 apps/people/models.py:37
+#: apps/events/models.py:45 apps/groups_networks/models.py:12
+#: apps/institutions/models.py:26 apps/people/models.py:47
 #: apps/resources/models.py:19 apps/site_specific/models.py:275
 #: templates/admin/extendedadmin/includes/fieldset_categories.html:37
 msgid "Creative sectors"
@@ -3665,7 +3670,7 @@ msgstr ""
 msgid "Business Category"
 msgstr ""
 
-#: apps/institutions/models.py:36 apps/people/models.py:47
+#: apps/institutions/models.py:36 apps/people/models.py:57
 #: apps/site_specific/models.py:290
 msgid "Completeness in %"
 msgstr ""
@@ -3917,7 +3922,7 @@ msgid "Media Gallery"
 msgstr ""
 
 #: apps/media_gallery/cms_apps.py:8 apps/search/search_indexes.py:259
-#: settings/_base.py:661 templates/ccb/media_gallery/gallery_list.html:14
+#: settings/_base.py:662 templates/ccb/media_gallery/gallery_list.html:14
 #: templates/ccb/media_gallery/gallery_list.html:24
 #: templates/ccb/media_gallery/gallery_list.html:35
 #: templates/ccb/media_gallery/gallery_list.html:62
@@ -4094,7 +4099,7 @@ msgstr ""
 msgid "You can only link to MP3 files. This is not MP3."
 msgstr ""
 
-#: apps/media_gallery/forms.py:292 apps/media_gallery/models.py:41
+#: apps/media_gallery/forms.py:292 apps/media_gallery/models.py:42
 #: templates/ccb/media_gallery/portfolio_settings.html:10
 msgid "Landing page"
 msgstr ""
@@ -4113,7 +4118,7 @@ msgstr ""
 msgid "Title in German"
 msgstr ""
 
-#: apps/media_gallery/forms.py:317 apps/media_gallery/models.py:94
+#: apps/media_gallery/forms.py:317 apps/media_gallery/models.py:95
 msgid "Show title"
 msgstr ""
 
@@ -4136,7 +4141,7 @@ msgid ""
 "GIF, JPG, PNG, TIFF, and BMP images. The minimal dimensions are %s px."
 msgstr ""
 
-#: apps/media_gallery/forms.py:365 apps/media_gallery/models.py:158
+#: apps/media_gallery/forms.py:365 apps/media_gallery/models.py:169
 msgid "Show image in portfolio"
 msgstr ""
 
@@ -4152,82 +4157,82 @@ msgstr ""
 msgid "Cover Image"
 msgstr ""
 
-#: apps/media_gallery/models.py:14
+#: apps/media_gallery/models.py:15
 msgid "First album"
 msgstr ""
 
-#: apps/media_gallery/models.py:15
+#: apps/media_gallery/models.py:16
 msgid "List of albums"
 msgstr ""
 
-#: apps/media_gallery/models.py:16
+#: apps/media_gallery/models.py:17
 msgid "Custom image"
 msgstr ""
 
-#: apps/media_gallery/models.py:34 apps/media_gallery/models.py:87
+#: apps/media_gallery/models.py:35 apps/media_gallery/models.py:88
 msgid "Content object representation"
 msgstr ""
 
-#: apps/media_gallery/models.py:36 apps/media_gallery/models.py:89
+#: apps/media_gallery/models.py:37 apps/media_gallery/models.py:90
 msgid "Used for search and ordering in administration."
 msgstr ""
 
-#: apps/media_gallery/models.py:38 apps/media_gallery/models.py:91
+#: apps/media_gallery/models.py:39 apps/media_gallery/models.py:92
 msgid "Content object ID combo"
 msgstr ""
 
-#: apps/media_gallery/models.py:39 apps/media_gallery/models.py:92
+#: apps/media_gallery/models.py:40 apps/media_gallery/models.py:93
 msgid "Used for grouping the sortable galleries."
 msgstr ""
 
-#: apps/media_gallery/models.py:43
+#: apps/media_gallery/models.py:44
 msgid "Landing page image"
 msgstr ""
 
-#: apps/media_gallery/models.py:44
+#: apps/media_gallery/models.py:45
 msgid "A path to a custom landing page image."
 msgstr ""
 
-#: apps/media_gallery/models.py:49 apps/media_gallery/models.py:50
+#: apps/media_gallery/models.py:50 apps/media_gallery/models.py:51
 #: templates/ccb/media_gallery/portfolio_settings.html:5
 msgid "Portfolio Settings"
 msgstr ""
 
-#: apps/media_gallery/models.py:53
+#: apps/media_gallery/models.py:54
 msgid "Broken portfolio settings"
 msgstr ""
 
-#: apps/media_gallery/models.py:55
+#: apps/media_gallery/models.py:56
 #, python-format
 msgid "Portfolio settings for %(content_type)s %(object)s"
 msgstr ""
 
-#: apps/media_gallery/models.py:97
+#: apps/media_gallery/models.py:98
 msgid "Portfolio Section"
 msgstr ""
 
-#: apps/media_gallery/models.py:98
+#: apps/media_gallery/models.py:99
 msgid "Portfolio Sections"
 msgstr ""
 
-#: apps/media_gallery/models.py:101
+#: apps/media_gallery/models.py:102
 msgid "Broken gallery section"
 msgstr ""
 
-#: apps/media_gallery/models.py:103
+#: apps/media_gallery/models.py:104
 #, python-format
 msgid "%(title)s @ %(content_type)s %(object)s"
 msgstr ""
 
-#: apps/media_gallery/models.py:154
+#: apps/media_gallery/models.py:165
 msgid "Section"
 msgstr ""
 
-#: apps/media_gallery/models.py:163
+#: apps/media_gallery/models.py:174
 msgid "Global gallery"
 msgstr ""
 
-#: apps/media_gallery/models.py:165
+#: apps/media_gallery/models.py:176
 #, python-format
 msgid "Gallery of %(object)s"
 msgstr ""
@@ -4571,8 +4576,8 @@ msgstr ""
 msgid "Narrow down your search ..."
 msgstr ""
 
-#: apps/search/forms.py:40 templates/ccb/base.html:291
-#: templates/ccb/base_counselling.html:287
+#: apps/search/forms.py:40 templates/ccb/base.html:292
+#: templates/ccb/base_counselling.html:288
 #: templates/ccb/styleguide/base.html:257
 msgid "search"
 msgstr ""
@@ -4604,7 +4609,7 @@ msgstr ""
 msgid "Other Content 2"
 msgstr ""
 
-#: apps/search/search_indexes.py:28 settings/_base.py:658
+#: apps/search/search_indexes.py:28 settings/_base.py:659
 #: templates/ccb/articles/articles_archive.html:21
 #: templates/ccb/articles/articles_archive_day.html:12
 #: templates/ccb/articles/articles_archive_day.html:33
@@ -4632,7 +4637,7 @@ msgid "Editorial Content"
 msgstr ""
 
 #: apps/site_specific/admin.py:32
-#: subtrees/base_libs/base_libs/models/admin.py:135
+#: subtrees/base_libs/base_libs/models/admin.py:134
 #: subtrees/base_libs/base_libs/models/models.py:422
 msgid "Related object"
 msgstr ""
@@ -5449,45 +5454,65 @@ msgid "Logins"
 msgstr ""
 
 #: settings/_base.py:656
-msgid "Image and text"
+msgid "Image authorship"
 msgstr ""
 
 #: settings/_base.py:657
+msgid "Image and text"
+msgstr ""
+
+#: settings/_base.py:658
 msgid "Text only"
 msgstr ""
 
-#: settings/_base.py:659
+#: settings/_base.py:660
 msgid "Tenders and Competitions"
 msgstr ""
 
-#: settings/_base.py:663
+#: settings/_base.py:664
 msgid "Jobs and Bulletins"
 msgstr ""
 
-#: settings/_base.py:664 templates/ccb/network/member_list.html:60
+#: settings/_base.py:665 templates/ccb/network/member_list.html:60
 #: templates/ccb/network/member_list_under_category.html:62
 #: templates/ccb/people/person_list.html:57
 #: templates/ccb/styleguide/elements.html:71
 msgid "Profiles"
 msgstr ""
 
-#: settings/_base.py:672
-msgid "Latest Profiles"
-msgstr ""
-
 #: settings/_base.py:673
-msgid "Latest Bulletins"
+msgid "New Entries in the Market Place"
 msgstr ""
 
 #: settings/_base.py:674
-msgid "Latest News of the Category"
+msgid "New Profiles from your Creative Sectors"
 msgstr ""
 
-#: settings/_base.py:729
+#: settings/_base.py:675
+msgid "New Articles in the Magazine"
+msgstr ""
+
+#: settings/_base.py:676
+msgid "New Curated Lists"
+msgstr ""
+
+#: settings/_base.py:677
+msgid "New Events from your Creative Sectors"
+msgstr ""
+
+#: settings/_base.py:678
+msgid "New Portfolios from your Creative Sectors"
+msgstr ""
+
+#: settings/_base.py:679
+msgid "Latest News"
+msgstr ""
+
+#: settings/_base.py:735
 msgid "de"
 msgstr ""
 
-#: settings/_base.py:736
+#: settings/_base.py:742
 msgid "en"
 msgstr ""
 
@@ -5579,51 +5604,51 @@ msgid ""
 "Security check failed. Maybe your form has been tampered. Please try again."
 msgstr ""
 
-#: subtrees/base_libs/base_libs/models/admin.py:28
+#: subtrees/base_libs/base_libs/models/admin.py:27
 msgid "Save and Add Another"
 msgstr ""
 
-#: subtrees/base_libs/base_libs/models/admin.py:29
+#: subtrees/base_libs/base_libs/models/admin.py:28
 msgid "Hello"
 msgstr ""
 
-#: subtrees/base_libs/base_libs/models/admin.py:91
+#: subtrees/base_libs/base_libs/models/admin.py:90
 msgid "Publish Status"
 msgstr ""
 
-#: subtrees/base_libs/base_libs/models/admin.py:182
+#: subtrees/base_libs/base_libs/models/admin.py:181
 #: subtrees/base_libs/base_libs/models/models.py:394
 #: subtrees/base_libs/base_libs/models/models.py:397
 msgid "Content Object"
 msgstr ""
 
-#: subtrees/base_libs/base_libs/models/admin.py:231
+#: subtrees/base_libs/base_libs/models/admin.py:230
 msgid "If you provide an object ID, you must specify a content type."
 msgstr ""
 
-#: subtrees/base_libs/base_libs/models/admin.py:237
+#: subtrees/base_libs/base_libs/models/admin.py:236
 msgid "For a given content type, you must specify an object id."
 msgstr ""
 
-#: subtrees/base_libs/base_libs/models/admin.py:244
+#: subtrees/base_libs/base_libs/models/admin.py:243
 msgid "No object with the given content type, object id exists."
 msgstr ""
 
-#: subtrees/base_libs/base_libs/models/admin.py:264
+#: subtrees/base_libs/base_libs/models/admin.py:263
 msgid "If you provide an object ID, you must choose a content type."
 msgstr ""
 
-#: subtrees/base_libs/base_libs/models/admin.py:280
-#: subtrees/base_libs/base_libs/models/admin.py:343
+#: subtrees/base_libs/base_libs/models/admin.py:279
+#: subtrees/base_libs/base_libs/models/admin.py:342
 msgid "Related Object, Sites and URL Identifier"
 msgstr ""
 
-#: subtrees/base_libs/base_libs/models/admin.py:332
-#: subtrees/base_libs/base_libs/models/admin.py:397
+#: subtrees/base_libs/base_libs/models/admin.py:331
+#: subtrees/base_libs/base_libs/models/admin.py:396
 msgid "There already exists a container with these properties."
 msgstr ""
 
-#: subtrees/base_libs/base_libs/models/admin.py:448
+#: subtrees/base_libs/base_libs/models/admin.py:447
 msgid "Database error"
 msgstr ""
 
@@ -6107,7 +6132,7 @@ msgstr ""
 #: templates/admin/admin/owners.html:12
 #: templates/admin/admin/people/person/mailchimp_subscribe_selected.html:9
 #: templates/admin/extendedadmin/document_change.html:85
-#: templates/ccb/base.html:183 templates/ccb/base_counselling.html:191
+#: templates/ccb/base.html:184 templates/ccb/base_counselling.html:192
 #: templates/ccb/flatpages/education_links.html:18
 #: templates/ccb/flatpages/faq-overview.html:259
 #: templates/ccb/flatpages/faq.html:202
@@ -6417,7 +6442,7 @@ msgstr ""
 #: templates/ccb/accounts/my_profile/base.html:4
 #: templates/ccb/accounts/my_profile/base.html:11
 #: templates/ccb/accounts/my_profile/base.html:71
-#: templates/ccb/accounts/my_profile/dashboard.html:317
+#: templates/ccb/accounts/my_profile/dashboard.html:320
 #: templates/ccb/accounts/my_profile/delete_profile.html:48
 #: templates/ccb/accounts/my_profile/delete_profile_done.html:37
 #: templates/ccb/accounts/my_profile/privacy_settings.html:25
@@ -6453,7 +6478,7 @@ msgid "edit Person"
 msgstr ""
 
 #: templates/ccb/accounts/my_profile/dashboard.html:7
-#: templates/ccb/base.html:156
+#: templates/ccb/base.html:157
 msgid "Dashboard"
 msgstr ""
 
@@ -6470,12 +6495,12 @@ msgid ""
 "                                            ago"
 msgstr ""
 
-#: templates/ccb/accounts/my_profile/dashboard.html:279
+#: templates/ccb/accounts/my_profile/dashboard.html:282
 #: templates/ccb/cms/start.html:37
 msgid "What's new? Latest Portfolios"
 msgstr "Featured Portfolios"
 
-#: templates/ccb/accounts/my_profile/dashboard.html:286
+#: templates/ccb/accounts/my_profile/dashboard.html:289
 #: templates/ccb/events/includes/nearest_published_events.html:18
 #: templates/ccb/events/includes/nearest_published_featured_events.html:18
 #: templates/ccb/events/includes/published_featured_events.html:18
@@ -6483,16 +6508,16 @@ msgstr "Featured Portfolios"
 msgid "New Events"
 msgstr ""
 
-#: templates/ccb/accounts/my_profile/dashboard.html:293
+#: templates/ccb/accounts/my_profile/dashboard.html:296
 #: templates/ccb/cms/start.html:47
 msgid "Welcome: The new members of Creative City Berlin"
 msgstr ""
 
-#: templates/ccb/accounts/my_profile/dashboard.html:300
+#: templates/ccb/accounts/my_profile/dashboard.html:303
 msgid "New institutions at Creative City Berlin"
 msgstr ""
 
-#: templates/ccb/accounts/my_profile/dashboard.html:307
+#: templates/ccb/accounts/my_profile/dashboard.html:310
 #: templates/ccb/articles/magazine_overview.html:158
 msgid "Curated lists from the community"
 msgstr ""
@@ -6732,9 +6757,11 @@ msgstr ""
 #: templates/ccb/institutions/includes/latest_published_institutions.html:42
 #: templates/ccb/marketplace/lists/job_offer_listed.html:45
 #: templates/ccb/media_gallery/includes/latest_published_galleries.html:36
+#: templates/ccb/media_gallery/includes/latest_published_galleries_from_own_creative_sectors.html:35
 #: templates/ccb/media_gallery/lists/gallery_item.html:18
 #: templates/ccb/media_gallery/portfolio_overview.html:47
 #: templates/ccb/people/includes/latest_published_people.html:42
+#: templates/ccb/people/includes/latest_published_people_from_own_creative_sectors.html:42
 #: templates/ccb/people/includes/latest_published_people_start.html:42
 #: templates/ccb/resources/documents/document_list.html:66
 msgid "Add to favorites"
@@ -6752,8 +6779,8 @@ msgstr ""
 msgid "Favorite"
 msgstr ""
 
-#: templates/ccb/articles/articles_detail.html:41 templates/ccb/base.html:234
-#: templates/ccb/base.html.py:235
+#: templates/ccb/articles/articles_detail.html:41 templates/ccb/base.html:235
+#: templates/ccb/base.html.py:236
 #: templates/ccb/bulletin_board/bulletin_detail.html:23
 #: templates/ccb/events/details_base.html:103
 #: templates/ccb/marketplace/details_base.html:61
@@ -6789,6 +6816,15 @@ msgstr ""
 #: templates/ccb/articles/magazine_overview.html:38
 #: templates/ccb/styleguide/layout.html:197
 msgid "Also a good read"
+msgstr ""
+
+#: templates/ccb/articles/includes/latest_articles_in_the_magazine.html:12
+msgid "There are no magazine articles."
+msgstr ""
+
+#: templates/ccb/articles/includes/latest_news.html:12
+#: templates/ccb/articles/includes/latest_news_of_the_category.html:12
+msgid "There are no news articles."
 msgstr ""
 
 #: templates/ccb/articles/includes/magazine_overview_slider.html:13
@@ -6888,10 +6924,10 @@ msgstr ""
 msgid "edit"
 msgstr ""
 
-#: templates/ccb/base.html:92 templates/ccb/base.html.py:292
-#: templates/ccb/base.html:302 templates/ccb/base_counselling.html:72
-#: templates/ccb/base_counselling.html:288
-#: templates/ccb/base_counselling.html:298 templates/ccb/base_iframe.html:29
+#: templates/ccb/base.html:92 templates/ccb/base.html.py:293
+#: templates/ccb/base.html:303 templates/ccb/base_counselling.html:72
+#: templates/ccb/base_counselling.html:289
+#: templates/ccb/base_counselling.html:299 templates/ccb/base_iframe.html:29
 #: templates/ccb/styleguide/base.html:36 templates/ccb/styleguide/base.html:258
 #: templates/ccb/styleguide/base.html:268
 msgid "close"
@@ -6937,63 +6973,63 @@ msgstr ""
 msgid "Remove Memo"
 msgstr ""
 
-#: templates/ccb/base.html:129 templates/ccb/base.html.py:146
-#: templates/ccb/base_counselling.html:146
-#: templates/ccb/base_counselling.html:163
+#: templates/ccb/base.html:130 templates/ccb/base.html.py:147
+#: templates/ccb/base_counselling.html:147
+#: templates/ccb/base_counselling.html:164
 #: templates/ccb/styleguide/base.html:55 templates/ccb/styleguide/base.html:76
 msgid "search entire website"
 msgstr ""
 
-#: templates/ccb/base.html:145 templates/ccb/base.html.py:151
-#: templates/ccb/base.html:153 templates/ccb/base_counselling.html:162
+#: templates/ccb/base.html:146 templates/ccb/base.html.py:152
+#: templates/ccb/base.html:154 templates/ccb/base_counselling.html:163
 #: templates/ccb/styleguide/base.html:75
 msgid "toggle menu"
 msgstr ""
 
-#: templates/ccb/base.html:161 templates/ccb/base_counselling.html:167
+#: templates/ccb/base.html:162 templates/ccb/base_counselling.html:168
 #: templates/ccb/facebook_app/login.html:5
 #: templates/ccb/facebook_app/login.html:8
 #: templates/ccb/styleguide/base.html:77
 msgid "login"
 msgstr ""
 
-#: templates/ccb/base.html:198 templates/ccb/base_counselling.html:209
+#: templates/ccb/base.html:199 templates/ccb/base_counselling.html:210
 msgid "A part of"
 msgstr ""
 
-#: templates/ccb/base.html:202 templates/ccb/base_counselling.html:213
+#: templates/ccb/base.html:203 templates/ccb/base_counselling.html:214
 msgid "More offers"
 msgstr ""
 
-#: templates/ccb/base.html:224 templates/ccb/base_counselling.html:235
+#: templates/ccb/base.html:225 templates/ccb/base_counselling.html:236
 msgid "Follow Us"
 msgstr ""
 
-#: templates/ccb/base.html:226 templates/ccb/base_counselling.html:237
+#: templates/ccb/base.html:227 templates/ccb/base_counselling.html:238
 msgid "Follow us on Twitter"
 msgstr ""
 
-#: templates/ccb/base.html:227 templates/ccb/base_counselling.html:238
+#: templates/ccb/base.html:228 templates/ccb/base_counselling.html:239
 msgid "Follow us on Facebook"
 msgstr ""
 
-#: templates/ccb/base.html:231
+#: templates/ccb/base.html:232
 msgid "Bookmark / Share"
 msgstr ""
 
-#: templates/ccb/base.html:233
+#: templates/ccb/base.html:234
 msgid "Share on Twitter"
 msgstr ""
 
-#: templates/ccb/base.html:244 templates/ccb/base_counselling.html:248
+#: templates/ccb/base.html:245 templates/ccb/base_counselling.html:249
 msgid "Sponsored by"
 msgstr ""
 
-#: templates/ccb/base.html:274 templates/ccb/base_counselling.html:268
+#: templates/ccb/base.html:275 templates/ccb/base_counselling.html:269
 msgid "An offer of"
 msgstr ""
 
-#: templates/ccb/base.html:288 templates/ccb/base_counselling.html:284
+#: templates/ccb/base.html:289 templates/ccb/base_counselling.html:285
 #: templates/ccb/styleguide/base.html:255
 msgid "Enter your search term ..."
 msgstr ""
@@ -7003,7 +7039,7 @@ msgstr ""
 msgid "Portal for the cultural sector and the creative industries"
 msgstr ""
 
-#: templates/ccb/base_counselling.html:165
+#: templates/ccb/base_counselling.html:166
 msgid "dashboard"
 msgstr ""
 
@@ -8009,6 +8045,7 @@ msgid "Post a review (login required)"
 msgstr ""
 
 #: templates/ccb/events/includes/latest_published_events.html:35
+#: templates/ccb/events/includes/latest_published_events_from_own_creative_sectors.html:35
 #: templates/ccb/events/includes/latest_published_events_index.html:39
 #: templates/ccb/events/includes/nearest_published_events.html:132
 #: templates/ccb/events/includes/nearest_published_featured_events.html:132
@@ -9762,6 +9799,7 @@ msgid "Next media file"
 msgstr ""
 
 #: templates/ccb/media_gallery/includes/latest_published_galleries.html:47
+#: templates/ccb/media_gallery/includes/latest_published_galleries_from_own_creative_sectors.html:46
 msgid "There are no portfolios."
 msgstr ""
 
@@ -10074,6 +10112,7 @@ msgid "Add to contacts"
 msgstr ""
 
 #: templates/ccb/people/includes/latest_published_people.html:53
+#: templates/ccb/people/includes/latest_published_people_from_own_creative_sectors.html:53
 #: templates/ccb/people/includes/latest_published_people_index.html:45
 #: templates/ccb/people/includes/latest_published_people_start.html:53
 #: templates/ccb/site_specific/blocks/block_sector_new_people.html:29
@@ -10168,10 +10207,6 @@ msgstr ""
 
 #: templates/ccb/people/profile/details.html:52
 msgid "Spoken Languages"
-msgstr ""
-
-#: templates/ccb/recommendations/includes/recommended_items.html:5
-msgid "Do you know?"
 msgstr ""
 
 #: templates/ccb/resources/documents/controls.html:10
@@ -10475,32 +10510,32 @@ msgstr ""
 msgid "Go to the start page"
 msgstr ""
 
-#: templates/ccb/site_specific/kreativarbeiten_base.html:130
+#: templates/ccb/site_specific/kreativarbeiten_base.html:131
 msgid "Skip to content navigation (Press Enter)"
 msgstr ""
 
-#: templates/ccb/site_specific/kreativarbeiten_base.html:133
+#: templates/ccb/site_specific/kreativarbeiten_base.html:134
 msgid "Skip to user navigation (Press Enter)"
 msgstr ""
 
-#: templates/ccb/site_specific/kreativarbeiten_base.html:136
+#: templates/ccb/site_specific/kreativarbeiten_base.html:137
 msgid "Skip to main content (Press Enter)"
 msgstr ""
 
-#: templates/ccb/site_specific/kreativarbeiten_base.html:157
-#: templates/ccb/site_specific/kreativarbeiten_base.html:159
+#: templates/ccb/site_specific/kreativarbeiten_base.html:158
+#: templates/ccb/site_specific/kreativarbeiten_base.html:160
 msgid "Welcome Page"
 msgstr ""
 
-#: templates/ccb/site_specific/kreativarbeiten_base.html:198
+#: templates/ccb/site_specific/kreativarbeiten_base.html:199
 msgid "Content Navigaton"
 msgstr ""
 
-#: templates/ccb/site_specific/kreativarbeiten_base.html:212
+#: templates/ccb/site_specific/kreativarbeiten_base.html:213
 msgid "User Navigaton"
 msgstr ""
 
-#: templates/ccb/site_specific/kreativarbeiten_base.html:221
+#: templates/ccb/site_specific/kreativarbeiten_base.html:222
 msgid "NEWSFEED"
 msgstr ""
 

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Django 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-03 19:26+0100\n"
+"POT-Creation-Date: 2019-01-30 23:04+0100\n"
 "PO-Revision-Date: 2017-09-28 06:36+0053\n"
 "Last-Translator: Super Admin <jetsonadmin@studio38.de>\n"
 "Language-Team: \n"
@@ -1168,7 +1168,7 @@ msgid "Username:"
 msgstr "Benutzername:"
 
 #: subtrees/jetson/apps/comments/templates/comments/form.html:9
-#: subtrees/jetson/templates/admin/admin/base_site.html:50
+#: subtrees/jetson/templates/admin/admin/base_site.html:51
 msgid "Log out"
 msgstr "Abmelden"
 
@@ -3547,7 +3547,7 @@ msgstr "Eingaben prüfen"
 
 #: subtrees/jetson/apps/history/models.py:26
 #: subtrees/jetson/templates/admin/admin/auth/user/change_form.html:17
-#: subtrees/jetson/templates/admin/admin/change_form.html:177
+#: subtrees/jetson/templates/admin/admin/change_form.html:198
 #: subtrees/jetson/templates/admin/admin/object_history.html:22
 #: subtrees/jetson/templates/admin/admin/user_activity_history.html:18
 #: subtrees/jetson/templates/admin/extendedadmin/document_change.html:86
@@ -3563,7 +3563,7 @@ msgid "Undefined"
 msgstr "Nicht definiert"
 
 #: subtrees/jetson/apps/history/models.py:30
-#: subtrees/jetson/templates/admin/admin/change_form.html:165
+#: subtrees/jetson/templates/admin/admin/change_form.html:186
 #: subtrees/jetson/templates/admin/admin/index.html:54
 #: subtrees/jetson/templates/admin/extendedadmin/document_change.html:76
 #: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:68
@@ -7546,7 +7546,7 @@ msgid "Edit Permissions"
 msgstr "Zugriffsrechte ändern"
 
 #: subtrees/jetson/templates/admin/admin/auth/user/change_form.html:30
-#: subtrees/jetson/templates/admin/admin/change_form.html:183
+#: subtrees/jetson/templates/admin/admin/change_form.html:204
 #: subtrees/jetson/templates/admin/admin/cms/page/change_form.html:27
 #: subtrees/jetson/templates/admin/extendedadmin/document_change.html:97
 #: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:89
@@ -7569,29 +7569,29 @@ msgstr ""
 msgid "Django site admin"
 msgstr "Django Systemadmin"
 
-#: subtrees/jetson/templates/admin/admin/base_site.html:45
+#: subtrees/jetson/templates/admin/admin/base_site.html:46
 msgid "Change password"
 msgstr "Kennwort ändern"
 
-#: subtrees/jetson/templates/admin/admin/base_site.html:59
+#: subtrees/jetson/templates/admin/admin/base_site.html:60
 msgid "Documentation"
 msgstr "Dokumentation"
 
-#: subtrees/jetson/templates/admin/admin/change_form.html:137
+#: subtrees/jetson/templates/admin/admin/change_form.html:158
 #: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:213
 #: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:261
 #: subtrees/jetson/templates/admin/extendedadmin/person_change.html:352
 msgid "Open All Items"
 msgstr ""
 
-#: subtrees/jetson/templates/admin/admin/change_form.html:144
+#: subtrees/jetson/templates/admin/admin/change_form.html:165
 #: subtrees/jetson/templates/admin/extendedadmin/event_change_base.html:218
 #: subtrees/jetson/templates/admin/extendedadmin/institution_change.html:266
 #: subtrees/jetson/templates/admin/extendedadmin/person_change.html:357
 msgid "Close All Items"
 msgstr "Alle Einträge schliessen"
 
-#: subtrees/jetson/templates/admin/admin/change_form.html:156
+#: subtrees/jetson/templates/admin/admin/change_form.html:177
 #: subtrees/jetson/templates/admin/admin/change_list.html:134
 #: subtrees/jetson/templates/admin/admin/cms/page/tree/base.html:37
 #: subtrees/jetson/templates/admin/admin/delete_confirmation.html:14
@@ -7614,7 +7614,7 @@ msgstr "Alle Einträge schliessen"
 msgid "Home"
 msgstr "Home"
 
-#: subtrees/jetson/templates/admin/admin/change_form.html:206
+#: subtrees/jetson/templates/admin/admin/change_form.html:227
 #: subtrees/jetson/templates/admin/admin/change_list.html:232
 #: subtrees/jetson/templates/admin/admin/cms/page/change_form.html:67
 #: subtrees/jetson/templates/admin/admin/login.html:35
@@ -9750,7 +9750,7 @@ msgstr "Feed abonnieren"
 
 #: subtrees/jetson/templates/default/articles/articles_base.html:15
 #: subtrees/jetson/templates/default/articles/articles_base.html:24
-#: subtrees/jetson/templates/default/base.html:52
+#: subtrees/jetson/templates/default/base.html:53
 #: subtrees/jetson/templates/default/index.html:7
 #: subtrees/jetson/templates/default/index.html:9
 msgid "Welcome"
