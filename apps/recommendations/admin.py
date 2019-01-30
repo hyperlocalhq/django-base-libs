@@ -31,6 +31,6 @@ class RecommendationAdmin(admin.ModelAdmin):
     ]
 
     def get_widget_template_display(self, obj):
-        return dict(Recommendation.WIDGET_TEMPLATE_CHOICES).get(obj.widget_template)
+        return _(dict(Recommendation.WIDGET_TEMPLATE_CHOICES).get(obj.widget_template))
     get_widget_template_display.short_description = _("Widget Template")
 
