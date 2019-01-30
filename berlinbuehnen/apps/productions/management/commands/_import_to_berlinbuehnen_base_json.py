@@ -571,8 +571,8 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     prefix = Prefix.objects.get(slug=person_dict.get('prefix_id', ""))
                 except:
                     prefix = None
-                first_name = person_dict.get('first_name', "")
-                last_name = person_dict.get('last_name', "")
+                first_name = person_dict.get('first_name') or ""
+                last_name = person_dict.get('last_name') or ""
                 p, created = Person.objects.get_first_or_create(
                     prefix=prefix,
                     first_name=first_name,
@@ -604,8 +604,8 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     prefix = Prefix.objects.get(slug=person_dict.get('prefix_id', ""))
                 except:
                     prefix = None
-                first_name = person_dict.get('first_name', "")
-                last_name = person_dict.get('last_name', "")
+                first_name = person_dict.get('first_name') or ""
+                last_name = person_dict.get('last_name') or ""
                 p, created = Person.objects.get_first_or_create(
                     prefix=prefix,
                     first_name=first_name,
@@ -641,8 +641,8 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                     prefix = Prefix.objects.get(slug=person_dict.get('prefix_id', ""))
                 except:
                     prefix = None
-                first_name = person_dict.get('first_name', "")
-                last_name = person_dict.get('last_name', "")
+                first_name = person_dict.get('first_name') or ""
+                last_name = person_dict.get('last_name') or ""
                 p, created = Person.objects.get_first_or_create(
                     prefix=prefix,
                     first_name=first_name,
@@ -1095,8 +1095,8 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                         prefix = Prefix.objects.get(slug=person_dict.get('prefix_id', ""))
                     except:
                         prefix = None
-                    first_name = person_dict.get('first_name', "")
-                    last_name = person_dict.get('last_name', "")
+                    first_name = person_dict.get('first_name') or ""
+                    last_name = person_dict.get('last_name') or ""
                     p, created = Person.objects.get_first_or_create(
                         prefix=prefix,
                         first_name=first_name,
@@ -1128,8 +1128,8 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                         prefix = Prefix.objects.get(slug=person_dict.get('prefix_id', ""))
                     except:
                         prefix = None
-                    first_name = person_dict.get('first_name', "")
-                    last_name = person_dict.get('last_name', "")
+                    first_name = person_dict.get('first_name') or ""
+                    last_name = person_dict.get('last_name') or ""
                     p, created = Person.objects.get_first_or_create(
                         prefix=prefix,
                         first_name=first_name,
@@ -1165,8 +1165,8 @@ class ImportToBerlinBuehnenBaseJSON(ImportToBerlinBuehnenBaseXML):
                         prefix = Prefix.objects.get(slug=person_dict.get('prefix_id', ""))
                     except:
                         prefix = None
-                    first_name = person_dict.get('first_name', "")
-                    last_name = person_dict.get('last_name', "")
+                    first_name = person_dict.get('first_name') or ""
+                    last_name = person_dict.get('last_name') or ""
                     p, created = Person.objects.get_first_or_create(
                         prefix=prefix,
                         first_name=first_name,
