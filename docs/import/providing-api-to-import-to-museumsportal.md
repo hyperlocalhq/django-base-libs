@@ -229,6 +229,7 @@ So when accessed by **https://yourwebsite.de/api/exhibitions/?api_key=abc123** o
             "id": 123,
             "created": "2012-09-10T17:09:52",
             "modified": "2014-07-09T11:08:53",
+            "status": "published",
             "title_de": "... den alten Fritz, der im Volke lebt",
             "title_en": "... den alten Fritz, der im Volke lebt",
             "subtitle_de": "Das Bild Friedrichs des Großen bei Adolph Menzel",
@@ -325,7 +326,9 @@ So when accessed by **https://yourwebsite.de/api/exhibitions/?api_key=abc123** o
                     "title_en": ""
                     "description_de": "",
                     "description_en": "",
-                    "author": ""
+                    "author": "",
+                    "copyright_limitations": "",
+                    "copyright_restrictions": "general_use"
                 }
             ],
             "categories": [
@@ -476,6 +479,7 @@ So when accessed by **https://yourwebsite.de/api/events/?api_key=abc123** or sim
             "id": 123,
             "created": "2014-02-04T15:02:14",
             "modified": "2014-07-01T11:27:05",
+            "status": "published",
             "title_de": "\"Ágnes: Wir müssen uns öffnen, damit etwas bleibt\" und \"Ágnes: Es hat sich gelohnt, so lange zu leben\"",
             "title_en": "",
             "subtitle_de": "Filme von Helmuth Bauer und Lea-Rosa Lambeck sowie Astrid Schomäcker, 2004",
@@ -527,6 +531,7 @@ So when accessed by **https://yourwebsite.de/api/events/?api_key=abc123** or sim
                     "description_en": "",
                     "author": "https://www.gesichter-der-zwangsarbeit.de",
                     "copyright_limitations": ""
+                    "copyright_restrictions": "general_use"
                 }
             ],
             "categories": [
@@ -674,6 +679,7 @@ So when accessed by **https://yourwebsite.de/api/workshops/?api_key=abc123** or 
             "id": 123,
             "created": "2013-12-18T16:41:23",
             "modified": null,
+            "status": "published",
             "title_de": "Napoleons Ritt über die Alpen, Sitzendorf, nach 1850",
             "title_en": "",
             "subtitle_de": "Familienführung",
@@ -739,6 +745,8 @@ So when accessed by **https://yourwebsite.de/api/workshops/?api_key=abc123** or 
                     "description_de": "",
                     "description_en": "",
                     "author": "© Stiftung Deutsches Historisches Museum",
+                    "copyright_limitations": ""
+                    "copyright_restrictions": "general_use"
                 }
             ],
             "types": [
