@@ -10,7 +10,7 @@ from .models import Recommendation
 class RecommendationForm(forms.ModelForm):
     widget_template = forms.ChoiceField(
         label=_("Widget Template"),
-        choices=Recommendation.WIDGET_TEMPLATE_CHOICES,
+        choices=[(key, _(val)) for key, val in Recommendation.WIDGET_TEMPLATE_CHOICES],
         required=True,
     )
 
