@@ -263,7 +263,7 @@
                     $checkbox.closest('.form-group').hide();
                 });
             });
-            $('.delete').live("click", function() {
+            $('.delete').on("click", function() {
                 var $season = $(this).parents('.formset-form:first');
                 var $checkbox = $season.find('input:checkbox[id$=DELETE]');
                 $checkbox.attr("checked", "checked");
@@ -306,7 +306,7 @@
                 $('#div_id_location_name').show();
             }
             
-            $('div[id$="organizing_museum"]>label>a,div[id$="organizing_museum"] .help-block>a').live("click", function() {
+            $('div[id$="organizing_museum"]>label>a,div[id$="organizing_museum"] .help-block>a').on("click", function() {
                 var $organizer = $(this).parents('.div_organizer:first');
                 $organizer.find('div[id$="organizing_museum"]').closest('.toggle-option').hide();
                 $organizer.find(':input[id$="organizing_museum"]').val("");
@@ -314,7 +314,7 @@
                 $organizer.find('div[id$="organizer_title"]').closest('.toggle-option').show();
                 return false;
             });
-            $('div[id$="organizer_title"]>label>a,div[id$="organizer_title"] .help-block>a').live("click", function() {
+            $('div[id$="organizer_title"]>label>a,div[id$="organizer_title"] .help-block>a').on("click", function() {
                 var $organizer = $(this).parents('.div_organizer:first');
                 $organizer.find('div[id$="organizer_title"]').closest('.toggle-option').hide();
                 $organizer.find(':input[id$="organizer_title"]').val("");

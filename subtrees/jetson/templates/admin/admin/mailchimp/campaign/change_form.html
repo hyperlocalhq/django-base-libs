@@ -157,7 +157,7 @@
                         );
                     }
 
-                    $('[id$="content_type"]').live("change", function () {
+                    $('[id$="content_type"]').on("change", function () {
                         var $oContentType = $(this);
                         var $oContent = $(this).parents("fieldset").find('[id$="content"]');
                         var $oContentMarkupType = $(this).parents("fieldset").find('[id$="content_markup_type"]');

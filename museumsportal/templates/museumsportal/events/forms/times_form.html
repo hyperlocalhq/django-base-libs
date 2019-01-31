@@ -137,7 +137,7 @@
                 $checkbox.closest('.form-group').hide();
             });
         });
-        $('.delete').live("click", function() {
+        $('.delete').on("click", function() {
             var $season = $(this).parents('.formset-form:first');
             var $checkbox = $season.find('input:checkbox[id$=DELETE]');
             $checkbox.attr("checked", "checked");

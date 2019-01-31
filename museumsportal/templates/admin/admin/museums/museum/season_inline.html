@@ -491,15 +491,15 @@
         self.OpeningHoursManager = {
             aDays: ["mon", "tue", "wed", "thu", "fri", "sat", "sun"],
             init: function() {
-                $('.apply-to-all').live("click", function() {
+                $('.apply-to-all').on("click", function() {
                     OpeningHoursManager.applyTimesToAllDays($(this).closest('.grp-module'));
                     return false;
                 });
-                $('.show_break_times').live("click", function() {
+                $('.show_break_times').on("click", function() {
                     OpeningHoursManager.modifyBreakTimes($(this).closest('.grp-module'));
                 });
                 function apply_closed_on(weekday) {
-                    $('.closed_on_' + weekday).live("click", function() {
+                    $('.closed_on_' + weekday).on("click", function() {
                         OpeningHoursManager.modifyDay($(this).closest('.grp-module'), weekday);
                     });
                 }
