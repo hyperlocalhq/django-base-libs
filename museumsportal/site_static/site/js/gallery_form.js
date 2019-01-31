@@ -80,18 +80,18 @@
     function edit_photo_loaded() {
         $('textarea').autosize();
 
-        $('#button-id-cancel').click(function() {
+        $('#button-id-cancel').click(function () {
             $('#edit_photo').html("");
             reinit();
         });
-        $('#button-id-crop-photo').click(function() {
+        $('#button-id-crop-photo').click(function () {
             location.href = $(this).data('href').replace(/goto_next=.+$/, 'goto_next=' + location.href);
         });
-        $('#button-id-delete-photo').click(function() {
+        $('#button-id-delete-photo').click(function () {
             var delete_url = $(this).data('href');
             $('#deleteConfirmation').removeClass('hide').modal('show');
-            $('#button-id-confirm-deletion').click(function() {
-                $.post(delete_url, {}, function() {
+            $('#button-id-confirm-deletion').click(function () {
+                $.post(delete_url, {}, function () {
                     $('#deleteConfirmation').modal('hide');
                     $('#edit_photo').html("");
                     reinit();
@@ -100,7 +100,7 @@
             });
         });
         $('#edit_photo form').attr('target', 'hidden_iframe');
-        self.hidden_iframe_loaded = function(html) {
+        self.hidden_iframe_loaded = function (html) {
             var $form = $('<div>' + html + '</div>').find('form');
             if ($form.length) {
                 $('#edit_photo').html('').append($form);
@@ -110,46 +110,49 @@
                 reinit();
             }
         };
-        var options = $.extend(translatable_file_uploader_options, {
-            allowedExtensions: ['gif', 'jpg', 'png', 'tif', 'bmp'],
-            action: '/' + self.settings.lang + '/helper/ajax-upload/',
-            element: $('#image_uploader')[0],
-            multiple: false,
-            onComplete: function(id, fileName, responseJSON) {
-                if(responseJSON.success) {
-                    $('.messages').html("");
-                    // set the original to media_file_path
-                    $('#id_media_file_path').val(responseJSON.path);
-                    // load the modified version for the preview
-                    $.post('/' + self.settings.lang + '/helper/modified-path/', {
-                        file_path: self.settings.MEDIA_URL + responseJSON.path,
-                        mod_sysname: 'medium'
-                    }, function(data, textStatus, jqXHR) {
-                        $('#image_preview').html('<img class="img-responsive" alt="" src="' + data + '" />');
-                        $('#image_uploader').hide();
-                        $('#image_help_text').hide();
-                    },
-                    'text'
-                    );
+        var $uploader = $('#image_uploader');
+        if ($uploader.length) {
+            var options = $.extend(translatable_file_uploader_options, {
+                allowedExtensions: ['gif', 'jpg', 'png', 'tif', 'bmp'],
+                action: '/' + self.settings.lang + '/helper/ajax-upload/',
+                element: $uploader.get(0),
+                multiple: false,
+                onComplete: function (id, fileName, responseJSON) {
+                    if (responseJSON.success) {
+                        $('.messages').html("");
+                        // set the original to media_file_path
+                        $('#id_media_file_path').val(responseJSON.path);
+                        // load the modified version for the preview
+                        $.post('/' + self.settings.lang + '/helper/modified-path/', {
+                                file_path: self.settings.MEDIA_URL + responseJSON.path,
+                                mod_sysname: 'medium'
+                            }, function (data, textStatus, jqXHR) {
+                                $('#image_preview').html('<img class="img-responsive" alt="" src="' + data + '" />');
+                                $('#image_uploader').hide();
+                                $('#image_help_text').hide();
+                            },
+                            'text'
+                        );
+                    }
+                },
+                onAllComplete: function (uploads) {
+                    // uploads is an array of maps
+                    // the maps look like this: {file: FileObject, response: JSONServerResponse}
+                    $('.qq-upload-success').fadeOut("slow", function () {
+                        $(this).remove();
+                    });
+                },
+                params: {
+                    'csrf_token': $('input[name="csrfmiddlewaretoken"]').val(),
+                    'csrf_name': 'csrfmiddlewaretoken',
+                    'csrf_xname': 'X-CSRFToken'
+                },
+                showMessage: function (message) {
+                    $('.messages').html('<div class="alert alert-danger">' + message + '</div>');
                 }
-            },
-            onAllComplete: function(uploads) {
-                // uploads is an array of maps
-                // the maps look like this: {file: FileObject, response: JSONServerResponse}
-                $('.qq-upload-success').fadeOut("slow", function() {
-                    $(this).remove();
-                });
-            },
-            params: {
-                'csrf_token': $('input[name="csrfmiddlewaretoken"]').val(),
-                'csrf_name': 'csrfmiddlewaretoken',
-                'csrf_xname': 'X-CSRFToken'
-            },
-            showMessage: function(message) {
-                $('.messages').html('<div class="alert alert-danger">' + message + '</div>');
-            }
-        });
-        var uploader = new qq.FileUploader(options);
+            });
+            var uploader = new qq.FileUploader(options);
+        }
         $(function() {
             $("select").not('[name*="__prefix__"]').selectbox();
         });
