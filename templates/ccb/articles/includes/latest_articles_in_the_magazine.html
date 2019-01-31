@@ -1,7 +1,7 @@
 {% load i18n base_tags %}
 
 {% with amount|default:5 as amount %}
-    {% get_objects site_published_objects.interviews articles.Article amount as newest_objects %}
+    {% get_objects site_published_objects_all_languages.interviews articles.Article amount as newest_objects %}
     {% if newest_objects %}
         <div class="row article-list">
             {% for list_article in newest_objects %}
