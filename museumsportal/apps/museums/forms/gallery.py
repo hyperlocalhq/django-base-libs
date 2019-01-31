@@ -14,6 +14,10 @@ from museumsportal.utils.forms import PrimarySubmit
 from museumsportal.utils.forms import SecondarySubmit
 from museumsportal.utils.forms import SecondaryButton
 
+from ..models import COPYRIGHT_RESTRICTION_CHOICES
+
+COPYRIGHT_RESTRICTION_CHOICES = (('', '---------'),) + COPYRIGHT_RESTRICTION_CHOICES
+
 IMAGE_MIN_DIMENSIONS = getattr(settings, "GALLERY_IMAGE_MIN_DIMENSIONS", (100,100))
 STR_IMAGE_MIN_DIMENSIONS = "%s x %s" % IMAGE_MIN_DIMENSIONS
 
@@ -57,6 +61,11 @@ class ImageFileForm(forms.Form):
         help_text=_('If this field does not contain precise restrictions or if no restrictions are set, the rights of use are granted non-exclusively, and unrestricted in terms of time, place and content.'),
         required=False,
         max_length=255,
+    )
+    copyright_restrictions = forms.ChoiceField(
+        label=_("Copyright restrictions"),
+        choices=COPYRIGHT_RESTRICTION_CHOICES,
+        required=False,
     )
 
     def __init__(self, media_file_obj=None, *args, **kwargs):
@@ -106,6 +115,9 @@ class ImageFileForm(forms.Form):
         )
         fieldset_content.append(
             "copyright_limitations"
+        )
+        fieldset_content.append(
+            "copyright_restrictions"
         )
 
         layout_blocks.append(layout.Fieldset(
