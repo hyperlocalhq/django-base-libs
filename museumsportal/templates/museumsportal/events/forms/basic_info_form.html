@@ -23,6 +23,7 @@
     <script src="{{ STATIC_URL }}site/js/gmaps_for_address.js"></script>
     <script>
         $(function() {
+            var fileName;
             var translatable_file_uploader_options_de = {
                 template: '<div class="qq-uploader">' +
                     '<div class="qq-upload-drop-area"><span>{% trans "Drop file here" %}</span></div>' +
@@ -77,7 +78,7 @@
             var $pdf_document_de_upload = $('#pdf_document_de_upload');
             var pdf_document_de_path = $('#id_pdf_document_de_path').val();
             if (pdf_document_de_path) {
-                var fileName = pdf_document_de_path.split("/")[1];
+                fileName = pdf_document_de_path.split("/")[1];
                 $('.pdf_link', $pdf_document_de_upload).html('<p class="lead"><a class="btn btn-primary" href="' +  settings.MEDIA_URL + pdf_document_de_path + '" target="_blank">' + fileName + ' ({% trans "Preview" %})</a></p>');
             }
             var options_de = $.extend(translatable_file_uploader_options_de, {
@@ -120,7 +121,7 @@
             var $pdf_document_en_upload = $('#pdf_document_en_upload');
             var pdf_document_en_path = $('#id_pdf_document_en_path').val();
             if (pdf_document_en_path) {
-                var fileName = pdf_document_en_path.split("/")[1];
+                fileName = pdf_document_en_path.split("/")[1];
                 $('.pdf_link', $pdf_document_en_upload).html('<p class="lead"><a class="btn btn-primary" href="' +  settings.MEDIA_URL + pdf_document_en_path + '" target="_blank">' + fileName + ' ({% trans "Preview" %})</a></p>');
             }
             var options_en = $.extend(translatable_file_uploader_options_en, {
@@ -263,7 +264,7 @@
                     $checkbox.closest('.form-group').hide();
                 });
             });
-            $('.delete').on("click", function() {
+            $(document).on('click', '.delete', function() {
                 var $season = $(this).parents('.formset-form:first');
                 var $checkbox = $season.find('input:checkbox[id$=DELETE]');
                 $checkbox.attr("checked", "checked");
@@ -273,7 +274,7 @@
             
             // Initial state
             var $total_forms = $('#id_organizers-TOTAL_FORMS');
-            if ($total_forms.val() == "0") {
+            if ($total_forms.val() === "0") {
                 $('#add_organizer').click();
             }
             reinit_widgets();
@@ -306,7 +307,7 @@
                 $('#div_id_location_name').show();
             }
             
-            $('div[id$="organizing_museum"]>label>a,div[id$="organizing_museum"] .help-block>a').on("click", function() {
+            $(document).on('click', 'div[id$="organizing_museum"]>label>a,div[id$="organizing_museum"] .help-block>a', function() {
                 var $organizer = $(this).parents('.div_organizer:first');
                 $organizer.find('div[id$="organizing_museum"]').closest('.toggle-option').hide();
                 $organizer.find(':input[id$="organizing_museum"]').val("");
@@ -314,7 +315,7 @@
                 $organizer.find('div[id$="organizer_title"]').closest('.toggle-option').show();
                 return false;
             });
-            $('div[id$="organizer_title"]>label>a,div[id$="organizer_title"] .help-block>a').on("click", function() {
+            $(document).on('click', 'div[id$="organizer_title"]>label>a,div[id$="organizer_title"] .help-block>a', function() {
                 var $organizer = $(this).parents('.div_organizer:first');
                 $organizer.find('div[id$="organizer_title"]').closest('.toggle-option').hide();
                 $organizer.find(':input[id$="organizer_title"]').val("");

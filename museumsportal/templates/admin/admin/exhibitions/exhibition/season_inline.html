@@ -223,7 +223,7 @@
             tolerance: 'pointer',
             start: function(evt, ui) {
                 ui.placeholder.height(ui.item.height() + 12);
-            },
+            }
         });
         $("#{{ opts.model_name }}_form").bind("submit", function(){
             var sortable_field_name = "{{ inline_admin_formset.opts.sortable_field_name }}";
@@ -241,15 +241,15 @@
         self.OpeningHoursManager = {
             aDays: ["mon", "tue", "wed", "thu", "fri", "sat", "sun"],
             init: function() {
-                $('.apply-to-all').on("click", function() {
+                $(document).on('click', '.apply-to-all', function() {
                     OpeningHoursManager.applyTimesToAllDays($(this).closest('.grp-module'));
                     return false;
                 });
-                $('.show_break_times').on("click", function() {
+                $(document).on('click', '.show_break_times', function() {
                     OpeningHoursManager.modifyBreakTimes($(this).closest('.grp-module'));
                 });
                 function apply_closed_on(weekday) {
-                    $('.closed_on_' + weekday).on("click", function() {
+                    $(document).on('click', '.closed_on_' + weekday, function() {
                         OpeningHoursManager.modifyDay($(this).closest('.grp-module'), weekday);
                     });
                 }
@@ -303,16 +303,16 @@
                 }
             },
             modifyDay: function($module, sDay) {
-                var oCheckbox = $module.find("[id$=closed_on_" + sDay + "]").get("0");
-                $module.find("[id$=" + sDay + "_open").attr("disabled", oCheckbox.checked);
-                $module.find("[id$=" + sDay + "_break_close]").attr("disabled", oCheckbox.checked);
-                $module.find("[id$=" + sDay + "_break_open").attr("disabled", oCheckbox.checked);
-                $module.find("[id$=" + sDay + "_close]").attr("disabled", oCheckbox.checked);
+                var oCheckbox = $module.find('[id$="closed_on_' + sDay + '"]').get("0");
+                $module.find('[id$="' + sDay + '_open"]').attr('disabled', oCheckbox.checked);
+                $module.find('[id$="' + sDay + '_break_close"]').attr('disabled', oCheckbox.checked);
+                $module.find('[id$="' + sDay + '_break_open"]').attr('disabled', oCheckbox.checked);
+                $module.find('[id$="' + sDay + '_close"]').attr('disabled', oCheckbox.checked);
                 if (oCheckbox.checked) {
-                    $module.find("[id$=" + sDay + "_open]").val("");
-                    $module.find("[id$=" + sDay + "_break_close]").val("");
-                    $module.find("[id$=" + sDay + "_break_open]").val("");
-                    $module.find("[id$=" + sDay + "_close]").val("");
+                    $module.find('[id$="' + sDay + '_open"]').val('');
+                    $module.find('[id$="' + sDay + '_break_close"]').val('');
+                    $module.find('[id$="' + sDay + '_break_open"]').val('');
+                    $module.find('[id$="' + sDay + '_close"]').val('');
                 }
             },
             modifyBreakTimes: function($module) {
@@ -325,7 +325,7 @@
                     $module.find(".break_end_row").css("display", "none");
                 }
             }
-        }
+        };
         self.OpeningHoursManager.init();
     });
 })(django.jQuery);

@@ -39,12 +39,12 @@
         $('#event_times .dateinput').datepicker({
             format: 'dd.mm.yyyy',
             weekStart: 1
-        })
+        });
         $('#event_times .timeinput').timepicker({
             str_hours: '{% trans "Hours" %}',
             str_minutes: '{% trans "Minutes" %}',
             str_confirm: '{% trans "Confirm" %}',
-            str_close: '{% trans "Close" %}',
+            str_close: '{% trans "Close" %}'
         });
         $("[rel=tooltip]").tooltip();
     }
@@ -137,7 +137,7 @@
                 $checkbox.closest('.form-group').hide();
             });
         });
-        $('.delete').on("click", function() {
+        $(document).on('click', '.delete', function() {
             var $season = $(this).parents('.formset-form:first');
             var $checkbox = $season.find('input:checkbox[id$=DELETE]');
             $checkbox.attr("checked", "checked");
@@ -147,7 +147,7 @@
         
         // Initial state
         var $total_forms = $('#id_event_times-TOTAL_FORMS');
-        if ($total_forms.val() == "0") {
+        if ($total_forms.val() === "0") {
             $('#add_event_time').click();
         }
         reinit_widgets();
@@ -160,7 +160,7 @@
             str_hours: '{% trans "Hours" %}',
             str_minutes: '{% trans "Minutes" %}',
             str_confirm: '{% trans "Confirm" %}',
-            str_close: '{% trans "Close" %}',
+            str_close: '{% trans "Close" %}'
         });
         $('#batch_event_time_form').submit(function() {
             $.post('{{ event.get_url_path }}batch-event-times/',
