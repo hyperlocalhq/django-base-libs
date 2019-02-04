@@ -54,14 +54,14 @@
                         <div class="col-xs-12 visible-xs">
                             <a href="{{ object.link }}" target="_blank" class="product-img-hidden-xs">
                                 {% with object.image|file_description as file_desc %}
-                                    <span class="img"><span class="photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{% if file_desc.description %}{{ file_desc.description|remove_newlines|escape }}{% else %}{{ object.title }}{% endif %}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"shop_big" }}" />{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}</span></span>
+                                    <span class="img"><span class="photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" title="{% if file_desc.description %}{{ file_desc.description|remove_newlines|escape }}{% else %}{{ object.title }}{% endif %}" alt="{% if file_desc.description %}{{ file_desc.description|remove_newlines|escape }}{% else %}{{ object.title }}{% endif %}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"shop_big" }}" />{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}</span></span>
                                 {% endwith %}
                             </a>
                         </div>
                         <div class="col-xs-12">
                             <a href="{{ object.link }}" target="_blank" class="hidden-xs col-sm-6 product-img-hidden-xs">
                                 {% with object.image|file_description as file_desc %}
-                                    <span class="img"><span class="photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{% if file_desc.description %}{{ file_desc.description|remove_newlines|escape }}{% else %}{{ file_desc.description|remove_newlines|escape }}{% endif %}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"shop_small" }}" />{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}</span></span>
+                                    <span class="img"><span class="photo-credits-wrapper"><img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" title="{% if file_desc.description %}{{ file_desc.description|remove_newlines|escape }}{% else %}{{ object.title }}{% endif %}" alt="{% if file_desc.description %}{{ file_desc.description|remove_newlines|escape }}{% else %}{{ object.title }}{% endif %}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"shop_small" }}" />{% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}</span></span>
                                 {% endwith %}
                             </a>
                             {{ object.get_rendered_description }}
