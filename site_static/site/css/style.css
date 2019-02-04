@@ -3396,6 +3396,11 @@ input:focus {
   height: 58px;
   margin-bottom: -10px;
   position: relative;
+  background: transparent;
+}
+
+.input-field.box:hover {
+  background: transparent;
 }
 
 .input-field.select {

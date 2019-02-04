@@ -90,6 +90,11 @@ input {
         height: 58px;
         margin-bottom: -10px;
         position: relative;
+        background: transparent;
+
+        &:hover {
+            background: transparent;
+        }
     }
 
     &.select {

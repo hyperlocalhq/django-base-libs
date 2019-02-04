@@ -42,3 +42,59 @@
     {% endif %}
     {% crispy form "ccb_form" %}
 {% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+            function JobboardInfo() {
+
+                var me = this;
+                me.$message = null;
+
+                me.$search = $('input[name=bulletin_type][value=searching]');
+                me.$offer = $('input[name=bulletin_type][value=offering]');
+                me.$bulletin_types = $('input[name=bulletin_type]');
+
+                me.$partner = $('input[name=bulletin_category][value=1]');
+                me.$knowhow = $('input[name=bulletin_category][value=6]');
+                me.$other = $('input[name=bulletin_category][value=8]');
+                me.$bulletin_categories = $('input[name=bulletin_category]');
+
+                me.setMessage();
+
+                me.$bulletin_types.change(function() {me.setMessage();});
+                me.$bulletin_categories.change(function() {me.setMessage();});
+            }
+
+            JobboardInfo.prototype.setMessage = function() {
+
+                var me = this;
+
+                if (me.$message) me.$message.remove();
+
+                if (me.$offer.prop('checked')) {
+                    me.$message = $('<a href="/{{ LANGUAGE_CODE }}/jobs/add/'+location.search+'" class="error">'+'{% trans 'For job offers please use the <u>jobboard</u>!' %}'+'</a>');
+
+                    if (me.$partner.prop('checked')) {
+                        me.$partner.parent().after(me.$message);
+                    }
+
+                    if (me.$knowhow.prop('checked')) {
+                        me.$knowhow.parent().after(me.$message);
+                    }
+
+                    if (me.$other.prop('checked')) {
+                        me.$other.parent().after(me.$message);
+                    }
+                }
+            }
+
+            new JobboardInfo();
+
+        });
+
+    </script>
+{% endblock %}
