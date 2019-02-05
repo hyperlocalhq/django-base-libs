@@ -157,7 +157,7 @@
                         );
                     }
 
-                    $('[id$="content_type"]').on("change", function () {
+                    $(document).on('change', '[id$="content_type"]', function () {
                         var $oContentType = $(this);
                         var $oContent = $(this).parents("fieldset").find('[id$="content"]');
                         var $oContentMarkupType = $(this).parents("fieldset").find('[id$="content_markup_type"]');
@@ -168,7 +168,9 @@
                                 $oContentMarkupType.val("hw");
                                 $oContentMarkupType.change();
                             }
-                            CKEDITOR.instances[$oContent.attr("id")].setData(responseText);
+                            if (CKEDITOR.instances[$oContent.attr("id")]) {
+                                CKEDITOR.instances[$oContent.attr("id")].setData(responseText);
+                            }
                         }
 
                         if ($oContentType.val()) {
