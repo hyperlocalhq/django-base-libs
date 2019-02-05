@@ -1,0 +1,48 @@
+{% load base_tags i18n image_modifications fb_tags %}
+{% if festivals %}
+    <div class="slider row festivals" data-image-ratio="680:375"  data-adjust-style="1">
+        <div class="col-xs-12">
+            <div class="slider-head row">
+                <h4 class="col-xs-4">
+                    {% trans "Festivals" %}
+                </h4>
+                <div class="col-xs-8"><a href="{% url "festival_list" as festival_list_url %}{{ festival_list_url }}" class="fawesome more">{% trans "More Festivals" %}</a></div>
+            </div>
+            <ul class="slider-body row">
+                {% for festival in festivals %}
+                            <li class="col-xs-12 col-md-6 slider-item">
+                                <a href="{{ festival.get_url_path }}">
+                                    {% if festival.first_image %}
+                                        <img src="{{ MEDIA_URL }}{{ festival.first_image.path|modified_path:"detail_image" }}" alt="{{ festival.title|escape }}" />
+                                        {% with festival.first_image.path|file_description as file_desc %}
+                                            {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                                        {% endwith %}
+                                    {% elif festival.image_set.exists %}
+                                        {% with festival.image_set.all|first as first %}
+                                            <img src="{{ MEDIA_URL }}{{ first.path|modified_path:"detail_image" }}" alt="{{ festival.title|escape }}" />
+                                            {% with first.path|file_description as file_desc %}
+                                                {% if file_desc.author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ file_desc.author }}</span>{% endif %}
+                                            {% endwith %}
+                                        {% endwith %}
+                                    {% else %}
+                                        <img src="{{ STATIC_URL }}site/img/placeholder_slider.png" alt="{{ festival.title|escape }}" />
+                                    {% endif %}
+                                    <div class="slider-item-text">
+                                        <h5>{{ festival.title }}</h5>
+                                        <p>
+                                            {% if festival.organizers.all %}
+                                                {% for location in festival.organizers.all %}
+                                                    <strong>{{ location }}</strong>
+                                                {% endfor %}
+                                                <br/>
+                                            {% endif %}
+                                            <span class="date">{% if festival.end and festival.start == festival.end %}<time>{{ festival.start|date:"j. M Y" }}</time>{% else %}<time>{% if not festival.end or festival.start|date:"Y" != festival.end|date:"Y" %}{{ festival.start|date:"j. M Y" }}{% else %}{% if festival.start|date:"M" != festival.end|date:"M" %}{{ festival.start|date:"j. M" }}{% else %}{{ festival.start|date:"j." }}{% endif %}{% endif %}</time>{% if festival.end %} &nbsp;–&nbsp; <time>{{ festival.end|date:"j. M Y" }}</time>{% endif %}{% endif %}</span>
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endif %}

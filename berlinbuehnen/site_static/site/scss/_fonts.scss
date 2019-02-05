@@ -1,0 +1,344 @@
+// main:style.scss
+
+@charset "utf-8";
+
+@font-face {
+    font-family: 'Webfont';
+    src: url('../fonts/web/TitilliumWeb-Regular.eot');
+    src: local('☺'), url('../fonts/web/TitilliumWeb-Regular.eot?#') format('embedded-opentype'), url('../fonts/web/TitilliumWeb-Regular.otf') format('opentype'), url('../fonts/web/TitilliumWeb-Regular.ttf') format('truetype'), url('../fonts/web/TitilliumWeb-Regular.svg#TitilliumWeb-Regular') format('svg');
+    font-weight: $regular;
+}
+@font-face {
+    font-family: 'Webfont';
+    src: url('../fonts/web/TitilliumWeb-Italic.eot');
+    src: local('☺'), url('../fonts/web/TitilliumWeb-Italic.eot?#') format('embedded-opentype'), url('../fonts/web/TitilliumWeb-Italic.otf') format('opentype'), url('../fonts/web/TitilliumWeb-Italic.ttf') format('truetype'), url('../fonts/web/TitilliumWeb-Italic.svg#TitilliumWeb-Italic') format('svg');
+    font-weight: $regular;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Webfont';
+    src: url('../fonts/web/TitilliumWeb-Bold.eot');
+    src: local('☺'), url('../fonts/web/TitilliumWeb-Bold.eot?#') format('embedded-opentype'), url('../fonts/web/TitilliumWeb-Bold.otf') format('opentype'), url('../fonts/web/TitilliumWeb-Bold.ttf') format('truetype'), url('../fonts/web/TitilliumWeb-Bold.svg#TitilliumWeb-Bold') format('svg');
+    font-weight: $bold;
+}
+@font-face {
+    font-family: 'Webfont';
+    src: url('../fonts/web/TitilliumWeb-BoldItalic.eot');
+    src: local('☺'), url('../fonts/web/TitilliumWeb-BoldItalic.eot?#') format('embedded-opentype'), url('../fonts/web/TitilliumWeb-BoldItalic.otf') format('opentype'), url('../fonts/web/TitilliumWeb-BoldItalic.ttf') format('truetype'), url('../fonts/web/TitilliumWeb-BoldItalic.svg#TitilliumWeb-BoldItalic') format('svg');
+    font-weight: $bold;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Webfont';
+    src: url('../fonts/web/TitilliumWeb-ExtraLight.eot');
+    src: local('☺'), url('../fonts/web/TitilliumWeb-ExtraLight.eot?#') format('embedded-opentype'), url('../fonts/web/TitilliumWeb-ExtraLight.otf') format('opentype'), url('../fonts/web/TitilliumWeb-ExtraLight.ttf') format('truetype'), url('../fonts/web/TitilliumWeb-ExtraLight.svg#TitilliumWeb-Thin') format('svg');
+    font-weight: $light;
+}
+@font-face {
+    font-family: 'Webfont';
+    src: url('../fonts/web/TitilliumWeb-ExtraLightItalic.eot');
+    src: local('☺'), url('../fonts/web/TitilliumWeb-ExtraLightItalic.eot?#') format('embedded-opentype'), url('../fonts/web/TitilliumWeb-ExtraLightItalic.otf') format('opentype'), url('../fonts/web/TitilliumWeb-ExtraLightItalic.ttf') format('truetype'), url('../fonts/web/TitilliumWeb-ExtraLightItalic.svg#TitilliumWeb-ThinItalic') format('svg');
+    font-weight: $light;
+    font-style: italic;
+}
+
+
+
+
+@font-face {
+    font-family: 'Webfont2';
+    src: url('../fonts/web/TitilliumWeb-Regular.eot');
+    src: local('☺'), url('../fonts/web/TitilliumWeb-Regular.eot?#') format('embedded-opentype'), url('../fonts/web/TitilliumWeb-Regular.ttf') format('truetype'), url('../fonts/web/TitilliumWeb-Regular.svg#TitilliumWeb-Regular') format('svg');
+    font-weight: $regular;
+}
+@font-face {
+    font-family: 'Webfont2';
+    src: url('../fonts/web/TitilliumWeb-Italic.eot');
+    src: local('☺'), url('../fonts/web/TitilliumWeb-Italic.eot?#') format('embedded-opentype'), url('../fonts/web/TitilliumWeb-Italic.ttf') format('truetype'), url('../fonts/web/TitilliumWeb-Italic.svg#TitilliumWeb-Italic') format('svg');
+    font-weight: $regular;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Webfont2';
+    src: url('../fonts/web/TitilliumWeb-Bold.eot');
+    src: local('☺'), url('../fonts/web/TitilliumWeb-Bold.eot?#') format('embedded-opentype'), url('../fonts/web/TitilliumWeb-Bold.ttf') format('truetype'), url('../fonts/web/TitilliumWeb-Bold.svg#TitilliumWeb-Bold') format('svg');
+    font-weight: $bold;
+}
+@font-face {
+    font-family: 'Webfont2';
+    src: url('../fonts/web/TitilliumWeb-BoldItalic.eot');
+    src: local('☺'), url('../fonts/web/TitilliumWeb-BoldItalic.eot?#') format('embedded-opentype'), url('../fonts/web/TitilliumWeb-BoldItalic.ttf') format('truetype'), url('../fonts/web/TitilliumWeb-BoldItalic.svg#TitilliumWeb-BoldItalic') format('svg');
+    font-weight: $bold;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Webfont2';
+    src: url('../fonts/web/TitilliumWeb-ExtraLight.eot');
+    src: local('☺'), url('../fonts/web/TitilliumWeb-ExtraLight.eot?#') format('embedded-opentype'), url('../fonts/web/TitilliumWeb-ExtraLight.ttf') format('truetype'), url('../fonts/web/TitilliumWeb-ExtraLight.svg#TitilliumWeb-Thin') format('svg');
+    font-weight: $light;
+}
+@font-face {
+    font-family: 'Webfont2';
+    src: url('../fonts/web/TitilliumWeb-ExtraLightItalic.eot');
+    src: local('☺'), url('../fonts/web/TitilliumWeb-ExtraLightItalic.eot?#') format('embedded-opentype'), url('../fonts/web/TitilliumWeb-ExtraLightItalic.ttf') format('truetype'), url('../fonts/web/TitilliumWeb-ExtraLightItalic.svg#TitilliumWeb-ThinItalic') format('svg');
+    font-weight: $light;
+    font-style: italic;
+}
+
+
+body {
+  color: black;
+  font-family: 'Webfont', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 125%;
+  // text-shadow: 0 1px 0 rgba(0,0,0,0.01);
+  -webkit-text-stroke: 1px transparent;
+}
+
+label {
+    font-size: 1em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-weight: $bold;
+  line-height: 120%;
+  font-family: 'Webfont', Helvetica, Arial, sans-serif;
+}
+
+h1 {
+  font-size: 1.375em;
+}
+h2 {
+  font-size: 1.25em;
+}
+h3 {
+    font-size: 1.125em;
+}
+
+strong {
+    font-weight: $bold;
+}
+
+.sidebar-accordion .accordion-item-head, .sidebar-accordion .extra, .news-item h3, .news-item .more, .filter label, .filter .filter-suboptions, .filter .filter-set a, .filter .filter-reset-button, .list .extra, .top_nav .nav, .article .article-more-list-more {
+    font-family: 'Webfont2', Helvetica, Arial, sans-serif;
+}
+
+
+
+
+
+
+
+
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('../fonts/fontawesome-webfont.eot?v=4.3.0');
+    src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.3.0') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff2?v=4.3.0') format('woff2'), url('../fonts/fontawesome-webfont.woff?v=4.3.0') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.3.0') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.3.0#fontawesomeregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.fawesome {
+
+    line-height: 1.375em;
+
+    &:before, &:after {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        padding-right: 10px;
+        vertical-align: bottom;
+        font-weight: 400;
+        font-size: 1.375em;
+    }
+    &:after {
+        padding-left: 10px;
+        padding-right: 0px;
+    }
+
+    .icon {
+        display: none;
+    }
+}
+
+
+.fawesome.back:before {
+    content: "\f104";
+}
+.fawesome.up:before {
+    content: "\f106";
+}
+.fawesome.down:before {
+    content: "\f107";
+}
+.fawesome.down.after {
+    &:after {
+        content: "\f107";
+    }
+    &:before {
+        content: none;
+    }
+}
+.fawesome.prev:after {
+    content: "\f100";
+}
+.fawesome.next:before {
+    content: "\f101";
+}
+.fawesome.tickets:before {
+    content: "\f02c";
+}
+.fawesome.calender:before {
+    content: "\f073";
+}
+.fawesome.favorite:before {
+    content: "\f005";
+    color: white;
+    background: black;
+    border-radius: 50%;
+    padding: 0 0 0 1px;
+    font-size: 16px;
+    margin-right: 10px;
+    margin-bottom: -1px;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    .is-xs & {
+        padding: 0;
+    }
+}
+.fawesome.more:after {
+    content: "\f105";
+}
+.fawesome.delete:before {
+    content: "\f00d";
+    color: white;
+    background: black;
+    padding-right: 0;
+    margin-right: 3px;
+    font-size: 1em;
+    width: 15px;
+    height: 15px;
+    line-height: 14px;
+    text-align: center;
+    margin-bottom: 2px;
+}
+.fawesome.delete.after::before {
+    content: none;
+}
+.fawesome.delete.after:after {
+    content: "\f00d";
+    color: white;
+    background: black;
+    padding-left: 0;
+    margin-left: 3px;
+    font-size: 1em;
+    width: 15px;
+    height: 15px;
+    line-height: 14px;
+    text-align: center;
+    margin-bottom: 2px;
+}
+.fawesome.twitter:before {
+    content: "\f099";
+}
+.fawesome.facebook:before {
+    content: "\f09a";
+}
+.fawesome.googleplus:before {
+    content: "\f0d5";
+}
+.fawesome.instagram:before {
+    content: "\f16d";
+}
+.fawesome.linkedin:before {
+    content: "\f0e1";
+}
+.fawesome.map:before {
+    content: "\f041";
+    font-size: 24px;
+    line-height: 0.88;
+}
+.fawesome.pinterest:before {
+    content: "\f231";
+}
+.fawesome.soundcloud:before {
+    content: "\f1be";
+}
+.fawesome.xing:before {
+    content: "\f168";
+}
+.fawesome.youtube:before {
+    content: "\f167";
+}
+.fawesome.vimeo:before {
+    content: "\f194";
+}
+.fawesome.vine:before {
+    content: "\f1ca";
+}
+.fawesome.issuu:before {
+    content: "\f192";
+}
+.fawesome.flickr:before {
+    content: "\f16e";
+}
+.fawesome.blog:before {
+    content: "\f039";
+}
+.fawesome.search:before {
+    content: "\f002";
+}
+.fawesome.newsletter:before {
+    content: "\f0e0";
+}
+.fawesome.email:before {
+    content: "\f003";
+}
+.fawesome.edit:before {
+    content: "\f040";
+}
+.fawesome.fa-files-o:before {
+    content: "\f0c5";
+    font-size: 1em;
+    padding-right: 0;
+}
+.fawesome.back-round:before {
+    content: "\f112";
+}
+.fawesome.menu:before {
+    content: "\f039";
+}
+.fawesome.crosshair:before {
+    content: "\f05b";
+}
+.fawesome.cancel:before {
+    content: "\f00d";
+}
+.fawesome.arrow-right:before {
+    content: "\f061";
+}
+.fawesome.arrow-left:before {
+    content: "\f060";
+}
+
+.subcategory:before {
+    content: "\2514";
+    padding-right: 6px;
+    opacity: 0.7;
+}

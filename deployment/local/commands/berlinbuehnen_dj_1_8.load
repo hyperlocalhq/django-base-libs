@@ -1,0 +1,6 @@
+LOAD DATABASE
+    FROM mysql://mysqlusername:mysqlpassword@localhost/berlinbuehnen_dj_1_8
+    INTO postgresql:///berlinbuehnen
+    WITH truncate, data only, disable triggers, preserve index names, include no drop, reset sequences
+    ALTER SCHEMA 'berlinbuehnen_dj_1_8' RENAME TO 'public'
+;
