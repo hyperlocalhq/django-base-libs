@@ -118,7 +118,7 @@
                 }
             }
             // embedder
-            $('.embed').live('click', function() {
+            $(document).on('click', '.embed', function() {
                 var funcNum = getUrlParam('CKEditorFuncNum');
                 var fileUrl = $(this).attr('href');
                 window.opener.CKEDITOR.tools.callFunction(funcNum, fileUrl);

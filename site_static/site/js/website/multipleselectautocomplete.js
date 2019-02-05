@@ -40,7 +40,7 @@ self.MutipleSelectAutoCompleteManager = {
                 $('#' + selectedListID + ' li:last').data('id', $(this).attr('value'));
             });
             $(this).hide();
-            $('#' + selectedListID + ' a.closebutton').live('click', function (event) {
+            $('#' + selectedListID).on('click', 'a.closebutton', function (event) {
                 var li = $(this).parents('li:first');
                 var id = li.data('id');
                 li.remove();
