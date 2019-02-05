@@ -6,6 +6,7 @@ required_apps = [
     "i18n",
     "utils",
     "optionset",
+    "external_services",
 ]
 optional_apps = [
     "people",

@@ -1,0 +1,14 @@
+{% load i18n base_tags image_mods_tags %}
+
+{% with amount|default:4 as amount %}
+    {% get_objects published_objects.all bulletin_board.bulletin amount as bulletin_list %}
+    {% if bulletin_list %}
+        <div class="row article-list">
+            {% for bulletin in bulletin_list %}
+                {% include "bulletin_board/lists/bulletin_list_item.html" %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="intro">{% trans "There are no bulletins." %}</p>
+    {% endif %}
+{% endwith %}

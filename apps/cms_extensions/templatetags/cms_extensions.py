@@ -6,13 +6,12 @@ from django.utils.translation import ugettext_lazy as _
 from cms.utils.moderator import get_cmsplugin_queryset
 from cms.utils import get_language_from_request
 
+
 register = template.Library()
 
 
 def placeholder_plugins(parser, token):
-    error_string = _(
-        "The syntax of placeholder_plugins tag is as follows: {% placeholder_plugins <name> as <plugins> %}"
-    )
+    error_string = _("The syntax of placeholder_plugins tag is as follows: {% placeholder_plugins <name> as <plugins> %}")
     try:
         # split_contents() knows not to split quoted strings.
         bits = token.split_contents()
@@ -43,7 +42,6 @@ class PlaceholderNode(template.Node):
     {% endfor %}
     
     """
-
     def __init__(self, name, plugins_var):
         self.name = name
         self.plugins_var = plugins_var
@@ -53,26 +51,25 @@ class PlaceholderNode(template.Node):
             return ''
         l = get_language_from_request(context['request'])
         request = context['request']
-
+        
         page = request.current_page
         if page == "dummy":
             return ""
-
+            
         name = template.resolve_variable(self.name, context)
-
+        
         plugins = get_cmsplugin_queryset(request).filter(
             language=l,
             placeholder__slot=name,
             placeholder__page=page,
             parent__isnull=True,
-        ).order_by('position').select_related()
-
-        context[self.plugins_var
-               ] = (  # generator
-                   p.get_plugin_instance()[0] for p in plugins
-               )
-
+            ).order_by('position').select_related()
+            
+        context[self.plugins_var] = ( # generator
+            p.get_plugin_instance()[0]
+            for p in plugins
+            )
+        
         return ""
-
 
 register.tag('placeholder_plugins', placeholder_plugins)

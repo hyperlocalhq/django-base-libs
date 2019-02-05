@@ -1,0 +1,37 @@
+{% load i18n base_tags babel comments image_mods_tags favorites %}
+{% comment %}<!--
+Usage in any template:
+    {% load base_tags %}
+    
+    Simple:
+    {% include_parsed "media_gallery/includes/random_featured_galleries.html" %}
+    
+    Customized:
+    {% include_parsed "media_gallery/includes/random_featured_galleries.html" with 5 as amount %}
+    
+-->{% endcomment %}
+
+<div class="galleries gallery_list featured_portfolios">
+    {% with amount|default:3 as amount %}
+        {% get_objects random_featured media_gallery.MediaGallery amount as newest_objects %}
+        {% if newest_objects %}
+            {% for gallery in newest_objects %}
+                {% with gallery.content_object as content_object %}
+                    <a href="{{ content_object.get_url_path }}portfolio/"
+                        class="featured_portfolio_item{% if forloop.last %} last-item{% endif %}">
+                        {% if gallery.mediafile_set.count %}
+                            <img width="184" height="184" alt="{{ content_object.get_title|escape }}"
+                                src="{{ gallery.mediafile_set.all.0.get_list_image_url }}"/>
+                        {% endif %}
+                        <span class="featured_portfolio_item_details">
+                            <span class="featured_portfolio_item_title">{{ gallery.title }}</span>
+                            <span class="featured_portfolio_item_name">{{ content_object.get_title }}</span>
+                        </span>
+                    </a>
+                {% endwith %}
+            {% endfor %}
+        {% else %}
+            <p>{% trans "There are no featured galleries." %}</p>
+        {% endif %}
+    {% endwith %}
+</div>

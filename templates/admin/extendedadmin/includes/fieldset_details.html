@@ -9,21 +9,17 @@
             <div class="grp-row grp-cells-1{% if form.description_en.errors %} grp-errors{% endif %}">
                 <div class="l-2c-fluid l-d-4">
                     <div class="c-1">
-                        <label
-                                {% if form.description_en.field.required %} class="required"{% endif %}>{{ form.description_en.label }}</label>
+                        <label{% if form.description_en.field.required %} class="required"{% endif %}>{{ form.description_en.label }}</label>
                     </div>
                     <div class="c-2">
                         {{ form.description_en_markup_type }}
                         <p class="grp-help markup-type-help">{% trans "You can select an appropriate markup type here." %}</p>
                         <p>{{ form.description_en }}</p>
                         {% if form.description_en.errors %}
-                            <ul class="errorlist">
-                                <li>{{ form.description_en.errors|join:", " }}</li>
-                            </ul>
+                            <ul class="errorlist"><li>{{ form.description_en.errors|join:", "}}</li></ul>
                         {% endif %}
 
-                        {% if form.description_en.help_text %}
-                            <p class="grp-help">{{ form.description_en.help_text }}</p>{% endif %}
+                        {% if form.description_en.help_text %}<p class="grp-help">{{ form.description_en.help_text }}</p>{% endif %}
                     </div>
                 </div>
             </div>
@@ -35,27 +31,23 @@
             <div class="grp-row grp-cells-1{% if form.description_de.errors %} grp-errors{% endif %}">
                 <div class="l-2c-fluid l-d-4">
                     <div class="c-1">
-                        <label
-                                {% if form.description_de.field.required %} class="required"{% endif %}>{{ form.description_de.label }}</label>
+                        <label{% if form.description_de.field.required %} class="required"{% endif %}>{{ form.description_de.label }}</label>
                     </div>
                     <div class="c-2">
                         {{ form.description_de_markup_type }}
                         <p class="grp-help markup-type-help">{% trans "You can select an appropriate markup type here." %}</p>
                         <p>{{ form.description_de }}</p>
                         {% if form.description_de.errors %}
-                            <ul class="errorlist">
-                                <li>{{ form.description_de.errors|join:", " }}</li>
-                            </ul>
+                            <ul class="errorlist"><li>{{ form.description_de.errors|join:", "}}</li></ul>
                         {% endif %}
 
-                        {% if form.description_de.help_text %}
-                            <p class="grp-help">{{ form.description_de.help_text }}</p>{% endif %}
+                        {% if form.description_de.help_text %}<p class="grp-help">{{ form.description_de.help_text }}</p>{% endif %}
                     </div>
                 </div>
             </div>
         </fieldset>
     {% endif %}
-
+    
     <div class="grp-row grp-cells-1{% if form.image.errors %} grp-errors{% endif %}">
         <div class="l-2c-fluid l-d-4">
             <div class="c-1">
@@ -64,14 +56,29 @@
             <div class="c-2">
                 {{ form.image }}
                 {% if form.image.errors %}
-                    <ul class="errorlist">
-                        <li>{{ form.image.errors|join:", " }}</li>
-                    </ul>
+                    <ul class="errorlist"><li>{{ form.image.errors|join:", "}}</li></ul>
                 {% endif %}
 
                 {% if form.image.help_text %}<p class="grp-help">{{ form.image.help_text }}</p>{% endif %}
             </div>
         </div>
     </div>
+    {% if form.photo_author %}
+        <div class="grp-row grp-cells-1{% if form.photo_author.errors %} grp-errors{% endif %}">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    <label{% if form.photo_author.field.required %} class="required"{% endif %}>{{ form.photo_author.label }}</label>
+                </div>
+                <div class="c-2">
+                    {{ form.photo_author }}
+                    {% if form.photo_author.errors %}
+                        <ul class="errorlist"><li>{{ form.photo_author.errors|join:", "}}</li></ul>
+                    {% endif %}
+    
+                    {% if form.photo_author.help_text %}<p class="grp-help">{{ form.photo_author.help_text }}</p>{% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
 </fieldset>
 

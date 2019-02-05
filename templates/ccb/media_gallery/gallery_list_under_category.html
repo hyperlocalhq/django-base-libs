@@ -1,0 +1,95 @@
+{% extends base_template|default:"base_sidebar.html" %}
+{% load i18n base_tags auth_extended navigation_tags crispy_forms_tags infoblocks cms_tags menu_tags %}
+
+{% block title %}{% page_attribute "page_title" %} - {{ category.title }}{% endblock %}
+
+{% block extrahead %}
+    <link rel="alternate"
+        type="application/rss+xml"
+        title="{% blocktrans with category_title=category.title %}{{ category_title }} Portfolios at Creative City Berlin{% endblocktrans %}"
+        href="{{ request.path }}feeds/rss/"/>
+{% endblock %}
+
+{% block header_image %}
+    {% load slideshows_tags %}
+    {% if category.slug == "architektur" %}
+        {% slideshow "architecture" using "slideshows/header.html" %}
+    {% elif category.slug == "bildende-kunst" %}
+        {% slideshow "visual_arts" using "slideshows/header.html" %}
+    {% elif category.slug == "design" %}
+        {% slideshow "design" using "slideshows/header.html" %}
+    {% elif category.slug == "eventbranche" %}
+        {% slideshow "event_industry" using "slideshows/header.html" %}
+    {% elif category.slug == "film-rundfunk" %}
+        {% slideshow "film_broadcast" using "slideshows/header.html" %}
+    {% elif category.slug == "fotografie" %}
+        {% slideshow "photography" using "slideshows/header.html" %}
+    {% elif category.slug == "games-interactive" %}
+        {% slideshow "games_interactive" using "slideshows/header.html" %}
+    {% elif category.slug == "literatur-verlage" %}
+        {% slideshow "literature_publishing" using "slideshows/header.html" %}
+    {% elif category.slug == "mode-textil" %}
+        {% slideshow "fashion_textile" using "slideshows/header.html" %}
+    {% elif category.slug == "musik" %}
+        {% slideshow "music" using "slideshows/header.html" %}
+    {% elif category.slug == "tanz-theater" %}
+        {% slideshow "theatre_dance" using "slideshows/header.html" %}
+    {% elif category.slug == "werbung-pr" %}
+        {% slideshow "advertising_pr" using "slideshows/header.html" %}
+    {% endif %}
+{% endblock %}
+
+{% block headline %}
+    <h1>{{ category.title }}</h1>
+{% endblock %}
+
+{% block search_bar %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="header-search">
+                <div class="fawesome fa-search" data-type="news"><span class="text hidden-xs">{% trans 'Search' %}</span></div>
+
+                <div class="result">
+                    {% load babel %}{{ current_page.paginator.count|numberfmt }}
+                    <span class="text">{% trans 'Portfolios' %}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    <nav>
+        <ul class="accordion navi-box">
+            <li class="accordion-inside accordion-trigger opened">
+                <div class="accordion-trigger head">{{ category.title }}</div>
+                <ul class="accordion navi-box">
+                    {% show_sub_menu 3 3 1 "cms/includes/menu_cms.html" %}
+                </ul>
+            </li>
+            <li></li>
+        </ul>
+    </nav>
+    {% infoblock "portfolios_infobox" using "blocks/infobox.html" %}
+{% endblock %}
+
+{% block details %}
+    <h2>{% page_attribute "page_title" %}</h2>
+    {% if object_list %}
+        {% include "utils/includes/sorting.html" %}
+        <div class="row projects-grid">
+            {% for object in object_list %}
+                {% include_parsed "media_gallery/lists/gallery_item.html" %}
+            {% endfor %}
+        </div>
+        {% include "utils/includes/pagination.html" %}
+    {% else %}
+        <p>{% trans "No objects found within the selected conditions." %}</p>
+    {% endif %}
+{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/projects-grid.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/pagination.js"></script>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% load i18n %}
+{% trans "You're receiving this e-mail because you (or someone using your email address) is attempting to create an account at " %} {{ site_name }}
+
+{% trans "To verify your e-mail address and continue the registration process, please click the link below:" %}
+
+http://{{ domain }}/register/{{ encrypted_email }}/
+
+{% blocktrans %}If you have no idea what this e-mail is referring to, simply ignore it and no account will be created
+    with your e-mail address.{% endblocktrans %}
+
+{% blocktrans %}
+    Thanks,
+    The {{ site_name }} team
+{% endblocktrans %}

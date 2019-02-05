@@ -1,0 +1,14 @@
+{% load i18n base_tags %}
+
+{% with amount|default:5 as amount %}
+    {% get_objects site_published_objects_all_languages.interviews articles.Article amount as newest_objects %}
+    {% if newest_objects %}
+        <div class="row article-list">
+            {% for list_article in newest_objects %}
+                {% include "articles/articles_brief.html" %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="intro">{% trans "There are no magazine articles." %}</p>
+    {% endif %}
+{% endwith %}

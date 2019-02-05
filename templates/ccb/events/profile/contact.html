@@ -1,0 +1,100 @@
+{% load i18n base_tags auth_extended %}
+
+
+{% if object.venue_title or object.venue or object.postal_address or object.get_phones or object.get_urls or object.get_ims or object.is_editable %}
+    <div
+        class="fieldset {% if object.is_editable %}editable switch{% else %}not-editable{% endif %}"
+        data-edit-url="{% url 'edit_profile' object_type='event' slug=object.slug %}contact/">
+        <fieldset disabled>
+        <h2>{% trans "Contact Data" %}</h2>
+
+            {% if object.venue_title or object.venue %}
+                <dl class="input-fields">
+                    <dt>{% trans "Venue" %}</dt>
+                    <dd>
+                        <div class="text-field">
+                            {% if object.venue %}
+                                <a href="{{ object.venue.get_url_path }}">{{ object.venue.title }}</a>
+                            {% else %}
+                                {{ object.venue_title }}
+                            {% endif %}
+                        </div>
+                    </dd>
+                    <dd class="clearfix"></dd>
+                </dl>
+            {% endif %}
+
+            {% with object.postal_address as address %}
+                {% if address.street_address or address.postal_code or address.country %}
+                    <dl class="input-fields">
+                        <dt>{% trans "Address" %}</dt>
+                        <dd>
+                            <div class="text-field">
+                                {% if address.street_address %}
+                                    <div>{{ address.street_address|escape }}</div>
+                                {% endif %}
+                                {% if address.street_address2 %}
+                                    <div>{{ address.street_address2|escape }}</div>
+                                {% endif %}
+                                {% if address.street_address3 %}
+                                    <div>{{ address.street_address3|escape }}</div>
+                                {% endif %}
+                                {% if address.postal_code or address.city %}
+                                    <div>{{ address.postal_code|escape }} {{ address.city|escape }}</div>
+                                {% endif %}
+                                {% if address.country %}
+                                    <div>{{ address.country.get_name }}</div>
+                                {% endif %}
+                            </div>
+                        </dd>
+                        <dd class="clearfix"></dd>
+                    </dl>
+                {% endif %}
+            {% endwith %}
+
+            {% if object.get_phones %}
+                <dl class="input-fields">
+                    {% for phone in object.get_phones %}
+                        <dt>{% if phone.type %}{{ phone.type }}{% else %}{% trans 'Phone' %}{% endif %}</dt>
+                        <dd>
+                            <div class="text-field">
+                                <a href="tel:+{{ phone.country }}{{ phone.area }}{{ phone.number }}">
+                                    +{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</a>
+                            </div>
+                        </dd>
+                        <dd class="clearfix"></dd>
+                    {% endfor %}
+                </dl>
+            {% endif %}
+
+            {% if object.get_urls %}
+                <dl class="input-fields">
+                    {% for url in object.get_urls %}
+                        <dt>{% if url.type %}{{ url.type }}{% else %}{% trans 'Website' %}{% endif %}</dt>
+                        <dd>
+                            <div class="text-field">
+                                <a href="{{ url.link|escape }}"
+                                    onclick="open_new_window(event)"
+                                    target="_blank">{{ url.link }}</a>
+                            </div>
+                        </dd>
+                        <dd class="clearfix"></dd>
+                    {% endfor %}
+                </dl>
+            {% endif %}
+
+            {% if object.get_ims %}
+                <dl class="input-fields">
+                    {% for im in object.get_ims %}
+                        <dt>{{ im.type }}</dt>
+                        <dd>
+                            <div class="text-field">{{ im.address }}</div>
+                        </dd>
+                        <dd class="clearfix"></dd>
+                    {% endfor %}
+                </dl>
+            {% endif %}
+
+        </fieldset>
+    </div>
+{% endif %}

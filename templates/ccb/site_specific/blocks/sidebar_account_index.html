@@ -1,0 +1,32 @@
+{% load i18n navigation_tags base_tags %}
+<div class="sidebar-box sidebar-box-fixed nav_expanded">
+    <h5><b>{% trans "My Account" %}</b></h5>
+
+    <div class="hidable">
+        {% filter remove_empty_lists %}
+            <ul>
+                {% if request.user.is_authenticated %}
+                    <li class="my-profile">{% trans "My Profiles" %}
+                        <ul id="dyn_profiles">
+                            <li>
+                                <a href="{{ request.user.profile.get_url_path }}">{{ request.user.profile.get_title|escape }}</a>
+                            </li>
+                            {% for inst in request.user.profile.get_institutions %}
+                                <li>
+                                    <a href="{{ inst.get_url_path }}">{{ inst.get_title|escape }}</a>
+                                </li>
+                            {% endfor %}
+                            <li>
+                                <a href="/{{ URL_ID_INSTITUTIONS }}/add/">
+                                    ({% trans "Add an Institutional / Company  profile" %})
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                {% endif %}
+                {% children_of "my_account" using "navigation/my_account.html" %}
+            </ul>
+        {% endfilter %}
+    </div>
+</div>
+

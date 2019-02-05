@@ -1,0 +1,11 @@
+{% extends "base_iframe.html" %}
+
+{% block content %}
+    {% include section_template %}
+{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript" src="//maps.google.com/maps/api/js?language=de&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/locating.js"></script>
+{% endblock %}

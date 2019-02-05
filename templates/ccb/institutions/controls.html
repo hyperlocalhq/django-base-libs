@@ -1,0 +1,41 @@
+{% load i18n base_tags navigation_tags groups_networks browsing favorites %}
+{% with forloop.counter|default:0 as counter %}
+    {% with institution|get_context_item as context_item %}
+        <ul class="toolbar">
+            {% if user.is_authenticated %}
+                {% if institution.is_addable_to_favorites or institution.is_removable_from_favorites %}
+                    <li class="favorites">{% adding2favorites for context_item %}</li>
+                {% endif %}
+                {% if institution.is_contactable %}
+                    <li class="mail">
+                        <a href="{{ institution.get_url_path }}message/" title="{% trans "Send a mail" %}">
+                            <span><span>{% trans "Send a mail" %}</span></span></a>
+                    </li>
+                {% endif %}
+                {% if request.user.is_staff %}
+                    {% if perms.institutions.change_institution %}
+                        <li class="admin_edit">
+                            <a title="{% trans "Edit Institution" %}"
+                                href="/admin/institutions/institution/{{ institution.id }}/"
+                                onclick="open_new_window(event)">
+                                <span><span>{% trans "Edit Institution" %}</span></span>
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            {% else %}
+                <li class="favorites login-required">
+                    <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}"
+                        title="{% trans "Add to favorites" %}">
+                        <span><span>{% trans "Add to favorites" %} ({% trans "login request" %})</span></span></a>
+                </li>
+                <li class="mail login-required">
+                    <a rel="nofollow" href="{% url 'login' %}?goto_next={{ institution.get_url_path }}message/"
+                        title="{% trans "Send a mail" %}">
+                        <span><span>{% trans "Send a mail" %} ({% trans "login request" %})</span></span></a>
+                </li>
+            {% endif %}
+        </ul>
+    {% endwith %}
+{% endwith %}
+

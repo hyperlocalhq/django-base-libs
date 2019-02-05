@@ -1,0 +1,18 @@
+{% load base_tags babel i18n auth_extended %}
+
+<div>
+    {% include "utils/includes/pagination.html" %}
+    <form action="" class="to_show" class="uniForm">
+        <div>
+            {% trans "show" %}
+            <select id="id_list_pagination" class="page_count">
+                <option value="15"{% ifequal results_per_page 15 %} selected="selected"{% endifequal %} >15</option>
+                <option value="60"{% ifequal results_per_page 60 %} selected="selected"{% endifequal %} >60</option>
+                <option value="90"{% ifequal results_per_page 90 %} selected="selected"{% endifequal %}>90</option>
+                <option value="180"{% ifequal results_per_page 180 %} selected="selected"{% endifequal %}>180</option>
+            </select>
+            {% trans "items per page" %}
+        </div>
+    </form>
+</div>
+<hr class="hidden"/>

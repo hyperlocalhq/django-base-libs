@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% load i18n base_tags navigation_tags auth_extended %}
+
+{% comment %}<!-- UNUSED -->{% endcomment %}
+
+{% block extrahead %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/groups_networks.js"></script>
+{% endblock %}
+
+
+{% block title %}{% trans "Groups" %}{% endblock %}
+
+{% block headline %}
+    <h1>{% trans "Groups" %}</h1>
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="list">
+        {% block tabs %}
+            <div id="tabs">
+                {% children_of "groups" using "navigation/children_in_tabs.html" %}
+            </div>
+        {% endblock %}
+
+        {% comment %}
+            THE PAGINATION HEDER IS DIEFFERENT, SO WE CANNOT USE
+            {% include "utils/sorting_view_pagination_header.html" %}
+        {% endcomment %}
+        <div class="whole-page-browse">
+            <div class="page-browse">
+                {% if is_paginated %}
+                    <div class="paginated">
+                        <div class="previous">
+                            {% if has_previous %}
+                                <a href="{% append_to_get page=previous %}">
+                                    <span class="enabled">
+                                        <span class="hidden">
+                                            {% trans "previous" %}
+                                        </span>
+                                    </span>
+                                </a>
+                            {% else %}
+                                <span class="disabled">
+                                    <span class="hidden">{% trans "previous" %}</span>
+                                </span>
+                            {% endif %}
+                        </div>
+                        <form action="">
+                            <p>
+                                <select class="page_skip" onchange="append_to_get({page: this.value});">
+                                    {% for pnumber in page_numbers %}
+                                        <option value="{{ pnumber }}"{% ifequal pnumber page %}
+                                            selected="selected"{% endifequal %}>{% blocktrans %}Page {{ pnumber }} of
+                                            {{ pages }}{% endblocktrans %}</option>
+                                    {% endfor %}
+                                </select>
+                            </p>
+                        </form>
+                        <div class="next">
+                            {% if has_next %}
+                                <a href="{% append_to_get page=next %}">
+                                    <span class="enabled">
+                                        <span class="hidden">
+                                            {% trans "next" %}
+                                        </span>
+                                    </span>
+                                </a>
+                            {% else %}
+                                <span class="disabled">
+                                    <span class="hidden">
+                                        {% trans "next" %}
+                                    </span>
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+                <div>
+                    {% comment %} SHOULD BE ADOPTED, CURRENTLY HARDCODED BELOW
+                    {% children_of "own-groups" using "navigation/children_horizontally.html" %}
+                    {% endcomment %}
+                    <p>
+                        <a href="/{{ URL_ID_PERSONGROUPS }}/invitations/my-{{ URL_ID_PERSONGROUPS }}/invitations/?by-status={{ active_status_filter }}"
+                            {% ifequal group_ind "my-groups" %}class="active"{% endifequal %}>{% trans "My Groups" %}</a>
+                        |
+                        <a
+                            href="/{{ URL_ID_PERSONGROUPS }}/invitations/other-{{ URL_ID_PERSONGROUPS }}/invitations/?by-status={{ active_status_filter }}"
+                            {% ifequal group_ind "other-groups" %}class="active"{% endifequal %}>{% trans "Other Groups" %}</a>
+
+                        {% comment %}<!--
+                        THAT IS NOT YET  IMPLEMENTED
+                        | <a href="/{{ URL_ID_PERSONGROUPS }}/invitations/invite_to_{{ URL_ID_PERSONGROUP }}/invitations/?by-status={{ active_status_filter }}" {% ifequal group_ind "other-groups" %}class="active"{% endifequal %}>{% trans "Invite To Group" %}</a>
+                        -->{% endcomment %}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="breadcrumbs">
+            <span class="left">
+                <a href="/{{ URL_ID_PERSONGROUPS }}/invitations/{{ group_ind }}/invitations/?by-status={{ active_status_filter }}"
+                    {% ifequal active_link "invitations" %}class="active"{% endifequal %}>{% trans "Sent invitations " %}</a>
+                | <a
+                href="/{{ URL_ID_PERSONGROUPS }}/invitations/{{ group_ind }}/requests/?by-status={{ active_status_filter }}"
+                {% ifequal active_link "requests" %}class="active"{% endifequal %}>{% trans "Requests to confirm" %}</a>
+            </span>
+
+            <div class="right">
+                <span>
+                    {% comment %}<!--
+                        A LITTLE BIT HACKISH, BUT WORKS AS A QUICK SOLUTION
+                    -->{% endcomment %}
+                    <a href="{{ request.path }}?by-status=pending"
+                        {% ifequal active_status_filter "pending" %}class="active"{% endifequal %}>{% trans "Pending" %}</a>
+    
+                    {% comment %}<!--
+                    THE DENIED FILTER IS NOT YET IMPLEMENTED
+                    |<a href="{{ request.path}}?by-status=denied" {% ifequal active_status_filter "denied" %}class="active"{% endifequal %}>{% trans "Denied" %}</a>
+                    -->{% endcomment %}
+                    |{% trans "Denied" %} 
+                </span>
+            </div>
+        </div>
+
+        {% if object_list %}
+            {% ifequal group_ind "my-groups" %}
+                {% for person in object_list %}
+                    {% include_parsed "groups_networks/lists/person_invited.html" %}
+                {% endfor %}
+            {% else %}
+                {% for persongroup in object_list %}
+                    {% include_parsed "groups_networks/lists/persongroup_inviting.html" %}
+                {% endfor %}
+            {% endifequal %}
+
+            {% include "utils/includes/sorting_and_pagination.html" %}
+
+        {% else %}
+            <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
+        {% endif %}
+        <div class="cleaner"></div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,100 @@
+{% extends "bulletin_board/bulletin_list.html" %}
+{% load i18n image_mods_tags cms_tags base_tags crispy_forms_tags %}
+
+{% block bodyclass %}count{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.bgiframe.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/autocomplete.js"></script>
+
+{% endblock %}
+
+{% block headline %}
+    <h1>{% page_attribute "page_title" %}</h1>
+    <h2>{% blocktrans %}Enter new bulletin for {{ created_by }}{% endblocktrans %}</h2>
+{% endblock %}
+
+{% block search_bar %}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url "bulletin_list" %}">{% page_attribute "page_title" %}</a></li>
+    <li>{% trans "My Bulletins" %}</li>
+    {% if bulletin %}
+        <li>{{ bulletin.title }} ({% if bulletin.status == "published" %}{% trans "Published" %}{% else %}{% trans "Draft" %}{% endif %})</li>
+    {% else %}
+        <li>{% trans "Create Bulletin" %}</li>
+    {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+    {% include "utils/step_list.html" %}
+{% endblock %}
+
+{% block details %}
+    {% if is_institution %}
+        <p><i>{% trans 'Attention: All entries you are doing right now are going to show on your institution profile. If you want the entry to show on your person profile, please go to your person profil.' %}</i><br/><br/></p>
+    {% elif is_person %}
+        <p><i>{% trans 'Attention: All entries you are doing right now are going to show on your person profile. If you want the entry to show on your institution profile, please go to your institution profil or create one if you have not done so yet.' %}</i><br/><br/></p>
+    {% endif %}
+    {% crispy form "ccb_form" %}
+{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+            function JobboardInfo() {
+
+                var me = this;
+                me.$message = null;
+
+                me.$search = $('input[name=bulletin_type][value=searching]');
+                me.$offer = $('input[name=bulletin_type][value=offering]');
+                me.$bulletin_types = $('input[name=bulletin_type]');
+
+                me.$partner = $('input[name=bulletin_category][value=1]');
+                me.$knowhow = $('input[name=bulletin_category][value=6]');
+                me.$other = $('input[name=bulletin_category][value=8]');
+                me.$bulletin_categories = $('input[name=bulletin_category]');
+
+                me.setMessage();
+
+                me.$bulletin_types.change(function() {me.setMessage();});
+                me.$bulletin_categories.change(function() {me.setMessage();});
+            }
+
+            JobboardInfo.prototype.setMessage = function() {
+
+                var me = this;
+
+                if (me.$message) me.$message.remove();
+
+                if (me.$offer.prop('checked')) {
+                    me.$message = $('<a href="/{{ LANGUAGE_CODE }}/jobs/add/'+location.search+'" class="error">'+'{% trans 'For job offers please use the <u>jobboard</u>!' %}'+'</a>');
+
+                    if (me.$partner.prop('checked')) {
+                        me.$partner.parent().after(me.$message);
+                    }
+
+                    if (me.$knowhow.prop('checked')) {
+                        me.$knowhow.parent().after(me.$message);
+                    }
+
+                    if (me.$other.prop('checked')) {
+                        me.$other.parent().after(me.$message);
+                    }
+                }
+            }
+
+            new JobboardInfo();
+
+        });
+
+    </script>
+{% endblock %}

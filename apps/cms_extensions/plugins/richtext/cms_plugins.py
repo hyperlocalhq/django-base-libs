@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
-import sys
-
-if "makemigrations" in sys.argv:
-    from django.utils.translation import ugettext_noop as _
-else:
-    from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 
 from cms.plugin_pool import plugin_pool
 from cms.plugin_base import CMSPluginBase
@@ -22,9 +17,8 @@ class RichTextPlugin(MarkupTypeOptions, CMSPluginBase):
     def render(self, context, instance, placeholder):
         context.update({
             'object': instance,
-            'placeholder': placeholder,
+            'placeholder':placeholder,
         })
         return context
-
 
 plugin_pool.register_plugin(RichTextPlugin)

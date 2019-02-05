@@ -1,0 +1,63 @@
+{% load base_tags babel i18n image_mods_tags uni_form_tags %}
+
+<div id="popup_content" class="first-item-txt">
+    <form action="" method="post" class="uniForm">{% csrf_token %}
+        {% if form_preview %}
+            <div class="preview">
+                <fieldset class="inlineLabels">
+                    <h6>{{ form.title.data|disarm_user_input }}</h6>
+
+                    <p>{{ form.short_title.data|disarm_user_input }}</p>
+
+                    <p>{{ form.description.data|disarm_user_input }}</p>
+
+                    <div class="buttonHolder">
+                        <input type="submit" class="primaryAction" id="post" name="{{ post_stage_field }}"
+                            value='{% filter upper %}{% trans "Save" %}{% endfilter %}'/>
+                    </div>
+                </fieldset>
+            </div>
+        {% endif %}
+        <fieldset class="inlineLabels">
+            <h3>
+                {% ifequal form_action "new" %}
+                    {% if current_forum %}
+                        {% blocktrans %}Create a new forum in forum "{{ current_forum }}"{% endblocktrans %}
+                    {% else %}
+                        {% trans "Create a new forum" %}
+                    {% endif %}
+                {% endifequal %}
+                {% ifequal form_action "edit" %}
+                    {% trans "Edit Forum" %}
+                {% endifequal %}
+            </h3>
+            {% if warnings %}
+                <p class="errorField">{{ warnings }}</p>
+            {% endif %}
+
+            {% if hash_failed %}
+                <p class="errorField">{{ hash_failed_message }}</p>
+            {% endif %}
+
+            {{ form.title|as_uni_field }}
+            {{ form.short_title|as_uni_field }}
+            {{ form.description|as_uni_field }}
+            {% ifequal form_action "edit" %}
+                {{ form.parent|as_uni_field }}
+            {% endifequal %}
+            {{ form.status|as_uni_field }}
+            <div class="buttonHolder">
+                <input id="id_preview" class="primaryAction" type="submit" name="{{ preview_stage_field }}"
+                    value="{% filter upper %}{% trans 'Preview' %}{% endfilter %}"/>
+                <input id="id_cancel" type="submit" class="secondaryAction" name="{{ cancel_stage_field }}"
+                    value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
+                {% comment %}this one is used for security reasons -->{% endcomment %}
+                <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}"/>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+
+
+

@@ -1,0 +1,23 @@
+{% load base_tags babel i18n image_mods_tags %}
+
+<form action="" method="post" class="uniForm">{% csrf_token %}
+    <div class="fieldset editable">
+        <fieldset>
+            <h2>{% trans "Delete Blog Entry?" %}</h2>
+            <h3>{% blocktrans %}Do you really want to delete "{{ delete_object }}"?{% endblocktrans %}</h3>
+        </fieldset>
+    </div>
+
+    <div class="button-group form-buttons">
+        <input id="id_cancel" type="submit" class="button" name="{{ cancel_stage_field }}"
+            value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
+        <input id="id_delete" class="button danger" type="submit" name="{{ delete_stage_field }}"
+            value="{% filter upper %}{% trans 'Delete' %}{% endfilter %}"/>
+        {% comment %}this one is used for security reasons -->{% endcomment %}
+        <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}"/>
+    </div>
+</form>
+
+
+
+

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load i18n base_tags cms_tags %}
+
+{% block title %}{% page_attribute "page_title" %}{% endblock title %}
+
+
+{% block headline %}
+    <h1>{% page_attribute "page_title" %}</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% page_attribute "page_title" %}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row event-grid">
+            {% for cat in partner_categories %}
+                <div class="col-xs-12"><h2>{{ cat.title }}</h2></div>
+                {% for partner in cat.get_published_partners %}
+                    <div class="col-xs-6 col-sm-4 col-md-3 {% if forloop.counter0|divisibleby:4 %}hidden-sm{% endif %}">
+                        {% if partner.website_url %}
+                            <a class="content tap-hover tap-hover-trigger logo-{{ partner.id }}"
+                                href="{{ partner.website_url }}" target="_blank">
+                                <img alt="{{ partner.title }}" src="{{ MEDIA_URL }}{{ partner.image }}"/>
+                            </a>
+                        {% else %}
+                            <img alt="{{ partner.title }}" src="{{ MEDIA_URL }}{{ partner.image }}"/>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}
+
+{% block javascript %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/event-grid.js"></script>
+{% endblock %}

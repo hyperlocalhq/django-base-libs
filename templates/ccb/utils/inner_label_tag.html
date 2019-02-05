@@ -1,0 +1,6 @@
+{% comment %} 
+    That does not work as expected!!! 
+    {% if is_required %}<strong>{% endif %}{{ field_label }}{% if is_required %}*</strong>{% endif %}
+{% endcomment %}
+
+{{ field_label }}{% if is_required %}*{% endif %}

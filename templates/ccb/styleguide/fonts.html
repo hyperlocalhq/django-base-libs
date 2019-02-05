@@ -1,0 +1,77 @@
+{% extends "styleguide/base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Fonts</h1>
+                <br/>
+                <p><strong>The font size is based on 15px.</strong></p>
+                <br/>
+                
+                <h1><span class="hidden-xs hidden-sm">&lt;h1&gt; {font-family: $font-1, $font-family-1; font-weight: $font-black; font-size: 4.25em; line-height: 109%;} &lt;/h1&gt;</span><span class="visible-sm">&lt;h1&gt; {font-family: $font-1, $font-family-1; font-weight: $font-black; font-size: 3.5em; line-height: 107%;} &lt;/h1&gt;</span><span class="visible-xs">&lt;h1&gt; {font-family: $font-1, $font-family-1; font-weight: $font-black; font-size: 2.13em; line-height: 110%;} &lt;/h1&gt;</span></h1>
+                
+                <br/>
+                
+                <h2><span class="hidden-xs hidden-sm">&lt;h2&gt; {font-family: $font-1, $font-family-1; font-weight: $font-regular; font-size: 2.67em; line-height: 140%;} &lt;/h2&gt;</span><span class="visible-sm">&lt;h2&gt; {font-family: $font-1, $font-family-1; font-weight: $font-regular; font-size: 2em; line-height: 115%;} &lt;/h2&gt;</span><span class="visible-xs">&lt;h2&gt; {font-family: $font-1, $font-family-1; font-weight: $font-regular; font-size: 1.93em; line-height: 115%;} &lt;/h2&gt;</span></h2>
+                
+                <br/>
+                
+                <h3><span class="hidden-xs hidden-sm">&lt;h3&gt; {font-family: $font-2, $font-family-1; font-weight: $font-bold; font-size: 1.07em; line-height: 140%; color: $cyan; text-transform: uppercase;} <time datetime="2015-10-08">&lt;time datetime="2015-10-08">08. Oktober 2015&lt;/time></time>&lt;/h3&gt;</span><span class="visible-sm">&lt;h3&gt; {font-family: $font-2, $font-family-1; font-weight: $font-bold; font-size: 1em; line-height: 140%; color: $cyan; text-transform: uppercase;} <time datetime="2015-10-08">&lt;time datetime="2015-10-08">08. Oktober 2015&lt;/time></time>&lt;/h3&gt;</span><span class="visible-xs">&lt;h3&gt; {font-family: $font-2, $font-family-1; font-weight: $font-bold; font-size: 0.73em; line-height: 126%; color: $cyan; text-transform: uppercase;} <time datetime="2015-10-08">&lt;time datetime="2015-10-08">08. Oktober 2015&lt;/time></time>&lt;/h3&gt;</span></h3>
+                
+                <br/>
+                
+                <h4><span class="hidden-xs hidden-sm">&lt;h4&gt; {font-family: $font-2, $font-family-1; font-weight: $font-bold; font-size: 1.33em; line-height: 150%; color: $grey; text-transform: uppercase;} <strong>&lt;strong>Name&lt;/strong></strong>&lt;/h4&gt;</span><span class="visible-sm">&lt;h4&gt; {font-family: $font-2, $font-family-1; font-weight: $font-bold; font-size: 1.2em; line-height: 146%; color: $grey; text-transform: uppercase;} <strong>&lt;strong>Name&lt;/strong></strong>&lt;/h4&gt;</span><span class="visible-xs">&lt;h4&gt; {font-family: $font-2, $font-family-1; font-weight: $font-bold; font-size: 0.73em; line-height: 126%; color: $grey; text-transform: uppercase;} <strong>&lt;strong>Name&lt;/strong></strong>&lt;/h4&gt;</span></h4>
+                
+                <h5>&lt;h5> {font-family: $font-2, $font-family-1; font-weight: $font-black; font-size: 1.07em; line-height: 127%; letter-spacing: 1/15em; color: $grey-dark; text-transform: uppercase;} &lt;/h5></h5>
+                
+                <br/>
+                
+                <p><span class="hidden-xs">&lt;p> {font-size: 1.2em; line-height: 140%; color: $black;} &lt;/p></span><span class="visible-xs">&lt;p> {font-size: 1.07em; line-height: 138%; color: $black;} &lt;/p></span></p>
+                
+                <p class="intro"><span class="hidden-xs hidden-sm">&lt;p class="intro"&gt; {font-size: 1.47em; line-height: 164%; color: $grey-dark;} &lt;/p&gt;</span><span class="visible-sm">&lt;p class="intro"&gt; {font-size: 1.33em; line-height: 154%; color: $grey-dark;} &lt;/p&gt;</span><span class="visible-xs">&lt;p class="intro"&gt; {font-size: 1.2em; line-height: 144%; color: $grey-dark;} &lt;/p&gt;</span></p>
+                
+                <p>Lorem ipsum <a href="#">&lt;a>text link&lt;/a></a> dolor sit amet</p>
+                
+                <p>
+                    <b>&lt;b>bold #1&lt;/b></b><br/>
+                    <strong>&lt;strong>bold #2&lt;/strong></strong><br/>
+                    <span class="bold">&lt;span class="bold">bold #3&lt;/span></span><br/>
+                    <span class="strong">&lt;span class="strong">bold #4&lt;/span></span>
+                </p>
+                
+                <p><small>&lt;small>small text&lt;/small></small></p>
+                
+                <p class="uppercase">class="uppercase"</p>
+ 
+                <p class="underline">class="underline"</p>
+
+                <p class="word-wrap" style="width: 100px;">class="word-wrap"</p>
+
+                <p class="no-select">class="no-select" -> Text or elements can't be selected.</p>
+
+                <p>lorem ipsum <q>&lt;q>A Quote&lt;/q></q> lorem ipsum</p>
+                
+                <blockquote>&lt;blockquote>A quote as single block&lt;/blockquote></blockquote>
+                
+                <p>
+                    <span class="color-black">class="color-black"</span><br/>
+                    <span class="color-black-light">class="color-black-light"</span><br/>
+                    <span class="color-black-bright">class="color-black-bright"</span><br/>
+                    <span class="color-white" style="background:black;">class="color-white"</span><br/>
+                    <span class="color-white-dirty" style="background:black;">class="color-white-dirty"</span><br/>
+                    <span class="color-grey-bright">class="color-grey-bright"</span><br/>
+                    <span class="color-grey-light">class="color-grey-light"</span><br/>
+                    <span class="color-grey">class="color-grey"</span><br/>
+                    <span class="color-grey-darker">class="color-grey-darker"</span><br/>
+                    <span class="color-grey-dark">class="color-grey-dark"</span><br/>
+                    <span class="color-cyan-light">class="color-cyan-light"</span><br/>
+                    <span class="color-cyan">class="color-cyan"</span><br/>
+                    <span class="color-cyan-dark">class="color-cyan-dark"</span><br/>
+                    <span class="color-form-error">class="color-form-error"</span><br/>
+                    <span class="color-form-error-placeholder">class="color-form-error-placeholder"</span><br/>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "media_gallery/portfolio_base.html" %}
+{% load i18n base_tags auth_extended infoblocks image_mods_tags uni_form_tags uni_form_field crispy_forms_tags %}
+
+{% block details %}
+    {% crispy form "ccb_form" %}
+{% endblock %}
+
+
+
+{% block breadcrumbs_details %}
+    <li><a href="{{ object.get_url_path }}portfolio/">{% trans "Portfolio" %}</a></li>
+    <li><a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/">{{ gallery.title }}</a></li>
+    <li><a href="{{ object.get_url_path }}{{ URL_ID_PORTFOLIO }}/album/{{ gallery.get_token }}/manage/">{% trans "Manage" %}</a></li>
+    <li>{% trans "Media" %}</li>
+{% endblock %}
+
+
+{% block javascript %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/media_upload.js"></script>
+{% endblock %}

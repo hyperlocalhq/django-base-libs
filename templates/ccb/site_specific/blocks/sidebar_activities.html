@@ -1,0 +1,14 @@
+{% load i18n base_tags %}
+<div class="sidebar-box nav_expanded" id="activities_{{ LANGUAGE_CODE }}">
+    <h5>
+        <a href="#" class="open_but">
+            <b>{% trans "Activities" %}</b>
+            <span class="pic"></span>
+        </a>
+    </h5>
+
+    <div class="hidable">
+        {% load navigation_tags %}
+        {% navigation_links "menu_object_activities" %}
+    </div>
+</div>

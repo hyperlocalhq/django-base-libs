@@ -1,0 +1,112 @@
+{% load i18n base_tags uni_form_tags uni_form_field %}
+<div class="event_time formset-form">
+    {{ f.label|as_uni_field }}
+    <div class="ctrlHolder{% if f.start_dd.errors or f.start_mm.errors or f.start_yyyy.errors %} error{% endif %}">
+        {{ f.start_dd.error_tag }}
+        {{ f.start_mm.error_tag }}
+        {{ f.start_yyyy.error_tag }}
+        <p class="label">{% trans "Start" %}</p>
+        <ul class="alternate">
+            <li>
+                <label for="id_event_times-{{ forloop.counter0 }}-start_dd">
+                    {% trans "Day" %}
+                    {{ f.start_dd|with_class }}
+                </label>
+            </li>
+            <li>
+                <label for="id_event_times-{{ forloop.counter0 }}-start_mm">
+                    {% trans "Month" %}
+                    {{ f.start_mm|with_class }}
+                </label>
+            </li>
+            <li>
+                <label for="id_event_times-{{ forloop.counter0 }}-start_yyyy">
+                    {% trans "Year" %}
+                    {{ f.start_yyyy|with_class }}
+                </label>
+            </li>
+        </ul>
+    </div>
+    <div class="ctrlHolder noLabel{% if f.start_hh.errors or f.start_ii.errors %} error{% endif %}">
+        <ul class="alternate">
+            <li>
+                <label for="id_event_times-{{ forloop.counter0 }}-start_hh">
+                    {% trans "Hour" %}
+                    {{ f.start_hh|with_class }}
+                </label>
+            </li>
+            <li>
+                <label for="id_event_times-{{ forloop.counter0 }}-start_ii">
+                    {% trans "Minute" %}
+                    {{ f.start_ii|with_class }}
+                </label>
+            </li>
+            <li>&nbsp;</li>
+        </ul>
+    </div>
+    <div class="ctrlHolder noLabel">
+        <ul class="alternate2">
+            <li>
+                <label for="id_event_times-{{ forloop.counter0 }}-is_all_day">
+                    {{ f.is_all_day|with_class }}
+                    {{ f.is_all_day.label }}
+                </label>
+            </li>
+            <li>
+                <label>
+                    <input type="checkbox" class="toggle_event_end checkboxinput"/>
+                    {% trans "Event has an end date" %}
+                </label>
+            </li>
+        </ul>
+    </div>
+    <div class="event_end">
+        <div class="ctrlHolder{% if f.end_dd.errors or f.end_mm.errors or f.end_yyyy.errors %} error{% endif %}">
+            {{ f.end_dd.error_tag }}
+            {{ f.end_mm.error_tag }}
+            {{ f.end_yyyy.error_tag }}
+            <p class="label">{% trans "End" %}</p>
+            <ul class="alternate">
+                <li>
+                    <label for="id_event_times-{{ forloop.counter0 }}-end_dd">
+                        {% trans "Day" %}
+                        {{ f.end_dd|with_class }}
+                    </label>
+                </li>
+                <li>
+                    <label for="id_event_times-{{ forloop.counter0 }}-end_mm">
+                        {% trans "Month" %}
+                        {{ f.end_mm|with_class }}
+                    </label>
+                </li>
+                <li>
+                    <label for="id_event_times-{{ forloop.counter0 }}-end_yyyy">
+                        {% trans "Year" %}
+                        {{ f.end_yyyy|with_class }}
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <div class="ctrlHolder noLabel{% if f.end_hh.errors or f.end_ii.errors %} error{% endif %}">
+            <ul class="alternate">
+                <li>
+                    <label for="id_event_times-{{ forloop.counter0 }}-end_dd">
+                        {% trans "Hour" %}
+                        {{ f.end_hh|with_class }}
+                    </label>
+                </li>
+                <li>
+                    <label for="id_event_times-{{ forloop.counter0 }}-end_mm">
+                        {% trans "Minute" %}
+                        {{ f.end_ii|with_class }}
+                    </label>
+                </li>
+                <li>&nbsp;</li>
+            </ul>
+        </div>
+    </div>
+    {% if f.id %}
+        {{ f.id }}
+    {% endif %}
+    {{ f.DELETE|as_uni_field }}
+</div>

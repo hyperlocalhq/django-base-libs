@@ -1,0 +1,13 @@
+{% load base_tags %}
+<div class="sidebar-box nav_expanded" id="block_{{ title|slugify }}_{{ LANGUAGE_CODE }}">
+    <h5>
+        <a href="#" class="open_but">
+            <b>{{ title|escape }}</b>
+            <span class="pic"></span>
+        </a>
+    </h5>
+
+    <div class="hidable">
+        {{ content|mark_first_and_last:"p" }}
+    </div>
+</div>

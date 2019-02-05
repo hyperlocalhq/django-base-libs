@@ -1,0 +1,113 @@
+{% if creative_sector %}
+    {% ifequal creative_sector.sysname "architecture" %}
+        {% if LANGUAGE_CODE == "de" %}
+            <meta name="keywords" lang="de"
+                content="Architektur, Berlin, Information, Ausbildung, links, Netzwerke, Kontakte, Kreativwirtschaft, Kulturwirtschaft, Fördergelder, Wirtschaftsförderung, Stipendien, Arbeitsräume, Ateliers"/>
+        {% else %}
+            <meta name="keywords" lang="en-us"
+                content="architecture, Berlin, information, education, links, networking, contacts, creative industries, cultural industries, subsidies, financial support, scholarship, workspaces, studios"/>
+        {% endif %}
+    {% endifequal %}
+    {% ifequal creative_sector.sysname "advertising_and_pr" %}
+        {% if LANGUAGE_CODE == "de" %}
+            <meta name="keywords" lang="de"
+                content="Werbung, PR, Agentur, Berlin, Information, Ausbildung, links, Netzwerke, Kontakte, Kreativwirtschaft, Kulturwirtschaft, Fördergelder, Filmförderung, Wirtschaftsförderung, Stipendien, Ateliers, Arbeitsräume"/>
+        {% else %}
+            <meta name="keywords" lang="en-us"
+                content="advertising, PR, agency, Berlin, information, education, links, networking, contacts, creative industries, cultural industries, subsidies, financial support, scholarship, workspace, studios"/>
+        {% endif %}
+    {% endifequal %}
+    {% ifequal creative_sector.sysname "design" %}
+        {% if LANGUAGE_CODE == "de" %}
+            <meta name="keywords" lang="de"
+                content="Design, Berlin, Information, Ausbildung, links, Netzwerke, Kontakte, Kreativwirtschaft, Kulturwirtschaft, Fördergelder, Wirtschaftsförderung, Stipendien, Arbeitsräume, Atelier, Agentur"/>
+        {% else %}
+            <meta name="keywords" lang="en-us"
+                content="architecture, Berlin, information, education, links, networking, contacts, creative industries, cultural industries, subsidies, financial support, scholarship, workspace, studios, agency"/>
+        {% endif %}
+    {% endifequal %}
+    {% ifequal creative_sector.sysname "film_and_broadcast" %}
+        {% if LANGUAGE_CODE == "de" %}
+            <meta name="keywords" lang="de"
+                content="Film, Fernsehen, Kino, TV, Berlin, Information, Ausbildung, links, Netzwerke, Kontakte, Kreativwirtschaft, Kulturwirtschaft, Fördergelder, Filmförderung, Wirtschaftsförderung, Stipendien"/>
+        {% else %}
+            <meta name="keywords" lang="en-us"
+                content="film, movies, cinema, television, TV, Berlin, information, Education, Links, networking, contacts, creative industries, cultural industries, subsidies, financial support, scholarship, workspace"/>
+        {% endif %}
+    {% endifequal %}
+    {% ifequal creative_sector.sysname "games_and_interactive" %}
+        {% if LANGUAGE_CODE == "de" %}
+            <meta name="keywords" lang="de"
+                content="Games, Web 2.0, Interactive, Computerspiele, Software, Programmierer, Berlin, Information, Ausbildung, links, Netzwerke, Kontakte, Kreativwirtschaft, Kulturwirtschaft, Fördergelder, Wirtschaftsförderung, Stipendien"/>
+        {% else %}
+            <meta name="keywords" lang="en-us"
+                content="games, interactive, web 2.0, computer game, Berlin, Information, education, Links, networking, contacts, creative industries, cultural industries, subsidies, financial support, scholarship, workspaces"/>
+        {% endif %}
+    {% endifequal %}
+    {% ifequal creative_sector.sysname "art" %}
+        {% if LANGUAGE_CODE == "de" %}
+            <meta name="keywords" lang="de"
+                content="Kunst, Bildende Kunst, Künstler, Berlin, Information, Ausbildung, links, Netzwerke, Kontakte, Kreativwirtschaft, Kulturwirtschaft, Fördergelder, Filmförderung, Wirtschaftsförderung, Stipendien, Ateliers, Arbeitsräume"/>
+        {% else %}
+            <meta name="keywords" lang="en-us"
+                content="art, fine arts, artists, Berlin, information, education, links, networking, contacts, creative industries, cultural industries, subsidies, financial support, scholarship, workspaces, studios"/>
+        {% endif %}
+    {% endifequal %}
+    {% ifequal creative_sector.sysname "literature_and_publishing" %}
+        {% if LANGUAGE_CODE == "de" %}
+            <meta name="keywords" lang="de"
+                content="Literatur, Verlage, Autoren, Berlin, Information, Ausbildung, links, Netzwerke, Kontakte, Kreativwirtschaft, Kulturwirtschaft, Fördergelder, Filmförderung, Wirtschaftsförderung, Stipendien"/>
+        {% else %}
+            <meta name="keywords" lang="en-us"
+                content="literature, publishing, authors, Berlin, information, education, links, networking, contacts, creative industries, cultural industries, subsidies, financial support, scholarship"/>
+        {% endif %}
+    {% endifequal %}
+    {% ifequal creative_sector.sysname "fashion_and_textile" %}
+        {% if LANGUAGE_CODE == "de" %}
+            <meta name="keywords" lang="de"
+                content="Mode ,Textil, Berlin, Modebranche, Textilbranche, Information, Ausbildung, Agentur, links, Netzwerke, Kontakte, Kreativwirtschaft, Kulturwirtschaft, Fördergelder, Filmförderung, Wirtschaftsförderung, Stipendien, Ateliers, Arbeitsräume"/>
+        {% else %}
+            <meta name="keywords" lang="en-us"
+                content="fashion, textile, Berlin, fashion, information, education, agency, links, networking, contacts, creative industries, cultural industries, subsidies, financial support, scholarship, workspaces, studios"/>
+        {% endif %}
+    {% endifequal %}
+    {% ifequal creative_sector.sysname "music" %}
+        {% if LANGUAGE_CODE == "de" %}
+            <meta name="keywords" lang="de"
+                content="Musik, Musikwirtschaft, Berlin, Plattenfirmen, Information, Ausbildung, links, Netzwerke, Kontakte, Kreativwirtschaft, Kulturwirtschaft, Fördergelder, Filmförderung, Wirtschaftsförderung, Stipendien, Probenräume, Proberäume"/>
+        {% else %}
+            <meta name="keywords" lang="en-us"
+                content="music, music business, record companies, Berlin, information, education, links, networking, contacts, creative industries, cultural industries, subsidies, financial support, scholarship, workspaces, studios, rehearsal rooms"/>
+        {% endif %}
+    {% endifequal %}
+    {% ifequal creative_sector.sysname "photography" %}
+        {% if LANGUAGE_CODE == "de" %}
+            <meta name="keywords" lang="de"
+                content="Fotografie, Photographie, Berlin, Information, Ausbildung, links, Netzwerke, Kontakte, Kreativwirtschaft, Kulturwirtschaft, Fördergelder, Filmförderung, Wirtschaftsförderung, Stipendien, Ateliers, Arbeitsräume"/>
+        {% else %}
+            <meta name="keywords" lang="en-us"
+                content="photography, Berlin, information, education, links, networking, contacts, creative industries, cultural industries, subsidies, financial support, scholarship, workspaces, studios"/>
+        {% endif %}
+    {% endifequal %}
+    {% ifequal creative_sector.sysname "theatre_and_dance" %}
+        {% if LANGUAGE_CODE == "de" %}
+            <meta name="keywords" lang="de"
+                content="Theater, Tanz, Darstellende Kunst, Berlin, Information, Ausbildung, links, Netzwerke, Kontakte, Kreativwirtschaft, Kulturwirtschaft, Fördergelder, Filmförderung, Wirtschaftsförderung, Stipendien, Ateliers, Arbeitsräume"/>
+        {% else %}
+            <meta name="keywords" lang="en-us"
+                content="theater, dance, performing arts, Berlin, information, education, links, networking, contacts, creative industries, cultural industries, subsidies, financial support, scholarship, workspaces, studios"/>
+        {% endif %}
+    {% endifequal %}
+    {% ifequal creative_sector.sysname "events" %}
+        {% if LANGUAGE_CODE == "de" %}
+            <meta name="keywords" lang="de"
+                content="Event, Eventmarketing, Eventwirtschaft, Eventmetropole, Agentur, Berlin, locations, Information, Ausbildung, links, Netzwerke, Kontakte, Kreativwirtschaft, Kulturwirtschaft, Wirtschaftsförderung, Arbeitsräume"/>
+        {% else %}
+            <meta name="keywords" lang="en-us"
+                content="Event, Eventmarketing, Eventwirtschaft, Eventmetropole, Agentur, Berlin, locations, Information, Ausbildung, links, Netzwerke, Kontakte, Kreativwirtschaft, Kulturwirtschaft, Wirtschaftsförderung, Arbeitsräume"/>
+        {% endif %}
+    {% endifequal %}
+{% else %}
+    {{ site_settings.get_meta_keywords|safe }}
+{% endif %}
+
