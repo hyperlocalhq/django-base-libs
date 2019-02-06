@@ -4,7 +4,6 @@ import json
 
 from django.apps import apps
 from django.core.urlresolvers import reverse
-from django.db import models
 from django.db import transaction
 from django.views.decorators.cache import never_cache
 from django.shortcuts import render_to_response, get_object_or_404, redirect
@@ -21,26 +20,20 @@ from base_libs.utils.misc import get_unique_value
 from base_libs.utils.betterslugify import better_slugify
 from base_libs.utils.crypt import decryptString
 from base_libs.utils.misc import get_installed
-from jetson.apps.utils.decorators import login_required
-from jetson.apps.configuration.models import SiteSettings
 from jetson.apps.mailing.views import send_email_using_template, Recipient
+from jetson.apps.utils.decorators import login_required
 from jetson.apps.utils.views import object_list
 from jetson.apps.utils.context_processors import prev_next_processor
+from jetson.apps.configuration.models import SiteSettings
+
 from social.backends.oauth import BaseOAuth1, BaseOAuth2
 from social.backends.google import GooglePlusAuth
 from social.backends.utils import load_backends
 from social_django.utils import psa
 
-from ccb.apps.curated_lists.models import ListOwner
-from ccb.apps.accounts.forms import EmailOrUsernameAuthentication, SimpleRegistrationForm
+from ccb.apps.accounts.forms import EmailOrUsernameAuthentication
 from ccb.apps.accounts.forms import SimpleRegistrationForm
 from ccb.apps.accounts.forms import PrivacySettingsForm
-
-Site = apps.get_model("sites", "Site")
-SiteSettings = apps.get_model("configuration", "SiteSettings")
-User = apps.get_model("auth", "User")
-image_mods = models.get_app("image_mods")
-Institution = models.get_model("institutions", "Institution")
 
 URL_ID_PERSON = get_installed("people.models.URL_ID_PERSON")
 URL_ID_PEOPLE = get_installed("people.models.URL_ID_PEOPLE")
@@ -58,61 +51,68 @@ def social_auth_context(**extra):
 @never_cache
 def login(request, template_name='registration/login.html',
           redirect_field_name=getattr(settings, "REDIRECT_FIELD_NAME", REDIRECT_FIELD_NAME)):
-    """Displays the login form and handles the login action."""
+    """Displays the login and registration forms and handles the login and registration actions."""
     site_settings = SiteSettings.objects.get_current()
     redirect_to = request.REQUEST.get(redirect_field_name, 'dashboard')
+
+    data = {
+        'email_or_username': request.GET.get('login_as', ''),
+        'login_as': request.GET.get('login_as', ''),
+    }
+    login_form = EmailOrUsernameAuthentication(request, initial=data, prefix="login")
+    registration_form = SimpleRegistrationForm(request, prefix="registration")
+
     if request.method == "POST":
-        form = EmailOrUsernameAuthentication(request, data=request.POST)
-        if form.is_valid():
-            # Light security check -- make sure redirect_to isn't garbage.
-            if not redirect_to or '//' in redirect_to or ' ' in redirect_to:
-                from django.conf import settings
-                redirect_to = settings.LOGIN_REDIRECT_URL
-            user = form.get_user()
-            login_as = request.REQUEST.get("login_as", "")
-            if user.is_superuser and login_as:
-                if "@" in login_as:
-                    login_as_user = get_object_or_404(User, email__iexact=login_as)
-                else:
-                    login_as_user = get_object_or_404(User, username__iexact=login_as)
-                login_as_user.backend = user.backend
-                user = login_as_user
-            auth_login(request, user)
 
-            from ccb.apps.logins.models import LoginAction
-            LoginAction.objects.create(user=user, user_agent=request.META.get('HTTP_USER_AGENT', ""))
+        if "login-email_or_username" in request.POST:
+            login_form = EmailOrUsernameAuthentication(request, data=request.POST, prefix="login")
+            if login_form.is_valid():
+                # Light security check -- make sure redirect_to isn't garbage.
+                if not redirect_to or '//' in redirect_to or ' ' in redirect_to:
+                    from django.conf import settings
+                    redirect_to = settings.LOGIN_REDIRECT_URL
+                user = login_form.get_user()
+                login_as = request.REQUEST.get("login_as", "")
+                if user.is_superuser and login_as:
+                    if "@" in login_as:
+                        login_as_user = get_object_or_404(User, email__iexact=login_as)
+                    else:
+                        login_as_user = get_object_or_404(User, username__iexact=login_as)
+                    login_as_user.backend = user.backend
+                    user = login_as_user
+                auth_login(request, user)
 
-            if request.session.test_cookie_worked():
-                request.session.delete_test_cookie()
-                # if not redirect_to.startswith("http"):
-                #     redirect_to = smart_str(get_website_url(redirect_to))
-                if request.is_ajax():
-                    return HttpResponse("redirect=%s" % redirect_to)
-                return redirect(redirect_to)
-    else:
-        data = {
-            'email_or_username': request.GET.get('login_as', ''),
-            'login_as': request.GET.get('login_as', ''),
-        }
-        form = EmailOrUsernameAuthentication(request, initial=data)
+                from ccb.apps.logins.models import LoginAction
+                LoginAction.objects.create(user=user, user_agent=request.META.get('HTTP_USER_AGENT', ""))
+
+                if request.session.test_cookie_worked():
+                    request.session.delete_test_cookie()
+                    # if not redirect_to.startswith("http"):
+                    #     redirect_to = smart_str(get_website_url(redirect_to))
+                    if request.is_ajax():
+                        return HttpResponse("redirect=%s" % redirect_to)
+                    return redirect(redirect_to)
+        else:
+            registration_form = SimpleRegistrationForm(request, request.POST, request.FILES, prefix="registration")
+            if registration_form.is_valid():
+                user = registration_form.save()
+                return redirect('register_done')
+
     request.session.set_test_cookie()
     if Site._meta.installed:
         current_site = Site.objects.get_current()
     else:
         current_site = RequestSite(request)
     context = {
-        'form': form,
+        'login_form': login_form,
+        'registration_form': registration_form,
         redirect_field_name: redirect_to,
         'site_name': current_site.name,
         'login_by_email': site_settings.login_by_email,
     }
     if request.is_ajax():
         context['base_template'] = "base_ajax.html"
-    return render_to_response(
-        template_name,
-        context,
-        context_instance=RequestContext(request),
-    )
+    return render(request, template_name, context)
 
 
 def social_login(request):
@@ -278,7 +278,7 @@ def register(request, *arguments, **keywords):
     """Displays the registration form and handles the registration action"""
     m = hashlib.md5()
     m.update(request.META['REMOTE_ADDR'])
-    request.session.session_id = m.hexdigest()[:20]
+    request.session.session_id = m.hexdigest()[:20]  # TODO: Why!???
     redirect_to = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
     site_settings = SiteSettings.objects.get_current()
     if request.method == "POST":
@@ -307,7 +307,7 @@ def ajax_auth(request, backend):
     elif isinstance(request.backend, BaseOAuth2):
         token = request.REQUEST.get('access_token')
     else:
-        raise HttpResponseBadRequest('Wrong backend type')
+        return HttpResponseBadRequest('Wrong backend type')
     user = request.backend.do_auth(token, ajax=True)
     login(request, user)
     data = {'id': user.id, 'username': user.username}

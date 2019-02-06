@@ -120,7 +120,7 @@ class SimpleRegistrationForm(dynamicforms.Form):
             self.newsletter_field_names.append("newsletter_%s" % ml.pk)
 
         self.helper = FormHelper()
-        self.helper.form_action = "register"
+        self.helper.form_action = "login"
         self.helper.form_method = "POST"
         self.helper.layout = layout.Layout(
             layout.Fieldset(

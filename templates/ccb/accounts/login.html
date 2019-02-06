@@ -1,36 +1,35 @@
-{% extends base_template|default:"base_sidebar.html" %}
+{% extends base_template|default:"base.html" %}
 {% load base_tags i18n uni_form_tags crispy_forms_tags %}
 
-{% block title %}{% trans "Login" %}{% endblock %}
+{% block title %}{% trans "Login / Registration" %}{% endblock %}
 
-{% block headline %}
-    <h1>{% trans "Login" %}</h1>
-{% endblock %}
-
-{% block details %}
-
-    {% crispy form "ccb_form" %}
-
-    <form>
-        <div class="fieldset editable">
-            <fieldset>
-                <h2>{% trans 'Register' %}</h2>
-                <p>
-                    {% trans "Haven't you got an account yet?" %}
-                </p>
-
-                <div class="button-group form-buttons">
-                    <input class="button primary" type="button" onclick="window.redirect('/register/')"
-                        value="{% trans 'Create account' %}"/>
+{% block content %}
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% trans "Login / Registration" %}</h1>
                 </div>
-            </fieldset>
+            </div>
         </div>
-    </form>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <h2>{% trans "Please login" %}</h2>
+                {% crispy login_form "ccb_form" %}
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <h2>{% trans "New here? Please register" %}</h2>
+                {% crispy registration_form "ccb_form" %}
+            </div>
+        </div>
+    </div>
     <script>
         $('#id_email_or_username').focus();
     </script>
 {% endblock %}
 
 {% block breadcrumbs %}
-    <li>{% trans "Login" %}</li>
+    <li>{% trans "Login / Registration" %}</li>
 {% endblock %}
