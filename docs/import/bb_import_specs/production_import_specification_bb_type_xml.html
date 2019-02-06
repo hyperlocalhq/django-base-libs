@@ -513,7 +513,7 @@ pre.line-numbers > code {
 
 <h1 id="toc_0">Production Import Specification</h1>
 
-<p>Last update: February 20, 2018</p>
+<p><em>Last update: February 6, 2019</em></p>
 
 <ul class="toc">
 <li>
@@ -1215,11 +1215,12 @@ pre.line-numbers > code {
 <p>This is a list of all available locations and stages with location IDs and stage IDs to enter as values at <code>&lt;location_id&gt;</code> and <code>&lt;stage_id&gt;</code>:</p>
 
 <!--
+from django.db.models.functions import Lower
 from berlinbuehnen.apps.locations.models import Location
-ls = Location.objects.filter(status='published')
+ls = Location.objects.filter(status='published').order_by(Lower("title"))
 for l in ls:
     print u'- {0} (Location ID = {1})'.format(l.title, l.pk)
-    for s in l.stage_set.all():
+    for s in l.stage_set.order_by(Lower("title")):
         print u'  - {0} (Stage ID = {1})'.format(s.title, s.pk)        
 -->
 
@@ -1239,13 +1240,12 @@ for l in ls:
 <ul>
 <li>Großer Saal (Stage ID = 151)</li>
 <li>Studiobühne (Stage ID = 150)</li>
+<li>Zeltbühne (Stage ID = 216)</li>
 </ul></li>
 <li>aufBruch KUNST GEFÄNGNIS STADT (Location ID = 156)</li>
 <li>Ballhaus Naunynstraße (Location ID = 40)</li>
 <li>Ballhaus Ost (Location ID = 19)</li>
 <li>BAR JEDER VERNUNFT (Location ID = 8)</li>
-<li>Berghain (Location ID = 145)</li>
-<li>Berliner Compagnie (Location ID = 178)</li>
 <li>Berliner Ensemble (Location ID = 24)
 
 <ul>
@@ -1259,16 +1259,30 @@ for l in ls:
 <ul>
 <li>A-Trane (Stage ID = 147)</li>
 <li>Akademie der Künste (Stage ID = 148)</li>
-<li>Haus der Berliner Festspiele (Stage ID = 32)</li>
+<li>daadgalerie (Stage ID = 234)</li>
+<li>Gropius Bau (Stage ID = 41)</li>
+<li>Haus der Berliner Festspiele (Stage ID = 212)</li>
 <li>Haus der Berliner Festspiele, Gartenbühne (Stage ID = 122)</li>
 <li>Haus der Berliner Festspiele, Große Bühne (Stage ID = 121)</li>
 <li>Haus der Berliner Festspiele, Kassenhalle (Stage ID = 100)</li>
+<li>Haus der Berliner Festspiele, Mittelbühne (Stage ID = 224)</li>
 <li>Haus der Berliner Festspiele, Oberes Foyer (Stage ID = 89)</li>
 <li>Haus der Berliner Festspiele, Seitenbühne (Stage ID = 88)</li>
+<li>Institut Français Berlin (Stage ID = 156)</li>
 <li>Kaiser-Wilhelm-Gedächtnis-Kirche Berlin (Stage ID = 149)</li>
+<li>Kirche Am Hohenzollernplatz (Stage ID = 211)</li>
 <li>Kraftwerk Berlin (Stage ID = 157)</li>
-<li>Martin-Gropius-Bau (Stage ID = 41)</li>
-<li>Mazen Kerbaj, Bundesallee (Stage ID = 156)</li>
+<li>Lido (Stage ID = 193)</li>
+<li>Nationaltheater Reinickendorf (Stage ID = 200)</li>
+<li>Pierre Boulez Saal (Stage ID = 192)</li>
+<li>Prince Charles (Stage ID = 227)</li>
+<li>Quasimodo (Stage ID = 228)</li>
+<li>Radialsystem V (Stage ID = 196)</li>
+<li>Rathenau-Hallen (Stage ID = 219)</li>
+<li>SAVVY Contemporary (Stage ID = 194)</li>
+<li>silent green Kulturquartier (Stage ID = 195)</li>
+<li>St. Hedwigs-Kathedrale (Stage ID = 184)</li>
+<li>Universität der Künste (Stage ID = 197)</li>
 </ul></li>
 <li>Berliner Kindertheater (Location ID = 76)
 
@@ -1276,7 +1290,11 @@ for l in ls:
 <li>Fontane-Haus im Märkischen Viertel (Stage ID = 90)</li>
 <li>Freilichtbühne an der Zitadelle Spandau (Stage ID = 40)</li>
 </ul></li>
-<li>Berliner Kriminal Theater (Location ID = 48)</li>
+<li>Berliner Kriminal Theater (Location ID = 48)
+
+<ul>
+<li>TheaterClub im Umspannwerk.Ost (Stage ID = 218)</li>
+</ul></li>
 <li>Berliner Philharmonie (Location ID = 65)
 
 <ul>
@@ -1286,16 +1304,20 @@ for l in ls:
 <li>Kammermusiksaal (Stage ID = 29)</li>
 <li>Mailand, Expo - La Scala (Stage ID = 60)</li>
 <li>München, Philharmonie im Gasteig (Stage ID = 57)</li>
-<li>Philharmonie – Karl-Schuke-Orgel (Stage ID = 58)</li>
 <li>Philharmonie und Kammermusiksaal (Stage ID = 62)</li>
+<li>Philharmonie – Karl-Schuke-Orgel (Stage ID = 58)</li>
 <li>Wien, Musikverein (Stage ID = 61)</li>
+</ul></li>
+<li>Berliner Schnauze (Location ID = 224)
+
+<ul>
+<li>Musikbrauerei (Stage ID = 231)</li>
 </ul></li>
 <li>BKA Theater (Location ID = 21)</li>
 <li>Blackmore&#39;s - Berlins Musikzimmer (Location ID = 168)</li>
 <li>Brotfabrik (Location ID = 70)</li>
 <li>Chamäleon Theater (Location ID = 60)</li>
-<li>Corbo Kleinkunstbühne (Location ID = 45)</li>
-<li>Das Weite Theater (Location ID = 71)</li>
+<li>DAS WEITE THEATER (Location ID = 71)</li>
 <li>Deutsche Oper Berlin (Location ID = 28)
 
 <ul>
@@ -1324,14 +1346,11 @@ for l in ls:
 <ul>
 <li>EDEN***** (Stage ID = 142)</li>
 </ul></li>
-<li>Dussmann das KulturKaufhaus GmbH (Location ID = 165)</li>
-<li>Elbphilharmonie und Laeiszhalle (Location ID = 187)</li>
-<li>English Theatre Berlin | International Performing Arts Center (Location ID = 58)</li>
+<li>English Theatre Berlin | International Performing Arts Center (Location ID = 5
+8)</li>
 <li>Friedrichstadt-Palast Berlin (Location ID = 39)</li>
 <li>Galli Theater Berlin (Location ID = 77)</li>
-<li>Gästehaus Blumenfisch am Großen Wannsee (Location ID = 147)</li>
-<li>Gethsemanekirche (Location ID = 141)</li>
-<li>Gorki Brinkmannzimmer (Location ID = 169)</li>
+<li>Glaspalast (Location ID = 214)</li>
 <li>GRIPS Theater (Location ID = 79)
 
 <ul>
@@ -1343,9 +1362,7 @@ for l in ls:
 <ul>
 <li>Große Orangerie Schloss Charlottenburg (Stage ID = 70)</li>
 </ul></li>
-<li>Großer Sendesaal des RBB (Location ID = 176)</li>
 <li>HALLE TANZBÜHNE BERLIN (Location ID = 184)</li>
-<li>Hamburger Bahnhof (Location ID = 182)</li>
 <li>HAU Hebbel am Ufer (Location ID = 13)
 
 <ul>
@@ -1366,10 +1383,9 @@ for l in ls:
 </ul></li>
 <li>Haus der Kulturen der Welt (Location ID = 26)</li>
 <li>Heimathafen Neukölln (Location ID = 34)</li>
-<li>Inseltheater Moabit (Location ID = 135)</li>
-<li>Kino Babylon (Location ID = 174)</li>
 <li>Kleines Theater (Location ID = 55)</li>
 <li>Komische Oper Berlin (Location ID = 5)</li>
+<li>Komödie am Kurfürstendamm im Schiller Theater (Location ID = 25)</li>
 <li>Konzerthaus Berlin (Location ID = 14)
 
 <ul>
@@ -1383,13 +1399,7 @@ for l in ls:
 <li>Philharmonie Berlin - Großer Saal (Stage ID = 144)</li>
 <li>Werner-Otto-Saal (Stage ID = 14)</li>
 </ul></li>
-<li>Köpenicker Rathaushof Theater (Location ID = 167)</li>
-<li>Kühlhaus am Gleisdreieck (Location ID = 146)</li>
-<li>Kultur- und Kongresszentrum Luzern (Location ID = 190)</li>
-<li>Kulturhaus Karlshorst (Location ID = 163)</li>
 <li>Landesmusikakademie Berlin (Location ID = 63)</li>
-<li>Literatur Festival (Location ID = 144)</li>
-<li>Lokhalle Südgelände (Location ID = 189)</li>
 <li>Maxim Gorki Theater (Location ID = 12)
 
 <ul>
@@ -1400,23 +1410,19 @@ for l in ls:
 <li>Studio Я (Stage ID = 10)</li>
 <li>Vorplatz GORKI (Stage ID = 69)</li>
 </ul></li>
-<li>Märchenhütte (Location ID = 186)</li>
-<li>Monbijou Theater (Location ID = 186)
+<li>Märchenhütte (Location ID = 186)
 
 <ul>
 <li>Amphitheater (Stage ID = 165)</li>
-<li>Jacob-Hütte (Stage ID = 166)</li>
-<li>Wilhelm-Hütte (Stage ID = 167)</li>
+<li>Jakobhütte (Stage ID = 166)</li>
+<li>Wilhelmhütte (Stage ID = 167)</li>
 </ul></li>
-<li>Museum für Naturkunde Berlin (Location ID = 162)</li>
 <li>Neuköllner Oper (Location ID = 54)
 
 <ul>
 <li>Saal/Studio (Stage ID = 81)</li>
 </ul></li>
-<li>Parochialkirche (Location ID = 164)</li>
 <li>Pfefferberg Theater (Location ID = 172)</li>
-<li>Philharmonie Berlin (Location ID = 171)</li>
 <li>Pierre Boulez Saal (Location ID = 193)</li>
 <li>Podewil (Location ID = 150)
 
@@ -1425,25 +1431,30 @@ for l in ls:
 <li>Großer Saal (GRIPS) (Stage ID = 160)</li>
 <li>Tanzstudio (Stage ID = 161)</li>
 </ul></li>
-<li>RADIALSYSTEM V (Location ID = 29)</li>
+<li>Radialsystem (Location ID = 29)</li>
+<li>RambaZamba Theater (Location ID = 166)
+
+<ul>
+<li>Hauptbühne (Stage ID = 223)</li>
+<li>Probebühne (Stage ID = 222)</li>
+</ul></li>
 <li>Renaissance-Theater Berlin (Location ID = 23)
 
 <ul>
 <li>Renaissance-Theater Berlin (Stage ID = 103)</li>
 <li>Renaissance-Theater Berlin / Bruckner-Foyer (Stage ID = 23)</li>
 </ul></li>
-<li>Salzburger Festspiele (Location ID = 148)</li>
 <li>SCHAUBUDE BERLIN (Location ID = 51)
 
 <ul>
 <li>SCHAUBUDE BERLIN (Stage ID = 71)</li>
 </ul></li>
 <li>Schaubühne am Lehniner Platz (Location ID = 49)</li>
-<li>Schloss Charlottenburg (Location ID = 159)</li>
 <li>Schlosspark Theater (Location ID = 15)</li>
 <li>Shakespeare Company Berlin (Location ID = 161)
 
 <ul>
+<li>ehem. Stummfilmkino Delphi (Stage ID = 214)</li>
 <li>Natur-Park Schöneberger Südgelände (Stage ID = 164)</li>
 </ul></li>
 <li>Sophiensæle (Location ID = 4)
@@ -1454,7 +1465,6 @@ for l in ls:
 <li>Hochzeitssaal (Stage ID = 5)</li>
 <li>Kantine (Stage ID = 48)</li>
 </ul></li>
-<li>St. Johannes-Evangelist-Kirche (Location ID = 188)</li>
 <li>Staatsballett Berlin (Location ID = 75)
 
 <ul>
@@ -1462,52 +1472,36 @@ for l in ls:
 <li>Komische Oper Berlin (Stage ID = 77)</li>
 <li>Staatsoper Unter den Linden (Stage ID = 76)</li>
 </ul></li>
-<li>Staatskapelle Berlin (Location ID = 197)</li>
 <li>Staatsoper Unter den Linden (Location ID = 9)
 
 <ul>
-<li>Gläsernes Foyer (Stage ID = 22)</li>
+<li>Apollo Saal (Stage ID = 22)</li>
 <li>Bebelplatz (Stage ID = 56)</li>
 <li>Bode Museum (Stage ID = 44)</li>
-<li>Werkstatt (Stage ID = 24)</li>
+<li>Neue Werkstatt /  Alter Orchesterprobensaal (Stage ID = 24)</li>
 <li>Probebühne I (Stage ID = 53)</li>
 <li>Staatsoper Unter den Linden (Stage ID = 46)</li>
 </ul></li>
 <li>Stage BLUEMAX Theater (Location ID = 61)</li>
-<li>Stage Theater am Potsdamer Platz (Location ID = 57)</li>
 <li>Stage Theater des Westens (Location ID = 59)</li>
-<li>TAK Theater im Aufbau Haus (Location ID = 133)</li>
-<li>Testbühne Cinemarketing (Location ID = 143)</li>
-<li>testbühne für invite (Location ID = 67)</li>
-<li>Teststage 2 (Location ID = 134)</li>
+<li>TAK Theater Aufbau Kreuzberg (Location ID = 133)</li>
 <li>Theater an der Parkaue (Location ID = 42)
 
 <ul>
 <li>Bühne 1 (Stage ID = 84)</li>
-<li>Bühne 1 - Hinterbühne (Stage ID = 86)</li>
 <li>Bühne 2 (Stage ID = 27)</li>
 <li>Bühne 3 (Stage ID = 85)</li>
-<li>Deutsche Oper - Tischlerei (Stage ID = 140)</li>
-<li>Kulturhaus Karlshorst (Saal) (Stage ID = 139)</li>
-<li>Prater (Stage ID = 141)</li>
-<li>Studiobühne (Stage ID = 87)</li>
 </ul></li>
-<li>Theater Anu (Location ID = 154)
-
-<ul>
-<li>Berlin Tempelhofer Feld (Stage ID = 138)</li>
-</ul></li>
-<li>Theater auf der Zitadelle (Location ID = 185)</li>
+<li>Theater im Delphi (Location ID = 221)</li>
 <li>Theater im Palais (Location ID = 32)</li>
 <li>Theater Morgenstern (Location ID = 38)
 
 <ul>
-<li>Rathaus Friedenau (Stage ID = 133)</li>
+<li>Theater Morgenstern im Rathaus Friedenau (Stage ID = 133)</li>
 </ul></li>
 <li>Theater O-TonArt (Location ID = 20)</li>
 <li>Theater o.N. (Location ID = 181)</li>
-<li>Theater RambaZamba (Location ID = 166)</li>
-<li>Theater Strahl (Location ID = 72)
+<li>Theater Strahl Berlin (Location ID = 72)
 
 <ul>
 <li>STRAHL.Die Weiße Rose (Stage ID = 171)</li>
@@ -1515,22 +1509,18 @@ for l in ls:
 <li>STRAHL.Probebühne (Stage ID = 172)</li>
 </ul></li>
 <li>Theater Thikwa (Location ID = 22)</li>
-<li>Komödie am Kurfürstendamm im Schiller Theater (Location ID = 25)</li>
 <li>Theater unterm Dach (Location ID = 73)</li>
 <li>Theaterdiscounter (Location ID = 2)</li>
-<li>Theaterforum Kreuzberg (Location ID = 173)</li>
 <li>Theaterhaus Berlin Mitte (Location ID = 132)
 
 <ul>
 <li>OPEN AIR BÜHNE (Stage ID = 174)</li>
-<li>ROOM 207 (Stage ID = 169)</li>
 <li>ROOM 403 (Stage ID = 168)</li>
 <li>SOMMERGARTEN (Stage ID = 170)</li>
 <li>WERKSTATTBÜHNE 003 (Stage ID = 159)</li>
+<li>ZELT auf der Sommerwiese (Stage ID = 183)</li>
 </ul></li>
-<li>Theater Zukunft (Location ID = 192)</li>
 <li>TIPI AM KANZLERAMT (Location ID = 7)</li>
-<li>UdK - Universität der Künste Berlin (Location ID = 142)</li>
 <li>ufaFabrik (Location ID = 56)
 
 <ul>
@@ -1542,7 +1532,10 @@ for l in ls:
 <li>Uferstudios (Location ID = 66)
 
 <ul>
+<li>Atelier 64 (Stage ID = 221)</li>
 <li>Heizhaus (Stage ID = 120)</li>
+<li>Seminarraum (Stage ID = 188)</li>
+<li>Hof der Uferstudios (Stage ID = 186)</li>
 <li>Uferstudio 1 (Stage ID = 105)</li>
 <li>Uferstudio 10 (Stage ID = 114)</li>
 <li>Uferstudio 11 (Stage ID = 115)</li>
@@ -1561,22 +1554,20 @@ for l in ls:
 </ul></li>
 <li>UNI.T - Theater der UdK Berlin (Location ID = 130)</li>
 <li>Vaganten Bühne (Location ID = 33)</li>
+<li>Vierte Welt (Location ID = 216)</li>
 <li>Volksbühne Berlin (Location ID = 6)
 
 <ul>
 <li>3. Stock (Stage ID = 8)</li>
-<li>Books (Stage ID = 83)</li>
+<li>Fullscreen (Stage ID = 208)</li>
 <li>Großes Haus (Stage ID = 82)</li>
 <li>Grüner Salon (Stage ID = 6)</li>
 <li>Roter Salon (Stage ID = 7)</li>
 <li>Sternfoyer (Stage ID = 101)</li>
 <li>Tempelhof Hangar 5 (Stage ID = 207)</li>
-<li>Fullscreen (Stage ID = 208)</li>
 </ul></li>
-<li>Wintergarten Varieté (Location ID = 180)</li>
-<li>Young Euro Classic (Location ID = 158)</li>
-<li>ZIONSKIRCHE (Location ID = 152)</li>
-<li>Zitadelle (Location ID = 149)</li>
+<li>WABE (Location ID = 222)</li>
+<li>Wintergarten Berlin (Location ID = 180)</li>
 </ul>
 
 <p>For example, if a production is organized by &quot;Volksbühne Berlin&quot; and happens in the &quot;Grüner Salon&quot; stage, the following XML should be set:</p>

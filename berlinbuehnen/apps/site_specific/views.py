@@ -866,6 +866,12 @@ def culturebase_export_productions(request, location_slug):
 
 API_CHANGELOG = [
     {
+        'date': datetime(2019, 2, 6, 12, 0),
+        'changes': [
+            u"""Location and stage list updated in the docs.""",
+        ],
+    },
+    {
         'date': datetime(2018, 8, 30, 12, 0),
         'changes': [
             u"""Language and Subtitle "In deutscher Sprache" (ID = "in-deutscher-sprache") removed from the database.""",
