@@ -34,7 +34,7 @@
         {% endif %}
         {% if facets.selected.job_type %}
             {% with cat=facets.selected.job_type %}
-                <li><a class="fawesome delete after" href="{% remove_from_query "page" job_type=cat %}" data-value="job_type={{ cat }}">{{ cat.title }}</a></li>
+                <li><a class="fawesome delete after" href="{% remove_from_query "page" "job_type" %}" data-value="job_type={{ cat }}">{{ cat.title }}</a></li>
             {% endwith %}
         {% endif %}
     </ul>
