@@ -5,7 +5,7 @@ from django import forms
 from django.conf.urls import patterns, url
 from django.apps import apps
 from django import template
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.conf import settings
 from django.shortcuts import render_to_response, get_object_or_404, redirect, render
@@ -341,9 +341,17 @@ class InstitutionOptions(ExtendedModelAdmin):
 
                 for p in removed_owners:
                     institution.remove_owner(p)
+                    messages.success(
+                        request,
+                        _("User {} was removed from institution owners").format(p)
+                    )
 
                 for p in new_owners:
                     institution.set_owner(p)
+                    messages.success(
+                        request,
+                        _("User {} was added to institution owners").format(p)
+                    )
 
                 return redirect('../../?id__exact=%d' % institution.pk)
         else:
