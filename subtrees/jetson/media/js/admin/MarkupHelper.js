@@ -2,12 +2,9 @@
     $(document).ready(function() {
 
         function MarkupHelper($main) {
-
             var me = this;
             me.$main = $main;
-
-            if (me.$main.attr('data-markup-helper-initiate')) return;
-            me.$main.attr('data-markup-helper-initiate', '1');
+            $main.data('markupHelper', me);
 
             me.current_markup_type = null;
             me.last_plain_text = null;
@@ -16,9 +13,6 @@
             // get the corresponding textarea fields id
             var token = me.$main.attr("id").match(/(.*?)_markup_type/g);
             me.id = RegExp.$1;
-
-            me.toggleMarkup();
-            me.$main.change(function() {me.toggleMarkup();});
         }
 
         MarkupHelper.prototype.toggleMarkup = function() {
@@ -160,14 +154,21 @@
             return string;
         }
 
-        MarkupHelper.initiate = function() {
-
-            $('.markupType').each(function() {
-                new MarkupHelper($(this));
+        MarkupHelper.register = function() {
+            // apply the event handling for all .markupType that exist and will be created dynamically
+            $(document).on('change', '.markupType', function() {
+                var $main = $(this);
+                var markupHelper = $main.data('markupHelper');
+                if (!markupHelper) {
+                    markupHelper = new MarkupHelper($main);
+                }
+                markupHelper.toggleMarkup();
             });
+            // cause the initialization for all existing markup type fields
+            $('.markupType:not([id*="__prefix__"])').change();
         }
 
-        window.setTimeout(MarkupHelper.initiate, 500);
+        window.setTimeout(MarkupHelper.register, 500);
     });
 
 }(django.jQuery));

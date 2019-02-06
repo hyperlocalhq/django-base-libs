@@ -87,17 +87,17 @@
                     $checkbox.closest('.form-group').hide();
                 });
             });
-            $('.delete').live("click", function() {
-                var $season = $(this).parents('.formset-form:first');
-                var $checkbox = $season.find('input:checkbox[id$=DELETE]');
+            $(document).on('click', '.delete', function() {
+                var $formset = $(this).parents('.formset-form:first');
+                var $checkbox = $formset.find('input:checkbox[id$=DELETE]');
                 $checkbox.attr("checked", "checked");
-                $season.hide();
+                $formset.hide();
                 return false;
             });
             
             // Initial state
             var $total_forms = $('#id_social-TOTAL_FORMS');
-            if ($total_forms.val() == "0") {
+            if ($total_forms.val() === "0") {
                 $('#add_social').click();
             }
             reinit_widgets();
