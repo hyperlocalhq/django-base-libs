@@ -22,6 +22,7 @@ from base_libs.utils.misc import get_unique_value
 from base_libs.utils.misc import XChoiceList
 from base_libs.utils.crypt import cryptString
 from base_libs.utils.betterslugify import better_slugify
+from ccb.apps.site_specific.models import ContextItem
 
 from jetson.apps.mailchimp.models import MList
 from jetson.apps.mailchimp.models import Settings
@@ -88,12 +89,6 @@ class SimpleRegistrationForm(dynamicforms.Form):
         max_length=30,
     )
 
-    categories = ModelMultipleChoiceTreeField(
-        label=_("Categories"),
-        queryset=get_related_queryset(Person, "categories"),
-        required=True,
-    )
-
     privacy_policy = forms.BooleanField(
         required=True,
         label=_("I accept <a href=\"/privacy/\">the privacy policy</a>."),
@@ -120,7 +115,7 @@ class SimpleRegistrationForm(dynamicforms.Form):
             self.newsletter_field_names.append("newsletter_%s" % ml.pk)
 
         self.helper = FormHelper()
-        self.helper.form_action = "login"
+        self.helper.form_action = request.path
         self.helper.form_method = "POST"
         self.helper.layout = layout.Layout(
             layout.Fieldset(
@@ -135,11 +130,6 @@ class SimpleRegistrationForm(dynamicforms.Form):
                 "username",
                 "password",
                 "password_confirm",
-            ),
-            layout.Fieldset(
-                _("Categories"),
-                layout.Field("categories", template="ccb_form/custom_widgets/checkboxselectmultipletree.html"),
-                css_class="no-label",
             ),
             layout.Fieldset(
                 _("Confirmation"),
@@ -192,9 +182,18 @@ class SimpleRegistrationForm(dynamicforms.Form):
 
         return cleaned
 
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        if ContextItem.objects.filter(
+            content_type__model__in=("person", "institution"),
+            slug__iexact=username,
+        ).count():
+            raise forms.ValidationError(_("This username is already used for another account."))
+        return username
+
     def clean_email(self):
         email = self.cleaned_data['email']
-        if User.objects.filter(email=email).count():
+        if User.objects.filter(email__iexact=email).count():
             raise forms.ValidationError(_("This email address is already used for another account."))
         return email
 
@@ -251,9 +250,6 @@ class SimpleRegistrationForm(dynamicforms.Form):
             )
 
             user.password = encrypted_password
-
-        person.categories.clear()
-        person.categories.add(*cleaned['categories'])
 
         try:
             s = Settings.objects.get()
