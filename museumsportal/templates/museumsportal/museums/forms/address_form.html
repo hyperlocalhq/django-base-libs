@@ -23,7 +23,7 @@
         $('[rel=tooltip]').tooltip();
         $('[id^="id_social"][id$="channel_type"]').autocomplete(['Google+', 'Twitter', 'Facebook', 'LinkedIn', 'XING']);
     }
-    
+
     function set_index_for_fields($formset_form, index) {
         $formset_form.find(':input').each(function() {
             var $field = $(this);
@@ -59,7 +59,7 @@
             }
         });
     }
-        
+
     $(function() {
         $(
             '<a class="add btn btn-primary" id="add_social" href="#">{% trans "Add social media channel" %}</a>'
@@ -72,13 +72,13 @@
             reinit_widgets();
             return false;
         });
-        
+
         $('.formset-form').each(function() {
             var $season = $(this);
             $season.find('input:checkbox[id$=DELETE]').each(function() {
                 var $checkbox = $(this);
                 var $deleteLink = $(
-                    '<div class"min"><button class="delete icon icon-black icon-delete" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}">Delete</button></div>'
+                    '<div class"min"><button class="delete btn btn-lg btn-info btn-icon" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Delete" %}"><span class="icon icon-remove"></span><span class="sr-only">{% trans "Remove" %}</span></button></div>'
                 );
                 $checkbox.parents('.formset-form').find(".row").append($deleteLink);
                 $checkbox.parent().hide();
@@ -91,14 +91,14 @@
             $season.hide();
             return false;
         });
-        
+
         // Initial state
         var $total_forms = $('#id_social-TOTAL_FORMS');
         if ($total_forms.val() === "0") {
             $('#add_social').click();
         }
         reinit_widgets();
-        
+
         $('#id_parent').change(function() {
             if ($(this).val()) {
                 $.get('/helper/museum_attrs/' + $(this).val() + '/', function(data) {

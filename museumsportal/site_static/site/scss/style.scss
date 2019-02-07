@@ -403,6 +403,19 @@ p a{font-weight: 700; }
     &:first-letter {
         text-transform: none;
     }
+
+    &.delete {
+        .social & {
+            position: absolute;
+            left: 0px;
+            bottom: 10px;
+        }
+    }
+}
+.social {
+    min-height: 150px;
+    margin-bottom: 30px;
+    position: relative;
 }
 
 

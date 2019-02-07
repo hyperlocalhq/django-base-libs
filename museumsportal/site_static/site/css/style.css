@@ -295,7 +295,7 @@ table {
 
 html {
   font-size: 62.5%;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 body {
@@ -1899,14 +1899,16 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
     display: inline-block;
   }
   .form-inline .radio, .navbar-form .radio,
-  .form-inline .checkbox, .navbar-form .checkbox {
+  .form-inline .checkbox,
+  .navbar-form .checkbox {
     display: inline-block;
     margin-top: 0;
     margin-bottom: 0;
     padding-left: 0;
   }
   .form-inline .radio input[type="radio"], .navbar-form .radio input[type="radio"],
-  .form-inline .checkbox input[type="checkbox"], .navbar-form .checkbox input[type="checkbox"] {
+  .form-inline .checkbox input[type="checkbox"],
+  .navbar-form .checkbox input[type="checkbox"] {
     float: none;
     margin-left: 0;
   }
@@ -1976,7 +1978,8 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 }
 
 .btn-round.btn-xs .icon, .btn-group-xs > .btn-round.btn .icon,
-.btn-icon.btn-xs .icon, .btn-group-xs > .btn-icon.btn .icon {
+.btn-icon.btn-xs .icon,
+.btn-group-xs > .btn-icon.btn .icon {
   font-size: 14px;
   height: 20px;
   width: 20px;
@@ -1990,7 +1993,8 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 }
 
 .btn-round.btn-sm .icon, .btn-group-sm > .btn-round.btn .icon,
-.btn-icon.btn-sm .icon, .btn-group-sm > .btn-icon.btn .icon {
+.btn-icon.btn-sm .icon,
+.btn-group-sm > .btn-icon.btn .icon {
   font-size: 10px;
   height: 30px;
   width: 30px;
@@ -2004,7 +2008,8 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 }
 
 .btn-round.btn-lg .icon, .btn-group-lg > .btn-round.btn .icon,
-.btn-icon.btn-lg .icon, .btn-group-lg > .btn-icon.btn .icon {
+.btn-icon.btn-lg .icon,
+.btn-group-lg > .btn-icon.btn .icon {
   font-size: 14px;
   height: 50px;
   width: 50px;
@@ -11486,7 +11491,7 @@ select {
 .dashboard-table tr td .status .sbToggle {
   height: 24px;
   width: 24px;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
   opacity: 0.25;
 }
 
@@ -11510,7 +11515,7 @@ select {
 }
 
 .dashboard-table tr td .status .sbHolder:hover {
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .dashboard-table tr td .status .sbOptions a {
@@ -11615,7 +11620,7 @@ select {
 }
 
 #dashboard fieldset > ul > li:hover .status .sbHolder {
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 #dashboard fieldset > ul > li .status {
@@ -11628,7 +11633,7 @@ select {
 #dashboard fieldset > ul > li .status .sbToggle {
   height: 24px;
   width: 100%;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
   opacity: 0.25;
 }
 
@@ -12965,18 +12970,8 @@ body {
   margin-bottom: 10px;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6 {
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
   margin-top: 0px;
   font-family: 'calluna-sans', Helvetica, Arial, sans-serif;
   font-weight: 400;
@@ -13283,6 +13278,18 @@ p a {
 
 .btn:first-letter {
   text-transform: none;
+}
+
+.social .btn.delete {
+  position: absolute;
+  left: 0px;
+  bottom: 10px;
+}
+
+.social {
+  min-height: 150px;
+  margin-bottom: 30px;
+  position: relative;
 }
 
 .photo-credits-wrapper {
