@@ -1741,6 +1741,49 @@ $(document).ready(function() {
         });
     }
 
+
+    /**
+     * Handles the stickyness of the steps-accordion in the user forms.
+     **/
+    function StickySteps($main) {
+
+        var me = this;
+        me.$main = $main;
+        me.$parent = me.$main.parent();
+        me.$body = $('body');
+
+        $('#body').css('overflow', 'unset');
+        me.$parent.addClass('form-sticky-steps');
+
+        me.resize();
+        me.scroll();
+        $(window).resize(function() {me.resize();}).scroll(function() {me.scroll();});
+    }
+
+    StickySteps.prototype.resize = function() {
+
+        var me = this;
+
+        me.top = Math.ceil(parseFloat(me.$parent.css('top')));
+    }
+
+    StickySteps.prototype.scroll = function() {
+
+        var me = this;
+
+        var top = Math.floor(me.$parent.offset().top - window.pageYOffset);
+
+        if (top <= me.top) me.$parent.addClass('sticky');
+        else me.$parent.removeClass('sticky');
+    }
+
+    $('.sticky-steps').each(function() {
+        new StickySteps($(this));
+    });
+
+
+
+
     $('img[data-popup-image-src]').each(function() {
         new ImagePopup($(this));
     });

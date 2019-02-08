@@ -5117,6 +5117,30 @@ dd.autocomplete .input-field.ac_loading:after {
   margin-bottom: 15px;
 }
 
+.form-sticky-steps {
+  position: sticky;
+  top: 75px;
+  z-index: 1;
+}
+
+.is-xs .form-sticky-steps {
+  top: 45px;
+  background: #fff;
+  padding-top: 5px;
+}
+
+.is-xs .form-sticky-steps.sticky {
+  box-shadow: 0px 1px 10px #979797;
+}
+
+.is-xs .form-sticky-steps ul.navi-box {
+  margin-bottom: 5px;
+}
+
+.is-xs .form-sticky-steps ul.navi-box ul {
+  margin: 0;
+}
+
 .dyn_set_map {
   margin-top: 40px;
 }
