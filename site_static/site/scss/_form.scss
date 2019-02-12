@@ -581,6 +581,7 @@ input {
             top: 0;
             display: inline-block;
             vertical-align: top;
+            text-align: left;
 
             font-family: $font-2, $font-family-1;
             font-weight: $font-regular;
@@ -712,6 +713,7 @@ input {
             top: 0;
             display: inline-block;
             vertical-align: top;
+            text-align: left;
 
             font-family: $font-2, $font-family-1;
             font-weight: $font-regular;
@@ -830,6 +832,7 @@ input {
             top: 0;
             display: inline-block;
             vertical-align: top;
+            text-align: left;
 
             font-family: $font-2, $font-family-1;
             font-weight: $font-regular;
@@ -1481,7 +1484,7 @@ input {
 
             dt {
 
-                width: 30%;
+                width: 35%;
                 display: inline-block;
                 float: left;
 
@@ -1499,7 +1502,7 @@ input {
                 word-break: break-word;
                 word-wrap: break-word;
 
-                .is-xs & {
+                .is-xs &, .is-sm &, .is-md & {
                     width: 100%;
                     padding: 0;
                     margin: 0 0 5px 0;
@@ -1507,7 +1510,7 @@ input {
 
                 &.multifield {
                     &.show-labels {
-                        .is-xs & {
+                        .is-xs &, .is-sm &, .is-md & {
                             margin-bottom: 17px;
                         }
                     }
@@ -1515,13 +1518,13 @@ input {
             }
 
             dd {
-                width: 70%;
+                width: 65%;
                 display: inline-block;
                 float: left;
                 margin: 0 0 10px 0;
                 padding: 0 10% 0 0;
 
-                .is-xs & {
+                .is-xs &, .is-sm &, .is-md & {
                     width: 100%;
                 }
 
@@ -1868,6 +1871,12 @@ input {
     margin: -5px;
 }
 
+.login-seperation-left {
+    box-shadow: -1px 0px 0px 0px $grey-light;
+    .is-xs &, .is-sm & {
+        box-shadow: none;
+    }
+}
 
 
 // autocomplete plugin

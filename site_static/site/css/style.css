@@ -3904,6 +3904,7 @@ input:focus {
   top: 0;
   display: inline-block;
   vertical-align: top;
+  text-align: left;
   font-family: "Lato", "sans-serif";
   font-weight: 400;
   font-size: 1.2em;
@@ -4001,6 +4002,7 @@ input:focus {
   top: 0;
   display: inline-block;
   vertical-align: top;
+  text-align: left;
   font-family: "Lato", "sans-serif";
   font-weight: 400;
   font-size: 1.2em;
@@ -4085,6 +4087,7 @@ input:focus {
   top: 0;
   display: inline-block;
   vertical-align: top;
+  text-align: left;
   font-family: "Lato", "sans-serif";
   font-weight: 400;
   font-size: 1.2em;
@@ -4659,7 +4662,7 @@ input:focus {
 }
 
 .fieldset.editable dl.input-fields dt, .fieldset.not-editable dl.input-fields dt {
-  width: 30%;
+  width: 35%;
   display: inline-block;
   float: left;
   font-family: "Lato", "sans-serif";
@@ -4675,25 +4678,25 @@ input:focus {
   word-wrap: break-word;
 }
 
-.is-xs .fieldset.editable dl.input-fields dt, .is-xs .fieldset.not-editable dl.input-fields dt {
+.is-xs .fieldset.editable dl.input-fields dt, .is-sm .fieldset.editable dl.input-fields dt, .is-md .fieldset.editable dl.input-fields dt, .is-xs .fieldset.not-editable dl.input-fields dt, .is-sm .fieldset.not-editable dl.input-fields dt, .is-md .fieldset.not-editable dl.input-fields dt {
   width: 100%;
   padding: 0;
   margin: 0 0 5px 0;
 }
 
-.is-xs .fieldset.editable dl.input-fields dt.multifield.show-labels, .is-xs .fieldset.not-editable dl.input-fields dt.multifield.show-labels {
+.is-xs .fieldset.editable dl.input-fields dt.multifield.show-labels, .is-sm .fieldset.editable dl.input-fields dt.multifield.show-labels, .is-md .fieldset.editable dl.input-fields dt.multifield.show-labels, .is-xs .fieldset.not-editable dl.input-fields dt.multifield.show-labels, .is-sm .fieldset.not-editable dl.input-fields dt.multifield.show-labels, .is-md .fieldset.not-editable dl.input-fields dt.multifield.show-labels {
   margin-bottom: 17px;
 }
 
 .fieldset.editable dl.input-fields dd, .fieldset.not-editable dl.input-fields dd {
-  width: 70%;
+  width: 65%;
   display: inline-block;
   float: left;
   margin: 0 0 10px 0;
   padding: 0 10% 0 0;
 }
 
-.is-xs .fieldset.editable dl.input-fields dd, .is-xs .fieldset.not-editable dl.input-fields dd {
+.is-xs .fieldset.editable dl.input-fields dd, .is-sm .fieldset.editable dl.input-fields dd, .is-md .fieldset.editable dl.input-fields dd, .is-xs .fieldset.not-editable dl.input-fields dd, .is-sm .fieldset.not-editable dl.input-fields dd, .is-md .fieldset.not-editable dl.input-fields dd {
   width: 100%;
 }
 
@@ -5004,6 +5007,14 @@ input:focus {
   display: none;
   border: none;
   margin: -5px;
+}
+
+.login-seperation-left {
+  box-shadow: -1px 0px 0px 0px #afaeae;
+}
+
+.is-xs .login-seperation-left, .is-sm .login-seperation-left {
+  box-shadow: none;
 }
 
 .ac_results {
