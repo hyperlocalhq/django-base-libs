@@ -35,6 +35,7 @@ COMMANDS=(
     "import_from_boulezsaal:Importing from Pierre Boulez Saal (New)"
     "import_from_culturebase_dob:Importing from Deutsche Oper Berlin"
     "import_from_deutsches_theater:Importing from Deutsches Theater"
+    "import_from_distel_theater:Importing from Distel Theater"
     "import_from_hau:Importing from HAU"
     "import_from_komische_oper_berlin:Importing from Komische Oper Berlin"
     "import_from_konzerthaus_new:Importing from Konzerthaus (New)"
