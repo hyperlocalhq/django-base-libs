@@ -168,7 +168,6 @@ small {
     text-decoration: underline;
 }
 .word-wrap {
-    word-break: break-word;
     word-wrap: break-word;
 }
 .no-select {
@@ -331,7 +330,6 @@ h1 {
     font-size: 4.25em;
     line-height: 109%;
     margin: 0;
-    word-break: break-word;
     word-wrap: break-word;
 
     .is-sm & {
@@ -357,7 +355,6 @@ h2 {
     font-size: 2.67em;
     line-height: 140%;
     margin: 0 0 30px;
-    word-break: break-word;
     word-wrap: break-word;
 
     .is-sm & {
@@ -625,8 +622,8 @@ p {
     line-height: 140%;
     color: $black;
     margin: 0 0 30px;
-    word-break: break-word;
     word-wrap: break-word;
+    overflow-wrap: anywhere;
 
     .is-sm & {
         font-size: 1.2em;
@@ -1072,7 +1069,6 @@ ul.button-list {
     color: $white;
     text-transform: uppercase;
     display: block;
-    word-break: break-word;
     word-wrap: break-word;
     cursor: default;
 

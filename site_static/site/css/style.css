@@ -1765,7 +1765,6 @@ small {
 }
 
 .word-wrap {
-  word-break: break-word;
   word-wrap: break-word;
 }
 
@@ -1934,7 +1933,6 @@ h1 {
   font-size: 4.25em;
   line-height: 109%;
   margin: 0;
-  word-break: break-word;
   word-wrap: break-word;
 }
 
@@ -1962,7 +1960,6 @@ h2 {
   font-size: 2.67em;
   line-height: 140%;
   margin: 0 0 30px;
-  word-break: break-word;
   word-wrap: break-word;
 }
 
@@ -2219,8 +2216,8 @@ p {
   line-height: 140%;
   color: #000;
   margin: 0 0 30px;
-  word-break: break-word;
   word-wrap: break-word;
+  overflow-wrap: anywhere;
 }
 
 .is-sm p {
@@ -2666,7 +2663,6 @@ ul.button-list.menu li a:after {
   color: #fff;
   text-transform: uppercase;
   display: block;
-  word-break: break-word;
   word-wrap: break-word;
   cursor: default;
   -webkit-touch-callout: none;
