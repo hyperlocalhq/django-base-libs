@@ -1934,6 +1934,8 @@ h1 {
   font-size: 4.25em;
   line-height: 109%;
   margin: 0;
+  word-break: break-word;
+  word-wrap: break-word;
 }
 
 .is-sm h1 {
@@ -1960,6 +1962,8 @@ h2 {
   font-size: 2.67em;
   line-height: 140%;
   margin: 0 0 30px;
+  word-break: break-word;
+  word-wrap: break-word;
 }
 
 .is-sm h2 {
@@ -2215,6 +2219,8 @@ p {
   line-height: 140%;
   color: #000;
   margin: 0 0 30px;
+  word-break: break-word;
+  word-wrap: break-word;
 }
 
 .is-sm p {
@@ -9706,6 +9712,7 @@ img[data-popup-image-src] {
 
 .is-xs #header .button.navigation {
   left: 20px !important;
+  z-index: 2;
 }
 
 .navigation-open #header .button.navigation {
