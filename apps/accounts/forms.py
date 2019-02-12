@@ -359,7 +359,7 @@ class EmailOrUsernameAuthentication(AuthenticationForm):
                     <input type="hidden" name="goto_next" value="{% if goto_next == "/" %}/dashboard/{% else %}{% if goto_next %}{{ goto_next }}{% else %}/dashboard/{% endif %}{% endif %}" />
                 """),
                 bootstrap.FormActions(
-                    layout.Submit('submit', _('Login')),
+                    layout.Submit('login_submit', _('Login')),
                     css_class='button-group form-buttons',
                 )
             ),

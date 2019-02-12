@@ -15,19 +15,24 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-sm-4 col-md-3">
-            </div>
-            <div class="col-xs-12 col-sm-8 col-md-9">
+            <div class="col-xs-12">
                 {% infoblock "login_register" %}
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="col-xs-12 col-sm-12 col-md-6">
                 <h2>{% trans "Please login" %}</h2>
+            </div>
+            <div class="hidden-xs hidden-sm col-md-6">
+                <h2>{% trans "New here? Please register" %}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6">
                 {% crispy login_form "ccb_form" %}
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-6">
-                <h2>{% trans "New here? Please register" %}</h2>
+            <div class="col-xs-12 col-sm-12 col-md-6 login-seperation-left">
+                <h2 class="visible-xs visible-sm">{% trans "New here? Please register" %}</h2>
                 {% crispy registration_form "ccb_form" %}
             </div>
         </div>
