@@ -1120,7 +1120,9 @@ $(document).ready(function() {
         me.$window.scroll(function() {me.checkFixedPosition();});
         me.$body.on('navigation-closed', function() {me.styleNavi();});
         $('img').load(function() {me.checkFixedPosition();});
+
         me.onResize();
+        me.showActive();
     }
 
     /**
@@ -1271,6 +1273,28 @@ $(document).ready(function() {
             }
 
         }
+    }
+
+    /**
+     * Puts the active navi point into view if it is out of view to the right.
+     */
+    Header.prototype.showActive = function() {
+
+        var me = this.me;
+
+        var $active = $('li.active', me.$list);
+        var right = $active.data('left') + $active.width();
+        var width =  me.$nav.width();
+        var left_nav = me.left_nav;
+        var offset = 0;
+
+        while (right-offset > width && left_nav < me.$lists.length-1) {
+            left_nav++;
+            offset = $(me.$lists.get(left_nav)).data('left');
+        }
+
+        me.left_nav = left_nav;
+        me.styleNavi();
     }
 
     /**
