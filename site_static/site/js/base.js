@@ -1525,7 +1525,8 @@ $(document).ready(function() {
         me.$body = $('body');
         me.$window = $(window);
 
-        me.popup = me.$main.attr('data-popup-image-src').toLowerCase();
+        me.popup_original = me.$main.attr('data-popup-image-src');
+        me.popup = me.popup_original.toLowerCase();
         me.caption = me.$main.next('h5.caption').text();
         if (!me.caption) me.caption = me.$main.next('span.photo-credits-over').text();
         me.gallery = me.$main.attr('data-popup-image-gallery');
@@ -1541,7 +1542,7 @@ $(document).ready(function() {
 
         if (me.gallery) {
             if (typeof ImagePopup.popups[me.gallery] == "undefined") ImagePopup.popups[me.gallery] = [];
-            ImagePopup.popups[me.gallery].push({'popup':me.popup, 'caption':me.caption});
+            ImagePopup.popups[me.gallery].push({'popup':me.popup, 'caption':me.caption, 'popup_original':me.popup_original});
         }
 
 
@@ -1565,14 +1566,22 @@ $(document).ready(function() {
         me.index = i;
     }
 
-    ImagePopup.prototype.setImage = function(popup, caption) {
+    ImagePopup.prototype.setImage = function(popup, caption, popup_original) {
 
         var me = this.me;
+
+        var original = false;
+        var load_original = function() {
+            if (original) return;
+            original = true;
+            me.$current_image.attr('src', popup_original);
+        }
 
         me.$wrapper.css('opacity', 0);
         me.$current_image = $('<img src="'+popup+'" />');
         me.$current_image.css('visibility', 'hidden');
         me.$current_image.load(function() {me.open();});
+        me.$current_image.error(function() {load_original();});
         me.$image.html('').append(me.$current_image);
 
         me.$caption.css('display', 'none');
@@ -1590,7 +1599,7 @@ $(document).ready(function() {
 
         if (!me.$current_image) {
 
-            me.setImage(me.popup, me.caption);
+            me.setImage(me.popup, me.caption, me.popup_original);
 
             me.$navi.html('');
             if (me.gallery) {
@@ -1712,7 +1721,7 @@ $(document).ready(function() {
         }, 300, function() {
             me.index++;
             if (me.index >= gallery.length) me.index = 0;
-            me.setImage(gallery[me.index].popup, gallery[me.index].caption);
+            me.setImage(gallery[me.index].popup, gallery[me.index].caption, gallery[me.index].popup_original);
             me.open();
         });
     }
@@ -1736,7 +1745,7 @@ $(document).ready(function() {
         }, 300, function() {
             me.index--;
             if (me.index < 0) me.index = gallery.length-1;
-            me.setImage(gallery[me.index].popup, gallery[me.index].caption);
+            me.setImage(gallery[me.index].popup, gallery[me.index].caption, gallery[me.index].popup_original);
             me.open();
         });
     }
