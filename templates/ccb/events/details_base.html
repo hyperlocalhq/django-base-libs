@@ -102,7 +102,6 @@
                     {% endif %}
                     <a rel="nofollow" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" class="fawesome fa-facebook button text social-sharing"><span class="text">{% trans "Share on Facebook" %}</span></a>
                     <a rel="nofollow" target="_blank" href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri|urlencode }}&amp;text={{ object.title|urlencode }}" class="fawesome fa-twitter button text social-sharing"><span class="text">{% trans "Tweet" %}</span></a>
-                    <a rel="nofollow" target="_blank" href="https://plus.google.com/share?url={{ request.build_absolute_uri|urlencode }}" class="fawesome fa-googleplus button text social-sharing"><span class="text">{% trans "Share on Google+" %}</span></a>
                     <a rel="nofollow" href="mailto:?subject={{ object.title|urlencode }}&amp;body={{ request.build_absolute_uri|urlencode }}" class="fawesome fa-email button text"><span class="text">{% trans "Email to a friend" %}</span></a>
 
                     {% navigation_links "menu_object_activities" %}
