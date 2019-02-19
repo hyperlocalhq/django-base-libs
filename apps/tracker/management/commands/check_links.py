@@ -29,13 +29,20 @@ class Command(NoArgsCommand):
     help = """Checks the database for broken links"""
     _checked_links = {}
 
+    def handle_noargs(self, **options):
+        self.verbosity = int(options.get('verbosity', NORMAL))
+
+        self.initialize()
+        self.main()
+        self.finalize()
+
     def report_broken_links(self, obj, fields_with_broken_links):
-        from django.db import models
+        from django.apps import apps
         from base_libs.utils.misc import get_related_queryset
 
-        Ticket = models.get_model("tracker", "Ticket")
-        ContentType = models.get_model("contenttypes", "ContentType")
-        User = models.get_model("auth", "User")
+        Ticket = apps.get_model("tracker", "Ticket")
+        ContentType = apps.get_model("contenttypes", "ContentType")
+        User = apps.get_model("auth", "User")
         concern = get_related_queryset(Ticket, "concern").get(
             slug="broken-links",
         )
@@ -76,19 +83,19 @@ class Command(NoArgsCommand):
             )
 
     def is_valid_link(self, value):
+        import requests
+        from django.utils.six.moves.urllib.parse import urlsplit
+
         if value.startswith("mailto:"):
             return True
 
         if value in self._checked_links:
             return self._checked_links[value]
 
-        import urlparse
-        import urllib2
-
-        URL_VALIDATOR_USER_AGENT = 'Django (https://www.djangoproject.com/)'
+        URL_VALIDATOR_USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:46.0) Gecko/20100101 Firefox/46.0'
 
         # If no URL path given, assume /
-        if value and not urlparse.urlsplit(value)[2]:
+        if value and not urlsplit(value)[2]:
             value += '/'
         headers = {
             "Accept": "text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5",
@@ -97,41 +104,72 @@ class Command(NoArgsCommand):
             "Connection": "close",
             "User-Agent": URL_VALIDATOR_USER_AGENT,
         }
+        success = False
         try:
-            req = urllib2.Request(value, None, headers)
-            u = urllib2.urlopen(req)
-            self._checked_links[value] = True
-        except ValueError:
-            self._checked_links[value] = False
-        except Exception:  # urllib2.URLError, httplib.InvalidURL, etc.
-            self._checked_links[value] = False
-        return self._checked_links[value]
+            # try HEAD request, because it is faster than GET
+            response = requests.head(value, headers=headers, allow_redirects=True)
+            if response.status_code == requests.codes.ok:
+                success = True
+            else:
+                success = False
+        except (
+            requests.exceptions.ConnectionError,
+            requests.exceptions.TooManyRedirects,
+        ) as exception:
+            success = False
+        except requests.exceptions.SSLError as exception:
+            self.stderr.write("OpenSSL, pyOpenSSL, and virtual environment need to be upgraded.\n")
+            self.stderr.flush()
+            raise
 
-    def handle_noargs(self, **options):
-        from django.db import models
-        from django.apps import apps
+        if not success:
+            try:
+                # try GET request
+                response = requests.get(value, headers=headers, allow_redirects=True)
+                if response.status_code == requests.codes.ok:
+                    success = True
+                else:
+                    success = False
+            except (
+                    requests.exceptions.ConnectionError,
+                    requests.exceptions.TooManyRedirects,
+            ) as exception:
+                success = False
+            except requests.exceptions.SSLError as exception:
+                self.stderr.write("OpenSSL, pyOpenSSL, and virtual environment need to be upgraded.\n")
+                self.stderr.flush()
+                raise
 
-        verbosity = int(options.get('verbosity', NORMAL))
+        self._checked_links[value] = success
+        return success
 
-        # 2-tuple of "app_name.model_name" and a callable returning the object to edit, if a link is broken
-        models_to_check = (
-            #("faqs.FaqCategory", (lambda o: o)),
-            #("faqs.QuestionAnswer", (lambda o: o)),
-            # ("articles.Article", (lambda o: o)),
-            # ("events.Event", (lambda o: o)),
-            # ("people.IndividualContact", (lambda o: o.person)),
-            # ("institutions.InstitutionalContact", (lambda o: o.institution)),
-            # ("blog.Post", (lambda o: o)),
+    def initialize(self):
+        from django.db.models.query import Q
+        # 3-tuple of "app_name.model_name", queryset filter, and a callable returning the object to edit, if a link is broken
+        self.MODELS_TO_CHECK = (
+            ("articles.Article", Q(status=1), (lambda o: o)),
+            ("events.Event", Q(status="published"), (lambda o: o)),
+            ("people.IndividualContact", Q(person__status="published"), (lambda o: o.person)),
+            ("institutions.InstitutionalContact", Q(institution__status="published"), (lambda o: o.institution)),
+            ("blog.Post", Q(status=1), (lambda o: o)),
+            ("richtext.RichText", Q(placeholder__page__title_set__published=True), (lambda o: o.placeholder.page)),
+            ("editorial.QuestionAnswer", Q(placeholder__page__title_set__published=True), (lambda o: o.placeholder.page)),
+            ("editorial.Document", Q(placeholder__page__title_set__published=True), (lambda o: o.placeholder.page)),
         )
         self._checked_links = {}
+        
+    def main(self):
+        from django.apps import apps
+        from django.db import models
 
         # traverse models
-        for app_model, get_obj in models_to_check:
+        for app_model, filter, get_obj in self.MODELS_TO_CHECK:
             model = apps.get_model(*app_model.split("."))
-            if verbosity > NORMAL:
-                print "Checking %s model..." % model.__name__
+            if self.verbosity >= NORMAL:
+                self.stdout.write(u"Checking the {} model...\n".format(model.__name__))
+                self.stdout.flush()
             # traverse instances
-            for el in model._default_manager.all():
+            for el in model._default_manager.filter(filter):
                 fields_with_broken_links = []
                 # traverse fields
                 for f in model._meta.fields:
@@ -157,22 +195,30 @@ class Command(NoArgsCommand):
                             (f, broken_links_in_field),
                         )
                 if fields_with_broken_links:
-                    if verbosity > NORMAL:
-                        print "  %s" % el
+                    if self.verbosity >= NORMAL:
+                        self.stdout.write(u"  {}\n".format(el))
+                        self.stdout.flush()
                         for f, links in fields_with_broken_links:
-                            print "    %s:" % force_unicode(f.verbose_name)
+                            self.stdout.write(u"    {}\n".format(f.verbose_name))
+                            self.stdout.flush()
                             for link in links:
-                                print "        %s" % link
+                                self.stdout.write(u"      {}\n".format(link))
+                                self.stdout.flush()
                     self.report_broken_links(
                         get_obj(el),
                         fields_with_broken_links,
                     )
-        if verbosity > NORMAL:
-            print "Total unique links: %d" % len(self._checked_links)
+                    
+    def finalize(self):
+        if self.verbosity >= NORMAL:
+            self.stdout.write(u"Total unique links: {}\n".format(len(self._checked_links)))
+            self.stdout.flush()
         broken_links = [
             link
-            for link in self._checked_links
-            if not self._checked_links[link]
-            ]
-        if verbosity > NORMAL:
-            print "Total broken unique links: %d" % len(broken_links)
+            for link, is_valid in self._checked_links.items()
+            if not is_valid
+        ]
+        if self.verbosity >= NORMAL:
+            self.stdout.write(u"Total broken unique links: {}\n".format(len(broken_links)))
+            self.stdout.flush()
+

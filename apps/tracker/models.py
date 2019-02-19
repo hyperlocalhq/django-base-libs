@@ -198,5 +198,3 @@ def ticket_reported(sender, instance, **kwargs):
             )
             if instance.submitter:
                 action.send(instance.submitter, verb="reported ticket", action_object=instance)
-
-# models.signals.post_save.connect(ticket_reported, sender=Ticket)
