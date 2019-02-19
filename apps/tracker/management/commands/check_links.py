@@ -115,6 +115,7 @@ class Command(NoArgsCommand):
         except (
             requests.exceptions.ConnectionError,
             requests.exceptions.TooManyRedirects,
+            requests.exceptions.MissingSchema,
         ) as exception:
             success = False
         except requests.exceptions.SSLError as exception:
@@ -131,8 +132,9 @@ class Command(NoArgsCommand):
                 else:
                     success = False
             except (
-                    requests.exceptions.ConnectionError,
-                    requests.exceptions.TooManyRedirects,
+                requests.exceptions.ConnectionError,
+                requests.exceptions.TooManyRedirects,
+                requests.exceptions.MissingSchema,
             ) as exception:
                 success = False
             except requests.exceptions.SSLError as exception:
@@ -147,14 +149,14 @@ class Command(NoArgsCommand):
         from django.db.models.query import Q
         # 3-tuple of "app_name.model_name", queryset filter, and a callable returning the object to edit, if a link is broken
         self.MODELS_TO_CHECK = (
-            ("articles.Article", Q(status=1), (lambda o: o)),
+            ("richtext.RichText", Q(placeholder__page__title_set__published=True), (lambda o: o.placeholder.page)),
+            ("editorial.QuestionAnswer", Q(placeholder__page__title_set__published=True), (lambda o: o.placeholder.page)),
+            ("editorial.Document", Q(placeholder__page__title_set__published=True), (lambda o: o.placeholder.page)),
             ("events.Event", Q(status="published"), (lambda o: o)),
             ("people.IndividualContact", Q(person__status="published"), (lambda o: o.person)),
             ("institutions.InstitutionalContact", Q(institution__status="published"), (lambda o: o.institution)),
             ("blog.Post", Q(status=1), (lambda o: o)),
-            ("richtext.RichText", Q(placeholder__page__title_set__published=True), (lambda o: o.placeholder.page)),
-            ("editorial.QuestionAnswer", Q(placeholder__page__title_set__published=True), (lambda o: o.placeholder.page)),
-            ("editorial.Document", Q(placeholder__page__title_set__published=True), (lambda o: o.placeholder.page)),
+            ("articles.Article", Q(status=1), (lambda o: o)),
         )
         self._checked_links = {}
         
