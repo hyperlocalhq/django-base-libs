@@ -118,6 +118,7 @@ class Command(NoArgsCommand):
             requests.exceptions.ConnectionError,
             requests.exceptions.TooManyRedirects,
             requests.exceptions.MissingSchema,
+            requests.exceptions.ChunkedEncodingError,
         ) as exception:
             success = False
         except requests.exceptions.SSLError as exception:
@@ -137,6 +138,7 @@ class Command(NoArgsCommand):
                 requests.exceptions.ConnectionError,
                 requests.exceptions.TooManyRedirects,
                 requests.exceptions.MissingSchema,
+                requests.exceptions.ChunkedEncodingError,
             ) as exception:
                 success = False
             except requests.exceptions.SSLError as exception:
