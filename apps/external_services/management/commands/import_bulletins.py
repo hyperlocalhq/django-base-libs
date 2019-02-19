@@ -116,7 +116,8 @@ class Command(BaseCommand):
                     # or create a new bulletin and then create a mapper
                     bulletin = Bulletin()
                 except MultipleObjectsReturned:
-                    print u"Database integrity error with bulletin which external_id is %s." % external_id
+                    self.stderr.write(u"Database integrity error with bulletin which external_id is %s.\n" % external_id)
+                    self.stderr.flush()
                     continue
                 else:
                     bulletin = mapper.content_object
@@ -165,7 +166,7 @@ class Command(BaseCommand):
 
                 # bulletin.language = bulletin.guess_language()
 
-                bulletin.contact_person = get_value(node_bulletin, "dc:creator")
+                bulletin.contact_person = get_value(node_bulletin, "dc:creator") or "-"
                 bulletin.institution_title = get_value(node_bulletin, "company")
 
                 bulletin.external_url = (
@@ -213,9 +214,9 @@ class Command(BaseCommand):
             Bulletin.expired_objects.update_status()
 
         if verbosity > NORMAL:
-            print "Services failed: %d" % len(services_failed)
+            self.stdout.write("Services failed: %d\n" % len(services_failed))
             for s in services_failed:
-                print "    %s" % s.url
-            print "Bulletins failed: %d" % len(bulletins_failed)
+                self.stdout.write("    %s\n" % s.url)
+            self.stdout.write("Bulletins failed: %d\n" % len(bulletins_failed))
             for a in bulletins_failed:
-                print "    %s" % a.external_url
+                self.stdout.write("    %s\n" % a.external_url)
