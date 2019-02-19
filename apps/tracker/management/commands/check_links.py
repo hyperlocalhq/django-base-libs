@@ -104,11 +104,13 @@ class Command(NoArgsCommand):
             "Connection": "close",
             "User-Agent": URL_VALIDATOR_USER_AGENT,
         }
+        LINKEDIN_STATUS_CODE = 999
+        SUCCESS_CODES = (requests.codes.ok, LINKEDIN_STATUS_CODE)
         success = False
         try:
             # try HEAD request, because it is faster than GET
             response = requests.head(value, headers=headers, allow_redirects=True)
-            if response.status_code == requests.codes.ok:
+            if response.status_code in SUCCESS_CODES:
                 success = True
             else:
                 success = False
@@ -127,7 +129,7 @@ class Command(NoArgsCommand):
             try:
                 # try GET request
                 response = requests.get(value, headers=headers, allow_redirects=True)
-                if response.status_code == requests.codes.ok:
+                if response.status_code in SUCCESS_CODES:
                     success = True
                 else:
                     success = False
