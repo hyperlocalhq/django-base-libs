@@ -2321,5 +2321,86 @@ $(document).ready(function() {
     });
 
 
+    function FormBlocks($fieldset) {
+
+        var me = this;
+        me.$fieldset = $fieldset;
+        me.fieldset_id = me.$fieldset.attr('id');
+
+        if (!me.fieldset_id) return;
+
+
+        me.$formblocks = $('.formblock', me.$fieldset);
+        me.$formblock_contents = $('.formblock-content', me.$fieldset);
+
+        me.$formblocks.addClass('show-it');
+
+
+        me.contents = {};
+        me.$formblock_contents.each(function() {
+            var $this = $(this);
+            me.contents[$this.attr('id')] = $this.html();
+        });
+
+
+        var $has_dynamic_ids = $('.dynamic-entries', me.$fieldset);
+        me.$formblocks.each(function() {
+            var found_id = false;
+
+            var $this = $(this);
+            var is_admin = $this.hasClass('show-id');
+            var $element_parent = $this.siblings('.formblock-target');
+
+            var $element = $('input', $element_parent);
+            if (!$element.length) $element = $('select', $element_parent);
+            if (!$element.length) $element = $('textarea', $element_parent);
+
+
+            if ($element.length) {
+                found_id = true;
+
+                var dynamic_id = null;
+                if ($has_dynamic_ids.length) {
+                    var $dynamic = null;
+                    $has_dynamic_ids.each(function() {
+                        if (!$dynamic) {
+                            var has_dynamic_id = $(this).attr('id');
+                            $dynamic = $this.parents('#'+has_dynamic_id);
+                            if (!$dynamic.length) $dynamic = $this.parents('#'+has_dynamic_id+'_empty');
+                            if (!$dynamic.length) $dynamic = null;
+                            else dynamic_id = has_dynamic_id;
+                        }
+                    });
+                }
+
+                var id = me.fieldset_id+"_"+$element.attr('id');
+                if (dynamic_id) {
+                    id = id.split(dynamic_id);
+                    var prefix = id[1].split('-');
+                    id = id[0]+dynamic_id+"_"+prefix[prefix.length-1];
+                }
+
+                if (me.contents[id]) {
+                    $this.html(me.contents[id]);
+                    $this.removeClass('empty');
+                    if (is_admin) $this.attr('title', id);
+                } else {
+                    $this.text(id);
+                }
+            }
+
+
+            if (!found_id) {
+                $this.removeClass('show-it');
+            }
+        });
+
+    }
+
+    $('.fieldset fieldset').each(function() {
+        new FormBlocks($(this));
+    });
+
+
     initFormElementsFunctionality();
 });

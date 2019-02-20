@@ -317,6 +317,7 @@ class MainDataForm(dynamicforms.Form):
                 "title_de",
                 "title_en",
                 "event_type",
+                css_id="event_title",
             ),
             layout.Fieldset(
                 _("Period"),
@@ -337,6 +338,7 @@ class MainDataForm(dynamicforms.Form):
                 </div>
                 """),
                 css_class="event-times",
+                css_id="event_period",
             ),
             layout.Fieldset(
                 _("Venue"),
@@ -355,6 +357,7 @@ class MainDataForm(dynamicforms.Form):
                 layout.HTML("""{% load i18n %}
                     <dt class="venue-input hidden"> </dt><dd class="venue-input hidden"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".venue-select" data-toggle-hide=".venue-input">{% trans "Back to selection" %}</a></dd>
                 """),
+                css_id="event_venue",
             ),
             # layout.Fieldset(
             #    _("Venue"),
@@ -414,6 +417,7 @@ class MainDataForm(dynamicforms.Form):
                 "latitude",  # hidden field
                 "longitude",  # hidden field
                 layout.HTML("""{% include "ccb_form/custom_widgets/editable_map.html" %}"""),
+                css_id="event_address",
             ),
             layout.Fieldset(
                 _("Information about this Event"),
@@ -455,11 +459,12 @@ class MainDataForm(dynamicforms.Form):
                     ),
                     css_class="show-labels"
                 ),
-                css_id="id_block_venue_contact_input",
+                css_id="event_information",
             ),
             layout.Fieldset(
                 _("Organizer"),
                 "organizer_ind",
+                css_id="event_organizer",
             ),
             layout.Fieldset(
                 _("Organizing institution"),
@@ -483,6 +488,7 @@ class MainDataForm(dynamicforms.Form):
                 css_class="radio-toggle",
                 data_radio_name="organizer_ind",
                 data_radio_index="1",
+                css_id="event_organizing_institution",
             ),
             # layout.Fieldset(
             #    _("Organizer address"),
@@ -915,6 +921,7 @@ class ProfileForm(dynamicforms.Form):
                 _("Description"),
                 "description_de",
                 "description_en",
+                css_id="event_description",
             ),
             layout.Fieldset(
                 _("Photo"),
@@ -928,6 +935,7 @@ class ProfileForm(dynamicforms.Form):
                 """),
                 "image",
                 "photo_author",
+                css_id="event_photo",
             ),
             bootstrap.FormActions(
                 layout.HTML("""{% include "utils/step_buttons_reg.html" %}"""),
@@ -1170,6 +1178,7 @@ class FeesForm(dynamicforms.Form):
                 _("Fees"),
                 "fees_de",
                 "fees_en",
+                css_id="event_fees",
             ),
             layout.Fieldset(
                 string_concat(_("Opening Time"), " - ", _("Closing Time")),
@@ -1191,7 +1200,7 @@ class FeesForm(dynamicforms.Form):
                         template="ccb_form/multifield.html",
                         css_class="closed mon"
                     ),
-                    css_class="show-labels"
+                    css_class="show-labels",
                 ),
                 layout.MultiField(
                     ' ',
@@ -1440,7 +1449,8 @@ class FeesForm(dynamicforms.Form):
                 "exceptions_en",
                 "is_appointment_based",
 
-                css_class="opening-hours"
+                css_class="opening-hours",
+                css_id="event_opening_time",
             ),
             bootstrap.FormActions(
                 layout.HTML("""{% include "utils/step_buttons_reg.html" %}"""),
@@ -1534,11 +1544,13 @@ class CategoriesForm(dynamicforms.Form):
             layout.Fieldset(
                 _("Categories"),
                 layout.Field("categories", template="ccb_form/custom_widgets/checkboxselectmultipletree.html"),
-                css_class="no-label"
+                css_class="no-label",
+                css_id="event_categories",
             ),
             layout.Fieldset(
                 _("Tags"),
                 "tags",
+                css_id="event_tags",
             ),
             bootstrap.FormActions(
                 layout.HTML("""{% include "utils/step_buttons_reg.html" %}"""),

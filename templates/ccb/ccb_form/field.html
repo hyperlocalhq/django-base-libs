@@ -16,7 +16,7 @@
         {% elif field|is_radioselect %}
             {% include 'ccb_form/layout/radioselect.html' %}
         {% else %}
-            <div class="input-field {% if field|is_select %}select{% elif field|is_file %}file{% elif field|is_checkbox %}box{% else %}text{% endif %} {% if not field|is_checkbox and form_show_errors and field.errors %}error{% endif %}">
+            <div class="input-field {% if field|is_select %}select{% elif field|is_file %}file{% elif field|is_checkbox %}box{% else %}text{% endif %} {% if not field|is_checkbox and form_show_errors and field.errors %}error{% endif %} formblock-target">
                 {% crispy_field field %}
                 {% if field|is_checkbox %}
                     <label for="{{ field.id_for_label }}">{{ field.label|safe }}</label>
@@ -24,6 +24,7 @@
             </div>
             {% include 'ccb_form/layout/help_text_and_errors.html' %}
         {% endif %}
+        <div class="formblock empty {% if user.is_staff %}show-id{% endif %}"></div>
     </dd>
     <dd class="clearfix"></dd>
 {% endif %}

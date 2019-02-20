@@ -206,6 +206,7 @@ INSTALLED_APPS = [
     "ccb.apps.cms_extensions",
     "ccb.apps.logins",
     "ccb.apps.recommendations",
+    "ccb.apps.formblocks",
     "ccb",  # just for i18n in Javascript
     "actstream",
     "huey.contrib.djhuey",
@@ -305,6 +306,10 @@ ADMIN_APP_INDEX = (
             }),
             ("blocks", {
                 "models": ("InfoBlock",),
+                "icon": "brick",
+            }),
+            ("formblocks", {
+                "models": ("FormBlock",),
                 "icon": "brick",
             }),
             ("media_gallery", {

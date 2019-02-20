@@ -25,7 +25,7 @@
                 oSelf.manageVenueBlocks("selectVenue");
                 $("#id_block_venue_name_input input").val("");
                 $("#id_block_input input").val("");
-                $("#id_block_venue_contact_input input").val("");
+                $("#event_information input").val("");
                 return false;
             });
 
@@ -118,21 +118,21 @@
                     $("#id_block_venue_name_input").hide();
                     $("#id_block_input").hide();
                     $("#id_block_display").hide();
-                    $("#id_block_venue_contact_input").hide();
+                    $("#event_information").hide();
                     break;
                 case "noVenueSelected":
                     $("#id_block_venue_select").hide();
                     $("#id_block_venue_name_input").show();
                     $("#id_block_input").show();
                     $("#id_block_display").hide();
-                    $("#id_block_venue_contact_input").show();
+                    $("#event_information").show();
                     break;
                 case "venueSelected":
                     $("#id_block_venue_select").hide();
                     $("#id_block_venue_name_input").hide();
                     $("#id_block_input").hide();
                     $("#id_block_display").show();
-                    $("#id_block_venue_contact_input").show();
+                    $("#event_information").show();
                     break;
                 default:
                     document.write("No case is selected!!!! case='" + sCase + "'");

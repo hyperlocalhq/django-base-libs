@@ -2036,3 +2036,37 @@ dd.autocomplete {
         }
     }
 }
+
+.formblock {
+    font-weight: $font-bold;
+
+    p {
+        font-size: 1rem;
+        margin: 0;
+    }
+
+    > p {
+        margin: 0;
+        padding: 0;
+    }
+
+    &.empty {
+        display: none;
+    }
+
+    &.show-it.show-id {
+        border: 1px dotted $black;
+        padding: 1px 5px;
+    }
+
+    &.empty.show-it.show-id {
+        display: block;
+        width: 100%;
+        min-height: 25px;
+        margin-bottom: 10px;
+    }
+}
+
+.formblock-content {
+    display: none;
+}
