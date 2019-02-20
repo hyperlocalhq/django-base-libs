@@ -46,6 +46,8 @@ class Command(NoArgsCommand):
         6124: 131,      # Museum für Fotografie
         33568: 219,     # Humboldt-Box
         34: 0,          # Kulturforum
+        62350: 0,       # Pergamonmuseum. Das Panorama
+        30835: 0,       # James-Simon-Gallery
     }
 
     LINKED_INSTITUTION_MAPPER = {
@@ -72,8 +74,8 @@ class Command(NoArgsCommand):
         self.finalize()
 
     def initialize(self):
-        from django.db import models
-        Service = models.get_model("external_services", "Service")
+        from django.apps import apps
+        Service = apps.get_model("external_services", "Service")
 
         URL_EXHIBITIONS = "https://smart.smb.museum/export/getExhibitionListFromSMart.php?format=json"
         self.service_exhibitions, created = Service.objects.get_or_create(
@@ -116,27 +118,28 @@ class Command(NoArgsCommand):
         }
 
     def import_exhibitions(self):
-        from datetime import datetime
         weekdays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
 
         import requests
         from datetime import datetime, timedelta
         from dateutil.parser import parse as parse_datetime
         from decimal import Decimal
-        
-        from django.db import models
-        from base_libs.utils.betterslugify import better_slugify
 
+        from django.apps import apps
+        from django.db import models
+
+        from jetson.apps.image_mods import models as image_mods
+
+        from base_libs.utils.betterslugify import better_slugify
         from base_libs.utils.misc import get_unique_value
 
-        image_mods = models.get_app("image_mods")
-        Museum = models.get_model("museums", "Museum")
-        Exhibition = models.get_model("exhibitions", "Exhibition")
-        ExhibitionCategory = models.get_model("exhibitions", "ExhibitionCategory")
-        Organizer = models.get_model("exhibitions", "Organizer")
-        MediaFile = models.get_model("exhibitions", "MediaFile")
-        Season = models.get_model("exhibitions", "Season")
-        ObjectMapper = models.get_model("external_services", "ObjectMapper")
+        Museum = apps.get_model("museums", "Museum")
+        Exhibition = apps.get_model("exhibitions", "Exhibition")
+        ExhibitionCategory = apps.get_model("exhibitions", "ExhibitionCategory")
+        Organizer = apps.get_model("exhibitions", "Organizer")
+        MediaFile = apps.get_model("exhibitions", "MediaFile")
+        Season = apps.get_model("exhibitions", "Season")
+        ObjectMapper = apps.get_model("external_services", "ObjectMapper")
 
         ### IMPORT EXHIBITIONS ###
         if self.verbosity > 1:
@@ -486,8 +489,11 @@ class Command(NoArgsCommand):
         from dateutil.parser import parse as parse_datetime
         from decimal import Decimal
 
+        from django.apps import apps
         from django.db import models
         from django.conf import settings
+
+        from jetson.apps.image_mods import models as image_mods
 
         from base_libs.utils.betterslugify import better_slugify
         from base_libs.utils.misc import strip_html
@@ -495,14 +501,13 @@ class Command(NoArgsCommand):
 
         from filebrowser.models import FileDescription
 
-        image_mods = models.get_app("image_mods")
-        Museum = models.get_model("museums", "Museum")
-        Workshop = models.get_model("workshops", "Workshop")
-        WorkshopType = models.get_model("workshops", "WorkshopType")
-        WorkshopTime = models.get_model("workshops", "WorkshopTime")
-        ObjectMapper = models.get_model("external_services", "ObjectMapper")
-        Organizer = models.get_model("workshops", "Organizer")
-        MediaFile = models.get_model("workshops", "MediaFile")
+        Museum = apps.get_model("museums", "Museum")
+        Workshop = apps.get_model("workshops", "Workshop")
+        WorkshopType = apps.get_model("workshops", "WorkshopType")
+        WorkshopTime = apps.get_model("workshops", "WorkshopTime")
+        ObjectMapper = apps.get_model("external_services", "ObjectMapper")
+        Organizer = apps.get_model("workshops", "Organizer")
+        MediaFile = apps.get_model("workshops", "MediaFile")
 
         # get or create event
         mapper = None
@@ -535,7 +540,7 @@ class Command(NoArgsCommand):
             museum = Museum.objects.get(pk=self.MUSEUM_MAPPER.get(museum_guid, 0))
         except Museum.DoesNotExist:
             workshop.museum = None
-            workshop.location_title = location_dict.get('name', '')
+            workshop.location_name = location_dict.get('name', '')
             workshop.street_address = location_dict.get('street', '')
             workshop.postal_code, workshop.city = location_dict.get('town', ' ').split(' ')
             workshop.country = 'de'
@@ -899,20 +904,23 @@ class Command(NoArgsCommand):
         from decimal import Decimal
 
         from django.db import models
-        from base_libs.utils.betterslugify import better_slugify
+        from django.apps import apps
         from django.conf import settings
 
-        from filebrowser.models import FileDescription
+        from jetson.apps.image_mods import models as image_mods
+
+        from base_libs.utils.betterslugify import better_slugify
         from base_libs.utils.misc import get_unique_value
 
-        image_mods = models.get_app("image_mods")
-        Museum = models.get_model("museums", "Museum")
-        Event = models.get_model("events", "Event")
-        EventCategory = models.get_model("events", "EventCategory")
-        EventTime = models.get_model("events", "EventTime")
-        ObjectMapper = models.get_model("external_services", "ObjectMapper")
-        Organizer = models.get_model("events", "Organizer")
-        MediaFile = models.get_model("events", "MediaFile")
+        from filebrowser.models import FileDescription
+
+        Museum = apps.get_model("museums", "Museum")
+        Event = apps.get_model("events", "Event")
+        EventCategory = apps.get_model("events", "EventCategory")
+        EventTime = apps.get_model("events", "EventTime")
+        ObjectMapper = apps.get_model("external_services", "ObjectMapper")
+        Organizer = apps.get_model("events", "Organizer")
+        MediaFile = apps.get_model("events", "MediaFile")
 
         # get or create event
         mapper = None
@@ -945,7 +953,7 @@ class Command(NoArgsCommand):
             museum = Museum.objects.get(pk=self.MUSEUM_MAPPER.get(museum_guid, 0))
         except Museum.DoesNotExist:
             event.museum = None
-            event.location_title = location_dict.get('name', '')
+            event.location_name = location_dict.get('name', '')
             event.street_address = location_dict.get('street', '')
             event.postal_code, event.city = location_dict.get('town', ' ').split(' ')
             event.country = 'de'
