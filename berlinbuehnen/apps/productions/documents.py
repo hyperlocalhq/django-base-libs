@@ -375,5 +375,7 @@ class EventDocument(DocType):
     def prepare_url_path_en(self, instance):
         return _get_url_path(instance, language='en')
 
-    def get_url_path(self, language=settings.LANGUAGE_CODE):
+    def get_url_path(self, language=get_language):
+        if callable(language):
+            language = language()
         return getattr(self, 'url_path_{}'.format(language))

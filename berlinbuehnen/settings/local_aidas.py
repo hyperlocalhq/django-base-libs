@@ -4,5 +4,5 @@ from .local import *
 
 DEBUG = True
 
-SESSION_COOKIE_DOMAIN = "127.0.0.1"
-ALLOWED_HOSTS = ['127.0.0.1']
+SESSION_COOKIE_DOMAIN = "0.0.0.0"
+ALLOWED_HOSTS = ['0.0.0.0']
