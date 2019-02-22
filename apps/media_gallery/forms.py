@@ -400,6 +400,7 @@ class MediaGalleryForm(dynamicforms.Form):
                     "categories",
                     template="ccb_form/custom_widgets/checkboxselectmultipletree.html",
                 ),
+                css_id="portfolio_album",
             ),
             bootstrap.FormActions(
                 layout.Submit("submit", _("Save")),

@@ -198,6 +198,7 @@ class BulletinForm(forms.ModelForm):
                 layout.Field("description"),
                 layout.Field("bulletin_type"),
                 layout.Field("external_url", placeholder="http://"),
+                css_id="bulletin_board_title",
             ),
             layout.Fieldset(
                 _("Categories"),
@@ -205,6 +206,7 @@ class BulletinForm(forms.ModelForm):
                 layout.HTML(string_concat('<dt>', _("Categories"), '</dt>')),
                 layout.Field("categories", template="ccb_form/custom_widgets/checkboxselectmultipletree.html"),
                 layout.Field("locality_type"),
+                css_id="bulletin_board_categories",
             ),
             # layout.Fieldset(
             #    _("Image"),
@@ -266,6 +268,7 @@ class BulletinForm(forms.ModelForm):
                 layout.Field("contact_person"),
                 layout.Field("phone"),
                 layout.Field("email"),
+                css_id="bulletin_board_contact",
             ),
 
             layout.Fieldset(
@@ -317,6 +320,7 @@ class BulletinForm(forms.ModelForm):
                 #    ),
                 #    css_class="row",
                 # ),
+                css_id="bulletin_board_publish_until",
             ),
             layout.Field("status"),
             layout.Field("reload_page"),

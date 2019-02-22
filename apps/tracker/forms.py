@@ -98,6 +98,7 @@ class TicketForm(dynamicforms.Form):
                 </dd>
                 """.format(settings.RECAPTCHA_SITE_KEY)),
                 'client_info',
+                css_id="tracker_write_feedback",
             ),
             bootstrap.FormActions(
                 layout.Submit('submit', _('Submit').upper())

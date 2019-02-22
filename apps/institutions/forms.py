@@ -281,11 +281,13 @@ class MainDataForm(dynamicforms.Form):
                 "institution_name",
                 "institution_name2",
                 "legal_form",
+                css_id="institution_institution",
             ),
             layout.Fieldset(
                 string_concat(_("Address"), "-", _("Institution")),
                 "location_type",
                 "location_title",
+                css_id="institution_address_institution",
             ),
             layout.Fieldset(
                 _("Address"),
@@ -370,12 +372,14 @@ class MainDataForm(dynamicforms.Form):
                     ),
                     css_class = "show-labels"
                 ),
+                css_id="institution_phones",
             ),
             layout.Fieldset(
                 _("Emails"),
                 "email0",
                 "email1",
                 "email2",
+                css_id="institution_emails",
             ),
             layout.Fieldset(
                 _("Websites"),
@@ -421,6 +425,7 @@ class MainDataForm(dynamicforms.Form):
                         placeholder="http://",
                     ),
                 ),
+                css_id="institution_websites",
             ),
             layout.Fieldset(
                 _("Instant Messengers"),
@@ -463,6 +468,7 @@ class MainDataForm(dynamicforms.Form):
                         template = "ccb_form/multifield.html"
                     ),
                 ),
+                css_id="institution_instant_messenger",
             ),
             bootstrap.FormActions(
                 layout.HTML("""{% include "utils/step_buttons_reg.html" %}"""),
@@ -503,6 +509,7 @@ class ProfileForm(dynamicforms.Form):
                 _("Description"),
                 "description_de",
                 "description_en",
+                css_id="institution_description",
             ),
             layout.Fieldset(
                 _("Photo"),
@@ -514,6 +521,7 @@ class ProfileForm(dynamicforms.Form):
                     {% endif %}
                 """),
                 "avatar",
+                css_id="institution_photo",
             ),
             bootstrap.FormActions(
                 layout.HTML("""{% include "utils/step_buttons_reg.html" %}"""),
@@ -844,13 +852,13 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
                     ),
                     css_class = "show-labels break closed_mon"
                 ),
-                
+
                 "show_breaks",
                 layout.HTML("""{% load i18n %}
                     <dt></dt><dd><p><a id="apply_to_all_days" href="#">{% trans "Apply to all days" %}</a></p></dd>
                     <dd class="clearfix">&nbsp;</dd>
                 """),
-                
+
                 layout.MultiField(
                     _("Tuesday"),
                     layout.Field(
@@ -885,9 +893,9 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
                     ),
                     css_class = "show-labels break closed_tue"
                 ),
-                
+
                 layout.HTML("""<dd class="clearfix">&nbsp;</dd>"""),
-                
+
                 layout.MultiField(
                     _("Wednesday"),
                     layout.Field(
@@ -922,9 +930,9 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
                     ),
                     css_class = "show-labels break closed_wed"
                 ),
-                
+
                 layout.HTML("""<dd class="clearfix">&nbsp;</dd>"""),
-                
+
                 layout.MultiField(
                     _("Thursday"),
                     layout.Field(
@@ -959,9 +967,9 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
                     ),
                     css_class = "show-labels break closed_thu"
                 ),
-                
+
                 layout.HTML("""<dd class="clearfix">&nbsp;</dd>"""),
-                
+
                 layout.MultiField(
                     _("Friday"),
                     layout.Field(
@@ -996,9 +1004,9 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
                     ),
                     css_class = "show-labels break closed_fri"
                 ),
-                
+
                 layout.HTML("""<dd class="clearfix">&nbsp;</dd>"""),
-                
+
                 layout.MultiField(
                     _("Saturday"),
                     layout.Field(
@@ -1033,9 +1041,9 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
                     ),
                     css_class = "show-labels break closed_sat"
                 ),
-                
+
                 layout.HTML("""<dd class="clearfix">&nbsp;</dd>"""),
-                
+
                 layout.MultiField(
                     _("Sunday"),
                     layout.Field(
@@ -1070,16 +1078,17 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
                     ),
                     css_class = "show-labels break closed_sun"
                 ),
-                
+
                 layout.HTML("""<dd class="clearfix">&nbsp;</dd>"""),
 
                 "exceptions_de",
                 "exceptions_en",
                 "is_appointment_based",
-                
-                css_class = "opening-hours"
+
+                css_class = "opening-hours",
+                css_id="institution_opening_closing_time",
             ),
-            
+
             layout.Fieldset(
                 _("Payment Options"),
                 layout.MultiField(
@@ -1147,7 +1156,8 @@ class OpeningHoursPaymentForm(dynamicforms.Form):
                         template = "ccb_form/multifield.html"
                     ),
                 ),
-                css_class = "no-label"
+                css_class = "no-label",
+                css_id="institution_payment_options",
             ),
             bootstrap.FormActions(
                 layout.HTML("""{% include "utils/step_buttons_reg.html" %}"""),
@@ -1237,18 +1247,20 @@ class CategoriesForm(dynamicforms.Form):
                 _("Categories"),
                 layout.Field("categories", template="ccb_form/custom_widgets/checkboxselectmultipletree.html"),
                 css_class="no-label",
+                css_id="institution_categories",
             ),
             layout.Fieldset(
                 _("Institution Types"),
                 layout.Field("institution_types", template="ccb_form/custom_widgets/checkboxselectmultipletree.html"),
                 css_class="no-label",
+                css_id="institution_institution_types",
             ),
             bootstrap.FormActions(
                 layout.HTML("""{% include "utils/step_buttons_reg.html" %}"""),
             )
         )
-        
-        
+
+
 
 def submit_step(current_step, form_steps, form_step_data):
     return form_step_data
