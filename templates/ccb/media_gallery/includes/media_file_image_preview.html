@@ -3,6 +3,6 @@
     {% if media_file.get_preview_representation %}
         {{ media_file.get_preview_representation }}
     {% else %}
-        <img src="{{ STATIC_URL }}site/img/website/placeholder/{{ media_file_type }}_f.png" alt="{{ object.get_title|escape }}"/>
+        <img src="{{ STATIC_URL }}site/img/placeholder/{{ media_file_type }}_large.png" alt="{{ object.get_title|escape }}"/>
     {% endif %}
 </dd>
