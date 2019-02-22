@@ -8,10 +8,11 @@
 {% endblock %}
 
 {% block details %}
+    {% include "utils/step_progressbar.html" %}
 
     <h2>{% trans "New Bulletin" %}</h2>
     <form action="" method="POST">{% csrf_token %}
-    
+
         <div class="fieldset not-editable">
             <fieldset>
                 <h2>{% trans "Title" %}</h2>
@@ -35,7 +36,7 @@
                 </dl>
             </fieldset>
         </div>
-    
+
         <div class="fieldset not-editable">
             <fieldset>
                 <h2>{% trans "Categories" %}</h2>
@@ -66,7 +67,7 @@
                 </dl>
             </fieldset>
         </div>
-    
+
         {% if form_step_data.bulletin_data.institution or form_step_data.bulletin_data.institution_title or form_step_data.bulletin_data.contact_person or form_step_data.bulletin_data.phone or form_step_data.bulletin_data.email %}
             <div class="fieldset not-editable">
                 <fieldset>
@@ -106,7 +107,7 @@
                 </fieldset>
             </div>
         {% endif %}
-        
+
         {% if form_step_data.bulletin_data.end_yyyy %}
             <div class="fieldset not-editable">
                 <fieldset>
@@ -121,7 +122,7 @@
                 </fieldset>
             </div>
         {% endif %}
-    
+
         {% include "utils/step_buttons_reg.html" %}
     </form>
 

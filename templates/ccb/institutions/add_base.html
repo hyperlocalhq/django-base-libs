@@ -36,6 +36,7 @@
 {% endblock %}
 
 {% block details %}
+    {% include "utils/step_progressbar.html" %}
     <h2>{% trans "New Institution" %}</h2>
     {% crispy form "ccb_form" %}
 {% endblock %}

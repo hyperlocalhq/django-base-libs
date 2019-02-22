@@ -35,6 +35,7 @@
 {% endblock %}
 
 {% block details %}
+    {% include "utils/step_progressbar.html" %}
     {% if is_institution %}
         <p><i>{% trans 'Attention: All entries you are doing right now are going to show on your institution profile. If you want the entry to show on your person profile, please go to your person profil.' %}</i><br/><br/></p>
     {% elif is_person %}

@@ -2321,6 +2321,49 @@ $(document).ready(function() {
     });
 
 
+
+    function ProgressBar($main) {
+
+        var me = this;
+        me.$main = $main;
+        me.$progress = $('.progressbar-progress', me.$main);
+        me.$steps = $('.progressbar-steps > *', me.$main);
+
+        me.$active = null;
+        me.active = 0;
+        me.found_active = false;
+        me.$steps.each(function(index) {
+            var $this = $(this);
+            if (!me.found_active) $this.addClass('progressbar-done');
+            var $active = $('.active', $this);
+            if ($active.length) {
+                me.$active = $this;
+                me.active = index;
+                me.found_active = true;
+            }
+        });
+
+        if (me.$active) {
+            $(window).resize(function() {window.setTimeout(function() {me.setBar();}, 1);});
+        }
+        me.setBar();
+    }
+
+    ProgressBar.prototype.setBar = function() {
+
+        var me = this;
+
+        var percentage = Math.round( (me.$active.position().left + me.$active.width()/2) / me.$main.width() * 100 );
+        me.$progress.html('<div style="width:'+percentage+'%;"></div>');
+    }
+
+    $('.progressbar').each(function() {
+        new ProgressBar($(this));
+    });
+
+
+
+
     function FormBlocks($fieldset) {
 
         var me = this;
