@@ -42,12 +42,14 @@ class ShopProductForm(autocomplete_light.ModelForm):
         label=string_concat(_('Caption'), ' DE'),
         required=False,
         max_length=255,
+        widget=forms.HiddenInput(),
     )
 
     image_title_en = forms.CharField(
         label=string_concat(_('Caption'), ' EN'),
         required=False,
         max_length=255,
+        widget=forms.HiddenInput(),
     )
 
     image_description_de = forms.CharField(
