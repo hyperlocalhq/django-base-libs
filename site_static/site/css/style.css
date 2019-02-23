@@ -5200,7 +5200,7 @@ dd.autocomplete .input-field.ac_loading:after {
   line-height: 1.75;
 }
 
-.is-xs .progressbar .progressbar-steps > * .progressbar-counter, .is-sm .progressbar .progressbar-steps > * .progressbar-counter {
+.is-xs .progressbar .progressbar-steps > * .progressbar-counter, .is-sm .progressbar .progressbar-steps > * .progressbar-counter, .is-md .progressbar .progressbar-steps > * .progressbar-counter {
   font-size: 0.9rem;
   width: 26px;
   height: 26px;
@@ -5213,7 +5213,7 @@ dd.autocomplete .input-field.ac_loading:after {
   font-size: 1rem;
 }
 
-.is-xs .progressbar .progressbar-steps > * .progressbar-title, .is-sm .progressbar .progressbar-steps > * .progressbar-title {
+.is-xs .progressbar .progressbar-steps > * .progressbar-title, .is-sm .progressbar .progressbar-steps > * .progressbar-title, .is-md .progressbar .progressbar-steps > * .progressbar-title {
   padding: 0 5px;
   font-size: 0.9rem;
 }

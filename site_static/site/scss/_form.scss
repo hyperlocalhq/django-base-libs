@@ -2079,7 +2079,7 @@ dd.autocomplete {
                 font-size: 1rem;
                 line-height: 1.75;
 
-                .is-xs &, .is-sm & {
+                .is-xs &, .is-sm &, .is-md & {
                     font-size: 0.9rem;
                     width: 26px;
                     height: 26px;
@@ -2092,7 +2092,7 @@ dd.autocomplete {
                 color: $black;
                 font-size: 1rem;
 
-                .is-xs &, .is-sm & {
+                .is-xs &, .is-sm &, .is-md & {
                     padding: 0 5px;
                     font-size: 0.9rem;
                 }
