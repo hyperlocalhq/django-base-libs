@@ -7,7 +7,7 @@ echo "Executing article import" > ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
 
 cd ${PROJECT_PATH}
-. bin/activate
+source venv/bin/activate
 cd project/ccb
 python manage.py import_articles --verbosity=2 --traceback --settings=settings.production >> ${CRON_LOG_FILE}  2>&1
 

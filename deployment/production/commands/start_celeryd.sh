@@ -7,7 +7,7 @@ echo "Starting Celery" > ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
 
 cd ${PROJECT_PATH}
-. bin/activate
+source venv/bin/activate
 cd project/ccb    
 nohup python manage.py celeryd start --verbosity=2 --loglevel=DEBUG --settings=settings_celery --traceback & >> ${CRON_LOG_FILE}  2>&1
 

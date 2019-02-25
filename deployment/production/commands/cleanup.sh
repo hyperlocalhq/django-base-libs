@@ -7,7 +7,7 @@ echo "Cleaning up the database" > ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
 
 cd ${PROJECT_PATH}
-. bin/activate
+source venv/bin/activate
 cd project/ccb    
 python manage.py clearsessions --traceback --settings=settings.production >> ${CRON_LOG_FILE}  2>&1
 python manage.py cleanup_httpstate --traceback --settings=settings.production >> ${CRON_LOG_FILE}  2>&1

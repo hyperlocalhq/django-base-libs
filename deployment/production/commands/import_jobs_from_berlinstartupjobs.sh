@@ -7,7 +7,7 @@ echo "Importing from Berlin Startup Jobs" > ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
 
 cd ${PROJECT_PATH}
-source bin/activate
+source venv/bin/activate
 cd project/ccb    
 python manage.py import_jobs_from_berlinstartupjobs --traceback --settings=settings.production >> ${CRON_LOG_FILE}  2>&1
 

@@ -7,7 +7,7 @@ echo "Searching for broken links" > ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
 
 cd ${PROJECT_PATH}
-. bin/activate
+source venv/bin/activate
 cd project/ccb
 python manage.py check_links --settings=settings_check_links --traceback --settings=settings.production >> ${CRON_LOG_FILE}  2>&1
 

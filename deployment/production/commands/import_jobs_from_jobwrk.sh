@@ -7,7 +7,7 @@ echo "Importing from JOBWRK" > ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
 
 cd ${PROJECT_PATH}
-. bin/activate
+source venv/bin/activate
 cd project/ccb    
 python manage.py import_jobs_from_jobwrk --verbosity=2 --traceback --settings=settings.production >> ${CRON_LOG_FILE} 2>&1
 

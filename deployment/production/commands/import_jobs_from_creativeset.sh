@@ -7,7 +7,7 @@ echo "Importing from Creativeset" > ${CRON_LOG_FILE}
 date >> ${CRON_LOG_FILE}
 
 cd ${PROJECT_PATH}
-source bin/activate
+source venv/bin/activate
 cd project/ccb    
 python manage.py import_jobs_from_creativeset --traceback --verbosity=2 --settings=settings.production >> ${CRON_LOG_FILE}  2>&1
 
