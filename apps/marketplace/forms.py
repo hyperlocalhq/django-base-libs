@@ -248,6 +248,7 @@ class MainDataForm(dynamicforms.Form):
                 "job_type",
                 "qualifications",
                 "description",
+                css_id="job_job",
             ),
             layout.Fieldset(
                 _("Institution"),
@@ -268,6 +269,7 @@ class MainDataForm(dynamicforms.Form):
                 layout.HTML("""{% load i18n %}
                     <dt class="institution-input hidden"> </dt><dd class="institution-input hidden"><a href="javascript:void(0);" class="toggle-visibility" data-toggle-show=".institution-select" data-toggle-hide=".institution-input">{% trans "Back to selection" %}</a></dd>
                 """),
+                css_id="job_institution",
             ),
             layout.Fieldset(
                 _("Address"),
@@ -287,11 +289,13 @@ class MainDataForm(dynamicforms.Form):
                     )
                 ),
                 "country",
+                css_id="job_address",
             ),
             layout.Fieldset(
                 _("Contact person"),
                 "contact_person_ind",
                 "contact_person_name",
+                css_id="job_contact_person",
             ),
             layout.Fieldset(
                 _("Contact info"),
@@ -336,6 +340,7 @@ class MainDataForm(dynamicforms.Form):
                 "email0_address",
                 "publish_emails",
                 "url0_link",
+                css_id="job_contact_info",
             ),
             layout.Fieldset(
                 _("Publishing"),
@@ -358,6 +363,7 @@ class MainDataForm(dynamicforms.Form):
                     ),
                     css_class="show-labels"
                 ),
+                css_id="job_publishing",
             ),
             bootstrap.FormActions(
                 layout.HTML("""{% include "utils/step_buttons_reg.html" %}"""),
@@ -433,6 +439,7 @@ class CategoriesForm(dynamicforms.Form):
                     "categories",
                     template="ccb_form/custom_widgets/checkboxselectmultipletree.html",
                 ),
+                css_id="job_categories",
             ),
             bootstrap.FormActions(
                 layout.HTML("""{% include "utils/step_buttons_reg.html" %}"""),
@@ -470,6 +477,7 @@ class ReportForm(dynamicforms.Form):
                 """),
                 "report_kulturmanagement",
                 "report_talent_in_berlin",
+                css_id="job_report_job_offer",
             ),
         )
 

@@ -9,6 +9,8 @@
 {% endblock %}
 
 {% block details %}
+    {% include "utils/step_progressbar.html" %}
+    
     {% comment %}<!-- TODO: remove the comment to see all available data
     <pre>{{ form_step_data|pprint|escape }}</pre>
     -->{% endcomment %}

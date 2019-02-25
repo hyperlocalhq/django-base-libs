@@ -5154,8 +5154,77 @@ dd.autocomplete .input-field.ac_loading:after {
   margin: 0;
 }
 
-.formblock {
+.progressbar {
+  display: block;
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+.progressbar .progressbar-progress {
+  display: block;
+  width: 100%;
+  height: 20px;
+  margin-bottom: 15px;
+  border: 1px solid #000;
+  box-shadow: 0 0 5px #afaeae;
+}
+
+.progressbar .progressbar-progress > * {
+  display: block;
+  height: 100%;
+  background: #00cdff;
+}
+
+.progressbar .progressbar-steps {
+  display: table;
+  width: 100%;
+  list-style: none;
+}
+
+.progressbar .progressbar-steps > * {
+  display: table-cell;
+  text-align: center;
+  cursor: default;
+}
+
+.progressbar .progressbar-steps > * .progressbar-counter {
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: 0 auto;
+  border: 1px solid #000;
+  border-radius: 50%;
+  color: #000;
   font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.is-xs .progressbar .progressbar-steps > * .progressbar-counter, .is-sm .progressbar .progressbar-steps > * .progressbar-counter, .is-md .progressbar .progressbar-steps > * .progressbar-counter {
+  font-size: 0.9rem;
+  width: 26px;
+  height: 26px;
+}
+
+.progressbar .progressbar-steps > * .progressbar-title {
+  padding: 0 10px;
+  margin-top: 5px;
+  color: #000;
+  font-size: 1rem;
+}
+
+.is-xs .progressbar .progressbar-steps > * .progressbar-title, .is-sm .progressbar .progressbar-steps > * .progressbar-title, .is-md .progressbar .progressbar-steps > * .progressbar-title {
+  padding: 0 5px;
+  font-size: 0.9rem;
+}
+
+.progressbar .progressbar-steps > *.progressbar-done .progressbar-counter {
+  color: #fff;
+  background: #777777;
+}
+
+.formblock {
+  font-weight: 400;
 }
 
 .formblock p {

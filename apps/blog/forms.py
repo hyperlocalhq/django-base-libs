@@ -126,6 +126,7 @@ class BlogPostForm(dynamicforms.Form):
                 "tags",
                 "status",
                 # "enable_comment_form",
+                css_id="blog_post",
             ),
             layout.HTML('''
                 <input

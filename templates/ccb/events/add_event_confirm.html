@@ -9,6 +9,8 @@
 {% endblock %}
 
 {% block details %}
+    {% include "utils/step_progressbar.html" %}
+    
     {% if form_step_data.step_main_data.venue %}
         {% load_obj events.EventType form_step_data.step_main_data.event_type as event_type %}
     {% endif %}

@@ -287,6 +287,10 @@ $(document).ready(function() {
 
         var me = this.me;
 
+        if (me.$main.height() <= 0)  {
+            me.is_resizing = false;
+            return;
+        }
 
         var children_initialised = true;
         $('.accordion', me.$children).each(function() {

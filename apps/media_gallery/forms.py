@@ -15,7 +15,7 @@ from crispy_forms import layout, bootstrap
 
 from jetson.apps.utils.forms import ModelMultipleChoiceTreeField, ModelChoiceTreeField
 
-IMAGE_MIN_DIMENSIONS = getattr(settings, "GALLERY_IMAGE_MIN_DIMENSIONS", (850, 400))
+IMAGE_MIN_DIMENSIONS = getattr(settings, "GALLERY_IMAGE_MIN_DIMENSIONS", (400, 400))
 STR_IMAGE_MIN_DIMENSIONS = u"%s × %s" % IMAGE_MIN_DIMENSIONS
 
 PortfolioSettings = models.get_model("media_gallery", "PortfolioSettings")
@@ -400,6 +400,7 @@ class MediaGalleryForm(dynamicforms.Form):
                     "categories",
                     template="ccb_form/custom_widgets/checkboxselectmultipletree.html",
                 ),
+                css_id="portfolio_album",
             ),
             bootstrap.FormActions(
                 layout.Submit("submit", _("Save")),
