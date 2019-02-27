@@ -1,16 +1,17 @@
 # Frequently Asked Questions about Imports to Creative City Berlin
 
-_Last update: January 21, 2019_
+_Last update: February 27, 2019_
 
 [TOC]
 
 ## What imports do exist at Creative City Berlin?
 
-There are 3 imports depending on the data type:
+There are 4 imports depending on the data type:
 
 - [news articles](articles/)
 - [marketplace bulletins](bulletins)
 - [job offers](jobs/).
+- [events](events/).
 
 ## When are the imports executed?
 
