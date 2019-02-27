@@ -1,6 +1,6 @@
 # Event Import Specification
 
-_Last update: February 27,72019_
+_Last update: February 27, 2019_
 
 [TOC]
 
