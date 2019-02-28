@@ -29,3 +29,5 @@ HTTPSTATE_ENGINE = "jetson.apps.httpstate.backends.db"
 
 CELERY_BROKER_URL = "redis://:protectst38@localhost:6379/0"
 REDIS_PASSWORD = CELERY_REDIS_PASSWORD = BROKER_PASSWORD = CELERY_RESULT_PASSWORD = "protectst38"
+
+WEBSITE_URL = "http://ccb.jetsonproject.org/"

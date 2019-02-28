@@ -50,3 +50,5 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
     }
 }
+
+WEBSITE_URL = "https://www.creative-city-berlin.de/"

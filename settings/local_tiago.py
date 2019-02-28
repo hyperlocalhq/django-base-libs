@@ -18,3 +18,5 @@ execfile(os.path.join(JETSON_PATH, "jetson/settings/debug_toolbar.py"))
 # python -m smtpd -n -c DebuggingServer localhost:1025
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
+
+WEBSITE_URL = "http://127.0.0.1:8000/"

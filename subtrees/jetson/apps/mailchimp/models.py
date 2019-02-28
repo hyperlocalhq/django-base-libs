@@ -304,7 +304,6 @@ class Campaign(CreationModificationMixin):
     def get_rendered_html(self):
         from django.template.loader import get_template
         from filebrowser.settings import MEDIA_URL as UPLOADS_URL
-        from base_libs.utils.misc import get_website_url
 
         template = get_template(self.template)
         return template.render(
@@ -312,7 +311,7 @@ class Campaign(CreationModificationMixin):
                 'campaign': self,
                 'media_url': settings.MEDIA_URL,
                 'jetson_media_url': settings.JETSON_MEDIA_URL,
-                'website_url': get_website_url(),
+                'website_url': settings.WEBSITE_URL,
                 'UPLOADS_URL': UPLOADS_URL,
             }
         )

@@ -78,3 +78,5 @@ class DisabledMigrations(object):
 
 
 MIGRATION_MODULES = DisabledMigrations()
+
+WEBSITE_URL = "http://0.0.0.0:8000/"

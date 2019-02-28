@@ -63,7 +63,9 @@
 
             <!-- Full Size Image -->
             {% load slideshows_tags %}
-            {% slideshow "newsletter_header_de" using "mailchimp/campaign/includes/header.html" %}
+            {% filter force_full_urls %}
+                {% slideshow "newsletter_header_de" using "mailchimp/campaign/includes/header.html" %}
+            {% endfilter %}
 
 
             <!-- Full Size Text -->
