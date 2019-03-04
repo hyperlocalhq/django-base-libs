@@ -32,7 +32,6 @@ from base_libs.models.fields import MultilingualTextField
 from filebrowser.fields import FileBrowseField
 
 from jetson.apps.i18n.models import Language
-from jetson.apps.structure.models import Term
 from jetson.apps.structure.models import ContextCategory
 from jetson.apps.permissions.models import RowLevelPermission
 from jetson.apps.permissions.models import PerObjectGroup

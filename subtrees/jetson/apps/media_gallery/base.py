@@ -12,7 +12,7 @@ else:
     from django.utils.translation import ugettext_lazy as _
 
 from django.utils.translation import ugettext
-from django.utils.encoding import smart_unicode, force_unicode
+from django.utils.encoding import force_unicode
 from django.template.loader import render_to_string
 from django.contrib.contenttypes.models import ContentType
 from django.conf import settings

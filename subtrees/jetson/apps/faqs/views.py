@@ -11,7 +11,6 @@ from base_libs.utils.misc import get_or_404
 
 from jetson.apps.utils.views import object_list
 from jetson.apps.faqs.models import FaqContainer, FaqCategory
-from base_libs.utils.misc import get_website_url
 
 
 def get_faq_params(

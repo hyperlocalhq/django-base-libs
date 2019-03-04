@@ -9,9 +9,7 @@ else:
 
 from django.utils.translation import gettext
 from django.utils.safestring import mark_safe
-from django.conf import settings
 
-from base_libs.models.models import HierarchyMixin
 from base_libs.models.models import SlugMixin
 from base_libs.models.models import SysnameMixin
 from base_libs.models.fields import MultilingualCharField
