@@ -36,21 +36,16 @@ from base_libs.middleware import get_current_language, get_current_user
 from base_libs.models.query import ExtendedQuerySet
 from base_libs.models.fields import URLField
 from base_libs.models.fields import MultilingualCharField
-from base_libs.models.fields import MultilingualTextField
-from base_libs.models.fields import ExtendedTextField  # for south
 from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 
-from tagging.fields import TagField
 from tagging.models import Tag
 from tagging_autocomplete.models import TagAutocompleteField
 
 from jetson.apps.location.models import Address
-from jetson.apps.i18n.models import Language
 from jetson.apps.optionset.models import PhoneType, EmailType, URLType, IMType
 from jetson.apps.optionset.models import get_default_phonetype_for_phone
 from jetson.apps.optionset.models import get_default_phonetype_for_fax
 from jetson.apps.optionset.models import get_default_phonetype_for_mobile
-from jetson.apps.utils.models import MONTH_CHOICES
 
 verbose_name = _("Marketplace")
 
@@ -184,13 +179,6 @@ class JobOfferBase(CreationModificationMixin, PublishingMixin, UrlMixin):
             blank=True,
             null=True,
         )
-        offering_institution.south_field_triple = lambda: (
-            "django.db.models.fields.related.ForeignKey",
-            ["orm['institutions.Institution']"],
-            dict(
-                blank="True",
-                null="True",
-                ))
 
     offering_institution_title = models.CharField(
         _("Organizer"), blank=True, max_length=255
@@ -204,14 +192,6 @@ class JobOfferBase(CreationModificationMixin, PublishingMixin, UrlMixin):
             null=True,
             related_name="jobs_posted",
         )
-        contact_person.south_field_triple = lambda: (
-            "django.db.models.fields.related.ForeignKey",
-            ["orm['people.Person']"],
-            dict(
-                blank="True",
-                null="True",
-                related_name='"jobs_posted"',
-                ))
 
     contact_person_name = models.CharField(
         _("Organizer"), blank=True, max_length=255

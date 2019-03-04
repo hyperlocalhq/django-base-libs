@@ -3,7 +3,6 @@ import re
 import os
 import sys
 from collections import OrderedDict
-from datetime import datetime
 
 from django.db import models
 
@@ -13,7 +12,7 @@ else:
     from django.utils.translation import ugettext_lazy as _
 
 from django.utils.translation import ugettext
-from django.utils.encoding import smart_unicode, force_unicode
+from django.utils.encoding import force_unicode
 from django.template.loader import render_to_string
 from django.contrib.contenttypes.models import ContentType
 from django.conf import settings
@@ -27,13 +26,11 @@ from base_libs.models.models import CreationModificationDateMixin
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
 from base_libs.models.fields import PositionField
-from base_libs.models.fields import ExtendedTextField  # needed for south to work
 from base_libs.models.query import ExtendedQuerySet
 from base_libs.utils.misc import is_installed
 from base_libs.models.fields import URLField
 from base_libs.middleware import get_current_language
 
-from filebrowser.base import FileObject
 from filebrowser.settings import MEDIA_ROOT as UPLOADS_ROOT
 from filebrowser.settings import MEDIA_URL as UPLOADS_URL
 from filebrowser.fields import FileBrowseField

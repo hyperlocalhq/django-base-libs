@@ -34,8 +34,7 @@ def get_global_placeholders(placeholders=None, language="en"):
     placeholders['site_name'] = Site.objects.get_current().name
     placeholders['website_url'] = get_website_url()
     if settings.MEDIA_URL.startswith("/"):
-        placeholders['media_url'
-                    ] = placeholders['website_url'] + settings.MEDIA_URL[1:]
+        placeholders['media_url'] = placeholders['website_url'] + settings.MEDIA_URL
     else:
         placeholders['media_url'] = settings.MEDIA_URL
     return placeholders
