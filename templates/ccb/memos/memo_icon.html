@@ -1,8 +1,0 @@
-{% load base_tags i18n %}
-{% with forloop.counter|default:0 as counter %}
-    {% if is_not_memoed_by_user %}
-        <a href="#Memo" rel="nofollow" class="fawesome fa-note button" onclick="MemoManager.toggle({{ counter|default:0 }}, {{ content_type_id }}, {{ object.id }}); this.blur(); window.cancelEvent(event);" id="adding_to_memos_{{ counter|default:0 }}"><span class="sr-only">{% trans "Memo" %}</span></a>
-    {% else %}
-        <a href="#Memo" rel="nofollow" class="fawesome fa-note button active" onclick="MemoManager.toggle({{ counter|default:0 }}, {{ content_type_id }}, {{ object.id }}); this.blur(); window.cancelEvent(event);" id="adding_to_memos_{{ counter|default:0 }}"><span class="sr-only">{% trans "Memo" %}</span></a>
-    {% endif %}
-{% endwith %}
