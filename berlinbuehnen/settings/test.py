@@ -20,8 +20,8 @@ HTTPS_PROTOCOL = "http"
 
 SUBDOMAINS_SUPPORTED = False
 
-SESSION_COOKIE_DOMAIN = "127.0.0.1"
-ALLOWED_HOSTS = ['127.0.0.1']
+SESSION_COOKIE_DOMAIN = "0.0.0.0"
+ALLOWED_HOSTS = ['0.0.0.0']
 PORT = ":8000"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
@@ -51,3 +51,5 @@ class DisabledMigrations(object):
 
 
 MIGRATION_MODULES = DisabledMigrations()
+
+WEBSITE_URL = "http://0.0.0.0:8000"

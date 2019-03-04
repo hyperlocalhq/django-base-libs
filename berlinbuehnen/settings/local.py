@@ -19,7 +19,7 @@ HTTPS_PROTOCOL = "http"
 
 SUBDOMAINS_SUPPORTED = False
 
-SESSION_COOKIE_DOMAIN = "127.0.0.1"
+SESSION_COOKIE_DOMAIN = "0.0.0.0"
 PORT = ":8000"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
@@ -48,3 +48,5 @@ LOGGING['loggers']['raven'] = {
     'handlers': ['null'],
     'level': 'ERROR',
 }
+
+WEBSITE_URL = "http://0.0.0.0:8000"

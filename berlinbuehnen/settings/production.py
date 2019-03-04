@@ -55,3 +55,5 @@ CACHES['session'] = {
 
 CACHE_MIDDLEWARE_KEY_PREFIX = "berlinbuehnen_production_"
 SESSION_CACHE_ALIAS = "session"
+
+WEBSITE_URL = "https://www.berlin-buehnen.de"

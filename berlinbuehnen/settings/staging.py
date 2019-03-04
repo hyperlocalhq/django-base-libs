@@ -26,3 +26,5 @@ ALLOWED_HOSTS = [
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 HTTPSTATE_ENGINE = "jetson.apps.httpstate.backends.db"
+
+WEBSITE_URL = "http://berlinbuehnen.jetsonproject.org"

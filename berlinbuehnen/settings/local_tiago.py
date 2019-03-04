@@ -7,6 +7,8 @@ DEBUG = True
 SESSION_COOKIE_DOMAIN = "127.0.0.1"
 ALLOWED_HOSTS = ['127.0.0.1']
 
+WEBSITE_URL = "http://127.0.0.1:8000"
+
 ELASTICSEARCH_DSL={
     'default': {
         'hosts': 'localhost:9200'
