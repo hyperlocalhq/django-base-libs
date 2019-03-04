@@ -1,0 +1,7 @@
+curl --request POST \
+  --url http://localhost:9201/events/doc/_search \
+  --header 'cache-control: no-cache' \
+  --header 'connection: keep-alive' \
+  --header 'content-type: application/json' \
+  --header 'host: localhost:9201' \
+  --data '{"sort": ["start"],"query": {"bool": {"must": [{"match": {"is_published": true}},{"range": {"start": {"gte": "2018-09-24T12:09:54.879928"}}}]}},"from": 0,"size": 24}'

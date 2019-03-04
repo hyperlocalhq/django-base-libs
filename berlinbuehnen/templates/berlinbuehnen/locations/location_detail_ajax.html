@@ -1,0 +1,32 @@
+{% load base_tags i18n image_modifications tagging_tags babel auth_extended fb_tags infoblocks favorites_tags %}
+
+{% with object as location %}
+    
+    <a class="map-description-content"  href="{{ location.get_url_path }}">
+        
+        {% if location.first_image %}
+            <img src="{{ MEDIA_URL }}{{ location.first_image.path|modified_path:"detail_image" }}{% if location.is_editable %}?now={% now "YmdHis" %}{% endif %}" alt="{{ location.title|escape }}" />
+        {% endif %}
+                                      
+        <h1>{{ location.title }} </h1>
+        {% if location.subtitle %}
+            <h2> {{ location.subtitle }} </h2>
+        {% endif %}
+        
+        {% if location.teaser %}
+            <div class="copy">{{ location.get_rendered_teaser }}</div>
+        {% elif location.description %}
+            <div class="copy">{{ location.get_rendered_description|striptags|truncatewords:30 }}</div>
+        {% endif %}
+        
+        <p class="address">
+            {% if location.street_address %}{{ location.street_address }}<br />{% endif %}
+            {% if location.street_address2 %}{{ location.street_address2 }}<br />{% endif %}
+            {% if location.city %}{{ location.postal_code }} {{ location.city }}<br />{% endif %}
+        </p>
+
+        <span class="btn btn-default more">{% trans "more" %}</span>
+        
+    </a>
+    
+{% endwith %}

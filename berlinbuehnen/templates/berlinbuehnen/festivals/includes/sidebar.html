@@ -1,0 +1,245 @@
+{% load base_tags i18n fb_tags image_modifications tagging_tags babel auth_extended infoblocks favorites_tags %}
+{% with festival.organizers.all.0 as organizer %}
+    <div class="accordion sidebar-accordion">
+        {% if organizer or festival.phone_number or festival.fax_number or festival.email or festival.website or festival.street_address %}
+            <div class="accordion-item">
+                <h4 class="accordion-item-head open">{% if organizer %}{% trans "Festival Organizer" %}{% else %}{% trans "Venue" %}{% endif %}</h4>
+                <div class="accordion-item-content">
+                    {% if festival.logo %}
+                        <img src="{{ MEDIA_URL }}{{ festival.logo|modified_path:"list_logo" }}" class="logo" alt="{{ festival.title|escape }}"/>
+                    {% endif %}
+                    {% for location in festival.organizers.all %}
+                        <p data-latitude="{{ location.latitude|stringformat:"%f" }}" data-longitude="{{ location.longitude|stringformat:"%f" }}">
+                            <strong>{{ location.title }}</strong><br />
+                            {% if location.street_address %}{{ location.street_address }}<br />{% endif %}
+                            {% if location.street_address2 %}{{ location.street_address2 }}<br />{% endif %}
+                            {% if location.city %}{{ location.postal_code }} {{ location.city }}<br />{% endif %}
+                        </p>
+                        {% if location.phone_number or location.fax_number or location.email or location.website %}
+                            <dl>
+                                <dd class="headline">{% trans "Contact" %}</dd>
+                                {% if location.phone_number %}
+                                    <dt class="width_50">{% trans "Phone" %}</dt>
+                                    <dd><a class="phone" href="tel:{% if location.phone_country %}+{{ location.phone_country }}{% endif %}{{ location.phone_area }}{{ location.phone_number }}">{% if location.phone_country %}+{{ location.phone_country }}-{% endif %}{{ location.phone_area }}-{{ location.phone_number }}</a></dd>
+                                {% endif %}
+                                {% if location.fax_number %}
+                                    <dt class="width_50">{% trans "Fax" %}</dt>
+                                    <dd>{% if location.fax_country %}+{{ location.fax_country }}-{% endif %}{{ location.fax_area }}-{{ location.fax_number }}</dd>
+                                {% endif %}
+                                {% if festival.email %}
+                                    <dt class="width_50">{% trans "Mail" %}</dt>
+                                    <dd><a href="mailto:{{ location.email }}">{{ location.email }}</a></dd>
+                                {% endif %}
+                                {% if location.website %}
+                                    <dt class="width_50">{% trans "Web" %}</dt>
+                                    <dd><a href="{{ location.website }}" target="_blank">{{ location.website|humanize_url:28 }}</a></dd>
+                                {% endif %}
+                            </dl>
+                        {% endif %}
+                    {% endfor %}
+                    {% if festival.phone_number or festival.fax_number or festival.email or festival.website or festival.street_address %}
+                        <dl>
+                            {% if organizer %}<dd class="headline">{% trans "Festival Contact" %}</dd>{% endif %}
+                            {% if festival.street_address %}
+                                {% if festival.street_address %}<dd>{{ festival.street_address }}</dd>{% endif %}
+                                {% if festival.street_address2 %}<dd>{{ festival.street_address2 }}</dd>{% endif %}
+                                {% if festival.city %}<dd>{{ festival.postal_code }} {{ festival.city }}</dd>{% endif %}
+                                <dd class="spacer"></dd>
+                            {% endif %}
+                            {% if festival.phone_number %}
+                                <dt class="width_50">{% trans "Phone" %}</dt>
+                                <dd><a class="phone" href="tel:{% if festival.phone_country %}+{{ festival.phone_country }}{% endif %}{{ festival.phone_area }}{{ festival.phone_number }}">{% if festival.phone_country %}+{{ festival.phone_country }}-{% endif %}{{ festival.phone_area }}-{{ festival.phone_number }}</a></dd>
+                            {% endif %}
+                            {% if festival.fax_number %}
+                                <dt class="width_50">{% trans "Fax" %}</dt>
+                                <dd>{% if festival.fax_country %}+{{ festival.fax_country }}-{% endif %}{{ festival.fax_area }}-{{ festival.fax_number }}</dd>
+                            {% endif %}
+                            {% if festival.email %}
+                                <dt class="width_50">{% trans "Mail" %}</dt>
+                                <dd><a href="mailto:{{ festival.email }}">{{ festival.email }}</a></dd>
+                            {% endif %}
+                            {% if festival.website %}
+                                <dt class="width_50">{% trans "Web" %}</dt>
+                                <dd><a href="{{ festival.website }}" target="_blank">{{ festival.website|humanize_url:28 }}</a></dd>
+                            {% endif %}
+                        </dl>
+                    {% endif %}
+                    {% if festival.get_social_media %}
+                        <ul class="social_link_list">
+                            {% for social in festival.get_social_media %}
+                                <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{ social.channel_type }}" data-tooltip-top="-12"><span class="sr-only">{{ social.channel_type }}</span></a></li>
+                            {% endfor %}
+                        </ul>
+                    {% elif organizer.get_social_media %}
+                        <ul class="social_link_list">
+                            {% for social in organizer.get_social_media %}
+                                <li><a class="fawesome {{ social.get_class }}" href="{{ social.url }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{ social.channel_type }}" data-tooltip-top="-12"><span class="sr-only">{{ social.channel_type }}</span></a></li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+        {% if festival.tickets_street_address or festival.get_opening_hours or festival.tickets_phone_number or festival.tickets_fax_number or festival.tickets_email or festival.tickets_website or organizer.tickets_street_address or organizer.get_opening_hours or organizer.tickets_phone_number or organizer.tickets_fax_number or organizer.tickets_email or organizer.tickets_website %}
+            <div class="accordion-item">
+                <h4 class="accordion-item-head">{% trans "Tickets Box Office" %}</h4>
+                <div class="accordion-item-content">
+                    {% if festival.tickets_street_address %}
+                        <p>
+                            {{ festival.tickets_street_address }}<br />
+                            {% if festival.tickets_street_address2 %}{{ festival.tickets_street_address2 }}<br />{% endif %}
+                            {% if festival.tickets_city %}{{ festival.tickets_postal_code }} {{ festival.tickets_city }}<br />{% endif %}
+                        </p>
+                    {% elif organizer.tickets_street_address %}
+                        <p>
+                            {{ organizer.tickets_street_address }}<br />
+                            {% if organizer.tickets_street_address2 %}{{ organizer.tickets_street_address2 }}<br />{% endif %}
+                            {% if organizer.tickets_city %}{{ organizer.tickets_postal_code }} {{ organizer.tickets_city }}<br />{% endif %}
+                        </p>
+                    {% endif %}
+                    {% if festival.get_opening_hours %}
+                        <dl>
+                            {% for times in festival.get_opening_hours %}
+                                <dt class="width_80">{{ times.weekday }}</dt>
+                                <dd>
+                                    {% if times.open %}
+                                        {{ times.open|time:"H:i" }} -
+                                            {% if times.break_open and times.break_close %}
+                                                {{ times.break_close|time:"H:i" }}, {{ times.break_open|time:"H:i" }} -
+                                            {% endif %}
+                                        {{ times.close|time:"H:i" }}
+                                    {% else %}
+                                        {% trans "Closed" %}
+                                    {% endif %}
+                                </dd>
+                            {% endfor %}
+                        </dl>
+                    {% elif organizer.get_opening_hours %}
+                        <dl>
+                            {% for times in organizer.get_opening_hours %}
+                                <dt class="width_80">{{ times.weekday }}</dt>
+                                <dd>
+                                    {% if times.open %}
+                                        {{ times.open|time:"H:i" }} -
+                                            {% if times.break_open and times.break_close %}
+                                                {{ times.break_close|time:"H:i" }}, {{ times.break_open|time:"H:i" }} -
+                                            {% endif %}
+                                        {{ times.close|time:"H:i" }}
+                                    {% else %}
+                                        {% trans "Closed" %}
+                                    {% endif %}
+                                </dd>
+                            {% endfor %}
+                        </dl>
+                    {% endif %}
+                    {% if festival.tickets_phone_number or festival.tickets_fax_number or festival.tickets_email or festival.tickets_website %}
+                        {% if festival.get_opening_hours or organizer.get_opening_hours %}<br/>{% endif %}
+                        <dl>
+                            {% if festival.tickets_phone_number %}
+                                <dt class="width_50">{% trans "Phone" %}</dt>
+                                <dd><a class="phone" href="tel:{% if festival.tickets_phone_country %}+{{ festival.tickets_phone_country }}{% endif %}{{ festival.tickets_phone_area }}{{ festival.tickets_phone_number }}">{% if festival.tickets_phone_country %}+{{ festival.tickets_phone_country }}-{% endif %}{{ festival.tickets_phone_area }}-{{ festival.tickets_phone_number }}</a> {{ festival.get_rendered_tickets_calling_prices }}
+                                </dd>
+                            {% endif %}
+                            {% if festival.tickets_fax_number %}
+                                <dt class="width_50">{% trans "Fax" %}</dt>
+                                <dd>{% if festival.tickets_fax_country %}+{{ festival.tickets_fax_country }}-{% endif %}{{ festival.tickets_fax_area }}-{{ festival.tickets_fax_number }}</dd>
+                            {% endif %}
+                            {% if festival.tickets_email %}
+                                <dt class="width_50">{% trans "Mail" %}</dt>
+                                <dd><a href="mailto:{{ festival.tickets_email }}">{{ festival.tickets_email }}</a></dd>
+                            {% endif %}
+                            {% if festival.tickets_website %}
+                                <dt class="width_50">{% trans "Web" %}</dt>
+                                <dd><a href="{{ festival.tickets_website }}">{{ festival.tickets_website|humanize_url:28 }}</a><a href="{{ festival.tickets_website }}" class="print">{{ festival.tickets_website }}</a></dd>
+                            {% endif %}
+                        </dl>
+                    {% elif organizer.tickets_phone_number or organizer.tickets_fax_number or organizer.tickets_email or organizer.tickets_website %}
+                        {% if festival.get_opening_hours or organizer.get_opening_hours %}<br/>{% endif %}
+                        <dl>
+                            {% if organizer.tickets_phone_number %}
+                                <dt class="width_50">{% trans "Phone" %}</dt>
+                                <dd><a class="phone" href="tel:{% if organizer.tickets_phone_country %}+{{ organizer.tickets_phone_country }}{% endif %}{{ organizer.tickets_phone_area }}{{ organizer.tickets_phone_number }}">{% if organizer.tickets_phone_country %}+{{ organizer.tickets_phone_country }}-{% endif %}{{ organizer.tickets_phone_area }}-{{ organizer.tickets_phone_number }}</a> {{ organizer.get_rendered_tickets_calling_prices }}
+                                </dd>
+                            {% endif %}
+                            {% if organizer.tickets_fax_number %}
+                                <dt class="width_50">{% trans "Fax" %}</dt>
+                                <dd>{% if organizer.tickets_fax_country %}+{{ organizer.tickets_fax_country }}-{% endif %}{{ organizer.tickets_fax_area }}-{{ organizer.tickets_fax_number }}</dd>
+                            {% endif %}
+                            {% if organizer.tickets_email %}
+                                <dt class="width_50">{% trans "Mail" %}</dt>
+                                <dd><a href="mailto:{{ organizer.tickets_email }}">{{ organizer.tickets_email }}</a></dd>
+                            {% endif %}
+                            {% if organizer.tickets_website %}
+                                <dt class="width_50">{% trans "Web" %}</dt>
+                                <dd><a href="{{ organizer.tickets_website }}">{{ organizer.tickets_website|humanize_url:28 }}</a><a href="{{ organizer.tickets_website }}" class="print">{{ organizer.tickets_website }}</a></dd>
+                            {% endif %}
+                        </dl>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+        {% if festival.press_contact_name or festival.press_phone_number or festival.press_fax_number or festival.press_email or festival.press_website %}
+            <div class="accordion-item">
+                <h4 class="accordion-item-head">{% trans "Press" %}</h4>
+                <div class="accordion-item-content">
+                        <dl>
+                            {% if festival.press_contact_name %}
+                                <dd>{{ festival.press_contact_name }}</dd>
+                            {% endif %}
+                            {% if festival.press_phone_number %}
+                                <dt class="width_50">{% trans "Phone" %}</dt>
+                                <dd><a class="phone" href="tel:{% if festival.press_phone_country %}+{{ festival.press_phone_country }}{% endif %}{{ festival.press_phone_area }}{{ festival.press_phone_number }}">{% if festival.press_phone_country %}+{{ festival.press_phone_country }}-{% endif %}{{ festival.press_phone_area }}-{{ festival.press_phone_number }}</a></dd>
+                            {% endif %}
+                            {% if festival.press_mobile_number %}
+                                <dt class="width_50">{% trans "Mobile" %}</dt>
+                                <dd><a class="phone" href="tel:{% if festival.press_mobile_country %}+{{ festival.press_mobile_country }}{% endif %}{{ festival.press_mobile_area }}{{ festival.press_mobile_number }}">{% if festival.press_mobile_country %}+{{ festival.press_mobile_country }}-{% endif %}{{ festival.press_mobile_area }}-{{ festival.press_mobile_number }}</a></dd>
+                            {% endif %}
+                            {% if festival.press_fax_number %}
+                                <dt class="width_50">{% trans "Fax" %}</dt>
+                                <dd>{% if festival.press_fax_country %}+{{ festival.press_fax_country }}-{% endif %}{{ festival.press_fax_area }}-{{ festival.press_fax_number }}</dd>
+                            {% endif %}
+                            {% if festival.press_email %}
+                                <dt class="width_50">{% trans "Mail" %}</dt>
+                                <dd><a href="mailto:{{ festival.press_email }}">{{ festival.press_email }}</a></dd>
+                            {% endif %}
+                            {% if festival.press_website %}
+                                <dt class="width_50">{% trans "Web" %}</dt>
+                                <dd><a href="{{ festival.press_website }}" target="_blank">{{ festival.press_website|humanize_url:28 }}</a></dd>
+                            {% endif %}
+                        </dl>
+                </div>
+            </div>
+        {% elif organizer.press_contact_name or organizer.press_phone_number or organizer.press_fax_number or organizer.press_email or organizer.press_website %}
+            <div class="accordion-item">
+                <h4 class="accordion-item-head">{% trans "Press" %}</h4>
+                <div class="accordion-item-content">
+                        <dl>
+                            {% if organizer.press_contact_name %}
+                                <dd>{{ organizer.press_contact_name }}</dd>
+                            {% endif %}
+                            {% if organizer.press_phone_number %}
+                                <dt class="width_50">{% trans "Phone" %}</dt>
+                                <dd><a class="phone" href="tel:{% if organizer.press_phone_country %}+{{ organizer.press_phone_country }}{% endif %}{{ organizer.press_phone_area }}{{ organizer.press_phone_number }}">{% if organizer.press_phone_country %}+{{ organizer.press_phone_country }}-{% endif %}{{ organizer.press_phone_area }}-{{ organizer.press_phone_number }}</a></dd>
+                            {% endif %}
+                            {% if organizer.press_mobile_number %}
+                                <dt class="width_50">{% trans "Mobile" %}</dt>
+                                <dd><a class="phone" href="tel:{% if organizer.press_mobile_country %}+{{ organizer.press_mobile_country }}{% endif %}{{ organizer.press_mobile_area }}{{ organizer.press_mobile_number }}">{% if organizer.press_mobile_country %}+{{ organizer.press_mobile_country }}-{% endif %}{{ organizer.press_mobile_area }}-{{ organizer.press_mobile_number }}</a></dd>
+                            {% endif %}
+                            {% if organizer.press_fax_number %}
+                                <dt class="width_50">{% trans "Fax" %}</dt>
+                                <dd>{% if organizer.press_fax_country %}+{{ organizer.press_fax_country }}-{% endif %}{{ organizer.press_fax_area }}-{{ organizer.press_fax_number }}</dd>
+                            {% endif %}
+                            {% if organizer.press_email %}
+                                <dt class="width_50">{% trans "Mail" %}</dt>
+                                <dd><a href="mailto:{{ organizer.press_email }}">{{ organizer.press_email }}</a></dd>
+                            {% endif %}
+                            {% if organizer.press_website %}
+                                <dt class="width_50">{% trans "Web" %}</dt>
+                                <dd><a href="{{ organizer.press_website }}" target="_blank">{{ organizer.press_website|humanize_url:28 }}</a></dd>
+                            {% endif %}
+                        </dl>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endwith %}

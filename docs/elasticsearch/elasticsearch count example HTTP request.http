@@ -1,0 +1,26 @@
+POST /events/doc/_count HTTP/1.1
+Host: localhost:9201
+Connection: keep-alive
+Content-Type: application/json
+Cache-Control: no-cache
+
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "is_published": true
+          }
+        },
+        {
+          "range": {
+            "start": {
+              "gte": "2018-09-24T12:42:29.226460"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
