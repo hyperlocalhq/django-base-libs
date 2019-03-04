@@ -65,4 +65,4 @@ RAVEN_CONFIG = {
     'dsn': None,
 }
 
-WEBSITE_URL = "http://0.0.0.0:8000/"
+WEBSITE_URL = "http://0.0.0.0:8000"  # no trailing slash

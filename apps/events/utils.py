@@ -40,7 +40,7 @@ def add_vevent(cal, event_time):
         if venue_address:
             location += ', ' + venue_address
         vevent.add('location').value = force_bytes(location)
-    vevent.add('url').value = force_bytes(get_website_url() + event.get_absolute_url()[1:])
+    vevent.add('url').value = force_bytes(get_website_url() + event.get_absolute_url())
 
 
 def create_ics(events):

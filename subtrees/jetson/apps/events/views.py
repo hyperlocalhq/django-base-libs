@@ -221,7 +221,7 @@ def event_list(
             title=title or _("CCB Events"),
             link=kwargs.get(
                 "link",
-                url[:-1] + feed_part.sub("/", request.path) + "?" +
+                url + feed_part.sub("/", request.path) + "?" +
                 (request.META.get("QUERY_STRING", "") or ""),
             ),
         ).get_feed(kwargs['feed_type'])

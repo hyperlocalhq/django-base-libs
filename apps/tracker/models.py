@@ -157,7 +157,7 @@ def ticket_reported(sender, instance, **kwargs):
 
     if 'created' in kwargs:
         if kwargs['created']:
-            ticket_url = "%sadmin/tracker/ticket/%s/" % (
+            ticket_url = "%s/admin/tracker/ticket/%s/" % (
                 get_website_url(),
                 instance.pk,
             )

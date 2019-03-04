@@ -51,4 +51,4 @@ CACHES = {
     }
 }
 
-WEBSITE_URL = "https://www.creative-city-berlin.de/"
+WEBSITE_URL = "https://www.creative-city-berlin.de"  # no trailing slash

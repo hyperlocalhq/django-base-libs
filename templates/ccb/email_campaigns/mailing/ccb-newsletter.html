@@ -58,7 +58,7 @@
                                 <a href="{{ block.link }}">{% endif %}
                             <img
                                 style="width: 154px; margin-bottom: 18px; border: 0;"
-                                src="{{ WEBSITE_URL }}{{ UPLOADS_URL|slice:'1:' }}{{ block.image|modified_path:"gd" }}"
+                                src="{{ WEBSITE_URL }}{{ UPLOADS_URL }}{{ block.image|modified_path:"gd" }}"
                                 alt=""/>{% if block.link %}</a>{% endif %}{% endif %}</td>
                         <td class="text_row"
                             style="margin: 0;vertical-align: top;border-bottom: 1px solid #C7CFD5;padding: 18px 10px 0 0;">
