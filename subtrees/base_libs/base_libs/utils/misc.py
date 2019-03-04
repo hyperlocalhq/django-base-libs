@@ -34,7 +34,7 @@ def get_or_404(model, **fields):
 
 
 def get_website_url(path=""):
-    return settings.WEBSITE_URL
+    return settings.WEBSITE_URL + path
 
 
 def verify_objref_hash(content_type_id, object_id, hash):
