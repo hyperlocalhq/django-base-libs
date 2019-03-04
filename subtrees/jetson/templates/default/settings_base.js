@@ -19,7 +19,6 @@ window.settings = {
     MEDIA_HOST: '{{ MEDIA_HOST }}',
     JETSON_MEDIA_URL: '{{ JETSON_MEDIA_URL }}',
     WEBSITE_URL: '{{ WEBSITE_URL }}',
-    WEBSITE_SSL_URL: '{{ WEBSITE_SSL_URL }}',
     LANGUAGE_CODE: '{{ LANGUAGE_CODE }}',
     LANGUAGES: JSON.parse('{{ LANGUAGES_JSON }}'),
 
@@ -31,7 +30,6 @@ window.settings = {
     css_url: '{{ css_url }}',
     img_url: '{{ img_url }}',
     website_url: '{{ WEBSITE_URL }}',
-    website_ssl_url: '{{ WEBSITE_SSL_URL }}',
     lang: '{{ LANGUAGE_CODE }}',
     languages: JSON.parse('{{ LANGUAGES_JSON }}')
 };

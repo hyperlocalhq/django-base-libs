@@ -329,7 +329,7 @@ class PersonGroupBase(
 
     def get_absolute_url(self):
         from django.conf import settings
-        return "%s%s/%s/" % (get_website_url(), URL_ID_PERSONGROUP, self.slug)
+        return "%s/%s/%s/" % (get_website_url(), URL_ID_PERSONGROUP, self.slug)
 
     def get_url_path(self):
         from django.conf import settings
