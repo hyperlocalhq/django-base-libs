@@ -1,0 +1,56 @@
+{% extends "people/details_base.html" %}
+{% load i18n base_tags infoblocks %}
+
+{% block content %}
+    <div class="map">{{ block.super }}</div>{% endblock %}
+
+{% block details %}
+    <div class="map">
+        <noscript>{% infoblock "js_warning" %}</noscript>
+
+        <div class="go-back">
+            <a href="{{ object.get_url_path }}">{% trans "Back to profile view" %}</a>
+        </div>
+
+        {% if object.is_address_displayed %}
+            <div id="dyn_map" class="to_show">
+                <div id="gmap"></div>
+
+                <div id="maping_links">
+                    <a href="#contacts" id="dyn_but_contacts">{% trans "show all" %}</a>
+                    {% for contact in object.get_contacts %}
+                        {% with contact.postal_address.get_geoposition as geopos %}
+                            {% if geopos %}
+                                |
+                                <a id="dyn_but_contact_{{ forloop.counter0 }}" class="dyn_but_contact"
+                                    href="#contact_{{ forloop.counter0 }}">
+                                    {% if contact.location_title %}{{ contact.location_title }}{% else %}
+                                        {% trans "location" %} #{{ forloop.counter }}{% endif %}</a>
+                            {% endif %}
+                        {% endwith %}
+                    {% endfor %}
+                </div>
+
+                <div id="dyn_contact">
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block extrabody %}
+    <script type="text/javascript"
+        src="//maps.google.com/maps/api/js?language={{ LANGUAGE_CODE }}&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
+    <script type="text/javascript">
+        self.aGeopositions = [];
+        {% for contact in object.get_contacts %}
+            {% with contact.postal_address.get_geoposition as geopos %}
+                {% if geopos %}
+                    self.aGeopositions[{{ forloop.counter0 }}] = [{{ geopos.latitude }}, {{ geopos.longitude }}];
+                {% endif %}
+            {% endwith %}
+        {% endfor %}
+    </script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/map.js"></script>
+{% endblock %}
+

@@ -1,0 +1,33 @@
+{% load i18n uni_form_tags %}
+<div id="popup_content">
+    <form action="" method="post" class="uniForm">{% csrf_token %}
+        <fieldset class="inlineLabels">
+            <h3>{% trans "Relation" %}</h3>
+            {{ form.relation_types|as_uni_field }}
+
+            <h3>{% trans "Permissions" %}</h3>
+
+            <div class="permissions">
+                <div class="l-box">
+                    {{ form.display_phone|as_uni_field }}
+                    {{ form.display_fax|as_uni_field }}
+                    {{ form.display_mobile|as_uni_field }}
+                </div>
+                <div class="r-box">
+                    {{ form.display_birthday|as_uni_field }}
+                    {{ form.display_address|as_uni_field }}
+                    {{ form.display_im|as_uni_field }}
+                </div>
+            </div>
+            <div class="buttons">
+                <input class="primaryAction" type="submit" id="post" name="post"
+                    value='{% filter upper %}{% trans "Save" %}{% endfilter %}'/>
+                <input class="secondaryAction" type="button" name="remove"
+                    value="{% filter upper %}{% trans 'Remove' %}{% endfilter %}"
+                    onclick="IndividualRelationManager.remove('{{ user.username }}');"/>
+                <input class="secondaryAction" type="button" name="cancel"
+                    value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
+            </div>
+        </fieldset>
+    </form>
+</div>

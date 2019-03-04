@@ -1,0 +1,15 @@
+{% load i18n %}
+<div id="popup_content">
+    <form action="{{ rel_root_dir }}/helper/post/{{ post.slug }}/delete/" method="post" class="uniForm">{% csrf_token %}
+        <p class="disclaimer">
+            {% blocktrans with post.title as title_t %} Do you really want to delete the post '{{ title_t }}
+                '?{% endblocktrans %}
+        </p>
+
+        <div class="buttonHolder">
+            <input class="primaryAction" type="submit" id="post" name="post"
+                value='{% filter upper %}{% trans "Delete" %}{% endfilter %}'/>
+            <input class="secondaryAction" type="button" name="cancel" value="{% trans 'Cancel' %}"/>
+        </div>
+    </form>
+</div>

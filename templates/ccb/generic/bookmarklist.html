@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load i18n base_tags navigation_tags %}
+
+{% block extrahead %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js" defer="defer"></script>
+{% endblock %}
+
+{% block title %}{% trans "Bookmark List" %}{% endblock %}
+
+
+{% block headline %}
+    <h1>{% filter upper %}{% trans "Bookmark List" %}{% endfilter %}</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="go-back">
+        <a href="{{ request.META.HTTP_REFERER }}">{% trans "Go back" %}</a>
+    </div>
+    {% if object_list %}
+        <table id="bookmark_management" cellspacing="0" cellpadding="0">
+            {% for bookmark in object_list %}
+                <tr class="list-item" id="bookmark_row_{{ forloop.counter }}">
+                    <td>
+                        <span id="error_msg_{{ forloop.counter }}" style="display:none"></span>
+                        <h5>
+                            <a id="bookmark_link_{{ forloop.counter }}"
+                                href="{{ bookmark.url_path }}">{{ bookmark.title|escape }}</a>
+                        </h5>
+                        <input id="bookmark_title_{{ forloop.counter }}" class="input_field" maxlength="100" size="18"
+                            value="{{ bookmark.title|escape }}" name="search" style="display: none"/>
+                    </td>
+                    <td class="functions">
+                    <span class="buttons" id="main_functions_{{ forloop.counter }}">
+                        <input class="button_good" onclick="BookmarkManager.toggleRenaming({{ forloop.counter }}, 1)"
+                            type="button" value="{% filter upper %}{% trans 'rename' %}{% endfilter %}"/>
+                        <input class="button_bad" onclick="BookmarkManager.toggleDeleting({{ forloop.counter }}, 1)"
+                            type="button" value="{% filter upper %}{% trans 'delete' %}{% endfilter %}"/>
+                    </span>
+                    <span class="buttons" id="delete_functions_{{ forloop.counter }}" style="display: none">
+                        <input class="button_good" onclick="BookmarkManager.toggleDeleting({{ forloop.counter }}, 0)"
+                            type="button" value="{% filter upper %}{% trans 'cancel' %}{% endfilter %}"/>
+                        <input class="button_bad"
+                            onclick="BookmarkManager.deleteBookmark({{ bookmark.id }}, {{ forloop.counter }})"
+                            type="button" value="{% filter upper %}{% trans 'delete' %}{% endfilter %}"/>
+                    </span>
+                    <span class="buttons" id="renaming_functions_{{ forloop.counter }}" style="display: none">
+                        <input class="button_good"
+                            onclick="BookmarkManager.renameBookmark({{ bookmark.id }}, {{ forloop.counter }})"
+                            type="button" value="{% filter upper %}{% trans 'save' %}{% endfilter %}"/>
+                        <input class="button_bad" onclick="BookmarkManager.toggleRenaming({{ forloop.counter }}, 0)"
+                            type="button" value="{% filter upper %}{% trans 'cancel' %}{% endfilter %}"/>
+                    </span>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+    <p id="no_bookmarks" class="nothing"{% if object_list %} style="display: none;"{% endif %}>
+        {% trans "You have no bookmarks in your bookmark list." %}</p>
+{% endblock %}
+

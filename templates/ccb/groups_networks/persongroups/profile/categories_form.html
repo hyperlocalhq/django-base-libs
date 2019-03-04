@@ -1,0 +1,22 @@
+{% load i18n base_tags auth_extended %}
+{% comment %}<!-- UNUSED -->{% endcomment %}
+<h5 class="edit_subline">{% trans "edit categories data" %}</h5>
+<div class="search">
+    <form class="search_form" action="/{{ LANGUAGE_CODE }}/helper/edit-{{ URL_ID_PERSONGROUP }}-profile/{{ object.slug }}/categories/"
+        method="post" enctype="multipart/form-data" target="hidden_iframe">{% csrf_token %}
+        <div class="field_layout search">
+            {% include "site_specific/categories/categories.html" %}
+            <div id="message_suggest">
+                <div class="message_suggest_category left">{% blocktrans %}Is some      category missing? You can
+                    <a href="/ticket/new-category/">suggest it here</a>.{% endblocktrans %}
+                </div>
+            </div>
+            <div class="buttons">
+                <input type="button" class="button_bad right"
+                    value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}" name="cancel"/>
+                <input type="submit" class="button_good right"
+                    value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
+            </div>
+        </div>
+    </form>
+</div>

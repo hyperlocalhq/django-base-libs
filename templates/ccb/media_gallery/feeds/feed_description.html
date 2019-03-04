@@ -1,0 +1,11 @@
+{% load base_tags image_mods_tags %}
+{% if obj.cover_image %}
+    <img width="184" height="184" src="{{ UPLOADS_URL }}{{ obj.cover_image.path|modified_path:"glist" }}" alt=""/>
+{% else %}
+    <img width="184" height="184" src="{{ obj.mediafile_set.all.0.get_list_image_url }}" alt=""/>
+{% endif %}
+{% if obj.description %}
+    {% parse obj.get_rendered_description as description %}
+{% endif %}
+{{ description }}
+

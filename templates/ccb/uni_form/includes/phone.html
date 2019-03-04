@@ -1,0 +1,27 @@
+{% load i18n uni_form_field %}
+<div class="ctrlHolder">
+    {{ form.phone_country.error_tag }}
+    {{ form.phone_area.error_tag }}
+    {{ form.phone_number.error_tag }}
+    <p class="label">{% trans "Phone" %}</p>
+    <ul class="alternate">
+        <li>
+            <label for="id_phone_country">
+                {% trans "Country Code" %}<br/>{% trans "without" %} "00"
+                {{ form.phone_country|with_class }}
+            </label>
+        </li>
+        <li>
+            <label for="id_phone_area">
+                {% trans "Area Code" %}<br/>{% trans "without" %} "0"
+                {{ form.phone_area|with_class }}
+            </label>
+        </li>
+        <li>
+            <label for="id_phone_number">
+                {% trans "Number" %}<br/>{% trans "with direct dial" %}
+                {{ form.phone_number|with_class }}
+            </label>
+        </li>
+    </ul>
+</div>

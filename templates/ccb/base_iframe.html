@@ -1,0 +1,45 @@
+{% load i18n base_tags cms_tags menu_tags sekizai_tags%}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>{{ request.path }}</title>
+        
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic,300,300italic,900' rel='stylesheet' type='text/css'>
+        <link href="{{ STATIC_URL }}site/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen, print" type="text/css" />
+        <link href="{{ STATIC_URL }}site/css/style.css" rel="stylesheet" media="screen, print" type="text/css" />
+        
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery.mobile.custom.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/base.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/form.js"></script>
+        
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery-migrate-1.2.1.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.bgiframe.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/autocomplete.js"></script>
+        
+        <script type="text/javascript">
+        
+            var trans = {};
+            trans['Upload'] = '{% trans "Upload" %}';
+            trans['Cancel'] = '{% trans "Cancel" %}';
+            trans['Choose'] = '{% trans "Choose" %}';
+            trans['edit'] = '{% trans "edit" %}';
+            trans['close'] = '{% trans "close" %}';
+            {% block translations %}{% endblock %}
+            
+        </script>
+    </head>
+    <body class="is-xs">
+        <div id="body" class="iframe">
+            <div class="content-wrapper">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+        
+        {% block javascript %}
+        {% endblock %}
+    </body>
+</html>

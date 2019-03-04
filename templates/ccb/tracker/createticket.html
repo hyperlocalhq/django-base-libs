@@ -1,0 +1,15 @@
+{% extends "base_sidebar.html" %}
+{% load i18n crispy_forms_tags menu_tags %}
+
+{% block title %}
+    {% trans 'Feedback' %}
+{% endblock %}
+
+{% block headline %}
+    <h1>{% trans 'Feedback' %}</h1>
+{% endblock %}
+
+{% block details %}
+    {% crispy form "ccb_form" %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock %}

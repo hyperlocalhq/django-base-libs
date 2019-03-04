@@ -1,0 +1,48 @@
+{% load base_tags image_mods_tags i18n %}
+{% with obj as job_offer %}
+    <div>{% trans "Type" %}: {{ job_offer.job_type.title|escape }}</div>
+    <div>{% trans "Qualification" %}: {{ job_offer.qualification.title|escape }}</div>
+    <div class="description">
+        {{ job_offer.description|urlize|linebreaks }}
+    </div>
+    {% if job_offer.postal_address %}
+        {% with job_offer.postal_address.get_dict as postal_address %}
+            {% if postal_address.street_address or postal_address.country_name %}
+                <address class="location">
+                    {% if job_offer.venue %}
+                        <a href="{{ job_offer.venue.get_url_path }}">
+                            {{ job_offer.venue.title }}<br/>
+                        </a>
+                    {% else %}
+                        {{ job_offer.venue_title }}<br/>
+                    {% endif %}
+                    {% if postal_address.street_address %}
+                        {{ postal_address.street_address|escape }}<br/>
+                    {% endif %}
+                    {% if postal_address.street_address2 %}
+                        {{ postal_address.street_address2|escape }}<br/>
+                    {% endif %}
+                    {% if postal_address.street_address3 %}
+                        {{ postal_address.street_address3|escape }}<br/>
+                    {% endif %}
+                    {% if postal_address.postal_code %}
+                        {{ postal_address.postal_code|escape }} {{ postal_address.city|escape }}<br/>
+                    {% endif %}
+                    {% if postal_address.country_name %}
+                        {{ postal_address.country_name }}<br/>
+                    {% endif %}
+                </address>
+            {% endif %}
+        {% endwith %}
+    {% endif %}
+
+    {% if job_offer.get_contacts %}
+        {% for url in job_offer.get_contacts.0.get_urls %}
+            <span>
+                {% if url.type %}{{ url.type }}: {% endif %}<a class="url" href="{{ url.link|escape }}">
+                {% with url.link|slice:"0:27"|escape as sliced %}{{ sliced }}{% with url.link|escape as not_sliced %}
+                    {% ifnotequal sliced url.link|escape %}...{% endifnotequal %}{% endwith %}{% endwith %}</a><br/>
+            </span>
+        {% endfor %}
+    {% endif %}
+{% endwith %}

@@ -1,0 +1,7 @@
+{% load i18n base_tags auth_extended %}
+<div class="draggable_block content-box detail-list">
+    <div class="dragging_handle list-block-header">{% block block_title %}TITLE{% endblock %}</div>
+    {% block block_content %}
+        CONTENT
+    {% endblock %}
+</div>

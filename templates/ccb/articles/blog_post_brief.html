@@ -1,0 +1,49 @@
+{% load i18n base_tags babel navigation_tags articles_tags image_mods_tags favorites fb_tags %}
+
+<div class="col-xs-12">
+    <div class="wrapper">
+        <a class="content" href="{{ post.get_url_path }}?from=magazine">
+            <div class="image-wrapper">
+            {% if post.image %}
+                <img src="{{ UPLOADS_URL }}{{ post.image|modified_path:"list" }}" alt="{{ post.get_title|escape }}"/>
+                {% if post.image_author %}
+                    <div class="photo-credits-beneath">{% trans "Photo" %}: {{ post.image_author }}</div>
+                {% else %}
+                    {% with post.image|file_description as file_desc %}
+                        {% if file_desc.author %}
+                            <div class="photo-credits-beneath">{% trans "Photo" %}: {{ file_desc.author }}</div>
+                        {% elif post.image_description %}
+                            <div class="photo-credits-beneath">{{ post.get_rendered_image_description }}</div>
+                        {% endif %}
+                    {% endwith %}
+                {% endif %}
+            {% else %}
+                <img src="{{ STATIC_URL }}site/img/placeholder/infolink.png" alt="{{ post.get_title|escape }}"/>
+            {% endif %}
+            </div>
+            <div class="text">
+                <h3>
+                    {% if post.blog.content_object %}
+                        {{ post.blog.content_object.get_title }}
+                    {% else %}
+                        Creative City Berlin
+                    {% endif %}
+                    <time datetime="{{ post.published_from|date:"Y-m-d" }}">{{ post.published_from|datefmt:"long" }}</time>
+                </h3>
+                <h2>{{ post.title|striptags|escape }}</h2>
+                <p>
+                    {% parse post.get_rendered_body as content %}
+                    {{ content|striptags|truncatewords:"25" }}
+                </p>
+                <div>{% trans 'Read on' %}</div>
+            </div>
+        </a>
+        <div class="button-group">
+            {% if request.user.is_authenticated %}
+                {% adding2favorites for post using "generic/favorite_icon.html" %}
+            {% else %}
+                <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}" class="fawesome fa-favorite button"><span class="sr-only">{% trans "Add to favorites" %}</span></a>
+            {% endif %}
+        </div>
+    </div>
+</div>

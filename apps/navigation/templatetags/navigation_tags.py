@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
+import re
 from django.conf import settings
-from django.db.models.loading import get_model, load_app
 from django.template import loader, Template, Context
 from django import template
+from django.template import Context, Template
 
-from jetson.apps.navigation.models import NavigationLink
 from base_libs.utils.misc import get_website_url
+from ccb.apps.navigation.models import NavigationLink
+from ccb.apps.navigation.navigation_links import navigation_links
 
 register = template.Library()
 
 ### TAGS ###
-
 
 def do_find_active_nav_links(parser, token):
     """
@@ -28,15 +29,12 @@ def do_find_active_nav_links(parser, token):
         tag_name, str_under, sysname = token.split_contents()
     except ValueError:
         if not len(token.split_contents()) == 1:
-            raise template.TemplateSyntaxError, "%r tag requires a following syntax: {%% %r <sysname> %%}" % token.contents[
-                0]
+            raise template.TemplateSyntaxError, "%r tag requires a following syntax: {%% %r <sysname> %%}" % token.contents[0]
     return FindActiveNavLinks(sysname)
-
 
 class FindActiveNavLinks(template.Node):
     def __init__(self, sysname):
         self.sysname = sysname
-
     def render(self, context):
         sysname = ""
         if self.sysname:
@@ -54,9 +52,9 @@ class FindActiveNavLinks(template.Node):
             ActivenessChecker(link).render(context)
         return ""
 
-
 register.tag('find_active_nav_links', do_find_active_nav_links)
 
+    
 
 def do_children_of(parser, token):
     """
@@ -79,16 +77,13 @@ def do_children_of(parser, token):
         try:
             tag_name, sysname = token.split_contents()
         except ValueError:
-            raise template.TemplateSyntaxError, "%r tag requires a following syntax: {%% %r <sysname> [using <template_path>] %%}" % token.contents[
-                0]
+            raise template.TemplateSyntaxError, "%r tag requires a following syntax: {%% %r <sysname> [using <template_path>] %%}" % token.contents[0]
     return ChildrenOfNavLink(sysname, template_path)
-
 
 class ChildrenOfNavLink(template.Node):
     def __init__(self, sysname, template_path):
         self.sysname = sysname
         self.template_path = template_path
-
     def render(self, context):
         try:
             sysname = template.resolve_variable(self.sysname, context)
@@ -96,22 +91,82 @@ class ChildrenOfNavLink(template.Node):
         except:
             nav_link = None
         try:
-            template_path = template.resolve_variable(
-                self.template_path, context
-            )
+            template_path = template.resolve_variable(self.template_path, context)
         except:
             template_path = ""
         context_vars = context
         context_vars.push()
         context_vars['nav_link'] = nav_link
-        output = loader.render_to_string(
-            template_path or "navigation/children.html", context_vars
-        )
+        output = loader.render_to_string(template_path or "navigation/children.html", context_vars)
         context_vars.pop()
         return output
 
-
 register.tag('children_of', do_children_of)
+
+
+def do_navigation_links(parser, token):
+    """
+    This will output the children of NavigationLink with the specified sysname. By default it uses the template navigation/children.html, but optionally you can set some custom template.
+
+    Usage::
+
+        {% navigation_links <sysname> [using <template_path>] %}
+
+    Examples::
+
+        {% navigation_links "public_info" %}
+        {% navigation_links "profiles" using "navigation/includes/navigation_links_in_tabs.html" %}
+
+    """
+    try:
+        tag_name, sysname, str_using, template_path = token.split_contents()
+    except ValueError:
+        template_path = ""
+        try:
+            tag_name, sysname = token.split_contents()
+        except ValueError:
+            raise template.TemplateSyntaxError, "%r tag requires a following syntax: {%% %r <sysname> [using <template_path>] %%}" % token.contents[0]
+    return NavigationLinks(sysname, template_path)
+
+class NavigationLinks(template.Node):
+    def __init__(self, sysname, template_path):
+        self.sysname = sysname
+        self.template_path = template_path
+    def render(self, context):
+        sysname = template.resolve_variable(self.sysname, context)
+        try:
+            template_path = template.resolve_variable(self.template_path, context)
+        except:
+            template_path = ""
+
+        request = context['request']
+        links = []
+        links_config = navigation_links.get(sysname, [])
+        for config in links_config:
+            if config['should_be_shown'](context):
+                url_template = Template(config['url_{}'.format(context['LANGUAGE_CODE'])])
+                text_template = Template(config['text_{}'.format(context['LANGUAGE_CODE'])])
+                highlight_pattern_template = Template(config['highlight_pattern'])
+                is_highlighted = bool(re.compile(highlight_pattern_template.render(context)).search(request.path))
+                link = {
+                    'url': url_template.render(context),
+                    'text': text_template.render(context),
+                    'sysname': sysname,
+                    'is_highlighted': is_highlighted,
+                    'is_promoted': config.get('is_promoted', False),
+                    'is_login_required': config.get('is_login_required', False),
+                    'icon': config.get('icon', ''),
+                }
+                links.append(link)
+
+        context_vars = context
+        context_vars.push()
+        context_vars['links'] = links
+        output = loader.render_to_string(template_path or "navigation/includes/navigation_links.html", context_vars)
+        context_vars.pop()
+        return output
+
+register.tag('navigation_links', do_navigation_links)
 
 
 def do_parse_link(parser, token):
@@ -142,12 +197,10 @@ def do_parse_link(parser, token):
             link = ""
     return LinkParser(link, url_variable)
 
-
 class LinkParser(template.Node):
     def __init__(self, link, url_variable=None):
         self.link = link
         self.url_variable = url_variable
-
     def render(self, context):
         link = None
         link_url = ""
@@ -163,22 +216,19 @@ class LinkParser(template.Node):
         except:
             pass
         link_url = Template(link_url).render(Context(context)).strip()
-        if link_url and link and link.is_login_required and not context[
-            'request'].user.is_authenticated():
+        if link_url and link and link.is_login_required and not context['request'].user.is_authenticated():
             link_url = "%s?%s=%s" % (
                 settings.LOGIN_URL,
                 settings.REDIRECT_FIELD_NAME,
                 link_url,
-            )
+                )
         if self.url_variable:
             context[self.url_variable] = link_url
             return ""
         else:
             return link_url
 
-
 register.tag('parse_link', do_parse_link)
-
 
 def do_check_activeness(parser, token):
     """
@@ -200,7 +250,7 @@ def do_check_activeness(parser, token):
         {% activeness "/info/about/" as is_active %}
 
     """
-    activeness_variable = None
+    activeness_variable=None
     try:
         tag_name, link_url, str_as, activeness_variable = token.split_contents()
     except:
@@ -210,9 +260,8 @@ def do_check_activeness(parser, token):
             link_url = ""
     return ActivenessChecker(link_url, activeness_variable)
 
-
 def do_check_branch_activeness(parser, token):
-    activeness_variable = None
+    activeness_variable=None
     try:
         tag_name, link_url, str_as, activeness_variable = token.split_contents()
     except:
@@ -222,13 +271,11 @@ def do_check_branch_activeness(parser, token):
             link_url = ""
     return ActivenessChecker(link_url, activeness_variable, is_branch=True)
 
-
 class ActivenessChecker(template.Node):
     def __init__(self, link, activeness_variable=None, is_branch=False):
         self.link = link
         self.is_branch = is_branch
         self.activeness_variable = activeness_variable
-
     def render(self, context):
         request = context['request']
         website_url = get_website_url()
@@ -244,11 +291,11 @@ class ActivenessChecker(template.Node):
             for related in link.get_related_urls():
                 rendered = Template(related).render(Context(context))
                 if rendered:
-                    rendered = rendered.replace(website_url, "/")
+                    rendered = rendered.replace(website_url, "")
                     related_link_urls.append(rendered)
         else:
             link_url = Template(link).render(Context(context))
-        link_url = link_url.replace(website_url, "/")
+        link_url = link_url.replace(website_url, "")
         current_path = request.path
         if request.META['QUERY_STRING']:
             current_path += "?" + request.META['QUERY_STRING']
@@ -288,7 +335,6 @@ class ActivenessChecker(template.Node):
         else:
             return is_active_link and "active" or ""
 
-
 register.tag('activeness', do_check_activeness)
 register.tag('branch_activeness', do_check_branch_activeness)
 
@@ -318,24 +364,21 @@ def do_adjacent_child_of(parser, token):
         direction = "previous"
     try:
         sysname = bits.pop(0)
-        assert (len(bits) <= 3)
-        if len(bits) == 1:
-            assert (bits[0] == "loop")
+        assert(len(bits)<=3)
+        if len(bits)==1:
+            assert(bits[0] == "loop")
             loop = True
-        elif len(bits) == 2:
-            assert (bits[0] == "using")
+        elif len(bits)==2:
+            assert(bits[0] == "using")
             template_path = bits[1]
-        elif len(bits) == 3:
-            assert (bits[0] == "loop")
-            assert (bits[1] == "using")
+        elif len(bits)==3:
+            assert(bits[0] == "loop")
+            assert(bits[1] == "using")
             loop = True
             template_path = bits[2]
     except ValueError:
-        raise template.TemplateSyntaxError, "%s tag requires a following syntax: {%% %s <sysname> [loop] [using <template_path>] %%}" % (
-            tag_name, tag_name
-        )
+        raise template.TemplateSyntaxError, "%s tag requires a following syntax: {%% %s <sysname> [loop] [using <template_path>] %%}" % (tag_name, tag_name)
     return ChildOfNavLink(sysname, direction, loop, template_path)
-
 
 class ChildOfNavLink(template.Node):
     def __init__(self, sysname, direction, loop, template_path):
@@ -343,24 +386,21 @@ class ChildOfNavLink(template.Node):
         self.direction = direction
         self.loop = loop
         self.template_path = template_path
-
     def render(self, context):
         request = context['request']
         if not hasattr(request, "active_nav_links"):
             return ""
-
+        
         try:
             sysname = template.resolve_variable(self.sysname, context)
             parent_link = NavigationLink.site_objects.get(sysname=sysname)
         except:
             return ""
         try:
-            template_path = template.resolve_variable(
-                self.template_path, context
-            )
+            template_path = template.resolve_variable(self.template_path, context)
         except:
             template_path = ""
-
+        
         root_link = None
         bits = parent_link.path.split("/")
         if bits[1]:
@@ -368,76 +408,72 @@ class ChildOfNavLink(template.Node):
             root_link = NavigationLink.objects.get(pk=root_pk)
         if not root_link:
             root_link = parent_link
-        active_link_sysname = request.active_nav_links.get(
-            root_link.sysname, {}
-        ).get(parent_link.get_level() + 1)
+        active_link_sysname = request.active_nav_links.get(root_link.sysname, {}).get(parent_link.get_level() + 1)
         try:
-            active_link = NavigationLink.site_objects.get(
-                sysname=active_link_sysname
-            )
+            active_link = NavigationLink.site_objects.get(sysname=active_link_sysname)
         except:
             return ""
-
+        
         nav_link = None
         if request.user.is_authenticated():
             extra = {
                 'is_shown_for_users': True,
-            }
+                }
         else:
             extra = {
                 'is_shown_for_visitors': True,
-            }
-
+                }
+                
         if self.direction == "previous":
             previous_links = NavigationLink.site_objects.filter(
                 parent=parent_link,
                 sort_order__lt=active_link.sort_order,
                 **extra
-            ).order_by("-sort_order")
+                ).order_by("-sort_order")
             if previous_links.count():
                 nav_link = previous_links[0]
             elif self.loop:
                 nav_link = NavigationLink.site_objects.filter(
-                    parent=parent_link, **extra
+                parent=parent_link,
+                **extra
                 ).order_by("-sort_order")[0]
         elif self.direction == "next":
             next_links = NavigationLink.site_objects.filter(
                 parent=parent_link,
                 sort_order__gt=active_link.sort_order,
                 **extra
-            ).order_by("sort_order")
+                ).order_by("sort_order")
             if next_links.count():
                 nav_link = next_links[0]
             elif self.loop:
                 nav_link = NavigationLink.site_objects.filter(
-                    parent=parent_link, **extra
+                parent=parent_link,
+                **extra
                 ).order_by("sort_order")[0]
-
+        
         context_vars = context
         context_vars.push()
         context_vars['nav_link'] = nav_link
-        output = loader.render_to_string(
-            template_path or "navigation/%s.html" % self.direction, context_vars
-        )
+        output = loader.render_to_string(template_path or "navigation/%s.html" % self.direction, context_vars)
         context_vars.pop()
         return output
-
 
 register.tag('next_child_of', do_adjacent_child_of)
 register.tag('previous_child_of', do_adjacent_child_of)
 
 ### FILTERS ###
 
-
 def nav_link_counter(sysname):
     """ returns the counter of the navigation link in the scope of siblings
     """
-    nav_link = NavigationLink.site_objects.get(sysname=sysname, )
+    nav_link = NavigationLink.site_objects.get(
+        sysname=sysname,
+        )
     counter = NavigationLink.site_objects.filter(
         parent=nav_link.parent,
         sort_order__lte=nav_link.sort_order,
-    ).count()
+        ).count()
     return counter
-
-
+    
 register.filter('nav_link_counter', nav_link_counter)
+

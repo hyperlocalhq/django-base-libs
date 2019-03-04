@@ -1,0 +1,50 @@
+{% extends "media_gallery/portfolio_base.html" %}
+{% load i18n base_tags auth_extended infoblocks image_mods_tags crispy_forms_tags %}
+
+{% block object_controls %}
+    <a href="{{ object.get_url_path }}portfolio/manage/">{% trans "All projects" %}</a>
+{% endblock %}
+
+{% block additional_controls %}
+    <div class="media_nav">
+        <div class="right">
+            <a class="portfolio-manage"
+                href="{{ object.get_url_path }}portfolio/manage/"><span><span>{% trans "All projects" %}</span></span>
+            </a>
+            <a class="portfolio-add active"
+                href="{{ object.get_url_path }}portfolio/album/add/"><span><span>{% trans "Add project" %}</span></span>
+            </a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block details %}
+    <div id="create_update_gallery">
+        {% crispy form "ccb_form" %}
+    </div>
+    {% if gallery.pk %}
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function () {
+                    $('<input type="button" class="secondaryAction" value="' + gettext('Cancel') + '">').click(function () {
+                        redirect("../../../manage/");
+                    }).prependTo(
+                        $(":submit").parent()
+                    );
+                })
+            }(jQuery));
+        </script>
+    {% else %}
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function () {
+                    $('<input type="button" class="secondaryAction" value="' + gettext('Cancel') + '">').click(function () {
+                        redirect("../../manage/");
+                    }).prependTo(
+                        $(":submit").parent()
+                    );
+                })
+            }(jQuery));
+        </script>
+    {% endif %}
+{% endblock %}
