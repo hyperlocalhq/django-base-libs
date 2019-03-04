@@ -380,11 +380,7 @@ class ParseNode(template.Node):
     def render(self, context):
         template_value = template.resolve_variable(self.template_value, context)
         t = Template(template_value)
-        context_vars = {}
-        for d in list(context):
-            for var, val in d.items():
-                context_vars[var] = val
-        result = t.render(RequestContext(context['request'], context_vars))
+        result = t.render(context)
         if self.var_name:
             context[self.var_name] = result
             return ""
