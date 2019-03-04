@@ -151,14 +151,14 @@ class ProductionImageResource(ModelResource):
         if bundle.obj.path:
             bundle.data['url'] = "".join((
                 get_website_url(),
-                settings.MEDIA_URL[1:],
+                settings.MEDIA_URL,
                 bundle.obj.path.path,
             ))
             list_image_path, query_params = FileManager.modified_path(bundle.obj.path.path, "list_image")
             if list_image_path:
                 bundle.data['list_image_url'] = "".join((
                     get_website_url(),
-                    settings.MEDIA_URL[1:],
+                    settings.MEDIA_URL,
                     list_image_path,
                 ))
             try:
@@ -195,7 +195,7 @@ class ProductionPDFResource(ModelResource):
         if bundle.obj.path:
             bundle.data['url'] = "".join((
                 get_website_url(),
-                settings.MEDIA_URL[1:],
+                settings.MEDIA_URL,
                 bundle.obj.path.path,
             ))
             try:
@@ -294,7 +294,7 @@ class ProductionSponsorResource(ModelResource):
         if bundle.obj.image:
             bundle.data['image_url'] = "".join((
                 get_website_url(),
-                settings.MEDIA_URL[1:],
+                settings.MEDIA_URL,
                 bundle.obj.image.path,
                 ))
         return bundle
@@ -356,14 +356,14 @@ class EventImageResource(ModelResource):
         if bundle.obj.path:
             bundle.data['url'] = "".join((
                 get_website_url(),
-                settings.MEDIA_URL[1:],
+                settings.MEDIA_URL,
                 bundle.obj.path.path,
             ))
             list_image_path, query_params = FileManager.modified_path(bundle.obj.path.path, "list_image")
             if list_image_path:
                 bundle.data['list_image_url'] = "".join((
                     get_website_url(),
-                    settings.MEDIA_URL[1:],
+                    settings.MEDIA_URL,
                     list_image_path,
                 ))
             try:
@@ -400,7 +400,7 @@ class EventPDFResource(ModelResource):
         if bundle.obj.path:
             bundle.data['url'] = "".join((
                 get_website_url(),
-                settings.MEDIA_URL[1:],
+                settings.MEDIA_URL,
                 bundle.obj.path.path,
             ))
             try:
@@ -499,7 +499,7 @@ class EventSponsorResource(ModelResource):
         if bundle.obj.image:
             bundle.data['image_url'] = "".join((
                 get_website_url(),
-                settings.MEDIA_URL[1:],
+                settings.MEDIA_URL,
                 bundle.obj.image.path,
                 ))
         return bundle
@@ -559,7 +559,7 @@ class EventResource(ModelResource):
                     'slug': bundle.obj.production.slug,
                     'event_id': bundle.obj.pk,
                 })
-                bundle.data['link_%s' % lang_code] = "".join((get_website_url()[:-1], path))
+                bundle.data['link_%s' % lang_code] = "".join((get_website_url(), path))
             except:
                 pass
         activate(current_language)
@@ -668,7 +668,7 @@ class ProductionResource(ModelResource):
             try:
                 activate(lang_code)
                 path = reverse('production_detail', kwargs={'slug': bundle.obj.slug})
-                bundle.data['link_%s' % lang_code] = "".join((get_website_url()[:-1], path))
+                bundle.data['link_%s' % lang_code] = "".join((get_website_url(), path))
             except:
                 pass
         activate(current_language)

@@ -740,7 +740,7 @@ def culturebase_export_productions(request, location_slug):
             if list_image_path:
                 list_image_url = "".join((
                     get_website_url(),
-                    settings.MEDIA_URL[1:],
+                    settings.MEDIA_URL,
                     list_image_path,
                 ))
 
