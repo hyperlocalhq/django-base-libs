@@ -33,8 +33,22 @@ def get_or_404(model, **fields):
          (force_unicode(model._meta.verbose_name), msg)
 
 
-def get_website_url(path=""):
-    return settings.WEBSITE_URL + path
+def get_website_url(path="/"):
+    protocol = getattr(settings, "PROTOCOL", "http")
+    domain = Site.objects.get_current().domain
+    port = getattr(settings, "PORT", "")
+    if port:
+        assert port.startswith(":"), "The PORT setting must have a preceeding ':'."
+    return u"%s://%s%s%s" % (protocol, domain, port, path)
+
+
+def get_website_ssl_url(path="/"):
+    protocol = getattr(settings, "HTTPS_PROTOCOL", "https")
+    domain = Site.objects.get_current().domain
+    port = getattr(settings, "PORT", "")
+    if port:
+        assert port.startswith(":"), "The PORT setting must have a preceeding ':'."
+    return u"%s://%s%s%s" % (protocol, domain, port, path)
 
 
 def verify_objref_hash(content_type_id, object_id, hash):

@@ -443,7 +443,7 @@ class PersonBase(CreationModificationDateMixin, UrlMixin):
         return False
 
     def get_absolute_url(self):
-        return "%s/network/member/%s/" % (get_website_url(), self.user.username)
+        return "%snetwork/member/%s/" % (get_website_url(), self.user.username)
 
     def get_url_path(self):
         return "/network/member/%s/" % (self.user.username, )

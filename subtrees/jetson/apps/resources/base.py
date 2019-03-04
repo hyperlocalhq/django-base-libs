@@ -307,7 +307,7 @@ class DocumentBase(CreationModificationDateMixin, UrlMixin):
         )
 
     def get_absolute_url(self):
-        return "%s/%s/%s/" % (get_website_url(), URL_ID_DOCUMENT, self.slug)
+        return "%s%s/%s/" % (get_website_url(), URL_ID_DOCUMENT, self.slug)
 
     def get_url_path(self):
         return "/%s/%s/" % (URL_ID_DOCUMENT, self.slug)

@@ -244,11 +244,11 @@ class ActivenessChecker(template.Node):
             for related in link.get_related_urls():
                 rendered = Template(related).render(Context(context))
                 if rendered:
-                    rendered = rendered.replace(website_url, "")
+                    rendered = rendered.replace(website_url, "/")
                     related_link_urls.append(rendered)
         else:
             link_url = Template(link).render(Context(context))
-        link_url = link_url.replace(website_url, "")
+        link_url = link_url.replace(website_url, "/")
         current_path = request.path
         if request.META['QUERY_STRING']:
             current_path += "?" + request.META['QUERY_STRING']

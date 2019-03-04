@@ -9,6 +9,7 @@ from django.utils.six import string_types
 from filebrowser.settings import MEDIA_URL as UPLOADS_URL
 
 from base_libs.utils.misc import get_website_url
+from base_libs.utils.misc import get_website_ssl_url
 
 from jetson.apps.httpstate import settings as httpstate_settings
 
@@ -37,6 +38,7 @@ def general(request=None):
         'COOKIE_DOMAIN': cookie_domain,
         'HTTPS': getattr(settings, "HTTPS_PROTOCOL", "https"),
         'WEBSITE_URL': get_website_url(),
+        'WEBSITE_SSL_URL': get_website_ssl_url(),
         'LANGUAGES': settings.LANGUAGES,
         'LANGUAGES_JSON': mark_safe(json.dumps(dict(settings.LANGUAGES))),
 
@@ -51,6 +53,7 @@ def general(request=None):
         'img_url': getattr(settings, "IMG_URL", ""),
         'https': getattr(settings, "HTTPS_PROTOCOL", "https"),
         'website_url': get_website_url(),
+        'website_ssl_url': get_website_ssl_url(),
         'languages': mark_safe(json.dumps(dict(settings.LANGUAGES))),
     }
     return d

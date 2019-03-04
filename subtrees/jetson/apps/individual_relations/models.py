@@ -488,7 +488,7 @@ def individual_relation_requested(sender, instance, **kwargs):
             "object_description":
                 instance.message,
             "object_url":
-                "%s/people/requested/?by-status=pending" % get_website_url()
+                "%speople/requested/?by-status=pending" % get_website_url()
         },
     )
     if apps.is_installed("actstream"):
