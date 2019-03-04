@@ -17,11 +17,9 @@ from django.conf import settings
 
 from base_libs.models.models import ObjectRelationMixin
 from base_libs.models.models import SingleSiteMixin
-from base_libs.models.models import HierarchyMixin
 from base_libs.models.models import SysnameMixin
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
-from base_libs.models.fields import ExtendedTextField  # needed for south to work
 
 from base_libs.models.fields import PlainTextModelField
 from base_libs.utils.misc import get_unique_value

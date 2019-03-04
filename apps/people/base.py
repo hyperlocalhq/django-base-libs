@@ -34,7 +34,6 @@ from base_libs.utils.betterslugify import better_slugify
 from base_libs.models.fields import URLField
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
-from base_libs.models.fields import ExtendedTextField  # for south
 
 from filebrowser.fields import FileBrowseField
 

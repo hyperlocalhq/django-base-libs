@@ -1,12 +1,7 @@
 # -*- coding: UTF-8 -*-
-import os
-import re
 import sys
-from datetime import datetime
 
 from django.db import models
-from django.db.models.base import ModelBase
-from django.db.models.fields import FieldDoesNotExist
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.contrib.auth.models import User
@@ -21,13 +16,11 @@ from django.utils.safestring import mark_safe
 from django.utils.functional import lazy
 from django.conf import settings
 from django.utils.timezone import now as tz_now
-from django.apps import AppConfig
 
 from base_libs.middleware import get_current_language
 from base_libs.middleware import get_current_user
 from base_libs.utils.misc import get_website_url
 from base_libs.utils.misc import get_translation
-from base_libs.utils.betterslugify import better_slugify
 from base_libs.models.query import ExtendedQuerySet
 from base_libs.models.models import UrlMixin
 from base_libs.models.models import ObjectRelationMixin
@@ -35,12 +28,10 @@ from base_libs.models.models import CreationModificationDateMixin
 from base_libs.models.models import SlugMixin
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
-from base_libs.models.fields import ExtendedTextField  # for south
 
 from filebrowser.fields import FileBrowseField
 
 from jetson.apps.i18n.models import Language
-from jetson.apps.structure.models import Term
 from jetson.apps.structure.models import ContextCategory
 from jetson.apps.permissions.models import RowLevelPermission
 from jetson.apps.permissions.models import PerObjectGroup

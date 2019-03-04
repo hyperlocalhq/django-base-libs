@@ -34,9 +34,6 @@ from base_libs.models.models import CreationDateMixin
 from base_libs.models.models import ObjectRelationMixin
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualPlainTextField
-from base_libs.models.fields import PlainTextModelField  # for south to work
-
-from jetson.apps.people.functions import get_user_language
 
 # The following won't work, because apps are not yet loaded to the registry at this point:
 # EmailTemplate = apps.get_model("mailing", "EmailTemplate")

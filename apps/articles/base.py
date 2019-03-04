@@ -18,18 +18,12 @@ from base_libs.models.models import SlugMixin
 from base_libs.models.models import CreationModificationDateMixin
 from base_libs.models.models import PublishingMixin
 from base_libs.models.models import ViewsMixin
-from base_libs.models.models import HierarchyMixin
 from base_libs.models.fields import MultilingualCharField
-from base_libs.models.fields import MultilingualTextField
-from base_libs.models.fields import ExtendedTextField  # needed for south to work
-from base_libs.utils.misc import get_website_url
+from base_libs.models.fields import ExtendedTextField
 from base_libs.utils.misc import html_to_plain_text
-from base_libs.models.base_libs_settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
 from base_libs.middleware import get_current_language
 
 from filebrowser.fields import FileBrowseField
-from filebrowser.settings import MEDIA_ROOT as UPLOADS_ROOT
-from filebrowser.settings import MEDIA_URL as UPLOADS_URL
 
 from mptt.models import MPTTModel
 from mptt.managers import TreeManager
