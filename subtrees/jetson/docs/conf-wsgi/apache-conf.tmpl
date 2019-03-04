@@ -1,0 +1,11 @@
+<VirtualHost 85.214.128.119:80>
+
+...
+
+WSGIProcessGroup ###########-django
+<Directory /home/###########/public_html>
+
+....
+
+</VirtualHost>
+WSGIDaemonProcess ###########-django user=REAL_USER_NAME group=REAL_USER_NAME threads=5 maximum-requests=1000 inactivity-timeout=300

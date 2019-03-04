@@ -1,0 +1,53 @@
+{% extends "base_map.html" %}
+{% load i18n image_modifications base_tags auth_extended %}
+{% block title %}{% trans "Museums and Other Locations" %} – {% endblock %}
+{% block bodyclass %}location-list{% endblock %}
+
+{% block js %}
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.min.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
+  <script type="text/javascript">
+    var str_filter_selection = "{% trans "Filter selection" %}";
+  </script>
+{% endblock %}
+
+{% block filters %}
+{% endblock %}
+
+{% block list-title %}
+  {% trans "Museums, Palaces, and Memorials" %}
+{% endblock %}
+
+{% block map-list %}
+  <div id="container">
+    {% for location in object_list %}
+      <div class="item" data-geo="{{ location.latitude|stringformat:"f" }},{{ location.longitude|stringformat:"f" }}" data-object_id="{{ location.pk }}">
+        <a href="{{ location.get_url_path }}">
+          <h3>{{ location.title }}</h3>
+          {% if location.subtitle %}
+            <h4>{{ location.subtitle }}&nbsp;</h4>
+          {% endif %}
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+  <script>
+    var MARKER_DEFAULT_IMAGE_PATH = self.settings.STATIC_URL + 'site/img/marker_museumssummer_default.png';
+    var MARKER_SELECTED_IMAGE_PATH = self.settings.STATIC_URL + 'site/img/marker_museumssummer_selected.png';
+    var aGeopositions = [];
+    {% for location in object_list %}
+      {% if location.latitude and location.longitude %}
+        aGeopositions.push({
+          object_id: '{{ location.pk }}',
+          html_src: '{{ location.get_url_path }}',
+          latitude: {{ location.latitude|stringformat:"f" }},
+          longitude: {{ location.longitude|stringformat:"f" }},
+          geo: "{{ location.latitude|stringformat:"f" }},{{ location.longitude|stringformat:"f" }}",
+          categories: ''
+        });
+      {% endif %}
+    {% endfor %}
+  </script>
+  {% include "utils/gmap_scripts.html" %}
+{% endblock %}

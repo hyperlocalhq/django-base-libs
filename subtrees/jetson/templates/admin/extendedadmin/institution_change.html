@@ -1,0 +1,568 @@
+{% extends "admin/change_form.html" %}
+
+<!-- LOADING -->
+{% load base_tags i18n auth_extended extended_admin static %}
+
+<!-- STYLES -->
+{% block extrastyle %}
+    {{ block.super }}
+    <style type="text/css">
+        /*<![CDATA[*/
+        #break_start_row, #break_end_row {
+            display: none;
+        }
+
+        /*]]>*/
+    </style>
+{% endblock %}
+
+<!-- JAVASCRIPTS -->
+{% block javascripts %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/SelectBox.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/SelectFilter2.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/admin/DateTimeShortcuts.js' %}"></script>
+
+    <script type="text/javascript"
+            src="{% url 'jetson_media_url' path='js/jquery/autocomplete_1.0/jquery.bgiframe.min.js' %}"></script>
+    <script type="text/javascript"
+            src="{% url 'jetson_media_url' path='js/jquery/autocomplete_1.0/jquery.autocomplete.js' %}"></script>
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/autocomplete.js' %}"></script>
+    <script type="text/javascript" src="{% static 'filebrowser/js/AddFileBrowser.js' %}"></script>
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/institution_change.js' %}"></script>
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/URLField.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/urlify.js' %}"></script>
+    <script type="text/javascript" charset="utf-8">
+        (function ($) {
+            $(document).ready(function () {
+                grappelli.initDateAndTimePicker();
+                $("div.container-flexible div.group").grp_collapsible_group();
+                $("div#content .collapse").grp_collapsible({
+                    on_init: function (elem, options) {
+                        // open collapse (and all collapse parents) in case of errors
+                        if (elem.find("ul.errorlist").length > 0) {
+                            elem.removeClass("closed")
+                                .addClass("open");
+                            elem.parents(".collapse")
+                                .removeClass("closed")
+                                .addClass("open");
+                        }
+                    }
+                });
+            });
+        })(django.jQuery);
+    </script>
+{% endblock %}
+
+<!-- COLTYPE/BODYCLASS -->
+{% block bodyclass %}grp-change-form institution{% endblock %}
+{% block content-class %}grp-content-flexible{% endblock %}
+
+<!-- BREADCRUMBS -->
+{% block breadcrumbs %}
+    {% if not is_popup %}
+        <ul id="breadcrumbs">
+            <li>
+                <a href="../../../">{% trans "Home" %}</a>
+            </li>
+            <li>
+                <a href="../../">{{ "Institutions"|app_verbose_name }}</a>
+            </li>
+            <li>
+                <a href="../">{% trans "Institutions" %}</a>
+            </li>
+            <li>
+                {% if original %}{{ original|truncatewords:"18" }}{% else %}{% trans "Add" %} {% trans "Institution" %}{% endif %}</li>
+        </ul>
+    {% endif %}
+{% endblock %}
+
+<!-- OBJECT TOOLS -->
+{% block object-tools %}
+    {% if change and not is_popup %}
+        <ul class="grp-object-tools">
+            <li>
+                <a href="history/" class="historylink">{% trans "History" %}</a>
+            </li>
+            {% if original.row_level_permissions %}
+                {% if_has_perm "auth.change_rowlevelpermission" original %}
+                    <li>
+                        <a href="permissions/" class="rowlevelpermissions">{% trans "Permissions" %}</a>
+                    </li>
+                {% end_if_has_perm %}
+            {% endif %}
+            {% if original.get_url_path %}
+                <li>
+                    <a href="{{ original.get_url_path }}" class="viewsitelink">{% trans "View on site" %}</a>
+                </li>
+            {% endif %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+<!-- CONTENT -->
+{% block content %}
+    <form action="" method="post" id="institution_form">{% csrf_token %}
+        <div>
+            <!-- Popup Hidden Field -->
+            {% if is_popup %}
+                <input type="hidden" name="_popup" value="1"/>{% endif %}
+
+            <!-- Errors -->
+            {% if form.errors %}
+                <p class="errornote">
+                    {% blocktrans count form.errors.items|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+                </p>
+                {{ form.non_field_errors }}
+            {% endif %}
+
+            <!-- Fieldsets -->
+            <fieldset class="grp-module grp-aligned grp-collapse grp-open">
+                <h2>{% trans "Institution" %}</h2>
+                <div class="grp-row grp-cells-1{% if form.title.errors %} grp-errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label
+                                    {% if form.title.field.required %} class="required"{% endif %}>{{ form.title.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            {{ form.title }}
+                            {% if form.title.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.title.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            {% if form.title.help_text %}<p class="grp-help">{{ form.title.help_text }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="grp-row grp-cells-1{% if form.title2.errors %} grp-errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label
+                                    {% if form.title2.field.required %} class="required"{% endif %}>{{ form.title2.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            {{ form.title2 }}
+                            {% if form.title2.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.title2.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            {% if form.title2.help_text %}<p class="grp-help">{{ form.title2.help_text }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="grp-row grp-cells-1{% if form.slug.errors %} grp-errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label
+                                    {% if form.slug.field.required %} class="required"{% endif %}>{{ form.slug.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            {{ form.slug }}
+                            {% if form.slug.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.slug.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            {% if form.slug.help_text %}<p class="grp-help">{{ form.slug.help_text }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="grp-row grp-cells-1{% if form.institution_types.errors %} grp-errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label
+                                    {% if form.institution_types.field.required %} class="required"{% endif %}>{{ form.institution_types.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            {{ form.institution_types }}
+                            {% if form.institution_types.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.institution_types.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            {% if form.institution_types.help_text %}
+                                <p class="grp-help">{{ form.institution_types.help_text }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    addEvent(window, "load", (function (event) {
+                        SelectFilter.init("id_institution_types", "{% trans "Types" %}", 0, "{% static 'admin/' %}");
+                    }));
+                </script>
+                <div class="grp-row grp-cells-1{% if form.legal_form.errors %} grp-errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label
+                                    {% if form.legal_form.field.required %} class="required"{% endif %}>{{ form.legal_form.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            {{ form.legal_form }}
+                            {% if form.legal_form.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.legal_form.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            {% if form.legal_form.help_text %}
+                                <p class="grp-help">{{ form.legal_form.help_text }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="grp-row">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            &nbsp;
+                        </div>
+                        <div class="c-2">
+                            {{ form.is_non_profit }}
+                            <label class="vCheckboxLabel" for="id_is_non_profit">{{ form.is_non_profit.label }}</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add jQuery-based autocomplete field -->
+                <div class="grp-row grp-cells-1{% if form.parent.errors %} grp-errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label
+                                    {% if form.parent.field.required %} class="required"{% endif %}>{{ form.parent.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            {{ form.parent }}
+                            {% if form.parent.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.parent.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            {% if form.parent.help_text %}<p class="grp-help">{{ form.parent.help_text }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            {% include "extendedadmin/includes/fieldset_opening_hours.html" %}
+
+            <div id="institutionalcontact_set-group" class="grp-group grp-collapse grp-close">
+                <h2>{% trans "Contacts" %}</h2>
+                <ul class="grp-tools">
+                    <li class="grp-open-handler-container">
+                        <a href="javascript://"
+                           class="grp-icon grp-open-handler"
+                           title="{% trans 'Open All Items' %}"></a>
+                    </li>
+                    <li class="grp-close-handler-container">
+                        <a href="javascript://"
+                           class="grp-icon grp-close-handler"
+                           title="{% trans 'Close All Items' %}"></a>
+                    </li>
+                    <li class="grp-add-handler-container">
+                        <a href="javascript://" class="grp-icon grp-add-handler" title="{% trans 'Add Item' %}"></a>
+                    </li>
+                </ul>
+                {{ contact_formset.management_form }} {{ contact_formset.non_form_errors }}
+                <!-- container -->
+                <div id="contact_container" class="grp-items">
+                    {% for contact_form in contact_formset.forms %}
+                        {% with prefix=forloop.counter0 counter=forloop.counter %}
+                            {% include "extendedadmin/includes/institutional_contact_change.html" %}
+                        {% endwith %}
+                    {% endfor %}
+                    {% with contact_form=contact_formset.empty_form prefix="__prefix__" counter=0 %}
+                        {% include "extendedadmin/includes/institutional_contact_change.html" %}
+                    {% endwith %}
+                </div>
+                <div class="grp-module grp-transparent grp-dynamic-form">
+                    <div class="grp-row">
+                        <a class="grp-add-handler" href="javascript://"><strong>{% trans "Add Contact" %}</strong></a>
+                        <ul class="grp-tools">
+                            <li>
+                                <a title="{% trans "Add Contact" %}"
+                                   class="grp-icon grp-add-handler"
+                                   href="javascript://"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            {% include "extendedadmin/includes/fieldset_details.html" %}
+
+            {% include "extendedadmin/includes/fieldset_categories.html" %}
+
+            <fieldset class="grp-module grp-aligned grp-collapse grp-closed">
+                <h2 class="grp-collapse-handler">{% trans "Additional Info" %}</h2>
+                <div class="grp-row grp-cells-1{% if form.access.errors %} grp-errors{% endif %}">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            <label
+                                    {% if form.access.field.required %} class="required"{% endif %}>{{ form.access.label }}</label>
+                        </div>
+                        <div class="c-2">
+                            {{ form.access }}
+                            {% if form.access.errors %}
+                                <ul class="errorlist">
+                                    <li>{{ form.access.errors|join:", " }}</li>
+                                </ul>
+                            {% endif %}
+
+                            {% if form.access.help_text %}<p class="grp-help">{{ form.access.help_text }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="grp-row">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            &nbsp;
+                        </div>
+                        <div class="c-2">
+                            {{ form.is_parking_avail }}
+                            <label class="vCheckboxLabel"
+                                   for="id_is_parking_avail">{{ form.is_parking_avail.label }}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="grp-row">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">
+                            &nbsp;
+                        </div>
+                        <div class="c-2">
+                            {{ form.is_wlan_avail }}
+                            <label class="vCheckboxLabel" for="id_is_wlan_avail">{{ form.is_wlan_avail.label }}</label>
+                        </div>
+                    </div>
+                </div>
+                <fieldset class="grp-module grp-aligned grp-collapse grp-closed nested">
+                    <h2 class="grp-collapse-handler">{% trans "Payment options" %}</h2>
+                    <div class="grp-row">
+                        <div class="l-2c-fluid l-d-4">
+                            <div class="c-1">
+                                &nbsp;
+                            </div>
+                            <div class="c-2">
+                                {{ form.is_card_visa_ok }}
+                                <label class="vCheckboxLabel"
+                                       for="id_is_card_visa_ok">{{ form.is_card_visa_ok.label }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grp-row">
+                        <div class="l-2c-fluid l-d-4">
+                            <div class="c-1">
+                                &nbsp;
+                            </div>
+                            <div class="c-2">
+                                {{ form.is_card_mastercard_ok }}
+                                <label class="vCheckboxLabel"
+                                       for="id_is_card_mastercard_ok">{{ form.is_card_mastercard_ok.label }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grp-row">
+                        <div class="l-2c-fluid l-d-4">
+                            <div class="c-1">
+                                &nbsp;
+                            </div>
+                            <div class="c-2">
+                                {{ form.is_card_americanexpress_ok }}
+                                <label class="vCheckboxLabel"
+                                       for="id_is_card_americanexpress_ok">{{ form.is_card_americanexpress_ok.label }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grp-row">
+                        <div class="l-2c-fluid l-d-4">
+                            <div class="c-1">
+                                &nbsp;
+                            </div>
+                            <div class="c-2">
+                                {{ form.is_paypal_ok }}
+                                <label class="vCheckboxLabel"
+                                       for="id_is_paypal_ok">{{ form.is_paypal_ok.label }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grp-row">
+                        <div class="l-2c-fluid l-d-4">
+                            <div class="c-1">
+                                &nbsp;
+                            </div>
+                            <div class="c-2">
+                                {{ form.is_cash_ok }}
+                                <label class="vCheckboxLabel" for="id_is_cash_ok">{{ form.is_cash_ok.label }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grp-row">
+                        <div class="l-2c-fluid l-d-4">
+                            <div class="c-1">
+                                &nbsp;
+                            </div>
+                            <div class="c-2">
+                                {{ form.is_transaction_ok }}
+                                <label class="vCheckboxLabel"
+                                       for="id_is_transaction_ok">{{ form.is_transaction_ok.label }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grp-row">
+                        <div class="l-2c-fluid l-d-4">
+                            <div class="c-1">
+                                &nbsp;
+                            </div>
+                            <div class="c-2">
+                                {{ form.is_prepayment_ok }}
+                                <label class="vCheckboxLabel"
+                                       for="id_is_prepayment_ok">{{ form.is_prepayment_ok.label }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grp-row">
+                        <div class="l-2c-fluid l-d-4">
+                            <div class="c-1">
+                                &nbsp;
+                            </div>
+                            <div class="c-2">
+                                {{ form.is_on_delivery_ok }}
+                                <label class="vCheckboxLabel"
+                                       for="id_is_on_delivery_ok">{{ form.is_on_delivery_ok.label }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grp-row">
+                        <div class="l-2c-fluid l-d-4">
+                            <div class="c-1">
+                                &nbsp;
+                            </div>
+                            <div class="c-2">
+                                {{ form.is_invoice_ok }}
+                                <label class="vCheckboxLabel"
+                                       for="id_is_invoice_ok">{{ form.is_invoice_ok.label }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grp-row">
+                        <div class="l-2c-fluid l-d-4">
+                            <div class="c-1">
+                                &nbsp;
+                            </div>
+                            <div class="c-2">
+                                {{ form.is_ec_maestro_ok }}
+                                <label class="vCheckboxLabel"
+                                       for="id_is_ec_maestro_ok">{{ form.is_ec_maestro_ok.label }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grp-row">
+                        <div class="l-2c-fluid l-d-4">
+                            <div class="c-1">
+                                &nbsp;
+                            </div>
+                            <div class="c-2">
+                                {{ form.is_giropay_ok }}
+                                <label class="vCheckboxLabel"
+                                       for="id_is_giropay_ok">{{ form.is_giropay_ok.label }}</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="grp-module grp-aligned nested">
+                    <h2>{% trans "Tax info" %}</h2>
+                    <div class="grp-row">
+                        <div class="l-2c-fluid l-d-4">
+                            <div class="c-1">
+                                <label
+                                        {% if form.tax_id_number.field.required %} class="required"{% endif %}>{{ form.tax_id_number.label }}</label>
+                            </div>
+                            <div class="c-2">
+                                {{ form.tax_id_number }}
+                                {% if form.tax_id_number.errors %}
+                                    <ul class="errorlist">
+                                        <li>{{ form.tax_id_number.errors|join:", " }}</li>
+                                    </ul>
+                                {% endif %}
+
+                                {% if form.tax_id_number.help_text %}
+                                    <p class="grp-help">{{ form.tax_id_number.help_text }}</p>{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grp-row">
+                        <div class="l-2c-fluid l-d-4">
+                            <div class="c-1">
+                                <label
+                                        {% if form.vat_id_number.field.required %} class="required"{% endif %}>{{ form.vat_id_number.label }}</label>
+                            </div>
+                            <div class="c-2">
+                                {{ form.vat_id_number }}
+                                {% if form.vat_id_number.errors %}
+                                    <ul class="errorlist">
+                                        <li>{{ form.vat_id_number.errors|join:", " }}</li>
+                                    </ul>
+                                {% endif %}
+
+                                {% if form.vat_id_number.help_text %}
+                                    <p class="grp-help">{{ form.vat_id_number.help_text }}</p>{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </fieldset>
+            {% include "extendedadmin/includes/fieldset_status.html" %}
+            <!-- Submit-Row -->
+            <footer class="grp-module grp-submit-row grp-fixed-footer">
+                <header style="display: none">
+                    <h1>Submit options</h1>
+                </header>
+                <ul>
+                    <li class="grp-float-left">
+                        <a class="grp-button grp-delete-link" href="delete/">Delete</a>
+                    </li>
+                    <li>
+                        <input type="submit" value="{% trans 'Save' %}" class="grp-button grp-default" name="_save"/>
+                    </li>
+                    <li>
+                        <input type="submit"
+                               value="{% trans 'Save and add another' %}"
+                               class="grp-button"
+                               name="_addanother"/>
+                    </li>
+                    <li>
+                        <input type="submit"
+                               value="{% trans 'Save and continue editing' %}"
+                               class="grp-button"
+                               name="_continue"/>
+                    </li>
+                </ul>
+            </footer>
+        </div>
+    </form>
+    <script type="text/javascript">
+        //<![CDATA[
+        {% if change %}
+            //document.getElementById("id_slug")._changed = true;
+        {% endif %}
+        document.getElementById("id_title").onkeyup = function () {
+            var e = document.getElementById("id_slug");
+            if (!e._changed) {
+                e.value = URLify(document.getElementById("id_title").value, 255);
+            }
+        };
+        //]]>
+    </script>
+
+    <script type="text/javascript"
+            src="//maps.google.com/maps/api/js?language=de&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
+    <script type="text/javascript" src="{% url 'jetson_media_url' path='js/admin/gmaps_for_address.js' %}"></script>
+
+{% endblock %}

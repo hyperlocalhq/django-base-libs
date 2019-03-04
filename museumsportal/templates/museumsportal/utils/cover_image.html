@@ -1,0 +1,45 @@
+{% load base_tags image_modifications fb_tags auth_extended i18n favorites %}
+
+{% if object.cover_image %}
+  <div id="cover_img">
+    {% with object.cover_image|file_description as fd %}
+      <a href="{{ object.get_url_path }}slideshow/#0" class="img hidden-xs clearfix">
+        <img src="{{ STATIC_URL }}site/img/placeholder_cover.gif" data-original="{{ MEDIA_URL }}{{ object.cover_image|modified_path:"cover" }}?now={% now "YmdHis" %}" title="{{ fd.description|remove_newlines|escape }}" alt="{{ fd.description|remove_newlines|escape }}" />
+      </a>
+      <a href="{{ object.get_url_path }}slideshow/#0" class="img visible-xs clearfix">
+        <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ object.cover_image|modified_path:"museum_list" }}?now={% now "YmdHis" %}" title="{{ fd.description|remove_newlines|escape }}" alt="{{ fd.description|remove_newlines|escape }}" />
+      </a>
+      {% if not request.is_mobile %}
+        {% if museum == object %}
+          {% if_has_perm "museums.change_museum" object %}
+            <a href="{% cropping_url object.cover_image "cover" request request.path %}" class="btn btn-default btn-round crop hidden-xs" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}">
+              <span class="icon icon-white icon-tool-crop"></span>
+            </a>
+          {% end_if_has_perm %}
+        {% endif %}
+        {% if exhibition == object %}
+          {% if_has_perm "exhibitions.change_exhibition" object %}
+            <a href="{% cropping_url object.cover_image "cover" request request.path %}" class="btn btn-default btn-round crop hidden-xs" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}">
+              <span class="icon icon-white icon-tool-crop"></span>
+            </a>
+          {% end_if_has_perm %}
+        {% endif %}
+        {% if event == object %}
+          {% if_has_perm "events.change_event" object %}
+            <a href="{% cropping_url object.cover_image "cover" request request.path %}" class="btn btn-default btn-round crop hidden-xs" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}">
+              <span class="icon icon-white icon-tool-crop"></span>
+            </a>
+          {% end_if_has_perm %}
+        {% endif %}
+        {% if workshop == object %}
+          {% if_has_perm "workshops.change_workshop" object %}
+            <a href="{% cropping_url object.cover_image "cover" request request.path %}" class="btn btn-default btn-round crop hidden-xs" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}">
+              <span class="icon icon-white icon-tool-crop"></span>
+            </a>
+          {% end_if_has_perm %}
+        {% endif %}
+      {% endif %}
+      {% if fd.author %}<span class="photo-credits-over">{{ fd.author }}</span>{% endif %}
+    {% endwith %}
+  </div>
+{% endif %}

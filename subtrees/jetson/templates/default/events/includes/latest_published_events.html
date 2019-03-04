@@ -1,0 +1,83 @@
+{% extends "utils/includes/base_latest_objects.html" %}
+{% load i18n base_tags babel image_mods_tags %}
+{% comment %}<!--
+Usage in any template:
+    {% load base_tags %}
+    
+    Simple:
+    {% include_parsed "events/includes/latest_published_events.html" %}
+    
+    Customized:
+    {% include_parsed "events/includes/latest_published_events.html" with 5 as amount %}
+    
+-->{% endcomment %}
+
+{% block block_title %}{% trans "New Events" %}{% endblock %}
+
+{% block block_content %}
+    {% with amount|default:3 as amount %}
+        {% get_latest_published_objects events.Event amount as newest_objects %}
+        {% if newest_objects %}
+            <ul>
+                {% for event in newest_objects %}
+                    <li>
+                        <a href="{{ event.get_url_path }}">
+                            {% if event.image %}
+                                <img alt="{{ event.get_title|escape }}"
+                                     src="{{ UPLOADS_URL }}{{ event.image|modified_path:"at" }}"/>
+                            {% else %}
+                                <img alt="{{ event.get_title|escape }}" src="{{ DEFAULT_SMALL_LOGO_4_EVENT }}"/>
+                            {% endif %}
+                        </a>
+                        <h5>
+                            <a href="{{ event.get_url_path }}">
+                                {{ event.get_title|escape }}
+                            </a>
+                        </h5>
+                        <p>{% for cat in event.get_object_types %}
+                            {{ cat.get_title|escape }}
+                            <br/>{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                            {% if event.has_start_date or event.has_end_date %}
+                                {% if event.has_start_date %}
+                                    {% if event.get_start_date %}
+                                        <abbr class="dtstart" title="{{ event.get_start_date|date:"Y-m-d" }}">
+                                            {{ event.get_start_date|datefmt:"short" }}
+                                        </abbr>
+                                    {% else %}
+                                        <abbr class="dtstart"
+                                              title="{{ event.start_yyyy }}-{{ event.start_mm|default:"01" }}-01">
+                                            {% if event.start_mm %}
+                                                {{ event.get_start_mm_display }}
+                                            {% endif %}
+                                            {{ event.start_yyyy }}
+                                        </abbr>
+                                    {% endif %}
+                                {% endif %}
+                                {% if event.has_end_date %}{% ifnotequal event.get_start_date event.get_end_date %}
+                                    -
+                                    {% if event.get_end_date %}
+                                        <abbr class="dtend" title="{{ event.get_end_date|date:"Y-m-d" }}">
+                                            {{ event.get_end_date|datefmt:"short" }}
+                                        </abbr>
+                                    {% else %}
+                                        <abbr class="dtend"
+                                              title="{{ event.end_yyyy }}-{{ event.end_mm|default:"01" }}-01">
+                                            {% if event.end_mm %}{{ event.get_end_mm_display }}{% endif %} {{ event.end_yyyy }}
+                                        </abbr>
+                                    {% endif %}
+                                {% endifnotequal %}{% endif %}
+                                <br/>
+                            {% endif %}
+                        </p>
+                    </li>
+                {% endfor %}
+            </ul>
+            <p class="more">
+                <a href="/{{ URL_ID_EVENTS }}/?order_by=creation_date_desc">{% trans "more..." %}</a>
+            </p>
+        {% else %}
+            <p>{% trans "There are no public events." %}</p>
+        {% endif %}
+    {% endwith %}
+{% endblock %}

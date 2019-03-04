@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load i18n base_tags navigation_tags auth_extended %}
+
+{% block doctype %}
+    {{ block.super }}
+{% endblock %}
+
+{% block title %}{{ object.get_title|escape }}{% endblock %}
+
+{% block extrahead %}
+    {% if object.allow_search_engine_indexing %}
+        <meta name="robots" content="ALL, INDEX, FOLLOW"/>
+    {% else %}
+        <meta name="ROBOTS" content="NOINDEX, NOFOLLOW"/>
+    {% endif %}
+
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/individual_relations.js"></script>
+{% endblock %}
+
+
+{% block headline %}
+    {% include "site_specific/count_of.html" %}
+    <h2 class="main">
+        <a href="/{{ URL_ID_PEOPLE }}/">{% trans "People" %}</a>
+    </h2>
+    <div class="detail-navi">
+        {% children_of "people" using "navigation/children_horizontally.html" %}
+    </div>
+{% endblock %}
+
+{% block formstart %}
+{% endblock %}
+
+{% block formclose %}
+{% endblock %}
+
+{% block content %}
+    {% include "people/profile/identity.html" %}
+    {% block tabs %}
+        <div id="tabs">
+            {% children_of "person" using "navigation/children_in_tabs.html" %}
+        </div>
+    {% endblock %}
+    {% block details %}
+    {% endblock %}
+{% endblock %}

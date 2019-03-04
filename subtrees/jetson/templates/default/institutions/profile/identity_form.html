@@ -1,0 +1,32 @@
+{% load i18n base_tags auth_extended %}
+<div class="edit">
+    <div class="field_layout synonym">
+        <h3>{% trans "Name" %}</h3>
+        <form action="/helper/edit-{{ URL_ID_INSTITUTION }}-profile/{{ object.slug }}/identity/"
+              method="post"
+              enctype="multipart/form-data"
+              target="hidden_iframe">
+            <div>
+                <div>{{ form.first_name.label_tag }}</div>
+                {{ form.first_name }}
+                {% if form.first_name.errors %}
+                    <p class="error">{{ form.first_name.errors }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <div>{{ form.last_name.label_tag }}</div>
+                {{ form.last_name }}
+                {% if form.last_name.errors %}
+                    <p class="error">{{ form.last_name.errors }}</p>
+                {% endif %}
+            </div>
+            <div class="buttons">
+                <input type="submit" class="button_good" value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
+                <input type="button"
+                       class="button_bad"
+                       value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}"
+                       name="cancel"/>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load i18n image_modifications base_tags tagging_tags favorites %}
+{% block title %}{% trans "Vernissages" %} – {% endblock %}
+{% block bodyclass %}exhibition-list{% endblock %}
+
+{% block js %}
+	<script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
+  <script type="text/javascript">
+      var aGeopositions = [];
+  </script>
+{% endblock %}
+
+{% block content %}
+<div class="container sticky">
+    {% include "utils/gmap.html" %}
+    <div class="inner">
+        <h1>{% trans "Vernissages in the Museums of Berlin" %}</h1>
+
+        <!-- {% comment %}
+        <ul class="filter option-set clearfix" id="alphabetical" data-filter-group="alphabetical">
+            {% for item in abc_list %}
+              <li><a data-filter-value=".initial_{{ item.0|slugify }}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} selected{% endif %}" href="">{{ item.1 }}</a></li>           
+            {% endfor %}
+        </ul>
+        {% endcomment %} -->
+
+        <ul class="filter option-set clearfix" id="categories" data-filter-group="categories">
+
+            {% for status_code, status_verbose in facets.categories.statuses %}
+              {% if status_code == facets.selected.status %}
+                  <li><a data-filter-value=".{{ status_verbose|slugify }}" href="#">{{ status_verbose }}</a></li>
+              {% else %}
+                  <li ><a data-filter-value=".{{ status_verbose|slugify }}" href="#">{{ status_verbose }}</a></li>
+              {% endif %}
+          {% endfor %}
+
+            {% for cat in facets.categories.categories %}
+            <li><a data-filter-value=".cat_{{ cat.title|slugify }}" href="#filter=.cat_{{ cat.title|slugify }}" >{{ cat.title }}</a></li>
+            {% endfor %}
+        </ul>
+        
+        <ul class="filter option-set clearfix" id="tags" data-filter-group="tag">
+            {% tags_for_model exhibitions.Exhibition as exhibition_tags %}
+            {% for tag in exhibition_tags %}
+                <li><a data-filter-value=".tag_{{ tag.slug }}" href="#filter=.tag_{{ tag.slug }}">{{ tag.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<div class="container sticky">
+    <div class="inner">
+        <ul id="container" class="list tiles collapsed clearfix">
+            {% for exhibition in object_list %}
+                {% tags_for_object exhibition as tags %}
+                <li class="item {% cycle "class1" "class2" "class3" %} initial_{{ exhibition.title|slugify|slice:"0:1" }} {% if exhibition.closing_soon %} closing_soon{% endif %}{% if exhibition.newly_opened %} newly_opened{% endif %}{% for cat in exhibition.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}" style="cursor: pointer">
+                    {% if exhibition.cover_image %}
+                        <a class="img" href="{{ exhibition.get_url_path }}" data-background="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"exhibition_list" }}">
+                            <span class="spinner loading"></span>
+                            
+                        </a>
+                    {% else %}
+                        <a class="img" href="{{ exhibition.get_url_path }}"  {% if exhibition.museum.image %}data-background="{{ MEDIA_URL }}{{ exhibition.museum.cover_image|modified_path:"exhibition_list" }}">
+                            <span class="spinner loading"></span>
+                            
+                        </a>
+                    {% endif %}{% endif %}
+
+                    <nav class="actions">
+                        {% if request.user.is_authenticated %}
+                            {% adding2favorites for exhibition %}
+                        {% endif %}
+                        <button href="#" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" class="location icon icon-white icon-location"></button>
+                    </nav>
+
+                    <a href="{{ exhibition.get_url_path }}">
+                        <h3>{{ exhibition.vernissage|date:"j. F Y H:i" }}</h3>
+                        {% if exhibition.location_name %}
+                            <h3>{{ exhibition.location_name }}</h3>
+                        {% else %}
+                            <h3>{{ exhibition.museum.title }}</h3>
+                        {% endif %}
+                        <h4>{{ exhibition.title }}</h4>
+                        <h5><span class="from_date">{{ exhibition.start|date:"d.m.Y" }}</span> {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}</h5>
+                    </a>
+
+                    <!-- <div class="description">
+                        <p>{{ exhibition.get_rendered_description|striptags }}</p>
+                        <a class="more" href="{{ exhibition.get_url_path }}">more</a>
+                    </div> -->
+                    
+                    {% with exhibition as list_item %}
+                        {% include "utils/geo_position.html" %}
+                    {% endwith %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% include "utils/gmap_scripts.html" %}
+<script type="text/javascript" src="{{ STATIC_URL }}site/js/sticky.js"></script>
+
+{% endblock %}

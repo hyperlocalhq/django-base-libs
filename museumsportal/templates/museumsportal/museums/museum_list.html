@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n image_modifications base_tags tagging_tags favorites auth_extended fb_tags %}
+{% block title %}{% trans "Museums" %} – {% endblock %}
+{% block bodyclass %}museum-list no-transition{% endblock %}
+
+
+{% block js %}
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/GetSet.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/list.min.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
+  <script type="text/javascript">
+    var aGeopositions = [];
+    var str_filter_selection = "{% trans "Filter selection" %}";
+  </script>
+{% endblock %}
+
+{% block content %}
+  <div class="content">
+    <div class="container">
+      <header class="list-header clearfix">
+        <h4 class="visible-xs">{% trans "Museums, Palaces, and Memorials" %}</h4>
+
+        <div class="list-controls">
+          <a class="btn btn-info pull-right" href="{% url "museum_list_map" %}">{% trans "Show map" %}</a>
+          <div class="btn-group pull-left" style="margin-right: 15px;">
+            <button id="toggle-list-filter" class="btn btn-info" data-parent="#list-filter" data-toggle="collapse" data-target="#list-filter">{% trans "filter" %}<span class="caret black"></span></button>
+            <button id="filter-reset" type="button" class="filter-reset btn btn-info">{% trans "Reset" %}</button>
+          </div>
+          <ul id="filter-summary" class="pull-left">
+            {% if facets.selected.abc or facets.selected.category or facets.selected.subcategory or facets.selected.open_on_mondays or facets.selected.free_entrance or facets.selected.open_late or facets.selected.accessibility_option %}
+              <li><b>{% trans "Filter selection" %}:</b></li>
+              {% if facets.selected.abc %}<li data-param="abc" data-value="{{ facets.selected.abc }}"><a href="{% append_to_get abc="" %}">{{ facets.selected.abc }}</a></li>{% endif %}
+              {% if facets.selected.category %}<li data-param="category" data-value="{{ facets.selected.category.slug }}"><a href="{% append_to_get category="" %}">{{ facets.selected.category.title }}</a></li>{% endif %}
+              {% if facets.selected.subcategory %}<li data-param="subcategory" data-value="{{ facets.selected.subcategory.slug }}"><a href="{% append_to_get subcategory="" %}">{{ facets.selected.subcategory.title }}</a></li>{% endif %}
+              {% if facets.selected.open_on_mondays %}<li data-param="open_on_mondays" data-value="1"><a href="{% append_to_get open_on_mondays="" %}">{% trans "Open on Mondays" %}</a></li>{% endif %}
+              {% if facets.selected.free_entrance %}<li data-param="free_entrance" data-value="1"><a href="{% append_to_get free_entrance="" %}">{% trans "Free entrance" %}</a></li>{% endif %}
+              {% if facets.selected.open_late %}<li data-param="open_late" data-value="{{ facets.selected.open_late.0 }}"><a href="{% append_to_get open_late="" %}">{{ facets.selected.open_late.1 }}</a></li>{% endif %}
+              {% if facets.selected.accessibility_option %}<li data-param="accessibility_option" data-value="{{ facets.selected.accessibility_option.slug }}"><a href="{% append_to_get accessibility_option="" %}">{{ facets.selected.accessibility_option.title }}</a></li>{% endif %}
+            {% endif %}
+          </ul>
+        </div>
+      </header>
+    </div>
+
+    <div id="list-filter" class="collapse">
+      <div>
+        <div class="container relative">
+          <button class="cancel btn btn-info btn-lg btn-icon" data-parent="#list-filter" data-toggle="collapse" data-target="#list-filter">
+            <span class="icon icon-remove"></span>
+            <span class="sr-only">{% trans "close" %}</span>
+          </button>
+          {% include "utils/filter_museums.html" %}
+        </div>
+      </div>
+    </div>
+
+    <div id="list">
+      <div class="container">
+        <div id="container">
+          <div class="row row-md grid">
+            {% if page == 1 %}
+              {% load advertising_tags %}
+              {% if show_ad %}
+                {% get_random_zone_ad "museums" as museums_ad_html %}
+              {% endif %}
+            {% endif %}
+            {% if object_list %}
+              {% for museum in object_list %}
+                {% tags_for_object museum as tags %}
+                <div class="item col-xs-12 col-sm-4 col-md-4 col-lg-3" data-filter-categories="initial_{{ museum.title|slugify|slice:"0:1" }}{% for cat in museum.categories.all %} cat_{{ cat.slug }}{% endfor %}{% for cat in museum.accessibility_options.all %} access_{{ cat.slug }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if museum.is_for_children %} is_for_children{% endif %}{% if museum.open_on_mondays %} is_open_on_mondays{% endif %}{% if museum.free_entrance %} is_free_entrance{% endif %}{% if museum.show_family_ticket %} is_family_ticket{% endif %}{% if museum.show_group_ticket %} is_group_ticket{% endif %}{% if museum.show_yearly_ticket %} is_yearly_ticket{% endif %}{% if museum.member_of_museumspass %} is_museumspass{% endif %}{% if museum.service_shop %} has_service_shop{% endif %}{% if museum.service_restaurant %} has_service_restaurant{% endif %}{% if museum.service_cafe %} has_service_cafe{% endif %}{% if museum.service_library %} has_service_library{% endif %}{% if museum.service_archive %} has_service_archive{% endif %}{% if museum.service_diaper_changing_table %} has_service_diaper_changing{% endif %}{% if museum.has_audioguide %} has_audioguide{% endif %}{% if museum.has_audioguide_for_children %} has_audioguide_for_children{% endif %}{% if museum.has_audioguide_for_learning_difficulties %} has_audioguide_for_learning_difficulties{% endif %}{% if museum.is_open_on_mon_till_20 %} is_open_on_mon_till_20{% endif %}{% if museum.is_open_on_tue_till_20 %} is_open_on_tue_till_20{% endif %}{% if museum.is_open_on_wed_till_20 %} is_open_on_wed_till_20{% endif %}{% if museum.is_open_on_thu_till_20 %} is_open_on_thu_till_20{% endif %}{% if museum.is_open_on_fri_till_20 %} is_open_on_fri_till_20{% endif %}{% if museum.is_open_on_sat_till_20 %} is_open_on_sat_till_20{% endif %}{% if museum.is_open_on_sun_till_20 %} is_open_on_sun_till_20{% endif %}{% if museum.is_open_on_mon_till_22 %} is_open_on_mon_till_22{% endif %}{% if museum.is_open_on_tue_till_22 %} is_open_on_tue_till_22{% endif %}{% if museum.is_open_on_wed_till_22 %} is_open_on_wed_till_22{% endif %}{% if museum.is_open_on_thu_till_22 %} is_open_on_thu_till_22{% endif %}{% if museum.is_open_on_fri_till_22 %} is_open_on_fri_till_22{% endif %}{% if museum.is_open_on_sat_till_22 %} is_open_on_sat_till_22{% endif %}{% if museum.is_open_on_sun_till_22 %} is_open_on_sun_till_22{% endif %}" data-description-src="{{ museum.get_url_path }}ajax/">
+                  <a href="{{ museum.get_url_path }}">
+                    {% if museum.cover_image %}
+                      <span class="img">
+                        <div class="photo-credits-wrapper">
+                            <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ museum.cover_image|modified_path:"museum_list" }}{% if_has_perm "museums.change_museum" museum %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+                            {% with museum.cover_image|file_description as file_desc %}
+                                {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}
+                            {% endwith %}
+                        </div>
+                      </span>
+                    {% endif %}
+                    <h3>{{ museum.title_uni }}</h3>
+                    <h4>{{ museum.subtitle }}</h4>
+                  </a>
+                  {% if not request.is_mobile and museum.cover_image %}
+                    {% if_has_perm "museums.change_museum" museum %}
+                      <a href="{% cropping_url museum.cover_image "museum_list" request request.path %}" class="btn btn-default btn-round crop hidden-xs" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Crop image" %}">
+                        <span class="icon icon-white icon-tool-crop"></span>
+                      </a>
+                    {% end_if_has_perm %}
+                  {% endif %}
+                  <div class="description"></div>
+                </div>
+                {% if museums_ad_html %}
+                  {% if forloop.counter == 2 %}
+                    <div class="item visible-sm col-sm-4">{{ museums_ad_html }}</div>
+                    <div class="item visible-md col-md-4">{{ museums_ad_html }}</div>
+                  {% endif %}
+                  {% if forloop.counter == 3 %}
+                    <div class="item visible-lg col-lg-3">{{ museums_ad_html }}</div>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+              {% include "utils/pagination.html" %}
+            {% else %}
+              {% include "utils/container_empty.html" %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

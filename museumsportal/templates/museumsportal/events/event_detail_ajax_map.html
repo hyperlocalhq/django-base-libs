@@ -1,0 +1,146 @@
+{% load i18n image_modifications base_tags tagging_tags favorites auth_extended infoblocks fb_tags %}
+
+{% with object as event %}
+  <button id="cancel-description" class="cancel btn btn-info btn-lg">
+    <span class="icon icon-remove"></span>
+    <span class="sr-only">{% trans "close" %}</span>
+  </button>
+
+  <div class="map-ajax-detail">
+    <article>
+      <header>
+        <h2>
+          {% with event.get_closest_event_time as event_time %}
+            {% for cat in event.categories.all %}{{ cat.title }}{% if not forloop.last %}, {% else %}: {% endif %}{% endfor %}<br/>
+
+            <time datetime="{{ event_time.event_date|date:"Y-m-d" }}">
+              <span class="nobr">{{ event_time.event_date|date:"j. F Y" }}</span>
+              {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %}&nbsp;Uhr{% endif %}
+              </br>
+            </time>
+          {% endwith %}
+        </h2>
+
+        <h1> {{ event.title }} </h1>
+        {% if event.subtitle %}
+          <h2>{{ event.subtitle }}</h2>
+        {% endif %}
+
+        <!-- {% if event.event_type %}
+          <h3>{{ event.event_type }}</h3>
+        {% endif %} -->
+        {% if event.location_name %}
+          <h3>{{ event.location_name }}</h3>
+        {% else %}
+          {% if event.museum %}
+            <a href="{{ event.museum.get_url_path }}"><h3>{{ event.museum.title }}</h3></a>
+          {% endif %}
+        {% endif %}
+
+        <p>
+          <small>
+            {% if event.museum %}
+              {% with event.museum as museum %}
+                {{ museum.street_address }},
+                {% if museum.street_address2 %},{{ museum.street_address2 }},{% endif %}
+                {{ museum.postal_code }} {{ museum.city }}
+              {% endwith %}
+            {% else %}
+                {{ event.street_address }},
+                {% if event.street_address2 %}, {{ event.street_address2 }},{% endif %}
+                {{ event.postal_code }} {{ event.city }}
+            {% endif %}
+          </small>
+        </p>
+      </header>
+
+      <!-- ======= Tools ======= -->
+
+      <div class="tools">
+        {% with event as list_item %}
+          <button class="btn btn-default btn-round location">
+            <span class="icon icon-location"></span>
+            <span class="sr-only">{% trans "Show location on map" %}</span>
+          </button>
+          {% include "utils/geo_position.html" %}
+        {% endwith %}
+
+        {% if request.user.is_authenticated %}
+          {% adding2favorites for event using "favorites/includes/favorite_detail.html" %}
+        {% endif %}
+
+        <button class="btn btn-default btn-round  share-twitter" data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">
+          <span class="icon icon-social-twitter"></span>
+          <span class="sr-only">{% trans "Share on Twitter" %}</span>
+        </button>
+
+        <button class="btn btn-default btn-round  share-facebook" data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">
+          <span class="icon icon-social-facebook"></span>
+          <span class="sr-only">{% trans "Share on Facebook" %}</span>
+        </button>
+      </div>
+
+      {% if event.cover_image %}
+        <div id="cover_img">
+          <a class="img" href="{{ event.get_url_path }}">
+            <div class="photo-credits-wrapper">
+                <img src="{{ STATIC_URL }}site/img/placeholder_list.gif" data-original="{{ MEDIA_URL }}{{ event.cover_image|modified_path:"event_list" }}{% if_has_perm "event.change_event" exhibition %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="" />
+                {% with event.cover_image|file_description as file_desc %}
+                    {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}
+                {% endwith %}
+            </div>
+          </a>
+        </div>
+      {% endif %}
+
+      <div class="opening-hours">
+        {% with event.museum.get_current_season as season %}
+          {% if season %}
+            {% if season.is_appointment_based %}
+            <p><small>{% trans "Based on appointment" %}</small></p>
+            {% else %}
+            {% regroup season.get_opening_hours by times as opening_hours %}
+              {% for same_hours in opening_hours %}
+                <dl>
+                  <dt><small>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}</small>
+                  </dt>
+                    {% if same_hours.list.0.open %}
+                      <dd><small>
+                        {{ same_hours.list.0.open|time:"H:i" }}
+                        {% if same_hours.list.0.break_close %}
+                        - {{ same_hours.list.0.break_close|time:"H:i" }}
+                        / {{ same_hours.list.0.break_open|time:"H:i" }}
+                        - {{ same_hours.list.0.close|time:"H:i" }}
+                        {% else %}
+                        - {{ same_hours.list.0.close|time:"H:i" }}
+                        {% endif %}
+                        {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</small>
+                      </dd>
+                    {% else %}
+                      <dd><small>
+                        {% trans "closed" %}</small>
+                      </dd>
+                    {% endif %}
+                </dl>
+              {% endfor %}
+            {% endif %}
+            {% if season.last_entry %}
+            <dl>
+              <dt><small>{% trans "Last entry" %}</small></dt>
+              <dd><small>{{ season.last_entry }}</small></dd>
+            </dl>
+            {% endif %}
+            {% if season.exceptions %}
+            <p><small>{{ season.get_rendered_exceptions|striptags|truncatewords:"35"|urlize }}</small></p>
+            {% endif %}
+          {% endif %}
+        {% endwith %}
+      </div>
+
+      <p>
+        {{ event.get_rendered_description|striptags|truncatewords:"35"|urlize }}
+      </p>
+      <a class="btn btn-default" href="{{ event.get_url_path }}">{% trans "more" %}</a>
+    </article>
+  </div>
+{% endwith %}

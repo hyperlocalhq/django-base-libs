@@ -1,0 +1,20 @@
+{% spaceless %}
+{% load base_tags %}
+<ul class="filter clearfix" id="alphabetical">
+	{% for item in abc_list %}
+
+    {% ifnotequal item.2 0 %}
+		{% comment %}
+	   <!-- <li id="id_abc_filter_{{ item.0 }}" class="{% if forloop.first %} first_item{% endif %}{% if item.3 %} active{% endif %}">
+        <a href="{% append_to_get by-abc=item.0 %}">{{ item.1 }}</a>
+      </li> -->
+    {% endcomment %}
+		{% else %}
+			<li class="{% if forloop.first %} first_item{% endif %}">
+			 <span>{{ item.1 }}</span>
+      </li>
+
+		{% endifnotequal %}	        	
+	{% endfor %}
+</ul>        
+{% endspaceless %}

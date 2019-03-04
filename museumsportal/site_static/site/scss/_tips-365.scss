@@ -1,0 +1,66 @@
+// main:style.scss
+
+.tips-365 {
+    padding: 0 10px;
+
+    .tips-365-wrapper {
+        background: black;
+        color: white;
+        padding: 50px 20px;
+
+        .row {
+            margin: 0 -10px;
+
+            > div {
+                padding: 0 10px;
+            }
+
+            &:first-child {
+                margin-bottom: 30px;
+            }
+        }
+
+        .headline {
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        a {
+            display: block;
+            width: 100%;
+            background: #f2f2f2;
+            color: black;
+        }
+
+        .copy {
+            height: 85px;
+        }
+
+        h4 {
+            font-size: 13px;
+            line-height: 18px;
+            margin: 0 15px;
+
+            &:first-of-type {
+                margin-top: 15px;
+            }
+
+            &:last-of-type {
+                padding-bottom: 15px;
+            }
+        }
+
+        p {
+            font-size: 13px;
+            line-height: 18px;
+            margin: -15px 15px 0px;
+            padding-bottom: 15px;
+            opacity: 0.5;
+        }
+    }
+}

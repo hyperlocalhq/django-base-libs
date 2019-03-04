@@ -1,0 +1,6 @@
+{% extends base_template %}
+{% load base_tags babel i18n %}
+
+{% block details %}
+    {% include_selected "mark_as_spam_embedded.html" for object under "blog/comments" %}
+{% endblock %}

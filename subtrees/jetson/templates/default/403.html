@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n base_tags infoblocks %}
+
+{% block title %}{% trans "Access Denied" %}{% endblock %}
+
+{% block headline %}
+    <h2 class="main">{% trans "Access Denied" %}</h2>
+{% endblock %}
+
+{% block content %}
+    <div class="error">
+        <p>{% trans "Sorry, you are not allowed to access this page." %}</p>
+        <form action="">
+            <input type="button"
+                   class="button_good but"
+                   value="{% filter upper %}{% trans "back" %}{% endfilter %}"
+                   onclick="window.history.go(-1)"/>
+        </form>
+    </div>
+{% endblock %}

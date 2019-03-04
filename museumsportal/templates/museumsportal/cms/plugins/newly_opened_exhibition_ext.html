@@ -1,0 +1,20 @@
+{% load i18n image_modifications %}
+{% with object.exhibition as exhibition %}
+<div class="article short" onclick="location.href='{{ exhibition.get_url_path }}';">
+    {% if exhibition.cover_image %}
+        <a class="img" href="{{ exhibition.get_url_path }}"><img src="{{ MEDIA_URL }}{{ exhibition.cover_image|modified_path:"exhibition_list" }}" alt="" /></a>
+    {% endif %}
+    <h4>{{ exhibition.museum.title }}</h4>
+    <h3><a href="{{ exhibition.get_url_path }}">{{ exhibition.title }}</a></h3>
+    <p>
+        {% with object.get_rendered_teaser_text|striptags as teaser_text %}
+            {% with exhibition.get_rendered_teaser|striptags as teaser %}
+                {% with exhibition.get_rendered_description|striptags|truncatewords:35 as description %}
+                    {{ teaser_text|default:teaser|default:description }}
+                {% endwith %}
+            {% endwith %}
+        {% endwith %}
+    </p>
+    <a class="proceed" href="{{ exhibition.get_url_path }}">{% trans "more" %}</a>
+</div>
+{% endwith %}

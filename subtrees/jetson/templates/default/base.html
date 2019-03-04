@@ -1,0 +1,66 @@
+{% block doctype %}<!DOCTYPE html>{% endblock %}
+{% load i18n base_tags navigation_tags staticfiles %}
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ LANGUAGE_CODE }}" lang="{{ LANGUAGE_CODE }}">
+<head>
+    {% block head %}
+
+        {% block meta %}
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+            {{ site_settings.get_meta_tags|safe }}
+            <title>{{ site_settings.site.name }} - {% block title %}{% endblock %}</title>
+
+            {% block stylesheet %}
+                <link href="{{ JETSON_MEDIA_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+                <link rel="stylesheet" type="text/css" media="screen" href="{% static 'site/css/base.css' %}"/>
+            {% endblock %}
+            {% if "Safari"|in_list:request.META.HTTP_USER_AGENT %}
+                <link rel="stylesheet"
+                      type="text/css"
+                      media="screen"
+                      href="{{ STATIC_URL }}site/css/default/safari-hack.css"/>
+            {% endif %}
+            <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}site/css/default/ie_hack.css"/>
+            <link rel="stylesheet" type="text/css" media="print" href="{{ STATIC_URL }}site/css/website/print.css"/>
+
+            <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+            <script type="text/javascript" src="{% url 'jssettings' %}"></script>
+            <script src="{{ JETSON_MEDIA_URL }}js/legacy.js"></script>
+            <script type="text/javascript" src="/jsi18n/"></script>
+        {% endblock %}
+
+        {% block extrahead %}
+        {% endblock %}
+    {% endblock %}
+    {{ site_settings.extra_head|safe }}
+</head>
+<body>
+<div class="container">
+    <div id="header">
+        {% block header %}
+            <h1>
+                <a href="/">{{ site_settings.site.name }}</a>
+            </h1>
+        {% endblock %}
+        {% block languages %}
+            {% for lang_code, lang_name in LANGUAGES %}
+                <a href="/{{ lang_code }}{{ request.path }}">{{ lang_name }}</a>
+            {% endfor %}
+        {% endblock %}
+        {% if request.user.is_authenticated %}
+            <p>Hello, {{ request.user.first_name|default:request.user.username }}!</p>
+        {% endif %}
+    </div>
+    <h2 id="headline">{% block headline %}{% trans "Welcome" %}{% endblock %}</h2>
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <div id="footer">
+        {% block footer %}
+        {% endblock %}
+    </div>
+</div>
+<script type="text/javascript" src="{{ JETSON_MEDIA_URL }}bootstrap/js/bootstrap.min.js"></script>
+{{ site_settings.extra_body|safe }}
+</body>
+</html>

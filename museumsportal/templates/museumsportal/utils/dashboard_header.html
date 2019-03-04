@@ -1,0 +1,45 @@
+{% load menu_tags i18n base_tags %}
+
+<header id="header" class="clearfix">
+  <div class="container">
+    <a class="logo" href="/{{ LANGUAGE_CODE }}/dashboard/">
+        <span class="img">Museumsportal Berlin / Alle Informationen zu Berlins Museen, Schlössern und Gedenkstätten.</span>
+    </a>
+    <div id="meta" class="pull-right clearfix">
+      <div class="btn-group">
+        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+          {% blocktrans with first_name=request.user.first_name|default:request.user.username %}{{ first_name }}{% endblocktrans %} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="/{{ LANGUAGE_CODE }}/dashboard/">{% trans "Input Mask" %}</a></li>
+            <li class="divider"></li>
+            {% if request.user|in_group:"Museum Owners" or request.user.is_superuser %}
+              <li><a href="/{{ LANGUAGE_CODE }}/dashboard/exhibitions/">{% trans "Exhibitions" %}</a></li>
+              <li><a href="/{{ LANGUAGE_CODE }}/dashboard/events/">{% trans "Events" %}</a></li>
+              <li><a href="/{{ LANGUAGE_CODE }}/dashboard/guided-tours/">{% trans "Workshops" %}</a></li>
+              <li><a href="/{{ LANGUAGE_CODE }}/dashboard/museums/">{% trans "Museums" %}</a></li>
+            {% endif %}
+            <li><a href="/{{ LANGUAGE_CODE }}/dashboard/shop/">{% trans "Shop" %}</a></li>
+            <li class="divider"></li>
+          <li><a href="/{{ LANGUAGE_CODE }}/logout/">{% trans "Logout" %}</a></li>
+        </ul>
+      </div>
+      {% if language_code == "en" %} 
+        <div class="current"><a class="btn btn-info" href="/en/dashboard/">EN</a></div>
+        <div><a class="btn btn-info" href="/de/dashboard/">DE</a></div>
+      {% else %}
+        <div><a class="btn btn-info" href="/en/dashboard/">EN</a></div>
+        <div class="current"><a class="btn btn-info" href="/de/dashboard/">DE</a></div>
+      {% endif %}
+    </div>
+<!--     <div class="pull-right">
+      <p>
+        <small>
+          {% trans "Contact" %}: 
+            <a href="mailto:museumsportal@kulturprojekte-berlin.de">museumsportal@kulturprojekte-berlin.de</a> / <b>030 24749 855</b>
+        </small>
+      </p>
+    </div> -->
+
+  </div>
+</header>

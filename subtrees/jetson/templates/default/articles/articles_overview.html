@@ -1,0 +1,37 @@
+{% extends "articles/articles_base.html" %}
+{% load base_tags babel i18n auth_extended articles_tags infoblocks image_mods_tags %}
+
+{% block details %}
+    {% if not article_list %}
+    {% else %}
+        <div class="overview">
+            {% for article in article_list %}
+                <div class="article-item">
+                    <div class="date">{{ article.published_from|datefmt:"long" }}</div>
+                    <h5>
+                        <a href="{{ article.get_url_path }}">{{ article.title }}
+                        </a>
+                    </h5>
+
+                    {% if article.image %}
+                        <img src="{{ UPLOADS_URL }}{{ article.image|modified_path:"nt" }}"
+                             alt="{{ article.get_title|escape }}"/>
+                    {% endif %}
+                    <p>
+                        {% if article.description %}
+                            {{ article.get_rendered_description|wordwrap:30|striptags|truncatewords:"40" }}
+                            <br/>
+                            <a href="{{ article.get_url_path }}">{% trans "Read more" %}</a>
+                        {% else %}
+                            {{ article.get_rendered_content|striptags|wordwrap:30|truncatewords:"40" }}
+                            <br/>
+                            <a href="{{ article.get_url_path }}">{% trans "Read more" %}</a>
+                        {% endif %}
+                    </p>
+                </div>
+                <hr/>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
+
