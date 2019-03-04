@@ -370,25 +370,26 @@ def do_parse(parser, token):
             bits.pop(0) # remove the word "as"
             var_name = bits.pop(0)
     except ValueError:
-        raise template.TemplateSyntaxError, "parse tag requires a following syntax: {% parse <template_value> [as <variable>] %}"
+        raise template.TemplateSyntaxError(
+            "parse tag requires a following syntax: {% parse <template_value> [as <variable>] %}"
+        )
     return ParseNode(template_value, var_name)
+
 
 class ParseNode(template.Node):
     def __init__(self, template_value, var_name):
         self.template_value = template_value
         self.var_name = var_name
+
     def render(self, context):
         template_value = template.resolve_variable(self.template_value, context)
         t = Template(template_value)
-        context_vars = {}
-        for d in list(context):
-            for var, val in d.items():
-                context_vars[var] = val
-        result = t.render(RequestContext(context['request'], context_vars))
+        result = t.render(context)
         if self.var_name:
             context[self.var_name] = result
             return ""
         return result
+
 
 register.tag('parse', do_parse)
 
