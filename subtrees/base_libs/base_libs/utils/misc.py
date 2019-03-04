@@ -28,27 +28,13 @@ def get_or_404(model, **fields):
         msg = ""
         for (key, value) in fields.items():
             msg += "%s '%s', " % (key, value)
-        msg = msg.strip(", ") 
-        raise Http404, "%s with %s cannot be found" %\
-         (force_unicode(model._meta.verbose_name), msg)
+        msg = msg.strip(", ")
+        raise Http404, "%s with %s cannot be found" % \
+                       (force_unicode(model._meta.verbose_name), msg)
 
 
-def get_website_url(path="/"):
-    protocol = getattr(settings, "PROTOCOL", "http")
-    domain = Site.objects.get_current().domain
-    port = getattr(settings, "PORT", "")
-    if port:
-        assert port.startswith(":"), "The PORT setting must have a preceeding ':'."
-    return u"%s://%s%s%s" % (protocol, domain, port, path)
-
-
-def get_website_ssl_url(path="/"):
-    protocol = getattr(settings, "HTTPS_PROTOCOL", "https")
-    domain = Site.objects.get_current().domain
-    port = getattr(settings, "PORT", "")
-    if port:
-        assert port.startswith(":"), "The PORT setting must have a preceeding ':'."
-    return u"%s://%s%s%s" % (protocol, domain, port, path)
+def get_website_url(path=""):
+    return settings.WEBSITE_URL + path
 
 
 def verify_objref_hash(content_type_id, object_id, hash):
@@ -56,7 +42,8 @@ def verify_objref_hash(content_type_id, object_id, hash):
     return hash == hash_match
 
 
-def get_unique_value(model, proposal, field_name="slug", instance_pk=None, separator="-", number_first=False, numbering_from=1, min_width=0, postfix="", postfix_regex="", ignore_case=False):
+def get_unique_value(model, proposal, field_name="slug", instance_pk=None, separator="-", number_first=False,
+                     numbering_from=1, min_width=0, postfix="", postfix_regex="", ignore_case=False):
     """ Returns unique string by the proposed one.
     Format: <proposal>[<separator><number>[<postfix>]]
     By default, for proposal 'example' returns strings from the sequence:
@@ -92,11 +79,11 @@ def get_unique_value(model, proposal, field_name="slug", instance_pk=None, separ
         similar_ones = [elem[field_name].lower() for elem in similar_ones]
     else:
         similar_ones = [elem[field_name] for elem in similar_ones]
-    
+
     first_result = number_first and "%s%s%0*d%s" % (proposal, separator, min_width, numbering_from, postfix) or proposal
     if ignore_case:
         first_result = first_result.lower()
-        
+
     if first_result not in similar_ones:
         return first_result
     else:
@@ -139,14 +126,36 @@ def html_to_plain_text(html):
     link_pattern = re.compile(
         r'<a [^>]*?href=(["\'])([^\1]+?)\1[^>]*?>(.+?)</a>',
         re.I,
-        )
+    )
     removables_pattern = re.compile(
         r'<(style|script) ?[^>]*>(.+?)</\1>',
         re.I,
-        )
+    )
     html_tag_pattern = re.compile(r'<[^>]+>')
     html_entity_pattern = re.compile(r'&[^;]+;')
-    html_entities = {"&quot;": '"', "&apos;": "'", "&amp;": "&", "&lt;": "<", "&gt;": ">", "&nbsp;": " ", "&iexcl;": "¡", "&curren;": "¤", "&cent;": "¢", "&pound;": "£", "&yen;": "¥", "&brvbar;": "¦", "&sect;": "§", "&uml;": "¨", "&copy;": "©", "&ordf;": "ª", "&laquo;": "«", "&not;": "¬", "&shy;": "­", "&reg;": "®", "&trade;": "™", "&macr;": "¯", "&deg;": "°", "&plusmn;": "±", "&sup2;": "²", "&sup3;": "³", "&acute;": "´", "&micro;": "µ", "&para;": "¶", "&middot;": "·", "&cedil;": "¸", "&sup1;": "¹", "&ordm;": "º", "&raquo;": "»", "&frac14;": "¼", "&frac12;": "½", "&frac34;": "¾", "&iquest;": "¿", "&times;": "×", "&divide;": "÷", "&Agrave;": "À", "&Aacute;": "Á", "&Acirc;": "Â", "&Atilde;": "Ã", "&Auml;": "Ä", "&Aring;": "Å", "&AElig;": "Æ", "&Ccedil;": "Ç", "&Egrave;": "È", "&Eacute;": "É", "&Ecirc;": "Ê", "&Euml;": "Ë", "&Igrave;": "Ì", "&Iacute;": "Í", "&Icirc;": "Î", "&Iuml;": "Ï", "&ETH;": "Ð", "&Ntilde;": "Ñ", "&Ograve;": "Ò", "&Oacute;": "Ó", "&Ocirc;": "Ô", "&Otilde;": "Õ", "&Ouml;": "Ö", "&Oslash;": "Ø", "&Ugrave;": "Ù", "&Uacute;": "Ú", "&Ucirc;": "Û", "&Uuml;": "Ü", "&Yacute;": "Ý", "&THORN;": "Þ", "&szlig;": "ß", "&agrave;": "à", "&aacute;": "á", "&acirc;": "â", "&atilde;": "ã", "&auml;": "ä", "&aring;": "å", "&aelig;": "æ", "&ccedil;": "ç", "&egrave;": "è", "&eacute;": "é", "&ecirc;": "ê", "&euml;": "ë", "&igrave;": "ì", "&iacute;": "í", "&icirc;": "î", "&iuml;": "ï", "&eth;": "ð", "&ntilde;": "ñ", "&ograve;": "ò", "&oacute;": "ó", "&ocirc;": "ô", "&otilde;": "õ", "&ouml;": "ö", "&oslash;": "ø", "&ugrave;": "ù", "&uacute;": "ú", "&ucirc;": "û", "&uuml;": "ü", "&yacute;": "ý", "&thorn;": "þ", "&yuml;": "ÿ", "&OElig;": "Œ", "&oelig;": "œ", "&Scaron;": "Š", "&scaron;": "š", "&Yuml;": "Ÿ", "&circ;": "ˆ", "&tilde;": "˜", "&ensp;": " ", "&emsp;": " ", "&thinsp;": " ", "&zwnj;": " ", "&zwj;": " ", "&lrm;": " ", "&rlm;": " ", "&ndash;": "–", "&mdash;": "—", "&lsquo;": "‘", "&rsquo;": "’", "&sbquo;": "‚", "&ldquo;": "“", "&rdquo;": "”", "&bdquo;": "„", "&dagger;": "†", "&Dagger;": "‡", "&hellip;": "…", "&permil;": "‰", "&lsaquo;": "‹", "&rsaquo;": "›", "&euro;": "€",}
+    html_entities = {"&quot;": '"', "&apos;": "'", "&amp;": "&", "&lt;": "<", "&gt;": ">", "&nbsp;": " ",
+                     "&iexcl;": "¡", "&curren;": "¤", "&cent;": "¢", "&pound;": "£", "&yen;": "¥", "&brvbar;": "¦",
+                     "&sect;": "§", "&uml;": "¨", "&copy;": "©", "&ordf;": "ª", "&laquo;": "«", "&not;": "¬",
+                     "&shy;": "­", "&reg;": "®", "&trade;": "™", "&macr;": "¯", "&deg;": "°", "&plusmn;": "±",
+                     "&sup2;": "²", "&sup3;": "³", "&acute;": "´", "&micro;": "µ", "&para;": "¶", "&middot;": "·",
+                     "&cedil;": "¸", "&sup1;": "¹", "&ordm;": "º", "&raquo;": "»", "&frac14;": "¼", "&frac12;": "½",
+                     "&frac34;": "¾", "&iquest;": "¿", "&times;": "×", "&divide;": "÷", "&Agrave;": "À",
+                     "&Aacute;": "Á", "&Acirc;": "Â", "&Atilde;": "Ã", "&Auml;": "Ä", "&Aring;": "Å", "&AElig;": "Æ",
+                     "&Ccedil;": "Ç", "&Egrave;": "È", "&Eacute;": "É", "&Ecirc;": "Ê", "&Euml;": "Ë", "&Igrave;": "Ì",
+                     "&Iacute;": "Í", "&Icirc;": "Î", "&Iuml;": "Ï", "&ETH;": "Ð", "&Ntilde;": "Ñ", "&Ograve;": "Ò",
+                     "&Oacute;": "Ó", "&Ocirc;": "Ô", "&Otilde;": "Õ", "&Ouml;": "Ö", "&Oslash;": "Ø", "&Ugrave;": "Ù",
+                     "&Uacute;": "Ú", "&Ucirc;": "Û", "&Uuml;": "Ü", "&Yacute;": "Ý", "&THORN;": "Þ", "&szlig;": "ß",
+                     "&agrave;": "à", "&aacute;": "á", "&acirc;": "â", "&atilde;": "ã", "&auml;": "ä", "&aring;": "å",
+                     "&aelig;": "æ", "&ccedil;": "ç", "&egrave;": "è", "&eacute;": "é", "&ecirc;": "ê", "&euml;": "ë",
+                     "&igrave;": "ì", "&iacute;": "í", "&icirc;": "î", "&iuml;": "ï", "&eth;": "ð", "&ntilde;": "ñ",
+                     "&ograve;": "ò", "&oacute;": "ó", "&ocirc;": "ô", "&otilde;": "õ", "&ouml;": "ö", "&oslash;": "ø",
+                     "&ugrave;": "ù", "&uacute;": "ú", "&ucirc;": "û", "&uuml;": "ü", "&yacute;": "ý", "&thorn;": "þ",
+                     "&yuml;": "ÿ", "&OElig;": "Œ", "&oelig;": "œ", "&Scaron;": "Š", "&scaron;": "š", "&Yuml;": "Ÿ",
+                     "&circ;": "ˆ", "&tilde;": "˜", "&ensp;": " ", "&emsp;": " ", "&thinsp;": " ", "&zwnj;": " ",
+                     "&zwj;": " ", "&lrm;": " ", "&rlm;": " ", "&ndash;": "–", "&mdash;": "—", "&lsquo;": "‘",
+                     "&rsquo;": "’", "&sbquo;": "‚", "&ldquo;": "“", "&rdquo;": "”", "&bdquo;": "„", "&dagger;": "†",
+                     "&Dagger;": "‡", "&hellip;": "…", "&permil;": "‰", "&lsaquo;": "‹", "&rsaquo;": "›",
+                     "&euro;": "€", }
     text = re.sub(removables_pattern, '', text)
     text = re.sub(whitespace_pattern, ' ', text)
     text = re.sub(line_break_pattern, '\n', text)
@@ -155,7 +164,7 @@ def html_to_plain_text(html):
     text = re.sub(link_pattern, link_replacement, text)
     # remove the rest html tags
     text = re.sub(html_tag_pattern, '', text)
-    
+
     # &<word-based>; -> <special symbol>
     for k, v in html_entities.items():
         text = text.replace(k, v)
@@ -171,7 +180,7 @@ def strip_html(text):
     def fixup(m):
         text = m.group(0)
         if text[:1] == "<":
-            return "" # ignore tags
+            return ""  # ignore tags
         if text[:2] == "&#":
             try:
                 if text[:3] == "&#x":
@@ -191,7 +200,8 @@ def strip_html(text):
                         pass
                 else:
                     return unicode(entity, "iso-8859-1")
-        return text # leave as is
+        return text  # leave as is
+
     return re.sub("(?s)<[^>]*>|&#?\w+;", fixup, text)
 
 
@@ -215,26 +225,34 @@ class XChoiceList(list):
         super(XChoiceList, self).__init__()
         self.sequence = sequence
         self.null_choice_text = null_choice_text
+
     def __iter__(self):
         return iter(self._get_list())
+
     def __getitem__(self, k):
         return self._get_list()[k]
+
     def __nonzero__(self):
         return bool(self.sequence)
+
     def __len__(self):
         return len(self.sequence)
+
     def __str__(self):
         return str(self._get_list())
+
     def __unicode__(self):
         return unicode(self._get_list())
+
     def __repr__(self):
         return repr(self._get_list())
+
     def _get_list(self):
         if hasattr(self.sequence, "model"):
             result = [("", self.null_choice_text)] + [
                 (el.id, hasattr(el, "get_title") and el.get_title() or force_unicode(el))
                 for el in self.sequence
-                ]
+            ]
         elif callable(self.sequence):
             result = self.sequence()
             if result:
@@ -275,7 +293,7 @@ class ExtendedJSONEncoder(json.JSONEncoder):
             }
         if isinstance(o, Decimal):
             return str(o)
-        if hasattr(o, "path"): # FileObject
+        if hasattr(o, "path"):  # FileObject
             return o.path
         if type(o).__name__ == "ModelState":
             return None
@@ -285,17 +303,17 @@ class ExtendedJSONEncoder(json.JSONEncoder):
 def get_installed(path):
     """
     Get a module, class, function, or variable from an installed application wherever it is located
-    
+
     Usage:
-    
+
         attr = get_installed("<app_name>{.<module>*}.<attr>")
 
     Example:
-    
+
         func = get_installed("accounts.views.register")
         mod = get_installed("utils.dynamicforms")
         func = get_installed("auth.create_superuser.createsuperuser")
-        
+
     """
     path_bits = path.split(".")
     app_name = path_bits.pop(0)
@@ -310,23 +328,23 @@ def path_in_installed_app(path):
     """
     Get a python path for a module, class, function, or variable
     in the installed application wherever it is located
-    
+
     Usage:
-    
+
         path = path_in_installed_app("<app_name>{.<module>*}.<attr>")
 
     Example:
-    
+
         path = get_installed("filebrowser.urls")
         # "filebrowser.urls"
-        
+
         path = get_installed("site_specific.misc")
         # "myproject.apps.site_specific.misc"
-        
+
     """
     path_bits = path.split(".")
     app_name = path_bits.pop(0)
-    #ret_var = path_bits.pop()
+    # ret_var = path_bits.pop()
     app_path_bits = get_app(app_name).__name__.split(".")[:-1]
     module_path = ".".join(app_path_bits + path_bits)
     return module_path
@@ -353,18 +371,17 @@ def db_table_exists(model):
 
 
 def truncwords(value, nof_words):
-    
     """
     Truncate a string to the specified number of words, similar
     to Django's truncatewords filter but preserves linefeeds
     Argument: Number of words to truncate after.
     """
-    
+
     try:
         length = int(nof_words)
     except ValueError:
         return value
-    
+
     # break into words, retaining linefeeds
     words = []
     for line in value.split('\n'):
@@ -377,7 +394,7 @@ def truncwords(value, nof_words):
     # remove last linefeed
     words.pop()
     length -= 1
-    
+
     if len(words) > length:
         words = words[:length]
         if not words[-1].endswith('...'):
@@ -410,18 +427,18 @@ def smart_truncate(text, length=100, suffix='...'):
     """
     Truncates `text`, on a word boundary, as close to
     the target length it can come.    
-    """    
+    """
     slen = len(suffix)
-    pattern = r'^(.{0,%d}\S)\s+\S+' % (length-slen-1)
+    pattern = r'^(.{0,%d}\S)\s+\S+' % (length - slen - 1)
     if len(text) > length:
-        match = re.match(pattern, text) 
+        match = re.match(pattern, text)
         if match:
             length0 = match.end(0)
             length1 = match.end(1)
-            if abs(length0+slen-length) < abs(length1+slen-length): 
+            if abs(length0 + slen - length) < abs(length1 + slen - length):
                 return match.group(0) + suffix
             else:
-                return match.group(1) + suffix    
+                return match.group(1) + suffix
     return text
 
 
@@ -435,7 +452,7 @@ def get_unused_languages(exclude=("id",)):
     available_languages = [
         lang[0]
         for lang in global_settings.LANGUAGES
-        if len(lang[0])==2
+        if len(lang[0]) == 2
     ]
     unused_languages = [
         lang
