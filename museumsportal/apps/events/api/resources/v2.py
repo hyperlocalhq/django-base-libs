@@ -102,7 +102,7 @@ class MediaFileResource(ModelResource):
         if bundle.obj.path:
             bundle.data['url'] = "".join((
                 get_website_url(),
-                settings.MEDIA_URL[1:],
+                settings.MEDIA_URL,
                 bundle.obj.path.path,
             ))
             try:
@@ -185,13 +185,13 @@ class EventResource(ModelResource):
     def dehydrate(self, bundle):
         bundle.data['link_en'] = "".join((
             get_website_url(),
-            "en/events/",
+            "/en/events/",
             bundle.obj.slug,
             "/",
         ))
         bundle.data['link_de'] = "".join((
             get_website_url(),
-            "de/veranstaltungen/",
+            "/de/veranstaltungen/",
             bundle.obj.slug,
             "/",
         ))
@@ -212,13 +212,13 @@ class EventResource(ModelResource):
         if bundle.obj.pdf_document_de:
             bundle.data['pdf_document_de'] = "".join((
                 get_website_url(),
-                settings.MEDIA_URL[1:],
+                settings.MEDIA_URL,
                 bundle.obj.pdf_document_de.path,
             ))
         if bundle.obj.pdf_document_en:
             bundle.data['pdf_document_en'] = "".join((
                 get_website_url(),
-                settings.MEDIA_URL[1:],
+                settings.MEDIA_URL,
                 bundle.obj.pdf_document_en.path,
             ))
 

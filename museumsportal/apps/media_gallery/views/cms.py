@@ -521,7 +521,7 @@ def gallery_post_comment(
         extra_context['object'] = obj
         
     extra_context[settings.REDIRECT_FIELD_NAME] = request.REQUEST.get(settings.REDIRECT_FIELD_NAME, '')
-    extra_context['rel_obj_root_dir'] = get_website_url() + rel_url_part
+    extra_context['rel_obj_root_dir'] = get_website_url() + '/' + rel_url_part
     extra_context['template_dir'] = template_dir
     extra_context['gallery'] = gallery
     extra_context['object'] = obj
@@ -601,7 +601,7 @@ def gallery_refuse_comment(
         redirect_to = request.path.split('comment')[0]        
     
     extra_context[settings.REDIRECT_FIELD_NAME] = redirect_to
-    extra_context['rel_obj_root_dir'] = get_website_url() + rel_url_part
+    extra_context['rel_obj_root_dir'] = get_website_url() + '/' + rel_url_part
     extra_context['template_dir'] = template_dir
     extra_context['gallery'] = gallery  
     extra_context['object'] = obj

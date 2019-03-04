@@ -12,7 +12,7 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.cache import never_cache
 
 from base_libs.middleware import get_current_user
-from base_libs.utils.misc import get_website_url, get_website_ssl_url
+from base_libs.utils.misc import get_website_url
 from base_libs.utils.user import get_user_title
 
 from jetson.apps.people.functions import get_user_language
@@ -31,7 +31,6 @@ def get_global_placeholders(placeholders={}, language="en"):
     """
     placeholders['site_name'] = Site.objects.get_current().name
     placeholders['website_url'] = get_website_url()
-    placeholders['website_ssl_url'] = get_website_ssl_url()
     if settings.MEDIA_URL.startswith("/"):
         placeholders['media_url'] = placeholders['website_url'] + settings.MEDIA_URL[1:]
     else:

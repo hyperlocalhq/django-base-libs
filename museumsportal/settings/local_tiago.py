@@ -13,3 +13,5 @@ ALLOWED_HOSTS = [
 INSTALLED_APPS += ["debug_toolbar"]
 MIDDLEWARE_CLASSES.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
 execfile(os.path.join(JETSON_PATH, "jetson/settings/debug_toolbar.py"))
+
+WEBSITE_URL = "http://127.0.0.1:8000"

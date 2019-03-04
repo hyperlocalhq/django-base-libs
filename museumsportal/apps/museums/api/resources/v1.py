@@ -61,20 +61,20 @@ class MuseumResource(ModelResource):
         if bundle.obj.image:
             bundle.data['image'] = "".join((
                 get_website_url(),
-                settings.MEDIA_URL[1:],
+                settings.MEDIA_URL,
                 bundle.obj.image.path,
                 ))
         else:
             bundle.data['image'] = ""
         bundle.data['link_de'] = "".join((
             get_website_url(),
-            "de/museen/",
+            "/de/museen/",
             bundle.obj.slug,
             "/",
             ))
         bundle.data['link_en'] = "".join((
             get_website_url(),
-            "en/museums/",
+            "/en/museums/",
             bundle.obj.slug,
             "/",
             ))
