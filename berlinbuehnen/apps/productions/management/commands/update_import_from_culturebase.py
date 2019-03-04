@@ -1,29 +1,16 @@
 # -*- coding: UTF-8 -*-
-
 import re
 import requests
 from xml.etree import ElementTree
-from dateutil.parser import parse as parse_datetime
 from optparse import make_option
 import csv
 
 from django.core.management.base import NoArgsCommand
 from django.utils.encoding import smart_str, force_unicode
-from django.utils.text import slugify
 from django.db import models
 from django.apps import apps
 
-from base_libs.utils.misc import get_unique_value
-
-from berlinbuehnen.apps.productions.models import ProductionCategory
-from berlinbuehnen.apps.productions.models import ProductionCharacteristics
-from berlinbuehnen.apps.productions.models import Production
-from berlinbuehnen.apps.productions.models import ProductionImage
-from berlinbuehnen.apps.productions.models import Event
-from berlinbuehnen.apps.productions.models import EventCharacteristics
-from berlinbuehnen.apps.productions.models import EventImage
 from berlinbuehnen.apps.people.models import Person, AuthorshipType
-from berlinbuehnen.apps.sponsors.models import Sponsor
 
 from _import_from_heimat_base_xml import LOCATIONS_TO_SKIP, STAGE_TO_LOCATION_MAPPER, PRODUCTION_VENUES, convert_location_title, CultureBaseLocation
 
@@ -655,121 +642,6 @@ class Command(NoArgsCommand):
                     # don't import it again
                     self.stats['prods_skipped'] += 1
                     continue
-                # else:
-                #     if parse_datetime(exhibition_dict['lastaction'], ignoretz=True) < datetime.now() - timedelta(days=1):
-                #         self.stats['prods_skipped'] += 1
-                #         continue
-
-            # prod.title_de = title_de
-            # prod.title_en = title_en or title_de
-            # prod.website_de = prod.website_en = self.get_child_text(prod_node, 'Url')
-            #
-            # prod.slug = get_unique_value(Production, slugify(prod.title_de), instance_pk=prod.pk)
-            #
-            # ticket_node = prod_node.find('./%(prefix)sTicket' % self.helper_dict)
-            # if ticket_node is not None:
-            #     prices = self.get_child_text(ticket_node, 'Price')
-            #     if prices:
-            #         prod.price_from, prod.price_till = prices.split(u' - ')
-            #     prod.tickets_website = self.get_child_text(ticket_node, 'TicketLink')
-            #
-            # self.parse_and_use_texts(prod_node, prod)
-            #
-            # prod.save()
-            #
-            # venue_node = prod_node.find('./%(prefix)sVenue' % self.helper_dict)
-            # if venue_node is not None:
-            #     location, stage = self.get_updated_location_and_stage(venue_node)
-            #     if location:
-            #         prod.play_locations.clear()
-            #         prod.play_locations.add(location)
-            #
-            #     if stage:
-            #         if isinstance(stage, dict):
-            #             prod.location_title = stage['title']
-            #             prod.street_address = stage['street_address']
-            #             prod.postal_code = stage['postal_code']
-            #             prod.city = stage['city']
-            #             prod.save()
-            #         else:
-            #             prod.play_stages.clear()
-            #             prod.play_stages.add(stage)
-            # free_text_venue = self.get_child_text(prod_node, 'FreeTextVenue')
-            # if free_text_venue:
-            #     location, stage = self.get_updated_location_and_stage_from_free_text(free_text_venue)
-            #     if location:
-            #         prod.play_locations.clear()
-            #         prod.play_locations.add(location)
-            #     #else:
-            #     #    prod.location_title = free_text_venue
-            #     #    prod.save()
-            #
-            #     if stage:
-            #         if isinstance(stage, dict):
-            #             prod.location_title = stage['title']
-            #             prod.street_address = stage.get('street_address', u'')
-            #             prod.postal_code = stage.get('postal_code', u'')
-            #             prod.city = stage.get('city', u'Berlin')
-            #             prod.save()
-            #         else:
-            #             prod.play_stages.clear()
-            #             prod.play_stages.add(stage)
-            #
-            # organizers_list = []
-            # for organisation_node in prod_node.findall('./%(prefix)sOrganisation' % self.helper_dict):
-            #     organizers_list.append(self.get_child_text(organisation_node, 'Name'))
-            #
-            # if organizers_list:
-            #     prod.organizers = u', '.join(organizers_list)
-            #     prod.save()
-            #
-            # if not self.skip_images and not prod.productionimage_set.count():
-            #     for picture_node in prod_node.findall('./%(prefix)sPicture' % self.helper_dict):
-            #         image_url = self.get_child_text(picture_node, 'Url')
-            #         mf = ProductionImage(production=prod)
-            #         filename = image_url.split("/")[-1]
-            #         image_response = requests.get(image_url)
-            #         if image_response.status_code == 200:
-            #             image_mods.FileManager.save_file_for_object(
-            #                 mf,
-            #                 filename,
-            #                 image_response.content,
-            #                 field_name="path",
-            #                 subpath="productions/%s/gallery/" % prod.slug,
-            #             )
-            #             if self.get_child_text(picture_node, 'PublishType') == "publish_type_for_free_use":
-            #                 mf.copyright_restrictions = "general_use"
-            #             else:
-            #                 mf.copyright_restrictions = "protected"
-            #             mf.save()
-            #             try:
-            #                 file_description = FileDescription.objects.filter(
-            #                     file_path=mf.path,
-            #                 ).order_by("pk")[0]
-            #             except:
-            #                 file_description = FileDescription(file_path=mf.path)
-            #
-            #             file_description.title_de = self.get_child_text(picture_node, 'Title', Language="de")
-            #             file_description.title_en = self.get_child_text(picture_node, 'Title', Language="en")
-            #             file_description.description_de = self.get_child_text(picture_node, 'Description', Language="de")
-            #             file_description.description_en = self.get_child_text(picture_node, 'Description', Language="en")
-            #             file_description.author = self.get_child_text(picture_node, 'Photographer')
-            #             file_description.save()
-            #             #time.sleep(1)
-            #
-            # for category_id_node in prod_node.findall('./%(prefix)sContentCategory/%(prefix)sCategoryId' % self.helper_dict):
-            #     internal_cat_id = self.CATEGORY_MAPPER.get(int(category_id_node.text), None)
-            #     if internal_cat_id:
-            #         cats = ProductionCategory.objects.filter(pk=internal_cat_id)
-            #         if cats:
-            #             prod.categories.add(cats[0])
-            #
-            # for status_node in prod_node.findall('./%(prefix)sStatus' % self.helper_dict):
-            #     internal_ch_slug = self.PRODUCTION_CHARACTERISTICS_MAPPER.get(int(status_node.get('Id')), None)
-            #     if internal_ch_slug:
-            #         prod.characteristics.add(ProductionCharacteristics.objects.get(slug=internal_ch_slug))
-            #     elif int(status_node.get('Id')) == 25:
-            #         prod.categories.add(ProductionCategory.objects.get(slug="kinder-jugend"))
 
             prod.productionleadership_set.all().delete()
             prod.productionauthorship_set.all().delete()
@@ -831,26 +703,6 @@ class Command(NoArgsCommand):
                 item.sort_order = sort_order
                 item.save()
 
-            # if not prod.sponsors.count():
-            #     for sponsor_node in prod_node.findall('./%(prefix)sSponsor' % self.helper_dict):
-            #         sponsor = Sponsor()
-            #         sponsor.title_de = self.get_child_text(sponsor_node, 'Description', Language="de")
-            #         sponsor.title_en = self.get_child_text(sponsor_node, 'Description', Language="en")
-            #         sponsor.website = self.get_child_text(sponsor_node, 'Url')
-            #         sponsor.save()
-            #         image_url = self.get_child_text(sponsor_node, 'ImageUrl')
-            #         filename = image_url.split("/")[-1]
-            #         image_response = requests.get(image_url)
-            #         if image_response.status_code == 200:
-            #             image_mods.FileManager.save_file_for_object(
-            #                 sponsor,
-            #                 filename,
-            #                 image_response.content,
-            #                 field_name="image",
-            #                 subpath="sponsors/",
-            #             )
-            #         prod.sponsors.add(sponsor)
-            #
             if not mapper:
                 mapper = ObjectMapper(
                     service=self.service,
@@ -885,122 +737,6 @@ class Command(NoArgsCommand):
                         # don't import it again
                         self.stats['events_skipped'] += 1
                         continue
-
-                # event.production = prod
-                #
-                # start_date_str = self.get_child_text(event_node, 'Date')
-                # if start_date_str:
-                #     event.start_date = parse_datetime(start_date_str).date()
-                # start_time_str = self.get_child_text(event_node, 'Begin')
-                # if start_time_str:
-                #     event.start_time = parse_datetime(start_time_str).time()
-                # end_time_str = self.get_child_text(event_node, 'End')
-                # if end_time_str:
-                #     event.end_time = parse_datetime(end_time_str).time()
-                # duration_str = self.get_child_text(event_node, 'Duration')
-                # if duration_str:
-                #     event.duration = int(duration_str)
-                #
-                # ticket_node = event_node.find('%(prefix)sTicket' % self.helper_dict)
-                # if ticket_node is not None:
-                #     prices = self.get_child_text(ticket_node, 'Price')
-                #     if prices:
-                #         event.price_from, event.price_till = prices.split(u' - ')
-                #     event.tickets_website = self.get_child_text(ticket_node, 'TicketLink')
-                #
-                # flag_status = event_node.find('%(prefix)sFlagStatus' % self.helper_dict).get('Id')
-                # if flag_status == 0:  # fällt aus
-                #     event.event_status = 'canceled'
-                # elif flag_status == 1:  # findet statt
-                #     event.event_status = 'takes_place'
-                # elif flag_status == 2:  # ausverkauft
-                #     event.ticket_status = 'sold_out'
-                #
-                # self.parse_and_use_texts(event_node, event)
-                #
-                # organisation_node = event_node.find('./%(prefix)sOrganisation' % self.helper_dict)
-                # if organisation_node:
-                #     event.organizers = self.get_child_text(organisation_node, 'Name')
-                #
-                # event.save()
-                #
-                # if not self.skip_images and not event.eventimage_set.count():
-                #     for picture_node in event_node.findall('%(prefix)sPicture' % self.helper_dict):
-                #         image_url = self.get_child_text(picture_node, 'Url')
-                #         mf = EventImage(event=event)
-                #         filename = image_url.split("/")[-1]
-                #         image_response = requests.get(image_url)
-                #         if image_response.status_code == 200:
-                #             image_mods.FileManager.save_file_for_object(
-                #                 mf,
-                #                 filename,
-                #                 image_response.content,
-                #                 field_name="path",
-                #                 subpath="productions/%s/events/%s/gallery/" % (prod.slug, event.pk),
-                #             )
-                #             if self.get_child_text(picture_node, 'PublishType') == "publish_type_for_free_use":
-                #                 mf.copyright_restrictions = "general_use"
-                #             else:
-                #                 mf.copyright_restrictions = "protected"
-                #             mf.save()
-                #             try:
-                #                 file_description = FileDescription.objects.filter(
-                #                     file_path=mf.path,
-                #                 ).order_by("pk")[0]
-                #             except:
-                #                 file_description = FileDescription(file_path=mf.path)
-                #
-                #             file_description.title_de = self.get_child_text(picture_node, 'Title', Language="de")
-                #             file_description.title_en = self.get_child_text(picture_node, 'Title', Language="en")
-                #             file_description.description_de = self.get_child_text(picture_node, 'Description', Language="de")
-                #             file_description.description_en = self.get_child_text(picture_node, 'Description', Language="en")
-                #             file_description.author = self.get_child_text(picture_node, 'Photographer')
-                #             file_description.save()
-                #             #time.sleep(1)
-                #
-                # venue_node = event_node.find('%(prefix)sVenue' % self.helper_dict)
-                # if venue_node is not None:
-                #     location, stage = self.get_updated_location_and_stage(venue_node)
-                #     if location:
-                #         event.play_locations.clear()
-                #         event.play_locations.add(location)
-                #
-                #     if stage:
-                #         if isinstance(stage, dict):
-                #             event.location_title = stage['title']
-                #
-                #             event.street_address = stage['street_address']
-                #             event.postal_code = stage['postal_code']
-                #             event.city = stage['city']
-                #             event.save()
-                #         else:
-                #             event.play_stages.clear()
-                #             event.play_stages.add(stage)
-                # free_text_venue = self.get_child_text(prod_node, 'FreeTextVenue')
-                # if free_text_venue:
-                #     location, stage = self.get_updated_location_and_stage_from_free_text(free_text_venue)
-                #     if location:
-                #         event.play_locations.clear()
-                #         event.play_locations.add(location)
-                #     #else:
-                #     #    event.location_title = free_text_venue
-                #     #    event.save()
-                #
-                #     if stage:
-                #         if isinstance(stage, dict):
-                #             event.location_title = stage['title']
-                #             event.street_address = stage.get('street_address', u'')
-                #             event.postal_code = stage.get('postal_code', u'')
-                #             event.city = stage.get('city', u'Berlin')
-                #             event.save()
-                #         else:
-                #             event.play_stages.clear()
-                #             event.play_stages.add(stage)
-                #
-                # for status_node in event_node.findall('%(prefix)sStatus' % self.helper_dict):
-                #     internal_ch_slug = self.EVENT_CHARACTERISTICS_MAPPER.get(int(status_node.get('Id')), None)
-                #     if internal_ch_slug:
-                #         event.characteristics.add(EventCharacteristics.objects.get(slug=internal_ch_slug))
 
                 event.eventauthorship_set.all().delete()
                 event.eventleadership_set.all().delete()
