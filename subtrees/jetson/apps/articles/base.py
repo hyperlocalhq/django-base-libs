@@ -21,7 +21,7 @@ from base_libs.models.models import ViewsMixin
 from base_libs.models.models import HierarchyMixin
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
-from base_libs.models.fields import ExtendedTextField  # needed for south to work
+from base_libs.models.fields import ExtendedTextField
 from base_libs.utils.misc import get_website_url
 from base_libs.utils.misc import html_to_plain_text
 from base_libs.models.base_libs_settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED

@@ -36,13 +36,6 @@ def extend_people_app():
             blank=True,
             null=True,
         )
-        institution.south_field_triple = lambda: (
-            "django.db.models.fields.related.ForeignKey",
-            ["orm['institutions.institution']"],
-            {
-                'blank': repr(institution.blank),
-                'null': repr(institution.null),
-            })
         IndividualContact.add_to_class(
             "institution",
             institution,

@@ -17,7 +17,6 @@ from django.conf import settings
 
 from base_libs.models.models import MetaTagsMixin
 from base_libs.models.fields import PlainTextModelField
-from base_libs.models.fields import MultilingualCharField  # for south to work
 
 verbose_name = _("Configuration")
 

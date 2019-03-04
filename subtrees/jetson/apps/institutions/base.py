@@ -1,15 +1,10 @@
 # -*- coding: UTF-8 -*-
-import os
-import re
 import StringIO
 import codecs
 import vobject
 import sys
-from datetime import datetime, date
 
 from django.db import models
-from django.db.models.base import ModelBase
-from django.db.models.fields import FieldDoesNotExist
 
 if "makemigrations" in sys.argv:
     from django.utils.translation import ugettext_noop as _
@@ -17,11 +12,9 @@ else:
     from django.utils.translation import ugettext_lazy as _
 
 from django.utils.safestring import mark_safe
-from django.utils.functional import lazy
 from django.utils.encoding import force_unicode
 from django.conf import settings
 from django.utils.timezone import now as tz_now
-from django.apps import apps
 
 from base_libs.models.models import UrlMixin
 from base_libs.models.models import CreationModificationDateMixin
@@ -36,13 +29,10 @@ from base_libs.models.query import ExtendedQuerySet
 from base_libs.models.fields import URLField
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
-from base_libs.models.fields import ExtendedTextField  # for south
 
 from filebrowser.fields import FileBrowseField
 
-from jetson.apps.structure.models import Term
 from jetson.apps.structure.models import ContextCategory
-from jetson.apps.structure.models import Category
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import InstitutionalLocationType
 from jetson.apps.optionset.models import PhoneType
