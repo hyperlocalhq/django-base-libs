@@ -31,7 +31,6 @@ window.settings = {
     css_url: '{{ css_url }}',
     img_url: '{{ img_url }}',
     website_url: '{{ WEBSITE_URL }}',
-    website_ssl_url: '{{ WEBSITE_SSL_URL }}',
     lang: '{{ LANGUAGE_CODE }}',
     languages: JSON.parse('{{ LANGUAGES_JSON }}')
 };
