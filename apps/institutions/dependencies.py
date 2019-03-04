@@ -7,10 +7,6 @@ required_apps = [
     "location",
     "optionset",
     "utils",
-    "events",
-    "marketplace",
-    "memos",
-    "favorites",
-    "groups_networks",
+    "groups_networks",  # TODO: remove requirement
 ]
 optional_apps = []

@@ -1,8 +1,0 @@
-{% load i18n %}
-{% if recommendation %}
-    <div class="claim">
-        <div class="fawesome fa-hand-down big color-black color-over-black"></div>
-        <p>{{ recommendation.get_widget_template_display }}</p>
-    </div>
-    {% include recommendation.widget_template %}
-{% endif %}
