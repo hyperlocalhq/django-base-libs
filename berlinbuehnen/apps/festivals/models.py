@@ -13,7 +13,6 @@ from base_libs.models.models import OpeningHoursMixin
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import URLField
 from base_libs.models.fields import MultilingualTextField
-from base_libs.models.fields import ExtendedTextField # needed for south to work
 from base_libs.models.fields import PositionField
 from base_libs.utils.misc import get_translation
 from base_libs.utils.misc import get_unique_value

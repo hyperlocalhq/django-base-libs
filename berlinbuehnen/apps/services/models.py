@@ -11,7 +11,7 @@ from base_libs.models.models import CreationModificationDateMixin
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
 from base_libs.models.fields import PositionField
-from base_libs.models.fields import ExtendedTextField  # for south
+from base_libs.models.fields import ExtendedTextField
 
 from filebrowser.fields import FileBrowseField
 
