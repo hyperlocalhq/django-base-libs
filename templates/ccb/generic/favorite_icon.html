@@ -1,0 +1,9 @@
+{% load base_tags i18n %}
+{% with forloop.counter|default:0 as counter %}
+    {% if is_not_favorite_for_user %}
+        <a href="#Favorites" rel="nofollow" class="fawesome fa-favorite button adding_to_favorites_{{ counter|default:0 }}" onclick="FavoriteManager.toggle({{ counter|default:0 }}, {{ content_type_id }}, {{ object.id }}, '/'); this.blur(); window.cancelEvent(event);" id="adding_to_favorites_{{ counter|default:0 }}"><span class="sr-only">{% trans "Add to favorites" %}</span></a>
+    {% else %}
+        <a href="#Favorites" rel="nofollow" class="fawesome fa-favorite button active adding_to_favorites_{{ counter|default:0 }}" onclick="FavoriteManager.toggle({{ counter|default:0 }}, {{ content_type_id }}, {{ object.id }}, '/'); this.blur(); window.cancelEvent(event);" id="adding_to_favorites_{{ counter|default:0 }}"><span class="sr-only">{% trans "Remove from favorites" %}</span></a>
+    {% endif %}
+{% endwith %}
+

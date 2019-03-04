@@ -1,0 +1,14 @@
+{% load i18n %}
+<div id="popup_content">
+    <form action="" method="post" class="uniForm">{% csrf_token %}
+        <p class="disclaimer">{% blocktrans with group.get_title as group_name %}Do you really want to leave
+            {{ group_name }}?{% endblocktrans %}</p>
+
+        <div class="buttonHolder">
+            <input class="primaryAction" type="submit" id="post" name="post"
+                value='{% filter upper %}{% trans "Leave" %}{% endfilter %}'/>
+            <input class="secondaryAction" type="button" name="cancel"
+                value="{% filter upper %}{% trans 'Cancel' %}{% endfilter %}"/>
+        </div>
+    </form>
+</div>

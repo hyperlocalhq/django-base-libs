@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% load base_tags i18n %}
+
+{% block title %}{% trans "Facebook Connect" %}{% endblock %}
+
+{% block headline %}
+    <h1>{% trans "Facebook Connect" %}</h1>
+{% endblock %}
+
+{% block content %}
+    <div id="fb_connect_form">
+        <form action="{% url 'manage_facebook_connections' %}" method="post" class="uniForm">{% csrf_token %}
+            <fieldset class="inlineLabels">
+                <h3>{% trans "Facebook Connect" %}</h3>
+                {% if fass %}
+                    {% for fas in fass %}
+                        <div id="fb_connection_{{ fas.fb_id }}">
+                            <p class="disclaimer">{% trans "You can login to CreativeCityBerlin with this Facebook account:" %}
+                                <a href="{{ fas.profile_url }}">{{ fas.name }}</a>
+                            </p>
+
+                            <div class="ctrlHolder noLabel">
+                                <ul>
+                                    <li>{% blocktrans with person_url=request.user.profile.get_url_path %}
+                                        <a href="{{ person_url }}portfolio/fb-sync/">Synchronize personal portfolio</a>
+                                        .{% endblocktrans %}</li>
+                                </ul>
+                            </div>
+                            <div class="buttonHolder">
+                                <input type="hidden" name="uid" value="{{ fas.fb_id }}"/>
+                                <input type="hidden" name="a" value="disconnect"/>
+                                <input class="secondaryAction facebook_disconnect" type="button"
+                                    value="{% filter upper %}{% trans 'Disconnect' %}{% endfilter %}"/>
+                            </div>
+                            <div class="cleaner"></div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div>
+                        <p class="disclaimer">{% trans "Connect your Creative City Berlin account with Facebook." %}</p>
+                    </div>
+                    <div class="buttonHolder">
+                        <input type="hidden" name="access_token" value=""/>
+                        <input type="hidden" name="uid" value=""/>
+                        <input type="hidden" name="a" value="connect"/>
+                        <input id="facebook_connect" class="primaryAction" type="button"
+                            value="{% filter upper %}{% trans 'Connect' %}{% endfilter %}"/>
+                    </div>
+                {% endif %}
+            </fieldset>
+        </form>
+    </div>
+    <div id="manage_pages"></div>
+{% endblock %}
+
+{% block facebook_scripts %}
+    <div id="fb-root"></div>
+    <script type="text/javascript"
+        src="//connect.facebook.net/{% if LANGUAGE_CODE == "en" %}en_US{% else %}de_DE{% endif %}/all.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/facebook_manage_connections.js"></script>
+{% endblock %}

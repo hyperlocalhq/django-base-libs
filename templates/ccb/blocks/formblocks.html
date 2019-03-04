@@ -1,0 +1,5 @@
+{% for formblock in formblocks %}
+    <div id="{{ formblock.sysname }}" class="formblock-content">
+        {{ formblock.get_rendered_content }}
+    </div>
+{% endfor %}

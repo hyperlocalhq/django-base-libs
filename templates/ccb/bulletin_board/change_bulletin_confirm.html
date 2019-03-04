@@ -1,0 +1,129 @@
+{% extends "bulletin_board/change_bulletin.html" %}
+{% load i18n image_mods_tags base_tags crispy_forms_tags cms_tags %}
+
+
+{% block headline %}
+    <h1>{% page_attribute "page_title" %}</h1>
+    <h2>{% trans "New Bulletin" %} - {% trans "Confirm Entered Data" %}</h2>
+{% endblock %}
+
+{% block details %}
+    {% include "utils/step_progressbar.html" %}
+
+    <h2>{% trans "New Bulletin" %}</h2>
+    <form action="" method="POST">{% csrf_token %}
+
+        <div class="fieldset not-editable">
+            <fieldset>
+                <h2>{% trans "Title" %}</h2>
+                <dl class="input-fields">
+                    <dt>{% trans "Title" %}</dt>
+                    <dd><div class="text-field">{{ form_step_data.bulletin_data.title }}</div></dd>
+                    <dd class="clearfix"></dd>
+                    {% if form_step_data.bulletin_data.description %}
+                        <dt>{% trans "Description" %}</dt>
+                        <dd><div class="text-field"><p>{{ form_step_data.bulletin_data.description|urlize|linebreaks }}</p></div></dd>
+                        <dd class="clearfix"></dd>
+                    {% endif %}
+                    <dt>{% trans "Bulletin Type" %}</dt>
+                    <dd><div class="text-field">{{ form_step_data.bulletin_data.bulletin_type }}</div></dd>
+                    <dd class="clearfix"></dd>
+                    {% if form_step_data.bulletin_data.external_url %}
+                        <dt>{% trans "External URL" %}</dt>
+                        <dd><div class="text-field"><a href="{{ form_step_data.bulletin_data.external_url }}" target="_blank">{{ form_step_data.bulletin_data.external_url }}</a></div></dd>
+                        <dd class="clearfix"></dd>
+                    {% endif %}
+                </dl>
+            </fieldset>
+        </div>
+
+        <div class="fieldset not-editable">
+            <fieldset>
+                <h2>{% trans "Categories" %}</h2>
+                <dl class="input-fields">
+                    {% if form_step_data.bulletin_data.bulletin_category %}
+                        <dt>{% trans "Bulletin Category" %}</dt>
+                        <dd><div class="text-field">{{ form_step_data.bulletin_data.bulletin_category }}</div></dd>
+                        <dd class="clearfix"></dd>
+                    {% endif %}
+                    {% if form_step_data.bulletin_data.categories %}
+                        <dt>{% trans "Categories" %}</dt>
+                        <dd><div class="text-field">
+                            {% for item in form_step_data.bulletin_data.categories %}
+                                <div>{{ item }}</div>
+                            {% endfor %}
+                        </div></dd>
+                        <dd class="clearfix"></dd>
+                    {% endif %}
+                    <dt>{% trans "Location type" %}</dt>
+                    <dd><div class="text-field">
+                        {% if form_step_data.bulletin_data.locality_type %}
+                            {{ form_step_data.bulletin_data.locality_type }}
+                        {% else %}
+                            {% trans "All" %}
+                        {% endif %}
+                    </div></dd>
+                    <dd class="clearfix"></dd>
+                </dl>
+            </fieldset>
+        </div>
+
+        {% if form_step_data.bulletin_data.institution or form_step_data.bulletin_data.institution_title or form_step_data.bulletin_data.contact_person or form_step_data.bulletin_data.phone or form_step_data.bulletin_data.email %}
+            <div class="fieldset not-editable">
+                <fieldset>
+                    <h2>{% trans "Contact" %}</h2>
+                    <dl class="input-fields">
+                        {% if institution or form_step_data.bulletin_data.institution_title %}
+                            <dt>{% trans "Institution" %}</dt>
+                            {% if institution %}
+                                <dd><div class="text-field">{{ institution.get_title }}</div></dd>
+                                <dd class="clearfix"></dd>
+                            {% else %}
+                                <dd><div class="text-field">{{ form_step_data.bulletin_data.institution_title }}</div></dd>
+                                <dd class="clearfix"></dd>
+                                {% if form_step_data.bulletin_data.institution_url %}
+                                    <dt>{% trans "Institution URL" %}</dt>
+                                    <dd><div class="text-field">{{ form_step_data.bulletin_data.institution_url }}</div></dd>
+                                    <dd class="clearfix"></dd>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                        {% if form_step_data.bulletin_data.contact_person %}
+                            <dt>{% trans 'Contact Person' %}</dt>
+                            <dd><div class="text-field">{{ form_step_data.bulletin_data.contact_person }}</div></dd>
+                            <dd class="clearfix"></dd>
+                        {% endif %}
+                        {% if form_step_data.bulletin_data.phone %}
+                            <dt>{% trans "Phone" %}</dt>
+                            <dd><div class="text-field">{{ form_step_data.bulletin_data.phone }}</div></dd>
+                            <dd class="clearfix"></dd>
+                        {% endif %}
+                        {% if form_step_data.bulletin_data.email %}
+                            <dt>{% trans "Email" %}</dt>
+                            <dd><div class="text-field">{{ form_step_data.bulletin_data.email }}</div></dd>
+                            <dd class="clearfix"></dd>
+                        {% endif %}
+                    </dl>
+                </fieldset>
+            </div>
+        {% endif %}
+
+        {% if form_step_data.bulletin_data.end_yyyy %}
+            <div class="fieldset not-editable">
+                <fieldset>
+                    <h2>{% trans "Publishing date and time" %}</h2>
+                    <dl class="input-fields">
+                        {% if form_step_data.bulletin_data.end_yyyy %}
+                            <dt>{% trans "Published till" %}</dt>
+                            <dd><div class="text-field">{% if form_step_data.bulletin_data.end_dd|add:0 < 10 %}0{% endif %}{{ form_step_data.bulletin_data.end_dd }}. {% if form_step_data.bulletin_data.end_mm|add:0 < 10 %}0{% endif %}{{ form_step_data.bulletin_data.end_mm }}. {{ form_step_data.bulletin_data.end_yyyy }}{% if form_step_data.bulletin_data.end_hh %}&nbsp; &nbsp;{% if form_step_data.bulletin_data.end_hh|add:0 < 10 %}0{% endif %}{{ form_step_data.bulletin_data.end_hh }}:{% if form_step_data.bulletin_data.end_ii|add:0 < 10 %}0{% endif %}{{form_step_data.bulletin_data.end_ii}}{% endif %}</div></dd>
+                            <dd class="clearfix"></dd>
+                        {% endif %}
+                    </dl>
+                </fieldset>
+            </div>
+        {% endif %}
+
+        {% include "utils/step_buttons_reg.html" %}
+    </form>
+
+{% endblock %}

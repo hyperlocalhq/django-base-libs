@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load i18n base_tags navigation_tags auth_extended image_mods_tags navigation_tags browsing favorites individual_relations cms_tags %}
+
+{% block meta_description %}
+    {{ block.super }}
+    <meta name="description" content="{{ object.get_description|striptags|truncatewords:100 }}..."/>
+{% endblock %}
+
+{% block title %}{{ object.get_title|escape }}{% endblock %}
+
+{% block content %}
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1><a href="{% url 'document_list_global' %}">{% page_attribute "page_title" %}</a></h1>
+                    <div class="profile">
+                        <div class="content">
+                            <h2>{{ object.get_title|escape }}</h2>
+                            <h3>{{ object.document_type.get_title|escape }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <div class="profile-image">
+
+                    <div class="edit-avatar avatar-edit-frame">
+                        {% if object.image %}
+                            <a id="profile-image-link-sidebar" href="{% cropping_url object.image.path "profile" request object.get_url_path %}" class="fawesome fa-crop recrop-link"></a>
+                            <img id="profile-image-sidebar" src="{{ UPLOADS_URL }}{{ object.image|modified_path:"profile" }}{% if_has_perm "resources.change_document" object %}?now={% now "YmdHis" %}{% end_if_has_perm %}" alt="{{ object.get_title|escape }}"/>
+                        {% else %}
+                            <img id="profile-image-sidebar" src="{{ STATIC_URL }}site/img/placeholder/infolink.png" alt="{{ object.get_title|escape }}"/>
+                        {% endif %}
+                    </div>
+
+                </div>
+
+                {% if request.user.is_authenticated %}
+                    {% with object|get_context_item as context_item %}
+                        {% adding2favorites for context_item %}
+                    {% endwith %}
+                {% else %}
+                    <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}" class="fawesome fa-favorite button text"><span class="text">{% trans "Favorite" %}</span></a>
+                {% endif %}
+
+                {% block sidebar %}
+                {% endblock %}
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                {% block details %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

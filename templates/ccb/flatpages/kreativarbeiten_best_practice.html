@@ -1,0 +1,17 @@
+{% extends "site_specific/kreativarbeiten_base.html" %}
+{% load i18n base_tags navigation_tags infoblocks %}
+
+{% block title %}{{ flatpage.get_title }}{% endblock %}
+
+{% block sidebar-a %}&nbsp;{% endblock %}
+
+{% block content %}
+    {% infoblock "kreativarbeiten_best_practice" using "blocks/intro.html" %}
+    <h3>{{ flatpage.get_title }}</h3>
+    {{ flatpage.get_content }}
+{% endblock %}
+
+{% block breadcrumbs_details %}
+    <span class="b-sep"><span>::</span></span> <span>{{ flatpage.get_title }}</span>
+{% endblock %}
+

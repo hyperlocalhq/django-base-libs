@@ -1,0 +1,433 @@
+{% extends "articles/articles_base.html" %}
+{% load i18n base_tags navigation_tags %}
+
+{% block extrahead %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/generic.js"></script>
+{% endblock %}
+
+{% block title %}{{ flatpage.get_title|escape }}{% endblock %}
+
+{% block headline %}
+    <h1>{{ creative_sector.get_title|escape }}</h1>
+    <h2 class="sub">{% trans "FAQ" %} - allgemeine fragen</h2>
+{% endblock %}
+
+{% block content %}
+    <div class="faq">
+        <div class="list-item">
+            <div class="txt">
+                <div class="visibility_toggler">
+                    <a class="txt no-img" href="#ich">
+                        01. Wo finde ich Ansprechpartner in den Berliner Institutionen?
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="list-item">
+            <div class="txt">
+                <div class="visibility_toggler">
+                    <a class="txt no-img" href="#wo">
+                        02. Wo finde ich Ansprechpartner in den Branchennetzwerken?
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="list-item">
+            <div class="txt">
+                <div class="visibility_toggler">
+                    <a class="txt no-img" href="#finde">
+                        03. Wo finde ich Daten und Fakten über Berlins Kreativwirtschaft?
+                    </a>
+                </div>
+            </div>
+        </div>
+        <br/>
+
+        <div id="ich">
+            <h4>Wo finde ich Ansprechpartner in den Berliner Institutionen?</h4>
+        </div>
+        <hr>
+        <div class="txt">
+            <h5>Die Landesinitiative Projekt Zukunft</h5>
+            bei der Senatsverwaltung für Wirtschaft, Technologie und Frauen vernetzt die Medien-, IT- und
+            Kulturwirtschaft (creative industries) untereinander und mit der Wissenschaft, Politik und Verwaltung. Mit
+            Initiativen und Projekten, Public-Private-Partnerships, Veranstaltungen, Informationskampagnen und
+            Publikationen fördert Projekt Zukunft wirtschaftliche und kulturelle Innovationen. Als Bindeglied zu Politik
+            und Verwaltung optimiert die Landesinitiative die Rahmenbedingungen für die wirtschaftlichen Wachstumsfelder
+            bei Informationstechnologie, Telekommunikation, eGovernment, Kulturwirtschaft und mehr.
+            Die Senatsverwaltung für Wirtschaft, Technologie und Frauen ist vorwiegend für die in Berlin ansässigen
+            Unternehmen zuständig ist und bietet Hilfe bei Fragen zu:
+            Vermittlung von und Beratung zu Fördermöglichkeiten,
+            Unterstützung und Beratung bei der Erlangung behördlicher Genehmigungen,
+            Informationen über die Berliner Medien- und IT-Wirtschaft und die Entwicklung des Standortes.<br/>
+            <br/>
+            Doris Knispel<br/>
+            Tel: +49 (0) 30 9013 7477<br/>
+            Fax: +49 (0) 30 9013 7478<br/>
+            Doris.Knispel@senwtf.verwalt-berlin.de<br/>
+            <br/>
+        </div>
+        <hr>
+        <div class="txt">
+            <h5>
+                <a href="http://www.berlin.de/projektzukunft/">Projekt Zukunft</a>
+            </h5>
+            Berlin Partner ist der richtige Ansprechpartner für:
+            Unternehmen, die ihren Sitz außerhalb Berlins haben, wenn es um Ansiedlungsfragen in Berlin geht,
+            bei Fragen der Standortsuche,
+            Personalförderung u.ä.,
+            Aktivitäten zum Standortmarketing Berlins,
+            Beratung Berliner Unternehmen bei der Expansion im Ausland.<br/>
+             <br/>
+            Medien IuK & Kreativwirtschaft:<br/>
+            Alexander Kölpin <br/>
+            Tel: +49 30 399 80 - 245<br/>
+             Fax: +49 30 399 80 - 239 <br/>
+            <a href="mailto:Alexander.Koelpin@berlin-partner.de">
+                Alexander.Koelpin@berlin-partner.de
+            </a>
+            <br/>
+            <a href="http://www.berlinpartner.de"> www.berlinpartner.de</a>
+            <br/>
+            <br/>
+        </div>
+        <hr>
+        <div class="txt">
+            <h5>Die Investitionsbank Berlin</h5>
+            berät zu sämtlichen Finanzierungs- und Förderfragen am Standort. Ein
+            erstes Beratungsgespräch kann über die allgemeine Beratungshotline unter der Telefonnummer (030) 2125 4747
+            geführt werden. Vorabinformationen zu den einzelnen Angeboten finden Sie auf der Homepage
+            <a
+                href="http://www.ibb.de">www.ibb.de
+            </a>
+            .
+            <br/> <br/>
+        </div>
+        <hr>
+        <div class="txt">
+            <h5>Die Bürgschaftsbank zu Berlin-Brandenburg GmbH</h5>
+            verbürgt Bankkredite an Unternehmen der
+            Kreativwirtschaft und beteiligt sich an kleineren und mittleren Unternehmen. Eine Übersicht der zuständigen
+            Ansprechpartner finden Sie auf
+            <a href="http://www.buergschaftsbank-berlin.de/kontakt_ansprechpartner.html">
+                http://www.buergschaftsbank-berlin.de/
+            </a>
+            .
+            <br/>
+            <br/>
+        </div>
+        <hr>
+        <div class="txt">
+            <h5>Die Industrie- und Handelskammer Berlin</h5>
+            setzt sich für die Verbesserung der institutionellen und
+            finanziellen Rahmenbedingungen der Kreativwirtschaft ein. Sie treibt die Vernetzung der Branchen voran, um
+            die Defizite der kleinen und mittelständischen Unternehmen (KMU) gegenüber Konzernen auszugleichen. Ferner
+            hilft sie bei Unternehmensgründung und ‑wachstum.
+            <br/><br/>
+        </div>
+        <div class="txt">
+            Branchenkoordinatorin Kreativwirtschaft: <br/>
+            Katja Kühnel  <br/>
+            Tel: +49 (0)30-31510-324 <br/>
+             Fax: +49 (0)30-31510-114 <br/>
+            <a href="mailto: khu@berlin.ihk.de">khu@berlin.ihk.de</a>
+            <br/>
+            <br/>
+        </div>
+        <div class="txt">
+             Branchenkoordinatorin IT-Wirtschaft, Unternehmenssicherheit: <br/>
+            Katrin Safarik <br/>
+             Tel: +49 (0)30-31510-621 <br/>
+             Fax: +49 (0)30-31510-106   <br/>
+            <a href="mailto:saf@berlin.ihk.de">saf@berlin.ihk.de</a>
+            <br/>
+            <a href="http://www.berlin.ihk24.de">www.berlin.ihk24.de</a>
+            <br/>
+            <br/>
+        </div>
+        <div class="cleaner"></div>
+        <hr>
+        <div class="txt">
+            <h5>Die Medienboard Berlin-Brandenburg GmbH fördert</h5>
+            Filme und alles, was dazu gehört:
+            <a href="http://www.medienboard.de/WebObjects/Medienboard.woa/wa/CMSshow/1001060/">
+                www.medienboard.de
+            </a>
+            <a href="http://www.medienboard.de/WebObjects/Medienboard.woa/wa/CMSshow/1001060/"> Stoff- und
+                Projektentwicklung
+            </a>
+            ebenso wie
+            <a
+                href="http://www.medienboard.de/WebObjects/Medienboard.woa/wa/CMSshow/1001060/"> Produktion
+            </a>
+            ,
+            <a
+                href="http://www.medienboard.de/WebObjects/Medienboard.woa/wa/CMSshow/1001060/">Verleih und Vertrieb
+            </a>
+            .
+            Sie berät Kreative aus der Filmbranche in Finanzierungsfragen und bietet Weiterbildungsmöglichkeiten an –
+            inhaltlich wie unternehmerisch.
+            <br/><br/>
+        </div>
+        <div class="txt">
+            Filmförderung:<br/>
+            Christian Berg<br/>
+            Tel.: 0331 / 743 87-23<br/>
+             Fax.: 0331 / 743 87-99<br/>
+            <br/>
+        </div>
+        <div class="txt">
+             Standortmarketing: <br/>
+            Anastasia Ziegler<br/>
+            Tel.: 0331 / 743 87-80 <br/>
+            Fax.: 0331 / 743 87-99<br/>
+            <a href="mailto:info@medienboard.de">info@medienboard.de</a>
+            <br/>
+            <br/>
+        </div>
+        <div class="cleaner"></div>
+        <hr>
+        <div class="txt">
+            <h5>Medienanstalt Berlin-Brandenburg (MABB)</h5>
+            Im Mittelpunkt der Arbeit der Medienanstalt Berlin-Brandenburg (MABB) steht die Förderung der
+            Angebotsvielfalt und damit der Informations- und Meinungsfreiheit im privaten Fernsehen und Hörfunk. Dazu
+            gehören neben der Kontrolle von Medienmacht durch Zulassungskontrolle und Lizenzüberwachung auch die
+            Förderung der Aus- und Fortbildung von Medienschaffenden sowie die Unterstützung von Projekten zur
+            Medienkompetenz und -pädagogik.
+            <br/><br/>
+            Tel.: 030 / 264967-0<br/>
+             Fax: 030 / 264967-90<br/>
+             E-Mail:
+            <a href="mailto:mail@mabb.de">mail@mabb.de</a>
+            <br/>
+            <a href="http://www.mabb.de" target="_blank">www.mabb.de</a>
+            <br/>
+            <a class="right" href="#top">TOP</a>
+            <br/>
+            <br/>
+        </div>
+        <hr/>
+        <div id="wo">
+            <h4>Wo finde ich Ansprechpartner in den Branchennetzwerken?</h4>
+        </div>
+        <hr>
+        <div class="txt">
+            <h5>media.net berlinbrandenburg e.V.</h5>
+            Netzwerk der Medien-, Informations- und Kommunikationsbranche, Unterstützung des Standortmarketings,
+            Plattform für Synergien<br/>
+            Tel: 030-2125-3131<br/>
+            Fax: 030-2125-3140 <br/>
+            <a href="http://www.medianet-bb.de">www.medianet-bb.de</a>
+            <br/>
+            <br/>
+        </div>
+        <hr/>
+        <div class="txt">
+            <h5>Berlin Brandenburg Film Commission</h5>
+            Unterstützung von Produktionsfirmen und Filmschaffenden, die in Berlin Brandenburg drehen wollen, durch
+            vielfältige Serviceleistungen<br/>
+            Tel: 0331 - 7438730<br/>
+            E-Mail:
+            <a href="mailto:location@medienboard.de">location@medienboard.de</a>
+            <br/>
+            <a href="http://www.bbfc.de">www.bbfc.de</a>
+            <br/>
+            <br/>
+        </div>
+        <hr/>
+        <div class="txt">
+            <h5>Berlin Music Commission</h5>
+            Förderung der Berliner Musikbranche, Vorantreiben der internationalen Vermarktung der Produkte und
+            Events<br/>
+            E-Mail:
+            <a href="mailto:contact@berlin-musiccommission.de">contact@berlin-musiccommission.de</a>
+            <br/>
+            <a href="http://berlin-music-commission.de/">http://berlin-music-commission.de</a>
+            <br/>
+            <br/>
+        </div>
+        <hr/>
+        <div class="txt">
+            <h5>Börsenverein des Deutschen Buchhandels Landesverband Berlin- Brandenburg e.V.</h5>
+            Interessenvertretung der Verlage und Buchhandlungen, Förderung des Buches und der Lesekultur,
+            branchenrelevante Information der Mitglieder und Öffentlichkeit<br/>
+            Tel: 0049 30 2639-180<br/>
+            Fax. 0049 30 2639-1818<br/>
+            E-Mail:
+            <a href="mailto:info@berlinerbuchhandel.de">info@berlinerbuchhandel.de</a>
+            <br/>
+            <a href="http://www.berlinerbuchhandel.de">http://www.berlinerbuchhandel.de</a>
+            <br/>
+            <br/>
+        </div>
+        <hr/>
+        <div class="txt">
+            <h5>clubcommission berlin e.V.</h5>
+            Interessenvertretung gegenüber Politik und Wirtschaft, Ansprechpartner zur Aufklärung und Beratung der
+            Berufs- und Standesinteressen der Clubbesitzer, Veranstalter, DJs u.ä.<br/>
+            Tel: 2757-6699<br/>
+            Fax. 3087-5411<br/>
+            E-Mail:
+            <a href="mailto:info@clubcommission.de">info@clubcommission.de</a>
+            <br/>
+            <a href="www.clubcommission.de">www.clubcommission.de</a>
+            <br/>
+            <br/>
+        </div>
+        <hr/>
+        <div class="txt">
+            <h5>CREATE BERLIN e.V.</h5>
+            Förderung des wirtschaftlichen Potentials der Berliner Designbranche mit nationalem und internationalem
+            Engagement<br/>
+            Tel: 030 - 28092808<br/>
+            Fax. 030/28094712<br/>
+            <a href="http://www.create-berlin.de">www.create-berlin.de</a>
+            <br/>
+            <br/>
+        </div>
+        <hr/>
+        <div class="txt">
+            <h5>G.A.M.E Unternehmensverband der Computer- und Videospielentwickler
+                Berlin-Brandenburg
+            </h5>
+            Stärkung der Zusammenarbeit von Entwicklungsstudios, Förderung bereits etablierter, aber auch neuer Studios,
+            Stärkung der Branche in der Region<br/>
+            Tel: 4208-1604<br/>
+            Fax. 4208-1606<br/>
+            E-Mail: info@game-verband.de<br/>
+            <a href="http://www.game-verband.de">http://www.game-verband.de</a>
+            <br/>
+            <br/>
+        </div>
+        <hr/>
+        <div class="txt">
+            <h5>interface!berlin e.V.</h5>
+            Forum zum Austausch von Interessen, Erfahrungen, Innovationen und Visionen Berlins, Plattform für
+            Kommunikation, Kooperation und Medienpräsenz<br/>
+            Tel: 030- 59 00 69 96<br/>
+            Fax:030- 59 00 69 90<br/>
+            E-Mail:
+            <a href="mailto:vorstand@interface-berlin.org">vorstand@interface-berlin.org</a>
+            <br/>
+            <a href="http://www.interface-berlin.org">http://www.interface-berlin.org</a>
+            <br/><br/>
+        </div>
+        <hr/>
+        <div class="txt">
+            <h5>Internationales Design Zentrum (IDZ)</h5>
+            Informationen über Design (Designtransfer)<br/>
+            Tel: 030- 28095 111<br/>
+            Fax: 030- 28095 112<br/>
+            <a href="http://www.idz.de">http://www.idz.de</a>
+            <br/>
+            <br/>
+        </div>
+        <hr/>
+        <div class="txt">
+            <h5>Kommunikationsverband, Club Berlin/Brandenburg</h5>
+            Netzwerk für Kommunikationsprofis, fachlicher und persönlicher Erfahrungsaustausch, Interessenvertretung der
+            Kommunikationsbranche, Beratung in Vertragsangelegenheiten<br/>
+            Tel: 030 / 23 09 15 - 0<br/>
+            <a href="http://www.kommunikationsverband-berlin.de">www.kommunikationsverband-berlin.de</a>
+            <br/>
+            http://www.kommunikationsverband-berlin.de<br/>
+            <br/>
+        </div>
+        <hr/>
+        <div class="txt">
+            <h5>Label Commission</h5>
+            Netzwerk für die Berliner Labellandschaft, Erfahrungsaustausch durch gemeinsame Auftritte, AGs und
+            Hearings<br/>
+            Tel: 030- 303132872<br/>
+            E-Mail:
+            <a href="mailto:info@labcom-berlin.net">info@labcom-berlin.net</a>
+            <br/>
+            <a href="http://www.labcom-berlin.net">http://www.labcom-berlin.net</a>
+            <br/>
+            <br/>
+        </div>
+        <hr/>
+        <div class="txt">
+            <h5>Landesverband Berliner Galerien e.V. (LVBG)</h5>
+            Stabilisierung und Ausbau des Standortfaktors Kunst, Förderung der Netzwerkbildung im Kulturbetrieb<br/>
+            Tel: 030/3101 97-14<br/>
+            Fax: 030/3101 97-15<br/>
+            <a href="mailto:lvbg@berliner-galerien.de">lvbg@berliner-galerien.de</a>
+            <br/>
+            <a href="http://www.berliner-galerien.de">www.berliner-galerien.de</a>
+            <br/>
+            <a class="right" href="#top">TOP</a>
+            <br/>
+            <br/>
+        </div>
+        <hr/>
+        <h4>Wo finde ich Daten und Fakten über Berlins Kreativwirtschaft?</h4>
+        <hr/>
+        <div id="finde" class="cats">
+            <dl>
+                <dt>
+                    Projektzukunft
+                </dt>
+                <dd>
+                    <a href="http://www.berlin.de/projektzukunft/standortinformationen/index.html">
+                        http://www.berlin.de/projektzukunft/
+                    </a>
+                </dd>
+            </dl>
+            <dl>
+                <dt>
+                    Businesslocationcenter
+                </dt>
+                <dd>
+                    <a href="http://www.businesslocationcenter.de/de/B/iii/seite0.jsp?nav1=open&nav2=open">
+                        http://www.businesslocationcenter.de/
+                    </a>
+                </dd>
+            </dl>
+            <dl>
+                <dt>
+                    Medienboard
+                </dt>
+                <dd>
+                    <a href="http://www.medienboard.de/WebObjects/Medienboard.woa/wa/CMSshow/1001273">
+                        http://www.medienboard.de/
+                    </a>
+                </dd>
+            </dl>
+            <dl>
+                <dt>
+                    Medienbarometer
+                </dt>
+                <dd>
+                    <a href="http://www.medienboard.de/WebObjects/Medienboard.woa/wa/CMSshow/1001362">
+                        http://www.medien.barometer
+                    </a>
+                </dd>
+            </dl>
+            <dl>
+                <dt>
+                    IHK24
+                </dt>
+                <dd>
+                    <a href="http://www.berlin.ihk24.de/servicemarken/branchen/Kreativwirtschaft/Brancheninfos/Markt_und_Statistik_IT_und_Medien/index.jsp">
+                        http://www.berlin.ihk24.de/
+                    </a>
+                </dd>
+                <a class="right" href="#top">TOP</a>
+                <br/><br/>
+            </dl>
+        </div>
+        <hr>
+    </div>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="/">{% trans "Home" %}</a>
+        <span class="b-sep"><span>::</span></span>
+        <a
+            href="/creative-sector/games-and-interactive/faq/general-questions/">{% trans "Overview" %}</a>
+        <span class="b-sep"><span>::</span></span><span>{{ flatpage.get_title|escape }}</span>
+    </div>
+{% endblock %}
+

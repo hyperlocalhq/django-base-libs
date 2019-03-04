@@ -10,7 +10,6 @@ from cms.plugin_base import CMSPluginBase
 
 from models import JQueryUITab
 
-
 class JQueryUITabPlugin(CMSPluginBase):
     model = JQueryUITab
     name = _("Tab")
@@ -19,8 +18,7 @@ class JQueryUITabPlugin(CMSPluginBase):
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         # add .markupType to body_markup_type
-        field = super(JQueryUITabPlugin,
-                      self).formfield_for_dbfield(db_field, **kwargs)
+        field = super(JQueryUITabPlugin, self).formfield_for_dbfield(db_field, **kwargs)
         if re.search('markup_type$', db_field.name):
             field.widget.attrs['class'] = "markupType"
         return field
@@ -28,9 +26,8 @@ class JQueryUITabPlugin(CMSPluginBase):
     def render(self, context, instance, placeholder):
         context.update({
             'object': instance,
-            'placeholder': placeholder,
+            'placeholder':placeholder,
         })
         return context
-
 
 plugin_pool.register_plugin(RichTextPlugin)

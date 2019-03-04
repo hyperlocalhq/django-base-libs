@@ -1,0 +1,18 @@
+{% load i18n menu_tags cache %}
+
+<div class="row">
+    <div class="col-xs-6">
+        {% for child in children %}
+            {% if forloop.counter|divisibleby:2 %}
+                <a class="textlink {% if child.selected %}active{% endif %}" href="{{ child.get_absolute_url }}">{{ child.get_menu_title }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="col-xs-6">
+        {% for child in children %}
+            {% if not forloop.counter|divisibleby:2 %}
+                <a class="textlink {% if child.selected %}active{% endif %}" href="{{ child.get_absolute_url }}">{{ child.get_menu_title }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>

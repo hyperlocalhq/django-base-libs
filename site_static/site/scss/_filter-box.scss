@@ -1,0 +1,152 @@
+@charset "UTF-8";
+
+ul.filter-box {
+    width: 100%;
+    list-style: none;
+    margin: 0 0 20px 0;
+    padding: 0;
+    border-top: 1px solid $grey-light;
+    
+    li {
+        width: 100%;
+        font-family: $font-2, $font-family-1;
+        font-weight: $font-regular;
+        border-left: 1px solid $grey-light;
+        border-right: 1px solid $grey-light;
+                
+        &:after {
+            content: none !important;
+        }
+        
+        div.head {
+            background: $grey-bright;
+            text-transform: uppercase;
+            font-weight: $font-bold;
+            font-size: 1.07em;
+            letter-spacing: 0.125em;
+            cursor: default; 
+            padding: 10px 0 10px 20px;
+        }
+        
+        a, div.child {
+            display: block;
+            font-weight: $font-regular;
+            font-size: 0.93em;
+            margin: 0 20px;
+            padding: 0;
+            line-height: 271.43%;
+            color: $grey-dark;
+            border-bottom: 1px solid $grey-light;
+            cursor: pointer;
+            
+            &:hover, &:focus, &.active {
+                color: $black;
+            }
+            &.active {
+                font-weight: $font-bold;
+            }
+        }
+        
+        div.child {
+            position: relative;
+            padding-right: 25px;
+            
+            a {
+                font-size: 1em;
+                margin: 0;
+                border-bottom: none;
+            }
+            
+            &:after {                    
+                position: absolute;
+                top: 0;
+                right: 0;
+                cursor: pointer;
+                
+                -webkit-transition: -webkit-transform 0.2s ease-in;
+                -moz-transition: -moz-transform 0.2s ease-in;
+                -o-transition: -o-transform 0.2s ease-in;
+                transition: -ms-transform 0.2s ease-in;
+                transition: transform 0.2s ease-in;
+                
+                display: inline-block;
+                font: normal normal normal 14px/1 FontAwesome;
+                text-rendering: auto;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                padding: 7px 0px;
+                margin: 0px;
+                vertical-align: bottom;
+                font-weight: 400;
+                font-size: 1.8em;
+                content: "\f0d7";
+            }            
+        }
+            
+        &.accordion-inside {
+        
+            &.opened {
+                div.child {
+                    &:after {
+                        -ms-transform: rotate(-180deg);
+                        -webkit-transform: rotate(-180deg);
+                        transform: rotate(-180deg);
+                    }
+                }
+            }
+        }
+        
+        ul {
+            margin: 0;
+            border: none;
+            
+            li { 
+                border-left: none;
+                border-right: none;
+
+                a {
+                    padding-left: 20px;
+                    
+                    &.level-0 {
+                        &.level-changed {
+                            border-top: 1px solid $grey-light;
+                            margin-top: 15px;
+                        }                        
+                    }
+                    
+                    &.level-1 {
+                        padding: 3px 0 3px 40px;
+                        border-bottom: none;
+                        line-height: 133%;
+                        
+                        &.level-changed {
+                            border-top: 1px solid white;
+                            margin-top: -1px;
+                        }
+                    }
+                }
+                
+                &:first-child {
+                    a {
+                        &.level-0 {
+                            &.level-changed {
+                                border-top: none;
+                            }
+                        }
+                    }
+                }
+                
+                &:last-child {
+                    border-bottom: none;
+                    position: static;
+                }
+            }
+        }
+        
+        &:last-child {
+            border-bottom: 1px solid $grey-light;
+            position: relative;
+            top: -1px;
+        }
+    }
+}

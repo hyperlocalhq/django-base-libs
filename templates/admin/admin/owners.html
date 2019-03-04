@@ -1,0 +1,54 @@
+{% extends "admin/change_form.html" %}
+{% load i18n staticfiles %}
+
+<!-- PAGE-TOOLS -->
+{% block page-tools %}
+{% endblock %}
+
+<!-- BREADCRUMBS -->
+{% block breadcrumbs %}
+    {% if not is_popup %}
+        <ul>
+            <li><a href="../../../../">{% trans "Home" %}</a></li>
+            <li><a href="../../../">{% trans app_label|capfirst|escape %}</a></li>
+            <li><a href="../../">{{ opts.verbose_name_plural|capfirst }}</a></li>
+            <li><a href="../">{{ original|truncatewords:"18" }}</a></li>
+            <li>{% trans "Owners" %}</li>
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <form action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">{% csrf_token %}
+        <div>
+            <fieldset class="grp-module grp-aligned grp-collapse grp-open">
+                <h2 class="grp-collapse-handler">{% trans "Ownership" %}</h2>
+                <div class="grp-row grp-cells-1{% if form.errors %} grp-errors{% endif %} field-people">
+                    <div class="l-2c-fluid l-d-4">
+                        <div class="c-1">{{ form.people.label_tag }}</div>
+                        <div class="c-2">
+                            {{ form.people }}
+                            <a href="/de/admin/people/person/?_to_field=id" class="related-lookup" id="lookup_id_people" title="{% trans "Search" %}" onclick="return showRelatedObjectLookupPopup(this);"></a>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <footer class="grp-module grp-submit-row grp-fixed-footer">
+                <header style="display:none"><h1>Submit Options</h1></header>
+                <ul>
+                    <li><input type="submit" value="Save" class="grp-button grp-default" name="_save"></li>
+                </ul>
+            </footer>
+
+        </div>
+    </form>
+
+    <script type="text/javascript" src="{% static "admin/js/admin/RelatedObjectLookups.js" %}"></script>
+    <script>
+        django.jQuery("#id_people").grp_autocomplete_m2m({
+            lookup_url:"{% url 'grp_m2m_lookup' %}",
+            autocomplete_lookup_url:"{% url 'grp_autocomplete_lookup' %}"
+        });
+    </script>
+{% endblock %}

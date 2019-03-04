@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kreativwirtschaftsberatung Berlin</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="keywords" lang="de" content="Kreativwirtschaft, Kulturwirtschaft, Kontakte, Netzwerk, Kulturförderung, Fördergelder, Architektur, Design, Kunst, Musik, Mode, Games, Fernsehen , Film, Fotografie, Theater, Tanz, Literatur" />
+    <meta name="description" lang="de" content="Creative City Berlin ist das zentrale Internetportal für alle Angehörigen der Kultur- und Kreativwirtschaft in Berlin. Informieren sie sich und werden Sie Teil des Netzwerks." />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png?v=LbWWG0990z">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png?v=LbWWG0990z">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png?v=LbWWG0990z">
+    <link rel="manifest" href="/favicons/manifest.json?v=LbWWG0990z">
+    <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg?v=LbWWG0990z" color="#f18800">
+    <link rel="shortcut icon" href="/favicons/favicon.ico?v=LbWWG0990z">
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml?v=LbWWG0990z">
+    <meta name="theme-color" content="#ffffff">
+
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+      }
+      iframe {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+</head>
+<body>
+<script>
+    (function() {
+        var search = window.location.search;
+        var path = '/';
+        if (search) {
+            search = search.substr(1).split('&');
+            for (var i=0; i<search.length; i++) {
+                var param = search[i].split('=');
+                if (param[0].toLowerCase() === 'deep') {
+                    // don't allow relative backwards paths
+                    if (param[1].indexOf('..') === -1) {
+                        path = '/' + param[1];
+                        break;
+                    }
+                } else if (param[0].toLowerCase() === 'path') {
+                    // always start with a slash and don't allow relative backwards paths
+                    if (param[1].indexOf('/') === 0 && param[1].indexOf('..') === -1) {
+                        path = param[1];
+                        break;
+                    }
+                }
+            }
+        }
+        document.write('<iframe src="https://www.creative-city-berlin.de/de/kreativwirtschaftsberatung-berlin' + path + '"></iframe>');
+    }());
+</script>
+<noscript><iframe src="https://www.creative-city-berlin.de/de/kreativwirtschaftsberatung-berlin/"></iframe></noscript>
+</body>
+</html>

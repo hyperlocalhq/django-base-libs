@@ -1,0 +1,25 @@
+{% extends "messaging/details_base.html" %}
+{% load i18n base_tags %}
+
+{% block details %}
+    <div id="info"></div>
+    {% comment %}
+        HERE THE CONTENT BEGINS
+    {% endcomment %}
+    <div class="first-item-txt">
+        <form action="" method="post" class="uniForm">{% csrf_token %}
+            <p class="disclaimer">Are you sure to delete the message "{{ message.subject }}"?</p>
+
+            <div class="buttonHolder">
+                <input id="id_delete" class="primaryButton" type="submit" name="delete" value="{% trans 'Delete' %}"/>
+                <input id="id_cancel" class="secondaryButton" type="submit" name="cancel" value="{% trans 'Cancel' %}"/>
+            </div>
+        </form>
+    </div>
+    {% comment %}
+    HERE THE CONTENT ENDS
+    {% endcomment %}
+
+{% endblock %}
+
+

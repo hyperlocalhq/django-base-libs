@@ -1,0 +1,29 @@
+{% load crispy_forms_filters %}
+{% load l10n %}
+
+<dd>
+    {% include 'ccb_form/layout/field_errors.html' %}
+    <ul class="accordion boxes adjust-level formblock-target">
+        {% with html_name=field.html_name value=field.value choices=field.field.choices attrs=field.field.widget.attrs %}
+            {% for choice_value, choice_instance in choices %}
+                <li data-level="{{ choice_instance.level }}">
+                    <div class="input-field box {{ field_class }} {{ inline_class }}">
+                        <input
+                            id="id_{{ html_name }}_{{ forloop.counter }}"
+                            name="{{ html_name }}"
+                            type="checkbox"
+                            {% if choice_value in value or choice_value|stringformat:"s" in value or choice_value|stringformat:"s" == value|stringformat:"s" %}
+                                checked="checked"{% endif %}
+                            value="{{ choice_value|unlocalize }}" {{ attrs|flatatt }}
+                        />
+                        <label for="id_{{ html_name }}_{{ forloop.counter }}">
+                            {{ choice_instance.title }}
+                        </label>
+                    </div>
+                </li>
+            {% endfor %}
+        {% endwith %}
+    </ul>
+    {% include 'ccb_form/layout/help_text.html' %}
+    <div class="formblock empty {% if user.is_staff %}show-id{% endif %}"></div>
+</dd>

@@ -1,0 +1,84 @@
+{% load i18n base_tags auth_extended %}
+{% comment %}<!-- UNUSED -->{% endcomment %}
+<h5 class="edit_subline">{% trans "edit contact data" %}</h5>
+<div class="field_layout contact_edit">
+    <form action="/{{ LANGUAGE_CODE }}/helper/edit-{{ URL_ID_PERSONGROUP }}-profile/{{ object.slug }}/contact/{{ index }}/" method="post"
+        enctype="multipart/form-data" target="hidden_iframe">{% csrf_token %}
+        {{ form.latitude }}
+        {{ form.longitude }}
+        {{ form.district }}
+        <fieldset class="fieldset_begin">
+            <legend>{% trans "Location" %}</legend>
+            <ul>
+                <li>
+                    {{ form.location_type.label_tag }}
+                    {{ form.location_type }}
+                    {{ form.location_type.error_tag }}
+                </li>
+                <li>
+                    {{ form.location_title.label_tag }}
+                    {{ form.location_title }}
+                    {{ form.location_title.error_tag }}
+                </li>
+            </ul>
+        </fieldset>
+        <div class="hidden" id="dyn_contact_institution">
+            {{ form.institution.label_tag }}
+            {{ form.institution }}
+            {{ form.institution.error_tag }}
+        </div>
+        <fieldset class="fieldset_gmap">
+            <legend>{% trans "Address" %}</legend>
+            <ul>
+                <li>
+                    {{ form.street_address.label_tag }}
+                    {{ form.street_address }}
+                    {{ form.street_address.error_tag }}
+                </li>
+                <li>
+                    {{ form.street_address2.label_tag }}
+                    {{ form.street_address2 }}
+                    {{ form.street_address2.error_tag }}
+                </li>
+                <li>
+                    <label for="postal_code">
+                        <strong>{{ form.postal_code.label }} / {{ form.city.label }}*</strong>
+                    </label>
+                    {{ form.postal_code }}{{ form.city }}
+                </li>
+                <li>
+                    {{ form.country.label_tag }}
+                    {{ form.country }}
+                    {{ form.country.error_tag }}
+                </li>
+            </ul>
+        </fieldset>
+        <div id="dyn_set_map">
+            <div>
+                <input id="dyn_locate_geo" type="button" class="button_good"
+                    value="{% filter upper %}{% trans "Locate on map" %}{% endfilter %}"/>
+                <input id="dyn_remove_geo" type="button" class="button_bad"
+                    value="{% filter upper %}{% trans "Remove from map" %}{% endfilter %}"/>
+            </div>
+            <!-- THE GMAPS WILL BE INSERTED HERE DYNAMICALLY -->
+        </div>
+        <fieldset>
+            {% include "uni_form/includes/phone.html" %}
+            {% include "uni_form/includes/fax.html" %}
+            {% include "uni_form/includes/mobile.html" %}
+
+            {% include "uni_form/includes/emails.html" %}
+            {% include "uni_form/includes/websites.html" %}
+            {% include "uni_form/includes/ims.html" %}
+
+        </fieldset>
+        <div class="buttons">
+            <input type="button" class="button_bad" value="{% filter upper %}{% trans "Cancel" %}{% endfilter %}"
+                name="cancel"/>
+            <input type="submit" class="button_good" name="save_as_primary"
+                value="{% filter upper %}{% trans "Save as Primary" %}{% endfilter %}"/>
+            <input type="submit" class="button_good" value="{% filter upper %}{% trans "Save" %}{% endfilter %}"/>
+        </div>
+    </form>
+</div>
+

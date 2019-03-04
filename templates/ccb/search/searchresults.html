@@ -1,0 +1,29 @@
+{% extends "base_sidebar.html" %}
+{% load i18n %}
+
+{% block title %}
+    {% trans "SEARCH RESULTS" %}
+{% endblock %}
+
+{% block headline %}
+    <h1>{% trans "search results" %}</h1>
+{% endblock %}
+
+{% block details %}
+    {% if object_list %}
+        {% include_parsed "utils/includes/sorting_and_pagination.html" with "under-tabs" as css_class %}
+        <div id="object_list">
+            {% include "site_specific/context_item_list.html" %}
+        </div>
+        {% include "utils/includes/sorting_and_pagination.html" %}
+    {% else %}
+        <p class="nothing">{% trans "No objects found within the selected conditions." %}</p>
+    {% endif %}
+{% endblock %}
+
+{% block javascript %}
+    <script
+        type="text/javascript"
+        src="{{ STATIC_URL }}site/js/website/listing.js"
+    ></script>
+{% endblock %}

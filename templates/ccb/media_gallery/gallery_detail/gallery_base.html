@@ -1,0 +1,70 @@
+{% extends "media_gallery/portfolio_base.html" %}
+{% load i18n base_tags babel auth_extended infoblocks image_mods_tags %}
+{% load favorites %}
+
+{% block open_graph %}
+    <meta property="og:title" content="{{ gallery.get_title }}" />
+    <meta property="og:type" content="album" />
+    {% if gallery.cover_image %}
+        <meta property="og:image" content="http://{{ request.get_host }}{{ MEDIA_URL }}{{ gallery.cover_image.path }}" />
+    {% elif gallery.mediafile_set.all.0.get_list_image_url %}
+        <meta property="og:image" content="http://{{ request.get_host }}{{ gallery.mediafile_set.all.0.get_list_image_url }}" />
+    {% else %}
+        <meta property="og:image" content="http://{{ request.get_host }}{{ STATIC_URL }}site/img/default/ccb_opengraph.jpg" />
+    {% endif %}
+    <meta property="og:description" content="{{ gallery.get_title }} {% trans "of" %} {{ gallery.content_object }}" />
+{% endblock %}
+
+
+{% block sidebar %}
+
+    {{ block.super }}
+
+    <div class="button-group">
+        {% if request.user.is_authenticated %}
+            {% adding2favorites for gallery %}
+        {% else %}
+            <a rel="nofollow" href="{% url 'login' %}?goto_next={{ request.path }}" class="fawesome fa-favorite button switch text"><span class="text">{% trans "Favorite" %}</span></a>
+        {% endif %}
+
+        {% if object.is_editable %}
+            <a class="fawesome fa-folder-open button text" href="{{ request.path }}manage/" >
+                <span class="text">{% trans "Manage Project" %}</span>
+            </a>
+        {% endif %}
+        <br/><br/>
+    </div>
+
+{% endblock %}
+
+{% block details %}
+    <h2>{{ gallery.title }}</h2>
+
+    {% include "curated_lists/includes/add_to_own_curated_lists.html" with content_type_id=gallery|content_type_id object_id=gallery.pk %}
+
+    {% comment %}
+        {% if gallery.cover_image %}
+            <img src="{{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"article" }}" alt=""/>
+        {% endif %}
+    {% endcomment %}
+
+    {{ gallery.description|linebreaks }}
+
+    {% if gallery.show_cover_image_in_portfolio and gallery.cover_image %}{# show the cover image... #}
+        <div class="photo-credits-wrapper">
+            <img src="{{ UPLOADS_URL }}{{ gallery.cover_image.path|modified_path:"project_grid" }}" alt="{{ gallery.title|escape }}" data-popup-image-src="{{ UPLOADS_URL }}{{ gallery.cover_image.path }}" data-popup-image-gallery="gallery" />
+            {% if gallery.photo_author %}<span class="photo-credits-over">{% trans "Photo" %}: {{ gallery.photo_author }}</span>{% endif %}
+        </div>
+    {% endif %}
+
+    {% block gallery_detail %}
+    {% endblock %}
+
+{% endblock %}
+
+
+
+{% block breadcrumbs_details %}
+    <li><a href="{{ object.get_url_path }}portfolio/">{% trans "Portfolio" %}</a></li>
+    <li>{{ gallery.title }}</li>
+{% endblock %}

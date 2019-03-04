@@ -1,0 +1,6 @@
+{% load i18n %}
+<p>
+    {% blocktrans trimmed with curated_list_title=form.curated_list.title owner_title=form.owner.representation %}
+    Do you really want to remove {{ owner_title }} from the owners of the curated list "{{ curated_list_title }}"?
+    {% endblocktrans %}
+</p>

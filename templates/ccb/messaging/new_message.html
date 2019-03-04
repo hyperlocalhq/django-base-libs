@@ -1,0 +1,59 @@
+{% extends "messaging/details_base.html" %}
+{% load i18n base_tags uni_form_tags %}
+
+{% block headline %}
+    <h1>{% trans "New Messages" %}</h1>
+{% endblock %}
+
+
+{% block details %}
+    <div class="new-messages first-item">
+        <form method="post" action="" class="uniForm">{% csrf_token %}
+            {% if form %}
+                <fieldset class="inlineLabels">
+                    <h3>{% trans "Recipients" %}</h3>
+                    {% if form.recipients_email_list %}
+                        {{ form.recipients_email_list|as_uni_field }}
+                    {% else %}
+                        <div class="ctrlHolder">
+                            <label>{% trans "Recipient" %}</label>
+
+                            <p>{{ form.instance.recipient.get_profile.get_title }}</p>
+                        </div>
+                    {% endif %}
+
+                    <h3>{% trans "Message" %}</h3>
+                    {{ form.subject|as_uni_field }}
+                    {{ form.body|as_uni_field }}
+                    {{ form.prevent_spam }}
+                    {% if form.prevent_spam.errors %}
+                        <li>
+                            <p class="errorMsg">
+                                {{ form.prevent_spam.errors|join:", " }}
+                            </p>
+                        </li>
+                    {% endif %}
+
+                    <div id="buttonHolder">
+                        <input type="hidden" name="goto_next" value="
+                                {% if goto_next %}{{ goto_next }}{% else %}{{ request.get_full_path }}{% endif %}"/>
+                        <input type="submit" value="{% filter upper %}{% trans "Send Message" %}{% endfilter %}"
+                            class="primaryAction" name="send" id="send_but"/>
+                        <input type="button" class="secondaryAction" onclick="document.location='/my-messages/'"
+                            value="{% filter upper %}{% trans "Back" %}{% endfilter %}"/>
+                    </div>
+                </fieldset>
+            {% else %}
+                <div id="okMsg">
+                    <p>{% trans "Your message has been sent." %}</p>
+                </div>
+            {% endif %}
+        </form>
+        {% comment %}
+        HERE THE CONTENT ENDS
+    {% endcomment %}
+    </div>
+{% endblock %}
+
+
+

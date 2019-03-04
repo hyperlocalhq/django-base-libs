@@ -1,0 +1,6 @@
+{% load i18n %}
+<p>
+    {% blocktrans trimmed with curated_list_title=form.curated_list.title %}
+    Do you really want to delete the curated list "{{ curated_list_title }}"?
+    {% endblocktrans %}
+</p>
