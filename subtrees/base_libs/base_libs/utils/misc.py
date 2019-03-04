@@ -15,6 +15,7 @@ from django.db import models
 from django.conf import settings
 from django.http import Http404
 
+
 def get_or_404(model, **fields):
     """
     tries to perform a <<model>>.objects.get(<<some_fields_specifiers>>)
@@ -31,25 +32,15 @@ def get_or_404(model, **fields):
         raise Http404, "%s with %s cannot be found" %\
          (force_unicode(model._meta.verbose_name), msg)
 
-def get_website_url(path="/"):
-    protocol = getattr(settings, "PROTOCOL", "http")
-    domain = Site.objects.get_current().domain
-    port = getattr(settings, "PORT", "")
-    if port:
-        assert port.startswith(":"), "The PORT setting must have a preceeding ':'."
-    return u"%s://%s%s%s" % (protocol, domain, port, path)
 
-def get_website_ssl_url(path="/"):
-    protocol = getattr(settings, "HTTPS_PROTOCOL", "https")
-    domain = Site.objects.get_current().domain
-    port = getattr(settings, "PORT", "")
-    if port:
-        assert port.startswith(":"), "The PORT setting must have a preceeding ':'."
-    return u"%s://%s%s%s" % (protocol, domain, port, path)
+def get_website_url(path=""):
+    return settings.WEBSITE_URL + path
+
 
 def verify_objref_hash(content_type_id, object_id, hash):
     hash_match = hashlib.sha1("%s/%s" % (content_type_id, object_id) + settings.SECRET_KEY).hexdigest()
     return hash == hash_match
+
 
 def get_unique_value(model, proposal, field_name="slug", instance_pk=None, separator="-", number_first=False, numbering_from=1, min_width=0, postfix="", postfix_regex="", ignore_case=False):
     """ Returns unique string by the proposed one.
@@ -103,6 +94,7 @@ def get_unique_value(model, proposal, field_name="slug", instance_pk=None, separ
         number = 1 + (len(numbers) and sorted(numbers)[-1] or numbering_from)
         return "%s%s%0*d%s" % (proposal, separator, min_width, number, postfix)
 
+
 def get_translation(message, language=None):
     current_lang = get_language()
     activate(language or "en")
@@ -136,8 +128,19 @@ class Currency(float):
 
 def html_to_plain_text(html):
     text = smart_str(html)
+
     def to_utf8(match_obj):
         return unichr(long(match_obj.group(1)))
+
+    def link_replacement(match):
+        link_text = match.group(3)
+        link_url = match.group(2)
+        if link_url.startswith('mailto:'):
+            link_url = link_url.replace('mailto:', '', 1)
+        if link_text == link_url:
+            return link_text
+        return '{link_text} ({link_url})'.format(link_text=link_text, link_url=link_url)
+
     coded_entity_pattern = re.compile(r'&#[^;];')
     whitespace_pattern = re.compile(r'\s+')
     line_break_pattern = re.compile(r'<br[^>]+>\s*', re.I)
@@ -158,7 +161,7 @@ def html_to_plain_text(html):
     text = re.sub(line_break_pattern, '\n', text)
     text = re.sub(new_line_pattern, '\n\n', text)
     # <a href="URL">NAME</a> -> NAME (URL)
-    text = re.sub(link_pattern, r'\3 (\2)', text)
+    text = re.sub(link_pattern, link_replacement, text)
     # remove the rest html tags
     text = re.sub(html_tag_pattern, '', text)
     
@@ -171,6 +174,7 @@ def html_to_plain_text(html):
     text = re.sub(html_entity_pattern, '', text)
     text = force_unicode(text)
     return text
+
 
 def strip_html(text):
     def fixup(m):
@@ -199,6 +203,7 @@ def strip_html(text):
         return text # leave as is
     return re.sub("(?s)<[^>]*>|&#?\w+;", fixup, text)
 
+
 def get_related_queryset(model, field_name):
     """
     Get the queryset for the choices of the field in a model
@@ -208,6 +213,7 @@ def get_related_queryset(model, field_name):
     f = model._meta.get_field(field_name)
     qs = f.rel.to._default_manager.complex_filter(f.rel.limit_choices_to)
     return qs
+
 
 class XChoiceList(list):
     """ List of choices.
@@ -254,6 +260,7 @@ class XChoiceList(list):
             del result[0]
         return result
 
+
 class ExtendedJSONEncoder(json.JSONEncoder):
     def default(self, o, markers=None):
         if isinstance(o, models.Model):
@@ -283,6 +290,7 @@ class ExtendedJSONEncoder(json.JSONEncoder):
             return None
         return json.JSONEncoder.default(self, o)
 
+
 def get_installed(path):
     """
     Get a module, class, function, or variable from an installed application wherever it is located
@@ -305,6 +313,7 @@ def get_installed(path):
     module_path = ".".join(app_path_bits + path_bits)
     m = __import__(module_path, globals(), locals(), '*')
     return getattr(m, ret_var)
+
 
 def path_in_installed_app(path):
     """
@@ -331,12 +340,14 @@ def path_in_installed_app(path):
     module_path = ".".join(app_path_bits + path_bits)
     return module_path
 
+
 def is_installed(path):
     try:
         get_installed(path)
     except:
         return False
     return True
+
 
 def db_table_exists(model):
     """ Checks if database table for a model exists """
@@ -348,10 +359,8 @@ def db_table_exists(model):
     except:
         pass
     return False
-        
 
-    
-    
+
 def truncwords(value, nof_words):
     
     """
@@ -384,7 +393,9 @@ def truncwords(value, nof_words):
             words.append('...')
     return ' '.join(words).replace(' \n ', '\n')
 
+
 RFC2822_DATE_FORMAT = "RFC822"
+
 
 def string_to_datetime(date_string, format):
     """
@@ -402,6 +413,7 @@ def string_to_datetime(date_string, format):
             # the python 2.4 version
             d = datetime(*(strptime(date_string, format)[0:6]))
     return d
+
 
 def smart_truncate(text, length=100, suffix='...'):
     """
@@ -483,7 +495,8 @@ def south_clean_multilingual_fields(models_dict):
                 del models_dict[m][localized_field_mt]
     '''            
     # nothing is returned, because the incoming dictionary is modified directly
-    
+
+
 def south_cleaned_fields(field_list):
     """
     takes an iterable of 2-tuples with field name and field object

@@ -8,6 +8,7 @@ try:
 except ImportError:
     from StringIO import StringIO
 
+
 from django import forms
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils.encoding import force_unicode
@@ -41,7 +42,6 @@ from base_libs.middleware.threadlocals import get_current_language
 SECURITY_FIELD_MIN_TIME = getattr(settings, "SECURITY_FIELD_MIN_TIME", 3) # 3 seconds
 SECURITY_FIELD_MAX_TIME = getattr(settings, "SECURITY_FIELD_MAX_TIME", 3600) # 1 hour
 
-
 ### adding class="form_*" to all html input fields ###
 def add_css_class(css_class=""):
     def modify_input_class(function):
@@ -73,7 +73,6 @@ CheckboxInput.render = add_css_class("form_checkbox")(CheckboxInput.render)
 RadioSelect.render = add_css_class("form_radio")(RadioSelect.render)
 CheckboxSelectMultiple.render = add_css_class("form_checkbox")(CheckboxSelectMultiple.render)
 
-
 class IntegerField(forms.IntegerField):
     widget = IntegerWidget
     def clean(self, value):
@@ -84,7 +83,6 @@ class IntegerField(forms.IntegerField):
             except NumberFormatError:
                 raise forms.ValidationError(self.error_messages['invalid'])
         return super(IntegerField, self).clean(value)
-
 
 class FloatField(forms.FloatField):
     widget = DecimalWidget
@@ -99,8 +97,7 @@ class FloatField(forms.FloatField):
             except NumberFormatError:
                 raise forms.ValidationError(self.error_messages['invalid'])
         return super(FloatField, self).clean(value)
-
-
+        
 class DecimalField(forms.DecimalField):
     widget = DecimalWidget
     def __init__(self, format=u"#,##0.00", *args, **kwargs):
@@ -116,7 +113,6 @@ class DecimalField(forms.DecimalField):
             except NumberFormatError:
                 raise forms.ValidationError(self.error_messages['invalid'])
         return super(DecimalField, self).clean(value)   
-
 
 class DateField(forms.DateField):
     widget = DateWidget
@@ -134,8 +130,7 @@ class DateField(forms.DateField):
             except:
                 raise forms.ValidationError(self.error_messages['invalid'])
         return super(DateField, self).clean(value)    
-
-
+    
 class TimeField(forms.TimeField):
     widget = TimeWidget
     def __init__(self, format="medium", *args, **kwargs):
@@ -153,7 +148,6 @@ class TimeField(forms.TimeField):
                 raise forms.ValidationError(self.error_messages['invalid'])
         return super(TimeField, self).clean(value)     
 
-
 class PlainTextFormField(forms.CharField):
     """ a plain text form field """
 
@@ -165,8 +159,7 @@ class PlainTextFormField(forms.CharField):
         new_kwargs.update(kwargs)
         new_kwargs['widget'] = forms.Textarea(attrs={'class': "vPlainTextField"})
         function(**new_kwargs)
-
-
+        
 class SecurityField(forms.CharField):
     """
     A field which checks whether the form was filled in within the 
@@ -199,8 +192,7 @@ class SecurityField(forms.CharField):
         if not self._pass_test(value):
             raise forms.ValidationError(self.error_messages['invalid'])
         return value
-
-
+    
 class SingleEmailTextField(forms.CharField):
     """
     an email field
@@ -217,8 +209,7 @@ class SingleEmailTextField(forms.CharField):
         if not is_valid_email(email):
             raise forms.ValidationError( ugettext(u'"%(email)s" is not a valid e-mail address') % {'email': email})
         return email
-
-
+    
 class MultiEmailTextField(forms.Field):
     """
     a "multi-email" email field
@@ -245,12 +236,8 @@ class MultiEmailTextField(forms.Field):
             
             recipient_result_list.append((recipient_email, recipient_name))
         return recipient_result_list
-
-
+    
 class AutocompleteField(forms.CharField):
-    default_error_messages = {
-        'invalid': _(u"The value is invalid."),
-    }
     """ a forms autocomplete field """
     def __init__(self, app, qs_function, display_attr, add_display_attr=None, options=None, attrs=None, *args,
                  **kwargs):
@@ -267,7 +254,6 @@ class AutocompleteField(forms.CharField):
 
     def clean(self, value):
         return super(AutocompleteField, self).clean(value)
-
 
 class AutocompleteModelChoiceField(AutocompleteField):
     def __init__(self, app, qs_function, display_attr, add_display_attr=None, options=None, attrs=None, *args,
@@ -302,7 +288,6 @@ class AutocompleteModelChoiceField(AutocompleteField):
             return value.pk
         return value
 
-
 class AutocompleteModelMultipleChoiceField(forms.CharField):
     def __init__(self, app, qs_function, display_attr, add_display_attr=None, options=None, attrs=None, *args,
                  **kwargs):
@@ -332,7 +317,6 @@ class AutocompleteModelMultipleChoiceField(forms.CharField):
         else:
             value = func("all").none()
         return value
-
 
 class SelectToAutocompleteField(AutocompleteField):
     """ a forms autocomplete field which renders as select field for non-javascript viewers """
@@ -365,8 +349,7 @@ class SelectToAutocompleteField(AutocompleteField):
         except:
             raise forms.ValidationError(self.error_messages['invalid'])
         return value
-
-
+        
 class ObjectChoiceField(forms.Field):
     """
     obj_list should be a list/tuple of querysets each returning instances of
@@ -461,7 +444,7 @@ class ImageField(forms.FileField):
     default_error_messages = {
         'invalid_image': _(u"The file you uploaded was either not an image, was corrupted, or contained unsupported properties. Please save it for web without interlacing and try again."),
         'invalid_extension': _("File type of the uploaded file is invalid."),
-    }
+        }
 
     def __init__(self,
         valid_file_extensions = ('bmp', 'gif', 'jpeg', 'jpg', 'png', 'tif', 'tiff',),
@@ -548,7 +531,6 @@ class ImageField(forms.FileField):
             data.seek(0)
         return data
 
-
 class VideoField(forms.FileField):
     """
     Form field handling video uploads
@@ -556,7 +538,7 @@ class VideoField(forms.FileField):
     default_error_messages = {
         'invalid_video': _(u"Upload a valid video. The file you uploaded was either not a video or a corrupted video."),
         'invalid_extension': _("File type of the uploaded file is invalid."),
-    }
+        }
 
     def __init__(self, 
         valid_file_extensions=("3gp", "asf", "asx", "avi", "flv", "mov", "mp4", "mpg", "qt", "rm", "swf", "wmv"),
@@ -590,8 +572,7 @@ class VideoField(forms.FileField):
         if hasattr(f, 'seek') and callable(f.seek):
             f.seek(0)
         return f
-
-
+        
 class AudioField(forms.FileField):
     """
     Form field handling audio uploads
@@ -634,7 +615,6 @@ class AudioField(forms.FileField):
             f.seek(0)
         return f
 
-
 class URLField(forms.URLField):
     """
     Form field for URLs
@@ -643,7 +623,6 @@ class URLField(forms.URLField):
     def __init__(self, *args, **kwargs):
         kwargs["widget"] = URLWidget
         super(URLField, self).__init__(*args, **kwargs)
-
 
 class TemplateChoiceField(forms.ChoiceField):
     """
@@ -693,12 +672,11 @@ class TemplateChoiceField(forms.ChoiceField):
             self.choices.insert(0, ("", "---------"))
 
         self.widget.choices = self.choices
-
-
+        
 class HierarchicalModelChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):
         prefix = (obj.path_search.count("/") - 2) * "-"
         if prefix:
             prefix += " "
         return prefix + force_unicode(obj)
-
+        
