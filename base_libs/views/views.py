@@ -18,8 +18,8 @@ def access_denied(request):
 
 def get_object(content_type_var, field_name, field_value):
     """
-    gets an object from a content_type_var
-    definied as [pkg].[module] and a specific field
+    gets an object from a content_type_var 
+    definied as [pkg].[module] and a specific field 
     defining the object.
     Parameters:
         content_type_var    Content Type as a string formatted as
@@ -34,7 +34,7 @@ def get_object(content_type_var, field_name, field_value):
     #try to resolve the content_type from {package].[module] string
     if not content_type_var:
         return None
-
+    
     try:
         package, module = content_type_var.split('.')
         content_type = ContentType.objects.get(
@@ -42,9 +42,9 @@ def get_object(content_type_var, field_name, field_value):
         )
     except:
         raise Http404, "content type for %s could not be resolved" % content_type_var
-
+    
     # ensure the object identified by field_value is valid
-    try:
+    try: 
         obj = content_type.get_object_for_this_type(
             **{field_name:field_value}
         )
@@ -54,34 +54,34 @@ def get_object(content_type_var, field_name, field_value):
     return obj
 
 def get_object_from_url(object_url_part, **kwargs):
-    """
+    """ 
     tries to identify a related object from an "objects url part".
-    An url part is formed like
-
+    An url part is formed like 
+    
     "<<model_identifier>>/<<object_identifier>>",
-
+    
     for example "person/aidas". In this case, "person" would
     be an identifier for the "Person" model in the "people" app
     and "Aidas" would be the "object identifier". Here, it denotes
     the slug name of Aidas. To identify an object by it's "object_path",
     the application and the object are got from a special map and the
     corresponding model.
-
+    
     kwargs can optionally have two additional key, value pairs:
-
+    
     ('exclude', << a list of model_identifiers to exclude >>)
     ('include', << a list of model_identifiers to include >>)
-
-    exclusion and inclusion may not be used together at the moment.
-
+    
+    exclusion and inclusion may not be used together at the moment.  
+    
     Additionally, the name of a base template associated with
     the object is got.
     Return value is a tuple (obj, base_template) or (None, None)
-
+    
     """
     obj = None
     base_template = None
-
+     
     if object_url_part is None or object_url_part == "":
         (model_identifier, object_identifier) = (None, None)
     else:
@@ -90,19 +90,19 @@ def get_object_from_url(object_url_part, **kwargs):
             object_url_mapper = getattr(__import__(settings.ROOT_URLCONF, {}, {}, ['']), 'OBJECT_URL_MAPPER')
         except (ImportError, AttributeError):
             raise Http404, "Please specify an OBJECT_URL_MAPPER dict to use this function"
-
+    
         if object_url_mapper.has_key(model_identifier):
             object_props = object_url_mapper[model_identifier]
             try:
                 obj = object_props[0].objects.get(**{object_props[1] + '__iexact': object_identifier})
             except:
                 raise Http404, "Sorry, requested object '%s' does not exist in the %s model" % (object_identifier, str(object_props[0]))
-
+        
             base_template = object_props[2]
-
+            
     if 'base_template' in kwargs:
         base_template = kwargs['base_template']
-
+            
     # now test, if model is supported and allowed!
     if kwargs.has_key('include'):
         if not model_identifier in kwargs['include']:
@@ -115,10 +115,10 @@ def get_object_from_url(object_url_part, **kwargs):
 
 def get_container(container_model, site, related_obj=None, sysname=None, create=True):
     """
-    gets or creates a container object for a specific model,
+    gets or creates a container object for a specific model, 
     which references another object (related object)
     from a different model.
-
+    
     Parameters:
         container_model      The model for the container
         site                 The current site
@@ -130,14 +130,14 @@ def get_container(container_model, site, related_obj=None, sysname=None, create=
     site_id = None
     if site:
         site_id = site.id
-
+    
     if related_obj:
         try:
             content_type = ContentType.objects.get_for_model(related_obj)
         except:
             return None
         object_id = related_obj._get_pk_val()
-
+        
     qs = container_model.objects.filter(
        content_type__exact=content_type, # None is interpreted as IS NULL
        object_id__exact=object_id, # "" is interpreted as None
@@ -150,7 +150,7 @@ def get_container(container_model, site, related_obj=None, sysname=None, create=
     """
     if qs.count() == 0:
         obj = container_model(
-            content_type=content_type,
+            content_type=content_type, 
             object_id=object_id,
             sysname=sysname,
             )
@@ -160,7 +160,7 @@ def get_container(container_model, site, related_obj=None, sysname=None, create=
             else:
                 obj.save()
         return obj
-
+        
     # at last filter the site
     if container_model.is_single_site_container():
         if qs.filter(site__id=site_id).count() == 0:
@@ -171,7 +171,7 @@ def get_container(container_model, site, related_obj=None, sysname=None, create=
             if qs.filter(site__isnull=True).count() == 0:
                 # nothing found, create a new one!
                 obj = container_model(
-                     content_type=content_type,
+                     content_type=content_type, 
                      object_id=object_id,
                      sysname=sysname,
                      )
@@ -196,11 +196,11 @@ def get_container(container_model, site, related_obj=None, sysname=None, create=
                 """
                 nothing found, create a new one!
                 TODO I am not really sure, whether it is andgood idea
-                to create a new entry with this site. Maybe there is
+                to create a new entry with this site. Maybe there is 
                 a better solution
                 """
                 obj = container_model(
-                     content_type=content_type,
+                     content_type=content_type, 
                      object_id=object_id,
                      sysname=sysname,
                      )
@@ -214,14 +214,14 @@ def get_container(container_model, site, related_obj=None, sysname=None, create=
                 return qs.filter(sites__isnull=True)[0]
         else:
             return qs.filter(sites__in=[site_id])[0]
-
+        
 def json_get_objects_from_contenttype(request, content_type_id):
     """Gets all objects with a given contenttype"""
     json_str = "false"
     if True:
         content_type = ContentType.objects.get(id=content_type_id)
         objs = content_type.model_class().objects.all()
-        result = ( # generator of tuples to sort by second value
+        result = ( # generator of tuples to sort by second value 
             (obj._get_pk_val(), not hasattr(obj, "__unicode__") and obj._get_pk_val() or obj.__unicode__())
             for obj in objs
             )
@@ -231,14 +231,14 @@ def json_get_objects_from_contenttype(request, content_type_id):
         pass
     return HttpResponse(json_str, content_type='text/javascript; charset=utf-8')
 
-json_get_objects_from_contenttype = never_cache(json_get_objects_from_contenttype)
+json_get_objects_from_contenttype = never_cache(json_get_objects_from_contenttype)        
 
 def json_objects_to_select(request, app_name, model_name, obj_pk, field_name, content_type_id):
     """
     Get object_id selection options for selected content_type at the given model editing view"""
     json_str = "false"
     model = get_object_or_404(
-        ContentType,
+        ContentType, 
         app_label=app_name,
         model=model_name,
         ).model_class()
@@ -264,7 +264,7 @@ def json_objects_to_select(request, app_name, model_name, obj_pk, field_name, co
                 objs = objs.filter(**limit_choices_to)
             else:
                 objs = objs.filter(limit_choices_to)
-            result = ( # generator of tuples to sort by second value
+            result = ( # generator of tuples to sort by second value 
                 (obj._get_pk_val(), (not hasattr(obj, "__unicode__") and ("",) or (obj.__unicode__(),))[0])
                 for obj in objs
                 )
@@ -280,14 +280,14 @@ json_objects_to_select = never_cache(json_objects_to_select)
 
 def ajax_autocomplete(request, app, qs_function, display_attr, add_display_attr=None, limit=1000):
     """
-    Method to lookup a model field and return an array. Intended for use
+    Method to lookup a model field and return an array. Intended for use 
     in AJAX widgets.
     """
     obj_list = []
     t = Template("")
     if 'q' in request.GET:
         search = request.GET['q']
-
+        
         func = get_installed("%(app)s.ajax.%(func)s" % {
             'app': app,
             'func': qs_function,
@@ -296,22 +296,21 @@ def ajax_autocomplete(request, app, qs_function, display_attr, add_display_attr=
 
         if add_display_attr == u'None':
             add_display_attr = None
-
+            
         for obj in queryset[:limit]:
             display = getattr(obj, display_attr)
             if callable(display) and not getattr(display, "alters_data", False):
                 display = display()
-            display = display.replace("|", "&#x007c;")
-
+                
             if add_display_attr:
                 add_display = getattr(obj, add_display_attr)
                 if callable(add_display) and not getattr(add_display, "alters_data", False):
                     add_display = add_display()
-                obj_list.append([display, obj.pk, add_display])
+                obj_list.append([display, obj.pk, add_display])                                    
             else:
                 obj_list.append([display, obj.pk])
-
-        if add_display_attr:
+                
+        if add_display_attr:    
             t = Template('{% autoescape off %}{% for el in obj_list %}{{ el.0 }}|{{ el.1 }}|{{ el.2 }}\n{% endfor %}{% endautoescape %}')
         else:
             t = Template('{% autoescape off %}{% for el in obj_list %}{{ el.0 }}|{{ el.1 }}\n{% endfor %}{% endautoescape %}')
@@ -319,3 +318,4 @@ def ajax_autocomplete(request, app, qs_function, display_attr, add_display_attr=
     r = HttpResponse(t.render(c))
     r['Content-Type'] = 'text/plain; charset=UTF-8'
     return r
+
