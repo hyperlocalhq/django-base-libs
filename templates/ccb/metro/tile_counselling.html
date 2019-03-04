@@ -1,9 +1,0 @@
-{% load image_mods_tags %}
-{% if tile.icon %}
-    <div class="col-xs-12 col-md-6">
-        <a class="content" {% if tile.link %}href="{{ tile.link }}"{% endif %}>
-            <span class="fawesome {{ tile.icon }}"></span>
-            {% if tile.title %}<h2>{{ tile.title }}</h2>{% endif %}
-        </a>
-    </div>
-{% endif %}

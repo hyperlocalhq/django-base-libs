@@ -1,12 +1,15 @@
 # -*- coding: UTF-8 -*-
+import sys
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+
+if "makemigrations" in sys.argv:
+    from django.utils.translation import ugettext_noop as _
+else:
+    from django.utils.translation import ugettext_lazy as _
+
 from django.utils.encoding import force_unicode
 from django.conf import settings
-from mptt.models import MPTTModel
-from mptt.managers import TreeManager
-from mptt.fields import TreeForeignKey
 
 from base_libs.models.models import UrlMixin
 from base_libs.models.models import SlugMixin
@@ -18,14 +21,25 @@ from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
 from base_libs.utils.misc import get_translation
 
+from mptt.models import MPTTModel
+from mptt.managers import TreeManager
+from mptt.fields import TreeForeignKey
+
 verbose_name = _("FAQ")
 
 
-class FaqContainer(MultiSiteContainerMixin, CreationModificationDateMixin, ):
+class FaqContainer(
+    MultiSiteContainerMixin,
+    CreationModificationDateMixin,
+):
     """
     The container model holding FaqCategories
     """
-    title = MultilingualCharField(_('title'), blank=True, max_length=255, )
+    title = MultilingualCharField(
+        _('title'),
+        blank=True,
+        max_length=255,
+    )
 
     def __unicode__(self):
         sites_str = ", ".join([str(item.name) for item in self.sites.all()])
@@ -40,8 +54,8 @@ class FaqContainer(MultiSiteContainerMixin, CreationModificationDateMixin, ):
             if content_object:
                 for key in settings.LANGUAGES:
                     title_dict[key[0]] = \
-                        get_translation('Faqs for %(obj)s', language=key[0]) % \
-                        {'obj': force_unicode(content_object)}
+                        get_translation('Faqs for %(obj)s', language=key[0]) %\
+                            {'obj': force_unicode(content_object)}
                 self.title = title_dict
             else:
                 for key in settings.LANGUAGES:
@@ -54,25 +68,27 @@ class FaqContainer(MultiSiteContainerMixin, CreationModificationDateMixin, ):
     save.alters_data = True
 
     class Meta(MultiSiteContainerMixin.Meta):
-        ordering = ('title',)
+        ordering = ('title', )
         verbose_name = _("FAQ Container")
         verbose_name_plural = _("FAQ Containers")
 
-# QUICK HACK: Without the following the FaqContainer.objects.model will be MultiSiteContainerMixin and won't
-# work correctly
+
+# QUICK HACK: Without the following the FaqContainer.objects.model will be MultiSiteContainerMixin and won't work correctly
 FaqContainer.objects.model = FaqContainer
 
 
 class FaqCategoryManager(TreeManager):
     def get_roots(self, container):
         return self.get_queryset().filter(
-            container=container,
-            parent__isnull=True
+            container=container, parent__isnull=True
         )
 
 
 class FaqCategory(MPTTModel, CreationModificationMixin, UrlMixin, SlugMixin()):
-    container = models.ForeignKey(FaqContainer, verbose_name=_('container'), )
+    container = models.ForeignKey(
+        FaqContainer,
+        verbose_name=_('container'),
+    )
     sort_order = models.IntegerField(
         _("sort order"),
         blank=True,
@@ -81,7 +97,7 @@ class FaqCategory(MPTTModel, CreationModificationMixin, UrlMixin, SlugMixin()):
     )
     parent = TreeForeignKey(
         'self',
-        # related_name="%(class)s_children",
+        #related_name="%(class)s_children",
         related_name="child_set",
         blank=True,
         null=True,
@@ -89,10 +105,16 @@ class FaqCategory(MPTTModel, CreationModificationMixin, UrlMixin, SlugMixin()):
     title = MultilingualCharField(_('title'), max_length=512)
     short_title = MultilingualCharField(
         _('short title'),
-        help_text=_("a short title to be displayed in page breadcrumbs and headline."),
+        help_text=_(
+            "a short title to be displayed in page breadcrumbs and headline."
+        ),
         max_length=80,
     )
-    description = MultilingualTextField(_('description'), blank=True, max_length=8192, )
+    description = MultilingualTextField(
+        _('description'),
+        blank=True,
+        max_length=8192,
+    )
 
     # python format for displaying the sort_order of the child nodes
     children_sort_order_format = models.CharField(
@@ -107,7 +129,8 @@ class FaqCategory(MPTTModel, CreationModificationMixin, UrlMixin, SlugMixin()):
     faqs_on_separate_page = models.BooleanField(
         _('separate page'),
         help_text=_(
-            "check, if you want to display relating faqs on a separate page. If this category is not a 'leaf category', it has no effect."),
+            "check, if you want to display relating faqs on a separate page. If this category is not a 'leaf category', it has no effect."
+        ),
         default=False,
     )
 
@@ -118,7 +141,6 @@ class FaqCategory(MPTTModel, CreationModificationMixin, UrlMixin, SlugMixin()):
         verbose_name_plural = _('FAQ Categories')
         ordering = ["tree_id", "lft"]
 
-    # noinspection PyClassHasNoInit
     class MPTTMeta:
         order_insertion_by = ['sort_order']
 
@@ -182,9 +204,9 @@ class FaqCategory(MPTTModel, CreationModificationMixin, UrlMixin, SlugMixin()):
         if self.parent:
             if self.parent.children_sort_order_format:
                 try:
-                    return self.parent.children_sort_order_format % \
-                           self.sort_order
-                except Exception:
+                    return self.parent.children_sort_order_format %\
+                        self.sort_order
+                except:
                     pass
         return "%s" % self.sort_order
 
@@ -204,10 +226,14 @@ class FaqCategory(MPTTModel, CreationModificationMixin, UrlMixin, SlugMixin()):
         )
 
     def get_relative_url(self):
-        return "%s/" % self.slug
+        category = self
+        if not self.faqs_on_separate_page and category.parent:
+            category = category.parent
+        return "%s/" % category.slug
 
     def get_faqs(self):
-        return QuestionAnswer.objects.filter(category=self).order_by('sort_order')
+        return QuestionAnswer.objects.filter(category=self
+                                            ).order_by('sort_order')
 
     def has_faqs(self):
         return self.get_faqs().count() > 0
@@ -224,15 +250,18 @@ class FaqCategory(MPTTModel, CreationModificationMixin, UrlMixin, SlugMixin()):
         if the category has children or (the category has faqs and
         the category's faqs are displayed on a separate page!)
         """
-        # return self.has_children() or\
+        #return self.has_children() or\
         # (self.has_faqs() and self.faqs_on_separate_page)
-        return not self.is_leaf_node() or self.has_faqs()
+        return not self.is_leaf_node() or (
+            self.has_faqs() and self.faqs_on_separate_page
+        )
 
 
 class QuestionAnswer(CreationModificationMixin, ViewsMixin, UrlMixin):
+
     category = TreeForeignKey(FaqCategory, verbose_name=_('category'))
     sort_order = models.IntegerField(_('sort order'))
-    # question = MultilingualCharField(_('question'), max_length=2048)
+    #question = MultilingualCharField(_('question'), max_length=2048)
     question = MultilingualCharField(_('question'), max_length=255)
     answer = MultilingualTextField(_('answer'), max_length=16384)
 
@@ -258,7 +287,6 @@ class QuestionAnswer(CreationModificationMixin, ViewsMixin, UrlMixin):
 
     def get_question(self):
         from base_libs.utils.misc import truncwords
-
         return truncwords(self.question, 10)
 
     get_question.short_description = _('question')
@@ -267,8 +295,8 @@ class QuestionAnswer(CreationModificationMixin, ViewsMixin, UrlMixin):
 
     def get_answer(self):
         # we need a method here just to use 'allow_tags'!
-        # from base_libs.utils.misc import truncwords
-        # return truncwords(self.answer, 10)
+        #from base_libs.utils.misc import truncwords
+        #return truncwords(self.answer, 10)
         return self.answer
 
     get_answer.short_description = _('answer')
@@ -279,7 +307,7 @@ class QuestionAnswer(CreationModificationMixin, ViewsMixin, UrlMixin):
         if self.category.children_sort_order_format:
             try:
                 return self.category.children_sort_order_format % self.sort_order
-            except Exception:
+            except:
                 pass
         return "%s" % self.sort_order
 
@@ -289,14 +317,3 @@ class QuestionAnswer(CreationModificationMixin, ViewsMixin, UrlMixin):
     get_category.short_description = _('category')
     get_category.allow_tags = True
     get_category.admin_order_field = 'category'
-
-    def get_admin_link(self):
-        from base_libs.utils.misc import get_website_url
-
-        category = self.category
-        return "%sadmin/%s/%s/%s/" % (
-            get_website_url(),
-            category._meta.app_label.lower(),
-            type(category).__name__.lower(),
-            category.pk,
-        )
