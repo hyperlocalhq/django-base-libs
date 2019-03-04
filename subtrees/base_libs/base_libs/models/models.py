@@ -30,6 +30,7 @@ from babel.numbers import format_currency
 from base_libs.models.fields import MultilingualProxy
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
+from base_libs.models.fields import ExtendedTextField # needed for south to work
 from base_libs.signals import strip_whitespaces_from_charfields
 from base_libs.utils.betterslugify import better_slugify
 
@@ -423,7 +424,7 @@ def ObjectRelationMixin(prefix=None, prefix_verbose=None, add_related_name=False
         null=False,
         help_text=_("Please select the related object."),
         max_length=255,
-        default="",
+        default="", # for south migrations
         )
     object_id.limit_choices_to = limit_object_choices_to
     # can be retrieved by MyModel._meta.get_field("object_id").limit_choices_to
