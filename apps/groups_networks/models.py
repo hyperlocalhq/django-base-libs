@@ -8,7 +8,7 @@ from jetson.apps.groups_networks.base import *
 
 class PersonGroup(PersonGroupBase):
     creative_sectors = TreeManyToManyField(
-        Term,
+        'structure.Term',
         verbose_name=_("Creative sectors"),
         limit_choices_to={'vocabulary__sysname': 'categories_creativesectors'},
         related_name="creative_sectors_groups",
