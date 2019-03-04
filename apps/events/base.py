@@ -467,14 +467,6 @@ class ComplexEventBase(EventBase, OpeningHoursMixin):
             null=True,
             related_name="events_happened",
         )
-        venue.south_field_triple = lambda: (
-            "django.db.models.fields.related.ForeignKey",
-            ["orm['institutions.Institution']"],
-            dict(
-                blank="True",
-                null="True",
-                related_name='"events_happened"',
-            ))
 
     postal_address = models.ForeignKey(Address, verbose_name=_("Postal Address"), related_name="address_events",
                                        null=True, blank=True)
@@ -486,13 +478,6 @@ class ComplexEventBase(EventBase, OpeningHoursMixin):
             blank=True,
             null=True,
         )
-        organizing_institution.south_field_triple = lambda: (
-            "django.db.models.fields.related.ForeignKey",
-            ["orm['institutions.Institution']"],
-            dict(
-                blank="True",
-                null="True",
-            ))
 
     if is_installed("people.models"):
         organizing_person = models.ForeignKey(
@@ -502,14 +487,6 @@ class ComplexEventBase(EventBase, OpeningHoursMixin):
             null=True,
             related_name="events_organized",
         )
-        organizing_person.south_field_triple = lambda: (
-            "django.db.models.fields.related.ForeignKey",
-            ["orm['people.Person']"],
-            dict(
-                blank="True",
-                null="True",
-                related_name='"events_organized"',
-            ))
 
     organizer_title = models.TextField(_("Organizer"), blank=True, null=True)
     organizer_url_link = URLField(_("Organizer URL"), blank=True, null=True)

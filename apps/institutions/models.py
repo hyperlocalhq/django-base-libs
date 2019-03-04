@@ -8,8 +8,6 @@ from django.core.urlresolvers import reverse
 
 from actstream import action
 
-from base_libs.utils.misc import get_related_queryset
-
 from jetson.apps.institutions.base import *
 
 
@@ -22,7 +20,7 @@ class InstitutionManagerExtended(InstitutionManager):
 
 class Institution(InstitutionBase):
     creative_sectors = TreeManyToManyField(
-        Term,
+        "structure.Term",
         verbose_name=_("Creative sectors"),
         limit_choices_to={'vocabulary__sysname': 'categories_creativesectors'},
         related_name="creative_sector_institutions",

@@ -1,2 +1,2 @@
-required_apps = ["auth", "south"]
+required_apps = ["auth"]
 optional_apps = []

@@ -4,13 +4,9 @@ import sys
 
 from django.db import models
 from django.conf import settings
-from django.core.urlresolvers import reverse
-from django.template import Context
-from django.template import Template
 from django.template.defaultfilters import striptags
 from django.utils.safestring import mark_safe
-from django.utils.encoding import smart_unicode, force_unicode
-from django.core.exceptions import ObjectDoesNotExist
+from django.utils.encoding import force_unicode
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
@@ -20,12 +16,9 @@ if "makemigrations" in sys.argv:
 else:
     from django.utils.translation import ugettext_lazy as _
 
-from django.utils.translation import ugettext, get_language, activate
 from django.db.models.query import QuerySet
 from django.utils.timezone import now as tz_now
-from django.apps import apps
 
-from base_libs.middleware import get_current_language
 from base_libs.utils.misc import html_to_plain_text
 from base_libs.utils.misc import get_installed
 from base_libs.models.models import UrlMixin
@@ -34,9 +27,6 @@ from base_libs.models.models import CreationDateMixin
 from base_libs.models.models import ObjectRelationMixin
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualPlainTextField
-from base_libs.models.fields import PlainTextModelField  # for south to work
-
-from jetson.apps.people.functions import get_user_language
 
 # The following won't work, because apps are not yet loaded to the registry at this point:
 # EmailTemplate = apps.get_model("mailing", "EmailTemplate")

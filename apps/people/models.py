@@ -43,14 +43,14 @@ class PersonManagerExtended(PersonManager):
 
 class Person(PersonBase):
     creative_sectors = TreeManyToManyField(
-        Term,
+        "structure.Term",
         verbose_name=_("Creative sectors"),
         limit_choices_to={'vocabulary__sysname': 'categories_creativesectors'},
         related_name="creative_industry_people",
         blank=True,
     )
     categories = TreeManyToManyField(
-        Category,
+        "structure.Category",
         verbose_name=_("categories"),
         blank=True
     )

@@ -16,7 +16,6 @@ from base_libs.models.models import SlugMixin
 from base_libs.models.models import SysnameMixin
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
-from base_libs.models.fields import ExtendedTextField  # needed for south to work
 
 from filebrowser.fields import FileBrowseField
 

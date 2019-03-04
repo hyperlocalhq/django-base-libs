@@ -33,7 +33,6 @@ from base_libs.models.fields import PlainTextModelField
 from base_libs.models.fields import URLField
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
-from base_libs.models.fields import ExtendedTextField  # for south
 
 from filebrowser.fields import FileBrowseField
 

@@ -19,7 +19,6 @@ from base_libs.models import CreationModificationDateMixin
 from base_libs.models import MultiSiteContainerMixin
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
-from base_libs.models.fields import ExtendedTextField  # needed for south to work
 from base_libs.utils.misc import get_translation
 
 from mptt.models import MPTTModel
