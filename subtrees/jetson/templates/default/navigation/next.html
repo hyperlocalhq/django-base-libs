@@ -1,7 +1,0 @@
-{% load i18n navigation_tags %}
-{% if nav_link %}
-    {% parse_link nav_link as url %}
-    <a href="{{ url }}">{{ nav_link.get_title }} »</a>
-{% else %}
-    <span>»</span>
-{% endif %}
