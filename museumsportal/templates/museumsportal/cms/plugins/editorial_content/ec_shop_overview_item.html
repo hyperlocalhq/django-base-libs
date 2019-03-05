@@ -1,0 +1,31 @@
+{% load i18n base_tags image_modifications fb_tags %}
+<div class="row shop_overview_entry">
+  {% if object.image %}
+    <div class="item col-xs-{{ object.col_xs_width|default:"12" }} col-sm-{{ object.col_sm_width|default:"5" }} col-md-{{ object.col_md_width|default:"4" }} col-lg-{{ object.col_lg_width|default:"4" }}{% if object.css_class %} {{ object.css_class }}{% endif %}">
+      <a href="{{ object.website }}">
+        <span class="img">
+            <div class="photo-credits-wrapper">
+                <img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" alt="{{ object.get_rendered_image_caption|striptags }}"  data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" />
+                {% with object.image|file_description as file_desc %}
+                    {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}
+                {% endwith %}
+            </div>
+            {% if object.image_caption %}<p class="sr-only caption">{{ object.get_rendered_image_caption|truncatewords:"30"|removetags:"p" }}</p> {% endif %}
+        </span>
+      </a>
+    </div>
+    <div class="item col-xs-{{ object.col_xs_width|default:"12" }} col-sm-{{ object.col_sm_width|default:"7" }} col-md-{{ object.col_md_width|default:"8" }} col-lg-{{ object.col_lg_width|default:"8" }}{% if object.css_class %} {{ object.css_class }}{% endif %}">
+  {% else %}
+    <div class="item col-xs-{{ object.col_xs_width|default:"12" }} col-sm-{{ object.col_sm_width|default:"12" }} col-md-{{ object.col_md_width|default:"12" }} col-lg-{{ object.col_lg_width|default:"12" }}{% if object.css_class %} {{ object.css_class }}{% endif %}">
+  {% endif %}
+    <h4>
+      <a href="{{ object.website }}"> <b>{{ object.title }}</b></a>
+      {% if object.subtitle %}<br/>
+        <a href="{{ object.website }}"> {{ object.subtitle }}</a>
+      {% endif %}
+    </h4>
+    <p>{{ object.get_rendered_description|removetags:"p" }}</p>
+    <a class="btn btn-default btn-sm" href="{{ object.website }}">{% trans "more" %}</a>
+  </div>
+  <div class="clearfix"></div>
+</div>

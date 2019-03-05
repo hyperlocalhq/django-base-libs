@@ -1,0 +1,17 @@
+{% load base_tags image_modifications %}
+{% with object as event %}
+    <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+        <a href="/es/eventos/{{ event.slug }}/">
+            <h4>
+                <span>{% with event.get_closest_event_time as event_time %}{{ event_time.get_humanized_date_es }} {{ event_time.start|time:"H:i" }}{% endwith %}</span>
+            </h4>
+            <h3>{{ event.title_es|default:event.title_de }}</h3>
+            <h4>{{ event.subtitle_es|default:event.subtitle_de }}</h4>
+            {% if event.location_name %}
+                <h5>{{ event.location_name }}</h5>
+            {% elif event.museum %}
+                <h5>{{ event.museum.title_es|default:event.museum.title_de }}</h5>
+            {% endif %}
+        </a>
+    </div>
+{% endwith %}

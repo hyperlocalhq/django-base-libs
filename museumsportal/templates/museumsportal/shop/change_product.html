@@ -1,0 +1,90 @@
+{% extends "shop/base_form.html" %}
+{% load crispy_forms_tags i18n %}
+
+{% block stylesheet %}
+    {{ block.super }}
+    <link href="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.autocomplete.css" rel="stylesheet" />
+    <link href="{{ STATIC_URL }}site/css/jquery.tagsinput.css" rel="stylesheet" />
+    <link href="{{ STATIC_URL }}site/css/fileuploader.css" media="screen" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.bgiframe.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.autocomplete.js"></script>
+    <script src="{{ STATIC_URL }}site/js/autocomplete.js"></script>
+    <script src="{{ STATIC_URL }}site/js/jquery.tagsinput.js"></script>
+    <script src="{{ STATIC_URL }}ajaxuploader/js/fileuploader.js"></script>
+{% endblock %}
+
+{% block singlestep_form %}
+    {% crispy form %}
+    <script>
+        var translatable_file_uploader_options = {
+            template: '<div class="qq-uploader">' +
+                '<div class="qq-upload-drop-area"><span>{% trans "Drop image here" %}</span></div>' +
+                '<div class="qq-upload-button btn btn-primary"><i class="icon-arrow-up icon-white"></i> {% trans "Upload Image" %}</div>' +
+                '<ul class="qq-upload-list"></ul>' +
+            '</div>',
+            // template for one item in file list
+            fileTemplate: '<li>' +
+                '<span class="qq-upload-file"></span>' +
+                '<span class="qq-upload-spinner"></span>' +
+                '<span class="qq-upload-size"></span>' +
+                '<a class="qq-upload-cancel" href="#">{% trans "Cancel" %}</a>' +
+                '<span class="qq-upload-failed-text">{% trans "Failed" %}</span>' +
+            '</li>',
+            messages: {
+                typeError: '{% trans "{file} has invalid extension. Only {extensions} are allowed." %}',
+                sizeError: '{% trans "{file} is too large, maximum file size is {sizeLimit}." %}',
+                minSizeError: '{% trans "{file} is too small, minimum file size is {minSizeLimit}." %}',
+                emptyError: '{% trans "{file} is empty, please select files again without it." %}',
+                filesLimitError: '{% trans "No more than {filesLimit} files are allowed to be uploaded." %}',
+                onLeave: '{% trans "The files are being uploaded, if you leave now the upload will be cancelled." %}'
+            }
+        };
+        $(".qq-uploader").click(function(){ $(".qq-upload-button input").click() });
+        
+        var $profile_image_upload = $('#profile_image_upload');
+        var options = $.extend(translatable_file_uploader_options, {
+            allowedExtensions: ['gif', 'jpg', 'jpeg', 'png'],
+            action: '/' + settings.LANGUAGE_CODE + '/helper/ajax-upload/',
+            element: $('#image_uploader')[0],
+            multiple: false,
+            onComplete: function(id, fileName, responseJSON) {
+                if(responseJSON.success) {
+                    $('.messages', $profile_image_upload).html("");
+                    // set the original to media_file_path
+                    $('#id_image_path').val(responseJSON.path);
+                    // load the modified version for the preview
+                    $.post('/' + settings.LANGUAGE_CODE + '/helper/modified-path/', {
+                        file_path: settings.MEDIA_URL + responseJSON.path,
+                        mod_sysname: 'shop_small'
+                    }, function(data, textStatus, jqXHR) {
+                        $('#image_preview').html('<img alt="" src="' + data + '" />');
+                        // $('#image_uploader').hide();
+                        // $('#image_help_text').hide();
+                    },
+                    'text'
+                    );
+                }
+            },
+            onAllComplete: function(uploads) {
+                // uploads is an array of maps
+                // the maps look like this: {file: FileObject, response: JSONServerResponse}
+                $('.qq-upload-success').fadeOut("slow", function() {
+                    $(this).remove();
+                });
+            },
+            params: {
+                'csrf_token': $('input[name="csrfmiddlewaretoken"]').val(),
+                'csrf_name': 'csrfmiddlewaretoken',
+                'csrf_xname': 'X-CSRFToken'
+            }, 
+            showMessage: function(message) {
+                $('.messages', $profile_image_upload).html(message);
+            }
+        });
+        var uploader = new qq.FileUploader(options);
+    </script>
+{% endblock %}

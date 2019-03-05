@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+{% load i18n base_tags image_modifications tagging_tags favorites %}
+
+{% block js %}
+{{ block.super }}
+<script type="text/javascript" src="{{ STATIC_URL }}site/js/favorites.js" defer="defer"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}site/js/isotope/isotope.pkgd.min.js"></script>
+<script type="text/javascript">
+  $(function() {
+    $('.favorite').click(function() {
+      var $badge = $(this).closest('.container').find('h3:first .badge');
+      $badge.text(parseInt($badge.text()) - 1);
+      $(this).closest('.item').addClass('delete');
+      $('#favorites .list').isotope('layout');
+    });
+  });
+  
+  $( document ).ready(function() {
+  
+    var $container = $('#favorites .list');
+    var $buttons = $('#filters label');
+    
+    $container.isotope({
+      layoutMode: 'masonry',
+      itemSelector: '.item'
+    });
+    
+    var init = function() {
+    
+      $('.item', $container).each(function() {
+        
+        var $this = $(this);
+        var $links = $('a', $this);
+      
+        if ($links.length == 2) {
+        
+          var $img =  $($links[0]);
+          var $content = $($links[1]);
+        
+          $this.css("height", "auto");
+          $("img", $img).css("visibility", "visible");
+          $content.removeClass('item-hidden');
+          $content.css("top", "0px");
+          $content.css("height", "auto");
+          $content.css("display", "block");
+        
+          $this.off();
+          
+          if ($img.css("display") == "block") {
+          
+            var img_height = $("img", $img).height();
+           
+            $content.addClass('item-hidden');
+            $content.css("top", "-"+img_height+"px");
+            $this.height(img_height);
+           
+            if (img_height > $content.height() + 70) $content.height(img_height - 70);
+            $content.css("display", "none");
+          
+            $this.mouseenter(onMouseEnter);
+            $this.mouseleave(onMouseLeave);
+          }
+        }
+      });    
+      
+      $container.isotope('layout');
+    }
+    
+    var onMouseEnter = function(event) {
+    
+        var $this = $(this);
+        var $links = $('a', $this);
+      
+        if ($links.length == 2) {
+        
+           var $img = $("img", $($links[0]));
+           var $content = $($links[1]);
+    
+           $img.css("visibility", "hidden");
+           $content.css("display", "block");
+           
+           $this.height($content.height());
+        }
+        
+        $this.css("z-index", 100);
+    }
+    
+    var onMouseLeave = function(event) {
+        
+        var $this = $(this);
+        var $links = $('a', $this);
+      
+        if ($links.length == 2) {
+        
+           var $img = $("img", $($links[0]));
+           var $content = $($links[1]);
+    
+           $img.css("visibility", "visible");
+           $content.css("display", "none");
+           
+           $this.height($img.height());
+        }
+    
+        $this.css("z-index", "inherit");
+    }
+    
+    var onFilter = function(event) {
+      
+      var $button = $(this);
+      var active = !$button.hasClass("active");
+    
+      $buttons.each(function() {
+        $(this).removeClass("active");
+      });
+      
+      if (active) {
+        $container.isotope({ filter: $button.attr('data-filter') });
+      } else {
+        $container.isotope({ filter: '*' });
+        event.stopImmediatePropagation();
+      }
+      
+    }
+    
+    
+    $( window ).resize(init);
+    $buttons.click(onFilter);
+    
+    $container.imagesLoaded( function() {
+      init();
+    });
+    
+  });
+</script>
+
+{% endblock %}
+
+{% block title %}{% trans "Favorites" %}{% endblock %}
+
+{% block content %}
+<div id="favorites">
+  <div class="content">
+    <div class="container">
+      {% if object_list %}
+        <h3>{% trans "Favorites" %} <span class="badge">{{ object_list.count }}</span></h3>
+        <div id="filters">
+          <div class="btn-group" data-toggle="buttons">
+            <label type="button" class="btn btn-info btn-sm" data-filter=".museum">{% trans "Museums" %}</label>
+            <label type="button" class="btn btn-info btn-sm" data-filter=".exhibition">{% trans "Exhibitions" %}</label>
+            <label type="button" class="btn btn-info btn-sm" data-filter=".event">{% trans "Events" %}</label>
+            <label type="button" class="btn btn-info btn-sm" data-filter=".workshop">{% trans "Workshops" %}</label>
+          </div>
+        </div>
+        <div class="list row row-md">
+          {% for favorite in object_list %}
+            {% with item=favorite.content_object %}
+              {% with type=favorite.content_type.model.lower %}
+                <div class="item col-xs-12 col-sm-4 col-md-4 col-lg-3 {{ type }}">
+                  {% if item.cover_image and item.cover_image|modified_path:"favorites_list" %}
+                    <a class="item-img hidden-xs visible-sm" href="{{ item.get_url_path }}">
+                      <img src="{{ MEDIA_URL }}{{ item.cover_image|modified_path:"favorites_list" }}" alt="" />
+                    </a>
+                  {% endif %}
+                  <a class="item-content" href="{{ item.get_url_path }}">
+                    <h3>{{ item.title }}</h3>
+                    {% if item.subtitle %}<h4>{{ item.subtitle }}</h4>{% endif %}
+                    {% if type == "exhibition" or type == "event" or type == "workshop" %}<h5>{{ item.museum.title }}</h5>{% endif %}
+                    {% if type == "exhibition" %} 
+                      <h4><span class="from_date">{{ item.start|date:"d.m.Y" }}</span> {% trans "till" %} {{ item.end|date:"d.m.Y" }}</h4>
+                    {% endif %}
+                    {% if type == "event" %} 
+                      <h4>{% with item.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }} {{ event_time.start|time:"H:i" }}{% endwith %}</h4>
+                    {% endif %}
+                    {% if type == "workshop" %} 
+                      <h4>{{ item.workshop_type }} {% with item.get_closest_workshop_time as workshop_time %}{{ workshop_time.workshop_date|date:"j. F Y" }} {{ workshop_time.start|time:"H:i" }}{% endwith %}</h4>
+                    {% endif %}
+                  </a>
+                  {% if favorite.user == request.user %}
+                    <nav class="actions">{% adding2favorites for item %}</nav>
+                  {% endif %}
+                </div>
+              {% endwith %}
+            {% endwith %}
+          {% endfor %}
+        </div>
+      {% else %}
+        <h3>{% trans "Favorites" %}</h3>
+        <p class="nothing">{% trans "You didn't favor any objects." %}</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

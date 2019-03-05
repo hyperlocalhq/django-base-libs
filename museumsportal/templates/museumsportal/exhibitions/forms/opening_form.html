@@ -1,0 +1,265 @@
+{% extends "exhibitions/forms/base.html" %}
+{% load i18n crispy_forms_tags %}
+
+{% block multistep_form %}
+    {% crispy form %}
+
+<script type="text/javascript">
+var error_messages = {
+    required: "{% trans "This field is required." %}"
+};
+
+(function($, undefined) {
+    function reinit_widgets() {
+        $('#seasons .dateinput,#special_openings .dateinput').datepicker({
+            format: 'dd.mm.yyyy',
+            weekStart: 1
+        });
+        $('#seasons .timeinput,#special_openings .timeinput').timepicker({
+            str_hours: '{% trans "Hours" %}',
+            str_minutes: '{% trans "Minutes" %}',
+            str_confirm: '{% trans "Confirm" %}',
+            str_close: '{% trans "Close" %}'
+        });
+        $("select").not('[name*="__prefix__"]').not('[sb]').selectbox();
+    }
+    
+    function set_index_for_fields($formset_form, index) {
+        $formset_form.find(':input').each(function() {
+            var $field = $(this);
+            if ($field.attr("id")) {
+                $field.attr(
+                    "id",
+                    $field.attr("id").replace(/-__prefix__-/, "-" + index + "-")
+                );
+            }
+            if ($field.attr("name")) {
+                $field.attr(
+                    "name",
+                    $field.attr("name").replace(/-__prefix__-/, "-" + index + "-")
+                );
+            }
+        });
+        $formset_form.find('label').each(function() {
+            var $field = $(this);
+            if ($field.attr("for")) {
+                $field.attr(
+                    "for",
+                    $field.attr("for").replace(/-__prefix__-/, "-" + index + "-")
+                );
+            }
+        });
+        $formset_form.find('div').each(function() {
+            var $field = $(this);
+            if ($field.attr("id")) {
+                $field.attr(
+                    "id",
+                    $field.attr("id").replace(/-__prefix__-/, "-" + index + "-")
+                );
+            }
+        });
+    }
+        
+    $(function() {
+        var $add_season = $('#add_season');
+        var $seasons = $('#seasons');
+
+        $add_season.click(function() {
+            var $total_forms = $('#id_seasons-TOTAL_FORMS');
+            var $new_form = $('#seasons_empty_form').clone(true).attr("id", null).show();
+            set_index_for_fields($new_form, parseInt($total_forms.val(), 10));
+            $seasons.append($new_form);
+            $total_forms.val(parseInt($total_forms.val(), 10) + 1);
+            $('#fieldset_museum_opening_hours').hide();
+            $('#item_container').hide();
+            $('.form-actions:last').hide();
+            reinit_widgets();
+            return false;
+        });
+        
+        $('.formset-form').each(function() {
+            var $season = $(this);
+            var $inlineControls = $(
+                '<div class="form-actions">'
+                + '<input type="button" class="save-link btn btn-lg btn-primary" value="{% trans "Okay" %}" />&nbsp;'
+                + '<input name="cancel" type="button" class="delete btn btn-lg btn-default" value="{% trans "Delete" %}" />&nbsp;'
+                + '</div>'
+            );
+            $season.append($inlineControls);
+            $season.find('input:checkbox[id$=DELETE]').parent().hide();
+        });
+        function remove_error_messages($form) {
+            $('.error', $form).removeClass("error").each(function() {
+                $(this).find('.help-inline').remove();
+            });
+        }
+        function validate($form) {
+            var success = true;
+            remove_error_messages($form);
+            // validate required fields
+            $('.requiredField', $form).each(function() {
+                var $control_group = $(this).closest('.form-group');
+                if (!$(':input', $control_group).val()) {
+                    $control_group.addClass("error");
+                    success = false;
+                    $control_group.find('.controls').append(
+                        '<span class="help-inline"><strong>' + error_messages['required'] + '</strong></span>'
+                    );
+                }
+            });
+            // TODO: validate other errors
+            if (!success) {
+                $('body').scrollTop(0);
+            }
+            return success;
+        }
+        
+        // SEASONS
+        $seasons.on('click', '.save-link', function() {
+            var $mirror;
+            var $season = $(this).closest('.formset-form');
+            if (!validate($season)) {
+                return;
+            }
+            $season.hide();
+            var html = '<ul class="actions">'
+                + '<li><button data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Edit" %}" class="transparent edit icon icon-white icon-edit"></button></li>'
+                + '</ul>'
+                + '<a class="edit btn btn-primary" href="#"><span class="title">{% trans "Individual Opening Time of the Exhibition" %}</span></a>';
+            if (!$season.data('mirror')) {
+                $mirror = $('<li class="item">' + html + '</li>');
+                $('#season_list li:last').before($mirror);
+                $mirror.data('origin', $season);
+                $season.data('mirror', $mirror);
+            } else {
+                $mirror = $season.data('mirror');
+                $mirror.html(html);
+            }
+            $('#fieldset_museum_opening_hours').show();
+            $('#item_container').show();
+            $('.form-actions:last').show();
+            $add_season.hide();
+            return false;
+        });
+        $seasons.on('click', '.delete', function() {
+            var $season = $(this).closest('.formset-form');
+            var $checkbox = $season.find('input:checkbox[id$=DELETE]');
+            $checkbox.attr("checked", "checked");
+            $season.hide();
+            var $mirror = $season.data('mirror');
+            if ($mirror) {
+                $mirror.remove();
+            }
+            $('#fieldset_museum_opening_hours').show();
+            $('#item_container').show();
+            $('.form-actions:last').show();
+            $add_season.show();
+            return false;
+        });
+        $('#item_container').on('click', '.edit', function() {
+            var $mirror = $(this).closest('.item');
+            var $origin = $mirror.data('origin');
+            $origin.show();
+            $('#fieldset_museum_opening_hours').hide();
+            $('#item_container').hide();
+            $('.form-actions:last').hide();
+            return false;
+        });
+        
+        // Initial state
+        var $total_forms = $('#id_seasons-TOTAL_FORMS');
+        if ($total_forms.val() !== "0") {
+            $add_season.hide();
+            $(':input.save-link').click();
+        }
+        reinit_widgets();
+
+        // Working hours management
+        var weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+        $(document).on('keyup change', '[id^="id_seasons"][id$="mon_open"]', function(event) {
+            var $mon = $(this);
+            var $table = $(this).closest('table');
+            $(weekdays).each(function() {
+                if (this === 'mon') {
+                    return;
+                }
+                var $day = $('[id^="id_seasons"][id$=' + this + '_open]', $table);
+                if (!$day.data('changed')) {
+                    $day.val($mon.val());
+                }
+            });
+        });
+        $(document).on('keyup change', '[id^="id_seasons"][id$="mon_break_close"]', function(event) {
+            var $mon = $(this);
+            var $table = $(this).closest('table');
+            $(weekdays).each(function() {
+                if (this === 'mon') {
+                    return;
+                }
+                var $day = $('[id^="id_seasons"][id$=' + this + '_break_close]', $table);
+                if (!$day.data('changed')) {
+                    $day.val($mon.val());
+                }
+            });
+        });
+        $(document).on('keyup change', '[id^="id_seasons"][id$="mon_break_open"]', function(event) {
+            var $mon = $(this);
+            var $table = $(this).closest('table');
+            $(weekdays).each(function() {
+                if (this === 'mon') {
+                    return;
+                }
+                var $day = $('[id^="id_seasons"][id$=' + this + '_break_open]', $table);
+                if (!$day.data('changed')) {
+                    $day.val($mon.val());
+                }
+            });
+        });
+        $(document).on('keyup change', '[id^="id_seasons"][id$="mon_close"]', function(event) {
+            var $mon = $(this);
+            var $table = $(this).closest('table');
+            $(weekdays).each(function() {
+                if (this === 'mon') {
+                    return;
+                }
+                var $day = $('[id^="id_seasons"][id$=' + this + '_close]', $table);
+                if (!$day.data('changed')) {
+                    $day.val($mon.val());
+                }
+            });
+        });
+        $(weekdays).each(function() {
+            $(document).on('keyup change', '[id^="id_seasons"][id$="' + this + '_open"]', function() {
+                $(this).data('changed', true);
+            }).each(function() {
+                if ($(this).val()) {
+                    $(this).data('changed', true);
+                }
+            });
+            $(document).on('keyup change', '[id^="id_seasons"][id$="' + this + '_break_close"]', function() {
+                $(this).data('changed', true);
+            }).each(function() {
+                if ($(this).val()) {
+                    $(this).data('changed', true);
+                }
+            });
+            $(document).on('keyup change', '[id^="id_seasons"][id$="' + this + '_break_open"]', function() {
+                $(this).data('changed', true);
+            }).each(function() {
+                if ($(this).val()) {
+                    $(this).data('changed', true);
+                }
+            });
+            $(document).on('keyup change', '[id^="id_seasons"][id$="' + this + '_close"]', function() {
+                $(this).data('changed', true);
+            }).each(function() {
+                if ($(this).val()) {
+                    $(this).data('changed', true);
+                }
+            });
+        });
+    });
+})(jQuery);
+</script>
+{% endblock %}
+

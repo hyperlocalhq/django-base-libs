@@ -1,0 +1,23 @@
+{% extends "museums/forms/base.html" %}
+{% load base_tags crispy_forms_tags i18n %}
+
+{% block stylesheet %}
+    {{ block.super }}
+    <link href="{{ STATIC_URL }}site/css/jquery.tagsinput.css" rel="stylesheet" />
+    <style>
+      .textarea {
+        height: auto !important;
+      }
+    </style>
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <!--
+    <script src="{{ STATIC_URL }}site/js/jquery.tagsinput.js"></script>
+    -->
+{% endblock %}
+
+{% block multistep_form %}
+    {% crispy form %}
+{% endblock %}
