@@ -60,10 +60,6 @@ APP_DEPENDENCIES = {
         'required_apps': ["auth"],
         'optional_apps': [],
     },
-    'south': {
-        'required_apps': [],
-        'optional_apps': [],
-    },
     'debug_toolbar': {
         'required_apps': [],
         'optional_apps': [],
