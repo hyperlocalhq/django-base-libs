@@ -178,7 +178,7 @@ class Urls(object):
 
         # Redirect (to language-specific or other page)
         self.anonymous_302_authenticated_302 = [
-            '/de/museumsummer-copy/map/',  # What is this?
+            #'/de/museumsummer-copy/map/',  # What is this?
             '/de/i18n/',
             '/de/my-profile/favorites/',
             '/de/rosetta/download/',

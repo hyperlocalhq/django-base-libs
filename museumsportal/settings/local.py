@@ -3,12 +3,12 @@ from __future__ import unicode_literals
 from ._base import *
 
 DATABASES = {
-    'postgresql': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': get_secret("DATABASE_NAME"),
-        'USER': get_secret("DATABASE_USER"),
-        'PASSWORD': get_secret("DATABASE_PASSWORD"),
-    },
+    # 'postgresql': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': get_secret("DATABASE_NAME"),
+    #     'USER': get_secret("DATABASE_USER"),
+    #     'PASSWORD': get_secret("DATABASE_PASSWORD"),
+    # },
     'mysql': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': get_secret("MYSQL_DATABASE_NAME"),
