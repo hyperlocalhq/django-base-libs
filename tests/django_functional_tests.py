@@ -4,50 +4,50 @@ import os
 import sys
 import unittest
 
+from django.test.utils import setup_test_environment
+from django.test import Client
+
 FULL_TESTS = False  # will test more than 11,000 URLs if set to True, taking more than one hour
 
 
-def get_extended_client_class():
-    from django.test import Client
-    class ExtendedClient(Client):
-        def login_as(self, filter_params=None):
-            from importlib import import_module
-            from django.contrib.auth import get_user_model, login
-            from django.conf import settings
-            from django.http import HttpRequest
-            if not filter_params:
-                filter_params = {}
+class ExtendedClient(Client):
+    def login_as(self, filter_params=None):
+        from importlib import import_module
+        from django.contrib.auth import get_user_model, login
+        from django.conf import settings
+        from django.http import HttpRequest
+        if not filter_params:
+            filter_params = {}
 
-            User = get_user_model()
-            user = User.objects.filter(**filter_params).order_by("date_joined")[0]
-            user.backend = settings.AUTHENTICATION_BACKENDS[0]
+        User = get_user_model()
+        user = User.objects.filter(**filter_params).order_by("date_joined")[0]
+        user.backend = settings.AUTHENTICATION_BACKENDS[0]
 
-            engine = import_module(settings.SESSION_ENGINE)
+        engine = import_module(settings.SESSION_ENGINE)
 
-            # Create a fake request to store login details.
-            request = HttpRequest()
+        # Create a fake request to store login details.
+        request = HttpRequest()
 
-            if self.session:
-                request.session = self.session
-            else:
-                request.session = engine.SessionStore()
-            login(request, user)
+        if self.session:
+            request.session = self.session
+        else:
+            request.session = engine.SessionStore()
+        login(request, user)
 
-            # Save the session values.
-            request.session.save()
+        # Save the session values.
+        request.session.save()
 
-            # Set the cookie to represent the session.
-            session_cookie = settings.SESSION_COOKIE_NAME
-            self.cookies[session_cookie] = request.session.session_key
-            cookie_data = {
-                'max-age': None,
-                'path': '/',
-                'domain': settings.SESSION_COOKIE_DOMAIN,
-                'secure': settings.SESSION_COOKIE_SECURE or None,
-                'expires': None,
-            }
-            self.cookies[session_cookie].update(cookie_data)
-    return ExtendedClient
+        # Set the cookie to represent the session.
+        session_cookie = settings.SESSION_COOKIE_NAME
+        self.cookies[session_cookie] = request.session.session_key
+        cookie_data = {
+            'max-age': None,
+            'path': '/',
+            'domain': settings.SESSION_COOKIE_DOMAIN,
+            'secure': settings.SESSION_COOKIE_SECURE or None,
+            'expires': None,
+        }
+        self.cookies[session_cookie].update(cookie_data)
 
 
 class PageTest(unittest.TestCase):
@@ -60,10 +60,8 @@ class PageTest(unittest.TestCase):
         self.client = client
 
     def setUp(self):
-        from django.test.utils import setup_test_environment
         setup_test_environment()
         if not self.client:
-            ExtendedClient = get_extended_client_class()
             self.client = ExtendedClient()
 
     def tearDown(self):
@@ -172,11 +170,15 @@ class Urls(object):
 
         querysets = [
             Location.objects.filter(status="published").order_by("?"),
-            Event.objects.filter(production__status="published").order_by("?"),
+            # Randomizing events takes too long, so just get the last created ones
+            Event.objects.filter(production__status="published").only(
+                'production__slug', 'production__status', 'id'
+            ).order_by("-id"),
             Festival.objects.filter(status="published").order_by("?"),
             Department.objects.filter(status="published").order_by("?"),
             Project.objects.filter(status="published").order_by("?"),
-            Article.published_objects.order_by("?"),
+            # exclude the articles from English which is not the current language
+            Article.published_objects.exclude(language="en").order_by("?"),
         ]
         for qs in querysets:
             if limit_detail_pages_to:
@@ -532,7 +534,6 @@ class Urls(object):
 
 
 def suite():
-    ExtendedClient = get_extended_client_class()
     suite = unittest.TestSuite()
 
     if FULL_TESTS:
@@ -592,5 +593,4 @@ if __name__ == "__main__":
 
     import django
     django.setup()
-
-    unittest.TextTestRunner(verbosity=1).run(suite())
+    unittest.TextTestRunner(verbosity=1, failfast=True).run(suite())
