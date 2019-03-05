@@ -3,7 +3,6 @@ from datetime import datetime
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _, ugettext
-from django.utils.functional import lazy
 from django.utils.encoding import smart_str, force_unicode
 from django.conf import settings
 try:
@@ -15,7 +14,6 @@ from base_libs.models.models import UrlMixin
 from base_libs.models.models import ObjectRelationMixin
 from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
-from base_libs.models.fields import ExtendedTextField # needed for south to work
 from base_libs.models.fields import URLField
 
 from base_libs.middleware import get_current_user, get_current_language

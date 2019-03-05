@@ -6,12 +6,10 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.utils.encoding import force_unicode
-from django.utils.safestring import mark_safe
 from django.conf import settings
 
 from base_libs.models.models import MetaTagsMixin
 from base_libs.models.fields import PlainTextModelField
-from base_libs.models.fields import MultilingualCharField # for south to work
 
 verbose_name = _("Configuration")
 
