@@ -1,0 +1,88 @@
+{% extends "base_map.html" %}
+{% load i18n image_modifications base_tags tagging_tags favorites auth_extended infoblocks %}
+{% block title %}{% trans "My Tour" %} – {% endblock %}
+{% block bodyclass %}{{ block.super }} event-list{% endblock %}
+
+{% block js %}
+    <script src="{{ STATIC_URL }}site/js/GetSet.js"></script>
+    <script src="{{ STATIC_URL }}site/js/list.min.js"></script>
+    {% include "utils/favorites_scripts.html" %}
+    {% now "uuuu" as microseconds %}
+    <script nonce="{{ microseconds|to_base64 }}">
+        var str_filter_selection = "{% trans "Filter selection" %}";
+    </script>
+    {% add_data "script_nonces" microseconds|to_base64 %}
+
+{% endblock %}
+
+{% block filters %}
+{% endblock %}
+
+{% block list-title %}
+  {% trans "My Tour" %}
+{% endblock %}
+
+{% block map-list %}
+  <div id="container">
+    {% for event in object_list %}
+      {% tags_for_object event as tags %}
+      <div class="item" data-filter-categories="initial_{{ event.title|slugify|slice:"0:1" }}{% for cat in event.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if event.suitable_for_children %} is_for_children{% endif %}{% if event.free_admission %} is_free_admission{% endif %}{% if event.is_today %} is_today{% endif %}{% if event.is_tomorrow %} is_tomorrow{% endif %}{% if event.is_within_7_days %} is_within_7_days{% endif %}{% if event.is_within_30_days %} is_within_30_days{% endif %}" data-geo="{% if event.latitude %}{{ event.latitude|stringformat:"f" }}{% else %}{{ event.museum.latitude|stringformat:"f" }}{% endif %},{% if event.longitude %}{{ event.longitude|stringformat:"f" }}{% else %}{{ event.museum.longitude|stringformat:"f" }}{% endif %}" data-object_id="{{ event.pk }}">
+        <a href="{{ event.get_url_path }}">
+          <h4>
+            {% for cat in event.categories.all %}{{ cat.title }}{% if not forloop.last %}, {% else %}: {% endif %}{% endfor %}
+            {% with event.get_closest_event_time as event_time %}{{ event_time.event_date|date:"j. F Y" }} {{ event_time.start|time:"H:i" }}{% if LANGUAGE_CODE == "de" %} Uhr{% endif %}{% endwith %}
+          </h4>
+          <h3>{{ event.title }}</h3>
+          <h4>{{ event.subtitle }}</h4>
+          {% if event.location_name %}
+          <h5>{{ event.location_name }}</h5>
+          {% else %}
+          <h5>{{ event.museum.title }}</h5>
+          {% endif %}
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% now "uuuu" as microseconds %}
+  <script nonce="{{ microseconds|to_base64 }}">
+    var aGeopositions = [];
+    {% for museum in favorites.museums %}
+      {% if museum.latitude and museum.longitude %}
+        {% tags_for_object museum as tags %}
+        aGeopositions.push({
+          object_id: 'museum-{{ museum.pk }}',
+          html_src: '{{ museum.get_url_path }}ajax/map/',
+          latitude: {{ museum.latitude|stringformat:"f" }},
+          longitude: {{ museum.longitude|stringformat:"f" }},
+          geo: "{{ museum.latitude|stringformat:"f" }},{{ museum.longitude|stringformat:"f" }}",
+          categories: 'initial_{{ museum.title|slugify|slice:"0:1" }}{% for cat in museum.categories.all %} cat_{{ cat.slug }}{% endfor %}{% for cat in museum.accessibility_options.all %} access_{{ cat.slug }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if museum.is_for_children %} is_for_children{% endif %}{% if museum.open_on_mondays %} is_open_on_mondays{% endif %}{% if museum.free_entrance %} is_free_entrance{% endif %}{% if museum.show_family_ticket %} is_family_ticket{% endif %}{% if museum.show_group_ticket %} is_group_ticket{% endif %}{% if museum.show_yearly_ticket %} is_yearly_ticket{% endif %}{% if museum.member_of_museumspass %} is_museumspass{% endif %}{% if museum.service_shop %} has_service_shop{% endif %}{% if museum.service_restaurant %} has_service_restaurant{% endif %}{% if museum.service_cafe %} has_service_cafe{% endif %}{% if museum.service_library %} has_service_library{% endif %}{% if museum.service_archive %} has_service_archive{% endif %}{% if museum.service_diaper_changing_table %} has_service_diaper_changing{% endif %}{% if museum.has_audioguide %} has_audioguide{% endif %}{% if museum.has_audioguide_for_children %} has_audioguide_for_children{% endif %}{% if museum.has_audioguide_for_learning_difficulties %} has_audioguide_for_learning_difficulties{% endif %}{% if museum.is_open_on_mon_till_20 %} is_open_on_mon_till_20{% endif %}{% if museum.is_open_on_tue_till_20 %} is_open_on_tue_till_20{% endif %}{% if museum.is_open_on_wed_till_20 %} is_open_on_wed_till_20{% endif %}{% if museum.is_open_on_thu_till_20 %} is_open_on_thu_till_20{% endif %}{% if museum.is_open_on_fri_till_20 %} is_open_on_fri_till_20{% endif %}{% if museum.is_open_on_sat_till_20 %} is_open_on_sat_till_20{% endif %}{% if museum.is_open_on_sun_till_20 %} is_open_on_sun_till_20{% endif %}{% if museum.is_open_on_mon_till_22 %} is_open_on_mon_till_22{% endif %}{% if museum.is_open_on_tue_till_22 %} is_open_on_tue_till_22{% endif %}{% if museum.is_open_on_wed_till_22 %} is_open_on_wed_till_22{% endif %}{% if museum.is_open_on_thu_till_22 %} is_open_on_thu_till_22{% endif %}{% if museum.is_open_on_fri_till_22 %} is_open_on_fri_till_22{% endif %}{% if museum.is_open_on_sat_till_22 %} is_open_on_sat_till_22{% endif %}{% if museum.is_open_on_sun_till_22 %} is_open_on_sun_till_22{% endif %}'
+        });
+      {% endif %}
+    {% endfor %}
+    {% for event in favorites.events %}
+      {% if event.latitude or event.museum.latitude %}
+        aGeopositions.push({
+            object_id: 'event-{{ event.pk }}',
+            html_src: '{{ event.get_url_path }}ajax/map/',
+            latitude: {% if event.latitude %}{{ event.latitude|stringformat:"f" }}{% else %}{{ event.museum.latitude|stringformat:"f" }}{% endif %},
+            longitude: {% if event.longitude %}{{ event.longitude|stringformat:"f" }}{% else %}{{ event.museum.longitude|stringformat:"f" }}{% endif %},
+            geo: "{% if event.latitude %}{{ event.latitude|stringformat:"f" }}{% else %}{{ event.museum.latitude|stringformat:"f" }}{% endif %},{% if event.longitude %}{{ event.longitude|stringformat:"f" }}{% else %}{{ event.museum.longitude|stringformat:"f" }}{% endif %}",
+            categories: 'initial_{{ event.title|slugify|slice:"0:1" }}{% for cat in event.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if event.suitable_for_children %} is_for_children{% endif %}{% if event.free_admission %} is_free_admission{% endif %}{% if event.is_today %} is_today{% endif %}{% if event.is_tomorrow %} is_tomorrow{% endif %}{% if event.is_within_7_days %} is_within_7_days{% endif %}{% if event.is_within_30_days %} is_within_30_days{% endif %}'
+        });
+      {% endif %}
+    {% endfor %}
+    var aStops = [];
+    {% get_objects all museums.Stop 100 as stops %}
+    {% for stop in stops %}
+        aStops.push({
+            object_id: '{{ stop.pk }}',
+            html: '{% filter escapejs %}{% spaceless %}{% include "museums/includes/stop_detail_ajax.html" %}{% endspaceless %}{% endfilter %}',
+            latitude: {{ stop.latitude|stringformat:"f" }},
+            longitude: {{ stop.longitude|stringformat:"f" }}
+        });
+    {% endfor %}
+  </script>
+  {% add_data "script_nonces" microseconds|to_base64 %}
+  {% include "utils/gmap_scripts.html" %}
+{% endblock %}

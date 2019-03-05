@@ -1,0 +1,142 @@
+{% load image_modifications babel base_tags %}
+<!-- events -->
+<table width="600" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td width="100%" height="32" style="font-size:12px;">&nbsp;</td>
+    </tr>
+    <tr>
+        <td style="padding:0 24px;"><table width="552" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td valign="top" style="font-weight:600; text-transform:uppercase;">AUS DEM SPIELPLAN</td>
+            </tr>
+            <tr>
+                <td width="552" height="20"><img src="https://www.berlin-buehnen.de/media/newsletter/underline_big.gif" width="552" height="20"/></td>
+            </tr>
+        </table></td>
+    </tr>
+
+    {% get_objects for_newsletter productions.Production 4 as newest_objects %}
+    {% for production in newest_objects %}
+        {% with event=production.get_nearest_occurrence %}
+            <tr>
+                <td style="padding:0 24px;"><table width="552" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td valign="top"><table width="552" height="148" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td width="230" valign="top" rowspan="2"><a href="{{ production.get_url }}" target="_blank"><img src="https://www.berlin-buehnen.de/media/{{ event.first_image.path|modified_path:"newsletter_production" }}" width="216" height="149" style="padding-right:16px;" border="0" /></a></td>
+                                <td width="322" valign="top"><table width="322" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td width="322" colspan="2">
+                                                    <table  width="322" cellpadding="0" cellspacing="0" border="0">
+                                                        <tr>
+                                                            <td valign="top" align="left">
+                                                                <a href="{{ production.get_url }}" style="color:#000; font-size:22px; font-weight:600; text-decoration:none; display:block; line-height:100%; margin-top:-2px;" target="_blank"><span style="color:#000; font-size:22px; font-weight:600; text-decoration:none;">{{ event.start_date|date:"D, j.n.Y" }}</span></a>
+                                                            </td>
+                                                            <td valign="top" align="right" style="font-size:14px; line-height:100%; margin-top:-2px;">
+                                                                {% if event.get_special_text and not event.is_canceled %}
+                                                                    <table cellpadding="0" cellspacing="0" border="0" height="22" style="margin:-5px 2px 0 0;">
+                                                                        <tr>
+                                                                            <td align="right"><a href="{{ production.get_url }}" style="color:#000; text-transform:uppercase; text-decoration:none;" target="_blank"><img src="https://www.berlin-buehnen.de/media/newsletter/label_22px.png" width="10" height="22"/></a></td>
+                                                                            <td width="5" style="background: #304ffe; font-size:14px;">&nbsp;</td>
+                                                                            <td valign="middle" style="background: #304ffe;"><a href="{{ production.get_url }}" style="background: #304ffe; color: white; font-weight: 700; font-size:14px; text-transform: uppercase; text-decoration:none; display:block; padding:0; margin:0;" target="_blank"><span style="color:white; font-weight: 700; font-size:14px; text-transform: uppercase; text-decoration:none; display:block; padding:0; margin:0">{{ event.get_special_text }}</span></a></td>
+                                                                            <td width="10" style="background: #304ffe; font-size:14px;">&nbsp;</td>
+                                                                        </tr>
+                                                                    </table>
+                                                                {% else %}
+                                                                    &nbsp;
+                                                                {% endif %}
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="322" height="10" colspan="2" style="font-size:1px;">&nbsp;</td>
+                                            </tr>
+                                            {% with locations=event.ev_or_prod_play_locations stages=event.ev_or_prod_play_stages %}
+                                                <tr>
+                                                    <td width="322" colspan="2"><a href="{{ production.get_url }}" style="color:#000; font-size:12px; font-weight:300; text-transform:uppercase; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; font-weight:300; text-transform:uppercase; text-decoration:none;">{% if event.location_title %}{{ event.location_title }}{% elif production.location_title %}{{ production.location_title }}{% elif production.in_program_of.count %}{% for location in production.in_program_of.all %}{{ location.title }}{% if not forloop.last %}, {% endif %}{% endfor %}{% elif locations.count %}{% for location in locations %}{{ location.title }}{% if not forloop.last %}, {% endif %}{% endfor %}{% elif stages.count %}{% for location in stages %}{{ location.title }}{% if not forloop.last %}, {% endif %}{% endfor %}{% endif %}</span></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="322" height="8" colspan="2" style="font-size:1px;">&nbsp;</td>
+                                                </tr>
+                                            {% endwith %}
+                                            {% if production.ensembles %}
+                                                <tr>
+                                                    <td width="322" colspan="2"><a href="{{ production.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ production.ensembles }}</span></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="322" height="9" colspan="2" style="font-size:1px;">&nbsp;</td>
+                                                </tr>
+                                            {% endif %}
+                                            <tr>
+                                                <td width="322" colspan="2"><a href="{{ production.get_url }}" style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none; display:block; line-height:110%;" target="_blank"><span style="color:#000; font-size:18px; font-weight:600; text-transform:uppercase; text-decoration:none;">{% if production.prefix %}{{ production.prefix }} {% endif %}{{ production.title }}</span></a></td>
+                                            </tr>
+                                            {% if event.production.get_categories %}
+                                                <tr>
+                                                    <td width="322" colspan="2" height="14" valign="bottom"><a href="{{ production.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">
+                                                        {% for cat in event.production.get_categories %}
+                                                            {% if cat.level == 0 %}
+                                                                {% if not forloop.first %}, {% endif %}{{ cat.title }}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </span></a></td>
+                                                </tr>
+                                            {% endif %}
+                                            <tr>
+                                                <td width="322" height="4" colspan="2" style="font-size:1px;">&nbsp;</td>
+                                            </tr>
+                                            {% if production.subtitle %}
+                                                <tr>
+                                                    <td width="322" colspan="2"><a href="{{ production.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ production.subtitle }}</span></a></td>
+                                                </tr>
+                                            {% elif event.ev_or_prod_subtitles_text %}
+                                                <tr>
+                                                    <td width="322" colspan="2"><a href="{{ production.get_url }}" style="color:#000; font-size:12px; text-decoration:none; display:block; line-height:120%;" target="_blank"><span style="color:#000; font-size:12px; text-decoration:none;">{{ event.ev_or_prod_subtitles_text|disarm_user_input }}</span></a></td>
+                                                </tr>
+                                            {% endif %}
+                                            <tr>
+                                                <td width="100%" height="16" style="font-size:12px;">&nbsp;</td>
+                                            </tr>
+                                </table></td>
+                            </tr>
+                            <tr>
+                                <td valign="bottom"><table width="322" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td width="296" height="22" valign="bottom"><table cellpadding="0" cellspacing="0" border="0">
+                                                    <tr>
+                                                        <td valign="bottom"><a href="{{ production.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><span style="font-size:10px; font-weight:600; text-decoration:none;">MEHR ZU DIESER PRODUKTION</span></a></td>
+                                                        <td valign="bottom"><a href="{{ production.get_url }}" style="font-size:10px; font-weight:600; text-decoration:none; display:block; height:11px;" target="_blank"><img src="https://www.berlin-buehnen.de/media/newsletter/arrow_right.gif" border="0" width="11" height="11"/></a></td>
+                                                    </tr>
+                                                </table></td>
+                                                <td width="26" valign="bottom"><a href="{% if event.ev_or_prod_tickets_website %}{{ event.ev_or_prod_tickets_website }}{% else %}{{ production.get_url }}{% endif %}" style="height:13px; padding-top:8px; padding-left:10px; display:block;" target="_blank"><img src="https://www.berlin-buehnen.de/media/newsletter/tickets.gif" border="0" width="16" height="13"/></a></td>
+                                            </tr>
+                                </table></td>
+                            </tr>
+                        </table></td>
+                    </tr>
+                    {% if not forloop.last %}
+                        <tr>
+                            <td width="552" height="25"><img src="https://www.berlin-buehnen.de/media/newsletter/underline_small.gif" width="552" height="25"/></td>
+                        </tr>
+                    {% endif %}
+                </table></td>
+            </tr>
+        {% endwith %}
+    {% endfor %}
+    <tr>
+        <td style="padding:0 24px;"><table width="552" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td width="552" height="8" style="font-size:1px;">&nbsp;</td>
+            </tr>
+            <tr>
+                <td width="552" height="32" style="background:#000;"><table width="552" height="32">
+                    <tr>
+                        <td width="60%" height="32" align="right" valign="middle"><a href="https://www.berlin-buehnen.de/de/spielplan/" style="width:100%; height:32px; background:#000; color:#fff; font-weight:600; text-decoration:none; display:block; text-align:right; line-height:32px;" target="_blank"><span style="background:#000; color:#fff; font-weight:600; text-decoration:none;">ZUM SPIELPLAN</span></a></td>
+                        <td width="40%" height="32" align="left" valign="middle"><a href="https://www.berlin-buehnen.de/de/spielplan/" style="width:100%; height:32px; background:#000; color:#fff; font-weight:600; text-decoration:none; display:block; text-align:left; line-height:32px;" target="_blank"><img src="https://www.berlin-buehnen.de/media/newsletter/arrow_right_black.gif" width="20" height="32" border="0" /></a></td>
+                    </tr>
+                </table></td>
+            </tr>
+        </table></td>
+    </tr>
+</table>
