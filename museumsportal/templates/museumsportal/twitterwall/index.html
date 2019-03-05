@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Berliner Twitternacht – LANGE NACHT DER MUSEEN</title>
+    <link rel="icon" href="{{ STATIC_URL }}site/img/favicon.ico" type="image/png">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'/>
+    <meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <link href="{{ STATIC_URL }}site/css/twitterwall.css" rel="stylesheet" media="screen" type="text/css" />
+    <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-348516-14']);
+        _gaq.push(['_gat._anonymizeIp']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+</head>
+<body>
+    <div id="frame">
+    </div>
+    <div id="header" class="clearfix">
+        <div id="logo">
+            <img height="120" src="{{ STATIC_URL }}site/img/twitterwall/logo_2015.png" alt="Lange Nacht der Museen" />
+        </div>
+        <div id="title">
+            <h1>77 Museen</h1>
+            <h2>ein Ticket</h2>
+            <p><a href="https://twitter.com/MuseumsnachtB/" target="_blank">@MuseumsnachtB</a> - <a href="https://twitter.com/search?q=%23LNBerlin" target="_blank">#LNBerlin</a></p>
+        </div>
+    </div>
+
+    <div id="container" class="clearfix">
+        <div class="col" id="col-l">
+            {% for tweet in selected_user_tweets %}
+                {% include "twitterwall/tweet.html" %}
+            {% endfor %}
+        </div>
+
+        <div class="col" id="col-r">
+            {% for tweet in tweets_from_search %}
+                {% include "twitterwall/tweet.html" %}
+            {% endfor %}
+            <p class="lead">Mit Tweeten: #LNBerlin</p>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div class="wrapper">
+            <a class="studio38" target="_blank" href="http://www.studio38.de/">Powered by Studio 38</a>
+            {% comment %}
+            <a class="lindner" target="_blank" href="http://www.lindner-esskultur.de/"><img src="{{ STATIC_URL }}site/img/twitterwall/lindner.png" alt="Lindner" /></a>
+            <a class="back" target="_blank" href="http://www.museumsportal-berlin.de/">Zurück zum Portal</a>
+            {% endcomment %}
+        </div>
+    </div>
+
+    <div id="top_frame_border"></div>
+    <div id="bottom_frame_border"></div>
+    <script type="text/javascript">
+        (function($, undefined) {
+            var timeout_user = null;
+            var timeout_search = null;
+            var TIMEOUT_DELAY = 10000;
+
+            function load_tweets_of_selected_users() {
+                var $selected_user_tweets = $('#col-l');
+                var url = "{% url "load_tweets" %}?by_user=1";
+                var since_id = $selected_user_tweets.find('.tweet:first').data("tweet-id");
+                if (since_id) {
+                    since_id = since_id.replace(/t/, "");
+                    url += "&since_id=" + since_id;
+                }
+                $.get(url, function(data) {
+                    $selected_user_tweets.prepend(data);
+                    timeout_user = setTimeout(load_tweets_of_selected_users, TIMEOUT_DELAY);
+                }, "html");
+            }
+
+            function load_tweets_from_search() {
+                var $tweets_from_search = $('#col-r');
+                var url = "{% url "load_tweets" %}?from_search=1";
+                var since_id = $tweets_from_search.find('.tweet:first').data("tweet-id");
+                if (since_id) {
+                    since_id = since_id.replace(/t/, "");
+                    url += "&since_id=" + since_id;
+                }
+                $.get(url, function(data) {
+                    $tweets_from_search.prepend(data);
+                    timeout_search = setTimeout(load_tweets_from_search, TIMEOUT_DELAY);
+                }, "html");
+            }
+
+            $(document).on('click', '.tweet', function(e) {
+                if (e.target.nodeName != 'A' && $(e.target).closest('a').length == 0) {
+                    window.open($(this).data('tweet-url'), '_blank');
+                }
+            });
+
+            $(document).ready(function() {
+                timeout_user = setTimeout(load_tweets_of_selected_users, TIMEOUT_DELAY);
+                timeout_search = setTimeout(load_tweets_from_search, TIMEOUT_DELAY);
+            });
+
+        }(jQuery))
+    </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{% load base_tags i18n babel %}
+
+<div class="question-list">
+    {% for faq in faqs %}
+        <div class="list-item {% if forloop.first %} first-question{% endif %} {% cycle odd,even %} collapsed"
+             id="qa-{{ faq.pk }}">
+            <div class="visibility_toggler">
+                <a class="txt no-img" href="#qa-{{ faq.pk }}">
+                    <span>{{ faq.get_formatted_sort_order }}</span> <span class="quest">{{ faq.question }}</span>
+                </a>
+            </div>
+            <div class="txt hidable">
+                {{ faq.get_answer_links_targeted_to_blank|safe }}
+            </div>
+        </div>
+        <hr class="hidden"/>
+    {% endfor %}
+</div>
+<script type="text/javascript">
+    (function ($, undefined) {
+        $(document).ready(function () {
+            if (location.hash) {
+                var $oQuestion = $("#" + location.hash.replace(/#/, ""));
+                $oQuestion.find(".expand").click();
+                setTimeout(function () {
+                    $oQuestion.autoscroll();
+                }, 1000);
+
+            }
+        });
+    }(jQuery));
+</script>

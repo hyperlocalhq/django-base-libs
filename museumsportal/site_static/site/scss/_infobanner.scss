@@ -1,0 +1,52 @@
+// main:style.scss
+
+.alert-dark {
+    // color specific style
+    background: black;
+    color: #fff;
+    a {
+        color: $blue;
+    }
+    .btn {
+        color: black;
+        background: $yellow;
+        font-weight: 900;
+        font-size: 1.6rem;
+    }
+    .close {
+        color: white;
+        opacity: 1;
+        font-size: 30px;
+        margin-right: -5px;
+        margin-top: -15px;
+        &:hover, &:focus {
+            color: white;
+            opacity: 1;
+        }
+    }
+
+}
+.infobanner {
+
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    z-index: 950;
+    padding: 20px;
+    margin: 0;
+    border-radius: 0;
+
+    .container {
+        padding-top: 10px;
+        text-align: center;
+        font-size: 1.7rem;
+        line-height: 1.6;
+    }
+
+    // layout specific style
+    .btn {
+        margin-left: 1em;
+        margin-right: 1em;
+    }
+}

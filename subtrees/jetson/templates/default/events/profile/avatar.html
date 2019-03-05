@@ -1,0 +1,7 @@
+{% load i18n base_tags auth_extended image_mods_tags %}
+{% if object.image %}
+    <img src="{{ UPLOADS_URL }}{{ object.image|modified_path:"ad" }}" alt="{{ object.get_title|escape }}"/>
+{% else %}
+    <img src="{{ DEFAULT_LOGO_4_EVENT }}" alt="{{ object.get_title|escape }}"/>
+{% endif %}
+

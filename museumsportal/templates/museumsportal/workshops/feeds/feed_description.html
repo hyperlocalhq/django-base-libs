@@ -1,0 +1,12 @@
+{% load i18n image_modifications %}
+<h3>{{ obj.museum.title }}</h3>
+{% with obj.get_closest_workshop_time as workshop_time %}
+    <h4>{{ workshop_time.workshop_date|date:"j. F Y" }} {{ workshop_time.start|time:"H:i" }}</h4>
+{% endwith %}
+{% if obj.cover_image %}
+    <img alt="" src="http://{{ request.META.HTTP_HOST }}{{ MEDIA_URL }}{{ obj.cover_image|modified_path:"rss" }}" />
+{% else %}{% if obj.museum.cover_image %}
+    <img slt="" src="http://{{ request.META.HTTP_HOST }}{{ MEDIA_URL }}{{ obj.museum.cover_image|modified_path:"rss" }}" />
+{% endif %}{% endif %}
+
+{{ obj.get_rendered_description }}

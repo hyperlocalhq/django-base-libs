@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load cms_tags i18n %}
+
+{% block footer %}
+    <div id="sponsors" class="content sponsors-museumssommer">
+        <div class="container">
+            <div>
+                <h4 class="title">Der MuseumsSommer wird gefördert von:</h4>
+                <a title="EFRE" target="_blank" href="http://www.berlin.de/sen/wirtschaft/gruenden-und-foerdern/europaeische-strukturfonds/">
+                    <img src="{{ STATIC_URL }}site/img/footer-museumssommer/efre.png" alt="EFRE" />
+                    <span>Kulturprojekte Berlin</span>
+                </a>
+                <a title="Be-Berlin" target="_blank" href="http://www.berlin.de/sen/kultur/">
+                    <img src="{{ STATIC_URL }}site/img/footer-museumssommer/be_berlin.png" alt="Be-Berlin" />
+                    <span>Be-Berlin</span>
+                </a>
+                <a title="Innovatives Potential KULTUR" target="_blank" href="https://www.berlin.de/sen/kultur/foerderung/eu-foerderung/efre/foerderperiode-2007-2013/artikel.81702.php">
+                    <img src="{{ STATIC_URL }}site/img/footer-museumssommer/inp.png" alt="Innovatives Potential KULTUR" />
+                    <span>Innovatives Potential KULTUR</span>
+                </a>
+            </div>
+            <div>
+                <h4 class="title">Ein Projekt von:</h4>
+                <a title="Kulturprojekte Berlin" target="_blank" href="http://www.kulturprojekte-berlin.de/">
+                    <img src="{{ STATIC_URL }}site/img/footer-museumssommer/kpb.png" alt="Kulturprojekte Berlin" />
+                    <span>Kulturprojekte Berlin</span>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

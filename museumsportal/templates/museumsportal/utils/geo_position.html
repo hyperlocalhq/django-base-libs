@@ -1,0 +1,75 @@
+{% if list_item.is_museum %}
+    {% with list_item as museum %}
+        {% if list_item.latitude %}
+            <script>
+            (function(undefined) {
+                var iIndex = aGeopositions.length;
+                aGeopositions[iIndex] = {
+                    latitude: {{ museum.latitude }},
+                    longitude: {{ museum.longitude }},
+                    categories: "initial_{{ museum.title|slugify|slice:"0:1" }}{% for cat in museum.categories.all %} cat_{{ cat.slug }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if museum.is_for_children %} is_for_children{% endif %}{% if museum.open_on_mondays %} is_open_on_mondays{% endif %}{% if museum.free_entrance %} is_free_entrance{% endif %}{% if museum.show_family_ticket %} is_family_ticket{% endif %}{% if museum.show_group_ticket %} is_group_ticket{% endif %}{% if museum.show_yearly_ticket %} is_yearly_ticket{% endif %}{% if museum.member_of_museumspass %} is_museumspass{% endif %}{% if museum.service_shop %} has_service_shop{% endif %}{% if museum.service_restaurant %} has_service_restaurant{% endif %}{% if museum.service_cafe %} has_service_cafe{% endif %}{% if museum.service_library %} has_service_library{% endif %}{% if museum.service_archive %} has_service_archive{% endif %}{% if museum.service_diaper_changing_table %} has_service_diaper_changing{% endif %}{% if museum.has_audioguide %} has_audioguide{% endif %}{% if museum.has_audioguide_for_children %} has_audioguide_for_children{% endif %}{% if museum.has_audioguide_for_learning_difficulties %} has_audioguide_for_learning_difficulties{% endif %}{% if museum.is_open_on_mon_till_20 %} is_open_on_mon_till_20{% endif %}{% if museum.is_open_on_tue_till_20 %} is_open_on_tue_till_20{% endif %}{% if museum.is_open_on_wed_till_20 %} is_open_on_wed_till_20{% endif %}{% if museum.is_open_on_thu_till_20 %} is_open_on_thu_till_20{% endif %}{% if museum.is_open_on_fri_till_20 %} is_open_on_fri_till_20{% endif %}{% if museum.is_open_on_sat_till_20 %} is_open_on_sat_till_20{% endif %}{% if museum.is_open_on_sun_till_20 %} is_open_on_sun_till_20{% endif %}{% if museum.is_open_on_mon_till_22 %} is_open_on_mon_till_22{% endif %}{% if museum.is_open_on_tue_till_22 %} is_open_on_tue_till_22{% endif %}{% if museum.is_open_on_wed_till_22 %} is_open_on_wed_till_22{% endif %}{% if museum.is_open_on_thu_till_22 %} is_open_on_thu_till_22{% endif %}{% if museum.is_open_on_fri_till_22 %} is_open_on_fri_till_22{% endif %}{% if museum.is_open_on_sat_till_22 %} is_open_on_sat_till_22{% endif %}{% if museum.is_open_on_sun_till_22 %} is_open_on_sun_till_22{% endif %}",
+                    content: 
+                    '<a href="{{ list_item.get_url_path }}">{{ museum.title }} </a>'
+                }
+            }());
+            </script>
+        {% endif %}
+    {% endwith %}
+{% endif %}
+
+{% if list_item.is_exhibition %}
+    {% with list_item.museum as museum %}
+        {% if list_item.latitude or museum and museum.latitude %}
+            <script>
+            (function(undefined) {
+                var iIndex = aGeopositions.length;
+                aGeopositions[iIndex] = {
+                    latitude: {% if list_item.latitude %}{{ list_item.latitude }}{% else %}{{ museum.latitude }}{% endif %},
+                    longitude: {% if list_item.longitude %}{{ list_item.longitude }}{% else %}{{ museum.longitude }}{% endif %},
+                    categories: "initial_{{ list_item.title|slugify|slice:"0:1" }}{% for cat in list_item.categories.all %} cat_{{ cat.slug }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if list_item.is_newly_open %} is_newly_open{% endif %}{% if list_item.is_closing_soon %} is_closing_soon{% endif %}{% if list_item.is_actual %} is_actual{% endif %}{% if list_item.is_upcoming %} is_upcoming{% endif %}{% if list_item.free_entrance %} is_free_entrance{% endif %}{% if list_item.show_family_ticket %} is_family_ticket{% endif %}{% if list_item.show_group_ticket %} is_group_ticket{% endif %}{% if list_item.show_yearly_ticket %} is_yearly_ticket{% endif %}{% if list_item.member_of_museumspass %} is_museumspass{% endif %}{% if list_item.suitable_for_disabled %} is_for_disabled{% endif %}{% if list_item.is_for_children %} is_for_children{% endif %}{% if list_item.is_today %} is_today{% endif %}{% if list_item.is_tomorrow %} is_tomorrow{% endif %}{% if list_item.is_within_7_days %} is_within_7_days{% endif %}{% if list_item.is_within_30_days %} is_within_30_days{% endif %}",
+                    content: 
+                    '<a href="{{ list_item.get_url_path }}">{% if list_item.location_name %}{{ list_item.location_name }}{% else %}{{ museum.title }}{% endif %}</a>'
+                }
+            }());
+            </script>
+        {% endif %}
+    {% endwith %}
+{% endif %}
+
+{% if list_item.is_event %}
+    {% with list_item.museum as museum %}
+        {% if list_item.latitude or museum and museum.latitude %}
+            <script>
+            (function(undefined) {
+                var iIndex = aGeopositions.length;
+                aGeopositions[iIndex] = {
+                    latitude: {% if list_item.latitude %}{{ list_item.latitude }}{% else %}{{ museum.latitude }}{% endif %},
+                    longitude: {% if list_item.longitude %}{{ list_item.longitude }}{% else %}{{ museum.longitude }}{% endif %},
+                    categories: "initial_{{ list_item.title|slugify|slice:"0:1" }}{% for cat in list_item.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if list_item.suitable_for_children %} is_for_children{% endif %}{% if list_item.free_admission %} is_free_admission{% endif %}{% if list_item.is_today %} is_today{% endif %}{% if list_item.is_tomorrow %} is_tomorrow{% endif %}{% if list_item.is_within_7_days %} is_within_7_days{% endif %}{% if list_item.is_within_30_days %} is_within_30_days{% endif %}",
+                    content: 
+                    '<a href="{{ list_item.get_url_path }}">{% if list_item.location_name %}{{ list_item.location_name }}{% else %}{{ museum.title }}{% endif %}</a>'
+                }
+            }());
+            </script>
+        {% endif %}
+    {% endwith %}
+{% endif %}
+
+{% if list_item.is_workshop %}
+    {% with list_item.museum as museum %}
+        {% if list_item.latitude or museum and museum.latitude %}
+            <script>
+            (function(undefined) {
+                var iIndex = aGeopositions.length;
+                aGeopositions[iIndex] = {
+                    latitude: {% if list_item.latitude %}{{ list_item.latitude }}{% else %}{{ museum.latitude }}{% endif %},
+                    longitude: {% if list_item.longitude %}{{ list_item.longitude }}{% else %}{{ museum.longitude }}{% endif %},
+                    categories: "initial_{{ list_item.title|slugify|slice:"0:1" }}{% for cat in list_item.categories.all %} cat_{{ cat.title|slugify }}{% endfor %}{% if tags %}{% for tag in tags %} tag_{{ tag.slug }}{% endfor %}{% endif %}{% if list_item.has_group_offer %} has_group_offer{% endif %}{% if list_item.is_for_preschool %} is_for_preschool{% endif %}{% if list_item.is_for_primary_school %} is_for_primary_school{% endif %}{% if list_item.is_for_youth %} is_for_youth{% endif %}{% if list_item.is_for_families %} is_for_families{% endif %}{% if list_item.is_for_wheelchaired %} is_for_wheelchaired{% endif %}{% if list_item.is_for_deaf %} is_for_deaf{% endif %}{% if list_item.is_for_blind %} is_for_blind{% endif %}{% if list_item.is_for_learning_difficulties %} is_for_learning_difficulties{% endif %}{% if list_item.free_admission %} is_free_admission{% endif %}{% if list_item.is_today %} is_today{% endif %}{% if list_item.is_tomorrow %} is_tomorrow{% endif %}{% if list_item.is_within_7_days %} is_within_7_days{% endif %}{% if list_item.is_within_30_days %} is_within_30_days{% endif %}",
+                    content: 
+                    '<a href="{{ list_item.get_url_path }}">{% if list_item.location_name %}{{ list_item.location_name }}{% else %}{{ museum.title }}{% endif %}</a>'
+                }
+            }());
+            </script>
+        {% endif %}
+    {% endwith %}
+{% endif %}

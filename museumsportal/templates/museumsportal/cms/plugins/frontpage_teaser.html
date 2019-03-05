@@ -1,0 +1,76 @@
+{% load i18n image_modifications fb_tags %}
+
+{% if placeholder == "featured_magazin"%}
+  <div class="item">
+    {% if object.position == 0 %}
+      <a class="img" alt="{{ object.image_caption }}" href="{{ object.website }}" style="background-image: url({{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }})"></a>
+    {% else %}
+      <a class="img" alt="{{ object.image_caption }}" href="{{ object.website }}" style="background-image: url({{ MEDIA_URL }}{{ object.image|modified_path:"ed_small" }})"></a>
+    {% endif %}
+    <a class="txt" href="{{ object.website }}">
+      <h3>{{ object.title }}</h3>
+      <h4>{{ object.title2 }}</h4>
+      <h5>{{ object.title3 }}</h5>
+      <p>{{ object.get_rendered_description|removetags:"p"|truncatewords:38 }}</p>
+    </a>
+  </div>
+{% else %}
+  {% if "start_page" in placeholder %}
+    {% if object.position == 0 %}
+        <div class="item col-xs-12 col-sm-5 col-md-12 col-lg-12">
+          <div class="inner">
+            <a class="img" href="{{ object.website }}">
+              <img src="{{ STATIC_URL }}site/img/placeholder_editorial.gif" data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" alt="" />
+              {% with object.image|file_description as file_desc %}
+                  {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}
+              {% endwith %}
+            </a>
+            <a class="txt" href="{{ object.website }}">
+              <h3>{{ object.title }}</h3>
+              <h4>{{ object.title2 }}</h4>
+              <h5>{{ object.title3 }}</h5>
+              {#<p>{{ object.get_rendered_description|removetags:"p"|truncatewords:38 }}</p>#}
+              <p>{{ object.get_rendered_description|removetags:"p" }}</p>
+              {% with object.image|file_description as file_desc %}
+                  {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% else %}<span class="photo-credits-over">&nbsp;</span>{% endif %}
+              {% endwith %}
+            </a>
+          </div>
+        </div>
+      {% else %}
+        <div class="item col-xs-12 col-sm-7 col-md-12 col-lg-12">
+          <div class="inner">
+            <a class="img" href="{{ object.website }}">
+              <img src="{{ STATIC_URL }}site/img/placeholder_editorial_small.gif" data-original="{{ MEDIA_URL }}{{ object.image|modified_path:"ed_small" }}" alt="" />
+              {% with object.image|file_description as file_desc %}
+                  {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% endif %}
+              {% endwith %}
+            </a>
+            <a class="txt" href="{{ object.website }}">
+              <h3>{{ object.title }}</h3>
+              <h4>{{ object.title2 }}</h4>
+              <h5>{{ object.title3 }}</h5>
+              {% with object.image|file_description as file_desc %}
+                  {% if file_desc.author %}<span class="photo-credits-over">{{ file_desc.author }}</span>{% else %}<span class="photo-credits-over">&nbsp;</span>{% endif %}
+              {% endwith %}
+            </a>
+          </div>
+        </div>
+      {% endif %}
+  {% else %}
+    <div class="editorial-content">
+      <a class="img" href="{{ object.website }}">
+        {% if object.image %}<img src="{{ MEDIA_URL }}{{ object.image|modified_path:"editorial" }}" alt="{{ object.get_rendered_image_caption|striptags }}" />{% endif %}
+        {% if object.image_caption %}<p class="caption">{{ object.get_rendered_image_caption|truncatewords:"30"|removetags:"p" }}</p> {% endif %}
+      </a>
+
+      <a class="title" href="{{ object.website }}">
+        <h3>{{ object.title }}</h3>
+        <h4>{{ object.subtitle }}</h4>
+      </a>
+
+      <p class="description">{{ object.get_rendered_description|removetags:"p" }}</p>
+      <p class="more"><a href="{{ object.website }}">{% trans "more" %}…</a></p>
+    </div>
+  {% endif %}
+{% endif %}

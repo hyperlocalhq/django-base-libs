@@ -1,0 +1,94 @@
+{% load i18n base_tags auth_extended %}
+
+<dl>
+    <dt>{% trans "website" %}</dt>
+    <dd>
+        <a href="{{ object.url_link|escape }}" onclick="open_new_window(event)">{{ object.url_link }}</a>
+    </dd>
+</dl>
+
+{% if object.medium %}
+    <dl>
+        <dt>{% trans "medium" %}</dt>
+        <dd>{{ object.medium.get_title|escape }}</dd>
+    </dl>
+{% endif %}
+
+{% if object.get_authors %}
+    {% if forloop.first %}
+        <dl>{% endif %}
+<dt class="title">{% trans "authors" %}</dt>
+{% for author in object.get_authors %}
+    <dd class="author">
+        <a href="{{ author.get_url_path }}">{{ author.get_title|escape }}</a>
+    {% if forloop.last %}</dl>{% else %},</dd> {% endif %}
+{% endfor %}
+{% endif %}
+{% if object.authors_plain %}
+    <dl>
+        <dt>{% trans "external authors" %}</dt>
+        <dd>{{ object.authors_plain }}</dd>
+    </dl>
+{% endif %}
+
+{% if object.publisher %}
+    <dl>
+        <dt>{% trans "publisher" %}</dt>
+        <dd>
+            <a href="{{ object.publisher.get_url_path }}">{{ object.publisher.get_title|escape }} {{ author.get_last_name|escape }}</a>
+        </dd>
+    </dl>
+{% endif %}
+
+{% if object.get_published_date %}
+    <dl>
+        <dt>{% trans "published" %}</dt>
+        <dd>{{ object.get_published_date|date:_("DATE_FORMAT") }}</dd>
+    </dl>
+{% endif %}
+
+{% if object.playing_time %}
+    <dl>
+        <dt>{% trans "playing time" %}</dt>
+        <dd>{{ object.playing_time }}</dd>
+    </dl>
+{% endif %}
+
+{% if object.isbn10 %}
+    <dl>
+        <dt>{% trans "ISBN 10" %}</dt>
+        <dd>{{ object.isbn10 }}</dd>
+    </dl>
+{% endif %}
+
+{% if object.isbn13 %}
+    <dl>
+        <dt>{% trans "ISBN 13" %}</dt>
+        <dd>{{ object.isbn13 }}</dd>
+    </dl>
+{% endif %}
+
+{% if object.pages %}
+    <dl>
+        <dt>{% trans "pages" %}</dt>
+        <dd>{{ object.pages }}</dd>
+    </dl>
+{% endif %}
+
+{% if object.filesize %}
+    <dl>
+        <dt>{% trans "filesize" %}</dt>
+        <dd>{{ object.filesize }}</dd>
+    </dl>
+{% endif %}
+
+{% if object.get_languages %}
+    {% for language in object.get_languages %}
+        {% if forloop.first %}
+            <dl>{% endif %}
+    <dt>{% trans "languages" %}</dt>
+    <dd>{{ language.get_name }}
+        {% if forloop.last %}</dd></dl>{% else %},</dd> {% endif %}
+    {% endfor %}
+{% endif %}	
+

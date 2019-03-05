@@ -1,0 +1,122 @@
+{% load url from future %}
+{% load base_tags i18n image_modifications tagging_tags babel auth_extended favorites infoblocks %}
+
+{% with object as exhibition %}
+  <div class="row row-md hidden-xs">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
+      <header>
+        <h4><span class="from_date">{{ exhibition.start|date:"d.m.Y" }}</span> {% if exhibition.permanent %}{% trans "until further notice" %}{% else %}{% if exhibition.end %}{% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %}
+
+        </h4>
+        <h3>{{ exhibition.title }} </h3>
+        {% if exhibition.subtitle %}
+          <h4> {{ exhibition.subtitle }} </h4>
+        {% endif %}
+      </header>
+    </div>
+
+    <div class="hidden-xs hidden-sm col-md-4 col-lg-3">
+      <div class="actions">
+        {% if request.user.is_authenticated %}
+          {% adding2favorites for exhibition using "favorites/includes/favorite_detail.html" %}
+        {% endif %}
+
+        <a class="btn btn-default btn-round location" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Show location on map" %}" href="{% url "exhibition_list_map" %}#object_id={{ exhibition.pk }}">
+          <span class="icon icon-location"></span>
+          <span class="sr-only">{% trans "Show location on map" %}</span>
+        </a>
+
+        <button class="btn btn-default btn-round share-twitter"  data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">
+          <span class="icon icon-social-twitter"></span>
+          <span class="sr-only">{% trans "Share on Twitter" %}</span>
+        </button>
+        
+        <button class="btn btn-default btn-round share-facebook" data-url="{{ object.get_url }}" data-text="{% if exhibition.museum %}{% with exhibition.museum as museum %}{{ museum.title }}{% endwith %} {% else %}{{ exhibition.location_name }} {% endif %} / {% if exhibition.permanent %}{% trans "Permanent exhibition" %}, {{ exhibition.start|date:"d.m.Y" }} {% trans "until further notice" %}{% else %}{{ exhibition.start|date:"d.m.Y" }}{% if exhibition.end %} {% trans "till" %} {{ exhibition.end|date:"d.m.Y" }}{% endif %}{% endif %} / {{ object.title }} / {{ object.subtitle }}">
+          <span class="icon icon-social-facebook"></span>
+          <span class="sr-only">{% trans "Share on Facebook" %}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row row-md">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
+      <p class="lead">{{ exhibition.get_rendered_description|striptags|truncatewords:"65"|urlize }}</p>
+      <a class="btn btn-default" href="{{ exhibition.get_url_path }}">{% trans "more" %}</a>
+      <button class="btn btn-info cancel">{% trans "Close" %}</button>
+    </div>
+
+    <div class="hidden-xs hidden-sm col-md-4 col-lg-3">
+      <p>
+        <small>
+          <b>
+          {% if exhibition.location_name %}
+            {{ exhibition.location_name }}
+          {% else %}
+            {{ exhibition.museum.title }}
+            {% if exhibition.museum.subtitle %}
+              <br/>{{ exhibition.museum.subtitle }}
+            {% endif %}
+          {% endif %}
+          </b><br/>
+
+          {% if exhibition.museum %}
+            {% with exhibition.museum as museum %}
+              {{ museum.street_address }},
+              {% if museum.street_address2 %},{{ museum.street_address2 }},{% endif %}
+              {{ museum.postal_code }} {{ museum.city }}
+            {% endwith %}
+          {% else %}
+              {{ exhibition.street_address }},
+              {% if exhibition.street_address2 %}, {{ exhibition.street_address2 }},{% endif %}
+              {{ exhibition.postal_code }} {{ exhibition.city }}
+          {% endif %}
+        </small>
+      </p>
+
+      {% with exhibition.museum.get_current_season as season %}
+        {% if season %}
+          {% if season.is_appointment_based %}
+          <dl>
+            <dt><small>{% trans "Based on appointment" %}</small></dt>
+          </dl>
+          {% else %}
+          {% regroup season.get_opening_hours by times as opening_hours %}
+            {% for same_hours in opening_hours %}
+              <dl>
+                <dt><small>{% for day in same_hours.list %}{% if forloop.first %}{{ day.weekday }}{% endif %}{% if forloop.last %}{% if forloop.counter0 %}-{{ day.weekday }}{% endif %}{% endif %}{% endfor %}</small>
+                </dt>
+                  {% if same_hours.list.0.open %}
+                    <dd><small>
+                      {{ same_hours.list.0.open|time:"H:i" }}
+                      {% if same_hours.list.0.break_close %}
+                      - {{ same_hours.list.0.break_close|time:"H:i" }}
+                      / {{ same_hours.list.0.break_open|time:"H:i" }}
+                      - {{ same_hours.list.0.close|time:"H:i" }}
+                      {% else %}
+                      - {{ same_hours.list.0.close|time:"H:i" }}
+                      {% endif %}
+                      {% if LANGUAGE_CODE == "de" %} Uhr{% endif %}</small>
+                    </dd>
+                  {% else %}
+                    <dd><small>
+                      {% trans "closed" %}</small>
+                    </dd>
+                  {% endif %}
+              </dl>
+            {% endfor %}
+          {% endif %}
+          {% if season.last_entry %}
+          <dl>
+            <dt><small>{% trans "Last entry" %}</small></dt>
+            <dd><small>{{ season.last_entry }}</small></dd>
+          </dl>
+          {% endif %}
+          {% if season.exceptions %}
+          <p><small>{{ season.get_rendered_exceptions|striptags|truncatewords:"35"|urlize }}</small></p>
+          {% endif %}
+        {% endif %}
+      {% endwith %}
+    </div>
+  </div>
+{% endwith %}

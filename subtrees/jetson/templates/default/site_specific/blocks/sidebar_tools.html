@@ -1,0 +1,109 @@
+{% load i18n base_tags navigation_tags memos favorites %}
+<div class="categories nav_collapsed" id="add_box">
+    <h3>
+        <a href="#" class="open_but"><b>{% trans "Tools" %}</b></a>
+    </h3>
+    <div class="hidable">
+        {% if object and object|is_context_item %}
+            {% with object|get_context_item as context_item %}{% with 1 as counter %}
+                <ul>
+                    {% if user.is_authenticated %}
+                        <li class="add_sidebar">{% adding2favorites for context_item using "generic/sidebar_favorite.html" %}</li>
+                    {% endif %}
+                    <li class="note_sidebar">{% adding2memos for context_item using "memos/sidebar_memo.html" %}</li>
+                    {% if object.is_person %}
+                        <li class="posting">
+                            <a href="{{ object.content_object.get_url_path }}message/"
+                               class="{% activeness '{{ object.content_object.get_url_path }}message/' %}">
+                                <span class="pic"></span>{% trans "send a message" %}</a>
+                        </li>
+                    {% endif %}
+                    {% if object.is_institution %}
+                        <li class="posting">
+                            <a href="{{ object.content_object.get_url_path }}message/"
+                               class="{% activeness '{{ object.content_object.get_url_path }}message/' %}">
+                                <span class="pic"></span>{% trans "send a message" %}</a>
+                        </li>
+                    {% endif %}
+
+                    {% if object.is_person or object.is_institution or object.is_event %}
+                        {% for contact in object.content_object.get_contacts %}
+                            {% if forloop.first %}
+                                {% for url in contact.get_urls %}
+                                    {% if forloop.first %}
+                                        <li class="website">
+                                            <a href="{{ url.link|escape }}" onclick="open_new_window(event)">
+                                                <span class="pic"></span>{% trans "open website" %}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% if object.is_document %}
+                        {% if object.content_object.url_link %}
+                            <li class="website">
+                                <a href="{{ object.content_object.url_link|escape }}" onclick="open_new_window(event)">
+                                    <span class="pic"></span>{% trans "open website" %}</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                    {% comment %}
+                    TODO: fix vcards
+                    {% if object.is_institution or object.is_person %}
+                        <li class="download_sidebar"><a href="/vcard/{{ object.content_type.id }}/{{ object.object_id }}"><span class="pic"></span>{% trans "download vCard" %}</a></li>
+                    {% endif %}
+                {% endcomment %}
+                    <li class="print">
+                        <a href="#" onclick="window.print(); return false;">
+                            <span class="pic"></span>{% trans "print this page" %}</a>
+                    </li>
+                    {% if object.is_institution %}
+                        <li class="claim">
+                            <a href="/ticket/?goto_next={{ request.get_full_path|urlencode }}">
+                                <span class="pic"></span>{% trans "claim this institution" %}</a>
+                        </li>{% endif %}
+                    {% if object.is_event %}
+                        <li class="claim">
+                            <a href="/ticket/?goto_next={{ request.get_full_path|urlencode }}">
+                                <span class="pic"></span>{% trans "claim this event" %}</a>
+                        </li>{% endif %}
+                    {% if object.is_document %}
+                        <li class="claim">
+                            <a href="/ticket/?goto_next={{ request.get_full_path|urlencode }}">
+                                <span class="pic"></span>{% trans "claim this document" %}</a>
+                        </li>{% endif %}
+                    <li class="report">
+                        <a href="/ticket/report-problem/{{ object|content_type_id }}/{{ object.id }}/?goto_next={{ request.get_full_path }}">
+                            <span class="pic"></span>{% trans "report an error" %}</a>
+                    </li>
+                </ul>
+            {% endwith %}{% endwith %}
+        {% else %}
+            <ul>
+                <li class="note_sidebar">
+                    <a href="/my-profile/memos/">
+                        <span class="pic"></span>{% trans "memos" %} (<span id="memo_count">{{ request.httpstate.memos|length }}</span>)
+                    </a>
+                </li>
+                {% if request.user.is_authenticated %}
+                    <li class="add_sidebar">
+                        <a href="/my-profile/favorites/"><span class="pic"></span>{% trans "favorites" %}</a>
+                    </li>
+                {% endif %}
+                <li class="rss">
+                    <a href="/browse/feeds/rss/{{ LANGUAGE_CODE }}/?{{ query|escape }}">
+                        <span class="pic"></span>{% trans "RSS feed" %}</a>
+                </li>
+                <li class="rss">
+                    <a href="/browse/feeds/atom/{{ LANGUAGE_CODE }}/?{{ query|escape }}">
+                        <span class="pic"></span>{% trans "ATOM feed" %}</a>
+                </li>
+                <li class="print">
+                    <a href="#" onclick="window.print(); return false;"><span class="pic"></span>{% trans "print" %}</a>
+                </li>
+            </ul>
+        {% endif %}
+    </div>
+</div>
+

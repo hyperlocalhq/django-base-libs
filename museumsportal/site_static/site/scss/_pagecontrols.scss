@@ -1,0 +1,153 @@
+
+#to-top { 
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    display: block;
+    color: black;
+    text-align: center;
+    z-index: 950;
+    overflow: hidden;
+    height: 60px;
+    width: 70px;
+
+    span {
+      -webkit-transform: translateY(250px);
+      -moz-transform: translateY(250px);
+      -o-transform: translateY(250px);
+      font-size: 0px;
+      text-indent: 100px;
+      overflow: hidden;
+      white-space: nowrap;
+
+      height: 60px;
+      width: 70px;
+      background-color: black;
+      display: inline-block;
+
+      -webkit-transition-property: all;
+      -webkit-transition-duration: 0.75s;
+      -webkit-transition-timing: ease-in-out;
+
+      -moz-transition-property: all;
+      -moz-transition-duration: 0.75s;
+      -moz-transition-timing: ease-in-out;
+
+      -o-transition-property: all;
+      -o-transition-duration: 0.75s;
+      -o-transition-timing: ease-in-out;
+
+      -webkit-transition-timing: ease-in-out;
+      position: relative;
+
+      opacity: 0;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 40px;
+      background-image: url("../img/icons/inv/arrow_up.png");
+    }
+
+    &.on { 
+      span {
+        -webkit-transform: translateY(0px);
+        -moz-transform: translateY(0px);
+        -o-transform: translateY(0px);
+        background-color: rgba(0,0,0,0.95);
+        opacity: 1;
+        color: white;
+      }
+   }
+}
+
+// ================= PAGE CONTROLS =================
+
+#page-controls {
+  position: absolute;
+  top: 0px;
+  z-index: 950;
+
+  a {
+    width: 215px;
+    height: 140px;
+    line-height: 95px;
+    text-align: center;
+    font-size: 22px;
+    position: fixed;
+    top: 50%;
+    margin-top: -70px;
+
+    -webkit-transition-property: all;
+    -webkit-transition-duration: 0.75s;
+    -webkit-transition-timing: ease-in-out;
+
+    -moz-transition-property: all;
+    -moz-transition-duration: 0.75s;
+    -moz-transition-timing: ease-in-out;
+
+    -o-transition-property: all;
+    -o-transition-duration: 0.75s;
+    -o-transition-timing: ease-in-out;
+
+    color: black;
+    background-color: black;
+
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    background-repeat: no-repeat;
+    background-size: 33px;
+
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    overflow: hidden;
+
+    &:hover { 
+      -webkit-transition-duration: 0.1s;
+      -moz-transition-duration: 0.1s;
+      -o-transition-duration: 0.1s;
+      background-color: rgba(0,0,0,0.95);
+      color: white;
+     }
+
+    > span {
+      display: table;
+      width: 90%;
+      height: 100%;
+      position: absolute;
+
+      span.title {
+        display: table-cell;
+        vertical-align: middle;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 700;
+        width: 150px;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+    }
+
+    &.prev { 
+      > span { right: 0; }
+      left: 0;  
+      border-right: 20px solid transparent;
+      text-align: right;
+      margin-left: -190px;
+      background-image: url("../img/icons/inv/left.png");
+      background-position: center left;
+
+      &:hover { margin-left: 0px; }
+    }
+
+    &.next { 
+      > span { left: 0; }
+      right: 0; 
+      border-left: 20px solid transparent;
+      text-align: left;
+      margin-right: -190px;
+      background-image: url("../img/icons/inv/right.png");
+      background-position: center right;
+      &:hover { margin-right: 0px; }
+    }
+  }
+}
