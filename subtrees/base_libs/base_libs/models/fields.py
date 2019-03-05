@@ -79,15 +79,6 @@ class ExtendedTextField(TextField):
                             help_text=_("You can select an appropriate markup type here"),
                             editable=editable,
                             )
-                        self.related_markup_type_field.south_field_triple = lambda: (
-                            "django.db.models.fields.CharField",
-                            [repr("Markup type")],
-                            dict(
-                                max_length=repr(self.related_markup_type_field.max_length),
-                                blank=repr(self.related_markup_type_field.blank),
-                                choices=repr(self.related_markup_type_field.choices),
-                                default=repr(isinstance(self.related_markup_type_field.default, basestring) and self.related_markup_type_field.default or "")
-                                ))
                         self.related_markup_type_field.contribute_to_class(
                             cls,
                             "%s_markup_type" % name
@@ -236,22 +227,6 @@ class MultilingualCharField(models.Field):
                     db_column=None, 
                     db_tablespace=self.db_tablespace 
                     )
-                localized_field.south_field_triple = lambda: (
-                    "django.db.models.fields.CharField",
-                    [repr(force_unicode(localized_field.verbose_name))],
-                    dict(
-                        primary_key=repr(localized_field.primary_key),
-                        max_length=repr(localized_field.max_length),
-                        unique=repr(localized_field.unique),
-                        blank=repr(localized_field.blank),
-                        null=repr(localized_field.null),
-                        db_index=repr(localized_field.db_index),
-                        default=repr(isinstance(localized_field.default, basestring) and localized_field.default or ""),
-                        editable=repr(localized_field.editable),
-                        choices=repr(localized_field.choices),
-                        db_column=repr(localized_field.db_column),
-                        db_tablespace=repr(localized_field.db_tablespace),
-                        ))
                 localized_field.contribute_to_class(
                     cls,
                     _language_field_name(name, language[0]),
@@ -342,23 +317,6 @@ class MultilingualTextField(models.Field):
                     db_column=None,
                     db_tablespace=self.db_tablespace
                     )
-                localized_field.south_field_triple = lambda: (
-                    hasattr(models, type(localized_field).__name__) and ("django.db.models.fields.%s" % type(localized_field).__name__) or "base_libs.models.fields.%s" % type(localized_field).__name__,
-                    [repr(force_unicode(localized_field.verbose_name))],
-                    dict(
-                        primary_key=repr(localized_field.primary_key),
-                        max_length=repr(localized_field.max_length),
-                        unique=repr(localized_field.unique),
-                        blank=repr(localized_field.blank),
-                        db_index=repr(localized_field.db_index),
-                        rel=repr(localized_field.rel),
-                        unique_for_date=repr(localized_field.unique_for_date),
-                        unique_for_month=repr(localized_field.unique_for_month),
-                        unique_for_year=repr(localized_field.unique_for_year),
-                        choices=repr(localized_field.choices),
-                        db_column=repr(localized_field.db_column),
-                        db_tablespace=repr(localized_field.db_tablespace),
-                        ))
                 localized_field.contribute_to_class(
                     cls,
                     _language_field_name(name, language[0])
