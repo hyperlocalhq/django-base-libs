@@ -1,6 +1,4 @@
 # -*- coding: UTF-8 -*-
-import os
-import re
 import sys
 import calendar
 from datetime import datetime
@@ -39,7 +37,6 @@ from filebrowser.fields import FileBrowseField
 from tagging.models import Tag
 from tagging_autocomplete.models import TagAutocompleteField
 
-from jetson.apps.structure.models import Term
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import PhoneType, EmailType, URLType, IMType
 from jetson.apps.utils.models import MONTH_CHOICES

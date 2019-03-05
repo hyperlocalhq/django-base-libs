@@ -3,11 +3,10 @@ import StringIO
 import codecs
 import vobject
 import sys
-from datetime import datetime, date
+from datetime import date
 
 from django.db import models
 from django.db.models.base import ModelBase
-from django.db.models.fields import FieldDoesNotExist
 from django.template import Context, Template
 from django.utils.safestring import mark_safe
 from django.utils.encoding import force_unicode
@@ -37,9 +36,7 @@ from base_libs.models.fields import MultilingualTextField
 
 from filebrowser.fields import FileBrowseField
 
-from jetson.apps.structure.models import Term
 from jetson.apps.structure.models import ContextCategory
-from jetson.apps.structure.models import Category
 from jetson.apps.location.models import Address
 from jetson.apps.optionset.models import Prefix
 from jetson.apps.optionset.models import Salutation
@@ -51,9 +48,6 @@ from jetson.apps.optionset.models import IMType
 from jetson.apps.optionset.models import get_default_phonetype_for_phone
 from jetson.apps.optionset.models import get_default_phonetype_for_fax
 from jetson.apps.optionset.models import get_default_phonetype_for_mobile
-#from jetson.apps.i18n.models import Nationality
-#from jetson.apps.i18n.models import Language
-#from jetson.apps.i18n.models import TimeZone
 from jetson.apps.utils.models import MONTH_CHOICES
 from jetson.apps.image_mods.models import FileManager
 

@@ -10,9 +10,6 @@ if "makemigrations" in sys.argv:
 else:
     from django.utils.translation import ugettext_lazy as _
 
-from django.contrib.sites.models import Site
-from django.utils.functional import lazy
-from django.utils.encoding import force_unicode
 from django.conf import settings
 
 from base_libs.models.models import ObjectRelationMixin
@@ -22,8 +19,6 @@ from base_libs.models.fields import MultilingualCharField
 from base_libs.models.fields import MultilingualTextField
 
 from base_libs.models.fields import PlainTextModelField
-from base_libs.utils.misc import get_unique_value
-from base_libs.middleware import get_current_language
 from base_libs.middleware import get_current_user
 
 from mptt.models import MPTTModel
