@@ -407,7 +407,7 @@ RFC2822_DATE_FORMAT = "RFC822"
 
 def string_to_datetime(date_string, format):
     """
-    utility function: just converts a string given
+    utility function: just converts a string given 
     in the specified datetime format to a datetime
     object
     """
@@ -426,7 +426,7 @@ def string_to_datetime(date_string, format):
 def smart_truncate(text, length=100, suffix='...'):
     """
     Truncates `text`, on a word boundary, as close to
-    the target length it can come.
+    the target length it can come.    
     """
     slen = len(suffix)
     pattern = r'^(.{0,%d}\S)\s+\S+' % (length - slen - 1)
