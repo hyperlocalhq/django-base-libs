@@ -1,8 +1,0 @@
-{% load base_tags image_modifications %}
-{% with object as production %}
-    <div class="item col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <a href="/de/spielplan/{{ production.slug }}/">
-            <h3>{{ production.title_de }}</h3>
-        </a>
-    </div>
-{% endwith %}
