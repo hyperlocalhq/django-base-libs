@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load base_tags i18n %}
+
+{% block extrahead %}
+    <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/registration.js"></script>
+{% endblock %}
+
+
+{% block title %}{% trans "Registration" %} - {% trans "Institution" %}{% endblock %}
+
+{% block headline %}
+    <h2 class="main">{% trans "Registration" %}</h2>
+    <h2 class="sub">{% trans "Institution" %}</h2>
+{% endblock %}
+
+{% block sidebar-a %}
+    {% include "utils/step_list.html" %}
+{% endblock %}
+
+{% block sidebar-b %}
+{% endblock %}
+
+{% block content %}
+    <div class="reg">
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="field_layout">
+                <fieldset>
+                    <legend>
+                        {% trans "Description" %}
+                    </legend>
+                    <ul>
+                        <li>
+                            {{ form.description_de.label_tag }} {{ form.description_de }} {{ form.description_de.error_tag }}
+                        </li>
+                        <li>
+                            {{ form.description_en.label_tag }} {{ form.description_en }} {{ form.description_en.error_tag }}
+                        </li>
+                    </ul>
+                </fieldset>
+                <fieldset class="fieldset_end">
+                    <legend>
+                        {% trans "Photo" %}
+                    </legend>
+                    <ul>
+                        <li class="preview_img">
+                            <img src="{% if form_step_data.303.avatar %}/helper/tmpimage/{{ form_step_data.303.avatar.tmp_filename }}/{{ LOGO_PREVIEW_SIZE }}/{% else %}{{ DEFAULT_FORM_LOGO_4_INSTITUTION }}{% endif %}"
+                                 alt="{% trans "Image" %}"/>
+                        </li>
+                        <li class="insert_img">
+                            {{ form.avatar }} {{ form.avatar.error_tag }}
+                            <label class="label_input_img">
+                                {{ form.avatar.help_text }}
+                            </label>
+                        </li>
+                    </ul>
+                </fieldset>
+                {% include "utils/step_buttons_reg.html" %}
+            </div>
+        </form>
+    </div>
+{% endblock %}
+

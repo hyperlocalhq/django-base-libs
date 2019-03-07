@@ -1,0 +1,40 @@
+{% load base_tags i18n sekizai_tags %}
+<script src="https://maps.google.com/maps/api/js?language=de&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.1.3/mustache.js"></script>
+<script src="{{ STATIC_URL }}site/js/markerwithlabel.js"></script>
+<!--<script src="{{ STATIC_URL }}site/js/styledinfowindow.js"></script>-->
+<script src="{{ STATIC_URL }}site/js/listing_map.js"></script>
+
+{% now "uuuu" as microseconds %}
+<script nonce="{{ microseconds|to_base64 }}">
+    (function($, undefined) {
+        $(function() {
+            $('#gmap_toggle').click(function() {
+                if (!self.oMap) {
+                   initialize_map();
+                }
+                $('body').toggleClass('map_visible');
+                setTimeout(function() {
+                    google.maps.event.trigger(oMap, 'resize');
+                }, 650);
+            });
+
+            $('#gmap_toggle2').click(function() {
+                $('body').toggleClass('map_visible');
+                setTimeout(function() {
+                    google.maps.event.trigger(oMap, 'resize');
+                }, 650);
+            });
+
+            $('#gmap_fullscreen').click(function() {
+                $('body').toggleClass('map_fullscreen');
+                setTimeout(function() {
+                    google.maps.event.trigger(oMap, 'resize');
+                }, 650);
+                // $('html, body').animate({scrollTop:0}, 'slow');
+                // e.preventDefault();
+            });
+        });
+    }(jQuery));
+</script>
+{% add_data "script_nonces" microseconds|to_base64 %}

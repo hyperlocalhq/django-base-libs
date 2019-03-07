@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load base_tags i18n %}
+
+{% block title %}{% trans 'Feedback' %}{% endblock %}
+
+
+{% block headline %}
+    <h2 class="main">{% trans "FEEDBACK" %}</h2>
+{% endblock %}
+
+{% block sidebar-a %}{% endblock %}
+
+{% block content %}
+
+    {% block breadcrumbs %}
+        <div class="breadcrumbs">
+            <div>
+                <a href="{{ goto_next }}">{% trans "Go back" %}</a>
+            </div>
+        </div>
+    {% endblock %}
+
+    <p class="suggest">{% trans "Thank you for informing us - we will work on it immediately!" %}</p>
+{% endblock %}

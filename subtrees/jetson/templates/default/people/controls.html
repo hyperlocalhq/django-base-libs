@@ -1,0 +1,48 @@
+{% load i18n base_tags navigation_tags memos individual_relations groups_networks favorites %}
+{% with forloop.counter|default:0 as counter %}
+    <ul class="toolbar">
+        {% if request.user.is_authenticated %}
+            {% if person.is_addable_to_memos %}
+                <li class="memo">{% adding2memos for person %}</li>
+            {% endif %}
+            {% if person.is_addable_to_favorites %}
+                <li class="favorites">{% adding2favorites for person using "generic/favorite_contact.html" %}</li>
+            {% endif %}
+            {% comment %}<!--
+                adding_individual_relation renders with one or two <li>s
+            -->{% endcomment %}
+            {% adding_individual_relation with person %}
+            {% if person.is_contactable %}
+                <li class="mail">
+                    <a href="{{ person.get_url_path }}message/" title="{% trans "Send a mail" %}">
+                        <span>{% trans "Send a mail" %}</span></a>
+                </li>
+            {% endif %}
+            {% if request.user.is_staff %}
+                {% if perms.people.change_person %}
+                    <li class="admin_edit">
+                        <a href="/admin/people/person/{{ person.id }}/"
+                           class="edit_link"
+                           onclick="open_new_window(event)"
+                           title="{% trans "Edit Person" %}">
+                            <span>{% trans "Edit Person" %}</span>
+                        </a>
+                    </li>
+                {% endif %}
+            {% endif %}
+        {% else %}
+            <li class="memo">{% adding2memos for person %}</li>
+            <li class="favorites">
+                <a href="/login/?goto_next={{ request.path }}" title="{% trans "Add to contacts" %}">
+                    <span>{% trans "Add to contacts" %} ({% trans "login request" %})</span></a>
+            </li>
+            {% if person.is_contactable %}
+                <li class="mail">
+                    <a href="/login/?goto_next={{ person.get_url_path }}message/" title="{% trans "Send a mail" %}">
+                        <span>{% trans "Send a mail" %} ({% trans "login request" %})</span></a>
+                </li>
+            {% endif %}
+        {% endif %}
+    </ul>
+{% endwith %}		
+

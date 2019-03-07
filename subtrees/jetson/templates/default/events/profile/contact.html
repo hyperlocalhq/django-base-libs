@@ -1,0 +1,96 @@
+{% load i18n base_tags auth_extended %}
+
+{% with object.postal_address as address %}
+    {% if object.venue_title or address.street_address or address.postal_code or address.country %}
+        {% if object.venue_title or object.venue or address.street_address or address.postal_code or address.country %}
+            <div class="adr">
+            <dl>
+            <dt>{% trans "Venue" %}</dt>
+            <dd>
+                {% if object.venue %}
+                    <a href="{{ object.venue.get_url_path }}">
+                        {{ object.venue.title }}
+                        <br/>
+                    </a>
+                {% else %}
+                    {{ object.venue_title }}
+                    <br/>
+                {% endif %}
+
+                <span class="summary hidden">{{ object.get_title|escape }}
+                    <br/> </span>
+
+                <span class="location">
+                {% if address.street_address %}
+                    <span class="street-address">{{ address.street_address|escape }}, </span>
+                {% endif %}
+                    {% if address.street_address2 %}
+                        <span class="street-address">{{ address.street_address2|escape }}, </span>
+                    {% endif %}
+                    {% if address.street_address3 %}
+                        <span class="street-address">{{ address.street_address3|escape }}, </span>
+                    {% endif %}
+                    {% if address.postal_code %}
+                        <span class="postal-code">{{ address.postal_code|escape }} </span>
+                        <span class="locality">{{ address.city|escape }}, </span>
+                    {% endif %}
+                    {% if address.country %}
+                        <span class="country-name">{{ address.country.get_name }}</span>
+                    {% endif %}
+                    {% if address.get_geoposition.latitude and address.get_geoposition.longitude %}
+                        <br/><span class="map-link"><a href="{{ object.get_url_path }}map/#contact_{{ index }}">({% trans "Show on the map" %})</a></span>
+                    {% endif %}
+            </span>
+            </dd>
+        {% endif %}
+    </dl>
+    {% endif %}
+
+
+{% if object.get_phones %}
+    {% for phone in object.get_phones %}
+        {% if forloop.first %}
+            <dl>
+        {% endif %}
+    <dd class="tel">
+        {% if phone.type %}
+            <span class="type">{{ phone.type }}</span>:
+        {% endif %}
+        <span class="value">+{{ phone.country }}-{{ phone.area }}-{{ phone.number }}</span>
+    </dd>
+    {% if forloop.last %}
+        </dl>
+    {% endif %}
+
+    {% endfor %}
+{% endif %}
+{% if object.get_urls %}
+    {% for url in object.get_urls %}
+        {% if forloop.first %}
+            <dl>
+        {% endif %}
+
+    {% if url.type %}
+        <dd>{{ url.type }}:
+            <a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">
+                {{ url.link }}</a>
+        </dd>
+    {% else %}
+        <dd>
+            <a class="url" href="{{ url.link|escape }}" onclick="open_new_window(event)">{{ url.link }}</a>
+        </dd>
+    {% endif %}
+    {% if forloop.last %}
+        </dl>
+    {% endif %}
+    {% endfor %}
+{% endif %}
+</div>
+    {% if object.get_ims %}
+        <dl>
+            {% for im in object.get_ims %}
+                <dd>{{ im.type }}: {{ im.address }}</dd>
+            {% endfor %}
+        </dl>
+    {% endif %}
+{% endwith %}

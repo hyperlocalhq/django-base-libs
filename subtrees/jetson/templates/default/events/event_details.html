@@ -1,0 +1,96 @@
+{% extends "events/details_base.html" %}
+{% load i18n base_tags auth_extended events %}
+
+{% block doctype %}
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+            "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% endblock %}
+
+{% block details %}
+    <div class="vevent">
+        <div id="dyn_avatar" class="dyn_section">
+            {% include "events/profile/avatar.html" %}
+        </div>
+
+        {% if object.are_contacts_displayed %}
+            <div id="address">
+                {% if object.get_contacts %}
+                    {% with object.get_contacts.0 as contact %}
+                        <div id="dyn_contacts">
+                            <div id="dyn_contact" class="dyn_section">
+                                {% include "events/profile/contact.html" %}
+                            </div>
+                        </div>
+                    {% endwith %}
+                {% endif %}
+            </div>
+        {% endif %}
+        <hr/>
+
+        <div id="dyn_description" class="dyn_section description">
+            {% include "events/profile/description.html" %}
+        </div>
+
+        <hr/>
+
+        <div id="dyn_identity" class="dyn_section">
+            {% include "events/profile/identity.html" %}
+        </div>
+
+        <hr/>
+
+        <div id="dyn_event_times" class="dyn_section">
+            {% include "events/profile/event_times.html" %}
+        </div>
+
+        <hr/>
+        {% if object.are_fees_displayed or object.are_opening_hours_displayed %}
+            <div id="dyn_fees_opening_hours" class="dyn_section">
+                {% include "events/profile/fees_opening_hours.html" %}
+            </div>
+            <hr/>
+        {% endif %}
+
+        <div id="dyn_organizer" class="dyn_section">
+            {% include "events/profile/organizer.html" %}
+        </div>
+
+        <hr/>
+        <div id="dyn_additional_info" class="dyn_section">
+            {% include "events/profile/additional_info.html" %}
+        </div>
+
+        <hr/>
+        <div id="dyn_categories" class="dyn_section">
+            {% include "events/profile/categories.html" %}
+        </div>
+        <hr/>
+        {% if object.postal_address.get_geoposition.latitude %}
+            <div id="dyn_map">
+                <h6 class="section-header">
+                    {% trans "Map" %}
+                </h6>
+                <div class="section-details">
+                    <div id="gmap_view"></div>
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+{% endblock %}
+
+{% block extrabody %}
+    {{ block.super }}
+    {% if_has_perm "events.change_event" object %}
+        <script type="text/javascript"
+                src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.bgiframe.min.js"></script>
+        <script type="text/javascript"
+                src="{{ STATIC_URL }}site/js/jquery/autocomplete_1.0/jquery.autocomplete.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/autocomplete.js"></script>
+        <script type="text/javascript"
+                src="//maps.google.com/maps/api/js?language={{ LANGUAGE_CODE }}&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/gmaps_for_address.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}site/js/website/profile.js"></script>
+    {% end_if_has_perm %}
+{% endblock %}
+

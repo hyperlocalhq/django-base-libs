@@ -1,0 +1,57 @@
+{% extends "utils/includes/base_latest_objects.html" %}
+{% load i18n base_tags image_mods_tags %}
+{% comment %}<!--
+Usage in any template:
+    {% load base_tags %}
+    
+    Simple:
+    {% include_parsed "people/includes/latest_published_people.html" %}
+    
+    Customized:
+    {% include_parsed "people/includes/latest_published_people.html" with 5 as amount %}
+    
+-->{% endcomment %}
+
+{% block block_title %}{% trans "New People" %}{% endblock %}
+
+{% block block_content %}
+    {% with amount|default:3 as amount %}
+        {% get_latest_published_objects people.Person amount as newest_objects %}
+        {% if newest_objects %}
+            <ul>
+                {% for person in newest_objects %}
+                    <li>
+                        <a href="{{ person.get_url_path }}">
+                            {% if person.image %}
+                                <img alt="{{ person.get_title|escape }}"
+                                     src="{{ UPLOADS_URL }}{{ person.image|modified_path:"at" }}"/>
+                            {% else %}
+                                <img alt="{{ person.get_title|escape }}" src="{{ DEFAULT_SMALL_LOGO_4_PERSON }}"/>
+                            {% endif %}
+                        </a>
+                        <h5>
+                            <a href="{{ person.get_url_path }}">
+                                {{ person }}
+                            </a>
+                        </h5>
+                        <p>
+                            {{ person.occupation }}
+                            {% with person.get_contacts.0 as contact %}
+                                {% if contact.institution %}
+                                    <br/>
+                                    <a class="org"
+                                       href="{{ contact.institution.get_url_path }}">{{ contact.institution.get_title|escape }}</a>
+                                {% endif %}
+                            {% endwith %}
+                        </p>
+                    </li>
+                {% endfor %}
+            </ul>
+            <p class="more">
+                <a href="/{{ URL_ID_PEOPLE }}/?order_by=creation_date_desc">{% trans "more..." %}</a>
+            </p>
+        {% else %}
+            <p>{% trans "There are no public people." %}</p>
+        {% endif %}
+    {% endwith %}
+{% endblock %}

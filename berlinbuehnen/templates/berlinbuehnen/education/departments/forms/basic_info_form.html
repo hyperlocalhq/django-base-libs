@@ -1,0 +1,62 @@
+{% extends "education/departments/forms/base.html" %}
+{% load base_tags crispy_forms_tags i18n sekizai_tags %}
+
+{% block stylesheet %}
+    {{ block.super }}
+    <link href="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.autocomplete.css" rel="stylesheet" />
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.bgiframe.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/autocomplete_1.0/jquery.autocomplete.js"></script>
+    <script src="{{ STATIC_URL }}site/js/autocomplete.js"></script>
+{% endblock %}
+
+{% block multistep_form %}
+    {% crispy form %}
+    <script src="https://maps.google.com/maps/api/js?language={{ LANGUAGE_CODE }}&amp;region=DE&amp;key={{ GOOGLE_API_KEY }}"></script>
+    <script src="{{ STATIC_URL }}site/js/locating.min.js"></script>
+    <script src="{{ STATIC_URL }}site/js/checkbox-tree.js"></script>
+    {% now "uuuu" as microseconds %}
+    <script nonce="{{ microseconds|to_base64 }}">
+        $(function() {
+            $('body').on('change', '.autocomplete-light-widget select[name$=play_locations],.autocomplete-light-widget select[name$=in_program_of]', function() {
+                var $this = $(this);
+                var $inProgramOfSelectElement = $('#' + $this.attr('id').replace(/play_locations/, 'in_program_of'));
+                var $locationsSelectElement = $('#' + $this.attr('id').replace(/in_program_of/, 'play_locations'));
+                var $stagesSelectElement = $('#' + $this.attr('id').replace(/play_locations|in_program_of/, 'play_stages'));
+                var $stagesWidgetElement = $stagesSelectElement.closest('.autocomplete-light-widget');
+
+                var values = [];
+                if ($inProgramOfSelectElement.val()) {
+                    values = values.concat($inProgramOfSelectElement.val());
+                }
+                if ($locationsSelectElement.val()) {
+                    values = values.concat($locationsSelectElement.val());
+                }
+
+                if (values) {
+                    // If value contains something, add it to autocomplete.data
+                    $stagesWidgetElement.yourlabsWidget().autocomplete.data = {
+                        'location_ids': values.join(',')
+                    };
+                } else {
+                    // If value is empty, empty autocomplete.data
+                    $stagesWidgetElement.yourlabsWidget().autocomplete.data = {};
+                }
+            });
+            $('.autocomplete-light-widget select[name$=play_locations],.autocomplete-light-widget select[name$=in_program_of]').trigger('change')
+
+            $('.enter_location').on('click', function(e) {
+                e.preventDefault();
+                var oGmap = $('.fieldset-where').removeClass('hidden').find('.map_canvas').data('gmap');
+                google.maps.event.trigger(oGmap, 'resize');
+            });
+            if ($('#id_location_title').val()) {
+                $('.enter_location:first').trigger('click');
+            }
+        });
+    </script>
+    {% add_data "script_nonces" microseconds|to_base64 %}
+{% endblock %}

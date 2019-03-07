@@ -1,0 +1,7 @@
+curl --request POST \
+  --url http://localhost:9201/events/doc/_count \
+  --header 'cache-control: no-cache' \
+  --header 'connection: keep-alive' \
+  --header 'content-type: application/json' \
+  --header 'host: localhost:9201' \
+  --data '{"query": {"bool": {"must": [{"match": {"is_published": true}},{"range": {"start": {"gte": "2018-09-24T12:42:29.226460"}}}]}}}'
