@@ -99,7 +99,7 @@ class ExtendedTextField(TextField):
                         field_value = escape(field_value)
                         try:
                             # try to urlize if there are no invalid IPv6 URLs
-                            field_value = bleach.linkify(field_value)
+                            field_value = bleach.linkify(field_value, parse_email=True)
                         except ValueError:
                             pass
                         field_value = linebreaks(field_value)
@@ -369,7 +369,7 @@ class MultilingualTextField(models.Field):
                         field_value = escape(field_value)
                         try:
                             # try to urlize if there are no invalid IPv6 URLs
-                            field_value = bleach.linkify(field_value)
+                            field_value = bleach.linkify(field_value, parse_email=True)
                         except ValueError:
                             pass
                         field_value = linebreaks(field_value)
