@@ -90,6 +90,4 @@ else:
     it would never be tested! So, wo push the newly created class at the top of
     filter_specs
     """
-    #tmp = FilterSpec.filter_specs.pop()
-    #FilterSpec.filter_specs.insert(0, tmp)
 

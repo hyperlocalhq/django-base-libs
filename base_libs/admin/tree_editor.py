@@ -72,18 +72,6 @@ class ChangeList(main.ChangeList):
     def get_queryset(self, *args, **kwargs):
         return super(ChangeList, self).get_queryset(*args, **kwargs).order_by('tree_id', 'lft')
 
-    #def get_results(self, request):
-    #    clauses = [Q(
-    #        tree_id=tree_id,
-    #        lft__lte=lft,
-    #        rght__gte=rght,
-    #        ) for lft, rght, tree_id in \
-    #            self.query_set.values_list('lft', 'rght', 'tree_id')]
-    #    if clauses:
-    #        self.query_set = self.query_set.filter(reduce(lambda p, q: p|q, clauses))
-    #        #self.query_set = self.model._default_manager.filter(reduce(lambda p, q: p|q, clauses))
-    #
-    #    super(ChangeList, self).get_results(request)
 
 # ------------------------------------------------------------------------
 # MARK: -
@@ -183,7 +171,6 @@ class TreeEditor(admin.ModelAdmin):
             "object_name": unicode(obj),
             "object": obj,
             "opts": opts,
-            #"root_path": self.admin_site.root_path,
             "app_label": app_label,
         }
         context.update(extra_context or {})

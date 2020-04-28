@@ -437,7 +437,6 @@ def ObjectRelationMixin(prefix=None, prefix_verbose=None, add_related_name=False
     klass.add_to_class(content_object_field, content_object)
     
     "add methods: for the methods, we can use setattr(klass, ..., ...)"
-    #setattr(klass, 'get_%s' % content_object_field, get_content_object)
     return klass
 
 class SingleSiteMixinManager(models.Manager):
@@ -614,8 +613,7 @@ class MultiSiteContainerMixin(ObjectRelationMixin(), UrlMixin):
         return sites
     get_sites.short_description = _("Sites")  
     get_sites.allow_tags = True
-    #get_sites.admin_order_field = sites
-    
+
     @classmethod
     def is_single_site_container(cls):
         """
@@ -696,7 +694,6 @@ class HierarchyMixin(BaseModel):
     )
     parent = models.ForeignKey(
        'self', 
-       #related_name="%(class)s_children",
        related_name="child_set",
        blank=True, 
        null=True,

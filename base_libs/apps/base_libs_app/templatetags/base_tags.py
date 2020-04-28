@@ -170,7 +170,6 @@ def do_get_all_objects(parser, token):
         appname, modelname = appmodel.split(".")
     except ValueError:
         raise template.TemplateSyntaxError, "%r tag requires application name and model name separated by a dot" % (token.contents[0], token.contents[0])
-    #from django.conf import settings
     model = models.get_model(appname, modelname)
     return GetAllObjectsNode(model, var_name)
 
@@ -445,7 +444,6 @@ Decorator to facilitate template tag creation
 def easy_tag(func):
     """deal with the repetitive parts of parsing template tags"""
     def inner(parser, token):
-        #print token
         try:
             return func(*token.split_contents())
         except TypeError:
@@ -471,8 +469,6 @@ class AppendGetNode(template.Node):
             get[key] = self.dict_pairs[key].resolve(context)
 
         path = not self.no_path and context['request'].META['PATH_INFO'] or ""
-
-        #print "&".join(["%s=%s" % (key, value) for (key, value) in get.items() if value])
 
         if len(get):
             path += "?%s" % "&".join(["%s=%s" % (key, value) for (key, value) in get.items() if value])
@@ -681,8 +677,6 @@ def mark_first_and_last(value, tag):
     tag_regex = re.compile(r'(<' + re.escape(tag) + r')([^>]*)(>)')
     class_regex = re.compile(r'class=([\'"])(.*?)\1')
     parts = tag_regex.split(value)
-    # "<p class="a">A</p><p>B</p>" ->
-    # ['', '<p', ' class="a"', '>A</p>', '<p', '', '>','B</p>']
     if len(parts) > 1:
         if class_regex.search(parts[2]):
             parts[2] = class_regex.sub(r'class=\1\2 first-child\1', parts[2])

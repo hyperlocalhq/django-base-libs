@@ -385,7 +385,6 @@ class MultiSiteContainerMixinAdminForm(ObjectRelationMixinAdminForm()):
             qs = qs.filter(content_type__isnull=True, object_id__isnull=True)
     
         if sites_value:
-            #site_list = [int(site) for site in sites_value]
             qs = qs.filter(sites__in=sites_value)
         else:
             qs = qs.filter(sites__isnull=True)

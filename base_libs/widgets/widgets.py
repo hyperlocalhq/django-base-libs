@@ -134,7 +134,6 @@ class AutocompleteWidget(Widget):
                 'formatItem': self.AutocompleteManager.formatItem
             }""" 
         
-        #$j("#%s").autocomplete(%s,%s).result(AutocompleteManager.result).next().click(function(){$j(this).prev().search();});""" % (   
         js = self.js_template % (
             field_id,
             source,
@@ -305,7 +304,6 @@ class SelectToAutocompleteWidget(AutocompleteWidget):
             'func': self.qs_function,
             })
         self.queryset = self.func("all")       
-        #self.choices = list(XChoiceList(self.queryset))
         self.choices = XChoiceList(self.queryset)
 
     def render_js(self, select_field_id, field_id, text_field_value):
@@ -328,7 +326,6 @@ class SelectToAutocompleteWidget(AutocompleteWidget):
             """ 
             }
         
-        #$j("#%s").autocomplete(%s,%s).result(AutocompleteManager.result).next().click(function(){$j(this).prev().search();});""" % (   
         js = """
         if (window.$j && window.AutocompleteManager) {
             $j("#%s")[0].lastSelected = %s;

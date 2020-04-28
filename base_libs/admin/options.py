@@ -216,7 +216,6 @@ class Fieldset(object):
         if 'collapse' in self.classes:
             js = []
             return forms.Media(js=['%s%s' % (settings.ADMIN_MEDIA_PREFIX, url) for url in js])
-            #return forms.Media(js=['%sjs/admin/CollapsedFieldsets.js' % settings.ADMIN_MEDIA_PREFIX])
         return forms.Media()
     media = property(_media)
 
@@ -320,7 +319,6 @@ class MarkupTypeOptions(object):
         MARKUP_PLAIN_TEXT,
         MARKUP_RAW_HTML,
         MARKUP_HTML_WYSIWYG,
-        #MARKUP_MARKDOWN
     ]
 
     def formfield_for_choice_field(self, db_field, request=None, **kwargs):

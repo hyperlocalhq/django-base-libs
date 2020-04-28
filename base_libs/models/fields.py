@@ -416,8 +416,7 @@ class URLField(models.URLField):
     def formfield(self, **kwargs):
         defaults = {
             'form_class': URLFormField,
-            #'verify_exists': self.verify_exists,
-            }
+        }
         defaults.update(kwargs)
         return super(URLField, self).formfield(**defaults)
 
@@ -426,8 +425,7 @@ class MultilingualURLField(MultilingualCharField):
     def formfield(self, **kwargs):
         defaults = {
             'form_class': URLFormField,
-            #'verify_exists': self.verify_exists,
-            }
+        }
         defaults.update(kwargs)
         return super(MultilingualURLField, self).formfield(**defaults)
 

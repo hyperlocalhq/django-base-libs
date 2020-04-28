@@ -145,7 +145,3 @@ class ExtendedQuerySet(models.query.QuerySet):
 
     def __repr__(self):
         return "<ExtendedQuerySet>"
-        # data = list(self[:REPR_OUTPUT_SIZE + 1])
-        # if len(data) > REPR_OUTPUT_SIZE:
-        #     data[-1] = "...(remaining elements truncated)..."
-        # return repr(data)
