@@ -31,7 +31,7 @@ def get_object(content_type_var, field_name, field_value):
     Returns:
         The found object or None, if no object is found
     """
-    #try to resolve the content_type from {package].[module] string
+    # try to resolve the content_type from {package].[module] string
     if not content_type_var:
         return None
     

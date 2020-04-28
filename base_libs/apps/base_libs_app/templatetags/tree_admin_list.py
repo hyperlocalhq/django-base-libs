@@ -128,7 +128,7 @@ def tree_result_list(cl):
 tree_result_list = register.inclusion_tag("admin/tree_change_list_results.html")(tree_result_list)
 
 def tree_admin_list_filter(cl, spec):
-    #we use the unique contenttype to make ids for html-elements unique for the tree filter
+    # we use the unique contenttype to make ids for html-elements unique for the tree filter
     ct = ContentType.objects.get_for_model(spec.field.rel.to)
     return {'ct': ct, 'title': spec.title(), 'choices' : list(spec.choices(cl))}
 tree_admin_list_filter = register.inclusion_tag('admin/tree_filter.html')(tree_admin_list_filter)
