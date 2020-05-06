@@ -1,15 +1,14 @@
 # -*- coding: UTF-8 -*-
 import json
 
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404, HttpResponse, HttpResponseForbidden
-from django.views.decorators.cache import never_cache
 from django.shortcuts import get_object_or_404
-from django.conf import settings
 from django.template import loader, Template, Context, RequestContext
+from django.views.decorators.cache import never_cache
 
 from base_libs.utils.misc import ExtendedJSONEncoder
-from base_libs.utils.misc import get_website_url
 from base_libs.utils.misc import get_installed
 
 

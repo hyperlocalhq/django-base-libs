@@ -1,8 +1,8 @@
 # -*- coding: UTF-8 -*-
-import re
-import os
-import time
 import datetime
+import os
+import re
+import time
 
 try:
     from cStringIO import StringIO
@@ -31,7 +31,7 @@ from base_libs.utils.emails import is_valid_email, get_email_and_name
 from base_libs.utils.misc import get_installed
 from base_libs.widgets import AutocompleteWidget
 from base_libs.widgets import AutocompleteMultipleWidget
-from base_libs.widgets import SelectToAutocompleteWidget, ObjectSelect
+from base_libs.widgets import SelectToAutocompleteWidget
 from base_libs.widgets import ObjectSelect
 from base_libs.widgets import IntegerWidget
 from base_libs.widgets import DecimalWidget

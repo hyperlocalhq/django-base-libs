@@ -2,21 +2,21 @@
 import datetime
 import random
 import re
-import urllib
-from django.db import models
+
 from django import template
 from django.conf import settings
-from django.template import loader, RequestContext, Template
 from django.contrib.contenttypes.models import ContentType
+from django.db import models
 from django.template import defaultfilters
-from django.utils.encoding import force_unicode
+from django.template import loader, Template
+from django.template.defaultfilters import stringfilter
 from django.template.loader import select_template
+from django.utils.encoding import force_unicode
 from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 from django.utils.text import normalize_newlines
-from django.template.defaultfilters import stringfilter
-from base_libs.django_compatibility import force_str
 
+from base_libs.django_compatibility import force_str
 from base_libs.utils.loader import select_template_for_object
 from base_libs.utils.user import get_user_title
 
@@ -669,7 +669,6 @@ class TranslatedURL(template.Node):
         self.lang_code = lang_code
 
     def render(self, context):
-        import sys
         from django.core.urlresolvers import reverse
         from django.core.urlresolvers import resolve
         from django.utils import translation

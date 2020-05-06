@@ -12,13 +12,11 @@ Stopword list by http://www.ranks.nl/resources/stopwords.html
 :version: $Id$
 """
 
-import re
 import logging
 
+from django.conf import settings
 from django.template.defaultfilters import slugify as django_slugify
 from django.utils.encoding import force_unicode
-from django.conf import settings
-
 
 logger = logging.getLogger("betterslugify")
 

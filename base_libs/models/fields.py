@@ -2,18 +2,18 @@
 """
 custom model fields
 """
-import warnings
 import sys
+import warnings
 from datetime import datetime
 
-from django.db.models.fields import TextField
-from django.utils.translation import ugettext_lazy as _
-from django.utils.encoding import force_unicode
-from django.utils.html import escape, linebreaks, urlize
-from django.utils.safestring import mark_safe
 from django.conf import settings
 from django.db import connection, models
+from django.db.models.fields import TextField
 from django.db.models.signals import post_delete, post_save
+from django.utils.encoding import force_unicode
+from django.utils.html import escape, linebreaks
+from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext_lazy as _
 
 try:
     from django.utils.timezone import now as tz_now

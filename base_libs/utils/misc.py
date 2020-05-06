@@ -1,19 +1,18 @@
 # -*- coding: UTF-8 -*-
 import hashlib
+import json
 import re
 import sys
-import json
 from datetime import datetime, time
-from time import strptime
 from decimal import Decimal
+from time import strptime
 
-from django.contrib.sites.models import Site
+from django.conf import settings
+from django.db import models
+from django.db.models.loading import get_app
+from django.http import Http404
 from django.utils.encoding import smart_str, force_unicode
 from django.utils.translation import ugettext, get_language, activate
-from django.db.models.loading import get_app
-from django.db import models
-from django.conf import settings
-from django.http import Http404
 
 
 def get_or_404(model, **fields):
@@ -491,7 +490,7 @@ def is_installed(path):
 
 def db_table_exists(model):
     """ Checks if database table for a model exists """
-    from django.db import connection, transaction
+    from django.db import connection
 
     cursor = connection.cursor()
     try:

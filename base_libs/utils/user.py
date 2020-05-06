@@ -1,5 +1,4 @@
 # -*- coding: UTF-8 -*-
-from django.conf import settings
 from django.utils.encoding import force_unicode
 
 

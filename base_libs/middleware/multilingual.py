@@ -2,12 +2,11 @@
 
 import re
 import urllib
-from django.middleware.locale import LocaleMiddleware
+
 from django import http
-from django.utils.cache import patch_vary_headers
-from django.utils import translation
 from django.conf import settings
-from django.core.urlresolvers import reverse
+from django.middleware.locale import LocaleMiddleware
+from django.utils import translation
 from django.utils.encoding import force_unicode
 
 ADMIN_PATH = getattr(settings, "ADMIN_PATH", "/admin/")

@@ -1,25 +1,22 @@
 # -*- coding: UTF-8 -*-
 import json
 
-from django.contrib import admin
-from django.shortcuts import render_to_response
-from django.http import HttpResponseRedirect
-from django.utils.encoding import force_unicode
-from django.utils.safestring import mark_safe
-from django import forms, template
-from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import string_concat
-from django.contrib.admin.views.main import ERROR_FLAG
-from django.contrib.admin.options import IncorrectLookupParameters
-from django.core.exceptions import PermissionDenied
+from django import forms
 from django.conf import settings
+from django.contrib.admin.options import IncorrectLookupParameters
+from django.contrib.admin.views.main import ERROR_FLAG
+from django.core.exceptions import PermissionDenied
+from django.http import HttpResponseRedirect
+from django.shortcuts import render_to_response
+from django.utils.safestring import mark_safe
+from django.utils.translation import string_concat
+from django.utils.translation import ugettext_lazy as _
 
+from base_libs.admin.options import ExtendedModelAdmin
+from base_libs.middleware import get_current_user
+from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 from base_libs.views.hierarchy import HierarchyChangeList
 from base_libs.widgets import TreeSelectWidget
-from base_libs.middleware import get_current_user
-from base_libs.admin.options import ExtendedModelAdmin
-from base_libs.models import ContentBaseMixin
-from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 
 # "save" buttons for ContentBaseMixin extending models
 CONTENT_BASE_SUBMIT_CHOICES = (

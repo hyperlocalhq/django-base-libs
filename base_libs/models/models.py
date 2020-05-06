@@ -1,24 +1,22 @@
 # -*- coding: UTF-8 -*-
-import urlparse
 import operator
+import urlparse
 from datetime import datetime
 
+import six
+from django.conf import settings
+from django.contrib.auth.models import User
+from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.sites.models import Site
 from django.core.exceptions import FieldError
 from django.db import models
 from django.db.models import signals
-from django.utils.translation import ugettext, ugettext_lazy as _
-from django.utils.encoding import force_unicode
-from django.utils.safestring import mark_safe
-from django.contrib.auth.models import User
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes import generic
-from django.contrib.sites.models import Site
-from django.conf import settings
-from django.utils.safestring import mark_safe
-from django.template.defaultfilters import escape
 from django.db.models.fields import NOT_PROVIDED
+from django.template.defaultfilters import escape
+from django.utils.safestring import mark_safe
 from django.utils.translation import string_concat
-import six
+from django.utils.translation import ugettext, ugettext_lazy as _
 
 try:
     from django.utils.timezone import now as tz_now

@@ -1,27 +1,23 @@
 # -*- coding: UTF-8 -*-
 import re
+
 from django import forms
-from django.db import models, transaction
+from django.conf import settings
 from django.contrib import admin
 from django.contrib.admin import helpers
-from django.contrib.admin import util
 from django.contrib.admin import options
+from django.contrib.admin import util
 from django.contrib.admin import validation
-from django.contrib.admin.validation import check_isseq, get_field, check_isdict
 from django.contrib.admin.options import HORIZONTAL, VERTICAL
-from django.utils.translation import ugettext_lazy as _
-from django.utils.safestring import mark_safe
-from django.forms.formsets import all_valid
-from django.forms.models import (
-    BaseModelForm,
-    BaseModelFormSet,
-    fields_for_model,
-    _get_foreign_key,
-)
-from django.conf import settings
-from django.core.exceptions import PermissionDenied
+from django.contrib.admin.validation import check_isseq, get_field, check_isdict
 from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import PermissionDenied
+from django.db import models, transaction
 from django.db.models.fields import FieldDoesNotExist
+from django.forms.formsets import all_valid
+from django.forms.models import BaseModelForm
+from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext_lazy as _
 
 try:
     from django.utils.encoding import force_text
@@ -32,7 +28,7 @@ from base_libs.models.base_libs_settings import MARKUP_PLAIN_TEXT
 from base_libs.models.base_libs_settings import MARKUP_HTML_WYSIWYG
 from base_libs.models.base_libs_settings import MARKUP_RAW_HTML
 from base_libs.models.fields import ExtendedTextField
-from base_libs.widgets import TreeSelectWidget, TreeSelectMultipleWidget
+
 
 ### Guerilla patches for nested fieldsets
 
