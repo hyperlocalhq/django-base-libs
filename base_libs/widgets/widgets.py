@@ -161,7 +161,7 @@ class AutocompleteWidget(Widget):
         2. Field with id = "id_<field_name>", which is hidden and holds the pk 
             of a selected item.
         """
-        text_field_attrs = self.build_attrs(attrs, name=name + "_text")
+        text_field_attrs = self.build_attrs(attrs, name + "_text")
 
         # if there is any initial value available, fill the text field from the queryset
         text_field_value = ""
@@ -227,7 +227,7 @@ class AutocompleteMultipleWidget(AutocompleteWidget):
             comma-separated pks of selected items 
         3. List of selected text values with id = "id_<field_name>_value_pk-<pk>"
         """
-        text_field_attrs = self.build_attrs(attrs, name=name + "_text")
+        text_field_attrs = self.build_attrs(attrs, name + "_text")
 
         value = value or []
 
@@ -378,7 +378,7 @@ class SelectToAutocompleteWidget(AutocompleteWidget):
         select_field_attrs = deepcopy(attrs)
 
         select_field_attrs["class"] = (select_field_attrs["class"] + " to_hide").strip()
-        final_attrs = self.build_attrs(select_field_attrs, name=name)
+        final_attrs = self.build_attrs(select_field_attrs, name)
         output = [u"<select%s>" % flatatt(final_attrs)]
         options = self.render_options(choices, [value])
         if options:
@@ -389,7 +389,7 @@ class SelectToAutocompleteWidget(AutocompleteWidget):
         text_field_attrs["class"] = (
             text_field_attrs["class"] + " to_show autocomplete"
         ).strip()
-        text_field_attrs = self.build_attrs(text_field_attrs, name=name + "_text")
+        text_field_attrs = self.build_attrs(text_field_attrs, name + "_text")
 
         # if there is any initial value available, fill the text field from the queryset
         text_field_value = ""
@@ -471,7 +471,7 @@ class ObjectSelect(forms.Widget):
             from base_libs.forms import fields
 
             value = fields.ObjectChoiceField.returnKey(value)
-        final_attrs = self.build_attrs(attrs, name=name)
+        final_attrs = self.build_attrs(attrs, name)
         output = [u"<select%s>" % flatatt(final_attrs)]
         if getattr(self, "default_text", False):
             output.append(u'<option value="">%s</option>' % self.default_text)
