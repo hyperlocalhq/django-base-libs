@@ -478,7 +478,6 @@ class HierarchyMixinAdminOptions(ExtendedModelAdmin):
         return render_to_response(
             "admin/tree_change_list.html",
             context,
-            context_instance=template.RequestContext(request),
         )
 
     def formfield_for_dbfield(self, db_field, **kwargs):

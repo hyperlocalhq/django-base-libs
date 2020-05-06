@@ -204,7 +204,7 @@ class TreeEditor(admin.ModelAdmin):
         }
         context.update(extra_context or {})
         context_instance = template.RequestContext(
-            request, current_app=self.admin_site.name
+            request
         )
         return render_to_response(
             self.delete_confirmation_template
@@ -214,7 +214,6 @@ class TreeEditor(admin.ModelAdmin):
                 "admin/move_node.html",
             ],
             context,
-            context_instance=context_instance,
         )
 
     def indented_short_title(self, item):

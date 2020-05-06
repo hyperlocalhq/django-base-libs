@@ -21,7 +21,7 @@ class ExtendedQuerySet(models.query.QuerySet):
         x = ExtendedQuerySet.__new__(ExtendedQuerySet)
         memo[id(self)] = x
         for n, v in self.__dict__.iteritems():
-            setattr(x, n, copy.deepcopy(v, memo))
+            setattr(x, n, copy.deepcopy(v))
         return x
 
     def _get_table(self, model):
