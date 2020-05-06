@@ -150,7 +150,6 @@ def do_load_obj(parser, token):
     except ValueError:
         raise template.TemplateSyntaxError, "%r tag requires application name and model name separated by a dot" % (
             token.contents[0],
-            token.contents[0],
         )
     model = models.get_model(appname, modelname)
     return LoadObjNode(model, object_id, var_name)
@@ -201,7 +200,6 @@ def do_get_all_objects(parser, token):
         appname, modelname = appmodel.split(".")
     except ValueError:
         raise template.TemplateSyntaxError, "%r tag requires application name and model name separated by a dot" % (
-            token.contents[0],
             token.contents[0],
         )
     # from django.conf import settings
