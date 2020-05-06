@@ -236,8 +236,6 @@ def json_get_objects_from_contenttype(request, content_type_id):
         )
         result = sorted(result, lambda a, b: cmp(a[1], b[1]))
         json_str = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
-    else:
-        pass
     return HttpResponse(json_str, content_type="text/javascript; charset=utf-8")
 
 
