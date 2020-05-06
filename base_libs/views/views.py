@@ -234,7 +234,7 @@ def json_get_objects_from_contenttype(request, content_type_id):
             )
             for obj in objs
         )
-        result = sorted(result, lambda a, b: cmp(a[1], b[1]))
+        result = sorted(result, cmp=lambda a, b: cmp(a[1], b[1]))
         json_str = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
     return HttpResponse(json_str, content_type="text/javascript; charset=utf-8")
 
@@ -283,7 +283,7 @@ def json_objects_to_select(
                 )
                 for obj in objs
             )
-            result = sorted(result, lambda a, b: cmp(a[1].lower(), b[1].lower()))
+            result = sorted(result, cmp=lambda a, b: cmp(a[1].lower(), b[1].lower()))
             result = [
                 (pk, text and ("%s | ID %s" % (text, pk)) or ("ID %s" % pk))
                 for pk, text in result
