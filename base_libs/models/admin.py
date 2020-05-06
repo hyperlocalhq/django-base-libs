@@ -472,10 +472,7 @@ class HierarchyMixinAdminOptions(ExtendedModelAdmin):
             "media": mark_safe(media),
         }
 
-        return render_to_response(
-            "admin/tree_change_list.html",
-            context,
-        )
+        return render_to_response("admin/tree_change_list.html", context,)
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         """ applying custom widgets here! """

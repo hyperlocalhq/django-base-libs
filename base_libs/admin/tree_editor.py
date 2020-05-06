@@ -197,9 +197,7 @@ class TreeEditor(admin.ModelAdmin):
             "app_label": app_label,
         }
         context.update(extra_context or {})
-        context_instance = template.RequestContext(
-            request
-        )
+        context_instance = template.RequestContext(request)
         return render_to_response(
             self.delete_confirmation_template
             or [
