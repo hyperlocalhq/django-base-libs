@@ -4,6 +4,7 @@ to load templates from them in order, caching the result.
 """
 from django.template.loaders.cached import Loader as BaseLoader
 
+
 class Loader(BaseLoader):
     """
     Cached loader that works well with debug toolbar
@@ -19,4 +20,3 @@ class Loader(BaseLoader):
         self.template_cache = {}
         self._loaders = loaders
         self._cached_loaders = []
-

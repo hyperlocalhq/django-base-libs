@@ -2,7 +2,9 @@
 from django.template.loader import select_template as django_select_template
 
 
-def get_template_name_list_for_object(template_name_prefix, obj, app_dir, use_embedded=False):
+def get_template_name_list_for_object(
+    template_name_prefix, obj, app_dir, use_embedded=False
+):
     """
     Returns a list of template names to search for a specific template
 
@@ -34,7 +36,9 @@ def get_template_name_list_for_object(template_name_prefix, obj, app_dir, use_em
             template_name = "{}_embedded.html".format(template_name_prefix)
 
     if obj:
-        template_list.append("{}/{}/{}".format(obj._meta.app_label, app_dir, template_name))
+        template_list.append(
+            "{}/{}/{}".format(obj._meta.app_label, app_dir, template_name)
+        )
 
     template_list.append("{}/{}".format(app_dir, template_name))
 
@@ -59,6 +63,8 @@ def select_template_for_object(template_name_prefix, obj, app_dir, use_embedded=
     select_template_for_object("post_details", person, "blog", use_embedded=True)
     would return a template loaded from "people/blog/post_details_embedded.html"
     """
-    template_list = get_template_name_list_for_object(template_name_prefix, obj, app_dir, use_embedded)
+    template_list = get_template_name_list_for_object(
+        template_name_prefix, obj, app_dir, use_embedded
+    )
     template = django_select_template(template_list)
     return template
