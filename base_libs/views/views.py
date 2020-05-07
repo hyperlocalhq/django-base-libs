@@ -94,7 +94,7 @@ def get_object_from_url(object_url_part, **kwargs):
         if object_url_mapper.has_key(model_identifier):
             object_props = object_url_mapper[model_identifier]
             try:
-                obj = object_props[0].objects.get(**{object_props[1]:object_identifier})
+                obj = object_props[0].objects.get(**{object_props[1] + '__iexact': object_identifier})
             except:
                 raise Http404, "Sorry, requested object '%s' does not exist in the %s model" % (object_identifier, str(object_props[0]))
         

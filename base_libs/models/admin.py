@@ -19,7 +19,6 @@ from base_libs.widgets import TreeSelectWidget
 from base_libs.middleware import get_current_user
 from base_libs.admin.options import ExtendedModelAdmin
 from base_libs.models import ContentBaseMixin
-from base_libs.models.base_libs_settings import JQUERY_URL
 from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 
 # "save" buttons for ContentBaseMixin extending models
@@ -86,7 +85,7 @@ class PublishingMixinAdminOptions(ExtendedModelAdmin):
     """
     admin options for PublishingMixin
     """
-    list_filter = ('author', 'status', 'published_from', 'published_till')   
+    list_filter = ('status', 'published_from', 'published_till')
     
     fieldsets = [(_('Publish Status'), {
         'fields': ('author', 'status', 'published_from', 'published_till',),
@@ -103,8 +102,10 @@ class PublishingMixinAdminOptions(ExtendedModelAdmin):
         return obj.is_draft()
     is_draft.boolean = True
         
-    # currently logged in user cannot set as default in the model definition. so we do that here!
-    #prepopulated_fields = {'author': ('get_current_user',),}
+    raw_id_fields = ('author',)
+    autocomplete_lookup_fields = {
+        'fk': ["author"],
+    }
 
 
 def ObjectRelationMixinAdminOptions(
@@ -136,6 +137,9 @@ def ObjectRelationMixinAdminOptions(
                 }
             ),
         ]
+        related_lookup_fields = {
+            'generic': [[content_type_field, object_id_field]],
+        }
         
         def formfield_for_dbfield(self, db_field, **kwargs):
             """ applying custom widgets here! """
@@ -152,7 +156,12 @@ def ObjectRelationMixinAdminOptions(
             
     def get_content_object_display(self, obj):
         """this method is just used for display in the admin"""
-        co = getattr(obj, content_object_field)
+        try:
+            co = getattr(obj, content_object_field)
+        except ValueError:
+            co = None
+        except AttributeError:
+            co = None
         if not co:
             return "-------"
         user = get_current_user()
@@ -273,7 +282,6 @@ class SingleSiteContainerMixinAdminOptions(ObjectRelationMixinAdminOptions()):
               }
           ),
     ]
-    pass
 
 
 class SingleSiteContainerMixinAdminForm(ObjectRelationMixinAdminForm()):
@@ -337,7 +345,6 @@ class MultiSiteContainerMixinAdminOptions(ObjectRelationMixinAdminOptions()):
               }
           ),
     ]
-    pass
 
 
 class MultiSiteContainerMixinAdminForm(ObjectRelationMixinAdminForm()):
@@ -443,7 +450,8 @@ class HierarchyMixinAdminOptions(ExtendedModelAdmin):
         # additional JS
         media = self.media
         media.add_js((
-            JQUERY_URL,
+            # TODO: can we get rid of the following dependency?
+            "https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js",
             "%sjs/json/json2.js" % ADMIN_MEDIA_URL,
             "%sjs/admin/Trees.js" % ADMIN_MEDIA_URL,
         ))

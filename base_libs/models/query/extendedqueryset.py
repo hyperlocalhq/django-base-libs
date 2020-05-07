@@ -103,7 +103,7 @@ class ExtendedQuerySet(models.query.QuerySet):
         suffixed with '__count'.
         """
         if count_attr is None:
-            count_attr = query.model._meta.module_name + '__count'
+            count_attr = query.model._meta.model_name + '__count'
 
         """    
         If `related_attr` is None, find the first foreign key field in the
@@ -142,3 +142,10 @@ class ExtendedQuerySet(models.query.QuerySet):
             return self.queryset_with_counts_default.order_by(*default_order_by_clause)
         else:
             return self.queryset_with_counts.order_by(*order_by_clause)
+
+    def __repr__(self):
+        return "<ExtendedQuerySet>"
+        # data = list(self[:REPR_OUTPUT_SIZE + 1])
+        # if len(data) > REPR_OUTPUT_SIZE:
+        #     data[-1] = "...(remaining elements truncated)..."
+        # return repr(data)

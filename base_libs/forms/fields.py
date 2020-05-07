@@ -477,6 +477,10 @@ class ImageField(forms.FileField):
         elif not data and initial:
             return initial
 
+        # if the FILES were already used outside of the form,
+        # let's move the cursor back to the beginning of the file
+        data.seek(0)
+
         if data.name.split(".")[-1].lower() not in self.valid_file_extensions:
             raise forms.ValidationError(
                 self.error_messages['invalid_extension'],
@@ -511,7 +515,7 @@ class ImageField(forms.FileField):
             #  but it must be called immediately after the constructor
             trial_image = Image.open(file)
             trial_image.verify()
-        except:
+        except IndexError:
             raise forms.ValidationError(self.error_messages['invalid_image'])
         else:
             width, height = trial_image.size
@@ -631,7 +635,7 @@ class TemplateChoiceField(forms.ChoiceField):
         path is a relative template path where the templates should be checked
         """
         self.path, self.match, self.recursive = path, match, recursive
-        self.allow_files, self.allow_folders =  allow_files, allow_folders
+        self.allow_files, self.allow_folders = allow_files, allow_folders
 
         super(TemplateChoiceField, self).__init__(choices=(), required=required,
             widget=widget, label=label, initial=initial, help_text=help_text,
@@ -641,7 +645,7 @@ class TemplateChoiceField(forms.ChoiceField):
             self.match_re = re.compile(self.match)
             
         choices = set()
-        for templates_root in settings.TEMPLATE_DIRS:
+        for templates_root in settings.TEMPLATES[0]['DIRS']:
             path = os.path.join(templates_root, self.path)
             if recursive:
                 for root, dirs, files in os.walk(path):

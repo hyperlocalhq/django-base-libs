@@ -1,6 +1,5 @@
 # -*- coding: UTF-8 -*-
 from django.contrib.auth.models import User
-from django.utils import translation
 from django.conf import settings
 
 from threading import local
@@ -15,10 +14,13 @@ def set_current_user(user):
     _thread_locals.user = user
 
 def get_current_language():
-    lang = getattr(_thread_locals, 'language', translation.get_language()[:2])
+    # TODO: refactor or eliminate this function
+    from django.utils import translation
+    lang = getattr(_thread_locals, 'language', (translation.get_language() or settings.LANGUAGE_CODE)[:2])
     return lang in dict(settings.LANGUAGES).keys() and lang or settings.LANGUAGE_CODE
 
 def set_current_language(language_code):
+    from django.utils import translation
     translation.activate(language_code)
     ### _thread_locals.language = language_code
 

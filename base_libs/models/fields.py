@@ -88,6 +88,7 @@ class ExtendedTextField(TextField):
         super(ExtendedTextField, self).contribute_to_class(cls, name)
         
         def get_rendered_wrapper(name):
+            import bleach
             _name = name
             def get_rendered(self):
                 field_value = getattr(self, _name)
@@ -99,7 +100,7 @@ class ExtendedTextField(TextField):
                         field_value = escape(field_value)
                         try:
                             # try to urlize if there are no invalid IPv6 URLs
-                            field_value = urlize(field_value)
+                            field_value = bleach.linkify(field_value, parse_email=True)
                         except ValueError:
                             pass
                         field_value = linebreaks(field_value)
@@ -227,6 +228,10 @@ class MultilingualCharField(models.CharField):
             return val
 
         setattr(cls, name, property(translated_value))
+    def deconstruct(self):
+       name, path, args, kwargs = super(MultilingualCharField, self).deconstruct()
+       path = "django.db.models.CharField"
+       return name, path, args, kwargs
 
 
 class MultilingualTextField(models.Field):
@@ -289,6 +294,7 @@ class MultilingualTextField(models.Field):
 
         # overwrite the get_rendered_*
         def get_rendered_wrapper(name):
+            import bleach
             _name = name
 
             def get_rendered(self):
@@ -298,6 +304,11 @@ class MultilingualTextField(models.Field):
             return get_rendered
         cls.add_to_class("get_rendered_%s" % name, get_rendered_wrapper(name))
         cls.add_to_class("rendered_%s" % name, property(get_rendered_wrapper(name)))
+
+    def deconstruct(self):
+       name, path, args, kwargs = super(MultilingualTextField, self).deconstruct()
+       path = "django.db.models.TextField"
+       return name, path, args, kwargs
 
 
 class MultilingualPlainTextField(MultilingualTextField):
@@ -336,9 +347,9 @@ class TemplatePathField(models.FilePathField):
             'path': self.path,
             'match': self.match,
             'recursive': self.recursive,
-            'form_class': TemplateChoiceField,
         }
         defaults.update(kwargs)
+        defaults['form_class'] = TemplateChoiceField
         return super(TemplatePathField, self).formfield(**defaults)
     
 
@@ -435,6 +446,10 @@ class PositionField(models.IntegerField):
 
         # instance inserted; cleanup required on post_save
         setattr(model_instance, cache_name, (current, position))
+
+        if position == -1:  # quick fix for data re-imports
+            position = 0
+
         return position
 
     def __get__(self, instance, owner):
