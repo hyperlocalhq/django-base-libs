@@ -2,14 +2,16 @@
 """
 custom model fields
 """
-import warnings
 import sys
+import warnings
 from datetime import datetime
 
 from django.db.models.fields import TextField, NOT_PROVIDED
-from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
+from django.db import connection, models
+from django.db.models.signals import post_delete, post_save
 from django.utils.encoding import force_unicode
-from django.utils.html import escape, linebreaks, urlize
+from django.utils.html import escape, linebreaks
 from django.utils.safestring import mark_safe
 from django.conf import settings
 from django.db import connection, models
@@ -37,13 +39,13 @@ class ExtendedTextField(TextField):
 
     def has_markup_type(self):
         return True
-    
+
     def formfield(self, **kwargs):
         form_field = super(ExtendedTextField, self).formfield(**kwargs)
         widget_attrs = form_field.widget.attrs
-        if 'class' not in widget_attrs:
-            widget_attrs['class'] = ""
-        widget_attrs['class'] += " hasMarkupType"
+        if "class" not in widget_attrs:
+            widget_attrs["class"] = ""
+        widget_attrs["class"] += " hasMarkupType"
         return form_field
     
     def contribute_to_class(self, cls, name, virtual_only=False):
@@ -83,17 +85,24 @@ class ExtendedTextField(TextField):
                     self.related_markup_type_field.contribute_to_class(
                         cls,
                         "%s_markup_type" % name
+                            help_text=_(
+                                "You can select an appropriate markup type here"
+                            ),
+                        )
+                            cls, "%s_markup_type" % name
                         )
         # create the field itself
         super(ExtendedTextField, self).contribute_to_class(cls, name)
-        
+
         def get_rendered_wrapper(name):
             import bleach
+
             _name = name
+
             def get_rendered(self):
                 field_value = getattr(self, _name)
                 mt = getattr(self, "%s_markup_type" % name)
-                
+
                 if mt == markup_settings.MARKUP_PLAIN_TEXT:
                     field_value = field_value.strip()
                     if field_value:
@@ -113,17 +122,21 @@ class ExtendedTextField(TextField):
                         import markdown
                     except ImportError:
                         if settings.DEBUG:
-                            raise Warning("Error in {% markdown %} filter: The Python markdown library isn't installed.")
+                            raise Warning(
+                                "Error in {% markdown %} filter: The Python markdown library isn't installed."
+                            )
                         return field_value
                     else:
                         field_value = markdown.markdown(field_value)
 
                 # remove empty paragraphs
-                field_value = field_value.replace('<p></p>', '')
+                field_value = field_value.replace("<p></p>", "")
 
                 return mark_safe(field_value)
+
             get_rendered.needs_autoescape = False
             return get_rendered
+
         cls.add_to_class("get_rendered_%s" % name, get_rendered_wrapper(name))
         cls.add_to_class("rendered_%s" % name, property(get_rendered_wrapper(name)))
 
@@ -133,31 +146,36 @@ class PlainTextModelField(TextField):
     description = _("Model field for Textarea which won't be converted to RTE")
 
     def formfield(self, **kwargs):
-        defaults = {'form_class': PlainTextFormField}
+        defaults = {"form_class": PlainTextFormField}
         defaults.update(kwargs)
         return super(PlainTextModelField, self).formfield(**defaults)
-        
+
     def get_internal_type(self):
         return "TextField"
+
 
 _language_field_name = lambda name, lang_code: "%s_%s" % (name, lang_code)
 
 
-class MultilingualProxy(object): 
-    def __init__(self, field): 
-        self._field = field 
+class MultilingualProxy(object):
+    def __init__(self, field):
+        self._field = field
 
     def __get__(self, obj, type=None):
         if obj is None:
-            raise AttributeError('MultilingualProxy.__get__ can only be accessed via an instance.')
+            raise AttributeError(
+                "MultilingualProxy.__get__ can only be accessed via an instance."
+            )
         language = get_current_language() or settings.LANGUAGE_CODE
         val = obj.__dict__[_language_field_name(self._field.attname, language)]
         if not val:
-            val = obj.__dict__[_language_field_name(self._field.attname, settings.LANGUAGE_CODE)]
+            val = obj.__dict__[
+                _language_field_name(self._field.attname, settings.LANGUAGE_CODE)
+            ]
             if not val and not self._field.blank:
                 # No value set for mandatory field for the current language! Has the default language been changed recently?
                 return ""
-        return val 
+        return val
 
     def __set__(self, obj, value):
         """
@@ -169,7 +187,9 @@ class MultilingualProxy(object):
         # setting multilingual values via dict!!!
         if isinstance(value, dict):
             for key in value.keys():
-                obj.__dict__[_language_field_name(self._field.attname, key)] = value[key]
+                obj.__dict__[_language_field_name(self._field.attname, key)] = value[
+                    key
+                ]
         # normal setter
         else:
             language = get_current_language() or settings.LANGUAGE_CODE
@@ -177,6 +197,8 @@ class MultilingualProxy(object):
 
 
 class MultilingualCharField(models.CharField):
+
+    description = _("Multilingual string (up to %(max_length)s)")
 
     def __init__(self, verbose_name=None, **kwargs):
 
@@ -229,9 +251,9 @@ class MultilingualCharField(models.CharField):
 
         setattr(cls, name, property(translated_value))
     def deconstruct(self):
-       name, path, args, kwargs = super(MultilingualCharField, self).deconstruct()
-       path = "django.db.models.CharField"
-       return name, path, args, kwargs
+        name, path, args, kwargs = super(MultilingualCharField, self).deconstruct()
+        path = "django.db.models.CharField"
+        return name, path, args, kwargs
 
 
 class MultilingualTextField(models.Field):
@@ -239,7 +261,7 @@ class MultilingualTextField(models.Field):
     description = _("Multilingual Text")
 
     _field_class = ExtendedTextField
-    
+
     def __init__(self, verbose_name=None, **kwargs):
 
         self._blank = kwargs.get("blank", False)
@@ -295,6 +317,7 @@ class MultilingualTextField(models.Field):
         # overwrite the get_rendered_*
         def get_rendered_wrapper(name):
             import bleach
+
             _name = name
 
             def get_rendered(self):
@@ -302,13 +325,14 @@ class MultilingualTextField(models.Field):
                 return getattr(self, 'get_rendered_%s_%s' % (_name, lang_code))()
             get_rendered.needs_autoescape = False
             return get_rendered
+
         cls.add_to_class("get_rendered_%s" % name, get_rendered_wrapper(name))
         cls.add_to_class("rendered_%s" % name, property(get_rendered_wrapper(name)))
 
     def deconstruct(self):
-       name, path, args, kwargs = super(MultilingualTextField, self).deconstruct()
-       path = "django.db.models.TextField"
-       return name, path, args, kwargs
+        name, path, args, kwargs = super(MultilingualTextField, self).deconstruct()
+        path = "django.db.models.TextField"
+        return name, path, args, kwargs
 
 
 class MultilingualPlainTextField(MultilingualTextField):
@@ -322,11 +346,12 @@ class URLField(models.URLField):
     """
     Model field for URLs
     """
+
     def formfield(self, **kwargs):
         defaults = {
-            'form_class': URLFormField,
+            "form_class": URLFormField,
             #'verify_exists': self.verify_exists,
-            }
+        }
         defaults.update(kwargs)
         return super(URLField, self).formfield(**defaults)
 
@@ -334,9 +359,9 @@ class URLField(models.URLField):
 class MultilingualURLField(MultilingualCharField):
     def formfield(self, **kwargs):
         defaults = {
-            'form_class': URLFormField,
+            "form_class": URLFormField,
             #'verify_exists': self.verify_exists,
-            }
+        }
         defaults.update(kwargs)
         return super(MultilingualURLField, self).formfield(**defaults)
 
@@ -344,39 +369,66 @@ class MultilingualURLField(MultilingualCharField):
 class TemplatePathField(models.FilePathField):
     def formfield(self, **kwargs):
         defaults = {
-            'path': self.path,
-            'match': self.match,
-            'recursive': self.recursive,
+            "path": self.path,
+            "match": self.match,
+            "recursive": self.recursive,
         }
         defaults.update(kwargs)
-        defaults['form_class'] = TemplateChoiceField
+        defaults["form_class"] = TemplateChoiceField
         return super(TemplatePathField, self).formfield(**defaults)
-    
+
 
 class PositionField(models.IntegerField):
     """
     A slightly modified version of PositionField from http://github.com/jpwatts/django-positions
     """
-    def __init__(self, verbose_name=None, name=None, default=None, collection=None, unique_for_field=None, unique_for_fields=None, *args, **kwargs):
-        if 'unique' in kwargs:
-            raise TypeError("%s can't have a unique constraint." % self.__class__.__name__)
-        super(PositionField, self).__init__(verbose_name, name, default=default, *args, **kwargs)
+
+    def __init__(
+        self,
+        verbose_name=None,
+        name=None,
+        default=None,
+        collection=None,
+        unique_for_field=None,
+        unique_for_fields=None,
+        *args,
+        **kwargs
+    ):
+        if "unique" in kwargs:
+            raise TypeError(
+                "%s can't have a unique constraint." % self.__class__.__name__
+            )
+        super(PositionField, self).__init__(
+            verbose_name, name, default=default, *args, **kwargs
+        )
 
         # Backwards-compatibility mess begins here.
         if collection is not None and unique_for_field is not None:
-            raise TypeError("'collection' and 'unique_for_field' are incompatible arguments.")
+            raise TypeError(
+                "'collection' and 'unique_for_field' are incompatible arguments."
+            )
 
         if collection is not None and unique_for_fields is not None:
-            raise TypeError("'collection' and 'unique_for_fields' are incompatible arguments.")
+            raise TypeError(
+                "'collection' and 'unique_for_fields' are incompatible arguments."
+            )
 
         if unique_for_field is not None:
-            warnings.warn("The 'unique_for_field' argument is deprecated. Please use 'collection' instead.", DeprecationWarning)
+            warnings.warn(
+                "The 'unique_for_field' argument is deprecated. Please use 'collection' instead.",
+                DeprecationWarning,
+            )
             if unique_for_fields is not None:
-                raise TypeError("'unique_for_field' and 'unique_for_fields' are incompatible arguments.")
+                raise TypeError(
+                    "'unique_for_field' and 'unique_for_fields' are incompatible arguments."
+                )
             collection = unique_for_field
 
         if unique_for_fields is not None:
-            warnings.warn("The 'unique_for_fields' argument is deprecated. Please use 'collection' instead.", DeprecationWarning)
+            warnings.warn(
+                "The 'unique_for_fields' argument is deprecated. Please use 'collection' instead.",
+                DeprecationWarning,
+            )
             collection = unique_for_fields
         # Backwards-compatibility mess ends here.
 
@@ -388,10 +440,12 @@ class PositionField(models.IntegerField):
         super(PositionField, self).contribute_to_class(cls, name)
         for constraint in cls._meta.unique_together:
             if self.name in constraint:
-                raise TypeError("%s can't be part of a unique constraint." % self.__class__.__name__)
+                raise TypeError(
+                    "%s can't be part of a unique constraint." % self.__class__.__name__
+                )
         self.auto_now_fields = []
         for field in cls._meta.fields:
-            if getattr(field, 'auto_now', False):
+            if getattr(field, "auto_now", False):
                 self.auto_now_fields.append(field)
         setattr(cls, self.name, self)
         post_delete.connect(self.update_on_delete, sender=cls)
@@ -399,12 +453,12 @@ class PositionField(models.IntegerField):
 
     def get_internal_type(self):
         # pre_save always returns a value >= 0
-        return 'PositiveIntegerField'
+        return "PositiveIntegerField"
 
     def pre_save(self, model_instance, add):
         cache_name = self.get_cache_name()
         current, updated = getattr(model_instance, cache_name)
-        
+
         if add:
             current, updated = None, current
 
@@ -482,7 +536,7 @@ class PositionField(models.IntegerField):
                 field = instance._meta.get_field(field_name)
                 field_value = getattr(instance, field.attname)
                 if field.null and field_value is None:
-                    filters['%s__isnull' % field.name] = True
+                    filters["%s__isnull" % field.name] = True
                 else:
                     filters[field.name] = field_value
         return type(instance)._default_manager.filter(**filters)
@@ -495,7 +549,7 @@ class PositionField(models.IntegerField):
             now = tz_now()
             for field in self.auto_now_fields:
                 updates[field.name] = now
-        queryset.filter(**{'%s__gt' % self.name: current}).update(**updates)
+        queryset.filter(**{"%s__gt" % self.name: current}).update(**updates)
 
     def update_on_save(self, sender, instance, created, **kwargs):
         current, updated = getattr(instance, self.get_cache_name())
@@ -513,17 +567,20 @@ class PositionField(models.IntegerField):
 
         if created:
             # increment positions gte updated
-            queryset = queryset.filter(**{'%s__gte' % self.name: updated})
+            queryset = queryset.filter(**{"%s__gte" % self.name: updated})
             updates[self.name] = models.F(self.name) + 1
         elif updated > current:
             # decrement positions gt current and lte updated
-            queryset = queryset.filter(**{'%s__gt' % self.name: current, '%s__lte' % self.name: updated})
+            queryset = queryset.filter(
+                **{"%s__gt" % self.name: current, "%s__lte" % self.name: updated}
+            )
             updates[self.name] = models.F(self.name) - 1
         else:
             # increment positions lt current and gte updated
-            queryset = queryset.filter(**{'%s__lt' % self.name: current, '%s__gte' % self.name: updated})
+            queryset = queryset.filter(
+                **{"%s__lt" % self.name: current, "%s__gte" % self.name: updated}
+            )
             updates[self.name] = models.F(self.name) + 1
 
         queryset.update(**updates)
         setattr(instance, self.get_cache_name(), (updated, None))
-

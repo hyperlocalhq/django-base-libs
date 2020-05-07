@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 overriding admin views for tree items
 """
@@ -23,11 +24,12 @@ def get_empty_value_display(cl):
 
 register = Library()
 
+
 def tree_items_for_result(cl, result):
     first = True
     pk = cl.lookup_opts.pk.attname
     for field_name in cl.list_display:
-        row_class = ''
+        row_class = ""
         try:
             f = cl.lookup_opts.get_field(field_name)
         except models.FieldDoesNotExist:
@@ -37,8 +39,11 @@ def tree_items_for_result(cl, result):
                 if callable(field_name):
                     attr = field_name
                     value = attr(result)
-                elif hasattr(cl.model_admin, field_name) and \
-                   not field_name == '__str__' and not field_name == '__unicode__':
+                elif (
+                    hasattr(cl.model_admin, field_name)
+                    and not field_name == "__str__"
+                    and not field_name == "__unicode__"
+                ):
                     attr = getattr(cl.model_admin, field_name)
                     value = attr(result)
                 else:
@@ -47,8 +52,8 @@ def tree_items_for_result(cl, result):
                         value = attr()
                     else:
                         value = attr
-                allow_tags = getattr(attr, 'allow_tags', False)
-                boolean = getattr(attr, 'boolean', False)
+                allow_tags = getattr(attr, "allow_tags", False)
+                boolean = getattr(attr, "boolean", False)
                 if boolean:
                     allow_tags = True
                     result_repr = _boolean_icon(value)
@@ -78,21 +83,29 @@ def tree_items_for_result(cl, result):
                     datetime_format = get_format("DATETIME_FORMAT")
                     time_format = get_format("TIME_FORMAT")
                     if isinstance(f, models.DateTimeField):
-                        result_repr = capfirst(dateformat.format(field_val, datetime_format))
+                        result_repr = capfirst(
+                            dateformat.format(field_val, datetime_format)
+                        )
                     elif isinstance(f, models.TimeField):
-                        result_repr = capfirst(dateformat.time_format(field_val, time_format))
+                        result_repr = capfirst(
+                            dateformat.time_format(field_val, time_format)
+                        )
                     else:
-                        result_repr = capfirst(dateformat.format(field_val, date_format))
+                        result_repr = capfirst(
+                            dateformat.format(field_val, date_format)
+                        )
                 else:
                     result_repr = get_empty_value_display(cl)
                 row_class = ' class="nowrap"'
             # Booleans are special: We use images.
-            elif isinstance(f, models.BooleanField) or isinstance(f, models.NullBooleanField):
+            elif isinstance(f, models.BooleanField) or isinstance(
+                f, models.NullBooleanField
+            ):
                 result_repr = _boolean_icon(field_val)
             # DecimalFields are special: Zero-pad the decimals.
             elif isinstance(f, models.DecimalField):
                 if field_val is not None:
-                    result_repr = ('%%.%sf' % f.decimal_places) % field_val
+                    result_repr = ("%%.%sf" % f.decimal_places) % field_val
                 else:
                     result_repr = get_empty_value_display(cl)
             # Fields with choices are special: Use the representation
@@ -101,11 +114,11 @@ def tree_items_for_result(cl, result):
                 result_repr = dict(f.choices).get(field_val, get_empty_value_display(cl))
             else:
                 result_repr = escape(field_val)
-        if force_unicode(result_repr) == '':
-            result_repr = mark_safe('&nbsp;')
+        if force_unicode(result_repr) == "":
+            result_repr = mark_safe("&nbsp;")
         # If list_display_links not defined, add the link tag to the first field
         if (first and not cl.list_display_links) or field_name in cl.list_display_links:
-            table_tag = {True:'th', False:'td'}[first]
+            table_tag = {True: "th", False: "td"}[first]
             first = False
             url = cl.url_for_result(result)
             # Convert the pk to something that can be used in Javascript.
@@ -116,26 +129,57 @@ def tree_items_for_result(cl, result):
                 attr = pk
             result_id = repr(force_unicode(getattr(result, attr)))[1:]
             if cl.filtered_out.has_key(result.pk):
-                yield mark_safe(u'<%s%s><span class="filtered_out">%s</span></%s>' % \
-                    (table_tag, row_class, conditional_escape(result_repr), table_tag))
+                yield mark_safe(
+                    u'<%s%s><span class="filtered_out">%s</span></%s>'
+                    % (table_tag, row_class, conditional_escape(result_repr), table_tag)
+                )
             else:
-                yield mark_safe(u'<%s%s><a href="%s"%s>%s</a></%s>' % \
-                    (table_tag, row_class, url, (cl.is_popup and ' onclick="opener.dismissRelatedLookupPopup(window, %s); return false;"' % result_id or ''), conditional_escape(result_repr), table_tag))
+                yield mark_safe(
+                    u'<%s%s><a href="%s"%s>%s</a></%s>'
+                    % (
+                        table_tag,
+                        row_class,
+                        url,
+                        (
+                            cl.is_popup
+                            and ' onclick="opener.dismissRelatedLookupPopup(window, %s); return false;"'
+                            % result_id
+                            or ""
+                        ),
+                        conditional_escape(result_repr),
+                        table_tag,
+                    )
+                )
         else:
-            yield mark_safe(u'<td%s>%s</td>' % (row_class, conditional_escape(result_repr)))
+            yield mark_safe(
+                u"<td%s>%s</td>" % (row_class, conditional_escape(result_repr))
+            )
+
 
 def tree_results(cl):
     for res in cl.result_list:
-        yield [res] + list(tree_items_for_result(cl,res))
+        yield [res] + list(tree_items_for_result(cl, res))
+
 
 def tree_result_list(cl):
-    return {'cl': cl,
-            'result_headers': list(result_headers(cl)),
-            'results': list(tree_results(cl))}
-tree_result_list = register.inclusion_tag("admin/tree_change_list_results.html")(tree_result_list)
+    return {
+        "cl": cl,
+        "result_headers": list(result_headers(cl)),
+        "results": list(tree_results(cl)),
+    }
+
+
+tree_result_list = register.inclusion_tag("admin/tree_change_list_results.html")(
+    tree_result_list
+)
+
 
 def tree_admin_list_filter(cl, spec):
-    #we use the unique contenttype to make ids for html-elements unique for the tree filter
+    # we use the unique contenttype to make ids for html-elements unique for the tree filter
     ct = ContentType.objects.get_for_model(spec.field.rel.to)
-    return {'ct': ct, 'title': spec.title(), 'choices' : list(spec.choices(cl))}
-tree_admin_list_filter = register.inclusion_tag('admin/tree_filter.html')(tree_admin_list_filter)
+    return {"ct": ct, "title": spec.title(), "choices": list(spec.choices(cl))}
+
+
+tree_admin_list_filter = register.inclusion_tag("admin/tree_filter.html")(
+    tree_admin_list_filter
+)

@@ -8,6 +8,7 @@ class HierarchyChangeList(ChangeList):
     extends the django.contrib.admin.views.main.ChangeList class
     for hierarchical structures. The filter method is overwritten
     """
+
     # overwritten
     def get_queryset(self, request):
         qs = super(HierarchyChangeList, self).get_queryset(request)

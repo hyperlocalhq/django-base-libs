@@ -1,13 +1,16 @@
 # -*- coding: UTF-8 -*-
 import hashlib
+import json
 import re
 import sys
-import json
 from datetime import datetime, time
-from time import strptime
 from decimal import Decimal
+from time import strptime
 
-from django.contrib.sites.models import Site
+from django.conf import settings
+from django.db import models
+from django.db.models.loading import get_app
+from django.http import Http404
 from django.utils.encoding import smart_str, force_unicode
 from django.utils.translation import ugettext, get_language, activate
 from django.apps import apps
@@ -29,8 +32,10 @@ def get_or_404(model, **fields):
         for (key, value) in fields.items():
             msg += "%s '%s', " % (key, value)
         msg = msg.strip(", ")
-        raise Http404, "%s with %s cannot be found" % \
-                       (force_unicode(model._meta.verbose_name), msg)
+        raise Http404, "%s with %s cannot be found" % (
+            force_unicode(model._meta.verbose_name),
+            msg,
+        )
 
 
 def get_website_url(path=""):
@@ -38,12 +43,25 @@ def get_website_url(path=""):
 
 
 def verify_objref_hash(content_type_id, object_id, hash):
-    hash_match = hashlib.sha1("%s/%s" % (content_type_id, object_id) + settings.SECRET_KEY).hexdigest()
+    hash_match = hashlib.sha1(
+        "%s/%s" % (content_type_id, object_id) + settings.SECRET_KEY
+    ).hexdigest()
     return hash == hash_match
 
 
-def get_unique_value(model, proposal, field_name="slug", instance_pk=None, separator="-", number_first=False,
-                     numbering_from=1, min_width=0, postfix="", postfix_regex="", ignore_case=False):
+def get_unique_value(
+    model,
+    proposal,
+    field_name="slug",
+    instance_pk=None,
+    separator="-",
+    number_first=False,
+    numbering_from=1,
+    min_width=0,
+    postfix="",
+    postfix_regex="",
+    ignore_case=False,
+):
     """ Returns unique string by the proposed one.
     Format: <proposal>[<separator><number>[<postfix>]]
     By default, for proposal 'example' returns strings from the sequence:
@@ -80,7 +98,11 @@ def get_unique_value(model, proposal, field_name="slug", instance_pk=None, separ
     else:
         similar_ones = [elem[field_name] for elem in similar_ones]
 
-    first_result = number_first and "%s%s%0*d%s" % (proposal, separator, min_width, numbering_from, postfix) or proposal
+    first_result = (
+        number_first
+        and "%s%s%0*d%s" % (proposal, separator, min_width, numbering_from, postfix)
+        or proposal
+    )
     if ignore_case:
         first_result = first_result.lower()
 
@@ -89,7 +111,9 @@ def get_unique_value(model, proposal, field_name="slug", instance_pk=None, separ
     else:
         numbers = []
         for value in similar_ones:
-            match = re.match(r'^%s%s(\d+)%s$' % (proposal, separator_regex, postfix_regex), value)
+            match = re.match(
+                r"^%s%s(\d+)%s$" % (proposal, separator_regex, postfix_regex), value
+            )
             if match:
                 numbers.append(int(match.group(1)))
         number = 1 + (len(numbers) and sorted(numbers)[-1] or numbering_from)
@@ -113,57 +137,163 @@ def html_to_plain_text(html):
     def link_replacement(match):
         link_text = match.group(3)
         link_url = match.group(2)
-        if link_url.startswith('mailto:'):
-            link_url = link_url.replace('mailto:', '', 1)
+        if link_url.startswith("mailto:"):
+            link_url = link_url.replace("mailto:", "", 1)
         if link_text == link_url:
             return link_text
-        return '{link_text} ({link_url})'.format(link_text=link_text, link_url=link_url)
+        return "{link_text} ({link_url})".format(link_text=link_text, link_url=link_url)
 
-    coded_entity_pattern = re.compile(r'&#[^;];')
-    whitespace_pattern = re.compile(r'\s+')
-    line_break_pattern = re.compile(r'<br[^>]+>\s*', re.I)
-    new_line_pattern = re.compile(r'</(?:p|h1|h2|h3|h4|h5|h6|ul|ol|li|dl)>\s*', re.I)
+    coded_entity_pattern = re.compile(r"&#[^;];")
+    whitespace_pattern = re.compile(r"\s+")
+    line_break_pattern = re.compile(r"<br[^>]+>\s*", re.I)
+    new_line_pattern = re.compile(r"</(?:p|h1|h2|h3|h4|h5|h6|ul|ol|li|dl)>\s*", re.I)
     link_pattern = re.compile(
-        r'<a [^>]*?href=(["\'])([^\1]+?)\1[^>]*?>(.+?)</a>',
-        re.I,
+        r'<a [^>]*?href=(["\'])([^\1]+?)\1[^>]*?>(.+?)</a>', re.I,
     )
-    removables_pattern = re.compile(
-        r'<(style|script) ?[^>]*>(.+?)</\1>',
-        re.I,
-    )
-    html_tag_pattern = re.compile(r'<[^>]+>')
-    html_entity_pattern = re.compile(r'&[^;]+;')
-    html_entities = {"&quot;": '"', "&apos;": "'", "&amp;": "&", "&lt;": "<", "&gt;": ">", "&nbsp;": " ",
-                     "&iexcl;": "¡", "&curren;": "¤", "&cent;": "¢", "&pound;": "£", "&yen;": "¥", "&brvbar;": "¦",
-                     "&sect;": "§", "&uml;": "¨", "&copy;": "©", "&ordf;": "ª", "&laquo;": "«", "&not;": "¬",
-                     "&shy;": "­", "&reg;": "®", "&trade;": "™", "&macr;": "¯", "&deg;": "°", "&plusmn;": "±",
-                     "&sup2;": "²", "&sup3;": "³", "&acute;": "´", "&micro;": "µ", "&para;": "¶", "&middot;": "·",
-                     "&cedil;": "¸", "&sup1;": "¹", "&ordm;": "º", "&raquo;": "»", "&frac14;": "¼", "&frac12;": "½",
-                     "&frac34;": "¾", "&iquest;": "¿", "&times;": "×", "&divide;": "÷", "&Agrave;": "À",
-                     "&Aacute;": "Á", "&Acirc;": "Â", "&Atilde;": "Ã", "&Auml;": "Ä", "&Aring;": "Å", "&AElig;": "Æ",
-                     "&Ccedil;": "Ç", "&Egrave;": "È", "&Eacute;": "É", "&Ecirc;": "Ê", "&Euml;": "Ë", "&Igrave;": "Ì",
-                     "&Iacute;": "Í", "&Icirc;": "Î", "&Iuml;": "Ï", "&ETH;": "Ð", "&Ntilde;": "Ñ", "&Ograve;": "Ò",
-                     "&Oacute;": "Ó", "&Ocirc;": "Ô", "&Otilde;": "Õ", "&Ouml;": "Ö", "&Oslash;": "Ø", "&Ugrave;": "Ù",
-                     "&Uacute;": "Ú", "&Ucirc;": "Û", "&Uuml;": "Ü", "&Yacute;": "Ý", "&THORN;": "Þ", "&szlig;": "ß",
-                     "&agrave;": "à", "&aacute;": "á", "&acirc;": "â", "&atilde;": "ã", "&auml;": "ä", "&aring;": "å",
-                     "&aelig;": "æ", "&ccedil;": "ç", "&egrave;": "è", "&eacute;": "é", "&ecirc;": "ê", "&euml;": "ë",
-                     "&igrave;": "ì", "&iacute;": "í", "&icirc;": "î", "&iuml;": "ï", "&eth;": "ð", "&ntilde;": "ñ",
-                     "&ograve;": "ò", "&oacute;": "ó", "&ocirc;": "ô", "&otilde;": "õ", "&ouml;": "ö", "&oslash;": "ø",
-                     "&ugrave;": "ù", "&uacute;": "ú", "&ucirc;": "û", "&uuml;": "ü", "&yacute;": "ý", "&thorn;": "þ",
-                     "&yuml;": "ÿ", "&OElig;": "Œ", "&oelig;": "œ", "&Scaron;": "Š", "&scaron;": "š", "&Yuml;": "Ÿ",
-                     "&circ;": "ˆ", "&tilde;": "˜", "&ensp;": " ", "&emsp;": " ", "&thinsp;": " ", "&zwnj;": " ",
-                     "&zwj;": " ", "&lrm;": " ", "&rlm;": " ", "&ndash;": "–", "&mdash;": "—", "&lsquo;": "‘",
-                     "&rsquo;": "’", "&sbquo;": "‚", "&ldquo;": "“", "&rdquo;": "”", "&bdquo;": "„", "&dagger;": "†",
-                     "&Dagger;": "‡", "&hellip;": "…", "&permil;": "‰", "&lsaquo;": "‹", "&rsaquo;": "›",
-                     "&euro;": "€", }
-    text = re.sub(removables_pattern, '', text)
-    text = re.sub(whitespace_pattern, ' ', text)
-    text = re.sub(line_break_pattern, '\n', text)
-    text = re.sub(new_line_pattern, '\n\n', text)
+    removables_pattern = re.compile(r"<(style|script) ?[^>]*>(.+?)</\1>", re.I,)
+    html_tag_pattern = re.compile(r"<[^>]+>")
+    html_entity_pattern = re.compile(r"&[^;]+;")
+    html_entities = {
+        "&quot;": '"',
+        "&apos;": "'",
+        "&amp;": "&",
+        "&lt;": "<",
+        "&gt;": ">",
+        "&nbsp;": " ",
+        "&iexcl;": "¡",
+        "&curren;": "¤",
+        "&cent;": "¢",
+        "&pound;": "£",
+        "&yen;": "¥",
+        "&brvbar;": "¦",
+        "&sect;": "§",
+        "&uml;": "¨",
+        "&copy;": "©",
+        "&ordf;": "ª",
+        "&laquo;": "«",
+        "&not;": "¬",
+        "&shy;": "­",
+        "&reg;": "®",
+        "&trade;": "™",
+        "&macr;": "¯",
+        "&deg;": "°",
+        "&plusmn;": "±",
+        "&sup2;": "²",
+        "&sup3;": "³",
+        "&acute;": "´",
+        "&micro;": "µ",
+        "&para;": "¶",
+        "&middot;": "·",
+        "&cedil;": "¸",
+        "&sup1;": "¹",
+        "&ordm;": "º",
+        "&raquo;": "»",
+        "&frac14;": "¼",
+        "&frac12;": "½",
+        "&frac34;": "¾",
+        "&iquest;": "¿",
+        "&times;": "×",
+        "&divide;": "÷",
+        "&Agrave;": "À",
+        "&Aacute;": "Á",
+        "&Acirc;": "Â",
+        "&Atilde;": "Ã",
+        "&Auml;": "Ä",
+        "&Aring;": "Å",
+        "&AElig;": "Æ",
+        "&Ccedil;": "Ç",
+        "&Egrave;": "È",
+        "&Eacute;": "É",
+        "&Ecirc;": "Ê",
+        "&Euml;": "Ë",
+        "&Igrave;": "Ì",
+        "&Iacute;": "Í",
+        "&Icirc;": "Î",
+        "&Iuml;": "Ï",
+        "&ETH;": "Ð",
+        "&Ntilde;": "Ñ",
+        "&Ograve;": "Ò",
+        "&Oacute;": "Ó",
+        "&Ocirc;": "Ô",
+        "&Otilde;": "Õ",
+        "&Ouml;": "Ö",
+        "&Oslash;": "Ø",
+        "&Ugrave;": "Ù",
+        "&Uacute;": "Ú",
+        "&Ucirc;": "Û",
+        "&Uuml;": "Ü",
+        "&Yacute;": "Ý",
+        "&THORN;": "Þ",
+        "&szlig;": "ß",
+        "&agrave;": "à",
+        "&aacute;": "á",
+        "&acirc;": "â",
+        "&atilde;": "ã",
+        "&auml;": "ä",
+        "&aring;": "å",
+        "&aelig;": "æ",
+        "&ccedil;": "ç",
+        "&egrave;": "è",
+        "&eacute;": "é",
+        "&ecirc;": "ê",
+        "&euml;": "ë",
+        "&igrave;": "ì",
+        "&iacute;": "í",
+        "&icirc;": "î",
+        "&iuml;": "ï",
+        "&eth;": "ð",
+        "&ntilde;": "ñ",
+        "&ograve;": "ò",
+        "&oacute;": "ó",
+        "&ocirc;": "ô",
+        "&otilde;": "õ",
+        "&ouml;": "ö",
+        "&oslash;": "ø",
+        "&ugrave;": "ù",
+        "&uacute;": "ú",
+        "&ucirc;": "û",
+        "&uuml;": "ü",
+        "&yacute;": "ý",
+        "&thorn;": "þ",
+        "&yuml;": "ÿ",
+        "&OElig;": "Œ",
+        "&oelig;": "œ",
+        "&Scaron;": "Š",
+        "&scaron;": "š",
+        "&Yuml;": "Ÿ",
+        "&circ;": "ˆ",
+        "&tilde;": "˜",
+        "&ensp;": " ",
+        "&emsp;": " ",
+        "&thinsp;": " ",
+        "&zwnj;": " ",
+        "&zwj;": " ",
+        "&lrm;": " ",
+        "&rlm;": " ",
+        "&ndash;": "–",
+        "&mdash;": "—",
+        "&lsquo;": "‘",
+        "&rsquo;": "’",
+        "&sbquo;": "‚",
+        "&ldquo;": "“",
+        "&rdquo;": "”",
+        "&bdquo;": "„",
+        "&dagger;": "†",
+        "&Dagger;": "‡",
+        "&hellip;": "…",
+        "&permil;": "‰",
+        "&lsaquo;": "‹",
+        "&rsaquo;": "›",
+        "&euro;": "€",
+    }
+    text = re.sub(removables_pattern, "", text)
+    text = re.sub(whitespace_pattern, " ", text)
+    text = re.sub(line_break_pattern, "\n", text)
+    text = re.sub(new_line_pattern, "\n\n", text)
     # <a href="URL">NAME</a> -> NAME (URL)
     text = re.sub(link_pattern, link_replacement, text)
     # remove the rest html tags
-    text = re.sub(html_tag_pattern, '', text)
+    text = re.sub(html_tag_pattern, "", text)
 
     # &<word-based>; -> <special symbol>
     for k, v in html_entities.items():
@@ -171,7 +301,7 @@ def html_to_plain_text(html):
     # &#<unicode-number-based>; -> <special symbol>
     text = re.sub(coded_entity_pattern, to_utf8, text)
     # remove the rest html entities
-    text = re.sub(html_entity_pattern, '', text)
+    text = re.sub(html_entity_pattern, "", text)
     text = force_unicode(text)
     return text
 
@@ -191,6 +321,7 @@ def strip_html(text):
                 pass
         elif text[:1] == "&":
             import htmlentitydefs
+
             entity = htmlentitydefs.entitydefs.get(text[1:-1])
             if entity:
                 if entity[:2] == "&#":
@@ -250,7 +381,10 @@ class XChoiceList(list):
     def _get_list(self):
         if hasattr(self.sequence, "model"):
             result = [("", self.null_choice_text)] + [
-                (el.id, hasattr(el, "get_title") and el.get_title() or force_unicode(el))
+                (
+                    el.id,
+                    hasattr(el, "get_title") and el.get_title() or force_unicode(el),
+                )
                 for el in self.sequence
             ]
         elif callable(self.sequence):
@@ -276,20 +410,20 @@ class ExtendedJSONEncoder(json.JSONEncoder):
             return o.__dict__
         if isinstance(o, datetime):
             return {
-                'year': o.year,
-                'month': o.month,
-                'day': o.day,
-                'hour': o.hour,
-                'minute': o.minute,
-                'second': o.second,
-                'microsecond': o.microsecond,
+                "year": o.year,
+                "month": o.month,
+                "day": o.day,
+                "hour": o.hour,
+                "minute": o.minute,
+                "second": o.second,
+                "microsecond": o.microsecond,
             }
         if isinstance(o, time):
             return {
-                'hour': o.hour,
-                'minute': o.minute,
-                'second': o.second,
-                'microsecond': o.microsecond,
+                "hour": o.hour,
+                "minute": o.minute,
+                "second": o.second,
+                "microsecond": o.microsecond,
             }
         if isinstance(o, Decimal):
             return str(o)
@@ -320,7 +454,7 @@ def get_installed(path):
     ret_var = path_bits.pop()
     app_path_bits = apps.get_app_config(app_name).name.split(".")[:-1]
     module_path = ".".join(app_path_bits + path_bits)
-    m = __import__(module_path, globals(), locals(), '*')
+    m = __import__(module_path, globals(), locals(), "*")
     return getattr(m, ret_var)
 
 
@@ -360,7 +494,8 @@ def is_installed(path):
 
 def db_table_exists(model):
     """ Checks if database table for a model exists """
-    from django.db import connection, transaction
+    from django.db import connection
+
     cursor = connection.cursor()
     try:
         cursor.execute("SELECT 1 FROM %s LIMIT 1" % model._meta.db_table)
@@ -384,9 +519,9 @@ def truncwords(value, nof_words):
 
     # break into words, retaining linefeeds
     words = []
-    for line in value.split('\n'):
-        words.extend(line.split(' '))
-        words.append('\n')
+    for line in value.split("\n"):
+        words.extend(line.split(" "))
+        words.append("\n")
         length += 1
         if len(words) > length:
             break
@@ -397,9 +532,9 @@ def truncwords(value, nof_words):
 
     if len(words) > length:
         words = words[:length]
-        if not words[-1].endswith('...'):
-            words.append('...')
-    return ' '.join(words).replace(' \n ', '\n')
+        if not words[-1].endswith("..."):
+            words.append("...")
+    return " ".join(words).replace(" \n ", "\n")
 
 
 RFC2822_DATE_FORMAT = "RFC822"
@@ -413,6 +548,7 @@ def string_to_datetime(date_string, format):
     """
     if format == RFC2822_DATE_FORMAT:
         import rfc822
+
         d = datetime(*rfc822.parsedate(date_string)[:7])
     else:
         if sys.version_info[1] == 5:
@@ -423,13 +559,13 @@ def string_to_datetime(date_string, format):
     return d
 
 
-def smart_truncate(text, length=100, suffix='...'):
+def smart_truncate(text, length=100, suffix="..."):
     """
     Truncates `text`, on a word boundary, as close to
     the target length it can come.    
     """
     slen = len(suffix)
-    pattern = r'^(.{0,%d}\S)\s+\S+' % (length - slen - 1)
+    pattern = r"^(.{0,%d}\S)\s+\S+" % (length - slen - 1)
     if len(text) > length:
         match = re.match(pattern, text)
         if match:
@@ -445,14 +581,10 @@ def smart_truncate(text, length=100, suffix='...'):
 def get_unused_languages(exclude=("id",)):
     """ get a list of language codes which are unused (except Indonesian)"""
     from django.conf import global_settings
-    installed_languages = [
-        lang[0]
-        for lang in settings.LANGUAGES
-    ]
+
+    installed_languages = [lang[0] for lang in settings.LANGUAGES]
     available_languages = [
-        lang[0]
-        for lang in global_settings.LANGUAGES
-        if len(lang[0]) == 2
+        lang[0] for lang in global_settings.LANGUAGES if len(lang[0]) == 2
     ]
     unused_languages = [
         lang

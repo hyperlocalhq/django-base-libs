@@ -7,23 +7,25 @@ from django.db import models
 from django.apps import apps
 from django import template
 from django.conf import settings
-from django.template import loader, RequestContext, Template
 from django.contrib.contenttypes.models import ContentType
+from django.db import models
 from django.template import defaultfilters
-from django.utils.encoding import force_unicode
+from django.template import loader, Template
+from django.template.defaultfilters import stringfilter
 from django.template.loader import select_template
+from django.utils.encoding import force_unicode
 from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 from django.utils.text import normalize_newlines
-from django.template.defaultfilters import stringfilter
-from base_libs.django_compatibility import force_str
 
+from base_libs.django_compatibility import force_str
 from base_libs.utils.loader import select_template_for_object
 from base_libs.utils.user import get_user_title
 
 register = template.Library()
 
 ### TAGS ###
+
 
 class IncludeSelectNode(template.Node):
     def __init__(self, case, params):
@@ -54,11 +56,14 @@ class IncludeSelectNode(template.Node):
         elif self.case == 1:
             # the param list should look like [<<template>>, <<obj>>, <<app_dir>>]
             try:
-                t = select_template_for_object(param_list[0], param_list[1], param_list[2])
+                t = select_template_for_object(
+                    param_list[0], param_list[1], param_list[2]
+                )
             except:
                 raise
             return t.render(context)
         return ""
+
 
 def do_include_selected(parser, token):
     """
@@ -86,20 +91,30 @@ def do_include_selected(parser, token):
     for i in range(1, len(bits)):
         reserved = False
         # check for reserved words
-        if (i==2 and bits[i] == "for") or (i==4 and bits[i] == "under"):
+        if (i == 2 and bits[i] == "for") or (i == 4 and bits[i] == "under"):
             if len(bits) != 6:
-                raise template.TemplateSyntaxError, "%r tag takes 4 arguments, there are %d arguments provided." % (bits[0], len(bits)-1)
-            if bits[2] != 'for':
-                raise template.TemplateSyntaxError, "Second argment in %r tag must be 'for'." % bits[0]
-            if bits[4] != 'under':
-                raise template.TemplateSyntaxError, "Fourth argment in %r tag must be 'under'." % bits[0]
+                raise template.TemplateSyntaxError, "%r tag takes 4 arguments, there are %d arguments provided." % (
+                    bits[0],
+                    len(bits) - 1,
+                )
+            if bits[2] != "for":
+                raise template.TemplateSyntaxError, "Second argment in %r tag must be 'for'." % bits[
+                    0
+                ]
+            if bits[4] != "under":
+                raise template.TemplateSyntaxError, "Fourth argment in %r tag must be 'under'." % bits[
+                    0
+                ]
             case = 1
             reserved = True
         # as string or as template var
         if bits[i][0] in ('"', "'") and bits[i][-1] == bits[i][0]:
             if reserved:
-                raise template.TemplateSyntaxError, 'Reserved word %s must not be under "" in %r tag.' % (bits[i], bits[0])
-            param =(i, 1, bits[i][1:-1])
+                raise template.TemplateSyntaxError, 'Reserved word %s must not be under "" in %r tag.' % (
+                    bits[i],
+                    bits[0],
+                )
+            param = (i, 1, bits[i][1:-1])
         else:
             if reserved:
                 param = (i, 0, bits[i])
@@ -107,7 +122,10 @@ def do_include_selected(parser, token):
                 param = (i, 2, bits[i])
         params.append(param)
     return IncludeSelectNode(case, params)
-register.tag('include_selected', do_include_selected)
+
+
+register.tag("include_selected", do_include_selected)
+
 
 def do_load_obj(parser, token):
     """
@@ -123,19 +141,26 @@ def do_load_obj(parser, token):
         # split_contents() knows not to split quoted strings.
         tag_name, appmodel, object_id, str_as, var_name = token.split_contents()
     except ValueError:
-        raise template.TemplateSyntaxError, "%r tag requires a following syntax: {%% %r app.model <object_id> as <var_name> %%}" % (token.contents[0], token.contents[0])
+        raise template.TemplateSyntaxError, "%r tag requires a following syntax: {%% %r app.model <object_id> as <var_name> %%}" % (
+            token.contents[0],
+            token.contents[0],
+        )
     try:
         appname, modelname = appmodel.split(".")
     except ValueError:
-        raise template.TemplateSyntaxError, "%r tag requires application name and model name separated by a dot" % (token.contents[0], token.contents[0])
+        raise template.TemplateSyntaxError, "%r tag requires application name and model name separated by a dot" % (
+            token.contents[0],
+        )
     model = apps.get_model(appname, modelname)
     return LoadObjNode(model, object_id, var_name)
+
 
 class LoadObjNode(template.Node):
     def __init__(self, model, object_id, var_name):
         self.model = model
         self.object_id = object_id
         self.var_name = var_name
+
     def render(self, context):
         try:
             object_id = template.resolve_variable(self.object_id, context)
@@ -144,9 +169,11 @@ class LoadObjNode(template.Node):
             obj = None
 
         context[self.var_name] = obj
-        return ''
+        return ""
 
-register.tag('load_obj', do_load_obj)
+
+register.tag("load_obj", do_load_obj)
+
 
 def do_get_all_objects(parser, token):
     """
@@ -165,24 +192,33 @@ def do_get_all_objects(parser, token):
         # split_contents() knows not to split quoted strings.
         tag_name, appmodel, str_as, var_name = token.split_contents()
     except ValueError:
-        raise template.TemplateSyntaxError, "%r tag requires a following syntax: {%% %r app.model as <var_name> %%}" % (token.contents[0], token.contents[0])
+        raise template.TemplateSyntaxError, "%r tag requires a following syntax: {%% %r app.model as <var_name> %%}" % (
+            token.contents[0],
+            token.contents[0],
+        )
     try:
         appname, modelname = appmodel.split(".")
     except ValueError:
-        raise template.TemplateSyntaxError, "%r tag requires application name and model name separated by a dot" % (token.contents[0], token.contents[0])
-    #from django.conf import settings
+        raise template.TemplateSyntaxError, "%r tag requires application name and model name separated by a dot" % (
+            token.contents[0],
+        )
+    # from django.conf import settings
     model = apps.get_model(appname, modelname)
     return GetAllObjectsNode(model, var_name)
+
 
 class GetAllObjectsNode(template.Node):
     def __init__(self, model, var_name):
         self.model = model
         self.var_name = var_name
+
     def render(self, context):
         context[self.var_name] = self.model.objects.all()
-        return ''
+        return ""
 
-register.tag('get_all_objects', do_get_all_objects)
+
+register.tag("get_all_objects", do_get_all_objects)
+
 
 def do_get_latest_published_objects(parser, token):
     """
@@ -208,11 +244,13 @@ def do_get_latest_published_objects(parser, token):
     model = apps.get_model(appname, modelname)
     return LatestPublishedObjectsNode(model, amount, var_name)
 
+
 class LatestPublishedObjectsNode(template.Node):
     def __init__(self, model, amount, var_name):
         self.model = model
         self.amount = amount
         self.var_name = var_name
+
     def render(self, context):
         if hasattr(self.model._default_manager, "latest_published"):
             qs = self.model._default_manager.latest_published()
@@ -220,9 +258,11 @@ class LatestPublishedObjectsNode(template.Node):
             qs = self.model._default_manager.all()
         amount = template.resolve_variable(self.amount, context)
         context[self.var_name] = qs[:amount]
-        return ''
+        return ""
 
-register.tag('get_latest_published_objects', do_get_latest_published_objects)
+
+register.tag("get_latest_published_objects", do_get_latest_published_objects)
+
 
 def do_get_objects(parser, token):
     """
@@ -241,10 +281,23 @@ def do_get_objects(parser, token):
     """
     amount = None
     try:
-        tag_name, manager_method, appmodel, amount, str_as, var_name = token.split_contents()
+        (
+            tag_name,
+            manager_method,
+            appmodel,
+            amount,
+            str_as,
+            var_name,
+        ) = token.split_contents()
     except ValueError:
         try:
-            tag_name, manager_method, appmodel, str_as, var_name = token.split_contents()
+            (
+                tag_name,
+                manager_method,
+                appmodel,
+                str_as,
+                var_name,
+            ) = token.split_contents()
         except ValueError:
             raise template.TemplateSyntaxError, "get_objects tag requires a following syntax: {% get_objects <manager_method> app.model <amount> as <var_name> %}"
     try:
@@ -254,12 +307,14 @@ def do_get_objects(parser, token):
     model = apps.get_model(appname, modelname)
     return ObjectsNode(model, manager_method, amount, var_name)
 
+
 class ObjectsNode(template.Node):
     def __init__(self, model, manager_method, amount, var_name):
         self.model = model
         self.manager_method = manager_method
         self.amount = amount
         self.var_name = var_name
+
     def render(self, context):
         if "." in self.manager_method:
             manager, method = self.manager_method.split(".")
@@ -268,18 +323,17 @@ class ObjectsNode(template.Node):
             method = self.manager_method
 
         qs = getattr(
-            getattr(self.model, manager),
-            method,
-            self.model._default_manager.all,
-            )()
+            getattr(self.model, manager), method, self.model._default_manager.all,
+        )()
         if self.amount:
             amount = template.resolve_variable(self.amount, context)
             context[self.var_name] = qs[:amount]
         else:
             context[self.var_name] = qs
-        return ''
+        return ""
 
-register.tag('get_objects', do_get_objects)
+
+register.tag("get_objects", do_get_objects)
 
 
 def do_call(parser, token):
@@ -318,7 +372,6 @@ def do_call(parser, token):
 
 
 class CallNode(template.Node):
-
     def __init__(self, obj, method_name, method_args, method_kwargs, var_name):
         self.obj = obj
         self.method_name = method_name
@@ -330,20 +383,31 @@ class CallNode(template.Node):
         obj = template.resolve_variable(self.obj, context)
         method = getattr(obj, self.method_name)
         if getattr(method, "alters_data", False):
-            raise template.TemplateSyntaxError, u"You can't call %s.%s in a template, because it alters data. Call it in the view instead." % (self.obj, self.method_name)
+            raise template.TemplateSyntaxError, u"You can't call %s.%s in a template, because it alters data. Call it in the view instead." % (
+                self.obj,
+                self.method_name,
+            )
 
-        method_args = [template.resolve_variable(arg, context) for arg in self.method_args]
-        method_kwargs = dict([(key, template.resolve_variable(value, context)) for key, value in self.method_kwargs.items()])
+        method_args = [
+            template.resolve_variable(arg, context) for arg in self.method_args
+        ]
+        method_kwargs = dict(
+            [
+                (key, template.resolve_variable(value, context))
+                for key, value in self.method_kwargs.items()
+            ]
+        )
 
         result = method(*method_args, **method_kwargs)
 
         if self.var_name:
             context[self.var_name] = result
-            return ''
+            return ""
 
         return result
 
-register.tag('call', do_call)
+
+register.tag("call", do_call)
 
 
 def do_parse(parser, token):
@@ -367,16 +431,18 @@ def do_parse(parser, token):
         template_value = bits.pop(0)
         var_name = None
         if bits:
-            bits.pop(0) # remove the word "as"
+            bits.pop(0)  # remove the word "as"
             var_name = bits.pop(0)
     except ValueError:
         raise template.TemplateSyntaxError, "parse tag requires a following syntax: {% parse <template_value> [as <variable>] %}"
     return ParseNode(template_value, var_name)
 
+
 class ParseNode(template.Node):
     def __init__(self, template_value, var_name):
         self.template_value = template_value
         self.var_name = var_name
+
     def render(self, context):
         template_value = template.resolve_variable(self.template_value, context)
         t = Template(template_value)
@@ -386,7 +452,8 @@ class ParseNode(template.Node):
             return ""
         return result
 
-register.tag('parse', do_parse)
+
+register.tag("parse", do_parse)
 
 
 def do_include_parsed(parser, token):
@@ -407,26 +474,30 @@ def do_include_parsed(parser, token):
     tag_name = bits.pop(0)
     try:
         template_path = bits.pop(0)
-        extra = [] # a tuple of variables names and values to parse before passing to the template
+        extra = (
+            []
+        )  # a tuple of variables names and values to parse before passing to the template
         if bits:
-            bits.pop(0) # remove the word "with"
+            bits.pop(0)  # remove the word "with"
             while bits:
                 val = bits.pop(0)
-                bits.pop(0) # remove the word "as"
+                bits.pop(0)  # remove the word "as"
                 var = bits.pop(0)
                 extra.append((var, val))
                 if bits:
-                    bits.pop(0) # remove the word "and"
+                    bits.pop(0)  # remove the word "and"
 
     except ValueError:
         raise template.TemplateSyntaxError, "include_parsed tag requires a following syntax: {% include_parsed <template_path> [with <value1> as <variable1>[ and <value2> as <variable2>[ and ...]] %}"
     return ParsedIncludeNode(tag_name, template_path, extra)
+
 
 class ParsedIncludeNode(template.Node):
     def __init__(self, tag_name, template_path, extra):
         self.tag_name = tag_name
         self.template_path = template_path
         self.extra = extra
+
     def render(self, context):
         template_path = template.resolve_variable(self.template_path, context)
         context_vars = {}
@@ -437,48 +508,56 @@ class ParsedIncludeNode(template.Node):
             context_vars[var] = template.resolve_variable(val, context)
         return loader.render_to_string(template_path, context_vars)
 
-register.tag('include_parsed', do_include_parsed)
+
+register.tag("include_parsed", do_include_parsed)
 
 """
 Decorator to facilitate template tag creation
 """
+
+
 def easy_tag(func):
     """deal with the repetitive parts of parsing template tags"""
+
     def inner(parser, token):
-        #print token
+        # print token
         try:
             return func(*token.split_contents())
         except TypeError:
-            raise template.TemplateSyntaxError('Bad arguments for tag "%s"' % token.split_contents()[0])
+            raise template.TemplateSyntaxError(
+                'Bad arguments for tag "%s"' % token.split_contents()[0]
+            )
+
     inner.__name__ = func.__name__
     inner.__doc__ = inner.__doc__
     return inner
 
 
-
 class AppendGetNode(template.Node):
     def __init__(self, dict, no_path=False):
         self.dict_pairs = {}
-        for pair in dict.split(','):
-            pair = pair.split('=')
+        for pair in dict.split(","):
+            pair = pair.split("=")
             self.dict_pairs[pair[0]] = template.Variable(pair[1])
         self.no_path = no_path
 
     def render(self, context):
-        get = context['request'].GET.copy()
+        get = context["request"].GET.copy()
 
         for key in self.dict_pairs:
             get[key] = self.dict_pairs[key].resolve(context)
 
-        path = not self.no_path and context['request'].META['PATH_INFO'] or ""
+        path = not self.no_path and context["request"].META["PATH_INFO"] or ""
 
-        #print "&".join(["%s=%s" % (key, value) for (key, value) in get.items() if value])
+        # print "&".join(["%s=%s" % (key, value) for (key, value) in get.items() if value])
 
         if len(get):
-            path += "?%s" % "&".join(["%s=%s" % (key, value) for (key, value) in get.items() if value])
-
+            path += "?%s" % "&".join(
+                ["%s=%s" % (key, value) for (key, value) in get.items() if value]
+            )
 
         return path
+
 
 @register.tag()
 @easy_tag
@@ -490,10 +569,9 @@ def construct_query_string(context, query_params):
     # empty values will be removed
     query_string = context["request"].path
     if len(query_params):
-        encoded_params = urlencode([
-            (key, force_str(value))
-            for (key, value) in query_params if value
-        ]).replace("&", "&amp;")
+        encoded_params = urlencode(
+            [(key, force_str(value)) for (key, value) in query_params if value]
+        ).replace("&", "&amp;")
         query_string += "?" + encoded_params
     return mark_safe(query_string)
 
@@ -529,8 +607,7 @@ def add_to_query(context, *params_to_remove, **params_to_add):
         if key not in params_to_remove:
             # don't add key-value pairs which already
             # exist in the query
-            if (key in params_to_add
-                    and params_to_add[key] in value_list):
+            if key in params_to_add and params_to_add[key] in value_list:
                 params_to_add.pop(key)
             for value in value_list:
                 query_params.append((key, value))
@@ -550,8 +627,7 @@ def remove_from_query(context, *args, **kwargs):
         if key not in args:
             for value in value_list:
                 # skip key-value pairs mentioned in kwargs
-                if not (key in kwargs and
-                        str(value) == str(kwargs[key])):
+                if not (key in kwargs and str(value) == str(kwargs[key])):
                     query_params.append((key, value))
     return construct_query_string(context, query_params)
 
@@ -564,10 +640,11 @@ class IncludeNode(template.Node):
         try:
             # Loading the template and rendering it
             template_name = template.resolve_variable(self.template_name, context)
-            included_template = template.loader.get_template(
-                    template_name).render(context)
+            included_template = template.loader.get_template(template_name).render(
+                context
+            )
         except template.TemplateDoesNotExist:
-            included_template = ''
+            included_template = ""
         return included_template
 
 
@@ -580,8 +657,9 @@ def try_to_include(parser, token):
     try:
         tag_name, template_name = token.split_contents()
     except ValueError:
-        raise template.TemplateSyntaxError, \
-            "%r tag requires a single argument" % token.contents.split()[0]
+        raise template.TemplateSyntaxError, "%r tag requires a single argument" % token.contents.split()[
+            0
+        ]
 
     return IncludeNode(template_name)
 
@@ -591,14 +669,14 @@ class TranslatedURL(template.Node):
         self.lang_code = lang_code
 
     def render(self, context):
-        import sys
         from django.core.urlresolvers import reverse
         from django.core.urlresolvers import resolve
         from django.utils import translation
+
         lang_code = template.resolve_variable(self.lang_code, context)
 
         try:
-            view = resolve(context['request'].path)
+            view = resolve(context["request"].path)
         except:
             return "/%s/" % lang_code
 
@@ -613,6 +691,7 @@ class TranslatedURL(template.Node):
         translation.activate(request_lang_code)
         return url
 
+
 @register.tag(name="translate_url")
 def do_translate_url(parser, token):
     lang_code = token.split_contents()[1]
@@ -626,20 +705,20 @@ def do_translate_url(parser, token):
 def dayssince(value):
     """Returns number of days between today and value."""
     today = datetime.date.today()
-    diff  = today - value
+    diff = today - value
     if diff.days > 1:
-        return '%s days ago' % diff.days
+        return "%s days ago" % diff.days
     elif diff.days == 1:
-        return 'yesterday'
+        return "yesterday"
     elif diff.days == 0:
-        return 'today'
+        return "today"
     else:
         # Date is in the future; return formatted date.
         return value.strftime("%B %d, %Y")
 
 
 @register.filter
-def in_list(value,arg):
+def in_list(value, arg):
     """
     Returns True if value is in list
 
@@ -676,25 +755,25 @@ def mark_first_and_last(value, tag):
             <li class="d last-child">D</li>
         </ul>
     """
-    tag_regex = re.compile(r'(<' + re.escape(tag) + r')([^>]*)(>)')
+    tag_regex = re.compile(r"(<" + re.escape(tag) + r")([^>]*)(>)")
     class_regex = re.compile(r'class=([\'"])(.*?)\1')
     parts = tag_regex.split(value)
     # "<p class="a">A</p><p>B</p>" ->
     # ['', '<p', ' class="a"', '>A</p>', '<p', '', '>','B</p>']
     if len(parts) > 1:
         if class_regex.search(parts[2]):
-            parts[2] = class_regex.sub(r'class=\1\2 first-child\1', parts[2])
+            parts[2] = class_regex.sub(r"class=\1\2 first-child\1", parts[2])
         else:
             parts[2] += ' class="first-child"'
         if class_regex.search(parts[-3]):
-            parts[-3] = class_regex.sub(r'class=\1\2 last-child\1', parts[-3])
+            parts[-3] = class_regex.sub(r"class=\1\2 last-child\1", parts[-3])
         else:
             parts[-3] += ' class="last-child"'
         value = "".join(parts)
     return value
 
 
-media_file_regex = re.compile(r'<object .+?</object>|<(img|embed) [^>]+>')
+media_file_regex = re.compile(r"<object .+?</object>|<(img|embed) [^>]+>")
 
 
 @register.filter(is_safe=True)
@@ -708,7 +787,7 @@ def get_first_media(content):
     return media_tag
 
 
-image_file_regex = re.compile(r'<(img) [^>]+>')
+image_file_regex = re.compile(r"<(img) [^>]+>")
 
 
 @register.filter(is_safe=True)
@@ -772,7 +851,7 @@ def encode_string(value):
     """
     e_string = ""
     for a in value:
-        type = random.randint(0,1)
+        type = random.randint(0, 1)
         if type:
             en = "&#x%x;" % ord(a)
         else:
@@ -788,6 +867,7 @@ def decode_entities(html, decode_all=False):
     Ampersands, quotes and carets are not replaced by default.
     """
     from base_libs.utils.html import decode_entities as _decode_entities
+
     return _decode_entities(html=html, decode_all=decode_all)
 
 
@@ -795,7 +875,7 @@ def decode_entities(html, decode_all=False):
 def remove_empty_lists(html):
     """ returns the value without empty <ul></ul> and <ol></ol> ...
     """
-    pattern = re.compile(r'<[uo]l[^>]*>\s*</[uo]l>')
+    pattern = re.compile(r"<[uo]l[^>]*>\s*</[uo]l>")
     html = pattern.sub("", html)
     return html
 
@@ -806,21 +886,47 @@ def disarm_user_input(html):
     Returns html without posible harm
     """
     import bleach
+
     if "</p>" not in html:
         html = defaultfilters.linebreaks(html)
     html = bleach.clean(
         html,
-        tags=[u'a', u'abbr', u'acronym', u'b', u'blockquote', u'br', u'code', u'em', u'i', u'iframe', u'img', u'li', u'ol', u'p', u'strong', u'ul', u'h1', u'h2', u'h3', u'h4', u'h5', u'hr', u'h6', u'span'],
+        tags=[
+            u"a",
+            u"abbr",
+            u"acronym",
+            u"b",
+            u"blockquote",
+            u"br",
+            u"code",
+            u"em",
+            u"i",
+            u"iframe",
+            u"img",
+            u"li",
+            u"ol",
+            u"p",
+            u"strong",
+            u"ul",
+            u"h1",
+            u"h2",
+            u"h3",
+            u"h4",
+            u"h5",
+            u"hr",
+            u"h6",
+            u"span",
+        ],
         attributes={
-            u'*': [u'class'],
-            u'a': [u'href', u'title', u'target'],
-            u'acronym': [u'title'],
-            u'abbr': [u'title'],
-            u'img': [u'src', u'alt'],
-            u'iframe': [u'src', u'width', u'height'],
+            u"*": [u"class"],
+            u"a": [u"href", u"title", u"target"],
+            u"acronym": [u"title"],
+            u"abbr": [u"title"],
+            u"img": [u"src", u"alt"],
+            u"iframe": [u"src", u"width", u"height"],
         },
         styles=[],
-        protocols=[u'http', u'https', u'mailto', u'data'],
+        protocols=[u"http", u"https", u"mailto", u"data"],
         strip=True,
         strip_comments=True,
     )
@@ -835,20 +941,45 @@ def disarm_admin_input(html):
     Returns html without posible harm
     """
     import bleach
+
     if "</p>" not in html:
         html = defaultfilters.linebreaks(html)
     html = bleach.clean(
         html,
-        tags=[u'a', u'abbr', u'acronym', u'b', u'blockquote', u'br', u'code', u'em', u'i', u'iframe', u'img', u'li', u'ol', u'p', u'strong', u'ul', u'h1', u'h2', u'h3', u'h4', u'h5', u'h6', u'span'],
+        tags=[
+            u"a",
+            u"abbr",
+            u"acronym",
+            u"b",
+            u"blockquote",
+            u"br",
+            u"code",
+            u"em",
+            u"i",
+            u"iframe",
+            u"img",
+            u"li",
+            u"ol",
+            u"p",
+            u"strong",
+            u"ul",
+            u"h1",
+            u"h2",
+            u"h3",
+            u"h4",
+            u"h5",
+            u"h6",
+            u"span",
+        ],
         attributes={
-            u'*': [u'class', u'style'],
-            u'a': [u'href', u'title', u'target'],
-            u'acronym': [u'title'],
-            u'abbr': [u'title'],
-            u'img': [u'src', 'alt'],
+            u"*": [u"class", u"style"],
+            u"a": [u"href", u"title", u"target"],
+            u"acronym": [u"title"],
+            u"abbr": [u"title"],
+            u"img": [u"src", "alt"],
         },
-        styles=[u'color', u'font-family', u'font-size'],
-        protocols=[u'http', u'https', u'mailto', u'data'],
+        styles=[u"color", u"font-family", u"font-size"],
+        protocols=[u"http", u"https", u"mailto", u"data"],
         strip=True,
         strip_comments=True,
     )
@@ -860,24 +991,23 @@ def disarm_admin_input(html):
 @register.filter
 def humanize_url(url, letter_count):
     letter_count = int(letter_count)
-    re_start = re.compile(r'^https?://')
-    re_end = re.compile(r'/$')
+    re_start = re.compile(r"^https?://")
+    re_end = re.compile(r"/$")
     url = re_end.sub("", re_start.sub("", url))
     if len(url) > letter_count:
-        url = url[:letter_count - 1] + u"…"
+        url = url[: letter_count - 1] + u"…"
     return url
 
 
 @register.filter
 def linkify(text):
     import bleach
+
     text = bleach.linkify(text, parse_email=True)
     return mark_safe(text)
 
 
-register.filter('get_user_title', get_user_title)
-
-
+register.filter("get_user_title", get_user_title)
 
 
 @register.filter
@@ -898,8 +1028,8 @@ def in_group(user, groups):
         {% endif %}
 
     """
-    group_list = force_unicode(groups).split(',')
-    return bool(user.groups.filter(name__in=group_list).values('name'))
+    group_list = force_unicode(groups).split(",")
+    return bool(user.groups.filter(name__in=group_list).values("name"))
 
 
 @register.filter(is_safe=True)
@@ -911,13 +1041,14 @@ def remove_newlines(text):
     # First normalize the newlines using Django's nifty utility
     normalized_text = normalize_newlines(text)
     # Then simply remove the newlines like so.
-    return mark_safe(normalized_text.replace('\n', ' '))
+    return mark_safe(normalized_text.replace("\n", " "))
 
 
 @register.filter
 @stringfilter
 def better_slugify(value):
     from base_libs.utils.betterslugify import better_slugify as utils_better_slugify
+
     return utils_better_slugify(value)
 
 
@@ -925,6 +1056,7 @@ def better_slugify(value):
 @stringfilter
 def convert_umlauts(value):
     from base_libs.utils.betterslugify import better_slugify as utils_better_slugify
+
     return utils_better_slugify(value, remove_stopwords=False, slugify=False)
 
 
@@ -932,4 +1064,5 @@ def convert_umlauts(value):
 @stringfilter
 def to_base64(value):
     import base64
+
     return base64.b64encode(str(value).encode())

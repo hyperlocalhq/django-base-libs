@@ -1,20 +1,16 @@
 # -*- coding: UTF-8 -*-
 import re
+
 from django import forms
-from django.db import models, transaction
+from django.conf import settings
 from django.contrib import admin
 from django.contrib.admin import helpers
 from django.contrib.admin import utils
-from django.contrib.admin import options
 #from django.contrib.admin import validation
 #from django.contrib.admin.validation import (check_isseq, get_field, check_isdict)
 from django.contrib.admin.options import HORIZONTAL, VERTICAL, ModelAdmin
-from django.utils.translation import ugettext_lazy as _
-from django.utils.safestring import mark_safe
-from django.forms.formsets import all_valid
-from django.forms.models import (BaseModelForm, BaseModelFormSet, fields_for_model,
-    _get_foreign_key)
-from django.conf import settings
+from django.contrib.admin.validation import check_isseq, get_field, check_isdict
+from django.core.exceptions import ImproperlyConfigured
 from django.core.exceptions import PermissionDenied
 from django.core.exceptions import ImproperlyConfigured
 
@@ -27,7 +23,6 @@ from base_libs.models.base_libs_settings import MARKUP_PLAIN_TEXT
 from base_libs.models.base_libs_settings import MARKUP_HTML_WYSIWYG
 from base_libs.models.base_libs_settings import MARKUP_RAW_HTML
 from base_libs.models.fields import ExtendedTextField
-from base_libs.widgets import TreeSelectWidget, TreeSelectMultipleWidget
 
 ### Back-port from Django 1.5
 ### TODO check if backport was removed for safety reasons
@@ -58,9 +53,9 @@ def flatten_fieldsets(fieldsets):
     """Returns a list of field names from an admin fieldsets structure."""
     field_names = []
     for name, opts in fieldsets:
-        for field in opts['fields']:
+        for field in opts["fields"]:
             if isinstance(field, (tuple, list)):
-                if len(field)==2 and isinstance(field[1], dict):
+                if len(field) == 2 and isinstance(field[1], dict):
                     # it's a nested fieldset
                     field_names.extend(flatten_fieldsets((field,)))
                 else:
@@ -224,28 +219,43 @@ options.flatten_fieldsets = utils.flatten_fieldsets = flatten_fieldsets
 
 class Fieldset(object):
     is_fieldset = True
-    def __init__(self, form, name=None, readonly_fields=(), fields=(), classes=(), description=None, model_admin=None, level=0):
+
+    def __init__(
+        self,
+        form,
+        name=None,
+        readonly_fields=(),
+        fields=(),
+        classes=(),
+        description=None,
+        model_admin=None,
+        level=0,
+    ):
         self.form = form
         self.name, self.fields = name, fields
-        self.classes = u' '.join(classes)
+        self.classes = u" ".join(classes)
         self.description = description
         self.model_admin = model_admin
         self.readonly_fields = readonly_fields
         self.level = level
 
     def _media(self):
-        if 'collapse' in self.classes:
+        if "collapse" in self.classes:
             js = []
-            return forms.Media(js=['%s%s' % (settings.ADMIN_MEDIA_PREFIX, url) for url in js])
-            #return forms.Media(js=['%sjs/admin/CollapsedFieldsets.js' % settings.ADMIN_MEDIA_PREFIX])
+            return forms.Media(
+                js=["%s%s" % (settings.ADMIN_MEDIA_PREFIX, url) for url in js]
+            )
+            # return forms.Media(js=['%sjs/admin/CollapsedFieldsets.js' % settings.ADMIN_MEDIA_PREFIX])
         return forms.Media()
+
     media = property(_media)
 
     def __iter__(self):
         for field in self.fields:
-            if len(field)==2 and isinstance(field[1], dict):
+            if len(field) == 2 and isinstance(field[1], dict):
                 # nested fieldset
-                yield Fieldset(self.form,
+                yield Fieldset(
+                    self.form,
                     name=field[0],
                     fields=field[1].get("fields", ()),
                     classes=field[1].get("classes", ()),
@@ -253,11 +263,14 @@ class Fieldset(object):
                     readonly_fields=self.readonly_fields,
                     model_admin=self.model_admin,
                     level=self.level + 1,
-                    )
+                )
             else:
                 # field name or a tuple of field names
-                yield helpers.Fieldline(self.form, field, self.readonly_fields, model_admin=self.model_admin)
-                
+                yield helpers.Fieldline(
+                    self.form, field, self.readonly_fields, model_admin=self.model_admin
+                )
+
+
 helpers.Fieldset = Fieldset
 
 
@@ -265,15 +278,16 @@ class InlineFieldset(Fieldset):
     def __init__(self, formset, *args, **kwargs):
         self.formset = formset
         super(InlineFieldset, self).__init__(*args, **kwargs)
-        
+
     def __iter__(self):
         fk = getattr(self.formset, "fk", None)
         for field in self.fields:
             if fk and fk.name == field:
                 continue
-            if len(field)==2 and isinstance(field[1], dict):
+            if len(field) == 2 and isinstance(field[1], dict):
                 # nested fieldset
-                yield Fieldset(self.form,
+                yield Fieldset(
+                    self.form,
                     name=field[0],
                     fields=field[1].get("fields", ()),
                     classes=field[1].get("classes", ()),
@@ -281,32 +295,35 @@ class InlineFieldset(Fieldset):
                     readonly_fields=self.readonly_fields,
                     model_admin=self.model_admin,
                     level=self.level + 1,
-                    )
+                )
             else:
                 # field name or a tuple of field names
-                yield helpers.Fieldline(self.form, field, self.readonly_fields,
-                model_admin=self.model_admin)
+                yield helpers.Fieldline(
+                    self.form, field, self.readonly_fields, model_admin=self.model_admin
+                )
+
 
 helpers.InlineFieldset = InlineFieldset
 
 
 def _declared_fieldsets(self):
     """ overriden to handle additional <<whatever>>_markup_type field!!! """
+
     def attach_markup_type(model, fieldsets):
         """ Goes through all fields and adds *_markup_type fields """
-        
+
         def traverse_fieldsets(fieldsets):
             new_fieldsets = []
             for name, opts in fieldsets:
-                opts['fields'] = traverse_fields(opts['fields'])
+                opts["fields"] = traverse_fields(opts["fields"])
                 new_fieldsets.append((name, opts))
             return new_fieldsets
-            
+
         def traverse_fields(fields):
             new_fields = []
             for field in fields:
                 if isinstance(field, (tuple, list)):
-                    if len(field)==2 and isinstance(field[1], dict):
+                    if len(field) == 2 and isinstance(field[1], dict):
                         # it's a nested fieldset
                         new_fields.extend(traverse_fieldsets((field,)))
                     else:
@@ -322,14 +339,14 @@ def _declared_fieldsets(self):
                             new_fields.append("%s_markup_type" % field)
                     new_fields.append(field)
             return new_fields
-            
+
         return traverse_fieldsets(fieldsets)
-        
+
     if self.fieldsets:
         return attach_markup_type(self.model, self.fieldsets)
-        
+
     elif self.fields:
-        return [(None, {'fields': self.fields})]
+        return [(None, {"fields": self.fields})]
     return None
 
 
@@ -382,7 +399,7 @@ class ExtendedStackedInline(admin.StackedInline):
         MARKUP_PLAIN_TEXT, 
         MARKUP_RAW_HTML, 
         MARKUP_HTML_WYSIWYG, 
-        #MARKUP_MARKDOWN
+        # MARKUP_MARKDOWN
     ]
 
     def formfield_for_choice_field(self, db_field, request=None, **kwargs):
@@ -426,7 +443,6 @@ class ExtendedModelAdmin(admin.ModelAdmin):
         MARKUP_HTML_WYSIWYG, 
         #MARKUP_MARKDOWN,
     ]
-    
     def formfield_for_choice_field(self, db_field, request=None, **kwargs):
         return _formfield_for_choice_field(ExtendedModelAdmin, self, db_field, request=None, **kwargs)
 
