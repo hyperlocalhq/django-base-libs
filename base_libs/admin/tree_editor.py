@@ -122,7 +122,7 @@ class TreeEditor(admin.ModelAdmin):
 
     def get_urls(self):
         from functools import update_wrapper
-        from django.conf.urls import patterns, url
+        from django.conf.urls import url
 
         def wrap(view):
             def wrapper(*args, **kwargs):
@@ -131,14 +131,13 @@ class TreeEditor(admin.ModelAdmin):
 
         info = self.model._meta.app_label, self.model._meta.model_name
 
-        urlpatterns = patterns(
-            '',
+        urlpatterns = [
             url(
                 r'^(.+)/move/$',
                 wrap(self.move_view),
                 name='%s_%s_move' % info
             ),
-        )
+        ]
 
         urlpatterns += super(TreeEditor, self).get_urls()
 
