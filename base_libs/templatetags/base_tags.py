@@ -214,10 +214,10 @@ class LatestPublishedObjectsNode(template.Node):
         self.amount = amount
         self.var_name = var_name
     def render(self, context):
-        if hasattr(self.model._default_manager, "latest_published"):
-            qs = self.model._default_manager.latest_published()
+        if hasattr(self.model.default_manager, "latest_published"):
+            qs = self.model.default_manager.latest_published()
         else:
-            qs = self.model._default_manager.all()
+            qs = self.model.default_manager.all()
         amount = template.resolve_variable(self.amount, context)
         context[self.var_name] = qs[:amount]
         return ''
@@ -264,13 +264,13 @@ class ObjectsNode(template.Node):
         if "." in self.manager_method:
             manager, method = self.manager_method.split(".")
         else:
-            manager = "_default_manager"
+            manager = "default_manager"
             method = self.manager_method
             
         qs = getattr(
             getattr(self.model, manager),
             method,
-            self.model._default_manager.all,
+            self.model.default_manager.all,
             )()
         if self.amount:
             amount = template.resolve_variable(self.amount, context)

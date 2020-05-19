@@ -542,8 +542,8 @@ class MultiSiteContainerMixinManager(models.Manager):
         # TODO: Use weakref because of possible memory leak / circular reference.
         self.model = model
         setattr(model, name, models.manager.ManagerDescriptor(self))
-        if not getattr(model, '_default_manager', None) or self.creation_counter < model._default_manager.creation_counter:
-            model._default_manager = self
+        if not getattr(model, 'default_manager', None) or self.creation_counter < model.default_manager.creation_counter:
+            model.default_manager = self
             
     def add_site(self, site):
         """
@@ -728,13 +728,13 @@ class HierarchyMixin(BaseModel):
         return not self.has_children() 
     
     def get_children(self):
-        return self._default_manager.filter(parent=self).order_by('path')
+        return self.default_manager.filter(parent=self).order_by('path')
     
     def has_children(self):
         return self.get_children().count() > 0
 
     def get_descendants(self):
-        return self._default_manager.filter(
+        return self.default_manager.filter(
             path__startswith=self.path
             ).exclude(pk=self.pk).order_by('path')
     
@@ -790,7 +790,7 @@ class HierarchyMixin(BaseModel):
     def save(self, *args, **kwargs):
         if self.sort_order is None:
             # get the largest sort_order from the model
-            item_with_max_sort_order = self.__class__._default_manager.order_by("-sort_order")[:1]
+            item_with_max_sort_order = self.__class__.default_manager.order_by("-sort_order")[:1]
             if item_with_max_sort_order:
                 self.sort_order = item_with_max_sort_order[0].sort_order + 1
             else:
@@ -866,7 +866,7 @@ def SlugMixin(
                         qs_filter = {}
                         for field_name in unique_for:
                             qs_filter[field_name] = getattr(self, field_name)
-                        qs = qs._default_manager.filter(**qs_filter)
+                        qs = qs.default_manager.filter(**qs_filter)
                     slug = get_unique_value(
                         model=qs,
                         proposal=slug_proposal,
@@ -963,7 +963,7 @@ def MultilingualSlugMixin(
                             qs_filter = {}
                             for field_name in unique_for:
                                 qs_filter[field_name] = getattr(self, field_name)
-                            qs = qs._default_manager.filter(**qs_filter)
+                            qs = qs.default_manager.filter(**qs_filter)
                         slug = get_unique_value(
                             model=qs,
                             proposal=slug_proposal,

@@ -96,7 +96,7 @@ class ExtendedQuerySet(models.query.QuerySet):
         manager as the query.
         """
         if isinstance(query, models.base.ModelBase):
-            query = query._default_manager.all()
+            query = query.default_manager.all()
 
         """
         If `count_attr` is None, use the name of the module given in `query`

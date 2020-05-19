@@ -69,7 +69,7 @@ def get_unique_value(model, proposal, field_name="slug", instance_pk=None, separ
     * postfix regular expression when may vary
     * ignore_case defines if "Test" should be treated the same as "test"
     """
-    qs = getattr(model, "_default_manager", model)
+    qs = getattr(model, "default_manager", model)
     if not proposal:
         return proposal
     separator_regex = re.escape(separator)
@@ -204,7 +204,7 @@ def get_related_queryset(model, field_name):
         types = get_related_queryset(Person, "individual_type")
     """
     f = model._meta.get_field(field_name)
-    qs = f.rel.to._default_manager.complex_filter(f.rel.limit_choices_to)
+    qs = f.rel.to.default_manager.complex_filter(f.rel.limit_choices_to)
     return qs
 
 class XChoiceList(list):

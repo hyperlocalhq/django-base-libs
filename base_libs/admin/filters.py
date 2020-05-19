@@ -29,7 +29,7 @@ else:
                 # restrict_to = Category.objects.exclude(
                 #     item=None,
                 #     ).values_list("pk", flat=True)
-                restrict_to = f.rel.to._default_manager.exclude(**{
+                restrict_to = f.rel.to.default_manager.exclude(**{
                     f.rel.get_related_field().name: None,
                     }).values_list("pk", flat=True)
                 self.lookup_title = f.rel.to._meta.verbose_name
@@ -37,12 +37,12 @@ else:
                 # get the pk of objects many-to-one-related to objects of model
                 # i.e.:
                 # restrict_to = Item.objects.values_list("category", flat=True)
-                restrict_to = model._default_manager.values_list(
+                restrict_to = model.default_manager.values_list(
                     f.attname,
                     flat=True,
                     )
                 self.lookup_title = f.verbose_name
-            qs = f.rel.to._default_manager.filter(pk__in=restrict_to)
+            qs = f.rel.to.default_manager.filter(pk__in=restrict_to)
             self.filtered_out = {}
             if qs.count():
                 # all parents list:
@@ -53,7 +53,7 @@ else:
                         if qs.filter(pk=parent.pk).count() == 0:
                             self.filtered_out[parent.pk] = True
                         parent = parent.parent
-                qs = qs | f.rel.to._default_manager.filter(pk__in=list(self.filtered_out))
+                qs = qs | f.rel.to.default_manager.filter(pk__in=list(self.filtered_out))
 
             self.lookup_choices = [item for item in qs]
 

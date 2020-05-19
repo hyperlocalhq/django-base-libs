@@ -473,7 +473,7 @@ class TreeSelectWidget(forms.Select):
         def render_option(option_value, option_label):
             option_value = force_unicode(option_value)
             try:
-                indentation = self.model._default_manager.get(
+                indentation = self.model.default_manager.get(
                     pk=option_value,
                     ).get_level()
             except:
@@ -510,7 +510,7 @@ class TreeSelectMultipleWidget(forms.SelectMultiple):
         def render_option(option_value, option_label):
             option_value = force_unicode(option_value)
             try:
-                indentation = self.model._default_manager.get(
+                indentation = self.model.default_manager.get(
                     pk=option_value,
                     ).get_level()
             except:

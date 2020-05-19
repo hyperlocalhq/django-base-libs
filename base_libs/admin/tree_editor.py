@@ -81,7 +81,7 @@ class ChangeList(main.ChangeList):
     #            self.query_set.values_list('lft', 'rght', 'tree_id')]
     #    if clauses:
     #        self.query_set = self.query_set.filter(reduce(lambda p, q: p|q, clauses))
-    #        #self.query_set = self.model._default_manager.filter(reduce(lambda p, q: p|q, clauses))
+    #        #self.query_set = self.model.default_manager.filter(reduce(lambda p, q: p|q, clauses))
     #
     #    super(ChangeList, self).get_results(request)
 

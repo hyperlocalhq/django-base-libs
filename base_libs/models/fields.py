@@ -470,7 +470,7 @@ class PositionField(models.IntegerField):
                     filters['%s__isnull' % field.name] = True
                 else:
                     filters[field.name] = field_value
-        return type(instance)._default_manager.filter(**filters)
+        return type(instance).default_manager.filter(**filters)
 
     def update_on_delete(self, sender, instance, **kwargs):
         current = getattr(instance, self.get_cache_name())[0]
