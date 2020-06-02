@@ -30,7 +30,6 @@ qn = connection.ops.quote_name
 
 
 class ExtendedTextField(TextField):
-
     description = _("Text field with additional capabilities for editing.")
 
     def has_markup_type(self):
@@ -57,9 +56,9 @@ class ExtendedTextField(TextField):
             field_class = getattr(self.__class__, "_field_class", None)
             if field_class != PlainTextModelField:
                 if not (
-                    hasattr(sys, "argv")
-                    and "migrate" in sys.argv
-                    and sys.argv.index("migrate") == 1
+                        hasattr(sys, "argv")
+                        and "migrate" in sys.argv
+                        and sys.argv.index("migrate") == 1
                 ):
                     # the field shouldn't be added for south,
                     # because south will care about it itself
@@ -141,7 +140,6 @@ class ExtendedTextField(TextField):
 
 
 class PlainTextModelField(TextField):
-
     description = _("Model field for Textarea which won't be converted to RTE")
 
     def formfield(self, **kwargs):
@@ -196,7 +194,6 @@ class MultilingualProxy(object):
 
 
 class MultilingualCharField(models.Field):
-
     description = _("Multilingual string (up to %(max_length)s)")
 
     def __init__(self, verbose_name=None, **kwargs):
@@ -276,7 +273,6 @@ class MultilingualCharField(models.Field):
 
 
 class MultilingualTextField(models.Field):
-
     description = _("Multilingual Text")
 
     _field_class = ExtendedTextField
@@ -428,7 +424,6 @@ class MultilingualTextField(models.Field):
 
 
 class MultilingualPlainTextField(MultilingualTextField):
-
     description = _("Plain text Multilingual text fields")
 
     _field_class = PlainTextModelField
@@ -442,7 +437,7 @@ class URLField(models.URLField):
     def formfield(self, **kwargs):
         defaults = {
             "form_class": URLFormField,
-            #'verify_exists': self.verify_exists,
+            # 'verify_exists': self.verify_exists,
         }
         defaults.update(kwargs)
         return super(URLField, self).formfield(**defaults)
@@ -452,7 +447,7 @@ class MultilingualURLField(MultilingualCharField):
     def formfield(self, **kwargs):
         defaults = {
             "form_class": URLFormField,
-            #'verify_exists': self.verify_exists,
+            # 'verify_exists': self.verify_exists,
         }
         defaults.update(kwargs)
         return super(MultilingualURLField, self).formfield(**defaults)
@@ -476,15 +471,15 @@ class PositionField(models.IntegerField):
     """
 
     def __init__(
-        self,
-        verbose_name=None,
-        name=None,
-        default=None,
-        collection=None,
-        unique_for_field=None,
-        unique_for_fields=None,
-        *args,
-        **kwargs
+            self,
+            verbose_name=None,
+            name=None,
+            default=None,
+            collection=None,
+            unique_for_field=None,
+            unique_for_fields=None,
+            *args,
+            **kwargs
     ):
         if "unique" in kwargs:
             raise TypeError(

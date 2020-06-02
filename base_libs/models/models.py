@@ -475,7 +475,6 @@ class SingleSiteMixinManager(models.Manager):
 
 
 class SingleSiteMixin(BaseModel):
-
     site = models.ForeignKey(
         Site,
         verbose_name=_("Site"),
@@ -509,7 +508,6 @@ class MultiSiteMixinManager(models.Manager):
 
 
 class MultiSiteMixin(BaseModel):
-
     sites = models.ManyToManyField(
         Site,
         verbose_name=_("Site"),
@@ -663,6 +661,7 @@ class MultiSiteContainerMixin(ObjectRelationMixin(), UrlMixin):
 
     get_sites.short_description = _("Sites")
     get_sites.allow_tags = True
+
     # get_sites.admin_order_field = sites
 
     @classmethod
@@ -1352,7 +1351,6 @@ def FeesMixin(count=2,):
             abstract = True
 
     for index in range(count):
-
         fee_label_field = MultilingualCharField(
             _("Fee Label"), blank=True, max_length=40,
         )

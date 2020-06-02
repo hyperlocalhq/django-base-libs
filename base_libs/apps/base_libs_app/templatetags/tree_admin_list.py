@@ -2,18 +2,18 @@
 """
 overriding admin views for tree items
 """
+from django.contrib.admin.templatetags.admin_list import result_headers, _boolean_icon
 from django.contrib.admin.views.main import EMPTY_CHANGELIST_VALUE
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
-from django.utils import dateformat
-from django.utils.html import escape, conditional_escape
-from django.utils.text import capfirst
-from django.utils.safestring import mark_safe
-from django.utils.formats import get_format
-from django.utils.encoding import smart_unicode, force_unicode
 from django.template import Library
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.admin.templatetags.admin_list import result_headers, _boolean_icon
+from django.utils import dateformat
+from django.utils.encoding import smart_unicode, force_unicode
+from django.utils.formats import get_format
+from django.utils.html import escape, conditional_escape
+from django.utils.safestring import mark_safe
+from django.utils.text import capfirst
 
 register = Library()
 

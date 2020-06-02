@@ -1,9 +1,10 @@
 # -*- coding: UTF-8 -*-
 from __future__ import unicode_literals
+
 import re
 from htmlentitydefs import name2codepoint
-from django.utils.encoding import force_unicode
 
+from django.utils.encoding import force_unicode
 
 entity_re = re.compile("&(#?)([Xx]?)(\d+|[A-Fa-f0-9]+|%s);" % "|".join(name2codepoint))
 

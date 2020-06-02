@@ -7,8 +7,8 @@ from datetime import datetime, time
 from decimal import Decimal
 from time import strptime
 
-from django.conf import settings
 from django.apps import apps
+from django.conf import settings
 from django.db import models
 from django.http import Http404
 from django.utils.encoding import smart_str, force_unicode

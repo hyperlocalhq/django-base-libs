@@ -9,7 +9,6 @@ try:
 except ImportError:
     from StringIO import StringIO
 
-
 from django import forms
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils.encoding import force_unicode
@@ -42,6 +41,7 @@ from base_libs.middleware.threadlocals import get_current_language
 
 SECURITY_FIELD_MIN_TIME = getattr(settings, "SECURITY_FIELD_MIN_TIME", 3)  # 3 seconds
 SECURITY_FIELD_MAX_TIME = getattr(settings, "SECURITY_FIELD_MAX_TIME", 3600)  # 1 hour
+
 
 ### adding class="form_*" to all html input fields ###
 def add_css_class(css_class=""):

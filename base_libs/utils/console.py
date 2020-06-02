@@ -5,7 +5,6 @@ ANSI escape codes
 http://en.wikipedia.org/wiki/ANSI_escape_code
 """
 
-
 EFFECTS = {
     "reset": "\x1b[0m",
     "gray": "\033[1;30m",

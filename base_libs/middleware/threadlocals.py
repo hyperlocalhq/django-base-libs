@@ -1,8 +1,8 @@
 # -*- coding: UTF-8 -*-
-from django.contrib.auth.models import User
-from django.conf import settings
-
 from threading import local
+
+from django.conf import settings
+from django.contrib.auth.models import User
 
 _thread_locals = local()
 

@@ -1,8 +1,9 @@
 # -*- coding: UTF-8 -*-
-from pyDes import des, CBC as des_CBC
-from django.utils.encoding import force_unicode, smart_str
-from django.conf import settings
 import base64
+
+from django.conf import settings
+from django.utils.encoding import force_unicode, smart_str
+from pyDes import des, CBC as des_CBC
 
 
 def cryptString(plain):

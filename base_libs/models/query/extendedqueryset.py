@@ -1,6 +1,8 @@
 # -*- coding: UTF-8 -*-
-from django.db import models
 import operator
+
+from django.db import models
+
 
 # inspired by http://www.djangosnippets.org/snippets/166/
 class ExtendedQuerySet(models.query.QuerySet):

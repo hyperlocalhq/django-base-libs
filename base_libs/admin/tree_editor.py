@@ -26,6 +26,7 @@ from mptt.forms import MoveNodeForm
 
 csrf_protect_m = method_decorator(csrf_protect)
 
+
 # ------------------------------------------------------------------------
 def _build_tree_structure(cls):
     """

@@ -1,9 +1,9 @@
 # -*- coding: UTF-8 -*-
-import re
 import base64
+import re
 import socket
-import urllib2
 import urllib
+import urllib2
 
 """
 Client classes for cross-server communication

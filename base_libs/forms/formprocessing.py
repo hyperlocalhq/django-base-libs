@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 import re
 
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.template import loader
 from django.template.context import RequestContext
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
-
-from formtools.utils import form_hmac
-
 from django.utils.translation import ugettext_lazy as _
+from formtools.utils import form_hmac
 
 # action names for standard actions. Do not Edit!!!
 ID_ACTION_NEW = "new"

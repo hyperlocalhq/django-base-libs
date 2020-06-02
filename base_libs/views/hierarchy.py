@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
-from django.db.models.query import QuerySet
 from django.contrib.admin.views.main import ChangeList
+from django.db.models.query import QuerySet
 
 
 class HierarchyChangeList(ChangeList):

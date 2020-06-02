@@ -1,6 +1,11 @@
 # -*- coding: UTF-8 -*-
 import json
 
+from base_libs.admin.options import ExtendedModelAdmin
+from base_libs.middleware import get_current_user
+from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
+from base_libs.views.hierarchy import HierarchyChangeList
+from base_libs.widgets import TreeSelectWidget
 from django import forms
 from django.conf import settings
 from django.contrib.admin.options import IncorrectLookupParameters
@@ -11,12 +16,6 @@ from django.shortcuts import render_to_response
 from django.utils.safestring import mark_safe
 from django.utils.translation import string_concat
 from django.utils.translation import ugettext_lazy as _
-
-from base_libs.admin.options import ExtendedModelAdmin
-from base_libs.middleware import get_current_user
-from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
-from base_libs.views.hierarchy import HierarchyChangeList
-from base_libs.widgets import TreeSelectWidget
 
 # "save" buttons for ContentBaseMixin extending models
 CONTENT_BASE_SUBMIT_CHOICES = (
