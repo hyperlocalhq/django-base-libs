@@ -7,4 +7,4 @@ def get_user_title(user):
     profile = getattr(user, "profile", None)
     if profile:
         return force_unicode(profile)
-    return "{} {}".format(user.first_name, user.last_name).strip() or user.username
+    return user.get_full_name() or user.username
