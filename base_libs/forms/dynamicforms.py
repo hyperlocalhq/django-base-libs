@@ -55,7 +55,7 @@ class BoundField(FormsBoundField):
         super(BoundField, self).__init__(*args, **kwargs)
     """
 
-    def label_tag(self, contents=None, attrs=None):
+    def label_tag(self, contents=None, attrs=None, label_suffix=None):
         contents = contents or escape(self.label)
         widget = self.field.widget
         id_ = widget.attrs.get("id") or self.auto_id
