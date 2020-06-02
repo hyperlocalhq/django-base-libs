@@ -147,8 +147,6 @@ class ExtendedQuerySet(models.query.QuerySet):
             return self.queryset_with_counts.order_by(*order_by_clause)
 
     def __repr__(self):
+        # TODO: Remove this method, but test thoroughly.
+        # It was added only to avoid Unicode errors in older Django versions
         return "<ExtendedQuerySet>"
-        # data = list(self[:REPR_OUTPUT_SIZE + 1])
-        # if len(data) > REPR_OUTPUT_SIZE:
-        #     data[-1] = "...(remaining elements truncated)..."
-        # return repr(data)
