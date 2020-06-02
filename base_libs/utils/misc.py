@@ -379,7 +379,7 @@ class XChoiceList(list):
             result = [("", self.null_choice_text)] + [
                 (
                     el.id,
-                    hasattr(el, "get_title") and el.get_title() or force_unicode(el),
+                    el.get_title() if hasattr(el, "get_title") else force_unicode(el),
                 )
                 for el in self.sequence
             ]
