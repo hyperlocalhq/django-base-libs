@@ -293,16 +293,9 @@ class ViewsMixin(BaseModel):
           * save() method is not called
           * modification dates are not changed
         """
-        from django.db import connection
-
-        self.views += 1
-        model_opts = type(self)._meta
-        cursor = connection.cursor()
-        cursor.execute(
-            "UPDATE %s SET views=%%s WHERE %s=%%s"
-            % (model_opts.db_table, model_opts.pk.attname),
-            [self.views, self.pk,],
-        )
+        type(self)._default_manager.filter(
+            pk=self.pk,
+        ).update(views=models.F("views") + 1)
 
     increase_views.alters_data = True
 
