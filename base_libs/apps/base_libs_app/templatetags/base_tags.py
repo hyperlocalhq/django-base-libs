@@ -3,10 +3,13 @@ import datetime
 import random
 import re
 
+from base_libs.django_compatibility import force_str
+from base_libs.utils.loader import select_template_for_object
+from base_libs.utils.user import get_user_title
 from django import template
+from django.apps import apps
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
-from django.db import models
 from django.template import defaultfilters
 from django.template import loader, Template
 from django.template.defaultfilters import stringfilter
@@ -16,11 +19,8 @@ from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 from django.utils.text import normalize_newlines
 
-from base_libs.django_compatibility import force_str
-from base_libs.utils.loader import select_template_for_object
-from base_libs.utils.user import get_user_title
-
 register = template.Library()
+
 
 ### TAGS ###
 
@@ -151,7 +151,7 @@ def do_load_obj(parser, token):
         raise template.TemplateSyntaxError, "%r tag requires application name and model name separated by a dot" % (
             token.contents[0],
         )
-    model = models.get_model(appname, modelname)
+    model = apps.get_model(appname, modelname)
     return LoadObjNode(model, object_id, var_name)
 
 
@@ -203,7 +203,7 @@ def do_get_all_objects(parser, token):
             token.contents[0],
         )
     # from django.conf import settings
-    model = models.get_model(appname, modelname)
+    model = apps.get_model(appname, modelname)
     return GetAllObjectsNode(model, var_name)
 
 
@@ -241,7 +241,7 @@ def do_get_latest_published_objects(parser, token):
         appname, modelname = appmodel.split(".")
     except ValueError:
         raise template.TemplateSyntaxError, "get_latest_published_objects tag requires application name and model name separated by a dot"
-    model = models.get_model(appname, modelname)
+    model = apps.get_model(appname, modelname)
     return LatestPublishedObjectsNode(model, amount, var_name)
 
 
@@ -304,7 +304,7 @@ def do_get_objects(parser, token):
         appname, modelname = appmodel.split(".")
     except ValueError:
         raise template.TemplateSyntaxError, "get_objects tag requires application name and model name separated by a dot"
-    model = models.get_model(appname, modelname)
+    model = apps.get_model(appname, modelname)
     return ObjectsNode(model, manager_method, amount, var_name)
 
 

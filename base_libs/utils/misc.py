@@ -8,8 +8,8 @@ from decimal import Decimal
 from time import strptime
 
 from django.conf import settings
+from django.apps import apps
 from django.db import models
-from django.db.models.loading import get_app
 from django.http import Http404
 from django.utils.encoding import smart_str, force_unicode
 from django.utils.translation import ugettext, get_language, activate
@@ -448,7 +448,7 @@ def get_installed(path):
     path_bits = path.split(".")
     app_name = path_bits.pop(0)
     ret_var = path_bits.pop()
-    app_path_bits = get_app(app_name).__name__.split(".")[:-1]
+    app_path_bits = apps.get_app_config(app_name).models_module.__name__.split(".")[:-1]
     module_path = ".".join(app_path_bits + path_bits)
     m = __import__(module_path, globals(), locals(), "*")
     return getattr(m, ret_var)
@@ -475,7 +475,7 @@ def path_in_installed_app(path):
     path_bits = path.split(".")
     app_name = path_bits.pop(0)
     # ret_var = path_bits.pop()
-    app_path_bits = get_app(app_name).__name__.split(".")[:-1]
+    app_path_bits = apps.get_app_config(app_name).models_module.__name__.split(".")[:-1]
     module_path = ".".join(app_path_bits + path_bits)
     return module_path
 
