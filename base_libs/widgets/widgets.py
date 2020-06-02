@@ -159,7 +159,10 @@ class AutocompleteWidget(Widget):
         2. Field with id = "id_<field_name>", which is hidden and holds the pk 
             of a selected item.
         """
-        text_field_attrs = self.build_attrs(attrs, name + "_text")
+        if attrs is None:
+            attrs = {}
+        attrs["name"] = name + "_text"
+        text_field_attrs = self.build_attrs(attrs)
 
         # if there is any initial value available, fill the text field from the queryset
         text_field_value = ""
