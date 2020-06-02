@@ -477,7 +477,7 @@ class ObjectChoiceField(forms.Field):
         self.obj_list = obj_list
         self.widget.default_text = default_text
 
-    def _get_obj_list(self, obj_list):
+    def _get_obj_list(self):
         return self._obj_list
 
     def _set_obj_list(self, value):
