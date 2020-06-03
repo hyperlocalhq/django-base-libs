@@ -519,7 +519,11 @@ class ExtendedModelAdmin(MarkupTypeOptions, admin.ModelAdmin):
             if all_valid(formsets) and form_validated:
                 self.save_model(request, new_object, form, False)
                 self.save_related(request, form, formsets, False)
-                self.log_addition(request, new_object, None)
+                try:
+                    self.log_addition(request, new_object, None)  # Django 1.9+
+                except TypeError:
+                    self.log_addition(request, new_object)  # Django 1.8
+
                 """ HERE THE CUSTOM CODE BEGINS"""
                 # action handling has to be done after the usual form processing!!!
                 if self.add_additional_buttons:
