@@ -12,13 +12,18 @@ from base_libs.utils.misc import get_installed
 from django import forms
 from django.conf import settings
 from django.contrib.admin import widgets as admin_widgets
-from django.forms.util import flatatt
+
+try:
+    from django.forms.utils import flatatt
+except:
+    from django.forms.util import flatatt  # Django 1.8
+
 from django.forms.widgets import Widget
 from django.utils.encoding import force_unicode
 from django.utils.html import escape, conditional_escape
 from django.utils.safestring import mark_safe
 
-ADMIN_MEDIA_URL = getattr(settings, "JETSON_MEDIA_URL", settings.ADMIN_MEDIA_PREFIX,)
+ADMIN_MEDIA_URL = getattr(settings, "JETSON_MEDIA_URL", settings.ADMIN_MEDIA_PREFIX, )
 
 
 class IntegerWidget(forms.TextInput):
@@ -99,13 +104,13 @@ class AutocompleteWidget(Widget):
         }"""
 
     def __init__(
-        self,
-        app,
-        qs_function,
-        display_attr,
-        add_display_attr=None,
-        options=None,
-        attrs=None,
+            self,
+            app,
+            qs_function,
+            display_attr,
+            add_display_attr=None,
+            options=None,
+            attrs=None,
     ):
         super(AutocompleteWidget, self).__init__()
         if not attrs:
@@ -167,14 +172,14 @@ class AutocompleteWidget(Widget):
         text_field_value = ""
         if value:
             func = get_installed(
-                "%(app)s.ajax.%(func)s" % {"app": self.app, "func": self.qs_function,}
+                "%(app)s.ajax.%(func)s" % {"app": self.app, "func": self.qs_function, }
             )
             queryset = func("all")
             try:
                 obj = queryset.get(pk=value)
                 text_field_value = getattr(obj, self.display_attr)
                 if callable(text_field_value) and not getattr(
-                    text_field_value, "alters_data", False
+                        text_field_value, "alters_data", False
                 ):
                     text_field_value = text_field_value()
             except:
@@ -235,13 +240,13 @@ class AutocompleteMultipleWidget(AutocompleteWidget):
         value_list = []
         if value:
             func = get_installed(
-                "%(app)s.ajax.%(func)s" % {"app": self.app, "func": self.qs_function,}
+                "%(app)s.ajax.%(func)s" % {"app": self.app, "func": self.qs_function, }
             )
             queryset = func("all")
             for obj in queryset.filter(pk__in=value):
                 text_value = getattr(obj, self.display_attr)
                 if callable(text_value) and not getattr(
-                    text_value, "alters_data", False
+                        text_value, "alters_data", False
                 ):
                     text_value = text_value()
                     value_list.append(
@@ -301,13 +306,13 @@ class AutocompleteMultipleWidget(AutocompleteWidget):
 
 class SelectToAutocompleteWidget(AutocompleteWidget):
     def __init__(
-        self,
-        app,
-        qs_function,
-        display_attr,
-        add_display_attr=None,
-        options=None,
-        attrs=None,
+            self,
+            app,
+            qs_function,
+            display_attr,
+            add_display_attr=None,
+            options=None,
+            attrs=None,
     ):
         super(SelectToAutocompleteWidget, self).__init__(app, qs_function, display_attr)
         if not attrs:
@@ -323,7 +328,7 @@ class SelectToAutocompleteWidget(AutocompleteWidget):
 
         self.attrs = attrs
         self.func = get_installed(
-            "%(app)s.ajax.%(func)s" % {"app": self.app, "func": self.qs_function,}
+            "%(app)s.ajax.%(func)s" % {"app": self.app, "func": self.qs_function, }
         )
         self.queryset = self.func("all")
         # self.choices = list(XChoiceList(self.queryset))
@@ -387,7 +392,7 @@ class SelectToAutocompleteWidget(AutocompleteWidget):
         select_field = u"\n".join(output)
 
         text_field_attrs["class"] = (
-            text_field_attrs["class"] + " to_show autocomplete"
+                text_field_attrs["class"] + " to_show autocomplete"
         ).strip()
         text_field_attrs = self.build_attrs(text_field_attrs, name + "_text")
 
@@ -430,7 +435,7 @@ class SelectToAutocompleteWidget(AutocompleteWidget):
         def render_option(option_value, option_label):
             option_value = force_unicode(option_value)
             selected_html = (
-                (option_value in selected_choices) and u' selected="selected"' or ""
+                    (option_value in selected_choices) and u' selected="selected"' or ""
             )
             return u'<option value="%s"%s>%s</option>' % (
                 escape(option_value),
@@ -481,7 +486,7 @@ class ObjectSelect(forms.Widget):
             for option_value, option_label in obj_choices:
                 option_value = force_unicode(option_value)
                 selected_html = (
-                    (option_value == str_value) and u' selected="selected"' or ""
+                        (option_value == str_value) and u' selected="selected"' or ""
                 )
                 output.append(
                     u'<option value="%s"%s>%s</option>'
@@ -518,7 +523,7 @@ class TreeSelectWidget(forms.Select):
                 indentation = 0
 
             selected_html = (
-                (option_value in selected_choices) and u' selected="selected"' or ""
+                    (option_value in selected_choices) and u' selected="selected"' or ""
             )
             return u'<option value="%s"%s>%s</option>' % (
                 escape(option_value),
@@ -566,7 +571,7 @@ class TreeSelectMultipleWidget(forms.SelectMultiple):
                 indentation = 0
 
             selected_html = (
-                (option_value in selected_choices) and u' selected="selected"' or ""
+                    (option_value in selected_choices) and u' selected="selected"' or ""
             )
             return u'<option value="%s"%s>%s</option>' % (
                 escape(option_value),

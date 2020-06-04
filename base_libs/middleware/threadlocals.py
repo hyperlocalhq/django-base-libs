@@ -2,12 +2,13 @@
 from threading import local
 
 from django.conf import settings
-from django.contrib.auth.models import User
 
 _thread_locals = local()
 
 
 def get_current_user(forced_user=None):
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
     user = forced_user or getattr(_thread_locals, "user", None)
     return (None, user)[isinstance(user, User)]
 

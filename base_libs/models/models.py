@@ -6,7 +6,12 @@ from datetime import datetime
 import six
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.contrib.contenttypes import generic
+
+try:
+    from django.contrib.contenttypes.fields import GenericForeignKey
+except ImportError:
+    from django.contrib.contenttypes.generic import GenericForeignKey  #  Django 1.8
+
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
 from django.core.exceptions import FieldError
@@ -20,7 +25,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 
 try:
     from django.utils.timezone import now as tz_now
-except:
+except ImportError:
     tz_now = datetime.now
 
 from babel.numbers import format_currency
@@ -445,7 +450,7 @@ def ObjectRelationMixin(
     )
     object_id.limit_choices_to = limit_object_choices_to
     # can be retrieved by MyModel._meta.get_field("object_id").limit_choices_to
-    content_object = generic.GenericForeignKey(
+    content_object = GenericForeignKey(
         ct_field=content_type_field, fk_field=object_id_field,
     )
 
