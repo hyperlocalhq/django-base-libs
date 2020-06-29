@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 import re
+from copy import deepcopy
 
 from django import forms
 from django.conf import settings
@@ -60,6 +61,7 @@ def patch_validation():
     from django.contrib.admin.options import HORIZONTAL, VERTICAL
     from django.contrib.admin import validation
     from django.contrib.admin.validation import check_isseq, get_field, check_isdict
+
     def validate_base(cls, model):
         opts = model._meta
 
@@ -228,18 +230,24 @@ def patch_validation():
                 check_isseq(cls, "prepopulated_fields['%s']" % field, val)
                 for idx, f in enumerate(val):
                     get_field(
-                        cls, model, opts, "prepopulated_fields['%s'][%d]" % (field, idx), f
+                        cls,
+                        model,
+                        opts,
+                        "prepopulated_fields['%s'][%d]" % (field, idx),
+                        f,
                     )
-
 
     validation.validate_base = validate_base
 
 
 def patch_checks():
     from django.contrib.admin import checks
+
     def _check_fieldsets(self, obj):
         return []
+
     checks.BaseModelAdminChecks._check_fieldsets = _check_fieldsets
+
 
 try:
     from django.contrib.admin import validation
@@ -247,6 +255,7 @@ except:
     patch_checks()
 else:
     patch_validation()
+
 
 class Fieldset(object):
     is_fieldset = True
@@ -337,49 +346,49 @@ class InlineFieldset(Fieldset):
 helpers.InlineFieldset = InlineFieldset
 
 
-def _declared_fieldsets(self):
+def nested_fieldsets_with_markup_types(
+    model_admin, fieldsets=None, request=None, obj=None
+):
     """ overriden to handle additional <<whatever>>_markup_type field!!! """
+
+    def traverse_fieldsets(model, fieldsets):
+        new_fieldsets = []
+        for name, opts in fieldsets:
+            new_opts = deepcopy(opts)
+            new_opts["fields"] = traverse_fields(model, opts["fields"])
+            new_fieldsets.append((name, new_opts))
+        return new_fieldsets
+
+    def traverse_fields(model, fields):
+        new_fields = []
+        for field in fields:
+            if isinstance(field, (tuple, list)):
+                if len(field) == 2 and isinstance(field[1], dict):
+                    # it's a nested fieldset
+                    new_fields.extend(traverse_fieldsets(model, (field,)))
+                else:
+                    # it's a tuple of field names
+                    new_fields.extend(traverse_fields(model, field))
+            else:
+                # it's a field name
+                try:
+                    f = model._meta.get_field(field)
+                except FieldDoesNotExist:  # allow readonly methods instead of fields
+                    pass
+                else:
+                    if isinstance(f, ExtendedTextField):
+                        if "%s_markup_type" % field not in fields:
+                            new_fields.append("%s_markup_type" % field)
+                new_fields.append(field)
+        return new_fields
 
     def attach_markup_type(model, fieldsets):
         """ Goes through all fields and adds *_markup_type fields """
+        return traverse_fieldsets(model, fieldsets)
 
-        def traverse_fieldsets(fieldsets):
-            new_fieldsets = []
-            for name, opts in fieldsets:
-                opts["fields"] = traverse_fields(opts["fields"])
-                new_fieldsets.append((name, opts))
-            return new_fieldsets
+    if fieldsets:
+        return attach_markup_type(model_admin.model, fieldsets)
 
-        def traverse_fields(fields):
-            new_fields = []
-            for field in fields:
-                if isinstance(field, (tuple, list)):
-                    if len(field) == 2 and isinstance(field[1], dict):
-                        # it's a nested fieldset
-                        new_fields.extend(traverse_fieldsets((field,)))
-                    else:
-                        # it's a tuple of field names
-                        new_fields.extend(traverse_fields(field))
-                else:
-                    # it's a field name
-                    try:
-                        f = model._meta.get_field(field)
-                    except FieldDoesNotExist:  # allow readonly methods instead of fields
-                        pass
-                    else:
-                        if isinstance(f, ExtendedTextField):
-                            if "%s_markup_type" % field not in fields:
-                                new_fields.append("%s_markup_type" % field)
-                    new_fields.append(field)
-            return new_fields
-
-        return traverse_fieldsets(fieldsets)
-
-    if self.fieldsets:
-        return attach_markup_type(self.model, self.fieldsets)
-
-    elif self.fields:
-        return [(None, {"fields": self.fields})]
     return None
 
 
@@ -396,10 +405,11 @@ class MarkupTypeOptions(object):
         """
         Hook for specifying fieldsets.
         """
-        if self.fieldsets:
-            _declared_fieldsets(self)
-            return self.fieldsets
-        return [(None, {'fields': self.get_fields(request, obj)})]
+        fieldsets = self.fieldsets
+        if not fieldsets:
+            fieldsets = [(None, {"fields": self.get_fields(request, obj)})]
+
+        return nested_fieldsets_with_markup_types(self, fieldsets, request, obj)
 
     def formfield_for_choice_field(self, db_field, request=None, **kwargs):
         # catch markup type fields
@@ -437,6 +447,7 @@ class ExtendedModelAdmin(MarkupTypeOptions, admin.ModelAdmin):
     overwritten to handle custom buttons for the admin 
     add and change view and other stuff
     """
+
     @classmethod
     def get_modified_fieldsets(cls, additional_fields, prefixed=True):
         """ 
