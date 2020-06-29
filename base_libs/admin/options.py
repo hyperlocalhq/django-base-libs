@@ -392,6 +392,15 @@ class MarkupTypeOptions(object):
         # MARKUP_MARKDOWN
     ]
 
+    def get_fieldsets(self, request, obj=None):
+        """
+        Hook for specifying fieldsets.
+        """
+        if self.fieldsets:
+            _declared_fieldsets(self)
+            return self.fieldsets
+        return [(None, {'fields': self.get_fields(request, obj)})]
+
     def formfield_for_choice_field(self, db_field, request=None, **kwargs):
         # catch markup type fields
         if re.search("markup_type$", db_field.name):
@@ -417,12 +426,10 @@ class MarkupTypeOptions(object):
 
 class ExtendedStackedInline(MarkupTypeOptions, admin.StackedInline):
     classes = ("grp-collapse grp-closed",)
-    declared_fieldsets = property(_declared_fieldsets)
 
 
 class ExtendedTabularInline(MarkupTypeOptions, admin.TabularInline):
     classes = ("grp-collapse grp-closed",)
-    declared_fieldsets = property(_declared_fieldsets)
 
 
 class ExtendedModelAdmin(MarkupTypeOptions, admin.ModelAdmin):
@@ -430,10 +437,6 @@ class ExtendedModelAdmin(MarkupTypeOptions, admin.ModelAdmin):
     overwritten to handle custom buttons for the admin 
     add and change view and other stuff
     """
-
-    # additional save buttons
-    additional_buttons = []
-
     @classmethod
     def get_modified_fieldsets(cls, additional_fields, prefixed=True):
         """ 
@@ -452,199 +455,3 @@ class ExtendedModelAdmin(MarkupTypeOptions, admin.ModelAdmin):
                 {"fields": new_fields, "classes": cls.fieldsets[0][1]["classes"]},
             ),
         ]
-
-    """
-    this is a callback to be overwritten. 
-    It gets the additional buttons to be displayed.
-    The action for the buttons is handled by the
-    handle_buttons_action_callback method (see below).
-     
-    The additional_buttons parameter is a list of tuples
-    like this:
-    
-    [(<<button_name>>, <<button_text>>), ...]
-    
-    """
-
-    def add_get_additional_buttons_callback(self):
-        return []
-
-    def add_handle_button_action_callback(self, action, obj):
-        pass
-
-    def change_get_additional_buttons_callback(self):
-        return []
-
-    def change_handle_button_action_callback(self, action, obj):
-        pass
-
-    # overwritten
-    def __init__(self, model, admin_site):
-        super(ExtendedModelAdmin, self).__init__(model, admin_site)
-        self.add_additional_buttons = self.add_get_additional_buttons_callback()
-        self.change_additional_buttons = self.change_get_additional_buttons_callback()
-
-    # overwritten
-    @options.csrf_protect_m
-    @transaction.atomic
-    def add_view(self, request, form_url="", extra_context=None):
-        """
-        The 'add' admin view for this model.
-        unfortunately, we have to add the whole django
-        code from contrib.admin.options.add_view. If that
-        method changes in the django code, it should be 
-        updated here!!!
-
-        overwritten add_view. The default behaviour is extended by
-        simple additional button actions.
-        """
-        if not extra_context:
-            extra_context = {}
-        extra_context["additional_buttons"] = self.add_additional_buttons
-
-        # HERE THE PART TAKEN FROM DJANGO STARTS
-        model = self.model
-        opts = model._meta
-
-        if not self.has_add_permission(request):
-            raise PermissionDenied
-
-        ModelForm = self.get_form(request)
-        formsets = []
-        inline_instances = self.get_inline_instances(request, None)
-        if request.method == "POST":
-            form = ModelForm(request.POST, request.FILES)
-            if form.is_valid():
-                new_object = self.save_form(request, form, change=False)
-                form_validated = True
-            else:
-                new_object = self.model()
-                form_validated = False
-            prefixes = {}
-            for FormSet, inline in zip(self.get_formsets(request), inline_instances):
-                prefix = FormSet.get_default_prefix()
-                prefixes[prefix] = prefixes.get(prefix, 0) + 1
-                if prefixes[prefix] != 1 or not prefix:
-                    prefix = "%s-%s" % (prefix, prefixes[prefix])
-                formset = FormSet(
-                    data=request.POST,
-                    files=request.FILES,
-                    instance=new_object,
-                    save_as_new="_saveasnew" in request.POST,
-                    prefix=prefix,
-                    queryset=inline.get_queryset(request),
-                )
-                formsets.append(formset)
-            if all_valid(formsets) and form_validated:
-                self.save_model(request, new_object, form, False)
-                self.save_related(request, form, formsets, False)
-                try:
-                    self.log_addition(request, new_object, None)  # Django 1.9+
-                except TypeError:
-                    self.log_addition(request, new_object)  # Django 1.8
-
-                """ HERE THE CUSTOM CODE BEGINS"""
-                # action handling has to be done after the usual form processing!!!
-                if self.add_additional_buttons:
-                    action = None
-                    for key, value in self.add_additional_buttons:
-                        if request.POST.has_key(key):
-                            action = key
-                            break
-                    if action:
-                        if new_object:
-                            self.add_handle_button_action_callback(action, new_object)
-                """ HERE THE CUSTOM CODE ENDS"""
-                return self.response_add(request, new_object)
-        else:
-            # Prepare the dict of initial data from the request.
-            # We have to special-case M2Ms as a list of comma-separated PKs.
-            initial = dict(request.GET.items())
-            for k in initial:
-                try:
-                    f = opts.get_field(k)
-                except models.FieldDoesNotExist:
-                    continue
-                if isinstance(f, models.ManyToManyField):
-                    initial[k] = initial[k].split(",")
-            form = ModelForm(initial=initial)
-            prefixes = {}
-            for FormSet, inline in zip(self.get_formsets(request), inline_instances):
-                prefix = FormSet.get_default_prefix()
-                prefixes[prefix] = prefixes.get(prefix, 0) + 1
-                if prefixes[prefix] != 1 or not prefix:
-                    prefix = "%s-%s" % (prefix, prefixes[prefix])
-                formset = FormSet(
-                    instance=self.model(),
-                    prefix=prefix,
-                    queryset=inline.get_queryset(request),
-                )
-                formsets.append(formset)
-
-        adminForm = helpers.AdminForm(
-            form,
-            list(self.get_fieldsets(request)),
-            self.get_prepopulated_fields(request),
-            self.get_readonly_fields(request),
-            model_admin=self,
-        )
-        media = self.media + adminForm.media
-
-        inline_admin_formsets = []
-        for inline, formset in zip(inline_instances, formsets):
-            fieldsets = list(inline.get_fieldsets(request))
-            readonly = list(inline.get_readonly_fields(request))
-            prepopulated = dict(inline.get_prepopulated_fields(request))
-            inline_admin_formset = helpers.InlineAdminFormSet(
-                inline, formset, fieldsets, prepopulated, readonly, model_admin=self
-            )
-            inline_admin_formsets.append(inline_admin_formset)
-            media = media + inline_admin_formset.media
-
-        context = {
-            "title": _("Add %s") % force_text(opts.verbose_name),
-            "adminform": adminForm,
-            "is_popup": "_popup" in request.REQUEST,
-            "media": mark_safe(media),
-            "inline_admin_formsets": inline_admin_formsets,
-            "errors": helpers.AdminErrorList(form, formsets),
-            "app_label": opts.app_label,
-        }
-        context.update(extra_context or {})
-        return self.render_change_form(request, context, form_url=form_url, add=True)
-
-    # overwritten
-    @options.csrf_protect_m
-    @transaction.atomic
-    def change_view(self, request, object_id, form_url="", extra_context=None):
-        """
-        overwritten change_view. The default behaviour is extended by
-        simple additional button actions.
-        """
-        # add the additional buttons ...
-        if not extra_context:
-            extra_context = {}
-        extra_context["additional_buttons"] = self.change_additional_buttons
-        result = super(ExtendedModelAdmin, self).change_view(
-            request, object_id, form_url, extra_context
-        )
-
-        # action ahandling has to be done after the usual form processing!!!
-        if request.POST:
-            if self.change_additional_buttons:
-                action = None
-                for key, value in self.change_additional_buttons:
-                    if request.POST.has_key(key):
-                        action = key
-                        break
-                if action:
-                    obj = self.model._default_manager.get(pk=object_id)
-                    if obj:
-                        response = self.change_handle_button_action_callback(
-                            action, obj
-                        )
-                        if response:
-                            result = response
-        return result
-
-    declared_fieldsets = property(_declared_fieldsets)
