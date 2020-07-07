@@ -576,10 +576,10 @@ class MultiSiteContainerMixinManager(models.Manager):
         self.model = model
         setattr(model, name, models.manager.ManagerDescriptor(self))
         if (
-            not getattr(model, "_default_manager", None)
-            or self.creation_counter < model._default_manager.creation_counter
+            not getattr(model, "objects", None)
+            or self.creation_counter < model.objects.creation_counter
         ):
-            model._default_manager = self
+            model.objects = self
 
     def add_site(self, site):
         """

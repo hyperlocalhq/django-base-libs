@@ -163,7 +163,7 @@ class LoadObjNode(template.Node):
 
     def render(self, context):
         try:
-            object_id = template.resolve_variable(self.object_id, context)
+            object_id = template.Variable(self.object_id).resolve(context)
             obj = self.model.objects.get(pk=object_id)
         except ValueError:
             obj = None
@@ -256,7 +256,7 @@ class LatestPublishedObjectsNode(template.Node):
             qs = self.model._default_manager.latest_published()
         else:
             qs = self.model._default_manager.all()
-        amount = template.resolve_variable(self.amount, context)
+        amount = template.Variable(self.amount).resolve(context)
         context[self.var_name] = qs[:amount]
         return ""
 
@@ -326,7 +326,7 @@ class ObjectsNode(template.Node):
             getattr(self.model, manager), method, self.model._default_manager.all,
         )()
         if self.amount:
-            amount = template.resolve_variable(self.amount, context)
+            amount = template.Variable(self.amount).resolve(context)
             context[self.var_name] = qs[:amount]
         else:
             context[self.var_name] = qs
@@ -380,20 +380,20 @@ class CallNode(template.Node):
         self.var_name = var_name
 
     def render(self, context):
-        obj = template.resolve_variable(self.obj, context)
+        obj = template.Variable(self.obj).resolve(context)
         method = getattr(obj, self.method_name)
         if getattr(method, "alters_data", False):
-            raise template.TemplateSyntaxError, u"You can't call %s.%s in a template, because it alters data. Call it in the view instead." % (
+            raise template.TemplateSyntaxError(u"You can't call %s.%s in a template, because it alters data. Call it in the view instead." % (
                 self.obj,
                 self.method_name,
-            )
+            ))
 
         method_args = [
-            template.resolve_variable(arg, context) for arg in self.method_args
+            template.Variable(arg).resolve(context) for arg in self.method_args
         ]
         method_kwargs = dict(
             [
-                (key, template.resolve_variable(value, context))
+                (key, template.Variable(value).resolve(context))
                 for key, value in self.method_kwargs.items()
             ]
         )
@@ -444,7 +444,7 @@ class ParseNode(template.Node):
         self.var_name = var_name
 
     def render(self, context):
-        template_value = template.resolve_variable(self.template_value, context)
+        template_value = template.Variable(self.template_value).resolve(context)
         t = Template(template_value)
         result = t.render(context)
         if self.var_name:
@@ -499,13 +499,13 @@ class ParsedIncludeNode(template.Node):
         self.extra = extra
 
     def render(self, context):
-        template_path = template.resolve_variable(self.template_path, context)
+        template_path = template.Variable(self.template_path).resolve(context)
         context_vars = {}
         for d in list(context):
             for var, val in d.items():
                 context_vars[var] = val
         for var, val in self.extra:
-            context_vars[var] = template.resolve_variable(val, context)
+            context_vars[var] = template.Variable(val).resolve(context)
         return loader.render_to_string(template_path, context_vars)
 
 
@@ -519,7 +519,7 @@ class IncludeNode(template.Node):
     def render(self, context):
         try:
             # Loading the template and rendering it
-            template_name = template.resolve_variable(self.template_name, context)
+            template_name = template.Variable(self.template_name).resolve(context)
             included_template = template.loader.get_template(template_name).render(
                 context
             )
@@ -553,7 +553,7 @@ class TranslatedURL(template.Node):
         from django.core.urlresolvers import resolve
         from django.utils import translation
 
-        lang_code = template.resolve_variable(self.lang_code, context)
+        lang_code = template.Variable(self.lang_code).resolve(context)
 
         try:
             view = resolve(context["request"].path)
