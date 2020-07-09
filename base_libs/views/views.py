@@ -7,7 +7,7 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, render
-from django.template import loader, Template, Context
+from django.template import Template, Context
 from django.views.decorators.cache import never_cache
 
 
