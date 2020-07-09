@@ -5,15 +5,14 @@ from base_libs.utils.misc import ExtendedJSONEncoder
 from base_libs.utils.misc import get_installed
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
-from django.http import Http404, HttpResponse, HttpResponseForbidden
-from django.shortcuts import get_object_or_404
-from django.template import loader, Template, Context, RequestContext
+from django.http import Http404, HttpResponse
+from django.shortcuts import get_object_or_404, render
+from django.template import loader, Template, Context
 from django.views.decorators.cache import never_cache
 
 
 def access_denied(request):
-    t = loader.get_template("403.html")
-    return HttpResponseForbidden(t.render(RequestContext(request)))
+    return render(request, "403.html", status=403)
 
 
 def get_object(content_type_var, field_name, field_value):
