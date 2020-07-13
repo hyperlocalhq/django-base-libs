@@ -1,6 +1,10 @@
 # -*- coding: UTF-8 -*-
 from django.db import models
-from django.utils.encoding import smart_unicode
+try:
+    from django.utils.encoding import force_text
+except ImportError:
+    from django.utils.encoding import force_unicode as force_text
+
 from django.utils.translation import ugettext_lazy as _
 
 from django.contrib.admin.filters import FieldListFilter, RelatedFieldListFilter
@@ -70,12 +74,12 @@ class HierarchyRelatedFilterSpec(RelatedFieldListFilter):
 
             yield {
                 "filtered_out": self.filtered_out.has_key(item.pk),
-                "selected": self.lookup_val == smart_unicode(item.pk),
+                "selected": self.lookup_val == force_text(item.pk),
                 "query_string": cl.get_query_string({self.lookup_kwarg: item.pk}),
                 "display": {
                     "pk": item.pk,
                     "parent_pk": parent_pk_val,
-                    "val": ("%s %s" % ("-" * item.get_level(), unicode(item))).strip(),
+                    "val": ("%s %s" % ("-" * item.get_level(), force_text(item))).strip(),
                 },
             }
 

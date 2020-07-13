@@ -1,2 +1,2 @@
 # -*- coding: UTF-8 -*-
-from extendedqueryset import ExtendedQuerySet
+from .extendedqueryset import ExtendedQuerySet

@@ -4,7 +4,10 @@ from __future__ import unicode_literals
 import re
 from htmlentitydefs import name2codepoint
 
-from django.utils.encoding import force_unicode
+try:
+    from django.utils.encoding import force_text
+except:
+    from django.utils.encoding import force_unicode as force_text
 
 entity_re = re.compile("&(#?)([Xx]?)(\d+|[A-Fa-f0-9]+|%s);" % "|".join(name2codepoint))
 
@@ -29,4 +32,4 @@ def decode_entities(html, decode_all=False):
         return unichr(val)
 
     regexp = decode_all and entity_re or entity_no_escape_chars_re
-    return regexp.sub(_replace_entity, force_unicode(html))
+    return regexp.sub(_replace_entity, force_text(html))

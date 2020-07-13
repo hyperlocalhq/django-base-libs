@@ -40,13 +40,13 @@ def get_object(content_type_var, field_name, field_value):
             app_label__exact=package, model__exact=module
         )
     except:
-        raise Http404, "content type for %s could not be resolved" % content_type_var
+        raise Http404("content type for %s could not be resolved" % content_type_var)
 
     # ensure the object identified by field_value is valid
     try:
         obj = content_type.get_object_for_this_type(**{field_name: field_value})
     except:
-        raise Http404, "object with %s=%s does not exist" % (field_name, field_value)
+        raise Http404("object with %s=%s does not exist" % (field_name, field_value))
 
     return obj
 
@@ -89,7 +89,7 @@ def get_object_from_url(object_url_part, **kwargs):
                 __import__(settings.ROOT_URLCONF, {}, {}, [""]), "OBJECT_URL_MAPPER"
             )
         except (ImportError, AttributeError):
-            raise Http404, "Please specify an OBJECT_URL_MAPPER dict to use this function"
+            raise Http404("Please specify an OBJECT_URL_MAPPER dict to use this function")
 
         if object_url_mapper.has_key(model_identifier):
             object_props = object_url_mapper[model_identifier]
@@ -98,10 +98,10 @@ def get_object_from_url(object_url_part, **kwargs):
                     **{object_props[1] + "__iexact": object_identifier}
                 )
             except:
-                raise Http404, "Sorry, requested object '%s' does not exist in the %s model" % (
+                raise Http404("Sorry, requested object '%s' does not exist in the %s model" % (
                     object_identifier,
                     str(object_props[0]),
-                )
+                ))
 
             base_template = object_props[2]
 
@@ -111,10 +111,10 @@ def get_object_from_url(object_url_part, **kwargs):
     # now test, if model is supported and allowed!
     if kwargs.has_key("include"):
         if not model_identifier in kwargs["include"]:
-            raise Http404, "Sorry, you are not allowed to access object '%s' in the requested application" % object_identifier
+            raise Http404("Sorry, you are not allowed to access object '%s' in the requested application" % object_identifier)
     if kwargs.has_key("exclude"):
         if model_identifier in kwargs["exclude"]:
-            raise Http404, "Sorry, you are not allowed to access object '%s' in the requested application" % object_identifier
+            raise Http404("Sorry, you are not allowed to access object '%s' in the requested application" % object_identifier)
 
     return (obj, base_template)
 

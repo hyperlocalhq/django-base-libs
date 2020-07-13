@@ -16,7 +16,10 @@ import logging
 
 from django.conf import settings
 from django.template.defaultfilters import slugify as django_slugify
-from django.utils.encoding import force_unicode
+try:
+    from django.utils.encoding import force_text
+except ImportError:
+    from django.utils.encoding import force_unicode as force_text
 
 logger = logging.getLogger("betterslugify")
 
@@ -482,7 +485,7 @@ def better_slugify(value, remove_stopwords=True, slugify=True, max_words=None):
         slugify - boolean - Call Django's slugify function afterwards?
         max_words - int - Number of words that are allowed. Longer strings will be shortened
     """
-    value = force_unicode(value)
+    value = force_text(value)
 
     lang = settings.LANGUAGE_CODE.lower()
 

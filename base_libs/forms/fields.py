@@ -5,13 +5,19 @@ import re
 import time
 
 try:
-    from cStringIO import StringIO
+    from io import StringIO
 except ImportError:
-    from StringIO import StringIO
+    try:
+        from cStringIO import StringIO
+    except ImportError:
+        from StringIO import StringIO
 
 from django import forms
 from django.utils.translation import ugettext, ugettext_lazy as _
-from django.utils.encoding import force_unicode
+try:
+    from django.utils.encoding import force_text
+except ImportError:
+    from django.utils.encoding import force_unicode as force_text
 from django.template.defaultfilters import filesizeformat
 from django.contrib.contenttypes.models import ContentType
 from django.forms.widgets import Input
@@ -87,7 +93,7 @@ class IntegerField(forms.IntegerField):
         locale = get_current_language()
         if value != "":
             try:
-                value = force_unicode(parse_number(value, locale=locale))
+                value = force_text(parse_number(value, locale=locale))
             except NumberFormatError:
                 raise forms.ValidationError(self.error_messages["invalid"])
         return super(IntegerField, self).clean(value)
@@ -104,7 +110,7 @@ class FloatField(forms.FloatField):
         locale = get_current_language()
         if value != "":
             try:
-                value = force_unicode(parse_decimal(value, locale=locale))
+                value = force_text(parse_decimal(value, locale=locale))
             except NumberFormatError:
                 raise forms.ValidationError(self.error_messages["invalid"])
         return super(FloatField, self).clean(value)
@@ -123,7 +129,7 @@ class DecimalField(forms.DecimalField):
         locale = get_current_language()
         if value != "":
             try:
-                value = force_unicode(parse_decimal(value, locale=locale))
+                value = force_text(parse_decimal(value, locale=locale))
             except NumberFormatError:
                 raise forms.ValidationError(self.error_messages["invalid"])
         return super(DecimalField, self).clean(value)
@@ -485,10 +491,10 @@ class ObjectChoiceField(forms.Field):
         choice_list = []
         for q in self._obj_list:
             object_choice = [
-                (ObjectChoiceField.returnKey(o), force_unicode(o)) for o in q
+                (ObjectChoiceField.returnKey(o), force_text(o)) for o in q
             ]
             choice_list.append(
-                (force_unicode(q.model._meta.verbose_name).title(), object_choice)
+                (force_text(q.model._meta.verbose_name).title(), object_choice)
             )
         self.choices = choice_list
 
@@ -513,7 +519,7 @@ class ObjectChoiceField(forms.Field):
             value = u""
         if not isinstance(value, basestring):
             value = ObjectChoiceField.returnKey(value)
-        value = force_unicode(value)
+        value = force_text(value)
         value = super(ObjectChoiceField, self).clean(value)
         if value == u"":
             return value
@@ -869,4 +875,4 @@ class HierarchicalModelChoiceField(forms.ModelChoiceField):
         prefix = (obj.path_search.count("/") - 2) * "-"
         if prefix:
             prefix += " "
-        return prefix + force_unicode(obj)
+        return prefix + force_text(obj)

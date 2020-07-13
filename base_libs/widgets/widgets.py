@@ -19,7 +19,10 @@ except:
     from django.forms.util import flatatt  # Django 1.8
 
 from django.forms.widgets import Widget
-from django.utils.encoding import force_unicode
+try:
+    from django.utils.encoding import force_text
+except ImportError:
+    from django.utils.encoding import force_unicode as force_text
 from django.utils.html import escape, conditional_escape
 from django.utils.safestring import mark_safe
 
@@ -256,7 +259,7 @@ class AutocompleteMultipleWidget(AutocompleteWidget):
                         % {
                             "name": name,
                             "pk": obj.pk,
-                            "text_value": force_unicode(text_value),
+                            "text_value": force_text(text_value),
                         }
                     )
 
@@ -279,7 +282,7 @@ class AutocompleteMultipleWidget(AutocompleteWidget):
         hidden_field_attrs = {
             "id": "id_%s" % name,
             "name": "%s" % name,
-            "value": ",".join([force_unicode(pk) for pk in value]),
+            "value": ",".join([force_text(pk) for pk in value]),
             "class": "form_hidden",
         }
 
@@ -433,23 +436,23 @@ class SelectToAutocompleteWidget(AutocompleteWidget):
 
     def render_options(self, choices, selected_choices):
         def render_option(option_value, option_label):
-            option_value = force_unicode(option_value)
+            option_value = force_text(option_value)
             selected_html = (
                     (option_value in selected_choices) and u' selected="selected"' or ""
             )
             return u'<option value="%s"%s>%s</option>' % (
                 escape(option_value),
                 selected_html,
-                conditional_escape(force_unicode(option_label)),
+                conditional_escape(force_text(option_label)),
             )
 
         # Normalize to strings.
-        selected_choices = set([force_unicode(v) for v in selected_choices])
+        selected_choices = set([force_text(v) for v in selected_choices])
         output = []
         for option_value, option_label in chain(self.choices, choices):
             if isinstance(option_label, (list, tuple)):
                 output.append(
-                    u'<optgroup label="%s">' % escape(force_unicode(option_value))
+                    u'<optgroup label="%s">' % escape(force_text(option_value))
                 )
                 for option in option_label:
                     output.append(render_option(*option))
@@ -480,11 +483,11 @@ class ObjectSelect(forms.Widget):
         output = [u"<select%s>" % flatatt(final_attrs)]
         if getattr(self, "default_text", False):
             output.append(u'<option value="">%s</option>' % self.default_text)
-        str_value = force_unicode(value)  # Normalize to string.
+        str_value = force_text(value)  # Normalize to string.
         for group_name, obj_choices in self.choices:
             output.append(u'<optgroup label="%s">' % group_name)
             for option_value, option_label in obj_choices:
-                option_value = force_unicode(option_value)
+                option_value = force_text(option_value)
                 selected_html = (
                         (option_value == str_value) and u' selected="selected"' or ""
                 )
@@ -493,7 +496,7 @@ class ObjectSelect(forms.Widget):
                     % (
                         escape(option_value),
                         selected_html,
-                        escape(force_unicode(option_label)),
+                        escape(force_text(option_label)),
                     )
                 )
             output.append(u"</optgroup>")
@@ -514,7 +517,7 @@ class TreeSelectWidget(forms.Select):
 
     def render_options(self, choices, selected_choices):
         def render_option(option_value, option_label):
-            option_value = force_unicode(option_value)
+            option_value = force_text(option_value)
             try:
                 indentation = self.model._default_manager.get(
                     pk=option_value,
@@ -530,16 +533,16 @@ class TreeSelectWidget(forms.Select):
                 selected_html,
                 ("-" * indentation)
                 + " "
-                + conditional_escape(force_unicode(option_label)),
+                + conditional_escape(force_text(option_label)),
             )
 
         # Normalize to strings.
-        selected_choices = set([force_unicode(v) for v in selected_choices])
+        selected_choices = set([force_text(v) for v in selected_choices])
         output = []
         for option_value, option_label in chain(self.choices, choices):
             if isinstance(option_label, (list, tuple)):
                 output.append(
-                    u'<optgroup label="%s">' % escape(force_unicode(option_value))
+                    u'<optgroup label="%s">' % escape(force_text(option_value))
                 )
                 for option in option_label:
                     output.append(render_option(*option))
@@ -562,7 +565,7 @@ class TreeSelectMultipleWidget(forms.SelectMultiple):
 
     def render_options(self, choices, selected_choices):
         def render_option(option_value, option_label):
-            option_value = force_unicode(option_value)
+            option_value = force_text(option_value)
             try:
                 indentation = self.model._default_manager.get(
                     pk=option_value,
@@ -578,16 +581,16 @@ class TreeSelectMultipleWidget(forms.SelectMultiple):
                 selected_html,
                 ("-" * indentation)
                 + " "
-                + conditional_escape(force_unicode(option_label)),
+                + conditional_escape(force_text(option_label)),
             )
 
         # Normalize to strings.
-        selected_choices = set([force_unicode(v) for v in selected_choices])
+        selected_choices = set([force_text(v) for v in selected_choices])
         output = []
         for option_value, option_label in chain(self.choices, choices):
             if isinstance(option_label, (list, tuple)):
                 output.append(
-                    u'<optgroup label="%s">' % escape(force_unicode(option_value))
+                    u'<optgroup label="%s">' % escape(force_text(option_value))
                 )
                 for option in option_label:
                     output.append(render_option(*option))

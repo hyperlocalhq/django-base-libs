@@ -1,6 +1,9 @@
 # -*- coding: UTF-8 -*-
 import operator
-import urlparse
+try:
+    from urllib.parse import urlparse, urlunparse
+except ImportError:
+    from urlparse import urlparse, urlunparse
 from datetime import datetime
 
 import six
@@ -338,8 +341,8 @@ class UrlMixin(models.Model):
             url = self.get_url()
         except NotImplemented:
             raise
-        bits = urlparse.urlparse(url)
-        return urlparse.urlunparse(("", "") + bits[2:])
+        bits = urlparse(url)
+        return urlunparse(("", "") + bits[2:])
 
     get_url_path.dont_recurse = True
 
@@ -704,9 +707,9 @@ class HierarchyMixinManager(models.Manager):
         if roots.count() > 0:
             return roots
         else:
-            raise RootDoesNotExist, ugettext(
+            raise RootDoesNotExist(ugettext(
                 "Roots Node does not exist. Please create one."
-            )
+            ))
 
     def update_paths(self):
         """

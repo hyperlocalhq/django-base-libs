@@ -7,7 +7,10 @@ from django import http
 from django.conf import settings
 from django.middleware.locale import LocaleMiddleware
 from django.utils import translation
-from django.utils.encoding import force_unicode
+try:
+    from django.utils.encoding import force_text
+except:
+    from django.utils.encoding import force_unicode as force_text
 
 ADMIN_PATH = getattr(settings, "ADMIN_PATH", "/admin/")
 
@@ -93,7 +96,7 @@ class MultilingualURLMiddleware:
         )
         local_middleware = LocaleMiddleware()
         response = local_middleware.process_response(request, response)
-        path = force_unicode(request.path)
+        path = force_text(request.path)
 
         # note: pages_root is assumed to end in '/'.
         # testing this and throwing an exception otherwise, would probably be a good idea

@@ -11,7 +11,11 @@ from django.apps import apps
 from django.conf import settings
 from django.db import models
 from django.http import Http404
-from django.utils.encoding import smart_str, force_unicode
+try:
+    from django.utils.encoding import force_text, force_bytes
+except ImportError:
+    from django.utils.encoding import force_unicode as force_text, smart_str as force_bytes
+
 from django.utils.translation import ugettext, get_language, activate
 
 
@@ -28,10 +32,10 @@ def get_or_404(model, **fields):
         for (key, value) in fields.items():
             msg += "%s '%s', " % (key, value)
         msg = msg.strip(", ")
-        raise Http404, "%s with %s cannot be found" % (
-            force_unicode(model._meta.verbose_name),
+        raise Http404("%s with %s cannot be found" % (
+            force_text(model._meta.verbose_name),
             msg,
-        )
+        ))
 
 
 def get_website_url(path=""):
@@ -125,7 +129,7 @@ def get_translation(message, language=None):
 
 
 def html_to_plain_text(html):
-    text = smart_str(html)
+    text = force_bytes(html)
 
     def to_utf8(match_obj):
         return unichr(long(match_obj.group(1)))
@@ -298,7 +302,7 @@ def html_to_plain_text(html):
     text = re.sub(coded_entity_pattern, to_utf8, text)
     # remove the rest html entities
     text = re.sub(html_entity_pattern, "", text)
-    text = force_unicode(text)
+    text = force_text(text)
     return text
 
 
@@ -379,7 +383,7 @@ class XChoiceList(list):
             result = [("", self.null_choice_text)] + [
                 (
                     el.id,
-                    el.get_title() if hasattr(el, "get_title") else force_unicode(el),
+                    el.get_title() if hasattr(el, "get_title") else force_text(el),
                 )
                 for el in self.sequence
             ]

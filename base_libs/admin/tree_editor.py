@@ -16,7 +16,10 @@ from django.http import (
 )
 from django.shortcuts import render_to_response
 from django.utils.decorators import method_decorator
-from django.utils.encoding import force_unicode
+try:
+    from django.utils.encoding import force_text
+except:
+    from django.utils.encoding import force_unicode as force_text
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.views.decorators.cache import never_cache
@@ -166,7 +169,7 @@ class TreeEditor(admin.ModelAdmin):
         if obj is None:
             raise Http404(
                 _("%(name)s object with primary key %(key)r does not exist.")
-                % {"name": force_unicode(opts.verbose_name), "key": object_id}
+                % {"name": force_text(opts.verbose_name), "key": object_id}
             )
 
         if request.POST:  # The user has already confirmed the deletion.
@@ -186,10 +189,10 @@ class TreeEditor(admin.ModelAdmin):
         else:
             form = MoveNodeForm(obj)
 
-        object_name = force_unicode(opts.verbose_name)
+        object_name = force_text(opts.verbose_name)
 
         context = {
-            "title": _("Move: %s") % force_unicode(obj),
+            "title": _("Move: %s") % force_text(obj),
             "form": form,
             "object_name": unicode(obj),
             "object": obj,

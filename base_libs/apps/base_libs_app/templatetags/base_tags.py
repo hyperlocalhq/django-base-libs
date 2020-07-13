@@ -14,7 +14,10 @@ from django.template import defaultfilters
 from django.template import loader, Template
 from django.template.defaultfilters import stringfilter
 from django.template.loader import select_template
-from django.utils.encoding import force_unicode
+try:
+    from django.utils.encoding import force_text
+except:
+    from django.utils.encoding import force_unicode as force_text
 from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 from django.utils.text import normalize_newlines
@@ -908,7 +911,7 @@ def in_group(user, groups):
         {% endif %}
 
     """
-    group_list = force_unicode(groups).split(",")
+    group_list = force_text(groups).split(",")
     return bool(user.groups.filter(name__in=group_list).values("name"))
 
 

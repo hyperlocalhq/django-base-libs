@@ -8,7 +8,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.template import Library
 from django.utils import dateformat
-from django.utils.encoding import smart_unicode, force_unicode
+try:
+    from django.utils.encoding import force_text
+except:
+    from django.utils.encoding import force_unicode as force_text
 from django.utils.formats import get_format
 from django.utils.html import escape, conditional_escape
 from django.utils.safestring import mark_safe
@@ -59,7 +62,7 @@ def tree_items_for_result(cl, result):
                     allow_tags = True
                     result_repr = _boolean_icon(value)
                 else:
-                    result_repr = smart_unicode(value)
+                    result_repr = force_text(value)
             except (AttributeError, ObjectDoesNotExist):
                 result_repr = get_empty_value_display(cl)
             else:
@@ -115,7 +118,7 @@ def tree_items_for_result(cl, result):
                 result_repr = dict(f.choices).get(field_val, get_empty_value_display(cl))
             else:
                 result_repr = escape(field_val)
-        if force_unicode(result_repr) == "":
+        if force_text(result_repr) == "":
             result_repr = mark_safe("&nbsp;")
         # If list_display_links not defined, add the link tag to the first field
         if (first and not cl.list_display_links) or field_name in cl.list_display_links:
@@ -128,7 +131,7 @@ def tree_items_for_result(cl, result):
                 attr = str(cl.to_field)
             else:
                 attr = pk
-            result_id = repr(force_unicode(getattr(result, attr)))[1:]
+            result_id = repr(force_text(getattr(result, attr)))[1:]
             if cl.filtered_out.has_key(result.pk):
                 yield mark_safe(
                     u'<%s%s><span class="filtered_out">%s</span></%s>'
