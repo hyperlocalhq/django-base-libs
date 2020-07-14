@@ -23,6 +23,11 @@ try:
 except:
     tz_now = datetime.now
 
+try:
+    basestring  # Python 2
+except NameError:
+    basestring = str  # Python 3
+
 from base_libs.middleware import get_current_language
 from base_libs.forms.fields import PlainTextFormField
 from base_libs.forms.fields import URLField as URLFormField

@@ -1,8 +1,12 @@
 # -*- coding: UTF-8 -*-
-
 from copy import deepcopy
 from itertools import chain
 from json import JSONEncoder
+
+try:
+    basestring  # Python 2
+except NameError:
+    basestring = str  # Python 3
 
 from babel.dates import format_date, format_time
 from babel.dates import parse_date, parse_time

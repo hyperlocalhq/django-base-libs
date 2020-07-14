@@ -1,6 +1,10 @@
 # -*- coding: UTF-8 -*-
-
 import re
+
+try:
+    basestring  # Python 2
+except NameError:
+    basestring = str  # Python 3
 
 from django.db import models
 

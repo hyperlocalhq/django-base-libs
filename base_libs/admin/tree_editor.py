@@ -194,7 +194,7 @@ class TreeEditor(admin.ModelAdmin):
         context = {
             "title": _("Move: %s") % force_text(obj),
             "form": form,
-            "object_name": unicode(obj),
+            "object_name": force_text(obj),
             "object": obj,
             "opts": opts,
             # "root_path": self.admin_site.root_path,
@@ -239,7 +239,7 @@ class TreeEditor(admin.ModelAdmin):
             else:
                 r += item.short_title
         else:
-            r += unicode(item)
+            r += force_text(item)
         #        r += '</span>'
         return mark_safe(r)
 
@@ -298,8 +298,8 @@ class TreeEditor(admin.ModelAdmin):
 
             try:
                 self.model._tree_manager.move_node(cut_item, pasted_on, position)
-            except InvalidMove, e:
-                self.message_user(request, unicode(e))
+            except InvalidMove as e:
+                self.message_user(request, force_text(e))
                 return HttpResponse("FAIL")
 
             # Ensure that model save has been run

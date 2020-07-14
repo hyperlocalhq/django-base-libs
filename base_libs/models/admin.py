@@ -157,7 +157,7 @@ def ObjectRelationMixinAdminOptions(
         user = get_current_user()
         app_name = co._meta.app_label
         model_name = co.__class__.__name__.lower()
-        co_unicode = hasattr(co, "__unicode__") and co.__unicode__() or co._get_pk_val()
+        co_unicode = force_text(co)
         if user.has_perm("%s.change_%s" % (app_name, model_name), co):
             return u"""<a href="/admin/%s/%s/%s/" class="content_object">%s</a>""" % (
                 app_name,

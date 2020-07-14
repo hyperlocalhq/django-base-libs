@@ -1,5 +1,8 @@
 # -*- coding: UTF-8 -*-
-
+try:
+    unicode
+except NameError:
+    unicode = str
 
 def force_bytes(s, encoding="utf-8", strings_only=False, errors="strict"):
     """
