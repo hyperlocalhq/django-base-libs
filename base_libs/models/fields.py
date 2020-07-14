@@ -48,50 +48,30 @@ class ExtendedTextField(TextField):
 
     def contribute_to_class(self, cls, name):
         # generate an additional select field for selecting the markup type
-        if True or not cls._meta.abstract:
-            try:  # the field shouldn't be already added (for south)
-                cls._meta.get_field(name)
-            except models.FieldDoesNotExist:
-                pass
-            else:
-                return
+        field_class = getattr(self.__class__, "_field_class", None)
+        if field_class != PlainTextModelField:
+            if not (
+                    hasattr(sys, "argv")
+                    and "migrate" in sys.argv
+                    and sys.argv.index("migrate") == 1
+            ):
+                editable = not isinstance(self, MultilingualTextField)
 
-            field_class = getattr(self.__class__, "_field_class", None)
-            if field_class != PlainTextModelField:
-                if not (
-                        hasattr(sys, "argv")
-                        and "migrate" in sys.argv
-                        and sys.argv.index("migrate") == 1
-                ):
-                    # the field shouldn't be added for south,
-                    # because south will care about it itself
-                    try:  # the field shouldn't be already added
-                        cls._meta.get_field("%s_markup_type" % name)
-                    except models.FieldDoesNotExist:
-                        pass
-                    else:
-                        cls._meta.local_fields.remove(
-                            cls._meta.get_field("%s_markup_type" % name)
-                        )
-
-                    editable = not isinstance(self, MultilingualTextField)
-
-                    if not hasattr(self, "related_markup_type_field"):
-                        # TODO: find out why the related markup type tries to be added twice
-                        self.related_markup_type_field = models.CharField(
-                            _("Markup type"),
-                            max_length=10,
-                            blank=False,
-                            choices=markup_settings.MARKUP_TYPES,
-                            default=markup_settings.DEFAULT_MARKUP_TYPE,
-                            help_text=_(
-                                "You can select an appropriate markup type here"
-                            ),
-                            editable=editable,
-                        )
-                        self.related_markup_type_field.contribute_to_class(
-                            cls, "%s_markup_type" % name
-                        )
+                if not hasattr(self, "related_markup_type_field"):
+                    self.related_markup_type_field = models.CharField(
+                        _("Markup type"),
+                        max_length=10,
+                        blank=False,
+                        choices=markup_settings.MARKUP_TYPES,
+                        default=markup_settings.DEFAULT_MARKUP_TYPE,
+                        help_text=_(
+                            "You can select an appropriate markup type here"
+                        ),
+                        editable=editable,
+                    )
+                    self.related_markup_type_field.contribute_to_class(
+                        cls, "%s_markup_type" % name
+                    )
         # create the field itself
         super(ExtendedTextField, self).contribute_to_class(cls, name)
 
@@ -200,10 +180,7 @@ class MultilingualCharField(models.Field):
     description = _("Multilingual string (up to %(max_length)s)")
 
     def __init__(self, verbose_name=None, **kwargs):
-
         self._blank = kwargs.get("blank", False)
-        self._editable = kwargs.get("editable", True)
-
         # inits for the needed dummy field (see below)
         kwargs["editable"] = False
         kwargs["null"] = True
@@ -217,13 +194,6 @@ class MultilingualCharField(models.Field):
         # generate language specific fields dynamically
         if not cls._meta.abstract:
             for language in settings.LANGUAGES:
-                try:  # the field shouldn't be already added (for south)
-                    cls._meta.get_field(_language_field_name(name, language[0]))
-                except models.FieldDoesNotExist:
-                    pass
-                else:
-                    continue
-
                 if language[0] == settings.LANGUAGE_CODE:
                     _blank = self._blank
                 else:
@@ -240,7 +210,7 @@ class MultilingualCharField(models.Field):
                     db_index=self.db_index,
                     rel=self.rel,
                     default=self.default or "",
-                    editable=self._editable,
+                    editable=True,  # All translatable fields will be editable
                     serialize=self.serialize,
                     choices=self.choices,
                     help_text=self.help_text,
@@ -258,13 +228,6 @@ class MultilingualCharField(models.Field):
         But we make the dummy database column not editable, blank=true
         in the init method
         """
-        try:  # the field shouldn't be already added
-            cls._meta.get_field(name)
-        except models.FieldDoesNotExist:
-            pass
-        else:
-            cls._meta.local_fields.remove(cls._meta.get_field(name))
-            # TODO: find why the field has already been added as CharField
         super(MultilingualCharField, self).contribute_to_class(cls, name)
         # override with proxy
         setattr(cls, name, MultilingualProxy(self))
@@ -281,9 +244,8 @@ class MultilingualTextField(models.Field):
     _field_class = ExtendedTextField
 
     def __init__(self, verbose_name=None, **kwargs):
-
         self._blank = kwargs.get("blank", False)
-        self._editable = kwargs.get("editable", True)
+        self.localized_fields_editable = kwargs.get("editable", True)
 
         # inits for the needed dummy field (see below)
         kwargs["editable"] = False
@@ -299,13 +261,6 @@ class MultilingualTextField(models.Field):
         # generate language specific fields dynamically
         if not cls._meta.abstract:
             for language in settings.LANGUAGES:
-
-                try:  # the field shouldn't be already added (for south)
-                    cls._meta.get_field(_language_field_name(name, language[0]))
-                except models.FieldDoesNotExist:
-                    pass
-                else:
-                    continue
 
                 if language[0] == settings.LANGUAGE_CODE:
                     _blank = self._blank
@@ -325,7 +280,7 @@ class MultilingualTextField(models.Field):
                     db_index=self.db_index,
                     rel=self.rel,
                     default=self.default or "",
-                    editable=self._editable,
+                    editable=True,  # All translatable fields will be editable
                     serialize=self.serialize,
                     unique_for_date=self.unique_for_date,
                     unique_for_month=self.unique_for_month,
@@ -338,21 +293,6 @@ class MultilingualTextField(models.Field):
                 localized_field.contribute_to_class(
                     cls, _language_field_name(name, language[0])
                 )
-
-        """ 
-        unfortunately, the field itself must have a database column.
-        In our case, this column is empty. If we do not create a 
-        database column named <<name>>, the Admin will not work!
-        But we make the dummy database column not editable, blank=true
-        in the init method
-        """
-        try:  # the field shouldn't be already added
-            cls._meta.get_field(name)
-        except models.FieldDoesNotExist:
-            pass
-        else:
-            cls._meta.local_fields.remove(cls._meta.get_field(name))
-            # TODO: find why the field has already been added as ExtendedTextField
         super(MultilingualTextField, self).contribute_to_class(cls, name)
         # override with proxy
         setattr(cls, name, MultilingualProxy(self))
