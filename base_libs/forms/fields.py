@@ -17,6 +17,11 @@ try:
 except NameError:
     basestring = str  # Python 3
 
+try:
+    reduce  # Python 2
+except NameError:
+    from functools import reduce  # Python 3
+
 from django import forms
 from django.utils.translation import ugettext, ugettext_lazy as _
 try:
@@ -52,43 +57,6 @@ from base_libs.middleware.threadlocals import get_current_language
 
 SECURITY_FIELD_MIN_TIME = getattr(settings, "SECURITY_FIELD_MIN_TIME", 3)  # 3 seconds
 SECURITY_FIELD_MAX_TIME = getattr(settings, "SECURITY_FIELD_MAX_TIME", 3600)  # 1 hour
-
-
-### adding class="form_*" to all html input fields ###
-def add_css_class(css_class=""):
-    def modify_input_class(function):
-        _css_class = css_class
-
-        def new_function(*args, **kwargs):
-            arg_names = function.func_code.co_varnames
-            new_kwargs = dict(zip(arg_names, args))
-            new_kwargs.update(kwargs)
-            css_class = _css_class or "form_%s" % getattr(
-                new_kwargs["self"], "input_type", "undefined",
-            )
-            self = new_kwargs.pop("self")
-            attrs = getattr(self, "attrs", None) or {}
-            if "class" in attrs:
-                css_classes = attrs["class"].split()
-                if css_class not in css_classes:
-                    css_classes.append(css_class)
-                attrs["class"] = " ".join(css_classes)
-            else:
-                attrs["class"] = css_class
-            self.attrs = attrs
-            return function(self, **new_kwargs)
-
-        return new_function
-
-    return modify_input_class
-
-
-Input.render = add_css_class()(Input.render)
-CheckboxInput.render = add_css_class("form_checkbox")(CheckboxInput.render)
-RadioSelect.render = add_css_class("form_radio")(RadioSelect.render)
-CheckboxSelectMultiple.render = add_css_class("form_checkbox")(
-    CheckboxSelectMultiple.render
-)
 
 
 class IntegerField(forms.IntegerField):
@@ -184,13 +152,8 @@ class PlainTextFormField(forms.CharField):
     """ a plain text form field """
 
     def __init__(self, *args, **kwargs):
+        kwargs["widget"] = forms.Textarea(attrs={"class": "vPlainTextField"})
         super(PlainTextFormField, self).__init__(*args, **kwargs)
-        function = super(PlainTextFormField, self).__init__
-        arg_names = function.func_code.co_varnames
-        new_kwargs = dict(zip(arg_names, args))
-        new_kwargs.update(kwargs)
-        new_kwargs["widget"] = forms.Textarea(attrs={"class": "vPlainTextField"})
-        function(**new_kwargs)
 
 
 class SecurityField(forms.CharField):
@@ -553,7 +516,7 @@ class ObjectChoiceField(forms.Field):
     @staticmethod
     def returnKey(obj):
         ct = ContentType.objects.get_for_model(obj)
-        return "/".join((ct.app_label, ct.model, str(obj._get_pk_val())))
+        return "/".join((ct.app_label, ct.model, str(obj.pk)))
 
 
 class ImageField(forms.FileField):

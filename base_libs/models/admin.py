@@ -162,7 +162,7 @@ def ObjectRelationMixinAdminOptions(
             return u"""<a href="/admin/%s/%s/%s/" class="content_object">%s</a>""" % (
                 app_name,
                 model_name,
-                co._get_pk_val(),
+                co.pk,
                 co_unicode,
             )
         else:
@@ -282,8 +282,8 @@ class SingleSiteContainerMixinAdminForm(ObjectRelationMixinAdminForm()):
         model = self.Meta.model
         qs = model.objects.all()
         # exclude myself from query!
-        if self.instance._get_pk_val():
-            qs = qs.exclude(id__exact=self.instance._get_pk_val())
+        if self.instance.pk:
+            qs = qs.exclude(id__exact=self.instance.pk)
 
         if self.cleaned_data.has_key("content_type"):
             content_type_value = self.cleaned_data["content_type"]
@@ -348,8 +348,8 @@ class MultiSiteContainerMixinAdminForm(ObjectRelationMixinAdminForm()):
         model = self.Meta.model
         qs = model.objects.all()
         # exclude myself from query!
-        if self.instance._get_pk_val():
-            qs = qs.exclude(pk__exact=self.instance._get_pk_val())
+        if self.instance.pk:
+            qs = qs.exclude(pk__exact=self.instance.pk)
 
         if self.cleaned_data.has_key("content_type"):
             content_type_value = self.cleaned_data["content_type"]
@@ -492,13 +492,13 @@ class HierarchyMixinAdminForm(forms.ModelForm):
     def clean_parent(self):
         # for new objects or objects with no parent, this does not matter
         parent = self.cleaned_data["parent"]
-        if not self.instance._get_pk_val():
+        if not self.instance.pk:
             return parent
 
         # so this is to do when changing objects
-        cid = self.instance._get_pk_val()
+        cid = self.instance.pk
         if parent:
-            pid = parent._get_pk_val()
+            pid = parent.pk
         else:
             return parent
         model = self.Meta.model
@@ -559,7 +559,7 @@ class ContentBaseMixinAdminOptions(PublishingMixinAdminOptions):
             obj.save()
 
     def get_id(self, obj):
-        return obj._get_pk_val()
+        return obj.pk
 
     get_id.short_description = "ID"
 

@@ -18,6 +18,10 @@ except ImportError:
 
 from django.utils.translation import ugettext, get_language, activate
 
+try:
+    unichr
+except NameError:
+    unichr = chr
 
 def get_or_404(model, **fields):
     """
@@ -320,9 +324,12 @@ def strip_html(text):
             except ValueError:
                 pass
         elif text[:1] == "&":
-            import htmlentitydefs
+            try:
+                from html.entities import entitydefs
+            except ImportError:
+                from htmlentitydefs import entitydefs
 
-            entity = htmlentitydefs.entitydefs.get(text[1:-1])
+            entity = entitydefs.get(text[1:-1])
             if entity:
                 if entity[:2] == "&#":
                     try:
@@ -330,7 +337,7 @@ def strip_html(text):
                     except ValueError:
                         pass
                 else:
-                    return unicode(entity, "iso-8859-1")
+                    return force_text(entity, encoding="iso-8859-1")
         return text  # leave as is
 
     return re.sub("(?s)<[^>]*>|&#?\w+;", fixup, text)
@@ -370,10 +377,10 @@ class XChoiceList(list):
         return len(self.sequence)
 
     def __str__(self):
-        return str(self._get_list())
+        return force_text(self._get_list())
 
     def __unicode__(self):
-        return unicode(self._get_list())
+        return force_text(self._get_list())
 
     def __repr__(self):
         return repr(self._get_list())

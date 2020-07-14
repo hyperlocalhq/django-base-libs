@@ -501,8 +501,8 @@ def better_slugify(value, remove_stopwords=True, slugify=True, max_words=None):
         value = " ".join(value.split()[:max_words])
 
     # replace umlauts
-    for umlaut, replacement in umlauts.iteritems():
-        value = unicode(value.replace(umlaut, replacement))
+    for umlaut, replacement in umlauts.items():
+        value = force_text(value.replace(umlaut, replacement))
 
     # and slugify
     if slugify:

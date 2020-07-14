@@ -3,6 +3,10 @@ import json
 
 from base_libs.utils.misc import ExtendedJSONEncoder
 from base_libs.utils.misc import get_installed
+try:
+    from django.utils.encoding import force_text
+except ImportError:
+    from django.utils.encoding import force_unicode as force_text
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404, HttpResponse
@@ -142,7 +146,7 @@ def get_container(container_model, site, related_obj=None, sysname=None, create=
             content_type = ContentType.objects.get_for_model(related_obj)
         except:
             return None
-        object_id = related_obj._get_pk_val()
+        object_id = related_obj.pk
 
     qs = container_model.objects.filter(
         content_type__exact=content_type,  # None is interpreted as IS NULL
@@ -224,10 +228,8 @@ def json_get_objects_from_contenttype(request, content_type_id):
         objs = content_type.model_class().objects.all()
         result = (  # generator of tuples to sort by second value
             (
-                obj._get_pk_val(),
-                not hasattr(obj, "__unicode__")
-                and obj._get_pk_val()
-                or obj.__unicode__(),
+                obj.pk,
+                force_text(obj)
             )
             for obj in objs
         )
@@ -273,14 +275,12 @@ def json_objects_to_select(
                 objs = objs.filter(limit_choices_to)
             result = (  # generator of tuples to sort by second value
                 (
-                    obj._get_pk_val(),
-                    (not hasattr(obj, "__unicode__") and ("",) or (obj.__unicode__(),))[
-                        0
-                    ],
+                    obj.pk,
+                    force_text(obj)
                 )
                 for obj in objs
             )
-            result = sorted(result, cmp=lambda a, b: cmp(a[1].lower(), b[1].lower()))
+            result = sorted(result, cmp=lambda a, b: (a[1].lower() > b[1].lower()) - (a[1].lower() < b[1].lower()))
             result = [
                 (pk, text and ("%s | ID %s" % (text, pk)) or ("ID %s" % pk))
                 for pk, text in result

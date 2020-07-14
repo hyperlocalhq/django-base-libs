@@ -4,7 +4,10 @@ import re
 import socket
 import urllib
 import urllib2
-
+try:
+    unicode
+except NameError:
+    unicode = str
 """
 Client classes for cross-server communication
 
@@ -127,7 +130,7 @@ class Connection(object):
         request = urllib2.Request(self.protocol + self.url, data, headers)
         try:
             self.response = urllib2.urlopen(request)
-        except urllib2.HTTPError, e:
+        except urllib2.HTTPError as e:
             self.response = HttpErrorResponse(url=self.url, code=e.code, msg=e.msg,)
         return self.response
 

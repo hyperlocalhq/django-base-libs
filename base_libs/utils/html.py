@@ -2,7 +2,11 @@
 from __future__ import unicode_literals
 
 import re
-from htmlentitydefs import name2codepoint
+
+try:
+    from html.entities import name2codepoint  # Python 3
+except ImportError:
+    from htmlentitydefs import name2codepoint  # Python 2
 
 try:
     from django.utils.encoding import force_text

@@ -14,6 +14,7 @@ from django.template import defaultfilters
 from django.template import loader, Template
 from django.template.defaultfilters import stringfilter
 from django.template.loader import select_template
+
 try:
     from django.utils.encoding import force_text
 except:
@@ -42,7 +43,7 @@ class IncludeSelectNode(template.Node):
                     param_list.append(param[2])
                 elif param[1] == 2:
                     param_list.append(template.Variable(param[2]).resolve(context))
-            except template.TemplateSyntaxError, e:
+            except template.TemplateSyntaxError as e:
                 if settings.TEMPLATE_DEBUG:
                     raise
         # the first case (see below)
@@ -96,26 +97,26 @@ def do_include_selected(parser, token):
         # check for reserved words
         if (i == 2 and bits[i] == "for") or (i == 4 and bits[i] == "under"):
             if len(bits) != 6:
-                raise template.TemplateSyntaxError, "%r tag takes 4 arguments, there are %d arguments provided." % (
-                    bits[0],
-                    len(bits) - 1,
+                raise template.TemplateSyntaxError(
+                    "%r tag takes 4 arguments, there are %d arguments provided."
+                    % (bits[0], len(bits) - 1,)
                 )
             if bits[2] != "for":
-                raise template.TemplateSyntaxError, "Second argment in %r tag must be 'for'." % bits[
-                    0
-                ]
+                raise template.TemplateSyntaxError(
+                    "Second argment in %r tag must be 'for'." % bits[0]
+                )
             if bits[4] != "under":
-                raise template.TemplateSyntaxError, "Fourth argment in %r tag must be 'under'." % bits[
-                    0
-                ]
+                raise template.TemplateSyntaxError(
+                    "Fourth argment in %r tag must be 'under'." % bits[0]
+                )
             case = 1
             reserved = True
         # as string or as template var
         if bits[i][0] in ('"', "'") and bits[i][-1] == bits[i][0]:
             if reserved:
-                raise template.TemplateSyntaxError, 'Reserved word %s must not be under "" in %r tag.' % (
-                    bits[i],
-                    bits[0],
+                raise template.TemplateSyntaxError(
+                    'Reserved word %s must not be under "" in %r tag.'
+                    % (bits[i], bits[0],)
                 )
             param = (i, 1, bits[i][1:-1])
         else:
@@ -144,15 +145,16 @@ def do_load_obj(parser, token):
         # split_contents() knows not to split quoted strings.
         tag_name, appmodel, object_id, str_as, var_name = token.split_contents()
     except ValueError:
-        raise template.TemplateSyntaxError, "%r tag requires a following syntax: {%% %r app.model <object_id> as <var_name> %%}" % (
-            token.contents[0],
-            token.contents[0],
+        raise template.TemplateSyntaxError(
+            "%r tag requires a following syntax: {%% %r app.model <object_id> as <var_name> %%}"
+            % (token.contents[0], token.contents[0],)
         )
     try:
         appname, modelname = appmodel.split(".")
     except ValueError:
-        raise template.TemplateSyntaxError, "%r tag requires application name and model name separated by a dot" % (
-            token.contents[0],
+        raise template.TemplateSyntaxError(
+            "%r tag requires application name and model name separated by a dot"
+            % (token.contents[0],)
         )
     model = apps.get_model(appname, modelname)
     return LoadObjNode(model, object_id, var_name)
@@ -195,15 +197,16 @@ def do_get_all_objects(parser, token):
         # split_contents() knows not to split quoted strings.
         tag_name, appmodel, str_as, var_name = token.split_contents()
     except ValueError:
-        raise template.TemplateSyntaxError, "%r tag requires a following syntax: {%% %r app.model as <var_name> %%}" % (
-            token.contents[0],
-            token.contents[0],
+        raise template.TemplateSyntaxError(
+            "%r tag requires a following syntax: {%% %r app.model as <var_name> %%}"
+            % (token.contents[0], token.contents[0],)
         )
     try:
         appname, modelname = appmodel.split(".")
     except ValueError:
-        raise template.TemplateSyntaxError, "%r tag requires application name and model name separated by a dot" % (
-            token.contents[0],
+        raise template.TemplateSyntaxError(
+            "%r tag requires application name and model name separated by a dot"
+            % (token.contents[0],)
         )
     # from django.conf import settings
     model = apps.get_model(appname, modelname)
@@ -239,11 +242,15 @@ def do_get_latest_published_objects(parser, token):
     try:
         tag_name, appmodel, amount, str_as, var_name = token.split_contents()
     except ValueError:
-        raise template.TemplateSyntaxError, "get_latest_published_objects tag requires a following syntax: {% get_published_objects app.model <amount> as <var_name> %}"
+        raise template.TemplateSyntaxError(
+            "get_latest_published_objects tag requires a following syntax: {% get_published_objects app.model <amount> as <var_name> %}"
+        )
     try:
         appname, modelname = appmodel.split(".")
     except ValueError:
-        raise template.TemplateSyntaxError, "get_latest_published_objects tag requires application name and model name separated by a dot"
+        raise template.TemplateSyntaxError(
+            "get_latest_published_objects tag requires application name and model name separated by a dot"
+        )
     model = apps.get_model(appname, modelname)
     return LatestPublishedObjectsNode(model, amount, var_name)
 
@@ -302,11 +309,15 @@ def do_get_objects(parser, token):
                 var_name,
             ) = token.split_contents()
         except ValueError:
-            raise template.TemplateSyntaxError, "get_objects tag requires a following syntax: {% get_objects <manager_method> app.model <amount> as <var_name> %}"
+            raise template.TemplateSyntaxError(
+                "get_objects tag requires a following syntax: {% get_objects <manager_method> app.model <amount> as <var_name> %}"
+            )
     try:
         appname, modelname = appmodel.split(".")
     except ValueError:
-        raise template.TemplateSyntaxError, "get_objects tag requires application name and model name separated by a dot"
+        raise template.TemplateSyntaxError(
+            "get_objects tag requires application name and model name separated by a dot"
+        )
     model = apps.get_model(appname, modelname)
     return ObjectsNode(model, manager_method, amount, var_name)
 
@@ -370,7 +381,9 @@ def do_call(parser, token):
             else:
                 method_args.append(arg)
     except ValueError:
-        raise template.TemplateSyntaxError, "call tag requires a following syntax: {% call <object>.<method> param1 param2 key1=value1 key2=value2 [as <var_name>] %}"
+        raise template.TemplateSyntaxError(
+            "call tag requires a following syntax: {% call <object>.<method> param1 param2 key1=value1 key2=value2 [as <var_name>] %}"
+        )
     return CallNode(obj, method_name, method_args, method_kwargs, var_name)
 
 
@@ -386,10 +399,10 @@ class CallNode(template.Node):
         obj = template.Variable(self.obj).resolve(context)
         method = getattr(obj, self.method_name)
         if getattr(method, "alters_data", False):
-            raise template.TemplateSyntaxError(u"You can't call %s.%s in a template, because it alters data. Call it in the view instead." % (
-                self.obj,
-                self.method_name,
-            ))
+            raise template.TemplateSyntaxError(
+                u"You can't call %s.%s in a template, because it alters data. Call it in the view instead."
+                % (self.obj, self.method_name,)
+            )
 
         method_args = [
             template.Variable(arg).resolve(context) for arg in self.method_args
@@ -437,7 +450,9 @@ def do_parse(parser, token):
             bits.pop(0)  # remove the word "as"
             var_name = bits.pop(0)
     except ValueError:
-        raise template.TemplateSyntaxError, "parse tag requires a following syntax: {% parse <template_value> [as <variable>] %}"
+        raise template.TemplateSyntaxError(
+            "parse tag requires a following syntax: {% parse <template_value> [as <variable>] %}"
+        )
     return ParseNode(template_value, var_name)
 
 
@@ -491,7 +506,9 @@ def do_include_parsed(parser, token):
                     bits.pop(0)  # remove the word "and"
 
     except ValueError:
-        raise template.TemplateSyntaxError, "include_parsed tag requires a following syntax: {% include_parsed <template_path> [with <value1> as <variable1>[ and <value2> as <variable2>[ and ...]] %}"
+        raise template.TemplateSyntaxError(
+            "include_parsed tag requires a following syntax: {% include_parsed <template_path> [with <value1> as <variable1>[ and <value2> as <variable2>[ and ...]] %}"
+        )
     return ParsedIncludeNode(tag_name, template_path, extra)
 
 
@@ -540,9 +557,9 @@ def try_to_include(parser, token):
     try:
         tag_name, template_name = token.split_contents()
     except ValueError:
-        raise template.TemplateSyntaxError, "%r tag requires a single argument" % token.contents.split()[
-            0
-        ]
+        raise template.TemplateSyntaxError(
+            "%r tag requires a single argument" % token.contents.split()[0]
+        )
 
     return IncludeNode(template_name)
 

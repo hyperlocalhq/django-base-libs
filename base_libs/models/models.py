@@ -5,6 +5,11 @@ try:
 except ImportError:
     from urlparse import urlparse, urlunparse
 
+try:
+    reduce  # Python 2
+except NameError:
+    from functools import reduce  # Python 3
+
 import six
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -1103,6 +1108,9 @@ class ContentBaseMixin(MultiSiteMixin, CreationModificationMixin, PublishingMixi
 
     class Meta:
         abstract = True
+
+    def __str__(self):
+        return self.title
 
     def __unicode__(self):
         return self.title

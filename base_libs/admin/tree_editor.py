@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
-
 import json
+
+try:
+    reduce  # Python 2
+except NameError:
+    from functools import reduce  # Python 3
 
 from django import template
 from django.conf import settings as django_settings
