@@ -4,7 +4,6 @@ try:
     from urllib.parse import urlparse, urlunparse
 except ImportError:
     from urlparse import urlparse, urlunparse
-from datetime import datetime
 
 import six
 from django.conf import settings
@@ -29,7 +28,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 try:
     from django.utils.timezone import now as tz_now
 except ImportError:
-    tz_now = datetime.now
+    from datetime.datetime import now as tz_now
 
 from babel.numbers import format_currency
 
