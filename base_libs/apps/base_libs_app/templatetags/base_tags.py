@@ -54,7 +54,7 @@ class IncludeSelectNode(template.Node):
             except:
                 if settings.TEMPLATE_DEBUG:
                     raise
-            return t.render(context)
+            return t.render(context.flatten())
         # the second case (see below)
         elif self.case == 1:
             # the param list should look like [<<template>>, <<obj>>, <<app_dir>>]
@@ -65,7 +65,7 @@ class IncludeSelectNode(template.Node):
             except:
                 if settings.TEMPLATE_DEBUG:
                     raise
-            return t.render(context)
+            return t.render(context.flatten())
         return ""
 
 

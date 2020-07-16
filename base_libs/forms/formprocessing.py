@@ -17,9 +17,9 @@ AUTO_ID = "form_%s"  # Each form here uses this as its auto_id parameter.
 
 
 def methodNotImplementedError(method, instance):
-    raise NotImplementedError, "You must define a %s method on your %s subclass." % (
-        method,
-        instance.__class__.__name__,
+    raise NotImplementedError(
+        "You must define a %s method on your %s subclass."
+        % (method, instance.__class__.__name__,)
     )
 
 
@@ -34,14 +34,14 @@ class FormHandler(object):
     confirm_delete_template = "confirm_delete.html"
     confirm_delete_template_ajax = None
 
-    def __init__(self, form, confirm_delete=True, use_ajax=False):
+    def __init__(self, form_class, confirm_delete=True, use_ajax=False):
         """ 
         The init method. Do not override in your subclasses. 
         The 'confirm_delete' parameter should be true, if you 
         want to set a "do you really want to delete ..." form
         before deleting the object. 
         """
-        self.form = form
+        self.form_class = form_class
         self.use_ajax = use_ajax
         self.confirm_delete = confirm_delete
 
@@ -58,14 +58,13 @@ class FormHandler(object):
         The call method acts as an action dispatcher. 
         """
         # first, parse the desired action from the kwargs.
-        if kwargs.has_key("action"):
+        if "action" in kwargs:
             action = kwargs["action"]
             """ Checks for allowed actions """
             if action not in ALLOWED_ACTIONS:
-                raise AttributeError, "You have defined an invalid action '%s' in your %s form call. Allowed actions are %s." % (
-                    action,
-                    self.__class__.__name__,
-                    str(ALLOWED_ACTIONS),
+                raise AttributeError(
+                    "You have defined an invalid action '%s' in your %s form call. Allowed actions are %s."
+                    % (action, self.__class__.__name__, str(ALLOWED_ACTIONS),)
                 )
             self.context["form_handler_action"] = self.context[
                 "form_action"
@@ -73,7 +72,10 @@ class FormHandler(object):
             # TODO: self.context['form_action'] is deprecated as it is conflicting with crispy forms
             self.action = action
         else:
-            raise AttributeError, "You must provide an 'action' parameter in your %s call. Please correct." % self.__class__.__name__
+            raise AttributeError(
+                "You must provide an 'action' parameter in your %s call. Please correct."
+                % self.__class__.__name__
+            )
 
         self.request = (
             request  # the request might be necessary when saving objects or redirecting
@@ -112,9 +114,9 @@ class FormHandler(object):
             try:
                 method = getattr(self, submit_action)
             except AttributeError:
-                raise AttributeError, "Tried to call non existent method '%s' in the %s form subclass. Please correct." % (
-                    submit_action,
-                    self.__class__.__name__,
+                raise AttributeError(
+                    "Tried to call non existent method '%s' in the %s form subclass. Please correct."
+                    % (submit_action, self.__class__.__name__,)
                 )
             return method(request, action)
 
@@ -125,24 +127,26 @@ class FormHandler(object):
         'delete', 'cancel' 'post' or 'preview' etc.
         This method is private and should not be used by subclasses.
         """
-        while 1:
-            try:
-                f = self.form.base_fields[name]
-                raise AttributeError, "You have defined a field '%s' in your %s form subclass. This name clashes with an internally defined context variable. Please correct." % (
-                    name,
-                    self.__class__.__name__,
-                )
-            except KeyError:
-                return name
+        return name
+        # form = self.form_class(auto_id=AUTO_ID, **self.get_form_params())
+        # while 1:
+        #     try:
+        #         f = form.fields[name]
+        #         raise AttributeError(
+        #             "You have defined a field '%s' in your %s form subclass. This name clashes with an internally defined context variable. Please correct."
+        #             % (name, self.__class__.__name__,)
+        #         )
+        #     except KeyError:
+        #         return name
 
     def start(self, request, action):
         """ Initially displays the form """
         template = self.get_form_template(self.use_ajax)
 
         if action == ID_ACTION_NEW:
-            form = self.form(auto_id=AUTO_ID, **self.get_form_params())
+            form = self.form_class(auto_id=AUTO_ID, **self.get_form_params())
         elif action == ID_ACTION_EDIT:
-            form = self.form(
+            form = self.form_class(
                 auto_id=AUTO_ID,
                 data=self.get_edit_data(self.get_object()),
                 **self.get_form_params()
@@ -170,7 +174,7 @@ class FormHandler(object):
         save(). If the form is not valid, redisplay the form
         with its errors.
         """
-        form = self.form(
+        form = self.form_class(
             data=request.POST,
             files=request.FILES,
             auto_id=AUTO_ID,
@@ -221,7 +225,10 @@ class FormHandler(object):
         else:
             template = self.__class__.form_template
         if not template:
-            raise AttributeError, "You must define a form template for your %s form call." % self.__class__.__name__
+            raise AttributeError(
+                "You must define a form template for your %s form call."
+                % self.__class__.__name__
+            )
         return template
 
     def get_confirm_delete_template(self, use_ajax):
@@ -231,7 +238,10 @@ class FormHandler(object):
         else:
             template = self.__class__.confirm_delete_template
         if not template:
-            raise AttributeError, "You must define a form template for your %s form call." % self.__class__.__name__
+            raise AttributeError(
+                "You must define a form template for your %s form call."
+                % self.__class__.__name__
+            )
         return template
 
     def check_allowed(self, request, action):
@@ -313,10 +323,10 @@ class FormPreviewHandler(FormHandler):
         """
         self.extra_context["hash_failed"] = False
 
-        if self.context.has_key("warnings"):
+        if "warnings" in self.context:
             self.context["warnings"] = None
 
-        form = self.form(
+        form = self.form_class(
             data=request.POST,
             files=request.FILES,
             auto_id=AUTO_ID,
@@ -344,7 +354,7 @@ class FormPreviewHandler(FormHandler):
         return HttpResponse(t.render(RequestContext(request, context)))
 
     def post(self, request, action):
-        form = self.form(
+        form = self.form_class(
             data=request.POST,
             files=request.FILES,
             auto_id=AUTO_ID,

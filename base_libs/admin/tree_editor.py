@@ -60,7 +60,7 @@ def _build_tree_structure(cls):
         all_nodes[p_id] = []
 
         if parent_id:
-            if not all_nodes.has_key(parent_id):
+            if parent_id not in all_nodes:
                 # This happens very rarely, but protect against parents that
                 # we have yet to iteratove over.
                 all_nodes[parent_id] = []

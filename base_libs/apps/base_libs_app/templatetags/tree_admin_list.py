@@ -132,7 +132,7 @@ def tree_items_for_result(cl, result):
             else:
                 attr = pk
             result_id = repr(force_text(getattr(result, attr)))[1:]
-            if cl.filtered_out.has_key(result.pk):
+            if result.pk in cl.filtered_out:
                 yield mark_safe(
                     u'<%s%s><span class="filtered_out">%s</span></%s>'
                     % (table_tag, row_class, conditional_escape(result_repr), table_tag)

@@ -7,5 +7,5 @@ def expire_page(request, path):
     request.path = path
     request.method = "GET"
     key = get_cache_key(request)
-    if cache.has_key(key):
+    if key in cache:
         cache.delete(key)

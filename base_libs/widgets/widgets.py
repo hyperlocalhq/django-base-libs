@@ -195,7 +195,7 @@ class AutocompleteWidget(Widget):
         text_field_attrs["value"] = text_field_value
         text_field_attrs["class"] = "autocomplete textinput textInput form-control"
 
-        if not self.attrs.has_key("id"):
+        if "id" not in self.attrs:
             text_field_attrs["id"] = "id_%s_text" % name
 
         # hidden field for key value
@@ -279,7 +279,7 @@ class AutocompleteMultipleWidget(AutocompleteWidget):
         text_field_attrs["value"] = ""
         text_field_attrs["class"] = "autocomplete textinput textInput"
 
-        if not self.attrs.has_key("id"):
+        if "id" not in self.attrs:
             text_field_attrs["id"] = "id_%s_text" % name
 
         # hidden field for key value
@@ -417,7 +417,7 @@ class SelectToAutocompleteWidget(AutocompleteWidget):
 
         text_field_attrs["value"] = text_field_value
 
-        if not self.attrs.has_key("id"):
+        if "id" not in self.attrs:
             text_field_attrs["id"] = "id_%s_text" % name
 
         return mark_safe(

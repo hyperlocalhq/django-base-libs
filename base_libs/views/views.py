@@ -95,7 +95,7 @@ def get_object_from_url(object_url_part, **kwargs):
         except (ImportError, AttributeError):
             raise Http404("Please specify an OBJECT_URL_MAPPER dict to use this function")
 
-        if object_url_mapper.has_key(model_identifier):
+        if model_identifier in object_url_mapper:
             object_props = object_url_mapper[model_identifier]
             try:
                 obj = object_props[0].objects.get(
@@ -113,10 +113,10 @@ def get_object_from_url(object_url_part, **kwargs):
         base_template = kwargs["base_template"]
 
     # now test, if model is supported and allowed!
-    if kwargs.has_key("include"):
+    if "include" in kwargs:
         if not model_identifier in kwargs["include"]:
             raise Http404("Sorry, you are not allowed to access object '%s' in the requested application" % object_identifier)
-    if kwargs.has_key("exclude"):
+    if "exclude" in kwargs:
         if model_identifier in kwargs["exclude"]:
             raise Http404("Sorry, you are not allowed to access object '%s' in the requested application" % object_identifier)
 
@@ -233,7 +233,7 @@ def json_get_objects_from_contenttype(request, content_type_id):
             )
             for obj in objs
         )
-        result = sorted(result, cmp=lambda a, b: cmp(a[1], b[1]))
+        result = sorted(result, key=lambda el: el[1])
         json_str = json.dumps(result, ensure_ascii=False, cls=ExtendedJSONEncoder)
     return HttpResponse(json_str, content_type="text/javascript; charset=utf-8")
 
@@ -280,7 +280,7 @@ def json_objects_to_select(
                 )
                 for obj in objs
             )
-            result = sorted(result, cmp=lambda a, b: (a[1].lower() > b[1].lower()) - (a[1].lower() < b[1].lower()))
+            result = sorted(result, key=lambda el: el[1].lower())
             result = [
                 (pk, text and ("%s | ID %s" % (text, pk)) or ("ID %s" % pk))
                 for pk, text in result

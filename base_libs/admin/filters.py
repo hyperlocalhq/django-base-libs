@@ -73,7 +73,7 @@ class HierarchyRelatedFilterSpec(RelatedFieldListFilter):
                 parent_pk_val = item.parent.pk
 
             yield {
-                "filtered_out": self.filtered_out.has_key(item.pk),
+                "filtered_out": item.pk in self.filtered_out,
                 "selected": self.lookup_val == force_text(item.pk),
                 "query_string": cl.get_query_string({self.lookup_kwarg: item.pk}),
                 "display": {

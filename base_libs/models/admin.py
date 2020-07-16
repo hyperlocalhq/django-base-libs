@@ -202,12 +202,12 @@ def ObjectRelationMixinAdminForm(prefix=None):
         Validator. Checks, whether the object Id is correct
         for the given ContentType.
         """
-        if self.cleaned_data.has_key(content_type_field):
+        if content_type_field in self.cleaned_data:
             content_type_value = self.cleaned_data[content_type_field]
         else:
             content_type_value = None
 
-        if self.cleaned_data.has_key(object_id_field):
+        if object_id_field in self.cleaned_data:
             object_id_value = self.cleaned_data[object_id_field]
         else:
             object_id_value = None
@@ -235,12 +235,12 @@ def ObjectRelationMixinAdminForm(prefix=None):
         """
         Checks, whether the content type is correct for the given object id.
         """
-        if self.cleaned_data.has_key(content_type_field):
+        if content_type_field in self.cleaned_data:
             content_type_value = self.cleaned_data[content_type_field]
         else:
             content_type_value = None
 
-        if self.cleaned_data.has_key(object_id_field):
+        if object_id_field in self.cleaned_data:
             object_id_value = self.cleaned_data[object_id_field]
         else:
             object_id_value = None
@@ -285,17 +285,17 @@ class SingleSiteContainerMixinAdminForm(ObjectRelationMixinAdminForm()):
         if self.instance.pk:
             qs = qs.exclude(id__exact=self.instance.pk)
 
-        if self.cleaned_data.has_key("content_type"):
+        if "content_type" in self.cleaned_data:
             content_type_value = self.cleaned_data["content_type"]
         else:
             content_type_value = None
 
-        if self.cleaned_data.has_key("object_id"):
+        if "object_id" in self.cleaned_data:
             object_id_value = self.cleaned_data["object_id"]
         else:
             object_id_value = None
 
-        if self.cleaned_data.has_key("site"):
+        if "site" in self.cleaned_data:
             site_value = self.cleaned_data["site"]
         else:
             site_value = None
@@ -351,17 +351,17 @@ class MultiSiteContainerMixinAdminForm(ObjectRelationMixinAdminForm()):
         if self.instance.pk:
             qs = qs.exclude(pk__exact=self.instance.pk)
 
-        if self.cleaned_data.has_key("content_type"):
+        if "content_type" in self.cleaned_data:
             content_type_value = self.cleaned_data["content_type"]
         else:
             content_type_value = None
 
-        if self.cleaned_data.has_key("object_id"):
+        if "object_id" in self.cleaned_data:
             object_id_value = self.cleaned_data["object_id"]
         else:
             object_id_value = None
 
-        if self.cleaned_data.has_key("sites"):
+        if "sites" in self.cleaned_data:
             sites_value = self.cleaned_data["sites"]
         else:
             sites_value = None

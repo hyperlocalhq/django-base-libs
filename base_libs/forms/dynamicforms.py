@@ -3,6 +3,7 @@
 overridden newforms.forms. This id done, because we need a 
 custom "label_tag" for template output and other customizations
 """
+# THIS FUNCTIONALITY IS DEPRECATED
 
 from django import forms
 from django.forms.forms import BoundField as FormsBoundField
