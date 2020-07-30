@@ -17,6 +17,11 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import string_concat
 from django.utils.translation import ugettext_lazy as _
 
+try:
+    from django.utils.encoding import force_text
+except ImportError:
+    from django.utils.encoding import force_unicode as force_text
+
 # "save" buttons for ContentBaseMixin extending models
 CONTENT_BASE_SUBMIT_CHOICES = (
     ("save", _("Save")),
