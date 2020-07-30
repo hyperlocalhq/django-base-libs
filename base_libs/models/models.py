@@ -445,6 +445,7 @@ def ObjectRelationMixin(
             "Please select the type (model) for the relation, you want to build."
         ),
         limit_choices_to=limit_content_type_choices_to,
+        on_delete=models.CASCADE,
     )
 
     object_id = models.CharField(
@@ -486,6 +487,7 @@ class SingleSiteMixin(BaseModel):
         blank=True,
         null=True,
         help_text=_("Restrict this object only for the selected site"),
+        on_delete=models.SET_NULL,
     )
 
     objects = models.Manager()
@@ -756,6 +758,7 @@ class HierarchyMixin(BaseModel):
         related_name="child_set",
         blank=True,
         null=True,
+        on_delete=models.SET_NULL,
     )
 
     path = models.CharField(_("path"), max_length=8192, null=True, editable=False)
