@@ -445,7 +445,7 @@ class ObjectChoiceField(forms.Field):
         **kwargs
     ):
         super(ObjectChoiceField, self).__init__(
-            required, widget, label, initial, help_text, *args, **kwargs
+            required=required, widget=widget, label=label, initial=initial, help_text=help_text, *args, **kwargs
         )
         self.choices = choices
         self.obj_list = obj_list
