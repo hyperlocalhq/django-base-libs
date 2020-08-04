@@ -350,7 +350,10 @@ def get_related_queryset(model, field_name):
         types = get_related_queryset(Person, "individual_type")
     """
     f = model._meta.get_field(field_name)
-    qs = f.rel.to._default_manager.complex_filter(f.rel.limit_choices_to)
+    try:
+        qs = f.related_model.objects.complex_filter(f.remote_field.limit_choices_to)
+    except AttributeError:
+        qs = f.rel.to._default_manager.complex_filter(f.rel.limit_choices_to)
     return qs
 
 

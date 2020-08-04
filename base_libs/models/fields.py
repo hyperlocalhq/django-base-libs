@@ -213,7 +213,7 @@ class MultilingualCharField(models.Field):
                     blank=_blank,
                     null=False,  # we ignore the null argument!
                     db_index=self.db_index,
-                    rel=self.rel,
+                    #rel=self.rel,
                     default=self.default or "",
                     editable=True,  # All translatable fields will be editable
                     serialize=self.serialize,
@@ -283,7 +283,7 @@ class MultilingualTextField(models.Field):
                     blank=_blank,
                     null=True,  # we ignore the null argument!
                     db_index=self.db_index,
-                    rel=self.rel,
+                    #rel=self.rel,
                     default=self.default or "",
                     editable=True,  # All translatable fields will be editable
                     serialize=self.serialize,
