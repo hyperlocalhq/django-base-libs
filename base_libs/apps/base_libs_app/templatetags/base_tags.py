@@ -3,9 +3,7 @@ import datetime
 import random
 import re
 
-from base_libs.django_compatibility import force_str
-from base_libs.utils.loader import select_template_for_object
-from base_libs.utils.user import get_user_title
+from django.utils import translation
 from django import template
 from django.apps import apps
 from django.conf import settings
@@ -16,12 +14,21 @@ from django.template.defaultfilters import stringfilter
 from django.template.loader import select_template
 
 try:
+    from django.urls import reverse, resolve  # Django >= 2.0
+except ImportError:
+    from django.core.urlresolvers import reverse, resolve  # Django <= 1.11
+
+try:
     from django.utils.encoding import force_text
 except:
     from django.utils.encoding import force_unicode as force_text
 from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 from django.utils.text import normalize_newlines
+
+from base_libs.django_compatibility import force_str
+from base_libs.utils.loader import select_template_for_object
+from base_libs.utils.user import get_user_title
 
 register = template.Library()
 
@@ -569,10 +576,6 @@ class TranslatedURL(template.Node):
         self.lang_code = lang_code
 
     def render(self, context):
-        from django.core.urlresolvers import reverse
-        from django.core.urlresolvers import resolve
-        from django.utils import translation
-
         lang_code = template.Variable(self.lang_code).resolve(context)
 
         try:
