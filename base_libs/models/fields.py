@@ -6,10 +6,13 @@ import sys
 import warnings
 from datetime import datetime
 
+from django.db import models
+from django.db.models.signals import post_delete, post_save, pre_delete
 from django.conf import settings
 from django.db import connection, models
 from django.db.models.fields import TextField
 from django.db.models.signals import post_delete, post_save
+
 try:
     from django.utils.encoding import force_text
 except ImportError:
@@ -19,14 +22,15 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 try:
-    from django.utils.timezone import now as tz_now
-except:
-    tz_now = datetime.now
+    from django.utils.timezone import now
+except ImportError:
+    now = datetime.now
 
+# define basestring for python 3
 try:
-    basestring  # Python 2
+    basestring
 except NameError:
-    basestring = str  # Python 3
+    basestring = (str, bytes)
 
 from base_libs.middleware import get_current_language
 from base_libs.forms.fields import PlainTextFormField
@@ -56,9 +60,9 @@ class ExtendedTextField(TextField):
         field_class = getattr(self.__class__, "_field_class", None)
         if field_class != PlainTextModelField:
             if not (
-                    hasattr(sys, "argv")
-                    and "migrate" in sys.argv
-                    and sys.argv.index("migrate") == 1
+                hasattr(sys, "argv")
+                and "migrate" in sys.argv
+                and sys.argv.index("migrate") == 1
             ):
                 editable = not isinstance(self, MultilingualTextField)
 
@@ -69,9 +73,7 @@ class ExtendedTextField(TextField):
                         blank=False,
                         choices=markup_settings.MARKUP_TYPES,
                         default=markup_settings.DEFAULT_MARKUP_TYPE,
-                        help_text=_(
-                            "You can select an appropriate markup type here"
-                        ),
+                        help_text=_("You can select an appropriate markup type here"),
                         editable=editable,
                     )
                     self.related_markup_type_field.contribute_to_class(
@@ -213,7 +215,7 @@ class MultilingualCharField(models.Field):
                     blank=_blank,
                     null=False,  # we ignore the null argument!
                     db_index=self.db_index,
-                    #rel=self.rel,
+                    # rel=self.rel,
                     default=self.default or "",
                     editable=True,  # All translatable fields will be editable
                     serialize=self.serialize,
@@ -283,7 +285,7 @@ class MultilingualTextField(models.Field):
                     blank=_blank,
                     null=True,  # we ignore the null argument!
                     db_index=self.db_index,
-                    #rel=self.rel,
+                    # rel=self.rel,
                     default=self.default or "",
                     editable=True,  # All translatable fields will be editable
                     serialize=self.serialize,
@@ -414,20 +416,18 @@ class TemplatePathField(models.FilePathField):
 
 
 class PositionField(models.IntegerField):
-    """
-    A slightly modified version of PositionField from http://github.com/jpwatts/django-positions
-    """
-
+    # Based on django-positions==0.6.0
     def __init__(
-            self,
-            verbose_name=None,
-            name=None,
-            default=None,
-            collection=None,
-            unique_for_field=None,
-            unique_for_fields=None,
-            *args,
-            **kwargs
+        self,
+        verbose_name=None,
+        name=None,
+        default=-1,
+        collection=None,
+        parent_link=None,
+        unique_for_field=None,
+        unique_for_fields=None,
+        *args,
+        **kwargs
     ):
         if "unique" in kwargs:
             raise TypeError(
@@ -450,7 +450,7 @@ class PositionField(models.IntegerField):
 
         if unique_for_field is not None:
             warnings.warn(
-                "The 'unique_for_field' argument is deprecated. Please use 'collection' instead.",
+                "The 'unique_for_field' argument is deprecated.  Please use 'collection' instead.",
                 DeprecationWarning,
             )
             if unique_for_fields is not None:
@@ -461,7 +461,7 @@ class PositionField(models.IntegerField):
 
         if unique_for_fields is not None:
             warnings.warn(
-                "The 'unique_for_fields' argument is deprecated. Please use 'collection' instead.",
+                "The 'unique_for_fields' argument is deprecated.  Please use 'collection' instead.",
                 DeprecationWarning,
             )
             collection = unique_for_fields
@@ -470,6 +470,11 @@ class PositionField(models.IntegerField):
         if isinstance(collection, basestring):
             collection = (collection,)
         self.collection = collection
+        self._next_sibling_pk_label = "_next_sibling_pk"
+        if collection is not None:
+            self._next_sibling_pk_label += "_" + "_".join(self.collection)
+        self.parent_link = parent_link
+        self._collection_changed = None
 
     def contribute_to_class(self, cls, name):
         super(PositionField, self).contribute_to_class(cls, name)
@@ -483,26 +488,54 @@ class PositionField(models.IntegerField):
             if getattr(field, "auto_now", False):
                 self.auto_now_fields.append(field)
         setattr(cls, self.name, self)
+        pre_delete.connect(self.prepare_delete, sender=cls)
         post_delete.connect(self.update_on_delete, sender=cls)
         post_save.connect(self.update_on_save, sender=cls)
 
-    def get_internal_type(self):
-        # pre_save always returns a value >= 0
-        return "PositiveIntegerField"
-
     def pre_save(self, model_instance, add):
+        # NOTE: check if the node has been moved to another collection; if it has, delete it from the old collection.
+        previous_instance = None
+        collection_changed = False
+        if not add and self.collection is not None:
+            try:
+                previous_instance = type(model_instance)._default_manager.get(
+                    pk=model_instance.pk
+                )
+                for field_name in self.collection:
+                    field = model_instance._meta.get_field(field_name)
+                    current_field_value = getattr(model_instance, field.attname)
+                    previous_field_value = getattr(previous_instance, field.attname)
+                    if previous_field_value != current_field_value:
+                        collection_changed = True
+                        break
+            except models.ObjectDoesNotExist:
+                add = True
+        if not collection_changed:
+            previous_instance = None
+
+        self._collection_changed = collection_changed
+        if collection_changed:
+            self.remove_from_collection(previous_instance)
+
         cache_name = self.get_cache_name()
         current, updated = getattr(model_instance, cache_name)
 
-        if add:
-            current, updated = None, current
+        if collection_changed:
+            current = None
 
-        if updated is None:
-            updated = -1
+        if add:
+            if updated is None:
+                updated = current
+            current = None
 
         # existing instance, position not modified; no cleanup required
         if current is not None and updated is None:
             return current
+
+        # if updated is still unknown set the object to the last position,
+        # either it is a new object or collection has been changed
+        if updated is None:
+            updated = -1
 
         collection_count = self.get_collection(model_instance).count()
         if current is None:
@@ -535,20 +568,13 @@ class PositionField(models.IntegerField):
 
         # instance inserted; cleanup required on post_save
         setattr(model_instance, cache_name, (current, position))
-
-        if position == -1:  # quick fix for data re-imports
-            position = 0
-
         return position
 
     def __get__(self, instance, owner):
         if instance is None:
             raise AttributeError("%s must be accessed via instance." % self.name)
         current, updated = getattr(instance, self.get_cache_name())
-        if updated is None:
-            return current
-        else:
-            return updated
+        return current if updated is None else updated
 
     def __set__(self, instance, value):
         if instance is None:
@@ -562,11 +588,13 @@ class PositionField(models.IntegerField):
             current, updated = value, None
         else:
             updated = value
+
+        instance.__dict__[self.name] = value  # Django 1.10 fix for deferred fields
         setattr(instance, cache_name, (current, updated))
 
     def get_collection(self, instance):
         filters = {}
-        if self.collection:
+        if self.collection is not None:
             for field_name in self.collection:
                 field = instance._meta.get_field(field_name)
                 field_value = getattr(instance, field.attname)
@@ -574,34 +602,84 @@ class PositionField(models.IntegerField):
                     filters["%s__isnull" % field.name] = True
                 else:
                     filters[field.name] = field_value
-        return type(instance)._default_manager.filter(**filters)
+        model = type(instance)
+        parent_link = self.parent_link
+        if parent_link is not None:
+            model = model._meta.get_field(parent_link).rel.to
+        return model._default_manager.filter(**filters)
 
-    def update_on_delete(self, sender, instance, **kwargs):
-        current = getattr(instance, self.get_cache_name())[0]
+    def get_next_sibling(self, instance):
+        """
+        Returns the next sibling of this instance.
+        """
+        try:
+            return self.get_collection(instance).filter(
+                **{"%s__gt" % self.name: getattr(instance, self.get_cache_name())[0]}
+            )[0]
+        except:
+            return None
+
+    def remove_from_collection(self, instance):
+        """
+        Removes a positioned item from the collection.
+        """
         queryset = self.get_collection(instance)
+        current = getattr(instance, self.get_cache_name())[0]
         updates = {self.name: models.F(self.name) - 1}
         if self.auto_now_fields:
-            now = tz_now()
+            right_now = now()
             for field in self.auto_now_fields:
-                updates[field.name] = now
+                updates[field.name] = right_now
         queryset.filter(**{"%s__gt" % self.name: current}).update(**updates)
 
+    def prepare_delete(self, sender, instance, **kwargs):
+        next_sibling = self.get_next_sibling(instance)
+        if next_sibling:
+            setattr(instance, self._next_sibling_pk_label, next_sibling.pk)
+        else:
+            setattr(instance, self._next_sibling_pk_label, None)
+        pass
+
+    def update_on_delete(self, sender, instance, **kwargs):
+        next_sibling_pk = getattr(instance, self._next_sibling_pk_label, None)
+        if next_sibling_pk:
+            try:
+                next_sibling = type(instance)._default_manager.get(pk=next_sibling_pk)
+            except:
+                next_sibling = None
+            if next_sibling:
+                queryset = self.get_collection(next_sibling)
+                current = getattr(instance, self.get_cache_name())[0]
+                updates = {self.name: models.F(self.name) - 1}
+                if self.auto_now_fields:
+                    right_now = now()
+                    for field in self.auto_now_fields:
+                        updates[field.name] = right_now
+                queryset.filter(**{"%s__gt" % self.name: current}).update(**updates)
+        setattr(instance, self._next_sibling_pk_label, None)
+
     def update_on_save(self, sender, instance, created, **kwargs):
+        collection_changed = self._collection_changed
+        self._collection_changed = None
+
         current, updated = getattr(instance, self.get_cache_name())
 
-        if updated is None:
+        if updated is None and not collection_changed:
             return None
 
         queryset = self.get_collection(instance).exclude(pk=instance.pk)
 
         updates = {}
         if self.auto_now_fields:
-            now = tz_now()
+            right_now = now()
             for field in self.auto_now_fields:
-                updates[field.name] = now
+                updates[field.name] = right_now
 
-        if created:
-            # increment positions gte updated
+        if updated is None and created:
+            updated = -1
+
+        if created or collection_changed:
+            # increment positions gte updated or node moved from another collection
             queryset = queryset.filter(**{"%s__gte" % self.name: updated})
             updates[self.name] = models.F(self.name) + 1
         elif updated > current:
@@ -619,3 +697,9 @@ class PositionField(models.IntegerField):
 
         queryset.update(**updates)
         setattr(instance, self.get_cache_name(), (updated, None))
+
+    def get_cache_name(self):
+        try:
+            return super(PositionField, self).get_cache_name()
+        except AttributeError:
+            return "_%s_cache_" % self.name
