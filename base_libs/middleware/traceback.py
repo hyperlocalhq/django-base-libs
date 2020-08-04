@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 from __future__ import unicode_literals
+
 try:
     from django.utils.encoding import force_text
 except ImportError:
@@ -13,7 +14,12 @@ class UserTracebackMiddleware(object):
     """
 
     def process_exception(self, request, exception):
-        if request.user.is_authenticated():
+        is_authenticated = (
+            request.user.is_authenticated()
+            if callable(request.user.is_authenticated)
+            else request.user.is_authenticated
+        )
+        if is_authenticated:
             request.META["AUTH_USER"] = force_text(request.user.username)
         else:
             request.META["AUTH_USER"] = "Anonymous User"
