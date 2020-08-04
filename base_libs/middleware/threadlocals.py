@@ -38,10 +38,26 @@ def set_current_language(language_code):
 
 class ThreadLocalsMiddleware(object):
     """Middleware that gets various objects from the
-    request object and saves them in thread local storage."""
+    request object and saves them in thread local storage.
+    With Django <= 1.11
+    """
 
     def process_request(self, request):
         set_current_user(request.user)
 
     def process_response(self, request, response):
         return response
+
+
+def thread_locals_middleware(get_response):
+    """Middleware that gets various objects from the
+    request object and saves them in thread local storage.
+    With Django >= 2.0
+    """
+
+    def middleware(request):
+        set_current_user(request.user)
+        response = get_response(request)
+        return response
+
+    return middleware
