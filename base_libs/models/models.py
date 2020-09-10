@@ -27,8 +27,12 @@ from django.db.models import signals
 from django.db.models.fields import NOT_PROVIDED
 from django.template.defaultfilters import escape
 from django.utils.safestring import mark_safe
-from django.utils.translation import string_concat
 from django.utils.translation import ugettext, ugettext_lazy as _
+
+try:
+    from django.utils.translation import string_concat  # up to django 2.0
+except ImportError:
+    from django.utils.text import format_lazy as string_concat  # django 2.1 and up
 
 try:
     from django.utils.timezone import now as tz_now
