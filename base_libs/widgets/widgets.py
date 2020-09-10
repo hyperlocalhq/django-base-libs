@@ -34,7 +34,7 @@ ADMIN_MEDIA_URL = getattr(settings, "JETSON_MEDIA_URL", settings.ADMIN_MEDIA_PRE
 
 
 class IntegerWidget(forms.TextInput):
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         from babel.numbers import parse_number
         from babel.numbers import format_number
         from babel.numbers import NumberFormatError
@@ -53,7 +53,7 @@ class IntegerWidget(forms.TextInput):
 
 
 class DecimalWidget(forms.TextInput):
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         from babel.numbers import parse_decimal
         from babel.numbers import format_decimal
         from babel.numbers import NumberFormatError
@@ -72,7 +72,7 @@ class DecimalWidget(forms.TextInput):
 
 
 class DateWidget(forms.TextInput):
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         locale = get_current_language()
         if value is None:
             value = ""
@@ -87,7 +87,7 @@ class DateWidget(forms.TextInput):
 
 
 class TimeWidget(forms.TextInput):
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         locale = get_current_language()
         if value is None:
             value = ""
@@ -163,7 +163,7 @@ class AutocompleteWidget(Widget):
 
         return js
 
-    def render(self, name, value=None, attrs=None):
+    def render(self, name, value=None, attrs=None, renderer=None):
         """
         The widget consists of two text fields: 
         1. Field with id = "id_<field_name>_text", which holds the text values
@@ -231,7 +231,7 @@ class AutocompleteMultipleWidget(AutocompleteWidget):
             self.AutocompleteMultipleManager.register("#%s", %s, %s);
         }"""
 
-    def render(self, name, value=None, attrs=None):
+    def render(self, name, value=None, attrs=None, renderer=None):
         """
         The widget consists of two text fields: 
         1. Field with id = "id_<field_name>_text", which is used for entering text values
@@ -376,7 +376,7 @@ class SelectToAutocompleteWidget(AutocompleteWidget):
 
         return js
 
-    def render(self, name, value=None, attrs=None, choices=()):
+    def render(self, name, value=None, attrs=None, renderer=None, choices=()):
         """
         The widget consists of two text fields: 
         1. Field with id = "id_<field_name>_text", which holds the text values
@@ -476,7 +476,7 @@ class ObjectSelect(forms.Widget):
         # more than once.
         self.choices = list(choices)
 
-    def render(self, name, value, attrs=None, choices=()):
+    def render(self, name, value, attrs=None, renderer=None, choices=()):
         if value is None:
             value = ""
         if not isinstance(value, basestring):
