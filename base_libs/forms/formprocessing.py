@@ -3,7 +3,7 @@ import re
 
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.template import loader
-from django.template.context import RequestContext
+from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
 from formtools.utils import form_hmac
 
@@ -165,7 +165,7 @@ class FormHandler(object):
         context["form"] = form
         context.update(self.context)
         context.update(self.extra_context)
-        return HttpResponse(t.render(RequestContext(request, context)))
+        return render(request, t.template.name, context)
 
     def post(self, request, action):
         """
@@ -198,7 +198,7 @@ class FormHandler(object):
                 t = loader.get_template(template_name)
             context.update(self.context)
             context.update(self.extra_context)
-            return HttpResponse(t.render(RequestContext(request, context)))
+            return render(request, t.template.name, context)
 
     # METHODS SUBCLASSES MAY OVERRIDE
 
@@ -350,8 +350,7 @@ class FormPreviewHandler(FormHandler):
 
         context.update(self.context)
         context.update(self.extra_context)
-
-        return HttpResponse(t.render(RequestContext(request, context)))
+        return render(request, t.template.name, context)
 
     def post(self, request, action):
         form = self.form_class(
