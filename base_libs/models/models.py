@@ -30,11 +30,6 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 try:
-    from django.utils.translation import string_concat  # up to django 2.0
-except ImportError:
-    from django.utils.text import format_lazy as string_concat  # django 2.1 and up
-
-try:
     from django.utils.timezone import now as tz_now
 except ImportError:
     from datetime.datetime import now as tz_now
@@ -51,6 +46,7 @@ from base_libs.middleware import get_current_user
 from base_libs.middleware import get_current_language
 from base_libs.utils.misc import get_unique_value
 from base_libs.models.base_libs_settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
+from base_libs.utils.text_utils import string_concat
 
 
 class BaseModel(models.Model):
