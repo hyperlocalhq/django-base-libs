@@ -13,6 +13,11 @@ try:
 except:
     from django.utils.encoding import force_unicode as force_text
 
+try:
+    unichr  # Python 2
+except NameError:
+    unichr = chr  # Python 3
+
 entity_re = re.compile("&(#?)([Xx]?)(\d+|[A-Fa-f0-9]+|%s);" % "|".join(name2codepoint))
 
 entity_no_escape_chars_re = re.compile(
