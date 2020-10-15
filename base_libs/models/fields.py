@@ -36,7 +36,7 @@ from base_libs.middleware import get_current_language
 from base_libs.forms.fields import PlainTextFormField
 from base_libs.forms.fields import URLField as URLFormField
 from base_libs.forms.fields import TemplateChoiceField
-from base_libs.models import base_libs_settings as markup_settings
+from base_libs.models import base_libs_settings
 
 qn = connection.ops.quote_name
 
@@ -55,7 +55,7 @@ class ExtendedTextField(TextField):
         widget_attrs["class"] += " hasMarkupType"
         return form_field
 
-    def contribute_to_class(self, cls, name):
+    def contribute_to_class(self, cls, name, private_only=False):
         # generate an additional select field for selecting the markup type
         field_class = getattr(self.__class__, "_field_class", None)
         if field_class != PlainTextModelField:
@@ -71,8 +71,8 @@ class ExtendedTextField(TextField):
                         _("Markup type"),
                         max_length=10,
                         blank=False,
-                        choices=markup_settings.MARKUP_TYPES,
-                        default=markup_settings.DEFAULT_MARKUP_TYPE,
+                        choices=base_libs_settings.MARKUP_TYPES,
+                        default=base_libs_settings.DEFAULT_MARKUP_TYPE,
                         help_text=_("You can select an appropriate markup type here"),
                         editable=editable,
                     )
@@ -91,7 +91,7 @@ class ExtendedTextField(TextField):
                 field_value = getattr(self, _name)
                 mt = getattr(self, "%s_markup_type" % name)
 
-                if mt == markup_settings.MARKUP_PLAIN_TEXT:
+                if mt == base_libs_settings.MARKUP_PLAIN_TEXT:
                     field_value = field_value.strip()
                     if field_value:
                         field_value = escape(field_value)
@@ -101,11 +101,11 @@ class ExtendedTextField(TextField):
                         except ValueError:
                             pass
                         field_value = linebreaks(field_value)
-                elif mt == markup_settings.MARKUP_RAW_HTML:
+                elif mt == base_libs_settings.MARKUP_RAW_HTML:
                     pass
-                elif mt == markup_settings.MARKUP_HTML_WYSIWYG:
+                elif mt == base_libs_settings.MARKUP_HTML_WYSIWYG:
                     pass
-                elif mt == markup_settings.MARKUP_MARKDOWN:
+                elif mt == base_libs_settings.MARKUP_MARKDOWN:
                     try:
                         import markdown
                     except ImportError:
@@ -197,7 +197,7 @@ class MultilingualCharField(models.Field):
     def get_internal_type(self):
         return "CharField"
 
-    def contribute_to_class(self, cls, name):
+    def contribute_to_class(self, cls, name, private_only=False):
         # generate language specific fields dynamically
         if not cls._meta.abstract:
             for language in settings.LANGUAGES:
@@ -225,7 +225,8 @@ class MultilingualCharField(models.Field):
                     db_tablespace=self.db_tablespace,
                 )
                 localized_field.contribute_to_class(
-                    cls, _language_field_name(name, language[0]),
+                    cls,
+                    _language_field_name(name, language[0]),
                 )
 
         """ 
@@ -235,7 +236,17 @@ class MultilingualCharField(models.Field):
         But we make the dummy database column not editable, blank=true
         in the init method
         """
-        super(MultilingualCharField, self).contribute_to_class(cls, name)
+        if base_libs_settings.MODERN_MULTILINGUAL_FIELDS:
+            self.concrete = False  # doesn't have an associated database field
+            self.name = name
+            self.attname = name
+            self.model = cls
+            self.column = None
+            cls._meta.add_field(self, private=True)
+        else:
+            super(MultilingualCharField, self).contribute_to_class(
+                cls, name, private_only=private_only
+            )
         # override with proxy
         setattr(cls, name, MultilingualProxy(self))
 
@@ -264,7 +275,7 @@ class MultilingualTextField(models.Field):
     def get_internal_type(self):
         return "TextField"
 
-    def contribute_to_class(self, cls, name):
+    def contribute_to_class(self, cls, name, private_only=False):
         # generate language specific fields dynamically
         if not cls._meta.abstract:
             for language in settings.LANGUAGES:
@@ -300,7 +311,17 @@ class MultilingualTextField(models.Field):
                 localized_field.contribute_to_class(
                     cls, _language_field_name(name, language[0])
                 )
-        super(MultilingualTextField, self).contribute_to_class(cls, name)
+        if base_libs_settings.MODERN_MULTILINGUAL_FIELDS:
+            self.concrete = False  # doesn't have an associated database field
+            self.name = name
+            self.attname = name
+            self.model = cls
+            self.column = None
+            cls._meta.add_field(self, private=True)
+        else:
+            super(MultilingualTextField, self).contribute_to_class(
+                cls, name, private_only=private_only
+            )
         # override with proxy
         setattr(cls, name, MultilingualProxy(self))
 
@@ -315,7 +336,8 @@ class MultilingualTextField(models.Field):
 
                 field_value = getattr(self, _language_field_name(_name, language))
                 mt = getattr(
-                    self, "%s_markup_type" % _language_field_name(_name, language),
+                    self,
+                    "%s_markup_type" % _language_field_name(_name, language),
                 )
                 if not field_value:
                     field_value = getattr(
@@ -330,7 +352,7 @@ class MultilingualTextField(models.Field):
                         # No value set for mandatory field for the current language! Has the default language been changed recently?
                         return ""
 
-                if mt == markup_settings.MARKUP_PLAIN_TEXT:
+                if mt == base_libs_settings.MARKUP_PLAIN_TEXT:
                     field_value = field_value.strip()
                     if field_value:
                         field_value = escape(field_value)
@@ -340,11 +362,11 @@ class MultilingualTextField(models.Field):
                         except ValueError:
                             pass
                         field_value = linebreaks(field_value)
-                elif mt == markup_settings.MARKUP_RAW_HTML:
+                elif mt == base_libs_settings.MARKUP_RAW_HTML:
                     pass
-                elif mt == markup_settings.MARKUP_HTML_WYSIWYG:
+                elif mt == base_libs_settings.MARKUP_HTML_WYSIWYG:
                     pass
-                elif mt == markup_settings.MARKUP_MARKDOWN:
+                elif mt == base_libs_settings.MARKUP_MARKDOWN:
                     try:
                         import markdown
                     except ImportError:
@@ -476,7 +498,7 @@ class PositionField(models.IntegerField):
         self.parent_link = parent_link
         self._collection_changed = None
 
-    def contribute_to_class(self, cls, name):
+    def contribute_to_class(self, cls, name, private_only=False):
         super(PositionField, self).contribute_to_class(cls, name)
         for constraint in cls._meta.unique_together:
             if self.name in constraint:
