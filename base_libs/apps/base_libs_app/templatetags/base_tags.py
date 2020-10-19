@@ -106,7 +106,10 @@ def do_include_selected(parser, token):
             if len(bits) != 6:
                 raise template.TemplateSyntaxError(
                     "%r tag takes 4 arguments, there are %d arguments provided."
-                    % (bits[0], len(bits) - 1,)
+                    % (
+                        bits[0],
+                        len(bits) - 1,
+                    )
                 )
             if bits[2] != "for":
                 raise template.TemplateSyntaxError(
@@ -123,7 +126,10 @@ def do_include_selected(parser, token):
             if reserved:
                 raise template.TemplateSyntaxError(
                     'Reserved word %s must not be under "" in %r tag.'
-                    % (bits[i], bits[0],)
+                    % (
+                        bits[i],
+                        bits[0],
+                    )
                 )
             param = (i, 1, bits[i][1:-1])
         else:
@@ -154,7 +160,10 @@ def do_load_obj(parser, token):
     except ValueError:
         raise template.TemplateSyntaxError(
             "%r tag requires a following syntax: {%% %r app.model <object_id> as <var_name> %%}"
-            % (token.contents[0], token.contents[0],)
+            % (
+                token.contents[0],
+                token.contents[0],
+            )
         )
     try:
         appname, modelname = appmodel.split(".")
@@ -206,7 +215,10 @@ def do_get_all_objects(parser, token):
     except ValueError:
         raise template.TemplateSyntaxError(
             "%r tag requires a following syntax: {%% %r app.model as <var_name> %%}"
-            % (token.contents[0], token.contents[0],)
+            % (
+                token.contents[0],
+                token.contents[0],
+            )
         )
     try:
         appname, modelname = appmodel.split(".")
@@ -344,7 +356,9 @@ class ObjectsNode(template.Node):
             method = self.manager_method
 
         qs = getattr(
-            getattr(self.model, manager), method, self.model._default_manager.all,
+            getattr(self.model, manager),
+            method,
+            self.model._default_manager.all,
         )()
         if self.amount:
             amount = template.Variable(self.amount).resolve(context)
@@ -408,7 +422,10 @@ class CallNode(template.Node):
         if getattr(method, "alters_data", False):
             raise template.TemplateSyntaxError(
                 u"You can't call %s.%s in a template, because it alters data. Call it in the view instead."
-                % (self.obj, self.method_name,)
+                % (
+                    self.obj,
+                    self.method_name,
+                )
             )
 
         method_args = [
@@ -734,8 +751,7 @@ def content_type_id(value):
 
 @register.filter
 def dict_value(dictionary, key):
-    """ returns the value of a dictionary key ...
-    """
+    """returns the value of a dictionary key ..."""
     return dictionary.get(key, None)
 
 
@@ -776,8 +792,7 @@ def decode_entities(html, decode_all=False):
 
 @register.filter
 def remove_empty_lists(html):
-    """ returns the value without empty <ul></ul> and <ol></ol> ...
-    """
+    """returns the value without empty <ul></ul> and <ol></ol> ..."""
     pattern = re.compile(r"<[uo]l[^>]*>\s*</[uo]l>")
     html = pattern.sub("", html)
     return html
@@ -789,6 +804,13 @@ def disarm_user_input(html):
     Returns html without posible harm
     """
     import bleach
+
+    def allow_common_attributes(tag, name, value):
+        if name in [u"accesskey", u"class", u"dir", u"lang", u"tabindex", u"translate"]:
+            return True
+        if name.startswith(u"data-"):
+            return True
+        return False
 
     if "</p>" not in html:
         html = defaultfilters.linebreaks(html)
@@ -821,7 +843,7 @@ def disarm_user_input(html):
             u"span",
         ],
         attributes={
-            u"*": [u"class"],
+            u"*": allow_common_attributes,
             u"a": [u"href", u"title", u"target"],
             u"acronym": [u"title"],
             u"abbr": [u"title"],
