@@ -394,12 +394,12 @@ def nested_fieldsets_with_markup_types(
 
 class MarkupTypeOptions(object):
     # default allowed markup types for TextFields in the Admin ...
-    allowed_markup_admin = [
+    allowed_markup_admin = getattr(settings, "ALLOWED_MARKUP_TYPES", [
         MARKUP_PLAIN_TEXT,
         MARKUP_RAW_HTML,
         MARKUP_HTML_WYSIWYG,
         # MARKUP_MARKDOWN
-    ]
+    ])
 
     def get_fieldsets(self, request, obj=None):
         """
