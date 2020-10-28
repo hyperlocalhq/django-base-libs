@@ -244,9 +244,14 @@ class MultilingualCharField(models.Field):
             self.column = None
             cls._meta.add_field(self, private=True)
         else:
-            super(MultilingualCharField, self).contribute_to_class(
-                cls, name, private_only=private_only
-            )
+            try:
+                super(MultilingualCharField, self).contribute_to_class(
+                    cls, name, private_only=private_only
+                )
+            except TypeError:
+                super(MultilingualCharField, self).contribute_to_class(
+                    cls, name
+                )
         # override with proxy
         setattr(cls, name, MultilingualProxy(self))
 
@@ -319,9 +324,14 @@ class MultilingualTextField(models.Field):
             self.column = None
             cls._meta.add_field(self, private=True)
         else:
-            super(MultilingualTextField, self).contribute_to_class(
-                cls, name, private_only=private_only
-            )
+            try:
+                super(MultilingualTextField, self).contribute_to_class(
+                    cls, name, private_only=private_only
+                )
+            except TypeError:
+                super(MultilingualTextField, self).contribute_to_class(
+                    cls, name
+                )
         # override with proxy
         setattr(cls, name, MultilingualProxy(self))
 
