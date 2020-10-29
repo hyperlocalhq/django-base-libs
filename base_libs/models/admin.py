@@ -6,6 +6,13 @@ from base_libs.middleware import get_current_user
 from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
 from base_libs.views.hierarchy import HierarchyChangeList
 from base_libs.widgets import TreeSelectWidget
+
+try:
+    from django.utils.html import format_html
+except ImportError:
+    def format_html(str, *args, **kwargs):
+        return str.format(*args, **kwargs)
+
 from django import forms
 from django.conf import settings
 from django.contrib.admin.options import IncorrectLookupParameters
@@ -165,7 +172,7 @@ def ObjectRelationMixinAdminOptions(
         model_name = co.__class__.__name__.lower()
         co_unicode = force_text(co)
         if user.has_perm("%s.change_%s" % (app_name, model_name), co):
-            return u"""<a href="/admin/%s/%s/%s/" class="content_object">%s</a>""" % (
+            return format_html(u"""<a href="/admin/{}/{}/{}/" class="content_object">{}</a>""",
                 app_name,
                 model_name,
                 co.pk,
