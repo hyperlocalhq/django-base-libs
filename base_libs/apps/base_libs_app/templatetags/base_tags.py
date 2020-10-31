@@ -488,7 +488,7 @@ class ParseNode(template.Node):
     def render(self, context):
         template_value = template.Variable(self.template_value).resolve(context)
         t = Template(template_value)
-        result = t.render(context)
+        result = t.render(context.flatten())
         if self.var_name:
             context[self.var_name] = result
             return ""
@@ -565,7 +565,7 @@ class IncludeNode(template.Node):
             # Loading the template and rendering it
             template_name = template.Variable(self.template_name).resolve(context)
             included_template = template.loader.get_template(template_name).render(
-                context
+                context.flatten()
             )
         except template.TemplateDoesNotExist:
             included_template = ""
