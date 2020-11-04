@@ -324,10 +324,10 @@ class UrlMixin(models.Model):
 
     def get_url(self):
         if hasattr(self.get_url_path, "dont_recurse"):
-            raise NotImplemented
+            raise NotImplementedError("Neither get_url_path() nor get_url() methods are defined for the {model} model.".format(model=type(self).__name__))
         try:
             path = self.get_url_path()
-        except NotImplemented:
+        except NotImplementedError:
             raise
         protocol = getattr(settings, "PROTOCOL", "http")
         domain = Site.objects.get_current().domain
@@ -340,10 +340,10 @@ class UrlMixin(models.Model):
 
     def get_url_path(self):
         if hasattr(self.get_url, "dont_recurse"):
-            raise NotImplemented
+            raise NotImplementedError("Neither get_url_path() nor get_url() methods are defined for the {model} model.".format(model=type(self).__name__))
         try:
             url = self.get_url()
-        except NotImplemented:
+        except NotImplementedError:
             raise
         bits = urlparse(url)
         return urlunparse(("", "") + bits[2:])
