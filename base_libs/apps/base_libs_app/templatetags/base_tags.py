@@ -488,7 +488,7 @@ class ParseNode(template.Node):
     def render(self, context):
         template_value = template.Variable(self.template_value).resolve(context)
         t = Template(template_value)
-        result = t.render(context.flatten())
+        result = t.render(context)
         if self.var_name:
             context[self.var_name] = result
             return ""
