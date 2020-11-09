@@ -994,12 +994,17 @@ def to_base64(value):
 
 
 @register.filter(is_safe=True, needs_autoescape=False)
-def remove_tags(html, tag):
+def remove_tags(html, tags):
     """
     Strip HTML element `tag` from string `html`.
     Example: if `html` is "<p>Hello, <strong>world</strong>!</p>" and tag is `p`
     returns "Hello, <strong>world</strong>!"
+    https://github.com/django/django/blob/6a0dc2176f4ebf907e124d433411e52bba39a28e/django/utils/html.py#L195
     """
-    import bleach
-    html = bleach.clean(html, tags=[tag])
+    tags = [re.escape(tag) for tag in tags.split()]
+    tags_re = '(%s)' % '|'.join(tags)
+    starttag_re = re.compile(r'<%s(/?>|(\s+[^>]*>))' % tags_re, re.U)
+    endtag_re = re.compile('</%s>' % tags_re)
+    html = starttag_re.sub('', html)
+    html = endtag_re.sub('', html)
     return mark_safe(html)
