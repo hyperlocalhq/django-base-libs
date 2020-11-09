@@ -993,12 +993,13 @@ def to_base64(value):
     return base64.b64encode(str(value).encode())
 
 
-@register.filter
-def removetags(s, el):
+@register.filter(is_safe=True, needs_autoescape=False)
+def remove_tags(html, tag):
     """
-    Strip HTML element "el" from string "s"
-    Example: if s="<p>Hello</p> <span>world</span>" and el="p"
-    returns "Hello <span>world</span>"
+    Strip HTML element `tag` from string `html`.
+    Example: if `html` is "<p>Hello, <strong>world</strong>!</p>" and tag is `p`
+    returns "Hello, <strong>world</strong>!"
     """
     import bleach
-    return mark_safe(bleach.clean(s, tags=[el]))
+    html = bleach.clean(html, tags=[tag])
+    return mark_safe(html)
