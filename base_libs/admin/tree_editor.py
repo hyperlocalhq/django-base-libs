@@ -324,7 +324,7 @@ class TreeEditor(admin.ModelAdmin):
         ]
 
     def actions_column(self, instance):
-        return u" ".join(self._actions_column(instance))
+        return mark_safe(u" ".join(self._actions_column(instance)))
 
     actions_column.allow_tags = True
     actions_column.short_description = " "
