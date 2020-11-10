@@ -874,7 +874,7 @@ def SlugMixin(
     max_length=255,
     unique=True,
     unique_for=(),
-    **kwargs
+    **slug_mixin_kwargs
 ):
     """
     returns a mixin class for a slug field used for URLs. 
@@ -896,7 +896,7 @@ def SlugMixin(
         verbose_name=verbose_name,
         max_length=max_length,
         unique=unique and not unique_for,
-        **kwargs
+        **slug_mixin_kwargs
     )
 
     class ModelWithSlug(BaseModel):
@@ -947,7 +947,7 @@ def SlugMixin(
     return ModelWithSlug
 
 
-def SysnameMixin(**kwargs):
+def SysnameMixin(**sysname_mixin_kwargs):
     """
     returns a mixin class for a slug field used for views and templates. 
     This function is just a class generator
@@ -960,7 +960,7 @@ def SysnameMixin(**kwargs):
         "verbose_name": _("Sysname"),
         "help_text": _("Do not change this value!"),
     }
-    sysname_params.update(kwargs)
+    sysname_params.update(sysname_mixin_kwargs)
 
     class ModelWithSysname(SlugMixin(**sysname_params)):
         class Meta:
