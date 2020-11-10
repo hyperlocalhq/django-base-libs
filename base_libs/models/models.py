@@ -52,7 +52,7 @@ from base_libs.utils.text_utils import string_concat
 class BaseModel(models.Model):
     """
     Abstract class for the base model. 
-    Just provides some usefull methods
+    Just provides some useful methods
     """
 
     def get_content_type(self):
@@ -422,7 +422,7 @@ def ObjectRelationMixin(
         )
         admin_content_type_name = string_concat(prefix_verbose, _("'s type (model)"))
 
-    class klass(BaseModel):
+    class ModelWithObjectRelation(BaseModel):
         class Meta:
             abstract = True
 
@@ -462,13 +462,13 @@ def ObjectRelationMixin(
         ct_field=content_type_field, fk_field=object_id_field,
     )
 
-    klass.add_to_class(content_type_field, content_type)
-    klass.add_to_class(object_id_field, object_id)
-    klass.add_to_class(content_object_field, content_object)
+    ModelWithObjectRelation.add_to_class(content_type_field, content_type)
+    ModelWithObjectRelation.add_to_class(object_id_field, object_id)
+    ModelWithObjectRelation.add_to_class(content_object_field, content_object)
 
-    "add methods: for the methods, we can use setattr(klass, ..., ...)"
-    # setattr(klass, 'get_%s' % content_object_field, get_content_object)
-    return klass
+    "add methods: for the methods, we can use setattr(ModelWithObjectRelation, ..., ...)"
+    # setattr(ModelWithObjectRelation, 'get_%s' % content_object_field, get_content_object)
+    return ModelWithObjectRelation
 
 
 class SingleSiteMixinManager(models.Manager):
@@ -899,7 +899,7 @@ def SlugMixin(
         **kwargs
     )
 
-    class klass(BaseModel):
+    class ModelWithSlug(BaseModel):
         def save(self, *args, **kwargs):
             slug_field = self._meta.get_field(name)
             # PYTHON BUG? callable() doesn't recognize variables from outer scope
@@ -935,16 +935,16 @@ def SlugMixin(
                         separator=separator,
                     )
                 setattr(self, name, slug)
-            super(klass, self).save(*args, **kwargs)
+            super(ModelWithSlug, self).save(*args, **kwargs)
 
         save.alters_data = True
 
         class Meta:
             abstract = True
 
-    klass.add_to_class(name, slug_field)
+    ModelWithSlug.add_to_class(name, slug_field)
 
-    return klass
+    return ModelWithSlug
 
 
 def SysnameMixin(**kwargs):
@@ -962,11 +962,11 @@ def SysnameMixin(**kwargs):
     }
     sysname_params.update(kwargs)
 
-    class klass(SlugMixin(**sysname_params)):
+    class ModelWithSysname(SlugMixin(**sysname_params)):
         class Meta:
             abstract = True
 
-    return klass
+    return ModelWithSysname
 
 
 def MultilingualSlugMixin(
@@ -999,7 +999,7 @@ def MultilingualSlugMixin(
     if "blank" in kwargs:
         _blank = kwargs.pop("blank")
 
-    class klass(BaseModel):
+    class ModelWithMultilingualSlug(BaseModel):
         def save(self, *args, **kwargs):
             for lang_code, lang_name in settings.LANGUAGES:
                 slug_field = self._meta.get_field("%s_%s" % (name, lang_code))
@@ -1038,7 +1038,7 @@ def MultilingualSlugMixin(
                             separator=separator,
                         )
                 setattr(self, "%s_%s" % (name, lang_code), slug)
-            super(klass, self).save(*args, **kwargs)
+            super(ModelWithMultilingualSlug, self).save(*args, **kwargs)
 
         save.alters_data = True
 
@@ -1058,9 +1058,10 @@ def MultilingualSlugMixin(
             blank=blank,
             **kwargs
         )
-        klass.add_to_class("%s_%s" % (name, lang_code), slug_field)
+        ModelWithMultilingualSlug.add_to_class("%s_%s" % (name, lang_code), slug_field)
 
     # dummy field
+    # TODO: remove?
     kwargs["editable"] = False
     kwargs["null"] = True
     kwargs["blank"] = _blank
@@ -1070,11 +1071,11 @@ def MultilingualSlugMixin(
         unique=unique and not unique_for,
         **kwargs
     )
-    klass.add_to_class(name, slug_field)
+    ModelWithMultilingualSlug.add_to_class(name, slug_field)
 
-    setattr(klass, name, MultilingualProxy(slug_field))
+    setattr(ModelWithMultilingualSlug, name, MultilingualProxy(slug_field))
 
-    return klass
+    return ModelWithMultilingualSlug
 
 
 class ContentBaseMixinDraftManager(PublishingMixinDraftManager):
@@ -1357,7 +1358,7 @@ def FeesMixin(count=2,):
                 )
         return fees
 
-    class klass(BaseModel):
+    class ModelWithFees(BaseModel):
         class Meta:
             abstract = True
 
@@ -1368,19 +1369,19 @@ def FeesMixin(count=2,):
 
         fee_amount_field = models.FloatField(_("Fee Amount"), blank=True, null=True,)
 
-        klass.add_to_class("fee%s_label" % index, fee_label_field)
-        klass.add_to_class("fee%s_amount" % index, fee_amount_field)
+        ModelWithFees.add_to_class("fee%s_label" % index, fee_label_field)
+        ModelWithFees.add_to_class("fee%s_amount" % index, fee_amount_field)
 
     registration_required_field = models.BooleanField(
         _("Registration Required"), default=False,
     )
 
-    klass.add_to_class("is_registration_required", registration_required_field)
+    ModelWithFees.add_to_class("is_registration_required", registration_required_field)
 
-    klass.add_to_class("has_fees", has_fees)
-    klass.add_to_class("get_fees", get_fees)
+    ModelWithFees.add_to_class("has_fees", has_fees)
+    ModelWithFees.add_to_class("get_fees", get_fees)
 
-    return klass
+    return ModelWithFees
 
 
 ### SIGNALS ###
