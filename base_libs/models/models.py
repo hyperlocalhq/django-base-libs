@@ -55,12 +55,17 @@ class BaseModel(models.Model):
     Just provides some useful methods
     """
 
+    class Meta:
+        abstract = True
+
     def get_content_type(self):
         """returns the contenttype for the object"""
         return ContentType.objects.get_for_model(self)
 
-    class Meta:
-        abstract = True
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            kwargs["force_insert"] = True
+        super(BaseModel, self).save(*args, **kwargs)
 
 
 class CreationDateMixin(BaseModel):
