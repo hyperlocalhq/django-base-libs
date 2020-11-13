@@ -3,6 +3,11 @@ import unicodedata
 
 from django.core.files.storage import FileSystemStorage
 
+try:
+    from django.utils.encoding import force_text
+except ImportError:
+    force_text = str
+
 
 class ASCIIFileSystemStorage(FileSystemStorage):
     """
@@ -10,5 +15,7 @@ class ASCIIFileSystemStorage(FileSystemStorage):
     """
 
     def get_valid_name(self, name):
-        name = unicodedata.normalize("NFKD", name).encode("ascii", "ignore")
-        return super(ASCIIFileSystemStorage, self).get_valid_name(name)
+        normalized_name = force_text(
+            unicodedata.normalize("NFKD", name).encode("ascii", "ignore")
+        )
+        return super(ASCIIFileSystemStorage, self).get_valid_name(normalized_name)
