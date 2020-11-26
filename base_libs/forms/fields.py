@@ -68,7 +68,7 @@ class IntegerField(forms.IntegerField):
             try:
                 value = force_text(parse_number(value, locale=locale))
             except NumberFormatError:
-                raise forms.ValidationError(self.error_messages["invalid"])
+                raise forms.ValidationError(_("This value is not valid."))
         return super(IntegerField, self).clean(value)
 
 
