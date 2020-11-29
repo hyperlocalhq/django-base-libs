@@ -506,13 +506,7 @@ def db_table_exists(model):
     """ Checks if database table for a model exists """
     from django.db import connection
 
-    cursor = connection.cursor()
-    try:
-        cursor.execute("SELECT 1 FROM %s LIMIT 1" % model._meta.db_table)
-        return True
-    except:
-        pass
-    return False
+    return model._meta.db_table in connection.introspection.table_names()
 
 
 def truncwords(value, nof_words):
