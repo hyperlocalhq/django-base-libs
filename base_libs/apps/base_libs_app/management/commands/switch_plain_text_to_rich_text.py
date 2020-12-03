@@ -8,6 +8,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         from django.apps import apps
+        from django.db import models
         from base_libs.models.base_libs_settings import (
             MARKUP_HTML_WYSIWYG,
             MARKUP_PLAIN_TEXT,
@@ -18,6 +19,8 @@ class Command(BaseCommand):
 
         if self.verbosity >= self.NORMAL:
             self.stdout.write(u"=== Switching from plain text to rich text ===\n")
+
+        suspicious_entries = []
 
         total_counter = 0
         for model in apps.get_models():
@@ -38,20 +41,42 @@ class Command(BaseCommand):
                         )
                     )
                     self.stdout.flush()
+                markup_type_filters = models.Q()
+                for field_name in fields_with_markup_types:
+                    markup_type_filters |= models.Q(
+                        **{
+                            "{}_markup_type__in".format(field_name): (
+                                MARKUP_PLAIN_TEXT,
+                                MARKUP_MARKDOWN,
+                            )
+                        }
+                    )
                 counter = 0
-                for instance in model._default_manager.all():
+                for instance in model._default_manager.filter(markup_type_filters):
+                    if self.verbosity >= self.NORMAL:
+                        self.stdout.write(
+                            u" - {instance} (id={pk})\n".format(
+                                instance=instance, pk=instance.pk
+                            )
+                        )
+                        self.stdout.flush()
                     new_values = {}
                     for field_name in fields_with_markup_types:
                         if getattr(instance, "{}_markup_type".format(field_name)) in (
                             MARKUP_PLAIN_TEXT,
                             MARKUP_MARKDOWN,
                         ):
-                            new_values[field_name] = getattr(
-                                instance, "get_rendered_{}".format(field_name)
-                            )()
-                            new_values[
-                                "{}_markup_type".format(field_name)
-                            ] = MARKUP_HTML_WYSIWYG
+                            value = getattr(instance, field_name)
+                            if "data:image/" in value:
+                                suspicious_entries.append(instance.get_url_path())
+                            else:
+                                rendered = getattr(
+                                    instance, "get_rendered_{}".format(field_name)
+                                )()
+                                new_values[field_name] = rendered
+                                new_values[
+                                    "{}_markup_type".format(field_name)
+                                ] = MARKUP_HTML_WYSIWYG
                     if new_values:
                         model._default_manager.filter(pk=instance.pk).update(
                             **new_values
@@ -66,5 +91,10 @@ class Command(BaseCommand):
                     self.stdout.flush()
                 total_counter += counter
         if self.verbosity >= self.NORMAL:
-            self.stdout.write(u"-----------------------------------------------------\n")
+            self.stdout.write(
+                u"-----------------------------------------------------\n"
+            )
             self.stdout.write(u"Total instances changed: {}\n".format(total_counter))
+            self.stdout.write(
+                u"Suspicious entries: \n{}\n".format("\n".join(suspicious_entries))
+            )
