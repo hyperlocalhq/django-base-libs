@@ -135,16 +135,16 @@ def get_container(container_model, site, related_obj=None, sysname=None, create=
         related_object       The related object (if there is one)
         sysname              a sysname to identify the container (optional)
     """
-    content_type = None
-    object_id = ""
     site_id = None
     if site:
         site_id = site.id
 
+    content_type = None
+    object_id = ""
     if related_obj:
         try:
             content_type = ContentType.objects.get_for_model(related_obj)
-        except:
+        except ContentType.DoesNotExist:
             return None
         object_id = related_obj.pk
 
