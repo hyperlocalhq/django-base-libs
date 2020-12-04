@@ -193,6 +193,10 @@ class SecurityField(forms.CharField):
 
     def clean(self, value):
         value = super(SecurityField, self).clean(value)
+        # python3 wraps value around b"". So we strip those characters
+        # in order for the pass_test function to work properly.
+        if len(value) == 27:
+            value = value[2:-1]
         self._pass_test(value)
         if not self._pass_test(value):
             raise forms.ValidationError(self.error_messages["invalid"])
