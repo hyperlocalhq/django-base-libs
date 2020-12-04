@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 import operator
+
 try:
     from urllib.parse import urlparse, urlunparse
 except ImportError:
@@ -51,7 +52,7 @@ from base_libs.utils.text_utils import string_concat
 
 class BaseModel(models.Model):
     """
-    Abstract class for the base model. 
+    Abstract class for the base model.
     Just provides some useful methods
     """
 
@@ -188,7 +189,7 @@ class CreationModificationMixin(
     CreatorMixin, CreationDateMixin, ModifierMixin, ModifiedDateMixin
 ):
     """
-    Abstract base class with a creator and a modifier 
+    Abstract base class with a creator and a modifier
     as well as creation date and modifcation date
     """
 
@@ -198,10 +199,17 @@ class CreationModificationMixin(
 
 class PublishingMixinDraftManager(models.Manager):
     def get_queryset(self):
+        now = tz_now()
         return (
-            super(PublishingMixinDraftManager, self,)
+            super(
+                PublishingMixinDraftManager,
+                self,
+            )
             .get_queryset()
-            .filter(status__exact=STATUS_CODE_DRAFT)
+            .filter(
+                models.Q(status__exact=STATUS_CODE_DRAFT)
+                | models.Q(status__exact=STATUS_CODE_PUBLISHED, published_from__gt=now)
+            )
         )
 
 
@@ -209,14 +217,39 @@ class PublishingMixinPublishedManager(models.Manager):
     def get_queryset(self):
         conditions = []
         now = tz_now()
-        conditions.append(models.Q(published_from=None, published_till=None,))
-        conditions.append(models.Q(published_from__lte=now, published_till=None,))
-        conditions.append(models.Q(published_from=None, published_till__gt=now,))
-        conditions.append(models.Q(published_from__lte=now, published_till__gt=now,))
+        conditions.append(
+            models.Q(
+                published_from=None,
+                published_till=None,
+            )
+        )
+        conditions.append(
+            models.Q(
+                published_from__lte=now,
+                published_till=None,
+            )
+        )
+        conditions.append(
+            models.Q(
+                published_from=None,
+                published_till__gt=now,
+            )
+        )
+        conditions.append(
+            models.Q(
+                published_from__lte=now,
+                published_till__gt=now,
+            )
+        )
         return (
-            super(PublishingMixinPublishedManager, self,)
+            super(
+                PublishingMixinPublishedManager,
+                self,
+            )
             .get_queryset()
-            .filter(reduce(operator.or_, conditions),)
+            .filter(
+                reduce(operator.or_, conditions),
+            )
             .filter(status__exact=STATUS_CODE_PUBLISHED)
         )
 
@@ -229,7 +262,10 @@ class PublishingMixin(BaseModel):
     STATUS_CHOICES = getattr(
         settings,
         "PUBLISHING_STATUS_CHOICES",
-        ((STATUS_CODE_DRAFT, _("Draft")), (STATUS_CODE_PUBLISHED, _("Published")),),
+        (
+            (STATUS_CODE_DRAFT, _("Draft")),
+            (STATUS_CODE_PUBLISHED, _("Published")),
+        ),
     )
 
     author = models.ForeignKey(
@@ -260,7 +296,9 @@ class PublishingMixin(BaseModel):
     )
 
     status = models.SmallIntegerField(
-        _("status"), choices=STATUS_CHOICES, default=STATUS_CODE_DRAFT,
+        _("status"),
+        choices=STATUS_CHOICES,
+        default=STATUS_CODE_DRAFT,
     )
 
     objects = models.Manager()
@@ -329,7 +367,11 @@ class UrlMixin(models.Model):
 
     def get_url(self):
         if hasattr(self.get_url_path, "dont_recurse"):
-            raise NotImplementedError("Neither get_url_path() nor get_url() methods are defined for the {model} model.".format(model=type(self).__name__))
+            raise NotImplementedError(
+                "Neither get_url_path() nor get_url() methods are defined for the {model} model.".format(
+                    model=type(self).__name__
+                )
+            )
         try:
             path = self.get_url_path()
         except NotImplementedError:
@@ -345,7 +387,11 @@ class UrlMixin(models.Model):
 
     def get_url_path(self):
         if hasattr(self.get_url, "dont_recurse"):
-            raise NotImplementedError("Neither get_url_path() nor get_url() methods are defined for the {model} model.".format(model=type(self).__name__))
+            raise NotImplementedError(
+                "Neither get_url_path() nor get_url() methods are defined for the {model} model.".format(
+                    model=type(self).__name__
+                )
+            )
         try:
             url = self.get_url()
         except NotImplementedError:
@@ -385,27 +431,27 @@ def ObjectRelationMixin(
     is_required=False,
 ):
     """
-    returns a mixin class for generic foreign keys using 
-    "Content type - object Id" with dynamic field names. 
+    returns a mixin class for generic foreign keys using
+    "Content type - object Id" with dynamic field names.
     This function is just a class generator
-    
+
     Parameters:
     prefix : a prefix, which is added in front of the fields
-    prefix_verbose :    a verbose name of the prefix, used to 
+    prefix_verbose :    a verbose name of the prefix, used to
                         generate a title for the field column
                         of the content object in the Admin.
-    add_related_name :  a boolean value indicating, that a 
+    add_related_name :  a boolean value indicating, that a
                         related name for the generated content
                         type foreign key should be added. This
-                        value should be true, if you use more 
+                        value should be true, if you use more
                         than one ObjectRelationMixin in your model.
 
     The model fields are created like this:
-    
+
     <<prefix>>_content_type :   Field name for the "content type"
     <<prefix>>_object_id :      Field name for the "object Id"
     <<prefix>>_content_object : Field name for the "content object"
-    
+
     """
     if not limit_object_choices_to:
         limit_object_choices_to = {}
@@ -464,7 +510,8 @@ def ObjectRelationMixin(
     object_id.limit_choices_to = limit_object_choices_to
     # can be retrieved by MyModel._meta.get_field("object_id").limit_choices_to
     content_object = GenericForeignKey(
-        ct_field=content_type_field, fk_field=object_id_field,
+        ct_field=content_type_field,
+        fk_field=object_id_field,
     )
 
     ModelWithObjectRelation.add_to_class(content_type_field, content_type)
@@ -515,7 +562,9 @@ class MultiSiteMixinManager(models.Manager):
         return (
             super(MultiSiteMixinManager, self)
             .get_queryset()
-            .filter(sites=Site.objects.get_current(),)
+            .filter(
+                sites=Site.objects.get_current(),
+            )
         )
 
 
@@ -535,7 +584,7 @@ class MultiSiteMixin(BaseModel):
 
 class SingleSiteContainerMixin(ObjectRelationMixin(), SingleSiteMixin, UrlMixin):
     """
-    Abstract base class for "Single Site Containers". 
+    Abstract base class for "Single Site Containers".
     These are Containers, where you can specify no or one site.
     """
 
@@ -550,7 +599,7 @@ class SingleSiteContainerMixin(ObjectRelationMixin(), SingleSiteMixin, UrlMixin)
     @classmethod
     def is_single_site_container(cls):
         """
-        we need that at some places in views to look for the 
+        we need that at some places in views to look for the
         appropriate container (SingleSite or MultiSite)
         """
         return True
@@ -578,7 +627,7 @@ class SingleSiteContainerMixin(ObjectRelationMixin(), SingleSiteMixin, UrlMixin)
 class MultiSiteContainerMixinManager(models.Manager):
     """
     A manager for MultiSiteContainerMixin abstract class below.
-    
+
     Attention:
     see the remarks on HierarchyMixinManager!!!!
     """
@@ -638,7 +687,7 @@ class MultiSiteContainerMixinManager(models.Manager):
 
 class MultiSiteContainerMixin(ObjectRelationMixin(), UrlMixin):
     """
-    Abstract base class for "Multi Site Containers". 
+    Abstract base class for "Multi Site Containers".
     These are Containers, where you can specify 0..n sites.
     """
 
@@ -669,7 +718,7 @@ class MultiSiteContainerMixin(ObjectRelationMixin(), UrlMixin):
         sites = ""
         for item in self.sites.all():
             sites = sites + str(item.name) + "<br />"
-        return sites
+        return mark_safe(sites)
 
     get_sites.short_description = _("Sites")
     get_sites.allow_tags = True
@@ -679,7 +728,7 @@ class MultiSiteContainerMixin(ObjectRelationMixin(), UrlMixin):
     @classmethod
     def is_single_site_container(cls):
         """
-        we need that at some places in views to look for the 
+        we need that at some places in views to look for the
         appropriate container (SingleSite or MultiSite)
         """
         return False
@@ -718,9 +767,9 @@ class HierarchyMixinManager(models.Manager):
         if roots.count() > 0:
             return roots
         else:
-            raise RootDoesNotExist(ugettext(
-                "Roots Node does not exist. Please create one."
-            ))
+            raise RootDoesNotExist(
+                ugettext("Roots Node does not exist. Please create one.")
+            )
 
     def update_paths(self):
         """
@@ -746,7 +795,7 @@ def _sort_order_coding(sort_order):
     encodes the sort_order to a sortable string with the
     following options: the string encoding of numbers from
     -16^6/2 to +16^6/2 is well sorted like the number itself.
-    A range from -16^6/2 to +^16^6/2 should be sufficient!!! 
+    A range from -16^6/2 to +^16^6/2 should be sufficient!!!
     """
     return "%06x" % (0x800000 + sort_order)
 
@@ -756,7 +805,11 @@ class HierarchyMixin(BaseModel):
     A base class for hierarchies
     """
 
-    sort_order = models.IntegerField(_("sort order"), blank=True, editable=False,)
+    sort_order = models.IntegerField(
+        _("sort order"),
+        blank=True,
+        editable=False,
+    )
     parent = models.ForeignKey(
         "self",
         # related_name="%(class)s_children",
@@ -882,15 +935,15 @@ def SlugMixin(
     **slug_mixin_kwargs
 ):
     """
-    returns a mixin class for a slug field used for URLs. 
+    returns a mixin class for a slug field used for URLs.
     This function is just a class generator
-    
+
     Parameters:
     name:               name of the slug field.
     prepopulate_from:   a tuple of field names to prepopulate from if name is
                         empty.
     separator:          a symbol to separate different parts of the slug.
-    proposal:           a string or a callable taking model instance as 
+    proposal:           a string or a callable taking model instance as
                         a parameter and returning a string with a proposed value
     unique_for:         defines the tuple of fields for which the slug should be
                         unique
@@ -954,9 +1007,9 @@ def SlugMixin(
 
 def SysnameMixin(**sysname_mixin_kwargs):
     """
-    returns a mixin class for a slug field used for views and templates. 
+    returns a mixin class for a slug field used for views and templates.
     This function is just a class generator
-    
+
     All parameters are as for the SlugMixin().
     """
     sysname_params = {
@@ -986,15 +1039,15 @@ def MultilingualSlugMixin(
     **kwargs
 ):
     """
-    returns a mixin class for a slug field used for URLs. 
+    returns a mixin class for a slug field used for URLs.
     This function is just a class generator
-    
+
     Parameters:
     name:               name of the slug field.
     prepopulate_from:   a tuple of field names to prepopulate from if name is
                         empty.
     separator:          a symbol to separate different parts of the slug.
-    proposal:           a string or a callable taking model instance as 
+    proposal:           a string or a callable taking model instance as
                         a parameter and returning a string with a proposed value
     unique_for:         defines the tuple of fields for which the slug should be
                         unique
@@ -1088,7 +1141,9 @@ class ContentBaseMixinDraftManager(PublishingMixinDraftManager):
         return (
             super(ContentBaseMixinDraftManager, self)
             .get_queryset()
-            .filter(sites=Site.objects.get_current(),)
+            .filter(
+                sites=Site.objects.get_current(),
+            )
         )
 
 
@@ -1097,7 +1152,9 @@ class ContentBaseMixinPublishedManager(PublishingMixinPublishedManager):
         return (
             super(ContentBaseMixinPublishedManager, self)
             .get_queryset()
-            .filter(sites=Site.objects.get_current(),)
+            .filter(
+                sites=Site.objects.get_current(),
+            )
         )
 
 
@@ -1328,12 +1385,14 @@ class OpeningHoursMixin(BaseModel):
         return times
 
 
-def FeesMixin(count=2,):
+def FeesMixin(
+    count=2,
+):
     """
     returns a mixin class for fee-related fields
-    
+
     Parameters:
-    
+
         count: the number of fees to create
 
     """
@@ -1369,16 +1428,23 @@ def FeesMixin(count=2,):
 
     for index in range(count):
         fee_label_field = MultilingualCharField(
-            _("Fee Label"), blank=True, max_length=40,
+            _("Fee Label"),
+            blank=True,
+            max_length=40,
         )
 
-        fee_amount_field = models.FloatField(_("Fee Amount"), blank=True, null=True,)
+        fee_amount_field = models.FloatField(
+            _("Fee Amount"),
+            blank=True,
+            null=True,
+        )
 
         ModelWithFees.add_to_class("fee%s_label" % index, fee_label_field)
         ModelWithFees.add_to_class("fee%s_amount" % index, fee_amount_field)
 
     registration_required_field = models.BooleanField(
-        _("Registration Required"), default=False,
+        _("Registration Required"),
+        default=False,
     )
 
     ModelWithFees.add_to_class("is_registration_required", registration_required_field)
