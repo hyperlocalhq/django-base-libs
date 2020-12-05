@@ -172,12 +172,12 @@ def ObjectRelationMixinAdminOptions(
         model_name = co.__class__.__name__.lower()
         co_unicode = force_text(co)
         if user.has_perm("%s.change_%s" % (app_name, model_name), co):
-            return format_html(u"""<a href="/admin/{}/{}/{}/" class="content_object">{}</a>""",
+            return mark_safe(format_html(u"""<a href="/admin/{}/{}/{}/" class="content_object">{}</a>""",
                 app_name,
                 model_name,
                 co.pk,
                 co_unicode,
-            )
+            ))
         else:
             return co_unicode
 
