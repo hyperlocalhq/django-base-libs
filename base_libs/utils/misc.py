@@ -133,10 +133,13 @@ def get_translation(message, language=None):
 
 
 def html_to_plain_text(html):
-    text = force_bytes(html)
+    text = force_text(html) if sys.version_info[0] == 3 else force_bytes(html)
 
     def to_utf8(match_obj):
-        return unichr(long(match_obj.group(1)))
+        if sys.version_info[0] == 3:
+            return chr(int(match_obj.group(1)))
+        else:
+            return unichr(long(match_obj.group(1)))
 
     def link_replacement(match):
         link_text = match.group(3)
