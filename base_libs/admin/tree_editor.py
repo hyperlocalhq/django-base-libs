@@ -18,7 +18,7 @@ from django.http import (
     HttpResponseBadRequest,
     HttpResponseRedirect,
 )
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.utils.decorators import method_decorator
 try:
     from django.utils.encoding import force_text
@@ -193,7 +193,7 @@ class TreeEditor(admin.ModelAdmin):
         else:
             form = MoveNodeForm(obj)
 
-        object_name = force_text(opts.verbose_name)
+        # object_name = force_text(opts.verbose_name)
 
         context = {
             "title": _("Move: %s") % force_text(obj),
@@ -205,15 +205,15 @@ class TreeEditor(admin.ModelAdmin):
             "app_label": app_label,
         }
         context.update(extra_context or {})
-        context_instance = template.RequestContext(request)
-        return render_to_response(
+        return render(
+            request,
             self.delete_confirmation_template
             or [
                 "admin/%s/%s/move_node.html" % (app_label, opts.object_name.lower()),
                 "admin/%s/move_node.html" % app_label,
                 "admin/move_node.html",
             ],
-            context,
+            context
         )
 
     def indented_short_title(self, item):
