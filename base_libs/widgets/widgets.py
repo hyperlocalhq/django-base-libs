@@ -47,7 +47,7 @@ class IntegerWidget(forms.TextInput):
                 value = parse_number(value, locale=locale)
             except NumberFormatError:
                 pass
-        if value is not "" and not isinstance(value, basestring):
+        if not isinstance(value, basestring):
             value = format_number(value, locale=locale)
         return super(IntegerWidget, self).render(name, value, attrs)
 
@@ -66,7 +66,7 @@ class DecimalWidget(forms.TextInput):
                 value = parse_decimal(value, locale=locale)
             except NumberFormatError:
                 pass
-        if value is not "" and not isinstance(value, basestring):
+        if not isinstance(value, basestring):
             value = format_decimal(value, self.format, locale=locale)
         return super(DecimalWidget, self).render(name, value, attrs)
 
@@ -81,7 +81,7 @@ class DateWidget(forms.TextInput):
                 value = parse_date(value, locale=locale)
             except:
                 pass
-        if value is not "" and not isinstance(value, basestring):
+        if not isinstance(value, basestring):
             value = format_date(value, locale=locale)
         return super(DateWidget, self).render(name, value, attrs)
 
@@ -96,7 +96,7 @@ class TimeWidget(forms.TextInput):
                 value = parse_time(value, locale=locale)
             except:
                 pass
-        if value is not "" and not isinstance(value, basestring):
+        if not isinstance(value, basestring):
             value = format_time(value, locale=locale)
         return super(TimeWidget, self).render(name, value, attrs)
 
@@ -165,9 +165,9 @@ class AutocompleteWidget(Widget):
 
     def render(self, name, value=None, attrs=None, renderer=None):
         """
-        The widget consists of two text fields: 
+        The widget consists of two text fields:
         1. Field with id = "id_<field_name>_text", which holds the text values
-        2. Field with id = "id_<field_name>", which is hidden and holds the pk 
+        2. Field with id = "id_<field_name>", which is hidden and holds the pk
             of a selected item.
         """
         if attrs is None:
@@ -233,10 +233,10 @@ class AutocompleteMultipleWidget(AutocompleteWidget):
 
     def render(self, name, value=None, attrs=None, renderer=None):
         """
-        The widget consists of two text fields: 
+        The widget consists of two text fields:
         1. Field with id = "id_<field_name>_text", which is used for entering text values
         2. Field with id = "id_<field_name>", which is hidden and holds
-            comma-separated pks of selected items 
+            comma-separated pks of selected items
         3. List of selected text values with id = "id_<field_name>_value_pk-<pk>"
         """
         attrs["name"] = name + "_text"
@@ -379,9 +379,9 @@ class SelectToAutocompleteWidget(AutocompleteWidget):
 
     def render(self, name, value=None, attrs=None, renderer=None, choices=()):
         """
-        The widget consists of two text fields: 
+        The widget consists of two text fields:
         1. Field with id = "id_<field_name>_text", which holds the text values
-        2. Field with id = "id_<field_name>", which is hidden and holds the id 
+        2. Field with id = "id_<field_name>", which is hidden and holds the id
             of a selected item.
         """
         if value is None:
