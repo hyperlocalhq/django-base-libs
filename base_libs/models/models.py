@@ -104,8 +104,7 @@ class ModifiedDateMixin(BaseModel):
     modified_date = models.DateTimeField(_("modified date"), null=True, editable=False)
 
     def save(self, *args, **kwargs):
-        if self.pk:
-            self.modified_date = tz_now()
+        self.modified_date = tz_now()
         super(ModifiedDateMixin, self).save(*args, **kwargs)
         # TODO: maybe should be changed to self.save_base(*args, **kwargs)
 
