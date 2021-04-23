@@ -6,17 +6,17 @@ import sys
 import warnings
 from datetime import datetime
 
-from django.db import models
+# from django.db import models
 from django.db.models.signals import post_delete, post_save, pre_delete
 from django.conf import settings
 from django.db import connection, models
 from django.db.models.fields import TextField
 from django.db.models.signals import post_delete, post_save
 
-try:
-    from django.utils.encoding import force_text
-except ImportError:
-    from django.utils.encoding import force_unicode as force_text
+# try:
+#     from django.utils.encoding import force_text
+# except ImportError:
+#     from django.utils.encoding import force_unicode as force_text
 from django.utils.html import escape, linebreaks
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
@@ -290,10 +290,8 @@ class MultilingualTextField(models.Field):
                 else:
                     _blank = True
 
-                verbose_name = "%s" % force_text(self.verbose_name)
-
                 localized_field = self._field_class(
-                    verbose_name,
+                    self.verbose_name,
                     name=_language_field_name(name, language[0]),  # self.name,
                     primary_key=self.primary_key,
                     max_length=self.max_length,
