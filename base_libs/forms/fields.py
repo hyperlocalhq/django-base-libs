@@ -5,12 +5,12 @@ import re
 import time
 
 try:
-    from io import StringIO
+    from io import BytesIO
 except ImportError:
     try:
-        from cStringIO import StringIO
+        from cStringIO import StringIO as BytesIO
     except ImportError:
-        from StringIO import StringIO
+        from StringIO import StringIO as BytesIO
 
 try:
     basestring  # Python 2
@@ -595,9 +595,9 @@ class ImageField(forms.FileField):
             file = data.temporary_file_path()
         else:
             if hasattr(data, "read"):
-                file = StringIO(data.read())
+                file = BytesIO(data.read())
             else:
-                file = StringIO(data["content"])
+                file = BytesIO(data["content"])
 
         try:
             # load() is the only method that can spot a truncated JPEG,
