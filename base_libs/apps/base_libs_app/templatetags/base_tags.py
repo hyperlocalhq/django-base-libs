@@ -855,7 +855,6 @@ def disarm_user_input(html):
         strip=True,
         strip_comments=True,
     )
-    html = bleach.linkify(html)
     html = mark_safe(html)
     return html
 
@@ -908,6 +907,7 @@ def disarm_admin_input(html):
         strip=True,
         strip_comments=True,
     )
+    html = bleach.linkify(html)
     html = mark_safe(html)
     return html
 
