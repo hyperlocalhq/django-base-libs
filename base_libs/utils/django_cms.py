@@ -3,7 +3,7 @@
 try:
     from cms.cms_toolbars import PageToolbar
     from cms.utils import page_permissions
-except ModuleNotFoundError:
+except ImportError:
     pass
 else:
     def guerilla_patch_has_publish_permission():
