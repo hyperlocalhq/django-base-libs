@@ -1007,3 +1007,13 @@ def remove_tags(html, tags):
     html = starttag_re.sub('', html)
     html = endtag_re.sub('', html)
     return mark_safe(html)
+
+
+@register.filter
+def remove_control_chars(html):
+    """
+    Strips control chars from RSS feeds to avoid the
+    UnserializableContentError because control characters are not supported in XML 1.0.
+    https://github.com/tendenci/tendenci/blob/40a01ef50cf6001efdfa53093ece1ef81d9dd865/tendenci/apps/base/decorators.py
+    """
+    return re.sub(r"[\x00-\x08\x0B-\x0C\x0E-\x1F]", "", html)
