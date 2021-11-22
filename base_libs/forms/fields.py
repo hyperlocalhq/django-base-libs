@@ -499,7 +499,7 @@ class ObjectChoiceField(forms.Field):
         valid_values = set(
             reduce(
                 lambda a, b: a + b,
-                [(dict(group).keys()) for group in dict(self.widget.choices).values()],
+                [list(dict(group).keys()) for group in dict(self.widget.choices).values()],
             )
         )
         if value not in valid_values:
