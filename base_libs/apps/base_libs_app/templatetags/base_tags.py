@@ -814,42 +814,51 @@ def disarm_user_input(html):
 
     if "</p>" not in html:
         html = defaultfilters.linebreaks(html)
+
+    allowed_tags = [
+        u"a",
+        u"abbr",
+        u"acronym",
+        u"b",
+        u"blockquote",
+        u"br",
+        u"code",
+        u"em",
+        u"i",
+        u"iframe",
+        u"img",
+        u"li",
+        u"ol",
+        u"p",
+        u"strong",
+        u"ul",
+        u"h1",
+        u"h2",
+        u"h3",
+        u"h4",
+        u"h5",
+        u"hr",
+        u"h6",
+        u"span",
+    ]
+    if hasattr(settings, "BASE_LIBS_ALLOWED_EXTRA_TAGS"):
+        allowed_tags += settings.BASE_LIBS_ALLOWED_EXTRA_TAGS
+
+    allowed_attributes = {
+        u"*": allow_common_attributes,
+        u"a": [u"href", u"title", u"target"],
+        u"acronym": [u"title"],
+        u"abbr": [u"title"],
+        u"img": [u"src", u"alt"],
+        u"iframe": [u"src", u"width", u"height"],
+    }
+    if hasattr(settings, "BASE_LIBS_ALLOWED_EXTRA_ATTRIBUTES"):
+        allowed_attributes.update(settings.BASE_LIBS_ALLOWED_EXTRA_ATTRIBUTES)
+
     html = bleach.clean(
         html,
-        tags=[
-            u"a",
-            u"abbr",
-            u"acronym",
-            u"b",
-            u"blockquote",
-            u"br",
-            u"code",
-            u"em",
-            u"i",
-            u"iframe",
-            u"img",
-            u"li",
-            u"ol",
-            u"p",
-            u"strong",
-            u"ul",
-            u"h1",
-            u"h2",
-            u"h3",
-            u"h4",
-            u"h5",
-            u"hr",
-            u"h6",
-            u"span",
-        ],
-        attributes={
-            u"*": allow_common_attributes,
-            u"a": [u"href", u"title", u"target"],
-            u"acronym": [u"title"],
-            u"abbr": [u"title"],
-            u"img": [u"src", u"alt"],
-            u"iframe": [u"src", u"width", u"height"],
-        },
+        tags=allowed_tags,
+        attributes=allowed_attributes,
         styles=[],
         protocols=[u"http", u"https", u"mailto", u"data"],
         strip=True,
