@@ -1,15 +1,7 @@
-# -*- coding: UTF-8 -*-
 import base64
 
 from django.conf import settings
-
-try:
-    from django.utils.encoding import force_text, force_bytes
-except ImportError:
-    from django.utils.encoding import (
-        force_unicode as force_text,
-        smart_str as force_bytes,
-    )
+from django.utils.encoding import force_str, force_bytes
 
 from pyDes import des, CBC as des_CBC
 
@@ -32,5 +24,5 @@ def decryptString(cipher):
     plain = k.decrypt(base64.b64decode(force_bytes(cipher), force_bytes("_-"))).replace(
         force_bytes("\0"), force_bytes("")
     )
-    plain = force_text(plain)
+    plain = force_str(plain)
     return plain

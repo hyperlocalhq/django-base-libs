@@ -1,34 +1,23 @@
-# -*- coding: UTF-8 -*-
 import json
 
-from base_libs.admin.options import ExtendedModelAdmin
-from base_libs.middleware import get_current_user
-from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
-from base_libs.views.hierarchy import HierarchyChangeList
-from base_libs.widgets import TreeSelectWidget
-
-try:
-    from django.utils.html import format_html
-except ImportError:
-    def format_html(str, *args, **kwargs):
-        return str.format(*args, **kwargs)
-
+from django.utils.html import format_html
 from django import forms
 from django.conf import settings
 from django.contrib.admin.options import IncorrectLookupParameters
 from django.contrib.admin.views.main import ERROR_FLAG
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
+from django.utils.encoding import force_str
+from django.utils.text import format_lazy
 
-try:
-    from django.utils.encoding import force_text
-except ImportError:
-    from django.utils.encoding import force_unicode as force_text
-
-from base_libs.utils.text_utils import string_concat
+from base_libs.admin.options import ExtendedModelAdmin
+from base_libs.middleware import get_current_user
+from base_libs.models.base_libs_settings import STATUS_CODE_PUBLISHED
+from base_libs.views.hierarchy import HierarchyChangeList
+from base_libs.widgets import TreeSelectWidget
 
 # "save" buttons for ContentBaseMixin extending models
 CONTENT_BASE_SUBMIT_CHOICES = (
@@ -53,7 +42,7 @@ def get_admin_lang_section(heading, field_list, default_expanded=True):
 
         if len(settings.LANGUAGES) > 1:
             if heading is not None:
-                section = string_concat(heading, " (", lang_verbose, ")")
+                section = format_lazy("{} ({})", heading, lang_verbose)
             else:
                 section = lang_verbose
         else:
@@ -170,9 +159,9 @@ def ObjectRelationMixinAdminOptions(
         user = get_current_user()
         app_name = co._meta.app_label
         model_name = co.__class__.__name__.lower()
-        co_unicode = force_text(co)
+        co_unicode = force_str(co)
         if user.has_perm("%s.change_%s" % (app_name, model_name), co):
-            return mark_safe(format_html(u"""<a href="/admin/{}/{}/{}/" class="content_object">{}</a>""",
+            return mark_safe(format_html("""<a href="/admin/{}/{}/{}/" class="content_object">{}</a>""",
                 app_name,
                 model_name,
                 co.pk,
@@ -457,9 +446,9 @@ class HierarchyMixinAdminOptions(ExtendedModelAdmin):
                 self,
             )
         except IncorrectLookupParameters:
-            if ERROR_FLAG in request.GET.keys():
-                return render_to_response(
-                    "admin/invalid_setup.html", {"title": _("Database error")}
+            if ERROR_FLAG in request.GET:
+                return render(
+                    request, "admin/invalid_setup.html", {"title": _("Database error")}
                 )
             return HttpResponseRedirect(request.path + "?" + ERROR_FLAG + "=1")
 
@@ -484,7 +473,7 @@ class HierarchyMixinAdminOptions(ExtendedModelAdmin):
             "media": mark_safe(media),
         }
 
-        return render_to_response("admin/tree_change_list.html", context,)
+        return render(request, "admin/tree_change_list.html", context)
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         """ applying custom widgets here! """

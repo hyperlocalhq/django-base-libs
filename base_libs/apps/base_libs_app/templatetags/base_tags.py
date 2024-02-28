@@ -1,4 +1,3 @@
-# -*- coding: UTF-8 -*-
 import datetime
 import random
 import re
@@ -12,21 +11,12 @@ from django.template import defaultfilters
 from django.template import loader, Template
 from django.template.defaultfilters import stringfilter
 from django.template.loader import select_template
-
-try:
-    from django.urls import reverse, resolve  # Django >= 2.0
-except ImportError:
-    from django.core.urlresolvers import reverse, resolve  # Django <= 1.11
-
-try:
-    from django.utils.encoding import force_text
-except:
-    from django.utils.encoding import force_unicode as force_text
+from django.urls import reverse, resolve
+from django.utils.encoding import force_str
 from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 from django.utils.text import normalize_newlines
 
-from base_libs.django_compatibility import force_str
 from base_libs.utils.loader import select_template_for_object
 from base_libs.utils.user import get_user_title
 
@@ -421,7 +411,7 @@ class CallNode(template.Node):
         method = getattr(obj, self.method_name)
         if getattr(method, "alters_data", False):
             raise template.TemplateSyntaxError(
-                u"You can't call %s.%s in a template, because it alters data. Call it in the view instead."
+                "You can't call %s.%s in a template, because it alters data. Call it in the view instead."
                 % (
                     self.obj,
                     self.method_name,
@@ -806,9 +796,9 @@ def disarm_user_input(html):
     import bleach
 
     def allow_common_attributes(tag, name, value):
-        if name in [u"accesskey", u"class", u"dir", u"lang", u"tabindex", u"translate"]:
+        if name in ["accesskey", "class", "dir", "lang", "tabindex", "translate"]:
             return True
-        if name.startswith(u"data-"):
+        if name.startswith("data-"):
             return True
         return False
 
@@ -816,41 +806,41 @@ def disarm_user_input(html):
         html = defaultfilters.linebreaks(html)
 
     allowed_tags = [
-        u"a",
-        u"abbr",
-        u"acronym",
-        u"b",
-        u"blockquote",
-        u"br",
-        u"code",
-        u"em",
-        u"i",
-        u"iframe",
-        u"img",
-        u"li",
-        u"ol",
-        u"p",
-        u"strong",
-        u"ul",
-        u"h1",
-        u"h2",
-        u"h3",
-        u"h4",
-        u"h5",
-        u"hr",
-        u"h6",
-        u"span",
+        "a",
+        "abbr",
+        "acronym",
+        "b",
+        "blockquote",
+        "br",
+        "code",
+        "em",
+        "i",
+        "iframe",
+        "img",
+        "li",
+        "ol",
+        "p",
+        "strong",
+        "ul",
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "hr",
+        "h6",
+        "span",
     ]
     if hasattr(settings, "BASE_LIBS_ALLOWED_EXTRA_TAGS"):
         allowed_tags += settings.BASE_LIBS_ALLOWED_EXTRA_TAGS
 
     allowed_attributes = {
-        u"*": allow_common_attributes,
-        u"a": [u"href", u"title", u"target"],
-        u"acronym": [u"title"],
-        u"abbr": [u"title"],
-        u"img": [u"src", u"alt"],
-        u"iframe": [u"src", u"width", u"height"],
+        "*": allow_common_attributes,
+        "a": ["href", "title", "target"],
+        "acronym": ["title"],
+        "abbr": ["title"],
+        "img": ["src", "alt"],
+        "iframe": ["src", "width", "height"],
     }
     if hasattr(settings, "BASE_LIBS_ALLOWED_EXTRA_ATTRIBUTES"):
         allowed_attributes.update(settings.BASE_LIBS_ALLOWED_EXTRA_ATTRIBUTES)
@@ -860,7 +850,7 @@ def disarm_user_input(html):
         tags=allowed_tags,
         attributes=allowed_attributes,
         styles=[],
-        protocols=[u"http", u"https", u"mailto", u"data"],
+        protocols=["http", "https", "mailto", "data"],
         strip=True,
         strip_comments=True,
     )
@@ -880,39 +870,39 @@ def disarm_admin_input(html):
     html = bleach.clean(
         html,
         tags=[
-            u"a",
-            u"abbr",
-            u"acronym",
-            u"b",
-            u"blockquote",
-            u"br",
-            u"code",
-            u"em",
-            u"i",
-            u"iframe",
-            u"img",
-            u"li",
-            u"ol",
-            u"p",
-            u"strong",
-            u"ul",
-            u"h1",
-            u"h2",
-            u"h3",
-            u"h4",
-            u"h5",
-            u"h6",
-            u"span",
+            "a",
+            "abbr",
+            "acronym",
+            "b",
+            "blockquote",
+            "br",
+            "code",
+            "em",
+            "i",
+            "iframe",
+            "img",
+            "li",
+            "ol",
+            "p",
+            "strong",
+            "ul",
+            "h1",
+            "h2",
+            "h3",
+            "h4",
+            "h5",
+            "h6",
+            "span",
         ],
         attributes={
-            u"*": [u"class", u"style"],
-            u"a": [u"href", u"title", u"target"],
-            u"acronym": [u"title"],
-            u"abbr": [u"title"],
-            u"img": [u"src", "alt"],
+            "*": ["class", "style"],
+            "a": ["href", "title", "target"],
+            "acronym": ["title"],
+            "abbr": ["title"],
+            "img": ["src", "alt"],
         },
-        styles=[u"color", u"font-family", u"font-size"],
-        protocols=[u"http", u"https", u"mailto", u"data"],
+        styles=["color", "font-family", "font-size"],
+        protocols=["http", "https", "mailto", "data"],
         strip=True,
         strip_comments=True,
     )
@@ -928,7 +918,7 @@ def humanize_url(url, letter_count):
     re_end = re.compile(r"/$")
     url = re_end.sub("", re_start.sub("", url))
     if len(url) > letter_count:
-        url = url[: letter_count - 1] + u"…"
+        url = url[: letter_count - 1] + "…"
     return url
 
 
@@ -961,7 +951,7 @@ def in_group(user, groups):
         {% endif %}
 
     """
-    group_list = force_text(groups).split(",")
+    group_list = force_str(groups).split(",")
     return bool(user.groups.filter(name__in=group_list).values("name"))
 
 

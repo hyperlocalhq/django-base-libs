@@ -1,4 +1,3 @@
-# -*- coding: UTF-8 -*-
 from django.core.cache import cache
 from django.utils.cache import get_cache_key
 

@@ -1,4 +1,3 @@
-# coding=utf-8
 """
 Wrapper class that takes a list of template loaders as an argument and attempts
 to load templates from them in order, caching the result.

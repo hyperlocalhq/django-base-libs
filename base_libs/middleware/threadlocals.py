@@ -1,4 +1,3 @@
-# -*- coding: UTF-8 -*-
 from threading import local
 
 from django.conf import settings

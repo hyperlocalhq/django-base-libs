@@ -1,22 +1,8 @@
-# -*- coding: UTF-8 -*-
-from __future__ import unicode_literals
-
 import re
+from html.entities import name2codepoint
 
-try:
-    from html.entities import name2codepoint  # Python 3
-except ImportError:
-    from htmlentitydefs import name2codepoint  # Python 2
+from django.utils.encoding import force_str
 
-try:
-    from django.utils.encoding import force_text
-except:
-    from django.utils.encoding import force_unicode as force_text
-
-try:
-    unichr  # Python 2
-except NameError:
-    unichr = chr  # Python 3
 
 entity_re = re.compile("&(#?)([Xx]?)(\d+|[A-Fa-f0-9]+|%s);" % "|".join(name2codepoint))
 
@@ -38,7 +24,7 @@ def decode_entities(html, decode_all=False):
             val = int(entity, m.group(2) == "" and 10 or 16)
         else:
             val = name2codepoint[entity]
-        return unichr(val)
+        return chr(val)
 
     regexp = decode_all and entity_re or entity_no_escape_chars_re
-    return regexp.sub(_replace_entity, force_text(html))
+    return regexp.sub(_replace_entity, force_str(html))

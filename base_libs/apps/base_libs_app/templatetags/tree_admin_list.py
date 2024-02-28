@@ -1,4 +1,3 @@
-# coding=utf-8
 """
 overriding admin views for tree items
 """
@@ -8,10 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.template import Library
 from django.utils import dateformat
-try:
-    from django.utils.encoding import force_text
-except:
-    from django.utils.encoding import force_unicode as force_text
+from django.utils.encoding import force_str
 from django.utils.formats import get_format
 from django.utils.html import escape, conditional_escape
 from django.utils.safestring import mark_safe
@@ -62,7 +58,7 @@ def tree_items_for_result(cl, result):
                     allow_tags = True
                     result_repr = _boolean_icon(value)
                 else:
-                    result_repr = force_text(value)
+                    result_repr = force_str(value)
             except (AttributeError, ObjectDoesNotExist):
                 result_repr = get_empty_value_display(cl)
             else:
@@ -118,7 +114,7 @@ def tree_items_for_result(cl, result):
                 result_repr = dict(f.choices).get(field_val, get_empty_value_display(cl))
             else:
                 result_repr = escape(field_val)
-        if force_text(result_repr) == "":
+        if force_str(result_repr) == "":
             result_repr = mark_safe("&nbsp;")
         # If list_display_links not defined, add the link tag to the first field
         if (first and not cl.list_display_links) or field_name in cl.list_display_links:
@@ -131,15 +127,15 @@ def tree_items_for_result(cl, result):
                 attr = str(cl.to_field)
             else:
                 attr = pk
-            result_id = repr(force_text(getattr(result, attr)))[1:]
+            result_id = repr(force_str(getattr(result, attr)))[1:]
             if result.pk in cl.filtered_out:
                 yield mark_safe(
-                    u'<%s%s><span class="filtered_out">%s</span></%s>'
+                    '<%s%s><span class="filtered_out">%s</span></%s>'
                     % (table_tag, row_class, conditional_escape(result_repr), table_tag)
                 )
             else:
                 yield mark_safe(
-                    u'<%s%s><a href="%s"%s>%s</a></%s>'
+                    '<%s%s><a href="%s"%s>%s</a></%s>'
                     % (
                         table_tag,
                         row_class,
@@ -156,7 +152,7 @@ def tree_items_for_result(cl, result):
                 )
         else:
             yield mark_safe(
-                u"<td%s>%s</td>" % (row_class, conditional_escape(result_repr))
+                "<td%s>%s</td>" % (row_class, conditional_escape(result_repr))
             )
 
 

@@ -1,4 +1,3 @@
-# -*- coding: UTF-8 -*-
 from django.core.management.base import BaseCommand
 
 
@@ -18,7 +17,7 @@ class Command(BaseCommand):
         self.verbosity = int(options.get("verbosity", self.NORMAL))
 
         if self.verbosity >= self.NORMAL:
-            self.stdout.write(u"=== Switching from plain text to rich text ===\n")
+            self.stdout.write("=== Switching from plain text to rich text ===\n")
 
         suspicious_entries = []
 
@@ -55,7 +54,7 @@ class Command(BaseCommand):
                 for instance in model._default_manager.filter(markup_type_filters):
                     if self.verbosity >= self.NORMAL:
                         self.stdout.write(
-                            u" - {instance} (id={pk})\n".format(
+                            " - {instance} (id={pk})\n".format(
                                 instance=instance, pk=instance.pk
                             )
                         )
@@ -92,9 +91,9 @@ class Command(BaseCommand):
                 total_counter += counter
         if self.verbosity >= self.NORMAL:
             self.stdout.write(
-                u"-----------------------------------------------------\n"
+                "-----------------------------------------------------\n"
             )
-            self.stdout.write(u"Total instances changed: {}\n".format(total_counter))
+            self.stdout.write("Total instances changed: {}\n".format(total_counter))
             self.stdout.write(
-                u"Suspicious entries: \n{}\n".format("\n".join(suspicious_entries))
+                "Suspicious entries: \n{}\n".format("\n".join(suspicious_entries))
             )

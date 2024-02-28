@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import re
 import urllib
 
@@ -7,10 +5,7 @@ from django import http
 from django.conf import settings
 from django.middleware.locale import LocaleMiddleware
 from django.utils import translation
-try:
-    from django.utils.encoding import force_text
-except:
-    from django.utils.encoding import force_unicode as force_text
+from django.utils.encoding import force_str
 
 ADMIN_PATH = getattr(settings, "ADMIN_PATH", "/admin/")
 
@@ -96,7 +91,7 @@ class MultilingualURLMiddleware:
         )
         local_middleware = LocaleMiddleware()
         response = local_middleware.process_response(request, response)
-        path = force_text(request.path)
+        path = force_str(request.path)
 
         # note: pages_root is assumed to end in '/'.
         # testing this and throwing an exception otherwise, would probably be a good idea
@@ -123,12 +118,12 @@ class MultilingualURLMiddleware:
             #                     |-\1--|                |---------------------\2---------------------| |   |-\4--|| |-\5--|
             #                                                                                           |----\3----|
             #   input (_r_=/):  <a href="/admin/password_change/" class="foo">
-            #   matched groups: (u' ', None, u'/admin/password_change/', u'admin/password_change/', u' class="foo"')
+            #   matched groups: (" ', None, "/admin/password_change/', "admin/password_change/', " class="foo"')
             #
             # Notice that (?=...) and (?!=...) do not consume input or produce a group in the match object.
             # If the regex matches, the extracted path we want is stored in the fourth group (\4).
             HREF_URL_FIX_RE = re.compile(
-                ur'<a([^>]+)href="(?=%s)(?!(%s|%s))(%s([^"]*))"([^>]*)>'
+                r'<a([^>]+)href="(?=%s)(?!(%s|%s))(%s([^"]*))"([^>]*)>'
                 % (
                     urllib.quote(pages_root),
                     "|".join(
@@ -146,7 +141,7 @@ class MultilingualURLMiddleware:
             #
             # For understanding this regex, please read the documentation for HREF_URL_FIX_RE above.
             FORM_URL_FIX_RE = re.compile(
-                ur'<form([^>]+)action="(?=%s)(?!(%s|%s))(%s([^"]*))"([^>]*)>'
+                r'<form([^>]+)action="(?=%s)(?!(%s|%s))(%s([^"]*))"([^>]*)>'
                 % (
                     pages_root,
                     "|".join(
@@ -159,11 +154,11 @@ class MultilingualURLMiddleware:
 
             # Documentation comments for HREF_URL_FIX_RE above explain each match group (\1, \4, \5) represents.
             decoded_response = HREF_URL_FIX_RE.sub(
-                ur'<a\1href="%s%s/\4"\5>' % (pages_root, request.LANGUAGE_CODE),
+                r'<a\1href="%s%s/\4"\5>' % (pages_root, request.LANGUAGE_CODE),
                 decoded_response,
             )
             response.content = FORM_URL_FIX_RE.sub(
-                ur'<form\1action="%s%s/\4"\5>' % (pages_root, request.LANGUAGE_CODE),
+                r'<form\1action="%s%s/\4"\5>' % (pages_root, request.LANGUAGE_CODE),
                 decoded_response,
             ).encode("utf8")
 

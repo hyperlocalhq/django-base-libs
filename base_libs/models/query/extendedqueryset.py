@@ -1,4 +1,3 @@
-# -*- coding: UTF-8 -*-
 import operator
 
 from django.db import models

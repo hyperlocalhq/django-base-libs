@@ -1,25 +1,11 @@
-# -*- coding: UTF-8 -*-
 import operator
-
-try:
-    from urllib.parse import urlparse, urlunparse
-except ImportError:
-    from urlparse import urlparse, urlunparse
-
-try:
-    reduce  # Python 2
-except NameError:
-    from functools import reduce  # Python 3
-
+from urllib.parse import urlparse, urlunparse
+from functools import reduce
 import six
+
 from django.conf import settings
 from django.contrib.auth.models import User
-
-try:
-    from django.contrib.contenttypes.fields import GenericForeignKey
-except ImportError:
-    from django.contrib.contenttypes.generic import GenericForeignKey  #  Django 1.8
-
+from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
 from django.core.exceptions import FieldError
@@ -28,26 +14,18 @@ from django.db.models import signals
 from django.db.models.fields import NOT_PROVIDED
 from django.template.defaultfilters import escape
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext, ugettext_lazy as _
-
-try:
-    from django.utils.timezone import now as tz_now
-except ImportError:
-    from datetime.datetime import now as tz_now
+from django.utils.translation import gettext_lazy as _, gettext
+from django.utils.timezone import now as tz_now
+from django.utils.text import format_lazy
 
 from babel.numbers import format_currency
 
-from base_libs.models.fields import MultilingualProxy
-from base_libs.models.fields import MultilingualCharField
-from base_libs.models.fields import MultilingualTextField
 from base_libs.signals import strip_whitespaces_from_charfields
-from base_libs.utils.betterslugify import better_slugify
-
-from base_libs.middleware import get_current_user
-from base_libs.middleware import get_current_language
-from base_libs.utils.misc import get_unique_value
+from base_libs.middleware import get_current_user, get_current_language
 from base_libs.models.base_libs_settings import STATUS_CODE_DRAFT, STATUS_CODE_PUBLISHED
-from base_libs.utils.text_utils import string_concat
+from base_libs.models.fields import MultilingualProxy, MultilingualCharField, MultilingualTextField
+from base_libs.utils.betterslugify import better_slugify
+from base_libs.utils.misc import get_unique_value
 
 
 class BaseModel(models.Model):
@@ -467,10 +445,10 @@ def ObjectRelationMixin(
     admin_content_object_name = _("Content Object")
     admin_content_type_name = _("Related object's type (model)")
     if prefix_verbose:
-        admin_content_object_name = string_concat(
-            prefix_verbose, " ", _("Content Object")
+        admin_content_object_name = format_lazy(
+            "{} {}", prefix_verbose, _("Content Object")
         )
-        admin_content_type_name = string_concat(prefix_verbose, _("'s type (model)"))
+        admin_content_type_name = format_lazy("{}{}", prefix_verbose, _("'s type (model)"))
 
     class ModelWithObjectRelation(BaseModel):
         class Meta:
@@ -767,7 +745,7 @@ class HierarchyMixinManager(models.Manager):
             return roots
         else:
             raise RootDoesNotExist(
-                ugettext("Roots Node does not exist. Please create one.")
+                gettext("Roots Node does not exist. Please create one.")
             )
 
     def update_paths(self):
@@ -1214,7 +1192,7 @@ class MetaTagsMixin(BaseModel):
         meta_tag = ""
         meta_keywords = getattr(self, "meta_keywords_%s" % language)
         if meta_keywords:
-            meta_tag = u"""<meta name="keywords" lang="%s" content="%s" />\n""" % (
+            meta_tag = """<meta name="keywords" lang="%s" content="%s" />\n""" % (
                 language,
                 escape(meta_keywords),
             )
@@ -1225,7 +1203,7 @@ class MetaTagsMixin(BaseModel):
         meta_tag = ""
         meta_description = getattr(self, "meta_description_%s" % language)
         if meta_description:
-            meta_tag = u"""<meta name="description" lang="%s" content="%s" />\n""" % (
+            meta_tag = """<meta name="description" lang="%s" content="%s" />\n""" % (
                 language,
                 escape(meta_description),
             )
@@ -1234,7 +1212,7 @@ class MetaTagsMixin(BaseModel):
     def get_meta_author(self):
         meta_tag = ""
         if self.meta_author:
-            meta_tag = u"""<meta name="author" content="%s" />\n""" % escape(
+            meta_tag = """<meta name="author" content="%s" />\n""" % escape(
                 self.meta_author
             )
         return mark_safe(meta_tag)
@@ -1242,7 +1220,7 @@ class MetaTagsMixin(BaseModel):
     def get_meta_copyright(self):
         meta_tag = ""
         if self.meta_copyright:
-            meta_tag = u"""<meta name="copyright" content="%s" />\n""" % escape(
+            meta_tag = """<meta name="copyright" content="%s" />\n""" % escape(
                 self.meta_copyright
             )
         return mark_safe(meta_tag)

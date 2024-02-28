@@ -1,5 +1,3 @@
-# -*- coding: UTF-8 -*-
-
 """
 ANSI escape codes
 http://en.wikipedia.org/wiki/ANSI_escape_code

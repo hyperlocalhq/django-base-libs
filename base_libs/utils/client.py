@@ -1,13 +1,8 @@
-# -*- coding: UTF-8 -*-
 import base64
 import re
 import socket
 import urllib
 import urllib2
-try:
-    unicode
-except NameError:
-    unicode = str
 """
 Client classes for cross-server communication
 
@@ -112,13 +107,13 @@ class Connection(object):
         data = None
         encoded_values = {}
         for key, val in values.items():
-            if isinstance(val, unicode):
+            if isinstance(val, str):
                 encoded_values[key] = val.encode(self.encoding)
             else:
                 if hasattr(val, "__iter__"):
                     new_val = []
                     for el in val:
-                        if isinstance(el, unicode):
+                        if isinstance(el, str):
                             new_val.append(el.encode(self.encoding))
                         else:
                             new_val.append(el)

@@ -1,8 +1,7 @@
-# -*- coding: UTF-8 -*-
-from base_libs.django_compatibility import force_str
 from django import template
 from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
+from django.utils.encoding import force_bytes
 
 register = template.Library()
 
@@ -65,7 +64,7 @@ def construct_query_string(context, query_params):
     query_string = context["request"].path
     if len(query_params):
         encoded_params = urlencode(
-            [(key, force_str(value)) for (key, value) in query_params if value]
+            [(key, force_bytes(value)) for (key, value) in query_params if value]
         ).replace("&", "&amp;")
         query_string += "?" + encoded_params
     return mark_safe(query_string)

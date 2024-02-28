@@ -1,4 +1,3 @@
-# -*- coding: UTF-8 -*-
 """
 overridden newforms.forms. This id done, because we need a 
 custom "label_tag" for template output and other customizations
@@ -8,8 +7,6 @@ custom "label_tag" for template output and other customizations
 from django import forms
 from django.forms.forms import BoundField as FormsBoundField
 from django.forms.forms import DeclarativeFieldsMetaclass
-
-# from django.utils.datastructures import SortedDict
 from django.forms.utils import flatatt
 from django.template.loader import render_to_string
 from django.utils.html import escape

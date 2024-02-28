@@ -1,34 +1,22 @@
-# -*- coding: UTF-8 -*-
 from copy import deepcopy
 from itertools import chain
 from json import JSONEncoder
 
-try:
-    basestring  # Python 2
-except NameError:
-    basestring = str  # Python 3
+from babel.dates import format_date, format_time, parse_date, parse_time
 
-from babel.dates import format_date, format_time
-from babel.dates import parse_date, parse_time
-from base_libs.middleware.threadlocals import get_current_language
-from base_libs.utils.misc import XChoiceList
-from base_libs.utils.misc import get_installed
 from django import forms
 from django.conf import settings
 from django.contrib.admin import widgets as admin_widgets
-
-try:
-    from django.forms.utils import flatatt
-except:
-    from django.forms.util import flatatt  # Django 1.8
-
+from django.forms.utils import flatatt
 from django.forms.widgets import Widget
-try:
-    from django.utils.encoding import force_text
-except ImportError:
-    from django.utils.encoding import force_unicode as force_text
+from django.utils.encoding import force_str
 from django.utils.html import escape, conditional_escape
 from django.utils.safestring import mark_safe
+
+from base_libs.middleware.threadlocals import get_current_language
+from base_libs.utils.misc import XChoiceList
+from base_libs.utils.misc import get_installed
+
 
 ADMIN_MEDIA_URL = getattr(settings, "JETSON_MEDIA_URL", settings.ADMIN_MEDIA_PREFIX, )
 
@@ -42,12 +30,12 @@ class IntegerWidget(forms.TextInput):
         locale = get_current_language()
         if value is None:
             value = ""
-        if value and isinstance(value, basestring):
+        if value and isinstance(value, str):
             try:
                 value = parse_number(value, locale=locale)
             except NumberFormatError:
                 pass
-        if not isinstance(value, basestring):
+        if not isinstance(value, str):
             value = format_number(value, locale=locale)
         return super(IntegerWidget, self).render(name, value, attrs)
 
@@ -61,12 +49,12 @@ class DecimalWidget(forms.TextInput):
         locale = get_current_language()
         if value is None:
             value = ""
-        if value and isinstance(value, basestring):
+        if value and isinstance(value, str):
             try:
                 value = parse_decimal(value, locale=locale)
             except NumberFormatError:
                 pass
-        if not isinstance(value, basestring):
+        if not isinstance(value, str):
             value = format_decimal(value, self.format, locale=locale)
         return super(DecimalWidget, self).render(name, value, attrs)
 
@@ -76,12 +64,12 @@ class DateWidget(forms.TextInput):
         locale = get_current_language()
         if value is None:
             value = ""
-        if value and isinstance(value, basestring):
+        if value and isinstance(value, str):
             try:
                 value = parse_date(value, locale=locale)
             except:
                 pass
-        if not isinstance(value, basestring):
+        if not isinstance(value, str):
             value = format_date(value, locale=locale)
         return super(DateWidget, self).render(name, value, attrs)
 
@@ -91,12 +79,12 @@ class TimeWidget(forms.TextInput):
         locale = get_current_language()
         if value is None:
             value = ""
-        if value and isinstance(value, basestring):
+        if value and isinstance(value, str):
             try:
                 value = parse_time(value, locale=locale)
             except:
                 pass
-        if not isinstance(value, basestring):
+        if not isinstance(value, str):
             value = format_time(value, locale=locale)
         return super(TimeWidget, self).render(name, value, attrs)
 
@@ -207,7 +195,7 @@ class AutocompleteWidget(Widget):
         }
 
         return mark_safe(
-            u"""
+            """
             <input type="text" %(text_field_attrs)s/>
             <input type="hidden" %(hidden_field_attrs)s />
             <script type="text/javascript">
@@ -264,7 +252,7 @@ class AutocompleteMultipleWidget(AutocompleteWidget):
                         % {
                             "name": name,
                             "pk": obj.pk,
-                            "text_value": force_text(text_value),
+                            "text_value": force_str(text_value),
                         }
                     )
 
@@ -287,12 +275,12 @@ class AutocompleteMultipleWidget(AutocompleteWidget):
         hidden_field_attrs = {
             "id": "id_%s" % name,
             "name": "%s" % name,
-            "value": ",".join([force_text(pk) for pk in value]),
+            "value": ",".join([force_str(pk) for pk in value]),
             "class": "form_hidden",
         }
 
         return mark_safe(
-            u"""
+            """
             <input type="hidden" %(hidden_field_attrs)s />
             %(html_value_list)s
             <input type="text" %(text_field_attrs)s/>
@@ -393,12 +381,12 @@ class SelectToAutocompleteWidget(AutocompleteWidget):
         select_field_attrs["class"] = (select_field_attrs["class"] + " to_hide").strip()
         select_field_attrs["name"] = name
         final_attrs = self.build_attrs(select_field_attrs)
-        output = [u"<select%s>" % flatatt(final_attrs)]
+        output = ["<select%s>" % flatatt(final_attrs)]
         options = self.render_options(choices, [value])
         if options:
             output.append(options)
         output.append("</select>")
-        select_field = u"\n".join(output)
+        select_field = "\n".join(output)
 
         text_field_attrs["class"] = (
                 text_field_attrs["class"] + " to_show autocomplete"
@@ -424,7 +412,7 @@ class SelectToAutocompleteWidget(AutocompleteWidget):
             text_field_attrs["id"] = "id_%s_text" % name
 
         return mark_safe(
-            u"""
+            """
             %(select_field)s
             <input type="text" %(text_field_attrs)s/>
             <script type="text/javascript">
@@ -443,30 +431,30 @@ class SelectToAutocompleteWidget(AutocompleteWidget):
 
     def render_options(self, choices, selected_choices):
         def render_option(option_value, option_label):
-            option_value = force_text(option_value)
+            option_value = force_str(option_value)
             selected_html = (
-                    (option_value in selected_choices) and u' selected="selected"' or ""
+                    (option_value in selected_choices) and ' selected="selected"' or ""
             )
-            return u'<option value="%s"%s>%s</option>' % (
+            return '<option value="%s"%s>%s</option>' % (
                 escape(option_value),
                 selected_html,
-                conditional_escape(force_text(option_label)),
+                conditional_escape(force_str(option_label)),
             )
 
         # Normalize to strings.
-        selected_choices = set([force_text(v) for v in selected_choices])
+        selected_choices = set([force_str(v) for v in selected_choices])
         output = []
         for option_value, option_label in chain(self.choices, choices):
             if isinstance(option_label, (list, tuple)):
                 output.append(
-                    u'<optgroup label="%s">' % escape(force_text(option_value))
+                    '<optgroup label="%s">' % escape(force_str(option_value))
                 )
                 for option in option_label:
                     output.append(render_option(*option))
-                output.append(u"</optgroup>")
+                output.append("</optgroup>")
             else:
                 output.append(render_option(option_value, option_label))
-        return u"\n".join(output)
+        return "\n".join(output)
 
 
 class ObjectSelect(forms.Widget):
@@ -482,34 +470,34 @@ class ObjectSelect(forms.Widget):
     def render(self, name, value, attrs=None, renderer=None, choices=()):
         if value is None:
             value = ""
-        if not isinstance(value, basestring):
+        if not isinstance(value, str):
             from base_libs.forms import fields
 
             value = fields.ObjectChoiceField.returnKey(value)
         attrs["name"] = name
         final_attrs = self.build_attrs(attrs)
-        output = [u"<select%s>" % flatatt(final_attrs)]
+        output = ["<select%s>" % flatatt(final_attrs)]
         if getattr(self, "default_text", False):
-            output.append(u'<option value="">%s</option>' % self.default_text)
-        str_value = force_text(value)  # Normalize to string.
+            output.append('<option value="">%s</option>' % self.default_text)
+        str_value = force_str(value)  # Normalize to string.
         for group_name, obj_choices in self.choices:
-            output.append(u'<optgroup label="%s">' % group_name)
+            output.append('<optgroup label="%s">' % group_name)
             for option_value, option_label in obj_choices:
-                option_value = force_text(option_value)
+                option_value = force_str(option_value)
                 selected_html = (
-                        (option_value == str_value) and u' selected="selected"' or ""
+                        (option_value == str_value) and ' selected="selected"' or ""
                 )
                 output.append(
-                    u'<option value="%s"%s>%s</option>'
+                    '<option value="%s"%s>%s</option>'
                     % (
                         escape(option_value),
                         selected_html,
-                        escape(force_text(option_label)),
+                        escape(force_str(option_label)),
                     )
                 )
-            output.append(u"</optgroup>")
+            output.append("</optgroup>")
         output.append("</select>")
-        return mark_safe(u"\n".join(output))
+        return mark_safe("\n".join(output))
 
 
 class TreeSelectWidget(forms.Select):
@@ -525,7 +513,7 @@ class TreeSelectWidget(forms.Select):
 
     def render_options(self, choices, selected_choices):
         def render_option(option_value, option_label):
-            option_value = force_text(option_value)
+            option_value = force_str(option_value)
             try:
                 indentation = self.model._default_manager.get(
                     pk=option_value,
@@ -534,30 +522,30 @@ class TreeSelectWidget(forms.Select):
                 indentation = 0
 
             selected_html = (
-                    (option_value in selected_choices) and u' selected="selected"' or ""
+                    (option_value in selected_choices) and ' selected="selected"' or ""
             )
-            return u'<option value="%s"%s>%s</option>' % (
+            return '<option value="%s"%s>%s</option>' % (
                 escape(option_value),
                 selected_html,
                 ("-" * indentation)
                 + " "
-                + conditional_escape(force_text(option_label)),
+                + conditional_escape(force_str(option_label)),
             )
 
         # Normalize to strings.
-        selected_choices = set([force_text(v) for v in selected_choices])
+        selected_choices = set([force_str(v) for v in selected_choices])
         output = []
         for option_value, option_label in chain(self.choices, choices):
             if isinstance(option_label, (list, tuple)):
                 output.append(
-                    u'<optgroup label="%s">' % escape(force_text(option_value))
+                    '<optgroup label="%s">' % escape(force_str(option_value))
                 )
                 for option in option_label:
                     output.append(render_option(*option))
-                output.append(u"</optgroup>")
+                output.append("</optgroup>")
             else:
                 output.append(render_option(option_value, option_label))
-        return u"\n".join(output)
+        return "\n".join(output)
 
 
 class TreeSelectMultipleWidget(forms.SelectMultiple):
@@ -573,7 +561,7 @@ class TreeSelectMultipleWidget(forms.SelectMultiple):
 
     def render_options(self, choices, selected_choices):
         def render_option(option_value, option_label):
-            option_value = force_text(option_value)
+            option_value = force_str(option_value)
             try:
                 indentation = self.model._default_manager.get(
                     pk=option_value,
@@ -582,30 +570,30 @@ class TreeSelectMultipleWidget(forms.SelectMultiple):
                 indentation = 0
 
             selected_html = (
-                    (option_value in selected_choices) and u' selected="selected"' or ""
+                    (option_value in selected_choices) and ' selected="selected"' or ""
             )
-            return u'<option value="%s"%s>%s</option>' % (
+            return '<option value="%s"%s>%s</option>' % (
                 escape(option_value),
                 selected_html,
                 ("-" * indentation)
                 + " "
-                + conditional_escape(force_text(option_label)),
+                + conditional_escape(force_str(option_label)),
             )
 
         # Normalize to strings.
-        selected_choices = set([force_text(v) for v in selected_choices])
+        selected_choices = set([force_str(v) for v in selected_choices])
         output = []
         for option_value, option_label in chain(self.choices, choices):
             if isinstance(option_label, (list, tuple)):
                 output.append(
-                    u'<optgroup label="%s">' % escape(force_text(option_value))
+                    '<optgroup label="%s">' % escape(force_str(option_value))
                 )
                 for option in option_label:
                     output.append(render_option(*option))
-                output.append(u"</optgroup>")
+                output.append("</optgroup>")
             else:
                 output.append(render_option(option_value, option_label))
-        return u"\n".join(output)
+        return "\n".join(output)
 
 
 class URLWidget(admin_widgets.AdminURLFieldWidget):

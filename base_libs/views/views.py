@@ -1,18 +1,15 @@
-# -*- coding: UTF-8 -*-
 import json
 
-from base_libs.utils.misc import ExtendedJSONEncoder
-from base_libs.utils.misc import get_installed
-try:
-    from django.utils.encoding import force_text
-except ImportError:
-    from django.utils.encoding import force_unicode as force_text
+from django.utils.encoding import force_str
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.template import Template, Context
 from django.views.decorators.cache import never_cache
+
+from base_libs.utils.misc import ExtendedJSONEncoder
+from base_libs.utils.misc import get_installed
 
 
 def access_denied(request):
@@ -22,7 +19,7 @@ def access_denied(request):
 def get_object(content_type_var, field_name, field_value):
     """
     gets an object from a content_type_var 
-    definied as [pkg].[module] and a specific field 
+    defined as [pkg].[module] and a specific field
     defining the object.
     Parameters:
         content_type_var    Content Type as a string formatted as
@@ -229,7 +226,7 @@ def json_get_objects_from_contenttype(request, content_type_id):
         result = (  # generator of tuples to sort by second value
             (
                 obj.pk,
-                force_text(obj)
+                force_str(obj)
             )
             for obj in objs
         )
@@ -276,7 +273,7 @@ def json_objects_to_select(
             result = (  # generator of tuples to sort by second value
                 (
                     obj.pk,
-                    force_text(obj)
+                    force_str(obj)
                 )
                 for obj in objs
             )
@@ -309,7 +306,7 @@ def ajax_autocomplete(
         )
         queryset = func(search)
 
-        if add_display_attr == u"None":
+        if add_display_attr == "None":
             add_display_attr = None
 
         for obj in queryset[:limit]:

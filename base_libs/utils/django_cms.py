@@ -1,5 +1,3 @@
-# -*- coding: UTF-8 -*-
-
 try:
     from cms.cms_toolbars import PageToolbar
     from cms.utils import page_permissions

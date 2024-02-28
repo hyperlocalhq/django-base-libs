@@ -1,4 +1,3 @@
-# -*- coding: UTF-8 -*-
 import re
 from copy import deepcopy
 
@@ -7,28 +6,16 @@ from django.conf import settings
 from django.contrib import admin
 from django.contrib.admin import helpers
 from django.contrib.admin import options
-
-try:
-    from django.contrib.admin import utils
-except:
-    from django.contrib.admin import util as utils
-
+from django.contrib.admin import utils
 from django.core.exceptions import PermissionDenied
 from django.db import models, transaction
-from django.db.models.fields import FieldDoesNotExist
 from django.forms.formsets import all_valid
 from django.forms.models import BaseModelForm
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import FieldDoesNotExist
+from django.utils.translation import gettext_lazy as _
 
-try:
-    from django.utils.encoding import force_text
-except:
-    from django.utils.encoding import force_unicode as force_text
-
-from base_libs.models.base_libs_settings import MARKUP_PLAIN_TEXT
-from base_libs.models.base_libs_settings import MARKUP_HTML_WYSIWYG
-from base_libs.models.base_libs_settings import MARKUP_RAW_HTML
+from base_libs.models.base_libs_settings import MARKUP_PLAIN_TEXT, MARKUP_HTML_WYSIWYG, MARKUP_RAW_HTML
 from base_libs.models.fields import ExtendedTextField
 
 
@@ -273,7 +260,7 @@ class Fieldset(object):
     ):
         self.form = form
         self.name, self.fields = name, fields
-        self.classes = u" ".join(classes)
+        self.classes = " ".join(classes)
         self.description = description
         self.model_admin = model_admin
         self.readonly_fields = readonly_fields

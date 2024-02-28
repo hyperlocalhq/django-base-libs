@@ -1,12 +1,6 @@
-# -*- coding: UTF-8 -*-
 from django.db import models
-try:
-    from django.utils.encoding import force_text
-except ImportError:
-    from django.utils.encoding import force_unicode as force_text
-
-from django.utils.translation import ugettext_lazy as _
-
+from django.utils.encoding import force_str
+from django.utils.translation import gettext_lazy as _
 from django.contrib.admin.filters import FieldListFilter, RelatedFieldListFilter
 
 # Some additional filterspecs classes for instance for filtering by hierarchical data.
@@ -74,12 +68,12 @@ class HierarchyRelatedFilterSpec(RelatedFieldListFilter):
 
             yield {
                 "filtered_out": item.pk in self.filtered_out,
-                "selected": self.lookup_val == force_text(item.pk),
+                "selected": self.lookup_val == force_str(item.pk),
                 "query_string": cl.get_query_string({self.lookup_kwarg: item.pk}),
                 "display": {
                     "pk": item.pk,
                     "parent_pk": parent_pk_val,
-                    "val": ("%s %s" % ("-" * item.get_level(), force_text(item))).strip(),
+                    "val": ("%s %s" % ("-" * item.get_level(), force_str(item))).strip(),
                 },
             }
 

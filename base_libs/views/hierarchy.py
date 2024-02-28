@@ -1,4 +1,3 @@
-# -*- coding: UTF-8 -*-
 from django.contrib.admin.views.main import ChangeList
 from django.db.models.query import QuerySet
 

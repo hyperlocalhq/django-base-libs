@@ -1,9 +1,8 @@
-# -*- coding: UTF-8 -*-
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 # possible markup types for TextFields. Those
-# settings apply to all models with Textfields.
+# settings apply to all models with TextFields.
 MARKUP_PLAIN_TEXT = "pt"
 MARKUP_RAW_HTML = "rh"
 MARKUP_HTML_WYSIWYG = "hw"

@@ -1,10 +1,5 @@
-# -*- coding: utf-8 -*-
 import json
-
-try:
-    reduce  # Python 2
-except NameError:
-    from functools import reduce  # Python 3
+from functools import reduce
 
 from django import template
 from django.conf import settings as django_settings
@@ -20,12 +15,9 @@ from django.http import (
 )
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
-try:
-    from django.utils.encoding import force_text
-except:
-    from django.utils.encoding import force_unicode as force_text
+from django.utils.encoding import force_str
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _, ugettext
+from django.utils.translation import gettext_lazy as _, gettext
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from mptt.exceptions import InvalidMove
@@ -139,7 +131,10 @@ class TreeEditor(admin.ModelAdmin):
 
     def get_urls(self):
         from functools import update_wrapper
-        from django.conf.urls import url
+        try:
+            from django.conf.urls import url
+        except ImportError:
+            from django.urls import re_path as url
 
         def wrap(view):
             def wrapper(*args, **kwargs):
@@ -173,7 +168,7 @@ class TreeEditor(admin.ModelAdmin):
         if obj is None:
             raise Http404(
                 _("%(name)s object with primary key %(key)r does not exist.")
-                % {"name": force_text(opts.verbose_name), "key": object_id}
+                % {"name": force_str(opts.verbose_name), "key": object_id}
             )
 
         if request.POST:  # The user has already confirmed the deletion.
@@ -187,18 +182,18 @@ class TreeEditor(admin.ModelAdmin):
                 form.save()
 
             self.message_user(
-                request, ugettext("%s has been moved to a new position.") % obj
+                request, gettext("%s has been moved to a new position.") % obj
             )
             return HttpResponseRedirect("../../")
         else:
             form = MoveNodeForm(obj)
 
-        # object_name = force_text(opts.verbose_name)
+        # object_name = force_str(opts.verbose_name)
 
         context = {
-            "title": _("Move: %s") % force_text(obj),
+            "title": _("Move: %s") % force_str(obj),
             "form": form,
-            "object_name": force_text(obj),
+            "object_name": force_str(obj),
             "object": obj,
             "opts": opts,
             # "root_path": self.admin_site.root_path,
@@ -243,7 +238,7 @@ class TreeEditor(admin.ModelAdmin):
             else:
                 r += item.short_title
         else:
-            r += force_text(item)
+            r += force_str(item)
         #        r += '</span>'
         return mark_safe(r)
 
@@ -263,7 +258,7 @@ class TreeEditor(admin.ModelAdmin):
     def get_changelist(self, request, **kwargs):
         return ChangeList
 
-    @never_cache
+    @method_decorator(never_cache)
     def changelist_view(self, request, extra_context=None, *args, **kwargs):
         """
         Handle the changelist view, the django view for the model instances
@@ -271,7 +266,11 @@ class TreeEditor(admin.ModelAdmin):
         """
 
         # handle common AJAX requests
-        if request.is_ajax():
+        if hasattr(request, "is_ajax"):
+            ajax = request.is_ajax()
+        else:
+            ajax = request.headers.get("X-Requested-With") == "XMLHttpRequest"
+        if ajax:
             cmd = request.POST.get("__cmd")
             if cmd == "move_node":
                 return self._move_node(request)
@@ -303,7 +302,7 @@ class TreeEditor(admin.ModelAdmin):
             try:
                 self.model._tree_manager.move_node(cut_item, pasted_on, position)
             except InvalidMove as e:
-                self.message_user(request, force_text(e))
+                self.message_user(request, force_str(e))
                 return HttpResponse("FAIL")
 
             # Ensure that model save has been run
@@ -311,11 +310,11 @@ class TreeEditor(admin.ModelAdmin):
             cut_item.save()
 
             self.message_user(
-                request, ugettext("%s has been moved to a new position.") % cut_item
+                request, gettext("%s has been moved to a new position.") % cut_item
             )
             return HttpResponse("OK")
 
-        self.message_user(request, ugettext("Did not understand moving instruction."))
+        self.message_user(request, gettext("Did not understand moving instruction."))
         return HttpResponse("FAIL")
 
     def _actions_column(self, instance):
@@ -324,7 +323,7 @@ class TreeEditor(admin.ModelAdmin):
         ]
 
     def actions_column(self, instance):
-        return mark_safe(u" ".join(self._actions_column(instance)))
+        return mark_safe(" ".join(self._actions_column(instance)))
 
     actions_column.allow_tags = True
     actions_column.short_description = " "

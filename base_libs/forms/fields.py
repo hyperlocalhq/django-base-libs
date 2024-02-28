@@ -1,33 +1,13 @@
-# -*- coding: UTF-8 -*-
 import datetime
 import os
 import re
 import time
-
-try:
-    from io import BytesIO
-except ImportError:
-    try:
-        from cStringIO import StringIO as BytesIO
-    except ImportError:
-        from StringIO import StringIO as BytesIO
-
-try:
-    basestring  # Python 2
-except NameError:
-    basestring = str  # Python 3
-
-try:
-    reduce  # Python 2
-except NameError:
-    from functools import reduce  # Python 3
+from io import BytesIO
+from functools import reduce
 
 from django import forms
-from django.utils.translation import ugettext, ugettext_lazy as _
-try:
-    from django.utils.encoding import force_text
-except ImportError:
-    from django.utils.encoding import force_unicode as force_text
+from django.utils.translation import gettext_lazy as _, gettext
+from django.utils.encoding import force_str
 from django.template.defaultfilters import filesizeformat
 from django.contrib.contenttypes.models import ContentType
 from django.forms.widgets import Input
@@ -44,16 +24,18 @@ from babel.dates import get_date_format, get_time_format
 from base_libs.utils.crypt import cryptString, decryptString
 from base_libs.utils.emails import is_valid_email, get_email_and_name
 from base_libs.utils.misc import get_installed
-from base_libs.widgets import AutocompleteWidget
-from base_libs.widgets import AutocompleteMultipleWidget
-from base_libs.widgets import SelectToAutocompleteWidget
-from base_libs.widgets import ObjectSelect
-from base_libs.widgets import IntegerWidget
-from base_libs.widgets import DecimalWidget
-from base_libs.widgets import DateWidget
-from base_libs.widgets import TimeWidget
-from base_libs.widgets import URLWidget
 from base_libs.middleware.threadlocals import get_current_language
+from base_libs.widgets import (
+    AutocompleteWidget,
+    AutocompleteMultipleWidget,
+    SelectToAutocompleteWidget,
+    ObjectSelect,
+    IntegerWidget,
+    DecimalWidget,
+    DateWidget,
+    TimeWidget,
+    URLWidget,
+)
 
 SECURITY_FIELD_MIN_TIME = getattr(settings, "SECURITY_FIELD_MIN_TIME", 3)  # 3 seconds
 SECURITY_FIELD_MAX_TIME = getattr(settings, "SECURITY_FIELD_MAX_TIME", 3600)  # 1 hour
@@ -66,7 +48,7 @@ class IntegerField(forms.IntegerField):
         locale = get_current_language()
         if value != "":
             try:
-                value = force_text(parse_number(value, locale=locale))
+                value = force_str(parse_number(value, locale=locale))
             except NumberFormatError:
                 raise forms.ValidationError(_("This value is not valid."))
         return super(IntegerField, self).clean(value)
@@ -83,7 +65,7 @@ class FloatField(forms.FloatField):
         locale = get_current_language()
         if value != "":
             try:
-                value = force_text(parse_decimal(value, locale=locale))
+                value = force_str(parse_decimal(value, locale=locale))
             except NumberFormatError:
                 raise forms.ValidationError(self.error_messages["invalid"])
         return super(FloatField, self).clean(value)
@@ -92,17 +74,17 @@ class FloatField(forms.FloatField):
 class DecimalField(forms.DecimalField):
     widget = DecimalWidget
 
-    def __init__(self, format=u"#,##0.00", *args, **kwargs):
+    def __init__(self, format="#,##0.00", *args, **kwargs):
         super(DecimalField, self).__init__(*args, **kwargs)
         if self.decimal_places:
-            format = u"#,##0." + self.decimal_places * "0"
+            format = "#,##0." + self.decimal_places * "0"
         self.format = self.widget.format = format
 
     def clean(self, value):
         locale = get_current_language()
         if value != "":
             try:
-                value = force_text(parse_decimal(value, locale=locale))
+                value = force_str(parse_decimal(value, locale=locale))
             except NumberFormatError:
                 raise forms.ValidationError(self.error_messages["invalid"])
         return super(DecimalField, self).clean(value)
@@ -167,7 +149,7 @@ class SecurityField(forms.CharField):
     time_elapsed = 0
     default_error_messages = {
         "invalid": _(
-            u"The data transfer didn't pass the security test. You are considered as a spambot."
+            "The data transfer didn't pass the security test. You are considered as a spambot."
         ),
     }
 
@@ -212,7 +194,7 @@ class SingleEmailTextField(forms.CharField):
         if not value:
             if self.required:
                 raise forms.ValidationError(
-                    ugettext(u"Please enter a valid e-mail address")
+                    gettext("Please enter a valid e-mail address")
                 )
             else:
                 return None
@@ -221,7 +203,7 @@ class SingleEmailTextField(forms.CharField):
         email = value
         if not is_valid_email(email):
             raise forms.ValidationError(
-                ugettext(u'"%(email)s" is not a valid e-mail address')
+                gettext('"%(email)s" is not a valid e-mail address')
                 % {"email": email}
             )
         return email
@@ -236,7 +218,7 @@ class MultiEmailTextField(forms.Field):
         if not value:
             if self.required:
                 raise forms.ValidationError(
-                    ugettext(u"Please enter at least one valid e-mail address")
+                    gettext("Please enter at least one valid e-mail address")
                 )
             else:
                 return None
@@ -255,7 +237,7 @@ class MultiEmailTextField(forms.Field):
 
             if not is_valid_email(recipient_email):
                 raise forms.ValidationError(
-                    ugettext(u'"%(email)s" is not a valid e-mail address')
+                    gettext('"%(email)s" is not a valid e-mail address')
                     % {"email": recipient_email}
                 )
 
@@ -431,7 +413,7 @@ class ObjectChoiceField(forms.Field):
     widget = ObjectSelect
     default_error_messages = {
         "invalid_choice": _(
-            u"Select a valid choice. That choice is not one of the available choices."
+            "Select a valid choice. That choice is not one of the available choices."
         ),
     }
 
@@ -463,10 +445,10 @@ class ObjectChoiceField(forms.Field):
         choice_list = []
         for q in self._obj_list:
             object_choice = [
-                (ObjectChoiceField.returnKey(o), force_text(o)) for o in q
+                (ObjectChoiceField.returnKey(o), force_str(o)) for o in q
             ]
             choice_list.append(
-                (force_text(q.model._meta.verbose_name).title(), object_choice)
+                (force_str(q.model._meta.verbose_name).title(), object_choice)
             )
         self.choices = choice_list
 
@@ -488,12 +470,12 @@ class ObjectChoiceField(forms.Field):
         Validates that the input is in self.choices.
         """
         if value in forms.fields.EMPTY_VALUES:
-            value = u""
-        if not isinstance(value, basestring):
+            value = ""
+        if not isinstance(value, str):
             value = ObjectChoiceField.returnKey(value)
-        value = force_text(value)
+        value = force_str(value)
         value = super(ObjectChoiceField, self).clean(value)
-        if value == u"":
+        if value == "":
             return value
         # flatten key choices
         valid_values = set(
@@ -530,7 +512,7 @@ class ImageField(forms.FileField):
 
     default_error_messages = {
         "invalid_image": _(
-            u"The file you uploaded was either not an image, was corrupted, or contained unsupported properties. Please save it for web without interlacing and try again."
+            "The file you uploaded was either not an image, was corrupted, or contained unsupported properties. Please save it for web without interlacing and try again."
         ),
         "invalid_extension": _("File type of the uploaded file is invalid."),
     }
@@ -635,7 +617,7 @@ class VideoField(forms.FileField):
 
     default_error_messages = {
         "invalid_video": _(
-            u"Upload a valid video. The file you uploaded was either not a video or a corrupted video."
+            "Upload a valid video. The file you uploaded was either not a video or a corrupted video."
         ),
         "invalid_extension": _("File type of the uploaded file is invalid."),
     }
@@ -700,7 +682,7 @@ class AudioField(forms.FileField):
 
     default_error_messages = {
         "invalid_audio": _(
-            u"Upload a valid audio file. The file you uploaded was either not an audio or a corrupted audio."
+            "Upload a valid audio file. The file you uploaded was either not an audio or a corrupted audio."
         ),
         "invalid_extension": _("File type of the uploaded file is invalid."),
     }
@@ -847,4 +829,4 @@ class HierarchicalModelChoiceField(forms.ModelChoiceField):
         prefix = (obj.path_search.count("/") - 2) * "-"
         if prefix:
             prefix += " "
-        return prefix + force_text(obj)
+        return prefix + force_str(obj)

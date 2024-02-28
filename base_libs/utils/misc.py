@@ -1,4 +1,3 @@
-# -*- coding: UTF-8 -*-
 import hashlib
 import json
 import re
@@ -11,17 +10,9 @@ from django.apps import apps
 from django.conf import settings
 from django.db import models
 from django.http import Http404
-try:
-    from django.utils.encoding import force_text, force_bytes
-except ImportError:
-    from django.utils.encoding import force_unicode as force_text, smart_str as force_bytes
+from django.utils.encoding import force_str
+from django.utils.translation import gettext, get_language, activate
 
-from django.utils.translation import ugettext, get_language, activate
-
-try:
-    unichr
-except NameError:
-    unichr = chr
 
 def get_or_404(model, **fields):
     """
@@ -37,7 +28,7 @@ def get_or_404(model, **fields):
             msg += "%s '%s', " % (key, value)
         msg = msg.strip(", ")
         raise Http404("%s with %s cannot be found" % (
-            force_text(model._meta.verbose_name),
+            force_str(model._meta.verbose_name),
             msg,
         ))
 
@@ -127,19 +118,19 @@ def get_unique_value(
 def get_translation(message, language=None):
     current_lang = get_language()
     activate(language or "en")
-    message = ugettext(message)
+    message = gettext(message)
     activate(current_lang)
     return message
 
 
 def html_to_plain_text(html):
-    text = force_text(html) if sys.version_info[0] == 3 else force_bytes(html)
+    text = force_str(html)
 
     def to_utf8(match_obj):
         if sys.version_info[0] == 3:
             return chr(int(match_obj.group(1)))
         else:
-            return unichr(long(match_obj.group(1)))
+            return chr(long(match_obj.group(1)))
 
     def link_replacement(match):
         link_text = match.group(3)
@@ -309,7 +300,7 @@ def html_to_plain_text(html):
     text = re.sub(coded_entity_pattern, to_utf8, text)
     # remove the rest html entities
     text = re.sub(html_entity_pattern, "", text)
-    text = force_text(text)
+    text = force_str(text)
     return text
 
 
@@ -321,9 +312,9 @@ def strip_html(text):
         if text[:2] == "&#":
             try:
                 if text[:3] == "&#x":
-                    return unichr(int(text[3:-1], 16))
+                    return chr(int(text[3:-1], 16))
                 else:
-                    return unichr(int(text[2:-1]))
+                    return chr(int(text[2:-1]))
             except ValueError:
                 pass
         elif text[:1] == "&":
@@ -336,11 +327,11 @@ def strip_html(text):
             if entity:
                 if entity[:2] == "&#":
                     try:
-                        return unichr(int(entity[2:-1]))
+                        return chr(int(entity[2:-1]))
                     except ValueError:
                         pass
                 else:
-                    return force_text(entity, encoding="iso-8859-1")
+                    return force_str(entity, encoding="iso-8859-1")
         return text  # leave as is
 
     return re.sub("(?s)<[^>]*>|&#?\w+;", fixup, text)
@@ -383,10 +374,10 @@ class XChoiceList(list):
         return len(self.sequence)
 
     def __str__(self):
-        return force_text(self._get_list())
+        return force_str(self._get_list())
 
     def __unicode__(self):
-        return force_text(self._get_list())
+        return force_str(self._get_list())
 
     def __repr__(self):
         return repr(self._get_list())
@@ -396,7 +387,7 @@ class XChoiceList(list):
             result = [("", self.null_choice_text)] + [
                 (
                     el.id,
-                    el.get_title() if hasattr(el, "get_title") else force_text(el),
+                    el.get_title() if hasattr(el, "get_title") else force_str(el),
                 )
                 for el in self.sequence
             ]
