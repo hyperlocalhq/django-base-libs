@@ -181,7 +181,7 @@ class SecurityField(forms.CharField):
     def _pass_test(self, value):
         try:
             started = int(decryptString(value))
-        except binascii.Error:
+        except (binascii.Error, ValueError):
             return False
         current = int(time.mktime(datetime.datetime.now().timetuple()))
         self.time_elapsed = current - started
