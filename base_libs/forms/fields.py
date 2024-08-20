@@ -4,6 +4,7 @@ import re
 import time
 from io import BytesIO
 from functools import reduce
+import binascii
 
 from django import forms
 from django.utils.translation import gettext_lazy as _, gettext
@@ -160,7 +161,10 @@ class SecurityField(forms.CharField):
         return started
 
     def _pass_test(self, value):
-        started = int(decryptString(value))
+        try:
+            started = int(decryptString(value))
+        except binascii.Error:
+            return False
         current = int(time.mktime(datetime.datetime.now().timetuple()))
         self.time_elapsed = current - started
         return self.MIN_TIME < current - started < self.MAX_TIME
