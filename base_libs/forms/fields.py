@@ -3,6 +3,7 @@ import datetime
 import os
 import re
 import time
+import binascii
 
 try:
     from io import BytesIO
@@ -180,7 +181,7 @@ class SecurityField(forms.CharField):
     def _pass_test(self, value):
         try:
             started = int(decryptString(value))
-        except ValueError:
+        except binascii.Error:
             return False
         current = int(time.mktime(datetime.datetime.now().timetuple()))
         self.time_elapsed = current - started
