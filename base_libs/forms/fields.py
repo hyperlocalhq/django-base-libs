@@ -178,7 +178,10 @@ class SecurityField(forms.CharField):
         return started
 
     def _pass_test(self, value):
-        started = int(decryptString(value))
+        try:
+            started = int(decryptString(value))
+        except ValueError:
+            return False
         current = int(time.mktime(datetime.datetime.now().timetuple()))
         self.time_elapsed = current - started
         return self.MIN_TIME < current - started < self.MAX_TIME
