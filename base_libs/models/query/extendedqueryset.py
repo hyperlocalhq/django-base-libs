@@ -16,14 +16,23 @@ class ExtendedQuerySet(models.query.QuerySet):
         self.queryset_with_counts_default = self
 
     def __deepcopy__(self, memo):
-        # based on http://groups.google.com/group/comp.lang.python/msg/170d9047a40f44d6?dmode=source
         import copy
+        
+        # Create a new instance of the class
+        clone = self.__class__.__new__(self.__class__)
 
-        x = ExtendedQuerySet.__new__(ExtendedQuerySet)
-        memo[id(self)] = x
-        for n, v in self.__dict__.items():
-            setattr(x, n, copy.deepcopy(v))
-        return x
+        # Add the clone to the memo dictionary
+        memo[id(self)] = clone
+
+        # Copy the attributes without using deepcopy
+        for key, value in self.__dict__.items():
+            if key == '_query':
+                # Handle the _query attribute separately
+                setattr(clone, key, value)
+            else:
+                setattr(clone, key, copy.deepcopy(value, memo))
+
+        return clone
 
     def _get_table(self, model):
         return model._meta.db_table
