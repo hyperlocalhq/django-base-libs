@@ -599,7 +599,11 @@ class ImageField(forms.FileField):
             #  but it must be called immediately after the constructor
             trial_image = Image.open(file)
             trial_image.verify()
-        except IndexError:
+        except Exception:
+            # Same net as django.forms.ImageField: Pillow raises
+            # UnidentifiedImageError / OSError / SyntaxError / ValueError
+            # for unrecognised, truncated or corrupt files; all of them mean
+            # "not a usable image" and must become a form error, not a 500.
             raise forms.ValidationError(self.error_messages["invalid_image"])
         else:
             width, height = trial_image.size
