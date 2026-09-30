@@ -10,4 +10,9 @@ def strip_whitespaces_from_charfields(sender, instance, *args, **kwargs):
         if isinstance(f, models.CharField):
             val = getattr(instance, f.name, None)
             if isinstance(val, str):
-                setattr(instance, f.name, regex.sub(r"\1", val))
+                stripped = regex.sub(r"\1", val)
+                # Only assign when something changes: some fields refuse
+                # direct assignment (e.g. django-fsm's protected FSMField
+                # used by djangocms-versioning's Version.state).
+                if stripped != val:
+                    setattr(instance, f.name, stripped)
