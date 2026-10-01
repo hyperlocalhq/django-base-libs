@@ -334,7 +334,7 @@ def strip_html(text):
                     return force_str(entity, encoding="iso-8859-1")
         return text  # leave as is
 
-    return re.sub("(?s)<[^>]*>|&#?\w+;", fixup, text)
+    return re.sub(r"(?s)<[^>]*>|&#?\w+;", fixup, text)
 
 
 def get_related_queryset(model, field_name):

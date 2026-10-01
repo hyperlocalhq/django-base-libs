@@ -4,7 +4,7 @@ from html.entities import name2codepoint
 from django.utils.encoding import force_str
 
 
-entity_re = re.compile("&(#?)([Xx]?)(\d+|[A-Fa-f0-9]+|%s);" % "|".join(name2codepoint))
+entity_re = re.compile(r"&(#?)([Xx]?)(\d+|[A-Fa-f0-9]+|%s);" % "|".join(name2codepoint))
 
 entity_no_escape_chars_re = re.compile(
     r"&(#?)([Xx]?)((?!39;)(\d+|[A-Fa-f0-9]+)|%s);"
