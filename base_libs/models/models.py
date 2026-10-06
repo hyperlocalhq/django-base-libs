@@ -1,4 +1,5 @@
 import operator
+import re
 from urllib.parse import urlparse, urlunparse
 from functools import reduce
 import six
@@ -9,7 +10,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
 from django.core.exceptions import FieldError
-from django.db import models
+from django.db import IntegrityError, models, transaction
 from django.db.models import signals
 from django.db.models.fields import NOT_PROVIDED
 from django.template.defaultfilters import escape
@@ -900,6 +901,11 @@ class HierarchyMixin(BaseModel):
         abstract = True
 
 
+# How many times a save may be retried when a concurrent save takes the slug
+# get_unique_value() just told us was free. See SlugMixin().
+SLUG_COLLISION_ATTEMPTS = 5
+
+
 def SlugMixin(
     name="slug",
     prepopulate_from=("title",),
@@ -942,6 +948,29 @@ def SlugMixin(
             if callable(_proposal):
                 _proposal = _proposal(self)
             slug_proposal = getattr(self, name, None) or _proposal
+
+            # A closure, not a method: a model mixing in both SlugMixin() and
+            # SysnameMixin() has two of these classes in its MRO, and a method
+            # would resolve to the first one's for both -- its super().save()
+            # would then re-enter the second's save() forever.
+            def free_slug(from_proposal):
+                """The free slug closest to ``from_proposal``, as the taken
+                ones read right now."""
+                qs = type(self)
+                if unique_for:
+                    qs_filter = {}
+                    for field_name in unique_for:
+                        qs_filter[field_name] = getattr(self, field_name)
+                    qs = qs._default_manager.filter(**qs_filter)
+                return get_unique_value(
+                    model=qs,
+                    proposal=from_proposal,
+                    field_name=name,
+                    instance_pk=self.pk,
+                    separator=separator,
+                )
+
+            uniquified = False
             if not slug_field.blank or slug_proposal:
                 if not slug_proposal or slug_field.default == slug_proposal:
                     slug_proposal = (
@@ -955,22 +984,37 @@ def SlugMixin(
                         slug_proposal, remove_stopwords=False
                     ).replace("-", separator,)[: slug_field.max_length - 5]
                 slug = slug_proposal
-                if slug_field.unique or unique_for:
-                    qs = type(self)
-                    if unique_for:
-                        qs_filter = {}
-                        for field_name in unique_for:
-                            qs_filter[field_name] = getattr(self, field_name)
-                        qs = qs._default_manager.filter(**qs_filter)
-                    slug = get_unique_value(
-                        model=qs,
-                        proposal=slug_proposal,
-                        field_name=name,
-                        instance_pk=self.pk,
-                        separator=separator,
-                    )
+                uniquified = bool(slug_field.unique or unique_for)
+                if uniquified:
+                    slug = free_slug(slug_proposal)
                 setattr(self, name, slug)
-            super(ModelWithSlug, self).save(*args, **kwargs)
+
+            if not uniquified:
+                # Nothing to renumber, so no savepoint is taken: a non-unique
+                # slug saves exactly as it did before.
+                super(ModelWithSlug, self).save(*args, **kwargs)
+                return
+
+            # free_slug() reads the taken slugs and only then is the row
+            # written, so two saves proposing the same slug can both see it
+            # free -- the unique index is what actually arbitrates. Each
+            # attempt gets its own savepoint, so a rejected write does not
+            # poison the surrounding transaction, and the retry re-reads the
+            # taken slugs, by which point the winner is committed.
+            for attempt in range(1, SLUG_COLLISION_ATTEMPTS + 1):
+                try:
+                    with transaction.atomic():
+                        return super(ModelWithSlug, self).save(*args, **kwargs)
+                except IntegrityError as error:
+                    taken = getattr(self, name) or slug_proposal
+                    # Only this slug is ours to renumber: any other broken
+                    # constraint is the caller's to see, unchanged.
+                    if attempt == SLUG_COLLISION_ATTEMPTS or name not in str(error):
+                        raise
+                    # Number off the base, so a second collision gives
+                    # "<base><sep>3" rather than "<base><sep>2<sep>2".
+                    base = re.sub(r"(%s\d+)+$" % re.escape(separator), "", taken)
+                    setattr(self, name, free_slug(base))
 
         save.alters_data = True
 
